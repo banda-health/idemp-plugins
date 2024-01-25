@@ -53,9 +53,12 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,6 +67,8 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -85,9 +90,9 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,7 +102,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -119,9 +124,9 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		MLocator foreignEntity;
 		if (M_Locator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -131,7 +136,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
 			}
 		} else {
-			super.setM_Locator_ID(0);
+			this.setM_Locator_ID(0);
 		}
 	}
 
@@ -153,9 +158,9 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -165,7 +170,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -187,9 +192,12 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("M_Production")
 	public void setM_ProductionInput(ForeignEntityInput M_Production) {
 		this.mM_Production = M_Production;
-		MProduction foreignEntity;
-		if (get_ID() == 0 && M_Production != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Production != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Production", "M_Production_UU=?", get_TrxName())
 							.setParameters(M_Production.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -198,6 +206,8 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 				throw new AdempiereException(
 						"Could not find entity in table M_Production with UUID " + M_Production.getUUID());
 			}
+		} else {
+			this.setM_Production_ID(0);
 		}
 	}
 
@@ -248,9 +258,12 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("M_ProductionPlan")
 	public void setM_ProductionPlanInput(ForeignEntityInput M_ProductionPlan) {
 		this.mM_ProductionPlan = M_ProductionPlan;
-		MProductionPlan foreignEntity;
-		if (get_ID() == 0 && M_ProductionPlan != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_ProductionPlan != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProductionPlan foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionPlan", "M_ProductionPlan_UU=?", get_TrxName())
 							.setParameters(M_ProductionPlan.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -259,6 +272,8 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 				throw new AdempiereException(
 						"Could not find entity in table M_ProductionPlan with UUID " + M_ProductionPlan.getUUID());
 			}
+		} else {
+			this.setM_ProductionPlan_ID(0);
 		}
 	}
 

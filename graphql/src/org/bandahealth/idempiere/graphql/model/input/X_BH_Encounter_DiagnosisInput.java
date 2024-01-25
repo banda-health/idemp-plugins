@@ -46,9 +46,12 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 	@JsonProperty("BH_Coded_Diagnosis")
 	public void setBH_Coded_DiagnosisInput(ForeignEntityInput BH_Coded_Diagnosis) {
 		this.mBH_Coded_Diagnosis = BH_Coded_Diagnosis;
-		MBHCodedDiagnosis foreignEntity;
-		if (get_ID() == 0 && BH_Coded_Diagnosis != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BH_Coded_Diagnosis != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHCodedDiagnosis foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Coded_Diagnosis", "BH_Coded_Diagnosis_UU=?", get_TrxName())
 							.setParameters(BH_Coded_Diagnosis.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 				throw new AdempiereException(
 						"Could not find entity in table BH_Coded_Diagnosis with UUID " + BH_Coded_Diagnosis.getUUID());
 			}
+		} else {
+			this.setBH_Coded_Diagnosis_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 	@JsonProperty("BH_Encounter")
 	public void setBH_EncounterInput(ForeignEntityInput BH_Encounter) {
 		this.mBH_Encounter = BH_Encounter;
-		MBHEncounter foreignEntity;
 		if (BH_Encounter != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBHEncounter foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Encounter", "BH_Encounter_UU=?", get_TrxName())
 							.setParameters(BH_Encounter.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 						"Could not find entity in table BH_Encounter with UUID " + BH_Encounter.getUUID());
 			}
 		} else {
-			super.setBH_Encounter_ID(0);
+			this.setBH_Encounter_ID(0);
 		}
 	}
 

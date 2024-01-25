@@ -46,9 +46,9 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	@JsonProperty("A_Asset_Class")
 	public void setA_Asset_ClassInput(ForeignEntityInput A_Asset_Class) {
 		this.mA_Asset_Class = A_Asset_Class;
-		MAssetClass foreignEntity;
 		if (A_Asset_Class != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAssetClass foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Class", "A_Asset_Class_UU=?", get_TrxName())
 							.setParameters(A_Asset_Class.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,7 +58,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 						"Could not find entity in table A_Asset_Class with UUID " + A_Asset_Class.getUUID());
 			}
 		} else {
-			super.setA_Asset_Class_ID(0);
+			this.setA_Asset_Class_ID(0);
 		}
 	}
 
@@ -109,9 +109,9 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	@JsonProperty("A_Asset_Type")
 	public void setA_Asset_TypeInput(ForeignEntityInput A_Asset_Type) {
 		this.mA_Asset_Type = A_Asset_Type;
-		MAssetType foreignEntity;
 		if (A_Asset_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAssetType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Type", "A_Asset_Type_UU=?", get_TrxName())
 							.setParameters(A_Asset_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,7 +121,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 						"Could not find entity in table A_Asset_Type with UUID " + A_Asset_Type.getUUID());
 			}
 		} else {
-			super.setA_Asset_Type_ID(0);
+			this.setA_Asset_Type_ID(0);
 		}
 	}
 
@@ -143,9 +143,12 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,6 +157,8 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 

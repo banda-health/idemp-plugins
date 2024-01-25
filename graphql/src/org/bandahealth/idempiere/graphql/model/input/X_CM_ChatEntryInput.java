@@ -52,9 +52,12 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -84,9 +89,9 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -96,7 +101,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -129,9 +134,9 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("ChatEntryType")
 	public void setChatEntryTypeInput(I_AD_Ref_ListInput ChatEntryType) {
 		this.mChatEntryType = ChatEntryType;
-		MRefList_BH foreignEntity;
 		if (ChatEntryType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ChatEntryType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -163,9 +168,12 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("CM_Chat")
 	public void setCM_ChatInput(ForeignEntityInput CM_Chat) {
 		this.mCM_Chat = CM_Chat;
-		MChat foreignEntity;
-		if (get_ID() == 0 && CM_Chat != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (CM_Chat != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_Chat", "CM_Chat_UU=?", get_TrxName())
 							.setParameters(CM_Chat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,6 +182,8 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 				throw new AdempiereException(
 						"Could not find entity in table CM_Chat with UUID " + CM_Chat.getUUID());
 			}
+		} else {
+			this.setCM_Chat_ID(0);
 		}
 	}
 
@@ -224,9 +234,9 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("CM_ChatEntryGrandParent")
 	public void setCM_ChatEntryGrandParentInput(ForeignEntityInput CM_ChatEntryGrandParent) {
 		this.mCM_ChatEntryGrandParent = CM_ChatEntryGrandParent;
-		MChatEntry foreignEntity;
 		if (CM_ChatEntryGrandParent != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChatEntry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
 							.setParameters(CM_ChatEntryGrandParent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -236,7 +246,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 						"Could not find entity in table CM_ChatEntry with UUID " + CM_ChatEntryGrandParent.getUUID());
 			}
 		} else {
-			super.setCM_ChatEntryGrandParent_ID(0);
+			this.setCM_ChatEntryGrandParent_ID(0);
 		}
 	}
 
@@ -258,9 +268,9 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("CM_ChatEntryParent")
 	public void setCM_ChatEntryParentInput(ForeignEntityInput CM_ChatEntryParent) {
 		this.mCM_ChatEntryParent = CM_ChatEntryParent;
-		MChatEntry foreignEntity;
 		if (CM_ChatEntryParent != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChatEntry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_ChatEntry", "CM_ChatEntry_UU=?", get_TrxName())
 							.setParameters(CM_ChatEntryParent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -270,7 +280,7 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 						"Could not find entity in table CM_ChatEntry with UUID " + CM_ChatEntryParent.getUUID());
 			}
 		} else {
-			super.setCM_ChatEntryParent_ID(0);
+			this.setCM_ChatEntryParent_ID(0);
 		}
 	}
 
@@ -292,9 +302,9 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("ConfidentialType")
 	public void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
-		MRefList_BH foreignEntity;
 		if (ConfidentialType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ConfidentialType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -326,9 +336,9 @@ public class X_CM_ChatEntryInput extends MChatEntry implements I_CM_ChatEntryInp
 	@JsonProperty("ModeratorStatus")
 	public void setModeratorStatusInput(I_AD_Ref_ListInput ModeratorStatus) {
 		this.mModeratorStatus = ModeratorStatus;
-		MRefList_BH foreignEntity;
 		if (ModeratorStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ModeratorStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

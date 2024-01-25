@@ -50,9 +50,12 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,12 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	@JsonProperty("AD_ReplicationStrategy")
 	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
-		MReplicationStrategy foreignEntity;
-		if (get_ID() == 0 && AD_ReplicationStrategy != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_ReplicationStrategy != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
 							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,6 +101,8 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
 			}
+		} else {
+			this.setAD_ReplicationStrategy_ID(0);
 		}
 	}
 
@@ -143,9 +153,12 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
-		if (get_ID() == 0 && AD_Table != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,6 +167,8 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
+		} else {
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -175,9 +190,9 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,7 +202,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -209,9 +224,9 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	@JsonProperty("ReplicationType")
 	public void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType) {
 		this.mReplicationType = ReplicationType;
-		MRefList_BH foreignEntity;
 		if (ReplicationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

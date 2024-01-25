@@ -44,9 +44,12 @@ public class X_C_BankStatementLoaderInput extends MBankStatementLoader implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_C_BankStatementLoaderInput extends MBankStatementLoader implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_C_BankStatementLoaderInput extends MBankStatementLoader implement
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
-		if (get_ID() == 0 && C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BankAccount != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_C_BankStatementLoaderInput extends MBankStatementLoader implement
 				throw new AdempiereException(
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
+		} else {
+			this.setC_BankAccount_ID(0);
 		}
 	}
 

@@ -50,9 +50,12 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,12 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,6 +101,8 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -132,9 +142,12 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		MTax foreignEntity;
-		if (get_ID() == 0 && C_Tax != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Tax != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -143,6 +156,8 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 				throw new AdempiereException(
 						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
 			}
+		} else {
+			this.setC_Tax_ID(0);
 		}
 	}
 
@@ -164,9 +179,9 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("T_Credit_A")
 	public void setT_Credit_AInput(ForeignEntityInput T_Credit_A) {
 		this.mT_Credit_A = T_Credit_A;
-		MAccount foreignEntity;
 		if (T_Credit_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(T_Credit_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -176,7 +191,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 						"Could not find entity in table C_ValidCombination with UUID " + T_Credit_A.getUUID());
 			}
 		} else {
-			super.setT_Credit_Acct(0);
+			this.setT_Credit_Acct(0);
 		}
 	}
 
@@ -198,9 +213,9 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("T_Due_A")
 	public void setT_Due_AInput(ForeignEntityInput T_Due_A) {
 		this.mT_Due_A = T_Due_A;
-		MAccount foreignEntity;
 		if (T_Due_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(T_Due_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -210,7 +225,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 						"Could not find entity in table C_ValidCombination with UUID " + T_Due_A.getUUID());
 			}
 		} else {
-			super.setT_Due_Acct(0);
+			this.setT_Due_Acct(0);
 		}
 	}
 
@@ -232,9 +247,9 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 	@JsonProperty("T_Expense_A")
 	public void setT_Expense_AInput(ForeignEntityInput T_Expense_A) {
 		this.mT_Expense_A = T_Expense_A;
-		MAccount foreignEntity;
 		if (T_Expense_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(T_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -244,7 +259,7 @@ public class X_C_Tax_AcctInput extends X_C_Tax_Acct implements I_C_Tax_AcctInput
 						"Could not find entity in table C_ValidCombination with UUID " + T_Expense_A.getUUID());
 			}
 		} else {
-			super.setT_Expense_Acct(0);
+			this.setT_Expense_Acct(0);
 		}
 	}
 

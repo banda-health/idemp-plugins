@@ -48,9 +48,12 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
-		if (get_ID() == 0 && AD_Role != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Role != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 				throw new AdempiereException(
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
+		} else {
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -112,9 +122,12 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +136,8 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
+		} else {
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -173,9 +188,12 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 	@JsonProperty("PA_DashboardContent")
 	public void setPA_DashboardContentInput(ForeignEntityInput PA_DashboardContent) {
 		this.mPA_DashboardContent = PA_DashboardContent;
-		MDashboardContent foreignEntity;
-		if (get_ID() == 0 && PA_DashboardContent != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PA_DashboardContent != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDashboardContent foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_DashboardContent", "PA_DashboardContent_UU=?", get_TrxName())
 							.setParameters(PA_DashboardContent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -184,6 +202,8 @@ public class X_PA_DashboardContent_AccessInput extends MDashboardContentAccess i
 				throw new AdempiereException(
 						"Could not find entity in table PA_DashboardContent with UUID " + PA_DashboardContent.getUUID());
 			}
+		} else {
+			this.setPA_DashboardContent_ID(0);
 		}
 	}
 

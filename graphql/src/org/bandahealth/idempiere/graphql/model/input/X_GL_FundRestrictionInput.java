@@ -46,9 +46,12 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 	@JsonProperty("C_ElementValue")
 	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
-		MElementValue foreignEntity;
 		if (C_ElementValue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 						"Could not find entity in table C_ElementValue with UUID " + C_ElementValue.getUUID());
 			}
 		} else {
-			super.setC_ElementValue_ID(0);
+			this.setC_ElementValue_ID(0);
 		}
 	}
 
@@ -112,9 +117,12 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 	@JsonProperty("GL_Fund")
 	public void setGL_FundInput(ForeignEntityInput GL_Fund) {
 		this.mGL_Fund = GL_Fund;
-		X_GL_Fund foreignEntity;
-		if (get_ID() == 0 && GL_Fund != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (GL_Fund != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_GL_Fund foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Fund", "GL_Fund_UU=?", get_TrxName())
 							.setParameters(GL_Fund.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +131,8 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 				throw new AdempiereException(
 						"Could not find entity in table GL_Fund with UUID " + GL_Fund.getUUID());
 			}
+		} else {
+			this.setGL_Fund_ID(0);
 		}
 	}
 

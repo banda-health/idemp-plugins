@@ -48,9 +48,12 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 	@JsonProperty("M_DiscountSchema")
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
-		MDiscountSchema foreignEntity;
-		if (get_ID() == 0 && M_DiscountSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DiscountSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 				throw new AdempiereException(
 						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
 			}
+		} else {
+			this.setM_DiscountSchema_ID(0);
 		}
 	}
 
@@ -141,9 +151,9 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 	@JsonProperty("M_Product_Category")
 	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
-		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
 							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +163,7 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
 			}
 		} else {
-			super.setM_Product_Category_ID(0);
+			this.setM_Product_Category_ID(0);
 		}
 	}
 
@@ -175,9 +185,9 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,7 +197,7 @@ public class X_M_DiscountSchemaBreakInput extends MDiscountSchemaBreak implement
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

@@ -57,9 +57,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("AD_Image")
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
-		MImage foreignEntity;
 		if (AD_Image != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -69,7 +69,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
 			}
 		} else {
-			super.setAD_Image_ID(0);
+			this.setAD_Image_ID(0);
 		}
 	}
 
@@ -91,9 +91,12 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -102,6 +105,8 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -152,9 +157,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("Funct_PrintFont")
 	public void setFunct_PrintFontInput(ForeignEntityInput Funct_PrintFont) {
 		this.mFunct_PrintFont = Funct_PrintFont;
-		X_AD_PrintFont foreignEntity;
 		if (Funct_PrintFont != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 							.setParameters(Funct_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -164,7 +169,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintFont with UUID " + Funct_PrintFont.getUUID());
 			}
 		} else {
-			super.setFunct_PrintFont_ID(0);
+			this.setFunct_PrintFont_ID(0);
 		}
 	}
 
@@ -186,9 +191,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("FunctBG_PrintColor")
 	public void setFunctBG_PrintColorInput(ForeignEntityInput FunctBG_PrintColor) {
 		this.mFunctBG_PrintColor = FunctBG_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (FunctBG_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(FunctBG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -198,7 +203,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintColor with UUID " + FunctBG_PrintColor.getUUID());
 			}
 		} else {
-			super.setFunctBG_PrintColor_ID(0);
+			this.setFunctBG_PrintColor_ID(0);
 		}
 	}
 
@@ -220,9 +225,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("FunctFG_PrintColor")
 	public void setFunctFG_PrintColorInput(ForeignEntityInput FunctFG_PrintColor) {
 		this.mFunctFG_PrintColor = FunctFG_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (FunctFG_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(FunctFG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -232,7 +237,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintColor with UUID " + FunctFG_PrintColor.getUUID());
 			}
 		} else {
-			super.setFunctFG_PrintColor_ID(0);
+			this.setFunctFG_PrintColor_ID(0);
 		}
 	}
 
@@ -254,9 +259,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("Hdr_PrintFont")
 	public void setHdr_PrintFontInput(ForeignEntityInput Hdr_PrintFont) {
 		this.mHdr_PrintFont = Hdr_PrintFont;
-		X_AD_PrintFont foreignEntity;
 		if (Hdr_PrintFont != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 							.setParameters(Hdr_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -266,7 +271,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintFont with UUID " + Hdr_PrintFont.getUUID());
 			}
 		} else {
-			super.setHdr_PrintFont_ID(0);
+			this.setHdr_PrintFont_ID(0);
 		}
 	}
 
@@ -288,9 +293,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("HdrLine_PrintColor")
 	public void setHdrLine_PrintColorInput(ForeignEntityInput HdrLine_PrintColor) {
 		this.mHdrLine_PrintColor = HdrLine_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (HdrLine_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(HdrLine_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -300,7 +305,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintColor with UUID " + HdrLine_PrintColor.getUUID());
 			}
 		} else {
-			super.setHdrLine_PrintColor_ID(0);
+			this.setHdrLine_PrintColor_ID(0);
 		}
 	}
 
@@ -322,9 +327,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("HdrStrokeType")
 	public void setHdrStrokeTypeInput(I_AD_Ref_ListInput HdrStrokeType) {
 		this.mHdrStrokeType = HdrStrokeType;
-		MRefList_BH foreignEntity;
 		if (HdrStrokeType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(HdrStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -356,9 +361,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("HdrTextBG_PrintColor")
 	public void setHdrTextBG_PrintColorInput(ForeignEntityInput HdrTextBG_PrintColor) {
 		this.mHdrTextBG_PrintColor = HdrTextBG_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (HdrTextBG_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(HdrTextBG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -368,7 +373,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintColor with UUID " + HdrTextBG_PrintColor.getUUID());
 			}
 		} else {
-			super.setHdrTextBG_PrintColor_ID(0);
+			this.setHdrTextBG_PrintColor_ID(0);
 		}
 	}
 
@@ -390,9 +395,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("HdrTextFG_PrintColor")
 	public void setHdrTextFG_PrintColorInput(ForeignEntityInput HdrTextFG_PrintColor) {
 		this.mHdrTextFG_PrintColor = HdrTextFG_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (HdrTextFG_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(HdrTextFG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -402,7 +407,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintColor with UUID " + HdrTextFG_PrintColor.getUUID());
 			}
 		} else {
-			super.setHdrTextFG_PrintColor_ID(0);
+			this.setHdrTextFG_PrintColor_ID(0);
 		}
 	}
 
@@ -424,9 +429,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("Line_PrintColor")
 	public void setLine_PrintColorInput(ForeignEntityInput Line_PrintColor) {
 		this.mLine_PrintColor = Line_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (Line_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(Line_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -436,7 +441,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 						"Could not find entity in table AD_PrintColor with UUID " + Line_PrintColor.getUUID());
 			}
 		} else {
-			super.setLine_PrintColor_ID(0);
+			this.setLine_PrintColor_ID(0);
 		}
 	}
 
@@ -458,9 +463,9 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	@JsonProperty("LineStrokeType")
 	public void setLineStrokeTypeInput(I_AD_Ref_ListInput LineStrokeType) {
 		this.mLineStrokeType = LineStrokeType;
-		MRefList_BH foreignEntity;
 		if (LineStrokeType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LineStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

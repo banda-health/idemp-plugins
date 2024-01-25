@@ -48,9 +48,12 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -109,9 +114,12 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	@JsonProperty("AD_System")
 	public void setAD_SystemInput(ForeignEntityInput AD_System) {
 		this.mAD_System = AD_System;
-		MSystem foreignEntity;
-		if (get_ID() == 0 && AD_System != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_System != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MSystem foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_System", "AD_System_UU=?", get_TrxName())
 							.setParameters(AD_System.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -120,6 +128,8 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 				throw new AdempiereException(
 						"Could not find entity in table AD_System with UUID " + AD_System.getUUID());
 			}
+		} else {
+			this.setAD_System_ID(0);
 		}
 	}
 
@@ -141,9 +151,9 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +163,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -175,9 +185,9 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
 		if (C_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,7 +197,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
 		} else {
-			super.setC_Location_ID(0);
+			this.setC_Location_ID(0);
 		}
 	}
 

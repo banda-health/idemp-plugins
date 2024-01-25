@@ -52,9 +52,12 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -102,9 +107,12 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -113,6 +121,8 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -134,9 +144,9 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("CommitmentOffset_A")
 	public void setCommitmentOffset_AInput(ForeignEntityInput CommitmentOffset_A) {
 		this.mCommitmentOffset_A = CommitmentOffset_A;
-		MAccount foreignEntity;
 		if (CommitmentOffset_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CommitmentOffset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -146,7 +156,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 						"Could not find entity in table C_ValidCombination with UUID " + CommitmentOffset_A.getUUID());
 			}
 		} else {
-			super.setCommitmentOffset_Acct(0);
+			this.setCommitmentOffset_Acct(0);
 		}
 	}
 
@@ -168,9 +178,9 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("CommitmentOffsetSales_A")
 	public void setCommitmentOffsetSales_AInput(ForeignEntityInput CommitmentOffsetSales_A) {
 		this.mCommitmentOffsetSales_A = CommitmentOffsetSales_A;
-		MAccount foreignEntity;
 		if (CommitmentOffsetSales_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CommitmentOffsetSales_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -180,7 +190,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 						"Could not find entity in table C_ValidCombination with UUID " + CommitmentOffsetSales_A.getUUID());
 			}
 		} else {
-			super.setCommitmentOffsetSales_Acct(0);
+			this.setCommitmentOffsetSales_Acct(0);
 		}
 	}
 
@@ -202,9 +212,9 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("CurrencyBalancing_A")
 	public void setCurrencyBalancing_AInput(ForeignEntityInput CurrencyBalancing_A) {
 		this.mCurrencyBalancing_A = CurrencyBalancing_A;
-		MAccount foreignEntity;
 		if (CurrencyBalancing_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CurrencyBalancing_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -214,7 +224,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 						"Could not find entity in table C_ValidCombination with UUID " + CurrencyBalancing_A.getUUID());
 			}
 		} else {
-			super.setCurrencyBalancing_Acct(0);
+			this.setCurrencyBalancing_Acct(0);
 		}
 	}
 
@@ -236,9 +246,9 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("IntercompanyDueFrom_A")
 	public void setIntercompanyDueFrom_AInput(ForeignEntityInput IntercompanyDueFrom_A) {
 		this.mIntercompanyDueFrom_A = IntercompanyDueFrom_A;
-		MAccount foreignEntity;
 		if (IntercompanyDueFrom_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(IntercompanyDueFrom_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -248,7 +258,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 						"Could not find entity in table C_ValidCombination with UUID " + IntercompanyDueFrom_A.getUUID());
 			}
 		} else {
-			super.setIntercompanyDueFrom_Acct(0);
+			this.setIntercompanyDueFrom_Acct(0);
 		}
 	}
 
@@ -270,9 +280,9 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("IntercompanyDueTo_A")
 	public void setIntercompanyDueTo_AInput(ForeignEntityInput IntercompanyDueTo_A) {
 		this.mIntercompanyDueTo_A = IntercompanyDueTo_A;
-		MAccount foreignEntity;
 		if (IntercompanyDueTo_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(IntercompanyDueTo_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -282,7 +292,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 						"Could not find entity in table C_ValidCombination with UUID " + IntercompanyDueTo_A.getUUID());
 			}
 		} else {
-			super.setIntercompanyDueTo_Acct(0);
+			this.setIntercompanyDueTo_Acct(0);
 		}
 	}
 
@@ -304,9 +314,9 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("PPVOffset_A")
 	public void setPPVOffset_AInput(ForeignEntityInput PPVOffset_A) {
 		this.mPPVOffset_A = PPVOffset_A;
-		MAccount foreignEntity;
 		if (PPVOffset_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(PPVOffset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -316,7 +326,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 						"Could not find entity in table C_ValidCombination with UUID " + PPVOffset_A.getUUID());
 			}
 		} else {
-			super.setPPVOffset_Acct(0);
+			this.setPPVOffset_Acct(0);
 		}
 	}
 
@@ -338,9 +348,9 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	@JsonProperty("SuspenseBalancing_A")
 	public void setSuspenseBalancing_AInput(ForeignEntityInput SuspenseBalancing_A) {
 		this.mSuspenseBalancing_A = SuspenseBalancing_A;
-		MAccount foreignEntity;
 		if (SuspenseBalancing_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(SuspenseBalancing_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -350,7 +360,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 						"Could not find entity in table C_ValidCombination with UUID " + SuspenseBalancing_A.getUUID());
 			}
 		} else {
-			super.setSuspenseBalancing_Acct(0);
+			this.setSuspenseBalancing_Acct(0);
 		}
 	}
 

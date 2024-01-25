@@ -53,9 +53,12 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,6 +67,8 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -85,9 +90,9 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("B_Asset_A")
 	public void setB_Asset_AInput(ForeignEntityInput B_Asset_A) {
 		this.mB_Asset_A = B_Asset_A;
-		MAccount foreignEntity;
 		if (B_Asset_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(B_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,7 +102,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 						"Could not find entity in table C_ValidCombination with UUID " + B_Asset_A.getUUID());
 			}
 		} else {
-			super.setB_Asset_Acct(0);
+			this.setB_Asset_Acct(0);
 		}
 	}
 
@@ -119,9 +124,9 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("B_InterestExp_A")
 	public void setB_InterestExp_AInput(ForeignEntityInput B_InterestExp_A) {
 		this.mB_InterestExp_A = B_InterestExp_A;
-		MAccount foreignEntity;
 		if (B_InterestExp_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(B_InterestExp_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -131,7 +136,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 						"Could not find entity in table C_ValidCombination with UUID " + B_InterestExp_A.getUUID());
 			}
 		} else {
-			super.setB_InterestExp_Acct(0);
+			this.setB_InterestExp_Acct(0);
 		}
 	}
 
@@ -153,9 +158,9 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("B_InterestRev_A")
 	public void setB_InterestRev_AInput(ForeignEntityInput B_InterestRev_A) {
 		this.mB_InterestRev_A = B_InterestRev_A;
-		MAccount foreignEntity;
 		if (B_InterestRev_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(B_InterestRev_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -165,7 +170,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 						"Could not find entity in table C_ValidCombination with UUID " + B_InterestRev_A.getUUID());
 			}
 		} else {
-			super.setB_InterestRev_Acct(0);
+			this.setB_InterestRev_Acct(0);
 		}
 	}
 
@@ -187,9 +192,9 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("B_InTransit_A")
 	public void setB_InTransit_AInput(ForeignEntityInput B_InTransit_A) {
 		this.mB_InTransit_A = B_InTransit_A;
-		MAccount foreignEntity;
 		if (B_InTransit_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(B_InTransit_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,7 +204,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 						"Could not find entity in table C_ValidCombination with UUID " + B_InTransit_A.getUUID());
 			}
 		} else {
-			super.setB_InTransit_Acct(0);
+			this.setB_InTransit_Acct(0);
 		}
 	}
 
@@ -221,9 +226,9 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("B_PaymentSelect_A")
 	public void setB_PaymentSelect_AInput(ForeignEntityInput B_PaymentSelect_A) {
 		this.mB_PaymentSelect_A = B_PaymentSelect_A;
-		MAccount foreignEntity;
 		if (B_PaymentSelect_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(B_PaymentSelect_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -233,7 +238,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 						"Could not find entity in table C_ValidCombination with UUID " + B_PaymentSelect_A.getUUID());
 			}
 		} else {
-			super.setB_PaymentSelect_Acct(0);
+			this.setB_PaymentSelect_Acct(0);
 		}
 	}
 
@@ -255,9 +260,9 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("B_UnallocatedCash_A")
 	public void setB_UnallocatedCash_AInput(ForeignEntityInput B_UnallocatedCash_A) {
 		this.mB_UnallocatedCash_A = B_UnallocatedCash_A;
-		MAccount foreignEntity;
 		if (B_UnallocatedCash_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(B_UnallocatedCash_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -267,7 +272,7 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 						"Could not find entity in table C_ValidCombination with UUID " + B_UnallocatedCash_A.getUUID());
 			}
 		} else {
-			super.setB_UnallocatedCash_Acct(0);
+			this.setB_UnallocatedCash_Acct(0);
 		}
 	}
 
@@ -289,9 +294,12 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -300,6 +308,8 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -339,9 +349,12 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
-		if (get_ID() == 0 && C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BankAccount != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -350,6 +363,8 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 				throw new AdempiereException(
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
+		} else {
+			this.setC_BankAccount_ID(0);
 		}
 	}
 

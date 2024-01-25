@@ -49,9 +49,12 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,9 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	@JsonProperty("C_RevenueRecog_Service")
 	public void setC_RevenueRecog_ServiceInput(ForeignEntityInput C_RevenueRecog_Service) {
 		this.mC_RevenueRecog_Service = C_RevenueRecog_Service;
-		MRevenueRecogService foreignEntity;
 		if (C_RevenueRecog_Service != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRevenueRecogService foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecog_Service", "C_RevenueRecog_Service_UU=?", get_TrxName())
 							.setParameters(C_RevenueRecog_Service.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,7 +98,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 						"Could not find entity in table C_RevenueRecog_Service with UUID " + C_RevenueRecog_Service.getUUID());
 			}
 		} else {
-			super.setC_RevenueRecog_Service_ID(0);
+			this.setC_RevenueRecog_Service_ID(0);
 		}
 	}
 
@@ -115,9 +120,12 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	@JsonProperty("C_RevenueRecognition_Plan")
 	public void setC_RevenueRecognition_PlanInput(ForeignEntityInput C_RevenueRecognition_Plan) {
 		this.mC_RevenueRecognition_Plan = C_RevenueRecognition_Plan;
-		MRevenueRecognitionPlan foreignEntity;
-		if (get_ID() == 0 && C_RevenueRecognition_Plan != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_RevenueRecognition_Plan != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRevenueRecognitionPlan foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition_Plan", "C_RevenueRecognition_Plan_UU=?", get_TrxName())
 							.setParameters(C_RevenueRecognition_Plan.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,6 +134,8 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 				throw new AdempiereException(
 						"Could not find entity in table C_RevenueRecognition_Plan with UUID " + C_RevenueRecognition_Plan.getUUID());
 			}
+		} else {
+			this.setC_RevenueRecognition_Plan_ID(0);
 		}
 	}
 
@@ -176,9 +186,12 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 	@JsonProperty("GL_Journal")
 	public void setGL_JournalInput(ForeignEntityInput GL_Journal) {
 		this.mGL_Journal = GL_Journal;
-		MJournal foreignEntity;
-		if (get_ID() == 0 && GL_Journal != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (GL_Journal != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MJournal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
 							.setParameters(GL_Journal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,6 +200,8 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 				throw new AdempiereException(
 						"Could not find entity in table GL_Journal with UUID " + GL_Journal.getUUID());
 			}
+		} else {
+			this.setGL_Journal_ID(0);
 		}
 	}
 

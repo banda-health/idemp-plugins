@@ -47,9 +47,12 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -130,9 +135,9 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	@JsonProperty("M_Product_Category")
 	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
-		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
 							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -142,7 +147,7 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
 			}
 		} else {
-			super.setM_Product_Category_ID(0);
+			this.setM_Product_Category_ID(0);
 		}
 	}
 
@@ -164,9 +169,9 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -176,7 +181,7 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 

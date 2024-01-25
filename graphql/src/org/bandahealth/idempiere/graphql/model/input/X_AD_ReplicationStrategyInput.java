@@ -46,9 +46,12 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,9 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -119,7 +124,7 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -141,9 +146,9 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	@JsonProperty("EXP_Processor")
 	public void setEXP_ProcessorInput(ForeignEntityInput EXP_Processor) {
 		this.mEXP_Processor = EXP_Processor;
-		MEXPProcessor foreignEntity;
 		if (EXP_Processor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEXPProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Processor", "EXP_Processor_UU=?", get_TrxName())
 							.setParameters(EXP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +158,7 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 						"Could not find entity in table EXP_Processor with UUID " + EXP_Processor.getUUID());
 			}
 		} else {
-			super.setEXP_Processor_ID(0);
+			this.setEXP_Processor_ID(0);
 		}
 	}
 

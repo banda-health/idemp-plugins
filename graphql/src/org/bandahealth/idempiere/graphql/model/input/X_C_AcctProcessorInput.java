@@ -50,9 +50,12 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	@JsonProperty("AD_Schedule")
 	public void setAD_ScheduleInput(ForeignEntityInput AD_Schedule) {
 		this.mAD_Schedule = AD_Schedule;
-		MSchedule foreignEntity;
 		if (AD_Schedule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
 							.setParameters(AD_Schedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -94,7 +99,7 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 						"Could not find entity in table AD_Schedule with UUID " + AD_Schedule.getUUID());
 			}
 		} else {
-			super.setAD_Schedule_ID(0);
+			this.setAD_Schedule_ID(0);
 		}
 	}
 
@@ -116,9 +121,9 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +133,7 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -179,9 +184,9 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +196,7 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
 		} else {
-			super.setC_AcctSchema_ID(0);
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -213,9 +218,9 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	@JsonProperty("Supervisor")
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
-		MUser_BH foreignEntity;
 		if (Supervisor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +230,7 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
 			}
 		} else {
-			super.setSupervisor_ID(0);
+			this.setSupervisor_ID(0);
 		}
 	}
 

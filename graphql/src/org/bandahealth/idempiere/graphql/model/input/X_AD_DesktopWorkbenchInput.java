@@ -46,9 +46,12 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 	@JsonProperty("AD_Desktop")
 	public void setAD_DesktopInput(ForeignEntityInput AD_Desktop) {
 		this.mAD_Desktop = AD_Desktop;
-		X_AD_Desktop foreignEntity;
-		if (get_ID() == 0 && AD_Desktop != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Desktop != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Desktop foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Desktop", "AD_Desktop_UU=?", get_TrxName())
 							.setParameters(AD_Desktop.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Desktop with UUID " + AD_Desktop.getUUID());
 			}
+		} else {
+			this.setAD_Desktop_ID(0);
 		}
 	}
 
@@ -107,9 +112,12 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +126,8 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 	@JsonProperty("AD_Workbench")
 	public void setAD_WorkbenchInput(ForeignEntityInput AD_Workbench) {
 		this.mAD_Workbench = AD_Workbench;
-		X_AD_Workbench foreignEntity;
 		if (AD_Workbench != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Workbench foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workbench", "AD_Workbench_UU=?", get_TrxName())
 							.setParameters(AD_Workbench.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 						"Could not find entity in table AD_Workbench with UUID " + AD_Workbench.getUUID());
 			}
 		} else {
-			super.setAD_Workbench_ID(0);
+			this.setAD_Workbench_ID(0);
 		}
 	}
 

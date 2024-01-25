@@ -50,9 +50,12 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -111,9 +116,12 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	@JsonProperty("AD_ReplicationStrategy")
 	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
-		MReplicationStrategy foreignEntity;
-		if (get_ID() == 0 && AD_ReplicationStrategy != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_ReplicationStrategy != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
 							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -122,6 +130,8 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
 			}
+		} else {
+			this.setAD_ReplicationStrategy_ID(0);
 		}
 	}
 
@@ -143,9 +153,9 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +165,7 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -177,9 +187,9 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
 		if (C_DocType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +199,7 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
 		} else {
-			super.setC_DocType_ID(0);
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -211,9 +221,9 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	@JsonProperty("ReplicationType")
 	public void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType) {
 		this.mReplicationType = ReplicationType;
-		MRefList_BH foreignEntity;
 		if (ReplicationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

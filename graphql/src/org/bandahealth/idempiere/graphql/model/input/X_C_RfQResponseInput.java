@@ -54,9 +54,12 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,6 +68,8 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +91,12 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,6 +105,8 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
+		} else {
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -118,9 +128,9 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -130,7 +140,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -152,9 +162,9 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -164,7 +174,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -186,9 +196,9 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -198,7 +208,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -220,9 +230,9 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
 		if (C_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -232,7 +242,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
 		} else {
-			super.setC_Order_ID(0);
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -254,9 +264,12 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("C_RfQ")
 	public void setC_RfQInput(ForeignEntityInput C_RfQ) {
 		this.mC_RfQ = C_RfQ;
-		MRfQ foreignEntity;
-		if (get_ID() == 0 && C_RfQ != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_RfQ != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRfQ foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQ", "C_RfQ_UU=?", get_TrxName())
 							.setParameters(C_RfQ.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -265,6 +278,8 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 				throw new AdempiereException(
 						"Could not find entity in table C_RfQ with UUID " + C_RfQ.getUUID());
 			}
+		} else {
+			this.setC_RfQ_ID(0);
 		}
 	}
 

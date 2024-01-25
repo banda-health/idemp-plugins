@@ -58,9 +58,12 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -69,6 +72,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -90,9 +95,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_PrintColor")
 	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -102,7 +107,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor.getUUID());
 			}
 		} else {
-			super.setAD_PrintColor_ID(0);
+			this.setAD_PrintColor_ID(0);
 		}
 	}
 
@@ -124,9 +129,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_PrintFont")
 	public void setAD_PrintFontInput(ForeignEntityInput AD_PrintFont) {
 		this.mAD_PrintFont = AD_PrintFont;
-		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 							.setParameters(AD_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -136,7 +141,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 						"Could not find entity in table AD_PrintFont with UUID " + AD_PrintFont.getUUID());
 			}
 		} else {
-			super.setAD_PrintFont_ID(0);
+			this.setAD_PrintFont_ID(0);
 		}
 	}
 
@@ -187,9 +192,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_PrintPaper")
 	public void setAD_PrintPaperInput(ForeignEntityInput AD_PrintPaper) {
 		this.mAD_PrintPaper = AD_PrintPaper;
-		X_AD_PrintPaper foreignEntity;
 		if (AD_PrintPaper != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintPaper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintPaper", "AD_PrintPaper_UU=?", get_TrxName())
 							.setParameters(AD_PrintPaper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,7 +204,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 						"Could not find entity in table AD_PrintPaper with UUID " + AD_PrintPaper.getUUID());
 			}
 		} else {
-			super.setAD_PrintPaper_ID(0);
+			this.setAD_PrintPaper_ID(0);
 		}
 	}
 
@@ -221,9 +226,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_PrintTableFormat")
 	public void setAD_PrintTableFormatInput(ForeignEntityInput AD_PrintTableFormat) {
 		this.mAD_PrintTableFormat = AD_PrintTableFormat;
-		X_AD_PrintTableFormat foreignEntity;
 		if (AD_PrintTableFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintTableFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintTableFormat", "AD_PrintTableFormat_UU=?", get_TrxName())
 							.setParameters(AD_PrintTableFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -233,7 +238,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 						"Could not find entity in table AD_PrintTableFormat with UUID " + AD_PrintTableFormat.getUUID());
 			}
 		} else {
-			super.setAD_PrintTableFormat_ID(0);
+			this.setAD_PrintTableFormat_ID(0);
 		}
 	}
 
@@ -255,9 +260,12 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_ReportView")
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
-		MReportView foreignEntity;
-		if (get_ID() == 0 && AD_ReportView != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_ReportView != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReportView foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
 							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -266,6 +274,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 				throw new AdempiereException(
 						"Could not find entity in table AD_ReportView with UUID " + AD_ReportView.getUUID());
 			}
+		} else {
+			this.setAD_ReportView_ID(0);
 		}
 	}
 
@@ -287,9 +297,12 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
-		if (get_ID() == 0 && AD_Table != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -298,6 +311,8 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 				throw new AdempiereException(
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
+		} else {
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -319,9 +334,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		MWindow foreignEntity;
 		if (AD_Window != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -331,7 +346,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
 			}
 		} else {
-			super.setAD_Window_ID(0);
+			this.setAD_Window_ID(0);
 		}
 	}
 
@@ -364,9 +379,9 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("JasperProcess")
 	public void setJasperProcessInput(ForeignEntityInput JasperProcess) {
 		this.mJasperProcess = JasperProcess;
-		MProcess_BH foreignEntity;
 		if (JasperProcess != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(JasperProcess.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -376,7 +391,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 						"Could not find entity in table AD_Process with UUID " + JasperProcess.getUUID());
 			}
 		} else {
-			super.setJasperProcess_ID(0);
+			this.setJasperProcess_ID(0);
 		}
 	}
 

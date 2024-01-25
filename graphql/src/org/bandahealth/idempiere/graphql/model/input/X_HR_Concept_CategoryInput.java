@@ -44,9 +44,12 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,9 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 	@JsonProperty("HR_Concept_A")
 	public void setHR_Concept_AInput(ForeignEntityInput HR_Concept_A) {
 		this.mHR_Concept_A = HR_Concept_A;
-		MAccount foreignEntity;
 		if (HR_Concept_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(HR_Concept_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -88,7 +93,7 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 						"Could not find entity in table C_ValidCombination with UUID " + HR_Concept_A.getUUID());
 			}
 		} else {
-			super.setHR_Concept_Acct(0);
+			this.setHR_Concept_Acct(0);
 		}
 	}
 

@@ -45,9 +45,12 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -56,6 +59,8 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -106,9 +111,9 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	@JsonProperty("BH_PayerInfoFieldDataType")
 	public void setBH_PayerInfoFieldDataTypeInput(I_AD_Ref_ListInput BH_PayerInfoFieldDataType) {
 		this.mBH_PayerInfoFieldDataType = BH_PayerInfoFieldDataType;
-		MRefList_BH foreignEntity;
 		if (BH_PayerInfoFieldDataType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BH_PayerInfoFieldDataType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -140,9 +145,9 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	@JsonProperty("BH_SubType")
 	public void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
-		MRefList_BH foreignEntity;
 		if (BH_SubType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BH_SubType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

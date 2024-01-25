@@ -67,9 +67,12 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -78,6 +81,8 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -99,9 +104,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("bh_update_reason")
 	public void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason) {
 		this.mbh_update_reason = bh_update_reason;
-		MRefList_BH foreignEntity;
 		if (bh_update_reason != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(bh_update_reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -133,9 +138,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -145,7 +150,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -167,9 +172,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -179,7 +184,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -201,9 +206,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("C_ConversionType")
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
-		MConversionType foreignEntity;
 		if (C_ConversionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -213,7 +218,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
 			}
 		} else {
-			super.setC_ConversionType_ID(0);
+			this.setC_ConversionType_ID(0);
 		}
 	}
 
@@ -235,9 +240,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -247,7 +252,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -269,9 +274,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
 		if (C_DocType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -281,7 +286,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
 		} else {
-			super.setC_DocType_ID(0);
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -303,9 +308,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -315,7 +320,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -337,9 +342,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("CostingMethod")
 	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
-		MRefList_BH foreignEntity;
 		if (CostingMethod != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -371,9 +376,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("DocAction")
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
-		MRefList_BH foreignEntity;
 		if (DocAction != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -405,9 +410,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("DocStatus")
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
-		MRefList_BH foreignEntity;
 		if (DocStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -468,9 +473,12 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("M_PerpetualInv")
 	public void setM_PerpetualInvInput(ForeignEntityInput M_PerpetualInv) {
 		this.mM_PerpetualInv = M_PerpetualInv;
-		X_M_PerpetualInv foreignEntity;
-		if (get_ID() == 0 && M_PerpetualInv != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_PerpetualInv != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_M_PerpetualInv foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PerpetualInv", "M_PerpetualInv_UU=?", get_TrxName())
 							.setParameters(M_PerpetualInv.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -479,6 +487,8 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 				throw new AdempiereException(
 						"Could not find entity in table M_PerpetualInv with UUID " + M_PerpetualInv.getUUID());
 			}
+		} else {
+			this.setM_PerpetualInv_ID(0);
 		}
 	}
 
@@ -500,9 +510,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -512,7 +522,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -545,9 +555,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("Reversal")
 	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
-		MInventory_BH foreignEntity;
 		if (Reversal != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInventory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Inventory", "M_Inventory_UU=?", get_TrxName())
 							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -557,7 +567,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table M_Inventory with UUID " + Reversal.getUUID());
 			}
 		} else {
-			super.setReversal_ID(0);
+			this.setReversal_ID(0);
 		}
 	}
 
@@ -579,9 +589,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -591,7 +601,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -613,9 +623,9 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MElementValue foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -625,7 +635,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

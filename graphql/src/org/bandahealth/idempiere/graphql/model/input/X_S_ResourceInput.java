@@ -50,9 +50,12 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -94,7 +99,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -116,9 +121,9 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +133,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -150,9 +155,9 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	@JsonProperty("ManufacturingResourceType")
 	public void setManufacturingResourceTypeInput(I_AD_Ref_ListInput ManufacturingResourceType) {
 		this.mManufacturingResourceType = ManufacturingResourceType;
-		MRefList_BH foreignEntity;
 		if (ManufacturingResourceType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ManufacturingResourceType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -213,9 +218,9 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	@JsonProperty("S_ResourceType")
 	public void setS_ResourceTypeInput(ForeignEntityInput S_ResourceType) {
 		this.mS_ResourceType = S_ResourceType;
-		MResourceType foreignEntity;
 		if (S_ResourceType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MResourceType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ResourceType", "S_ResourceType_UU=?", get_TrxName())
 							.setParameters(S_ResourceType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +230,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 						"Could not find entity in table S_ResourceType with UUID " + S_ResourceType.getUUID());
 			}
 		} else {
-			super.setS_ResourceType_ID(0);
+			this.setS_ResourceType_ID(0);
 		}
 	}
 

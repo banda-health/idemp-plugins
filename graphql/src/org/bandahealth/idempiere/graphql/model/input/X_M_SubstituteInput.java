@@ -45,9 +45,12 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -56,6 +59,8 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -77,9 +82,12 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -88,6 +96,8 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -127,9 +137,12 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 	@JsonProperty("Substitute")
 	public void setSubstituteInput(ForeignEntityInput Substitute) {
 		this.mSubstitute = Substitute;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && Substitute != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Substitute != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(Substitute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -138,6 +151,8 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + Substitute.getUUID());
 			}
+		} else {
+			this.setSubstitute_ID(0);
 		}
 	}
 

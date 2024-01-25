@@ -47,9 +47,12 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -79,9 +84,9 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 	@JsonProperty("HR_Department")
 	public void setHR_DepartmentInput(ForeignEntityInput HR_Department) {
 		this.mHR_Department = HR_Department;
-		X_HR_Department foreignEntity;
 		if (HR_Department != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Department foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
 							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,7 +96,7 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 						"Could not find entity in table HR_Department with UUID " + HR_Department.getUUID());
 			}
 		} else {
-			super.setHR_Department_ID(0);
+			this.setHR_Department_ID(0);
 		}
 	}
 
@@ -142,9 +147,9 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 	@JsonProperty("Next_Job")
 	public void setNext_JobInput(ForeignEntityInput Next_Job) {
 		this.mNext_Job = Next_Job;
-		X_HR_Job foreignEntity;
 		if (Next_Job != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
 							.setParameters(Next_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +159,7 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 						"Could not find entity in table HR_Job with UUID " + Next_Job.getUUID());
 			}
 		} else {
-			super.setNext_Job_ID(0);
+			this.setNext_Job_ID(0);
 		}
 	}
 
@@ -176,9 +181,9 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 	@JsonProperty("Supervisor")
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
-		MUser_BH foreignEntity;
 		if (Supervisor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,7 +193,7 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
 			}
 		} else {
-			super.setSupervisor_ID(0);
+			this.setSupervisor_ID(0);
 		}
 	}
 

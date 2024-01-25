@@ -54,9 +54,12 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,6 +68,8 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +91,9 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -98,7 +103,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
 			}
 		} else {
-			super.setC_BP_Group_ID(0);
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -120,9 +125,9 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +137,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -154,9 +159,9 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("GoalRestrictionType")
 	public void setGoalRestrictionTypeInput(I_AD_Ref_ListInput GoalRestrictionType) {
 		this.mGoalRestrictionType = GoalRestrictionType;
-		MRefList_BH foreignEntity;
 		if (GoalRestrictionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(GoalRestrictionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,9 +193,9 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("M_Product_Category")
 	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
-		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
 							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -200,7 +205,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
 			}
 		} else {
-			super.setM_Product_Category_ID(0);
+			this.setM_Product_Category_ID(0);
 		}
 	}
 
@@ -222,9 +227,9 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -234,7 +239,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -256,9 +261,9 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	@JsonProperty("PA_Goal")
 	public void setPA_GoalInput(ForeignEntityInput PA_Goal) {
 		this.mPA_Goal = PA_Goal;
-		MGoal foreignEntity;
 		if (PA_Goal != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
 							.setParameters(PA_Goal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -268,7 +273,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 						"Could not find entity in table PA_Goal with UUID " + PA_Goal.getUUID());
 			}
 		} else {
-			super.setPA_Goal_ID(0);
+			this.setPA_Goal_ID(0);
 		}
 	}
 

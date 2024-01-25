@@ -56,9 +56,12 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -88,9 +93,9 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -100,7 +105,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
 		} else {
-			super.setC_BankAccount_ID(0);
+			this.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -122,9 +127,12 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Cash")
 	public void setC_CashInput(ForeignEntityInput C_Cash) {
 		this.mC_Cash = C_Cash;
-		MCash foreignEntity;
-		if (get_ID() == 0 && C_Cash != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Cash != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCash foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Cash", "C_Cash_UU=?", get_TrxName())
 							.setParameters(C_Cash.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -133,6 +141,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Cash with UUID " + C_Cash.getUUID());
 			}
+		} else {
+			this.setC_Cash_ID(0);
 		}
 	}
 
@@ -183,9 +193,9 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -195,7 +205,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -217,9 +227,12 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 && C_Currency != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Currency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -228,6 +241,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
+		} else {
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -249,9 +264,12 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 && C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -260,6 +278,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
+		} else {
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -281,9 +301,9 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		MPayment_BH foreignEntity;
 		if (C_Payment != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -293,7 +313,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
 			}
 		} else {
-			super.setC_Payment_ID(0);
+			this.setC_Payment_ID(0);
 		}
 	}
 
@@ -315,9 +335,12 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	@JsonProperty("CashType")
 	public void setCashTypeInput(I_AD_Ref_ListInput CashType) {
 		this.mCashType = CashType;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&CashType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (CashType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CashType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -326,6 +349,8 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CashType.getUUID());
 			}
+		} else {
+			this.setCashType(null);
 		}
 	}
 

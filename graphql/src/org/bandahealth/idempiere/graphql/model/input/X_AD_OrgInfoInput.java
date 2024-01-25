@@ -59,9 +59,12 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -70,6 +73,8 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -109,9 +114,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("AD_OrgType")
 	public void setAD_OrgTypeInput(ForeignEntityInput AD_OrgType) {
 		this.mAD_OrgType = AD_OrgType;
-		X_AD_OrgType foreignEntity;
 		if (AD_OrgType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_OrgType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_OrgType", "AD_OrgType_UU=?", get_TrxName())
 							.setParameters(AD_OrgType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,7 +126,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table AD_OrgType with UUID " + AD_OrgType.getUUID());
 			}
 		} else {
-			super.setAD_OrgType_ID(0);
+			this.setAD_OrgType_ID(0);
 		}
 	}
 
@@ -143,9 +148,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("C_Calendar")
 	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
-		MCalendar foreignEntity;
 		if (C_Calendar != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCalendar foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
 							.setParameters(C_Calendar.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +160,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table C_Calendar with UUID " + C_Calendar.getUUID());
 			}
 		} else {
-			super.setC_Calendar_ID(0);
+			this.setC_Calendar_ID(0);
 		}
 	}
 
@@ -177,9 +182,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
 		if (C_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +194,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
 		} else {
-			super.setC_Location_ID(0);
+			this.setC_Location_ID(0);
 		}
 	}
 
@@ -211,9 +216,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("DropShip_Warehouse")
 	public void setDropShip_WarehouseInput(ForeignEntityInput DropShip_Warehouse) {
 		this.mDropShip_Warehouse = DropShip_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (DropShip_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(DropShip_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -223,7 +228,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table M_Warehouse with UUID " + DropShip_Warehouse.getUUID());
 			}
 		} else {
-			super.setDropShip_Warehouse_ID(0);
+			this.setDropShip_Warehouse_ID(0);
 		}
 	}
 
@@ -245,9 +250,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("AD_Image")
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
-		MImage foreignEntity;
 		if (AD_Image != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -257,7 +262,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
 			}
 		} else {
-			super.setLogo_ID(0);
+			this.setLogo_ID(0);
 		}
 	}
 
@@ -279,9 +284,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -291,7 +296,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -313,9 +318,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("Supervisor")
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
-		MUser_BH foreignEntity;
 		if (Supervisor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -325,7 +330,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
 			}
 		} else {
-			super.setSupervisor_ID(0);
+			this.setSupervisor_ID(0);
 		}
 	}
 
@@ -347,9 +352,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("TransferBank")
 	public void setTransferBankInput(ForeignEntityInput TransferBank) {
 		this.mTransferBank = TransferBank;
-		MBank foreignEntity;
 		if (TransferBank != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
 							.setParameters(TransferBank.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -359,7 +364,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table C_Bank with UUID " + TransferBank.getUUID());
 			}
 		} else {
-			super.setTransferBank_ID(0);
+			this.setTransferBank_ID(0);
 		}
 	}
 
@@ -381,9 +386,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	@JsonProperty("TransferCashBook")
 	public void setTransferCashBookInput(ForeignEntityInput TransferCashBook) {
 		this.mTransferCashBook = TransferCashBook;
-		MCashBook foreignEntity;
 		if (TransferCashBook != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
 							.setParameters(TransferCashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -393,7 +398,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 						"Could not find entity in table C_CashBook with UUID " + TransferCashBook.getUUID());
 			}
 		} else {
-			super.setTransferCashBook_ID(0);
+			this.setTransferCashBook_ID(0);
 		}
 	}
 

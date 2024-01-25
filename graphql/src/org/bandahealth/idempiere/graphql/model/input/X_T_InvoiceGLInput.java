@@ -52,9 +52,9 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,7 +64,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +86,9 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
 		if (AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -98,7 +98,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
 		} else {
-			super.setAD_PInstance_ID(0);
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -120,9 +120,9 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	@JsonProperty("APAR")
 	public void setAPARInput(I_AD_Ref_ListInput APAR) {
 		this.mAPAR = APAR;
-		MRefList_BH foreignEntity;
 		if (APAR != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(APAR.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,9 +154,9 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	@JsonProperty("C_ConversionTypeReval")
 	public void setC_ConversionTypeRevalInput(ForeignEntityInput C_ConversionTypeReval) {
 		this.mC_ConversionTypeReval = C_ConversionTypeReval;
-		MConversionType foreignEntity;
 		if (C_ConversionTypeReval != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 							.setParameters(C_ConversionTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,7 +166,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 						"Could not find entity in table C_ConversionType with UUID " + C_ConversionTypeReval.getUUID());
 			}
 		} else {
-			super.setC_ConversionTypeReval_ID(0);
+			this.setC_ConversionTypeReval_ID(0);
 		}
 	}
 
@@ -188,9 +188,9 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	@JsonProperty("C_DocTypeReval")
 	public void setC_DocTypeRevalInput(ForeignEntityInput C_DocTypeReval) {
 		this.mC_DocTypeReval = C_DocTypeReval;
-		MDocType_BH foreignEntity;
 		if (C_DocTypeReval != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -200,7 +200,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 						"Could not find entity in table C_DocType with UUID " + C_DocTypeReval.getUUID());
 			}
 		} else {
-			super.setC_DocTypeReval_ID(0);
+			this.setC_DocTypeReval_ID(0);
 		}
 	}
 
@@ -222,9 +222,9 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
 		if (C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -234,7 +234,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
 		} else {
-			super.setC_Invoice_ID(0);
+			this.setC_Invoice_ID(0);
 		}
 	}
 

@@ -50,9 +50,12 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("BH_PatientType")
 	public void setBH_PatientTypeInput(I_AD_Ref_ListInput BH_PatientType) {
 		this.mBH_PatientType = BH_PatientType;
-		MRefList_BH foreignEntity;
 		if (BH_PatientType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BH_PatientType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -116,9 +121,9 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("BH_Process_Stage")
 	public void setBH_Process_StageInput(I_AD_Ref_ListInput BH_Process_Stage) {
 		this.mBH_Process_Stage = BH_Process_Stage;
-		MRefList_BH foreignEntity;
 		if (BH_Process_Stage != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BH_Process_Stage.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -150,9 +155,9 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("bh_referral")
 	public void setbh_referralInput(I_AD_Ref_ListInput bh_referral) {
 		this.mbh_referral = bh_referral;
-		MRefList_BH foreignEntity;
 		if (bh_referral != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(bh_referral.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -213,9 +218,9 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("BH_Voided_Reason")
 	public void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason) {
 		this.mBH_Voided_Reason = BH_Voided_Reason;
-		MBHVoidedReason foreignEntity;
 		if (BH_Voided_Reason != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBHVoidedReason foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
 							.setParameters(BH_Voided_Reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +230,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 						"Could not find entity in table BH_Voided_Reason with UUID " + BH_Voided_Reason.getUUID());
 			}
 		} else {
-			super.setBH_Voided_Reason_ID(0);
+			this.setBH_Voided_Reason_ID(0);
 		}
 	}
 
@@ -258,9 +263,9 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("Patient")
 	public void setPatientInput(ForeignEntityInput Patient) {
 		this.mPatient = Patient;
-		MBPartner_BH foreignEntity;
 		if (Patient != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(Patient.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -270,7 +275,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 						"Could not find entity in table C_BPartner with UUID " + Patient.getUUID());
 			}
 		} else {
-			super.setPatient_ID(0);
+			this.setPatient_ID(0);
 		}
 	}
 

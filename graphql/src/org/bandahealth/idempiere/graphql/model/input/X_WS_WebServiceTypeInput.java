@@ -48,9 +48,12 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -114,9 +119,9 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 	@JsonProperty("WS_WebService")
 	public void setWS_WebServiceInput(ForeignEntityInput WS_WebService) {
 		this.mWS_WebService = WS_WebService;
-		X_WS_WebService foreignEntity;
 		if (WS_WebService != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_WS_WebService foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "WS_WebService", "WS_WebService_UU=?", get_TrxName())
 							.setParameters(WS_WebService.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 						"Could not find entity in table WS_WebService with UUID " + WS_WebService.getUUID());
 			}
 		} else {
-			super.setWS_WebService_ID(0);
+			this.setWS_WebService_ID(0);
 		}
 	}
 
@@ -148,9 +153,9 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 	@JsonProperty("WS_WebServiceMethod")
 	public void setWS_WebServiceMethodInput(ForeignEntityInput WS_WebServiceMethod) {
 		this.mWS_WebServiceMethod = WS_WebServiceMethod;
-		X_WS_WebServiceMethod foreignEntity;
 		if (WS_WebServiceMethod != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_WS_WebServiceMethod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "WS_WebServiceMethod", "WS_WebServiceMethod_UU=?", get_TrxName())
 							.setParameters(WS_WebServiceMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -160,7 +165,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 						"Could not find entity in table WS_WebServiceMethod with UUID " + WS_WebServiceMethod.getUUID());
 			}
 		} else {
-			super.setWS_WebServiceMethod_ID(0);
+			this.setWS_WebServiceMethod_ID(0);
 		}
 	}
 

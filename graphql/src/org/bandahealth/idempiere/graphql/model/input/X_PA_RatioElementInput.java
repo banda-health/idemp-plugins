@@ -53,9 +53,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("Account")
 	public void setAccountInput(ForeignEntityInput Account) {
 		this.mAccount = Account;
-		MElementValue foreignEntity;
 		if (Account != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,7 +65,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 						"Could not find entity in table C_ElementValue with UUID " + Account.getUUID());
 			}
 		} else {
-			super.setAccount_ID(0);
+			this.setAccount_ID(0);
 		}
 	}
 
@@ -87,9 +87,12 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -98,6 +101,8 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -119,9 +124,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("PA_MeasureCalc")
 	public void setPA_MeasureCalcInput(ForeignEntityInput PA_MeasureCalc) {
 		this.mPA_MeasureCalc = PA_MeasureCalc;
-		MMeasureCalc foreignEntity;
 		if (PA_MeasureCalc != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMeasureCalc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
 							.setParameters(PA_MeasureCalc.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -131,7 +136,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 						"Could not find entity in table PA_MeasureCalc with UUID " + PA_MeasureCalc.getUUID());
 			}
 		} else {
-			super.setPA_MeasureCalc_ID(0);
+			this.setPA_MeasureCalc_ID(0);
 		}
 	}
 
@@ -153,9 +158,12 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("PA_Ratio")
 	public void setPA_RatioInput(ForeignEntityInput PA_Ratio) {
 		this.mPA_Ratio = PA_Ratio;
-		X_PA_Ratio foreignEntity;
-		if (get_ID() == 0 && PA_Ratio != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PA_Ratio != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
 							.setParameters(PA_Ratio.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -164,6 +172,8 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 				throw new AdempiereException(
 						"Could not find entity in table PA_Ratio with UUID " + PA_Ratio.getUUID());
 			}
+		} else {
+			this.setPA_Ratio_ID(0);
 		}
 	}
 
@@ -214,9 +224,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("PA_RatioUsed")
 	public void setPA_RatioUsedInput(ForeignEntityInput PA_RatioUsed) {
 		this.mPA_RatioUsed = PA_RatioUsed;
-		X_PA_Ratio foreignEntity;
 		if (PA_RatioUsed != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
 							.setParameters(PA_RatioUsed.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -226,7 +236,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 						"Could not find entity in table PA_Ratio with UUID " + PA_RatioUsed.getUUID());
 			}
 		} else {
-			super.setPA_RatioUsed_ID(0);
+			this.setPA_RatioUsed_ID(0);
 		}
 	}
 
@@ -248,9 +258,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
-		MRefList_BH foreignEntity;
 		if (PostingType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -282,9 +292,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("RatioElementType")
 	public void setRatioElementTypeInput(I_AD_Ref_ListInput RatioElementType) {
 		this.mRatioElementType = RatioElementType;
-		MRefList_BH foreignEntity;
 		if (RatioElementType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(RatioElementType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -316,9 +326,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	@JsonProperty("RatioOperand")
 	public void setRatioOperandInput(I_AD_Ref_ListInput RatioOperand) {
 		this.mRatioOperand = RatioOperand;
-		MRefList_BH foreignEntity;
 		if (RatioOperand != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(RatioOperand.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -42,9 +42,12 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	@JsonProperty("AD_Attribute")
 	public void setAD_AttributeInput(ForeignEntityInput AD_Attribute) {
 		this.mAD_Attribute = AD_Attribute;
-		X_AD_Attribute foreignEntity;
-		if (get_ID() == 0 && AD_Attribute != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Attribute != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Attribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Attribute", "AD_Attribute_UU=?", get_TrxName())
 							.setParameters(AD_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -53,6 +56,8 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Attribute with UUID " + AD_Attribute.getUUID());
 			}
+		} else {
+			this.setAD_Attribute_ID(0);
 		}
 	}
 

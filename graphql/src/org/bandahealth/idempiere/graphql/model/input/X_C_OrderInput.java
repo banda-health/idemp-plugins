@@ -111,9 +111,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,7 +123,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -145,9 +145,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -157,7 +157,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -179,9 +179,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("BH_Visit")
 	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
-		MBHVisit foreignEntity;
 		if (BH_Visit != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBHVisit foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
 							.setParameters(BH_Visit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +191,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table BH_Visit with UUID " + BH_Visit.getUUID());
 			}
 		} else {
-			super.setBH_Visit_ID(0);
+			this.setBH_Visit_ID(0);
 		}
 	}
 
@@ -213,9 +213,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("BH_Voided_Reason")
 	public void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason) {
 		this.mBH_Voided_Reason = BH_Voided_Reason;
-		MBHVoidedReason foreignEntity;
 		if (BH_Voided_Reason != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBHVoidedReason foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
 							.setParameters(BH_Voided_Reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +225,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table BH_Voided_Reason with UUID " + BH_Voided_Reason.getUUID());
 			}
 		} else {
-			super.setBH_Voided_Reason_ID(0);
+			this.setBH_Voided_Reason_ID(0);
 		}
 	}
 
@@ -247,9 +247,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("Bill_BPartner")
 	public void setBill_BPartnerInput(ForeignEntityInput Bill_BPartner) {
 		this.mBill_BPartner = Bill_BPartner;
-		MBPartner_BH foreignEntity;
 		if (Bill_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(Bill_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -259,7 +259,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_BPartner with UUID " + Bill_BPartner.getUUID());
 			}
 		} else {
-			super.setBill_BPartner_ID(0);
+			this.setBill_BPartner_ID(0);
 		}
 	}
 
@@ -281,9 +281,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("Bill_Location")
 	public void setBill_LocationInput(ForeignEntityInput Bill_Location) {
 		this.mBill_Location = Bill_Location;
-		MBPartnerLocation foreignEntity;
 		if (Bill_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(Bill_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -293,7 +293,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_BPartner_Location with UUID " + Bill_Location.getUUID());
 			}
 		} else {
-			super.setBill_Location_ID(0);
+			this.setBill_Location_ID(0);
 		}
 	}
 
@@ -315,9 +315,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("Bill_User")
 	public void setBill_UserInput(ForeignEntityInput Bill_User) {
 		this.mBill_User = Bill_User;
-		MUser_BH foreignEntity;
 		if (Bill_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Bill_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -327,7 +327,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table AD_User with UUID " + Bill_User.getUUID());
 			}
 		} else {
-			super.setBill_User_ID(0);
+			this.setBill_User_ID(0);
 		}
 	}
 
@@ -349,9 +349,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -361,7 +361,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -383,9 +383,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -395,7 +395,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -417,9 +417,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -429,7 +429,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -451,9 +451,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -463,7 +463,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -485,9 +485,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_CashLine")
 	public void setC_CashLineInput(ForeignEntityInput C_CashLine) {
 		this.mC_CashLine = C_CashLine;
-		MCashLine foreignEntity;
 		if (C_CashLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCashLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashLine", "C_CashLine_UU=?", get_TrxName())
 							.setParameters(C_CashLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -497,7 +497,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_CashLine with UUID " + C_CashLine.getUUID());
 			}
 		} else {
-			super.setC_CashLine_ID(0);
+			this.setC_CashLine_ID(0);
 		}
 	}
 
@@ -519,9 +519,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_CashPlanLine")
 	public void setC_CashPlanLineInput(ForeignEntityInput C_CashPlanLine) {
 		this.mC_CashPlanLine = C_CashPlanLine;
-		MCashPlanLine foreignEntity;
 		if (C_CashPlanLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCashPlanLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashPlanLine", "C_CashPlanLine_UU=?", get_TrxName())
 							.setParameters(C_CashPlanLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -531,7 +531,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_CashPlanLine with UUID " + C_CashPlanLine.getUUID());
 			}
 		} else {
-			super.setC_CashPlanLine_ID(0);
+			this.setC_CashPlanLine_ID(0);
 		}
 	}
 
@@ -553,9 +553,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -565,7 +565,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -587,9 +587,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_ConversionType")
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
-		MConversionType foreignEntity;
 		if (C_ConversionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -599,7 +599,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
 			}
 		} else {
-			super.setC_ConversionType_ID(0);
+			this.setC_ConversionType_ID(0);
 		}
 	}
 
@@ -621,9 +621,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 && C_Currency != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Currency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -632,6 +635,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
+		} else {
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -653,9 +658,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
-		if (get_ID() == 0 && C_DocType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_DocType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -664,6 +672,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
+		} else {
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -685,9 +695,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_DocTypeTarget")
 	public void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget) {
 		this.mC_DocTypeTarget = C_DocTypeTarget;
-		MDocType_BH foreignEntity;
 		if (C_DocTypeTarget != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocTypeTarget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -697,7 +707,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_DocType with UUID " + C_DocTypeTarget.getUUID());
 			}
 		} else {
-			super.setC_DocTypeTarget_ID(0);
+			this.setC_DocTypeTarget_ID(0);
 		}
 	}
 
@@ -719,9 +729,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Opportunity")
 	public void setC_OpportunityInput(ForeignEntityInput C_Opportunity) {
 		this.mC_Opportunity = C_Opportunity;
-		MOpportunity foreignEntity;
 		if (C_Opportunity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOpportunity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
 							.setParameters(C_Opportunity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -731,7 +741,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Opportunity with UUID " + C_Opportunity.getUUID());
 			}
 		} else {
-			super.setC_Opportunity_ID(0);
+			this.setC_Opportunity_ID(0);
 		}
 	}
 
@@ -782,9 +792,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_OrderSource")
 	public void setC_OrderSourceInput(ForeignEntityInput C_OrderSource) {
 		this.mC_OrderSource = C_OrderSource;
-		X_C_OrderSource foreignEntity;
 		if (C_OrderSource != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_OrderSource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderSource", "C_OrderSource_UU=?", get_TrxName())
 							.setParameters(C_OrderSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -794,7 +804,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_OrderSource with UUID " + C_OrderSource.getUUID());
 			}
 		} else {
-			super.setC_OrderSource_ID(0);
+			this.setC_OrderSource_ID(0);
 		}
 	}
 
@@ -816,9 +826,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		MPayment_BH foreignEntity;
 		if (C_Payment != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -828,7 +838,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
 			}
 		} else {
-			super.setC_Payment_ID(0);
+			this.setC_Payment_ID(0);
 		}
 	}
 
@@ -850,9 +860,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_PaymentTerm")
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
-		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -862,7 +872,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
 			}
 		} else {
-			super.setC_PaymentTerm_ID(0);
+			this.setC_PaymentTerm_ID(0);
 		}
 	}
 
@@ -884,9 +894,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_POS")
 	public void setC_POSInput(ForeignEntityInput C_POS) {
 		this.mC_POS = C_POS;
-		MPOS foreignEntity;
 		if (C_POS != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPOS foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POS", "C_POS_UU=?", get_TrxName())
 							.setParameters(C_POS.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -896,7 +906,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_POS with UUID " + C_POS.getUUID());
 			}
 		} else {
-			super.setC_POS_ID(0);
+			this.setC_POS_ID(0);
 		}
 	}
 
@@ -918,9 +928,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -930,7 +940,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -952,9 +962,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("DeliveryRule")
 	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
-		MRefList_BH foreignEntity;
 		if (DeliveryRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DeliveryRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -986,9 +996,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("DeliveryViaRule")
 	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
-		MRefList_BH foreignEntity;
 		if (DeliveryViaRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DeliveryViaRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1020,9 +1030,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("DocAction")
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
-		MRefList_BH foreignEntity;
 		if (DocAction != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1054,9 +1064,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("DocStatus")
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
-		MRefList_BH foreignEntity;
 		if (DocStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1099,9 +1109,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("DropShip_BPartner")
 	public void setDropShip_BPartnerInput(ForeignEntityInput DropShip_BPartner) {
 		this.mDropShip_BPartner = DropShip_BPartner;
-		MBPartner_BH foreignEntity;
 		if (DropShip_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(DropShip_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1111,7 +1121,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_BPartner with UUID " + DropShip_BPartner.getUUID());
 			}
 		} else {
-			super.setDropShip_BPartner_ID(0);
+			this.setDropShip_BPartner_ID(0);
 		}
 	}
 
@@ -1133,9 +1143,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("DropShip_Location")
 	public void setDropShip_LocationInput(ForeignEntityInput DropShip_Location) {
 		this.mDropShip_Location = DropShip_Location;
-		MBPartnerLocation foreignEntity;
 		if (DropShip_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(DropShip_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1145,7 +1155,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_BPartner_Location with UUID " + DropShip_Location.getUUID());
 			}
 		} else {
-			super.setDropShip_Location_ID(0);
+			this.setDropShip_Location_ID(0);
 		}
 	}
 
@@ -1167,9 +1177,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("DropShip_User")
 	public void setDropShip_UserInput(ForeignEntityInput DropShip_User) {
 		this.mDropShip_User = DropShip_User;
-		MUser_BH foreignEntity;
 		if (DropShip_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(DropShip_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1179,7 +1189,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table AD_User with UUID " + DropShip_User.getUUID());
 			}
 		} else {
-			super.setDropShip_User_ID(0);
+			this.setDropShip_User_ID(0);
 		}
 	}
 
@@ -1201,9 +1211,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("FreightCostRule")
 	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
-		MRefList_BH foreignEntity;
 		if (FreightCostRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FreightCostRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1246,9 +1256,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("InvoiceRule")
 	public void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
-		MRefList_BH foreignEntity;
 		if (InvoiceRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1346,9 +1356,12 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("Link_Order")
 	public void setLink_OrderInput(ForeignEntityInput Link_Order) {
 		this.mLink_Order = Link_Order;
-		MOrder_BH foreignEntity;
-		if (get_ID() == 0 && Link_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Link_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(Link_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1357,6 +1370,8 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Order with UUID " + Link_Order.getUUID());
 			}
+		} else {
+			this.setLink_Order_ID(0);
 		}
 	}
 
@@ -1378,9 +1393,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("M_FreightCategory")
 	public void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory) {
 		this.mM_FreightCategory = M_FreightCategory;
-		MFreightCategory foreignEntity;
 		if (M_FreightCategory != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MFreightCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
 							.setParameters(M_FreightCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1390,7 +1405,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table M_FreightCategory with UUID " + M_FreightCategory.getUUID());
 			}
 		} else {
-			super.setM_FreightCategory_ID(0);
+			this.setM_FreightCategory_ID(0);
 		}
 	}
 
@@ -1412,9 +1427,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("M_PriceList")
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
-		MPriceList foreignEntity;
 		if (M_PriceList != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1424,7 +1439,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
 			}
 		} else {
-			super.setM_PriceList_ID(0);
+			this.setM_PriceList_ID(0);
 		}
 	}
 
@@ -1446,9 +1461,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("M_Shipper")
 	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
-		MShipper foreignEntity;
 		if (M_Shipper != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1458,7 +1473,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table M_Shipper with UUID " + M_Shipper.getUUID());
 			}
 		} else {
-			super.setM_Shipper_ID(0);
+			this.setM_Shipper_ID(0);
 		}
 	}
 
@@ -1480,9 +1495,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1492,7 +1507,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -1525,9 +1540,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("PriorityRule")
 	public void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
-		MRefList_BH foreignEntity;
 		if (PriorityRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PriorityRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1570,9 +1585,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("QuotationOrder")
 	public void setQuotationOrderInput(ForeignEntityInput QuotationOrder) {
 		this.mQuotationOrder = QuotationOrder;
-		MOrder_BH foreignEntity;
 		if (QuotationOrder != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(QuotationOrder.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1582,7 +1597,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Order with UUID " + QuotationOrder.getUUID());
 			}
 		} else {
-			super.setQuotationOrder_ID(0);
+			this.setQuotationOrder_ID(0);
 		}
 	}
 
@@ -1604,9 +1619,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("Ref_Order")
 	public void setRef_OrderInput(ForeignEntityInput Ref_Order) {
 		this.mRef_Order = Ref_Order;
-		MOrder_BH foreignEntity;
 		if (Ref_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(Ref_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1616,7 +1631,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_Order with UUID " + Ref_Order.getUUID());
 			}
 		} else {
-			super.setRef_Order_ID(0);
+			this.setRef_Order_ID(0);
 		}
 	}
 
@@ -1638,9 +1653,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		MUser_BH foreignEntity;
 		if (SalesRep != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1650,7 +1665,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
 			}
 		} else {
-			super.setSalesRep_ID(0);
+			this.setSalesRep_ID(0);
 		}
 	}
 
@@ -1683,9 +1698,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1695,7 +1710,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -1717,9 +1732,9 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MElementValue foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1729,7 +1744,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

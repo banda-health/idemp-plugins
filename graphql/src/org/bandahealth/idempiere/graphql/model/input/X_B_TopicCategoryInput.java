@@ -44,9 +44,12 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -105,9 +110,12 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 	@JsonProperty("B_TopicType")
 	public void setB_TopicTypeInput(ForeignEntityInput B_TopicType) {
 		this.mB_TopicType = B_TopicType;
-		X_B_TopicType foreignEntity;
-		if (get_ID() == 0 && B_TopicType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (B_TopicType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_B_TopicType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_TopicType", "B_TopicType_UU=?", get_TrxName())
 							.setParameters(B_TopicType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -116,6 +124,8 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 				throw new AdempiereException(
 						"Could not find entity in table B_TopicType with UUID " + B_TopicType.getUUID());
 			}
+		} else {
+			this.setB_TopicType_ID(0);
 		}
 	}
 

@@ -44,9 +44,12 @@ public class X_AD_Package_ImpInput extends X_AD_Package_Imp implements I_AD_Pack
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_AD_Package_ImpInput extends X_AD_Package_Imp implements I_AD_Pack
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -87,9 +92,9 @@ public class X_AD_Package_ImpInput extends X_AD_Package_Imp implements I_AD_Pack
 	@JsonProperty("AD_Package_Imp_Proc")
 	public void setAD_Package_Imp_ProcInput(ForeignEntityInput AD_Package_Imp_Proc) {
 		this.mAD_Package_Imp_Proc = AD_Package_Imp_Proc;
-		X_AD_Package_Imp_Proc foreignEntity;
 		if (AD_Package_Imp_Proc != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Package_Imp_Proc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Package_Imp_Proc", "AD_Package_Imp_Proc_UU=?", get_TrxName())
 							.setParameters(AD_Package_Imp_Proc.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -99,7 +104,7 @@ public class X_AD_Package_ImpInput extends X_AD_Package_Imp implements I_AD_Pack
 						"Could not find entity in table AD_Package_Imp_Proc with UUID " + AD_Package_Imp_Proc.getUUID());
 			}
 		} else {
-			super.setAD_Package_Imp_Proc_ID(0);
+			this.setAD_Package_Imp_Proc_ID(0);
 		}
 	}
 

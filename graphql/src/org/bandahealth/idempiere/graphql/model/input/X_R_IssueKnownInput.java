@@ -48,9 +48,12 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -109,9 +114,9 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 	@JsonProperty("R_IssueRecommendation")
 	public void setR_IssueRecommendationInput(ForeignEntityInput R_IssueRecommendation) {
 		this.mR_IssueRecommendation = R_IssueRecommendation;
-		X_R_IssueRecommendation foreignEntity;
 		if (R_IssueRecommendation != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_R_IssueRecommendation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueRecommendation", "R_IssueRecommendation_UU=?", get_TrxName())
 							.setParameters(R_IssueRecommendation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,7 +126,7 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 						"Could not find entity in table R_IssueRecommendation with UUID " + R_IssueRecommendation.getUUID());
 			}
 		} else {
-			super.setR_IssueRecommendation_ID(0);
+			this.setR_IssueRecommendation_ID(0);
 		}
 	}
 
@@ -143,9 +148,9 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 	@JsonProperty("R_IssueStatus")
 	public void setR_IssueStatusInput(ForeignEntityInput R_IssueStatus) {
 		this.mR_IssueStatus = R_IssueStatus;
-		X_R_IssueStatus foreignEntity;
 		if (R_IssueStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_R_IssueStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueStatus", "R_IssueStatus_UU=?", get_TrxName())
 							.setParameters(R_IssueStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +160,7 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 						"Could not find entity in table R_IssueStatus with UUID " + R_IssueStatus.getUUID());
 			}
 		} else {
-			super.setR_IssueStatus_ID(0);
+			this.setR_IssueStatus_ID(0);
 		}
 	}
 
@@ -177,9 +182,9 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 	@JsonProperty("R_Request")
 	public void setR_RequestInput(ForeignEntityInput R_Request) {
 		this.mR_Request = R_Request;
-		MRequest foreignEntity;
 		if (R_Request != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
 							.setParameters(R_Request.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +194,7 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 						"Could not find entity in table R_Request with UUID " + R_Request.getUUID());
 			}
 		} else {
-			super.setR_Request_ID(0);
+			this.setR_Request_ID(0);
 		}
 	}
 

@@ -44,9 +44,12 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	@JsonProperty("C_Calendar")
 	public void setC_CalendarInput(ForeignEntityInput C_Calendar) {
 		this.mC_Calendar = C_Calendar;
-		MCalendar foreignEntity;
-		if (get_ID() == 0 && C_Calendar != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Calendar != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCalendar foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
 							.setParameters(C_Calendar.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Calendar with UUID " + C_Calendar.getUUID());
 			}
+		} else {
+			this.setC_Calendar_ID(0);
 		}
 	}
 

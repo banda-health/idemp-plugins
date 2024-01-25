@@ -84,9 +84,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("A_Asset_Group")
 	public void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group) {
 		this.mA_Asset_Group = A_Asset_Group;
-		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAssetGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
 							.setParameters(A_Asset_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -96,7 +96,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table A_Asset_Group with UUID " + A_Asset_Group.getUUID());
 			}
 		} else {
-			super.setA_Asset_Group_ID(0);
+			this.setA_Asset_Group_ID(0);
 		}
 	}
 
@@ -118,9 +118,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		MAsset foreignEntity;
 		if (A_Asset != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -130,7 +130,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
 			}
 		} else {
-			super.setA_Asset_ID(0);
+			this.setA_Asset_ID(0);
 		}
 	}
 
@@ -152,9 +152,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("A_CapvsExp")
 	public void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp) {
 		this.mA_CapvsExp = A_CapvsExp;
-		MRefList_BH foreignEntity;
 		if (A_CapvsExp != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_CapvsExp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -186,9 +186,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -198,7 +198,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -220,9 +220,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_1099Box")
 	public void setC_1099BoxInput(ForeignEntityInput C_1099Box) {
 		this.mC_1099Box = C_1099Box;
-		X_C_1099Box foreignEntity;
 		if (C_1099Box != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_1099Box foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_1099Box", "C_1099Box_UU=?", get_TrxName())
 							.setParameters(C_1099Box.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -232,7 +232,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_1099Box with UUID " + C_1099Box.getUUID());
 			}
 		} else {
-			super.setC_1099Box_ID(0);
+			this.setC_1099Box_ID(0);
 		}
 	}
 
@@ -254,9 +254,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -266,7 +266,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -288,9 +288,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -300,7 +300,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -322,9 +322,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -334,7 +334,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -356,9 +356,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 && C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -367,6 +370,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 				throw new AdempiereException(
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
+		} else {
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -417,9 +422,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		MOrderLine_BH foreignEntity;
-		if (get_ID() == 0 && C_OrderLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_OrderLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -428,6 +436,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 				throw new AdempiereException(
 						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
 			}
+		} else {
+			this.setC_OrderLine_ID(0);
 		}
 	}
 
@@ -449,9 +459,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -461,7 +471,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -483,9 +493,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_ProjectPhase")
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
-		MProjectPhase foreignEntity;
-		if (get_ID() == 0 && C_ProjectPhase != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_ProjectPhase != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
 							.setParameters(C_ProjectPhase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -494,6 +507,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 				throw new AdempiereException(
 						"Could not find entity in table C_ProjectPhase with UUID " + C_ProjectPhase.getUUID());
 			}
+		} else {
+			this.setC_ProjectPhase_ID(0);
 		}
 	}
 
@@ -515,9 +530,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_ProjectTask")
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
-		MProjectTask foreignEntity;
-		if (get_ID() == 0 && C_ProjectTask != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_ProjectTask != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
 							.setParameters(C_ProjectTask.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -526,6 +544,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 				throw new AdempiereException(
 						"Could not find entity in table C_ProjectTask with UUID " + C_ProjectTask.getUUID());
 			}
+		} else {
+			this.setC_ProjectTask_ID(0);
 		}
 	}
 
@@ -547,9 +567,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		MTax foreignEntity;
 		if (C_Tax != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -559,7 +579,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
 			}
 		} else {
-			super.setC_Tax_ID(0);
+			this.setC_Tax_ID(0);
 		}
 	}
 
@@ -581,9 +601,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		MUOM foreignEntity;
-		if (get_ID() == 0 && C_UOM != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_UOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -592,6 +615,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 				throw new AdempiereException(
 						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
 			}
+		} else {
+			this.setC_UOM_ID(0);
 		}
 	}
 
@@ -624,9 +649,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -636,7 +661,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -658,9 +683,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		MInOutLine foreignEntity;
-		if (get_ID() == 0 && M_InOutLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_InOutLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -669,6 +697,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 				throw new AdempiereException(
 						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
 			}
+		} else {
+			this.setM_InOutLine_ID(0);
 		}
 	}
 
@@ -690,9 +720,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -702,7 +732,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -724,9 +754,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("M_RMALine")
 	public void setM_RMALineInput(ForeignEntityInput M_RMALine) {
 		this.mM_RMALine = M_RMALine;
-		MRMALine foreignEntity;
 		if (M_RMALine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRMALine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMALine", "M_RMALine_UU=?", get_TrxName())
 							.setParameters(M_RMALine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -736,7 +766,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table M_RMALine with UUID " + M_RMALine.getUUID());
 			}
 		} else {
-			super.setM_RMALine_ID(0);
+			this.setM_RMALine_ID(0);
 		}
 	}
 
@@ -769,9 +799,12 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("S_ResourceAssignment")
 	public void setS_ResourceAssignmentInput(ForeignEntityInput S_ResourceAssignment) {
 		this.mS_ResourceAssignment = S_ResourceAssignment;
-		MResourceAssignment foreignEntity;
-		if (get_ID() == 0 && S_ResourceAssignment != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (S_ResourceAssignment != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MResourceAssignment foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ResourceAssignment", "S_ResourceAssignment_UU=?", get_TrxName())
 							.setParameters(S_ResourceAssignment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -780,6 +813,8 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 				throw new AdempiereException(
 						"Could not find entity in table S_ResourceAssignment with UUID " + S_ResourceAssignment.getUUID());
 			}
+		} else {
+			this.setS_ResourceAssignment_ID(0);
 		}
 	}
 
@@ -801,9 +836,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -813,7 +848,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -835,9 +870,9 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MElementValue foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -847,7 +882,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

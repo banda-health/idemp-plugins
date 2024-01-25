@@ -45,9 +45,12 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -56,6 +59,8 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -106,9 +111,9 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	@JsonProperty("NetDay")
 	public void setNetDayInput(I_AD_Ref_ListInput NetDay) {
 		this.mNetDay = NetDay;
-		MRefList_BH foreignEntity;
 		if (NetDay != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(NetDay.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -140,9 +145,9 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	@JsonProperty("PaymentTermUsage")
 	public void setPaymentTermUsageInput(I_AD_Ref_ListInput PaymentTermUsage) {
 		this.mPaymentTermUsage = PaymentTermUsage;
-		MRefList_BH foreignEntity;
 		if (PaymentTermUsage != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentTermUsage.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

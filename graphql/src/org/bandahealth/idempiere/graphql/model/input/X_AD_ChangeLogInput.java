@@ -51,9 +51,12 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_ChangeLog")
 	public void setAD_ChangeLogInput(ForeignEntityInput AD_ChangeLog) {
 		this.mAD_ChangeLog = AD_ChangeLog;
-		MChangeLog foreignEntity;
-		if (get_ID() == 0 && AD_ChangeLog != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_ChangeLog != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChangeLog foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ChangeLog", "AD_ChangeLog_UU=?", get_TrxName())
 							.setParameters(AD_ChangeLog.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,6 +65,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_ChangeLog with UUID " + AD_ChangeLog.getUUID());
 			}
+		} else {
+			this.setAD_ChangeLog_ID(0);
 		}
 	}
 
@@ -101,9 +106,12 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		MColumn foreignEntity;
-		if (get_ID() == 0 && AD_Column != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Column != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -112,6 +120,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
 			}
+		} else {
+			this.setAD_Column_ID(0);
 		}
 	}
 
@@ -133,9 +143,12 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -144,6 +157,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -165,9 +180,12 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Session")
 	public void setAD_SessionInput(ForeignEntityInput AD_Session) {
 		this.mAD_Session = AD_Session;
-		MSession foreignEntity;
-		if (get_ID() == 0 && AD_Session != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Session != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MSession foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Session", "AD_Session_UU=?", get_TrxName())
 							.setParameters(AD_Session.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -176,6 +194,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Session with UUID " + AD_Session.getUUID());
 			}
+		} else {
+			this.setAD_Session_ID(0);
 		}
 	}
 
@@ -197,9 +217,12 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
-		if (get_ID() == 0 && AD_Table != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -208,6 +231,8 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
+		} else {
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -229,9 +254,9 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	@JsonProperty("EventChangeLog")
 	public void setEventChangeLogInput(I_AD_Ref_ListInput EventChangeLog) {
 		this.mEventChangeLog = EventChangeLog;
-		MRefList_BH foreignEntity;
 		if (EventChangeLog != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(EventChangeLog.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

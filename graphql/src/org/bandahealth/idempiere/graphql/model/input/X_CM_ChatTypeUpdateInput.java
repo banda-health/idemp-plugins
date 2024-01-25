@@ -46,9 +46,12 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
+		} else {
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -110,9 +120,12 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 	@JsonProperty("CM_ChatType")
 	public void setCM_ChatTypeInput(ForeignEntityInput CM_ChatType) {
 		this.mCM_ChatType = CM_ChatType;
-		MChatType foreignEntity;
-		if (get_ID() == 0 && CM_ChatType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (CM_ChatType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChatType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_ChatType", "CM_ChatType_UU=?", get_TrxName())
 							.setParameters(CM_ChatType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +134,8 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 				throw new AdempiereException(
 						"Could not find entity in table CM_ChatType with UUID " + CM_ChatType.getUUID());
 			}
+		} else {
+			this.setCM_ChatType_ID(0);
 		}
 	}
 

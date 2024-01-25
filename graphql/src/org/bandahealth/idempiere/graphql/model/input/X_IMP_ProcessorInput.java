@@ -46,9 +46,12 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 	@JsonProperty("FrequencyType")
 	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
-		MRefList_BH foreignEntity;
 		if (FrequencyType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,9 +128,9 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 	@JsonProperty("IMP_Processor_Type")
 	public void setIMP_Processor_TypeInput(ForeignEntityInput IMP_Processor_Type) {
 		this.mIMP_Processor_Type = IMP_Processor_Type;
-		X_IMP_Processor_Type foreignEntity;
 		if (IMP_Processor_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_IMP_Processor_Type foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor_Type", "IMP_Processor_Type_UU=?", get_TrxName())
 							.setParameters(IMP_Processor_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -135,7 +140,7 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 						"Could not find entity in table IMP_Processor_Type with UUID " + IMP_Processor_Type.getUUID());
 			}
 		} else {
-			super.setIMP_Processor_Type_ID(0);
+			this.setIMP_Processor_Type_ID(0);
 		}
 	}
 

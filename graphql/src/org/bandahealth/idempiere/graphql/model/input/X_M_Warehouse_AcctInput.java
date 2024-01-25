@@ -48,9 +48,12 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -130,9 +140,12 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
-		if (get_ID() == 0 && M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Warehouse != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -141,6 +154,8 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 				throw new AdempiereException(
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
+		} else {
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -162,9 +177,9 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	@JsonProperty("W_Differences_A")
 	public void setW_Differences_AInput(ForeignEntityInput W_Differences_A) {
 		this.mW_Differences_A = W_Differences_A;
-		MAccount foreignEntity;
 		if (W_Differences_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(W_Differences_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,7 +189,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 						"Could not find entity in table C_ValidCombination with UUID " + W_Differences_A.getUUID());
 			}
 		} else {
-			super.setW_Differences_Acct(0);
+			this.setW_Differences_Acct(0);
 		}
 	}
 

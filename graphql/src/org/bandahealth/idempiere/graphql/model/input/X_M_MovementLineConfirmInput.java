@@ -48,9 +48,12 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	@JsonProperty("M_InventoryLine")
 	public void setM_InventoryLineInput(ForeignEntityInput M_InventoryLine) {
 		this.mM_InventoryLine = M_InventoryLine;
-		MInventoryLine_BH foreignEntity;
 		if (M_InventoryLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInventoryLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 						"Could not find entity in table M_InventoryLine with UUID " + M_InventoryLine.getUUID());
 			}
 		} else {
-			super.setM_InventoryLine_ID(0);
+			this.setM_InventoryLine_ID(0);
 		}
 	}
 
@@ -114,9 +119,12 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	@JsonProperty("M_MovementConfirm")
 	public void setM_MovementConfirmInput(ForeignEntityInput M_MovementConfirm) {
 		this.mM_MovementConfirm = M_MovementConfirm;
-		MMovementConfirm foreignEntity;
-		if (get_ID() == 0 && M_MovementConfirm != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_MovementConfirm != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMovementConfirm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementConfirm", "M_MovementConfirm_UU=?", get_TrxName())
 							.setParameters(M_MovementConfirm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -125,6 +133,8 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 				throw new AdempiereException(
 						"Could not find entity in table M_MovementConfirm with UUID " + M_MovementConfirm.getUUID());
 			}
+		} else {
+			this.setM_MovementConfirm_ID(0);
 		}
 	}
 
@@ -146,9 +156,9 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	@JsonProperty("M_MovementLine")
 	public void setM_MovementLineInput(ForeignEntityInput M_MovementLine) {
 		this.mM_MovementLine = M_MovementLine;
-		MMovementLine_BH foreignEntity;
 		if (M_MovementLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMovementLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -158,7 +168,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 						"Could not find entity in table M_MovementLine with UUID " + M_MovementLine.getUUID());
 			}
 		} else {
-			super.setM_MovementLine_ID(0);
+			this.setM_MovementLine_ID(0);
 		}
 	}
 

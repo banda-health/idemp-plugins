@@ -48,9 +48,12 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	@JsonProperty("C_UOM_Length")
 	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
-		MUOM foreignEntity;
 		if (C_UOM_Length != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM_Length.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 						"Could not find entity in table C_UOM with UUID " + C_UOM_Length.getUUID());
 			}
 		} else {
-			super.setC_UOM_Length_ID(0);
+			this.setC_UOM_Length_ID(0);
 		}
 	}
 
@@ -114,9 +119,9 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	@JsonProperty("C_UOM_Weight")
 	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
-		MUOM foreignEntity;
 		if (C_UOM_Weight != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM_Weight.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 						"Could not find entity in table C_UOM with UUID " + C_UOM_Weight.getUUID());
 			}
 		} else {
-			super.setC_UOM_Weight_ID(0);
+			this.setC_UOM_Weight_ID(0);
 		}
 	}
 
@@ -159,9 +164,12 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	@JsonProperty("M_Package")
 	public void setM_PackageInput(ForeignEntityInput M_Package) {
 		this.mM_Package = M_Package;
-		MPackage foreignEntity;
-		if (get_ID() == 0 && M_Package != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Package != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPackage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Package", "M_Package_UU=?", get_TrxName())
 							.setParameters(M_Package.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -170,6 +178,8 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 				throw new AdempiereException(
 						"Could not find entity in table M_Package with UUID " + M_Package.getUUID());
 			}
+		} else {
+			this.setM_Package_ID(0);
 		}
 	}
 

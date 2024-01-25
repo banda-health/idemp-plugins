@@ -50,9 +50,12 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("BOMType")
 	public void setBOMTypeInput(I_AD_Ref_ListInput BOMType) {
 		this.mBOMType = BOMType;
-		MRefList_BH foreignEntity;
 		if (BOMType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -149,9 +154,12 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("M_PartType")
 	public void setM_PartTypeInput(ForeignEntityInput M_PartType) {
 		this.mM_PartType = M_PartType;
-		X_M_PartType foreignEntity;
-		if (get_ID() == 0 && M_PartType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_PartType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_M_PartType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PartType", "M_PartType_UU=?", get_TrxName())
 							.setParameters(M_PartType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -160,6 +168,8 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 				throw new AdempiereException(
 						"Could not find entity in table M_PartType with UUID " + M_PartType.getUUID());
 			}
+		} else {
+			this.setM_PartType_ID(0);
 		}
 	}
 
@@ -210,9 +220,12 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -221,6 +234,8 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -242,9 +257,9 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("M_ProductBOM")
 	public void setM_ProductBOMInput(ForeignEntityInput M_ProductBOM) {
 		this.mM_ProductBOM = M_ProductBOM;
-		MProduct_BH foreignEntity;
 		if (M_ProductBOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_ProductBOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -254,7 +269,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 						"Could not find entity in table M_Product with UUID " + M_ProductBOM.getUUID());
 			}
 		} else {
-			super.setM_ProductBOM_ID(0);
+			this.setM_ProductBOM_ID(0);
 		}
 	}
 

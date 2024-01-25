@@ -46,9 +46,12 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,12 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 	@JsonProperty("C_AddressValidation")
 	public void setC_AddressValidationInput(ForeignEntityInput C_AddressValidation) {
 		this.mC_AddressValidation = C_AddressValidation;
-		MAddressValidation foreignEntity;
-		if (get_ID() == 0 && C_AddressValidation != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AddressValidation != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAddressValidation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AddressValidation", "C_AddressValidation_UU=?", get_TrxName())
 							.setParameters(C_AddressValidation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +126,8 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_AddressValidation with UUID " + C_AddressValidation.getUUID());
 			}
+		} else {
+			this.setC_AddressValidation_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
 		if (C_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_C_AddressTransactionInput extends MAddressTransaction implements 
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
 		} else {
-			super.setC_Location_ID(0);
+			this.setC_Location_ID(0);
 		}
 	}
 

@@ -46,9 +46,12 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,12 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 	@JsonProperty("BH_Payer_Info_Fld")
 	public void setBH_Payer_Info_FldInput(ForeignEntityInput BH_Payer_Info_Fld) {
 		this.mBH_Payer_Info_Fld = BH_Payer_Info_Fld;
-		MBHPayerInfoFld foreignEntity;
-		if (get_ID() == 0 && BH_Payer_Info_Fld != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BH_Payer_Info_Fld != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHPayerInfoFld foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Payer_Info_Fld", "BH_Payer_Info_Fld_UU=?", get_TrxName())
 							.setParameters(BH_Payer_Info_Fld.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +126,8 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 				throw new AdempiereException(
 						"Could not find entity in table BH_Payer_Info_Fld with UUID " + BH_Payer_Info_Fld.getUUID());
 			}
+		} else {
+			this.setBH_Payer_Info_Fld_ID(0);
 		}
 	}
 
@@ -139,9 +149,12 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 && C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_InvoiceLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -150,6 +163,8 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 				throw new AdempiereException(
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
+		} else {
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 

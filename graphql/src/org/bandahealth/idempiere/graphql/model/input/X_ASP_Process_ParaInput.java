@@ -48,9 +48,12 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	@JsonProperty("AD_Process_Para")
 	public void setAD_Process_ParaInput(ForeignEntityInput AD_Process_Para) {
 		this.mAD_Process_Para = AD_Process_Para;
-		MProcessPara foreignEntity;
-		if (get_ID() == 0 && AD_Process_Para != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Process_Para != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
 							.setParameters(AD_Process_Para.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 				throw new AdempiereException(
 						"Could not find entity in table AD_Process_Para with UUID " + AD_Process_Para.getUUID());
 			}
+		} else {
+			this.setAD_Process_Para_ID(0);
 		}
 	}
 
@@ -112,9 +122,12 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	@JsonProperty("ASP_Process")
 	public void setASP_ProcessInput(ForeignEntityInput ASP_Process) {
 		this.mASP_Process = ASP_Process;
-		X_ASP_Process foreignEntity;
-		if (get_ID() == 0 && ASP_Process != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (ASP_Process != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_ASP_Process foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Process", "ASP_Process_UU=?", get_TrxName())
 							.setParameters(ASP_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +136,8 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 				throw new AdempiereException(
 						"Could not find entity in table ASP_Process with UUID " + ASP_Process.getUUID());
 			}
+		} else {
+			this.setASP_Process_ID(0);
 		}
 	}
 
@@ -173,9 +188,9 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	@JsonProperty("ASP_Status")
 	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
-		MRefList_BH foreignEntity;
 		if (ASP_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

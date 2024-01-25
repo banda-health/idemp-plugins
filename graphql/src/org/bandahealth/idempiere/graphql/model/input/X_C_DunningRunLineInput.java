@@ -50,9 +50,12 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,12 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 	@JsonProperty("C_DunningRunEntry")
 	public void setC_DunningRunEntryInput(ForeignEntityInput C_DunningRunEntry) {
 		this.mC_DunningRunEntry = C_DunningRunEntry;
-		MDunningRunEntry foreignEntity;
-		if (get_ID() == 0 && C_DunningRunEntry != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_DunningRunEntry != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDunningRunEntry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningRunEntry", "C_DunningRunEntry_UU=?", get_TrxName())
 							.setParameters(C_DunningRunEntry.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,6 +101,8 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 				throw new AdempiereException(
 						"Could not find entity in table C_DunningRunEntry with UUID " + C_DunningRunEntry.getUUID());
 			}
+		} else {
+			this.setC_DunningRunEntry_ID(0);
 		}
 	}
 
@@ -143,9 +153,9 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
 		if (C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +165,7 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
 		} else {
-			super.setC_Invoice_ID(0);
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -177,9 +187,9 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 	@JsonProperty("C_InvoicePaySchedule")
 	public void setC_InvoicePayScheduleInput(ForeignEntityInput C_InvoicePaySchedule) {
 		this.mC_InvoicePaySchedule = C_InvoicePaySchedule;
-		MInvoicePaySchedule foreignEntity;
 		if (C_InvoicePaySchedule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoicePaySchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoicePaySchedule", "C_InvoicePaySchedule_UU=?", get_TrxName())
 							.setParameters(C_InvoicePaySchedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +199,7 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 						"Could not find entity in table C_InvoicePaySchedule with UUID " + C_InvoicePaySchedule.getUUID());
 			}
 		} else {
-			super.setC_InvoicePaySchedule_ID(0);
+			this.setC_InvoicePaySchedule_ID(0);
 		}
 	}
 
@@ -211,9 +221,9 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		MPayment_BH foreignEntity;
 		if (C_Payment != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -223,7 +233,7 @@ public class X_C_DunningRunLineInput extends MDunningRunLine implements I_C_Dunn
 						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
 			}
 		} else {
-			super.setC_Payment_ID(0);
+			this.setC_Payment_ID(0);
 		}
 	}
 

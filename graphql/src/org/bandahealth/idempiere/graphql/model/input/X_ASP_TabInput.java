@@ -48,9 +48,12 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	@JsonProperty("AD_Tab")
 	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
 		this.mAD_Tab = AD_Tab;
-		MTab foreignEntity;
-		if (get_ID() == 0 && AD_Tab != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Tab != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
 							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
 			}
+		} else {
+			this.setAD_Tab_ID(0);
 		}
 	}
 
@@ -112,9 +122,9 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	@JsonProperty("ASP_Status")
 	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
-		MRefList_BH foreignEntity;
 		if (ASP_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -175,9 +185,12 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	@JsonProperty("ASP_Window")
 	public void setASP_WindowInput(ForeignEntityInput ASP_Window) {
 		this.mASP_Window = ASP_Window;
-		X_ASP_Window foreignEntity;
-		if (get_ID() == 0 && ASP_Window != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (ASP_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_ASP_Window foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Window", "ASP_Window_UU=?", get_TrxName())
 							.setParameters(ASP_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -186,6 +199,8 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 				throw new AdempiereException(
 						"Could not find entity in table ASP_Window with UUID " + ASP_Window.getUUID());
 			}
+		} else {
+			this.setASP_Window_ID(0);
 		}
 	}
 

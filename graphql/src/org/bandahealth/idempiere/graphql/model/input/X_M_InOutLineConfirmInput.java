@@ -51,9 +51,12 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,6 +65,8 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -83,9 +88,9 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
 		if (C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,7 +100,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
 		} else {
-			super.setC_InvoiceLine_ID(0);
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 
@@ -117,9 +122,12 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("M_InOutConfirm")
 	public void setM_InOutConfirmInput(ForeignEntityInput M_InOutConfirm) {
 		this.mM_InOutConfirm = M_InOutConfirm;
-		MInOutConfirm foreignEntity;
-		if (get_ID() == 0 && M_InOutConfirm != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_InOutConfirm != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInOutConfirm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutConfirm", "M_InOutConfirm_UU=?", get_TrxName())
 							.setParameters(M_InOutConfirm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,6 +136,8 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 				throw new AdempiereException(
 						"Could not find entity in table M_InOutConfirm with UUID " + M_InOutConfirm.getUUID());
 			}
+		} else {
+			this.setM_InOutConfirm_ID(0);
 		}
 	}
 
@@ -149,9 +159,12 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		MInOutLine foreignEntity;
-		if (get_ID() == 0 && M_InOutLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_InOutLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -160,6 +173,8 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 				throw new AdempiereException(
 						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
 			}
+		} else {
+			this.setM_InOutLine_ID(0);
 		}
 	}
 
@@ -210,9 +225,9 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	@JsonProperty("M_InventoryLine")
 	public void setM_InventoryLineInput(ForeignEntityInput M_InventoryLine) {
 		this.mM_InventoryLine = M_InventoryLine;
-		MInventoryLine_BH foreignEntity;
 		if (M_InventoryLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInventoryLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -222,7 +237,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 						"Could not find entity in table M_InventoryLine with UUID " + M_InventoryLine.getUUID());
 			}
 		} else {
-			super.setM_InventoryLine_ID(0);
+			this.setM_InventoryLine_ID(0);
 		}
 	}
 

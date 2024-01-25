@@ -60,9 +60,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		MColumn foreignEntity;
 		if (AD_Column != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -72,7 +72,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
 			}
 		} else {
-			super.setAD_Column_ID(0);
+			this.setAD_Column_ID(0);
 		}
 	}
 
@@ -94,9 +94,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -105,6 +108,8 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -126,9 +131,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_PrintColor")
 	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -138,7 +143,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor.getUUID());
 			}
 		} else {
-			super.setAD_PrintColor_ID(0);
+			this.setAD_PrintColor_ID(0);
 		}
 	}
 
@@ -160,9 +165,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_PrintFont")
 	public void setAD_PrintFontInput(ForeignEntityInput AD_PrintFont) {
 		this.mAD_PrintFont = AD_PrintFont;
-		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 							.setParameters(AD_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -172,7 +177,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 						"Could not find entity in table AD_PrintFont with UUID " + AD_PrintFont.getUUID());
 			}
 		} else {
-			super.setAD_PrintFont_ID(0);
+			this.setAD_PrintFont_ID(0);
 		}
 	}
 
@@ -194,9 +199,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_PrintFormat")
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
-		if (get_ID() == 0 && AD_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_PrintFormat != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -205,6 +213,8 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
 			}
+		} else {
+			this.setAD_PrintFormat_ID(0);
 		}
 	}
 
@@ -226,9 +236,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_PrintFormatChild")
 	public void setAD_PrintFormatChildInput(ForeignEntityInput AD_PrintFormatChild) {
 		this.mAD_PrintFormatChild = AD_PrintFormatChild;
-		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormatChild != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(AD_PrintFormatChild.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -238,7 +248,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormatChild.getUUID());
 			}
 		} else {
-			super.setAD_PrintFormatChild_ID(0);
+			this.setAD_PrintFormatChild_ID(0);
 		}
 	}
 
@@ -289,9 +299,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("AD_PrintGraph")
 	public void setAD_PrintGraphInput(ForeignEntityInput AD_PrintGraph) {
 		this.mAD_PrintGraph = AD_PrintGraph;
-		X_AD_PrintGraph foreignEntity;
 		if (AD_PrintGraph != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintGraph foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintGraph", "AD_PrintGraph_UU=?", get_TrxName())
 							.setParameters(AD_PrintGraph.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -301,7 +311,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 						"Could not find entity in table AD_PrintGraph with UUID " + AD_PrintGraph.getUUID());
 			}
 		} else {
-			super.setAD_PrintGraph_ID(0);
+			this.setAD_PrintGraph_ID(0);
 		}
 	}
 
@@ -323,9 +333,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("BarcodeType")
 	public void setBarcodeTypeInput(I_AD_Ref_ListInput BarcodeType) {
 		this.mBarcodeType = BarcodeType;
-		MRefList_BH foreignEntity;
 		if (BarcodeType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BarcodeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -357,9 +367,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("FieldAlignmentType")
 	public void setFieldAlignmentTypeInput(I_AD_Ref_ListInput FieldAlignmentType) {
 		this.mFieldAlignmentType = FieldAlignmentType;
-		MRefList_BH foreignEntity;
 		if (FieldAlignmentType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FieldAlignmentType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -391,9 +401,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("LineAlignmentType")
 	public void setLineAlignmentTypeInput(I_AD_Ref_ListInput LineAlignmentType) {
 		this.mLineAlignmentType = LineAlignmentType;
-		MRefList_BH foreignEntity;
 		if (LineAlignmentType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LineAlignmentType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -425,9 +435,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("PrintAreaType")
 	public void setPrintAreaTypeInput(I_AD_Ref_ListInput PrintAreaType) {
 		this.mPrintAreaType = PrintAreaType;
-		MRefList_BH foreignEntity;
 		if (PrintAreaType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PrintAreaType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -459,9 +469,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("PrintFormatType")
 	public void setPrintFormatTypeInput(I_AD_Ref_ListInput PrintFormatType) {
 		this.mPrintFormatType = PrintFormatType;
-		MRefList_BH foreignEntity;
 		if (PrintFormatType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PrintFormatType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -493,9 +503,9 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	@JsonProperty("ShapeType")
 	public void setShapeTypeInput(I_AD_Ref_ListInput ShapeType) {
 		this.mShapeType = ShapeType;
-		MRefList_BH foreignEntity;
 		if (ShapeType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ShapeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

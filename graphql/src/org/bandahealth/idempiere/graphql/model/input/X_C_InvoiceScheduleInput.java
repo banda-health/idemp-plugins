@@ -46,9 +46,12 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,9 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	@JsonProperty("InvoiceFrequency")
 	public void setInvoiceFrequencyInput(I_AD_Ref_ListInput InvoiceFrequency) {
 		this.mInvoiceFrequency = InvoiceFrequency;
-		MRefList_BH foreignEntity;
 		if (InvoiceFrequency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InvoiceFrequency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -141,9 +146,9 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	@JsonProperty("InvoiceWeekDay")
 	public void setInvoiceWeekDayInput(I_AD_Ref_ListInput InvoiceWeekDay) {
 		this.mInvoiceWeekDay = InvoiceWeekDay;
-		MRefList_BH foreignEntity;
 		if (InvoiceWeekDay != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InvoiceWeekDay.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -175,9 +180,9 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	@JsonProperty("InvoiceWeekDayCutoff")
 	public void setInvoiceWeekDayCutoffInput(I_AD_Ref_ListInput InvoiceWeekDayCutoff) {
 		this.mInvoiceWeekDayCutoff = InvoiceWeekDayCutoff;
-		MRefList_BH foreignEntity;
 		if (InvoiceWeekDayCutoff != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InvoiceWeekDayCutoff.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

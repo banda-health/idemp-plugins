@@ -58,9 +58,12 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -69,6 +72,8 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -90,9 +95,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -102,7 +107,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -124,9 +129,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -136,7 +141,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
 			}
 		} else {
-			super.setC_BP_Group_ID(0);
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -158,9 +163,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -170,7 +175,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -192,9 +197,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -204,7 +209,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -226,9 +231,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("C_Country")
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
-		MCountry foreignEntity;
 		if (C_Country != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
 							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -238,7 +243,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
 			}
 		} else {
-			super.setC_Country_ID(0);
+			this.setC_Country_ID(0);
 		}
 	}
 
@@ -260,9 +265,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("C_Greeting")
 	public void setC_GreetingInput(ForeignEntityInput C_Greeting) {
 		this.mC_Greeting = C_Greeting;
-		X_C_Greeting foreignEntity;
 		if (C_Greeting != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
 							.setParameters(C_Greeting.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -272,7 +277,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table C_Greeting with UUID " + C_Greeting.getUUID());
 			}
 		} else {
-			super.setC_Greeting_ID(0);
+			this.setC_Greeting_ID(0);
 		}
 	}
 
@@ -294,9 +299,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("C_Region")
 	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
-		MRegion foreignEntity;
 		if (C_Region != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
 							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -306,7 +311,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
 			}
 		} else {
-			super.setC_Region_ID(0);
+			this.setC_Region_ID(0);
 		}
 	}
 
@@ -368,9 +373,9 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	@JsonProperty("R_InterestArea")
 	public void setR_InterestAreaInput(ForeignEntityInput R_InterestArea) {
 		this.mR_InterestArea = R_InterestArea;
-		MInterestArea foreignEntity;
 		if (R_InterestArea != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInterestArea foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_InterestArea", "R_InterestArea_UU=?", get_TrxName())
 							.setParameters(R_InterestArea.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -380,7 +385,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 						"Could not find entity in table R_InterestArea with UUID " + R_InterestArea.getUUID());
 			}
 		} else {
-			super.setR_InterestArea_ID(0);
+			this.setR_InterestArea_ID(0);
 		}
 	}
 

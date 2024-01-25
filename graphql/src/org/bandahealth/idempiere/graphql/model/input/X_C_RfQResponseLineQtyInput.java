@@ -46,9 +46,12 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 	@JsonProperty("C_RfQLineQty")
 	public void setC_RfQLineQtyInput(ForeignEntityInput C_RfQLineQty) {
 		this.mC_RfQLineQty = C_RfQLineQty;
-		MRfQLineQty foreignEntity;
-		if (get_ID() == 0 && C_RfQLineQty != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_RfQLineQty != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRfQLineQty foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQLineQty", "C_RfQLineQty_UU=?", get_TrxName())
 							.setParameters(C_RfQLineQty.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_RfQLineQty with UUID " + C_RfQLineQty.getUUID());
 			}
+		} else {
+			this.setC_RfQLineQty_ID(0);
 		}
 	}
 
@@ -110,9 +120,12 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 	@JsonProperty("C_RfQResponseLine")
 	public void setC_RfQResponseLineInput(ForeignEntityInput C_RfQResponseLine) {
 		this.mC_RfQResponseLine = C_RfQResponseLine;
-		MRfQResponseLine foreignEntity;
-		if (get_ID() == 0 && C_RfQResponseLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_RfQResponseLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRfQResponseLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQResponseLine", "C_RfQResponseLine_UU=?", get_TrxName())
 							.setParameters(C_RfQResponseLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +134,8 @@ public class X_C_RfQResponseLineQtyInput extends MRfQResponseLineQty implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_RfQResponseLine with UUID " + C_RfQResponseLine.getUUID());
 			}
+		} else {
+			this.setC_RfQResponseLine_ID(0);
 		}
 	}
 

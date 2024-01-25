@@ -46,9 +46,12 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
+		} else {
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -110,9 +120,12 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 	@JsonProperty("C_Remuneration")
 	public void setC_RemunerationInput(ForeignEntityInput C_Remuneration) {
 		this.mC_Remuneration = C_Remuneration;
-		X_C_Remuneration foreignEntity;
-		if (get_ID() == 0 && C_Remuneration != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Remuneration != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Remuneration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Remuneration", "C_Remuneration_UU=?", get_TrxName())
 							.setParameters(C_Remuneration.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +134,8 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 				throw new AdempiereException(
 						"Could not find entity in table C_Remuneration with UUID " + C_Remuneration.getUUID());
 			}
+		} else {
+			this.setC_Remuneration_ID(0);
 		}
 	}
 

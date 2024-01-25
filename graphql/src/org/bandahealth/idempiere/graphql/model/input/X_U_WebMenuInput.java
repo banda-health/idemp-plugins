@@ -43,9 +43,12 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -54,6 +57,8 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -75,9 +80,9 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 	@JsonProperty("ParentMenu")
 	public void setParentMenuInput(ForeignEntityInput ParentMenu) {
 		this.mParentMenu = ParentMenu;
-		MWebMenu foreignEntity;
 		if (ParentMenu != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWebMenu foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "U_WebMenu", "U_WebMenu_UU=?", get_TrxName())
 							.setParameters(ParentMenu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,7 +92,7 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 						"Could not find entity in table U_WebMenu with UUID " + ParentMenu.getUUID());
 			}
 		} else {
-			super.setParentMenu_ID(0);
+			this.setParentMenu_ID(0);
 		}
 	}
 

@@ -47,9 +47,12 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -79,9 +84,9 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	@JsonProperty("AD_Ref_List")
 	public void setAD_Ref_ListInput(ForeignEntityInput AD_Ref_List) {
 		this.mAD_Ref_List = AD_Ref_List;
-		MRefList_BH foreignEntity;
 		if (AD_Ref_List != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
 							.setParameters(AD_Ref_List.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,7 +96,7 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 						"Could not find entity in table AD_Ref_List with UUID " + AD_Ref_List.getUUID());
 			}
 		} else {
-			super.setAD_Ref_List_ID(0);
+			this.setAD_Ref_List_ID(0);
 		}
 	}
 
@@ -142,9 +147,9 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
 		if (C_DocType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +159,7 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
 		} else {
-			super.setC_DocType_ID(0);
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -176,9 +181,12 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	@JsonProperty("DB_UserType")
 	public void setDB_UserTypeInput(I_AD_Ref_ListInput DB_UserType) {
 		this.mDB_UserType = DB_UserType;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&DB_UserType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (DB_UserType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DB_UserType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,6 +195,8 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DB_UserType.getUUID());
 			}
+		} else {
+			this.setDB_UserType(null);
 		}
 	}
 

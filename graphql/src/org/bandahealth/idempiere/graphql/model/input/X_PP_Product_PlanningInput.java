@@ -58,9 +58,12 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -69,6 +72,8 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -90,9 +95,9 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -102,7 +107,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
 			}
 		} else {
-			super.setAD_Workflow_ID(0);
+			this.setAD_Workflow_ID(0);
 		}
 	}
 
@@ -124,9 +129,9 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("DD_NetworkDistribution")
 	public void setDD_NetworkDistributionInput(ForeignEntityInput DD_NetworkDistribution) {
 		this.mDD_NetworkDistribution = DD_NetworkDistribution;
-		X_DD_NetworkDistribution foreignEntity;
 		if (DD_NetworkDistribution != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_DD_NetworkDistribution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_NetworkDistribution", "DD_NetworkDistribution_UU=?", get_TrxName())
 							.setParameters(DD_NetworkDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -136,7 +141,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 						"Could not find entity in table DD_NetworkDistribution with UUID " + DD_NetworkDistribution.getUUID());
 			}
 		} else {
-			super.setDD_NetworkDistribution_ID(0);
+			this.setDD_NetworkDistribution_ID(0);
 		}
 	}
 
@@ -180,9 +185,12 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,6 +199,8 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -212,9 +222,9 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -224,7 +234,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -246,9 +256,9 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("Order_Policy")
 	public void setOrder_PolicyInput(I_AD_Ref_ListInput Order_Policy) {
 		this.mOrder_Policy = Order_Policy;
-		MRefList_BH foreignEntity;
 		if (Order_Policy != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Order_Policy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -280,9 +290,9 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("Planner")
 	public void setPlannerInput(ForeignEntityInput Planner) {
 		this.mPlanner = Planner;
-		MUser_BH foreignEntity;
 		if (Planner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Planner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -292,7 +302,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 						"Could not find entity in table AD_User with UUID " + Planner.getUUID());
 			}
 		} else {
-			super.setPlanner_ID(0);
+			this.setPlanner_ID(0);
 		}
 	}
 
@@ -314,9 +324,9 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		MPPProductBOM foreignEntity;
 		if (PP_Product_BOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
 							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -326,7 +336,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
 			}
 		} else {
-			super.setPP_Product_BOM_ID(0);
+			this.setPP_Product_BOM_ID(0);
 		}
 	}
 
@@ -377,9 +387,12 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	@JsonProperty("S_Resource")
 	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
-		MResource foreignEntity;
-		if (get_ID() == 0 && S_Resource != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (S_Resource != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MResource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
 							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -388,6 +401,8 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 				throw new AdempiereException(
 						"Could not find entity in table S_Resource with UUID " + S_Resource.getUUID());
 			}
+		} else {
+			this.setS_Resource_ID(0);
 		}
 	}
 

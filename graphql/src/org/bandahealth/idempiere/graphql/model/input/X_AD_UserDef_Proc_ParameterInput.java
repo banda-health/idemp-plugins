@@ -54,9 +54,12 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,6 +68,8 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +91,9 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_Process_Para")
 	public void setAD_Process_ParaInput(ForeignEntityInput AD_Process_Para) {
 		this.mAD_Process_Para = AD_Process_Para;
-		MProcessPara foreignEntity;
 		if (AD_Process_Para != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
 							.setParameters(AD_Process_Para.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -98,7 +103,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 						"Could not find entity in table AD_Process_Para with UUID " + AD_Process_Para.getUUID());
 			}
 		} else {
-			super.setAD_Process_Para_ID(0);
+			this.setAD_Process_Para_ID(0);
 		}
 	}
 
@@ -120,9 +125,9 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_Reference")
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
-		MReference_BH foreignEntity;
 		if (AD_Reference != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +137,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
 			}
 		} else {
-			super.setAD_Reference_ID(0);
+			this.setAD_Reference_ID(0);
 		}
 	}
 
@@ -154,9 +159,9 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_Reference_Value")
 	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
-		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,7 +171,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Value.getUUID());
 			}
 		} else {
-			super.setAD_Reference_Value_ID(0);
+			this.setAD_Reference_Value_ID(0);
 		}
 	}
 
@@ -188,9 +193,12 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_UserDef_Proc")
 	public void setAD_UserDef_ProcInput(ForeignEntityInput AD_UserDef_Proc) {
 		this.mAD_UserDef_Proc = AD_UserDef_Proc;
-		MUserDefProc foreignEntity;
-		if (get_ID() == 0 && AD_UserDef_Proc != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_UserDef_Proc != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUserDefProc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Proc", "AD_UserDef_Proc_UU=?", get_TrxName())
 							.setParameters(AD_UserDef_Proc.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,6 +207,8 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_UserDef_Proc with UUID " + AD_UserDef_Proc.getUUID());
 			}
+		} else {
+			this.setAD_UserDef_Proc_ID(0);
 		}
 	}
 
@@ -249,9 +259,9 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("AD_Val_Rule")
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
-		MValRule foreignEntity;
 		if (AD_Val_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -261,7 +271,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Val_Rule_ID(0);
+			this.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -283,9 +293,9 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("IsDisplayed")
 	public void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
-		MRefList_BH foreignEntity;
 		if (IsDisplayed != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsDisplayed.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -317,9 +327,9 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	@JsonProperty("IsMandatory")
 	public void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
-		MRefList_BH foreignEntity;
 		if (IsMandatory != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsMandatory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

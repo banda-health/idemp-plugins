@@ -46,9 +46,12 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 	@JsonProperty("AD_Attachment")
 	public void setAD_AttachmentInput(ForeignEntityInput AD_Attachment) {
 		this.mAD_Attachment = AD_Attachment;
-		MAttachment foreignEntity;
-		if (get_ID() == 0 && AD_Attachment != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Attachment != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttachment foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Attachment", "AD_Attachment_UU=?", get_TrxName())
 							.setParameters(AD_Attachment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 				throw new AdempiereException(
 						"Could not find entity in table AD_Attachment with UUID " + AD_Attachment.getUUID());
 			}
+		} else {
+			this.setAD_Attachment_ID(0);
 		}
 	}
 
@@ -107,9 +112,12 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +126,8 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 

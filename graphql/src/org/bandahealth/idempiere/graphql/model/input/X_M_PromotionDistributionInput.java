@@ -50,9 +50,12 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	@JsonProperty("DistributionSorting")
 	public void setDistributionSortingInput(I_AD_Ref_ListInput DistributionSorting) {
 		this.mDistributionSorting = DistributionSorting;
-		MRefList_BH foreignEntity;
 		if (DistributionSorting != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DistributionSorting.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -116,9 +121,9 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	@JsonProperty("DistributionType")
 	public void setDistributionTypeInput(I_AD_Ref_ListInput DistributionType) {
 		this.mDistributionType = DistributionType;
-		MRefList_BH foreignEntity;
 		if (DistributionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DistributionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -150,9 +155,12 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	@JsonProperty("M_Promotion")
 	public void setM_PromotionInput(ForeignEntityInput M_Promotion) {
 		this.mM_Promotion = M_Promotion;
-		X_M_Promotion foreignEntity;
-		if (get_ID() == 0 && M_Promotion != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Promotion != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_M_Promotion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
 							.setParameters(M_Promotion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,6 +169,8 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 				throw new AdempiereException(
 						"Could not find entity in table M_Promotion with UUID " + M_Promotion.getUUID());
 			}
+		} else {
+			this.setM_Promotion_ID(0);
 		}
 	}
 
@@ -211,9 +221,9 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	@JsonProperty("M_PromotionLine")
 	public void setM_PromotionLineInput(ForeignEntityInput M_PromotionLine) {
 		this.mM_PromotionLine = M_PromotionLine;
-		X_M_PromotionLine foreignEntity;
 		if (M_PromotionLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_PromotionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PromotionLine", "M_PromotionLine_UU=?", get_TrxName())
 							.setParameters(M_PromotionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -223,7 +233,7 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 						"Could not find entity in table M_PromotionLine with UUID " + M_PromotionLine.getUUID());
 			}
 		} else {
-			super.setM_PromotionLine_ID(0);
+			this.setM_PromotionLine_ID(0);
 		}
 	}
 
@@ -245,9 +255,9 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	@JsonProperty("Operation")
 	public void setOperationInput(I_AD_Ref_ListInput Operation) {
 		this.mOperation = Operation;
-		MRefList_BH foreignEntity;
 		if (Operation != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -46,9 +46,12 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	@JsonProperty("C_ServiceLevel")
 	public void setC_ServiceLevelInput(ForeignEntityInput C_ServiceLevel) {
 		this.mC_ServiceLevel = C_ServiceLevel;
-		X_C_ServiceLevel foreignEntity;
-		if (get_ID() == 0 && C_ServiceLevel != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_ServiceLevel != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_ServiceLevel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ServiceLevel", "C_ServiceLevel_UU=?", get_TrxName())
 							.setParameters(C_ServiceLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 				throw new AdempiereException(
 						"Could not find entity in table C_ServiceLevel with UUID " + C_ServiceLevel.getUUID());
 			}
+		} else {
+			this.setC_ServiceLevel_ID(0);
 		}
 	}
 

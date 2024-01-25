@@ -58,9 +58,12 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -69,6 +72,8 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -90,9 +95,12 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -101,6 +109,8 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -140,9 +150,12 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		MBPGroup_BH foreignEntity;
-		if (get_ID() == 0 && C_BP_Group != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_Group != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,6 +164,8 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 				throw new AdempiereException(
 						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
 			}
+		} else {
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -172,9 +187,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("C_Prepayment_A")
 	public void setC_Prepayment_AInput(ForeignEntityInput C_Prepayment_A) {
 		this.mC_Prepayment_A = C_Prepayment_A;
-		MAccount foreignEntity;
 		if (C_Prepayment_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(C_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -184,7 +199,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + C_Prepayment_A.getUUID());
 			}
 		} else {
-			super.setC_Prepayment_Acct(0);
+			this.setC_Prepayment_Acct(0);
 		}
 	}
 
@@ -206,9 +221,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("C_Receivable_A")
 	public void setC_Receivable_AInput(ForeignEntityInput C_Receivable_A) {
 		this.mC_Receivable_A = C_Receivable_A;
-		MAccount foreignEntity;
 		if (C_Receivable_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(C_Receivable_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -218,7 +233,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + C_Receivable_A.getUUID());
 			}
 		} else {
-			super.setC_Receivable_Acct(0);
+			this.setC_Receivable_Acct(0);
 		}
 	}
 
@@ -240,9 +255,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("C_Receivable_Services_A")
 	public void setC_Receivable_Services_AInput(ForeignEntityInput C_Receivable_Services_A) {
 		this.mC_Receivable_Services_A = C_Receivable_Services_A;
-		MAccount foreignEntity;
 		if (C_Receivable_Services_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(C_Receivable_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -252,7 +267,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + C_Receivable_Services_A.getUUID());
 			}
 		} else {
-			super.setC_Receivable_Services_Acct(0);
+			this.setC_Receivable_Services_Acct(0);
 		}
 	}
 
@@ -274,9 +289,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("NotInvoicedReceipts_A")
 	public void setNotInvoicedReceipts_AInput(ForeignEntityInput NotInvoicedReceipts_A) {
 		this.mNotInvoicedReceipts_A = NotInvoicedReceipts_A;
-		MAccount foreignEntity;
 		if (NotInvoicedReceipts_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(NotInvoicedReceipts_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -286,7 +301,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + NotInvoicedReceipts_A.getUUID());
 			}
 		} else {
-			super.setNotInvoicedReceipts_Acct(0);
+			this.setNotInvoicedReceipts_Acct(0);
 		}
 	}
 
@@ -308,9 +323,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("PayDiscount_Exp_A")
 	public void setPayDiscount_Exp_AInput(ForeignEntityInput PayDiscount_Exp_A) {
 		this.mPayDiscount_Exp_A = PayDiscount_Exp_A;
-		MAccount foreignEntity;
 		if (PayDiscount_Exp_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(PayDiscount_Exp_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -320,7 +335,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + PayDiscount_Exp_A.getUUID());
 			}
 		} else {
-			super.setPayDiscount_Exp_Acct(0);
+			this.setPayDiscount_Exp_Acct(0);
 		}
 	}
 
@@ -342,9 +357,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("PayDiscount_Rev_A")
 	public void setPayDiscount_Rev_AInput(ForeignEntityInput PayDiscount_Rev_A) {
 		this.mPayDiscount_Rev_A = PayDiscount_Rev_A;
-		MAccount foreignEntity;
 		if (PayDiscount_Rev_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(PayDiscount_Rev_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -354,7 +369,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + PayDiscount_Rev_A.getUUID());
 			}
 		} else {
-			super.setPayDiscount_Rev_Acct(0);
+			this.setPayDiscount_Rev_Acct(0);
 		}
 	}
 
@@ -376,9 +391,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("UnEarnedRevenue_A")
 	public void setUnEarnedRevenue_AInput(ForeignEntityInput UnEarnedRevenue_A) {
 		this.mUnEarnedRevenue_A = UnEarnedRevenue_A;
-		MAccount foreignEntity;
 		if (UnEarnedRevenue_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(UnEarnedRevenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -388,7 +403,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + UnEarnedRevenue_A.getUUID());
 			}
 		} else {
-			super.setUnEarnedRevenue_Acct(0);
+			this.setUnEarnedRevenue_Acct(0);
 		}
 	}
 
@@ -410,9 +425,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("V_Liability_A")
 	public void setV_Liability_AInput(ForeignEntityInput V_Liability_A) {
 		this.mV_Liability_A = V_Liability_A;
-		MAccount foreignEntity;
 		if (V_Liability_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(V_Liability_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -422,7 +437,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + V_Liability_A.getUUID());
 			}
 		} else {
-			super.setV_Liability_Acct(0);
+			this.setV_Liability_Acct(0);
 		}
 	}
 
@@ -444,9 +459,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("V_Liability_Services_A")
 	public void setV_Liability_Services_AInput(ForeignEntityInput V_Liability_Services_A) {
 		this.mV_Liability_Services_A = V_Liability_Services_A;
-		MAccount foreignEntity;
 		if (V_Liability_Services_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(V_Liability_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -456,7 +471,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + V_Liability_Services_A.getUUID());
 			}
 		} else {
-			super.setV_Liability_Services_Acct(0);
+			this.setV_Liability_Services_Acct(0);
 		}
 	}
 
@@ -478,9 +493,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("V_Prepayment_A")
 	public void setV_Prepayment_AInput(ForeignEntityInput V_Prepayment_A) {
 		this.mV_Prepayment_A = V_Prepayment_A;
-		MAccount foreignEntity;
 		if (V_Prepayment_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(V_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -490,7 +505,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + V_Prepayment_A.getUUID());
 			}
 		} else {
-			super.setV_Prepayment_Acct(0);
+			this.setV_Prepayment_Acct(0);
 		}
 	}
 
@@ -512,9 +527,9 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	@JsonProperty("WriteOff_A")
 	public void setWriteOff_AInput(ForeignEntityInput WriteOff_A) {
 		this.mWriteOff_A = WriteOff_A;
-		MAccount foreignEntity;
 		if (WriteOff_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(WriteOff_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -524,7 +539,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 						"Could not find entity in table C_ValidCombination with UUID " + WriteOff_A.getUUID());
 			}
 		} else {
-			super.setWriteOff_Acct(0);
+			this.setWriteOff_Acct(0);
 		}
 	}
 

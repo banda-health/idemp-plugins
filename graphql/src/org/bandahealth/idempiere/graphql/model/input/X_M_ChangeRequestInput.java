@@ -47,9 +47,12 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -79,9 +84,12 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("M_ChangeNotice")
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
-		MChangeNotice foreignEntity;
-		if (get_ID() == 0 && M_ChangeNotice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_ChangeNotice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,6 +98,8 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 				throw new AdempiereException(
 						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
 			}
+		} else {
+			this.setM_ChangeNotice_ID(0);
 		}
 	}
 
@@ -140,9 +150,12 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("M_FixChangeNotice")
 	public void setM_FixChangeNoticeInput(ForeignEntityInput M_FixChangeNotice) {
 		this.mM_FixChangeNotice = M_FixChangeNotice;
-		MChangeNotice foreignEntity;
-		if (get_ID() == 0 && M_FixChangeNotice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_FixChangeNotice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 							.setParameters(M_FixChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,6 +164,8 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 				throw new AdempiereException(
 						"Could not find entity in table M_ChangeNotice with UUID " + M_FixChangeNotice.getUUID());
 			}
+		} else {
+			this.setM_FixChangeNotice_ID(0);
 		}
 	}
 
@@ -172,9 +187,12 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		MPPProductBOM foreignEntity;
-		if (get_ID() == 0 && PP_Product_BOM != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PP_Product_BOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
 							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -183,6 +201,8 @@ public class X_M_ChangeRequestInput extends MChangeRequest implements I_M_Change
 				throw new AdempiereException(
 						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
 			}
+		} else {
+			this.setPP_Product_BOM_ID(0);
 		}
 	}
 

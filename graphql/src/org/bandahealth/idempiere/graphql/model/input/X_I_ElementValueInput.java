@@ -52,9 +52,9 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	@JsonProperty("AccountSign")
 	public void setAccountSignInput(I_AD_Ref_ListInput AccountSign) {
 		this.mAccountSign = AccountSign;
-		MRefList_BH foreignEntity;
 		if (AccountSign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AccountSign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -86,9 +86,9 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	@JsonProperty("AccountType")
 	public void setAccountTypeInput(I_AD_Ref_ListInput AccountType) {
 		this.mAccountType = AccountType;
-		MRefList_BH foreignEntity;
 		if (AccountType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AccountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -120,9 +120,9 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		MColumn foreignEntity;
 		if (AD_Column != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +132,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
 			}
 		} else {
-			super.setAD_Column_ID(0);
+			this.setAD_Column_ID(0);
 		}
 	}
 
@@ -154,9 +154,12 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -165,6 +168,8 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -186,9 +191,9 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	@JsonProperty("C_Element")
 	public void setC_ElementInput(ForeignEntityInput C_Element) {
 		this.mC_Element = C_Element;
-		MElement foreignEntity;
 		if (C_Element != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Element", "C_Element_UU=?", get_TrxName())
 							.setParameters(C_Element.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -198,7 +203,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 						"Could not find entity in table C_Element with UUID " + C_Element.getUUID());
 			}
 		} else {
-			super.setC_Element_ID(0);
+			this.setC_Element_ID(0);
 		}
 	}
 
@@ -220,9 +225,9 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	@JsonProperty("C_ElementValue")
 	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
-		MElementValue foreignEntity;
 		if (C_ElementValue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -232,7 +237,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 						"Could not find entity in table C_ElementValue with UUID " + C_ElementValue.getUUID());
 			}
 		} else {
-			super.setC_ElementValue_ID(0);
+			this.setC_ElementValue_ID(0);
 		}
 	}
 
@@ -283,9 +288,9 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	@JsonProperty("ParentElementValue")
 	public void setParentElementValueInput(ForeignEntityInput ParentElementValue) {
 		this.mParentElementValue = ParentElementValue;
-		MElementValue foreignEntity;
 		if (ParentElementValue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(ParentElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -295,7 +300,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 						"Could not find entity in table C_ElementValue with UUID " + ParentElementValue.getUUID());
 			}
 		} else {
-			super.setParentElementValue_ID(0);
+			this.setParentElementValue_ID(0);
 		}
 	}
 

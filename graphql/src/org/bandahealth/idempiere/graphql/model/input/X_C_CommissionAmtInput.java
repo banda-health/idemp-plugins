@@ -46,9 +46,12 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,9 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 	@JsonProperty("C_CommissionLine")
 	public void setC_CommissionLineInput(ForeignEntityInput C_CommissionLine) {
 		this.mC_CommissionLine = C_CommissionLine;
-		MCommissionLine foreignEntity;
 		if (C_CommissionLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCommissionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionLine", "C_CommissionLine_UU=?", get_TrxName())
 							.setParameters(C_CommissionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -119,7 +124,7 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 						"Could not find entity in table C_CommissionLine with UUID " + C_CommissionLine.getUUID());
 			}
 		} else {
-			super.setC_CommissionLine_ID(0);
+			this.setC_CommissionLine_ID(0);
 		}
 	}
 
@@ -141,9 +146,12 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 	@JsonProperty("C_CommissionRun")
 	public void setC_CommissionRunInput(ForeignEntityInput C_CommissionRun) {
 		this.mC_CommissionRun = C_CommissionRun;
-		MCommissionRun foreignEntity;
-		if (get_ID() == 0 && C_CommissionRun != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_CommissionRun != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCommissionRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionRun", "C_CommissionRun_UU=?", get_TrxName())
 							.setParameters(C_CommissionRun.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -152,6 +160,8 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 				throw new AdempiereException(
 						"Could not find entity in table C_CommissionRun with UUID " + C_CommissionRun.getUUID());
 			}
+		} else {
+			this.setC_CommissionRun_ID(0);
 		}
 	}
 

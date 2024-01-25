@@ -50,9 +50,12 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,12 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("C_CommissionAmt")
 	public void setC_CommissionAmtInput(ForeignEntityInput C_CommissionAmt) {
 		this.mC_CommissionAmt = C_CommissionAmt;
-		MCommissionAmt foreignEntity;
-		if (get_ID() == 0 && C_CommissionAmt != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_CommissionAmt != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCommissionAmt foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionAmt", "C_CommissionAmt_UU=?", get_TrxName())
 							.setParameters(C_CommissionAmt.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,6 +101,8 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 				throw new AdempiereException(
 						"Could not find entity in table C_CommissionAmt with UUID " + C_CommissionAmt.getUUID());
 			}
+		} else {
+			this.setC_CommissionAmt_ID(0);
 		}
 	}
 
@@ -143,9 +153,9 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +165,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -177,9 +187,12 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 && C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_InvoiceLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,6 +201,8 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 				throw new AdempiereException(
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
+		} else {
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 
@@ -209,9 +224,12 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		MOrderLine_BH foreignEntity;
-		if (get_ID() == 0 && C_OrderLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_OrderLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -220,6 +238,8 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 				throw new AdempiereException(
 						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
 			}
+		} else {
+			this.setC_OrderLine_ID(0);
 		}
 	}
 

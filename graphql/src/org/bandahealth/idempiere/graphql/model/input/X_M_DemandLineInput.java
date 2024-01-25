@@ -48,9 +48,12 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		MPeriod foreignEntity;
-		if (get_ID() == 0 && C_Period != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Period != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 				throw new AdempiereException(
 						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
 			}
+		} else {
+			this.setC_Period_ID(0);
 		}
 	}
 
@@ -112,9 +122,12 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("M_Demand")
 	public void setM_DemandInput(ForeignEntityInput M_Demand) {
 		this.mM_Demand = M_Demand;
-		X_M_Demand foreignEntity;
-		if (get_ID() == 0 && M_Demand != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Demand != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_M_Demand foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Demand", "M_Demand_UU=?", get_TrxName())
 							.setParameters(M_Demand.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +136,8 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 				throw new AdempiereException(
 						"Could not find entity in table M_Demand with UUID " + M_Demand.getUUID());
 			}
+		} else {
+			this.setM_Demand_ID(0);
 		}
 	}
 
@@ -173,9 +188,12 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -184,6 +202,8 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 

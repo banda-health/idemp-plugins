@@ -50,9 +50,12 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,12 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	@JsonProperty("C_Dunning")
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
-		MDunning foreignEntity;
-		if (get_ID() == 0 && C_Dunning != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Dunning != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
 							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,6 +101,8 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 				throw new AdempiereException(
 						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
 			}
+		} else {
+			this.setC_Dunning_ID(0);
 		}
 	}
 
@@ -143,9 +153,9 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	@JsonProperty("C_PaymentTerm")
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
-		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +165,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
 			}
 		} else {
-			super.setC_PaymentTerm_ID(0);
+			this.setC_PaymentTerm_ID(0);
 		}
 	}
 
@@ -177,9 +187,9 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	@JsonProperty("Dunning_PrintFormat")
 	public void setDunning_PrintFormatInput(ForeignEntityInput Dunning_PrintFormat) {
 		this.mDunning_PrintFormat = Dunning_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
 		if (Dunning_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(Dunning_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +199,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 						"Could not find entity in table AD_PrintFormat with UUID " + Dunning_PrintFormat.getUUID());
 			}
 		} else {
-			super.setDunning_PrintFormat_ID(0);
+			this.setDunning_PrintFormat_ID(0);
 		}
 	}
 
@@ -211,9 +221,9 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	@JsonProperty("InvoiceCollectionType")
 	public void setInvoiceCollectionTypeInput(I_AD_Ref_ListInput InvoiceCollectionType) {
 		this.mInvoiceCollectionType = InvoiceCollectionType;
-		MRefList_BH foreignEntity;
 		if (InvoiceCollectionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InvoiceCollectionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

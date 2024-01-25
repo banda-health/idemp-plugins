@@ -48,9 +48,12 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		X_AD_Workflow foreignEntity;
-		if (get_ID() == 0 && AD_Workflow != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Workflow != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 				throw new AdempiereException(
 						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
 			}
+		} else {
+			this.setAD_Workflow_ID(0);
 		}
 	}
 
@@ -112,9 +122,12 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	@JsonProperty("ASP_Level")
 	public void setASP_LevelInput(ForeignEntityInput ASP_Level) {
 		this.mASP_Level = ASP_Level;
-		X_ASP_Level foreignEntity;
-		if (get_ID() == 0 && ASP_Level != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (ASP_Level != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
 							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +136,8 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 				throw new AdempiereException(
 						"Could not find entity in table ASP_Level with UUID " + ASP_Level.getUUID());
 			}
+		} else {
+			this.setASP_Level_ID(0);
 		}
 	}
 
@@ -144,9 +159,9 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	@JsonProperty("ASP_Status")
 	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
-		MRefList_BH foreignEntity;
 		if (ASP_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -46,9 +46,12 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -96,9 +101,12 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	@JsonProperty("C_ChargeType")
 	public void setC_ChargeTypeInput(ForeignEntityInput C_ChargeType) {
 		this.mC_ChargeType = C_ChargeType;
-		MChargeType_BH foreignEntity;
-		if (get_ID() == 0 && C_ChargeType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_ChargeType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChargeType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ChargeType", "C_ChargeType_UU=?", get_TrxName())
 							.setParameters(C_ChargeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -107,6 +115,8 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 				throw new AdempiereException(
 						"Could not find entity in table C_ChargeType with UUID " + C_ChargeType.getUUID());
 			}
+		} else {
+			this.setC_ChargeType_ID(0);
 		}
 	}
 
@@ -128,9 +138,12 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
-		if (get_ID() == 0 && C_DocType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_DocType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -139,6 +152,8 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 				throw new AdempiereException(
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
+		} else {
+			this.setC_DocType_ID(0);
 		}
 	}
 

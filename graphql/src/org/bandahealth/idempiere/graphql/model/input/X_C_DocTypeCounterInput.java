@@ -47,9 +47,12 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -79,9 +84,9 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
 		if (C_DocType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,7 +96,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
 		} else {
-			super.setC_DocType_ID(0);
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -142,9 +147,9 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	@JsonProperty("Counter_C_DocType")
 	public void setCounter_C_DocTypeInput(ForeignEntityInput Counter_C_DocType) {
 		this.mCounter_C_DocType = Counter_C_DocType;
-		MDocType_BH foreignEntity;
 		if (Counter_C_DocType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(Counter_C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +159,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 						"Could not find entity in table C_DocType with UUID " + Counter_C_DocType.getUUID());
 			}
 		} else {
-			super.setCounter_C_DocType_ID(0);
+			this.setCounter_C_DocType_ID(0);
 		}
 	}
 
@@ -176,9 +181,9 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	@JsonProperty("DocAction")
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
-		MRefList_BH foreignEntity;
 		if (DocAction != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

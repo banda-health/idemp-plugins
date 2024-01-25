@@ -45,9 +45,12 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -56,6 +59,8 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -77,9 +82,9 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	@JsonProperty("CumulativeLevel")
 	public void setCumulativeLevelInput(I_AD_Ref_ListInput CumulativeLevel) {
 		this.mCumulativeLevel = CumulativeLevel;
-		MRefList_BH foreignEntity;
 		if (CumulativeLevel != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CumulativeLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -111,9 +116,9 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	@JsonProperty("DiscountType")
 	public void setDiscountTypeInput(I_AD_Ref_ListInput DiscountType) {
 		this.mDiscountType = DiscountType;
-		MRefList_BH foreignEntity;
 		if (DiscountType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DiscountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

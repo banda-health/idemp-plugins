@@ -51,9 +51,12 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,6 +65,8 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -83,9 +88,9 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
 		if (C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,7 +100,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
 		} else {
-			super.setC_Invoice_ID(0);
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -117,9 +122,12 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	@JsonProperty("C_PaySelection")
 	public void setC_PaySelectionInput(ForeignEntityInput C_PaySelection) {
 		this.mC_PaySelection = C_PaySelection;
-		MPaySelection foreignEntity;
-		if (get_ID() == 0 && C_PaySelection != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_PaySelection != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaySelection foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySelection", "C_PaySelection_UU=?", get_TrxName())
 							.setParameters(C_PaySelection.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,6 +136,8 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 				throw new AdempiereException(
 						"Could not find entity in table C_PaySelection with UUID " + C_PaySelection.getUUID());
 			}
+		} else {
+			this.setC_PaySelection_ID(0);
 		}
 	}
 
@@ -149,9 +159,9 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	@JsonProperty("C_PaySelectionCheck")
 	public void setC_PaySelectionCheckInput(ForeignEntityInput C_PaySelectionCheck) {
 		this.mC_PaySelectionCheck = C_PaySelectionCheck;
-		MPaySelectionCheck foreignEntity;
 		if (C_PaySelectionCheck != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaySelectionCheck foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySelectionCheck", "C_PaySelectionCheck_UU=?", get_TrxName())
 							.setParameters(C_PaySelectionCheck.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,7 +171,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 						"Could not find entity in table C_PaySelectionCheck with UUID " + C_PaySelectionCheck.getUUID());
 			}
 		} else {
-			super.setC_PaySelectionCheck_ID(0);
+			this.setC_PaySelectionCheck_ID(0);
 		}
 	}
 
@@ -245,9 +255,9 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	@JsonProperty("PaymentRule")
 	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
-		MRefList_BH foreignEntity;
 		if (PaymentRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

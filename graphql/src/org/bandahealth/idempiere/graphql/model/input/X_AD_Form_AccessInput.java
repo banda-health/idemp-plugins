@@ -64,9 +64,12 @@ public class X_AD_Form_AccessInput extends MFormAccess implements I_AD_Form_Acce
 	@JsonProperty("AD_Form")
 	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
-		MForm foreignEntity;
-		if (get_ID() == 0 && AD_Form != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Form != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
 							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -75,6 +78,8 @@ public class X_AD_Form_AccessInput extends MFormAccess implements I_AD_Form_Acce
 				throw new AdempiereException(
 						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
 			}
+		} else {
+			this.setAD_Form_ID(0);
 		}
 	}
 
@@ -96,9 +101,12 @@ public class X_AD_Form_AccessInput extends MFormAccess implements I_AD_Form_Acce
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -107,6 +115,8 @@ public class X_AD_Form_AccessInput extends MFormAccess implements I_AD_Form_Acce
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -128,9 +138,12 @@ public class X_AD_Form_AccessInput extends MFormAccess implements I_AD_Form_Acce
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
-		if (get_ID() == 0 && AD_Role != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Role != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -139,6 +152,8 @@ public class X_AD_Form_AccessInput extends MFormAccess implements I_AD_Form_Acce
 				throw new AdempiereException(
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
+		} else {
+			this.setAD_Role_ID(0);
 		}
 	}
 

@@ -75,9 +75,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("A_Asset_Action")
 	public void setA_Asset_ActionInput(I_AD_Ref_ListInput A_Asset_Action) {
 		this.mA_Asset_Action = A_Asset_Action;
-		MRefList_BH foreignEntity;
 		if (A_Asset_Action != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Asset_Action.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -109,9 +109,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("A_Asset_Class")
 	public void setA_Asset_ClassInput(ForeignEntityInput A_Asset_Class) {
 		this.mA_Asset_Class = A_Asset_Class;
-		MAssetClass foreignEntity;
 		if (A_Asset_Class != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAssetClass foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Class", "A_Asset_Class_UU=?", get_TrxName())
 							.setParameters(A_Asset_Class.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,7 +121,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table A_Asset_Class with UUID " + A_Asset_Class.getUUID());
 			}
 		} else {
-			super.setA_Asset_Class_ID(0);
+			this.setA_Asset_Class_ID(0);
 		}
 	}
 
@@ -154,9 +154,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("A_Asset_Group")
 	public void setA_Asset_GroupInput(ForeignEntityInput A_Asset_Group) {
 		this.mA_Asset_Group = A_Asset_Group;
-		MAssetGroup foreignEntity;
 		if (A_Asset_Group != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAssetGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
 							.setParameters(A_Asset_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,7 +166,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table A_Asset_Group with UUID " + A_Asset_Group.getUUID());
 			}
 		} else {
-			super.setA_Asset_Group_ID(0);
+			this.setA_Asset_Group_ID(0);
 		}
 	}
 
@@ -199,9 +199,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("A_Asset_Status")
 	public void setA_Asset_StatusInput(I_AD_Ref_ListInput A_Asset_Status) {
 		this.mA_Asset_Status = A_Asset_Status;
-		MRefList_BH foreignEntity;
 		if (A_Asset_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Asset_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -233,9 +233,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("A_Asset_Type")
 	public void setA_Asset_TypeInput(ForeignEntityInput A_Asset_Type) {
 		this.mA_Asset_Type = A_Asset_Type;
-		MAssetType foreignEntity;
 		if (A_Asset_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAssetType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Type", "A_Asset_Type_UU=?", get_TrxName())
 							.setParameters(A_Asset_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -245,7 +245,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table A_Asset_Type with UUID " + A_Asset_Type.getUUID());
 			}
 		} else {
-			super.setA_Asset_Type_ID(0);
+			this.setA_Asset_Type_ID(0);
 		}
 	}
 
@@ -285,9 +285,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("A_Parent_Asset")
 	public void setA_Parent_AssetInput(ForeignEntityInput A_Parent_Asset) {
 		this.mA_Parent_Asset = A_Parent_Asset;
-		MAsset foreignEntity;
 		if (A_Parent_Asset != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Parent_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -297,7 +297,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table A_Asset with UUID " + A_Parent_Asset.getUUID());
 			}
 		} else {
-			super.setA_Parent_Asset_ID(0);
+			this.setA_Parent_Asset_ID(0);
 		}
 	}
 
@@ -319,9 +319,12 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -330,6 +333,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -351,9 +356,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -363,7 +368,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -385,9 +390,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -397,7 +402,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -419,9 +424,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -431,7 +436,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -453,9 +458,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -465,7 +470,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -487,9 +492,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("C_BPartnerSR")
 	public void setC_BPartnerSRInput(ForeignEntityInput C_BPartnerSR) {
 		this.mC_BPartnerSR = C_BPartnerSR;
-		MBPartner_BH foreignEntity;
 		if (C_BPartnerSR != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartnerSR.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -499,7 +504,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartnerSR.getUUID());
 			}
 		} else {
-			super.setC_BPartnerSR_ID(0);
+			this.setC_BPartnerSR_ID(0);
 		}
 	}
 
@@ -521,9 +526,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
 		if (C_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -533,7 +538,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
 		} else {
-			super.setC_Location_ID(0);
+			this.setC_Location_ID(0);
 		}
 	}
 
@@ -555,9 +560,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -567,7 +572,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -600,9 +605,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("Lease_BPartner")
 	public void setLease_BPartnerInput(ForeignEntityInput Lease_BPartner) {
 		this.mLease_BPartner = Lease_BPartner;
-		MBPartner_BH foreignEntity;
 		if (Lease_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(Lease_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -612,7 +617,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table C_BPartner with UUID " + Lease_BPartner.getUUID());
 			}
 		} else {
-			super.setLease_BPartner_ID(0);
+			this.setLease_BPartner_ID(0);
 		}
 	}
 
@@ -634,9 +639,12 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_AttributeSetInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -645,6 +653,8 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 				throw new AdempiereException(
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
+		} else {
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -666,9 +676,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		MInOutLine foreignEntity;
 		if (M_InOutLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -678,7 +688,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
 			}
 		} else {
-			super.setM_InOutLine_ID(0);
+			this.setM_InOutLine_ID(0);
 		}
 	}
 
@@ -700,9 +710,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		MLocator foreignEntity;
 		if (M_Locator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -712,7 +722,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
 			}
 		} else {
-			super.setM_Locator_ID(0);
+			this.setM_Locator_ID(0);
 		}
 	}
 
@@ -734,9 +744,9 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -746,7 +756,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

@@ -47,9 +47,12 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -79,9 +84,9 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
 		if (C_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,7 +96,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
 		} else {
-			super.setC_Location_ID(0);
+			this.setC_Location_ID(0);
 		}
 	}
 
@@ -113,9 +118,9 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	@JsonProperty("M_ReserveLocator")
 	public void setM_ReserveLocatorInput(ForeignEntityInput M_ReserveLocator) {
 		this.mM_ReserveLocator = M_ReserveLocator;
-		MLocator foreignEntity;
 		if (M_ReserveLocator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_ReserveLocator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -125,7 +130,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 						"Could not find entity in table M_Locator with UUID " + M_ReserveLocator.getUUID());
 			}
 		} else {
-			super.setM_ReserveLocator_ID(0);
+			this.setM_ReserveLocator_ID(0);
 		}
 	}
 
@@ -176,9 +181,9 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 	@JsonProperty("M_WarehouseSource")
 	public void setM_WarehouseSourceInput(ForeignEntityInput M_WarehouseSource) {
 		this.mM_WarehouseSource = M_WarehouseSource;
-		MWarehouse_BH foreignEntity;
 		if (M_WarehouseSource != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_WarehouseSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,7 +193,7 @@ public class X_M_WarehouseInput extends MWarehouse_BH implements I_M_WarehouseIn
 						"Could not find entity in table M_Warehouse with UUID " + M_WarehouseSource.getUUID());
 			}
 		} else {
-			super.setM_WarehouseSource_ID(0);
+			this.setM_WarehouseSource_ID(0);
 		}
 	}
 

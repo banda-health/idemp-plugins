@@ -55,9 +55,12 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -66,6 +69,8 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -87,9 +92,9 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("DD_OrderLine")
 	public void setDD_OrderLineInput(ForeignEntityInput DD_OrderLine) {
 		this.mDD_OrderLine = DD_OrderLine;
-		MDDOrderLine foreignEntity;
 		if (DD_OrderLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDDOrderLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_OrderLine", "DD_OrderLine_UU=?", get_TrxName())
 							.setParameters(DD_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -99,7 +104,7 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 						"Could not find entity in table DD_OrderLine with UUID " + DD_OrderLine.getUUID());
 			}
 		} else {
-			super.setDD_OrderLine_ID(0);
+			this.setDD_OrderLine_ID(0);
 		}
 	}
 
@@ -121,9 +126,9 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -133,7 +138,7 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -155,9 +160,12 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("M_AttributeSetInstanceTo")
 	public void setM_AttributeSetInstanceToInput(ForeignEntityInput M_AttributeSetInstanceTo) {
 		this.mM_AttributeSetInstanceTo = M_AttributeSetInstanceTo;
-		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstanceTo != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_AttributeSetInstanceTo != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstanceTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,6 +174,8 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 				throw new AdempiereException(
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstanceTo.getUUID());
 			}
+		} else {
+			this.setM_AttributeSetInstanceTo_ID(0);
 		}
 	}
 
@@ -187,9 +197,9 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		MLocator foreignEntity;
 		if (M_Locator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,7 +209,7 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
 			}
 		} else {
-			super.setM_Locator_ID(0);
+			this.setM_Locator_ID(0);
 		}
 	}
 
@@ -221,9 +231,9 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("M_LocatorTo")
 	public void setM_LocatorToInput(ForeignEntityInput M_LocatorTo) {
 		this.mM_LocatorTo = M_LocatorTo;
-		MLocator foreignEntity;
 		if (M_LocatorTo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_LocatorTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -233,7 +243,7 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 						"Could not find entity in table M_Locator with UUID " + M_LocatorTo.getUUID());
 			}
 		} else {
-			super.setM_LocatorTo_ID(0);
+			this.setM_LocatorTo_ID(0);
 		}
 	}
 
@@ -255,9 +265,12 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("M_Movement")
 	public void setM_MovementInput(ForeignEntityInput M_Movement) {
 		this.mM_Movement = M_Movement;
-		MMovement_BH foreignEntity;
-		if (get_ID() == 0 && M_Movement != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Movement != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMovement_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Movement", "M_Movement_UU=?", get_TrxName())
 							.setParameters(M_Movement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -266,6 +279,8 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 				throw new AdempiereException(
 						"Could not find entity in table M_Movement with UUID " + M_Movement.getUUID());
 			}
+		} else {
+			this.setM_Movement_ID(0);
 		}
 	}
 
@@ -316,9 +331,9 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -328,7 +343,7 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -350,9 +365,9 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	@JsonProperty("ReversalLine")
 	public void setReversalLineInput(ForeignEntityInput ReversalLine) {
 		this.mReversalLine = ReversalLine;
-		MMovementLine_BH foreignEntity;
 		if (ReversalLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMovementLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(ReversalLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -362,7 +377,7 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 						"Could not find entity in table M_MovementLine with UUID " + ReversalLine.getUUID());
 			}
 		} else {
-			super.setReversalLine_ID(0);
+			this.setReversalLine_ID(0);
 		}
 	}
 

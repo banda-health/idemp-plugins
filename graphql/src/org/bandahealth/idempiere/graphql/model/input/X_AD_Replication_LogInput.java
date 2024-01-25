@@ -46,9 +46,12 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,12 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	@JsonProperty("AD_Replication_Run")
 	public void setAD_Replication_RunInput(ForeignEntityInput AD_Replication_Run) {
 		this.mAD_Replication_Run = AD_Replication_Run;
-		MReplicationRun foreignEntity;
-		if (get_ID() == 0 && AD_Replication_Run != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Replication_Run != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReplicationRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Replication_Run", "AD_Replication_Run_UU=?", get_TrxName())
 							.setParameters(AD_Replication_Run.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +126,8 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 				throw new AdempiereException(
 						"Could not find entity in table AD_Replication_Run with UUID " + AD_Replication_Run.getUUID());
 			}
+		} else {
+			this.setAD_Replication_Run_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	@JsonProperty("AD_ReplicationTable")
 	public void setAD_ReplicationTableInput(ForeignEntityInput AD_ReplicationTable) {
 		this.mAD_ReplicationTable = AD_ReplicationTable;
-		X_AD_ReplicationTable foreignEntity;
 		if (AD_ReplicationTable != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_ReplicationTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationTable", "AD_ReplicationTable_UU=?", get_TrxName())
 							.setParameters(AD_ReplicationTable.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 						"Could not find entity in table AD_ReplicationTable with UUID " + AD_ReplicationTable.getUUID());
 			}
 		} else {
-			super.setAD_ReplicationTable_ID(0);
+			this.setAD_ReplicationTable_ID(0);
 		}
 	}
 

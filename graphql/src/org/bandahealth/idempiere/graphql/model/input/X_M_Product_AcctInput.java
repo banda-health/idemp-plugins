@@ -60,9 +60,12 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -71,6 +74,8 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -92,9 +97,12 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -103,6 +111,8 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -142,9 +152,12 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,6 +166,8 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -174,9 +189,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_Asset_A")
 	public void setP_Asset_AInput(ForeignEntityInput P_Asset_A) {
 		this.mP_Asset_A = P_Asset_A;
-		MAccount foreignEntity;
 		if (P_Asset_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -186,7 +201,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_Asset_A.getUUID());
 			}
 		} else {
-			super.setP_Asset_Acct(0);
+			this.setP_Asset_Acct(0);
 		}
 	}
 
@@ -208,9 +223,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_AverageCostVariance_A")
 	public void setP_AverageCostVariance_AInput(ForeignEntityInput P_AverageCostVariance_A) {
 		this.mP_AverageCostVariance_A = P_AverageCostVariance_A;
-		MAccount foreignEntity;
 		if (P_AverageCostVariance_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_AverageCostVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -220,7 +235,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_AverageCostVariance_A.getUUID());
 			}
 		} else {
-			super.setP_AverageCostVariance_Acct(0);
+			this.setP_AverageCostVariance_Acct(0);
 		}
 	}
 
@@ -242,9 +257,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_COGS_A")
 	public void setP_COGS_AInput(ForeignEntityInput P_COGS_A) {
 		this.mP_COGS_A = P_COGS_A;
-		MAccount foreignEntity;
 		if (P_COGS_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_COGS_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -254,7 +269,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_COGS_A.getUUID());
 			}
 		} else {
-			super.setP_COGS_Acct(0);
+			this.setP_COGS_Acct(0);
 		}
 	}
 
@@ -276,9 +291,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_CostAdjustment_A")
 	public void setP_CostAdjustment_AInput(ForeignEntityInput P_CostAdjustment_A) {
 		this.mP_CostAdjustment_A = P_CostAdjustment_A;
-		MAccount foreignEntity;
 		if (P_CostAdjustment_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_CostAdjustment_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -288,7 +303,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_CostAdjustment_A.getUUID());
 			}
 		} else {
-			super.setP_CostAdjustment_Acct(0);
+			this.setP_CostAdjustment_Acct(0);
 		}
 	}
 
@@ -310,9 +325,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_Expense_A")
 	public void setP_Expense_AInput(ForeignEntityInput P_Expense_A) {
 		this.mP_Expense_A = P_Expense_A;
-		MAccount foreignEntity;
 		if (P_Expense_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -322,7 +337,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_Expense_A.getUUID());
 			}
 		} else {
-			super.setP_Expense_Acct(0);
+			this.setP_Expense_Acct(0);
 		}
 	}
 
@@ -344,9 +359,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_InventoryClearing_A")
 	public void setP_InventoryClearing_AInput(ForeignEntityInput P_InventoryClearing_A) {
 		this.mP_InventoryClearing_A = P_InventoryClearing_A;
-		MAccount foreignEntity;
 		if (P_InventoryClearing_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_InventoryClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -356,7 +371,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_InventoryClearing_A.getUUID());
 			}
 		} else {
-			super.setP_InventoryClearing_Acct(0);
+			this.setP_InventoryClearing_Acct(0);
 		}
 	}
 
@@ -378,9 +393,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_InvoicePriceVariance_A")
 	public void setP_InvoicePriceVariance_AInput(ForeignEntityInput P_InvoicePriceVariance_A) {
 		this.mP_InvoicePriceVariance_A = P_InvoicePriceVariance_A;
-		MAccount foreignEntity;
 		if (P_InvoicePriceVariance_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_InvoicePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -390,7 +405,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_InvoicePriceVariance_A.getUUID());
 			}
 		} else {
-			super.setP_InvoicePriceVariance_Acct(0);
+			this.setP_InvoicePriceVariance_Acct(0);
 		}
 	}
 
@@ -412,9 +427,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_LandedCostClearing_A")
 	public void setP_LandedCostClearing_AInput(ForeignEntityInput P_LandedCostClearing_A) {
 		this.mP_LandedCostClearing_A = P_LandedCostClearing_A;
-		MAccount foreignEntity;
 		if (P_LandedCostClearing_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_LandedCostClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -424,7 +439,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_LandedCostClearing_A.getUUID());
 			}
 		} else {
-			super.setP_LandedCostClearing_Acct(0);
+			this.setP_LandedCostClearing_Acct(0);
 		}
 	}
 
@@ -446,9 +461,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_PurchasePriceVariance_A")
 	public void setP_PurchasePriceVariance_AInput(ForeignEntityInput P_PurchasePriceVariance_A) {
 		this.mP_PurchasePriceVariance_A = P_PurchasePriceVariance_A;
-		MAccount foreignEntity;
 		if (P_PurchasePriceVariance_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_PurchasePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -458,7 +473,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_PurchasePriceVariance_A.getUUID());
 			}
 		} else {
-			super.setP_PurchasePriceVariance_Acct(0);
+			this.setP_PurchasePriceVariance_Acct(0);
 		}
 	}
 
@@ -480,9 +495,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_RateVariance_A")
 	public void setP_RateVariance_AInput(ForeignEntityInput P_RateVariance_A) {
 		this.mP_RateVariance_A = P_RateVariance_A;
-		MAccount foreignEntity;
 		if (P_RateVariance_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_RateVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -492,7 +507,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_RateVariance_A.getUUID());
 			}
 		} else {
-			super.setP_RateVariance_Acct(0);
+			this.setP_RateVariance_Acct(0);
 		}
 	}
 
@@ -514,9 +529,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_Revenue_A")
 	public void setP_Revenue_AInput(ForeignEntityInput P_Revenue_A) {
 		this.mP_Revenue_A = P_Revenue_A;
-		MAccount foreignEntity;
 		if (P_Revenue_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -526,7 +541,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_Revenue_A.getUUID());
 			}
 		} else {
-			super.setP_Revenue_Acct(0);
+			this.setP_Revenue_Acct(0);
 		}
 	}
 
@@ -548,9 +563,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_TradeDiscountGrant_A")
 	public void setP_TradeDiscountGrant_AInput(ForeignEntityInput P_TradeDiscountGrant_A) {
 		this.mP_TradeDiscountGrant_A = P_TradeDiscountGrant_A;
-		MAccount foreignEntity;
 		if (P_TradeDiscountGrant_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_TradeDiscountGrant_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -560,7 +575,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_TradeDiscountGrant_A.getUUID());
 			}
 		} else {
-			super.setP_TradeDiscountGrant_Acct(0);
+			this.setP_TradeDiscountGrant_Acct(0);
 		}
 	}
 
@@ -582,9 +597,9 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 	@JsonProperty("P_TradeDiscountRec_A")
 	public void setP_TradeDiscountRec_AInput(ForeignEntityInput P_TradeDiscountRec_A) {
 		this.mP_TradeDiscountRec_A = P_TradeDiscountRec_A;
-		MAccount foreignEntity;
 		if (P_TradeDiscountRec_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_TradeDiscountRec_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -594,7 +609,7 @@ public class X_M_Product_AcctInput extends X_M_Product_Acct implements I_M_Produ
 						"Could not find entity in table C_ValidCombination with UUID " + P_TradeDiscountRec_A.getUUID());
 			}
 		} else {
-			super.setP_TradeDiscountRec_Acct(0);
+			this.setP_TradeDiscountRec_Acct(0);
 		}
 	}
 

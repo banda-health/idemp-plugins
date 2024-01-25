@@ -56,9 +56,12 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -88,9 +93,9 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -100,7 +105,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -122,9 +127,9 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -134,7 +139,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -156,9 +161,12 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionList")
 	public void setM_DistributionListInput(ForeignEntityInput M_DistributionList) {
 		this.mM_DistributionList = M_DistributionList;
-		MDistributionList foreignEntity;
-		if (get_ID() == 0 && M_DistributionList != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DistributionList != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDistributionList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
 							.setParameters(M_DistributionList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -167,6 +175,8 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 				throw new AdempiereException(
 						"Could not find entity in table M_DistributionList with UUID " + M_DistributionList.getUUID());
 			}
+		} else {
+			this.setM_DistributionList_ID(0);
 		}
 	}
 
@@ -188,9 +198,12 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionListLine")
 	public void setM_DistributionListLineInput(ForeignEntityInput M_DistributionListLine) {
 		this.mM_DistributionListLine = M_DistributionListLine;
-		MDistributionListLine foreignEntity;
-		if (get_ID() == 0 && M_DistributionListLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DistributionListLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDistributionListLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionListLine", "M_DistributionListLine_UU=?", get_TrxName())
 							.setParameters(M_DistributionListLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,6 +212,8 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 				throw new AdempiereException(
 						"Could not find entity in table M_DistributionListLine with UUID " + M_DistributionListLine.getUUID());
 			}
+		} else {
+			this.setM_DistributionListLine_ID(0);
 		}
 	}
 
@@ -220,9 +235,12 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionRun")
 	public void setM_DistributionRunInput(ForeignEntityInput M_DistributionRun) {
 		this.mM_DistributionRun = M_DistributionRun;
-		MDistributionRun foreignEntity;
-		if (get_ID() == 0 && M_DistributionRun != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DistributionRun != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDistributionRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionRun", "M_DistributionRun_UU=?", get_TrxName())
 							.setParameters(M_DistributionRun.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -231,6 +249,8 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 				throw new AdempiereException(
 						"Could not find entity in table M_DistributionRun with UUID " + M_DistributionRun.getUUID());
 			}
+		} else {
+			this.setM_DistributionRun_ID(0);
 		}
 	}
 
@@ -252,9 +272,12 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_DistributionRunLine")
 	public void setM_DistributionRunLineInput(ForeignEntityInput M_DistributionRunLine) {
 		this.mM_DistributionRunLine = M_DistributionRunLine;
-		MDistributionRunLine foreignEntity;
-		if (get_ID() == 0 && M_DistributionRunLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DistributionRunLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDistributionRunLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionRunLine", "M_DistributionRunLine_UU=?", get_TrxName())
 							.setParameters(M_DistributionRunLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -263,6 +286,8 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 				throw new AdempiereException(
 						"Could not find entity in table M_DistributionRunLine with UUID " + M_DistributionRunLine.getUUID());
 			}
+		} else {
+			this.setM_DistributionRunLine_ID(0);
 		}
 	}
 
@@ -284,9 +309,9 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -296,7 +321,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

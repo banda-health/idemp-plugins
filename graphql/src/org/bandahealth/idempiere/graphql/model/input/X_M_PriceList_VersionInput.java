@@ -47,9 +47,12 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -79,9 +84,9 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	@JsonProperty("M_DiscountSchema")
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
-		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,7 +96,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
 			}
 		} else {
-			super.setM_DiscountSchema_ID(0);
+			this.setM_DiscountSchema_ID(0);
 		}
 	}
 
@@ -113,9 +118,12 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	@JsonProperty("M_PriceList")
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
-		MPriceList foreignEntity;
-		if (get_ID() == 0 && M_PriceList != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_PriceList != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -124,6 +132,8 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 				throw new AdempiereException(
 						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
 			}
+		} else {
+			this.setM_PriceList_ID(0);
 		}
 	}
 
@@ -145,9 +155,9 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	@JsonProperty("M_Pricelist_Version_Base")
 	public void setM_Pricelist_Version_BaseInput(ForeignEntityInput M_Pricelist_Version_Base) {
 		this.mM_Pricelist_Version_Base = M_Pricelist_Version_Base;
-		MPriceListVersion foreignEntity;
 		if (M_Pricelist_Version_Base != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPriceListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
 							.setParameters(M_Pricelist_Version_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -157,7 +167,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 						"Could not find entity in table M_PriceList_Version with UUID " + M_Pricelist_Version_Base.getUUID());
 			}
 		} else {
-			super.setM_Pricelist_Version_Base_ID(0);
+			this.setM_Pricelist_Version_Base_ID(0);
 		}
 	}
 

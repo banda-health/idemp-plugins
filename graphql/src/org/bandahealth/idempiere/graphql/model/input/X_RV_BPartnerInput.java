@@ -121,9 +121,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		MLanguage foreignEntity;
-		if (get_ID() == 0 && AD_Language != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Language != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,6 +135,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
 			}
+		} else {
+			this.setAD_Language(null);
 		}
 	}
 
@@ -153,9 +158,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -164,6 +172,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -185,9 +195,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_C_BPartner")
 	public void setAD_User_C_BPartnerInput(ForeignEntityInput AD_User_C_BPartner) {
 		this.mAD_User_C_BPartner = AD_User_C_BPartner;
-		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && AD_User_C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User_C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(AD_User_C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -196,6 +209,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner with UUID " + AD_User_C_BPartner.getUUID());
 			}
+		} else {
+			this.setAD_User_C_BPartner_ID(0);
 		}
 	}
 
@@ -217,9 +232,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_C_BPartner_Location")
 	public void setAD_User_C_BPartner_LocationInput(ForeignEntityInput AD_User_C_BPartner_Location) {
 		this.mAD_User_C_BPartner_Location = AD_User_C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
-		if (get_ID() == 0 && AD_User_C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User_C_BPartner_Location != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(AD_User_C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -228,6 +246,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner_Location with UUID " + AD_User_C_BPartner_Location.getUUID());
 			}
+		} else {
+			this.setAD_User_C_BPartner_Location_ID(0);
 		}
 	}
 
@@ -260,9 +280,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_Create")
 	public void setAD_User_CreateInput(ForeignEntityInput AD_User_Create) {
 		this.mAD_User_Create = AD_User_Create;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User_Create != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User_Create != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User_Create.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -271,6 +294,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User_Create.getUUID());
 			}
+		} else {
+			this.setAD_User_CreatedBy(0);
 		}
 	}
 
@@ -292,9 +317,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -303,6 +331,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
+		} else {
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -346,9 +376,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("AD_User_Update")
 	public void setAD_User_UpdateInput(ForeignEntityInput AD_User_Update) {
 		this.mAD_User_Update = AD_User_Update;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User_Update != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User_Update != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User_Update.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -357,6 +390,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User_Update.getUUID());
 			}
+		} else {
+			this.setAD_User_UpdatedBy(0);
 		}
 	}
 
@@ -444,9 +479,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("BPartner_Parent")
 	public void setBPartner_ParentInput(ForeignEntityInput BPartner_Parent) {
 		this.mBPartner_Parent = BPartner_Parent;
-		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && BPartner_Parent != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BPartner_Parent != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(BPartner_Parent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -455,6 +493,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner with UUID " + BPartner_Parent.getUUID());
 			}
+		} else {
+			this.setBPartner_Parent_ID(0);
 		}
 	}
 
@@ -476,9 +516,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("BPContactGreet")
 	public void setBPContactGreetInput(ForeignEntityInput BPContactGreet) {
 		this.mBPContactGreet = BPContactGreet;
-		X_C_Greeting foreignEntity;
-		if (get_ID() == 0 && BPContactGreet != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BPContactGreet != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
 							.setParameters(BPContactGreet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -487,6 +530,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Greeting with UUID " + BPContactGreet.getUUID());
 			}
+		} else {
+			this.setBPContactGreeting(0);
 		}
 	}
 
@@ -508,9 +553,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_C_TaxGroup")
 	public void setC_BP_C_TaxGroupInput(ForeignEntityInput C_BP_C_TaxGroup) {
 		this.mC_BP_C_TaxGroup = C_BP_C_TaxGroup;
-		X_C_TaxGroup foreignEntity;
-		if (get_ID() == 0 && C_BP_C_TaxGroup != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_C_TaxGroup != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_TaxGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxGroup", "C_TaxGroup_UU=?", get_TrxName())
 							.setParameters(C_BP_C_TaxGroup.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -519,6 +567,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_TaxGroup with UUID " + C_BP_C_TaxGroup.getUUID());
 			}
+		} else {
+			this.setC_BP_C_TaxGroup_ID(0);
 		}
 	}
 
@@ -551,9 +601,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		MBPGroup_BH foreignEntity;
-		if (get_ID() == 0 && C_BP_Group != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_Group != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -562,6 +615,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
 			}
+		} else {
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -605,9 +660,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_C_BPartner")
 	public void setC_BP_Location_C_BPartnerInput(ForeignEntityInput C_BP_Location_C_BPartner) {
 		this.mC_BP_Location_C_BPartner = C_BP_Location_C_BPartner;
-		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && C_BP_Location_C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_Location_C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BP_Location_C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -616,6 +674,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner with UUID " + C_BP_Location_C_BPartner.getUUID());
 			}
+		} else {
+			this.setC_BP_Location_C_BPartner_ID(0);
 		}
 	}
 
@@ -637,9 +697,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_C_Location")
 	public void setC_BP_Location_C_LocationInput(ForeignEntityInput C_BP_Location_C_Location) {
 		this.mC_BP_Location_C_Location = C_BP_Location_C_Location;
-		MLocation foreignEntity;
-		if (get_ID() == 0 && C_BP_Location_C_Location != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_Location_C_Location != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_BP_Location_C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -648,6 +711,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Location with UUID " + C_BP_Location_C_Location.getUUID());
 			}
+		} else {
+			this.setC_BP_Location_C_Location_ID(0);
 		}
 	}
 
@@ -680,9 +745,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_Create")
 	public void setC_BP_Location_CreateInput(ForeignEntityInput C_BP_Location_Create) {
 		this.mC_BP_Location_Create = C_BP_Location_Create;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && C_BP_Location_Create != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_Location_Create != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(C_BP_Location_Create.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -691,6 +759,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + C_BP_Location_Create.getUUID());
 			}
+		} else {
+			this.setC_BP_Location_CreatedBy(0);
 		}
 	}
 
@@ -822,9 +892,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_SalesRegion")
 	public void setC_BP_Location_SalesRegionInput(ForeignEntityInput C_BP_Location_SalesRegion) {
 		this.mC_BP_Location_SalesRegion = C_BP_Location_SalesRegion;
-		MSalesRegion foreignEntity;
-		if (get_ID() == 0 && C_BP_Location_SalesRegion != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_Location_SalesRegion != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
 							.setParameters(C_BP_Location_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -833,6 +906,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_SalesRegion with UUID " + C_BP_Location_SalesRegion.getUUID());
 			}
+		} else {
+			this.setC_BP_Location_SalesRegion_ID(0);
 		}
 	}
 
@@ -865,9 +940,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BP_Location_Update")
 	public void setC_BP_Location_UpdateInput(ForeignEntityInput C_BP_Location_Update) {
 		this.mC_BP_Location_Update = C_BP_Location_Update;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && C_BP_Location_Update != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BP_Location_Update != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(C_BP_Location_Update.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -876,6 +954,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + C_BP_Location_Update.getUUID());
 			}
+		} else {
+			this.setC_BP_Location_UpdatedBy(0);
 		}
 	}
 
@@ -908,9 +988,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
-		if (get_ID() == 0 && C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BPartner_Location != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -919,6 +1002,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
+		} else {
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -940,9 +1025,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_City")
 	public void setC_CityInput(ForeignEntityInput C_City) {
 		this.mC_City = C_City;
-		MCity foreignEntity;
-		if (get_ID() == 0 && C_City != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_City != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
 							.setParameters(C_City.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -951,6 +1039,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_City with UUID " + C_City.getUUID());
 			}
+		} else {
+			this.setC_City_ID(0);
 		}
 	}
 
@@ -983,9 +1073,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Country_C_Currency")
 	public void setC_Country_C_CurrencyInput(ForeignEntityInput C_Country_C_Currency) {
 		this.mC_Country_C_Currency = C_Country_C_Currency;
-		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 && C_Country_C_Currency != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Country_C_Currency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Country_C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -994,6 +1087,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Currency with UUID " + C_Country_C_Currency.getUUID());
 			}
+		} else {
+			this.setC_Country_C_Currency_ID(0);
 		}
 	}
 
@@ -1026,9 +1121,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Country")
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
-		MCountry foreignEntity;
-		if (get_ID() == 0 && C_Country != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Country != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
 							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1037,6 +1135,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
 			}
+		} else {
+			this.setC_Country_ID(0);
 		}
 	}
 
@@ -1069,9 +1169,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Dunning")
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
-		MDunning foreignEntity;
-		if (get_ID() == 0 && C_Dunning != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Dunning != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
 							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1080,6 +1183,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
 			}
+		} else {
+			this.setC_Dunning_ID(0);
 		}
 	}
 
@@ -1101,9 +1206,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Greeting")
 	public void setC_GreetingInput(ForeignEntityInput C_Greeting) {
 		this.mC_Greeting = C_Greeting;
-		X_C_Greeting foreignEntity;
-		if (get_ID() == 0 && C_Greeting != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Greeting != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
 							.setParameters(C_Greeting.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1112,6 +1220,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Greeting with UUID " + C_Greeting.getUUID());
 			}
+		} else {
+			this.setC_Greeting_ID(0);
 		}
 	}
 
@@ -1133,9 +1243,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_InvoiceSchedule")
 	public void setC_InvoiceScheduleInput(ForeignEntityInput C_InvoiceSchedule) {
 		this.mC_InvoiceSchedule = C_InvoiceSchedule;
-		MInvoiceSchedule foreignEntity;
-		if (get_ID() == 0 && C_InvoiceSchedule != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_InvoiceSchedule != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceSchedule", "C_InvoiceSchedule_UU=?", get_TrxName())
 							.setParameters(C_InvoiceSchedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1144,6 +1257,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_InvoiceSchedule with UUID " + C_InvoiceSchedule.getUUID());
 			}
+		} else {
+			this.setC_InvoiceSchedule_ID(0);
 		}
 	}
 
@@ -1176,9 +1291,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Location_Create")
 	public void setC_Location_CreateInput(ForeignEntityInput C_Location_Create) {
 		this.mC_Location_Create = C_Location_Create;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && C_Location_Create != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Location_Create != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(C_Location_Create.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1187,6 +1305,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + C_Location_Create.getUUID());
 			}
+		} else {
+			this.setC_Location_CreatedBy(0);
 		}
 	}
 
@@ -1208,9 +1328,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
-		if (get_ID() == 0 && C_Location != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Location != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1219,6 +1342,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
+		} else {
+			this.setC_Location_ID(0);
 		}
 	}
 
@@ -1262,9 +1387,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Location_Update")
 	public void setC_Location_UpdateInput(ForeignEntityInput C_Location_Update) {
 		this.mC_Location_Update = C_Location_Update;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && C_Location_Update != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Location_Update != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(C_Location_Update.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1273,6 +1401,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + C_Location_Update.getUUID());
 			}
+		} else {
+			this.setC_Location_UpdatedBy(0);
 		}
 	}
 
@@ -1294,9 +1424,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_PaymentTerm")
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
-		MPaymentTerm foreignEntity;
-		if (get_ID() == 0 && C_PaymentTerm != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_PaymentTerm != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1305,6 +1438,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
 			}
+		} else {
+			this.setC_PaymentTerm_ID(0);
 		}
 	}
 
@@ -1337,9 +1472,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("C_Region")
 	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
-		MRegion foreignEntity;
-		if (get_ID() == 0 && C_Region != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Region != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
 							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1348,6 +1486,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
 			}
+		} else {
+			this.setC_Region_ID(0);
 		}
 	}
 
@@ -1446,9 +1586,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("DeliveryRule")
 	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&DeliveryRule != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (DeliveryRule != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DeliveryRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1457,6 +1600,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DeliveryRule.getUUID());
 			}
+		} else {
+			this.setDeliveryRule(null);
 		}
 	}
 
@@ -1478,9 +1623,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("DeliveryViaRule")
 	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&DeliveryViaRule != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (DeliveryViaRule != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DeliveryViaRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1489,6 +1637,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DeliveryViaRule.getUUID());
 			}
+		} else {
+			this.setDeliveryViaRule(null);
 		}
 	}
 
@@ -1620,9 +1770,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("FreightCostRule")
 	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&FreightCostRule != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (FreightCostRule != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FreightCostRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1631,6 +1784,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FreightCostRule.getUUID());
 			}
+		} else {
+			this.setFreightCostRule(null);
 		}
 	}
 
@@ -1652,9 +1807,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("Invoice_PrintFormat")
 	public void setInvoice_PrintFormatInput(ForeignEntityInput Invoice_PrintFormat) {
 		this.mInvoice_PrintFormat = Invoice_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
-		if (get_ID() == 0 && Invoice_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Invoice_PrintFormat != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(Invoice_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1663,6 +1821,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_PrintFormat with UUID " + Invoice_PrintFormat.getUUID());
 			}
+		} else {
+			this.setInvoice_PrintFormat_ID(0);
 		}
 	}
 
@@ -1684,9 +1844,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("InvoiceRule")
 	public void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&InvoiceRule != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (InvoiceRule != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1695,6 +1858,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceRule.getUUID());
 			}
+		} else {
+			this.setInvoiceRule(null);
 		}
 	}
 
@@ -1859,9 +2024,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("M_DiscountSchema")
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
-		MDiscountSchema foreignEntity;
-		if (get_ID() == 0 && M_DiscountSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DiscountSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1870,6 +2038,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
 			}
+		} else {
+			this.setM_DiscountSchema_ID(0);
 		}
 	}
 
@@ -1891,9 +2061,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("M_PriceList")
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
-		MPriceList foreignEntity;
-		if (get_ID() == 0 && M_PriceList != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_PriceList != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1902,6 +2075,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
 			}
+		} else {
+			this.setM_PriceList_ID(0);
 		}
 	}
 
@@ -1956,9 +2131,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("NotificationType")
 	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
 		this.mNotificationType = NotificationType;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&NotificationType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (NotificationType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(NotificationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1967,6 +2145,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + NotificationType.getUUID());
 			}
+		} else {
+			this.setNotificationType(null);
 		}
 	}
 
@@ -1999,9 +2179,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PaymentRule")
 	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&PaymentRule != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PaymentRule != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2010,6 +2193,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PaymentRule.getUUID());
 			}
+		} else {
+			this.setPaymentRule(null);
 		}
 	}
 
@@ -2031,9 +2216,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PaymentRulePO")
 	public void setPaymentRulePOInput(I_AD_Ref_ListInput PaymentRulePO) {
 		this.mPaymentRulePO = PaymentRulePO;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&PaymentRulePO != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PaymentRulePO != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRulePO.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2042,6 +2230,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PaymentRulePO.getUUID());
 			}
+		} else {
+			this.setPaymentRulePO(null);
 		}
 	}
 
@@ -2085,9 +2275,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PO_DiscountSchema")
 	public void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema) {
 		this.mPO_DiscountSchema = PO_DiscountSchema;
-		MDiscountSchema foreignEntity;
-		if (get_ID() == 0 && PO_DiscountSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PO_DiscountSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 							.setParameters(PO_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2096,6 +2289,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table M_DiscountSchema with UUID " + PO_DiscountSchema.getUUID());
 			}
+		} else {
+			this.setPO_DiscountSchema_ID(0);
 		}
 	}
 
@@ -2117,9 +2312,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PO_PaymentTerm")
 	public void setPO_PaymentTermInput(ForeignEntityInput PO_PaymentTerm) {
 		this.mPO_PaymentTerm = PO_PaymentTerm;
-		MPaymentTerm foreignEntity;
-		if (get_ID() == 0 && PO_PaymentTerm != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PO_PaymentTerm != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 							.setParameters(PO_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2128,6 +2326,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table C_PaymentTerm with UUID " + PO_PaymentTerm.getUUID());
 			}
+		} else {
+			this.setPO_PaymentTerm_ID(0);
 		}
 	}
 
@@ -2149,9 +2349,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("PO_PriceList")
 	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
 		this.mPO_PriceList = PO_PriceList;
-		MPriceList foreignEntity;
-		if (get_ID() == 0 && PO_PriceList != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PO_PriceList != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(PO_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2160,6 +2363,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table M_PriceList with UUID " + PO_PriceList.getUUID());
 			}
+		} else {
+			this.setPO_PriceList_ID(0);
 		}
 	}
 
@@ -2258,9 +2463,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && SalesRep != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (SalesRep != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2269,6 +2477,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
 			}
+		} else {
+			this.setSalesRep_ID(0);
 		}
 	}
 
@@ -2378,9 +2588,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("SOCreditStatus")
 	public void setSOCreditStatusInput(I_AD_Ref_ListInput SOCreditStatus) {
 		this.mSOCreditStatus = SOCreditStatus;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&SOCreditStatus != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (SOCreditStatus != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(SOCreditStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2389,6 +2602,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + SOCreditStatus.getUUID());
 			}
+		} else {
+			this.setSOCreditStatus(null);
 		}
 	}
 
@@ -2410,9 +2625,12 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	@JsonProperty("Supervisor")
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && Supervisor != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Supervisor != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -2421,6 +2639,8 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
 			}
+		} else {
+			this.setSupervisor_ID(0);
 		}
 	}
 

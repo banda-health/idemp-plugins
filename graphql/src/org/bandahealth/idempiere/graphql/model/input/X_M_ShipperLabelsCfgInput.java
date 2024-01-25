@@ -46,9 +46,12 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	@JsonProperty("LabelPrintMethod")
 	public void setLabelPrintMethodInput(I_AD_Ref_ListInput LabelPrintMethod) {
 		this.mLabelPrintMethod = LabelPrintMethod;
-		MRefList_BH foreignEntity;
 		if (LabelPrintMethod != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LabelPrintMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -112,9 +117,12 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 	@JsonProperty("M_ShipperCfg")
 	public void setM_ShipperCfgInput(ForeignEntityInput M_ShipperCfg) {
 		this.mM_ShipperCfg = M_ShipperCfg;
-		X_M_ShipperCfg foreignEntity;
-		if (get_ID() == 0 && M_ShipperCfg != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_ShipperCfg != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_M_ShipperCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperCfg", "M_ShipperCfg_UU=?", get_TrxName())
 							.setParameters(M_ShipperCfg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +131,8 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 				throw new AdempiereException(
 						"Could not find entity in table M_ShipperCfg with UUID " + M_ShipperCfg.getUUID());
 			}
+		} else {
+			this.setM_ShipperCfg_ID(0);
 		}
 	}
 

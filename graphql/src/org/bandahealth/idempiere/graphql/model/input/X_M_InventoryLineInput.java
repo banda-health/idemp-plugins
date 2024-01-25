@@ -56,9 +56,12 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -121,9 +126,9 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -133,7 +138,7 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -166,9 +171,9 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("InventoryType")
 	public void setInventoryTypeInput(I_AD_Ref_ListInput InventoryType) {
 		this.mInventoryType = InventoryType;
-		MRefList_BH foreignEntity;
 		if (InventoryType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InventoryType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -200,9 +205,9 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -212,7 +217,7 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -234,9 +239,12 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("M_Inventory")
 	public void setM_InventoryInput(ForeignEntityInput M_Inventory) {
 		this.mM_Inventory = M_Inventory;
-		MInventory_BH foreignEntity;
-		if (get_ID() == 0 && M_Inventory != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Inventory != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInventory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Inventory", "M_Inventory_UU=?", get_TrxName())
 							.setParameters(M_Inventory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -245,6 +253,8 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 				throw new AdempiereException(
 						"Could not find entity in table M_Inventory with UUID " + M_Inventory.getUUID());
 			}
+		} else {
+			this.setM_Inventory_ID(0);
 		}
 	}
 
@@ -295,9 +305,9 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		MLocator foreignEntity;
 		if (M_Locator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -307,7 +317,7 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
 			}
 		} else {
-			super.setM_Locator_ID(0);
+			this.setM_Locator_ID(0);
 		}
 	}
 
@@ -329,9 +339,9 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -341,7 +351,7 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -374,9 +384,9 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 	@JsonProperty("ReversalLine")
 	public void setReversalLineInput(ForeignEntityInput ReversalLine) {
 		this.mReversalLine = ReversalLine;
-		MInventoryLine_BH foreignEntity;
 		if (ReversalLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInventoryLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(ReversalLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -386,7 +396,7 @@ public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_Inv
 						"Could not find entity in table M_InventoryLine with UUID " + ReversalLine.getUUID());
 			}
 		} else {
-			super.setReversalLine_ID(0);
+			this.setReversalLine_ID(0);
 		}
 	}
 

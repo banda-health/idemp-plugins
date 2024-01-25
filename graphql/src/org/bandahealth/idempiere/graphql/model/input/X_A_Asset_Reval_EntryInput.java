@@ -87,9 +87,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("A_Rev_Code")
 	public void setA_Rev_CodeInput(I_AD_Ref_ListInput A_Rev_Code) {
 		this.mA_Rev_Code = A_Rev_Code;
-		MRefList_BH foreignEntity;
 		if (A_Rev_Code != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Rev_Code.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,9 +121,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("A_Reval_Cal_Method")
 	public void setA_Reval_Cal_MethodInput(I_AD_Ref_ListInput A_Reval_Cal_Method) {
 		this.mA_Reval_Cal_Method = A_Reval_Cal_Method;
-		MRefList_BH foreignEntity;
 		if (A_Reval_Cal_Method != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Reval_Cal_Method.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,9 +155,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("A_Reval_Effective_Date")
 	public void setA_Reval_Effective_DateInput(I_AD_Ref_ListInput A_Reval_Effective_Date) {
 		this.mA_Reval_Effective_Date = A_Reval_Effective_Date;
-		MRefList_BH foreignEntity;
 		if (A_Reval_Effective_Date != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Reval_Effective_Date.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,9 +189,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("A_Reval_Multiplier")
 	public void setA_Reval_MultiplierInput(I_AD_Ref_ListInput A_Reval_Multiplier) {
 		this.mA_Reval_Multiplier = A_Reval_Multiplier;
-		MRefList_BH foreignEntity;
 		if (A_Reval_Multiplier != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Reval_Multiplier.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -223,9 +223,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -235,7 +235,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -257,9 +257,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -269,7 +269,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
 		} else {
-			super.setC_AcctSchema_ID(0);
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -291,9 +291,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -303,7 +303,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -325,9 +325,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
 		if (C_DocType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -337,7 +337,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
 		} else {
-			super.setC_DocType_ID(0);
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -359,9 +359,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		MPeriod foreignEntity;
 		if (C_Period != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -371,7 +371,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
 			}
 		} else {
-			super.setC_Period_ID(0);
+			this.setC_Period_ID(0);
 		}
 	}
 
@@ -393,9 +393,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("GL_Category")
 	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
-		MGLCategory foreignEntity;
 		if (GL_Category != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
 							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -405,7 +405,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 						"Could not find entity in table GL_Category with UUID " + GL_Category.getUUID());
 			}
 		} else {
-			super.setGL_Category_ID(0);
+			this.setGL_Category_ID(0);
 		}
 	}
 
@@ -427,9 +427,9 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
-		MRefList_BH foreignEntity;
 		if (PostingType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

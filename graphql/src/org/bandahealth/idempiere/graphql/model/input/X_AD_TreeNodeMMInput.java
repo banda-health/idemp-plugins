@@ -44,9 +44,12 @@ public class X_AD_TreeNodeMMInput extends MTree_NodeMM implements I_AD_TreeNodeM
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_AD_TreeNodeMMInput extends MTree_NodeMM implements I_AD_TreeNodeM
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_AD_TreeNodeMMInput extends MTree_NodeMM implements I_AD_TreeNodeM
 	@JsonProperty("AD_Tree")
 	public void setAD_TreeInput(ForeignEntityInput AD_Tree) {
 		this.mAD_Tree = AD_Tree;
-		MTree_BH foreignEntity;
-		if (get_ID() == 0 && AD_Tree != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Tree != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_AD_TreeNodeMMInput extends MTree_NodeMM implements I_AD_TreeNodeM
 				throw new AdempiereException(
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree.getUUID());
 			}
+		} else {
+			this.setAD_Tree_ID(0);
 		}
 	}
 

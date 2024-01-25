@@ -91,9 +91,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("Action")
 	public void setActionInput(I_AD_Ref_ListInput Action) {
 		this.mAction = Action;
-		MRefList_BH foreignEntity;
 		if (Action != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Action.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -125,9 +125,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -136,6 +139,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -157,9 +162,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -169,7 +174,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -191,9 +196,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("Bill_Location")
 	public void setBill_LocationInput(ForeignEntityInput Bill_Location) {
 		this.mBill_Location = Bill_Location;
-		MBPartnerLocation foreignEntity;
 		if (Bill_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(Bill_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -203,7 +208,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_BPartner_Location with UUID " + Bill_Location.getUUID());
 			}
 		} else {
-			super.setBill_Location_ID(0);
+			this.setBill_Location_ID(0);
 		}
 	}
 
@@ -225,9 +230,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_BP_ShippingAcct")
 	public void setC_BP_ShippingAcctInput(ForeignEntityInput C_BP_ShippingAcct) {
 		this.mC_BP_ShippingAcct = C_BP_ShippingAcct;
-		X_C_BP_ShippingAcct foreignEntity;
 		if (C_BP_ShippingAcct != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_BP_ShippingAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_ShippingAcct", "C_BP_ShippingAcct_UU=?", get_TrxName())
 							.setParameters(C_BP_ShippingAcct.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -237,7 +242,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_BP_ShippingAcct with UUID " + C_BP_ShippingAcct.getUUID());
 			}
 		} else {
-			super.setC_BP_ShippingAcct_ID(0);
+			this.setC_BP_ShippingAcct_ID(0);
 		}
 	}
 
@@ -259,9 +264,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -271,7 +276,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -293,9 +298,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -305,7 +310,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -327,9 +332,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -339,7 +344,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -361,9 +366,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
 		if (C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -373,7 +378,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
 		} else {
-			super.setC_Invoice_ID(0);
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -395,9 +400,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
 		if (C_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -407,7 +412,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
 		} else {
-			super.setC_Order_ID(0);
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -429,9 +434,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_UOM_Length")
 	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
-		MUOM foreignEntity;
 		if (C_UOM_Length != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM_Length.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -441,7 +446,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_UOM with UUID " + C_UOM_Length.getUUID());
 			}
 		} else {
-			super.setC_UOM_Length_ID(0);
+			this.setC_UOM_Length_ID(0);
 		}
 	}
 
@@ -463,9 +468,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("C_UOM_Weight")
 	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
-		MUOM foreignEntity;
 		if (C_UOM_Weight != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM_Weight.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -475,7 +480,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_UOM with UUID " + C_UOM_Weight.getUUID());
 			}
 		} else {
-			super.setC_UOM_Weight_ID(0);
+			this.setC_UOM_Weight_ID(0);
 		}
 	}
 
@@ -497,9 +502,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("DeliveryConfirmationType")
 	public void setDeliveryConfirmationTypeInput(I_AD_Ref_ListInput DeliveryConfirmationType) {
 		this.mDeliveryConfirmationType = DeliveryConfirmationType;
-		MRefList_BH foreignEntity;
 		if (DeliveryConfirmationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DeliveryConfirmationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -531,9 +536,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("DotHazardClassOrDivision")
 	public void setDotHazardClassOrDivisionInput(I_AD_Ref_ListInput DotHazardClassOrDivision) {
 		this.mDotHazardClassOrDivision = DotHazardClassOrDivision;
-		MRefList_BH foreignEntity;
 		if (DotHazardClassOrDivision != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DotHazardClassOrDivision.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -565,9 +570,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("FOB")
 	public void setFOBInput(I_AD_Ref_ListInput FOB) {
 		this.mFOB = FOB;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&FOB != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (FOB != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FOB.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -576,6 +584,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FOB.getUUID());
 			}
+		} else {
+			this.setFOB(null);
 		}
 	}
 
@@ -597,9 +607,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("FreightCharges")
 	public void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges) {
 		this.mFreightCharges = FreightCharges;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&FreightCharges != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (FreightCharges != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FreightCharges.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -608,6 +621,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FreightCharges.getUUID());
 			}
+		} else {
+			this.setFreightCharges(null);
 		}
 	}
 
@@ -629,9 +644,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("HoldAddress")
 	public void setHoldAddressInput(ForeignEntityInput HoldAddress) {
 		this.mHoldAddress = HoldAddress;
-		MBPartnerLocation foreignEntity;
 		if (HoldAddress != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(HoldAddress.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -641,7 +656,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_BPartner_Location with UUID " + HoldAddress.getUUID());
 			}
 		} else {
-			super.setHoldAddress_ID(0);
+			this.setHoldAddress_ID(0);
 		}
 	}
 
@@ -663,9 +678,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("HomeDeliveryPremiumType")
 	public void setHomeDeliveryPremiumTypeInput(I_AD_Ref_ListInput HomeDeliveryPremiumType) {
 		this.mHomeDeliveryPremiumType = HomeDeliveryPremiumType;
-		MRefList_BH foreignEntity;
 		if (HomeDeliveryPremiumType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(HomeDeliveryPremiumType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -697,9 +712,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("Insurance")
 	public void setInsuranceInput(I_AD_Ref_ListInput Insurance) {
 		this.mInsurance = Insurance;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&Insurance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Insurance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Insurance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -708,6 +726,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Insurance.getUUID());
 			}
+		} else {
+			this.setInsurance(null);
 		}
 	}
 
@@ -729,9 +749,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_InOut")
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
-		MInOut_BH foreignEntity;
-		if (get_ID() == 0 && M_InOut != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_InOut != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
 							.setParameters(M_InOut.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -740,6 +763,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 				throw new AdempiereException(
 						"Could not find entity in table M_InOut with UUID " + M_InOut.getUUID());
 			}
+		} else {
+			this.setM_InOut_ID(0);
 		}
 	}
 
@@ -761,9 +786,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_Package")
 	public void setM_PackageInput(ForeignEntityInput M_Package) {
 		this.mM_Package = M_Package;
-		MPackage foreignEntity;
 		if (M_Package != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPackage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Package", "M_Package_UU=?", get_TrxName())
 							.setParameters(M_Package.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -773,7 +798,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table M_Package with UUID " + M_Package.getUUID());
 			}
 		} else {
-			super.setM_Package_ID(0);
+			this.setM_Package_ID(0);
 		}
 	}
 
@@ -795,9 +820,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_Shipper")
 	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
-		MShipper foreignEntity;
 		if (M_Shipper != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -807,7 +832,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table M_Shipper with UUID " + M_Shipper.getUUID());
 			}
 		} else {
-			super.setM_Shipper_ID(0);
+			this.setM_Shipper_ID(0);
 		}
 	}
 
@@ -829,9 +854,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_ShipperLabels")
 	public void setM_ShipperLabelsInput(ForeignEntityInput M_ShipperLabels) {
 		this.mM_ShipperLabels = M_ShipperLabels;
-		MShipperLabels foreignEntity;
 		if (M_ShipperLabels != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MShipperLabels foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperLabels", "M_ShipperLabels_UU=?", get_TrxName())
 							.setParameters(M_ShipperLabels.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -841,7 +866,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table M_ShipperLabels with UUID " + M_ShipperLabels.getUUID());
 			}
 		} else {
-			super.setM_ShipperLabels_ID(0);
+			this.setM_ShipperLabels_ID(0);
 		}
 	}
 
@@ -863,9 +888,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_ShipperPackaging")
 	public void setM_ShipperPackagingInput(ForeignEntityInput M_ShipperPackaging) {
 		this.mM_ShipperPackaging = M_ShipperPackaging;
-		MShipperPackaging foreignEntity;
 		if (M_ShipperPackaging != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MShipperPackaging foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperPackaging", "M_ShipperPackaging_UU=?", get_TrxName())
 							.setParameters(M_ShipperPackaging.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -875,7 +900,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table M_ShipperPackaging with UUID " + M_ShipperPackaging.getUUID());
 			}
 		} else {
-			super.setM_ShipperPackaging_ID(0);
+			this.setM_ShipperPackaging_ID(0);
 		}
 	}
 
@@ -897,9 +922,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_ShipperPickupTypes")
 	public void setM_ShipperPickupTypesInput(ForeignEntityInput M_ShipperPickupTypes) {
 		this.mM_ShipperPickupTypes = M_ShipperPickupTypes;
-		MShipperPickupTypes foreignEntity;
 		if (M_ShipperPickupTypes != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MShipperPickupTypes foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperPickupTypes", "M_ShipperPickupTypes_UU=?", get_TrxName())
 							.setParameters(M_ShipperPickupTypes.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -909,7 +934,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table M_ShipperPickupTypes with UUID " + M_ShipperPickupTypes.getUUID());
 			}
 		} else {
-			super.setM_ShipperPickupTypes_ID(0);
+			this.setM_ShipperPickupTypes_ID(0);
 		}
 	}
 
@@ -931,9 +956,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_ShippingProcessor")
 	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
 		this.mM_ShippingProcessor = M_ShippingProcessor;
-		MShippingProcessor foreignEntity;
-		if (get_ID() == 0 && M_ShippingProcessor != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_ShippingProcessor != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MShippingProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShippingProcessor", "M_ShippingProcessor_UU=?", get_TrxName())
 							.setParameters(M_ShippingProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -942,6 +970,8 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 				throw new AdempiereException(
 						"Could not find entity in table M_ShippingProcessor with UUID " + M_ShippingProcessor.getUUID());
 			}
+		} else {
+			this.setM_ShippingProcessor_ID(0);
 		}
 	}
 
@@ -992,9 +1022,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1004,7 +1034,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -1026,9 +1056,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("NotificationType")
 	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
 		this.mNotificationType = NotificationType;
-		MRefList_BH foreignEntity;
 		if (NotificationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(NotificationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1060,9 +1090,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("PaymentRule")
 	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
-		MRefList_BH foreignEntity;
 		if (PaymentRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1094,9 +1124,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("ReturnBPartner")
 	public void setReturnBPartnerInput(ForeignEntityInput ReturnBPartner) {
 		this.mReturnBPartner = ReturnBPartner;
-		MBPartner_BH foreignEntity;
 		if (ReturnBPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(ReturnBPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1106,7 +1136,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_BPartner with UUID " + ReturnBPartner.getUUID());
 			}
 		} else {
-			super.setReturnBPartner_ID(0);
+			this.setReturnBPartner_ID(0);
 		}
 	}
 
@@ -1128,9 +1158,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("ReturnLocation")
 	public void setReturnLocationInput(ForeignEntityInput ReturnLocation) {
 		this.mReturnLocation = ReturnLocation;
-		MBPartnerLocation foreignEntity;
 		if (ReturnLocation != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(ReturnLocation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1140,7 +1170,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table C_BPartner_Location with UUID " + ReturnLocation.getUUID());
 			}
 		} else {
-			super.setReturnLocation_ID(0);
+			this.setReturnLocation_ID(0);
 		}
 	}
 
@@ -1162,9 +1192,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("ReturnUser")
 	public void setReturnUserInput(ForeignEntityInput ReturnUser) {
 		this.mReturnUser = ReturnUser;
-		MUser_BH foreignEntity;
 		if (ReturnUser != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(ReturnUser.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1174,7 +1204,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table AD_User with UUID " + ReturnUser.getUUID());
 			}
 		} else {
-			super.setReturnUser_ID(0);
+			this.setReturnUser_ID(0);
 		}
 	}
 
@@ -1196,9 +1226,9 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		MUser_BH foreignEntity;
 		if (SalesRep != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1208,7 +1238,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
 			}
 		} else {
-			super.setSalesRep_ID(0);
+			this.setSalesRep_ID(0);
 		}
 	}
 

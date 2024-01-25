@@ -77,9 +77,9 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,7 +89,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -111,9 +111,9 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	@JsonProperty("ChartOrientation")
 	public void setChartOrientationInput(I_AD_Ref_ListInput ChartOrientation) {
 		this.mChartOrientation = ChartOrientation;
-		MRefList_BH foreignEntity;
 		if (ChartOrientation != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ChartOrientation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -145,9 +145,9 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	@JsonProperty("ChartType")
 	public void setChartTypeInput(I_AD_Ref_ListInput ChartType) {
 		this.mChartType = ChartType;
-		MRefList_BH foreignEntity;
 		if (ChartType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ChartType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -179,9 +179,9 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +191,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -213,9 +213,9 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	@JsonProperty("TimeUnit")
 	public void setTimeUnitInput(I_AD_Ref_ListInput TimeUnit) {
 		this.mTimeUnit = TimeUnit;
-		MRefList_BH foreignEntity;
 		if (TimeUnit != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(TimeUnit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

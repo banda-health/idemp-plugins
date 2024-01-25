@@ -46,9 +46,12 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -89,9 +94,12 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	@JsonProperty("BH_Encounter_Type")
 	public void setBH_Encounter_TypeInput(I_AD_Ref_ListInput BH_Encounter_Type) {
 		this.mBH_Encounter_Type = BH_Encounter_Type;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&BH_Encounter_Type != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BH_Encounter_Type != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BH_Encounter_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -100,6 +108,8 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BH_Encounter_Type.getUUID());
 			}
+		} else {
+			this.setBH_Encounter_Type(null);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	@JsonProperty("BH_Visit")
 	public void setBH_VisitInput(ForeignEntityInput BH_Visit) {
 		this.mBH_Visit = BH_Visit;
-		MBHVisit foreignEntity;
 		if (BH_Visit != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBHVisit foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
 							.setParameters(BH_Visit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 						"Could not find entity in table BH_Visit with UUID " + BH_Visit.getUUID());
 			}
 		} else {
-			super.setBH_Visit_ID(0);
+			this.setBH_Visit_ID(0);
 		}
 	}
 

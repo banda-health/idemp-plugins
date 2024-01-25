@@ -50,9 +50,12 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 	@JsonProperty("AD_PrintFormat")
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -94,7 +99,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
 			}
 		} else {
-			super.setAD_PrintFormat_ID(0);
+			this.setAD_PrintFormat_ID(0);
 		}
 	}
 
@@ -116,9 +121,9 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +133,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -150,9 +155,9 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 	@JsonProperty("HR_Contract")
 	public void setHR_ContractInput(ForeignEntityInput HR_Contract) {
 		this.mHR_Contract = HR_Contract;
-		X_HR_Contract foreignEntity;
 		if (HR_Contract != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Contract foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Contract", "HR_Contract_UU=?", get_TrxName())
 							.setParameters(HR_Contract.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -162,7 +167,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 						"Could not find entity in table HR_Contract with UUID " + HR_Contract.getUUID());
 			}
 		} else {
-			super.setHR_Contract_ID(0);
+			this.setHR_Contract_ID(0);
 		}
 	}
 
@@ -213,9 +218,9 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 	@JsonProperty("PaymentRule")
 	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
-		MRefList_BH foreignEntity;
 		if (PaymentRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

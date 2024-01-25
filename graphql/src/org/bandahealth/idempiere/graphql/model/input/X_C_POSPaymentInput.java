@@ -52,9 +52,12 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -84,9 +89,12 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
-		if (get_ID() == 0 && C_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,6 +103,8 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 				throw new AdempiereException(
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
+		} else {
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -116,9 +126,9 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		MPayment_BH foreignEntity;
 		if (C_Payment != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +138,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
 			}
 		} else {
-			super.setC_Payment_ID(0);
+			this.setC_Payment_ID(0);
 		}
 	}
 
@@ -179,9 +189,9 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	@JsonProperty("C_POSTenderType")
 	public void setC_POSTenderTypeInput(ForeignEntityInput C_POSTenderType) {
 		this.mC_POSTenderType = C_POSTenderType;
-		X_C_POSTenderType foreignEntity;
 		if (C_POSTenderType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_POSTenderType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSTenderType", "C_POSTenderType_UU=?", get_TrxName())
 							.setParameters(C_POSTenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +201,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 						"Could not find entity in table C_POSTenderType with UUID " + C_POSTenderType.getUUID());
 			}
 		} else {
-			super.setC_POSTenderType_ID(0);
+			this.setC_POSTenderType_ID(0);
 		}
 	}
 
@@ -213,9 +223,9 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	@JsonProperty("CheckStatus")
 	public void setCheckStatusInput(I_AD_Ref_ListInput CheckStatus) {
 		this.mCheckStatus = CheckStatus;
-		MRefList_BH foreignEntity;
 		if (CheckStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CheckStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -247,9 +257,9 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	@JsonProperty("CreditCardType")
 	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
-		MRefList_BH foreignEntity;
 		if (CreditCardType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -281,9 +291,9 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	@JsonProperty("TenderType")
 	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
 		this.mTenderType = TenderType;
-		MRefList_BH foreignEntity;
 		if (TenderType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(TenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -44,9 +44,12 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -105,9 +110,9 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	@JsonProperty("C_JobCategory")
 	public void setC_JobCategoryInput(ForeignEntityInput C_JobCategory) {
 		this.mC_JobCategory = C_JobCategory;
-		X_C_JobCategory foreignEntity;
 		if (C_JobCategory != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_JobCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_JobCategory", "C_JobCategory_UU=?", get_TrxName())
 							.setParameters(C_JobCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -117,7 +122,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 						"Could not find entity in table C_JobCategory with UUID " + C_JobCategory.getUUID());
 			}
 		} else {
-			super.setC_JobCategory_ID(0);
+			this.setC_JobCategory_ID(0);
 		}
 	}
 

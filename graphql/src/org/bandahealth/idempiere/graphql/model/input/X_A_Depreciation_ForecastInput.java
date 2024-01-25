@@ -76,9 +76,9 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	@JsonProperty("A_End_Asset")
 	public void setA_End_AssetInput(ForeignEntityInput A_End_Asset) {
 		this.mA_End_Asset = A_End_Asset;
-		MAsset foreignEntity;
 		if (A_End_Asset != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_End_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -88,7 +88,7 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 						"Could not find entity in table A_Asset with UUID " + A_End_Asset.getUUID());
 			}
 		} else {
-			super.setA_End_Asset_ID(0);
+			this.setA_End_Asset_ID(0);
 		}
 	}
 
@@ -110,9 +110,9 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	@JsonProperty("A_Start_Asset")
 	public void setA_Start_AssetInput(ForeignEntityInput A_Start_Asset) {
 		this.mA_Start_Asset = A_Start_Asset;
-		MAsset foreignEntity;
 		if (A_Start_Asset != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Start_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -122,7 +122,7 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 						"Could not find entity in table A_Asset with UUID " + A_Start_Asset.getUUID());
 			}
 		} else {
-			super.setA_Start_Asset_ID(0);
+			this.setA_Start_Asset_ID(0);
 		}
 	}
 
@@ -144,9 +144,9 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -156,7 +156,7 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -178,9 +178,9 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
-		MRefList_BH foreignEntity;
 		if (PostingType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

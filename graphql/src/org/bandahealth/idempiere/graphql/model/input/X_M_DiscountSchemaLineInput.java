@@ -59,9 +59,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -70,6 +73,8 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -91,9 +96,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -103,7 +108,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -125,9 +130,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("C_ConversionType")
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
-		MConversionType foreignEntity;
 		if (C_ConversionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -137,7 +142,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
 			}
 		} else {
-			super.setC_ConversionType_ID(0);
+			this.setC_ConversionType_ID(0);
 		}
 	}
 
@@ -159,9 +164,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("Limit_Base")
 	public void setLimit_BaseInput(I_AD_Ref_ListInput Limit_Base) {
 		this.mLimit_Base = Limit_Base;
-		MRefList_BH foreignEntity;
 		if (Limit_Base != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Limit_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -193,9 +198,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("Limit_Rounding")
 	public void setLimit_RoundingInput(I_AD_Ref_ListInput Limit_Rounding) {
 		this.mLimit_Rounding = Limit_Rounding;
-		MRefList_BH foreignEntity;
 		if (Limit_Rounding != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Limit_Rounding.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -227,9 +232,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("List_Base")
 	public void setList_BaseInput(I_AD_Ref_ListInput List_Base) {
 		this.mList_Base = List_Base;
-		MRefList_BH foreignEntity;
 		if (List_Base != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(List_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -261,9 +266,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("List_Rounding")
 	public void setList_RoundingInput(I_AD_Ref_ListInput List_Rounding) {
 		this.mList_Rounding = List_Rounding;
-		MRefList_BH foreignEntity;
 		if (List_Rounding != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(List_Rounding.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -295,9 +300,12 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("M_DiscountSchema")
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
-		MDiscountSchema foreignEntity;
-		if (get_ID() == 0 && M_DiscountSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DiscountSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -306,6 +314,8 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
 			}
+		} else {
+			this.setM_DiscountSchema_ID(0);
 		}
 	}
 
@@ -356,9 +366,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("M_Product_Category")
 	public void setM_Product_CategoryInput(ForeignEntityInput M_Product_Category) {
 		this.mM_Product_Category = M_Product_Category;
-		MProductCategory_BH foreignEntity;
 		if (M_Product_Category != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
 							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -368,7 +378,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
 			}
 		} else {
-			super.setM_Product_Category_ID(0);
+			this.setM_Product_Category_ID(0);
 		}
 	}
 
@@ -390,9 +400,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -402,7 +412,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -424,9 +434,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("Std_Base")
 	public void setStd_BaseInput(I_AD_Ref_ListInput Std_Base) {
 		this.mStd_Base = Std_Base;
-		MRefList_BH foreignEntity;
 		if (Std_Base != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Std_Base.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -458,9 +468,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	@JsonProperty("Std_Rounding")
 	public void setStd_RoundingInput(I_AD_Ref_ListInput Std_Rounding) {
 		this.mStd_Rounding = Std_Rounding;
-		MRefList_BH foreignEntity;
 		if (Std_Rounding != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Std_Rounding.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -50,9 +50,12 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	@JsonProperty("BH_SubType")
 	public void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
-		MRefList_BH foreignEntity;
 		if (BH_SubType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BH_SubType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -116,9 +121,9 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +133,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -179,9 +184,9 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	@JsonProperty("C_ChargeType")
 	public void setC_ChargeTypeInput(ForeignEntityInput C_ChargeType) {
 		this.mC_ChargeType = C_ChargeType;
-		MChargeType_BH foreignEntity;
 		if (C_ChargeType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChargeType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ChargeType", "C_ChargeType_UU=?", get_TrxName())
 							.setParameters(C_ChargeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +196,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 						"Could not find entity in table C_ChargeType with UUID " + C_ChargeType.getUUID());
 			}
 		} else {
-			super.setC_ChargeType_ID(0);
+			this.setC_ChargeType_ID(0);
 		}
 	}
 
@@ -213,9 +218,9 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	@JsonProperty("C_TaxCategory")
 	public void setC_TaxCategoryInput(ForeignEntityInput C_TaxCategory) {
 		this.mC_TaxCategory = C_TaxCategory;
-		MTaxCategory foreignEntity;
 		if (C_TaxCategory != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTaxCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
 							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +230,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 						"Could not find entity in table C_TaxCategory with UUID " + C_TaxCategory.getUUID());
 			}
 		} else {
-			super.setC_TaxCategory_ID(0);
+			this.setC_TaxCategory_ID(0);
 		}
 	}
 

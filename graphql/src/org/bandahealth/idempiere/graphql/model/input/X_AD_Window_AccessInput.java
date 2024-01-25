@@ -46,9 +46,12 @@ public class X_AD_Window_AccessInput extends MWindowAccess_BH implements I_AD_Wi
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_Window_AccessInput extends MWindowAccess_BH implements I_AD_Wi
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_AD_Window_AccessInput extends MWindowAccess_BH implements I_AD_Wi
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
-		if (get_ID() == 0 && AD_Role != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Role != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_AD_Window_AccessInput extends MWindowAccess_BH implements I_AD_Wi
 				throw new AdempiereException(
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
+		} else {
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -128,9 +138,12 @@ public class X_AD_Window_AccessInput extends MWindowAccess_BH implements I_AD_Wi
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		MWindow foreignEntity;
-		if (get_ID() == 0 && AD_Window != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -139,6 +152,8 @@ public class X_AD_Window_AccessInput extends MWindowAccess_BH implements I_AD_Wi
 				throw new AdempiereException(
 						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
 			}
+		} else {
+			this.setAD_Window_ID(0);
 		}
 	}
 

@@ -352,15 +352,17 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t@JsonProperty(\"").append(entityName).append("\")\n")
 					.append("\tpublic void set").append(entityName).append("Input(ForeignEntityInput ").append(entityName)
 					.append(") {\n")
-					.append("\t\tthis.").append(propertyName).append(" = ").append(entityName).append(";\n")
-					.append("\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
-					.append("\t\tif (");
+					.append("\t\tthis.").append(propertyName).append(" = ").append(entityName).append(";\n");
 			if (!isUpdateable) {
-				columnBuilder.append("get_ID() == 0 && ");
+				columnBuilder
+						.append("\t\tif (get_ID() != 0) {\n")
+						.append("\t\t\treturn;\n")
+						.append("\t\t}\n");
 			}
 			columnBuilder
-					.append(entityName).append(" != null) {\n")
-					.append("\t\t\t// If an entity was passed, make sure it's there\n")
+					.append("\t\tif (").append(entityName).append(" != null) {\n")
+					.append("\t\t\t// Since an entity was passed, make sure it's in the DB\n")
+					.append("\t\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
 					.append("\t\t\tif ((foreignEntity =\n")
 					.append("\t\t\t\t\tnew Query(getCtx(), \"").append(foreignEntityTable).append("\", \"")
 					.append(foreignEntityTable).append("_UU=?\", get_TrxName())\n")
@@ -373,14 +375,11 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t\t\t\t\t\t\"Could not find entity in table ").append(foreignEntityTable)
 					.append(" with UUID \" + ").append(entityName).append(".getUUID());\n")
 					.append("\t\t\t}\n")
-					.append("\t\t}");
+					.append("\t\t} else {\n")
+					.append("\t\t\tthis.set").append(columnName).append("(").append(defaultEmptyValue).append(");\n")
+					.append("\t\t}\n")
+					.append("\t}\n");
 			classesToImport.add("org.adempiere.exceptions.AdempiereException");
-			// If this is updatable, set the property to the empty value to indicate it should be cleared
-			if (isUpdateable) {
-				columnBuilder.append(" else {\n\t\t\tsuper.set").append(columnName).append("(").append(defaultEmptyValue)
-						.append(");\n\t\t}");
-			}
-			columnBuilder.append("\n\t}\n");
 
 			generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder
@@ -560,15 +559,17 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t@JsonProperty(\"").append(columnName).append("\")\n")
 					.append("\tpublic void set").append(columnName).append("Input(").append(returnType).append(" ")
 					.append(columnName).append(") {\n")
-					.append("\t\tthis.").append(propertyName).append(" = ").append(columnName).append(";\n")
-					.append("\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
-					.append("\t\tif (");
+					.append("\t\tthis.").append(propertyName).append(" = ").append(columnName).append(";\n");
 			if (!isUpdateable) {
-				columnBuilder.append("get_ID() == 0 &&");
+				columnBuilder
+						.append("\t\tif (get_ID() != 0) {\n")
+						.append("\t\t\treturn;\n")
+						.append("\t\t}\n");
 			}
 			columnBuilder
-					.append(columnName).append(" != null) {\n")
-					.append("\t\t\t// If an entity was passed, make sure it's there\n")
+					.append("\t\tif (").append(columnName).append(" != null) {\n")
+					.append("\t\t\t// Since an entity was passed, make sure it's in the DB\n")
+					.append("\t\t\t").append(modelForForeignEntity).append(" foreignEntity;\n")
 					.append("\t\t\tif ((foreignEntity =\n")
 					.append("\t\t\t\t\tnew Query(getCtx(), ").append(modelForForeignEntity).append(".Table_Name, ")
 					.append(modelForForeignEntity).append(".COLUMNNAME_AD_Ref_List_UU + \"=?\", get_TrxName())\n")
@@ -580,14 +581,11 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t\t\t\t\t\t\"Could not find entity in table \" + ").append(modelForForeignEntity)
 					.append(".Table_Name + \" with UUID \" + ").append(columnName).append(".getUUID());\n")
 					.append("\t\t\t}\n")
-					.append("\t\t}");
+					.append("\t\t} else {\n")
+					.append("\t\t\tthis.set").append(columnName).append("(null);\n")
+					.append("\t\t}\n")
+					.append("\t}\n");
 			classesToImport.add("org.adempiere.exceptions.AdempiereException");
-			if (isUpdateable) {
-				columnBuilder
-						.append(" else {\n")
-						.append("\t\t\tthis.set").append(columnName).append("(null);\n\t\t}");
-			}
-			columnBuilder.append("\n\t}\n");
 
 			generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder

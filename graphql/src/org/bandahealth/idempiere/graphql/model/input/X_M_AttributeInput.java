@@ -51,9 +51,12 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,6 +65,8 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -83,9 +88,9 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	@JsonProperty("AD_Reference")
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
-		MReference_BH foreignEntity;
 		if (AD_Reference != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,7 +100,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
 			}
 		} else {
-			super.setAD_Reference_ID(0);
+			this.setAD_Reference_ID(0);
 		}
 	}
 
@@ -117,9 +122,9 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	@JsonProperty("AD_Reference_Value")
 	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
-		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -129,7 +134,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Value.getUUID());
 			}
 		} else {
-			super.setAD_Reference_Value_ID(0);
+			this.setAD_Reference_Value_ID(0);
 		}
 	}
 
@@ -151,9 +156,9 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	@JsonProperty("AD_Val_Rule")
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
-		MValRule foreignEntity;
 		if (AD_Val_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -163,7 +168,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Val_Rule_ID(0);
+			this.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -185,9 +190,9 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	@JsonProperty("AttributeValueType")
 	public void setAttributeValueTypeInput(I_AD_Ref_ListInput AttributeValueType) {
 		this.mAttributeValueType = AttributeValueType;
-		MRefList_BH foreignEntity;
 		if (AttributeValueType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AttributeValueType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -248,9 +253,9 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	@JsonProperty("M_AttributeSearch")
 	public void setM_AttributeSearchInput(ForeignEntityInput M_AttributeSearch) {
 		this.mM_AttributeSearch = M_AttributeSearch;
-		X_M_AttributeSearch foreignEntity;
 		if (M_AttributeSearch != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_AttributeSearch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSearch", "M_AttributeSearch_UU=?", get_TrxName())
 							.setParameters(M_AttributeSearch.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -260,7 +265,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 						"Could not find entity in table M_AttributeSearch with UUID " + M_AttributeSearch.getUUID());
 			}
 		} else {
-			super.setM_AttributeSearch_ID(0);
+			this.setM_AttributeSearch_ID(0);
 		}
 	}
 

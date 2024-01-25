@@ -50,9 +50,12 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,12 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("C_AddressValidation")
 	public void setC_AddressValidationInput(ForeignEntityInput C_AddressValidation) {
 		this.mC_AddressValidation = C_AddressValidation;
-		MAddressValidation foreignEntity;
-		if (get_ID() == 0 && C_AddressValidation != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AddressValidation != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAddressValidation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AddressValidation", "C_AddressValidation_UU=?", get_TrxName())
 							.setParameters(C_AddressValidation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,6 +101,8 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_AddressValidation with UUID " + C_AddressValidation.getUUID());
 			}
+		} else {
+			this.setC_AddressValidation_ID(0);
 		}
 	}
 
@@ -114,9 +124,9 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("C_City")
 	public void setC_CityInput(ForeignEntityInput C_City) {
 		this.mC_City = C_City;
-		MCity foreignEntity;
 		if (C_City != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
 							.setParameters(C_City.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +136,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 						"Could not find entity in table C_City with UUID " + C_City.getUUID());
 			}
 		} else {
-			super.setC_City_ID(0);
+			this.setC_City_ID(0);
 		}
 	}
 
@@ -148,9 +158,9 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("C_Country")
 	public void setC_CountryInput(ForeignEntityInput C_Country) {
 		this.mC_Country = C_Country;
-		MCountry foreignEntity;
 		if (C_Country != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
 							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -160,7 +170,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
 			}
 		} else {
-			super.setC_Country_ID(0);
+			this.setC_Country_ID(0);
 		}
 	}
 
@@ -211,9 +221,9 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	@JsonProperty("C_Region")
 	public void setC_RegionInput(ForeignEntityInput C_Region) {
 		this.mC_Region = C_Region;
-		MRegion foreignEntity;
 		if (C_Region != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
 							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -223,7 +233,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
 			}
 		} else {
-			super.setC_Region_ID(0);
+			this.setC_Region_ID(0);
 		}
 	}
 

@@ -67,9 +67,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("AD_Image")
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
-		MImage foreignEntity;
 		if (AD_Image != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -79,7 +79,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
 			}
 		} else {
-			super.setAD_Image_ID(0);
+			this.setAD_Image_ID(0);
 		}
 	}
 
@@ -101,9 +101,12 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -112,6 +115,8 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -162,9 +167,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("BP_Location")
 	public void setBP_LocationInput(ForeignEntityInput BP_Location) {
 		this.mBP_Location = BP_Location;
-		MLocation foreignEntity;
 		if (BP_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(BP_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,7 +179,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table C_Location with UUID " + BP_Location.getUUID());
 			}
 		} else {
-			super.setBP_Location_ID(0);
+			this.setBP_Location_ID(0);
 		}
 	}
 
@@ -196,9 +201,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -208,7 +213,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -230,9 +235,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -242,7 +247,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -264,9 +269,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -276,7 +281,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -298,9 +303,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("C_Greeting")
 	public void setC_GreetingInput(ForeignEntityInput C_Greeting) {
 		this.mC_Greeting = C_Greeting;
-		X_C_Greeting foreignEntity;
 		if (C_Greeting != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
 							.setParameters(C_Greeting.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -310,7 +315,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table C_Greeting with UUID " + C_Greeting.getUUID());
 			}
 		} else {
-			super.setC_Greeting_ID(0);
+			this.setC_Greeting_ID(0);
 		}
 	}
 
@@ -332,9 +337,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("C_Job")
 	public void setC_JobInput(ForeignEntityInput C_Job) {
 		this.mC_Job = C_Job;
-		X_C_Job foreignEntity;
 		if (C_Job != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Job", "C_Job_UU=?", get_TrxName())
 							.setParameters(C_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -344,7 +349,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table C_Job with UUID " + C_Job.getUUID());
 			}
 		} else {
-			super.setC_Job_ID(0);
+			this.setC_Job_ID(0);
 		}
 	}
 
@@ -366,9 +371,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
 		if (C_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -378,7 +383,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
 		} else {
-			super.setC_Location_ID(0);
+			this.setC_Location_ID(0);
 		}
 	}
 
@@ -422,9 +427,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("IsMenuAutoExpand")
 	public void setIsMenuAutoExpandInput(I_AD_Ref_ListInput IsMenuAutoExpand) {
 		this.mIsMenuAutoExpand = IsMenuAutoExpand;
-		MRefList_BH foreignEntity;
 		if (IsMenuAutoExpand != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsMenuAutoExpand.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -456,9 +461,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("LeadSource")
 	public void setLeadSourceInput(I_AD_Ref_ListInput LeadSource) {
 		this.mLeadSource = LeadSource;
-		MRefList_BH foreignEntity;
 		if (LeadSource != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LeadSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -490,9 +495,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("LeadStatus")
 	public void setLeadStatusInput(I_AD_Ref_ListInput LeadStatus) {
 		this.mLeadStatus = LeadStatus;
-		MRefList_BH foreignEntity;
 		if (LeadStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LeadStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -524,9 +529,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("NotificationType")
 	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
 		this.mNotificationType = NotificationType;
-		MRefList_BH foreignEntity;
 		if (NotificationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(NotificationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -558,9 +563,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("R_DefaultMailText")
 	public void setR_DefaultMailTextInput(ForeignEntityInput R_DefaultMailText) {
 		this.mR_DefaultMailText = R_DefaultMailText;
-		MMailText foreignEntity;
 		if (R_DefaultMailText != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
 							.setParameters(R_DefaultMailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -570,7 +575,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table R_MailText with UUID " + R_DefaultMailText.getUUID());
 			}
 		} else {
-			super.setR_DefaultMailText_ID(0);
+			this.setR_DefaultMailText_ID(0);
 		}
 	}
 
@@ -592,9 +597,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		MUser_BH foreignEntity;
 		if (SalesRep != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -604,7 +609,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
 			}
 		} else {
-			super.setSalesRep_ID(0);
+			this.setSalesRep_ID(0);
 		}
 	}
 
@@ -637,9 +642,9 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	@JsonProperty("Supervisor")
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
-		MUser_BH foreignEntity;
 		if (Supervisor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -649,7 +654,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
 			}
 		} else {
-			super.setSupervisor_ID(0);
+			this.setSupervisor_ID(0);
 		}
 	}
 

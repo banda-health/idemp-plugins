@@ -56,9 +56,12 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -88,9 +93,9 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("BOMProductType")
 	public void setBOMProductTypeInput(I_AD_Ref_ListInput BOMProductType) {
 		this.mBOMProductType = BOMProductType;
-		MRefList_BH foreignEntity;
 		if (BOMProductType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BOMProductType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -122,9 +127,9 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -134,7 +139,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -156,9 +161,12 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("M_BOM")
 	public void setM_BOMInput(ForeignEntityInput M_BOM) {
 		this.mM_BOM = M_BOM;
-		MBOM foreignEntity;
-		if (get_ID() == 0 && M_BOM != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_BOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_BOM", "M_BOM_UU=?", get_TrxName())
 							.setParameters(M_BOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -167,6 +175,8 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 				throw new AdempiereException(
 						"Could not find entity in table M_BOM with UUID " + M_BOM.getUUID());
 			}
+		} else {
+			this.setM_BOM_ID(0);
 		}
 	}
 
@@ -188,9 +198,9 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("M_BOMAlternative")
 	public void setM_BOMAlternativeInput(ForeignEntityInput M_BOMAlternative) {
 		this.mM_BOMAlternative = M_BOMAlternative;
-		X_M_BOMAlternative foreignEntity;
 		if (M_BOMAlternative != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_BOMAlternative foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_BOMAlternative", "M_BOMAlternative_UU=?", get_TrxName())
 							.setParameters(M_BOMAlternative.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -200,7 +210,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 						"Could not find entity in table M_BOMAlternative with UUID " + M_BOMAlternative.getUUID());
 			}
 		} else {
-			super.setM_BOMAlternative_ID(0);
+			this.setM_BOMAlternative_ID(0);
 		}
 	}
 
@@ -251,9 +261,9 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("M_ChangeNotice")
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
-		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -263,7 +273,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
 			}
 		} else {
-			super.setM_ChangeNotice_ID(0);
+			this.setM_ChangeNotice_ID(0);
 		}
 	}
 
@@ -285,9 +295,9 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("M_ProductBOM")
 	public void setM_ProductBOMInput(ForeignEntityInput M_ProductBOM) {
 		this.mM_ProductBOM = M_ProductBOM;
-		MProduct_BH foreignEntity;
 		if (M_ProductBOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_ProductBOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -297,7 +307,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 						"Could not find entity in table M_Product with UUID " + M_ProductBOM.getUUID());
 			}
 		} else {
-			super.setM_ProductBOM_ID(0);
+			this.setM_ProductBOM_ID(0);
 		}
 	}
 
@@ -319,9 +329,9 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	@JsonProperty("M_ProductOperation")
 	public void setM_ProductOperationInput(ForeignEntityInput M_ProductOperation) {
 		this.mM_ProductOperation = M_ProductOperation;
-		X_M_ProductOperation foreignEntity;
 		if (M_ProductOperation != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_ProductOperation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductOperation", "M_ProductOperation_UU=?", get_TrxName())
 							.setParameters(M_ProductOperation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -331,7 +341,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 						"Could not find entity in table M_ProductOperation with UUID " + M_ProductOperation.getUUID());
 			}
 		} else {
-			super.setM_ProductOperation_ID(0);
+			this.setM_ProductOperation_ID(0);
 		}
 	}
 

@@ -46,9 +46,12 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
 		if (AD_Role != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
 		} else {
-			super.setAD_Role_ID(0);
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -141,9 +146,9 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 	@JsonProperty("U_WebMenu")
 	public void setU_WebMenuInput(ForeignEntityInput U_WebMenu) {
 		this.mU_WebMenu = U_WebMenu;
-		MWebMenu foreignEntity;
 		if (U_WebMenu != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWebMenu foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "U_WebMenu", "U_WebMenu_UU=?", get_TrxName())
 							.setParameters(U_WebMenu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +158,7 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 						"Could not find entity in table U_WebMenu with UUID " + U_WebMenu.getUUID());
 			}
 		} else {
-			super.setU_WebMenu_ID(0);
+			this.setU_WebMenu_ID(0);
 		}
 	}
 

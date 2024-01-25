@@ -44,9 +44,12 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 	@JsonProperty("R_RequestProcessor")
 	public void setR_RequestProcessorInput(ForeignEntityInput R_RequestProcessor) {
 		this.mR_RequestProcessor = R_RequestProcessor;
-		MRequestProcessor foreignEntity;
-		if (get_ID() == 0 && R_RequestProcessor != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (R_RequestProcessor != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRequestProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestProcessor", "R_RequestProcessor_UU=?", get_TrxName())
 							.setParameters(R_RequestProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 				throw new AdempiereException(
 						"Could not find entity in table R_RequestProcessor with UUID " + R_RequestProcessor.getUUID());
 			}
+		} else {
+			this.setR_RequestProcessor_ID(0);
 		}
 	}
 

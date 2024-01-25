@@ -49,9 +49,12 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,9 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	@JsonProperty("AndOr")
 	public void setAndOrInput(I_AD_Ref_ListInput AndOr) {
 		this.mAndOr = AndOr;
-		MRefList_BH foreignEntity;
 		if (AndOr != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AndOr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -115,9 +120,9 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	@JsonProperty("M_Attribute")
 	public void setM_AttributeInput(ForeignEntityInput M_Attribute) {
 		this.mM_Attribute = M_Attribute;
-		MAttribute foreignEntity;
 		if (M_Attribute != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
 							.setParameters(M_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,7 +132,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 						"Could not find entity in table M_Attribute with UUID " + M_Attribute.getUUID());
 			}
 		} else {
-			super.setM_Attribute_ID(0);
+			this.setM_Attribute_ID(0);
 		}
 	}
 
@@ -149,9 +154,9 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	@JsonProperty("Operation")
 	public void setOperationInput(I_AD_Ref_ListInput Operation) {
 		this.mOperation = Operation;
-		MRefList_BH foreignEntity;
 		if (Operation != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -183,9 +188,12 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 	@JsonProperty("QM_Specification")
 	public void setQM_SpecificationInput(ForeignEntityInput QM_Specification) {
 		this.mQM_Specification = QM_Specification;
-		X_QM_Specification foreignEntity;
-		if (get_ID() == 0 && QM_Specification != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (QM_Specification != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_QM_Specification foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "QM_Specification", "QM_Specification_UU=?", get_TrxName())
 							.setParameters(QM_Specification.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -194,6 +202,8 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 				throw new AdempiereException(
 						"Could not find entity in table QM_Specification with UUID " + QM_Specification.getUUID());
 			}
+		} else {
+			this.setQM_Specification_ID(0);
 		}
 	}
 

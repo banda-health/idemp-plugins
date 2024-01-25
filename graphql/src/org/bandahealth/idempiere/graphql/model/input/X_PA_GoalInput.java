@@ -57,9 +57,12 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -68,6 +71,8 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -89,9 +94,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
 		if (AD_Role != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -101,7 +106,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
 		} else {
-			super.setAD_Role_ID(0);
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -123,9 +128,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -135,7 +140,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -157,9 +162,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("ChartType")
 	public void setChartTypeInput(I_AD_Ref_ListInput ChartType) {
 		this.mChartType = ChartType;
-		MRefList_BH foreignEntity;
 		if (ChartType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ChartType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -224,9 +229,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("MeasureDisplay")
 	public void setMeasureDisplayInput(I_AD_Ref_ListInput MeasureDisplay) {
 		this.mMeasureDisplay = MeasureDisplay;
-		MRefList_BH foreignEntity;
 		if (MeasureDisplay != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(MeasureDisplay.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -258,9 +263,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("MeasureScope")
 	public void setMeasureScopeInput(I_AD_Ref_ListInput MeasureScope) {
 		this.mMeasureScope = MeasureScope;
-		MRefList_BH foreignEntity;
 		if (MeasureScope != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(MeasureScope.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -292,9 +297,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("PA_ColorSchema")
 	public void setPA_ColorSchemaInput(ForeignEntityInput PA_ColorSchema) {
 		this.mPA_ColorSchema = PA_ColorSchema;
-		MColorSchema foreignEntity;
 		if (PA_ColorSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColorSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ColorSchema", "PA_ColorSchema_UU=?", get_TrxName())
 							.setParameters(PA_ColorSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -304,7 +309,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 						"Could not find entity in table PA_ColorSchema with UUID " + PA_ColorSchema.getUUID());
 			}
 		} else {
-			super.setPA_ColorSchema_ID(0);
+			this.setPA_ColorSchema_ID(0);
 		}
 	}
 
@@ -355,9 +360,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("PA_GoalParent")
 	public void setPA_GoalParentInput(ForeignEntityInput PA_GoalParent) {
 		this.mPA_GoalParent = PA_GoalParent;
-		MGoal foreignEntity;
 		if (PA_GoalParent != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
 							.setParameters(PA_GoalParent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -367,7 +372,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 						"Could not find entity in table PA_Goal with UUID " + PA_GoalParent.getUUID());
 			}
 		} else {
-			super.setPA_GoalParent_ID(0);
+			this.setPA_GoalParent_ID(0);
 		}
 	}
 
@@ -389,9 +394,9 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	@JsonProperty("PA_Measure")
 	public void setPA_MeasureInput(ForeignEntityInput PA_Measure) {
 		this.mPA_Measure = PA_Measure;
-		MMeasure foreignEntity;
 		if (PA_Measure != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMeasure foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
 							.setParameters(PA_Measure.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -401,7 +406,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 						"Could not find entity in table PA_Measure with UUID " + PA_Measure.getUUID());
 			}
 		} else {
-			super.setPA_Measure_ID(0);
+			this.setPA_Measure_ID(0);
 		}
 	}
 

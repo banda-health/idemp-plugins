@@ -52,9 +52,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("AccessLevel")
 	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
-		MRefList_BH foreignEntity;
 		if (AccessLevel != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AccessLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -86,9 +86,12 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,6 +100,8 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -147,9 +152,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("AD_Val_Rule")
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
-		MValRule foreignEntity;
 		if (AD_Val_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -159,7 +164,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Val_Rule_ID(0);
+			this.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -181,9 +186,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		MWindow foreignEntity;
 		if (AD_Window != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -193,7 +198,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
 			}
 		} else {
-			super.setAD_Window_ID(0);
+			this.setAD_Window_ID(0);
 		}
 	}
 
@@ -215,9 +220,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -227,7 +232,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -260,9 +265,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("PO_Window")
 	public void setPO_WindowInput(ForeignEntityInput PO_Window) {
 		this.mPO_Window = PO_Window;
-		MWindow foreignEntity;
 		if (PO_Window != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(PO_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -272,7 +277,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 						"Could not find entity in table AD_Window with UUID " + PO_Window.getUUID());
 			}
 		} else {
-			super.setPO_Window_ID(0);
+			this.setPO_Window_ID(0);
 		}
 	}
 
@@ -294,9 +299,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	@JsonProperty("ReplicationType")
 	public void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType) {
 		this.mReplicationType = ReplicationType;
-		MRefList_BH foreignEntity;
 		if (ReplicationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

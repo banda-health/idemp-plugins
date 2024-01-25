@@ -45,9 +45,12 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
-		if (get_ID() == 0 && AD_Role != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Role != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -56,6 +59,8 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 				throw new AdempiereException(
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
+		} else {
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -77,9 +82,9 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 	@JsonProperty("BH_Role_WarehouseAccess")
 	public void setBH_Role_WarehouseAccessInput(ForeignEntityInput BH_Role_WarehouseAccess) {
 		this.mBH_Role_WarehouseAccess = BH_Role_WarehouseAccess;
-		MBHRoleWarehouseAccess foreignEntity;
 		if (BH_Role_WarehouseAccess != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBHRoleWarehouseAccess foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Role_WarehouseAccess", "BH_Role_WarehouseAccess_UU=?", get_TrxName())
 							.setParameters(BH_Role_WarehouseAccess.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,7 +94,7 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 						"Could not find entity in table BH_Role_WarehouseAccess with UUID " + BH_Role_WarehouseAccess.getUUID());
 			}
 		} else {
-			super.setBH_Role_WarehouseAccess_ID(0);
+			this.setBH_Role_WarehouseAccess_ID(0);
 		}
 	}
 
@@ -129,9 +134,12 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
-		if (get_ID() == 0 && M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Warehouse != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -140,6 +148,8 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 				throw new AdempiereException(
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
+		} else {
+			this.setM_Warehouse_ID(0);
 		}
 	}
 

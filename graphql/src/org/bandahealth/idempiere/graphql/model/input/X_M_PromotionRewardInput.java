@@ -52,9 +52,12 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -84,9 +89,9 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -96,7 +101,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -118,9 +123,9 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	@JsonProperty("DistributionSorting")
 	public void setDistributionSortingInput(I_AD_Ref_ListInput DistributionSorting) {
 		this.mDistributionSorting = DistributionSorting;
-		MRefList_BH foreignEntity;
 		if (DistributionSorting != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DistributionSorting.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -152,9 +157,12 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	@JsonProperty("M_Promotion")
 	public void setM_PromotionInput(ForeignEntityInput M_Promotion) {
 		this.mM_Promotion = M_Promotion;
-		X_M_Promotion foreignEntity;
-		if (get_ID() == 0 && M_Promotion != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Promotion != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_M_Promotion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
 							.setParameters(M_Promotion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -163,6 +171,8 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 				throw new AdempiereException(
 						"Could not find entity in table M_Promotion with UUID " + M_Promotion.getUUID());
 			}
+		} else {
+			this.setM_Promotion_ID(0);
 		}
 	}
 
@@ -184,9 +194,9 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	@JsonProperty("M_PromotionDistribution")
 	public void setM_PromotionDistributionInput(ForeignEntityInput M_PromotionDistribution) {
 		this.mM_PromotionDistribution = M_PromotionDistribution;
-		X_M_PromotionDistribution foreignEntity;
 		if (M_PromotionDistribution != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_PromotionDistribution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
 							.setParameters(M_PromotionDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -196,7 +206,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 						"Could not find entity in table M_PromotionDistribution with UUID " + M_PromotionDistribution.getUUID());
 			}
 		} else {
-			super.setM_PromotionDistribution_ID(0);
+			this.setM_PromotionDistribution_ID(0);
 		}
 	}
 
@@ -247,9 +257,9 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	@JsonProperty("M_TargetDistribution")
 	public void setM_TargetDistributionInput(ForeignEntityInput M_TargetDistribution) {
 		this.mM_TargetDistribution = M_TargetDistribution;
-		X_M_PromotionDistribution foreignEntity;
 		if (M_TargetDistribution != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_PromotionDistribution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PromotionDistribution", "M_PromotionDistribution_UU=?", get_TrxName())
 							.setParameters(M_TargetDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -259,7 +269,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 						"Could not find entity in table M_PromotionDistribution with UUID " + M_TargetDistribution.getUUID());
 			}
 		} else {
-			super.setM_TargetDistribution_ID(0);
+			this.setM_TargetDistribution_ID(0);
 		}
 	}
 
@@ -281,9 +291,9 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	@JsonProperty("RewardType")
 	public void setRewardTypeInput(I_AD_Ref_ListInput RewardType) {
 		this.mRewardType = RewardType;
-		MRefList_BH foreignEntity;
 		if (RewardType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(RewardType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

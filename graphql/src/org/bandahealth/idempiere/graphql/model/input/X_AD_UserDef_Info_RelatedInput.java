@@ -46,9 +46,12 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	@JsonProperty("AD_InfoRelated")
 	public void setAD_InfoRelatedInput(ForeignEntityInput AD_InfoRelated) {
 		this.mAD_InfoRelated = AD_InfoRelated;
-		X_AD_InfoRelated foreignEntity;
-		if (get_ID() == 0 && AD_InfoRelated != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_InfoRelated != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_InfoRelated foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoRelated", "AD_InfoRelated_UU=?", get_TrxName())
 							.setParameters(AD_InfoRelated.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_InfoRelated with UUID " + AD_InfoRelated.getUUID());
 			}
+		} else {
+			this.setAD_InfoRelated_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -110,9 +120,12 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	@JsonProperty("AD_UserDef_Info")
 	public void setAD_UserDef_InfoInput(ForeignEntityInput AD_UserDef_Info) {
 		this.mAD_UserDef_Info = AD_UserDef_Info;
-		MUserDefInfo foreignEntity;
-		if (get_ID() == 0 && AD_UserDef_Info != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_UserDef_Info != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUserDefInfo foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Info", "AD_UserDef_Info_UU=?", get_TrxName())
 							.setParameters(AD_UserDef_Info.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +134,8 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_UserDef_Info with UUID " + AD_UserDef_Info.getUUID());
 			}
+		} else {
+			this.setAD_UserDef_Info_ID(0);
 		}
 	}
 

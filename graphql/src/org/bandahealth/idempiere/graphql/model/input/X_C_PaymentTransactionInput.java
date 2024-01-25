@@ -84,9 +84,12 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,6 +98,8 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -116,9 +121,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +133,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -150,9 +155,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -162,7 +167,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
 		} else {
-			super.setC_BankAccount_ID(0);
+			this.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -184,9 +189,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_BP_BankAccount")
 	public void setC_BP_BankAccountInput(ForeignEntityInput C_BP_BankAccount) {
 		this.mC_BP_BankAccount = C_BP_BankAccount;
-		MBPBankAccount foreignEntity;
 		if (C_BP_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPBankAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_BankAccount", "C_BP_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BP_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -196,7 +201,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_BP_BankAccount with UUID " + C_BP_BankAccount.getUUID());
 			}
 		} else {
-			super.setC_BP_BankAccount_ID(0);
+			this.setC_BP_BankAccount_ID(0);
 		}
 	}
 
@@ -218,9 +223,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -230,7 +235,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -252,9 +257,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -264,7 +269,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -286,9 +291,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_CashBook")
 	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
-		MCashBook foreignEntity;
 		if (C_CashBook != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
 							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -298,7 +303,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_CashBook with UUID " + C_CashBook.getUUID());
 			}
 		} else {
-			super.setC_CashBook_ID(0);
+			this.setC_CashBook_ID(0);
 		}
 	}
 
@@ -320,9 +325,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -332,7 +337,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -354,9 +359,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_ConversionType")
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
-		MConversionType foreignEntity;
 		if (C_ConversionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -366,7 +371,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
 			}
 		} else {
-			super.setC_ConversionType_ID(0);
+			this.setC_ConversionType_ID(0);
 		}
 	}
 
@@ -388,9 +393,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -400,7 +405,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -422,9 +427,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
 		if (C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -434,7 +439,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
 		} else {
-			super.setC_Invoice_ID(0);
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -456,9 +461,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
 		if (C_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -468,7 +473,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
 		} else {
-			super.setC_Order_ID(0);
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -490,9 +495,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		MPayment_BH foreignEntity;
 		if (C_Payment != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -502,7 +507,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
 			}
 		} else {
-			super.setC_Payment_ID(0);
+			this.setC_Payment_ID(0);
 		}
 	}
 
@@ -524,9 +529,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_PaymentBatch")
 	public void setC_PaymentBatchInput(ForeignEntityInput C_PaymentBatch) {
 		this.mC_PaymentBatch = C_PaymentBatch;
-		MPaymentBatch foreignEntity;
 		if (C_PaymentBatch != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentBatch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentBatch", "C_PaymentBatch_UU=?", get_TrxName())
 							.setParameters(C_PaymentBatch.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -536,7 +541,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_PaymentBatch with UUID " + C_PaymentBatch.getUUID());
 			}
 		} else {
-			super.setC_PaymentBatch_ID(0);
+			this.setC_PaymentBatch_ID(0);
 		}
 	}
 
@@ -558,9 +563,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_PaymentProcessor")
 	public void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor) {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
-		MPaymentProcessor foreignEntity;
 		if (C_PaymentProcessor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
 							.setParameters(C_PaymentProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -570,7 +575,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_PaymentProcessor with UUID " + C_PaymentProcessor.getUUID());
 			}
 		} else {
-			super.setC_PaymentProcessor_ID(0);
+			this.setC_PaymentProcessor_ID(0);
 		}
 	}
 
@@ -621,9 +626,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_POSTenderType")
 	public void setC_POSTenderTypeInput(ForeignEntityInput C_POSTenderType) {
 		this.mC_POSTenderType = C_POSTenderType;
-		X_C_POSTenderType foreignEntity;
 		if (C_POSTenderType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_POSTenderType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSTenderType", "C_POSTenderType_UU=?", get_TrxName())
 							.setParameters(C_POSTenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -633,7 +638,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_POSTenderType with UUID " + C_POSTenderType.getUUID());
 			}
 		} else {
-			super.setC_POSTenderType_ID(0);
+			this.setC_POSTenderType_ID(0);
 		}
 	}
 
@@ -655,9 +660,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -667,7 +672,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -689,9 +694,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("CreditCardType")
 	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
-		MRefList_BH foreignEntity;
 		if (CreditCardType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -745,9 +750,12 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("R_AvsAddr")
 	public void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr) {
 		this.mR_AvsAddr = R_AvsAddr;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&R_AvsAddr != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (R_AvsAddr != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(R_AvsAddr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -756,6 +764,8 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + R_AvsAddr.getUUID());
 			}
+		} else {
+			this.setR_AvsAddr(null);
 		}
 	}
 
@@ -777,9 +787,12 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("R_AvsZip")
 	public void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip) {
 		this.mR_AvsZip = R_AvsZip;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&R_AvsZip != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (R_AvsZip != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(R_AvsZip.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -788,6 +801,8 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + R_AvsZip.getUUID());
 			}
+		} else {
+			this.setR_AvsZip(null);
 		}
 	}
 
@@ -864,9 +879,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("Ref_PaymentTransaction")
 	public void setRef_PaymentTransactionInput(ForeignEntityInput Ref_PaymentTransaction) {
 		this.mRef_PaymentTransaction = Ref_PaymentTransaction;
-		MPaymentTransaction foreignEntity;
 		if (Ref_PaymentTransaction != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTransaction", "C_PaymentTransaction_UU=?", get_TrxName())
 							.setParameters(Ref_PaymentTransaction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -876,7 +891,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_PaymentTransaction with UUID " + Ref_PaymentTransaction.getUUID());
 			}
 		} else {
-			super.setRef_PaymentTransaction_ID(0);
+			this.setRef_PaymentTransaction_ID(0);
 		}
 	}
 
@@ -898,9 +913,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("TenderType")
 	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
 		this.mTenderType = TenderType;
-		MRefList_BH foreignEntity;
 		if (TenderType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(TenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -932,9 +947,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("TrxType")
 	public void setTrxTypeInput(I_AD_Ref_ListInput TrxType) {
 		this.mTrxType = TrxType;
-		MRefList_BH foreignEntity;
 		if (TrxType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(TrxType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -966,9 +981,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -978,7 +993,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -1000,9 +1015,9 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MElementValue foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -1012,7 +1027,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

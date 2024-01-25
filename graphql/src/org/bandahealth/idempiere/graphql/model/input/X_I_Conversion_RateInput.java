@@ -49,9 +49,12 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,9 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 	@JsonProperty("C_Conversion_Rate")
 	public void setC_Conversion_RateInput(ForeignEntityInput C_Conversion_Rate) {
 		this.mC_Conversion_Rate = C_Conversion_Rate;
-		MConversionRate foreignEntity;
 		if (C_Conversion_Rate != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MConversionRate foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Conversion_Rate", "C_Conversion_Rate_UU=?", get_TrxName())
 							.setParameters(C_Conversion_Rate.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,7 +98,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 						"Could not find entity in table C_Conversion_Rate with UUID " + C_Conversion_Rate.getUUID());
 			}
 		} else {
-			super.setC_Conversion_Rate_ID(0);
+			this.setC_Conversion_Rate_ID(0);
 		}
 	}
 
@@ -115,9 +120,9 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 	@JsonProperty("C_ConversionType")
 	public void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType) {
 		this.mC_ConversionType = C_ConversionType;
-		MConversionType foreignEntity;
 		if (C_ConversionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
 							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,7 +132,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
 			}
 		} else {
-			super.setC_ConversionType_ID(0);
+			this.setC_ConversionType_ID(0);
 		}
 	}
 
@@ -149,9 +154,9 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,7 +166,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -183,9 +188,9 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 	@JsonProperty("C_Currency_To")
 	public void setC_Currency_ToInput(ForeignEntityInput C_Currency_To) {
 		this.mC_Currency_To = C_Currency_To;
-		MCurrency_BH foreignEntity;
 		if (C_Currency_To != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency_To.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -195,7 +200,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 						"Could not find entity in table C_Currency with UUID " + C_Currency_To.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID_To(0);
+			this.setC_Currency_ID_To(0);
 		}
 	}
 

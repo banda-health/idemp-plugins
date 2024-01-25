@@ -74,9 +74,9 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	@JsonProperty("A_Reval_Code")
 	public void setA_Reval_CodeInput(I_AD_Ref_ListInput A_Reval_Code) {
 		this.mA_Reval_Code = A_Reval_Code;
-		MRefList_BH foreignEntity;
 		if (A_Reval_Code != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Reval_Code.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -108,9 +108,9 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	@JsonProperty("A_Reval_Multiplier")
 	public void setA_Reval_MultiplierInput(I_AD_Ref_ListInput A_Reval_Multiplier) {
 		this.mA_Reval_Multiplier = A_Reval_Multiplier;
-		MRefList_BH foreignEntity;
 		if (A_Reval_Multiplier != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Reval_Multiplier.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -142,9 +142,9 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +154,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 

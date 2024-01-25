@@ -52,9 +52,9 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 	@JsonProperty("AD_BroadcastMessage")
 	public void setAD_BroadcastMessageInput(ForeignEntityInput AD_BroadcastMessage) {
 		this.mAD_BroadcastMessage = AD_BroadcastMessage;
-		X_AD_BroadcastMessage foreignEntity;
 		if (AD_BroadcastMessage != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_BroadcastMessage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_BroadcastMessage", "AD_BroadcastMessage_UU=?", get_TrxName())
 							.setParameters(AD_BroadcastMessage.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,7 +64,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 						"Could not find entity in table AD_BroadcastMessage with UUID " + AD_BroadcastMessage.getUUID());
 			}
 		} else {
-			super.setAD_BroadcastMessage_ID(0);
+			this.setAD_BroadcastMessage_ID(0);
 		}
 	}
 
@@ -86,9 +86,12 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 	@JsonProperty("AD_Message")
 	public void setAD_MessageInput(ForeignEntityInput AD_Message) {
 		this.mAD_Message = AD_Message;
-		MMessage_BH foreignEntity;
-		if (get_ID() == 0 && AD_Message != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Message != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
 							.setParameters(AD_Message.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,6 +100,8 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Message with UUID " + AD_Message.getUUID());
 			}
+		} else {
+			this.setAD_Message_ID(0);
 		}
 	}
 
@@ -147,9 +152,12 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -158,6 +166,8 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -179,9 +189,12 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable foreignEntity;
-		if (get_ID() == 0 && AD_Table != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -190,6 +203,8 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
+		} else {
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -211,9 +226,9 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -223,7 +238,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -245,9 +260,9 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 	@JsonProperty("AD_WF_Activity")
 	public void setAD_WF_ActivityInput(ForeignEntityInput AD_WF_Activity) {
 		this.mAD_WF_Activity = AD_WF_Activity;
-		X_AD_WF_Activity foreignEntity;
 		if (AD_WF_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_Activity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Activity", "AD_WF_Activity_UU=?", get_TrxName())
 							.setParameters(AD_WF_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -257,7 +272,7 @@ public class X_AD_NoteInput extends MNote implements I_AD_NoteInput {
 						"Could not find entity in table AD_WF_Activity with UUID " + AD_WF_Activity.getUUID());
 			}
 		} else {
-			super.setAD_WF_Activity_ID(0);
+			this.setAD_WF_Activity_ID(0);
 		}
 	}
 

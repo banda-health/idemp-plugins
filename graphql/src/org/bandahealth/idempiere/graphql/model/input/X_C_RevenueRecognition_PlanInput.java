@@ -54,9 +54,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,6 +68,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +91,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,6 +105,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -118,9 +128,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 && C_Currency != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Currency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -129,6 +142,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 				throw new AdempiereException(
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
+		} else {
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -150,9 +165,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 && C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_InvoiceLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,6 +179,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 				throw new AdempiereException(
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
+		} else {
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 
@@ -182,9 +202,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("C_RevenueRecognition")
 	public void setC_RevenueRecognitionInput(ForeignEntityInput C_RevenueRecognition) {
 		this.mC_RevenueRecognition = C_RevenueRecognition;
-		MRevenueRecognition foreignEntity;
-		if (get_ID() == 0 && C_RevenueRecognition != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_RevenueRecognition != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRevenueRecognition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition", "C_RevenueRecognition_UU=?", get_TrxName())
 							.setParameters(C_RevenueRecognition.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -193,6 +216,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 				throw new AdempiereException(
 						"Could not find entity in table C_RevenueRecognition with UUID " + C_RevenueRecognition.getUUID());
 			}
+		} else {
+			this.setC_RevenueRecognition_ID(0);
 		}
 	}
 
@@ -243,9 +268,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("P_Revenue_A")
 	public void setP_Revenue_AInput(ForeignEntityInput P_Revenue_A) {
 		this.mP_Revenue_A = P_Revenue_A;
-		MAccount foreignEntity;
-		if (get_ID() == 0 && P_Revenue_A != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (P_Revenue_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(P_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -254,6 +282,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 				throw new AdempiereException(
 						"Could not find entity in table C_ValidCombination with UUID " + P_Revenue_A.getUUID());
 			}
+		} else {
+			this.setP_Revenue_Acct(0);
 		}
 	}
 
@@ -297,9 +327,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	@JsonProperty("UnEarnedRevenue_A")
 	public void setUnEarnedRevenue_AInput(ForeignEntityInput UnEarnedRevenue_A) {
 		this.mUnEarnedRevenue_A = UnEarnedRevenue_A;
-		MAccount foreignEntity;
-		if (get_ID() == 0 && UnEarnedRevenue_A != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (UnEarnedRevenue_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(UnEarnedRevenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -308,6 +341,8 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 				throw new AdempiereException(
 						"Could not find entity in table C_ValidCombination with UUID " + UnEarnedRevenue_A.getUUID());
 			}
+		} else {
+			this.setUnEarnedRevenue_Acct(0);
 		}
 	}
 

@@ -47,9 +47,12 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -79,9 +84,12 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,6 +98,8 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -129,9 +139,9 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 	@JsonProperty("IntercompanyDueFrom_A")
 	public void setIntercompanyDueFrom_AInput(ForeignEntityInput IntercompanyDueFrom_A) {
 		this.mIntercompanyDueFrom_A = IntercompanyDueFrom_A;
-		MAccount foreignEntity;
 		if (IntercompanyDueFrom_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(IntercompanyDueFrom_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -141,7 +151,7 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 						"Could not find entity in table C_ValidCombination with UUID " + IntercompanyDueFrom_A.getUUID());
 			}
 		} else {
-			super.setIntercompanyDueFrom_Acct(0);
+			this.setIntercompanyDueFrom_Acct(0);
 		}
 	}
 
@@ -163,9 +173,9 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 	@JsonProperty("IntercompanyDueTo_A")
 	public void setIntercompanyDueTo_AInput(ForeignEntityInput IntercompanyDueTo_A) {
 		this.mIntercompanyDueTo_A = IntercompanyDueTo_A;
-		MAccount foreignEntity;
 		if (IntercompanyDueTo_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(IntercompanyDueTo_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -175,7 +185,7 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 						"Could not find entity in table C_ValidCombination with UUID " + IntercompanyDueTo_A.getUUID());
 			}
 		} else {
-			super.setIntercompanyDueTo_Acct(0);
+			this.setIntercompanyDueTo_Acct(0);
 		}
 	}
 

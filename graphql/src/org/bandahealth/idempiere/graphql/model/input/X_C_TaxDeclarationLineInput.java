@@ -58,9 +58,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -69,6 +72,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -90,9 +95,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("C_AllocationLine")
 	public void setC_AllocationLineInput(ForeignEntityInput C_AllocationLine) {
 		this.mC_AllocationLine = C_AllocationLine;
-		MAllocationLine foreignEntity;
-		if (get_ID() == 0 && C_AllocationLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AllocationLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAllocationLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationLine", "C_AllocationLine_UU=?", get_TrxName())
 							.setParameters(C_AllocationLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -101,6 +109,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_AllocationLine with UUID " + C_AllocationLine.getUUID());
 			}
+		} else {
+			this.setC_AllocationLine_ID(0);
 		}
 	}
 
@@ -122,9 +132,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -133,6 +146,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
+		} else {
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -154,9 +169,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 && C_Currency != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Currency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -165,6 +183,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
+		} else {
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -186,9 +206,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 && C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -197,6 +220,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
+		} else {
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -218,9 +243,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 && C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_InvoiceLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -229,6 +257,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
+		} else {
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 
@@ -250,9 +280,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		MTax foreignEntity;
-		if (get_ID() == 0 && C_Tax != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Tax != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -261,6 +294,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
 			}
+		} else {
+			this.setC_Tax_ID(0);
 		}
 	}
 
@@ -282,9 +317,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	@JsonProperty("C_TaxDeclaration")
 	public void setC_TaxDeclarationInput(ForeignEntityInput C_TaxDeclaration) {
 		this.mC_TaxDeclaration = C_TaxDeclaration;
-		MTaxDeclaration foreignEntity;
-		if (get_ID() == 0 && C_TaxDeclaration != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_TaxDeclaration != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTaxDeclaration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxDeclaration", "C_TaxDeclaration_UU=?", get_TrxName())
 							.setParameters(C_TaxDeclaration.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -293,6 +331,8 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_TaxDeclaration with UUID " + C_TaxDeclaration.getUUID());
 			}
+		} else {
+			this.setC_TaxDeclaration_ID(0);
 		}
 	}
 

@@ -47,9 +47,12 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	@JsonProperty("AD_Menu")
 	public void setAD_MenuInput(ForeignEntityInput AD_Menu) {
 		this.mAD_Menu = AD_Menu;
-		MMenu_BH foreignEntity;
-		if (get_ID() == 0 && AD_Menu != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Menu != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMenu_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Menu", "AD_Menu_UU=?", get_TrxName())
 							.setParameters(AD_Menu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Menu with UUID " + AD_Menu.getUUID());
 			}
+		} else {
+			this.setAD_Menu_ID(0);
 		}
 	}
 
@@ -79,9 +84,12 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,6 +98,8 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -111,9 +121,12 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	@JsonProperty("AD_Tree_Favorite")
 	public void setAD_Tree_FavoriteInput(ForeignEntityInput AD_Tree_Favorite) {
 		this.mAD_Tree_Favorite = AD_Tree_Favorite;
-		MTreeFavorite foreignEntity;
-		if (get_ID() == 0 && AD_Tree_Favorite != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Tree_Favorite != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTreeFavorite foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree_Favorite", "AD_Tree_Favorite_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Favorite.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -122,6 +135,8 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Tree_Favorite with UUID " + AD_Tree_Favorite.getUUID());
 			}
+		} else {
+			this.setAD_Tree_Favorite_ID(0);
 		}
 	}
 
@@ -172,9 +187,9 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	@JsonProperty("Parent")
 	public void setParentInput(ForeignEntityInput Parent) {
 		this.mParent = Parent;
-		MTreeFavoriteNode foreignEntity;
 		if (Parent != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTreeFavoriteNode foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree_Favorite_Node", "AD_Tree_Favorite_Node_UU=?", get_TrxName())
 							.setParameters(Parent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -184,7 +199,7 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 						"Could not find entity in table AD_Tree_Favorite_Node with UUID " + Parent.getUUID());
 			}
 		} else {
-			super.setParent_ID(0);
+			this.setParent_ID(0);
 		}
 	}
 

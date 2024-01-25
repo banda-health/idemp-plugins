@@ -52,9 +52,12 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -84,9 +89,12 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,6 +103,8 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -134,9 +144,12 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("C_CashBook")
 	public void setC_CashBookInput(ForeignEntityInput C_CashBook) {
 		this.mC_CashBook = C_CashBook;
-		MCashBook foreignEntity;
-		if (get_ID() == 0 && C_CashBook != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_CashBook != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
 							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -145,6 +158,8 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 				throw new AdempiereException(
 						"Could not find entity in table C_CashBook with UUID " + C_CashBook.getUUID());
 			}
+		} else {
+			this.setC_CashBook_ID(0);
 		}
 	}
 
@@ -166,9 +181,9 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("CB_Asset_A")
 	public void setCB_Asset_AInput(ForeignEntityInput CB_Asset_A) {
 		this.mCB_Asset_A = CB_Asset_A;
-		MAccount foreignEntity;
 		if (CB_Asset_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CB_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -178,7 +193,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 						"Could not find entity in table C_ValidCombination with UUID " + CB_Asset_A.getUUID());
 			}
 		} else {
-			super.setCB_Asset_Acct(0);
+			this.setCB_Asset_Acct(0);
 		}
 	}
 
@@ -200,9 +215,9 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("CB_CashTransfer_A")
 	public void setCB_CashTransfer_AInput(ForeignEntityInput CB_CashTransfer_A) {
 		this.mCB_CashTransfer_A = CB_CashTransfer_A;
-		MAccount foreignEntity;
 		if (CB_CashTransfer_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CB_CashTransfer_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -212,7 +227,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 						"Could not find entity in table C_ValidCombination with UUID " + CB_CashTransfer_A.getUUID());
 			}
 		} else {
-			super.setCB_CashTransfer_Acct(0);
+			this.setCB_CashTransfer_Acct(0);
 		}
 	}
 
@@ -234,9 +249,9 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("CB_Differences_A")
 	public void setCB_Differences_AInput(ForeignEntityInput CB_Differences_A) {
 		this.mCB_Differences_A = CB_Differences_A;
-		MAccount foreignEntity;
 		if (CB_Differences_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CB_Differences_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -246,7 +261,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 						"Could not find entity in table C_ValidCombination with UUID " + CB_Differences_A.getUUID());
 			}
 		} else {
-			super.setCB_Differences_Acct(0);
+			this.setCB_Differences_Acct(0);
 		}
 	}
 
@@ -268,9 +283,9 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("CB_Expense_A")
 	public void setCB_Expense_AInput(ForeignEntityInput CB_Expense_A) {
 		this.mCB_Expense_A = CB_Expense_A;
-		MAccount foreignEntity;
 		if (CB_Expense_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CB_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -280,7 +295,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 						"Could not find entity in table C_ValidCombination with UUID " + CB_Expense_A.getUUID());
 			}
 		} else {
-			super.setCB_Expense_Acct(0);
+			this.setCB_Expense_Acct(0);
 		}
 	}
 
@@ -302,9 +317,9 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	@JsonProperty("CB_Receipt_A")
 	public void setCB_Receipt_AInput(ForeignEntityInput CB_Receipt_A) {
 		this.mCB_Receipt_A = CB_Receipt_A;
-		MAccount foreignEntity;
 		if (CB_Receipt_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(CB_Receipt_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -314,7 +329,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 						"Could not find entity in table C_ValidCombination with UUID " + CB_Receipt_A.getUUID());
 			}
 		} else {
-			super.setCB_Receipt_Acct(0);
+			this.setCB_Receipt_Acct(0);
 		}
 	}
 

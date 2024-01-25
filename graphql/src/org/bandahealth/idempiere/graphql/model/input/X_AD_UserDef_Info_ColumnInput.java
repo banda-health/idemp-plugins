@@ -60,9 +60,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_FieldStyle")
 	public void setAD_FieldStyleInput(ForeignEntityInput AD_FieldStyle) {
 		this.mAD_FieldStyle = AD_FieldStyle;
-		MStyle foreignEntity;
 		if (AD_FieldStyle != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
 							.setParameters(AD_FieldStyle.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -72,7 +72,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 						"Could not find entity in table AD_Style with UUID " + AD_FieldStyle.getUUID());
 			}
 		} else {
-			super.setAD_FieldStyle_ID(0);
+			this.setAD_FieldStyle_ID(0);
 		}
 	}
 
@@ -94,9 +94,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_InfoColumn")
 	public void setAD_InfoColumnInput(ForeignEntityInput AD_InfoColumn) {
 		this.mAD_InfoColumn = AD_InfoColumn;
-		MInfoColumn foreignEntity;
-		if (get_ID() == 0 && AD_InfoColumn != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_InfoColumn != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
 							.setParameters(AD_InfoColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -105,6 +108,8 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_InfoColumn with UUID " + AD_InfoColumn.getUUID());
 			}
+		} else {
+			this.setAD_InfoColumn_ID(0);
 		}
 	}
 
@@ -126,9 +131,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -137,6 +145,8 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -158,9 +168,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_Reference")
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
-		MReference_BH foreignEntity;
 		if (AD_Reference != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -170,7 +180,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
 			}
 		} else {
-			super.setAD_Reference_ID(0);
+			this.setAD_Reference_ID(0);
 		}
 	}
 
@@ -192,9 +202,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_Reference_Value")
 	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
-		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -204,7 +214,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Value.getUUID());
 			}
 		} else {
-			super.setAD_Reference_Value_ID(0);
+			this.setAD_Reference_Value_ID(0);
 		}
 	}
 
@@ -255,9 +265,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_UserDef_Info")
 	public void setAD_UserDef_InfoInput(ForeignEntityInput AD_UserDef_Info) {
 		this.mAD_UserDef_Info = AD_UserDef_Info;
-		MUserDefInfo foreignEntity;
-		if (get_ID() == 0 && AD_UserDef_Info != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_UserDef_Info != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUserDefInfo foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Info", "AD_UserDef_Info_UU=?", get_TrxName())
 							.setParameters(AD_UserDef_Info.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -266,6 +279,8 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_UserDef_Info with UUID " + AD_UserDef_Info.getUUID());
 			}
+		} else {
+			this.setAD_UserDef_Info_ID(0);
 		}
 	}
 
@@ -287,9 +302,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("AD_Val_Rule")
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
-		MValRule foreignEntity;
 		if (AD_Val_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -299,7 +314,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Val_Rule_ID(0);
+			this.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -321,9 +336,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("IsAutocomplete")
 	public void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete) {
 		this.mIsAutocomplete = IsAutocomplete;
-		MRefList_BH foreignEntity;
 		if (IsAutocomplete != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsAutocomplete.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -355,9 +370,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("IsDisplayed")
 	public void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
-		MRefList_BH foreignEntity;
 		if (IsDisplayed != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsDisplayed.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -389,9 +404,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("IsMandatory")
 	public void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
-		MRefList_BH foreignEntity;
 		if (IsMandatory != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsMandatory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -423,9 +438,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("IsQueryCriteria")
 	public void setIsQueryCriteriaInput(I_AD_Ref_ListInput IsQueryCriteria) {
 		this.mIsQueryCriteria = IsQueryCriteria;
-		MRefList_BH foreignEntity;
 		if (IsQueryCriteria != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsQueryCriteria.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -457,9 +472,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("IsReadOnly")
 	public void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
-		MRefList_BH foreignEntity;
 		if (IsReadOnly != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsReadOnly.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -491,9 +506,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("QueryOperator")
 	public void setQueryOperatorInput(I_AD_Ref_ListInput QueryOperator) {
 		this.mQueryOperator = QueryOperator;
-		MRefList_BH foreignEntity;
 		if (QueryOperator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(QueryOperator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

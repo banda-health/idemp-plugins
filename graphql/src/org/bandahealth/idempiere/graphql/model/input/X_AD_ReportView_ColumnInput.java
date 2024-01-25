@@ -46,9 +46,12 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		MColumn foreignEntity;
-		if (get_ID() == 0 && AD_Column != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Column != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
 			}
+		} else {
+			this.setAD_Column_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -128,9 +138,12 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	@JsonProperty("AD_ReportView")
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
-		MReportView foreignEntity;
-		if (get_ID() == 0 && AD_ReportView != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_ReportView != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReportView foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
 							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -139,6 +152,8 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 				throw new AdempiereException(
 						"Could not find entity in table AD_ReportView with UUID " + AD_ReportView.getUUID());
 			}
+		} else {
+			this.setAD_ReportView_ID(0);
 		}
 	}
 

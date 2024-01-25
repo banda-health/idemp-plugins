@@ -49,9 +49,12 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -92,9 +97,9 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	@JsonProperty("M_AttributeSet_Type")
 	public void setM_AttributeSet_TypeInput(I_AD_Ref_ListInput M_AttributeSet_Type) {
 		this.mM_AttributeSet_Type = M_AttributeSet_Type;
-		MRefList_BH foreignEntity;
 		if (M_AttributeSet_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(M_AttributeSet_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -144,9 +149,9 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	@JsonProperty("M_LotCtl")
 	public void setM_LotCtlInput(ForeignEntityInput M_LotCtl) {
 		this.mM_LotCtl = M_LotCtl;
-		MLotCtl foreignEntity;
 		if (M_LotCtl != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLotCtl foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
 							.setParameters(M_LotCtl.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -156,7 +161,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 						"Could not find entity in table M_LotCtl with UUID " + M_LotCtl.getUUID());
 			}
 		} else {
-			super.setM_LotCtl_ID(0);
+			this.setM_LotCtl_ID(0);
 		}
 	}
 
@@ -178,9 +183,9 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	@JsonProperty("M_SerNoCtl")
 	public void setM_SerNoCtlInput(ForeignEntityInput M_SerNoCtl) {
 		this.mM_SerNoCtl = M_SerNoCtl;
-		MSerNoCtl_BH foreignEntity;
 		if (M_SerNoCtl != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSerNoCtl_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_SerNoCtl", "M_SerNoCtl_UU=?", get_TrxName())
 							.setParameters(M_SerNoCtl.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -190,7 +195,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 						"Could not find entity in table M_SerNoCtl with UUID " + M_SerNoCtl.getUUID());
 			}
 		} else {
-			super.setM_SerNoCtl_ID(0);
+			this.setM_SerNoCtl_ID(0);
 		}
 	}
 
@@ -212,9 +217,9 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	@JsonProperty("MandatoryType")
 	public void setMandatoryTypeInput(I_AD_Ref_ListInput MandatoryType) {
 		this.mMandatoryType = MandatoryType;
-		MRefList_BH foreignEntity;
 		if (MandatoryType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(MandatoryType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -46,9 +46,12 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,9 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 	@JsonProperty("DB_UserType")
 	public void setDB_UserTypeInput(I_AD_Ref_ListInput DB_UserType) {
 		this.mDB_UserType = DB_UserType;
-		MRefList_BH foreignEntity;
 		if (DB_UserType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DB_UserType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -141,9 +146,9 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 	@JsonProperty("Included_Role")
 	public void setIncluded_RoleInput(ForeignEntityInput Included_Role) {
 		this.mIncluded_Role = Included_Role;
-		X_AD_Role foreignEntity;
 		if (Included_Role != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(Included_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +158,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 						"Could not find entity in table AD_Role with UUID " + Included_Role.getUUID());
 			}
 		} else {
-			super.setIncluded_Role_ID(0);
+			this.setIncluded_Role_ID(0);
 		}
 	}
 

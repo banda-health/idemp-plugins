@@ -48,9 +48,12 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	@JsonProperty("ConfidentialTypeEntry")
 	public void setConfidentialTypeEntryInput(I_AD_Ref_ListInput ConfidentialTypeEntry) {
 		this.mConfidentialTypeEntry = ConfidentialTypeEntry;
-		MRefList_BH foreignEntity;
 		if (ConfidentialTypeEntry != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ConfidentialTypeEntry.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -114,9 +119,9 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	@JsonProperty("M_ProductSpent")
 	public void setM_ProductSpentInput(ForeignEntityInput M_ProductSpent) {
 		this.mM_ProductSpent = M_ProductSpent;
-		MProduct_BH foreignEntity;
 		if (M_ProductSpent != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_ProductSpent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 						"Could not find entity in table M_Product with UUID " + M_ProductSpent.getUUID());
 			}
 		} else {
-			super.setM_ProductSpent_ID(0);
+			this.setM_ProductSpent_ID(0);
 		}
 	}
 
@@ -148,9 +153,12 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	@JsonProperty("R_Request")
 	public void setR_RequestInput(ForeignEntityInput R_Request) {
 		this.mR_Request = R_Request;
-		MRequest foreignEntity;
-		if (get_ID() == 0 && R_Request != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (R_Request != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
 							.setParameters(R_Request.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -159,6 +167,8 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 				throw new AdempiereException(
 						"Could not find entity in table R_Request with UUID " + R_Request.getUUID());
 			}
+		} else {
+			this.setR_Request_ID(0);
 		}
 	}
 

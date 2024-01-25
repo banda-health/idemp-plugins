@@ -44,9 +44,12 @@ public class X_AD_AlertProcessorLogInput extends MAlertProcessorLog implements I
 	@JsonProperty("AD_AlertProcessor")
 	public void setAD_AlertProcessorInput(ForeignEntityInput AD_AlertProcessor) {
 		this.mAD_AlertProcessor = AD_AlertProcessor;
-		MAlertProcessor foreignEntity;
-		if (get_ID() == 0 && AD_AlertProcessor != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_AlertProcessor != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAlertProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AlertProcessor", "AD_AlertProcessor_UU=?", get_TrxName())
 							.setParameters(AD_AlertProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_AD_AlertProcessorLogInput extends MAlertProcessorLog implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_AlertProcessor with UUID " + AD_AlertProcessor.getUUID());
 			}
+		} else {
+			this.setAD_AlertProcessor_ID(0);
 		}
 	}
 
@@ -105,9 +110,12 @@ public class X_AD_AlertProcessorLogInput extends MAlertProcessorLog implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -116,6 +124,8 @@ public class X_AD_AlertProcessorLogInput extends MAlertProcessorLog implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 

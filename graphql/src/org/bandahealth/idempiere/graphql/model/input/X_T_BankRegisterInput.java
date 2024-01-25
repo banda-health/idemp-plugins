@@ -48,9 +48,12 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
 		if (AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
 		} else {
-			super.setAD_PInstance_ID(0);
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -114,9 +119,9 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 	@JsonProperty("C_Bank")
 	public void setC_BankInput(ForeignEntityInput C_Bank) {
 		this.mC_Bank = C_Bank;
-		MBank foreignEntity;
 		if (C_Bank != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
 							.setParameters(C_Bank.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 						"Could not find entity in table C_Bank with UUID " + C_Bank.getUUID());
 			}
 		} else {
-			super.setC_Bank_ID(0);
+			this.setC_Bank_ID(0);
 		}
 	}
 
@@ -148,9 +153,9 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -160,7 +165,7 @@ public class X_T_BankRegisterInput extends X_T_BankRegister implements I_T_BankR
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 

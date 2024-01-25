@@ -48,9 +48,12 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -143,9 +148,9 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 	@JsonProperty("B_SellerFunds")
 	public void setB_SellerFundsInput(ForeignEntityInput B_SellerFunds) {
 		this.mB_SellerFunds = B_SellerFunds;
-		X_B_SellerFunds foreignEntity;
 		if (B_SellerFunds != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_B_SellerFunds foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_SellerFunds", "B_SellerFunds_UU=?", get_TrxName())
 							.setParameters(B_SellerFunds.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +160,7 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 						"Could not find entity in table B_SellerFunds with UUID " + B_SellerFunds.getUUID());
 			}
 		} else {
-			super.setB_SellerFunds_ID(0);
+			this.setB_SellerFunds_ID(0);
 		}
 	}
 
@@ -177,9 +182,9 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 	@JsonProperty("B_Topic")
 	public void setB_TopicInput(ForeignEntityInput B_Topic) {
 		this.mB_Topic = B_Topic;
-		X_B_Topic foreignEntity;
 		if (B_Topic != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_B_Topic foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_Topic", "B_Topic_UU=?", get_TrxName())
 							.setParameters(B_Topic.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +194,7 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 						"Could not find entity in table B_Topic with UUID " + B_Topic.getUUID());
 			}
 		} else {
-			super.setB_Topic_ID(0);
+			this.setB_Topic_ID(0);
 		}
 	}
 

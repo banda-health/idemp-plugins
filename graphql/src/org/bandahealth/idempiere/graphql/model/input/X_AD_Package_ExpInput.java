@@ -45,9 +45,9 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,7 +57,7 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -108,9 +108,9 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	@JsonProperty("AD_Package_Type")
 	public void setAD_Package_TypeInput(I_AD_Ref_ListInput AD_Package_Type) {
 		this.mAD_Package_Type = AD_Package_Type;
-		MRefList_BH foreignEntity;
 		if (AD_Package_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AD_Package_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -142,9 +142,9 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	@JsonProperty("ReleaseNo")
 	public void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
-		MRefList_BH foreignEntity;
 		if (ReleaseNo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ReleaseNo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
