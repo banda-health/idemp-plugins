@@ -46,9 +46,12 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 	@JsonProperty("M_ChangeNotice")
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
-		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
 			}
 		} else {
-			super.setM_ChangeNotice_ID(0);
+			this.setM_ChangeNotice_ID(0);
 		}
 	}
 
@@ -112,9 +117,9 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		MPPProductBOM foreignEntity;
 		if (PP_Product_BOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
 							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -124,7 +129,7 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
 			}
 		} else {
-			super.setPP_Product_BOM_ID(0);
+			this.setPP_Product_BOM_ID(0);
 		}
 	}
 

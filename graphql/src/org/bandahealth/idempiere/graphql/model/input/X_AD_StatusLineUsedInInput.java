@@ -50,9 +50,12 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,12 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_StatusLine")
 	public void setAD_StatusLineInput(ForeignEntityInput AD_StatusLine) {
 		this.mAD_StatusLine = AD_StatusLine;
-		MStatusLine foreignEntity;
-		if (get_ID() == 0 && AD_StatusLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_StatusLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MStatusLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StatusLine", "AD_StatusLine_UU=?", get_TrxName())
 							.setParameters(AD_StatusLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,6 +101,8 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 				throw new AdempiereException(
 						"Could not find entity in table AD_StatusLine with UUID " + AD_StatusLine.getUUID());
 			}
+		} else {
+			this.setAD_StatusLine_ID(0);
 		}
 	}
 
@@ -143,9 +153,9 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_Tab")
 	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
 		this.mAD_Tab = AD_Tab;
-		MTab foreignEntity;
 		if (AD_Tab != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
 							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +165,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
 			}
 		} else {
-			super.setAD_Tab_ID(0);
+			this.setAD_Tab_ID(0);
 		}
 	}
 
@@ -177,9 +187,9 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +199,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -211,9 +221,9 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		MWindow foreignEntity;
 		if (AD_Window != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -223,7 +233,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
 			}
 		} else {
-			super.setAD_Window_ID(0);
+			this.setAD_Window_ID(0);
 		}
 	}
 

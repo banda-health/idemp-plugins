@@ -46,9 +46,12 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		MAsset foreignEntity;
-		if (get_ID() == 0 && A_Asset != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (A_Asset != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 				throw new AdempiereException(
 						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
 			}
+		} else {
+			this.setA_Asset_ID(0);
 		}
 	}
 
@@ -107,9 +112,12 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +126,8 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
 		if (C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
 		} else {
-			super.setC_InvoiceLine_ID(0);
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 

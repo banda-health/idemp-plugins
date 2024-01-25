@@ -56,9 +56,12 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -88,9 +93,9 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -100,7 +105,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -122,9 +127,9 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -134,7 +139,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -156,9 +161,9 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		MOrderLine_BH foreignEntity;
 		if (C_OrderLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -168,7 +173,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
 			}
 		} else {
-			super.setC_OrderLine_ID(0);
+			this.setC_OrderLine_ID(0);
 		}
 	}
 
@@ -190,9 +195,12 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		MUOM foreignEntity;
-		if (get_ID() == 0 && C_UOM != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_UOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -201,6 +209,8 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 				throw new AdempiereException(
 						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
 			}
+		} else {
+			this.setC_UOM_ID(0);
 		}
 	}
 
@@ -222,9 +232,9 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -234,7 +244,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -256,9 +266,9 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -268,7 +278,7 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -290,9 +300,12 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 	@JsonProperty("M_Requisition")
 	public void setM_RequisitionInput(ForeignEntityInput M_Requisition) {
 		this.mM_Requisition = M_Requisition;
-		MRequisition foreignEntity;
-		if (get_ID() == 0 && M_Requisition != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Requisition != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRequisition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Requisition", "M_Requisition_UU=?", get_TrxName())
 							.setParameters(M_Requisition.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -301,6 +314,8 @@ public class X_M_RequisitionLineInput extends MRequisitionLine implements I_M_Re
 				throw new AdempiereException(
 						"Could not find entity in table M_Requisition with UUID " + M_Requisition.getUUID());
 			}
+		} else {
+			this.setM_Requisition_ID(0);
 		}
 	}
 

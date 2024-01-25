@@ -58,9 +58,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -69,6 +72,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -101,9 +106,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_AllocationHdr")
 	public void setC_AllocationHdrInput(ForeignEntityInput C_AllocationHdr) {
 		this.mC_AllocationHdr = C_AllocationHdr;
-		MAllocationHdr foreignEntity;
-		if (get_ID() == 0 && C_AllocationHdr != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AllocationHdr != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAllocationHdr foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationHdr", "C_AllocationHdr_UU=?", get_TrxName())
 							.setParameters(C_AllocationHdr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -112,6 +120,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table C_AllocationHdr with UUID " + C_AllocationHdr.getUUID());
 			}
+		} else {
+			this.setC_AllocationHdr_ID(0);
 		}
 	}
 
@@ -162,9 +172,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -173,6 +186,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
+		} else {
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -194,9 +209,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_CashLine")
 	public void setC_CashLineInput(ForeignEntityInput C_CashLine) {
 		this.mC_CashLine = C_CashLine;
-		MCashLine foreignEntity;
-		if (get_ID() == 0 && C_CashLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_CashLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCashLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashLine", "C_CashLine_UU=?", get_TrxName())
 							.setParameters(C_CashLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -205,6 +223,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table C_CashLine with UUID " + C_CashLine.getUUID());
 			}
+		} else {
+			this.setC_CashLine_ID(0);
 		}
 	}
 
@@ -226,9 +246,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
-		if (get_ID() == 0 && C_Charge != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Charge != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -237,6 +260,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
+		} else {
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -258,9 +283,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 && C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -269,6 +297,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
+		} else {
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -290,9 +320,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
-		if (get_ID() == 0 && C_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -301,6 +334,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
+		} else {
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -322,9 +357,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	@JsonProperty("C_Payment")
 	public void setC_PaymentInput(ForeignEntityInput C_Payment) {
 		this.mC_Payment = C_Payment;
-		MPayment_BH foreignEntity;
-		if (get_ID() == 0 && C_Payment != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Payment != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
 							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -333,6 +371,8 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 				throw new AdempiereException(
 						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
 			}
+		} else {
+			this.setC_Payment_ID(0);
 		}
 	}
 

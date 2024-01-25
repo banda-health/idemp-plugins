@@ -46,9 +46,12 @@ public class X_C_ProjectIssueMAInput extends X_C_ProjectIssueMA implements I_C_P
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_ProjectIssueMAInput extends X_C_ProjectIssueMA implements I_C_P
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_C_ProjectIssueMAInput extends X_C_ProjectIssueMA implements I_C_P
 	@JsonProperty("C_ProjectIssue")
 	public void setC_ProjectIssueInput(ForeignEntityInput C_ProjectIssue) {
 		this.mC_ProjectIssue = C_ProjectIssue;
-		MProjectIssue foreignEntity;
-		if (get_ID() == 0 && C_ProjectIssue != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_ProjectIssue != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectIssue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectIssue", "C_ProjectIssue_UU=?", get_TrxName())
 							.setParameters(C_ProjectIssue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_C_ProjectIssueMAInput extends X_C_ProjectIssueMA implements I_C_P
 				throw new AdempiereException(
 						"Could not find entity in table C_ProjectIssue with UUID " + C_ProjectIssue.getUUID());
 			}
+		} else {
+			this.setC_ProjectIssue_ID(0);
 		}
 	}
 
@@ -128,9 +138,12 @@ public class X_C_ProjectIssueMAInput extends X_C_ProjectIssueMA implements I_C_P
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_AttributeSetInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -139,6 +152,8 @@ public class X_C_ProjectIssueMAInput extends X_C_ProjectIssueMA implements I_C_P
 				throw new AdempiereException(
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
+		} else {
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 

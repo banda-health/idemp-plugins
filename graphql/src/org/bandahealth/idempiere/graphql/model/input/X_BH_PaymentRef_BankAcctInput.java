@@ -48,9 +48,12 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	@JsonProperty("AD_Ref_List")
 	public void setAD_Ref_ListInput(ForeignEntityInput AD_Ref_List) {
 		this.mAD_Ref_List = AD_Ref_List;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 && AD_Ref_List != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Ref_List != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
 							.setParameters(AD_Ref_List.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Ref_List with UUID " + AD_Ref_List.getUUID());
 			}
+		} else {
+			this.setAD_Ref_List_ID(0);
 		}
 	}
 
@@ -141,9 +151,12 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	@JsonProperty("BH_PaymentRef")
 	public void setBH_PaymentRefInput(ForeignEntityInput BH_PaymentRef) {
 		this.mBH_PaymentRef = BH_PaymentRef;
-		MBHPaymentRef foreignEntity;
-		if (get_ID() == 0 && BH_PaymentRef != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BH_PaymentRef != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHPaymentRef foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_PaymentRef", "BH_PaymentRef_UU=?", get_TrxName())
 							.setParameters(BH_PaymentRef.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -152,6 +165,8 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 				throw new AdempiereException(
 						"Could not find entity in table BH_PaymentRef with UUID " + BH_PaymentRef.getUUID());
 			}
+		} else {
+			this.setBH_PaymentRef_ID(0);
 		}
 	}
 
@@ -184,9 +199,9 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -196,7 +211,7 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
 		} else {
-			super.setC_BankAccount_ID(0);
+			this.setC_BankAccount_ID(0);
 		}
 	}
 

@@ -50,9 +50,12 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -94,7 +99,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
 			}
 		} else {
-			super.setAD_Workflow_ID(0);
+			this.setAD_Workflow_ID(0);
 		}
 	}
 
@@ -116,9 +121,9 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	@JsonProperty("M_AttributeSet")
 	public void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet) {
 		this.mM_AttributeSet = M_AttributeSet;
-		MAttributeSet_BH foreignEntity;
 		if (M_AttributeSet != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
 							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +133,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
 			}
 		} else {
-			super.setM_AttributeSet_ID(0);
+			this.setM_AttributeSet_ID(0);
 		}
 	}
 
@@ -150,9 +155,9 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -162,7 +167,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -184,9 +189,9 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		MPPProductBOM foreignEntity;
 		if (PP_Product_BOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
 							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -196,7 +201,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
 			}
 		} else {
-			super.setPP_Product_BOM_ID(0);
+			this.setPP_Product_BOM_ID(0);
 		}
 	}
 

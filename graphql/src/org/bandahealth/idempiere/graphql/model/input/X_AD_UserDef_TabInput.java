@@ -51,9 +51,12 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,6 +65,8 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -83,9 +88,9 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,7 +100,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -117,9 +122,9 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	@JsonProperty("AD_Tab")
 	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
 		this.mAD_Tab = AD_Tab;
-		MTab foreignEntity;
 		if (AD_Tab != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
 							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -129,7 +134,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
 			}
 		} else {
-			super.setAD_Tab_ID(0);
+			this.setAD_Tab_ID(0);
 		}
 	}
 
@@ -180,9 +185,12 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	@JsonProperty("AD_UserDef_Win")
 	public void setAD_UserDef_WinInput(ForeignEntityInput AD_UserDef_Win) {
 		this.mAD_UserDef_Win = AD_UserDef_Win;
-		MUserDefWin foreignEntity;
-		if (get_ID() == 0 && AD_UserDef_Win != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_UserDef_Win != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUserDefWin foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Win", "AD_UserDef_Win_UU=?", get_TrxName())
 							.setParameters(AD_UserDef_Win.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,6 +199,8 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 				throw new AdempiereException(
 						"Could not find entity in table AD_UserDef_Win with UUID " + AD_UserDef_Win.getUUID());
 			}
+		} else {
+			this.setAD_UserDef_Win_ID(0);
 		}
 	}
 
@@ -212,9 +222,9 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	@JsonProperty("IsReadOnly")
 	public void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
-		MRefList_BH foreignEntity;
 		if (IsReadOnly != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsReadOnly.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -246,9 +256,9 @@ public class X_AD_UserDef_TabInput extends MUserDefTab_BH implements I_AD_UserDe
 	@JsonProperty("IsSingleRow")
 	public void setIsSingleRowInput(I_AD_Ref_ListInput IsSingleRow) {
 		this.mIsSingleRow = IsSingleRow;
-		MRefList_BH foreignEntity;
 		if (IsSingleRow != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsSingleRow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

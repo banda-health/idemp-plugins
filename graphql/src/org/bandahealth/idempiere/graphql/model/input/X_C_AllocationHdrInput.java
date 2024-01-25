@@ -50,9 +50,12 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -111,9 +116,9 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,7 +128,7 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -145,9 +150,12 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
-		if (get_ID() == 0 && C_DocType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_DocType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -156,6 +164,8 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 				throw new AdempiereException(
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
+		} else {
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -177,9 +187,9 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	@JsonProperty("DocAction")
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
-		MRefList_BH foreignEntity;
 		if (DocAction != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -211,9 +221,9 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	@JsonProperty("DocStatus")
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
-		MRefList_BH foreignEntity;
 		if (DocStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -256,9 +266,9 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	@JsonProperty("Reversal")
 	public void setReversalInput(ForeignEntityInput Reversal) {
 		this.mReversal = Reversal;
-		MAllocationHdr foreignEntity;
 		if (Reversal != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAllocationHdr foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationHdr", "C_AllocationHdr_UU=?", get_TrxName())
 							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -268,7 +278,7 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 						"Could not find entity in table C_AllocationHdr with UUID " + Reversal.getUUID());
 			}
 		} else {
-			super.setReversal_ID(0);
+			this.setReversal_ID(0);
 		}
 	}
 

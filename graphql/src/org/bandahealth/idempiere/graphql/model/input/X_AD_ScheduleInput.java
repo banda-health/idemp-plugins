@@ -46,9 +46,9 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,7 +58,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -109,9 +109,9 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	@JsonProperty("FrequencyType")
 	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
-		MRefList_BH foreignEntity;
 		if (FrequencyType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -143,9 +143,9 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	@JsonProperty("ScheduleType")
 	public void setScheduleTypeInput(I_AD_Ref_ListInput ScheduleType) {
 		this.mScheduleType = ScheduleType;
-		MRefList_BH foreignEntity;
 		if (ScheduleType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ScheduleType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -177,9 +177,9 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	@JsonProperty("WeekDay")
 	public void setWeekDayInput(I_AD_Ref_ListInput WeekDay) {
 		this.mWeekDay = WeekDay;
-		MRefList_BH foreignEntity;
 		if (WeekDay != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(WeekDay.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

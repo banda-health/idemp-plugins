@@ -51,9 +51,12 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,6 +65,8 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -83,9 +88,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Account")
 	public void setAD_Tree_AccountInput(ForeignEntityInput AD_Tree_Account) {
 		this.mAD_Tree_Account = AD_Tree_Account;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Account != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Account.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,7 +100,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Account.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Account_ID(0);
+			this.setAD_Tree_Account_ID(0);
 		}
 	}
 
@@ -117,9 +122,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Activity")
 	public void setAD_Tree_ActivityInput(ForeignEntityInput AD_Tree_Activity) {
 		this.mAD_Tree_Activity = AD_Tree_Activity;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -129,7 +134,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Activity.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Activity_ID(0);
+			this.setAD_Tree_Activity_ID(0);
 		}
 	}
 
@@ -151,9 +156,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_BPartner")
 	public void setAD_Tree_BPartnerInput(ForeignEntityInput AD_Tree_BPartner) {
 		this.mAD_Tree_BPartner = AD_Tree_BPartner;
-		MTree_BH foreignEntity;
 		if (AD_Tree_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -163,7 +168,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_BPartner.getUUID());
 			}
 		} else {
-			super.setAD_Tree_BPartner_ID(0);
+			this.setAD_Tree_BPartner_ID(0);
 		}
 	}
 
@@ -185,9 +190,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Campaign")
 	public void setAD_Tree_CampaignInput(ForeignEntityInput AD_Tree_Campaign) {
 		this.mAD_Tree_Campaign = AD_Tree_Campaign;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -197,7 +202,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Campaign.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Campaign_ID(0);
+			this.setAD_Tree_Campaign_ID(0);
 		}
 	}
 
@@ -219,9 +224,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Org")
 	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -231,7 +236,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Org.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Org_ID(0);
+			this.setAD_Tree_Org_ID(0);
 		}
 	}
 
@@ -253,9 +258,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Product")
 	public void setAD_Tree_ProductInput(ForeignEntityInput AD_Tree_Product) {
 		this.mAD_Tree_Product = AD_Tree_Product;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -265,7 +270,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Product.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Product_ID(0);
+			this.setAD_Tree_Product_ID(0);
 		}
 	}
 
@@ -287,9 +292,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_Project")
 	public void setAD_Tree_ProjectInput(ForeignEntityInput AD_Tree_Project) {
 		this.mAD_Tree_Project = AD_Tree_Project;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -299,7 +304,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Project.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Project_ID(0);
+			this.setAD_Tree_Project_ID(0);
 		}
 	}
 
@@ -321,9 +326,9 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	@JsonProperty("AD_Tree_SalesRegion")
 	public void setAD_Tree_SalesRegionInput(ForeignEntityInput AD_Tree_SalesRegion) {
 		this.mAD_Tree_SalesRegion = AD_Tree_SalesRegion;
-		MTree_BH foreignEntity;
 		if (AD_Tree_SalesRegion != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -333,7 +338,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_SalesRegion.getUUID());
 			}
 		} else {
-			super.setAD_Tree_SalesRegion_ID(0);
+			this.setAD_Tree_SalesRegion_ID(0);
 		}
 	}
 

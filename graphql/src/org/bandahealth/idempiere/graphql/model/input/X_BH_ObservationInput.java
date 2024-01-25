@@ -46,9 +46,12 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	@JsonProperty("AD_Field")
 	public void setAD_FieldInput(ForeignEntityInput AD_Field) {
 		this.mAD_Field = AD_Field;
-		MField_BH foreignEntity;
-		if (get_ID() == 0 && AD_Field != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Field != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
 							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 				throw new AdempiereException(
 						"Could not find entity in table AD_Field with UUID " + AD_Field.getUUID());
 			}
+		} else {
+			this.setAD_Field_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -110,9 +120,12 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	@JsonProperty("BH_Encounter")
 	public void setBH_EncounterInput(ForeignEntityInput BH_Encounter) {
 		this.mBH_Encounter = BH_Encounter;
-		MBHEncounter foreignEntity;
-		if (get_ID() == 0 && BH_Encounter != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BH_Encounter != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHEncounter foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Encounter", "BH_Encounter_UU=?", get_TrxName())
 							.setParameters(BH_Encounter.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +134,8 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 				throw new AdempiereException(
 						"Could not find entity in table BH_Encounter with UUID " + BH_Encounter.getUUID());
 			}
+		} else {
+			this.setBH_Encounter_ID(0);
 		}
 	}
 

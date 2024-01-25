@@ -48,9 +48,12 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
-		if (get_ID() == 0 && C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BankAccount != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 				throw new AdempiereException(
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
+		} else {
+			this.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -141,9 +151,9 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	@JsonProperty("Check_PrintFormat")
 	public void setCheck_PrintFormatInput(ForeignEntityInput Check_PrintFormat) {
 		this.mCheck_PrintFormat = Check_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
 		if (Check_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(Check_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +163,7 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 						"Could not find entity in table AD_PrintFormat with UUID " + Check_PrintFormat.getUUID());
 			}
 		} else {
-			super.setCheck_PrintFormat_ID(0);
+			this.setCheck_PrintFormat_ID(0);
 		}
 	}
 
@@ -175,9 +185,9 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	@JsonProperty("PaymentRule")
 	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
-		MRefList_BH foreignEntity;
 		if (PaymentRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

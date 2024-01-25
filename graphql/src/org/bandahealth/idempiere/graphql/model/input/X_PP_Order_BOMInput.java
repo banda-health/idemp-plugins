@@ -55,9 +55,9 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,7 +67,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -89,9 +89,9 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("BOMType")
 	public void setBOMTypeInput(I_AD_Ref_ListInput BOMType) {
 		this.mBOMType = BOMType;
-		MRefList_BH foreignEntity;
 		if (BOMType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,9 +123,9 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("BOMUse")
 	public void setBOMUseInput(I_AD_Ref_ListInput BOMUse) {
 		this.mBOMUse = BOMUse;
-		MRefList_BH foreignEntity;
 		if (BOMUse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BOMUse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -157,9 +157,9 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		MUOM foreignEntity;
 		if (C_UOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -169,7 +169,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
 			}
 		} else {
-			super.setC_UOM_ID(0);
+			this.setC_UOM_ID(0);
 		}
 	}
 
@@ -191,9 +191,9 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -203,7 +203,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -225,9 +225,9 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("M_ChangeNotice")
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
-		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -237,7 +237,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
 			}
 		} else {
-			super.setM_ChangeNotice_ID(0);
+			this.setM_ChangeNotice_ID(0);
 		}
 	}
 
@@ -259,9 +259,9 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -271,7 +271,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -322,9 +322,12 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	@JsonProperty("PP_Order")
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
-		X_PP_Order foreignEntity;
-		if (get_ID() == 0 && PP_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PP_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Order foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
 							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -333,6 +336,8 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 				throw new AdempiereException(
 						"Could not find entity in table PP_Order with UUID " + PP_Order.getUUID());
 			}
+		} else {
+			this.setPP_Order_ID(0);
 		}
 	}
 

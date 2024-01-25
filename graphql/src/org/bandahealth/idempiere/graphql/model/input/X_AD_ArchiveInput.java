@@ -77,9 +77,12 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -88,6 +91,8 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -109,9 +114,9 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,7 +126,7 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -143,9 +148,9 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,7 +160,7 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -177,9 +182,9 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,7 +194,7 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 

@@ -49,9 +49,12 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,12 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
-		if (get_ID() == 0 && C_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,6 +100,8 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
+		} else {
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -131,9 +141,12 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		MTax foreignEntity;
-		if (get_ID() == 0 && C_Tax != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Tax != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -142,6 +155,8 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
 			}
+		} else {
+			this.setC_Tax_ID(0);
 		}
 	}
 
@@ -163,9 +178,12 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 	@JsonProperty("C_TaxProvider")
 	public void setC_TaxProviderInput(ForeignEntityInput C_TaxProvider) {
 		this.mC_TaxProvider = C_TaxProvider;
-		MTaxProvider foreignEntity;
-		if (get_ID() == 0 && C_TaxProvider != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_TaxProvider != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTaxProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
 							.setParameters(C_TaxProvider.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,6 +192,8 @@ public class X_C_OrderTaxInput extends MOrderTax implements I_C_OrderTaxInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_TaxProvider with UUID " + C_TaxProvider.getUUID());
 			}
+		} else {
+			this.setC_TaxProvider_ID(0);
 		}
 	}
 

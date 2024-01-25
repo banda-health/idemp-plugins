@@ -74,9 +74,9 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	@JsonProperty("A_Table_Rate_Type")
 	public void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type) {
 		this.mA_Table_Rate_Type = A_Table_Rate_Type;
-		MRefList_BH foreignEntity;
 		if (A_Table_Rate_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Table_Rate_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -108,9 +108,9 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	@JsonProperty("A_Term")
 	public void setA_TermInput(I_AD_Ref_ListInput A_Term) {
 		this.mA_Term = A_Term;
-		MRefList_BH foreignEntity;
 		if (A_Term != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Term.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -142,9 +142,9 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +154,7 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 

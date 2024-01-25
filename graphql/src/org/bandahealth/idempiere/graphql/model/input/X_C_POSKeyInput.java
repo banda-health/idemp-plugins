@@ -53,9 +53,9 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("AD_Image")
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
-		MImage foreignEntity;
 		if (AD_Image != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,7 +65,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
 			}
 		} else {
-			super.setAD_Image_ID(0);
+			this.setAD_Image_ID(0);
 		}
 	}
 
@@ -87,9 +87,12 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -98,6 +101,8 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -119,9 +124,9 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("AD_PrintColor")
 	public void setAD_PrintColorInput(ForeignEntityInput AD_PrintColor) {
 		this.mAD_PrintColor = AD_PrintColor;
-		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -131,7 +136,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor.getUUID());
 			}
 		} else {
-			super.setAD_PrintColor_ID(0);
+			this.setAD_PrintColor_ID(0);
 		}
 	}
 
@@ -153,9 +158,9 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("AD_PrintFont")
 	public void setAD_PrintFontInput(ForeignEntityInput AD_PrintFont) {
 		this.mAD_PrintFont = AD_PrintFont;
-		X_AD_PrintFont foreignEntity;
 		if (AD_PrintFont != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
 							.setParameters(AD_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -165,7 +170,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 						"Could not find entity in table AD_PrintFont with UUID " + AD_PrintFont.getUUID());
 			}
 		} else {
-			super.setAD_PrintFont_ID(0);
+			this.setAD_PrintFont_ID(0);
 		}
 	}
 
@@ -216,9 +221,12 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("C_POSKeyLayout")
 	public void setC_POSKeyLayoutInput(ForeignEntityInput C_POSKeyLayout) {
 		this.mC_POSKeyLayout = C_POSKeyLayout;
-		MPOSKeyLayout foreignEntity;
-		if (get_ID() == 0 && C_POSKeyLayout != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_POSKeyLayout != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
 							.setParameters(C_POSKeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -227,6 +235,8 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_POSKeyLayout with UUID " + C_POSKeyLayout.getUUID());
 			}
+		} else {
+			this.setC_POSKeyLayout_ID(0);
 		}
 	}
 
@@ -248,9 +258,9 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -260,7 +270,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -282,9 +292,9 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 	@JsonProperty("SubKeyLayout")
 	public void setSubKeyLayoutInput(ForeignEntityInput SubKeyLayout) {
 		this.mSubKeyLayout = SubKeyLayout;
-		MPOSKeyLayout foreignEntity;
 		if (SubKeyLayout != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
 							.setParameters(SubKeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -294,7 +304,7 @@ public class X_C_POSKeyInput extends MPOSKey implements I_C_POSKeyInput {
 						"Could not find entity in table C_POSKeyLayout with UUID " + SubKeyLayout.getUUID());
 			}
 		} else {
-			super.setSubKeyLayout_ID(0);
+			this.setSubKeyLayout_ID(0);
 		}
 	}
 

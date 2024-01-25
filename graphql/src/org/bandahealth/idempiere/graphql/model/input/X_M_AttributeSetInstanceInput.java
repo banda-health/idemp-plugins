@@ -48,9 +48,12 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -91,9 +96,9 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	@JsonProperty("bh_update_reason")
 	public void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason) {
 		this.mbh_update_reason = bh_update_reason;
-		MRefList_BH foreignEntity;
 		if (bh_update_reason != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(bh_update_reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -125,9 +130,9 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	@JsonProperty("M_AttributeSet")
 	public void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet) {
 		this.mM_AttributeSet = M_AttributeSet;
-		MAttributeSet_BH foreignEntity;
 		if (M_AttributeSet != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
 							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -137,7 +142,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
 			}
 		} else {
-			super.setM_AttributeSet_ID(0);
+			this.setM_AttributeSet_ID(0);
 		}
 	}
 
@@ -188,9 +193,9 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	@JsonProperty("M_Lot")
 	public void setM_LotInput(ForeignEntityInput M_Lot) {
 		this.mM_Lot = M_Lot;
-		MLot foreignEntity;
 		if (M_Lot != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLot foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Lot", "M_Lot_UU=?", get_TrxName())
 							.setParameters(M_Lot.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -200,7 +205,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 						"Could not find entity in table M_Lot with UUID " + M_Lot.getUUID());
 			}
 		} else {
-			super.setM_Lot_ID(0);
+			this.setM_Lot_ID(0);
 		}
 	}
 

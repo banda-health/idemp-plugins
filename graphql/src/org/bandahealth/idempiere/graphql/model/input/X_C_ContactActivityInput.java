@@ -49,9 +49,12 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,9 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,7 +98,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -144,9 +149,9 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	@JsonProperty("C_Opportunity")
 	public void setC_OpportunityInput(ForeignEntityInput C_Opportunity) {
 		this.mC_Opportunity = C_Opportunity;
-		MOpportunity foreignEntity;
 		if (C_Opportunity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOpportunity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
 							.setParameters(C_Opportunity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -156,7 +161,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 						"Could not find entity in table C_Opportunity with UUID " + C_Opportunity.getUUID());
 			}
 		} else {
-			super.setC_Opportunity_ID(0);
+			this.setC_Opportunity_ID(0);
 		}
 	}
 
@@ -178,9 +183,12 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	@JsonProperty("ContactActivityType")
 	public void setContactActivityTypeInput(I_AD_Ref_ListInput ContactActivityType) {
 		this.mContactActivityType = ContactActivityType;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&ContactActivityType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (ContactActivityType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ContactActivityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,6 +197,8 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ContactActivityType.getUUID());
 			}
+		} else {
+			this.setContactActivityType(null);
 		}
 	}
 
@@ -210,9 +220,9 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		MUser_BH foreignEntity;
 		if (SalesRep != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -222,7 +232,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
 			}
 		} else {
-			super.setSalesRep_ID(0);
+			this.setSalesRep_ID(0);
 		}
 	}
 

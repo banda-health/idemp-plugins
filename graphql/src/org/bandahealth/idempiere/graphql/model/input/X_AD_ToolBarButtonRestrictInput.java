@@ -54,9 +54,9 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	@JsonProperty("Action")
 	public void setActionInput(I_AD_Ref_ListInput Action) {
 		this.mAction = Action;
-		MRefList_BH foreignEntity;
 		if (Action != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Action.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -88,9 +88,12 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -99,6 +102,8 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -120,9 +125,9 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +137,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -154,9 +159,9 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
 		if (AD_Role != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,7 +171,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
 		} else {
-			super.setAD_Role_ID(0);
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -188,9 +193,9 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	@JsonProperty("AD_Tab")
 	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
 		this.mAD_Tab = AD_Tab;
-		MTab foreignEntity;
 		if (AD_Tab != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
 							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -200,7 +205,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
 			}
 		} else {
-			super.setAD_Tab_ID(0);
+			this.setAD_Tab_ID(0);
 		}
 	}
 
@@ -222,9 +227,9 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	@JsonProperty("AD_ToolBarButton")
 	public void setAD_ToolBarButtonInput(ForeignEntityInput AD_ToolBarButton) {
 		this.mAD_ToolBarButton = AD_ToolBarButton;
-		MToolBarButton foreignEntity;
 		if (AD_ToolBarButton != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MToolBarButton foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ToolBarButton", "AD_ToolBarButton_UU=?", get_TrxName())
 							.setParameters(AD_ToolBarButton.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -234,7 +239,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 						"Could not find entity in table AD_ToolBarButton with UUID " + AD_ToolBarButton.getUUID());
 			}
 		} else {
-			super.setAD_ToolBarButton_ID(0);
+			this.setAD_ToolBarButton_ID(0);
 		}
 	}
 
@@ -285,9 +290,9 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		MWindow foreignEntity;
 		if (AD_Window != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -297,7 +302,7 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
 			}
 		} else {
-			super.setAD_Window_ID(0);
+			this.setAD_Window_ID(0);
 		}
 	}
 

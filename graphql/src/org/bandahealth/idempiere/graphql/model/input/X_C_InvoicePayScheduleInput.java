@@ -46,9 +46,12 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 && C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
+		} else {
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -139,9 +149,12 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 	@JsonProperty("C_PaySchedule")
 	public void setC_PayScheduleInput(ForeignEntityInput C_PaySchedule) {
 		this.mC_PaySchedule = C_PaySchedule;
-		MPaySchedule foreignEntity;
-		if (get_ID() == 0 && C_PaySchedule != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_PaySchedule != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaySchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySchedule", "C_PaySchedule_UU=?", get_TrxName())
 							.setParameters(C_PaySchedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -150,6 +163,8 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 				throw new AdempiereException(
 						"Could not find entity in table C_PaySchedule with UUID " + C_PaySchedule.getUUID());
 			}
+		} else {
+			this.setC_PaySchedule_ID(0);
 		}
 	}
 

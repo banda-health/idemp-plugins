@@ -44,9 +44,12 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 	@JsonProperty("C_Tax")
 	public void setC_TaxInput(ForeignEntityInput C_Tax) {
 		this.mC_Tax = C_Tax;
-		MTax foreignEntity;
-		if (get_ID() == 0 && C_Tax != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Tax != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
 							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_C_TaxPostalInput extends MTaxPostal implements I_C_TaxPostalInput
 				throw new AdempiereException(
 						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
 			}
+		} else {
+			this.setC_Tax_ID(0);
 		}
 	}
 

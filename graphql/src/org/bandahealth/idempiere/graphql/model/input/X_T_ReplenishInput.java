@@ -56,9 +56,12 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -88,9 +93,12 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
-		if (get_ID() == 0 && AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_PInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -99,6 +107,8 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
+		} else {
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -120,9 +130,9 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +142,7 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -154,9 +164,9 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("C_DocType")
 	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
 		this.mC_DocType = C_DocType;
-		MDocType_BH foreignEntity;
 		if (C_DocType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,7 +176,7 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
 			}
 		} else {
-			super.setC_DocType_ID(0);
+			this.setC_DocType_ID(0);
 		}
 	}
 
@@ -188,9 +198,12 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,6 +212,8 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -220,9 +235,12 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
-		if (get_ID() == 0 && M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Warehouse != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -231,6 +249,8 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 				throw new AdempiereException(
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
+		} else {
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -252,9 +272,9 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("M_WarehouseSource")
 	public void setM_WarehouseSourceInput(ForeignEntityInput M_WarehouseSource) {
 		this.mM_WarehouseSource = M_WarehouseSource;
-		MWarehouse_BH foreignEntity;
 		if (M_WarehouseSource != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_WarehouseSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -264,7 +284,7 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 						"Could not find entity in table M_Warehouse with UUID " + M_WarehouseSource.getUUID());
 			}
 		} else {
-			super.setM_WarehouseSource_ID(0);
+			this.setM_WarehouseSource_ID(0);
 		}
 	}
 
@@ -286,9 +306,9 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("ReplenishmentCreate")
 	public void setReplenishmentCreateInput(I_AD_Ref_ListInput ReplenishmentCreate) {
 		this.mReplenishmentCreate = ReplenishmentCreate;
-		MRefList_BH foreignEntity;
 		if (ReplenishmentCreate != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ReplenishmentCreate.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -320,9 +340,9 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	@JsonProperty("ReplenishType")
 	public void setReplenishTypeInput(I_AD_Ref_ListInput ReplenishType) {
 		this.mReplenishType = ReplenishType;
-		MRefList_BH foreignEntity;
 		if (ReplenishType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ReplenishType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

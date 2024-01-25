@@ -46,9 +46,12 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 	@JsonProperty("C_Dunning")
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
-		MDunning foreignEntity;
-		if (get_ID() == 0 && C_Dunning != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Dunning != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
 							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
 			}
+		} else {
+			this.setC_Dunning_ID(0);
 		}
 	}
 
@@ -110,9 +120,12 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 	@JsonProperty("C_DunningLevel")
 	public void setC_DunningLevelInput(ForeignEntityInput C_DunningLevel) {
 		this.mC_DunningLevel = C_DunningLevel;
-		MDunningLevel foreignEntity;
-		if (get_ID() == 0 && C_DunningLevel != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_DunningLevel != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDunningLevel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningLevel", "C_DunningLevel_UU=?", get_TrxName())
 							.setParameters(C_DunningLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +134,8 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 				throw new AdempiereException(
 						"Could not find entity in table C_DunningLevel with UUID " + C_DunningLevel.getUUID());
 			}
+		} else {
+			this.setC_DunningLevel_ID(0);
 		}
 	}
 

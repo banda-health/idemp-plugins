@@ -56,9 +56,12 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -88,9 +93,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("CalculationType")
 	public void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType) {
 		this.mCalculationType = CalculationType;
-		MRefList_BH foreignEntity;
 		if (CalculationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CalculationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -122,9 +127,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("GL_Budget")
 	public void setGL_BudgetInput(ForeignEntityInput GL_Budget) {
 		this.mGL_Budget = GL_Budget;
-		X_GL_Budget foreignEntity;
 		if (GL_Budget != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
 							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -134,7 +139,7 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 						"Could not find entity in table GL_Budget with UUID " + GL_Budget.getUUID());
 			}
 		} else {
-			super.setGL_Budget_ID(0);
+			this.setGL_Budget_ID(0);
 		}
 	}
 
@@ -156,9 +161,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("LineType")
 	public void setLineTypeInput(I_AD_Ref_ListInput LineType) {
 		this.mLineType = LineType;
-		MRefList_BH foreignEntity;
 		if (LineType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LineType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -190,9 +195,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("Oper_1")
 	public void setOper_1Input(ForeignEntityInput Oper_1) {
 		this.mOper_1 = Oper_1;
-		MReportLine_BH foreignEntity;
 		if (Oper_1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReportLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 							.setParameters(Oper_1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -202,7 +207,7 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 						"Could not find entity in table PA_ReportLine with UUID " + Oper_1.getUUID());
 			}
 		} else {
-			super.setOper_1_ID(0);
+			this.setOper_1_ID(0);
 		}
 	}
 
@@ -224,9 +229,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("Oper_2")
 	public void setOper_2Input(ForeignEntityInput Oper_2) {
 		this.mOper_2 = Oper_2;
-		MReportLine_BH foreignEntity;
 		if (Oper_2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReportLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 							.setParameters(Oper_2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -236,7 +241,7 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 						"Could not find entity in table PA_ReportLine with UUID " + Oper_2.getUUID());
 			}
 		} else {
-			super.setOper_2_ID(0);
+			this.setOper_2_ID(0);
 		}
 	}
 
@@ -258,9 +263,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("OverlineStrokeType")
 	public void setOverlineStrokeTypeInput(I_AD_Ref_ListInput OverlineStrokeType) {
 		this.mOverlineStrokeType = OverlineStrokeType;
-		MRefList_BH foreignEntity;
 		if (OverlineStrokeType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(OverlineStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -321,9 +326,12 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("PA_ReportLineSet")
 	public void setPA_ReportLineSetInput(ForeignEntityInput PA_ReportLineSet) {
 		this.mPA_ReportLineSet = PA_ReportLineSet;
-		MReportLineSet foreignEntity;
-		if (get_ID() == 0 && PA_ReportLineSet != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PA_ReportLineSet != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReportLineSet foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
 							.setParameters(PA_ReportLineSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -332,6 +340,8 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 				throw new AdempiereException(
 						"Could not find entity in table PA_ReportLineSet with UUID " + PA_ReportLineSet.getUUID());
 			}
+		} else {
+			this.setPA_ReportLineSet_ID(0);
 		}
 	}
 
@@ -353,9 +363,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("PAAmountType")
 	public void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType) {
 		this.mPAAmountType = PAAmountType;
-		MRefList_BH foreignEntity;
 		if (PAAmountType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PAAmountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -387,9 +397,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("PAPeriodType")
 	public void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType) {
 		this.mPAPeriodType = PAPeriodType;
-		MRefList_BH foreignEntity;
 		if (PAPeriodType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PAPeriodType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -421,9 +431,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
-		MRefList_BH foreignEntity;
 		if (PostingType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -455,9 +465,9 @@ public class X_PA_ReportLineInput extends MReportLine_BH implements I_PA_ReportL
 	@JsonProperty("UnderlineStrokeType")
 	public void setUnderlineStrokeTypeInput(I_AD_Ref_ListInput UnderlineStrokeType) {
 		this.mUnderlineStrokeType = UnderlineStrokeType;
-		MRefList_BH foreignEntity;
 		if (UnderlineStrokeType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(UnderlineStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -49,9 +49,12 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,9 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	@JsonProperty("AD_Ref_List")
 	public void setAD_Ref_ListInput(ForeignEntityInput AD_Ref_List) {
 		this.mAD_Ref_List = AD_Ref_List;
-		MRefList_BH foreignEntity;
 		if (AD_Ref_List != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
 							.setParameters(AD_Ref_List.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,7 +98,7 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 						"Could not find entity in table AD_Ref_List with UUID " + AD_Ref_List.getUUID());
 			}
 		} else {
-			super.setAD_Ref_List_ID(0);
+			this.setAD_Ref_List_ID(0);
 		}
 	}
 
@@ -115,9 +120,9 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	@JsonProperty("AD_Reference")
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
-		MReference_BH foreignEntity;
 		if (AD_Reference != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,7 +132,7 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
 			}
 		} else {
-			super.setAD_Reference_ID(0);
+			this.setAD_Reference_ID(0);
 		}
 	}
 
@@ -149,9 +154,9 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	@JsonProperty("ASP_Level")
 	public void setASP_LevelInput(ForeignEntityInput ASP_Level) {
 		this.mASP_Level = ASP_Level;
-		X_ASP_Level foreignEntity;
 		if (ASP_Level != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
 							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,7 +166,7 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 						"Could not find entity in table ASP_Level with UUID " + ASP_Level.getUUID());
 			}
 		} else {
-			super.setASP_Level_ID(0);
+			this.setASP_Level_ID(0);
 		}
 	}
 
@@ -212,9 +217,9 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	@JsonProperty("ASP_Status")
 	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
-		MRefList_BH foreignEntity;
 		if (ASP_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

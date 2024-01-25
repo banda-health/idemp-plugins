@@ -56,9 +56,12 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -67,6 +70,8 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -88,9 +93,9 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -100,7 +105,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -122,9 +127,9 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -134,7 +139,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -156,9 +161,9 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -168,7 +173,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -190,9 +195,9 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -202,7 +207,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -253,9 +258,9 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
 		if (C_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -265,7 +270,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
 		} else {
-			super.setC_Order_ID(0);
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -287,9 +292,9 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("C_SalesStage")
 	public void setC_SalesStageInput(ForeignEntityInput C_SalesStage) {
 		this.mC_SalesStage = C_SalesStage;
-		X_C_SalesStage foreignEntity;
 		if (C_SalesStage != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_SalesStage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesStage", "C_SalesStage_UU=?", get_TrxName())
 							.setParameters(C_SalesStage.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -299,7 +304,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 						"Could not find entity in table C_SalesStage with UUID " + C_SalesStage.getUUID());
 			}
 		} else {
-			super.setC_SalesStage_ID(0);
+			this.setC_SalesStage_ID(0);
 		}
 	}
 
@@ -321,9 +326,9 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		MUser_BH foreignEntity;
 		if (SalesRep != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -333,7 +338,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
 			}
 		} else {
-			super.setSalesRep_ID(0);
+			this.setSalesRep_ID(0);
 		}
 	}
 

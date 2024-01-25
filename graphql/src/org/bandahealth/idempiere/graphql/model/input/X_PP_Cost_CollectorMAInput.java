@@ -46,9 +46,12 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -112,9 +117,9 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	@JsonProperty("PP_Cost_Collector")
 	public void setPP_Cost_CollectorInput(ForeignEntityInput PP_Cost_Collector) {
 		this.mPP_Cost_Collector = PP_Cost_Collector;
-		X_PP_Cost_Collector foreignEntity;
 		if (PP_Cost_Collector != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Cost_Collector foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Cost_Collector", "PP_Cost_Collector_UU=?", get_TrxName())
 							.setParameters(PP_Cost_Collector.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -124,7 +129,7 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 						"Could not find entity in table PP_Cost_Collector with UUID " + PP_Cost_Collector.getUUID());
 			}
 		} else {
-			super.setPP_Cost_Collector_ID(0);
+			this.setPP_Cost_Collector_ID(0);
 		}
 	}
 

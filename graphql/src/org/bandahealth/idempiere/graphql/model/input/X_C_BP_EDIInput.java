@@ -50,9 +50,12 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	@JsonProperty("AD_Sequence")
 	public void setAD_SequenceInput(ForeignEntityInput AD_Sequence) {
 		this.mAD_Sequence = AD_Sequence;
-		MSequence_BH foreignEntity;
 		if (AD_Sequence != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
 							.setParameters(AD_Sequence.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -94,7 +99,7 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 						"Could not find entity in table AD_Sequence with UUID " + AD_Sequence.getUUID());
 			}
 		} else {
-			super.setAD_Sequence_ID(0);
+			this.setAD_Sequence_ID(0);
 		}
 	}
 
@@ -145,9 +150,9 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -157,7 +162,7 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -179,9 +184,9 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	@JsonProperty("EDIType")
 	public void setEDITypeInput(I_AD_Ref_ListInput EDIType) {
 		this.mEDIType = EDIType;
-		MRefList_BH foreignEntity;
 		if (EDIType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(EDIType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -213,9 +218,9 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +230,7 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 

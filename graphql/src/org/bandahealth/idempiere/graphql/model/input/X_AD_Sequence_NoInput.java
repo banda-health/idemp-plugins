@@ -44,9 +44,12 @@ public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequ
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequ
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequ
 	@JsonProperty("AD_Sequence")
 	public void setAD_SequenceInput(ForeignEntityInput AD_Sequence) {
 		this.mAD_Sequence = AD_Sequence;
-		MSequence_BH foreignEntity;
-		if (get_ID() == 0 && AD_Sequence != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Sequence != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
 							.setParameters(AD_Sequence.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequ
 				throw new AdempiereException(
 						"Could not find entity in table AD_Sequence with UUID " + AD_Sequence.getUUID());
 			}
+		} else {
+			this.setAD_Sequence_ID(0);
 		}
 	}
 

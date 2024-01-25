@@ -52,9 +52,9 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		MLanguage foreignEntity;
 		if (AD_Language != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,7 +64,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
 			}
 		} else {
-			super.setAD_Language_ID(0);
+			this.setAD_Language_ID(0);
 		}
 	}
 
@@ -86,9 +86,12 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,6 +100,8 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -147,9 +152,9 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_PrintFormat")
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -159,7 +164,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
 			}
 		} else {
-			super.setAD_PrintFormat_ID(0);
+			this.setAD_PrintFormat_ID(0);
 		}
 	}
 
@@ -181,9 +186,9 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -193,7 +198,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -215,9 +220,9 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -227,7 +232,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -249,9 +254,9 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("NotificationType")
 	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
 		this.mNotificationType = NotificationType;
-		MRefList_BH foreignEntity;
 		if (NotificationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(NotificationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

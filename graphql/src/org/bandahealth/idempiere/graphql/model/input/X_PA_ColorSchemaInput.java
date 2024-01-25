@@ -49,9 +49,12 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,9 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	@JsonProperty("AD_PrintColor1")
 	public void setAD_PrintColor1Input(ForeignEntityInput AD_PrintColor1) {
 		this.mAD_PrintColor1 = AD_PrintColor1;
-		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(AD_PrintColor1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,7 +98,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor1.getUUID());
 			}
 		} else {
-			super.setAD_PrintColor1_ID(0);
+			this.setAD_PrintColor1_ID(0);
 		}
 	}
 
@@ -115,9 +120,9 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	@JsonProperty("AD_PrintColor2")
 	public void setAD_PrintColor2Input(ForeignEntityInput AD_PrintColor2) {
 		this.mAD_PrintColor2 = AD_PrintColor2;
-		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(AD_PrintColor2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,7 +132,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor2.getUUID());
 			}
 		} else {
-			super.setAD_PrintColor2_ID(0);
+			this.setAD_PrintColor2_ID(0);
 		}
 	}
 
@@ -149,9 +154,9 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	@JsonProperty("AD_PrintColor3")
 	public void setAD_PrintColor3Input(ForeignEntityInput AD_PrintColor3) {
 		this.mAD_PrintColor3 = AD_PrintColor3;
-		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor3 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(AD_PrintColor3.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,7 +166,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor3.getUUID());
 			}
 		} else {
-			super.setAD_PrintColor3_ID(0);
+			this.setAD_PrintColor3_ID(0);
 		}
 	}
 
@@ -183,9 +188,9 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	@JsonProperty("AD_PrintColor4")
 	public void setAD_PrintColor4Input(ForeignEntityInput AD_PrintColor4) {
 		this.mAD_PrintColor4 = AD_PrintColor4;
-		X_AD_PrintColor foreignEntity;
 		if (AD_PrintColor4 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
 							.setParameters(AD_PrintColor4.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -195,7 +200,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 						"Could not find entity in table AD_PrintColor with UUID " + AD_PrintColor4.getUUID());
 			}
 		} else {
-			super.setAD_PrintColor4_ID(0);
+			this.setAD_PrintColor4_ID(0);
 		}
 	}
 
@@ -217,9 +222,9 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -229,7 +234,7 @@ public class X_PA_ColorSchemaInput extends MColorSchema implements I_PA_ColorSch
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 

@@ -49,9 +49,12 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,12 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
-		if (get_ID() == 0 && AD_Table != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,6 +100,8 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
+		} else {
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -142,9 +152,9 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	@JsonProperty("CM_ChatType")
 	public void setCM_ChatTypeInput(ForeignEntityInput CM_ChatType) {
 		this.mCM_ChatType = CM_ChatType;
-		MChatType foreignEntity;
 		if (CM_ChatType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChatType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_ChatType", "CM_ChatType_UU=?", get_TrxName())
 							.setParameters(CM_ChatType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +164,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 						"Could not find entity in table CM_ChatType with UUID " + CM_ChatType.getUUID());
 			}
 		} else {
-			super.setCM_ChatType_ID(0);
+			this.setCM_ChatType_ID(0);
 		}
 	}
 
@@ -176,9 +186,9 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	@JsonProperty("ConfidentialType")
 	public void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
-		MRefList_BH foreignEntity;
 		if (ConfidentialType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ConfidentialType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -210,9 +220,9 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	@JsonProperty("ModerationType")
 	public void setModerationTypeInput(I_AD_Ref_ListInput ModerationType) {
 		this.mModerationType = ModerationType;
-		MRefList_BH foreignEntity;
 		if (ModerationType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ModerationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

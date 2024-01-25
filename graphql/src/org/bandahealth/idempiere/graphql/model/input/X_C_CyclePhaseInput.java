@@ -46,9 +46,12 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -96,9 +101,12 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	@JsonProperty("C_CycleStep")
 	public void setC_CycleStepInput(ForeignEntityInput C_CycleStep) {
 		this.mC_CycleStep = C_CycleStep;
-		X_C_CycleStep foreignEntity;
-		if (get_ID() == 0 && C_CycleStep != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_CycleStep != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_CycleStep foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CycleStep", "C_CycleStep_UU=?", get_TrxName())
 							.setParameters(C_CycleStep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -107,6 +115,8 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 				throw new AdempiereException(
 						"Could not find entity in table C_CycleStep with UUID " + C_CycleStep.getUUID());
 			}
+		} else {
+			this.setC_CycleStep_ID(0);
 		}
 	}
 
@@ -128,9 +138,12 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	@JsonProperty("C_Phase")
 	public void setC_PhaseInput(ForeignEntityInput C_Phase) {
 		this.mC_Phase = C_Phase;
-		MProjectTypePhase foreignEntity;
-		if (get_ID() == 0 && C_Phase != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Phase != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectTypePhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
 							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -139,6 +152,8 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 				throw new AdempiereException(
 						"Could not find entity in table C_Phase with UUID " + C_Phase.getUUID());
 			}
+		} else {
+			this.setC_Phase_ID(0);
 		}
 	}
 

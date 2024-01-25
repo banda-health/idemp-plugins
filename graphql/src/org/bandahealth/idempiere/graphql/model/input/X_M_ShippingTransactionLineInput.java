@@ -49,9 +49,12 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,6 +63,8 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -81,9 +86,9 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	@JsonProperty("C_UOM_Length")
 	public void setC_UOM_LengthInput(ForeignEntityInput C_UOM_Length) {
 		this.mC_UOM_Length = C_UOM_Length;
-		MUOM foreignEntity;
 		if (C_UOM_Length != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM_Length.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,7 +98,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 						"Could not find entity in table C_UOM with UUID " + C_UOM_Length.getUUID());
 			}
 		} else {
-			super.setC_UOM_Length_ID(0);
+			this.setC_UOM_Length_ID(0);
 		}
 	}
 
@@ -115,9 +120,9 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	@JsonProperty("C_UOM_Weight")
 	public void setC_UOM_WeightInput(ForeignEntityInput C_UOM_Weight) {
 		this.mC_UOM_Weight = C_UOM_Weight;
-		MUOM foreignEntity;
 		if (C_UOM_Weight != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM_Weight.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,7 +132,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 						"Could not find entity in table C_UOM with UUID " + C_UOM_Weight.getUUID());
 			}
 		} else {
-			super.setC_UOM_Weight_ID(0);
+			this.setC_UOM_Weight_ID(0);
 		}
 	}
 
@@ -149,9 +154,9 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	@JsonProperty("M_PackageMPS")
 	public void setM_PackageMPSInput(ForeignEntityInput M_PackageMPS) {
 		this.mM_PackageMPS = M_PackageMPS;
-		MPackageMPS foreignEntity;
 		if (M_PackageMPS != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPackageMPS foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PackageMPS", "M_PackageMPS_UU=?", get_TrxName())
 							.setParameters(M_PackageMPS.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,7 +166,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 						"Could not find entity in table M_PackageMPS with UUID " + M_PackageMPS.getUUID());
 			}
 		} else {
-			super.setM_PackageMPS_ID(0);
+			this.setM_PackageMPS_ID(0);
 		}
 	}
 
@@ -183,9 +188,12 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 	@JsonProperty("M_ShippingTransaction")
 	public void setM_ShippingTransactionInput(ForeignEntityInput M_ShippingTransaction) {
 		this.mM_ShippingTransaction = M_ShippingTransaction;
-		MShippingTransaction foreignEntity;
-		if (get_ID() == 0 && M_ShippingTransaction != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_ShippingTransaction != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MShippingTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShippingTransaction", "M_ShippingTransaction_UU=?", get_TrxName())
 							.setParameters(M_ShippingTransaction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -194,6 +202,8 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 				throw new AdempiereException(
 						"Could not find entity in table M_ShippingTransaction with UUID " + M_ShippingTransaction.getUUID());
 			}
+		} else {
+			this.setM_ShippingTransaction_ID(0);
 		}
 	}
 

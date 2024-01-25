@@ -48,9 +48,12 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	@JsonProperty("AD_Field")
 	public void setAD_FieldInput(ForeignEntityInput AD_Field) {
 		this.mAD_Field = AD_Field;
-		MField_BH foreignEntity;
-		if (get_ID() == 0 && AD_Field != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Field != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
 							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Field with UUID " + AD_Field.getUUID());
 			}
+		} else {
+			this.setAD_Field_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -141,9 +151,9 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	@JsonProperty("ASP_Status")
 	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
-		MRefList_BH foreignEntity;
 		if (ASP_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -175,9 +185,12 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	@JsonProperty("ASP_Tab")
 	public void setASP_TabInput(ForeignEntityInput ASP_Tab) {
 		this.mASP_Tab = ASP_Tab;
-		X_ASP_Tab foreignEntity;
-		if (get_ID() == 0 && ASP_Tab != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (ASP_Tab != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_ASP_Tab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Tab", "ASP_Tab_UU=?", get_TrxName())
 							.setParameters(ASP_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -186,6 +199,8 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 				throw new AdempiereException(
 						"Could not find entity in table ASP_Tab with UUID " + ASP_Tab.getUUID());
 			}
+		} else {
+			this.setASP_Tab_ID(0);
 		}
 	}
 

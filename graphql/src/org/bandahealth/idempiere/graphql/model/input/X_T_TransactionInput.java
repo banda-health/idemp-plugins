@@ -79,9 +79,12 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,6 +93,8 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -111,9 +116,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
 		if (AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,7 +128,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
 		} else {
-			super.setAD_PInstance_ID(0);
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -145,9 +150,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -157,7 +162,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -179,9 +184,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("C_ProjectIssue")
 	public void setC_ProjectIssueInput(ForeignEntityInput C_ProjectIssue) {
 		this.mC_ProjectIssue = C_ProjectIssue;
-		MProjectIssue foreignEntity;
 		if (C_ProjectIssue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProjectIssue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectIssue", "C_ProjectIssue_UU=?", get_TrxName())
 							.setParameters(C_ProjectIssue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +196,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table C_ProjectIssue with UUID " + C_ProjectIssue.getUUID());
 			}
 		} else {
-			super.setC_ProjectIssue_ID(0);
+			this.setC_ProjectIssue_ID(0);
 		}
 	}
 
@@ -213,9 +218,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +230,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -247,9 +252,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_InOut")
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
-		MInOut_BH foreignEntity;
 		if (M_InOut != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
 							.setParameters(M_InOut.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -259,7 +264,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_InOut with UUID " + M_InOut.getUUID());
 			}
 		} else {
-			super.setM_InOut_ID(0);
+			this.setM_InOut_ID(0);
 		}
 	}
 
@@ -281,9 +286,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		MInOutLine foreignEntity;
 		if (M_InOutLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -293,7 +298,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
 			}
 		} else {
-			super.setM_InOutLine_ID(0);
+			this.setM_InOutLine_ID(0);
 		}
 	}
 
@@ -315,9 +320,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_Inventory")
 	public void setM_InventoryInput(ForeignEntityInput M_Inventory) {
 		this.mM_Inventory = M_Inventory;
-		MInventory_BH foreignEntity;
 		if (M_Inventory != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInventory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Inventory", "M_Inventory_UU=?", get_TrxName())
 							.setParameters(M_Inventory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -327,7 +332,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_Inventory with UUID " + M_Inventory.getUUID());
 			}
 		} else {
-			super.setM_Inventory_ID(0);
+			this.setM_Inventory_ID(0);
 		}
 	}
 
@@ -349,9 +354,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_InventoryLine")
 	public void setM_InventoryLineInput(ForeignEntityInput M_InventoryLine) {
 		this.mM_InventoryLine = M_InventoryLine;
-		MInventoryLine_BH foreignEntity;
 		if (M_InventoryLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInventoryLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -361,7 +366,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_InventoryLine with UUID " + M_InventoryLine.getUUID());
 			}
 		} else {
-			super.setM_InventoryLine_ID(0);
+			this.setM_InventoryLine_ID(0);
 		}
 	}
 
@@ -383,9 +388,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		MLocator foreignEntity;
 		if (M_Locator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -395,7 +400,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
 			}
 		} else {
-			super.setM_Locator_ID(0);
+			this.setM_Locator_ID(0);
 		}
 	}
 
@@ -417,9 +422,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_Movement")
 	public void setM_MovementInput(ForeignEntityInput M_Movement) {
 		this.mM_Movement = M_Movement;
-		MMovement_BH foreignEntity;
 		if (M_Movement != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMovement_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Movement", "M_Movement_UU=?", get_TrxName())
 							.setParameters(M_Movement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -429,7 +434,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_Movement with UUID " + M_Movement.getUUID());
 			}
 		} else {
-			super.setM_Movement_ID(0);
+			this.setM_Movement_ID(0);
 		}
 	}
 
@@ -451,9 +456,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_MovementLine")
 	public void setM_MovementLineInput(ForeignEntityInput M_MovementLine) {
 		this.mM_MovementLine = M_MovementLine;
-		MMovementLine_BH foreignEntity;
 		if (M_MovementLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMovementLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -463,7 +468,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_MovementLine with UUID " + M_MovementLine.getUUID());
 			}
 		} else {
-			super.setM_MovementLine_ID(0);
+			this.setM_MovementLine_ID(0);
 		}
 	}
 
@@ -485,9 +490,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -497,7 +502,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -519,9 +524,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_Production")
 	public void setM_ProductionInput(ForeignEntityInput M_Production) {
 		this.mM_Production = M_Production;
-		MProduction foreignEntity;
 		if (M_Production != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Production", "M_Production_UU=?", get_TrxName())
 							.setParameters(M_Production.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -531,7 +536,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_Production with UUID " + M_Production.getUUID());
 			}
 		} else {
-			super.setM_Production_ID(0);
+			this.setM_Production_ID(0);
 		}
 	}
 
@@ -553,9 +558,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_ProductionLine")
 	public void setM_ProductionLineInput(ForeignEntityInput M_ProductionLine) {
 		this.mM_ProductionLine = M_ProductionLine;
-		MProductionLine foreignEntity;
 		if (M_ProductionLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProductionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionLine", "M_ProductionLine_UU=?", get_TrxName())
 							.setParameters(M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -565,7 +570,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_ProductionLine with UUID " + M_ProductionLine.getUUID());
 			}
 		} else {
-			super.setM_ProductionLine_ID(0);
+			this.setM_ProductionLine_ID(0);
 		}
 	}
 
@@ -587,9 +592,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("M_Transaction")
 	public void setM_TransactionInput(ForeignEntityInput M_Transaction) {
 		this.mM_Transaction = M_Transaction;
-		MTransaction foreignEntity;
 		if (M_Transaction != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Transaction", "M_Transaction_UU=?", get_TrxName())
 							.setParameters(M_Transaction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -599,7 +604,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_Transaction with UUID " + M_Transaction.getUUID());
 			}
 		} else {
-			super.setM_Transaction_ID(0);
+			this.setM_Transaction_ID(0);
 		}
 	}
 
@@ -621,9 +626,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("MovementType")
 	public void setMovementTypeInput(I_AD_Ref_ListInput MovementType) {
 		this.mMovementType = MovementType;
-		MRefList_BH foreignEntity;
 		if (MovementType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(MovementType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -655,9 +660,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("Search_InOut")
 	public void setSearch_InOutInput(ForeignEntityInput Search_InOut) {
 		this.mSearch_InOut = Search_InOut;
-		MInOutLine foreignEntity;
 		if (Search_InOut != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(Search_InOut.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -667,7 +672,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table M_InOutLine with UUID " + Search_InOut.getUUID());
 			}
 		} else {
-			super.setSearch_InOut_ID(0);
+			this.setSearch_InOut_ID(0);
 		}
 	}
 
@@ -689,9 +694,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("Search_Invoice")
 	public void setSearch_InvoiceInput(ForeignEntityInput Search_Invoice) {
 		this.mSearch_Invoice = Search_Invoice;
-		MInvoice_BH foreignEntity;
 		if (Search_Invoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(Search_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -701,7 +706,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table C_Invoice with UUID " + Search_Invoice.getUUID());
 			}
 		} else {
-			super.setSearch_Invoice_ID(0);
+			this.setSearch_Invoice_ID(0);
 		}
 	}
 
@@ -723,9 +728,9 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	@JsonProperty("Search_Order")
 	public void setSearch_OrderInput(ForeignEntityInput Search_Order) {
 		this.mSearch_Order = Search_Order;
-		MOrder_BH foreignEntity;
 		if (Search_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(Search_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -735,7 +740,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 						"Could not find entity in table C_Order with UUID " + Search_Order.getUUID());
 			}
 		} else {
-			super.setSearch_Order_ID(0);
+			this.setSearch_Order_ID(0);
 		}
 	}
 

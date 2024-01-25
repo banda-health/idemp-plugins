@@ -44,9 +44,12 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -105,9 +110,9 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 	@JsonProperty("C_Channel")
 	public void setC_ChannelInput(ForeignEntityInput C_Channel) {
 		this.mC_Channel = C_Channel;
-		X_C_Channel foreignEntity;
 		if (C_Channel != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Channel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Channel", "C_Channel_UU=?", get_TrxName())
 							.setParameters(C_Channel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -117,7 +122,7 @@ public class X_C_CampaignInput extends MCampaign implements I_C_CampaignInput {
 						"Could not find entity in table C_Channel with UUID " + C_Channel.getUUID());
 			}
 		} else {
-			super.setC_Channel_ID(0);
+			this.setC_Channel_ID(0);
 		}
 	}
 

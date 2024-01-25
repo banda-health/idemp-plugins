@@ -48,9 +48,12 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -130,9 +140,12 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
-		if (get_ID() == 0 && C_Charge != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Charge != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -141,6 +154,8 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 				throw new AdempiereException(
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
+		} else {
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -162,9 +177,9 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	@JsonProperty("Ch_Expense_A")
 	public void setCh_Expense_AInput(ForeignEntityInput Ch_Expense_A) {
 		this.mCh_Expense_A = Ch_Expense_A;
-		MAccount foreignEntity;
 		if (Ch_Expense_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(Ch_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,7 +189,7 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 						"Could not find entity in table C_ValidCombination with UUID " + Ch_Expense_A.getUUID());
 			}
 		} else {
-			super.setCh_Expense_Acct(0);
+			this.setCh_Expense_Acct(0);
 		}
 	}
 

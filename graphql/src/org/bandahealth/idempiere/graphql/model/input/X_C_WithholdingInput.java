@@ -46,9 +46,12 @@ public class X_C_WithholdingInput extends MWithholding implements I_C_Withholdin
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_WithholdingInput extends MWithholding implements I_C_Withholdin
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_C_WithholdingInput extends MWithholding implements I_C_Withholdin
 	@JsonProperty("Benefici")
 	public void setBeneficiInput(ForeignEntityInput Benefici) {
 		this.mBenefici = Benefici;
-		MBPartner_BH foreignEntity;
 		if (Benefici != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(Benefici.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_C_WithholdingInput extends MWithholding implements I_C_Withholdin
 						"Could not find entity in table C_BPartner with UUID " + Benefici.getUUID());
 			}
 		} else {
-			super.setBeneficiary(0);
+			this.setBeneficiary(0);
 		}
 	}
 
@@ -112,9 +117,9 @@ public class X_C_WithholdingInput extends MWithholding implements I_C_Withholdin
 	@JsonProperty("C_PaymentTerm")
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
-		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -124,7 +129,7 @@ public class X_C_WithholdingInput extends MWithholding implements I_C_Withholdin
 						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
 			}
 		} else {
-			super.setC_PaymentTerm_ID(0);
+			this.setC_PaymentTerm_ID(0);
 		}
 	}
 

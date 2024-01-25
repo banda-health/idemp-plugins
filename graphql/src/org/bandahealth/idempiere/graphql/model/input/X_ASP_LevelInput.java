@@ -44,9 +44,12 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -105,9 +110,12 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	@JsonProperty("ASP_Module")
 	public void setASP_ModuleInput(ForeignEntityInput ASP_Module) {
 		this.mASP_Module = ASP_Module;
-		X_ASP_Module foreignEntity;
-		if (get_ID() == 0 && ASP_Module != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (ASP_Module != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_ASP_Module foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Module", "ASP_Module_UU=?", get_TrxName())
 							.setParameters(ASP_Module.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -116,6 +124,8 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 				throw new AdempiereException(
 						"Could not find entity in table ASP_Module with UUID " + ASP_Module.getUUID());
 			}
+		} else {
+			this.setASP_Module_ID(0);
 		}
 	}
 

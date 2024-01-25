@@ -57,9 +57,12 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -68,6 +71,8 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -89,9 +94,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("AD_PrintFormat")
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -101,7 +106,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
 			}
 		} else {
-			super.setAD_PrintFormat_ID(0);
+			this.setAD_PrintFormat_ID(0);
 		}
 	}
 
@@ -152,9 +157,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("C_DocTypeDifference")
 	public void setC_DocTypeDifferenceInput(ForeignEntityInput C_DocTypeDifference) {
 		this.mC_DocTypeDifference = C_DocTypeDifference;
-		MDocType_BH foreignEntity;
 		if (C_DocTypeDifference != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocTypeDifference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -164,7 +169,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table C_DocType with UUID " + C_DocTypeDifference.getUUID());
 			}
 		} else {
-			super.setC_DocTypeDifference_ID(0);
+			this.setC_DocTypeDifference_ID(0);
 		}
 	}
 
@@ -186,9 +191,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("C_DocTypeInvoice")
 	public void setC_DocTypeInvoiceInput(ForeignEntityInput C_DocTypeInvoice) {
 		this.mC_DocTypeInvoice = C_DocTypeInvoice;
-		MDocType_BH foreignEntity;
 		if (C_DocTypeInvoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocTypeInvoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -198,7 +203,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table C_DocType with UUID " + C_DocTypeInvoice.getUUID());
 			}
 		} else {
-			super.setC_DocTypeInvoice_ID(0);
+			this.setC_DocTypeInvoice_ID(0);
 		}
 	}
 
@@ -220,9 +225,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("C_DocTypeProforma")
 	public void setC_DocTypeProformaInput(ForeignEntityInput C_DocTypeProforma) {
 		this.mC_DocTypeProforma = C_DocTypeProforma;
-		MDocType_BH foreignEntity;
 		if (C_DocTypeProforma != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocTypeProforma.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -232,7 +237,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table C_DocType with UUID " + C_DocTypeProforma.getUUID());
 			}
 		} else {
-			super.setC_DocTypeProforma_ID(0);
+			this.setC_DocTypeProforma_ID(0);
 		}
 	}
 
@@ -254,9 +259,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("C_DocTypeShipment")
 	public void setC_DocTypeShipmentInput(ForeignEntityInput C_DocTypeShipment) {
 		this.mC_DocTypeShipment = C_DocTypeShipment;
-		MDocType_BH foreignEntity;
 		if (C_DocTypeShipment != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
 							.setParameters(C_DocTypeShipment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -266,7 +271,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table C_DocType with UUID " + C_DocTypeShipment.getUUID());
 			}
 		} else {
-			super.setC_DocTypeShipment_ID(0);
+			this.setC_DocTypeShipment_ID(0);
 		}
 	}
 
@@ -288,9 +293,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("DefiniteSequence")
 	public void setDefiniteSequenceInput(ForeignEntityInput DefiniteSequence) {
 		this.mDefiniteSequence = DefiniteSequence;
-		MSequence_BH foreignEntity;
 		if (DefiniteSequence != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
 							.setParameters(DefiniteSequence.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -300,7 +305,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table AD_Sequence with UUID " + DefiniteSequence.getUUID());
 			}
 		} else {
-			super.setDefiniteSequence_ID(0);
+			this.setDefiniteSequence_ID(0);
 		}
 	}
 
@@ -322,9 +327,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("DocBaseType")
 	public void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
-		MRefList_BH foreignEntity;
 		if (DocBaseType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -356,9 +361,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("DocNoSequence")
 	public void setDocNoSequenceInput(ForeignEntityInput DocNoSequence) {
 		this.mDocNoSequence = DocNoSequence;
-		MSequence_BH foreignEntity;
 		if (DocNoSequence != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
 							.setParameters(DocNoSequence.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -368,7 +373,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table AD_Sequence with UUID " + DocNoSequence.getUUID());
 			}
 		} else {
-			super.setDocNoSequence_ID(0);
+			this.setDocNoSequence_ID(0);
 		}
 	}
 
@@ -390,9 +395,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("DocSubTypeInv")
 	public void setDocSubTypeInvInput(I_AD_Ref_ListInput DocSubTypeInv) {
 		this.mDocSubTypeInv = DocSubTypeInv;
-		MRefList_BH foreignEntity;
 		if (DocSubTypeInv != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocSubTypeInv.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -424,9 +429,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("DocSubTypeSO")
 	public void setDocSubTypeSOInput(I_AD_Ref_ListInput DocSubTypeSO) {
 		this.mDocSubTypeSO = DocSubTypeSO;
-		MRefList_BH foreignEntity;
 		if (DocSubTypeSO != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocSubTypeSO.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -458,9 +463,9 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	@JsonProperty("GL_Category")
 	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
-		MGLCategory foreignEntity;
 		if (GL_Category != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
 							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -470,7 +475,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 						"Could not find entity in table GL_Category with UUID " + GL_Category.getUUID());
 			}
 		} else {
-			super.setGL_Category_ID(0);
+			this.setGL_Category_ID(0);
 		}
 	}
 

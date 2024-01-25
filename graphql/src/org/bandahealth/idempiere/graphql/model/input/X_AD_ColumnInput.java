@@ -63,9 +63,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Chart")
 	public void setAD_ChartInput(ForeignEntityInput AD_Chart) {
 		this.mAD_Chart = AD_Chart;
-		MChart foreignEntity;
 		if (AD_Chart != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChart foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
 							.setParameters(AD_Chart.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -75,7 +75,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table AD_Chart with UUID " + AD_Chart.getUUID());
 			}
 		} else {
-			super.setAD_Chart_ID(0);
+			this.setAD_Chart_ID(0);
 		}
 	}
 
@@ -126,9 +126,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Element")
 	public void setAD_ElementInput(ForeignEntityInput AD_Element) {
 		this.mAD_Element = AD_Element;
-		M_Element foreignEntity;
 		if (AD_Element != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			M_Element foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Element", "AD_Element_UU=?", get_TrxName())
 							.setParameters(AD_Element.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -138,7 +138,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table AD_Element with UUID " + AD_Element.getUUID());
 			}
 		} else {
-			super.setAD_Element_ID(0);
+			this.setAD_Element_ID(0);
 		}
 	}
 
@@ -160,9 +160,12 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -171,6 +174,8 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -192,9 +197,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -204,7 +209,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -226,9 +231,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Reference")
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
-		MReference_BH foreignEntity;
 		if (AD_Reference != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -238,7 +243,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
 			}
 		} else {
-			super.setAD_Reference_ID(0);
+			this.setAD_Reference_ID(0);
 		}
 	}
 
@@ -260,9 +265,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Reference_Value")
 	public void setAD_Reference_ValueInput(ForeignEntityInput AD_Reference_Value) {
 		this.mAD_Reference_Value = AD_Reference_Value;
-		MReference_BH foreignEntity;
 		if (AD_Reference_Value != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -272,7 +277,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Value.getUUID());
 			}
 		} else {
-			super.setAD_Reference_Value_ID(0);
+			this.setAD_Reference_Value_ID(0);
 		}
 	}
 
@@ -294,9 +299,12 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
-		if (get_ID() == 0 && AD_Table != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -305,6 +313,8 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
+		} else {
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -326,9 +336,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_Val_Rule")
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
-		MValRule foreignEntity;
 		if (AD_Val_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -338,7 +348,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Val_Rule_ID(0);
+			this.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -360,9 +370,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -372,7 +382,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -394,9 +404,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("FKConstraintType")
 	public void setFKConstraintTypeInput(I_AD_Ref_ListInput FKConstraintType) {
 		this.mFKConstraintType = FKConstraintType;
-		MRefList_BH foreignEntity;
 		if (FKConstraintType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FKConstraintType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -428,9 +438,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("IsEncrypted")
 	public void setIsEncryptedInput(I_AD_Ref_ListInput IsEncrypted) {
 		this.mIsEncrypted = IsEncrypted;
-		MRefList_BH foreignEntity;
 		if (IsEncrypted != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsEncrypted.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -462,9 +472,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("IsToolbarButton")
 	public void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton) {
 		this.mIsToolbarButton = IsToolbarButton;
-		MRefList_BH foreignEntity;
 		if (IsToolbarButton != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IsToolbarButton.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -496,9 +506,9 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("PA_DashboardContent")
 	public void setPA_DashboardContentInput(ForeignEntityInput PA_DashboardContent) {
 		this.mPA_DashboardContent = PA_DashboardContent;
-		MDashboardContent foreignEntity;
 		if (PA_DashboardContent != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDashboardContent foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_DashboardContent", "PA_DashboardContent_UU=?", get_TrxName())
 							.setParameters(PA_DashboardContent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -508,7 +518,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 						"Could not find entity in table PA_DashboardContent with UUID " + PA_DashboardContent.getUUID());
 			}
 		} else {
-			super.setPA_DashboardContent_ID(0);
+			this.setPA_DashboardContent_ID(0);
 		}
 	}
 

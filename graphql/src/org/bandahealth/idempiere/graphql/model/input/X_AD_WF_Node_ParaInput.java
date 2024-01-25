@@ -48,9 +48,12 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	@JsonProperty("AD_Process_Para")
 	public void setAD_Process_ParaInput(ForeignEntityInput AD_Process_Para) {
 		this.mAD_Process_Para = AD_Process_Para;
-		MProcessPara foreignEntity;
 		if (AD_Process_Para != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
 							.setParameters(AD_Process_Para.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 						"Could not find entity in table AD_Process_Para with UUID " + AD_Process_Para.getUUID());
 			}
 		} else {
-			super.setAD_Process_Para_ID(0);
+			this.setAD_Process_Para_ID(0);
 		}
 	}
 
@@ -114,9 +119,12 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	@JsonProperty("AD_WF_Node")
 	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
-		X_AD_WF_Node foreignEntity;
-		if (get_ID() == 0 && AD_WF_Node != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_WF_Node != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
 							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -125,6 +133,8 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 				throw new AdempiereException(
 						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
 			}
+		} else {
+			this.setAD_WF_Node_ID(0);
 		}
 	}
 
@@ -175,9 +185,9 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,7 +197,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 

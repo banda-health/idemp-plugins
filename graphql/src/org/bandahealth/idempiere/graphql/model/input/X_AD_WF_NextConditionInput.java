@@ -51,9 +51,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		MColumn foreignEntity;
 		if (AD_Column != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,7 +63,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
 			}
 		} else {
-			super.setAD_Column_ID(0);
+			this.setAD_Column_ID(0);
 		}
 	}
 
@@ -85,9 +85,12 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -96,6 +99,8 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -146,9 +151,12 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("AD_WF_NodeNext")
 	public void setAD_WF_NodeNextInput(ForeignEntityInput AD_WF_NodeNext) {
 		this.mAD_WF_NodeNext = AD_WF_NodeNext;
-		X_AD_WF_NodeNext foreignEntity;
-		if (get_ID() == 0 && AD_WF_NodeNext != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_WF_NodeNext != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_NodeNext foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_NodeNext", "AD_WF_NodeNext_UU=?", get_TrxName())
 							.setParameters(AD_WF_NodeNext.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -157,6 +165,8 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 				throw new AdempiereException(
 						"Could not find entity in table AD_WF_NodeNext with UUID " + AD_WF_NodeNext.getUUID());
 			}
+		} else {
+			this.setAD_WF_NodeNext_ID(0);
 		}
 	}
 
@@ -178,9 +188,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("AndOr")
 	public void setAndOrInput(I_AD_Ref_ListInput AndOr) {
 		this.mAndOr = AndOr;
-		MRefList_BH foreignEntity;
 		if (AndOr != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AndOr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -212,9 +222,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -224,7 +234,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -246,9 +256,9 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	@JsonProperty("Operation")
 	public void setOperationInput(I_AD_Ref_ListInput Operation) {
 		this.mOperation = Operation;
-		MRefList_BH foreignEntity;
 		if (Operation != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -48,9 +48,12 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	@JsonProperty("AD_Rule")
 	public void setAD_RuleInput(ForeignEntityInput AD_Rule) {
 		this.mAD_Rule = AD_Rule;
-		MRule foreignEntity;
 		if (AD_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 						"Could not find entity in table AD_Rule with UUID " + AD_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Rule_ID(0);
+			this.setAD_Rule_ID(0);
 		}
 	}
 
@@ -114,9 +119,12 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
-		if (get_ID() == 0 && AD_Table != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -125,6 +133,8 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 				throw new AdempiereException(
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
+		} else {
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -175,9 +185,9 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	@JsonProperty("EventModelValidator")
 	public void setEventModelValidatorInput(I_AD_Ref_ListInput EventModelValidator) {
 		this.mEventModelValidator = EventModelValidator;
-		MRefList_BH foreignEntity;
 		if (EventModelValidator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(EventModelValidator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

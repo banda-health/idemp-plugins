@@ -46,9 +46,12 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	@JsonProperty("Next_Status")
 	public void setNext_StatusInput(ForeignEntityInput Next_Status) {
 		this.mNext_Status = Next_Status;
-		MStatus foreignEntity;
 		if (Next_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Status", "R_Status_UU=?", get_TrxName())
 							.setParameters(Next_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 						"Could not find entity in table R_Status with UUID " + Next_Status.getUUID());
 			}
 		} else {
-			super.setNext_Status_ID(0);
+			this.setNext_Status_ID(0);
 		}
 	}
 
@@ -141,9 +146,9 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	@JsonProperty("R_StatusCategory")
 	public void setR_StatusCategoryInput(ForeignEntityInput R_StatusCategory) {
 		this.mR_StatusCategory = R_StatusCategory;
-		MStatusCategory foreignEntity;
 		if (R_StatusCategory != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MStatusCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_StatusCategory", "R_StatusCategory_UU=?", get_TrxName())
 							.setParameters(R_StatusCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +158,7 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 						"Could not find entity in table R_StatusCategory with UUID " + R_StatusCategory.getUUID());
 			}
 		} else {
-			super.setR_StatusCategory_ID(0);
+			this.setR_StatusCategory_ID(0);
 		}
 	}
 
@@ -175,9 +180,9 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	@JsonProperty("Update_Status")
 	public void setUpdate_StatusInput(ForeignEntityInput Update_Status) {
 		this.mUpdate_Status = Update_Status;
-		MStatus foreignEntity;
 		if (Update_Status != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Status", "R_Status_UU=?", get_TrxName())
 							.setParameters(Update_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,7 +192,7 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 						"Could not find entity in table R_Status with UUID " + Update_Status.getUUID());
 			}
 		} else {
-			super.setUpdate_Status_ID(0);
+			this.setUpdate_Status_ID(0);
 		}
 	}
 

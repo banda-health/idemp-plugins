@@ -46,9 +46,12 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 	@JsonProperty("C_RfQLine")
 	public void setC_RfQLineInput(ForeignEntityInput C_RfQLine) {
 		this.mC_RfQLine = C_RfQLine;
-		MRfQLine foreignEntity;
-		if (get_ID() == 0 && C_RfQLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_RfQLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRfQLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQLine", "C_RfQLine_UU=?", get_TrxName())
 							.setParameters(C_RfQLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 				throw new AdempiereException(
 						"Could not find entity in table C_RfQLine with UUID " + C_RfQLine.getUUID());
 			}
+		} else {
+			this.setC_RfQLine_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		MUOM foreignEntity;
 		if (C_UOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_C_RfQLineQtyInput extends MRfQLineQty implements I_C_RfQLineQtyIn
 						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
 			}
 		} else {
-			super.setC_UOM_ID(0);
+			this.setC_UOM_ID(0);
 		}
 	}
 

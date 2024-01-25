@@ -44,9 +44,12 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -87,9 +92,9 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 	@JsonProperty("EXP_Processor_Type")
 	public void setEXP_Processor_TypeInput(ForeignEntityInput EXP_Processor_Type) {
 		this.mEXP_Processor_Type = EXP_Processor_Type;
-		MEXPProcessorType foreignEntity;
 		if (EXP_Processor_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEXPProcessorType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Processor_Type", "EXP_Processor_Type_UU=?", get_TrxName())
 							.setParameters(EXP_Processor_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -99,7 +104,7 @@ public class X_EXP_ProcessorInput extends MEXPProcessor implements I_EXP_Process
 						"Could not find entity in table EXP_Processor_Type with UUID " + EXP_Processor_Type.getUUID());
 			}
 		} else {
-			super.setEXP_Processor_Type_ID(0);
+			this.setEXP_Processor_Type_ID(0);
 		}
 	}
 

@@ -52,9 +52,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,7 +64,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +86,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	@JsonProperty("AD_WF_Next")
 	public void setAD_WF_NextInput(ForeignEntityInput AD_WF_Next) {
 		this.mAD_WF_Next = AD_WF_Next;
-		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Next != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
 							.setParameters(AD_WF_Next.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -98,7 +98,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Next.getUUID());
 			}
 		} else {
-			super.setAD_WF_Next_ID(0);
+			this.setAD_WF_Next_ID(0);
 		}
 	}
 
@@ -120,9 +120,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	@JsonProperty("AD_WF_Node")
 	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
-		X_AD_WF_Node foreignEntity;
 		if (AD_WF_Node != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
 							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +132,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
 			}
 		} else {
-			super.setAD_WF_Node_ID(0);
+			this.setAD_WF_Node_ID(0);
 		}
 	}
 
@@ -154,9 +154,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,7 +166,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -188,9 +188,12 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	@JsonProperty("PP_Order")
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
-		X_PP_Order foreignEntity;
-		if (get_ID() == 0 && PP_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PP_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Order foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
 							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,6 +202,8 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 				throw new AdempiereException(
 						"Could not find entity in table PP_Order with UUID " + PP_Order.getUUID());
 			}
+		} else {
+			this.setPP_Order_ID(0);
 		}
 	}
 
@@ -220,9 +225,9 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	@JsonProperty("PP_Order_Next")
 	public void setPP_Order_NextInput(ForeignEntityInput PP_Order_Next) {
 		this.mPP_Order_Next = PP_Order_Next;
-		X_PP_Order_Node foreignEntity;
 		if (PP_Order_Next != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Order_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_Node", "PP_Order_Node_UU=?", get_TrxName())
 							.setParameters(PP_Order_Next.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -232,7 +237,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 						"Could not find entity in table PP_Order_Node with UUID " + PP_Order_Next.getUUID());
 			}
 		} else {
-			super.setPP_Order_Next_ID(0);
+			this.setPP_Order_Next_ID(0);
 		}
 	}
 
@@ -254,9 +259,12 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	@JsonProperty("PP_Order_Node")
 	public void setPP_Order_NodeInput(ForeignEntityInput PP_Order_Node) {
 		this.mPP_Order_Node = PP_Order_Node;
-		X_PP_Order_Node foreignEntity;
-		if (get_ID() == 0 && PP_Order_Node != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PP_Order_Node != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Order_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_Node", "PP_Order_Node_UU=?", get_TrxName())
 							.setParameters(PP_Order_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -265,6 +273,8 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 				throw new AdempiereException(
 						"Could not find entity in table PP_Order_Node with UUID " + PP_Order_Node.getUUID());
 			}
+		} else {
+			this.setPP_Order_Node_ID(0);
 		}
 	}
 

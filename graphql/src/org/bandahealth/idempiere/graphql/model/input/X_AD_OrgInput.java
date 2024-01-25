@@ -60,9 +60,9 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 	@JsonProperty("AD_ReplicationStrategy")
 	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
-		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
 							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -72,7 +72,7 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
 			}
 		} else {
-			super.setAD_ReplicationStrategy_ID(0);
+			this.setAD_ReplicationStrategy_ID(0);
 		}
 	}
 

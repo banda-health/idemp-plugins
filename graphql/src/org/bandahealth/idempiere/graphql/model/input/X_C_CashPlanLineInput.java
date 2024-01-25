@@ -63,9 +63,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -75,7 +75,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -97,9 +97,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -109,7 +109,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -131,9 +131,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -143,7 +143,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -165,9 +165,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -177,7 +177,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -199,9 +199,12 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_CashPlan")
 	public void setC_CashPlanInput(ForeignEntityInput C_CashPlan) {
 		this.mC_CashPlan = C_CashPlan;
-		MCashPlan foreignEntity;
-		if (get_ID() == 0 && C_CashPlan != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_CashPlan != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCashPlan foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashPlan", "C_CashPlan_UU=?", get_TrxName())
 							.setParameters(C_CashPlan.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -210,6 +213,8 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 				throw new AdempiereException(
 						"Could not find entity in table C_CashPlan with UUID " + C_CashPlan.getUUID());
 			}
+		} else {
+			this.setC_CashPlan_ID(0);
 		}
 	}
 
@@ -260,9 +265,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -272,7 +277,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -294,9 +299,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -306,7 +311,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -328,9 +333,12 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_ProjectPhase")
 	public void setC_ProjectPhaseInput(ForeignEntityInput C_ProjectPhase) {
 		this.mC_ProjectPhase = C_ProjectPhase;
-		MProjectPhase foreignEntity;
-		if (get_ID() == 0 && C_ProjectPhase != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_ProjectPhase != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
 							.setParameters(C_ProjectPhase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -339,6 +347,8 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 				throw new AdempiereException(
 						"Could not find entity in table C_ProjectPhase with UUID " + C_ProjectPhase.getUUID());
 			}
+		} else {
+			this.setC_ProjectPhase_ID(0);
 		}
 	}
 
@@ -360,9 +370,12 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("C_ProjectTask")
 	public void setC_ProjectTaskInput(ForeignEntityInput C_ProjectTask) {
 		this.mC_ProjectTask = C_ProjectTask;
-		MProjectTask foreignEntity;
-		if (get_ID() == 0 && C_ProjectTask != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_ProjectTask != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
 							.setParameters(C_ProjectTask.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -371,6 +384,8 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 				throw new AdempiereException(
 						"Could not find entity in table C_ProjectTask with UUID " + C_ProjectTask.getUUID());
 			}
+		} else {
+			this.setC_ProjectTask_ID(0);
 		}
 	}
 
@@ -392,9 +407,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -404,7 +419,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -426,9 +441,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -438,7 +453,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -460,9 +475,9 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MElementValue foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -472,7 +487,7 @@ public class X_C_CashPlanLineInput extends MCashPlanLine implements I_C_CashPlan
 						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

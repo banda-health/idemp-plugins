@@ -44,9 +44,12 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 	@JsonProperty("C_Cycle")
 	public void setC_CycleInput(ForeignEntityInput C_Cycle) {
 		this.mC_Cycle = C_Cycle;
-		X_C_Cycle foreignEntity;
-		if (get_ID() == 0 && C_Cycle != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Cycle != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Cycle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Cycle", "C_Cycle_UU=?", get_TrxName())
 							.setParameters(C_Cycle.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Cycle with UUID " + C_Cycle.getUUID());
 			}
+		} else {
+			this.setC_Cycle_ID(0);
 		}
 	}
 

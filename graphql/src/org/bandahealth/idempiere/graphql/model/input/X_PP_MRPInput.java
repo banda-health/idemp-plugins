@@ -76,9 +76,12 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +90,8 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -108,9 +113,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -120,7 +125,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -142,9 +147,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
 		if (C_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +159,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
 		} else {
-			super.setC_Order_ID(0);
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -176,9 +181,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		MOrderLine_BH foreignEntity;
 		if (C_OrderLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,7 +193,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
 			}
 		} else {
-			super.setC_OrderLine_ID(0);
+			this.setC_OrderLine_ID(0);
 		}
 	}
 
@@ -210,9 +215,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("DD_Order")
 	public void setDD_OrderInput(ForeignEntityInput DD_Order) {
 		this.mDD_Order = DD_Order;
-		MDDOrder foreignEntity;
 		if (DD_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDDOrder foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_Order", "DD_Order_UU=?", get_TrxName())
 							.setParameters(DD_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -222,7 +227,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table DD_Order with UUID " + DD_Order.getUUID());
 			}
 		} else {
-			super.setDD_Order_ID(0);
+			this.setDD_Order_ID(0);
 		}
 	}
 
@@ -244,9 +249,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("DD_OrderLine")
 	public void setDD_OrderLineInput(ForeignEntityInput DD_OrderLine) {
 		this.mDD_OrderLine = DD_OrderLine;
-		MDDOrderLine foreignEntity;
 		if (DD_OrderLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDDOrderLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_OrderLine", "DD_OrderLine_UU=?", get_TrxName())
 							.setParameters(DD_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -256,7 +261,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table DD_OrderLine with UUID " + DD_OrderLine.getUUID());
 			}
 		} else {
-			super.setDD_OrderLine_ID(0);
+			this.setDD_OrderLine_ID(0);
 		}
 	}
 
@@ -278,9 +283,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("DocStatus")
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
-		MRefList_BH foreignEntity;
 		if (DocStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -312,9 +317,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("M_Forecast")
 	public void setM_ForecastInput(ForeignEntityInput M_Forecast) {
 		this.mM_Forecast = M_Forecast;
-		MForecast foreignEntity;
 		if (M_Forecast != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MForecast foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Forecast", "M_Forecast_UU=?", get_TrxName())
 							.setParameters(M_Forecast.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -324,7 +329,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table M_Forecast with UUID " + M_Forecast.getUUID());
 			}
 		} else {
-			super.setM_Forecast_ID(0);
+			this.setM_Forecast_ID(0);
 		}
 	}
 
@@ -346,9 +351,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("M_ForecastLine")
 	public void setM_ForecastLineInput(ForeignEntityInput M_ForecastLine) {
 		this.mM_ForecastLine = M_ForecastLine;
-		MForecastLine foreignEntity;
 		if (M_ForecastLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MForecastLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ForecastLine", "M_ForecastLine_UU=?", get_TrxName())
 							.setParameters(M_ForecastLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -358,7 +363,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table M_ForecastLine with UUID " + M_ForecastLine.getUUID());
 			}
 		} else {
-			super.setM_ForecastLine_ID(0);
+			this.setM_ForecastLine_ID(0);
 		}
 	}
 
@@ -380,9 +385,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -392,7 +397,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -414,9 +419,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("M_Requisition")
 	public void setM_RequisitionInput(ForeignEntityInput M_Requisition) {
 		this.mM_Requisition = M_Requisition;
-		MRequisition foreignEntity;
 		if (M_Requisition != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRequisition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Requisition", "M_Requisition_UU=?", get_TrxName())
 							.setParameters(M_Requisition.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -426,7 +431,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table M_Requisition with UUID " + M_Requisition.getUUID());
 			}
 		} else {
-			super.setM_Requisition_ID(0);
+			this.setM_Requisition_ID(0);
 		}
 	}
 
@@ -448,9 +453,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("M_RequisitionLine")
 	public void setM_RequisitionLineInput(ForeignEntityInput M_RequisitionLine) {
 		this.mM_RequisitionLine = M_RequisitionLine;
-		MRequisitionLine foreignEntity;
 		if (M_RequisitionLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRequisitionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RequisitionLine", "M_RequisitionLine_UU=?", get_TrxName())
 							.setParameters(M_RequisitionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -460,7 +465,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table M_RequisitionLine with UUID " + M_RequisitionLine.getUUID());
 			}
 		} else {
-			super.setM_RequisitionLine_ID(0);
+			this.setM_RequisitionLine_ID(0);
 		}
 	}
 
@@ -482,9 +487,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -494,7 +499,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 
@@ -516,9 +521,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("OrderType")
 	public void setOrderTypeInput(I_AD_Ref_ListInput OrderType) {
 		this.mOrderType = OrderType;
-		MRefList_BH foreignEntity;
 		if (OrderType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(OrderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -550,9 +555,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("Planner")
 	public void setPlannerInput(ForeignEntityInput Planner) {
 		this.mPlanner = Planner;
-		MUser_BH foreignEntity;
 		if (Planner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Planner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -562,7 +567,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table AD_User with UUID " + Planner.getUUID());
 			}
 		} else {
-			super.setPlanner_ID(0);
+			this.setPlanner_ID(0);
 		}
 	}
 
@@ -613,9 +618,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("PP_Order_BOMLine")
 	public void setPP_Order_BOMLineInput(ForeignEntityInput PP_Order_BOMLine) {
 		this.mPP_Order_BOMLine = PP_Order_BOMLine;
-		X_PP_Order_BOMLine foreignEntity;
 		if (PP_Order_BOMLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Order_BOMLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_BOMLine", "PP_Order_BOMLine_UU=?", get_TrxName())
 							.setParameters(PP_Order_BOMLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -625,7 +630,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table PP_Order_BOMLine with UUID " + PP_Order_BOMLine.getUUID());
 			}
 		} else {
-			super.setPP_Order_BOMLine_ID(0);
+			this.setPP_Order_BOMLine_ID(0);
 		}
 	}
 
@@ -647,9 +652,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("PP_Order")
 	public void setPP_OrderInput(ForeignEntityInput PP_Order) {
 		this.mPP_Order = PP_Order;
-		X_PP_Order foreignEntity;
 		if (PP_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Order foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
 							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -659,7 +664,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table PP_Order with UUID " + PP_Order.getUUID());
 			}
 		} else {
-			super.setPP_Order_ID(0);
+			this.setPP_Order_ID(0);
 		}
 	}
 
@@ -681,9 +686,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("S_Resource")
 	public void setS_ResourceInput(ForeignEntityInput S_Resource) {
 		this.mS_Resource = S_Resource;
-		MResource foreignEntity;
 		if (S_Resource != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MResource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
 							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -693,7 +698,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 						"Could not find entity in table S_Resource with UUID " + S_Resource.getUUID());
 			}
 		} else {
-			super.setS_Resource_ID(0);
+			this.setS_Resource_ID(0);
 		}
 	}
 
@@ -715,9 +720,9 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	@JsonProperty("TypeMRP")
 	public void setTypeMRPInput(I_AD_Ref_ListInput TypeMRP) {
 		this.mTypeMRP = TypeMRP;
-		MRefList_BH foreignEntity;
 		if (TypeMRP != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(TypeMRP.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

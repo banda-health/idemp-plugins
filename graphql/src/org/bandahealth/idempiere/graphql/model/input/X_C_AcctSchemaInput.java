@@ -54,9 +54,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,6 +68,8 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -115,9 +120,9 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,7 +132,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -149,9 +154,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		MPeriod foreignEntity;
-		if (get_ID() == 0 && C_Period != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Period != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -160,6 +168,8 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 				throw new AdempiereException(
 						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
 			}
+		} else {
+			this.setC_Period_ID(0);
 		}
 	}
 
@@ -181,9 +191,9 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("CommitmentType")
 	public void setCommitmentTypeInput(I_AD_Ref_ListInput CommitmentType) {
 		this.mCommitmentType = CommitmentType;
-		MRefList_BH foreignEntity;
 		if (CommitmentType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CommitmentType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -215,9 +225,9 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("CostingLevel")
 	public void setCostingLevelInput(I_AD_Ref_ListInput CostingLevel) {
 		this.mCostingLevel = CostingLevel;
-		MRefList_BH foreignEntity;
 		if (CostingLevel != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CostingLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -249,9 +259,9 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("CostingMethod")
 	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
-		MRefList_BH foreignEntity;
 		if (CostingMethod != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -283,9 +293,9 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("GAAP")
 	public void setGAAPInput(I_AD_Ref_ListInput GAAP) {
 		this.mGAAP = GAAP;
-		MRefList_BH foreignEntity;
 		if (GAAP != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(GAAP.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -317,9 +327,9 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("M_CostType")
 	public void setM_CostTypeInput(ForeignEntityInput M_CostType) {
 		this.mM_CostType = M_CostType;
-		MCostType foreignEntity;
 		if (M_CostType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCostType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
 							.setParameters(M_CostType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -329,7 +339,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 						"Could not find entity in table M_CostType with UUID " + M_CostType.getUUID());
 			}
 		} else {
-			super.setM_CostType_ID(0);
+			this.setM_CostType_ID(0);
 		}
 	}
 
@@ -351,9 +361,9 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	@JsonProperty("TaxCorrectionType")
 	public void setTaxCorrectionTypeInput(I_AD_Ref_ListInput TaxCorrectionType) {
 		this.mTaxCorrectionType = TaxCorrectionType;
-		MRefList_BH foreignEntity;
 		if (TaxCorrectionType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(TaxCorrectionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

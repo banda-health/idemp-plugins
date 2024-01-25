@@ -45,9 +45,12 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -56,6 +59,8 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -106,9 +111,9 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	@JsonProperty("AD_ReplicationStrategy")
 	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
-		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
 							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,7 +123,7 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
 			}
 		} else {
-			super.setAD_ReplicationStrategy_ID(0);
+			this.setAD_ReplicationStrategy_ID(0);
 		}
 	}
 

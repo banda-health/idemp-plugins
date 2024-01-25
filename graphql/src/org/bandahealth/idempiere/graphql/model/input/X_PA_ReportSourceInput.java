@@ -62,9 +62,12 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -73,6 +76,8 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -94,9 +99,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -106,7 +111,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -128,9 +133,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -140,7 +145,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -162,9 +167,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,7 +179,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -196,9 +201,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("C_ElementValue")
 	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
-		MElementValue foreignEntity;
 		if (C_ElementValue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -208,7 +213,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table C_ElementValue with UUID " + C_ElementValue.getUUID());
 			}
 		} else {
-			super.setC_ElementValue_ID(0);
+			this.setC_ElementValue_ID(0);
 		}
 	}
 
@@ -230,9 +235,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("C_Location")
 	public void setC_LocationInput(ForeignEntityInput C_Location) {
 		this.mC_Location = C_Location;
-		MLocation foreignEntity;
 		if (C_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -242,7 +247,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
 			}
 		} else {
-			super.setC_Location_ID(0);
+			this.setC_Location_ID(0);
 		}
 	}
 
@@ -264,9 +269,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -276,7 +281,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -298,9 +303,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("C_SalesRegion")
 	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
-		MSalesRegion foreignEntity;
 		if (C_SalesRegion != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
 							.setParameters(C_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -310,7 +315,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table C_SalesRegion with UUID " + C_SalesRegion.getUUID());
 			}
 		} else {
-			super.setC_SalesRegion_ID(0);
+			this.setC_SalesRegion_ID(0);
 		}
 	}
 
@@ -332,9 +337,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("ElementType")
 	public void setElementTypeInput(I_AD_Ref_ListInput ElementType) {
 		this.mElementType = ElementType;
-		MRefList_BH foreignEntity;
 		if (ElementType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ElementType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -366,9 +371,9 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -378,7 +383,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -400,9 +405,12 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	@JsonProperty("PA_ReportLine")
 	public void setPA_ReportLineInput(ForeignEntityInput PA_ReportLine) {
 		this.mPA_ReportLine = PA_ReportLine;
-		MReportLine_BH foreignEntity;
-		if (get_ID() == 0 && PA_ReportLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PA_ReportLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReportLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
 							.setParameters(PA_ReportLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -411,6 +419,8 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 				throw new AdempiereException(
 						"Could not find entity in table PA_ReportLine with UUID " + PA_ReportLine.getUUID());
 			}
+		} else {
+			this.setPA_ReportLine_ID(0);
 		}
 	}
 

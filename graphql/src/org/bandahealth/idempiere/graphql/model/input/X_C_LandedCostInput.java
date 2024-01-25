@@ -54,9 +54,12 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,6 +68,8 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +91,12 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 && C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_InvoiceLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,6 +105,8 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 				throw new AdempiereException(
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
+		} else {
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 
@@ -147,9 +157,9 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	@JsonProperty("LandedCostDistribution")
 	public void setLandedCostDistributionInput(I_AD_Ref_ListInput LandedCostDistribution) {
 		this.mLandedCostDistribution = LandedCostDistribution;
-		MRefList_BH foreignEntity;
 		if (LandedCostDistribution != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LandedCostDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -181,9 +191,9 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	@JsonProperty("M_CostElement")
 	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
-		MCostElement foreignEntity;
 		if (M_CostElement != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
 							.setParameters(M_CostElement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -193,7 +203,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 						"Could not find entity in table M_CostElement with UUID " + M_CostElement.getUUID());
 			}
 		} else {
-			super.setM_CostElement_ID(0);
+			this.setM_CostElement_ID(0);
 		}
 	}
 
@@ -215,9 +225,9 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	@JsonProperty("M_InOut")
 	public void setM_InOutInput(ForeignEntityInput M_InOut) {
 		this.mM_InOut = M_InOut;
-		MInOut_BH foreignEntity;
 		if (M_InOut != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
 							.setParameters(M_InOut.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -227,7 +237,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 						"Could not find entity in table M_InOut with UUID " + M_InOut.getUUID());
 			}
 		} else {
-			super.setM_InOut_ID(0);
+			this.setM_InOut_ID(0);
 		}
 	}
 
@@ -249,9 +259,9 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		MInOutLine foreignEntity;
 		if (M_InOutLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -261,7 +271,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
 			}
 		} else {
-			super.setM_InOutLine_ID(0);
+			this.setM_InOutLine_ID(0);
 		}
 	}
 
@@ -283,9 +293,9 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -295,7 +305,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

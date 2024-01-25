@@ -79,9 +79,9 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	@JsonProperty("AD_InfoWindow")
 	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
-		MInfoWindow foreignEntity;
 		if (AD_InfoWindow != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
 							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,7 +91,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
 			}
 		} else {
-			super.setAD_InfoWindow_ID(0);
+			this.setAD_InfoWindow_ID(0);
 		}
 	}
 
@@ -113,9 +113,12 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -124,6 +127,8 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -145,9 +150,9 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -157,7 +162,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -179,9 +184,9 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	@JsonProperty("ParentRelatedColumn")
 	public void setParentRelatedColumnInput(ForeignEntityInput ParentRelatedColumn) {
 		this.mParentRelatedColumn = ParentRelatedColumn;
-		MInfoColumn foreignEntity;
 		if (ParentRelatedColumn != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
 							.setParameters(ParentRelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +196,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 						"Could not find entity in table AD_InfoColumn with UUID " + ParentRelatedColumn.getUUID());
 			}
 		} else {
-			super.setParentRelatedColumn_ID(0);
+			this.setParentRelatedColumn_ID(0);
 		}
 	}
 
@@ -213,9 +218,9 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	@JsonProperty("RelatedColumn")
 	public void setRelatedColumnInput(ForeignEntityInput RelatedColumn) {
 		this.mRelatedColumn = RelatedColumn;
-		MInfoColumn foreignEntity;
 		if (RelatedColumn != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
 							.setParameters(RelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +230,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 						"Could not find entity in table AD_InfoColumn with UUID " + RelatedColumn.getUUID());
 			}
 		} else {
-			super.setRelatedColumn_ID(0);
+			this.setRelatedColumn_ID(0);
 		}
 	}
 
@@ -247,9 +252,9 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	@JsonProperty("RelatedInfo")
 	public void setRelatedInfoInput(ForeignEntityInput RelatedInfo) {
 		this.mRelatedInfo = RelatedInfo;
-		MInfoWindow foreignEntity;
 		if (RelatedInfo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
 							.setParameters(RelatedInfo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -259,7 +264,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 						"Could not find entity in table AD_InfoWindow with UUID " + RelatedInfo.getUUID());
 			}
 		} else {
-			super.setRelatedInfo_ID(0);
+			this.setRelatedInfo_ID(0);
 		}
 	}
 

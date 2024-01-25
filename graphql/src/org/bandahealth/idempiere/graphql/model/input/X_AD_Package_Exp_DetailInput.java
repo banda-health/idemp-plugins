@@ -82,9 +82,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -94,7 +94,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setAD_EntityType_ID(0);
+			this.setAD_EntityType_ID(0);
 		}
 	}
 
@@ -116,9 +116,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Form")
 	public void setAD_FormInput(ForeignEntityInput AD_Form) {
 		this.mAD_Form = AD_Form;
-		MForm foreignEntity;
 		if (AD_Form != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
 							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +128,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
 			}
 		} else {
-			super.setAD_Form_ID(0);
+			this.setAD_Form_ID(0);
 		}
 	}
 
@@ -150,9 +150,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_ImpFormat")
 	public void setAD_ImpFormatInput(ForeignEntityInput AD_ImpFormat) {
 		this.mAD_ImpFormat = AD_ImpFormat;
-		X_AD_ImpFormat foreignEntity;
 		if (AD_ImpFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_ImpFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ImpFormat", "AD_ImpFormat_UU=?", get_TrxName())
 							.setParameters(AD_ImpFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -162,7 +162,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_ImpFormat with UUID " + AD_ImpFormat.getUUID());
 			}
 		} else {
-			super.setAD_ImpFormat_ID(0);
+			this.setAD_ImpFormat_ID(0);
 		}
 	}
 
@@ -184,9 +184,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_InfoWindow")
 	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
-		MInfoWindow foreignEntity;
 		if (AD_InfoWindow != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
 							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -196,7 +196,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
 			}
 		} else {
-			super.setAD_InfoWindow_ID(0);
+			this.setAD_InfoWindow_ID(0);
 		}
 	}
 
@@ -218,9 +218,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Menu")
 	public void setAD_MenuInput(ForeignEntityInput AD_Menu) {
 		this.mAD_Menu = AD_Menu;
-		MMenu_BH foreignEntity;
 		if (AD_Menu != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMenu_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Menu", "AD_Menu_UU=?", get_TrxName())
 							.setParameters(AD_Menu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -230,7 +230,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Menu with UUID " + AD_Menu.getUUID());
 			}
 		} else {
-			super.setAD_Menu_ID(0);
+			this.setAD_Menu_ID(0);
 		}
 	}
 
@@ -252,9 +252,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Message")
 	public void setAD_MessageInput(ForeignEntityInput AD_Message) {
 		this.mAD_Message = AD_Message;
-		MMessage_BH foreignEntity;
 		if (AD_Message != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
 							.setParameters(AD_Message.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -264,7 +264,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Message with UUID " + AD_Message.getUUID());
 			}
 		} else {
-			super.setAD_Message_ID(0);
+			this.setAD_Message_ID(0);
 		}
 	}
 
@@ -286,9 +286,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_ModelValidator")
 	public void setAD_ModelValidatorInput(ForeignEntityInput AD_ModelValidator) {
 		this.mAD_ModelValidator = AD_ModelValidator;
-		X_AD_ModelValidator foreignEntity;
 		if (AD_ModelValidator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_ModelValidator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ModelValidator", "AD_ModelValidator_UU=?", get_TrxName())
 							.setParameters(AD_ModelValidator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -298,7 +298,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_ModelValidator with UUID " + AD_ModelValidator.getUUID());
 			}
 		} else {
-			super.setAD_ModelValidator_ID(0);
+			this.setAD_ModelValidator_ID(0);
 		}
 	}
 
@@ -320,9 +320,12 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -331,6 +334,8 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -370,9 +375,12 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Package_Exp")
 	public void setAD_Package_ExpInput(ForeignEntityInput AD_Package_Exp) {
 		this.mAD_Package_Exp = AD_Package_Exp;
-		MPackageExp foreignEntity;
-		if (get_ID() == 0 && AD_Package_Exp != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Package_Exp != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPackageExp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Package_Exp", "AD_Package_Exp_UU=?", get_TrxName())
 							.setParameters(AD_Package_Exp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -381,6 +389,8 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Package_Exp with UUID " + AD_Package_Exp.getUUID());
 			}
+		} else {
+			this.setAD_Package_Exp_ID(0);
 		}
 	}
 
@@ -402,9 +412,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_PrintFormat")
 	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
 		this.mAD_PrintFormat = AD_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
 		if (AD_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -414,7 +424,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
 			}
 		} else {
-			super.setAD_PrintFormat_ID(0);
+			this.setAD_PrintFormat_ID(0);
 		}
 	}
 
@@ -436,9 +446,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -448,7 +458,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -470,9 +480,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Reference")
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
-		MReference_BH foreignEntity;
 		if (AD_Reference != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -482,7 +492,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
 			}
 		} else {
-			super.setAD_Reference_ID(0);
+			this.setAD_Reference_ID(0);
 		}
 	}
 
@@ -504,9 +514,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_ReportView")
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
-		MReportView foreignEntity;
 		if (AD_ReportView != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReportView foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
 							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -516,7 +526,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_ReportView with UUID " + AD_ReportView.getUUID());
 			}
 		} else {
-			super.setAD_ReportView_ID(0);
+			this.setAD_ReportView_ID(0);
 		}
 	}
 
@@ -538,9 +548,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
 		if (AD_Role != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -550,7 +560,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
 		} else {
-			super.setAD_Role_ID(0);
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -572,9 +582,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -584,7 +594,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -606,9 +616,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Val_Rule")
 	public void setAD_Val_RuleInput(ForeignEntityInput AD_Val_Rule) {
 		this.mAD_Val_Rule = AD_Val_Rule;
-		MValRule foreignEntity;
 		if (AD_Val_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -618,7 +628,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Val_Rule_ID(0);
+			this.setAD_Val_Rule_ID(0);
 		}
 	}
 
@@ -640,9 +650,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		MWindow foreignEntity;
 		if (AD_Window != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -652,7 +662,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
 			}
 		} else {
-			super.setAD_Window_ID(0);
+			this.setAD_Window_ID(0);
 		}
 	}
 
@@ -674,9 +684,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Workbench")
 	public void setAD_WorkbenchInput(ForeignEntityInput AD_Workbench) {
 		this.mAD_Workbench = AD_Workbench;
-		X_AD_Workbench foreignEntity;
 		if (AD_Workbench != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Workbench foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workbench", "AD_Workbench_UU=?", get_TrxName())
 							.setParameters(AD_Workbench.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -686,7 +696,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Workbench with UUID " + AD_Workbench.getUUID());
 			}
 		} else {
-			super.setAD_Workbench_ID(0);
+			this.setAD_Workbench_ID(0);
 		}
 	}
 
@@ -708,9 +718,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -720,7 +730,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
 			}
 		} else {
-			super.setAD_Workflow_ID(0);
+			this.setAD_Workflow_ID(0);
 		}
 	}
 
@@ -742,9 +752,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("DBType")
 	public void setDBTypeInput(I_AD_Ref_ListInput DBType) {
 		this.mDBType = DBType;
-		MRefList_BH foreignEntity;
 		if (DBType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DBType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -776,9 +786,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("ReleaseNo")
 	public void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
-		MRefList_BH foreignEntity;
 		if (ReleaseNo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ReleaseNo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -810,9 +820,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	@JsonProperty("Type")
 	public void setTypeInput(I_AD_Ref_ListInput Type) {
 		this.mType = Type;
-		MRefList_BH foreignEntity;
 		if (Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

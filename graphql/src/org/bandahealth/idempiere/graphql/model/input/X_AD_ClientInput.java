@@ -69,9 +69,9 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		MLanguage foreignEntity;
 		if (AD_Language != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -81,7 +81,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
 			}
 		} else {
-			super.setAD_Language(null);
+			this.setAD_Language(null);
 		}
 	}
 
@@ -103,9 +103,12 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -114,6 +117,8 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -135,9 +140,9 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	@JsonProperty("AD_PasswordRule")
 	public void setAD_PasswordRuleInput(ForeignEntityInput AD_PasswordRule) {
 		this.mAD_PasswordRule = AD_PasswordRule;
-		MPasswordRule foreignEntity;
 		if (AD_PasswordRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPasswordRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PasswordRule", "AD_PasswordRule_UU=?", get_TrxName())
 							.setParameters(AD_PasswordRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -147,7 +152,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 						"Could not find entity in table AD_PasswordRule with UUID " + AD_PasswordRule.getUUID());
 			}
 		} else {
-			super.setAD_PasswordRule_ID(0);
+			this.setAD_PasswordRule_ID(0);
 		}
 	}
 
@@ -169,9 +174,9 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	@JsonProperty("AD_ReplicationStrategy")
 	public void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy) {
 		this.mAD_ReplicationStrategy = AD_ReplicationStrategy;
-		MReplicationStrategy foreignEntity;
 		if (AD_ReplicationStrategy != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
 							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -181,7 +186,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
 			}
 		} else {
-			super.setAD_ReplicationStrategy_ID(0);
+			this.setAD_ReplicationStrategy_ID(0);
 		}
 	}
 
@@ -203,9 +208,9 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	@JsonProperty("AutoArchive")
 	public void setAutoArchiveInput(I_AD_Ref_ListInput AutoArchive) {
 		this.mAutoArchive = AutoArchive;
-		MRefList_BH foreignEntity;
 		if (AutoArchive != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AutoArchive.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -237,9 +242,9 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	@JsonProperty("MMPolicy")
 	public void setMMPolicyInput(I_AD_Ref_ListInput MMPolicy) {
 		this.mMMPolicy = MMPolicy;
-		MRefList_BH foreignEntity;
 		if (MMPolicy != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(MMPolicy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

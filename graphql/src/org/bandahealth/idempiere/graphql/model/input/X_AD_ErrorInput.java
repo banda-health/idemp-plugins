@@ -73,9 +73,9 @@ public class X_AD_ErrorInput extends X_AD_Error implements I_AD_ErrorInput {
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		MLanguage foreignEntity;
 		if (AD_Language != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -85,7 +85,7 @@ public class X_AD_ErrorInput extends X_AD_Error implements I_AD_ErrorInput {
 						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
 			}
 		} else {
-			super.setAD_Language(null);
+			this.setAD_Language(null);
 		}
 	}
 
@@ -107,9 +107,12 @@ public class X_AD_ErrorInput extends X_AD_Error implements I_AD_ErrorInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +121,8 @@ public class X_AD_ErrorInput extends X_AD_Error implements I_AD_ErrorInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 

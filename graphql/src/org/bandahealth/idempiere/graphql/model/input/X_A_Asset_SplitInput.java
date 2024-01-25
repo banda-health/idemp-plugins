@@ -50,9 +50,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		MAsset foreignEntity;
 		if (A_Asset != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,7 +62,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
 			}
 		} else {
-			super.setA_Asset_ID(0);
+			this.setA_Asset_ID(0);
 		}
 	}
 
@@ -84,9 +84,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("A_Asset_To")
 	public void setA_Asset_ToInput(ForeignEntityInput A_Asset_To) {
 		this.mA_Asset_To = A_Asset_To;
-		MAsset foreignEntity;
 		if (A_Asset_To != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Asset_To.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -96,7 +96,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 						"Could not find entity in table A_Asset with UUID " + A_Asset_To.getUUID());
 			}
 		} else {
-			super.setA_Asset_ID_To(0);
+			this.setA_Asset_ID_To(0);
 		}
 	}
 
@@ -158,9 +158,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("A_Split_Type")
 	public void setA_Split_TypeInput(I_AD_Ref_ListInput A_Split_Type) {
 		this.mA_Split_Type = A_Split_Type;
-		MRefList_BH foreignEntity;
 		if (A_Split_Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Split_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -192,9 +192,12 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -203,6 +206,8 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -224,9 +229,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		MPeriod foreignEntity;
 		if (C_Period != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -236,7 +241,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
 			}
 		} else {
-			super.setC_Period_ID(0);
+			this.setC_Period_ID(0);
 		}
 	}
 
@@ -258,9 +263,12 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&PostingType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PostingType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -269,6 +277,8 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
 			}
+		} else {
+			this.setPostingType(null);
 		}
 	}
 

@@ -46,9 +46,12 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 	@JsonProperty("C_Year")
 	public void setC_YearInput(ForeignEntityInput C_Year) {
 		this.mC_Year = C_Year;
-		MYear foreignEntity;
 		if (C_Year != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
 							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 						"Could not find entity in table C_Year with UUID " + C_Year.getUUID());
 			}
 		} else {
-			super.setC_Year_ID(0);
+			this.setC_Year_ID(0);
 		}
 	}
 
@@ -112,9 +117,12 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 	@JsonProperty("HR_Payroll")
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
-		X_HR_Payroll foreignEntity;
-		if (get_ID() == 0 && HR_Payroll != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (HR_Payroll != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
 							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +131,8 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 				throw new AdempiereException(
 						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
 			}
+		} else {
+			this.setHR_Payroll_ID(0);
 		}
 	}
 

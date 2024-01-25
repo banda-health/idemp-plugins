@@ -48,9 +48,12 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	@JsonProperty("M_DistributionList")
 	public void setM_DistributionListInput(ForeignEntityInput M_DistributionList) {
 		this.mM_DistributionList = M_DistributionList;
-		MDistributionList foreignEntity;
 		if (M_DistributionList != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDistributionList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
 							.setParameters(M_DistributionList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 						"Could not find entity in table M_DistributionList with UUID " + M_DistributionList.getUUID());
 			}
 		} else {
-			super.setM_DistributionList_ID(0);
+			this.setM_DistributionList_ID(0);
 		}
 	}
 
@@ -114,9 +119,12 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	@JsonProperty("M_DistributionRun")
 	public void setM_DistributionRunInput(ForeignEntityInput M_DistributionRun) {
 		this.mM_DistributionRun = M_DistributionRun;
-		MDistributionRun foreignEntity;
-		if (get_ID() == 0 && M_DistributionRun != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DistributionRun != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDistributionRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionRun", "M_DistributionRun_UU=?", get_TrxName())
 							.setParameters(M_DistributionRun.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -125,6 +133,8 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 				throw new AdempiereException(
 						"Could not find entity in table M_DistributionRun with UUID " + M_DistributionRun.getUUID());
 			}
+		} else {
+			this.setM_DistributionRun_ID(0);
 		}
 	}
 
@@ -175,9 +185,9 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,7 +197,7 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

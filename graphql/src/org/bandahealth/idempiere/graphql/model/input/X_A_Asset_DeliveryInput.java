@@ -80,9 +80,12 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		MAsset foreignEntity;
-		if (get_ID() == 0 && A_Asset != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (A_Asset != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +94,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 				throw new AdempiereException(
 						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
 			}
+		} else {
+			this.setA_Asset_ID(0);
 		}
 	}
 
@@ -112,9 +117,12 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +131,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -144,9 +154,12 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
-		if (get_ID() == 0 && AD_User != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,6 +168,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 				throw new AdempiereException(
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
+		} else {
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -198,9 +213,12 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		MInOutLine foreignEntity;
-		if (get_ID() == 0 && M_InOutLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_InOutLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -209,6 +227,8 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 				throw new AdempiereException(
 						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
 			}
+		} else {
+			this.setM_InOutLine_ID(0);
 		}
 	}
 
@@ -230,9 +250,9 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	@JsonProperty("M_ProductDownload")
 	public void setM_ProductDownloadInput(ForeignEntityInput M_ProductDownload) {
 		this.mM_ProductDownload = M_ProductDownload;
-		MProductDownload foreignEntity;
 		if (M_ProductDownload != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProductDownload foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductDownload", "M_ProductDownload_UU=?", get_TrxName())
 							.setParameters(M_ProductDownload.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -242,7 +262,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 						"Could not find entity in table M_ProductDownload with UUID " + M_ProductDownload.getUUID());
 			}
 		} else {
-			super.setM_ProductDownload_ID(0);
+			this.setM_ProductDownload_ID(0);
 		}
 	}
 

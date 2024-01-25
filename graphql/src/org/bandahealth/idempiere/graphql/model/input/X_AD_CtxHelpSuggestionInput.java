@@ -52,9 +52,12 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	@JsonProperty("AD_CtxHelp")
 	public void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp) {
 		this.mAD_CtxHelp = AD_CtxHelp;
-		MCtxHelp foreignEntity;
-		if (get_ID() == 0 && AD_CtxHelp != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_CtxHelp != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
 							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_CtxHelp with UUID " + AD_CtxHelp.getUUID());
 			}
+		} else {
+			this.setAD_CtxHelp_ID(0);
 		}
 	}
 
@@ -84,9 +89,12 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	@JsonProperty("AD_CtxHelpMsg")
 	public void setAD_CtxHelpMsgInput(ForeignEntityInput AD_CtxHelpMsg) {
 		this.mAD_CtxHelpMsg = AD_CtxHelpMsg;
-		MCtxHelpMsg foreignEntity;
-		if (get_ID() == 0 && AD_CtxHelpMsg != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_CtxHelpMsg != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCtxHelpMsg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelpMsg", "AD_CtxHelpMsg_UU=?", get_TrxName())
 							.setParameters(AD_CtxHelpMsg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,6 +103,8 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_CtxHelpMsg with UUID " + AD_CtxHelpMsg.getUUID());
 			}
+		} else {
+			this.setAD_CtxHelpMsg_ID(0);
 		}
 	}
 
@@ -145,9 +155,12 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		MLanguage foreignEntity;
-		if (get_ID() == 0 && AD_Language != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Language != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -156,6 +169,8 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
 			}
+		} else {
+			this.setAD_Language(null);
 		}
 	}
 
@@ -177,9 +192,12 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,6 +206,8 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -209,9 +229,12 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		X_AD_AllUsers_V foreignEntity;
-		if (get_ID() == 0 && AD_User != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_AllUsers_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -220,6 +243,8 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_AllUsers_V with UUID " + AD_User.getUUID());
 			}
+		} else {
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -241,9 +266,12 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	@JsonProperty("AD_UserClient")
 	public void setAD_UserClientInput(ForeignEntityInput AD_UserClient) {
 		this.mAD_UserClient = AD_UserClient;
-		X_AD_AllClients_V foreignEntity;
-		if (get_ID() == 0 && AD_UserClient != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_UserClient != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_AllClients_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
 							.setParameters(AD_UserClient.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -252,6 +280,8 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_AllClients_V with UUID " + AD_UserClient.getUUID());
 			}
+		} else {
+			this.setAD_UserClient_ID(0);
 		}
 	}
 

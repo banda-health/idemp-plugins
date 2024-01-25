@@ -54,9 +54,9 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	@JsonProperty("AD_Message")
 	public void setAD_MessageInput(ForeignEntityInput AD_Message) {
 		this.mAD_Message = AD_Message;
-		MMessage_BH foreignEntity;
 		if (AD_Message != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
 							.setParameters(AD_Message.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -66,7 +66,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 						"Could not find entity in table AD_Message with UUID " + AD_Message.getUUID());
 			}
 		} else {
-			super.setAD_Message_ID(0);
+			this.setAD_Message_ID(0);
 		}
 	}
 
@@ -88,9 +88,12 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -99,6 +102,8 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -120,9 +125,9 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +137,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -154,9 +159,9 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -166,7 +171,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -217,9 +222,9 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	@JsonProperty("AD_WF_Responsible")
 	public void setAD_WF_ResponsibleInput(ForeignEntityInput AD_WF_Responsible) {
 		this.mAD_WF_Responsible = AD_WF_Responsible;
-		X_AD_WF_Responsible foreignEntity;
 		if (AD_WF_Responsible != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_Responsible foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
 							.setParameters(AD_WF_Responsible.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -229,7 +234,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 						"Could not find entity in table AD_WF_Responsible with UUID " + AD_WF_Responsible.getUUID());
 			}
 		} else {
-			super.setAD_WF_Responsible_ID(0);
+			this.setAD_WF_Responsible_ID(0);
 		}
 	}
 
@@ -251,9 +256,9 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	@JsonProperty("AD_Workflow")
 	public void setAD_WorkflowInput(ForeignEntityInput AD_Workflow) {
 		this.mAD_Workflow = AD_Workflow;
-		X_AD_Workflow foreignEntity;
 		if (AD_Workflow != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
 							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -263,7 +268,7 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
 			}
 		} else {
-			super.setAD_Workflow_ID(0);
+			this.setAD_Workflow_ID(0);
 		}
 	}
 
@@ -285,9 +290,9 @@ public class X_AD_WF_ProcessInput extends X_AD_WF_Process implements I_AD_WF_Pro
 	@JsonProperty("WFState")
 	public void setWFStateInput(I_AD_Ref_ListInput WFState) {
 		this.mWFState = WFState;
-		MRefList_BH foreignEntity;
 		if (WFState != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(WFState.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

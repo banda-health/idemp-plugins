@@ -44,9 +44,12 @@ public class X_BH_Payer_Info_Fld_Val_SugInput extends MBHPayerInfoFldValSug impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_BH_Payer_Info_Fld_Val_SugInput extends MBHPayerInfoFldValSug impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_BH_Payer_Info_Fld_Val_SugInput extends MBHPayerInfoFldValSug impl
 	@JsonProperty("BH_Payer_Info_Fld_Sug")
 	public void setBH_Payer_Info_Fld_SugInput(ForeignEntityInput BH_Payer_Info_Fld_Sug) {
 		this.mBH_Payer_Info_Fld_Sug = BH_Payer_Info_Fld_Sug;
-		MBHPayerInfoFldSug foreignEntity;
-		if (get_ID() == 0 && BH_Payer_Info_Fld_Sug != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (BH_Payer_Info_Fld_Sug != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHPayerInfoFldSug foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Payer_Info_Fld_Sug", "BH_Payer_Info_Fld_Sug_UU=?", get_TrxName())
 							.setParameters(BH_Payer_Info_Fld_Sug.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_BH_Payer_Info_Fld_Val_SugInput extends MBHPayerInfoFldValSug impl
 				throw new AdempiereException(
 						"Could not find entity in table BH_Payer_Info_Fld_Sug with UUID " + BH_Payer_Info_Fld_Sug.getUUID());
 			}
+		} else {
+			this.setBH_Payer_Info_Fld_Sug_ID(0);
 		}
 	}
 

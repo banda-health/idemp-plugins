@@ -48,9 +48,12 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -114,9 +119,9 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	@JsonProperty("C_BPartner_Location")
 	public void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location) {
 		this.mC_BPartner_Location = C_BPartner_Location;
-		MBPartnerLocation foreignEntity;
 		if (C_BPartner_Location != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
 							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
 			}
 		} else {
-			super.setC_BPartner_Location_ID(0);
+			this.setC_BPartner_Location_ID(0);
 		}
 	}
 
@@ -148,9 +153,12 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	@JsonProperty("M_DistributionList")
 	public void setM_DistributionListInput(ForeignEntityInput M_DistributionList) {
 		this.mM_DistributionList = M_DistributionList;
-		MDistributionList foreignEntity;
-		if (get_ID() == 0 && M_DistributionList != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_DistributionList != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDistributionList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
 							.setParameters(M_DistributionList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -159,6 +167,8 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 				throw new AdempiereException(
 						"Could not find entity in table M_DistributionList with UUID " + M_DistributionList.getUUID());
 			}
+		} else {
+			this.setM_DistributionList_ID(0);
 		}
 	}
 

@@ -47,9 +47,12 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -108,9 +113,9 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		MUOM foreignEntity;
 		if (C_UOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -120,7 +125,7 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
 			}
 		} else {
-			super.setC_UOM_ID(0);
+			this.setC_UOM_ID(0);
 		}
 	}
 
@@ -142,9 +147,9 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 	@JsonProperty("C_UOM_To")
 	public void setC_UOM_ToInput(ForeignEntityInput C_UOM_To) {
 		this.mC_UOM_To = C_UOM_To;
-		MUOM foreignEntity;
 		if (C_UOM_To != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM_To.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +159,7 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 						"Could not find entity in table C_UOM with UUID " + C_UOM_To.getUUID());
 			}
 		} else {
-			super.setC_UOM_To_ID(0);
+			this.setC_UOM_To_ID(0);
 		}
 	}
 
@@ -176,9 +181,9 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,7 +193,7 @@ public class X_C_UOM_ConversionInput extends MUOMConversion implements I_C_UOM_C
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

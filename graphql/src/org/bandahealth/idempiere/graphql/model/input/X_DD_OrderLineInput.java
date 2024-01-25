@@ -67,9 +67,12 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -78,6 +81,8 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -99,9 +104,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -111,7 +116,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -133,9 +138,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -145,7 +150,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -167,9 +172,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -179,7 +184,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -201,9 +206,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -213,7 +218,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -235,9 +240,12 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		MUOM foreignEntity;
-		if (get_ID() == 0 && C_UOM != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_UOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -246,6 +254,8 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 				throw new AdempiereException(
 						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
 			}
+		} else {
+			this.setC_UOM_ID(0);
 		}
 	}
 
@@ -267,9 +277,12 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("DD_Order")
 	public void setDD_OrderInput(ForeignEntityInput DD_Order) {
 		this.mDD_Order = DD_Order;
-		MDDOrder foreignEntity;
-		if (get_ID() == 0 && DD_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (DD_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDDOrder foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_Order", "DD_Order_UU=?", get_TrxName())
 							.setParameters(DD_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -278,6 +291,8 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 				throw new AdempiereException(
 						"Could not find entity in table DD_Order with UUID " + DD_Order.getUUID());
 			}
+		} else {
+			this.setDD_Order_ID(0);
 		}
 	}
 
@@ -328,9 +343,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -340,7 +355,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -362,9 +377,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("M_AttributeSetInstanceTo")
 	public void setM_AttributeSetInstanceToInput(ForeignEntityInput M_AttributeSetInstanceTo) {
 		this.mM_AttributeSetInstanceTo = M_AttributeSetInstanceTo;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstanceTo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstanceTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -374,7 +389,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstanceTo.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstanceTo_ID(0);
+			this.setM_AttributeSetInstanceTo_ID(0);
 		}
 	}
 
@@ -396,9 +411,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("M_Locator")
 	public void setM_LocatorInput(ForeignEntityInput M_Locator) {
 		this.mM_Locator = M_Locator;
-		MLocator foreignEntity;
 		if (M_Locator != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -408,7 +423,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
 			}
 		} else {
-			super.setM_Locator_ID(0);
+			this.setM_Locator_ID(0);
 		}
 	}
 
@@ -430,9 +445,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("M_LocatorTo")
 	public void setM_LocatorToInput(ForeignEntityInput M_LocatorTo) {
 		this.mM_LocatorTo = M_LocatorTo;
-		MLocator foreignEntity;
 		if (M_LocatorTo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
 							.setParameters(M_LocatorTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -442,7 +457,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table M_Locator with UUID " + M_LocatorTo.getUUID());
 			}
 		} else {
-			super.setM_LocatorTo_ID(0);
+			this.setM_LocatorTo_ID(0);
 		}
 	}
 
@@ -464,9 +479,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -476,7 +491,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -498,9 +513,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("M_Shipper")
 	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
-		MShipper foreignEntity;
 		if (M_Shipper != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -510,7 +525,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table M_Shipper with UUID " + M_Shipper.getUUID());
 			}
 		} else {
-			super.setM_Shipper_ID(0);
+			this.setM_Shipper_ID(0);
 		}
 	}
 
@@ -532,9 +547,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -544,7 +559,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -566,9 +581,9 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MElementValue foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -578,7 +593,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

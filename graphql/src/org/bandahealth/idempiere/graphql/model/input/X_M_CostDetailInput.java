@@ -69,9 +69,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -80,6 +83,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -101,9 +106,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -112,6 +120,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -133,9 +143,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("C_InvoiceLine")
 	public void setC_InvoiceLineInput(ForeignEntityInput C_InvoiceLine) {
 		this.mC_InvoiceLine = C_InvoiceLine;
-		MInvoiceLine_BH foreignEntity;
-		if (get_ID() == 0 && C_InvoiceLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_InvoiceLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -144,6 +157,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
 			}
+		} else {
+			this.setC_InvoiceLine_ID(0);
 		}
 	}
 
@@ -165,9 +180,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("C_OrderLine")
 	public void setC_OrderLineInput(ForeignEntityInput C_OrderLine) {
 		this.mC_OrderLine = C_OrderLine;
-		MOrderLine_BH foreignEntity;
-		if (get_ID() == 0 && C_OrderLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_OrderLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
 							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -176,6 +194,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
 			}
+		} else {
+			this.setC_OrderLine_ID(0);
 		}
 	}
 
@@ -197,9 +217,9 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("C_ProjectIssue")
 	public void setC_ProjectIssueInput(ForeignEntityInput C_ProjectIssue) {
 		this.mC_ProjectIssue = C_ProjectIssue;
-		MProjectIssue foreignEntity;
 		if (C_ProjectIssue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProjectIssue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectIssue", "C_ProjectIssue_UU=?", get_TrxName())
 							.setParameters(C_ProjectIssue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -209,7 +229,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 						"Could not find entity in table C_ProjectIssue with UUID " + C_ProjectIssue.getUUID());
 			}
 		} else {
-			super.setC_ProjectIssue_ID(0);
+			this.setC_ProjectIssue_ID(0);
 		}
 	}
 
@@ -231,9 +251,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_AttributeSetInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -242,6 +265,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
+		} else {
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -292,9 +317,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_CostElement")
 	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
-		MCostElement foreignEntity;
-		if (get_ID() == 0 && M_CostElement != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_CostElement != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
 							.setParameters(M_CostElement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -303,6 +331,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table M_CostElement with UUID " + M_CostElement.getUUID());
 			}
+		} else {
+			this.setM_CostElement_ID(0);
 		}
 	}
 
@@ -324,9 +354,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_InOutLine")
 	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
 		this.mM_InOutLine = M_InOutLine;
-		MInOutLine foreignEntity;
-		if (get_ID() == 0 && M_InOutLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_InOutLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
 							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -335,6 +368,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
 			}
+		} else {
+			this.setM_InOutLine_ID(0);
 		}
 	}
 
@@ -356,9 +391,9 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_InventoryLine")
 	public void setM_InventoryLineInput(ForeignEntityInput M_InventoryLine) {
 		this.mM_InventoryLine = M_InventoryLine;
-		MInventoryLine_BH foreignEntity;
 		if (M_InventoryLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInventoryLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -368,7 +403,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 						"Could not find entity in table M_InventoryLine with UUID " + M_InventoryLine.getUUID());
 			}
 		} else {
-			super.setM_InventoryLine_ID(0);
+			this.setM_InventoryLine_ID(0);
 		}
 	}
 
@@ -390,9 +425,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_MatchInv")
 	public void setM_MatchInvInput(ForeignEntityInput M_MatchInv) {
 		this.mM_MatchInv = M_MatchInv;
-		MMatchInv foreignEntity;
-		if (get_ID() == 0 && M_MatchInv != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_MatchInv != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMatchInv foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MatchInv", "M_MatchInv_UU=?", get_TrxName())
 							.setParameters(M_MatchInv.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -401,6 +439,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table M_MatchInv with UUID " + M_MatchInv.getUUID());
 			}
+		} else {
+			this.setM_MatchInv_ID(0);
 		}
 	}
 
@@ -422,9 +462,9 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_MovementLine")
 	public void setM_MovementLineInput(ForeignEntityInput M_MovementLine) {
 		this.mM_MovementLine = M_MovementLine;
-		MMovementLine_BH foreignEntity;
 		if (M_MovementLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MMovementLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -434,7 +474,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 						"Could not find entity in table M_MovementLine with UUID " + M_MovementLine.getUUID());
 			}
 		} else {
-			super.setM_MovementLine_ID(0);
+			this.setM_MovementLine_ID(0);
 		}
 	}
 
@@ -456,9 +496,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -467,6 +510,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -488,9 +533,9 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("M_ProductionLine")
 	public void setM_ProductionLineInput(ForeignEntityInput M_ProductionLine) {
 		this.mM_ProductionLine = M_ProductionLine;
-		MProductionLine foreignEntity;
 		if (M_ProductionLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProductionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionLine", "M_ProductionLine_UU=?", get_TrxName())
 							.setParameters(M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -500,7 +545,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 						"Could not find entity in table M_ProductionLine with UUID " + M_ProductionLine.getUUID());
 			}
 		} else {
-			super.setM_ProductionLine_ID(0);
+			this.setM_ProductionLine_ID(0);
 		}
 	}
 
@@ -522,9 +567,12 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("PP_Cost_Collector")
 	public void setPP_Cost_CollectorInput(ForeignEntityInput PP_Cost_Collector) {
 		this.mPP_Cost_Collector = PP_Cost_Collector;
-		X_PP_Cost_Collector foreignEntity;
-		if (get_ID() == 0 && PP_Cost_Collector != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PP_Cost_Collector != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_PP_Cost_Collector foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Cost_Collector", "PP_Cost_Collector_UU=?", get_TrxName())
 							.setParameters(PP_Cost_Collector.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -533,6 +581,8 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 				throw new AdempiereException(
 						"Could not find entity in table PP_Cost_Collector with UUID " + PP_Cost_Collector.getUUID());
 			}
+		} else {
+			this.setPP_Cost_Collector_ID(0);
 		}
 	}
 

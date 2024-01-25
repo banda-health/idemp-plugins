@@ -52,9 +52,12 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("A_Asset")
 	public void setA_AssetInput(ForeignEntityInput A_Asset) {
 		this.mA_Asset = A_Asset;
-		MAsset foreignEntity;
-		if (get_ID() == 0 && A_Asset != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (A_Asset != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
 							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 				throw new AdempiereException(
 						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
 			}
+		} else {
+			this.setA_Asset_ID(0);
 		}
 	}
 
@@ -157,9 +162,9 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("A_FundingMode")
 	public void setA_FundingModeInput(ForeignEntityInput A_FundingMode) {
 		this.mA_FundingMode = A_FundingMode;
-		X_A_FundingMode foreignEntity;
 		if (A_FundingMode != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_A_FundingMode foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_FundingMode", "A_FundingMode_UU=?", get_TrxName())
 							.setParameters(A_FundingMode.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -169,7 +174,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 						"Could not find entity in table A_FundingMode with UUID " + A_FundingMode.getUUID());
 			}
 		} else {
-			super.setA_FundingMode_ID(0);
+			this.setA_FundingMode_ID(0);
 		}
 	}
 
@@ -213,9 +218,9 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("A_Tip_Finantare")
 	public void setA_Tip_FinantareInput(I_AD_Ref_ListInput A_Tip_Finantare) {
 		this.mA_Tip_Finantare = A_Tip_Finantare;
-		MRefList_BH foreignEntity;
 		if (A_Tip_Finantare != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Tip_Finantare.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -247,9 +252,9 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -259,7 +264,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -281,9 +286,12 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -292,6 +300,8 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -313,9 +323,9 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	@JsonProperty("PostingType")
 	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
 		this.mPostingType = PostingType;
-		MRefList_BH foreignEntity;
 		if (PostingType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

@@ -48,9 +48,12 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	@JsonProperty("C_ElementValue")
 	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
-		MElementValue foreignEntity;
 		if (C_ElementValue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 						"Could not find entity in table C_ElementValue with UUID " + C_ElementValue.getUUID());
 			}
 		} else {
-			super.setC_ElementValue_ID(0);
+			this.setC_ElementValue_ID(0);
 		}
 	}
 
@@ -114,9 +119,9 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	@JsonProperty("GL_Category")
 	public void setGL_CategoryInput(ForeignEntityInput GL_Category) {
 		this.mGL_Category = GL_Category;
-		MGLCategory foreignEntity;
 		if (GL_Category != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
 							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 						"Could not find entity in table GL_Category with UUID " + GL_Category.getUUID());
 			}
 		} else {
-			super.setGL_Category_ID(0);
+			this.setGL_Category_ID(0);
 		}
 	}
 
@@ -148,9 +153,12 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	@JsonProperty("GL_JournalGeneratorLine")
 	public void setGL_JournalGeneratorLineInput(ForeignEntityInput GL_JournalGeneratorLine) {
 		this.mGL_JournalGeneratorLine = GL_JournalGeneratorLine;
-		MJournalGeneratorLine foreignEntity;
-		if (get_ID() == 0 && GL_JournalGeneratorLine != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (GL_JournalGeneratorLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MJournalGeneratorLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalGeneratorLine", "GL_JournalGeneratorLine_UU=?", get_TrxName())
 							.setParameters(GL_JournalGeneratorLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -159,6 +167,8 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 				throw new AdempiereException(
 						"Could not find entity in table GL_JournalGeneratorLine with UUID " + GL_JournalGeneratorLine.getUUID());
 			}
+		} else {
+			this.setGL_JournalGeneratorLine_ID(0);
 		}
 	}
 

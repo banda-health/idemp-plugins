@@ -62,9 +62,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		MColumn foreignEntity;
 		if (AD_Column != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -74,7 +74,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
 			}
 		} else {
-			super.setAD_Column_ID(0);
+			this.setAD_Column_ID(0);
 		}
 	}
 
@@ -96,9 +96,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_ColumnSortOrder")
 	public void setAD_ColumnSortOrderInput(ForeignEntityInput AD_ColumnSortOrder) {
 		this.mAD_ColumnSortOrder = AD_ColumnSortOrder;
-		MColumn foreignEntity;
 		if (AD_ColumnSortOrder != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_ColumnSortOrder.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -108,7 +108,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Column with UUID " + AD_ColumnSortOrder.getUUID());
 			}
 		} else {
-			super.setAD_ColumnSortOrder_ID(0);
+			this.setAD_ColumnSortOrder_ID(0);
 		}
 	}
 
@@ -130,9 +130,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_ColumnSortYesNo")
 	public void setAD_ColumnSortYesNoInput(ForeignEntityInput AD_ColumnSortYesNo) {
 		this.mAD_ColumnSortYesNo = AD_ColumnSortYesNo;
-		MColumn foreignEntity;
 		if (AD_ColumnSortYesNo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_ColumnSortYesNo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -142,7 +142,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Column with UUID " + AD_ColumnSortYesNo.getUUID());
 			}
 		} else {
-			super.setAD_ColumnSortYesNo_ID(0);
+			this.setAD_ColumnSortYesNo_ID(0);
 		}
 	}
 
@@ -164,9 +164,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_CtxHelp")
 	public void setAD_CtxHelpInput(ForeignEntityInput AD_CtxHelp) {
 		this.mAD_CtxHelp = AD_CtxHelp;
-		MCtxHelp foreignEntity;
 		if (AD_CtxHelp != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
 							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -176,7 +176,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_CtxHelp with UUID " + AD_CtxHelp.getUUID());
 			}
 		} else {
-			super.setAD_CtxHelp_ID(0);
+			this.setAD_CtxHelp_ID(0);
 		}
 	}
 
@@ -198,9 +198,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Image")
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
-		MImage foreignEntity;
 		if (AD_Image != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -210,7 +210,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
 			}
 		} else {
-			super.setAD_Image_ID(0);
+			this.setAD_Image_ID(0);
 		}
 	}
 
@@ -232,9 +232,12 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -243,6 +246,8 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -264,9 +269,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -276,7 +281,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -327,9 +332,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Table")
 	public void setAD_TableInput(ForeignEntityInput AD_Table) {
 		this.mAD_Table = AD_Table;
-		MTable_BH foreignEntity;
 		if (AD_Table != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTable_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
 							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -339,7 +344,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
 			}
 		} else {
-			super.setAD_Table_ID(0);
+			this.setAD_Table_ID(0);
 		}
 	}
 
@@ -361,9 +366,12 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
-		MWindow foreignEntity;
-		if (get_ID() == 0 && AD_Window != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
 							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -372,6 +380,8 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
 			}
+		} else {
+			this.setAD_Window_ID(0);
 		}
 	}
 
@@ -393,9 +403,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -405,7 +415,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -427,9 +437,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("Included_Tab")
 	public void setIncluded_TabInput(ForeignEntityInput Included_Tab) {
 		this.mIncluded_Tab = Included_Tab;
-		MTab foreignEntity;
 		if (Included_Tab != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
 							.setParameters(Included_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -439,7 +449,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Tab with UUID " + Included_Tab.getUUID());
 			}
 		} else {
-			super.setIncluded_Tab_ID(0);
+			this.setIncluded_Tab_ID(0);
 		}
 	}
 
@@ -461,9 +471,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("Parent_Column")
 	public void setParent_ColumnInput(ForeignEntityInput Parent_Column) {
 		this.mParent_Column = Parent_Column;
-		MColumn foreignEntity;
 		if (Parent_Column != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(Parent_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -473,7 +483,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 						"Could not find entity in table AD_Column with UUID " + Parent_Column.getUUID());
 			}
 		} else {
-			super.setParent_Column_ID(0);
+			this.setParent_Column_ID(0);
 		}
 	}
 
@@ -495,9 +505,9 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("TreeDisplayedOn")
 	public void setTreeDisplayedOnInput(I_AD_Ref_ListInput TreeDisplayedOn) {
 		this.mTreeDisplayedOn = TreeDisplayedOn;
-		MRefList_BH foreignEntity;
 		if (TreeDisplayedOn != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(TreeDisplayedOn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

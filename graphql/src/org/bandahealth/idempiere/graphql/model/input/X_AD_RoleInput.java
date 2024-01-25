@@ -53,9 +53,12 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,6 +67,8 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -114,9 +119,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("AD_Tree_Menu")
 	public void setAD_Tree_MenuInput(ForeignEntityInput AD_Tree_Menu) {
 		this.mAD_Tree_Menu = AD_Tree_Menu;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Menu != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Menu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Menu.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Menu_ID(0);
+			this.setAD_Tree_Menu_ID(0);
 		}
 	}
 
@@ -148,9 +153,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("AD_Tree_Org")
 	public void setAD_Tree_OrgInput(ForeignEntityInput AD_Tree_Org) {
 		this.mAD_Tree_Org = AD_Tree_Org;
-		MTree_BH foreignEntity;
 		if (AD_Tree_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
 							.setParameters(AD_Tree_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -160,7 +165,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Org.getUUID());
 			}
 		} else {
-			super.setAD_Tree_Org_ID(0);
+			this.setAD_Tree_Org_ID(0);
 		}
 	}
 
@@ -182,9 +187,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -194,7 +199,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -216,9 +221,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("PreferenceType")
 	public void setPreferenceTypeInput(I_AD_Ref_ListInput PreferenceType) {
 		this.mPreferenceType = PreferenceType;
-		MRefList_BH foreignEntity;
 		if (PreferenceType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PreferenceType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -250,9 +255,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("RoleType")
 	public void setRoleTypeInput(I_AD_Ref_ListInput RoleType) {
 		this.mRoleType = RoleType;
-		MRefList_BH foreignEntity;
 		if (RoleType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(RoleType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -284,9 +289,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("Supervisor")
 	public void setSupervisorInput(ForeignEntityInput Supervisor) {
 		this.mSupervisor = Supervisor;
-		MUser_BH foreignEntity;
 		if (Supervisor != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -296,7 +301,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
 			}
 		} else {
-			super.setSupervisor_ID(0);
+			this.setSupervisor_ID(0);
 		}
 	}
 
@@ -318,9 +323,9 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	@JsonProperty("UserLevel")
 	public void setUserLevelInput(I_AD_Ref_ListInput UserLevel) {
 		this.mUserLevel = UserLevel;
-		MRefList_BH foreignEntity;
 		if (UserLevel != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(UserLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

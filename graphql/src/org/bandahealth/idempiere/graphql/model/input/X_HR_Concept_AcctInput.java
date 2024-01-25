@@ -54,9 +54,12 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -65,6 +68,8 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -86,9 +91,9 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -98,7 +103,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
 		} else {
-			super.setC_AcctSchema_ID(0);
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -120,9 +125,9 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -132,7 +137,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
 			}
 		} else {
-			super.setC_BP_Group_ID(0);
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -183,9 +188,12 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("HR_Concept")
 	public void setHR_ConceptInput(ForeignEntityInput HR_Concept) {
 		this.mHR_Concept = HR_Concept;
-		X_HR_Concept foreignEntity;
-		if (get_ID() == 0 && HR_Concept != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (HR_Concept != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
 							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -194,6 +202,8 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 				throw new AdempiereException(
 						"Could not find entity in table HR_Concept with UUID " + HR_Concept.getUUID());
 			}
+		} else {
+			this.setHR_Concept_ID(0);
 		}
 	}
 
@@ -215,9 +225,9 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("HR_Expense_A")
 	public void setHR_Expense_AInput(ForeignEntityInput HR_Expense_A) {
 		this.mHR_Expense_A = HR_Expense_A;
-		MAccount foreignEntity;
 		if (HR_Expense_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(HR_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -227,7 +237,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 						"Could not find entity in table C_ValidCombination with UUID " + HR_Expense_A.getUUID());
 			}
 		} else {
-			super.setHR_Expense_Acct(0);
+			this.setHR_Expense_Acct(0);
 		}
 	}
 
@@ -249,9 +259,9 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("HR_Revenue_A")
 	public void setHR_Revenue_AInput(ForeignEntityInput HR_Revenue_A) {
 		this.mHR_Revenue_A = HR_Revenue_A;
-		MAccount foreignEntity;
 		if (HR_Revenue_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(HR_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -261,7 +271,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 						"Could not find entity in table C_ValidCombination with UUID " + HR_Revenue_A.getUUID());
 			}
 		} else {
-			super.setHR_Revenue_Acct(0);
+			this.setHR_Revenue_Acct(0);
 		}
 	}
 
@@ -283,9 +293,9 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -295,7 +305,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -317,9 +327,9 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MAccount foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -329,7 +339,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 						"Could not find entity in table C_ValidCombination with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

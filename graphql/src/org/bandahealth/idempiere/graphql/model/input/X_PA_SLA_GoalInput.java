@@ -46,9 +46,12 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
+		} else {
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -110,9 +120,9 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	@JsonProperty("PA_SLA_Criteria")
 	public void setPA_SLA_CriteriaInput(ForeignEntityInput PA_SLA_Criteria) {
 		this.mPA_SLA_Criteria = PA_SLA_Criteria;
-		MSLACriteria foreignEntity;
 		if (PA_SLA_Criteria != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSLACriteria foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_SLA_Criteria", "PA_SLA_Criteria_UU=?", get_TrxName())
 							.setParameters(PA_SLA_Criteria.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -122,7 +132,7 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 						"Could not find entity in table PA_SLA_Criteria with UUID " + PA_SLA_Criteria.getUUID());
 			}
 		} else {
-			super.setPA_SLA_Criteria_ID(0);
+			this.setPA_SLA_Criteria_ID(0);
 		}
 	}
 

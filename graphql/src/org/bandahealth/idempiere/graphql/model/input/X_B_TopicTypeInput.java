@@ -47,9 +47,12 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -58,6 +61,8 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -108,9 +113,9 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 	@JsonProperty("M_PriceList")
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
-		MPriceList foreignEntity;
 		if (M_PriceList != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -120,7 +125,7 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
 			}
 		} else {
-			super.setM_PriceList_ID(0);
+			this.setM_PriceList_ID(0);
 		}
 	}
 
@@ -142,9 +147,9 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -154,7 +159,7 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -176,9 +181,9 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 	@JsonProperty("M_ProductMember")
 	public void setM_ProductMemberInput(ForeignEntityInput M_ProductMember) {
 		this.mM_ProductMember = M_ProductMember;
-		MProduct_BH foreignEntity;
 		if (M_ProductMember != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_ProductMember.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -188,7 +193,7 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 						"Could not find entity in table M_Product with UUID " + M_ProductMember.getUUID());
 			}
 		} else {
-			super.setM_ProductMember_ID(0);
+			this.setM_ProductMember_ID(0);
 		}
 	}
 

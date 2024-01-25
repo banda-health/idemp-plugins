@@ -84,9 +84,12 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 	@JsonProperty("A_Table_Rate_Type")
 	public void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type) {
 		this.mA_Table_Rate_Type = A_Table_Rate_Type;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&A_Table_Rate_Type != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (A_Table_Rate_Type != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(A_Table_Rate_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,6 +98,8 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Table_Rate_Type.getUUID());
 			}
+		} else {
+			this.setA_Table_Rate_Type(null);
 		}
 	}
 
@@ -116,9 +121,12 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,6 +135,8 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 

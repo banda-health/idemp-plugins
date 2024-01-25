@@ -51,9 +51,12 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,6 +65,8 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -83,9 +88,9 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,7 +100,7 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -117,9 +122,9 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	@JsonProperty("DocAction")
 	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
 		this.mDocAction = DocAction;
-		MRefList_BH foreignEntity;
 		if (DocAction != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,9 +156,9 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	@JsonProperty("DocStatus")
 	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
 		this.mDocStatus = DocStatus;
-		MRefList_BH foreignEntity;
 		if (DocStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -185,9 +190,9 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	@JsonProperty("M_PriceList")
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
-		MPriceList foreignEntity;
 		if (M_PriceList != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -197,7 +202,7 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
 			}
 		} else {
-			super.setM_PriceList_ID(0);
+			this.setM_PriceList_ID(0);
 		}
 	}
 
@@ -219,9 +224,9 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 	@JsonProperty("M_Warehouse")
 	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
 		this.mM_Warehouse = M_Warehouse;
-		MWarehouse_BH foreignEntity;
 		if (M_Warehouse != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
 							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -231,7 +236,7 @@ public class X_S_TimeExpenseInput extends MTimeExpense implements I_S_TimeExpens
 						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
 			}
 		} else {
-			super.setM_Warehouse_ID(0);
+			this.setM_Warehouse_ID(0);
 		}
 	}
 

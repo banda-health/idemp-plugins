@@ -61,9 +61,12 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -72,6 +75,8 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -93,9 +98,12 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
-		if (get_ID() == 0 && AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_PInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -104,6 +112,8 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
+		} else {
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -125,9 +135,9 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -137,7 +147,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -159,9 +169,9 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -171,7 +181,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
 			}
 		} else {
-			super.setC_BP_Group_ID(0);
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -193,9 +203,12 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
-		if (get_ID() == 0 && C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BPartner != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -204,6 +217,8 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
+		} else {
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -225,9 +240,9 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -237,7 +252,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -259,9 +274,12 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
-		if (get_ID() == 0 && C_Currency != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Currency != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -270,6 +288,8 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
+		} else {
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -291,9 +311,12 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
-		if (get_ID() == 0 && C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -302,6 +325,8 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
+		} else {
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -323,9 +348,9 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_InvoicePaySchedule")
 	public void setC_InvoicePayScheduleInput(ForeignEntityInput C_InvoicePaySchedule) {
 		this.mC_InvoicePaySchedule = C_InvoicePaySchedule;
-		MInvoicePaySchedule foreignEntity;
 		if (C_InvoicePaySchedule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoicePaySchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoicePaySchedule", "C_InvoicePaySchedule_UU=?", get_TrxName())
 							.setParameters(C_InvoicePaySchedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -335,7 +360,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 						"Could not find entity in table C_InvoicePaySchedule with UUID " + C_InvoicePaySchedule.getUUID());
 			}
 		} else {
-			super.setC_InvoicePaySchedule_ID(0);
+			this.setC_InvoicePaySchedule_ID(0);
 		}
 	}
 
@@ -357,9 +382,9 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -369,7 +394,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -391,9 +416,9 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	@JsonProperty("ConvertAmountsInCurrency")
 	public void setConvertAmountsInCurrencyInput(ForeignEntityInput ConvertAmountsInCurrency) {
 		this.mConvertAmountsInCurrency = ConvertAmountsInCurrency;
-		MCurrency_BH foreignEntity;
 		if (ConvertAmountsInCurrency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(ConvertAmountsInCurrency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -403,7 +428,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 						"Could not find entity in table C_Currency with UUID " + ConvertAmountsInCurrency.getUUID());
 			}
 		} else {
-			super.setConvertAmountsInCurrency_ID(0);
+			this.setConvertAmountsInCurrency_ID(0);
 		}
 	}
 

@@ -46,9 +46,12 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,9 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -90,7 +95,7 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 
@@ -112,9 +117,12 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 	@JsonProperty("AD_WF_Activity")
 	public void setAD_WF_ActivityInput(ForeignEntityInput AD_WF_Activity) {
 		this.mAD_WF_Activity = AD_WF_Activity;
-		X_AD_WF_Activity foreignEntity;
-		if (get_ID() == 0 && AD_WF_Activity != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_WF_Activity != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_Activity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Activity", "AD_WF_Activity_UU=?", get_TrxName())
 							.setParameters(AD_WF_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -123,6 +131,8 @@ public class X_AD_WF_ActivityApproverInput extends MWFActivityApprover implement
 				throw new AdempiereException(
 						"Could not find entity in table AD_WF_Activity with UUID " + AD_WF_Activity.getUUID());
 			}
+		} else {
+			this.setAD_WF_Activity_ID(0);
 		}
 	}
 

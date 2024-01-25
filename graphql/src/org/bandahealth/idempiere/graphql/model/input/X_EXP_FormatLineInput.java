@@ -51,9 +51,9 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	@JsonProperty("AD_Column")
 	public void setAD_ColumnInput(ForeignEntityInput AD_Column) {
 		this.mAD_Column = AD_Column;
-		MColumn foreignEntity;
 		if (AD_Column != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
 							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,7 +63,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
 			}
 		} else {
-			super.setAD_Column_ID(0);
+			this.setAD_Column_ID(0);
 		}
 	}
 
@@ -85,9 +85,12 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -96,6 +99,8 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -117,9 +122,12 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	@JsonProperty("AD_Reference")
 	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
 		this.mAD_Reference = AD_Reference;
-		MReference_BH foreignEntity;
-		if (get_ID() == 0 && AD_Reference != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Reference != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
 							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,6 +136,8 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 				throw new AdempiereException(
 						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
 			}
+		} else {
+			this.setAD_Reference_ID(0);
 		}
 	}
 
@@ -149,9 +159,9 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	@JsonProperty("EXP_EmbeddedFormat")
 	public void setEXP_EmbeddedFormatInput(ForeignEntityInput EXP_EmbeddedFormat) {
 		this.mEXP_EmbeddedFormat = EXP_EmbeddedFormat;
-		MEXPFormat foreignEntity;
 		if (EXP_EmbeddedFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
 							.setParameters(EXP_EmbeddedFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -161,7 +171,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 						"Could not find entity in table EXP_Format with UUID " + EXP_EmbeddedFormat.getUUID());
 			}
 		} else {
-			super.setEXP_EmbeddedFormat_ID(0);
+			this.setEXP_EmbeddedFormat_ID(0);
 		}
 	}
 
@@ -183,9 +193,12 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	@JsonProperty("EXP_Format")
 	public void setEXP_FormatInput(ForeignEntityInput EXP_Format) {
 		this.mEXP_Format = EXP_Format;
-		MEXPFormat foreignEntity;
-		if (get_ID() == 0 && EXP_Format != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (EXP_Format != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
 							.setParameters(EXP_Format.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -194,6 +207,8 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 				throw new AdempiereException(
 						"Could not find entity in table EXP_Format with UUID " + EXP_Format.getUUID());
 			}
+		} else {
+			this.setEXP_Format_ID(0);
 		}
 	}
 
@@ -244,9 +259,9 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	@JsonProperty("Type")
 	public void setTypeInput(I_AD_Ref_ListInput Type) {
 		this.mType = Type;
-		MRefList_BH foreignEntity;
 		if (Type != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

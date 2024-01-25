@@ -44,9 +44,12 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -105,9 +110,9 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 	@JsonProperty("M_ShippingProcessorCfg")
 	public void setM_ShippingProcessorCfgInput(ForeignEntityInput M_ShippingProcessorCfg) {
 		this.mM_ShippingProcessorCfg = M_ShippingProcessorCfg;
-		X_M_ShippingProcessorCfg foreignEntity;
 		if (M_ShippingProcessorCfg != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_ShippingProcessorCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShippingProcessorCfg", "M_ShippingProcessorCfg_UU=?", get_TrxName())
 							.setParameters(M_ShippingProcessorCfg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -117,7 +122,7 @@ public class X_M_ShipperCfgInput extends X_M_ShipperCfg implements I_M_ShipperCf
 						"Could not find entity in table M_ShippingProcessorCfg with UUID " + M_ShippingProcessorCfg.getUUID());
 			}
 		} else {
-			super.setM_ShippingProcessorCfg_ID(0);
+			this.setM_ShippingProcessorCfg_ID(0);
 		}
 	}
 

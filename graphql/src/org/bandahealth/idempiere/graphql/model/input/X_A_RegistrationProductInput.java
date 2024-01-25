@@ -46,9 +46,12 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 	@JsonProperty("A_RegistrationAttribute")
 	public void setA_RegistrationAttributeInput(ForeignEntityInput A_RegistrationAttribute) {
 		this.mA_RegistrationAttribute = A_RegistrationAttribute;
-		MRegistrationAttribute foreignEntity;
-		if (get_ID() == 0 && A_RegistrationAttribute != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (A_RegistrationAttribute != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRegistrationAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
 							.setParameters(A_RegistrationAttribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 				throw new AdempiereException(
 						"Could not find entity in table A_RegistrationAttribute with UUID " + A_RegistrationAttribute.getUUID());
 			}
+		} else {
+			this.setA_RegistrationAttribute_ID(0);
 		}
 	}
 
@@ -96,9 +101,12 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -107,6 +115,8 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -128,9 +138,12 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
-		if (get_ID() == 0 && M_Product != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -139,6 +152,8 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 				throw new AdempiereException(
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
+		} else {
+			this.setM_Product_ID(0);
 		}
 	}
 

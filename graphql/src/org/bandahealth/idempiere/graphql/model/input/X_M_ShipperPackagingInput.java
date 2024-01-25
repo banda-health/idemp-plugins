@@ -46,9 +46,12 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	@JsonProperty("M_Shipper")
 	public void setM_ShipperInput(ForeignEntityInput M_Shipper) {
 		this.mM_Shipper = M_Shipper;
-		MShipper foreignEntity;
-		if (get_ID() == 0 && M_Shipper != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Shipper != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
 							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 				throw new AdempiereException(
 						"Could not find entity in table M_Shipper with UUID " + M_Shipper.getUUID());
 			}
+		} else {
+			this.setM_Shipper_ID(0);
 		}
 	}
 
@@ -139,9 +149,9 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 	@JsonProperty("M_ShipperPackagingCfg")
 	public void setM_ShipperPackagingCfgInput(ForeignEntityInput M_ShipperPackagingCfg) {
 		this.mM_ShipperPackagingCfg = M_ShipperPackagingCfg;
-		X_M_ShipperPackagingCfg foreignEntity;
 		if (M_ShipperPackagingCfg != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_M_ShipperPackagingCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperPackagingCfg", "M_ShipperPackagingCfg_UU=?", get_TrxName())
 							.setParameters(M_ShipperPackagingCfg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -151,7 +161,7 @@ public class X_M_ShipperPackagingInput extends MShipperPackaging implements I_M_
 						"Could not find entity in table M_ShipperPackagingCfg with UUID " + M_ShipperPackagingCfg.getUUID());
 			}
 		} else {
-			super.setM_ShipperPackagingCfg_ID(0);
+			this.setM_ShipperPackagingCfg_ID(0);
 		}
 	}
 

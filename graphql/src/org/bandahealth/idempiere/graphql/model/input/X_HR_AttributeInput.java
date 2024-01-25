@@ -60,9 +60,12 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -71,6 +74,8 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -92,9 +97,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("AD_Rule")
 	public void setAD_RuleInput(ForeignEntityInput AD_Rule) {
 		this.mAD_Rule = AD_Rule;
-		MRule foreignEntity;
 		if (AD_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -104,7 +109,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 						"Could not find entity in table AD_Rule with UUID " + AD_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Rule_ID(0);
+			this.setAD_Rule_ID(0);
 		}
 	}
 
@@ -126,9 +131,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -138,7 +143,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -160,9 +165,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("ColumnType")
 	public void setColumnTypeInput(I_AD_Ref_ListInput ColumnType) {
 		this.mColumnType = ColumnType;
-		MRefList_BH foreignEntity;
 		if (ColumnType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ColumnType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -194,9 +199,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("HR_Attribute_A")
 	public void setHR_Attribute_AInput(ForeignEntityInput HR_Attribute_A) {
 		this.mHR_Attribute_A = HR_Attribute_A;
-		MAccount foreignEntity;
 		if (HR_Attribute_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(HR_Attribute_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -206,7 +211,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 						"Could not find entity in table C_ValidCombination with UUID " + HR_Attribute_A.getUUID());
 			}
 		} else {
-			super.setHR_Attribute_Acct(0);
+			this.setHR_Attribute_Acct(0);
 		}
 	}
 
@@ -257,9 +262,12 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("HR_Concept")
 	public void setHR_ConceptInput(ForeignEntityInput HR_Concept) {
 		this.mHR_Concept = HR_Concept;
-		X_HR_Concept foreignEntity;
-		if (get_ID() == 0 && HR_Concept != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (HR_Concept != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
 							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -268,6 +276,8 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 				throw new AdempiereException(
 						"Could not find entity in table HR_Concept with UUID " + HR_Concept.getUUID());
 			}
+		} else {
+			this.setHR_Concept_ID(0);
 		}
 	}
 
@@ -289,9 +299,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("HR_Department")
 	public void setHR_DepartmentInput(ForeignEntityInput HR_Department) {
 		this.mHR_Department = HR_Department;
-		X_HR_Department foreignEntity;
 		if (HR_Department != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Department foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
 							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -301,7 +311,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 						"Could not find entity in table HR_Department with UUID " + HR_Department.getUUID());
 			}
 		} else {
-			super.setHR_Department_ID(0);
+			this.setHR_Department_ID(0);
 		}
 	}
 
@@ -323,9 +333,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("HR_Employee")
 	public void setHR_EmployeeInput(ForeignEntityInput HR_Employee) {
 		this.mHR_Employee = HR_Employee;
-		X_HR_Employee foreignEntity;
 		if (HR_Employee != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Employee foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
 							.setParameters(HR_Employee.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -335,7 +345,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 						"Could not find entity in table HR_Employee with UUID " + HR_Employee.getUUID());
 			}
 		} else {
-			super.setHR_Employee_ID(0);
+			this.setHR_Employee_ID(0);
 		}
 	}
 
@@ -357,9 +367,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("HR_Job")
 	public void setHR_JobInput(ForeignEntityInput HR_Job) {
 		this.mHR_Job = HR_Job;
-		X_HR_Job foreignEntity;
 		if (HR_Job != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
 							.setParameters(HR_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -369,7 +379,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 						"Could not find entity in table HR_Job with UUID " + HR_Job.getUUID());
 			}
 		} else {
-			super.setHR_Job_ID(0);
+			this.setHR_Job_ID(0);
 		}
 	}
 
@@ -391,9 +401,9 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	@JsonProperty("HR_Payroll")
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
-		X_HR_Payroll foreignEntity;
 		if (HR_Payroll != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
 							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -403,7 +413,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
 			}
 		} else {
-			super.setHR_Payroll_ID(0);
+			this.setHR_Payroll_ID(0);
 		}
 	}
 

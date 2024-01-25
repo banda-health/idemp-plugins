@@ -48,9 +48,9 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	@JsonProperty("A_FundingMode_A")
 	public void setA_FundingMode_AInput(ForeignEntityInput A_FundingMode_A) {
 		this.mA_FundingMode_A = A_FundingMode_A;
-		MAccount foreignEntity;
 		if (A_FundingMode_A != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
 							.setParameters(A_FundingMode_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -60,7 +60,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 						"Could not find entity in table C_ValidCombination with UUID " + A_FundingMode_A.getUUID());
 			}
 		} else {
-			super.setA_FundingMode_Acct(0);
+			this.setA_FundingMode_Acct(0);
 		}
 	}
 
@@ -100,9 +100,12 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	@JsonProperty("A_FundingMode")
 	public void setA_FundingModeInput(ForeignEntityInput A_FundingMode) {
 		this.mA_FundingMode = A_FundingMode;
-		X_A_FundingMode foreignEntity;
-		if (get_ID() == 0 && A_FundingMode != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (A_FundingMode != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_A_FundingMode foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_FundingMode", "A_FundingMode_UU=?", get_TrxName())
 							.setParameters(A_FundingMode.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -111,6 +114,8 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 				throw new AdempiereException(
 						"Could not find entity in table A_FundingMode with UUID " + A_FundingMode.getUUID());
 			}
+		} else {
+			this.setA_FundingMode_ID(0);
 		}
 	}
 
@@ -132,9 +137,12 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -143,6 +151,8 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -164,9 +174,12 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
-		if (get_ID() == 0 && C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -175,6 +188,8 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 				throw new AdempiereException(
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
+		} else {
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 

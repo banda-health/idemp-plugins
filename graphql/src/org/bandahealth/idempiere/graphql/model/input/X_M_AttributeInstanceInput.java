@@ -48,9 +48,12 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	@JsonProperty("M_Attribute")
 	public void setM_AttributeInput(ForeignEntityInput M_Attribute) {
 		this.mM_Attribute = M_Attribute;
-		MAttribute_BH foreignEntity;
-		if (get_ID() == 0 && M_Attribute != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Attribute != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttribute_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
 							.setParameters(M_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 				throw new AdempiereException(
 						"Could not find entity in table M_Attribute with UUID " + M_Attribute.getUUID());
 			}
+		} else {
+			this.setM_Attribute_ID(0);
 		}
 	}
 
@@ -130,9 +140,12 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
-		if (get_ID() == 0 && M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_AttributeSetInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -141,6 +154,8 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 				throw new AdempiereException(
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
+		} else {
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -162,9 +177,9 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 	@JsonProperty("M_AttributeValue")
 	public void setM_AttributeValueInput(ForeignEntityInput M_AttributeValue) {
 		this.mM_AttributeValue = M_AttributeValue;
-		MAttributeValue foreignEntity;
 		if (M_AttributeValue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeValue", "M_AttributeValue_UU=?", get_TrxName())
 							.setParameters(M_AttributeValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,7 +189,7 @@ public class X_M_AttributeInstanceInput extends MAttributeInstance implements I_
 						"Could not find entity in table M_AttributeValue with UUID " + M_AttributeValue.getUUID());
 			}
 		} else {
-			super.setM_AttributeValue_ID(0);
+			this.setM_AttributeValue_ID(0);
 		}
 	}
 

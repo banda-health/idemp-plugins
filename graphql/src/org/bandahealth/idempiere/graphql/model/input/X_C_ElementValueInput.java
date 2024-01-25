@@ -52,9 +52,9 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("AccountSign")
 	public void setAccountSignInput(I_AD_Ref_ListInput AccountSign) {
 		this.mAccountSign = AccountSign;
-		MRefList_BH foreignEntity;
 		if (AccountSign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AccountSign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -86,9 +86,9 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("AccountType")
 	public void setAccountTypeInput(I_AD_Ref_ListInput AccountType) {
 		this.mAccountType = AccountType;
-		MRefList_BH foreignEntity;
 		if (AccountType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(AccountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -120,9 +120,12 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -131,6 +134,8 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -152,9 +157,9 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("BPartnerType")
 	public void setBPartnerTypeInput(I_AD_Ref_ListInput BPartnerType) {
 		this.mBPartnerType = BPartnerType;
-		MRefList_BH foreignEntity;
 		if (BPartnerType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(BPartnerType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -186,9 +191,9 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
 		if (C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -198,7 +203,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
 		} else {
-			super.setC_BankAccount_ID(0);
+			this.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -220,9 +225,9 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -232,7 +237,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -254,9 +259,12 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	@JsonProperty("C_Element")
 	public void setC_ElementInput(ForeignEntityInput C_Element) {
 		this.mC_Element = C_Element;
-		MElement foreignEntity;
-		if (get_ID() == 0 && C_Element != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Element != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Element", "C_Element_UU=?", get_TrxName())
 							.setParameters(C_Element.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -265,6 +273,8 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 				throw new AdempiereException(
 						"Could not find entity in table C_Element with UUID " + C_Element.getUUID());
 			}
+		} else {
+			this.setC_Element_ID(0);
 		}
 	}
 

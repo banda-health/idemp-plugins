@@ -55,9 +55,12 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -66,6 +69,8 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -87,9 +92,9 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("C_UOM")
 	public void setC_UOMInput(ForeignEntityInput C_UOM) {
 		this.mC_UOM = C_UOM;
-		MUOM foreignEntity;
 		if (C_UOM != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
 							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -99,7 +104,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
 			}
 		} else {
-			super.setC_UOM_ID(0);
+			this.setC_UOM_ID(0);
 		}
 	}
 
@@ -121,9 +126,9 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("ComponentType")
 	public void setComponentTypeInput(I_AD_Ref_ListInput ComponentType) {
 		this.mComponentType = ComponentType;
-		MRefList_BH foreignEntity;
 		if (ComponentType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ComponentType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -155,9 +160,9 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("IssueMethod")
 	public void setIssueMethodInput(I_AD_Ref_ListInput IssueMethod) {
 		this.mIssueMethod = IssueMethod;
-		MRefList_BH foreignEntity;
 		if (IssueMethod != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(IssueMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -189,9 +194,9 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("M_AttributeSetInstance")
 	public void setM_AttributeSetInstanceInput(ForeignEntityInput M_AttributeSetInstance) {
 		this.mM_AttributeSetInstance = M_AttributeSetInstance;
-		MAttributeSetInstance_BH foreignEntity;
 		if (M_AttributeSetInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
 							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -201,7 +206,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
 			}
 		} else {
-			super.setM_AttributeSetInstance_ID(0);
+			this.setM_AttributeSetInstance_ID(0);
 		}
 	}
 
@@ -223,9 +228,9 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("M_ChangeNotice")
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
-		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -235,7 +240,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
 			}
 		} else {
-			super.setM_ChangeNotice_ID(0);
+			this.setM_ChangeNotice_ID(0);
 		}
 	}
 
@@ -257,9 +262,9 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -269,7 +274,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -291,9 +296,12 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	@JsonProperty("PP_Product_BOM")
 	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
 		this.mPP_Product_BOM = PP_Product_BOM;
-		MPPProductBOM foreignEntity;
-		if (get_ID() == 0 && PP_Product_BOM != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PP_Product_BOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
 							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -302,6 +310,8 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 				throw new AdempiereException(
 						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
 			}
+		} else {
+			this.setPP_Product_BOM_ID(0);
 		}
 	}
 

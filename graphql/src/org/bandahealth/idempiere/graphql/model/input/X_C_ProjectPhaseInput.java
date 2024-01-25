@@ -52,9 +52,12 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,6 +66,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -84,9 +89,12 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
-		if (get_ID() == 0 && C_Order != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Order != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,6 +103,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 				throw new AdempiereException(
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
+		} else {
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -116,9 +126,12 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("C_Phase")
 	public void setC_PhaseInput(ForeignEntityInput C_Phase) {
 		this.mC_Phase = C_Phase;
-		MProjectTypePhase foreignEntity;
-		if (get_ID() == 0 && C_Phase != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Phase != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectTypePhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
 							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -127,6 +140,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 				throw new AdempiereException(
 						"Could not find entity in table C_Phase with UUID " + C_Phase.getUUID());
 			}
+		} else {
+			this.setC_Phase_ID(0);
 		}
 	}
 
@@ -148,9 +163,12 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
-		if (get_ID() == 0 && C_Project != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Project != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -159,6 +177,8 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 				throw new AdempiereException(
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
+		} else {
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -209,9 +229,9 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -221,7 +241,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -243,9 +263,9 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	@JsonProperty("ProjInvoiceRule")
 	public void setProjInvoiceRuleInput(I_AD_Ref_ListInput ProjInvoiceRule) {
 		this.mProjInvoiceRule = ProjInvoiceRule;
-		MRefList_BH foreignEntity;
 		if (ProjInvoiceRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

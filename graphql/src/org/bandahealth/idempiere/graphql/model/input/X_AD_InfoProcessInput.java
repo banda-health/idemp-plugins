@@ -52,9 +52,9 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("AD_InfoColumn")
 	public void setAD_InfoColumnInput(ForeignEntityInput AD_InfoColumn) {
 		this.mAD_InfoColumn = AD_InfoColumn;
-		MInfoColumn foreignEntity;
 		if (AD_InfoColumn != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
 							.setParameters(AD_InfoColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -64,7 +64,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 						"Could not find entity in table AD_InfoColumn with UUID " + AD_InfoColumn.getUUID());
 			}
 		} else {
-			super.setAD_InfoColumn_ID(0);
+			this.setAD_InfoColumn_ID(0);
 		}
 	}
 
@@ -115,9 +115,12 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("AD_InfoWindow")
 	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
 		this.mAD_InfoWindow = AD_InfoWindow;
-		MInfoWindow foreignEntity;
-		if (get_ID() == 0 && AD_InfoWindow != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_InfoWindow != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
 							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,6 +129,8 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 				throw new AdempiereException(
 						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
 			}
+		} else {
+			this.setAD_InfoWindow_ID(0);
 		}
 	}
 
@@ -147,9 +152,12 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -158,6 +166,8 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -179,9 +189,9 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
-		MProcess_BH foreignEntity;
 		if (AD_Process != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
 							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -191,7 +201,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
 			}
 		} else {
-			super.setAD_Process_ID(0);
+			this.setAD_Process_ID(0);
 		}
 	}
 
@@ -213,9 +223,9 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -225,7 +235,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -247,9 +257,9 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	@JsonProperty("LayoutType")
 	public void setLayoutTypeInput(I_AD_Ref_ListInput LayoutType) {
 		this.mLayoutType = LayoutType;
-		MRefList_BH foreignEntity;
 		if (LayoutType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(LayoutType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

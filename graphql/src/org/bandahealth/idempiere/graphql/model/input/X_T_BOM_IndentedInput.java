@@ -51,9 +51,9 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -63,7 +63,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -85,9 +85,9 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
 		if (AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -97,7 +97,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
 		} else {
-			super.setAD_PInstance_ID(0);
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -119,9 +119,9 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -131,7 +131,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
 		} else {
-			super.setC_AcctSchema_ID(0);
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -153,9 +153,9 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	@JsonProperty("M_CostElement")
 	public void setM_CostElementInput(ForeignEntityInput M_CostElement) {
 		this.mM_CostElement = M_CostElement;
-		MCostElement foreignEntity;
 		if (M_CostElement != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
 							.setParameters(M_CostElement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -165,7 +165,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 						"Could not find entity in table M_CostElement with UUID " + M_CostElement.getUUID());
 			}
 		} else {
-			super.setM_CostElement_ID(0);
+			this.setM_CostElement_ID(0);
 		}
 	}
 
@@ -187,9 +187,9 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -199,7 +199,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -221,9 +221,9 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	@JsonProperty("Sel_Product")
 	public void setSel_ProductInput(ForeignEntityInput Sel_Product) {
 		this.mSel_Product = Sel_Product;
-		MProduct_BH foreignEntity;
 		if (Sel_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(Sel_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -233,7 +233,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 						"Could not find entity in table M_Product with UUID " + Sel_Product.getUUID());
 			}
 		} else {
-			super.setSel_Product_ID(0);
+			this.setSel_Product_ID(0);
 		}
 	}
 

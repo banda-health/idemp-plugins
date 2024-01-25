@@ -62,9 +62,12 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -73,6 +76,8 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -94,9 +99,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -106,7 +111,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -128,9 +133,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -140,7 +145,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -162,9 +167,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -174,7 +179,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -196,9 +201,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("C_LocFrom")
 	public void setC_LocFromInput(ForeignEntityInput C_LocFrom) {
 		this.mC_LocFrom = C_LocFrom;
-		MLocation foreignEntity;
 		if (C_LocFrom != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_LocFrom.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -208,7 +213,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_Location with UUID " + C_LocFrom.getUUID());
 			}
 		} else {
-			super.setC_LocFrom_ID(0);
+			this.setC_LocFrom_ID(0);
 		}
 	}
 
@@ -230,9 +235,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("C_LocTo")
 	public void setC_LocToInput(ForeignEntityInput C_LocTo) {
 		this.mC_LocTo = C_LocTo;
-		MLocation foreignEntity;
 		if (C_LocTo != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
 							.setParameters(C_LocTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -242,7 +247,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_Location with UUID " + C_LocTo.getUUID());
 			}
 		} else {
-			super.setC_LocTo_ID(0);
+			this.setC_LocTo_ID(0);
 		}
 	}
 
@@ -264,9 +269,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -276,7 +281,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -298,9 +303,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("C_SalesRegion")
 	public void setC_SalesRegionInput(ForeignEntityInput C_SalesRegion) {
 		this.mC_SalesRegion = C_SalesRegion;
-		MSalesRegion foreignEntity;
 		if (C_SalesRegion != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
 							.setParameters(C_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -310,7 +315,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_SalesRegion with UUID " + C_SalesRegion.getUUID());
 			}
 		} else {
-			super.setC_SalesRegion_ID(0);
+			this.setC_SalesRegion_ID(0);
 		}
 	}
 
@@ -332,9 +337,12 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("GL_Distribution")
 	public void setGL_DistributionInput(ForeignEntityInput GL_Distribution) {
 		this.mGL_Distribution = GL_Distribution;
-		MDistribution foreignEntity;
-		if (get_ID() == 0 && GL_Distribution != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (GL_Distribution != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDistribution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Distribution", "GL_Distribution_UU=?", get_TrxName())
 							.setParameters(GL_Distribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -343,6 +351,8 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 				throw new AdempiereException(
 						"Could not find entity in table GL_Distribution with UUID " + GL_Distribution.getUUID());
 			}
+		} else {
+			this.setGL_Distribution_ID(0);
 		}
 	}
 
@@ -393,9 +403,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -405,7 +415,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 
@@ -427,9 +437,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("User1")
 	public void setUser1Input(ForeignEntityInput User1) {
 		this.mUser1 = User1;
-		MElementValue foreignEntity;
 		if (User1 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -439,7 +449,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
 			}
 		} else {
-			super.setUser1_ID(0);
+			this.setUser1_ID(0);
 		}
 	}
 
@@ -461,9 +471,9 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 	@JsonProperty("User2")
 	public void setUser2Input(ForeignEntityInput User2) {
 		this.mUser2 = User2;
-		MElementValue foreignEntity;
 		if (User2 != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -473,7 +483,7 @@ public class X_GL_DistributionLineInput extends MDistributionLine implements I_G
 						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
 			}
 		} else {
-			super.setUser2_ID(0);
+			this.setUser2_ID(0);
 		}
 	}
 

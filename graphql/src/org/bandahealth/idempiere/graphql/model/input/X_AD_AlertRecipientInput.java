@@ -48,9 +48,12 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 	@JsonProperty("AD_Alert")
 	public void setAD_AlertInput(ForeignEntityInput AD_Alert) {
 		this.mAD_Alert = AD_Alert;
-		MAlert foreignEntity;
-		if (get_ID() == 0 && AD_Alert != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Alert != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAlert foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Alert", "AD_Alert_UU=?", get_TrxName())
 							.setParameters(AD_Alert.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 				throw new AdempiereException(
 						"Could not find entity in table AD_Alert with UUID " + AD_Alert.getUUID());
 			}
+		} else {
+			this.setAD_Alert_ID(0);
 		}
 	}
 
@@ -109,9 +114,12 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -120,6 +128,8 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -141,9 +151,9 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 	@JsonProperty("AD_Role")
 	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
 		this.mAD_Role = AD_Role;
-		X_AD_Role foreignEntity;
 		if (AD_Role != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
 							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -153,7 +163,7 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
 			}
 		} else {
-			super.setAD_Role_ID(0);
+			this.setAD_Role_ID(0);
 		}
 	}
 
@@ -175,9 +185,9 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		MUser_BH foreignEntity;
 		if (AD_User != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -187,7 +197,7 @@ public class X_AD_AlertRecipientInput extends MAlertRecipient implements I_AD_Al
 						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
 			}
 		} else {
-			super.setAD_User_ID(0);
+			this.setAD_User_ID(0);
 		}
 	}
 

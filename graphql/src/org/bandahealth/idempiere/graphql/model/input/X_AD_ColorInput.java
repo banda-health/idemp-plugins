@@ -76,9 +76,9 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	@JsonProperty("AD_Image")
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
-		MImage foreignEntity;
 		if (AD_Image != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -88,7 +88,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
 			}
 		} else {
-			super.setAD_Image_ID(0);
+			this.setAD_Image_ID(0);
 		}
 	}
 
@@ -110,9 +110,12 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +124,8 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -142,9 +147,9 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	@JsonProperty("ColorType")
 	public void setColorTypeInput(I_AD_Ref_ListInput ColorType) {
 		this.mColorType = ColorType;
-		MRefList_BH foreignEntity;
 		if (ColorType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ColorType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -176,9 +181,9 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	@JsonProperty("StartPoint")
 	public void setStartPointInput(I_AD_Ref_ListInput StartPoint) {
 		this.mStartPoint = StartPoint;
-		MRefList_BH foreignEntity;
 		if (StartPoint != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(StartPoint.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

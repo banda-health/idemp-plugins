@@ -46,9 +46,12 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -107,9 +112,12 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	@JsonProperty("C_Year")
 	public void setC_YearInput(ForeignEntityInput C_Year) {
 		this.mC_Year = C_Year;
-		MYear foreignEntity;
-		if (get_ID() == 0 && C_Year != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Year != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
 							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -118,6 +126,8 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 				throw new AdempiereException(
 						"Could not find entity in table C_Year with UUID " + C_Year.getUUID());
 			}
+		} else {
+			this.setC_Year_ID(0);
 		}
 	}
 
@@ -139,9 +149,12 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	@JsonProperty("PeriodType")
 	public void setPeriodTypeInput(I_AD_Ref_ListInput PeriodType) {
 		this.mPeriodType = PeriodType;
-		MRefList_BH foreignEntity;
-		if (get_ID() == 0 &&PeriodType != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (PeriodType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PeriodType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -150,6 +163,8 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 				throw new AdempiereException(
 						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PeriodType.getUUID());
 			}
+		} else {
+			this.setPeriodType(null);
 		}
 	}
 

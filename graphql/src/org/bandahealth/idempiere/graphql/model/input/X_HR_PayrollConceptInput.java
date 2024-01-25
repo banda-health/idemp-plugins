@@ -48,9 +48,12 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,9 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	@JsonProperty("AD_Rule")
 	public void setAD_RuleInput(ForeignEntityInput AD_Rule) {
 		this.mAD_Rule = AD_Rule;
-		MRule foreignEntity;
 		if (AD_Rule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
 							.setParameters(AD_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -92,7 +97,7 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 						"Could not find entity in table AD_Rule with UUID " + AD_Rule.getUUID());
 			}
 		} else {
-			super.setAD_Rule_ID(0);
+			this.setAD_Rule_ID(0);
 		}
 	}
 
@@ -114,9 +119,9 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	@JsonProperty("HR_Concept")
 	public void setHR_ConceptInput(ForeignEntityInput HR_Concept) {
 		this.mHR_Concept = HR_Concept;
-		X_HR_Concept foreignEntity;
 		if (HR_Concept != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
 							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,7 +131,7 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 						"Could not find entity in table HR_Concept with UUID " + HR_Concept.getUUID());
 			}
 		} else {
-			super.setHR_Concept_ID(0);
+			this.setHR_Concept_ID(0);
 		}
 	}
 
@@ -148,9 +153,12 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	@JsonProperty("HR_Payroll")
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
-		X_HR_Payroll foreignEntity;
-		if (get_ID() == 0 && HR_Payroll != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (HR_Payroll != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
 							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -159,6 +167,8 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 				throw new AdempiereException(
 						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
 			}
+		} else {
+			this.setHR_Payroll_ID(0);
 		}
 	}
 

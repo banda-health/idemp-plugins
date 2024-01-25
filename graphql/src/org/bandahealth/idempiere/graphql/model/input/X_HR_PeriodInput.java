@@ -50,9 +50,12 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -61,6 +64,8 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -82,9 +87,9 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	@JsonProperty("C_Period")
 	public void setC_PeriodInput(ForeignEntityInput C_Period) {
 		this.mC_Period = C_Period;
-		MPeriod foreignEntity;
 		if (C_Period != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
 							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -94,7 +99,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
 			}
 		} else {
-			super.setC_Period_ID(0);
+			this.setC_Period_ID(0);
 		}
 	}
 
@@ -116,9 +121,9 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	@JsonProperty("C_Year")
 	public void setC_YearInput(ForeignEntityInput C_Year) {
 		this.mC_Year = C_Year;
-		MYear foreignEntity;
 		if (C_Year != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
 							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -128,7 +133,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 						"Could not find entity in table C_Year with UUID " + C_Year.getUUID());
 			}
 		} else {
-			super.setC_Year_ID(0);
+			this.setC_Year_ID(0);
 		}
 	}
 
@@ -150,9 +155,9 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	@JsonProperty("HR_Payroll")
 	public void setHR_PayrollInput(ForeignEntityInput HR_Payroll) {
 		this.mHR_Payroll = HR_Payroll;
-		X_HR_Payroll foreignEntity;
 		if (HR_Payroll != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
 							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -162,7 +167,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
 			}
 		} else {
-			super.setHR_Payroll_ID(0);
+			this.setHR_Payroll_ID(0);
 		}
 	}
 
@@ -213,9 +218,12 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	@JsonProperty("HR_Year")
 	public void setHR_YearInput(ForeignEntityInput HR_Year) {
 		this.mHR_Year = HR_Year;
-		X_HR_Year foreignEntity;
-		if (get_ID() == 0 && HR_Year != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (HR_Year != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_Year foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Year", "HR_Year_UU=?", get_TrxName())
 							.setParameters(HR_Year.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -224,6 +232,8 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 				throw new AdempiereException(
 						"Could not find entity in table HR_Year with UUID " + HR_Year.getUUID());
 			}
+		} else {
+			this.setHR_Year_ID(0);
 		}
 	}
 

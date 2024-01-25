@@ -69,9 +69,12 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -80,6 +83,8 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -101,9 +106,12 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
-		if (get_ID() == 0 && AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_PInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -112,6 +120,8 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
+		} else {
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -133,9 +143,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_AcctSchema")
 	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
 		this.mC_AcctSchema = C_AcctSchema;
-		MAcctSchema foreignEntity;
 		if (C_AcctSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
 							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -145,7 +155,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
 			}
 		} else {
-			super.setC_AcctSchema_ID(0);
+			this.setC_AcctSchema_ID(0);
 		}
 	}
 
@@ -167,9 +177,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_Activity")
 	public void setC_ActivityInput(ForeignEntityInput C_Activity) {
 		this.mC_Activity = C_Activity;
-		MActivity foreignEntity;
 		if (C_Activity != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
 							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -179,7 +189,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
 			}
 		} else {
-			super.setC_Activity_ID(0);
+			this.setC_Activity_ID(0);
 		}
 	}
 
@@ -201,9 +211,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_BPartner")
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		this.mC_BPartner = C_BPartner;
-		MBPartner_BH foreignEntity;
 		if (C_BPartner != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
 							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -213,7 +223,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
 			}
 		} else {
-			super.setC_BPartner_ID(0);
+			this.setC_BPartner_ID(0);
 		}
 	}
 
@@ -235,9 +245,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_Campaign")
 	public void setC_CampaignInput(ForeignEntityInput C_Campaign) {
 		this.mC_Campaign = C_Campaign;
-		MCampaign foreignEntity;
 		if (C_Campaign != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
 							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -247,7 +257,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
 			}
 		} else {
-			super.setC_Campaign_ID(0);
+			this.setC_Campaign_ID(0);
 		}
 	}
 
@@ -269,9 +279,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_CashPlanLine")
 	public void setC_CashPlanLineInput(ForeignEntityInput C_CashPlanLine) {
 		this.mC_CashPlanLine = C_CashPlanLine;
-		MCashPlanLine foreignEntity;
 		if (C_CashPlanLine != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCashPlanLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashPlanLine", "C_CashPlanLine_UU=?", get_TrxName())
 							.setParameters(C_CashPlanLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -281,7 +291,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_CashPlanLine with UUID " + C_CashPlanLine.getUUID());
 			}
 		} else {
-			super.setC_CashPlanLine_ID(0);
+			this.setC_CashPlanLine_ID(0);
 		}
 	}
 
@@ -303,9 +313,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_Charge")
 	public void setC_ChargeInput(ForeignEntityInput C_Charge) {
 		this.mC_Charge = C_Charge;
-		MCharge_BH foreignEntity;
 		if (C_Charge != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
 							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -315,7 +325,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
 			}
 		} else {
-			super.setC_Charge_ID(0);
+			this.setC_Charge_ID(0);
 		}
 	}
 
@@ -337,9 +347,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_ElementValue")
 	public void setC_ElementValueInput(ForeignEntityInput C_ElementValue) {
 		this.mC_ElementValue = C_ElementValue;
-		MElementValue foreignEntity;
 		if (C_ElementValue != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
 							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -349,7 +359,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_ElementValue with UUID " + C_ElementValue.getUUID());
 			}
 		} else {
-			super.setC_ElementValue_ID(0);
+			this.setC_ElementValue_ID(0);
 		}
 	}
 
@@ -371,9 +381,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_Invoice")
 	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
 		this.mC_Invoice = C_Invoice;
-		MInvoice_BH foreignEntity;
 		if (C_Invoice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
 							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -383,7 +393,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
 			}
 		} else {
-			super.setC_Invoice_ID(0);
+			this.setC_Invoice_ID(0);
 		}
 	}
 
@@ -405,9 +415,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_Order")
 	public void setC_OrderInput(ForeignEntityInput C_Order) {
 		this.mC_Order = C_Order;
-		MOrder_BH foreignEntity;
 		if (C_Order != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
 							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -417,7 +427,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
 			}
 		} else {
-			super.setC_Order_ID(0);
+			this.setC_Order_ID(0);
 		}
 	}
 
@@ -439,9 +449,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("C_Project")
 	public void setC_ProjectInput(ForeignEntityInput C_Project) {
 		this.mC_Project = C_Project;
-		MProject foreignEntity;
 		if (C_Project != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
 							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -451,7 +461,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
 			}
 		} else {
-			super.setC_Project_ID(0);
+			this.setC_Project_ID(0);
 		}
 	}
 
@@ -473,9 +483,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("CashFlowSource")
 	public void setCashFlowSourceInput(I_AD_Ref_ListInput CashFlowSource) {
 		this.mCashFlowSource = CashFlowSource;
-		MRefList_BH foreignEntity;
 		if (CashFlowSource != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CashFlowSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -507,9 +517,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("CashFlowType")
 	public void setCashFlowTypeInput(I_AD_Ref_ListInput CashFlowType) {
 		this.mCashFlowType = CashFlowType;
-		MRefList_BH foreignEntity;
 		if (CashFlowType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(CashFlowType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -541,9 +551,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -553,7 +563,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

@@ -48,9 +48,12 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -59,6 +62,8 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -80,9 +85,12 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	@JsonProperty("C_BankAccount")
 	public void setC_BankAccountInput(ForeignEntityInput C_BankAccount) {
 		this.mC_BankAccount = C_BankAccount;
-		MBankAccount_BH foreignEntity;
-		if (get_ID() == 0 && C_BankAccount != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_BankAccount != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
 							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -91,6 +99,8 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 				throw new AdempiereException(
 						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
 			}
+		} else {
+			this.setC_BankAccount_ID(0);
 		}
 	}
 
@@ -130,9 +140,9 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	@JsonProperty("C_Currency")
 	public void setC_CurrencyInput(ForeignEntityInput C_Currency) {
 		this.mC_Currency = C_Currency;
-		MCurrency_BH foreignEntity;
 		if (C_Currency != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
 							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -142,7 +152,7 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
 			}
 		} else {
-			super.setC_Currency_ID(0);
+			this.setC_Currency_ID(0);
 		}
 	}
 
@@ -164,9 +174,12 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 	@JsonProperty("C_PaymentProcessor")
 	public void setC_PaymentProcessorInput(ForeignEntityInput C_PaymentProcessor) {
 		this.mC_PaymentProcessor = C_PaymentProcessor;
-		MPaymentProcessor foreignEntity;
-		if (get_ID() == 0 && C_PaymentProcessor != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_PaymentProcessor != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
 							.setParameters(C_PaymentProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -175,6 +188,8 @@ public class X_C_BankAccount_ProcessorInput extends MBankAccountProcessor implem
 				throw new AdempiereException(
 						"Could not find entity in table C_PaymentProcessor with UUID " + C_PaymentProcessor.getUUID());
 			}
+		} else {
+			this.setC_PaymentProcessor_ID(0);
 		}
 	}
 

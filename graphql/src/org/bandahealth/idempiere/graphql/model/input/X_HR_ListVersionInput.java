@@ -45,9 +45,12 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -56,6 +59,8 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -77,9 +82,12 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	@JsonProperty("HR_List")
 	public void setHR_ListInput(ForeignEntityInput HR_List) {
 		this.mHR_List = HR_List;
-		X_HR_List foreignEntity;
-		if (get_ID() == 0 && HR_List != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (HR_List != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_List foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
 							.setParameters(HR_List.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -88,6 +96,8 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 				throw new AdempiereException(
 						"Could not find entity in table HR_List with UUID " + HR_List.getUUID());
 			}
+		} else {
+			this.setHR_List_ID(0);
 		}
 	}
 
@@ -109,9 +119,9 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	@JsonProperty("HR_ListBase")
 	public void setHR_ListBaseInput(ForeignEntityInput HR_ListBase) {
 		this.mHR_ListBase = HR_ListBase;
-		X_HR_List foreignEntity;
 		if (HR_ListBase != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_HR_List foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
 							.setParameters(HR_ListBase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,7 +131,7 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 						"Could not find entity in table HR_List with UUID " + HR_ListBase.getUUID());
 			}
 		} else {
-			super.setHR_ListBase_ID(0);
+			this.setHR_ListBase_ID(0);
 		}
 	}
 

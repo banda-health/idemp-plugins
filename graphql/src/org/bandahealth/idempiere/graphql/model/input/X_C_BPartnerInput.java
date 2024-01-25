@@ -81,9 +81,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("AD_Language")
 	public void setAD_LanguageInput(ForeignEntityInput AD_Language) {
 		this.mAD_Language = AD_Language;
-		MLanguage foreignEntity;
 		if (AD_Language != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
 							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -93,7 +93,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
 			}
 		} else {
-			super.setAD_Language(null);
+			this.setAD_Language(null);
 		}
 	}
 
@@ -115,9 +115,12 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -126,6 +129,8 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -147,9 +152,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("bh_gender")
 	public void setbh_genderInput(I_AD_Ref_ListInput bh_gender) {
 		this.mbh_gender = bh_gender;
-		MRefList_BH foreignEntity;
 		if (bh_gender != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(bh_gender.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -181,9 +186,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_BP_Group")
 	public void setC_BP_GroupInput(ForeignEntityInput C_BP_Group) {
 		this.mC_BP_Group = C_BP_Group;
-		MBPGroup_BH foreignEntity;
 		if (C_BP_Group != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
 							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -193,7 +198,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
 			}
 		} else {
-			super.setC_BP_Group_ID(0);
+			this.setC_BP_Group_ID(0);
 		}
 	}
 
@@ -244,9 +249,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_Dunning")
 	public void setC_DunningInput(ForeignEntityInput C_Dunning) {
 		this.mC_Dunning = C_Dunning;
-		MDunning foreignEntity;
 		if (C_Dunning != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
 							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -256,7 +261,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
 			}
 		} else {
-			super.setC_Dunning_ID(0);
+			this.setC_Dunning_ID(0);
 		}
 	}
 
@@ -278,9 +283,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_Greeting")
 	public void setC_GreetingInput(ForeignEntityInput C_Greeting) {
 		this.mC_Greeting = C_Greeting;
-		X_C_Greeting foreignEntity;
 		if (C_Greeting != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
 							.setParameters(C_Greeting.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -290,7 +295,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_Greeting with UUID " + C_Greeting.getUUID());
 			}
 		} else {
-			super.setC_Greeting_ID(0);
+			this.setC_Greeting_ID(0);
 		}
 	}
 
@@ -312,9 +317,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_InvoiceSchedule")
 	public void setC_InvoiceScheduleInput(ForeignEntityInput C_InvoiceSchedule) {
 		this.mC_InvoiceSchedule = C_InvoiceSchedule;
-		MInvoiceSchedule foreignEntity;
 		if (C_InvoiceSchedule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MInvoiceSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceSchedule", "C_InvoiceSchedule_UU=?", get_TrxName())
 							.setParameters(C_InvoiceSchedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -324,7 +329,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_InvoiceSchedule with UUID " + C_InvoiceSchedule.getUUID());
 			}
 		} else {
-			super.setC_InvoiceSchedule_ID(0);
+			this.setC_InvoiceSchedule_ID(0);
 		}
 	}
 
@@ -346,9 +351,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_PaymentTerm")
 	public void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm) {
 		this.mC_PaymentTerm = C_PaymentTerm;
-		MPaymentTerm foreignEntity;
 		if (C_PaymentTerm != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -358,7 +363,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
 			}
 		} else {
-			super.setC_PaymentTerm_ID(0);
+			this.setC_PaymentTerm_ID(0);
 		}
 	}
 
@@ -380,9 +385,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("C_TaxGroup")
 	public void setC_TaxGroupInput(ForeignEntityInput C_TaxGroup) {
 		this.mC_TaxGroup = C_TaxGroup;
-		X_C_TaxGroup foreignEntity;
 		if (C_TaxGroup != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_TaxGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxGroup", "C_TaxGroup_UU=?", get_TrxName())
 							.setParameters(C_TaxGroup.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -392,7 +397,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_TaxGroup with UUID " + C_TaxGroup.getUUID());
 			}
 		} else {
-			super.setC_TaxGroup_ID(0);
+			this.setC_TaxGroup_ID(0);
 		}
 	}
 
@@ -414,9 +419,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("Default1099Box")
 	public void setDefault1099BoxInput(ForeignEntityInput Default1099Box) {
 		this.mDefault1099Box = Default1099Box;
-		X_C_1099Box foreignEntity;
 		if (Default1099Box != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_C_1099Box foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_1099Box", "C_1099Box_UU=?", get_TrxName())
 							.setParameters(Default1099Box.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -426,7 +431,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_1099Box with UUID " + Default1099Box.getUUID());
 			}
 		} else {
-			super.setDefault1099Box_ID(0);
+			this.setDefault1099Box_ID(0);
 		}
 	}
 
@@ -448,9 +453,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("DeliveryRule")
 	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
-		MRefList_BH foreignEntity;
 		if (DeliveryRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DeliveryRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -482,9 +487,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("DeliveryViaRule")
 	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
-		MRefList_BH foreignEntity;
 		if (DeliveryViaRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(DeliveryViaRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -516,9 +521,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("FreightCostRule")
 	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
-		MRefList_BH foreignEntity;
 		if (FreightCostRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(FreightCostRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -550,9 +555,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("Invoice_PrintFormat")
 	public void setInvoice_PrintFormatInput(ForeignEntityInput Invoice_PrintFormat) {
 		this.mInvoice_PrintFormat = Invoice_PrintFormat;
-		X_AD_PrintFormat foreignEntity;
 		if (Invoice_PrintFormat != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
 							.setParameters(Invoice_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -562,7 +567,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table AD_PrintFormat with UUID " + Invoice_PrintFormat.getUUID());
 			}
 		} else {
-			super.setInvoice_PrintFormat_ID(0);
+			this.setInvoice_PrintFormat_ID(0);
 		}
 	}
 
@@ -584,9 +589,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("InvoiceRule")
 	public void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
-		MRefList_BH foreignEntity;
 		if (InvoiceRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(InvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -618,9 +623,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("AD_Image")
 	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
 		this.mAD_Image = AD_Image;
-		MImage foreignEntity;
 		if (AD_Image != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
 							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -630,7 +635,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
 			}
 		} else {
-			super.setLogo_ID(0);
+			this.setLogo_ID(0);
 		}
 	}
 
@@ -652,9 +657,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("M_DiscountSchema")
 	public void setM_DiscountSchemaInput(ForeignEntityInput M_DiscountSchema) {
 		this.mM_DiscountSchema = M_DiscountSchema;
-		MDiscountSchema foreignEntity;
 		if (M_DiscountSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -664,7 +669,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
 			}
 		} else {
-			super.setM_DiscountSchema_ID(0);
+			this.setM_DiscountSchema_ID(0);
 		}
 	}
 
@@ -686,9 +691,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("M_PriceList")
 	public void setM_PriceListInput(ForeignEntityInput M_PriceList) {
 		this.mM_PriceList = M_PriceList;
-		MPriceList foreignEntity;
 		if (M_PriceList != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -698,7 +703,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
 			}
 		} else {
-			super.setM_PriceList_ID(0);
+			this.setM_PriceList_ID(0);
 		}
 	}
 
@@ -720,9 +725,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("PaymentRule")
 	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
-		MRefList_BH foreignEntity;
 		if (PaymentRule != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -754,9 +759,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("PaymentRulePO")
 	public void setPaymentRulePOInput(I_AD_Ref_ListInput PaymentRulePO) {
 		this.mPaymentRulePO = PaymentRulePO;
-		MRefList_BH foreignEntity;
 		if (PaymentRulePO != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(PaymentRulePO.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -788,9 +793,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("PO_DiscountSchema")
 	public void setPO_DiscountSchemaInput(ForeignEntityInput PO_DiscountSchema) {
 		this.mPO_DiscountSchema = PO_DiscountSchema;
-		MDiscountSchema foreignEntity;
 		if (PO_DiscountSchema != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
 							.setParameters(PO_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -800,7 +805,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table M_DiscountSchema with UUID " + PO_DiscountSchema.getUUID());
 			}
 		} else {
-			super.setPO_DiscountSchema_ID(0);
+			this.setPO_DiscountSchema_ID(0);
 		}
 	}
 
@@ -822,9 +827,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("PO_PaymentTerm")
 	public void setPO_PaymentTermInput(ForeignEntityInput PO_PaymentTerm) {
 		this.mPO_PaymentTerm = PO_PaymentTerm;
-		MPaymentTerm foreignEntity;
 		if (PO_PaymentTerm != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
 							.setParameters(PO_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -834,7 +839,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table C_PaymentTerm with UUID " + PO_PaymentTerm.getUUID());
 			}
 		} else {
-			super.setPO_PaymentTerm_ID(0);
+			this.setPO_PaymentTerm_ID(0);
 		}
 	}
 
@@ -856,9 +861,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("PO_PriceList")
 	public void setPO_PriceListInput(ForeignEntityInput PO_PriceList) {
 		this.mPO_PriceList = PO_PriceList;
-		MPriceList foreignEntity;
 		if (PO_PriceList != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
 							.setParameters(PO_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -868,7 +873,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table M_PriceList with UUID " + PO_PriceList.getUUID());
 			}
 		} else {
-			super.setPO_PriceList_ID(0);
+			this.setPO_PriceList_ID(0);
 		}
 	}
 
@@ -890,9 +895,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("SalesRep")
 	public void setSalesRepInput(ForeignEntityInput SalesRep) {
 		this.mSalesRep = SalesRep;
-		MUser_BH foreignEntity;
 		if (SalesRep != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
 							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -902,7 +907,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
 			}
 		} else {
-			super.setSalesRep_ID(0);
+			this.setSalesRep_ID(0);
 		}
 	}
 
@@ -935,9 +940,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	@JsonProperty("SOCreditStatus")
 	public void setSOCreditStatusInput(I_AD_Ref_ListInput SOCreditStatus) {
 		this.mSOCreditStatus = SOCreditStatus;
-		MRefList_BH foreignEntity;
 		if (SOCreditStatus != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(SOCreditStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

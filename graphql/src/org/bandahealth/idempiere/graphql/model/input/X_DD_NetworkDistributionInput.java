@@ -44,9 +44,12 @@ public class X_DD_NetworkDistributionInput extends X_DD_NetworkDistribution impl
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_DD_NetworkDistributionInput extends X_DD_NetworkDistribution impl
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -105,9 +110,9 @@ public class X_DD_NetworkDistributionInput extends X_DD_NetworkDistribution impl
 	@JsonProperty("M_ChangeNotice")
 	public void setM_ChangeNoticeInput(ForeignEntityInput M_ChangeNotice) {
 		this.mM_ChangeNotice = M_ChangeNotice;
-		MChangeNotice foreignEntity;
 		if (M_ChangeNotice != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
 							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -117,7 +122,7 @@ public class X_DD_NetworkDistributionInput extends X_DD_NetworkDistribution impl
 						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
 			}
 		} else {
-			super.setM_ChangeNotice_ID(0);
+			this.setM_ChangeNotice_ID(0);
 		}
 	}
 

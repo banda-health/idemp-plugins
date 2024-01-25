@@ -50,9 +50,9 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
 		if (AD_Org != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -62,7 +62,7 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
 		} else {
-			super.setAD_Org_ID(0);
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -84,9 +84,12 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	@JsonProperty("AD_WF_Node")
 	public void setAD_WF_NodeInput(ForeignEntityInput AD_WF_Node) {
 		this.mAD_WF_Node = AD_WF_Node;
-		X_AD_WF_Node foreignEntity;
-		if (get_ID() == 0 && AD_WF_Node != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_WF_Node != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
 							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -95,6 +98,8 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 				throw new AdempiereException(
 						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
 			}
+		} else {
+			this.setAD_WF_Node_ID(0);
 		}
 	}
 
@@ -116,9 +121,9 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	@JsonProperty("ConfigurationLevel")
 	public void setConfigurationLevelInput(I_AD_Ref_ListInput ConfigurationLevel) {
 		this.mConfigurationLevel = ConfigurationLevel;
-		MRefList_BH foreignEntity;
 		if (ConfigurationLevel != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
 							.setParameters(ConfigurationLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -150,9 +155,9 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	@JsonProperty("AD_EntityType")
 	public void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType) {
 		this.mAD_EntityType = AD_EntityType;
-		MEntityType foreignEntity;
 		if (AD_EntityType != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
 							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -162,7 +167,7 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
 			}
 		} else {
-			super.setEntityType(null);
+			this.setEntityType(null);
 		}
 	}
 
@@ -184,9 +189,9 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	@JsonProperty("M_Product")
 	public void setM_ProductInput(ForeignEntityInput M_Product) {
 		this.mM_Product = M_Product;
-		MProduct_BH foreignEntity;
 		if (M_Product != null) {
-			// If an entity was passed, make sure it's there
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
 							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -196,7 +201,7 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
 			}
 		} else {
-			super.setM_Product_ID(0);
+			this.setM_Product_ID(0);
 		}
 	}
 

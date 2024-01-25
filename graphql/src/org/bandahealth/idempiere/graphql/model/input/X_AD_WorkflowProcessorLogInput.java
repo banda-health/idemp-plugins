@@ -44,9 +44,12 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -55,6 +58,8 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -76,9 +81,12 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 	@JsonProperty("AD_WorkflowProcessor")
 	public void setAD_WorkflowProcessorInput(ForeignEntityInput AD_WorkflowProcessor) {
 		this.mAD_WorkflowProcessor = AD_WorkflowProcessor;
-		X_AD_WorkflowProcessor foreignEntity;
-		if (get_ID() == 0 && AD_WorkflowProcessor != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_WorkflowProcessor != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_WorkflowProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WorkflowProcessor", "AD_WorkflowProcessor_UU=?", get_TrxName())
 							.setParameters(AD_WorkflowProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -87,6 +95,8 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 				throw new AdempiereException(
 						"Could not find entity in table AD_WorkflowProcessor with UUID " + AD_WorkflowProcessor.getUUID());
 			}
+		} else {
+			this.setAD_WorkflowProcessor_ID(0);
 		}
 	}
 

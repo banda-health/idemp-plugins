@@ -46,9 +46,12 @@ public class X_T_ReconciliationInput extends X_T_Reconciliation implements I_T_R
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
 		this.mAD_Org = AD_Org;
-		MOrg foreignEntity;
-		if (get_ID() == 0 && AD_Org != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
 							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -57,6 +60,8 @@ public class X_T_ReconciliationInput extends X_T_Reconciliation implements I_T_R
 				throw new AdempiereException(
 						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
 			}
+		} else {
+			this.setAD_Org_ID(0);
 		}
 	}
 
@@ -78,9 +83,12 @@ public class X_T_ReconciliationInput extends X_T_Reconciliation implements I_T_R
 	@JsonProperty("AD_PInstance")
 	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
 		this.mAD_PInstance = AD_PInstance;
-		MPInstance foreignEntity;
-		if (get_ID() == 0 && AD_PInstance != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_PInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
 							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -89,6 +97,8 @@ public class X_T_ReconciliationInput extends X_T_Reconciliation implements I_T_R
 				throw new AdempiereException(
 						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
 			}
+		} else {
+			this.setAD_PInstance_ID(0);
 		}
 	}
 
@@ -110,9 +120,12 @@ public class X_T_ReconciliationInput extends X_T_Reconciliation implements I_T_R
 	@JsonProperty("Fact_Acct")
 	public void setFact_AcctInput(ForeignEntityInput Fact_Acct) {
 		this.mFact_Acct = Fact_Acct;
-		MFactAcct foreignEntity;
-		if (get_ID() == 0 && Fact_Acct != null) {
-			// If an entity was passed, make sure it's there
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Fact_Acct != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MFactAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
 							.setParameters(Fact_Acct.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
@@ -121,6 +134,8 @@ public class X_T_ReconciliationInput extends X_T_Reconciliation implements I_T_R
 				throw new AdempiereException(
 						"Could not find entity in table Fact_Acct with UUID " + Fact_Acct.getUUID());
 			}
+		} else {
+			this.setFact_Acct_ID(0);
 		}
 	}
 
