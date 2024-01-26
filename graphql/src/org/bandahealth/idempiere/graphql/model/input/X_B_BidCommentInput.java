@@ -33,8 +33,7 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 	 */
 	@JsonCreator
 	public X_B_BidCommentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_B_BidComment(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

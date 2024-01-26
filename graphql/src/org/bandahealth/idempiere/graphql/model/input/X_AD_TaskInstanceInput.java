@@ -31,8 +31,7 @@ public class X_AD_TaskInstanceInput extends X_AD_TaskInstance implements I_AD_Ta
 	 */
 	@JsonCreator
 	public X_AD_TaskInstanceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_TaskInstance(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

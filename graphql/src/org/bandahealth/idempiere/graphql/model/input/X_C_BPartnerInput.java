@@ -34,7 +34,6 @@ import java.sql.ResultSet;
  */
 public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput {
 
-	private ForeignEntityInput mAD_Image;
 	private ForeignEntityInput mAD_Language;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BP_Group;
@@ -45,6 +44,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	private ForeignEntityInput mC_TaxGroup;
 	private ForeignEntityInput mDefault1099Box;
 	private ForeignEntityInput mInvoice_PrintFormat;
+	private ForeignEntityInput mLogo;
 	private ForeignEntityInput mM_DiscountSchema;
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mPO_DiscountSchema;
@@ -68,8 +68,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 */
 	@JsonCreator
 	public X_C_BPartnerInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBPartner_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -618,21 +617,21 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	/**
 	 * Set Logo.
 	 *
-	 * @param AD_Image Logo
+	 * @param Logo Logo
 	 */
-	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
-		this.mAD_Image = AD_Image;
-		if (AD_Image != null) {
+	@JsonProperty("Logo")
+	public void setLogoInput(ForeignEntityInput Logo) {
+		this.mLogo = Logo;
+		if (Logo != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Logo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
 				this.setLogo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+						"Could not find entity in table AD_Image with UUID " + Logo.getUUID());
 			}
 		} else {
 			this.setLogo_ID(0);
@@ -644,9 +643,9 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 *
 	 * @return Logo
 	 */
-	@JsonProperty("AD_Image")
-	public ForeignEntityInput AD_Image() {
-		return mAD_Image;
+	@JsonProperty("Logo")
+	public ForeignEntityInput Logo() {
+		return mLogo;
 	}
 
 	/**

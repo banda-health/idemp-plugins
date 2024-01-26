@@ -29,8 +29,7 @@ public class X_PA_ReportColumnSetInput extends MReportColumnSet implements I_PA_
 	 */
 	@JsonCreator
 	public X_PA_ReportColumnSetInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReportColumnSet(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

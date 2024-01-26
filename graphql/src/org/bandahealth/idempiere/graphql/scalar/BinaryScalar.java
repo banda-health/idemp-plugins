@@ -43,7 +43,7 @@ public class BinaryScalar {
 	 * Parse input received from the API caller
 	 *
 	 * @param input The input passed to the API
-	 * @return A Timestamp or an error if the input is unable to be parsed
+	 * @return A byte array or an error if the input is unable to be parsed
 	 */
 	private static byte[] parseInput(Object input) {
 		if (input instanceof String) {

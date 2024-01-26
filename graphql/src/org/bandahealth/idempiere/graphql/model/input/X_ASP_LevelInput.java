@@ -31,8 +31,7 @@ public class X_ASP_LevelInput extends X_ASP_Level implements I_ASP_LevelInput {
 	 */
 	@JsonCreator
 	public X_ASP_LevelInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_Level(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

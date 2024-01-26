@@ -31,8 +31,7 @@ public class X_BH_PaymentRefInput extends MBHPaymentRef implements I_BH_PaymentR
 	 */
 	@JsonCreator
 	public X_BH_PaymentRefInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHPaymentRef(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

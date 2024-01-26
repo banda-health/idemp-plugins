@@ -31,10 +31,8 @@ public class MProcessResolver extends X_AD_ProcessResolver {
 		return dataLoader.load(MMenu_BH.MENUUUID_GREENLIGHT_REPORT_DROPDOWN).thenApply(menus -> {
 			Set<Integer> processIdsFromProcessButtons =
 					menus.stream().map(MMenu_BH::getAD_Process_ID).collect(Collectors.toSet());
-			MRole usersRole =
-					new MRole(BandaGraphQLContext.getCtx(environment),
-							Env.getAD_Role_ID(BandaGraphQLContext.getCtx(environment)),
-							null);
+			MRole usersRole = MRole.get(BandaGraphQLContext.getCtx(environment),
+					Env.getAD_Role_ID(BandaGraphQLContext.getCtx(environment)));
 			return usersRole.getProcessAccess(entity.getAD_Process_ID()) != null &&
 					processIdsFromProcessButtons.contains(entity.getAD_Process_ID());
 		});

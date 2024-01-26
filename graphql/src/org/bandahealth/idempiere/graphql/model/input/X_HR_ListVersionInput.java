@@ -32,8 +32,7 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 	 */
 	@JsonCreator
 	public X_HR_ListVersionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_ListVersion(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

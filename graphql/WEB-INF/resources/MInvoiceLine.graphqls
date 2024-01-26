@@ -1,3 +1,8 @@
 extend type C_InvoiceLine {
 	BH_BP_Specific_Payer_InfoList: [BH_BP_Specific_Payer_Info!]
 }
+
+extend input C_InvoiceLineInput {
+	Qty: BigDecimal
+	Price: BigDecimal
+}

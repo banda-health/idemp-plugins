@@ -27,8 +27,6 @@ public abstract class POMutation {
 	protected PO save(PO entity, DataFetchingEnvironment environment) {
 		Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 		ModelUtil.getTableAndCheckAccess(idempiereProperties, getTableName(), true);
-		// Some methods inside the save use Env.getCtx(), so make sure that's set for this thread...
-		ServerContext.setCurrentInstance(idempiereProperties);
 		// For some reason the context isn't always set during entity initialization, so set some fields correctly
 		if (entity.getAD_Client_ID() == 0) {
 			entity.set_ValueNoCheck("AD_Client_ID", Env.getAD_Client_ID(idempiereProperties));

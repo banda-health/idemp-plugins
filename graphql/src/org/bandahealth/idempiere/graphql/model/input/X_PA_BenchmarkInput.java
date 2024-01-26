@@ -31,8 +31,7 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	 */
 	@JsonCreator
 	public X_PA_BenchmarkInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_PA_Benchmark(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

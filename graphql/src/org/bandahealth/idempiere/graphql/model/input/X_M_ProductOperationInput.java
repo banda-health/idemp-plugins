@@ -31,8 +31,7 @@ public class X_M_ProductOperationInput extends X_M_ProductOperation implements I
 	 */
 	@JsonCreator
 	public X_M_ProductOperationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_ProductOperation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

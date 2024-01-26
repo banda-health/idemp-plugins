@@ -31,8 +31,7 @@ public class X_IMP_ProcessorLogInput extends X_IMP_ProcessorLog implements I_IMP
 	 */
 	@JsonCreator
 	public X_IMP_ProcessorLogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_IMP_ProcessorLog(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -49,8 +49,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 */
 	@JsonCreator
 	public X_PA_DocumentStatusInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDocumentStatus(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

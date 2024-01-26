@@ -33,8 +33,7 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 	 */
 	@JsonCreator
 	public X_GL_FundRestrictionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_GL_FundRestriction(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

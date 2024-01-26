@@ -35,8 +35,7 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	 */
 	@JsonCreator
 	public X_M_OperationResourceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_OperationResource(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

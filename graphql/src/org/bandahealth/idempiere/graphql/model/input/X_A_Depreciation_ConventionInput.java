@@ -29,8 +29,7 @@ public class X_A_Depreciation_ConventionInput extends MDepreciationConvention im
 	 */
 	@JsonCreator
 	public X_A_Depreciation_ConventionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDepreciationConvention(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

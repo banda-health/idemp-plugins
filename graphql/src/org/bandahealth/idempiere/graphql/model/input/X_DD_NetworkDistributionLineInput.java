@@ -36,8 +36,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 	 */
 	@JsonCreator
 	public X_DD_NetworkDistributionLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_DD_NetworkDistributionLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

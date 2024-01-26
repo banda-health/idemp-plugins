@@ -35,8 +35,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 	 */
 	@JsonCreator
 	public X_ASP_TabInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_Tab(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

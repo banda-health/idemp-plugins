@@ -42,8 +42,7 @@ public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_Movem
 	 */
 	@JsonCreator
 	public X_M_MovementLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MMovementLine_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

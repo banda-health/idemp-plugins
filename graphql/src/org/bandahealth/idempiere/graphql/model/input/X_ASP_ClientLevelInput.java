@@ -33,8 +33,7 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 	 */
 	@JsonCreator
 	public X_ASP_ClientLevelInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_ClientLevel(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

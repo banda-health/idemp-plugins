@@ -29,8 +29,7 @@ public class X_M_CostTypeInput extends MCostType implements I_M_CostTypeInput {
 	 */
 	@JsonCreator
 	public X_M_CostTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCostType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

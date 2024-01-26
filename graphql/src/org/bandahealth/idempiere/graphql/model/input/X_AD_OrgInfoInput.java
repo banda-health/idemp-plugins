@@ -27,12 +27,12 @@ import java.sql.ResultSet;
  */
 public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput {
 
-	private ForeignEntityInput mAD_Image;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_OrgType;
 	private ForeignEntityInput mC_Calendar;
 	private ForeignEntityInput mC_Location;
 	private ForeignEntityInput mDropShip_Warehouse;
+	private ForeignEntityInput mLogo;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mSupervisor;
 	private ForeignEntityInput mTransferBank;
@@ -245,21 +245,21 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	/**
 	 * Set Logo.
 	 *
-	 * @param AD_Image Logo
+	 * @param Logo Logo
 	 */
-	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
-		this.mAD_Image = AD_Image;
-		if (AD_Image != null) {
+	@JsonProperty("Logo")
+	public void setLogoInput(ForeignEntityInput Logo) {
+		this.mLogo = Logo;
+		if (Logo != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Logo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
 				this.setLogo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+						"Could not find entity in table AD_Image with UUID " + Logo.getUUID());
 			}
 		} else {
 			this.setLogo_ID(0);
@@ -271,9 +271,9 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	 *
 	 * @return Logo
 	 */
-	@JsonProperty("AD_Image")
-	public ForeignEntityInput AD_Image() {
-		return mAD_Image;
+	@JsonProperty("Logo")
+	public ForeignEntityInput Logo() {
+		return mLogo;
 	}
 
 	/**

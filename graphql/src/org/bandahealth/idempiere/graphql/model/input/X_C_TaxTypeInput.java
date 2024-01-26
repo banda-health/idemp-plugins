@@ -29,8 +29,7 @@ public class X_C_TaxTypeInput extends X_C_TaxType implements I_C_TaxTypeInput {
 	 */
 	@JsonCreator
 	public X_C_TaxTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_TaxType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -35,8 +35,7 @@ public class X_M_DistributionRunLineInput extends MDistributionRunLine implement
 	 */
 	@JsonCreator
 	public X_M_DistributionRunLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDistributionRunLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

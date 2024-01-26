@@ -35,8 +35,7 @@ public class X_R_IssueProjectInput extends MIssueProject implements I_R_IssuePro
 	 */
 	@JsonCreator
 	public X_R_IssueProjectInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MIssueProject(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

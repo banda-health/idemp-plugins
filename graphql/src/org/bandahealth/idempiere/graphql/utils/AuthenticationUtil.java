@@ -34,7 +34,6 @@ public class AuthenticationUtil {
 		// instance
 		DecodedJWT jwt = verifier.verify(token);
 		String userName = jwt.getSubject();
-		ServerContext.setCurrentInstance(new Properties());
 		Env.setContext(context, LOGIN_NAME, userName);
 		Claim claim = jwt.getClaim(LoginClaims.AD_Client_ID.name());
 		int AD_Client_ID = 0;

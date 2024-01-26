@@ -1,32 +1,41 @@
-// import { PdfData } from 'pdfdataextract';
-// import { processApi } from '../../api';
-// import { ProcessInfoParameter } from '../../types/org.bandahealth.idempiere.rest';
-// import { runReport, tomorrow, yesterday } from '../../utils';
+import { PdfData } from 'pdfdataextract';
+import { query } from '../../api';
+import { runReport, tomorrow, yesterday } from '../../utils';
+import { Ad_ProcessGetDocument } from '../../__generated__/graphql';
 
-// const reportUuid = '20a623fb-e127-4c26-98d5-3604a6d100b2';
+const reportUuid = '20a623fb-e127-4c26-98d5-3604a6d100b2';
 
-// test('voided transactions report is runnable', async () => {
-// 	const valueObject = globalThis.__VALUE_OBJECT__;
-// 	await valueObject.login();
+test('voided transactions report is runnable', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
 
-// 	const process = (
-// 		await processApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ ad_process_uu: reportUuid }))
-// 	).results[0];
-// 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
-// 	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
+	const process = (
+		await query(valueObject)({
+			query: Ad_ProcessGetDocument,
+			variables: { size: 1, filter: JSON.stringify({ ad_process_uu: reportUuid }) },
+		})
+	).data.AD_ProcessGet.results[0];
+	const beginDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Begin Date');
+	const endDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'End Date');
 
-// 	expect(beginDateParameter).toBeTruthy();
-// 	expect(endDateParameter).toBeTruthy();
+	expect(beginDateParameter).toBeTruthy();
+	expect(endDateParameter).toBeTruthy();
 
-// 	valueObject.stepName = 'Run report';
-// 	valueObject.processUuid = process.uuid;
-// 	valueObject.processInformationParameters = [
-// 		{ processParameterUuid: beginDateParameter!.uuid, parameter: yesterday().toISOString() } as ProcessInfoParameter,
-// 		{ processParameterUuid: endDateParameter!.uuid, parameter: tomorrow().toISOString() } as ProcessInfoParameter,
-// 	];
-// 	await runReport(valueObject);
+	valueObject.stepName = 'Run report';
+	valueObject.processUuid = process.UUID;
+	valueObject.processInformationParameters = [
+		{
+			AD_Process: { UUID: process.UUID },
+			ParameterName: beginDateParameter!.Name,
+			Parameter: yesterday().toISOString(),
+		},
+		{
+			AD_Process: { UUID: process.UUID },
+			ParameterName: endDateParameter!.Name,
+			Parameter: tomorrow().toISOString(),
+		},
+	];
+	await runReport(valueObject);
 
-// 	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
-// });
-
-export {};
+	expect((await PdfData.extract(valueObject.report!)).text).toBeTruthy();
+});

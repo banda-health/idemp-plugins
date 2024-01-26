@@ -33,8 +33,7 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	 */
 	@JsonCreator
 	public X_BH_ObservationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHObservation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

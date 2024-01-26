@@ -35,8 +35,7 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	 */
 	@JsonCreator
 	public X_HR_PayrollConceptInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_PayrollConcept(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

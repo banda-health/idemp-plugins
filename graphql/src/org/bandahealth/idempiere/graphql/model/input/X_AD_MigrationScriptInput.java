@@ -31,8 +31,7 @@ public class X_AD_MigrationScriptInput extends X_AD_MigrationScript implements I
 	 */
 	@JsonCreator
 	public X_AD_MigrationScriptInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_MigrationScript(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

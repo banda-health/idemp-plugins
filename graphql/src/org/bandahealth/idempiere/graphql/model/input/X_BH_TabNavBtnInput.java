@@ -40,8 +40,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 	 */
 	@JsonCreator
 	public X_BH_TabNavBtnInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MTabNavBtn(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

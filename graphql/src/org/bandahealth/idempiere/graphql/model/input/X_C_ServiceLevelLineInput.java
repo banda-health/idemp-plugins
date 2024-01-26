@@ -33,8 +33,7 @@ public class X_C_ServiceLevelLineInput extends X_C_ServiceLevelLine implements I
 	 */
 	@JsonCreator
 	public X_C_ServiceLevelLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_ServiceLevelLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

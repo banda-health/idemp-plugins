@@ -36,8 +36,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	 */
 	@JsonCreator
 	public X_GL_BudgetControlInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_GL_BudgetControl(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

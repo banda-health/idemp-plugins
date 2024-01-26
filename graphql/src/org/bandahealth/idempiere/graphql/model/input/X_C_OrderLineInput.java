@@ -74,8 +74,7 @@ public class X_C_OrderLineInput extends MOrderLine_BH implements I_C_OrderLineIn
 	 */
 	@JsonCreator
 	public X_C_OrderLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MOrderLine_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

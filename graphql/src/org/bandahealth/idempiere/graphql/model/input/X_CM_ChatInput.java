@@ -36,8 +36,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	 */
 	@JsonCreator
 	public X_CM_ChatInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MChat(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

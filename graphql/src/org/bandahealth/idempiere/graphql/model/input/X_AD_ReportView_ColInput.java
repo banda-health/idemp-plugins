@@ -33,8 +33,7 @@ public class X_AD_ReportView_ColInput extends X_AD_ReportView_Col implements I_A
 	 */
 	@JsonCreator
 	public X_AD_ReportView_ColInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_ReportView_Col(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

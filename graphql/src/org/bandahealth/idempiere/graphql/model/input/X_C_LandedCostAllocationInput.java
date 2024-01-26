@@ -39,8 +39,7 @@ public class X_C_LandedCostAllocationInput extends MLandedCostAllocation impleme
 	 */
 	@JsonCreator
 	public X_C_LandedCostAllocationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MLandedCostAllocation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

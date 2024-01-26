@@ -29,8 +29,7 @@ public class X_R_IssueRecommendationInput extends X_R_IssueRecommendation implem
 	 */
 	@JsonCreator
 	public X_R_IssueRecommendationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_R_IssueRecommendation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

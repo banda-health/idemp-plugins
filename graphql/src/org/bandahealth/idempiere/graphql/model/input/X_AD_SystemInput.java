@@ -33,8 +33,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 */
 	@JsonCreator
 	public X_AD_SystemInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MSystem(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

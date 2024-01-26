@@ -48,8 +48,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 */
 	@JsonCreator
 	public X_A_Asset_DisposedInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAssetDisposed(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

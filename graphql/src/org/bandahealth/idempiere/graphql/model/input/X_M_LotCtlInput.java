@@ -29,8 +29,7 @@ public class X_M_LotCtlInput extends MLotCtl implements I_M_LotCtlInput {
 	 */
 	@JsonCreator
 	public X_M_LotCtlInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MLotCtl(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

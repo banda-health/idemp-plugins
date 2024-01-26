@@ -31,8 +31,7 @@ public class X_C_JobInput extends X_C_Job implements I_C_JobInput {
 	 */
 	@JsonCreator
 	public X_C_JobInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_Job(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

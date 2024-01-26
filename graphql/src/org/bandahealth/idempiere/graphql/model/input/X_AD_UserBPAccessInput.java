@@ -36,8 +36,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	 */
 	@JsonCreator
 	public X_AD_UserBPAccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserBPAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

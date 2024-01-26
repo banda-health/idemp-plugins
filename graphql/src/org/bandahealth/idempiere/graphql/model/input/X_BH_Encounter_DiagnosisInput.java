@@ -33,8 +33,7 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 	 */
 	@JsonCreator
 	public X_BH_Encounter_DiagnosisInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHEncounterDiagnosis(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

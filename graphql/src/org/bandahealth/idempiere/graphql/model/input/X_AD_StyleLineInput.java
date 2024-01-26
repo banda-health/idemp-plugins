@@ -33,8 +33,7 @@ public class X_AD_StyleLineInput extends MStyleLine implements I_AD_StyleLineInp
 	 */
 	@JsonCreator
 	public X_AD_StyleLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MStyleLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

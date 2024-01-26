@@ -33,8 +33,7 @@ public class X_AD_ReplicationStrategyInput extends MReplicationStrategy implemen
 	 */
 	@JsonCreator
 	public X_AD_ReplicationStrategyInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReplicationStrategy(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

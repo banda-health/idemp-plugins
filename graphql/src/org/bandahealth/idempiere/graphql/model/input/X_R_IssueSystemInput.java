@@ -33,8 +33,7 @@ public class X_R_IssueSystemInput extends MIssueSystem implements I_R_IssueSyste
 	 */
 	@JsonCreator
 	public X_R_IssueSystemInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MIssueSystem(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

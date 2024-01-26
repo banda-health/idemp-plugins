@@ -35,8 +35,7 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	 */
 	@JsonCreator
 	public X_AD_ArchiveInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MArchive(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

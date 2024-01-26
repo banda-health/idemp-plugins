@@ -37,8 +37,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 	 */
 	@JsonCreator
 	public X_Fact_ReconciliationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MFactReconciliation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

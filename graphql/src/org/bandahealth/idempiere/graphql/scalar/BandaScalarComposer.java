@@ -16,6 +16,7 @@ public class BandaScalarComposer {
 				BigDecimalScalar.BigDecimal,
 				BinaryScalar.Binary,
 				DateScalar.Date,
+				FileScaler.File,
 				ObjectScalar.Object
 		);
 	}

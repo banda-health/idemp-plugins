@@ -35,8 +35,7 @@ public class X_S_ExpenseTypeInput extends MExpenseType implements I_S_ExpenseTyp
 	 */
 	@JsonCreator
 	public X_S_ExpenseTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MExpenseType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

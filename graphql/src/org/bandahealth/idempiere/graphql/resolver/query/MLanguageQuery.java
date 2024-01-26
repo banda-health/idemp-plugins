@@ -21,6 +21,7 @@ public class MLanguageQuery extends X_AD_LanguageQuery {
 	public Connection<MLanguage> get(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		ServerContext.setCurrentInstance(BandaGraphQLContext.getCtx(environment));
+		Env.setCtx(BandaGraphQLContext.getCtx(environment));
 		List<String> supportedLoginLanguages = Env.getLoginLanguages();
 		String[] availableLanguages = Language.getNames();
 		Set<String> languageNamesOfLanguagesToReturn = new HashSet<>();

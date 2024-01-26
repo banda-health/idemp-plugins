@@ -1,3 +1,25 @@
+query AD_MenuGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	AD_MenuGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			ChildrenMM {
+				Name
+				ChildrenMM {
+					Name
+					AD_Process {
+						UUID
+						Name
+					}
+				}
+				AD_Process {
+					UUID
+					Name
+				}
+				UUID
+			}
+		}
+	}
+}
+
 query AD_OrgInfoGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	AD_OrgInfoGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
@@ -11,7 +33,63 @@ query AD_OrgInfoGet($page: Int, $size: Int, $sort: String, $filter: String) {
 				}
 				UUID
 			}
+			Logo {
+				UUID
+			}
 			UUID
+		}
+	}
+}
+
+query AD_ProcessGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	AD_ProcessGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			AD_Process_ParaList {
+				UUID
+				Name
+			}
+			UUID
+		}
+	}
+}
+
+query AD_Ref_ListGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	AD_Ref_ListGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			Name
+			UUID
+			Value
+		}
+	}
+}
+
+query BH_Coded_DiagnosisGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	BH_Coded_DiagnosisGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			bh_cielname
+			bh_icd10who
+			bh_searchterms
+		}
+	}
+}
+
+query C_AcctSchemaGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_AcctSchemaGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			C_Currency {
+				UUID
+			}
+		}
+	}
+}
+
+query C_BankAccountGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_BankAccountGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
 		}
 	}
 }
@@ -72,6 +150,14 @@ query C_ChargeTypeGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	}
 }
 
+query C_CurrencyGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_CurrencyGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+		}
+	}
+}
+
 query C_DocTypeGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	C_DocTypeGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
@@ -122,6 +208,20 @@ query M_Product_CategoryGet($page: Int, $size: Int, $sort: String, $filter: Stri
 		results {
 			UUID
 			Name
+		}
+	}
+}
+
+query M_WarehouseGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	M_WarehouseGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
+			BH_DefaultWarehouse
+			IsActive
+			M_Locators {
+				UUID
+			}
 		}
 	}
 }

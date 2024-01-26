@@ -29,8 +29,7 @@ public class X_C_ActivityInput extends MActivity implements I_C_ActivityInput {
 	 */
 	@JsonCreator
 	public X_C_ActivityInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MActivity(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

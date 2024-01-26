@@ -55,8 +55,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 */
 	@JsonCreator
 	public X_AD_UserDef_FieldInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserDefField(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

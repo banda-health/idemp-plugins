@@ -35,8 +35,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	 */
 	@JsonCreator
 	public X_M_ShipperLabelsInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MShipperLabels(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -33,8 +33,7 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 	 */
 	@JsonCreator
 	public X_AD_StatusLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MStatusLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

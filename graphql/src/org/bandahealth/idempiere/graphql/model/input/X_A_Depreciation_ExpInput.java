@@ -46,8 +46,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 */
 	@JsonCreator
 	public X_A_Depreciation_ExpInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDepreciationExp(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

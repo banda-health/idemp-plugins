@@ -35,8 +35,7 @@ public class X_S_TrainingInput extends X_S_Training implements I_S_TrainingInput
 	 */
 	@JsonCreator
 	public X_S_TrainingInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_S_Training(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -24,7 +24,7 @@ public class MRoleMutation extends X_AD_RoleMutation {
 				new Query(idempiereContext, MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + "=?", null).setParameters(
 						Env.getAD_Client_ID(idempiereContext)).setOnlyActiveRecords(true).first();
 		//
-		MRole role = new MRole(idempiereContext, savedRole.getAD_Role_ID(), null);
+		MRole role = MRole.get(idempiereContext, savedRole.getAD_Role_ID());
 		if (!role.isOrgAccess(organizationForClient.getAD_Org_ID(), true)) {
 			MRoleOrgAccess roleOrganizationAccess = new Query(idempiereContext, MRoleOrgAccess.Table_Name,
 					MRoleOrgAccess.COLUMNNAME_AD_Role_ID + "=? AND " + MRoleOrgAccess.COLUMNNAME_AD_Org_ID + "=?",

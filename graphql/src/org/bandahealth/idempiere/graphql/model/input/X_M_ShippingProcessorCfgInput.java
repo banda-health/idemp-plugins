@@ -29,8 +29,7 @@ public class X_M_ShippingProcessorCfgInput extends X_M_ShippingProcessorCfg impl
 	 */
 	@JsonCreator
 	public X_M_ShippingProcessorCfgInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_ShippingProcessorCfg(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -31,8 +31,7 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 	 */
 	@JsonCreator
 	public X_IMP_ProcessorParameterInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_IMP_ProcessorParameter(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

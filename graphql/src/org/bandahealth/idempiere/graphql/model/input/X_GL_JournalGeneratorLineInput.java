@@ -38,8 +38,7 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 	 */
 	@JsonCreator
 	public X_GL_JournalGeneratorLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MJournalGeneratorLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

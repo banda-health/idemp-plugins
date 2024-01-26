@@ -88,8 +88,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 */
 	@JsonCreator
 	public X_R_RequestInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRequest(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

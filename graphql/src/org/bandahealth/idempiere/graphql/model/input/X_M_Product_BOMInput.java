@@ -37,8 +37,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	 */
 	@JsonCreator
 	public X_M_Product_BOMInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MProductBOM(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

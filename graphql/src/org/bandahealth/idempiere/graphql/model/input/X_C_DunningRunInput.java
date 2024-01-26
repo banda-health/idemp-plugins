@@ -33,8 +33,7 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 	 */
 	@JsonCreator
 	public X_C_DunningRunInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDunningRun(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

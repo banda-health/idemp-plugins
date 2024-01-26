@@ -52,8 +52,7 @@ public class X_C_ValidCombinationInput extends MAccount implements I_C_ValidComb
 	 */
 	@JsonCreator
 	public X_C_ValidCombinationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAccount(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -39,8 +39,7 @@ public class X_AD_UserQueryInput extends MUserQuery implements I_AD_UserQueryInp
 	 */
 	@JsonCreator
 	public X_AD_UserQueryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserQuery(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -31,8 +31,7 @@ public class X_M_ShipperPackagingCfgInput extends X_M_ShipperPackagingCfg implem
 	 */
 	@JsonCreator
 	public X_M_ShipperPackagingCfgInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_ShipperPackagingCfg(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -1,18 +1,29 @@
 import { v4 } from 'uuid';
 import { mutate, query } from '../api';
-import { documentStatus, ValueObject } from '../models';
+import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
+	Ad_ProcessGetDocument,
+	Ad_ProcessRunAndExportDocument,
+	Ad_Ref_ListGetDocument,
 	Bh_VisitSaveDocument,
+	C_AcctSchemaGetDocument,
+	C_BankAccountGetDocument,
 	C_BPartnerGetDocument,
 	C_BPartnerSaveWithLocationDocument,
 	C_ChargeSaveDocument,
+	C_InvoiceProcessDocument,
+	C_InvoiceSaveWithInvoiceLinesDocument,
 	C_LocationGetDocument,
 	C_OrderProcessDocument,
 	C_OrderSaveWithOrderLinesDocument,
+	C_PaymentProcessDocument,
+	C_PaymentSaveDocument,
 	C_TaxCategoryGetDocument,
 	C_UomGetDefaultDocument,
 	M_ProductSaveDocument,
 	M_Product_CategoryGetDocument,
+	M_WarehouseGetDocument,
+	ReportOutput,
 } from '../__generated__/graphql';
 
 export async function loadRegionAndCountry(valueObject: ValueObject) {
@@ -31,6 +42,15 @@ export async function loadRegionAndCountry(valueObject: ValueObject) {
 	).data.C_LocationGet.results[0];
 	valueObject.region = location.C_Region;
 	valueObject.country = location.C_Country;
+}
+
+export async function loadCurrency(valueObject: ValueObject) {
+	if (valueObject.currency) {
+		return;
+	}
+	valueObject.currency = (
+		await query(valueObject)({ query: C_AcctSchemaGetDocument, variables: { size: 1 } })
+	).data.C_AcctSchemaGet.results[0].C_Currency;
 }
 
 /**
@@ -252,7 +272,6 @@ export async function createOrder(valueObject: ValueObject) {
 			throw new Error('Order not processed');
 		}
 	}
-	// valueObject.visit?.orders?.push(valueObject.order!);
 }
 
 /**
@@ -276,41 +295,52 @@ export async function createInvoice(valueObject: ValueObject) {
 		throw new Error('Order Not Completed');
 	}
 
-	const invoice: Partial<any /*Invoice*/> = {
-		orgUUID: 0,
-		description: valueObject.getStepMessageLong(),
-		businessPartner: valueObject.businessPartner,
-		dateInvoiced: valueObject.date?.toISOString(),
-		invoiceLines: [],
-		documentTypeTarget: valueObject.documentType,
-		isSalesOrderTransaction: valueObject.documentType!.IsSOTrx,
-	};
-	const invoiceLine: Partial<any /*InvoiceLine*/> = {
-		description: valueObject.getStepMessageLong(),
-		quantity: valueObject.quantity || 1,
-	};
-	if (valueObject.product) {
-		invoiceLine.product = valueObject.product;
-	} else if (valueObject.charge) {
-		invoiceLine.charge = valueObject.charge;
+	const invoiceUuid = v4();
+	const savedData = (
+		await mutate(valueObject)({
+			mutation: C_InvoiceSaveWithInvoiceLinesDocument,
+			variables: {
+				C_Invoice: {
+					UUID: invoiceUuid,
+					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					Description: valueObject.getStepMessageLong(),
+					C_BPartner: { UUID: valueObject.businessPartner.UUID },
+					DateInvoiced: valueObject.date?.getTime(),
+					C_DocTypeTarget: { UUID: valueObject.documentType.UUID },
+					IsSOTrx: valueObject.documentType!.IsSOTrx,
+					C_Order: valueObject.order ? { UUID: valueObject.order.UUID } : undefined,
+					BH_Visit: valueObject.visit ? { UUID: valueObject.visit.UUID } : undefined,
+				},
+				C_InvoiceLine: {
+					C_Invoice: { UUID: invoiceUuid },
+					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					Description: valueObject.getStepMessageLong(),
+					M_Product: valueObject.product ? { UUID: valueObject.product.UUID } : undefined,
+					C_Charge: !valueObject.product && valueObject.charge ? { UUID: valueObject.charge.UUID } : undefined,
+					Qty: valueObject.quantity || 1,
+					Price:
+						valueObject.salesStandardPrice || (valueObject.quantity || 1) * (valueObject.product?.BH_SellPrice || 0),
+					C_OrderLine: valueObject.orderLine ? { UUID: valueObject.orderLine.UUID } : undefined,
+				},
+			},
+		})
+	).data;
+
+	valueObject.invoice = savedData?.C_InvoiceSave;
+	valueObject.invoiceLine = savedData?.C_InvoiceLineSave;
+
+	if (valueObject.documentAction) {
+		valueObject.invoice =
+			(
+				await mutate(valueObject)({
+					mutation: C_InvoiceProcessDocument,
+					variables: { uuid: valueObject.invoice!.UUID, documentAction: valueObject.documentAction },
+				})
+			).data?.C_InvoiceProcess || undefined;
+		if (!valueObject.invoice) {
+			throw new Error('Invoice not processed');
+		}
 	}
-	invoiceLine.price =
-		valueObject.salesStandardPrice || (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
-	invoice.invoiceLines?.push(invoiceLine as unknown as any /*InvoiceLine*/);
-
-	// valueObject.invoice = await invoiceApi.save(valueObject, invoice as Invoice);
-	// if (!valueObject.invoice) {
-	// 	throw new Error('Invoice not created');
-	// }
-	valueObject.invoiceLine = valueObject.invoice!.invoiceLines[0];
-
-	// if (valueObject.documentAction) {
-	// 	valueObject.invoice = await invoiceApi.process(valueObject, valueObject.invoice!.uuid, valueObject.documentAction);
-	// 	if (!valueObject.invoice) {
-	// 		throw new Error('Invoice not processed');
-	// 	}
-	// }
-	// valueObject.visit?.invoices?.push(valueObject.invoice!);
 }
 
 /**
@@ -324,30 +354,91 @@ export async function createPayment(valueObject: ValueObject) {
 	if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
 	}
+	await loadCurrency(valueObject);
+	if (!valueObject.currency) {
+		throw new Error('No Currency');
+	}
+	if (!valueObject.bankAccount) {
+		valueObject.bankAccount = (await getBankAccountOfOrganization(valueObject)) || undefined;
 
-	const payment: Partial<any /*Payment*/> = {
-		orgUUID: 0,
-		businessPartner: valueObject.businessPartner,
-		description: valueObject.getStepMessageLong(),
-		payAmount: valueObject.paymentAmount || valueObject.invoice?.grandTotal || valueObject.order?.GrandTotal || 1,
-		paymentType: valueObject.tenderType, // ||
-		// ((await referenceListApi.getByReference(valueObject, referenceUuid.TENDER_TYPES, false)).find(
-		// 	(tenderType) => tenderType.name === tenderTypeName.CASH,
-		// ) as PaymentType),
-		documentType: valueObject.documentType,
-	};
-	// valueObject.payment = await paymentApi.save(valueObject, payment as Payment);
-	// if (!valueObject.payment) {
-	// 	throw new Error('Payment not created');
-	// }
+		if (!valueObject.bankAccount) {
+			valueObject.errorMessage += 'No Bank Account for Org';
+			return;
+		}
+	}
+	let tenderAmount = valueObject.paymentAmount;
+	let paymentTotal = tenderAmount;
+	if (valueObject.invoice) {
+		if (valueObject.paymentAmount !== undefined) {
+			tenderAmount = valueObject.paymentAmount;
+			paymentTotal = tenderAmount > valueObject.invoice.GrandTotal ? valueObject.invoice.GrandTotal : tenderAmount;
+		} else {
+			tenderAmount = valueObject.invoice.GrandTotal;
+			paymentTotal = tenderAmount;
+		}
+	} else if (valueObject.order) {
+		if (valueObject.paymentAmount !== undefined) {
+			tenderAmount = valueObject.paymentAmount;
+			paymentTotal = tenderAmount > valueObject.order.GrandTotal ? valueObject.order.GrandTotal : tenderAmount;
+		} else {
+			tenderAmount = valueObject.order.GrandTotal;
+			paymentTotal = tenderAmount;
+		}
+	}
 
-	// if (valueObject.documentAction) {
-	// 	valueObject.payment = await paymentApi.process(valueObject, valueObject.payment!.uuid, valueObject.documentAction);
-	// 	if (!valueObject.payment) {
-	// 		throw new Error('Payment not processed');
-	// 	}
-	// }
-	// valueObject.visit?.payments?.push(valueObject.payment!);
+	valueObject.payment = (
+		await mutate(valueObject)({
+			mutation: C_PaymentSaveDocument,
+			variables: {
+				entity: {
+					AD_Org: { UUID: valueObject.organization!.UUID },
+					C_BPartner: { UUID: valueObject.businessPartner.UUID },
+					Description: valueObject.getStepMessageLong(),
+					PayAmt: paymentTotal || 1,
+					BH_tender_amount: tenderAmount || 1,
+					TenderType: {
+						UUID: (
+							valueObject.tenderType ||
+							(
+								await query(valueObject)({
+									query: Ad_Ref_ListGetDocument,
+									variables: {
+										size: 1,
+										filter: JSON.stringify({
+											ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
+											name: tenderTypeName.CASH,
+										}),
+									},
+								})
+							).data.AD_Ref_ListGet.results[0]
+						)?.UUID,
+					},
+					C_DocType: valueObject.documentType ? { UUID: valueObject.documentType.UUID } : undefined,
+					BH_Visit: valueObject.visit ? { UUID: valueObject.visit.UUID } : undefined,
+					C_BankAccount: { UUID: valueObject.bankAccount.UUID },
+					C_Invoice: valueObject.invoice ? { UUID: valueObject.invoice.UUID } : undefined,
+					C_Order: !valueObject.invoice && valueObject.order ? { UUID: valueObject.order.UUID } : undefined,
+					C_Currency: {
+						UUID:
+							valueObject.invoice?.C_Currency.UUID || valueObject.order?.C_Currency.UUID || valueObject.currency.UUID,
+					},
+				},
+			},
+		})
+	).data?.C_PaymentSave;
+
+	if (valueObject.documentAction) {
+		valueObject.payment =
+			(
+				await mutate(valueObject)({
+					mutation: C_PaymentProcessDocument,
+					variables: { uuid: valueObject.payment!.UUID, documentAction: valueObject.documentAction },
+				})
+			).data?.C_PaymentProcess || undefined;
+		if (!valueObject.payment) {
+			throw new Error('Payment not processed');
+		}
+	}
 }
 
 /**
@@ -386,13 +477,13 @@ export async function getDefaultTaxCategory(valueObject: ValueObject) {
  * @returns Nothing
  */
 export async function changeWarehouse(valueObject: ValueObject) {
-	// const differentWarehouse = (await warehouseApi.get(valueObject)).results.find(
-	// 	(warehouse) => warehouse.uuid !== valueObject.warehouse?.uuid,
-	// );
-	// valueObject.warehouse = differentWarehouse || valueObject.warehouse;
-	// if (!valueObject.warehouse) {
-	// 	throw new Error('Warehouse not switched');
-	// }
+	const differentWarehouse = (
+		await query(valueObject)({ query: M_WarehouseGetDocument })
+	).data.M_WarehouseGet.results.find((warehouse) => warehouse.UUID !== valueObject.warehouse?.UUID);
+	valueObject.warehouse = differentWarehouse || valueObject.warehouse;
+	if (!valueObject.warehouse || !differentWarehouse) {
+		throw new Error('Warehouse not switched');
+	}
 }
 
 /**
@@ -485,32 +576,30 @@ export async function runReport(valueObject: ValueObject) {
 		return;
 	}
 
-	// const process = await processApi.getByUuid(valueObject, valueObject.processUuid!);
+	const process = (
+		await query(valueObject)({
+			query: Ad_ProcessGetDocument,
+			variables: { size: 1, filter: JSON.stringify({ ad_process_uu: valueObject.processUuid }) },
+		})
+	).data.AD_ProcessGet.results[0];
 
-	// // Create a process info instance. This is a composite class containing the parameters.
-	// valueObject.reportType ||= 'pdf';
+	// Create a process info instance. This is a composite class containing the parameters.
+	valueObject.reportType ||= ReportOutput.Pdf;
 
-	// // Map parameter names to their actual parameters
-	// if (valueObject.processInformationParameters!.length) {
-	// 	valueObject.processInformationParameters = valueObject.processInformationParameters!.map(
-	// 		(processInformationParameter) => {
-	// 			const specifiedParameter = process.parameters.find(
-	// 				(parameter) =>
-	// 					processInformationParameter.uuid === parameter.uuid ||
-	// 					processInformationParameter.parameterName === parameter.name,
-	// 			);
-	// 			if (specifiedParameter) {
-	// 				return {
-	// 					...processInformationParameter,
-	// 					processParameterUuUUID: specifiedParameter.uuid,
-	// 				} as ProcessInfoParameter;
-	// 			}
-	// 			return processInformationParameter;
-	// 		},
-	// 	);
-	// }
-
-	// valueObject.report = Buffer.from(await processApi.runAndExport(valueObject));
+	const reportString = (
+		await mutate(valueObject)({
+			mutation: Ad_ProcessRunAndExportDocument,
+			variables: {
+				UUID: valueObject.processUuid!,
+				ProcessInfoParameterList: valueObject.processInformationParameters,
+				ReportType: valueObject.reportType,
+			},
+		})
+	).data?.AD_ProcessRunAndExport;
+	if (!reportString || !reportString.includes(',')) {
+		throw Error(`report didn't run`);
+	}
+	valueObject.report = Buffer.from(reportString.split(',')[1], 'base64');
 }
 
 /**
@@ -519,6 +608,7 @@ export async function runReport(valueObject: ValueObject) {
  * @param valueObject The value object used to store all information
  */
 export async function createInventory(valueObject: ValueObject) {
+	throw new Error('method not updated to work with graphql');
 	valueObject.validate();
 
 	// perform further validation if needed based on business logic
@@ -533,21 +623,21 @@ export async function createInventory(valueObject: ValueObject) {
 		description: valueObject.getStepMessageLong(),
 		warehouse: valueObject.warehouse,
 	} as any; /*Inventory*/
-	const inventoryLine = {
-		orgUUID: 0,
-		description: valueObject.getStepMessageLong(),
-		product: valueObject.product,
-		attributeSetInstance: valueObject.attributeSetInstance,
-		locator: valueObject.warehouse.M_Locators?.[0],
-		quantityCount: valueObject.quantity || 1,
-		line: 10,
-	}; // as InventoryLine;
-	inventory.inventoryLines = [inventoryLine];
+	// const inventoryLine = {
+	// 	orgUUID: 0,
+	// 	description: valueObject.getStepMessageLong(),
+	// 	product: valueObject.product,
+	// 	attributeSetInstance: valueObject.attributeSetInstance,
+	// 	locator: valueObject.warehouse.M_Locators?.[0],
+	// 	quantityCount: valueObject.quantity || 1,
+	// 	line: 10,
+	// }; // as InventoryLine;
+	// inventory.inventoryLines = [inventoryLine];
 	// valueObject.inventory = await inventoryApi.save(valueObject, inventory);
 	// if (!valueObject.inventory) {
 	// 	throw new Error('Inventory not created');
 	// }
-	valueObject.inventoryLine = valueObject.inventory!.inventoryLines[0];
+	// valueObject.inventoryLine = valueObject.inventory!.inventoryLines[0];
 
 	// if (valueObject.documentAction) {
 	// 	valueObject.inventory = await inventoryApi.process(
@@ -559,4 +649,21 @@ export async function createInventory(valueObject: ValueObject) {
 	// 		throw new Error('Inventory not processed');
 	// 	}
 	// }
+}
+
+export async function getBankAccountOfOrganization(valueObject: ValueObject) {
+	valueObject.validate();
+	if (valueObject.isError) {
+		return null;
+	}
+
+	return (
+		await query(valueObject)({
+			query: C_BankAccountGetDocument,
+			variables: {
+				size: 1,
+				filter: JSON.stringify({ ad_org: { ad_org_uu: valueObject.organization?.UUID }, isactive: true }),
+			},
+		})
+	).data.C_BankAccountGet.results[0];
 }

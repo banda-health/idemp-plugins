@@ -44,8 +44,7 @@ public class X_I_InventoryInput extends X_I_Inventory implements I_I_InventoryIn
 	 */
 	@JsonCreator
 	public X_I_InventoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_I_Inventory(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

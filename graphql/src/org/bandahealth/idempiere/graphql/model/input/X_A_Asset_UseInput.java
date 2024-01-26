@@ -31,8 +31,7 @@ public class X_A_Asset_UseInput extends MAssetUse implements I_A_Asset_UseInput 
 	 */
 	@JsonCreator
 	public X_A_Asset_UseInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAssetUse(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

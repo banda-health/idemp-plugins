@@ -56,8 +56,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	 */
 	@JsonCreator
 	public X_M_CostDetailInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCostDetail(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

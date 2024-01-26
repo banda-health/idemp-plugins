@@ -33,8 +33,7 @@ public class X_AD_AlertRuleInput extends MAlertRule implements I_AD_AlertRuleInp
 	 */
 	@JsonCreator
 	public X_AD_AlertRuleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAlertRule(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

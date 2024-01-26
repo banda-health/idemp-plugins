@@ -31,8 +31,7 @@ public class X_AD_OrgTypeInput extends X_AD_OrgType implements I_AD_OrgTypeInput
 	 */
 	@JsonCreator
 	public X_AD_OrgTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_OrgType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

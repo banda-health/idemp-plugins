@@ -29,8 +29,7 @@ public class X_PA_SLA_CriteriaInput extends MSLACriteria implements I_PA_SLA_Cri
 	 */
 	@JsonCreator
 	public X_PA_SLA_CriteriaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MSLACriteria(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -41,8 +41,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	 */
 	@JsonCreator
 	public X_AD_UserDef_Proc_ParameterInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserDefProcParameter(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -49,8 +49,7 @@ public class X_AD_WorkflowInput extends X_AD_Workflow implements I_AD_WorkflowIn
 	 */
 	@JsonCreator
 	public X_AD_WorkflowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Workflow(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

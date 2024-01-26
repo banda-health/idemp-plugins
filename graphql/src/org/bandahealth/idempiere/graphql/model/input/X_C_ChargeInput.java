@@ -37,8 +37,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 */
 	@JsonCreator
 	public X_C_ChargeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCharge_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

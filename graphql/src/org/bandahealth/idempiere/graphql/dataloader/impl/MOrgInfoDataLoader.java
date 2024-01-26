@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.bandahealth.idempiere.graphql.utils.QueryUtil;
+import org.compiere.util.Env;
 import org.dataloader.MappedBatchLoaderWithContext;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class MOrgInfoDataLoader extends X_AD_OrgInfoDataLoader {
 			List<Object> parameters = new ArrayList<>();
 			String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(keys, parameters);
 			ServerContext.setCurrentInstance(batchLoaderEnvironment.getContext());
+			Env.setCtx(batchLoaderEnvironment.getContext());
 			List<MOrgInfo_BH> models =
 					Repository.getQuery(batchLoaderEnvironment.getContext(), MOrgInfo_BH.Table_Name, null, true, false,
 							MOrgInfo_BH.Table_Name + "." + MOrgInfo_BH.COLUMNNAME_AD_Org_ID + " IN (" + whereCondition + ")",

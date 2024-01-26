@@ -29,8 +29,7 @@ public class X_M_PartTypeInput extends X_M_PartType implements I_M_PartTypeInput
 	 */
 	@JsonCreator
 	public X_M_PartTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_PartType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

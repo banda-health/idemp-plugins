@@ -29,8 +29,7 @@ public class X_M_SerNoCtlInput extends MSerNoCtl_BH implements I_M_SerNoCtlInput
 	 */
 	@JsonCreator
 	public X_M_SerNoCtlInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MSerNoCtl_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

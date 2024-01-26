@@ -35,8 +35,7 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 	 */
 	@JsonCreator
 	public X_R_RequestProcessor_RouteInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRequestProcessorRoute(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -31,8 +31,7 @@ public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault
 	 */
 	@JsonCreator
 	public X_BH_Product_CategoryDefaultInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHProductCategoryDefault(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -32,8 +32,7 @@ public class X_A_Asset_Info_OthInput extends X_A_Asset_Info_Oth implements I_A_A
 	 */
 	@JsonCreator
 	public X_A_Asset_Info_OthInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_Asset_Info_Oth(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

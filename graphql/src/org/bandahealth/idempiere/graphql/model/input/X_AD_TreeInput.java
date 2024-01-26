@@ -35,8 +35,7 @@ public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 	 */
 	@JsonCreator
 	public X_AD_TreeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MTree_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

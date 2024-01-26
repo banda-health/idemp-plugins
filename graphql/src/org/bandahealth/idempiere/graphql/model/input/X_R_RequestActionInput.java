@@ -75,8 +75,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 */
 	@JsonCreator
 	public X_R_RequestActionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRequestAction(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

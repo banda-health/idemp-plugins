@@ -35,8 +35,7 @@ public class X_ASP_WorkflowInput extends X_ASP_Workflow implements I_ASP_Workflo
 	 */
 	@JsonCreator
 	public X_ASP_WorkflowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_Workflow(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

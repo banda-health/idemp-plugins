@@ -31,8 +31,7 @@ public class X_DD_NetworkDistributionInput extends X_DD_NetworkDistribution impl
 	 */
 	@JsonCreator
 	public X_DD_NetworkDistributionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_DD_NetworkDistribution(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

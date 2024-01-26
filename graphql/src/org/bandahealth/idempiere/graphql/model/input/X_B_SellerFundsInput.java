@@ -35,8 +35,7 @@ public class X_B_SellerFundsInput extends X_B_SellerFunds implements I_B_SellerF
 	 */
 	@JsonCreator
 	public X_B_SellerFundsInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_B_SellerFunds(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -35,8 +35,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 	 */
 	@JsonCreator
 	public X_WS_WebServiceTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_WS_WebServiceType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -77,8 +77,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 */
 	@JsonCreator
 	public X_Fact_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MFactAcct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

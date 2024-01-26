@@ -44,8 +44,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 */
 	@JsonCreator
 	public X_PA_MeasureInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MMeasure(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

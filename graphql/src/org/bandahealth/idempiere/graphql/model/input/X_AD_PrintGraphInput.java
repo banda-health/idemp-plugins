@@ -40,8 +40,7 @@ public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintG
 	 */
 	@JsonCreator
 	public X_AD_PrintGraphInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_PrintGraph(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

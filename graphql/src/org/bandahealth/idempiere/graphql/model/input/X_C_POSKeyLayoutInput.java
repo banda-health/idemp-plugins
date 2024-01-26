@@ -35,8 +35,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 */
 	@JsonCreator
 	public X_C_POSKeyLayoutInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPOSKeyLayout(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

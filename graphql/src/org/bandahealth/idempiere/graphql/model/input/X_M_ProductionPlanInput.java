@@ -35,8 +35,7 @@ public class X_M_ProductionPlanInput extends MProductionPlan implements I_M_Prod
 	 */
 	@JsonCreator
 	public X_M_ProductionPlanInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MProductionPlan(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

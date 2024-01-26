@@ -37,8 +37,7 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 */
 	@JsonCreator
 	public X_C_LocationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MLocation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -426,18 +426,18 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	I_AD_Ref_ListInput InvoiceRule();
 
 	/**
-	 * Set AD_Image.
+	 * Set Logo.
 	 *
-	 * @param AD_Image AD_Image
+	 * @param Logo Logo
 	 */
-	void setAD_ImageInput(ForeignEntityInput AD_Image);
+	void setLogoInput(ForeignEntityInput Logo);
 
 	/**
-	 * Get AD_Image.
+	 * Get Logo.
 	 *
-	 * @return AD_Image
+	 * @return Logo
 	 */
-	ForeignEntityInput AD_Image();
+	ForeignEntityInput Logo();
 
 	/**
 	 * Set M_DiscountSchema.

@@ -37,8 +37,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 */
 	@JsonCreator
 	public X_AD_BroadcastMessageInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_BroadcastMessage(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

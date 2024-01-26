@@ -3,10 +3,10 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MReplicationLog_BH;
+import org.bandahealth.idempiere.base.model.MReplicationRun_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MReplicationLog;
-import org.compiere.model.MReplicationRun;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_ReplicationTable;
 import org.compiere.util.Env;
@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_Replication_LogInput {
+public class X_AD_Replication_LogInput extends MReplicationLog_BH implements I_AD_Replication_LogInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_ReplicationTable;
@@ -33,8 +33,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	 */
 	@JsonCreator
 	public X_AD_Replication_LogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReplicationLog(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -117,7 +116,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 		}
 		if (AD_Replication_Run != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MReplicationRun foreignEntity;
+			MReplicationRun_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Replication_Run", "AD_Replication_Run_UU=?", get_TrxName())
 							.setParameters(AD_Replication_Run.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {

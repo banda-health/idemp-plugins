@@ -35,8 +35,7 @@ public class X_AD_WF_Node_ParaInput extends X_AD_WF_Node_Para implements I_AD_WF
 	 */
 	@JsonCreator
 	public X_AD_WF_Node_ParaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_WF_Node_Para(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

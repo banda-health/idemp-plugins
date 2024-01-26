@@ -45,8 +45,7 @@ public class X_PP_Product_PlanningInput extends MPPProductPlanning implements I_
 	 */
 	@JsonCreator
 	public X_PP_Product_PlanningInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPPProductPlanning(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

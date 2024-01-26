@@ -53,8 +53,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 */
 	@JsonCreator
 	public X_PP_Order_WorkflowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_PP_Order_Workflow(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

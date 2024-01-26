@@ -33,8 +33,7 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 */
 	@JsonCreator
 	public X_A_Asset_Info_TaxInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_Asset_Info_Tax(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -54,8 +54,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 */
 	@JsonCreator
 	public X_U_POSTerminalInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPOSTerminal(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

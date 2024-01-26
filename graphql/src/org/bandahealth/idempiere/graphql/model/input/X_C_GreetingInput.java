@@ -29,8 +29,7 @@ public class X_C_GreetingInput extends X_C_Greeting implements I_C_GreetingInput
 	 */
 	@JsonCreator
 	public X_C_GreetingInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_Greeting(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

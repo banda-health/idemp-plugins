@@ -31,8 +31,7 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 	 */
 	@JsonCreator
 	public X_AD_LabelPrinterFunctionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_LabelPrinterFunction(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

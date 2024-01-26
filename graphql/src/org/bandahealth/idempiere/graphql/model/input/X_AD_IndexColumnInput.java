@@ -35,8 +35,7 @@ public class X_AD_IndexColumnInput extends MIndexColumn implements I_AD_IndexCol
 	 */
 	@JsonCreator
 	public X_AD_IndexColumnInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MIndexColumn(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

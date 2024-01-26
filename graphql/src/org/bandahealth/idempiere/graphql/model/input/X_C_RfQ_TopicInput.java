@@ -31,8 +31,7 @@ public class X_C_RfQ_TopicInput extends MRfQTopic implements I_C_RfQ_TopicInput 
 	 */
 	@JsonCreator
 	public X_C_RfQ_TopicInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRfQTopic(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

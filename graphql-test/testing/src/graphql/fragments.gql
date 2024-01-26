@@ -49,10 +49,31 @@ fragment C_LocationFields on C_Location {
 	UUID
 }
 
-fragment C_OrderFields on C_Order {
+fragment C_InvoiceFields on C_Invoice {
+	C_Currency {
+		UUID
+	}
 	DocStatus {
 		Value
 	}
 	GrandTotal
+	UUID
+}
+
+fragment C_OrderFields on C_Order {
+	C_Currency {
+		UUID
+	}
+	DocStatus {
+		Value
+	}
+	GrandTotal
+	UUID
+}
+
+fragment C_PaymentFields on C_Payment {
+	DocStatus {
+		Value
+	}
 	UUID
 }

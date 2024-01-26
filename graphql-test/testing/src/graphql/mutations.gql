@@ -1,3 +1,24 @@
+mutation LogoAndAD_OrgInfoSave($logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInput!) {
+	AD_ImageSave(entity: $logo) {
+		UUID
+	}
+	AD_OrgInfoSave(entity: $AD_OrgInfo) {
+		UUID
+	}
+}
+
+mutation AD_ProcessRun($UUID: ID!, $ProcessInfoParameterList: [ProcessInfoParameterInput!]) {
+	AD_ProcessRun(UUID: $UUID, ProcessInfoParameterList: $ProcessInfoParameterList)
+}
+
+mutation AD_ProcessRunAndExport(
+	$UUID: ID!
+	$ProcessInfoParameterList: [ProcessInfoParameterInput!]
+	$ReportType: ReportOutput!
+) {
+	AD_ProcessRunAndExport(UUID: $UUID, ProcessInfoParameterList: $ProcessInfoParameterList, ReportType: $ReportType)
+}
+
 mutation BH_VisitProcess($uuid: String!, $documentAction: String!) {
 	BH_VisitProcess(uuid: $uuid, documentAction: $documentAction) {
 		...BH_VisitFields
@@ -80,6 +101,21 @@ mutation C_LocationUpdateWithBPartner(
 	}
 }
 
+mutation C_InvoiceSaveWithInvoiceLines($C_Invoice: C_InvoiceInput!, $C_InvoiceLine: C_InvoiceLineInput!) {
+	C_InvoiceSave(entity: $C_Invoice) {
+		...C_InvoiceFields
+	}
+	C_InvoiceLineSave(entity: $C_InvoiceLine) {
+		UUID
+	}
+}
+
+mutation C_InvoiceProcess($uuid: String!, $documentAction: String!) {
+	C_InvoiceProcess(uuid: $uuid, documentAction: $documentAction) {
+		...C_InvoiceFields
+	}
+}
+
 mutation C_OrderLineSave($entity: C_OrderLineInput!) {
 	C_OrderLineSave(entity: $entity) {
 		UUID
@@ -107,8 +143,56 @@ mutation C_OrderSaveWithOrderLines($C_Order: C_OrderInput!, $C_OrderLine: C_Orde
 	}
 }
 
-mutation C_ValidCombinationGetOrCreate($AD_Org_UU: String, $C_AcctSchema_UU: String, $Account_UU: String, $C_SubAcct_UU: String, $M_Product_UU: String, $C_BPartner_UU: String, $AD_OrgTrx_UU: String, $C_LocFrom_UU: String, $C_LocTo_UU: String, $C_SalesRegion_UU: String, $C_Project_UU: String, $C_Campaign_UU: String, $C_Activity_UU: String, $User1_UU: String, $User2_UU: String, $UserElement1_UU: String, $UserElement2_UU: String) {
-	C_ValidCombinationGetOrCreate(AD_Org_UU: $AD_Org_UU, C_AcctSchema_UU: $C_AcctSchema_UU, Account_UU: $Account_UU, C_SubAcct_UU: $C_SubAcct_UU, M_Product_UU: $M_Product_UU, C_BPartner_UU: $C_BPartner_UU, AD_OrgTrx_UU: $AD_OrgTrx_UU, C_LocFrom_UU: $C_LocFrom_UU, C_LocTo_UU: $C_LocTo_UU, C_SalesRegion_UU: $C_SalesRegion_UU, C_Project_UU: $C_Project_UU, C_Campaign_UU: $C_Campaign_UU, C_Activity_UU: $C_Activity_UU, User1_UU: $User1_UU, User2_UU: $User2_UU, UserElement1_UU: $UserElement1_UU, UserElement2_UU: $UserElement2_UU) {
+mutation C_PaymentProcess($uuid: String!, $documentAction: String!) {
+	C_PaymentProcess(uuid: $uuid, documentAction: $documentAction) {
+		...C_PaymentFields
+	}
+}
+
+mutation C_PaymentSave($entity: C_PaymentInput!) {
+	C_PaymentSave(entity: $entity) {
+		...C_PaymentFields
+	}
+}
+
+mutation C_ValidCombinationGetOrCreate(
+	$AD_Org_UU: String
+	$C_AcctSchema_UU: String
+	$Account_UU: String
+	$C_SubAcct_UU: String
+	$M_Product_UU: String
+	$C_BPartner_UU: String
+	$AD_OrgTrx_UU: String
+	$C_LocFrom_UU: String
+	$C_LocTo_UU: String
+	$C_SalesRegion_UU: String
+	$C_Project_UU: String
+	$C_Campaign_UU: String
+	$C_Activity_UU: String
+	$User1_UU: String
+	$User2_UU: String
+	$UserElement1_UU: String
+	$UserElement2_UU: String
+) {
+	C_ValidCombinationGetOrCreate(
+		AD_Org_UU: $AD_Org_UU
+		C_AcctSchema_UU: $C_AcctSchema_UU
+		Account_UU: $Account_UU
+		C_SubAcct_UU: $C_SubAcct_UU
+		M_Product_UU: $M_Product_UU
+		C_BPartner_UU: $C_BPartner_UU
+		AD_OrgTrx_UU: $AD_OrgTrx_UU
+		C_LocFrom_UU: $C_LocFrom_UU
+		C_LocTo_UU: $C_LocTo_UU
+		C_SalesRegion_UU: $C_SalesRegion_UU
+		C_Project_UU: $C_Project_UU
+		C_Campaign_UU: $C_Campaign_UU
+		C_Activity_UU: $C_Activity_UU
+		User1_UU: $User1_UU
+		User2_UU: $User2_UU
+		UserElement1_UU: $UserElement1_UU
+		UserElement2_UU: $UserElement2_UU
+	) {
 		UUID
 	}
 }

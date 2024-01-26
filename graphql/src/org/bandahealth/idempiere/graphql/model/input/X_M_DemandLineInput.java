@@ -35,8 +35,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	 */
 	@JsonCreator
 	public X_M_DemandLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_DemandLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

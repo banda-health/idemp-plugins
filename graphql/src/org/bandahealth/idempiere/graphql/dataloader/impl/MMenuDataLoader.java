@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.graphql.dataloader.impl;
 import org.bandahealth.idempiere.base.model.MMenu_BH;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MRole;
 import org.compiere.model.X_AD_TreeNodeMM;
+import org.compiere.util.Env;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
 import org.dataloader.MappedBatchLoaderWithContext;
@@ -11,6 +13,7 @@ import org.dataloader.MappedBatchLoaderWithContext;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -42,9 +45,22 @@ public class MMenuDataLoader extends X_AD_MenuDataLoader {
 							.collect(Collectors.toSet());
 			Map<Integer, MMenu_BH> childMenusById =
 					Repository.getByIds(batchLoaderEnvironment.getContext(), MMenu_BH.Table_Name, null, childrenIds);
+			//
+			// TODO: Pull this logic from elsewhere, such as the MProcessDataLoader or MWindowDataLoader
+			// Filter out menus that the user doesn't have access to based on window or process access
+			MRole usersRole =
+					MRole.get(batchLoaderEnvironment.getContext(), Env.getAD_Role_ID(batchLoaderEnvironment.getContext()));
+			Map<Integer, MMenu_BH> finalChildMenusById = childMenusById.entrySet().stream().filter(entry ->
+							(entry.getValue().getAD_Window_ID() == 0 ||
+									usersRole.getWindowAccess(entry.getValue().getAD_Window_ID()) != null) &&
+									(entry.getValue().getAD_Process_ID() == 0 ||
+											usersRole.getProcessAccess(entry.getValue().getAD_Process_ID()) != null))
+					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 			return mainMenuChildrenNodesByParentId.entrySet().stream().collect(
 					Collectors.toMap(entry -> ModelUtil.getModelKey(modelName, entry.getKey()),
-							entry -> entry.getValue().stream().map(treeNodeMM -> childMenusById.get(treeNodeMM.getNode_ID()))
+							entry -> entry.getValue().stream()
+									.map(treeNodeMM -> finalChildMenusById.getOrDefault(treeNodeMM.getNode_ID(), null))
+									.filter(Objects::nonNull)
 									.collect(Collectors.toList())));
 		});
 	}

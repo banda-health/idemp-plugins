@@ -33,8 +33,7 @@ public class X_AD_Ref_ListInput extends MRefList_BH implements I_AD_Ref_ListInpu
 	 */
 	@JsonCreator
 	public X_AD_Ref_ListInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRefList_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

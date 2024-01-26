@@ -35,8 +35,7 @@ public class X_HR_ContractInput extends X_HR_Contract implements I_HR_ContractIn
 	 */
 	@JsonCreator
 	public X_HR_ContractInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_Contract(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

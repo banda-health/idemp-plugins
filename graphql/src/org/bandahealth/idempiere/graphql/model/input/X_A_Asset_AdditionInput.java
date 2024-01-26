@@ -65,8 +65,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 */
 	@JsonCreator
 	public X_A_Asset_AdditionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAssetAddition(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

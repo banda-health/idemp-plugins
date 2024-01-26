@@ -47,8 +47,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	 */
 	@JsonCreator
 	public X_M_RMAInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRMA(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

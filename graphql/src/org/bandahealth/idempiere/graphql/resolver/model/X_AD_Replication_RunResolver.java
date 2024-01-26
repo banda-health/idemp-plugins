@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MReplicationRun_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReplicationDataLoader;
 import org.compiere.model.MReplication;
-import org.compiere.model.MReplicationRun;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_Replication_RunResolver extends POResolver<MReplicationRun> implements GraphQLResolver<MReplicationRun> {
+public class X_AD_Replication_RunResolver extends POResolver<MReplicationRun_BH> implements GraphQLResolver<MReplicationRun_BH> {
 
 
 
@@ -24,7 +24,7 @@ public class X_AD_Replication_RunResolver extends POResolver<MReplicationRun> im
 	 *
 	 * @return Data Replication Target
 	 */
-	public CompletableFuture<MReplication> AD_Replication(MReplicationRun entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReplication> AD_Replication(MReplicationRun_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Replication_ID() <= 0) {
 			return null;
 		}
@@ -33,7 +33,7 @@ public class X_AD_Replication_RunResolver extends POResolver<MReplicationRun> im
 		return dataLoader.load(entity.getAD_Replication_ID());
 	}
 
-	public Boolean IsReplicated(MReplicationRun entity, DataFetchingEnvironment environment) {
+	public Boolean IsReplicated(MReplicationRun_BH entity, DataFetchingEnvironment environment) {
 		return entity.isReplicated();
 	}
 

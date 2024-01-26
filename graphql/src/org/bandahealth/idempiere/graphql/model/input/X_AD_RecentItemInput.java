@@ -39,8 +39,7 @@ public class X_AD_RecentItemInput extends MRecentItem implements I_AD_RecentItem
 	 */
 	@JsonCreator
 	public X_AD_RecentItemInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRecentItem(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

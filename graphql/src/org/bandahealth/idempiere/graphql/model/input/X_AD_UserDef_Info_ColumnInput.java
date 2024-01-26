@@ -47,8 +47,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 */
 	@JsonCreator
 	public X_AD_UserDef_Info_ColumnInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserDefInfoColumn(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

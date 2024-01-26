@@ -41,8 +41,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 */
 	@JsonCreator
 	public X_PA_GoalRestrictionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MGoalRestriction(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -29,8 +29,7 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 	 */
 	@JsonCreator
 	public X_BH_Voided_ReasonInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHVoidedReason(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

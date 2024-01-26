@@ -41,8 +41,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	 */
 	@JsonCreator
 	public X_HR_Concept_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_Concept_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -26,12 +26,12 @@ import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MBankAccount_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MFieldGroup;
 import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
@@ -53,6 +53,8 @@ import org.bandahealth.idempiere.base.model.MProductPrice_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.base.model.MReplicationLog_BH;
+import org.bandahealth.idempiere.base.model.MReplicationRun_BH;
 import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.base.model.MSysConfig_BH;
@@ -174,6 +176,12 @@ public class BHModelFactory implements IModelFactory {
 			return MBHEncounter.class;
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return MBHObservation.class;
+		} else if (tableName.equalsIgnoreCase(MBankAccount_BH.Table_Name)) {
+			return MBankAccount_BH.class;
+		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
+			return MReplicationRun_BH.class;
+		} else if (tableName.equalsIgnoreCase(MReplicationLog_BH.Table_Name)) {
+			return MReplicationLog_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
 			return MProductPO_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
@@ -301,6 +309,12 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBankAccount_BH.Table_Name)) {
+			return new MBankAccount_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
+			return new MReplicationRun_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MReplicationLog_BH.Table_Name)) {
+			return new MReplicationLog_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
 			return new MProductPO_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
@@ -430,6 +444,12 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBankAccount_BH.Table_Name)) {
+			return new MBankAccount_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
+			return new MReplicationRun_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MReplicationLog_BH.Table_Name)) {
+			return new MReplicationLog_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
 			return new MProductPO_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {

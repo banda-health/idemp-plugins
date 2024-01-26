@@ -45,8 +45,7 @@ public class X_I_BPartnerInput extends X_I_BPartner implements I_I_BPartnerInput
 	 */
 	@JsonCreator
 	public X_I_BPartnerInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_I_BPartner(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

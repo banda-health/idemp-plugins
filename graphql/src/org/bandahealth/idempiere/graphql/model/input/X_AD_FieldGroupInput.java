@@ -33,8 +33,7 @@ public class X_AD_FieldGroupInput extends MFieldGroup_BH implements I_AD_FieldGr
 	 */
 	@JsonCreator
 	public X_AD_FieldGroupInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MFieldGroup_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

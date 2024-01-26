@@ -38,8 +38,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	 */
 	@JsonCreator
 	public X_AD_ChangeLogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MChangeLog(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

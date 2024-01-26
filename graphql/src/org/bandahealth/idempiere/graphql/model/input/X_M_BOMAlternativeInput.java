@@ -31,8 +31,7 @@ public class X_M_BOMAlternativeInput extends X_M_BOMAlternative implements I_M_B
 	 */
 	@JsonCreator
 	public X_M_BOMAlternativeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_BOMAlternative(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

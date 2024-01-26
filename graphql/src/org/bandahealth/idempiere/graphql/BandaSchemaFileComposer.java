@@ -209,7 +209,7 @@ public class BandaSchemaFileComposer {
 						"WEB-INF/resources/MInventory.graphqls",
 //						"WEB-INF/resources/MInventoryLine.graphqls",
 //						"WEB-INF/resources/MInventoryLineMA.graphqls",
-//						"WEB-INF/resources/MInvoice.graphqls",
+						"WEB-INF/resources/MInvoice.graphqls",
 //						"WEB-INF/resources/MInvoiceBatch.graphqls",
 //						"WEB-INF/resources/MInvoiceBatchLine.graphqls",
 						"WEB-INF/resources/MInvoiceLine.graphqls",

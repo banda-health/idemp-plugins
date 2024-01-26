@@ -11,7 +11,9 @@ import org.dataloader.DataLoader;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MRoleResolver extends X_AD_RoleResolver {
@@ -33,6 +35,7 @@ public class MRoleResolver extends X_AD_RoleResolver {
 		List<Integer> roleIds = allUserRoles.stream().map(MRole::getAD_Role_ID).collect(Collectors.toList());
 		return dataLoader.loadMany(
 				roleIds.stream().map(roleId -> ModelUtil.getModelKey(entity, roleId)).collect(Collectors.toList())).thenApply(
-				windowAccessLists -> windowAccessLists.stream().flatMap(Collection::stream).collect(Collectors.toList()));
+				windowAccessLists -> windowAccessLists.stream().filter(Objects::nonNull).flatMap(Collection::stream)
+						.filter(Objects::nonNull).collect(Collectors.toList()));
 	}
 }

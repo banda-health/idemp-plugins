@@ -43,8 +43,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 */
 	@JsonCreator
 	public X_HR_ConceptInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_Concept(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

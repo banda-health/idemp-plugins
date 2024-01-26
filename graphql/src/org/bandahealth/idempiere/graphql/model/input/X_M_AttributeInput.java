@@ -38,8 +38,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	 */
 	@JsonCreator
 	public X_M_AttributeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAttribute(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

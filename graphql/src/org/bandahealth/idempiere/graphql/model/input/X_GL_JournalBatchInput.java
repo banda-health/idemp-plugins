@@ -43,8 +43,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 */
 	@JsonCreator
 	public X_GL_JournalBatchInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MJournalBatch(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

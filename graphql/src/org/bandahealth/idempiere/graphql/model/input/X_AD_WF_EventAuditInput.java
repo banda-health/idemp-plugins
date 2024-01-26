@@ -42,8 +42,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	 */
 	@JsonCreator
 	public X_AD_WF_EventAuditInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_WF_EventAudit(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

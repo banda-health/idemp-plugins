@@ -49,8 +49,7 @@ public class X_PA_ReportSourceInput extends MReportSource implements I_PA_Report
 	 */
 	@JsonCreator
 	public X_PA_ReportSourceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReportSource(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

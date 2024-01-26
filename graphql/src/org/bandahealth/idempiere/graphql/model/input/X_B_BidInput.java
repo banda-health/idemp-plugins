@@ -35,8 +35,7 @@ public class X_B_BidInput extends X_B_Bid implements I_B_BidInput {
 	 */
 	@JsonCreator
 	public X_B_BidInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_B_Bid(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

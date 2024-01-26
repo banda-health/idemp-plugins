@@ -23,7 +23,7 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -35,29 +35,30 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MProcessMutation extends X_AD_ProcessMutation {
-	public String AD_ProcessRun(String ID, List<ProcessInfoParameterInput> ProcessInfoParameterList,
+	public String AD_ProcessRun(String UUID, List<ProcessInfoParameterInput> ProcessInfoParameterList,
 			DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(ID)) {
+		if (StringUtil.isNullOrEmpty(UUID)) {
 			log.severe("Process not specified");
 			return null;
 		}
 		if (ProcessInfoParameterList == null) {
 			ProcessInfoParameterList = new ArrayList<>();
 		}
-		MProcess process = Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MProcess_BH.Table_Name, null, ID);
+		MProcess process =
+				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MProcess_BH.Table_Name, null, UUID);
 		return run(process, ProcessInfoParameterList);
 	}
 
-	public byte[] AD_ProcessRunAndExport(String ID, List<ProcessInfoParameterInput> ProcessInfoParameterList,
-			ReportOutput reportType, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(ID)) {
-			log.severe("Report not specified");
-			return null;
+	public File AD_ProcessRunAndExport(String UUID, List<ProcessInfoParameterInput> ProcessInfoParameterList,
+			ReportOutput reportType, DataFetchingEnvironment environment) throws IOException {
+		if (StringUtil.isNullOrEmpty(UUID)) {
+			throw new AdempiereException("Could not find report");
 		}
 		if (ProcessInfoParameterList == null) {
 			ProcessInfoParameterList = new ArrayList<>();
 		}
-		MProcess process = Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MProcess_BH.Table_Name, null, ID);
+		MProcess process =
+				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MProcess_BH.Table_Name, null, UUID);
 		if (process == null) {
 			throw new AdempiereException("Could not find report");
 		}
@@ -89,17 +90,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			throw new AdempiereException("Could not generate report " + process.getName());
 		}
 
-		if (processInfo.getExportFile() != null) {
-			byte[] byteArray = new byte[(int) processInfo.getExportFile().length()];
-			try (FileInputStream inputStream = new FileInputStream(processInfo.getExportFile())) {
-				int ignored = inputStream.read(byteArray);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			return byteArray;
-		}
-
-		return null;
+		return processInfo.getExportFile();
 	}
 
 	/**
@@ -149,23 +140,22 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			List<ProcessInfoParameterInput> processInformationParameterInputList) {
 		// Let's process the parameters (really, we only need to convert dates if they're dates)
 		// First, batch DB requests so we can avoid many queries
-		Map<String, MProcessPara> processParametersByUuidMap =
+		Map<String, MProcessPara> processParametersByName =
 				Repository.getGroupsByIds(process.getCtx(), MProcessParaInput.Table_Name, process.get_TrxName(),
 								MProcessPara::getAD_Process_ID, MProcessPara.COLUMNNAME_AD_Process_ID,
 								new HashSet<>(Collections.singletonList(process.get_ID())))
 						.getOrDefault(process.get_ID(), new ArrayList<>()).stream()
-						.collect(Collectors.toMap(MProcessPara::getAD_Process_Para_UU, processParameter -> processParameter));
+						.collect(Collectors.toMap(MProcessPara::getName, processParameter -> processParameter));
 		Map<Integer, MReference_BH> referencesByIdMap =
 				Repository.getByIds(process.getCtx(), MReference_BH.Table_Name, process.get_TrxName(),
-						processParametersByUuidMap.values().stream().map(MProcessPara::getAD_Reference_ID)
+						processParametersByName.values().stream().map(MProcessPara::getAD_Reference_ID)
 								.collect(Collectors.toSet()));
 
 		List<ProcessInfoParameter> processInformationParameters = new ArrayList<>();
 		// Now, cycle through and process each parameter passed in
 		processInformationParameterInputList.forEach(processInfoParameterInput -> {
 			// Get the process parameter
-			MProcessPara processParameter =
-					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getUUID());
+			MProcessPara processParameter = processParametersByName.get(processInfoParameterInput.getParameterName());
 
 			// Get the reference to help determine what type of parameter this is
 			MReference referenceForParameter = referencesByIdMap.get(processParameter.getAD_Reference_ID());
@@ -200,7 +190,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 
 			// Create a new process info parameter with the name fetched from MProcessParam
 			processInformationParameters.add(new ProcessInfoParameter(
-					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getUUID()).getName(),
+					processParameter.getName(),
 					parameter,
 					processInfoParameterInput.getParameter_To(),
 					processInfoParameterInput.getInfo(),
@@ -209,7 +199,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			// Also add a parameter matching the column name so either can be used
 			// TODO: migrate all parameters to do this in the future
 			processInformationParameters.add(new ProcessInfoParameter(
-					processParametersByUuidMap.get(processInfoParameterInput.getAD_Process().getUUID()).getColumnName(),
+					processParameter.getColumnName(),
 					parameter,
 					processInfoParameterInput.getParameter_To(),
 					processInfoParameterInput.getInfo(),

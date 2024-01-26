@@ -29,8 +29,7 @@ public class X_M_LocatorTypeInput extends MLocatorType implements I_M_LocatorTyp
 	 */
 	@JsonCreator
 	public X_M_LocatorTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MLocatorType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

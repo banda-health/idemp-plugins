@@ -37,8 +37,7 @@ public class X_AD_ToolBarButtonInput extends MToolBarButton implements I_AD_Tool
 	 */
 	@JsonCreator
 	public X_AD_ToolBarButtonInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MToolBarButton(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MReplicationLog;
+import org.bandahealth.idempiere.base.model.MReplicationLog_BH;
 
 /**
  * Data Loader for AD_Replication_Log - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MReplicationLog;
  * @author Banda Health (generated)
  * @version Release 8.2 - $Id$
  */
-public class X_AD_Replication_LogDataLoader extends PODataLoader<MReplicationLog> {
+public class X_AD_Replication_LogDataLoader extends PODataLoader<MReplicationLog_BH> {
 	public static String DATALOADER_AD_Replication_Log_BY_ID = "AD_Replication_LogByIdDataLoader";
 	public static String DATALOADER_AD_Replication_Log_BY_UUID = "AD_Replication_LogByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MReplicationLog.Table_Name;
+		return MReplicationLog_BH.Table_Name;
 	}
 
 	@Override

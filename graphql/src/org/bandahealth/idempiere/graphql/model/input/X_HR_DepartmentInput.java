@@ -31,8 +31,7 @@ public class X_HR_DepartmentInput extends X_HR_Department implements I_HR_Depart
 	 */
 	@JsonCreator
 	public X_HR_DepartmentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_Department(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -1,8 +1,8 @@
-extend type C_Invoice {
+extend type Mutation {
 	C_InvoiceProcess(uuid: String!, documentAction: String!): C_Invoice
 }
 
 extend type C_Invoice {
 	C_AllocationLines: [C_AllocationLine!]
-	M_InvoiceLines: [M_InventoryLine!]
+	C_InvoiceLines: [C_InvoiceLine!]
 }

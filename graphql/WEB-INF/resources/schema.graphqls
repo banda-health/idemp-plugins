@@ -4,6 +4,7 @@ directive @fixed on INPUT_FIELD_DEFINITION
 scalar Object
 scalar Date
 scalar Binary
+scalar File
 scalar BigDecimal
 
 # Define the root query type that can be extended in any files that want to add a query

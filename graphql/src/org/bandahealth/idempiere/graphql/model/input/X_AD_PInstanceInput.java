@@ -39,8 +39,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	 */
 	@JsonCreator
 	public X_AD_PInstanceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPInstance(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

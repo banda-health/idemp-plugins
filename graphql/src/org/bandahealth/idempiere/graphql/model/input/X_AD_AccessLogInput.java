@@ -33,8 +33,7 @@ public class X_AD_AccessLogInput extends MAccessLog implements I_AD_AccessLogInp
 	 */
 	@JsonCreator
 	public X_AD_AccessLogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAccessLog(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

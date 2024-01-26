@@ -277,18 +277,18 @@ public interface I_AD_ClientInfoInput extends I_AD_ClientInfo {
 	ForeignEntityInput C_UOM_Weight();
 
 	/**
-	 * Set AD_Image.
+	 * Set Logo.
 	 *
-	 * @param AD_Image AD_Image
+	 * @param Logo Logo
 	 */
-	void setAD_ImageInput(ForeignEntityInput AD_Image);
+	void setLogoInput(ForeignEntityInput Logo);
 
 	/**
-	 * Get AD_Image.
+	 * Get Logo.
 	 *
-	 * @return AD_Image
+	 * @return Logo
 	 */
-	ForeignEntityInput AD_Image();
+	ForeignEntityInput Logo();
 
 	/**
 	 * Set M_ProductFreight.

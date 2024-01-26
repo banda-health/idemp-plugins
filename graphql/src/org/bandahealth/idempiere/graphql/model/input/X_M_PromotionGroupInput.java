@@ -29,8 +29,7 @@ public class X_M_PromotionGroupInput extends X_M_PromotionGroup implements I_M_P
 	 */
 	@JsonCreator
 	public X_M_PromotionGroupInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_PromotionGroup(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -31,8 +31,7 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	 */
 	@JsonCreator
 	public X_C_SubscriptionTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_SubscriptionType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

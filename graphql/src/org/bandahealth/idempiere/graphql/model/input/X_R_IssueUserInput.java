@@ -31,8 +31,7 @@ public class X_R_IssueUserInput extends MIssueUser implements I_R_IssueUserInput
 	 */
 	@JsonCreator
 	public X_R_IssueUserInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MIssueUser(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

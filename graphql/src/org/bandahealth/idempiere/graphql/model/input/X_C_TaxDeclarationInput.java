@@ -29,8 +29,7 @@ public class X_C_TaxDeclarationInput extends MTaxDeclaration implements I_C_TaxD
 	 */
 	@JsonCreator
 	public X_C_TaxDeclarationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MTaxDeclaration(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

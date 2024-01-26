@@ -43,8 +43,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 */
 	@JsonCreator
 	public X_C_OpportunityInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MOpportunity(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

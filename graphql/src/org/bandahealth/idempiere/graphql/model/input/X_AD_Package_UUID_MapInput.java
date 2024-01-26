@@ -31,8 +31,7 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	 */
 	@JsonCreator
 	public X_AD_Package_UUID_MapInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Package_UUID_Map(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

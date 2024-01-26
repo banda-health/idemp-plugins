@@ -33,8 +33,7 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 	 */
 	@JsonCreator
 	public X_BH_BP_Specific_Payer_InfoInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHBPSpecificPayerInfo(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -33,8 +33,7 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 	 */
 	@JsonCreator
 	public X_C_PayScheduleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPaySchedule(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

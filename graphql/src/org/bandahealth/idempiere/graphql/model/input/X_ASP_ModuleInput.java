@@ -29,8 +29,7 @@ public class X_ASP_ModuleInput extends X_ASP_Module implements I_ASP_ModuleInput
 	 */
 	@JsonCreator
 	public X_ASP_ModuleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_Module(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

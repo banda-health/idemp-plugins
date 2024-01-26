@@ -39,8 +39,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	 */
 	@JsonCreator
 	public X_I_ElementValueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_I_ElementValue(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

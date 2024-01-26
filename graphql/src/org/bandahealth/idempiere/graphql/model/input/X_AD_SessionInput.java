@@ -31,8 +31,7 @@ public class X_AD_SessionInput extends MSession implements I_AD_SessionInput {
 	 */
 	@JsonCreator
 	public X_AD_SessionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MSession(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -29,8 +29,7 @@ public class X_M_ChangeNoticeInput extends MChangeNotice implements I_M_ChangeNo
 	 */
 	@JsonCreator
 	public X_M_ChangeNoticeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MChangeNotice(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

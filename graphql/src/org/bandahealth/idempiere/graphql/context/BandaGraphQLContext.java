@@ -38,6 +38,8 @@ public class BandaGraphQLContext implements GraphQLServletContext {
 
 	/**
 	 * A shortcut method to get the needed context. This is needed because Env.getCtx() isn't thread-safe.
+	 * It also returns a copy of the context passed in so that one thread doesn't pollute another thread if it needs
+	 * to modify the context in some way.
 	 *
 	 * @param environment The data fetching environment object passed to all GraphQL queries
 	 * @return The iDempiere context

@@ -31,8 +31,7 @@ public class X_PA_ReportCubeInput extends MReportCube implements I_PA_ReportCube
 	 */
 	@JsonCreator
 	public X_PA_ReportCubeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReportCube(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

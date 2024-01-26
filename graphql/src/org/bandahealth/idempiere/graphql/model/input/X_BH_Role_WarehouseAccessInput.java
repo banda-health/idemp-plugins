@@ -32,8 +32,7 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 	 */
 	@JsonCreator
 	public X_BH_Role_WarehouseAccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHRoleWarehouseAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

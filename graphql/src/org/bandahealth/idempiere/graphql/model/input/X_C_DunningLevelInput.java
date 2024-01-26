@@ -37,8 +37,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 */
 	@JsonCreator
 	public X_C_DunningLevelInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDunningLevel(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

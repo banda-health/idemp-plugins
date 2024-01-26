@@ -33,8 +33,7 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 	 */
 	@JsonCreator
 	public X_M_PromotionLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_PromotionLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

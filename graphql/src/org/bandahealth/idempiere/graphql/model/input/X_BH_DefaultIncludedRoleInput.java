@@ -33,8 +33,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 	 */
 	@JsonCreator
 	public X_BH_DefaultIncludedRoleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBHDefaultIncludedRole(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

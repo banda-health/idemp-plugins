@@ -32,8 +32,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 */
 	@JsonCreator
 	public X_A_Asset_Reval_IndexInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_Asset_Reval_Index(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

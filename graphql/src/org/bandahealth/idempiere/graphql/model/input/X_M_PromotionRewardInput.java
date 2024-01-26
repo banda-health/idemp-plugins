@@ -39,8 +39,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	 */
 	@JsonCreator
 	public X_M_PromotionRewardInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_PromotionReward(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

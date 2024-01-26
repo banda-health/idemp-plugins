@@ -34,8 +34,7 @@ public class X_A_Depreciation_ForecastInput extends X_A_Depreciation_Forecast im
 	 */
 	@JsonCreator
 	public X_A_Depreciation_ForecastInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_Depreciation_Forecast(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

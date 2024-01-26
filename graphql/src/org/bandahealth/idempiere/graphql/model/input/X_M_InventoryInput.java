@@ -54,8 +54,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 */
 	@JsonCreator
 	public X_M_InventoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MInventory_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

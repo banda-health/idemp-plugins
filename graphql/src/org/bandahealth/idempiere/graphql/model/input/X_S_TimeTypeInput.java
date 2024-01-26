@@ -29,8 +29,7 @@ public class X_S_TimeTypeInput extends X_S_TimeType implements I_S_TimeTypeInput
 	 */
 	@JsonCreator
 	public X_S_TimeTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_S_TimeType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

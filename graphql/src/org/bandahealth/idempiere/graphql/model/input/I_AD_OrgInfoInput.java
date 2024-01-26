@@ -171,18 +171,18 @@ public interface I_AD_OrgInfoInput extends I_AD_OrgInfo {
 	ForeignEntityInput DropShip_Warehouse();
 
 	/**
-	 * Set AD_Image.
+	 * Set Logo.
 	 *
-	 * @param AD_Image AD_Image
+	 * @param Logo Logo
 	 */
-	void setAD_ImageInput(ForeignEntityInput AD_Image);
+	void setLogoInput(ForeignEntityInput Logo);
 
 	/**
-	 * Get AD_Image.
+	 * Get Logo.
 	 *
-	 * @return AD_Image
+	 * @return Logo
 	 */
-	ForeignEntityInput AD_Image();
+	ForeignEntityInput Logo();
 
 	/**
 	 * Set M_Warehouse.

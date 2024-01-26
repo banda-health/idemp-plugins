@@ -33,8 +33,7 @@ public class X_WS_WebService_ParaInput extends X_WS_WebService_Para implements I
 	 */
 	@JsonCreator
 	public X_WS_WebService_ParaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_WS_WebService_Para(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -38,8 +38,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 */
 	@JsonCreator
 	public X_AD_ClientInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MClient_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

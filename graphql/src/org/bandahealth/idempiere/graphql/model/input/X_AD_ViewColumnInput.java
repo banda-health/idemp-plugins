@@ -35,8 +35,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 	 */
 	@JsonCreator
 	public X_AD_ViewColumnInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MViewColumn(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

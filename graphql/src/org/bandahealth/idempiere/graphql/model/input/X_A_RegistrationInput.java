@@ -38,8 +38,7 @@ public class X_A_RegistrationInput extends MRegistration implements I_A_Registra
 	 */
 	@JsonCreator
 	public X_A_RegistrationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRegistration(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

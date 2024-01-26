@@ -36,8 +36,7 @@ public class X_WS_WebServiceFieldInputInput extends X_WS_WebServiceFieldInput im
 	 */
 	@JsonCreator
 	public X_WS_WebServiceFieldInputInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_WS_WebServiceFieldInput(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

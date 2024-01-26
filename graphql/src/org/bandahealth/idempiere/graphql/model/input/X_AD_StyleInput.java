@@ -31,8 +31,7 @@ public class X_AD_StyleInput extends MStyle implements I_AD_StyleInput {
 	 */
 	@JsonCreator
 	public X_AD_StyleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MStyle(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -31,8 +31,7 @@ public class X_AD_CtxHelpInput extends MCtxHelp implements I_AD_CtxHelpInput {
 	 */
 	@JsonCreator
 	public X_AD_CtxHelpInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCtxHelp(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

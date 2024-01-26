@@ -33,8 +33,7 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 	 */
 	@JsonCreator
 	public X_AD_ClientShareInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MClientShare(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

@@ -35,8 +35,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	 */
 	@JsonCreator
 	public X_ASP_FormInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_ASP_Form(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

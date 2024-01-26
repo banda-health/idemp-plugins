@@ -32,8 +32,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	 */
 	@JsonCreator
 	public X_C_CommissionRunInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCommissionRun(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

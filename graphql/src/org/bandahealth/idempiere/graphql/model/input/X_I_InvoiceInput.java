@@ -68,8 +68,7 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	 */
 	@JsonCreator
 	public X_I_InvoiceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_I_Invoice(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -39,8 +39,7 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 	 */
 	@JsonCreator
 	public X_M_InOutConfirmInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MInOutConfirm(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

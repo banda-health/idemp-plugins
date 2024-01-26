@@ -40,8 +40,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 */
 	@JsonCreator
 	public X_AD_RoleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Role(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

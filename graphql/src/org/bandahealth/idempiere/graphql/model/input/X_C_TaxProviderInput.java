@@ -31,8 +31,7 @@ public class X_C_TaxProviderInput extends MTaxProvider implements I_C_TaxProvide
 	 */
 	@JsonCreator
 	public X_C_TaxProviderInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MTaxProvider(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

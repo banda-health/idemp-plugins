@@ -43,8 +43,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	 */
 	@JsonCreator
 	public X_AD_FieldSuggestionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MFieldSuggestion(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

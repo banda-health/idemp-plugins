@@ -37,7 +37,7 @@ public class BigDecimalScalar {
 	 * Parse input received from the API caller
 	 *
 	 * @param input The input passed to the API
-	 * @return A Timestamp or an error if the input is unable to be parsed
+	 * @return A BigDecimal or an error if the input is unable to be parsed
 	 */
 	private static BigDecimal parseInput(Object input) {
 		if (input instanceof Integer || input instanceof Long || input instanceof Float || input instanceof Double || input instanceof BigDecimal) {

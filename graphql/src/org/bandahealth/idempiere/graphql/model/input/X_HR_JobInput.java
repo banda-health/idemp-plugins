@@ -34,8 +34,7 @@ public class X_HR_JobInput extends X_HR_Job implements I_HR_JobInput {
 	 */
 	@JsonCreator
 	public X_HR_JobInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_HR_Job(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

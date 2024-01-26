@@ -29,8 +29,7 @@ public class X_U_Web_PropertiesInput extends MWebProperties implements I_U_Web_P
 	 */
 	@JsonCreator
 	public X_U_Web_PropertiesInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MWebProperties(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

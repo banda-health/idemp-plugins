@@ -31,8 +31,7 @@ public class X_C_BankInput extends MBank implements I_C_BankInput {
 	 */
 	@JsonCreator
 	public X_C_BankInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBank(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

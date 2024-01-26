@@ -12,6 +12,7 @@ import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.bandahealth.idempiere.graphql.utils.SortUtil;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.util.Env;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,7 +79,7 @@ public class Repository {
 			List<Object> parameters = new ArrayList<>();
 			String whereClause =
 					FilterUtil.getWhereClauseFromFilter(tableName, filter, parameters, idempiereContext);
-			ServerContext.setCurrentInstance(idempiereContext);
+			setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 			Query query =
 					getQuery(idempiereContext, tableName, transactionName, true, false, whereClause, parameters);
 
@@ -167,7 +168,7 @@ public class Repository {
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = tableName + "." + columnToSearch;
 		}
-		ServerContext.setCurrentInstance(idempiereContext);
+		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		List<T> models = getQuery(idempiereContext, tableName, transactionName, true, false,
 				columnToSearch + " IN (" + whereCondition + ")", parameters).list();
 		return models.stream().collect(Collectors.groupingBy(groupingFunction));
@@ -184,8 +185,10 @@ public class Repository {
 	 */
 	public static <T extends PO> T getById(Properties idempiereContext, String tableName, String transactionName,
 			int id) {
-		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
-		ServerContext.setCurrentInstance(idempiereContext);
+		if (isApplyAccessFilterNeeded.get()) {
+			ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
+		}
+		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		return getQuery(idempiereContext, tableName, transactionName, true, false, tableName + "." + tableName + "_ID=?",
 				id).first();
 	}
@@ -201,13 +204,15 @@ public class Repository {
 	 */
 	public static <T extends PO> Map<Integer, T> getByIds(Properties idempiereContext, String tableName,
 			String transactionName, Set<Integer> ids) {
-		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
+		if (isApplyAccessFilterNeeded.get()) {
+			ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
+		}
 		if (ids.isEmpty()) {
 			return new HashMap<>();
 		}
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
-		ServerContext.setCurrentInstance(idempiereContext);
+		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		List<T> models = getQuery(idempiereContext, tableName, transactionName, true, false,
 				tableName + "." + tableName + "_ID IN (" + whereCondition + ")", parameters).list();
 		return models.stream().collect(Collectors.toMap(T::get_ID, m -> m));
@@ -236,8 +241,10 @@ public class Repository {
 	 */
 	public static <T extends PO> T getByUuid(Properties idempiereContext, String tableName, String transactionName,
 			String uuid) {
-		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
-		ServerContext.setCurrentInstance(idempiereContext);
+		if (isApplyAccessFilterNeeded.get()) {
+			ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
+		}
+		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		return getQuery(idempiereContext, tableName, transactionName, true, false, tableName + "." + tableName + "_UU=?",
 				uuid).first();
 	}
@@ -253,13 +260,15 @@ public class Repository {
 	 */
 	public static <T extends PO> Map<String, T> getByUuids(Properties idempiereContext, String tableName,
 			String transactionName, Set<String> uuids) {
-		ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
+		if (isApplyAccessFilterNeeded.get()) {
+			ModelUtil.getTableAndCheckAccess(idempiereContext, tableName);
+		}
 		if (uuids.isEmpty()) {
 			return new HashMap<>();
 		}
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(uuids, parameters);
-		ServerContext.setCurrentInstance(idempiereContext);
+		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 		List<T> models = getQuery(idempiereContext, tableName, transactionName, true, false,
 				tableName + "." + tableName + "_UU IN (" + whereCondition + ")", parameters).list();
 		return models.stream().collect(
@@ -280,5 +289,13 @@ public class Repository {
 			Properties idempiereContext, String tableName, String transactionName, Set<String> uuids) {
 		return CompletableFuture.supplyAsync(
 				() -> getByUuids(idempiereContext, tableName, transactionName, new HashSet<>(uuids)));
+	}
+
+	private static void setCopyOfPropertiesForNestedThreadUsage(Properties idempiereContext) {
+		// Create a copy of properties in case anything in the model modifies it
+		Properties copyOfIdempiereContextForTheThread = new Properties();
+		copyOfIdempiereContextForTheThread.putAll(idempiereContext);
+		ServerContext.setCurrentInstance(copyOfIdempiereContextForTheThread);
+		Env.setCtx(copyOfIdempiereContextForTheThread);
 	}
 }

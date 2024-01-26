@@ -34,8 +34,7 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	 */
 	@JsonCreator
 	public X_AD_Tree_Favorite_NodeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MTreeFavoriteNode(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -26,8 +26,14 @@ export default async function () {
 	const client = initialLoginInfo.AD_Clients.find((client) => client.Name === clientName);
 	const organization = client?.AD_Orgs[0];
 	const roles = organization?.AD_Roles;
-	if (!client || !organization || !roles?.length) {
+	if (!client) {
 		throw new Error(`could not find client "${clientName}"`);
+	}
+	if (!organization) {
+		throw new Error(`client "${client.Name}" didn't have any organizations`);
+	}
+	if (!roles?.length) {
+		throw new Error(`organization "${organization.Name}" didn't come with any roles`);
 	}
 
 	// Re-login with the right data as the admin by default so we can get the right session token

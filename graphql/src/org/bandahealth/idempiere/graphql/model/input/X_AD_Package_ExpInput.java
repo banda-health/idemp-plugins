@@ -32,8 +32,7 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	 */
 	@JsonCreator
 	public X_AD_Package_ExpInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPackageExp(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

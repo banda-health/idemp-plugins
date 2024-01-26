@@ -39,8 +39,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	 */
 	@JsonCreator
 	public X_AD_InfoProcessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_InfoProcess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

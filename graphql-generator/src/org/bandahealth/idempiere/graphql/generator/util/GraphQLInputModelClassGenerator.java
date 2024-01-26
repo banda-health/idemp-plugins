@@ -119,6 +119,7 @@ public class GraphQLInputModelClassGenerator {
 		String interfaceName = "I_" + tableName + "Input";
 		StringBuilder generatedClass = new StringBuilder()
 				.append("package ").append(packageName).append(";\n\n");
+		boolean hasIDColumn = MTable.get(Env.getCtx(), AD_Table_ID).getColumnIndex(tableName + "_ID") >= 0;
 
 		// Insert the required iDempiere imports
 		classesToImport.add("org.compiere.model.Query");
@@ -151,18 +152,34 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t *\n")
 					.append("\t * @param UUID The ").append(tableName).append("_UU to fetch this entity from the DB\n\t */\n")
 					.append("\t@JsonCreator\n")
-					.append("\tpublic ").append(className).append("(@JsonProperty(\"UUID\") String UUID) {\n")
-					.append("\t\tsuper(Env.getCtx(), ModelUtil.getModelResultSet(new ")
-					.append(tableStructureExtensions.getClassName())
-					.append("(null, (ResultSet) null, null),\n")
-					.append("\t\t\t\tnull, Table_Name, UUID), null);\n")
+					.append("\tpublic ").append(className).append("(@JsonProperty(\"UUID\") String UUID) {\n");
+			// If we have the UUID, we can leverage the ID constructor
+			// Otherwise we'll use the result set constructor
+			if (hasIDColumn) {
+				generatedClass
+						.append("\t\tsuper(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);\n");
+			} else {
+				generatedClass
+						.append("\t\tsuper(Env.getCtx(), ModelUtil.getModelResultSet(new ")
+						.append(tableStructureExtensions.getClassName())
+						.append("(null, (ResultSet) null, null),\n")
+						.append("\t\t\t\tnull, Table_Name, UUID), null);\n");
+			}
+			generatedClass
 					.append("\t\tsetUUID(UUID);\n")
 					.append("\t}");
 		} else {
 			generatedClass
 					.append("\t/**\n\t * Standard constructor\n\t */\n")
-					.append("\tpublic ").append(className).append("() {\n")
-					.append("\t\tsuper(Env.getCtx(), (ResultSet) null, null);\n")
+					.append("\tpublic ").append(className).append("() {\n");
+			if (hasIDColumn) {
+				generatedClass
+						.append("\t\tsuper(Env.getCtx(), 0, null);\n");
+			}else {
+				generatedClass
+						.append("\t\tsuper(Env.getCtx(), (ResultSet) null, null);\n");
+			}
+			generatedClass
 					.append("\t}");
 		}
 
@@ -320,9 +337,9 @@ public class GraphQLInputModelClassGenerator {
 					returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
 					foreignEntityTable = entityName;
 				} else if (columnName.equals("Logo_ID")) {
-					entityName = "AD_Image";
-					returnType = "I_" + entityName + "Input";
-					foreignEntityTable = entityName;
+					entityName = columnNameWithSuffixedIdRemoved;
+					returnType = "I_AD_ImageInput";
+					foreignEntityTable = "AD_Image";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";

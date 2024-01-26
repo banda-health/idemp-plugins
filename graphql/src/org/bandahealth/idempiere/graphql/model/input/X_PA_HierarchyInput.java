@@ -38,8 +38,7 @@ public class X_PA_HierarchyInput extends MHierarchy implements I_PA_HierarchyInp
 	 */
 	@JsonCreator
 	public X_PA_HierarchyInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MHierarchy(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

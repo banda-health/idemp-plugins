@@ -33,8 +33,7 @@ public class X_A_Asset_RetirementInput extends X_A_Asset_Retirement implements I
 	 */
 	@JsonCreator
 	public X_A_Asset_RetirementInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_Asset_Retirement(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

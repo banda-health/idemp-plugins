@@ -31,8 +31,7 @@ public class X_AD_LdapProcessorInput extends MLdapProcessor implements I_AD_Ldap
 	 */
 	@JsonCreator
 	public X_AD_LdapProcessorInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MLdapProcessor(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

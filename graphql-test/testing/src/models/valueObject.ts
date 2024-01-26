@@ -2,14 +2,21 @@ import { initialLoginData, query } from '../api';
 import { RoleName } from '../types/roleName';
 import { getDateOffset } from '../utils';
 import {
+	Ad_Ref_ListGetQuery,
 	Bh_VisitSaveMutation,
+	C_AcctSchemaGetQuery,
+	C_BankAccountGetQuery,
 	C_BPartnerSaveWithLocationMutation,
 	C_ChargeSaveMutation,
 	C_DocTypeGetDocument,
 	C_DocTypeGetQuery,
+	C_InvoiceSaveWithInvoiceLinesMutation,
 	C_LocationGetQuery,
 	C_OrderSaveWithOrderLinesMutation,
+	C_PaymentSaveMutation,
 	M_ProductSaveMutation,
+	ProcessInfoParameterInput,
+	ReportOutput,
 	SignInDocument,
 	SignInQuery,
 	SignInQueryVariables,
@@ -34,7 +41,7 @@ export class ValueObject {
 	country?: C_LocationGetQuery['C_LocationGet']['results'][0]['C_Country'];
 	region?: C_LocationGetQuery['C_LocationGet']['results'][0]['C_Region'];
 	city?: string;
-	// MCurrency m_currency = null;
+	currency?: C_AcctSchemaGetQuery['C_AcctSchemaGet']['results'][0]['C_Currency'];
 	contact?: any; //User;
 	// MPriceList priceListSO = null;
 	// MPriceList priceListPO = null;
@@ -55,14 +62,14 @@ export class ValueObject {
 	orderLine?: C_OrderSaveWithOrderLinesMutation['C_OrderLineSave'];
 	// MInOut m_inOut = null;
 	// MInOutLine m_inOutLine = null;
-	invoice?: any; //Invoice;
-	invoiceLine?: any; //InvoiceLine;
+	invoice?: C_InvoiceSaveWithInvoiceLinesMutation['C_InvoiceSave'];
+	invoiceLine?: C_InvoiceSaveWithInvoiceLinesMutation['C_InvoiceLineSave'];
 	inventory?: any; //Inventory;
 	inventoryLine?: any; //InventoryLine;
-	payment?: any; //Payment;
-	tenderType?: any; //PaymentType;
+	payment?: C_PaymentSaveMutation['C_PaymentSave'];
+	tenderType?: Ad_Ref_ListGetQuery['AD_Ref_ListGet']['results'][0];
 	paymentAmount?: number;
-	// private MBankAccount m_bankAcct = null;
+	bankAccount?: C_BankAccountGetQuery['C_BankAccountGet']['results'][0];
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
 	random: number = 0;
@@ -75,8 +82,8 @@ export class ValueObject {
 	// }
 
 	processUuid?: string;
-	processInformationParameters?: any; //ProcessInfoParameter[];
-	reportType: 'pdf' | 'xlsx' | 'html' | 'csv' = 'pdf';
+	processInformationParameters?: ProcessInfoParameterInput[];
+	reportType: ReportOutput = ReportOutput.Pdf;
 	report?: Buffer;
 
 	sessionToken?: string;

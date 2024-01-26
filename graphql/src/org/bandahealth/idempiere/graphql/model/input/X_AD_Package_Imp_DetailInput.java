@@ -33,8 +33,7 @@ public class X_AD_Package_Imp_DetailInput extends X_AD_Package_Imp_Detail implem
 	 */
 	@JsonCreator
 	public X_AD_Package_Imp_DetailInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Package_Imp_Detail(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

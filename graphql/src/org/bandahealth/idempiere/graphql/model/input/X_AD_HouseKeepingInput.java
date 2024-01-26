@@ -31,8 +31,7 @@ public class X_AD_HouseKeepingInput extends MHouseKeeping implements I_AD_HouseK
 	 */
 	@JsonCreator
 	public X_AD_HouseKeepingInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MHouseKeeping(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

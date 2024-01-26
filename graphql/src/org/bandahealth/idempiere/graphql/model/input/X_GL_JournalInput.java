@@ -51,8 +51,7 @@ public class X_GL_JournalInput extends MJournal implements I_GL_JournalInput {
 	 */
 	@JsonCreator
 	public X_GL_JournalInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MJournal(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

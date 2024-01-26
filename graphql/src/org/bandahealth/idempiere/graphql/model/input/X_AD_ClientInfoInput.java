@@ -28,7 +28,6 @@ import java.sql.ResultSet;
  */
 public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfoInput {
 
-	private ForeignEntityInput mAD_Image;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_StorageProvider;
 	private ForeignEntityInput mAD_Tree_Activity;
@@ -47,6 +46,7 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	private ForeignEntityInput mC_UOM_Time;
 	private ForeignEntityInput mC_UOM_Volume;
 	private ForeignEntityInput mC_UOM_Weight;
+	private ForeignEntityInput mLogo;
 	private ForeignEntityInput mM_ProductFreight;
 	private ForeignEntityInput mStorageArchive;
 	private ForeignEntityInput mStorageImage;
@@ -727,21 +727,21 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	/**
 	 * Set Logo.
 	 *
-	 * @param AD_Image Logo
+	 * @param Logo Logo
 	 */
-	@JsonProperty("AD_Image")
-	public void setAD_ImageInput(ForeignEntityInput AD_Image) {
-		this.mAD_Image = AD_Image;
-		if (AD_Image != null) {
+	@JsonProperty("Logo")
+	public void setLogoInput(ForeignEntityInput Logo) {
+		this.mLogo = Logo;
+		if (Logo != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Logo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
 				this.setLogo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+						"Could not find entity in table AD_Image with UUID " + Logo.getUUID());
 			}
 		} else {
 			this.setLogo_ID(0);
@@ -753,9 +753,9 @@ public class X_AD_ClientInfoInput extends MClientInfo implements I_AD_ClientInfo
 	 *
 	 * @return Logo
 	 */
-	@JsonProperty("AD_Image")
-	public ForeignEntityInput AD_Image() {
-		return mAD_Image;
+	@JsonProperty("Logo")
+	public ForeignEntityInput Logo() {
+		return mLogo;
 	}
 
 	/**

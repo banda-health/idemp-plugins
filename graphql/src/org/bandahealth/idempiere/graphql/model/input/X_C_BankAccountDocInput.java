@@ -35,8 +35,7 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	 */
 	@JsonCreator
 	public X_C_BankAccountDocInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_BankAccountDoc(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

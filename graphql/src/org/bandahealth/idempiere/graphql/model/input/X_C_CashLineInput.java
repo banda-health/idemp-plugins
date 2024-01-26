@@ -43,8 +43,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 */
 	@JsonCreator
 	public X_C_CashLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCashLine(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

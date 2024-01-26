@@ -40,8 +40,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 */
 	@JsonCreator
 	public X_PA_RatioElementInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_PA_RatioElement(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

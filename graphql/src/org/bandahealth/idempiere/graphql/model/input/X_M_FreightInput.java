@@ -40,8 +40,7 @@ public class X_M_FreightInput extends MFreight implements I_M_FreightInput {
 	 */
 	@JsonCreator
 	public X_M_FreightInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MFreight(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

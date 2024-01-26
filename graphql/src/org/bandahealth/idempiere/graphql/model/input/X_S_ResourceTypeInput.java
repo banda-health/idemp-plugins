@@ -35,8 +35,7 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 	 */
 	@JsonCreator
 	public X_S_ResourceTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MResourceType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

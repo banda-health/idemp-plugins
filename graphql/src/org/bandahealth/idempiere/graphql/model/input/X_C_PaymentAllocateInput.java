@@ -36,8 +36,7 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	 */
 	@JsonCreator
 	public X_C_PaymentAllocateInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPaymentAllocate(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -41,8 +41,7 @@ public class X_M_MatchInvInput extends MMatchInv implements I_M_MatchInvInput {
 	 */
 	@JsonCreator
 	public X_M_MatchInvInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MMatchInv(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -37,8 +37,7 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	 */
 	@JsonCreator
 	public X_PP_WF_Node_ProductInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_PP_WF_Node_Product(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
