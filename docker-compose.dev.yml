@@ -1,14 +1,14 @@
 services:
-  external-mocks:
-    build:
-      context: ./external-mocks
-    volumes:
-      - ./external-mocks:/app
-      - /app/node_modules
-    environment:
-      - PORT=${EXTERNAL_MOCKS_PORT}
-    ports:
-      - ${EXTERNAL_MOCKS_PORT}:${EXTERNAL_MOCKS_PORT}
+  # external-mocks:
+  #  build:
+  #    context: ./external-mocks
+  #  volumes:
+   #   - ./external-mocks:/app
+    #  - /app/node_modules
+    # environment:
+     # - PORT=${EXTERNAL_MOCKS_PORT}
+    #ports:
+     # - ${EXTERNAL_MOCKS_PORT}:${EXTERNAL_MOCKS_PORT}
 
   test:
     build: .

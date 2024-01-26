@@ -29,9 +29,11 @@ public class Transaction extends BaseMetadata {
 	@JsonIgnore
 	private Integer attributeSetInstanceId;
 	private AttributeSetInstance attributeSetInstance;
+	private User user;
 
 	// Blank constructor for deserialization
-	public Transaction() {}
+	public Transaction() {
+	}
 
 	public Transaction(MTransaction entity) {
 		super(entity);
@@ -177,5 +179,13 @@ public class Transaction extends BaseMetadata {
 
 	public void setInOutLine(InOutLine inOutLine) {
 		this.inOutLine = inOutLine;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

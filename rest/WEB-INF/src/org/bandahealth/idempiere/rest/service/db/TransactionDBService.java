@@ -11,6 +11,9 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
 import org.bandahealth.idempiere.rest.model.InOutLine;
+import org.bandahealth.idempiere.rest.model.InventoryLine;
+import org.bandahealth.idempiere.rest.model.Locator;
+import org.bandahealth.idempiere.rest.model.MovementLine;
 import org.bandahealth.idempiere.rest.model.Transaction;
 import org.bandahealth.idempiere.rest.model.User;
 import org.compiere.model.MTransaction;
@@ -23,9 +26,15 @@ public class TransactionDBService extends BaseDBService<Transaction, MTransactio
 	@Autowired
 	private InOutLineDBService inOutLineDBService;
 	@Autowired
+	private InventoryLineDBService inventoryLineDBService;
+	@Autowired
+	private MovementLineDBService movementLineDBService;
+	@Autowired
 	private UserDBService userDBService;
 	@Autowired
 	private AttributeSetInstanceDBService attributeInstanceDBService;
+	@Autowired
+	private LocatorDBService locatorDBService;
 
 	@Override
 	public Transaction saveEntity(Transaction entity) {
@@ -64,6 +73,20 @@ public class TransactionDBService extends BaseDBService<Transaction, MTransactio
 										.values()))
 				.stream().collect(Collectors.toMap(InOutLine::getId, line -> line));
 
+		// Get inventory lines
+		Map<Integer, InventoryLine> inventoryLinesById = inventoryLineDBService
+				.transformData(new ArrayList<>(
+						inventoryLineDBService.getByIds(dbModels.stream().map(MTransaction::getM_InventoryLine_ID)
+								.filter(lineId -> lineId > 0).collect(Collectors.toSet())).values()))
+				.stream().collect(Collectors.toMap(InventoryLine::getId, line -> line));
+
+		// Get movement lines
+		Map<Integer, MovementLine> movementLinesById = movementLineDBService
+				.transformData(new ArrayList<>(
+						movementLineDBService.getByIds(dbModels.stream().map(MTransaction::getM_MovementLine_ID)
+								.filter(lineId -> lineId > 0).collect(Collectors.toSet())).values()))
+				.stream().collect(Collectors.toMap(MovementLine::getId, line -> line));
+
 		// Get users who created the records
 		Map<Integer, MUser_BH> usersById = userDBService
 				.getByIds(dbModels.stream().map(MTransaction::getCreatedBy).collect(Collectors.toSet()));
@@ -73,13 +96,17 @@ public class TransactionDBService extends BaseDBService<Transaction, MTransactio
 				.getByIds(dbModels.stream().map(MTransaction::getM_AttributeSetInstance_ID).filter(id -> id > 0)
 						.collect(Collectors.toSet()));
 
-		dbModels.stream().map(mTransaction -> {
+		// Get locators
+		Map<Integer, Locator> locatorsById = locatorDBService.transformData(new ArrayList<>(locatorDBService
+				.getByIds(dbModels.stream().map(MTransaction::getM_Locator_ID).collect(Collectors.toSet()))
+				.values())).stream().collect(Collectors.toMap(Locator::getId, line -> line));
+
+		return dbModels.stream().map(mTransaction -> {
 			Transaction transaction = new Transaction(mTransaction);
 
 			// set user
-			MUser_BH user = usersById.get(mTransaction.getCreatedBy());
-			if (user != null) {
-				transaction.setCreatedBy(new User(user));
+			if (usersById.containsKey(mTransaction.getCreatedBy())) {
+				transaction.setUser(new User(usersById.get(mTransaction.getCreatedBy())));
 			}
 
 			// set attribute set instance
@@ -94,10 +121,23 @@ public class TransactionDBService extends BaseDBService<Transaction, MTransactio
 				transaction.setInOutLine(inOutLinesById.get(mTransaction.getM_InOutLine_ID()));
 			}
 
+			// set inventory lines
+			if (inventoryLinesById.containsKey(mTransaction.getM_InventoryLine_ID())) {
+				transaction.setInventoryLine(inventoryLinesById.get(mTransaction.getM_InventoryLine_ID()));
+			}
+
+			// set movement lines
+			if (movementLinesById.containsKey(mTransaction.getM_MovementLine_ID())) {
+				transaction.setMovementLine(movementLinesById.get(mTransaction.getM_MovementLine_ID()));
+			}
+			
+			// set locators
+			if (locatorsById.containsKey(mTransaction.getM_Locator_ID())) {
+				transaction.setLocator(locatorsById.get(mTransaction.getM_Locator_ID()));
+			}
+
 			return transaction;
 
 		}).collect(Collectors.toList());
-
-		return super.transformData(dbModels);
 	}
 }

@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -27,7 +27,6 @@ public class MovementLine extends BaseEntity {
 	private Locator locatorTo;
 	@JsonIgnore
 	private int movementId;
-	private Movement movement;
 
 	public MovementLine() {
 	}
@@ -129,13 +128,5 @@ public class MovementLine extends BaseEntity {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
-	}
-
-	public Movement getMovement() {
-		return movement;
-	}
-
-	public void setMovement(Movement movement) {
-		this.movement = movement;
 	}
 }
