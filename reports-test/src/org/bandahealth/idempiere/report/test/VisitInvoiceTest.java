@@ -11,6 +11,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
+import org.bandahealth.idempiere.report.test.utils.EntityUtils;
 import org.compiere.process.DocumentEngine;
 import org.compiere.process.ProcessInfoParameter;
 import org.hamcrest.Matchers;
@@ -19,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -92,12 +94,13 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Generate the receipt");
+		valueObject.setStepName("Generate the invoice report");
 		valueObject.setProcessUuid("477cdda4-82ff-4bac-834f-08de384df412");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null)));
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null),
+				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -150,12 +153,13 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createOrder(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Generate the receipt");
+		valueObject.setStepName("Generate the invoice report");
 		valueObject.setProcessUuid("477cdda4-82ff-4bac-834f-08de384df412");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null)));
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null),
+				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -173,7 +177,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> paymentLabelRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("Payment:"))).findFirst();
+									cell.getStringCellValue().contains("Payment"))).findFirst();
 			assertTrue(paymentLabelRow.isPresent(), "Payment label is on the invoice");
 		}
 	}
@@ -227,7 +231,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Create second payment");
+		valueObject.setStepName("Create third payment");
 		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
 		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
 		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
@@ -235,12 +239,13 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 		ChuBoeCreateEntity.createPayment(valueObject);
 		commitEx();
 
-		valueObject.setStepName("Generate the receipt");
+		valueObject.setStepName("Generate the invoice report");
 		valueObject.setProcessUuid("477cdda4-82ff-4bac-834f-08de384df412");
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Collections.singletonList(
-				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null)));
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null),
+				new ProcessInfoParameter("ShowInsuranceInfo", false, null, null, null)));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
 
@@ -269,7 +274,7 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> cashPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("-Cash"))).findFirst();
+									cell.getStringCellValue().equals("Cash"))).findFirst();
 			assertTrue(cashPaymentRow.isPresent(), "Cash payment is on the invoice");
 			assertTrue(StreamSupport.stream(cashPaymentRow.get().spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
@@ -278,11 +283,108 @@ public class VisitInvoiceTest extends ChuBoePopulateFactoryVO {
 			Optional<Row> mobileMoneyRow = StreamSupport.stream(sheet.spliterator(), false).filter(
 					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
-									cell.getStringCellValue().contains("-Mobile Money"))).findFirst();
+									cell.getStringCellValue().equals("Mobile Money"))).findFirst();
 			assertTrue(mobileMoneyRow.isPresent(), "Mobile money payment is on the invoice");
 			assertTrue(StreamSupport.stream(mobileMoneyRow.get().spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
 							cell.getStringCellValue().contains("7")), "Mobile money payment amount is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void insurerInformationShowsCorrectly() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(100));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setQuantity(new BigDecimal(50));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create a patient payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARReceipt, null, true, false, false);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setPaymentAmount(new BigDecimal(20));
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create insurer");
+		valueObject.stackAndClearBusinessPartner();
+		EntityUtils.getBandaHealthFeeForServiceInsurerAndAssociatedCharge(valueObject);
+		valueObject.getBusinessPartner()
+				.setName(valueObject.getRandomNumber() + valueObject.getBusinessPartner().getName());
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();		
+
+		valueObject.setStepName("Create insurer invoice");
+		valueObject.setOrder(null);
+		valueObject.setOrderLine(null);
+		valueObject.setQuantity(new BigDecimal(30));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_ARInvoice, null, true, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the invoice report");
+		valueObject.setProcessUuid("477cdda4-82ff-4bac-834f-08de384df412");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null),
+				new ProcessInfoParameter("ShowInsuranceInfo", true, null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+
+			Optional<Row> grandTotalRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains("Grand Total"))).findFirst();
+			assertTrue(grandTotalRow.isPresent(), "Grand total is on the invoice");
+			assertTrue(StreamSupport.stream(grandTotalRow.get().spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+							cell.getStringCellValue().contains("50")), "Grand total amount is correct");
+
+			Optional<Row> insurerPayRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().contains("PLEASE PAY"))).findFirst();
+			assertTrue(insurerPayRow.isPresent(), "PLEASE PAY is on the invoice");
+			assertTrue(StreamSupport.stream(insurerPayRow.get().spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+							cell.getStringCellValue().contains(valueObject.getBusinessPartner().getName().substring(0, 15))),
+								"Insurer name is next to the PLEASE PAY line");
+			assertTrue(StreamSupport.stream(insurerPayRow.get().spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+							cell.getStringCellValue().contains("30")),
+								"Insurer amount to pay is correct");
 		}
 	}
 }
