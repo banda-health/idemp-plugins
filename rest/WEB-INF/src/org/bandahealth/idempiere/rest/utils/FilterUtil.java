@@ -343,8 +343,8 @@ public class FilterUtil {
 
 			// If the column doesn't exist on this table as specified (or it does, but it's supposed to be mapped to another
 			// table), we need to follow a different workflow
-			if ((tableData.doesTableHaveColumn(dbColumnName) ||
-					specialForeignKeyMappings.containsKey(dbColumnName.toLowerCase()))) {
+			if (!tableData.doesTableHaveColumn(dbColumnName) ||
+					specialForeignKeyMappings.containsKey(dbColumnName.toLowerCase())) {
 				String subWhereClause =
 						getForeignTableSubQueryWhereClause(tableData, dbColumnName, (Map<String, Object>) comparisons, parameters,
 								negate, entityConfiguration);
@@ -366,7 +366,7 @@ public class FilterUtil {
 			}
 
 			// Alias the column name (in case there are any joins outside this clause)
-			dbColumnName = tableData + "." + dbColumnName;
+			dbColumnName = tableData.getTableOrFunctionName() + "." + dbColumnName;
 
 			// If this isn't a hashmap for this property, assume it's an $eq
 			if (!(comparisons instanceof HashMap)) {

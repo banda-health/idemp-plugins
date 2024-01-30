@@ -57,7 +57,7 @@ public class FilterTableData {
 		// If no columns have been defined, get the column information from the POInfo
 		if (columnsAndClasses == null) {
 			tryToSetTableInfo();
-			return poInfo != null && poInfo.getColumnIndex(columnName) == -1;
+			return poInfo != null && poInfo.getColumnIndex(columnName) > -1;
 		}
 		return columnsAndClasses.containsKey(columnName.toLowerCase());
 	}
