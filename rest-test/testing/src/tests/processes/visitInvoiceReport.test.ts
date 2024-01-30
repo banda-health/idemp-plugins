@@ -78,6 +78,7 @@ test('visit invoice report is runnable', async () => {
 	valueObject.processUuid = process.uuid;
 	valueObject.processInformationParameters = [
 		{ processParameterUuid: process.parameters[0].uuid, parameter: valueObject.visit!.uuid } as ProcessInfoParameter,
+		{ processParameterUuid: process.parameters[1].uuid, parameter: false } as ProcessInfoParameter,
 	];
 	await runReport(valueObject);
 
@@ -146,6 +147,7 @@ test(`uploaded PDFs dont's stop the report from running`, async () => {
 	valueObject.processUuid = process.uuid;
 	valueObject.processInformationParameters = [
 		{ processParameterUuid: process.parameters[0].uuid, parameter: valueObject.visit!.uuid } as ProcessInfoParameter,
+		{ processParameterUuid: process.parameters[1].uuid, parameter: false } as ProcessInfoParameter,
 	];
 	await runReport(valueObject);
 
