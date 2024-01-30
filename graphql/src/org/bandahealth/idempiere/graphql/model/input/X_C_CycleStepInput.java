@@ -51,7 +51,7 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 			X_C_Cycle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Cycle", "C_Cycle_UU=?", get_TrxName())
-							.setParameters(C_Cycle.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Cycle.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Cycle_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

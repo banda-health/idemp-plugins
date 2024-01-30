@@ -51,7 +51,7 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -114,7 +114,7 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RecognitionFrequency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(RecognitionFrequency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRecognitionFrequency(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

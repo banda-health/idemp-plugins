@@ -60,7 +60,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -199,7 +199,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 			MProduction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Production", "M_Production_UU=?", get_TrxName())
-							.setParameters(M_Production.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Production.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Production_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -265,7 +265,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 			MProductionPlan foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionPlan", "M_ProductionPlan_UU=?", get_TrxName())
-							.setParameters(M_ProductionPlan.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ProductionPlan.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductionPlan_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

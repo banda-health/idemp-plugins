@@ -77,7 +77,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -111,7 +111,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -179,7 +179,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -213,7 +213,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -250,7 +250,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -287,7 +287,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -321,7 +321,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -355,7 +355,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
-							.setParameters(C_ProjectPhase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ProjectPhase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ProjectPhase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -389,7 +389,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProjectTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
-							.setParameters(C_ProjectTask.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ProjectTask.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ProjectTask_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -423,7 +423,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -457,7 +457,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -491,7 +491,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MResourceAssignment foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ResourceAssignment", "S_ResourceAssignment_UU=?", get_TrxName())
-							.setParameters(S_ResourceAssignment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_ResourceAssignment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_ResourceAssignment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -528,7 +528,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MTimeExpense foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_TimeExpense", "S_TimeExpense_UU=?", get_TrxName())
-							.setParameters(S_TimeExpense.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_TimeExpense.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_TimeExpense_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -591,7 +591,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			X_S_TimeType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_TimeType", "S_TimeType_UU=?", get_TrxName())
-							.setParameters(S_TimeType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_TimeType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_TimeType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

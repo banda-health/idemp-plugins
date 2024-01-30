@@ -2,7 +2,6 @@ import { v4 } from 'uuid';
 import { mutate, query } from '../api';
 import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../models';
 import {
-	Ad_ProcessGetDocument,
 	Ad_ProcessRunAndExportDocument,
 	Ad_Ref_ListGetDocument,
 	Bh_VisitSaveDocument,
@@ -20,8 +19,12 @@ import {
 	C_PaymentSaveDocument,
 	C_TaxCategoryGetDocument,
 	C_UomGetDefaultDocument,
+	M_AttributeSetInstanceGetDocument,
+	M_InventoryProcessDocument,
+	M_InventorySaveWithInventoryLinesDocument,
 	M_ProductSaveDocument,
 	M_Product_CategoryGetDocument,
+	M_StorageOnHandGetDocument,
 	M_WarehouseGetDocument,
 	ReportOutput,
 } from '../__generated__/graphql';
@@ -576,13 +579,6 @@ export async function runReport(valueObject: ValueObject) {
 		return;
 	}
 
-	const process = (
-		await query(valueObject)({
-			query: Ad_ProcessGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_process_uu: valueObject.processUuid }) },
-		})
-	).data.AD_ProcessGet.results[0];
-
 	// Create a process info instance. This is a composite class containing the parameters.
 	valueObject.reportType ||= ReportOutput.Pdf;
 
@@ -608,47 +604,87 @@ export async function runReport(valueObject: ValueObject) {
  * @param valueObject The value object used to store all information
  */
 export async function createInventory(valueObject: ValueObject) {
-	throw new Error('method not updated to work with graphql');
 	valueObject.validate();
 
 	// perform further validation if needed based on business logic
-	if (!valueObject.businessPartner) {
+	if (!valueObject.documentType) {
+		throw new Error('Document Type is Null');
+	} else if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
 	} else if (!valueObject.warehouse) {
 		throw new Error('Warehouse is Null');
 	}
 
-	const inventory = {
-		orgUUID: 0,
-		description: valueObject.getStepMessageLong(),
-		warehouse: valueObject.warehouse,
-	} as any; /*Inventory*/
-	// const inventoryLine = {
-	// 	orgUUID: 0,
-	// 	description: valueObject.getStepMessageLong(),
-	// 	product: valueObject.product,
-	// 	attributeSetInstance: valueObject.attributeSetInstance,
-	// 	locator: valueObject.warehouse.M_Locators?.[0],
-	// 	quantityCount: valueObject.quantity || 1,
-	// 	line: 10,
-	// }; // as InventoryLine;
-	// inventory.inventoryLines = [inventoryLine];
-	// valueObject.inventory = await inventoryApi.save(valueObject, inventory);
-	// if (!valueObject.inventory) {
-	// 	throw new Error('Inventory not created');
-	// }
-	// valueObject.inventoryLine = valueObject.inventory!.inventoryLines[0];
+	const attributeSetInstanceToUse =
+		valueObject.attributeSetInstance ||
+		(
+			await query(valueObject)({
+				query: M_AttributeSetInstanceGetDocument,
+				variables: { size: 1, filter: JSON.stringify({ description: '---' }) },
+			})
+		).data.M_AttributeSetInstanceGet.results[0];
+	const locatorToUse = valueObject.warehouse.M_Locators?.[0];
+	const inventoryUuid = v4();
+	const savedData = (
+		await mutate(valueObject)({
+			mutation: M_InventorySaveWithInventoryLinesDocument,
+			variables: {
+				M_Inventory: {
+					UUID: inventoryUuid,
+					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					Description: valueObject.getStepMessageLong(),
+					C_DocType: { UUID: valueObject.documentType.UUID },
+					M_Warehouse: { UUID: valueObject.warehouse.UUID },
+					MovementDate: valueObject.date?.getTime(),
+				},
+				M_InventoryLine: {
+					M_Inventory: { UUID: inventoryUuid },
+					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					Description: valueObject.getStepMessageLong(),
+					M_Product: valueObject.product ? { UUID: valueObject.product.UUID } : undefined,
+					M_AttributeSetInstance: { UUID: attributeSetInstanceToUse.UUID },
+					M_Locator: locatorToUse ? { UUID: locatorToUse.UUID } : undefined,
+					QtyCount: valueObject.quantity || 1,
+					QtyBook: (
+						await query(valueObject)({
+							query: M_StorageOnHandGetDocument,
+							variables: {
+								filter: JSON.stringify({
+									m_locator: locatorToUse ? { m_locator_uu: locatorToUse.UUID } : undefined,
+									m_product: valueObject.product ? { m_product_uu: valueObject.product.UUID } : undefined,
+									m_attributesetinstance: { m_attributesetinstance_uu: attributeSetInstanceToUse.UUID },
+								}),
+							},
+						})
+					).data.M_StorageOnHandGet.results.reduce(
+						(runningTotal, storageOnHand) => runningTotal + storageOnHand.QtyOnHand,
+						0,
+					),
+					Line: 10,
+				},
+			},
+		})
+	).data;
 
-	// if (valueObject.documentAction) {
-	// 	valueObject.inventory = await inventoryApi.process(
-	// 		valueObject,
-	// 		valueObject.inventory!.uuid,
-	// 		valueObject.documentAction!,
-	// 	);
-	// 	if (!valueObject.inventory) {
-	// 		throw new Error('Inventory not processed');
-	// 	}
-	// }
+	if (!savedData?.M_InventorySave) {
+		throw new Error('Inventory not created');
+	}
+
+	valueObject.inventory = savedData?.M_InventorySave;
+	valueObject.inventoryLine = savedData?.M_InventoryLineSave;
+
+	if (valueObject.documentAction) {
+		valueObject.inventory =
+			(
+				await mutate(valueObject)({
+					mutation: M_InventoryProcessDocument,
+					variables: { uuid: valueObject.inventory!.UUID, documentAction: valueObject.documentAction },
+				})
+			).data?.M_InventoryProcess || undefined;
+		if (!valueObject.inventory) {
+			throw new Error('Inventory not processed');
+		}
+	}
 }
 
 export async function getBankAccountOfOrganization(valueObject: ValueObject) {

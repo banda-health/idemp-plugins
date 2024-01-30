@@ -55,7 +55,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -92,7 +92,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Status(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -192,7 +192,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 			X_ASP_Tab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Tab", "ASP_Tab_UU=?", get_TrxName())
-							.setParameters(ASP_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ASP_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

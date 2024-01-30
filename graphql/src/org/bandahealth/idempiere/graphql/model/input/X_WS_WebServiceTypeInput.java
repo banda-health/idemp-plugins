@@ -55,7 +55,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 			X_WS_WebService foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "WS_WebService", "WS_WebService_UU=?", get_TrxName())
-							.setParameters(WS_WebService.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(WS_WebService.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWS_WebService_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_WS_WebServiceTypeInput extends X_WS_WebServiceType implements I_W
 			X_WS_WebServiceMethod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "WS_WebServiceMethod", "WS_WebServiceMethod_UU=?", get_TrxName())
-							.setParameters(WS_WebServiceMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(WS_WebServiceMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWS_WebServiceMethod_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -57,7 +57,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -160,7 +160,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -194,7 +194,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReplicationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

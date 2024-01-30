@@ -57,7 +57,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 			MCommissionAmt foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionAmt", "C_CommissionAmt_UU=?", get_TrxName())
-							.setParameters(C_CommissionAmt.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_CommissionAmt.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CommissionAmt_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -194,7 +194,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 			MInvoiceLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -231,7 +231,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

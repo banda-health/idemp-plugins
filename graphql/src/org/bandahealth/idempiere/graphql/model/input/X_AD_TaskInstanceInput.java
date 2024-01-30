@@ -51,7 +51,7 @@ public class X_AD_TaskInstanceInput extends X_AD_TaskInstance implements I_AD_Ta
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -85,7 +85,7 @@ public class X_AD_TaskInstanceInput extends X_AD_TaskInstance implements I_AD_Ta
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Task.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

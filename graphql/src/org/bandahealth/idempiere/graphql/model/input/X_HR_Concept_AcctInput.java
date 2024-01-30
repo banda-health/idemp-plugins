@@ -61,7 +61,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -95,7 +95,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
-							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Concept_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -229,7 +229,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(HR_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -263,7 +263,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(HR_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -297,7 +297,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -331,7 +331,7 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

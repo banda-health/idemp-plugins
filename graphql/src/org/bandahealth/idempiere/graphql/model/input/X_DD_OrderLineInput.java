@@ -74,7 +74,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -108,7 +108,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -142,7 +142,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -176,7 +176,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -210,7 +210,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -247,7 +247,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -284,7 +284,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MDDOrder foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_Order", "DD_Order_UU=?", get_TrxName())
-							.setParameters(DD_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DD_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDD_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -347,7 +347,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -381,7 +381,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstanceTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSetInstanceTo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstanceTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -415,7 +415,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -449,7 +449,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_LocatorTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_LocatorTo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_LocatorTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -483,7 +483,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -517,7 +517,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -551,7 +551,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -585,7 +585,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

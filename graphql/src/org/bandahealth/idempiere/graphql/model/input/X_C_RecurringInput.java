@@ -65,7 +65,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -99,7 +99,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -133,7 +133,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -167,7 +167,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -201,7 +201,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -264,7 +264,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			X_C_RecurringGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RecurringGroup", "C_RecurringGroup_UU=?", get_TrxName())
-							.setParameters(C_RecurringGroup.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_RecurringGroup.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RecurringGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -309,7 +309,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFrequencyType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -343,7 +343,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MJournalBatch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
-							.setParameters(GL_JournalBatch.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(GL_JournalBatch.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_JournalBatch_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -377,7 +377,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RecurringType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(RecurringType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRecurringType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

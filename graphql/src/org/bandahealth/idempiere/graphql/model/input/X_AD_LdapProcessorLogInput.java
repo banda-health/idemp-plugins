@@ -51,7 +51,7 @@ public class X_AD_LdapProcessorLogInput extends MLdapProcessorLog implements I_A
 			MLdapProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_LdapProcessor", "AD_LdapProcessor_UU=?", get_TrxName())
-							.setParameters(AD_LdapProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_LdapProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_LdapProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_AD_LdapProcessorLogInput extends MLdapProcessorLog implements I_A
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

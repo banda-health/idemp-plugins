@@ -90,7 +90,8 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	 * @return A DataLoaderOptions containing a cache specific to the iDempiere entity T
 	 */
 	protected DataLoaderOptions getOptionsWithoutCache(Properties idempiereContext) {
-		return DataLoaderOptions.newOptions().setBatchLoaderContextProvider(() -> idempiereContext);
+		return DataLoaderOptions.newOptions().setCachingEnabled(false)
+				.setBatchLoaderContextProvider(() -> idempiereContext);
 	}
 
 	/**

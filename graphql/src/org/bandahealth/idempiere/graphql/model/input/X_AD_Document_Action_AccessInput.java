@@ -74,7 +74,7 @@ public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Acces
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -111,7 +111,7 @@ public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Acces
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
-							.setParameters(AD_Ref_List.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Ref_List.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Ref_List_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -148,7 +148,7 @@ public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Acces
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Acces
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

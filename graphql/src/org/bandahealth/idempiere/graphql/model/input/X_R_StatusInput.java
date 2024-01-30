@@ -53,7 +53,7 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Status", "R_Status_UU=?", get_TrxName())
-							.setParameters(Next_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Next_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNext_Status_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MStatusCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_StatusCategory", "R_StatusCategory_UU=?", get_TrxName())
-							.setParameters(R_StatusCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_StatusCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_StatusCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -184,7 +184,7 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Status", "R_Status_UU=?", get_TrxName())
-							.setParameters(Update_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Update_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUpdate_Status_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -57,7 +57,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -142,7 +142,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -190,7 +190,7 @@ public class X_Fact_ReconciliationInput extends MFactReconciliation implements I
 			MFactAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
-							.setParameters(Fact_Acct.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Fact_Acct.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFact_Acct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -56,7 +56,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 			MConversionRate foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Conversion_Rate", "C_Conversion_Rate_UU=?", get_TrxName())
-							.setParameters(C_Conversion_Rate.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Conversion_Rate.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Conversion_Rate_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ConversionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -192,7 +192,7 @@ public class X_I_Conversion_RateInput extends X_I_Conversion_Rate implements I_I
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency_To.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency_To.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID_To(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

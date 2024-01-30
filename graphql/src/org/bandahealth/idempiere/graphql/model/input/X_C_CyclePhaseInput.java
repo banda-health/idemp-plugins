@@ -54,7 +54,7 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -109,7 +109,7 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 			X_C_CycleStep foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CycleStep", "C_CycleStep_UU=?", get_TrxName())
-							.setParameters(C_CycleStep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_CycleStep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CycleStep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -146,7 +146,7 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 			MProjectTypePhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
-							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Phase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

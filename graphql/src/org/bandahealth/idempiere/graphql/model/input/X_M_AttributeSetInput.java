@@ -56,7 +56,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -101,7 +101,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(M_AttributeSet_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSet_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_Type(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MLotCtl foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
-							.setParameters(M_LotCtl.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_LotCtl.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_LotCtl_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -187,7 +187,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MSerNoCtl_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_SerNoCtl", "M_SerNoCtl_UU=?", get_TrxName())
-							.setParameters(M_SerNoCtl.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_SerNoCtl.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_SerNoCtl_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -221,7 +221,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MandatoryType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(MandatoryType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMandatoryType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

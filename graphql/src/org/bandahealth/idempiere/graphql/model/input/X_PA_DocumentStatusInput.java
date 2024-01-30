@@ -66,7 +66,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -103,7 +103,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -137,7 +137,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -171,7 +171,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -205,7 +205,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -239,7 +239,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -273,7 +273,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -307,7 +307,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -341,7 +341,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(Name_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Name_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setName_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -375,7 +375,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Name_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Name_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setName_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -409,7 +409,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(Number_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Number_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNumber_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -443,7 +443,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Number_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Number_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNumber_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

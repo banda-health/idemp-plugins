@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.compiere.model.MLocator;
 import org.dataloader.DataLoader;
@@ -17,7 +16,7 @@ public class MLocatorDataLoader extends X_M_LocatorDataLoader {
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(DATALOADER_M_Locator_BY_M_Warehouse_ID,
-				DataLoader.newMappedDataLoader(getByWarehouseIdBatchLoader(), getOptionsWithCache(idempiereContext)));
+				DataLoader.newMappedDataLoader(getByWarehouseIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<String, List<MLocator>> getByWarehouseIdBatchLoader() {

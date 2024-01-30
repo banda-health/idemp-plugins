@@ -14,6 +14,7 @@ import {
 	C_LocationGetQuery,
 	C_OrderSaveWithOrderLinesMutation,
 	C_PaymentSaveMutation,
+	M_InventorySaveWithInventoryLinesMutation,
 	M_ProductSaveMutation,
 	ProcessInfoParameterInput,
 	ReportOutput,
@@ -64,8 +65,8 @@ export class ValueObject {
 	// MInOutLine m_inOutLine = null;
 	invoice?: C_InvoiceSaveWithInvoiceLinesMutation['C_InvoiceSave'];
 	invoiceLine?: C_InvoiceSaveWithInvoiceLinesMutation['C_InvoiceLineSave'];
-	inventory?: any; //Inventory;
-	inventoryLine?: any; //InventoryLine;
+	inventory?: M_InventorySaveWithInventoryLinesMutation['M_InventorySave'];
+	inventoryLine?: M_InventorySaveWithInventoryLinesMutation['M_InventoryLineSave'];
 	payment?: C_PaymentSaveMutation['C_PaymentSave'];
 	tenderType?: Ad_Ref_ListGetQuery['AD_Ref_ListGet']['results'][0];
 	paymentAmount?: number;
@@ -251,7 +252,7 @@ export class ValueObject {
 
 	async setDocumentBaseType(
 		documentBaseType: string,
-		documentSalesSubType: string | null,
+		documentSalesSubType: { sales?: string; inventory?: string } | null,
 		isSalesTransaction: boolean,
 		isShipmentConfirm: boolean,
 		isPickQAConfirm: boolean,
@@ -267,7 +268,8 @@ export class ValueObject {
 						issotrx: isSalesTransaction,
 						isshipconfirm: isShipmentConfirm,
 						ispickqaconfirm: isPickQAConfirm,
-						docsubtypeso: documentSalesSubType ? documentSalesSubType : { $null: true },
+						docsubtypeso: documentSalesSubType?.sales ? documentSalesSubType.sales : { $null: true },
+						docsubtypeinv: documentSalesSubType?.inventory ? documentSalesSubType.inventory : { $null: true },
 					}),
 				},
 				context: { valueObject: this },

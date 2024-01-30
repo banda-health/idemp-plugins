@@ -53,7 +53,7 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFrequencyType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 			X_IMP_Processor_Type foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor_Type", "IMP_Processor_Type_UU=?", get_TrxName())
-							.setParameters(IMP_Processor_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IMP_Processor_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIMP_Processor_Type_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

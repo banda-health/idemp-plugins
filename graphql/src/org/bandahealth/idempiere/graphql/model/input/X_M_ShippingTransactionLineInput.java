@@ -56,7 +56,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Length.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_UOM_Length.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_Length_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Weight.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_UOM_Weight.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_Weight_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 			MPackageMPS foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PackageMPS", "M_PackageMPS_UU=?", get_TrxName())
-							.setParameters(M_PackageMPS.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_PackageMPS.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PackageMPS_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_M_ShippingTransactionLineInput extends MShippingTransactionLine i
 			MShippingTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShippingTransaction", "M_ShippingTransaction_UU=?", get_TrxName())
-							.setParameters(M_ShippingTransaction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ShippingTransaction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ShippingTransaction_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

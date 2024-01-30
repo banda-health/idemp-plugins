@@ -54,7 +54,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 			MAssetGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
-							.setParameters(A_Asset_Group.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset_Group.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_Product_Category_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Product_Category_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Product_Category_Type(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -204,7 +204,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category_Parent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product_Category_Parent.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_Parent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -256,7 +256,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MMPolicy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(MMPolicy.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMMPolicy(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

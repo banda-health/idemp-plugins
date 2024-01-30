@@ -64,7 +64,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -98,7 +98,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			MProjectType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectType", "C_ProjectType_UU=?", get_TrxName())
-							.setParameters(C_ProjectType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ProjectType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ProjectType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MeasureDataType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(MeasureDataType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMeasureDataType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MeasureType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(MeasureType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMeasureType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			X_PA_Benchmark foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Benchmark", "PA_Benchmark_UU=?", get_TrxName())
-							.setParameters(PA_Benchmark.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_Benchmark.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Benchmark_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -234,7 +234,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			MHierarchy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Hierarchy", "PA_Hierarchy_UU=?", get_TrxName())
-							.setParameters(PA_Hierarchy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_Hierarchy.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Hierarchy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -297,7 +297,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			MMeasureCalc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
-							.setParameters(PA_MeasureCalc.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_MeasureCalc.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_MeasureCalc_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -331,7 +331,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-							.setParameters(PA_Ratio.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_Ratio.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Ratio_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -365,7 +365,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 			MRequestType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
-							.setParameters(R_RequestType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_RequestType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_RequestType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

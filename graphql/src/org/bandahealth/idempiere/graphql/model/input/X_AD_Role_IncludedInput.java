@@ -53,7 +53,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(Included_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Included_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIncluded_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -50,7 +50,7 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -84,7 +84,7 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 			MWebMenu foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "U_WebMenu", "U_WebMenu_UU=?", get_TrxName())
-							.setParameters(ParentMenu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ParentMenu.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setParentMenu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

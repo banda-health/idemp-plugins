@@ -79,7 +79,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -113,7 +113,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MRevenueRecognition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition", "C_RevenueRecognition_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecognition.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_RevenueRecognition.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RevenueRecognition_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -147,7 +147,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			X_C_SubscriptionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SubscriptionType", "C_SubscriptionType_UU=?", get_TrxName())
-							.setParameters(C_SubscriptionType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_SubscriptionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_SubscriptionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -181,7 +181,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MTaxCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -215,7 +215,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -260,7 +260,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
-							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -294,7 +294,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -328,7 +328,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MFreightCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
-							.setParameters(M_FreightCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_FreightCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_FreightCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -362,7 +362,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -396,7 +396,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			X_M_PartType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PartType", "M_PartType_UU=?", get_TrxName())
-							.setParameters(M_PartType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_PartType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PartType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -430,7 +430,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -493,7 +493,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProductType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ProductType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProductType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -538,7 +538,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -575,7 +575,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MExpenseType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ExpenseType", "S_ExpenseType_UU=?", get_TrxName())
-							.setParameters(S_ExpenseType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_ExpenseType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_ExpenseType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -612,7 +612,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MResource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_Resource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -646,7 +646,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

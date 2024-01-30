@@ -55,7 +55,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -92,7 +92,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Status(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -192,7 +192,7 @@ public class X_ASP_TabInput extends X_ASP_Tab implements I_ASP_TabInput {
 			X_ASP_Window foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Window", "ASP_Window_UU=?", get_TrxName())
-							.setParameters(ASP_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ASP_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

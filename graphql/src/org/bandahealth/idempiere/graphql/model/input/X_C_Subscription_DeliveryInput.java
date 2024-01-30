@@ -51,7 +51,7 @@ public class X_C_Subscription_DeliveryInput extends X_C_Subscription_Delivery im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_C_Subscription_DeliveryInput extends X_C_Subscription_Delivery im
 			X_C_Subscription foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Subscription", "C_Subscription_UU=?", get_TrxName())
-							.setParameters(C_Subscription.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Subscription.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Subscription_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

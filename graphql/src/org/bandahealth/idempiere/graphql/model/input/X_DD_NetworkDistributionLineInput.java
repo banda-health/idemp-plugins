@@ -56,7 +56,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -93,7 +93,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 			X_DD_NetworkDistribution foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_NetworkDistribution", "DD_NetworkDistribution_UU=?", get_TrxName())
-							.setParameters(DD_NetworkDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DD_NetworkDistribution.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDD_NetworkDistribution_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -190,7 +190,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -224,7 +224,7 @@ public class X_DD_NetworkDistributionLineInput extends X_DD_NetworkDistributionL
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_WarehouseSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_WarehouseSource.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_WarehouseSource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -65,7 +65,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -102,7 +102,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -183,7 +183,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -220,7 +220,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -257,7 +257,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -294,7 +294,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -331,7 +331,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MTaxDeclaration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxDeclaration", "C_TaxDeclaration_UU=?", get_TrxName())
-							.setParameters(C_TaxDeclaration.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_TaxDeclaration.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxDeclaration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -408,7 +408,7 @@ public class X_C_TaxDeclarationAcctInput extends MTaxDeclarationAcct implements 
 			MFactAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
-							.setParameters(Fact_Acct.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Fact_Acct.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFact_Acct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

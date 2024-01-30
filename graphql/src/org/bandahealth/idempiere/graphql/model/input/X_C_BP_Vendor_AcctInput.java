@@ -58,7 +58,7 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -95,7 +95,7 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -184,7 +184,7 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(V_Liability_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Liability_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -218,7 +218,7 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(V_Liability_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Liability_Services_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -252,7 +252,7 @@ public class X_C_BP_Vendor_AcctInput extends X_C_BP_Vendor_Acct implements I_C_B
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(V_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Prepayment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -53,7 +53,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_FundingMode_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_FundingMode_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_FundingMode_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -108,7 +108,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 			X_A_FundingMode foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_FundingMode", "A_FundingMode_UU=?", get_TrxName())
-							.setParameters(A_FundingMode.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_FundingMode.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_FundingMode_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -182,7 +182,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

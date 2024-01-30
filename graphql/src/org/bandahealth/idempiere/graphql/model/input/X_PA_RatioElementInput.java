@@ -57,7 +57,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MMeasureCalc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
-							.setParameters(PA_MeasureCalc.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_MeasureCalc.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_MeasureCalc_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -165,7 +165,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-							.setParameters(PA_Ratio.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_Ratio.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Ratio_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-							.setParameters(PA_RatioUsed.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_RatioUsed.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_RatioUsed_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -262,7 +262,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -296,7 +296,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RatioElementType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(RatioElementType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRatioElementType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -330,7 +330,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RatioOperand.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(RatioOperand.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRatioOperand(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

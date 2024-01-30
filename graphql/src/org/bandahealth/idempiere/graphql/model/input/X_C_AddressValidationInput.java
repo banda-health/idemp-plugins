@@ -51,7 +51,7 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -114,7 +114,7 @@ public class X_C_AddressValidationInput extends MAddressValidation implements I_
 			X_C_AddressValidationCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AddressValidationCfg", "C_AddressValidationCfg_UU=?", get_TrxName())
-							.setParameters(C_AddressValidationCfg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AddressValidationCfg.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AddressValidationCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -55,7 +55,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -100,7 +100,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(bh_update_reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(bh_update_reason.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setbh_update_reason(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -134,7 +134,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
-							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -197,7 +197,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MLot foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Lot", "M_Lot_UU=?", get_TrxName())
-							.setParameters(M_Lot.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Lot.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Lot_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

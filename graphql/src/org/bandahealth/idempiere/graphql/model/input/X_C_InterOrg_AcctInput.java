@@ -55,7 +55,7 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -92,7 +92,7 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -144,7 +144,7 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(IntercompanyDueFrom_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IntercompanyDueFrom_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIntercompanyDueFrom_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -178,7 +178,7 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(IntercompanyDueTo_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IntercompanyDueTo_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIntercompanyDueTo_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

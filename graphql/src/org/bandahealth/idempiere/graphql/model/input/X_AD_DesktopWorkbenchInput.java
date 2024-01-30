@@ -53,7 +53,7 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 			X_AD_Desktop foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Desktop", "AD_Desktop_UU=?", get_TrxName())
-							.setParameters(AD_Desktop.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Desktop.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Desktop_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -119,7 +119,7 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_DesktopWorkbenchInput extends X_AD_DesktopWorkbench implements
 			X_AD_Workbench foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workbench", "AD_Workbench_UU=?", get_TrxName())
-							.setParameters(AD_Workbench.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Workbench.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Workbench_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

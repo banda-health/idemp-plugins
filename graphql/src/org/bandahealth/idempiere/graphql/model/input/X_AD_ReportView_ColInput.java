@@ -50,7 +50,7 @@ public class X_AD_ReportView_ColInput extends X_AD_ReportView_Col implements I_A
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_AD_ReportView_ColInput extends X_AD_ReportView_Col implements I_A
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_ReportView_ColInput extends X_AD_ReportView_Col implements I_A
 			MReportView foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
-							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReportView_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

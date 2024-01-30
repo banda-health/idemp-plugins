@@ -51,7 +51,7 @@ public class X_EXP_ProcessorParameterInput extends MEXPProcessorParameter implem
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_EXP_ProcessorParameterInput extends MEXPProcessorParameter implem
 			MEXPProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Processor", "EXP_Processor_UU=?", get_TrxName())
-							.setParameters(EXP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(EXP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEXP_Processor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

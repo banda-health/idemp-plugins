@@ -53,7 +53,7 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(LabelPrintMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(LabelPrintMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLabelPrintMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_M_ShipperLabelsCfgInput extends X_M_ShipperLabelsCfg implements I
 			X_M_ShipperCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperCfg", "M_ShipperCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperCfg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ShipperCfg.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ShipperCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

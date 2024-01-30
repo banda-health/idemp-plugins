@@ -64,7 +64,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -98,7 +98,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -169,7 +169,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MDistributionList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
-							.setParameters(M_DistributionList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_DistributionList.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DistributionList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MDistributionListLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionListLine", "M_DistributionListLine_UU=?", get_TrxName())
-							.setParameters(M_DistributionListLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_DistributionListLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DistributionListLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -243,7 +243,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MDistributionRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionRun", "M_DistributionRun_UU=?", get_TrxName())
-							.setParameters(M_DistributionRun.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_DistributionRun.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DistributionRun_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -280,7 +280,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MDistributionRunLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionRunLine", "M_DistributionRunLine_UU=?", get_TrxName())
-							.setParameters(M_DistributionRunLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_DistributionRunLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DistributionRunLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -314,7 +314,7 @@ public class X_T_DistributionRunDetailInput extends MDistributionRunDetail imple
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

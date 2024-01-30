@@ -78,7 +78,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Reval_Code.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Code.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Code(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -112,7 +112,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Reval_Multiplier.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Multiplier.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Multiplier(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -146,7 +146,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -55,7 +55,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -121,7 +121,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 			MViewComponent foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ViewComponent", "AD_ViewComponent_UU=?", get_TrxName())
-							.setParameters(AD_ViewComponent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_ViewComponent.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ViewComponent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DBDataType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DBDataType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDBDataType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(

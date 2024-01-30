@@ -54,7 +54,7 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MChat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_Chat", "CM_Chat_UU=?", get_TrxName())
-							.setParameters(CM_Chat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CM_Chat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCM_Chat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

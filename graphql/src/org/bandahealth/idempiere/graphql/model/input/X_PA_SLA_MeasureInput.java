@@ -53,7 +53,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_PA_SLA_MeasureInput extends MSLAMeasure implements I_PA_SLA_Measu
 			MSLAGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_SLA_Goal", "PA_SLA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_SLA_Goal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_SLA_Goal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_SLA_Goal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

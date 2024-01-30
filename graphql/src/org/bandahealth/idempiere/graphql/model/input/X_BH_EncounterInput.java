@@ -53,7 +53,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -101,7 +101,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_Encounter_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Encounter_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Encounter_Type(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 			MBHVisit foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Visit", "BH_Visit_UU=?", get_TrxName())
-							.setParameters(BH_Visit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Visit.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Visit_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

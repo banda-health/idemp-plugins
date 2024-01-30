@@ -87,7 +87,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Action.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Action.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -121,7 +121,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
-							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_CtxHelp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -223,7 +223,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -257,7 +257,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -294,7 +294,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -328,7 +328,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -362,7 +362,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Task.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -396,7 +396,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			X_AD_WF_Block foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Block", "AD_WF_Block_UU=?", get_TrxName())
-							.setParameters(AD_WF_Block.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_WF_Block.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Block_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -459,7 +459,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			X_AD_WF_Responsible foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
-							.setParameters(AD_WF_Responsible.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_WF_Responsible.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Responsible_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -493,7 +493,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -530,7 +530,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -564,7 +564,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -598,7 +598,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -632,7 +632,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DynPriorityUnit.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DynPriorityUnit.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDynPriorityUnit(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -666,7 +666,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(EMailRecipient.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(EMailRecipient.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEMailRecipient(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -700,7 +700,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -734,7 +734,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FinishMode.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(FinishMode.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFinishMode(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -768,7 +768,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(JoinElement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(JoinElement.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setJoinElement(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -802,7 +802,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -836,7 +836,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MResource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_Resource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -870,7 +870,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(SplitElement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SplitElement.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSplitElement(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -904,7 +904,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(StartMode.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(StartMode.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setStartMode(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -938,7 +938,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(SubflowExecution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SubflowExecution.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSubflowExecution(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -972,7 +972,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Workflow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWorkflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

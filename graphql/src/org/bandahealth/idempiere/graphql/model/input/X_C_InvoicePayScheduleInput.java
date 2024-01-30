@@ -53,7 +53,7 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_C_InvoicePayScheduleInput extends MInvoicePaySchedule implements 
 			MPaySchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySchedule", "C_PaySchedule_UU=?", get_TrxName())
-							.setParameters(C_PaySchedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_PaySchedule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_PaySchedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

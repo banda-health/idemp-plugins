@@ -55,7 +55,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -92,7 +92,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -163,7 +163,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
-							.setParameters(EXP_EmbeddedFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(EXP_EmbeddedFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEXP_EmbeddedFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -200,7 +200,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
-							.setParameters(EXP_Format.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(EXP_Format.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEXP_Format_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -263,7 +263,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

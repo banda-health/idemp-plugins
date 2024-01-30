@@ -53,7 +53,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ConfidentialType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ConfidentialType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setConfidentialType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_R_RequestTypeInput extends MRequestType implements I_R_RequestTyp
 			MStatusCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_StatusCategory", "R_StatusCategory_UU=?", get_TrxName())
-							.setParameters(R_StatusCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_StatusCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_StatusCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

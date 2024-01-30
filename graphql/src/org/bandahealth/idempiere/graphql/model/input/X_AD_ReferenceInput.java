@@ -52,7 +52,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 			M_Element foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Element", "AD_Element_UU=?", get_TrxName())
-							.setParameters(AD_Element.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Element.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Element_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ValidationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ValidationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setValidationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

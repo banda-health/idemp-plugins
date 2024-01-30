@@ -64,7 +64,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -98,7 +98,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -132,7 +132,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ChartType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ChartType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setChartType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -233,7 +233,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MeasureDisplay.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(MeasureDisplay.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMeasureDisplay(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MeasureScope.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(MeasureScope.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMeasureScope(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -301,7 +301,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MColorSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ColorSchema", "PA_ColorSchema_UU=?", get_TrxName())
-							.setParameters(PA_ColorSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_ColorSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_ColorSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -364,7 +364,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_GoalParent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_GoalParent.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_GoalParent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -398,7 +398,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MMeasure foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
-							.setParameters(PA_Measure.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_Measure.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Measure_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

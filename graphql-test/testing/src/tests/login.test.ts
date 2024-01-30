@@ -18,7 +18,6 @@ test('error returned if wrong username/password', async () => {
 		});
 		expect(true).toBe(false);
 	} catch (e) {
-		console.log(e);
 		expect(true).toBe(true);
 	}
 });

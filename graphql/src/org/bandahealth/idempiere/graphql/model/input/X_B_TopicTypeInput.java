@@ -54,7 +54,7 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -151,7 +151,7 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_B_TopicTypeInput extends X_B_TopicType implements I_B_TopicTypeIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_ProductMember.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ProductMember.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductMember_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

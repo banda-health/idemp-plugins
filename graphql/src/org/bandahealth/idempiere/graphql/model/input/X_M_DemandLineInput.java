@@ -55,7 +55,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -92,7 +92,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			X_M_Demand foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Demand", "M_Demand_UU=?", get_TrxName())
-							.setParameters(M_Demand.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Demand.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Demand_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

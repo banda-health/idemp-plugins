@@ -53,7 +53,7 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 			X_M_Promotion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
-							.setParameters(M_Promotion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Promotion.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Promotion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_M_PromotionLineInput extends X_M_PromotionLine implements I_M_Pro
 			X_M_PromotionGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PromotionGroup", "M_PromotionGroup_UU=?", get_TrxName())
-							.setParameters(M_PromotionGroup.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_PromotionGroup.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PromotionGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

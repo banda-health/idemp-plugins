@@ -53,7 +53,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -171,7 +171,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReplicationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -238,7 +238,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(SystemStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SystemStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSystemStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

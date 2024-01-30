@@ -73,7 +73,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
@@ -110,7 +110,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -144,7 +144,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MPasswordRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PasswordRule", "AD_PasswordRule_UU=?", get_TrxName())
-							.setParameters(AD_PasswordRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PasswordRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PasswordRule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -178,7 +178,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -212,7 +212,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AutoArchive.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AutoArchive.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAutoArchive(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -246,7 +246,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MMPolicy.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(MMPolicy.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMMPolicy(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

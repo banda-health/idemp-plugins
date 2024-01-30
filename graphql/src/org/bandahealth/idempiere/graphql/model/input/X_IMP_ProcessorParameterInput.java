@@ -51,7 +51,7 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_IMP_ProcessorParameterInput extends X_IMP_ProcessorParameter impl
 			X_IMP_Processor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor", "IMP_Processor_UU=?", get_TrxName())
-							.setParameters(IMP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IMP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIMP_Processor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

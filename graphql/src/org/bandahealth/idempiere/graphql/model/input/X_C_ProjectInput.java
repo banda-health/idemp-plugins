@@ -76,7 +76,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -110,7 +110,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -144,7 +144,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -178,7 +178,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -212,7 +212,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -246,7 +246,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartnerSR.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartnerSR.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartnerSR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -280,7 +280,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -314,7 +314,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -348,7 +348,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_PaymentTerm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -382,7 +382,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MProjectTypePhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
-							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Phase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -467,7 +467,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MPriceListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList_Version", "M_PriceList_Version_UU=?", get_TrxName())
-							.setParameters(M_PriceList_Version.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_PriceList_Version.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PriceList_Version_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -501,7 +501,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -546,7 +546,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProjectCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ProjectCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProjectCategory(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -580,7 +580,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProjectLineLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ProjectLineLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProjectLineLevel(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -614,7 +614,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProjInvoiceRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -648,7 +648,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -53,7 +53,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 			X_C_Remuneration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Remuneration", "C_Remuneration_UU=?", get_TrxName())
-							.setParameters(C_Remuneration.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Remuneration.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Remuneration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

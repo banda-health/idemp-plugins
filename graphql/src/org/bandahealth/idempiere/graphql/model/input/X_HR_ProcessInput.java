@@ -77,7 +77,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -111,7 +111,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -145,7 +145,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -179,7 +179,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -213,7 +213,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -250,7 +250,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -284,7 +284,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeTarget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_DocTypeTarget.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocTypeTarget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -318,7 +318,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MPaySelection foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySelection", "C_PaySelection_UU=?", get_TrxName())
-							.setParameters(C_PaySelection.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_PaySelection.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_PaySelection_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -363,7 +363,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -397,7 +397,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -442,7 +442,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_HR_Department foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
-							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Department_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -476,7 +476,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_HR_Employee foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
-							.setParameters(HR_Employee.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Employee.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Employee_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -510,7 +510,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_HR_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
-							.setParameters(HR_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Job.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Job_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -547,7 +547,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -584,7 +584,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_HR_Period foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Period", "HR_Period_UU=?", get_TrxName())
-							.setParameters(HR_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -658,7 +658,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 			X_HR_Process foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Process", "HR_Process_UU=?", get_TrxName())
-							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReversal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

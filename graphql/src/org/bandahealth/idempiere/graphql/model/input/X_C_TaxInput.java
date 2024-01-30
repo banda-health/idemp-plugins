@@ -66,7 +66,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -100,7 +100,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Rule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -134,7 +134,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -168,7 +168,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MCountryGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
-							.setParameters(C_CountryGroupFrom.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_CountryGroupFrom.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CountryGroupFrom_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -202,7 +202,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MCountryGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CountryGroup", "C_CountryGroup_UU=?", get_TrxName())
-							.setParameters(C_CountryGroupTo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_CountryGroupTo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CountryGroupTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -236,7 +236,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -299,7 +299,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MTaxCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -333,7 +333,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MTaxProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
-							.setParameters(C_TaxProvider.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_TaxProvider.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -367,7 +367,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(Parent_Tax.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Parent_Tax.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setParent_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -401,7 +401,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(SOPOType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SOPOType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSOPOType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -435,7 +435,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(To_Region.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(To_Region.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTo_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

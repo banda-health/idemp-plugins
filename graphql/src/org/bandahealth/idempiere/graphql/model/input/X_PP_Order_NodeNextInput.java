@@ -56,7 +56,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-							.setParameters(AD_WF_Next.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_WF_Next.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Next_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Node_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 			X_PP_Order foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
-							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -229,7 +229,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 			X_PP_Order_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_Node", "PP_Order_Node_UU=?", get_TrxName())
-							.setParameters(PP_Order_Next.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PP_Order_Next.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Order_Next_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -266,7 +266,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 			X_PP_Order_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_Node", "PP_Order_Node_UU=?", get_TrxName())
-							.setParameters(PP_Order_Node.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PP_Order_Node.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Order_Node_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

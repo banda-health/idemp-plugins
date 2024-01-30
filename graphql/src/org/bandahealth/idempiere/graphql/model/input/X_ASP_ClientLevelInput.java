@@ -53,7 +53,7 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -116,7 +116,7 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 			X_ASP_Module foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Module", "ASP_Module_UU=?", get_TrxName())
-							.setParameters(ASP_Module.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ASP_Module.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Module_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

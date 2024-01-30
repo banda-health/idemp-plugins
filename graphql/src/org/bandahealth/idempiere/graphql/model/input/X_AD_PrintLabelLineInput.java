@@ -54,7 +54,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 			X_AD_LabelPrinterFunction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_LabelPrinterFunction", "AD_LabelPrinterFunction_UU=?", get_TrxName())
-							.setParameters(AD_LabelPrinterFunction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_LabelPrinterFunction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_LabelPrinterFunction_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 			X_AD_PrintLabel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintLabel", "AD_PrintLabel_UU=?", get_TrxName())
-							.setParameters(AD_PrintLabel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintLabel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintLabel_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(LabelFormatType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(LabelFormatType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLabelFormatType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

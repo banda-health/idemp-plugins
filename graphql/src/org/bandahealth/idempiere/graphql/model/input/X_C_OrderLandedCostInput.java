@@ -55,7 +55,7 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -92,7 +92,7 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(LandedCostDistribution.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(LandedCostDistribution.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLandedCostDistribution(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_CostElement.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

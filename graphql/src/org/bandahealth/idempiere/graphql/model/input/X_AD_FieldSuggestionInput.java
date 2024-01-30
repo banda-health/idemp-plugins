@@ -63,7 +63,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -129,7 +129,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
@@ -166,7 +166,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -203,7 +203,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -240,7 +240,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			X_AD_AllUsers_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -277,7 +277,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			X_AD_AllClients_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
-							.setParameters(AD_UserClient.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_UserClient.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_UserClient_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -314,7 +314,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -348,7 +348,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FieldSuggestionTarget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(FieldSuggestionTarget.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFieldSuggestionTarget(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

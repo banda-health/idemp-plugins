@@ -86,7 +86,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -120,7 +120,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -154,7 +154,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -188,7 +188,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BroadcastFrequency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BroadcastFrequency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBroadcastFrequency(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -222,7 +222,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BroadcastType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BroadcastType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBroadcastType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -256,7 +256,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Target.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Target.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTarget(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

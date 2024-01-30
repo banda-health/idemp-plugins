@@ -82,7 +82,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -116,7 +116,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -184,7 +184,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -218,7 +218,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -252,7 +252,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -286,7 +286,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -320,7 +320,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -354,7 +354,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
-							.setParameters(C_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -388,7 +388,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CalculationType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CalculationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCalculationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -422,7 +422,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ColumnType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ColumnType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setColumnType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -456,7 +456,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CurrencyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CurrencyType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCurrencyType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -490,7 +490,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ElementType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ElementType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setElementType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -524,7 +524,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Factor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Factor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFactor(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -558,7 +558,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -592,7 +592,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -626,7 +626,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MReportColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportColumn", "PA_ReportColumn_UU=?", get_TrxName())
-							.setParameters(Oper_1.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Oper_1.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOper_1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -660,7 +660,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MReportColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportColumn", "PA_ReportColumn_UU=?", get_TrxName())
-							.setParameters(Oper_2.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Oper_2.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOper_2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -726,7 +726,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MReportColumnSet foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportColumnSet", "PA_ReportColumnSet_UU=?", get_TrxName())
-							.setParameters(PA_ReportColumnSet.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_ReportColumnSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_ReportColumnSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -760,7 +760,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PAAmountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PAAmountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPAAmountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -794,7 +794,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PAPeriodType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PAPeriodType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPAPeriodType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -828,7 +828,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

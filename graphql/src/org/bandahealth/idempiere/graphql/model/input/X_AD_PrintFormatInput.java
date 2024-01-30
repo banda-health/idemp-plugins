@@ -65,7 +65,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -99,7 +99,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -133,7 +133,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(AD_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			X_AD_PrintPaper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintPaper", "AD_PrintPaper_UU=?", get_TrxName())
-							.setParameters(AD_PrintPaper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintPaper.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintPaper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -230,7 +230,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			X_AD_PrintTableFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintTableFormat", "AD_PrintTableFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintTableFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintTableFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintTableFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			MReportView foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
-							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReportView_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -304,7 +304,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -338,7 +338,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -383,7 +383,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(JasperProcess.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(JasperProcess.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setJasperProcess_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

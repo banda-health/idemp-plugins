@@ -52,7 +52,7 @@ public class X_AD_TreeNodeU2Input extends X_AD_TreeNodeU2 implements I_AD_TreeNo
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_AD_TreeNodeU2Input extends X_AD_TreeNodeU2 implements I_AD_TreeNo
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tree.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tree_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

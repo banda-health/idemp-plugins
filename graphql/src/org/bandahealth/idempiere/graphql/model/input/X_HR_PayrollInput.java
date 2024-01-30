@@ -57,7 +57,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 			X_HR_Contract foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Contract", "HR_Contract_UU=?", get_TrxName())
-							.setParameters(HR_Contract.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Contract.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Contract_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -222,7 +222,7 @@ public class X_HR_PayrollInput extends X_HR_Payroll implements I_HR_PayrollInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPaymentRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

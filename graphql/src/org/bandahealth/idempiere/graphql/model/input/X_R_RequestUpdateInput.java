@@ -55,7 +55,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ConfidentialTypeEntry.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ConfidentialTypeEntry.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setConfidentialTypeEntry(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_ProductSpent.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ProductSpent.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductSpent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -160,7 +160,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 			MRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
-							.setParameters(R_Request.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_Request.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_Request_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

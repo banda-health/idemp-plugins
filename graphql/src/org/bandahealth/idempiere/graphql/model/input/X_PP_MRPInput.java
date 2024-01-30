@@ -83,7 +83,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -151,7 +151,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -219,7 +219,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MDDOrder foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_Order", "DD_Order_UU=?", get_TrxName())
-							.setParameters(DD_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DD_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDD_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -253,7 +253,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MDDOrderLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "DD_OrderLine", "DD_OrderLine_UU=?", get_TrxName())
-							.setParameters(DD_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DD_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDD_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -287,7 +287,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -321,7 +321,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MForecast foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Forecast", "M_Forecast_UU=?", get_TrxName())
-							.setParameters(M_Forecast.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Forecast.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Forecast_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -355,7 +355,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MForecastLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ForecastLine", "M_ForecastLine_UU=?", get_TrxName())
-							.setParameters(M_ForecastLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ForecastLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ForecastLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -389,7 +389,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -423,7 +423,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MRequisition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Requisition", "M_Requisition_UU=?", get_TrxName())
-							.setParameters(M_Requisition.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Requisition.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Requisition_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -457,7 +457,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MRequisitionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RequisitionLine", "M_RequisitionLine_UU=?", get_TrxName())
-							.setParameters(M_RequisitionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_RequisitionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_RequisitionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -491,7 +491,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -525,7 +525,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(OrderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(OrderType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOrderType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -559,7 +559,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Planner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Planner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPlanner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -622,7 +622,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			X_PP_Order_BOMLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order_BOMLine", "PP_Order_BOMLine_UU=?", get_TrxName())
-							.setParameters(PP_Order_BOMLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PP_Order_BOMLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Order_BOMLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -656,7 +656,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			X_PP_Order foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Order", "PP_Order_UU=?", get_TrxName())
-							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PP_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -690,7 +690,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MResource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_Resource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -724,7 +724,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(TypeMRP.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(TypeMRP.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTypeMRP(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

@@ -60,7 +60,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AccountSign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AccountSign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccountSign(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -97,7 +97,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -131,7 +131,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -165,7 +165,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ColumnType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ColumnType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setColumnType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -199,7 +199,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			X_HR_Concept_Category foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept_Category", "HR_Concept_Category_UU=?", get_TrxName())
-							.setParameters(HR_Concept_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Concept_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Concept_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -262,7 +262,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			X_HR_Department foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Department", "HR_Department_UU=?", get_TrxName())
-							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Department.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Department_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -296,7 +296,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			X_HR_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Job", "HR_Job_UU=?", get_TrxName())
-							.setParameters(HR_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Job.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Job_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -330,7 +330,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -364,7 +364,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

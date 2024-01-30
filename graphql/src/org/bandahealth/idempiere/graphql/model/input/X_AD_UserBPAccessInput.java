@@ -56,7 +56,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BPAccessType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BPAccessType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBPAccessType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -187,7 +187,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocBaseType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -221,7 +221,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 			MRequestType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
-							.setParameters(R_RequestType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_RequestType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_RequestType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

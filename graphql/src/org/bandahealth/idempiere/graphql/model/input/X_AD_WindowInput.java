@@ -54,7 +54,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Color", "AD_Color_UU=?", get_TrxName())
-							.setParameters(AD_Color.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Color.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Color_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -188,7 +188,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -222,7 +222,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(WindowType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(WindowType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWindowType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

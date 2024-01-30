@@ -80,7 +80,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -151,7 +151,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ColorType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ColorType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setColorType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(StartPoint.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(StartPoint.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setStartPoint(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

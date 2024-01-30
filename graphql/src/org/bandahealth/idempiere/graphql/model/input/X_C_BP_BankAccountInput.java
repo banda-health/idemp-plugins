@@ -63,7 +63,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -97,7 +97,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -131,7 +131,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BankAccountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BankAccountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBankAccountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -165,7 +165,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BPBankAcctUse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BPBankAcctUse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBPBankAcctUse(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -199,7 +199,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-							.setParameters(C_Bank.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Bank.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Bank_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -265,7 +265,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -299,7 +299,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MPaymentProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
-							.setParameters(C_PaymentProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_PaymentProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_PaymentProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -333,7 +333,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCreditCardType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -370,7 +370,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(R_AvsAddr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_AvsAddr.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_AvsAddr(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -407,7 +407,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(R_AvsZip.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_AvsZip.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_AvsZip(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

@@ -52,7 +52,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -86,7 +86,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CumulativeLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CumulativeLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCumulativeLevel(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -120,7 +120,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DiscountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DiscountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDiscountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

@@ -197,6 +197,27 @@ mutation C_ValidCombinationGetOrCreate(
 	}
 }
 
+mutation M_InventoryProcess($uuid: String!, $documentAction: String!) {
+	M_InventoryProcess(uuid: $uuid, documentAction: $documentAction) {
+		...M_InventoryFields
+	}
+}
+
+mutation M_InventorySave($entity: M_InventoryInput!) {
+	M_InventorySave(entity: $entity) {
+		...M_InventoryFields
+	}
+}
+
+mutation M_InventorySaveWithInventoryLines($M_Inventory: M_InventoryInput!, $M_InventoryLine: M_InventoryLineInput!) {
+	M_InventorySave(entity: $M_Inventory) {
+		...M_InventoryFields
+	}
+	M_InventoryLineSave(entity: $M_InventoryLine) {
+		UUID
+	}
+}
+
 mutation M_ProductSave($entity: M_ProductInput!) {
 	M_ProductSave(entity: $entity) {
 		BH_BuyPrice

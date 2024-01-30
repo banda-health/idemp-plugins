@@ -203,11 +203,28 @@ query ChangeAccess($credentials: ChangeAccessInput!) {
 	}
 }
 
+query M_AttributeSetInstanceGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	M_AttributeSetInstanceGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+		}
+	}
+}
+
 query M_Product_CategoryGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	M_Product_CategoryGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
 			UUID
 			Name
+		}
+	}
+}
+
+query M_StorageOnHandGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	M_StorageOnHandGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			QtyOnHand
 		}
 	}
 }

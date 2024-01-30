@@ -51,7 +51,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -151,7 +151,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AndOr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AndOr.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAndOr(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -185,7 +185,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOperation(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

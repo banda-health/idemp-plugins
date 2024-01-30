@@ -53,7 +53,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -116,7 +116,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DB_UserType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DB_UserType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDB_UserType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(Included_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Included_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIncluded_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

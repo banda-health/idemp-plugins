@@ -50,7 +50,7 @@ public class X_R_IssueSystemInput extends MIssueSystem implements I_R_IssueSyste
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_R_IssueSystemInput extends MIssueSystem implements I_R_IssueSyste
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -183,7 +183,7 @@ public class X_R_IssueSystemInput extends MIssueSystem implements I_R_IssueSyste
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(SystemStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SystemStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSystemStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

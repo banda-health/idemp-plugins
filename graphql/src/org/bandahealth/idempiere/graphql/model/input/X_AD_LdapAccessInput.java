@@ -84,7 +84,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MLdapProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_LdapProcessor", "AD_LdapProcessor_UU=?", get_TrxName())
-							.setParameters(AD_LdapProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_LdapProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_LdapProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -121,7 +121,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MInterestArea foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_InterestArea", "R_InterestArea_UU=?", get_TrxName())
-							.setParameters(R_InterestArea.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_InterestArea.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_InterestArea_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

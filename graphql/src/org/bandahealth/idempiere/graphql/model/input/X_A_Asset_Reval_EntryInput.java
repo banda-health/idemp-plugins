@@ -91,7 +91,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Rev_Code.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Rev_Code.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Rev_Code(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Reval_Cal_Method.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Cal_Method.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Cal_Method(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Reval_Effective_Date.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Effective_Date.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Effective_Date(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -193,7 +193,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Reval_Multiplier.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Multiplier.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Multiplier(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -227,7 +227,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -261,7 +261,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -295,7 +295,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -329,7 +329,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -363,7 +363,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -397,7 +397,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -431,7 +431,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

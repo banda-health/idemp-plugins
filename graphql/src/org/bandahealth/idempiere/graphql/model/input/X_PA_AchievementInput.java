@@ -51,7 +51,7 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 			MMeasure foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
-							.setParameters(PA_Measure.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PA_Measure.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Measure_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

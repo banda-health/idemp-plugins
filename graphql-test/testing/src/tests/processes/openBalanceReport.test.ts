@@ -39,7 +39,7 @@ beforeAll(async () => {
 	valueObject.documentAction = undefined;
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
-		documentSubTypeSalesOrder.WarehouseOrder,
+		{ sales: documentSubTypeSalesOrder.WarehouseOrder },
 		true,
 		false,
 		false,

@@ -51,7 +51,7 @@ public class X_WS_WebServiceMethodInput extends X_WS_WebServiceMethod implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_WS_WebServiceMethodInput extends X_WS_WebServiceMethod implements
 			X_WS_WebService foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "WS_WebService", "WS_WebService_UU=?", get_TrxName())
-							.setParameters(WS_WebService.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(WS_WebService.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWS_WebService_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

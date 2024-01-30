@@ -57,7 +57,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
-							.setParameters(C_ProjectPhase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ProjectPhase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ProjectPhase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -160,7 +160,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MProjectTypeTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Task", "C_Task_UU=?", get_TrxName())
-							.setParameters(C_Task.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Task.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -194,7 +194,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -228,7 +228,7 @@ public class X_C_ProjectTaskInput extends MProjectTask implements I_C_ProjectTas
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProjInvoiceRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

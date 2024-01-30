@@ -56,7 +56,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 			MRevenueRecogService foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecog_Service", "C_RevenueRecog_Service_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecog_Service.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_RevenueRecog_Service.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RevenueRecog_Service_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 			MRevenueRecognitionPlan foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition_Plan", "C_RevenueRecognition_Plan_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecognition_Plan.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_RevenueRecognition_Plan.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RevenueRecognition_Plan_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -193,7 +193,7 @@ public class X_C_RevenueRecognition_RunInput extends MRevenueRecognitionRun impl
 			MJournal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
-							.setParameters(GL_Journal.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(GL_Journal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Journal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

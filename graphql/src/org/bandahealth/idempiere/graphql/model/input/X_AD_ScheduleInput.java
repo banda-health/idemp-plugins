@@ -50,7 +50,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -113,7 +113,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFrequencyType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -147,7 +147,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ScheduleType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ScheduleType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setScheduleType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -181,7 +181,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(WeekDay.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(WeekDay.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWeekDay(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

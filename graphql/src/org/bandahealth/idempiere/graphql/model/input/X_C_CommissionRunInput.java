@@ -52,7 +52,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 			MCommission foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Commission", "C_Commission_UU=?", get_TrxName())
-							.setParameters(C_Commission.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Commission.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Commission_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

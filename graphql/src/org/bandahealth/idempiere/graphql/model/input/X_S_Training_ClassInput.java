@@ -53,7 +53,7 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			X_S_Training foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Training", "S_Training_UU=?", get_TrxName())
-							.setParameters(S_Training.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(S_Training.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_Training_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

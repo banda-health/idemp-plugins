@@ -23,7 +23,7 @@ export default async function () {
 	});
 	loginInfo = { ...initialLoginInfo };
 	// Find the client & org we'll use
-	const client = initialLoginInfo.AD_Clients.find((client) => client.Name === clientName);
+	let client = initialLoginInfo.AD_Clients.find((client) => client.Name === clientName);
 	const organization = client?.AD_Orgs[0];
 	const roles = organization?.AD_Roles;
 	if (!client) {
@@ -54,6 +54,8 @@ export default async function () {
 		});
 		// Update the session token appropriately
 		loginInfo.token = newLoginInfo.token;
+		loginInfo.AD_Clients = newLoginInfo.AD_Clients; // Ensure all data is loaded now that a client is selected
+		client = newLoginInfo.AD_Clients.find((client) => client.Name === clientName)!;
 		loginInfo.clientUuid = client.UUID;
 		loginInfo.organizationUuid = organization.UUID;
 		loginInfo.roleUuid = organization.UUID;

@@ -59,7 +59,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -96,7 +96,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -133,7 +133,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MProjectTypePhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
-							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Phase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -170,7 +170,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -233,7 +233,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProjInvoiceRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

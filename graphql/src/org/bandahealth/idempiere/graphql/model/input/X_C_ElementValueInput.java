@@ -56,7 +56,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AccountSign.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AccountSign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccountSign(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AccountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AccountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -127,7 +127,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BPartnerType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BPartnerType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBPartnerType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -229,7 +229,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -266,7 +266,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 			MElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Element", "C_Element_UU=?", get_TrxName())
-							.setParameters(C_Element.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Element.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Element_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

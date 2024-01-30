@@ -51,7 +51,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 			X_HR_ListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_ListVersion", "HR_ListVersion_UU=?", get_TrxName())
-							.setParameters(HR_ListVersion.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_ListVersion.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_ListVersion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

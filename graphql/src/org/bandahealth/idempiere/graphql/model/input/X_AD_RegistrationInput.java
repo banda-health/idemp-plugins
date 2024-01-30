@@ -55,7 +55,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -121,7 +121,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MSystem foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_System", "AD_System_UU=?", get_TrxName())
-							.setParameters(AD_System.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_System.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_System_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

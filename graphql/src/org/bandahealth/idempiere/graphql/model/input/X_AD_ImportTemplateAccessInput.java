@@ -53,7 +53,7 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 			MImportTemplate foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ImportTemplate", "AD_ImportTemplate_UU=?", get_TrxName())
-							.setParameters(AD_ImportTemplate.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_ImportTemplate.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ImportTemplate_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -119,7 +119,7 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_AD_ImportTemplateAccessInput extends X_AD_ImportTemplateAccess im
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

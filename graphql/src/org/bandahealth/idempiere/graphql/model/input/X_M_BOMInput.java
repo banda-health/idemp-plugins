@@ -56,7 +56,7 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBOMType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BOMUse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BOMUse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBOMUse(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -187,7 +187,7 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
-							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ChangeNotice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -224,7 +224,7 @@ public class X_M_BOMInput extends MBOM implements I_M_BOMInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

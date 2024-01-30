@@ -51,7 +51,7 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_B_TopicCategoryInput extends X_B_TopicCategory implements I_B_Top
 			X_B_TopicType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_TopicType", "B_TopicType_UU=?", get_TrxName())
-							.setParameters(B_TopicType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(B_TopicType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_TopicType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

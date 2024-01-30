@@ -59,7 +59,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -96,7 +96,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -130,7 +130,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -193,7 +193,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 			X_C_POSTenderType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSTenderType", "C_POSTenderType_UU=?", get_TrxName())
-							.setParameters(C_POSTenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_POSTenderType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_POSTenderType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -227,7 +227,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CheckStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CheckStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCheckStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -261,7 +261,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCreditCardType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -295,7 +295,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(TenderType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(TenderType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTenderType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

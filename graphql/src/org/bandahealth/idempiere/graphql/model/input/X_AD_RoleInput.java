@@ -60,7 +60,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Menu.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tree_Menu.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tree_Menu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tree_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tree_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -191,7 +191,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PreferenceType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PreferenceType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPreferenceType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -259,7 +259,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RoleType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(RoleType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRoleType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -293,7 +293,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -327,7 +327,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(UserLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(UserLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUserLevel(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

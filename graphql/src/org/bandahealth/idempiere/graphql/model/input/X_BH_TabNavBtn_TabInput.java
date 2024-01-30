@@ -55,7 +55,7 @@ public class X_BH_TabNavBtn_TabInput extends MTabNavBtnTab implements I_BH_TabNa
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_BH_TabNavBtn_TabInput extends MTabNavBtnTab implements I_BH_TabNa
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_BH_TabNavBtn_TabInput extends MTabNavBtnTab implements I_BH_TabNa
 			MTabNavBtn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_TabNavBtn", "BH_TabNavBtn_UU=?", get_TrxName())
-							.setParameters(BH_TabNavBtn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_TabNavBtn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_TabNavBtn_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_BH_TabNavBtn_TabInput extends MTabNavBtnTab implements I_BH_TabNa
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ButtonLocation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ButtonLocation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setButtonLocation(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

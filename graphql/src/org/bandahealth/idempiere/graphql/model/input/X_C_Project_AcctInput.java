@@ -57,7 +57,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -149,7 +149,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -183,7 +183,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PJ_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPJ_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -217,7 +217,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_WIP_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PJ_WIP_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPJ_WIP_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

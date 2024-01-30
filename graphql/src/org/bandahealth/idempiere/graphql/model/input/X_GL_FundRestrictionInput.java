@@ -53,7 +53,7 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_GL_FundRestrictionInput extends X_GL_FundRestriction implements I
 			X_GL_Fund foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Fund", "GL_Fund_UU=?", get_TrxName())
-							.setParameters(GL_Fund.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(GL_Fund.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Fund_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

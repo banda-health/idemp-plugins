@@ -77,3 +77,10 @@ fragment C_PaymentFields on C_Payment {
 	}
 	UUID
 }
+
+fragment M_InventoryFields on M_Inventory {
+	DocStatus {
+		Value
+	}
+	UUID
+}

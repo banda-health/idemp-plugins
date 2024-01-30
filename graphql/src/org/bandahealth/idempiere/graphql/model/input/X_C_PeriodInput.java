@@ -53,7 +53,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -119,7 +119,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
-							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PeriodType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PeriodType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPeriodType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

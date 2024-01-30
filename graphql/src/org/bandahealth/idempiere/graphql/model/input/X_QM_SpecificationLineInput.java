@@ -56,7 +56,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AndOr.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AndOr.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAndOr(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -124,7 +124,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 			MAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
-							.setParameters(M_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOperation(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -195,7 +195,7 @@ public class X_QM_SpecificationLineInput extends X_QM_SpecificationLine implemen
 			X_QM_Specification foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "QM_Specification", "QM_Specification_UU=?", get_TrxName())
-							.setParameters(QM_Specification.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(QM_Specification.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setQM_Specification_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

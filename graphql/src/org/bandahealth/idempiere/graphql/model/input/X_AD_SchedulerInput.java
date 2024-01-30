@@ -63,7 +63,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -97,7 +97,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -134,7 +134,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -168,7 +168,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
-							.setParameters(AD_Schedule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Schedule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Schedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -231,7 +231,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -268,7 +268,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -302,7 +302,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ReportOutputType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ReportOutputType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReportOutputType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -347,7 +347,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

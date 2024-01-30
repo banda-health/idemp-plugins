@@ -68,7 +68,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -102,7 +102,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AllocationStrategyType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AllocationStrategyType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAllocationStrategyType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -136,7 +136,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -170,7 +170,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -204,7 +204,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInventoryLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InventoryLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -238,7 +238,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -272,7 +272,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MProductionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionLine", "M_ProductionLine_UU=?", get_TrxName())
-							.setParameters(M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -309,7 +309,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Transaction", "M_Transaction_UU=?", get_TrxName())
-							.setParameters(M_Transaction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Transaction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Transaction_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -361,7 +361,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(Out_M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Out_M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -395,7 +395,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInventoryLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(Out_M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Out_M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_InventoryLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -429,7 +429,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MProductionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionLine", "M_ProductionLine_UU=?", get_TrxName())
-							.setParameters(Out_M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Out_M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_ProductionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -463,7 +463,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Transaction", "M_Transaction_UU=?", get_TrxName())
-							.setParameters(Out_M_Transaction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Out_M_Transaction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_Transaction_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

@@ -82,7 +82,7 @@ public class X_AD_ImpFormatInput extends X_AD_ImpFormat implements I_AD_ImpForma
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -116,7 +116,7 @@ public class X_AD_ImpFormatInput extends X_AD_ImpFormat implements I_AD_ImpForma
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_AD_ImpFormatInput extends X_AD_ImpFormat implements I_AD_ImpForma
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FormatType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(FormatType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFormatType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

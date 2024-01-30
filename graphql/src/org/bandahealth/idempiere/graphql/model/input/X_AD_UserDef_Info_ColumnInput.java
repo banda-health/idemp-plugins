@@ -64,7 +64,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
-							.setParameters(AD_FieldStyle.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_FieldStyle.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_FieldStyle_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -101,7 +101,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-							.setParameters(AD_InfoColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_InfoColumn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_InfoColumn_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -138,7 +138,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -172,7 +172,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -272,7 +272,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MUserDefInfo foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Info", "AD_UserDef_Info_UU=?", get_TrxName())
-							.setParameters(AD_UserDef_Info.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_UserDef_Info.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_UserDef_Info_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -306,7 +306,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -340,7 +340,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsAutocomplete.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IsAutocomplete.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsAutocomplete(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -374,7 +374,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsDisplayed.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IsDisplayed.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsDisplayed(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -408,7 +408,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsMandatory.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IsMandatory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsMandatory(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -442,7 +442,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsQueryCriteria.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IsQueryCriteria.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsQueryCriteria(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -476,7 +476,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsReadOnly.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IsReadOnly.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsReadOnly(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -510,7 +510,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(QueryOperator.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(QueryOperator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setQueryOperator(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

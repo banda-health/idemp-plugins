@@ -55,7 +55,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BankAccountType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BankAccountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBankAccountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-							.setParameters(C_Bank.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Bank.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Bank_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

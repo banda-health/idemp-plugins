@@ -83,7 +83,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -120,7 +120,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -154,7 +154,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
@@ -188,7 +188,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-							.setParameters(ParentRelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ParentRelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setParentRelatedColumn_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -222,7 +222,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-							.setParameters(RelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(RelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRelatedColumn_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -256,7 +256,7 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(RelatedInfo.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(RelatedInfo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRelatedInfo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

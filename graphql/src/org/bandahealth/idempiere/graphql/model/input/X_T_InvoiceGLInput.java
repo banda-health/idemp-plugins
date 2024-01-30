@@ -57,7 +57,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(APAR.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(APAR.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAPAR(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_ConversionTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ConversionTypeReval_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -193,7 +193,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_DocTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocTypeReval_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -227,7 +227,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

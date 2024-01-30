@@ -57,7 +57,7 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -157,7 +157,7 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			X_M_DemandLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DemandLine", "M_DemandLine_UU=?", get_TrxName())
-							.setParameters(M_DemandLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_DemandLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DemandLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -191,7 +191,7 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MForecastLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ForecastLine", "M_ForecastLine_UU=?", get_TrxName())
-							.setParameters(M_ForecastLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ForecastLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ForecastLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MRequisitionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RequisitionLine", "M_RequisitionLine_UU=?", get_TrxName())
-							.setParameters(M_RequisitionLine.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_RequisitionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_RequisitionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

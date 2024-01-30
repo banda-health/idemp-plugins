@@ -51,7 +51,7 @@ public class X_M_ShipperPickupTypesCfgInput extends X_M_ShipperPickupTypesCfg im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_M_ShipperPickupTypesCfgInput extends X_M_ShipperPickupTypesCfg im
 			X_M_ShipperCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperCfg", "M_ShipperCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperCfg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ShipperCfg.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ShipperCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

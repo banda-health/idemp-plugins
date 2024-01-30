@@ -52,7 +52,7 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			X_C_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Job", "C_Job_UU=?", get_TrxName())
-							.setParameters(C_Job.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Job.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Job_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			X_M_ProductOperation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductOperation", "M_ProductOperation_UU=?", get_TrxName())
-							.setParameters(M_ProductOperation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ProductOperation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductOperation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

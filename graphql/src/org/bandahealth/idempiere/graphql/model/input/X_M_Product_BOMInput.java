@@ -57,7 +57,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BOMType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBOMType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -161,7 +161,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 			X_M_PartType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PartType", "M_PartType_UU=?", get_TrxName())
-							.setParameters(M_PartType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_PartType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PartType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -227,7 +227,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -261,7 +261,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_ProductBOM.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ProductBOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductBOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

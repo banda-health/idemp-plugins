@@ -52,7 +52,7 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 			X_HR_List foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
-							.setParameters(HR_List.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_List.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_List_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -123,7 +123,7 @@ public class X_HR_ListVersionInput extends X_HR_ListVersion implements I_HR_List
 			X_HR_List foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_List", "HR_List_UU=?", get_TrxName())
-							.setParameters(HR_ListBase.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_ListBase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_ListBase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

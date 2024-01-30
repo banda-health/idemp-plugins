@@ -52,7 +52,7 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -86,7 +86,7 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 			MBHRoleWarehouseAccess foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Role_WarehouseAccess", "BH_Role_WarehouseAccess_UU=?", get_TrxName())
-							.setParameters(BH_Role_WarehouseAccess.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Role_WarehouseAccess.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Role_WarehouseAccess_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -141,7 +141,7 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

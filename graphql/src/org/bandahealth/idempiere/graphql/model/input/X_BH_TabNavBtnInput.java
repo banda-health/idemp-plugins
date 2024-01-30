@@ -57,7 +57,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -94,7 +94,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -128,7 +128,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -162,7 +162,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -196,7 +196,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -259,7 +259,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ButtonAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ButtonAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setButtonAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -293,7 +293,7 @@ public class X_BH_TabNavBtnInput extends MTabNavBtn implements I_BH_TabNavBtnInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ButtonLocation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ButtonLocation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setButtonLocation(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

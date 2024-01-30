@@ -78,7 +78,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Accumdepreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Accumdepreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -112,7 +112,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -178,7 +178,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -212,7 +212,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -246,7 +246,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MDepreciationConvention foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation_Convention", "A_Depreciation_Convention_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_Conv_F.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_Conv_F.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Conv_F_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -280,7 +280,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MDepreciationConvention foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation_Convention", "A_Depreciation_Convention_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_Conv.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_Conv.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Conv_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -314,7 +314,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MDepreciation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation", "A_Depreciation_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_F.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_F.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_F_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -348,7 +348,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MDepreciation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation", "A_Depreciation_UU=?", get_TrxName())
-							.setParameters(A_Depreciation.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -382,7 +382,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Depreciation_Manual_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_Manual_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Manual_Period(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -416,7 +416,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MDepreciationMethod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation_Method", "A_Depreciation_Method_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_Method_F.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_Method_F.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Method_F_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -450,7 +450,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MDepreciationMethod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation_Method", "A_Depreciation_Method_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_Method.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_Method.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Method_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -484,7 +484,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			X_A_Depreciation_Table_Header foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation_Table_Header", "A_Depreciation_Table_Header_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_Table_Header.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Depreciation_Table_Header.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Table_Header_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -518,7 +518,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Disposal_Gain_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Disposal_Gain_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Disposal_Gain_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -552,7 +552,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Disposal_Loss_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Disposal_Loss_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Disposal_Loss_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -586,7 +586,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Disposal_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Disposal_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Disposal_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -620,7 +620,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Reval_Adep_Offset_Cur_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Adep_Offset_Cur_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Adep_Offset_Cur_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -654,7 +654,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Reval_Adep_Offset_Prior_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Adep_Offset_Prior_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Adep_Offset_Prior_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -688,7 +688,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Reval_Cal_Method.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Cal_Method.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Cal_Method(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -722,7 +722,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Reval_Cost_Offset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Cost_Offset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Cost_Offset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -756,7 +756,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Reval_Cost_Offset_Prior_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Cost_Offset_Prior_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Cost_Offset_Prior_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -790,7 +790,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Reval_Depexp_Offset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Reval_Depexp_Offset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Depexp_Offset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -824,7 +824,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -858,7 +858,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -892,7 +892,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

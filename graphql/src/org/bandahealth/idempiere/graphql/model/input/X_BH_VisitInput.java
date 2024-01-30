@@ -57,7 +57,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_PatientType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_PatientType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_PatientType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_Process_Stage.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Process_Stage.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Process_Stage(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(bh_referral.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(bh_referral.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setbh_referral(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -222,7 +222,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MBHVoidedReason foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Voided_Reason", "BH_Voided_Reason_UU=?", get_TrxName())
-							.setParameters(BH_Voided_Reason.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Voided_Reason.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Voided_Reason_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -267,7 +267,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(Patient.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(Patient.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPatient_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

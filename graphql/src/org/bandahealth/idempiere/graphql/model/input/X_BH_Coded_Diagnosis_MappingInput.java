@@ -51,7 +51,7 @@ public class X_BH_Coded_Diagnosis_MappingInput extends MBHCodedDiagnosisMapping 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_BH_Coded_Diagnosis_MappingInput extends MBHCodedDiagnosisMapping 
 			MBHCodedDiagnosis foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Coded_Diagnosis", "BH_Coded_Diagnosis_UU=?", get_TrxName())
-							.setParameters(BH_Coded_Diagnosis.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Coded_Diagnosis.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Coded_Diagnosis_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

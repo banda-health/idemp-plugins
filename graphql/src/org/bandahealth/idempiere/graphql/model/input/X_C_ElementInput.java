@@ -53,7 +53,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Tree.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tree_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -156,7 +156,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ElementType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(ElementType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setElementType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

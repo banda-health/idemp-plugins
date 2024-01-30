@@ -72,7 +72,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -106,7 +106,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -172,7 +172,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -206,7 +206,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -240,7 +240,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -296,7 +296,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsReproducible.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IsReproducible.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsReproducible(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -330,7 +330,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IssueSource.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IssueSource.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIssueSource(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -364,7 +364,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsVanillaSystem.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(IsVanillaSystem.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsVanillaSystem(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -464,7 +464,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			X_R_IssueKnown foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueKnown", "R_IssueKnown_UU=?", get_TrxName())
-							.setParameters(R_IssueKnown.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_IssueKnown.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_IssueKnown_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -498,7 +498,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MIssueProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueProject", "R_IssueProject_UU=?", get_TrxName())
-							.setParameters(R_IssueProject.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_IssueProject.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_IssueProject_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -532,7 +532,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MIssueSystem foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueSystem", "R_IssueSystem_UU=?", get_TrxName())
-							.setParameters(R_IssueSystem.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_IssueSystem.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_IssueSystem_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -566,7 +566,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MIssueUser foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueUser", "R_IssueUser_UU=?", get_TrxName())
-							.setParameters(R_IssueUser.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_IssueUser.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_IssueUser_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -603,7 +603,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MRequest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Request", "R_Request_UU=?", get_TrxName())
-							.setParameters(R_Request.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_Request.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_Request_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -714,7 +714,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(SystemStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(SystemStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSystemStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

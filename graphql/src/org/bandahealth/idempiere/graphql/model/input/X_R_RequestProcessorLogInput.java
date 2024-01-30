@@ -51,7 +51,7 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -88,7 +88,7 @@ public class X_R_RequestProcessorLogInput extends MRequestProcessorLog implement
 			MRequestProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestProcessor", "R_RequestProcessor_UU=?", get_TrxName())
-							.setParameters(R_RequestProcessor.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(R_RequestProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_RequestProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

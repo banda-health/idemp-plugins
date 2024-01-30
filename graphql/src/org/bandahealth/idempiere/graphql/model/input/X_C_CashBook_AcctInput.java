@@ -60,7 +60,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -97,7 +97,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -152,7 +152,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -186,7 +186,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CB_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -220,7 +220,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_CashTransfer_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CB_CashTransfer_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_CashTransfer_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -254,7 +254,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Differences_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CB_Differences_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Differences_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -288,7 +288,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CB_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -322,7 +322,7 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Receipt_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CB_Receipt_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Receipt_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

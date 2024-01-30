@@ -53,7 +53,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -90,7 +90,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(BH_Payer.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_Payer.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Payer_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -153,7 +153,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_PayerInfoFieldDataType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BH_PayerInfoFieldDataType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_PayerInfoFieldDataType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

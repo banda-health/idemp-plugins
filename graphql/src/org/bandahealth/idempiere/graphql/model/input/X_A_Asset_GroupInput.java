@@ -50,7 +50,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 			MAssetClass foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Class", "A_Asset_Class_UU=?", get_TrxName())
-							.setParameters(A_Asset_Class.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset_Class.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_Class_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -113,7 +113,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 			MAssetType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Type", "A_Asset_Type_UU=?", get_TrxName())
-							.setParameters(A_Asset_Type.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(A_Asset_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_Type_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -150,7 +150,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

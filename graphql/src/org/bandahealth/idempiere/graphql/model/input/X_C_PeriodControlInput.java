@@ -55,7 +55,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -92,7 +92,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -158,7 +158,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocBaseType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -192,7 +192,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PeriodAction.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PeriodAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPeriodAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -229,7 +229,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PeriodStatus.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(PeriodStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPeriodStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(

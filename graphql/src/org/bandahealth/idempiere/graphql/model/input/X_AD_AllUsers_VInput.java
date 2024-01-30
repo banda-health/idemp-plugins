@@ -52,7 +52,7 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 			X_AD_AllClients_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
-							.setParameters(AD_AllClients_V.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_AllClients_V.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_AllClients_V_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -118,7 +118,7 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

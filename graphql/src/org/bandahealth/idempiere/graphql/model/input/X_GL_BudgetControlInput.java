@@ -53,7 +53,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -87,7 +87,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BudgetControlScope.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(BudgetControlScope.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBudgetControlScope(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -121,7 +121,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -155,7 +155,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CommitmentType.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CommitmentType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCommitmentType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

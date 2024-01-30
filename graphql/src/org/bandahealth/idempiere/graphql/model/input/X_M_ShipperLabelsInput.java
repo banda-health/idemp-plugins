@@ -55,7 +55,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -89,7 +89,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(LabelPrintMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(LabelPrintMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLabelPrintMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -126,7 +126,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -189,7 +189,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			X_M_ShipperLabelsCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperLabelsCfg", "M_ShipperLabelsCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperLabelsCfg.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_ShipperLabelsCfg.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ShipperLabelsCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

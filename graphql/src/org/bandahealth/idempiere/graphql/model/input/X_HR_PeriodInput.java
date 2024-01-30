@@ -57,7 +57,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -91,7 +91,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -125,7 +125,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
-							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -159,7 +159,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -225,7 +225,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			X_HR_Year foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Year", "HR_Year_UU=?", get_TrxName())
-							.setParameters(HR_Year.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(HR_Year.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

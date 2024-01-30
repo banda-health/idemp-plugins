@@ -71,7 +71,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -108,7 +108,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -142,7 +142,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingLevel.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CostingLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingLevel(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -176,7 +176,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
@@ -231,7 +231,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -265,7 +265,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -299,7 +299,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_AverageCostVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_AverageCostVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_AverageCostVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -333,7 +333,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_COGS_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_COGS_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_COGS_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -367,7 +367,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_CostAdjustment_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_CostAdjustment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_CostAdjustment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -401,7 +401,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -435,7 +435,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InventoryClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_InventoryClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_InventoryClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -469,7 +469,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InvoicePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_InvoicePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_InvoicePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -503,7 +503,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_LandedCostClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_LandedCostClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_LandedCostClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -537,7 +537,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_PurchasePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_PurchasePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_PurchasePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -571,7 +571,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_RateVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_RateVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_RateVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -605,7 +605,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -639,7 +639,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountGrant_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_TradeDiscountGrant_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_TradeDiscountGrant_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -673,7 +673,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountRec_A.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(P_TradeDiscountRec_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_TradeDiscountRec_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(

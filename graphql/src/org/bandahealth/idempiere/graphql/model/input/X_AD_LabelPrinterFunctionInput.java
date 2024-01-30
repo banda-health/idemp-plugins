@@ -51,7 +51,7 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 			X_AD_LabelPrinter foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_LabelPrinter", "AD_LabelPrinter_UU=?", get_TrxName())
-							.setParameters(AD_LabelPrinter.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_LabelPrinter.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_LabelPrinter_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
@@ -117,7 +117,7 @@ public class X_AD_LabelPrinterFunctionInput extends X_AD_LabelPrinterFunction im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() != 0) {
+							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
