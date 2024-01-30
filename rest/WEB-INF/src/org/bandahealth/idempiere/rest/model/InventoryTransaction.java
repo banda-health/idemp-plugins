@@ -1,8 +1,8 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.math.BigDecimal;
 
 public class InventoryTransaction extends BaseMetadata {
 
@@ -10,7 +10,7 @@ public class InventoryTransaction extends BaseMetadata {
 	private Integer transactionId;
 	private Transaction transaction;
 	@JsonIgnore
-	private Integer cOrderId;
+	private Integer orderId;
 	private Order order;
 	@JsonIgnore
 	private Integer movementId;
@@ -53,13 +53,13 @@ public class InventoryTransaction extends BaseMetadata {
 		this.transaction = transaction;
 	}
 
-	public Integer getcOrderId() {
-		return cOrderId;
+	public Integer getOrderId() {
+		return orderId;
 	}
 
 	@JsonIgnore
-	public void setcOrderId(Integer cOrderId) {
-		this.cOrderId = cOrderId;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
 	public Order getOrder() {
