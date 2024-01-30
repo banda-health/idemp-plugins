@@ -10,19 +10,12 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.InOutLine;
 import org.bandahealth.idempiere.rest.model.InventoryLine;
-import org.bandahealth.idempiere.rest.model.InventoryTransaction;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.MovementLine;
-import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Transaction;
 import org.bandahealth.idempiere.rest.model.User;
-import org.bandahealth.idempiere.rest.utils.FilterUtil;
-import org.bandahealth.idempiere.rest.utils.ModelUtil;
-import org.bandahealth.idempiere.rest.utils.SqlUtil;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MTransaction;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,32 +139,5 @@ public class TransactionDBService extends BaseDBService<Transaction, MTransactio
 			return transaction;
 
 		}).collect(Collectors.toList());
-	}
-
-	public BaseListResponse<InventoryTransaction> getInventoryTransactions(Paging pagingInfo, String productUuid,
-			String sortJson, String filterJson) {
-		List<Object> parameters = new ArrayList<>();
-		StringBuilder sql = new StringBuilder("SELECT * FROM bh_get_product_transactions(?)");
-		StringBuilder countSql = new StringBuilder("SELECT COUNT(*) FROM bh_get_product_transactions(?)");
-		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
-		if (StringUtil.isNotNullAndEmpty(productUuid)) {
-			String productUuidSql = " AND m_product_id = (SELECT m_product_id FROM m_product WHERE m_product_uu = ?)";
-			sql.append(productUuidSql);
-			countSql.append(productUuidSql);
-			parameters.add(productUuid);
-		}
-
-		// add pagination parameters
-		sql.append(" OFFSET ? LIMIT ? ");
-		parameters.add(pagingInfo.getPage());
-		parameters.add(pagingInfo.getPageSize());
-
-		// Fetch translations
-		SqlUtil.executeQuery(sql.toString(), parameters, null, resultSet -> {
-			try {
-			} catch (Exception ex) {
-			}
-		});
-		return null;
 	}
 }
