@@ -16,7 +16,7 @@ public class MInvoiceLineDataLoader extends X_C_InvoiceLineDataLoader {
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(DATALOADER_C_InvoiceLine_BY_C_Invoice_ID,
-				DataLoader.newMappedDataLoader(getByInvoiceIdBatchLoader(), getOptionsWithCache(idempiereContext)));
+				DataLoader.newMappedDataLoader(getByInvoiceIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<String, List<MInvoiceLine_BH>> getByInvoiceIdBatchLoader() {

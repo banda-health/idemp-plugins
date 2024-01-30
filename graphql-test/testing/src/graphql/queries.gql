@@ -175,10 +175,26 @@ query C_ElementValueGet($page: Int, $size: Int, $sort: String, $filter: String) 
 	}
 }
 
+query C_InvoiceGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_InvoiceGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			...C_InvoiceFields
+		}
+	}
+}
+
 query C_LocationGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	C_LocationGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
 			...C_LocationFields
+		}
+	}
+}
+
+query C_OrderGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_OrderGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			...C_OrderFields
 		}
 	}
 }

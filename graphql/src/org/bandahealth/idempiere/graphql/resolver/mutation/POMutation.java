@@ -68,7 +68,7 @@ public abstract class POMutation {
 		ModelUtil.getTableAndCheckAccess(BandaGraphQLContext.getCtx(environment), getTableName(), true);
 		Map<String, PO> entitiesByUuid =
 				Repository.getByUuids(BandaGraphQLContext.getCtx(environment), getTableName(), null, new HashSet<>(uuids));
-		entitiesByUuid.values().forEach(entity -> entity.deleteEx(true));
+		entitiesByUuid.values().forEach(entity -> entity.deleteEx(false));
 		return true;
 	}
 }

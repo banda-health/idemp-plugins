@@ -20,7 +20,7 @@ public class MWarehouseDataLoader extends X_M_WarehouseDataLoader {
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(M_Warehouse_BY_ORGANIZATION_ID_DATA_LOADER,
-				DataLoader.newMappedDataLoader(getByOrganizationKeyBatchLoader(), getOptionsWithCache(idempiereContext)));
+				DataLoader.newMappedDataLoader(getByOrganizationKeyBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<String, List<MWarehouse_BH>> getByOrganizationKeyBatchLoader() {

@@ -16,7 +16,7 @@ public class MOrderLineDataLoader extends X_C_OrderLineDataLoader {
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(DATALOADER_C_OrderLine_By_C_Order_ID,
-				DataLoader.newMappedDataLoader(getByOrderIdBatchLoader(), getOptionsWithCache(idempiereContext)));
+				DataLoader.newMappedDataLoader(getByOrderIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<String, List<MOrderLine_BH>> getByOrderIdBatchLoader() {

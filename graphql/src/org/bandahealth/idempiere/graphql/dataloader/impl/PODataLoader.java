@@ -65,11 +65,11 @@ public abstract class PODataLoader<T extends PO> implements DataLoaderRegisterer
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		if (!StringUtil.isNullOrEmpty(getByIdDataLoaderName())) {
 			registry.register(getByIdDataLoaderName(), DataLoader.newMappedDataLoader(getByIdBatchLoader(),
-					getOptionsWithCache(idempiereContext)));
+					getOptionsWithoutCache(idempiereContext)));
 		}
 		if (!StringUtil.isNullOrEmpty(getByUuidDataLoaderName())) {
 			registry.register(getByUuidDataLoaderName(), DataLoader.newMappedDataLoader(getByUuidBatchLoader(),
-					getOptionsWithCache(idempiereContext)));
+					getOptionsWithoutCache(idempiereContext)));
 		}
 	}
 

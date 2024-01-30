@@ -16,7 +16,7 @@ public class MChargeAcctDataLoader extends X_C_Charge_AcctDataLoader {
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(DATALOADER_C_Charge_Acct_BY_C_Charge_ID,
-				DataLoader.newMappedDataLoader(getByChargeIdBatchLoader(), getOptionsWithCache(idempiereContext)));
+				DataLoader.newMappedDataLoader(getByChargeIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<String, List<X_C_Charge_Acct>> getByChargeIdBatchLoader() {

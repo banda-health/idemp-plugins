@@ -101,6 +101,10 @@ mutation C_LocationUpdateWithBPartner(
 	}
 }
 
+mutation C_InvoiceDelete($uuids: [String!]!) {
+	C_InvoiceDelete(uuids: $uuids)
+}
+
 mutation C_InvoiceSaveWithInvoiceLines($C_Invoice: C_InvoiceInput!, $C_InvoiceLine: C_InvoiceLineInput!) {
 	C_InvoiceSave(entity: $C_Invoice) {
 		...C_InvoiceFields

@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.compiere.model.MDocType;
 import org.compiere.model.MProcess;
 import org.compiere.model.MRefList;
@@ -49,7 +50,7 @@ public class DocumentUtil {
 		try {
 			processDocumentOrError(documentProcessId, entity, documentAction);
 			entity.saveEx();
-			return entity;
+			return Repository.getById(entity.getCtx(), entity.get_TableName(), entity.get_TrxName(), entity.get_ID());
 		} catch (Exception exception) {
 			entity.saveEx();
 			throw exception;

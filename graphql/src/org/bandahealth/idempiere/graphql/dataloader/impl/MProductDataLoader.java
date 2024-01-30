@@ -17,7 +17,7 @@ public class MProductDataLoader extends X_M_ProductDataLoader {
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
 		registry.register(DATALOADER_M_ProductHasBeenPurchased,
-				DataLoader.newMappedDataLoader(getIfProductsHaveBeenPurchased(), getOptionsWithCache(idempiereContext)));
+				DataLoader.newMappedDataLoader(getIfProductsHaveBeenPurchased(), getOptionsWithoutCache(idempiereContext)));
 	}
 
 	private MappedBatchLoaderWithContext<Integer, Boolean> getIfProductsHaveBeenPurchased() {
