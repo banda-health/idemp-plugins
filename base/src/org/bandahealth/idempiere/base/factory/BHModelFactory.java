@@ -65,6 +65,7 @@ import org.bandahealth.idempiere.base.model.MUIButton;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
+import org.compiere.model.MTree_NodeMM;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
 
@@ -176,6 +177,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHEncounter.class;
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return MBHObservation.class;
+		} else if (tableName.equalsIgnoreCase(MTree_NodeMM.Table_Name)) {
+			return MTree_NodeMM.class;
 		} else if (tableName.equalsIgnoreCase(MBankAccount_BH.Table_Name)) {
 			return MBankAccount_BH.class;
 		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
@@ -444,6 +447,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHEncounter(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
 			return new MBHObservation(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MTree_NodeMM.Table_Name)) {
+			return new MTree_NodeMM(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBankAccount_BH.Table_Name)) {
 			return new MBankAccount_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {

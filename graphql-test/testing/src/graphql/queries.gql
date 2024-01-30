@@ -1,20 +1,34 @@
 query AD_MenuGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	AD_MenuGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
-			ChildrenMM {
-				Name
-				ChildrenMM {
+			ChildrenTree_NodeMMList {
+				Node {
 					Name
+					ChildrenTree_NodeMMList {
+						Node {
+							Name
+							AD_Process {
+								UUID
+								Name
+							}
+							AD_Window {
+								UUID
+								Name
+							}
+						}
+						SeqNo
+					}
 					AD_Process {
 						UUID
 						Name
 					}
-				}
-				AD_Process {
+					AD_Window {
+						UUID
+						Name
+					}
 					UUID
-					Name
 				}
-				UUID
+				SeqNo
 			}
 		}
 	}

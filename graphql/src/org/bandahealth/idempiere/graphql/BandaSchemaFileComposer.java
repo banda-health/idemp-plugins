@@ -432,7 +432,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MTree_NodeBP.graphqls",
 //						"WEB-INF/resources/MTree_NodeCMC.graphqls",
 //						"WEB-INF/resources/MTree_NodeCMS.graphqls",
-//						"WEB-INF/resources/MTree_NodeMM.graphqls",
+						"WEB-INF/resources/MTree_NodeMM.graphqls",
 //						"WEB-INF/resources/MTree_NodePR.graphqls",
 //						"WEB-INF/resources/MUIButton.graphqls",
 						"WEB-INF/resources/MUOM.graphqls",

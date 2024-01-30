@@ -12,7 +12,7 @@ test('can login', async () => {
 
 test('error returned if wrong username/password', async () => {
 	try {
-		query(globalThis.__VALUE_OBJECT__)({
+		await query(globalThis.__VALUE_OBJECT__)({
 			query: SignInDocument,
 			variables: { credentials: { username: 'bogus', password: 'hacker' } },
 		});
