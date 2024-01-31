@@ -222,6 +222,35 @@ mutation M_InventorySaveWithInventoryLines($M_Inventory: M_InventoryInput!, $M_I
 	}
 }
 
+mutation M_MovementProcess($uuid: String!, $documentAction: String!) {
+	M_MovementProcess(uuid: $uuid, documentAction: $documentAction) {
+		...M_MovementFields
+	}
+}
+
+mutation M_MovementSave($entity: M_MovementInput!) {
+	M_MovementSave(entity: $entity) {
+		...M_MovementFields
+	}
+}
+
+mutation M_MovementSaveWithMovementLinesAndProcess(
+	$M_Movement: M_MovementInput!
+	$M_MovementLine: M_MovementLineInput!
+	$uuid: String!
+	$documentAction: String!
+) {
+	M_MovementSave(entity: $M_Movement) {
+		...M_MovementFields
+	}
+	M_MovementLineSave(entity: $M_MovementLine) {
+		UUID
+	}
+	M_MovementProcess(uuid: $uuid, documentAction: $documentAction) {
+		...M_MovementFields
+	}
+}
+
 mutation M_ProductSave($entity: M_ProductInput!) {
 	M_ProductSave(entity: $entity) {
 		BH_BuyPrice

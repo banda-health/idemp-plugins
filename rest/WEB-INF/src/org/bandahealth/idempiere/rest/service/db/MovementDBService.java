@@ -54,7 +54,7 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		{
 			put(MWarehouse.Table_Name,
 					"LEFT JOIN " + MWarehouse.Table_Name + " ON " + MMovement_BH.Table_Name + "."
-							+ MMovement_BH.COLUMNNAME_BH_FROM_WAREHOUSE_ID + " = " + MWarehouse.Table_Name + "."
+							+ MMovement_BH.COLUMNNAME_BH_From_Warehouse_ID + " = " + MWarehouse.Table_Name + "."
 							+ MWarehouse.COLUMNNAME_M_Warehouse_ID);
 			put(MUser_BH.Table_Name,
 					"LEFT JOIN " + MUser_BH.Table_Name + " ON " + MMovement_BH.Table_Name + "."
@@ -98,8 +98,8 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 			}
 
 			mMovement.setAD_Org_ID(fromWarehouse.getAD_Org_ID());
-			mMovement.setBH_FromWarehouseID(fromWarehouse.get_ID());
-			mMovement.setBH_ToWarehouseID(toWarehouse.get_ID());
+			mMovement.setBH_From_Warehouse_ID(fromWarehouse.get_ID());
+			mMovement.setBH_To_Warehouse_ID(toWarehouse.get_ID());
 
 			if (StringUtil.isNotNullAndEmpty(entity.getMovementDate())) {
 				Timestamp movementDate = DateUtil.getTimestamp(entity.getMovementDate());
@@ -331,13 +331,13 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 				movement.setMovementLines(movementLinesByMovementId.get(movement.getId()));
 			}
 
-			if (mMovement.getBH_FromWarehouseID() > 0) {
-				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_FromWarehouseID()).findFirst()
+			if (mMovement.getBH_From_Warehouse_ID() > 0) {
+				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_From_Warehouse_ID()).findFirst()
 						.ifPresent(warehouse -> movement.setFromWarehouse(new Warehouse(warehouse)));
 			}
 
-			if (mMovement.getBH_ToWarehouseID() > 0) {
-				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_ToWarehouseID()).findFirst()
+			if (mMovement.getBH_To_Warehouse_ID() > 0) {
+				warehouses.stream().filter(warehouse -> warehouse.get_ID() == mMovement.getBH_To_Warehouse_ID()).findFirst()
 						.ifPresent(warehouse -> movement.setToWarehouse(new Warehouse(warehouse)));
 			}
 

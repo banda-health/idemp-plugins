@@ -310,6 +310,9 @@ public class GraphQLSchemaGenerator {
 				} else if (columnName.equals("Logo_ID")) {
 					String entityName = columnNameWithSuffixedIdRemoved;
 					addGraphQLFields(generatedColumns, entityName, Description, "AD_Image", isMandatory, shouldSkipInputField);
+				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
+					addGraphQLFields(generatedColumns, columnNameWithSuffixedIdRemoved, Description, "M_Warehouse", isMandatory,
+							shouldSkipInputField);
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 				}

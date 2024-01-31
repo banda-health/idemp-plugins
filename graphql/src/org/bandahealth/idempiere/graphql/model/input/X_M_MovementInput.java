@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
@@ -33,6 +34,8 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mBH_From_Warehouse;
+	private ForeignEntityInput mBH_To_Warehouse;
 	private ForeignEntityInput mC_Activity;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_BPartner_Location;
@@ -134,6 +137,74 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+
+	/**
+	 * Set BH_From_Warehouse_ID.
+	 *
+	 * @param BH_From_Warehouse BH_From_Warehouse_ID
+	 */
+	@JsonProperty("BH_From_Warehouse")
+	public void setBH_From_WarehouseInput(ForeignEntityInput BH_From_Warehouse) {
+		this.mBH_From_Warehouse = BH_From_Warehouse;
+		if (BH_From_Warehouse != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(BH_From_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_From_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + BH_From_Warehouse.getUUID());
+			}
+		} else {
+			this.setBH_From_Warehouse_ID(0);
+		}
+	}
+
+	/**
+	 * Get BH_From_Warehouse_ID.
+	 *
+	 * @return BH_From_Warehouse_ID
+	 */
+	@JsonProperty("BH_From_Warehouse")
+	public ForeignEntityInput BH_From_Warehouse() {
+		return mBH_From_Warehouse;
+	}
+
+	/**
+	 * Set BH_To_Warehouse_ID.
+	 *
+	 * @param BH_To_Warehouse BH_To_Warehouse_ID
+	 */
+	@JsonProperty("BH_To_Warehouse")
+	public void setBH_To_WarehouseInput(ForeignEntityInput BH_To_Warehouse) {
+		this.mBH_To_Warehouse = BH_To_Warehouse;
+		if (BH_To_Warehouse != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(BH_To_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_To_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + BH_To_Warehouse.getUUID());
+			}
+		} else {
+			this.setBH_To_Warehouse_ID(0);
+		}
+	}
+
+	/**
+	 * Get BH_To_Warehouse_ID.
+	 *
+	 * @return BH_To_Warehouse_ID
+	 */
+	@JsonProperty("BH_To_Warehouse")
+	public ForeignEntityInput BH_To_Warehouse() {
+		return mBH_To_Warehouse;
 	}
 
 	/**

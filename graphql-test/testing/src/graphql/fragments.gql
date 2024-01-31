@@ -84,3 +84,10 @@ fragment M_InventoryFields on M_Inventory {
 	}
 	UUID
 }
+
+fragment M_MovementFields on M_Movement {
+	DocStatus {
+		Value
+	}
+	UUID
+}

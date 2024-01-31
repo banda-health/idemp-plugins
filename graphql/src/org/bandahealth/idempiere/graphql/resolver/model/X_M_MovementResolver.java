@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
@@ -21,6 +22,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_DD_OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MovementDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
@@ -57,6 +59,36 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+
+	/**
+	 * Get BH_From_Warehouse_ID.
+	 *
+	 * @return BH_From_Warehouse_ID
+	 */
+	public CompletableFuture<MWarehouse_BH> BH_From_Warehouse(MMovement_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_From_Warehouse_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWarehouse_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
+		return dataLoader.load(entity.getBH_From_Warehouse_ID());
+	}
+
+
+	/**
+	 * Get BH_To_Warehouse_ID.
+	 *
+	 * @return BH_To_Warehouse_ID
+	 */
+	public CompletableFuture<MWarehouse_BH> BH_To_Warehouse(MMovement_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_To_Warehouse_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWarehouse_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
+		return dataLoader.load(entity.getBH_To_Warehouse_ID());
 	}
 
 

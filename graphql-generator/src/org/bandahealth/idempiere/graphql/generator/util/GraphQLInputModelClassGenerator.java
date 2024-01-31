@@ -175,7 +175,7 @@ public class GraphQLInputModelClassGenerator {
 			if (hasIDColumn) {
 				generatedClass
 						.append("\t\tsuper(Env.getCtx(), 0, null);\n");
-			}else {
+			} else {
 				generatedClass
 						.append("\t\tsuper(Env.getCtx(), (ResultSet) null, null);\n");
 			}
@@ -340,6 +340,10 @@ public class GraphQLInputModelClassGenerator {
 					entityName = columnNameWithSuffixedIdRemoved;
 					returnType = "I_AD_ImageInput";
 					foreignEntityTable = "AD_Image";
+				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
+					entityName = columnNameWithSuffixedIdRemoved;
+					returnType = "I_M_WarehouseInput";
+					foreignEntityTable = "M_Warehouse";
 				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";

@@ -21,7 +21,7 @@ public class MOrderResolver extends X_C_OrderResolver {
 
 	public CompletableFuture<List<MOrderLine_BH>> C_OrderLines(MOrder_BH entity, DataFetchingEnvironment environment) {
 		DataLoader<String, List<MOrderLine_BH>> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(MOrderLineDataLoader.DATALOADER_C_OrderLine_By_C_Order_ID);
+				environment.getDataLoaderRegistry().getDataLoader(MOrderLineDataLoader.DATALOADER_C_OrderLine_BY_C_Order_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_Order_ID()));
 	}
 }

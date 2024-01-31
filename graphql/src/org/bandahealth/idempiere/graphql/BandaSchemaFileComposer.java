@@ -245,7 +245,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MMeasureCalc.graphqls",
 						"WEB-INF/resources/MMenu.graphqls",
 //						"WEB-INF/resources/MMessage.graphqls",
-//						"WEB-INF/resources/MMovement.graphqls",
+						"WEB-INF/resources/MMovement.graphqls",
 //						"WEB-INF/resources/MMovementConfirm.graphqls",
 						"WEB-INF/resources/MMovementLine.graphqls",
 //						"WEB-INF/resources/MMovementLineConfirm.graphqls",

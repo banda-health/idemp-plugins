@@ -258,7 +258,10 @@ public class GraphQLInputModelInterfaceGenerator {
 				} else if (columnName.equals("Logo_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					returnType = "I_AD_ImageInput";
-				} else {
+				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
+					entityName = columnNameWithSuffixedIdRemoved;
+					returnType = "I_M_WarehouseInput";
+				}  else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";
 				}

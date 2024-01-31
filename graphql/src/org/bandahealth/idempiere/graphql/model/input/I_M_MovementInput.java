@@ -39,6 +39,34 @@ public interface I_M_MovementInput extends I_M_Movement {
 	ForeignEntityInput AD_User();
 
 	/**
+	 * Set BH_From_Warehouse.
+	 *
+	 * @param BH_From_Warehouse BH_From_Warehouse_ID
+	 */
+	void setBH_From_WarehouseInput(ForeignEntityInput BH_From_Warehouse);
+
+	/**
+	 * Get BH_From_Warehouse.
+	 *
+	 * @return BH_From_Warehouse_ID
+	 */
+	ForeignEntityInput BH_From_Warehouse();
+
+	/**
+	 * Set BH_To_Warehouse.
+	 *
+	 * @param BH_To_Warehouse BH_To_Warehouse_ID
+	 */
+	void setBH_To_WarehouseInput(ForeignEntityInput BH_To_Warehouse);
+
+	/**
+	 * Get BH_To_Warehouse.
+	 *
+	 * @return BH_To_Warehouse_ID
+	 */
+	ForeignEntityInput BH_To_Warehouse();
+
+	/**
 	 * Set C_Activity.
 	 *
 	 * @param C_Activity Business Activity

@@ -25,6 +25,10 @@ type M_Movement {
 	AD_User: AD_User
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
+	# BH_From_Warehouse_ID
+	BH_From_Warehouse: M_Warehouse
+	# BH_To_Warehouse_ID
+	BH_To_Warehouse: M_Warehouse
 	# Business Activity
 	C_Activity: C_Activity
 	# Identifies a Business Partner
@@ -109,6 +113,10 @@ input M_MovementInput {
 	AD_User: ForeignEntityInput
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
+	# BH_From_Warehouse_ID
+	BH_From_Warehouse: ForeignEntityInput
+	# BH_To_Warehouse_ID
+	BH_To_Warehouse: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Identifies a Business Partner

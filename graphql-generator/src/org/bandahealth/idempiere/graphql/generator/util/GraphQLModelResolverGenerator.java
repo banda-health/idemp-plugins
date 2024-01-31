@@ -290,7 +290,12 @@ public class GraphQLModelResolverGenerator {
 					returnType = "I_AD_ImageInput";
 					foreignEntityTable = "AD_Image";
 					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
-				} else {
+				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
+					entityName = columnNameWithSuffixedIdRemoved;
+					returnType = "I_M_WarehouseInput";
+					foreignEntityTable = "M_Warehouse";
+					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
+				}  else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";
 				}
