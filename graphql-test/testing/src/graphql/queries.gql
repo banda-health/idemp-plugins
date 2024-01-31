@@ -253,6 +253,14 @@ query C_OrderGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	}
 }
 
+query C_PaymentGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	C_PaymentGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			...C_PaymentFields
+		}
+	}
+}
+
 query C_TaxCategoryGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	C_TaxCategoryGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
@@ -286,6 +294,18 @@ query M_Product_CategoryGet($page: Int, $size: Int, $sort: String, $filter: Stri
 		results {
 			UUID
 			Name
+		}
+	}
+}
+
+query M_ProductGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	M_ProductGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			...M_ProductFields
+		}
+		pagingInfo {
+			page
+			totalPages
 		}
 	}
 }

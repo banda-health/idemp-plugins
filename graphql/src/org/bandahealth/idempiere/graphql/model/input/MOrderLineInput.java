@@ -47,5 +47,6 @@ public class MOrderLineInput extends X_C_OrderLineInput {
 	@Override
 	public void setPrice(BigDecimal price) {
 		Price = price;
+		super.setPrice(price);
 	}
 }

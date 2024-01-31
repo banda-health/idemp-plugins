@@ -98,9 +98,30 @@ public class Repository {
 			// If the results weren't requested in the payload (say a consumer just wants to know the count of entities
 			// matching a specified filter), don't do an extra DB call to get them
 			if (QueryUtil.areResultsRequested(environment)) {
+				//
+				// If the total record count is less than what we'd get with our page parameters, reset the page
+				if (pagingInfo.getPageSize() == null || pagingInfo.getPageSize() < 1) {
+					pagingInfo.setPageSize(200);
+				}
+				// If the total record count is less than what we'd get with our page parameters, reset the page
+				int firstRecordNumberOfRequestedPage = (pagingInfo.getPage() * pagingInfo.getPageSize()) + 1;
+				if (pagingInfo.getTotalCount() != null && pagingInfo.getTotalCount() < firstRecordNumberOfRequestedPage) {
+					pagingInfo.setPage(0);
+				}
+				//
 				// set pagination params
 				query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
 				results = query.list();
+
+				// If there are no results, the page is greater than 0, and the total count is NULL (meaning we didn't have
+				// this information before making the original query, we need to see if there are any results to return
+				// on the first page
+				if (results.size() == 0 && pagingInfo.getPage() > 0 && pagingInfo.getTotalCount() == null) {
+					// Try the query again
+					pagingInfo.setPage(0);
+					query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
+					results = query.list();
+				}
 			}
 			return new Connection<>(results, pagingInfo);
 		} catch (Exception ex) {

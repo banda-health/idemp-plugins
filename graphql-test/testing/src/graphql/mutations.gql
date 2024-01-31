@@ -37,6 +37,15 @@ mutation BH_VisitSave($entity: BH_VisitInput!) {
 	}
 }
 
+mutation BH_VisitSaveWithPayments($BH_Visit: BH_VisitInput!, $C_Payments: [C_PaymentInput!]!) {
+	BH_VisitSave(entity: $BH_Visit) {
+		...BH_VisitFields
+	}
+	C_PaymentSaveMany(entities: $C_Payments) {
+		...C_PaymentFields
+	}
+}
+
 mutation C_BPartner_LocationSave($entity: C_BPartner_LocationInput!) {
 	C_BPartner_LocationSave(entity: $entity) {
 		UUID
@@ -259,6 +268,12 @@ mutation M_MovementSaveWithMovementLinesAndProcess(
 
 mutation M_ProductSave($entity: M_ProductInput!) {
 	M_ProductSave(entity: $entity) {
+		...M_ProductFields
+	}
+}
+
+mutation M_ProductSaveMany($entities: [M_ProductInput!]!) {
+	M_ProductSaveMany(entities: $entities) {
 		BH_BuyPrice
 		BH_SellPrice
 		Description

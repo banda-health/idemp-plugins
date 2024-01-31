@@ -72,7 +72,14 @@ fragment C_OrderFields on C_Order {
 }
 
 fragment C_PaymentFields on C_Payment {
+	BH_tender_amount
 	DocStatus {
+		Value
+	}
+	PayAmt
+	TenderType {
+		UUID
+		Name
 		Value
 	}
 	UUID
@@ -90,4 +97,17 @@ fragment M_MovementFields on M_Movement {
 		Value
 	}
 	UUID
+}
+
+fragment M_ProductFields on M_Product {
+	BH_BuyPrice
+	BH_SellPrice
+	Description
+	HasBeenPurchased
+	LastPurchasePrice
+	UUID
+	Name
+	M_Product_Category {
+		UUID
+	}
 }
