@@ -1,14 +1,14 @@
-// import { payerInformationFieldSuggestionApi } from '../api';
+import { query } from '../api';
+import { Bh_Payer_Info_Fld_SugGetDocument } from '../__generated__/graphql';
 
-// test('all payer information field suggestion sub types and data types to have a value type', async () => {
-// 	const valueObject = globalThis.__VALUE_OBJECT__;
-// 	await valueObject.login();
+test('all payer information field suggestion sub types and data types to have a value type', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
 
-// 	const payerInformationFieldSuggestions = (await payerInformationFieldSuggestionApi.get(valueObject)).results;
-// 	payerInformationFieldSuggestions.forEach((payerInformationFieldSuggestion) => {
-// 		expect(payerInformationFieldSuggestion.subType.value).toBeTruthy();
-// 		expect(payerInformationFieldSuggestion.dataType.value).toBeTruthy();
-// 	});
-// });
-
-export {};
+	const payerInformationFieldSuggestions = (await query(valueObject)({ query: Bh_Payer_Info_Fld_SugGetDocument })).data
+		.BH_Payer_Info_Fld_SugGet.results;
+	payerInformationFieldSuggestions.forEach((payerInformationFieldSuggestion) => {
+		expect(payerInformationFieldSuggestion.BH_SubType.Value).toBeTruthy();
+		expect(payerInformationFieldSuggestion.BH_PayerInfoFieldDataType.Value).toBeTruthy();
+	});
+});

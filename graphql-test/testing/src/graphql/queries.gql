@@ -34,6 +34,30 @@ query AD_MenuGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	}
 }
 
+query AD_OrgGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	AD_OrgGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
+			AD_OrgInfo {
+				UUID
+				BH_FacilityNumber
+				BH_Header
+				ReceiptFooterMsg
+			}
+			M_Warehouses {
+				UUID
+				Name
+				BH_DefaultWarehouse
+				IsActive
+				M_Locators {
+					UUID
+				}
+			}
+		}
+	}
+}
+
 query AD_OrgInfoGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	AD_OrgInfoGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
@@ -84,6 +108,22 @@ query BH_Coded_DiagnosisGet($page: Int, $size: Int, $sort: String, $filter: Stri
 			bh_cielname
 			bh_icd10who
 			bh_searchterms
+		}
+	}
+}
+
+query BH_Payer_Info_Fld_SugGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	BH_Payer_Info_Fld_SugGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			BH_SubType {
+				UUID
+				Value
+			}
+			BH_PayerInfoFieldDataType {
+				UUID
+				Value
+			}
 		}
 	}
 }

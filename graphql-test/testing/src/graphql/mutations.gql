@@ -7,6 +7,12 @@ mutation LogoAndAD_OrgInfoSave($logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInp
 	}
 }
 
+mutation AD_OrgInfoSave($AD_OrgInfo: AD_OrgInfoInput!) {
+	AD_OrgInfoSave(entity: $AD_OrgInfo) {
+		UUID
+	}
+}
+
 mutation AD_ProcessRun($UUID: ID!, $ProcessInfoParameterList: [ProcessInfoParameterInput!]) {
 	AD_ProcessRun(UUID: $UUID, ProcessInfoParameterList: $ProcessInfoParameterList)
 }
