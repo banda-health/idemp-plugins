@@ -45,7 +45,7 @@ FROM (
 WHERE upd.ad_role_id = a.ad_role_id
 -- If the old role name doesn't match what was expected, maybe it has been customized by
 -- someone, so don't updated it
-AND a.old_name = a.expected_old_name
+AND a.old_name = a.expected_old_name;
 
 -- create inventory/pharmacy basic role
 INSERT INTO adempiere.ad_role (ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, userlevel, c_currency_id, amtapproval, ad_tree_menu_id, ismanual, isshowacct, ispersonallock, ispersonalaccess, iscanexport, iscanreport, supervisor_id, iscanapproveowndoc, isaccessallorgs, ischangelog, preferencetype, overwritepricelimit, isuseuserorgaccess, ad_tree_org_id, confirmqueryrecords, maxqueryrecords, connectionprofile, allow_info_account, allow_info_asset, allow_info_bpartner, allow_info_cashjournal, allow_info_inout, allow_info_invoice, allow_info_order, allow_info_payment, allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp, allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum, daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype) VALUES ((SELECT MAX(AD_Role_ID)+1 FROM AD_Role), 0, 0, 'Y', '2024-01-26 13:42:05.094000', 100, '2024-01-26 13:42:05.094000', 'Inventory/Pharmacy Basic', 100, 'Inventory and pharmacy basic role', 'S  ', null, 0, null, 'Y', 'N', 'N', 'N', 'Y', 'Y', null, 'N', 'N', 'N', 'O', 'N', 'N', null, 0, 0, null, 'Y', 'Y', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', null, 'N', 'N', 'N', 'N', 0, 0, 'a1618fd6-e1ab-4e41-a08d-854229cd5971', 'N', 'Y', 'Y', null) ON CONFLICT DO NOTHING;

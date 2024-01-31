@@ -7,7 +7,8 @@ export enum RoleName {
 	ClinicianNurseAdvanced = 'Clinician/Nurse Advanced',
 	ClinicianNurseBasic = 'Clinician/Nurse Basic',
 	ClinicUser = 'Clinic User',
-	InventoryPharmacy = 'Inventory/Pharmacy',
+	InventoryPharmacyAdvanced = 'Inventory/Pharmacy Advanced',
+	InventoryPharmacyBasic = 'Inventory/Pharmacy Basic',
 	LabRadiology = 'Lab/Radiology',
 	Triage = 'Triage',
 }
