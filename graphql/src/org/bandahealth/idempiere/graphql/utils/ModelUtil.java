@@ -266,6 +266,6 @@ public class ModelUtil {
 		}
 
 		// If no window or no access to the window - check if the role has read/write access to the table
-		return role.isTableAccess(table.getAD_Table_ID(), false);
+		return role.isTableAccess(table.getAD_Table_ID(), !isReadWrite);
 	}
 }

@@ -14,6 +14,7 @@ import {
 	C_LocationGetQuery,
 	C_OrderSaveWithOrderLinesMutation,
 	C_PaymentSaveMutation,
+	M_AttributeSetInstanceSaveMutation,
 	M_InventorySaveWithInventoryLinesMutation,
 	M_ProductSaveMutation,
 	ProcessInfoParameterInput,
@@ -57,7 +58,7 @@ export class ValueObject {
 	quantity?: number;
 	documentType?: C_DocTypeGetQuery['C_DocTypeGet']['results'][0];
 	documentAction?: string;
-	attributeSetInstance?: any; //AttributeSetInstance;
+	attributeSetInstance?: M_AttributeSetInstanceSaveMutation['M_AttributeSetInstanceSave'];
 	visit?: Bh_VisitSaveMutation['BH_VisitSave'];
 	order?: C_OrderSaveWithOrderLinesMutation['C_OrderSave'];
 	orderLine?: C_OrderSaveWithOrderLinesMutation['C_OrderLineSave'];

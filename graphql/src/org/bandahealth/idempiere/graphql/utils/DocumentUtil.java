@@ -43,7 +43,7 @@ public class DocumentUtil {
 		ModelUtil.getTableAndCheckAccess(entity.getCtx(), entity.get_TableName(), true);
 
 		if (!isDocActionValidForUser(MDocType_BH.get(entity.getCtx(), documentTypeId).getDocBaseType(), documentAction)) {
-			return null;
+			throw new AdempiereException(documentAction + " is not a valid document action for this entity");
 		}
 
 		// Process the document and, if it fails, throw an exception

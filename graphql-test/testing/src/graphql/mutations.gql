@@ -216,6 +216,12 @@ mutation C_ValidCombinationGetOrCreate(
 	}
 }
 
+mutation M_AttributeSetInstanceSave($entity: M_AttributeSetInstanceInput!) {
+	M_AttributeSetInstanceSave(entity: $entity) {
+		UUID
+	}
+}
+
 mutation M_InventoryProcess($uuid: String!, $documentAction: String!) {
 	M_InventoryProcess(uuid: $uuid, documentAction: $documentAction) {
 		...M_InventoryFields

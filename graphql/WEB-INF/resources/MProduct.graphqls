@@ -3,4 +3,5 @@ extend type M_Product {
 	LastPurchaseDate: Date
 	LastPurchasePrice: BigDecimal
 	M_StorageOnHandList: [M_StorageOnHand!]
+	TotalQuantity: BigDecimal!
 }

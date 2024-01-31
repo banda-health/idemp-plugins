@@ -110,4 +110,5 @@ fragment M_ProductFields on M_Product {
 	M_Product_Category {
 		UUID
 	}
+	TotalQuantity
 }

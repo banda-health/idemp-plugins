@@ -100,7 +100,7 @@ public class Repository {
 			if (QueryUtil.areResultsRequested(environment)) {
 				//
 				// If the total record count is less than what we'd get with our page parameters, reset the page
-				if (pagingInfo.getPageSize() == null || pagingInfo.getPageSize() < 1) {
+				if (pagingInfo.getPageSize() < 1) {
 					pagingInfo.setPageSize(200);
 				}
 				// If the total record count is less than what we'd get with our page parameters, reset the page

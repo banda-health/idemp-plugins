@@ -44,6 +44,17 @@ public class MProductResolver extends X_M_ProductResolver {
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID()));
 	}
 
+	public CompletableFuture<BigDecimal> TotalQuantity(MProduct_BH entity, DataFetchingEnvironment environment) {
+		DataLoader<String, List<MStorageOnHand>> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MStorageOnHandDataLoader.DATALOADER_M_StorageOnHand_By_Product_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID())).thenApply(storageOnHandList -> {
+			if (storageOnHandList == null) {
+				return BigDecimal.ZERO;
+			}
+			return storageOnHandList.stream().map(MStorageOnHand::getQtyOnHand).reduce(BigDecimal.ZERO, BigDecimal::add);
+		});
+	}
+
 	private ProductCostCalculation getMostRecentCost(List<ProductCostCalculation> productCostCalculations) {
 		return productCostCalculations.stream().filter(
 						productCostCalculation -> productCostCalculation.getPurchaseDate() != null &&
