@@ -8,6 +8,9 @@ FROM
 WHERE
     salt IS NULL;
 
+-- Enable the encryption extension
+CREATE EXTENSION pgcrypto;
+
 -- Insert salts to be used for hashing the plain text passwords
 UPDATE
     ad_password_history ph
