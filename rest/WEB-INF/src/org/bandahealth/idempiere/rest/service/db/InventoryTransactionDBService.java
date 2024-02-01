@@ -84,12 +84,8 @@ public class InventoryTransactionDBService {
 
 			String orderByClause = "";
 			if (StringUtil.isNotNullAndEmpty(sortJson)) {
-				orderByClause = " ORDER BY" + SortUtil.getOrderByClauseFromSort(functionName, sortJson);
+				orderByClause = " ORDER BY " + SortUtil.getOrderByClauseFromSort(functionName, sortJson);
 			}
-
-			String countQuery =
-					"SELECT COUNT(*) FROM " + functionName + "(" + Env.getAD_Client_ID(Env.getCtx()) + ") WHERE " + whereClause +
-							orderByClause;
 
 			// get total count without pagination parameters
 			pagingInfo.setTotalRecordCount(

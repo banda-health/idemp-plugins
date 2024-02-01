@@ -43,10 +43,10 @@ SELECT
 		WHEN t.movementtype = 'V-' THEN 'Vendor Returns'
 		WHEN t.movementtype = 'M+' THEN 'Transfer In'
 		WHEN t.movementtype = 'M-' THEN 'Transfer Out'
-		ELSE 'Unknown Status: ' || t.movementtype END AS                                                              transaction_type,
+		ELSE 'Unknown Status: ' || t.movementtype 
+	END AS transaction_type,
 	movementqty,
-		SUM(movementqty)
-		FILTER ( WHERE m_transaction_id IS NOT NULL ) OVER (PARTITION BY m_product_id, m_locator_id ORDER BY created) runningtotal_bylocator
+	SUM(movementqty) FILTER ( WHERE m_transaction_id IS NOT NULL ) OVER (PARTITION BY m_product_id, m_locator_id ORDER BY created) runningtotal_bylocator
 FROM
 	(
 		SELECT
@@ -68,10 +68,10 @@ FROM
 				SELECT
 					t.created,
 					t.m_transaction_id,
-					NULL::numeric AS c_order_id,
+					o.c_order_id,
 					o.docstatus   AS c_order_docstatus,
 					NULL::numeric AS m_movement_id,
-					NULL::numeric AS bh_visit_id,
+					o.bh_visit_id,
 					t.m_locator_id,
 					t.m_attributesetinstance_id,
 					t.createdby,
@@ -93,7 +93,7 @@ FROM
 					o.created,
 					NULL,
 					o.c_order_id,
-					NULL,
+					o.docstatus,
 					NULL,
 					o.bh_visit_id,
 					NULL,
