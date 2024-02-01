@@ -26,7 +26,7 @@ public class MBHVisitResolver extends X_BH_VisitResolver {
 
 	public CompletableFuture<List<MOrder_BH>> C_Orders(MBHVisit entity, DataFetchingEnvironment environment) {
 		final DataLoader<String, List<MOrder_BH>> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(MOrderDataLoader.C_Order_BH_VISIT_ID_DATA_LOADER);
+				environment.getDataLoaderRegistry().getDataLoader(MOrderDataLoader.DATALOADER_C_Order_BY_BH_Visit_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Visit_ID()));
 	}
 

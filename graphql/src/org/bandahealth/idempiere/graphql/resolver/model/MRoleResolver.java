@@ -3,9 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MRoleIncludedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MWindowAccessDataLoader;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MRole;
+import org.compiere.model.MRoleIncluded;
 import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
 
@@ -13,15 +15,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MRoleResolver extends X_AD_RoleResolver {
 
-	public CompletableFuture<List<X_AD_Role>> IncludedRoles(X_AD_Role entity,
+	public CompletableFuture<List<MRoleIncluded>> AD_Role_IncludedList(X_AD_Role entity,
 			DataFetchingEnvironment environment) {
-		return CompletableFuture.supplyAsync(() -> List.copyOf(
-				MRole.get(BandaGraphQLContext.getCtx(environment), entity.getAD_Role_ID()).getIncludedRoles(true)));
+		DataLoader<String, List<MRoleIncluded>> dataLoader = environment.getDataLoaderRegistry().getDataLoader(
+				MRoleIncludedDataLoader.DATALOADER_AD_Role_Included_BY_AD_Role_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getAD_Role_ID()));
 	}
 
 	public CompletableFuture<List<MWindowAccess_BH>> AD_Window_AccessList(X_AD_Role entity,

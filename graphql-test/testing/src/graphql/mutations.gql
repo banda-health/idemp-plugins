@@ -25,6 +25,31 @@ mutation AD_ProcessRunAndExport(
 	AD_ProcessRunAndExport(UUID: $UUID, ProcessInfoParameterList: $ProcessInfoParameterList, ReportType: $ReportType)
 }
 
+mutation AD_Role_IncludedSaveMany($entities: [AD_Role_IncludedInput!]!) {
+	AD_Role_IncludedSaveMany(entities: $entities) {
+		UUID
+	}
+}
+
+mutation AD_Role_IncludedDelete($uuids: [String!]!) {
+	AD_Role_IncludedDelete(uuids: $uuids)
+}
+
+mutation AD_RoleSave($entity: AD_RoleInput!) {
+	AD_RoleSave(entity: $entity) {
+		...AD_RoleFields
+	}
+}
+
+mutation AD_RoleWithIncludedSave($AD_Role: AD_RoleInput!, $AD_Role_IncludedList: [AD_Role_IncludedInput!]!) {
+	AD_RoleSave(entity: $AD_Role) {
+		...AD_RoleFields
+	}
+	AD_Role_IncludedSaveMany(entities: $AD_Role_IncludedList) {
+		UUID
+	}
+}
+
 mutation BH_VisitProcess($uuid: String!, $documentAction: String!) {
 	BH_VisitProcess(uuid: $uuid, documentAction: $documentAction) {
 		...BH_VisitFields

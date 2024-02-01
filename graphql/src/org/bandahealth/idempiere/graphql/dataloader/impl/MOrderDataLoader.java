@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class MOrderDataLoader extends X_C_OrderDataLoader {
-	public static String C_Order_BH_VISIT_ID_DATA_LOADER = "C_OrderByVisitIdDataLoader";
+	public static String DATALOADER_C_Order_BY_BH_Visit_ID = "C_OrderByVisitIdDataLoader";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(C_Order_BH_VISIT_ID_DATA_LOADER,
+		registry.register(DATALOADER_C_Order_BY_BH_Visit_ID,
 				DataLoader.newMappedDataLoader(getByVisitIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 

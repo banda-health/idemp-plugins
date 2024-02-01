@@ -1,3 +1,14 @@
+fragment AD_RoleFields on AD_Role {
+	UUID
+	IsMasterRole
+	AD_Role_IncludedList {
+		UUID
+		Included_Role {
+			UUID
+		}
+	}
+}
+
 fragment BH_VisitFields on BH_Visit {
 	BH_VisitDate
 	Description
