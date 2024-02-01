@@ -1,3 +1,7 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
-extend type AD_Ref_List {
+extend type Query {
+	# Get a stringified JSON object of the available status actions
+	DocumentStatusActionMap: String!
 }
+
+#extend type AD_Ref_List {
+#}

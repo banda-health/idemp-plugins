@@ -323,7 +323,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MRecurring.graphqls",
 //						"WEB-INF/resources/MRecurringRun.graphqls",
 //						"WEB-INF/resources/MReference.graphqls",
-//						"WEB-INF/resources/MRefList.graphqls",
+						"WEB-INF/resources/MRefList.graphqls",
 //						"WEB-INF/resources/MRefTable.graphqls",
 //						"WEB-INF/resources/MRegion.graphqls",
 //						"WEB-INF/resources/MRegistration.graphqls",

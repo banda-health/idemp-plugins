@@ -281,6 +281,10 @@ query ChangeAccess($credentials: ChangeAccessInput!) {
 	}
 }
 
+query DocumentStatusActionMap {
+	DocumentStatusActionMap
+}
+
 query M_AttributeSetInstanceGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	M_AttributeSetInstanceGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
