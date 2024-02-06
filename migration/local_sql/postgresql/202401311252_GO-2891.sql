@@ -9,7 +9,7 @@ WHERE
     salt IS NULL;
 
 -- Enable the encryption extension
-CREATE EXTENSION pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- Insert salts to be used for hashing the plain text passwords
 UPDATE
