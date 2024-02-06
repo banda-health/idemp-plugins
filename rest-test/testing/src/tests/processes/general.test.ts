@@ -6,6 +6,7 @@ const reportsMenuRootUuid = '35ce7d6a-cf7d-4962-a748-75e27d0121bf';
 const processUuid = {
 	cashierPatientTransactions: 'b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1',
 	cashierTransactionDifferences: '226cdf47-9cde-43e8-b7ef-87b28d7ef2e2',
+	cleanInventoryProcess: 'e79541fb-9b70-4a10-bfef-7401401b8c56',
 	diagnosisReport: '7c29028a-8dd3-4025-a5af-87701748d81f',
 	donorFundReport: '3478d341-c6d9-4f52-a865-5bf0ba8a7607',
 	incomeAndExpense: 'f777f042-3907-4293-94c4-49fe6eb58780',
@@ -467,8 +468,8 @@ test(`cashier/registration advanced role has correct access`, async () => {
 	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
 });
 
-test(`inventory/pharmacy role has correct access`, async () => {
-	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacy);
+test(`inventory/pharmacy advanced role has correct access`, async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyAdvanced);
 	const reportMenuList = (await menuApi.getByRootId(globalThis.__VALUE_OBJECT__, reportsMenuRootUuid)).results;
 	const processes = (await processApi.get(globalThis.__VALUE_OBJECT__, undefined, undefined, undefined, isActiveFilter))
 		.results;
@@ -559,6 +560,104 @@ test(`inventory/pharmacy role has correct access`, async () => {
 		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
 	).toBeUndefined();
 	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
+
+	expect(processes.find((process) => process.uuid === processUuid.cleanInventoryProcess)).not.toBeUndefined();
+});
+
+test(`inventory/pharmacy basic role has correct access`, async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyBasic);
+	const reportMenuList = (await menuApi.getByRootId(globalThis.__VALUE_OBJECT__, reportsMenuRootUuid)).results;
+	const processes = (await processApi.get(globalThis.__VALUE_OBJECT__, undefined, undefined, undefined, isActiveFilter))
+		.results;
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.patientTransactions),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.patientTransactions)).toBeUndefined();
+
+	expect(processes.find((process) => process.uuid === processUuid.visitReceipt)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.inventorySoldReport),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.inventorySoldReport)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.servicesChargedReport),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.servicesChargedReport)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.productsAndPrices),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.productsAndPrices)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.incomeAndExpense),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.incomeAndExpense)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.moh705AOutpatientUnder5YearsSummary),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.moh705AOutpatientUnder5YearsSummary)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.moh705BOutpatientOver5YearsSummary),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.moh705BOutpatientOver5YearsSummary)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.moh717NewAndRevisitPatientCount),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.moh717NewAndRevisitPatientCount)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.valueOfOpeningAndClosingStock),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.valueOfOpeningAndClosingStock)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.stockToBeOrdered),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.stockToBeOrdered)).not.toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.stockDiscrepancyReport),
+	).not.toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.stockDiscrepancyReport)).not.toBeUndefined();
+
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.donorFundReport)).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.donorFundReport)).toBeUndefined();
+
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.diagnosisReport)).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.diagnosisReport)).toBeUndefined();
+
+	expect(processes.find((process) => process.uuid === processUuid.paymentReceipt)).not.toBeUndefined();
+
+	expect(processes.find((process) => process.uuid === processUuid.paymentTrail)).not.toBeUndefined();
+
+	expect(processes.find((process) => process.uuid === processUuid.openBalanceInvoice)).not.toBeUndefined();
+
+	expect(reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.openBalanceList)).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.openBalanceList)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierTransactionDifferences),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.cashierTransactionDifferences)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.cashierPatientTransactions),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.cashierPatientTransactions)).toBeUndefined();
+
+	expect(
+		reportMenuList.find((reportMenu) => reportMenu.process?.uuid === processUuid.nonPatientPayments),
+	).toBeUndefined();
+	expect(processes.find((process) => process.uuid === processUuid.nonPatientPayments)).toBeUndefined();
+
+	expect(processes.find((process) => process.uuid === processUuid.cleanInventoryProcess)).toBeUndefined();
 });
 
 test(`clinician/nurse basic role has correct access`, async () => {
