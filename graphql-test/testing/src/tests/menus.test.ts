@@ -1,5 +1,5 @@
 import { query } from '../api';
-import { Ad_MenuGetDocument, Ad_MenuGetQuery } from '../__generated__/graphql';
+import { Ad_MenuGetDocument } from '../__generated__/graphql';
 
 const mainMenuRootUuid = 'bb0670c5-0dc1-468a-8b85-a91b15407368';
 

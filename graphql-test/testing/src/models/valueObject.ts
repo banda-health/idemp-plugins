@@ -79,9 +79,14 @@ export class ValueObject {
 	isError: boolean = false;
 	separator = ' - ';
 	prompt = ': ';
-	// get windowAccess(): AuthResponse['windowAccessLevel'] | undefined {
-	// 	return this.loginInfo?.windowAccessLevel;
-	// }
+	get AD_Window_AccessMap():
+		| { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['signIn']['AD_Role']>['AD_Window_AccessList']>[0] }
+		| undefined {
+		return this.loginInfo?.AD_Role?.AD_Window_AccessList?.reduce((map, windowAccess) => {
+			map[windowAccess.AD_Window.UUID] = windowAccess;
+			return map;
+		}, {} as { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['signIn']['AD_Role']>['AD_Window_AccessList']>[0] });
+	}
 
 	processUuid?: string;
 	processInformationParameters?: ProcessInfoParameterInput[];
