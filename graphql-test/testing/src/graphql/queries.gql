@@ -109,6 +109,28 @@ query AD_RoleGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	}
 }
 
+query AD_UserGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	AD_UserGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			AD_User_Roles {
+				UUID
+				AD_Role {
+					UUID
+					AD_Role_IncludedList {
+						UUID
+						Included_Role {
+							UUID
+						}
+					}
+				}
+			}
+			Name
+			IsActive
+		}
+	}
+}
+
 query BH_Coded_DiagnosisGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	BH_Coded_DiagnosisGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
@@ -289,6 +311,51 @@ query ChangeAccess($credentials: ChangeAccessInput!) {
 	}
 }
 
+query ChangePassword($credentials: AuthenticationInput!) {
+	changePassword(credentials: $credentials) {
+		token
+		user {
+			IsExpired
+		}
+		AD_Clients {
+			UUID
+			Name
+			AD_Orgs {
+				UUID
+				Name
+				AD_Roles {
+					UUID
+					Name
+				}
+				M_Warehouses {
+					UUID
+					Name
+					BH_DefaultWarehouse
+					IsActive
+					M_Locators {
+						UUID
+					}
+				}
+			}
+		}
+		AD_Role {
+			AD_Role_IncludedList {
+				UUID
+				Included_Role {
+					UUID
+				}
+			}
+			AD_Window_AccessList {
+				AD_Window {
+					UUID
+				}
+				BH_CanDeactivate
+				IsReadWrite
+			}
+		}
+	}
+}
+
 query DocumentStatusActionMap {
 	DocumentStatusActionMap
 }
@@ -356,6 +423,9 @@ query M_WarehouseGet($page: Int, $size: Int, $sort: String, $filter: String) {
 query SignIn($credentials: AuthenticationInput!) {
 	signIn(credentials: $credentials) {
 		token
+		user {
+			IsExpired
+		}
 		AD_Clients {
 			UUID
 			Name

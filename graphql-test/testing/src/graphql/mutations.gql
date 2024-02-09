@@ -50,6 +50,54 @@ mutation AD_RoleWithIncludedSave($AD_Role: AD_RoleInput!, $AD_Role_IncludedList:
 	}
 }
 
+mutation AD_User_RolesDelete($uuids: [String!]!) {
+	AD_User_RolesDelete(uuids: $uuids)
+}
+
+mutation AD_User_RolesSaveAndDeleteMany(
+	$AD_User_Roles: [AD_User_RolesInput!]!
+	$AD_User_Role_UUIDs_To_Delete: [String!]!
+) {
+	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
+		UUID
+	}
+	AD_User_RolesDelete(uuids: $AD_User_Role_UUIDs_To_Delete)
+}
+
+mutation AD_User_RolesSaveMany($AD_User_Roles: [AD_User_RolesInput!]!) {
+	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
+		UUID
+	}
+}
+
+mutation AD_UserWithRoleSave($AD_User: AD_UserInput!, $AD_User_Roles: [AD_User_RolesInput!]!) {
+	AD_UserSave(entity: $AD_User) {
+		UUID
+		Name
+		IsActive
+		AD_User_Roles {
+			UUID
+		}
+	}
+	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
+		UUID
+	}
+}
+
+mutation AD_UserWithRoleSaveAndDelete(
+	$AD_User: AD_UserInput!
+	$AD_User_Roles: [AD_User_RolesInput!]!
+	$AD_User_RoleUUIDSToDelete: [String!]!
+) {
+	AD_UserSave(entity: $AD_User) {
+		UUID
+	}
+	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
+		UUID
+	}
+	AD_User_RolesDelete(uuids: $AD_User_RoleUUIDSToDelete)
+}
+
 mutation BH_VisitProcess($uuid: String!, $documentAction: String!) {
 	BH_VisitProcess(uuid: $uuid, documentAction: $documentAction) {
 		...BH_VisitFields

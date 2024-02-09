@@ -9,7 +9,6 @@ import {
 import { ValueObject } from '../models';
 import { SignInQueryVariables } from '../__generated__/graphql';
 
-// export const IDEMPIERE_ENDPOINT = `${process.env.IDEMPIERE_ENDPOINT || 'http://idempiere:8080'}/BHGO/services/rs/auth`;
 export const IDEMPIERE_ENDPOINT = `${process.env.IDEMPIERE_ENDPOINT || 'http://idempiere:8080'}/graphql/`;
 
 export const initialLoginData: SignInQueryVariables['credentials'] = {

@@ -1,4 +1,5 @@
 extend type AD_Role {
 	AD_Role_IncludedList: [AD_Role_Included!]
+	AD_User_Roles: [AD_User_Roles!]
 	AD_Window_AccessList: [AD_Window_Access!]
 }
