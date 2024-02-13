@@ -1,7 +1,7 @@
 services:
-   external-mocks:
+  external-mocks:
     build:
-     context: ./external-mocks
+      context: ./external-mocks
     volumes:
       - ./external-mocks:/app
       - /app/node_modules
