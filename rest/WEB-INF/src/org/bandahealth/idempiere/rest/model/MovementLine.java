@@ -2,9 +2,9 @@ package org.bandahealth.idempiere.rest.model;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 

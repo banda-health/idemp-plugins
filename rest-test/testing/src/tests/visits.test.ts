@@ -12,8 +12,10 @@ import {
 	encounterTypeWindowApi,
 	languageApi,
 	referenceListApi,
+	roleApi,
 	visitApi,
 	voidedReasonApi,
+	userApi,
 } from '../api';
 import {
 	documentAction,
@@ -40,6 +42,7 @@ import {
 	ProcessInfoParameter,
 	Visit,
 	VoidedReason,
+	User,
 } from '../types/org.bandahealth.idempiere.rest';
 import {
 	createBusinessPartner,
@@ -2281,6 +2284,20 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	const orderUuid = randomUUID();
 	const orderLine1Uuid = randomUUID();
 	const orderLine2Uuid = randomUUID();
+	
+	//valueObject.stepName = 'Create user directly';
+
+	const availableRoles = (await roleApi.get(valueObject)).results;
+	const cashierRole = availableRoles.filter((role) => role.name.toLowerCase().includes('cashier'))[0];
+
+	const userToCreate: Partial<User> = {
+		name: valueObject.getDynamicStepMessage(),
+		isActive: true,
+		roles: [cashierRole]
+	};
+	const createdUser = await userApi.save(valueObject, userToCreate as User);
+	
+	
 	const visit: Partial<Visit> = {
 		uuid: randomUUID(),
 		patient: valueObject.businessPartner!,
@@ -2303,9 +2320,15 @@ test(`can delete order & invoice lines at the same time`, async () => {
 					name: 'Capture Vitals',
 					value: 'V',
 					description: '',
+					createdBy: createdUser,
+					updatedBy: createdUser,
+					updated: new Date(1688636248131),
 				},
 				observations: [],
 				encounterDiagnoses: [],
+				createdBy: createdUser,
+				updatedBy: createdUser,
+				updated: new Date(1688636248131),
 			},
 			{
 				clientId: 1000000,
@@ -2324,9 +2347,15 @@ test(`can delete order & invoice lines at the same time`, async () => {
 					name: 'Clinical Details',
 					description: 'clinical details',
 					value: 'D',
+					createdBy: createdUser,
+					updatedBy: createdUser,
+					updated: new Date(1688636248131),
 				},
 				observations: [],
 				encounterDiagnoses: [],
+				createdBy: createdUser,
+				updatedBy: createdUser,
+				updated: new Date(1688636248131),
 			},
 		],
 		orders: [
@@ -2343,6 +2372,9 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				dateOrdered: new Date(1698699600000),
 				grandTotal: 30200,
 				docStatus: 'DR',
+				createdBy: createdUser,
+				updatedBy: createdUser,
+				updated: new Date(1688636248131),
 				orderLines: [
 					{
 						clientId: 1000000,
@@ -2359,6 +2391,9 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						description: '',
 						attributeSetInstance: null as unknown as AttributeSetInstance,
 						instructions: '',
+						createdBy: createdUser,
+						updatedBy: createdUser,
+						updated: new Date(1688636248131),
 					},
 					{
 						clientId: 1000000,
@@ -2375,6 +2410,9 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						description: '',
 						attributeSetInstance: null as unknown as AttributeSetInstance,
 						instructions: '',
+						createdBy: createdUser,
+						updatedBy: createdUser,
+						updated: new Date(1688636248131),
 					},
 				],
 				warehouse: valueObject.warehouse!,
@@ -2394,6 +2432,9 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				description: '',
 				createdTimestamp: new Date(1698751223299),
 				businessPartner: valueObject.businessPartner!,
+				createdBy: createdUser,
+				updatedBy: createdUser,
+				updated: new Date(1688636248131),
 				invoiceLines: [
 					{
 						clientId: 1000000,
@@ -2412,6 +2453,9 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						orderLine: { uuid: orderLine1Uuid } as OrderLine,
 						charge: null as unknown as Charge,
 						description: '',
+						createdBy: createdUser,
+						updatedBy: createdUser,
+						updated: new Date(1688636248131),
 					},
 					{
 						clientId: 1000000,
@@ -2430,6 +2474,9 @@ test(`can delete order & invoice lines at the same time`, async () => {
 						orderLine: { uuid: orderLine2Uuid } as OrderLine,
 						charge: null as unknown as Charge,
 						description: '',
+						createdBy: createdUser,
+						updatedBy: createdUser,
+						updated: new Date(1688636248131),
 					},
 				],
 				docStatus: 'DR',

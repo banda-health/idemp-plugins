@@ -30,6 +30,7 @@ export * from './referenceLists';
 export * from './roles';
 export * from './services';
 export * from './storageOnHand';
+export * from './transactions';
 export * from './users';
 export * from './visits';
 export * from './voidedReasons';
