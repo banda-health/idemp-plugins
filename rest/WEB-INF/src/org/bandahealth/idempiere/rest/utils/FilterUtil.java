@@ -385,14 +385,16 @@ public class FilterUtil {
 			}
 			Map<String, Object> comparisonMap = (Map<String, Object>) comparisons;
 			for (String comparison : comparisonMap.keySet()) {
-				// We're only going to allow $null if it's an ID
+				// We're only going to allow filtering on an ID if it's a $null comparison
 				if (isFilteringOnIdColumn && !comparison.equals("$null")) {
 					continue;
 				}
 				whereClause.append(canPrependSeparator ? separator : "");
 				Object filterValue = comparisonMap.get(comparison);
 				// If this is a date, go ahead and convert the value to be as such
-				if (dbColumnIsDateType) {
+				// (but not if this is a $null or $nnull comparison where the filter
+				// value isn't used)
+				if (dbColumnIsDateType && !comparison.equals("$null") && !comparison.equals("$nnull")) {
 					filterValue = DateUtil.getTimestamp(filterValue.toString());
 				}
 				List<?> listOperatorValues;
