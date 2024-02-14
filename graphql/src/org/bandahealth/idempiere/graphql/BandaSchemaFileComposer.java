@@ -66,7 +66,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MBHCodedDiagnosisMapping.graphqls",
 //						"WEB-INF/resources/MBHDefaultDocActionAccess.graphqls",
 //						"WEB-INF/resources/MBHDefaultIncludedRole.graphqls",
-//						"WEB-INF/resources/MBHEncounter.graphqls",
+						"WEB-INF/resources/MBHEncounter.graphqls",
 //						"WEB-INF/resources/MBHEncounterDiagnosis.graphqls",
 //						"WEB-INF/resources/MBHEncounterTypeWindow.graphqls",
 //						"WEB-INF/resources/MBHObservation.graphqls",

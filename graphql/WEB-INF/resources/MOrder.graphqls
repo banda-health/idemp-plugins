@@ -3,6 +3,6 @@ extend type Mutation {
 }
 
 extend type C_Order {
-	M_InOuts: [M_InOut!]!
-	C_OrderLines: [C_OrderLine!]!
+	M_InOuts: [M_InOut!]
+	C_OrderLines: [C_OrderLine!]
 }

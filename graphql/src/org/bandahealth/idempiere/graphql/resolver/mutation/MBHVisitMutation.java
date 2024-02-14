@@ -12,14 +12,12 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
-import org.bandahealth.idempiere.graphql.model.input.MBHVisitInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.DocumentUtil;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.PO;
-import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
@@ -60,6 +58,21 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 							visitsOrders.stream().map(MOrder_BH::getC_DocTypeTarget_ID).collect(Collectors.toSet()));
 			// TODO: Update this when we have multiple orders, since we may not want to process all at the same time
 			for (MOrder_BH order : visitsOrders) {
+				// Before processing anything, get invoices and payments to work with
+				// Get invoices outside the transaction since the order will automatically reverse current invoices
+				List<MInvoice_BH> existingInvoices =
+						Repository.getGroupsByIds(idempiereProperties, MInvoice_BH.Table_Name,
+										processVisitTransaction.getTrxName(), MInvoice_BH::getBH_Visit_ID,
+										MInvoice_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID()))
+								.getOrDefault(visit.get_ID(), new ArrayList<>());
+				//
+				// Handle the payments
+				List<MPayment_BH> existingPayments =
+						Repository.getGroupsByIds(idempiereProperties, MPayment_BH.Table_Name,
+										processVisitTransaction.getTrxName(), MPayment_BH::getBH_Visit_ID,
+										MPayment_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID()))
+								.getOrDefault(visit.get_ID(), new ArrayList<>());
+				//
 				DocumentUtil.processDocumentOrError(MProcess_BH.PROCESSID_PROCESS_ORDERS, order, documentAction);
 
 				// Handle the invoices (if the order document type is appropriate)
@@ -69,10 +82,6 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 				if (!MDocType.DOCSUBTYPESO_OnCreditOrder.equals(documentType.getDocSubTypeSO()) &&
 						!MDocType.DOCSUBTYPESO_POSOrder.equals(documentType.getDocSubTypeSO()) &&
 						!MDocType.DOCSUBTYPESO_PrepayOrder.equals(documentType.getDocSubTypeSO())) {
-					//
-					List<MInvoice_BH> existingInvoices = Repository.getGroupsByIds(idempiereProperties, MInvoice_BH.Table_Name,
-							processVisitTransaction.getTrxName(), MInvoice_BH::getBH_Visit_ID, MInvoice_BH.COLUMNNAME_BH_Visit_ID,
-							Collections.singleton(visit.get_ID())).getOrDefault(visit.get_ID(), new ArrayList<>());
 					//
 					Collection<MInvoice_BH> existingUnfinalizedInvoices = existingInvoices.stream()
 							.filter(
@@ -100,14 +109,6 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 						}
 					}
 				}
-
-				// Handle the payments
-				List<MPayment_BH> existingPayments =
-						Repository.getGroupsByIds(idempiereProperties, MPayment_BH.Table_Name,
-										processVisitTransaction.getTrxName(),
-										MPayment_BH::getBH_Visit_ID, MPayment_BH.COLUMNNAME_BH_Visit_ID,
-										Collections.singleton(visit.get_ID()))
-								.getOrDefault(visit.get_ID(), new ArrayList<>());
 				//
 				Collection<MPayment_BH> existingUnfinalizedPayments = existingPayments.stream()
 						.filter(payment -> !payment.isComplete() || payment.getDocStatus().equals(MPayment_BH.DOCSTATUS_Completed))

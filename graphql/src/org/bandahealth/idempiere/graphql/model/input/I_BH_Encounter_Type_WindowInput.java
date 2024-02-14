@@ -25,6 +25,20 @@ public interface I_BH_Encounter_Type_WindowInput extends I_BH_Encounter_Type_Win
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set AD_Window.
+	 *
+	 * @param AD_Window Data entry or display window
+	 */
+	void setAD_WindowInput(ForeignEntityInput AD_Window);
+
+	/**
+	 * Get AD_Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	ForeignEntityInput AD_Window();
+
+	/**
 	 * Set BH_Encounter_Type.
 	 *
 	 * @param BH_Encounter_Type BH_Encounter_Type

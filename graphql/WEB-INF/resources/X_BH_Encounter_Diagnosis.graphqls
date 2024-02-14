@@ -21,7 +21,7 @@ type BH_Encounter_Diagnosis {
 	AD_Client: AD_Client!
 	# Organizational entity within client
 	AD_Org: AD_Org!
-	BH_Coded_Diagnosis: BH_Coded_Diagnosis!
+	BH_Coded_Diagnosis: BH_Coded_Diagnosis
 	UUID: ID!
 	BH_Encounter: BH_Encounter!
 	# uncoded diagnosis

@@ -10,9 +10,11 @@ import {
 	C_BPartnerGetDocument,
 	C_BPartnerSaveWithLocationDocument,
 	C_ChargeSaveDocument,
+	C_InvoiceGetDocument,
 	C_InvoiceProcessDocument,
 	C_InvoiceSaveWithInvoiceLinesDocument,
 	C_LocationGetDocument,
+	C_OrderGetDocument,
 	C_OrderProcessDocument,
 	C_OrderSaveWithOrderLinesDocument,
 	C_PaymentProcessDocument,
@@ -54,6 +56,18 @@ export async function loadCurrency(valueObject: ValueObject) {
 	valueObject.currency = (
 		await query(valueObject)({ query: C_AcctSchemaGetDocument, variables: { size: 1 } })
 	).data.C_AcctSchemaGet.results[0].C_Currency;
+}
+
+export async function loadBankAccount(valueObject: ValueObject) {
+	if (valueObject.bankAccount) {
+		return;
+	}
+	valueObject.bankAccount = (await getBankAccountOfOrganization(valueObject)) || undefined;
+
+	if (!valueObject.bankAccount) {
+		valueObject.errorMessage += 'No Bank Account for Org';
+		return;
+	}
 }
 
 /**
@@ -260,7 +274,12 @@ export async function createOrder(valueObject: ValueObject) {
 		})
 	).data;
 
-	valueObject.order = savedData?.C_OrderSave;
+	valueObject.order = (
+		await query(valueObject)({
+			query: C_OrderGetDocument,
+			variables: { filter: JSON.stringify({ c_order_uu: orderUuid }) },
+		})
+	).data.C_OrderGet.results[0];
 	valueObject.orderLine = savedData?.C_OrderLineSave;
 
 	if (valueObject.documentAction) {
@@ -329,7 +348,12 @@ export async function createInvoice(valueObject: ValueObject) {
 		})
 	).data;
 
-	valueObject.invoice = savedData?.C_InvoiceSave;
+	valueObject.invoice = (
+		await query(valueObject)({
+			query: C_InvoiceGetDocument,
+			variables: { filter: JSON.stringify({ c_invoice_uu: invoiceUuid }) },
+		})
+	).data.C_InvoiceGet.results[0];
 	valueObject.invoiceLine = savedData?.C_InvoiceLineSave;
 
 	if (valueObject.documentAction) {

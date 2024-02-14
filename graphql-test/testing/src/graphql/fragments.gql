@@ -13,10 +13,61 @@ fragment AD_RoleFields on AD_Role {
 fragment BH_VisitFields on BH_Visit {
 	BH_VisitDate
 	Description
+	DocumentNo
 	UUID
 	Patient {
 		UUID
 		Name
+	}
+	BH_Encounters {
+		UUID
+		BH_Encounter_DiagnosisList {
+			UUID
+			BH_Coded_Diagnosis {
+				UUID
+			}
+			BH_Uncoded_Diagnosis
+		}
+		BH_Observations {
+			UUID
+			BH_Value
+		}
+	}
+	C_Orders {
+		UUID
+		DocStatus {
+			UUID
+			Value
+		}
+		C_OrderLines {
+			UUID
+		}
+	}
+	C_Invoices {
+		UUID
+		DocStatus {
+			UUID
+			Value
+		}
+		C_BPartner {
+			UUID
+		}
+		C_InvoiceLines {
+			UUID
+			PriceActual
+			C_OrderLine {
+				UUID
+			}
+		}
+	}
+	C_Payments {
+		UUID
+		BH_tender_amount
+		DocStatus {
+			UUID
+			Value
+		}
+		PayAmt
 	}
 }
 
@@ -27,9 +78,19 @@ fragment C_BPartnerFields on C_BPartner {
 		Value
 	}
 	bh_occupation
+	BH_Payer_Info_FldList {
+		UUID
+		BH_PayerInfoFieldDataType {
+			UUID
+			Value
+		}
+	}
 	C_BP_Group {
 		Name
 		UUID
+		AssociatedCustomerReceivablesCharge {
+			UUID
+		}
 	}
 	C_BPartner_Locations {
 		UUID

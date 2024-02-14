@@ -1,3 +1,14 @@
+query AD_LanguageGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	AD_LanguageGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			AD_Language
+			Name
+			PrintName
+			UUID
+		}
+	}
+}
+
 query AD_MenuGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	AD_MenuGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
@@ -142,6 +153,33 @@ query BH_Coded_DiagnosisGet($page: Int, $size: Int, $sort: String, $filter: Stri
 	}
 }
 
+query BH_Encounter_Type_WindowGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	BH_Encounter_Type_WindowGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			AD_Window {
+				UUID
+				AD_Tabs {
+					AD_Fields {
+						UUID
+					}
+				}
+			}
+			BH_Encounter_Type {
+				UUID
+			}
+		}
+	}
+}
+
+query BH_EncounterGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	BH_EncounterGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+		}
+	}
+}
+
 query BH_Payer_Info_Fld_SugGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	BH_Payer_Info_Fld_SugGet(page: $page, size: $size, sort: $sort, filter: $filter) {
 		results {
@@ -154,6 +192,23 @@ query BH_Payer_Info_Fld_SugGet($page: Int, $size: Int, $sort: String, $filter: S
 				UUID
 				Value
 			}
+		}
+	}
+}
+
+query BH_VisitGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	BH_VisitGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			...BH_VisitFields
+		}
+	}
+}
+
+query BH_Voided_ReasonGet($page: Int, $size: Int, $sort: String, $filter: String) {
+	BH_Voided_ReasonGet(page: $page, size: $size, sort: $sort, filter: $filter) {
+		results {
+			UUID
+			Name
 		}
 	}
 }

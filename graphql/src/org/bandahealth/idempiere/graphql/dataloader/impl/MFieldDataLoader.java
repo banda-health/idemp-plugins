@@ -22,6 +22,6 @@ public class MFieldDataLoader extends X_AD_FieldDataLoader {
 	private MappedBatchLoaderWithContext<String, List<MField_BH>> getByTabIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
 				batchLoaderEnvironment.getContext(), getTableName(), null, MField_BH::getAD_Tab_ID,
-				MField_BH.COLUMNNAME_AD_Field_ID, keys);
+				MField_BH.COLUMNNAME_AD_Tab_ID, keys);
 	}
 }

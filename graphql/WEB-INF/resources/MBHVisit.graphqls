@@ -3,11 +3,11 @@ extend type Mutation {
 }
 
 extend type BH_Visit {
-	BH_Encounters: [BH_Encounter!]!
-	C_Invoices: [C_Invoice!]!
-	C_Orders: [C_Order!]!
-	C_Payments: [C_Payment!]!
-	M_InOuts: [M_InOut!]!
+	BH_Encounters: [BH_Encounter!]
+	C_Invoices: [C_Invoice!]
+	C_Orders: [C_Order!]
+	C_Payments: [C_Payment!]
+	M_InOuts: [M_InOut!]
 }
 
 extend input BH_VisitInput {
