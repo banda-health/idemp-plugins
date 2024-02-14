@@ -71,10 +71,9 @@ WHERE
   (UPPER($F{client_name}) + "\n" +
 	($F{address} != null && !$F{address}.isEmpty() ? $F{address} + "\n" : "") +
 	($F{phone} != null && !$F{phone}.isEmpty() ? $F{phone} : "")
-  ) 
-]]></textFieldExpression>
+  )]]></textFieldExpression>
 			</textField>
-			<image scaleImage="RetainShape" hAlign="Center" onErrorType="Blank">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" onErrorType="Blank">
 				<reportElement mode="Transparent" x="0" y="0" width="100" height="56" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<printWhenExpression><![CDATA[$F{image} != null]]></printWhenExpression>
