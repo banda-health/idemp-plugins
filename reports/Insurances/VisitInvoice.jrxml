@@ -1,0 +1,1308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InsuranceInvoice" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere UAT PostgreSQL 5552"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="471"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TF">
+		<paragraph rightIndent="3"/>
+	</style>
+	<style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ProductsDataSet" uuid="c3eec118-51b1-4edd-9dee-c29770378c9d">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="LocalDB Adapter"/>
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT
+	p.name         AS Product,
+	ol.priceactual AS Charge,
+	ol.qtyordered  AS Qty,
+	ol.linenetamt  AS Total
+--        c.grandtotal         as Total_Payment
+FROM
+	bh_visit v
+		JOIN c_order o
+		ON v.bh_visit_id = o.bh_visit_id
+		JOIN c_orderline ol
+		ON o.c_order_id = ol.c_order_id
+		JOIN m_product p
+		ON ol.m_product_id = p.m_product_id
+WHERE
+	issotrx = 'Y'
+	AND v.bh_visit_uu = $P{BH_Visit_UU}]]>
+		</queryString>
+		<field name="product" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="product"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="m_product"/>
+		</field>
+		<field name="charge" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="charge"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<field name="qty" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="qty"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<field name="total" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="total"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_orderline"/>
+		</field>
+		<variable name="sum_TotalAmount" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		</variable>
+		<group name="product">
+			<groupExpression><![CDATA[$F{product}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="PayerDataSet" uuid="a787df6e-9121-4802-bbcf-ec7c1ed889a9">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Local PostgreSQL"/>
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
+		<parameter name="Payer_ID" class="java.math.BigDecimal"/>
+		<queryString language="SQL">
+			<![CDATA[WITH visit AS (
+        SELECT bh_visit_id, ad_client_id, patient_id FROM bh_visit WHERE bh_visit_uu = $P{BH_Visit_UU} 
+    )
+SELECT
+    p.chargetype_name AS payer_name,
+    -p.linenetamt AS line_amount,
+    c.iso_code AS currency,
+    CASE WHEN i.c_bpartner_id = $P{Payer_ID} THEN 1 ELSE 0 END AS is_main_payer
+FROM visit v
+    JOIN bh_get_visit_non_patient_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
+    ON v.bh_visit_id = p.bh_visit_id
+    JOIN c_invoice i
+    ON i.c_invoice_id = p.c_invoice_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = i.c_currency_id
+UNION ALL
+SELECT bp.name AS payer_name,
+    i.grandtotal AS line_amount,
+    c.iso_code AS currency,
+    CASE WHEN i.c_bpartner_id = $P{Payer_ID} THEN 1 ELSE 0 END AS is_main_payer
+FROM visit v
+    JOIN c_invoice i
+    ON i.bh_visit_id = v.bh_visit_id
+    AND i.c_bpartner_id = v.patient_id
+    JOIN c_bpartner bp
+    ON bp.c_bpartner_id = v.patient_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = i.c_currency_id
+WHERE i.grandtotal <> 0
+ORDER BY is_main_payer;]]>
+		</queryString>
+		<field name="payer_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="payer_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
+		<field name="line_amount" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="line_amount"/>
+		</field>
+		<field name="currency" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="currency"/>
+		</field>
+		<field name="is_main_payer" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="is_main_payer"/>
+		</field>
+	</subDataset>
+	<subDataset name="InsurerSpecificFields" uuid="143228f5-5dd5-49c5-85c1-3c4b94f3b367">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Docker PostgreSQL"/>
+		<parameter name="Ins_BH_Visit_UU" class="java.lang.String"/>
+		<parameter name="Ins_BPartner_UU" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT
+    pif.line,
+    pif.name   AS field_name,
+    bpspi.name AS field_value
+FROM
+    bh_visit v
+        JOIN c_invoice i
+        ON v.bh_visit_id = i.bh_visit_id
+        JOIN c_bpartner bp
+        ON i.c_bpartner_id = bp.c_bpartner_id
+        JOIN c_invoiceline il
+        ON i.c_invoice_id = il.c_invoice_id
+        JOIN bh_bp_specific_payer_info bpspi
+        ON il.c_invoiceline_id = bpspi.c_invoiceline_id
+        JOIN bh_payer_info_fld pif
+        ON pif.bh_payer_info_fld_id = bpspi.bh_payer_info_fld_id
+WHERE
+    v.bh_visit_uu =  $P{Ins_BH_Visit_UU} 
+    AND bp.c_bpartner_uu = COALESCE($P{Ins_BPartner_UU}, '')
+ORDER BY pif.line
+LIMIT 5]]>
+		</queryString>
+		<field name="line" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="line"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_payer_info_fld"/>
+		</field>
+		<field name="field_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="field_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_payer_info_fld"/>
+		</field>
+		<field name="field_value" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="field_value"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="bh_bp_specific_payer_info"/>
+		</field>
+	</subDataset>
+	<subDataset name="PaymentDetails" uuid="d4575100-aca9-492c-b71f-f6d8455745ca">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Local PostgreSQL"/>
+		<parameter name="BH_Visit_UU" class="java.lang.String"/>
+		<parameter name="OpenBalance" class="java.math.BigDecimal"/>
+		<queryString language="SQL">
+			<![CDATA[WITH visit AS (
+        SELECT bh_visit_id, ad_client_id FROM bh_visit WHERE bh_visit_uu = $P{BH_Visit_UU} 
+    )
+SELECT
+    p.chargetype_name AS name,
+    '' AS tender_type,
+    -p.linenetamt AS line_amount,
+    c.iso_code AS currency,
+    0 AS is_patient_payment
+FROM visit v
+    JOIN bh_get_visit_non_patient_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
+    ON v.bh_visit_id = p.bh_visit_id
+    JOIN c_invoice i
+    ON i.c_invoice_id = p.c_invoice_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = i.c_currency_id
+UNION ALL
+SELECT
+    patient_name AS name,
+    payment_mode_name AS tender_type,
+    SUM(p.payamt) AS line_amount,
+    c.iso_code AS currency,
+    1 AS is_patient_payment
+FROM visit v
+    JOIN bh_get_visit_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
+    ON v.bh_visit_id = p.bh_visit_id
+    LEFT JOIN c_payment pa
+    ON pa.c_payment_id = p.c_payment_id
+    LEFT JOIN c_currency c
+    ON c.c_currency_id = pa.c_currency_id
+GROUP BY name, tender_type, currency, is_patient_payment
+ORDER BY is_patient_payment;]]>
+		</queryString>
+		<field name="name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+		</field>
+		<field name="tender_type" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="tender_type"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="ad_ref_list"/>
+		</field>
+		<field name="line_amount" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="line_amount"/>
+		</field>
+		<field name="currency" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="currency"/>
+		</field>
+		<field name="is_patient_payment" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.label" value="is_patient_payment"/>
+		</field>
+		<variable name="TotalPayment" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{line_amount}]]></variableExpression>
+			<initialValueExpression><![CDATA[0]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BH_Visit_UU" class="java.lang.String"/>
+	<parameter name="ShowInsuranceInfo" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[WITH visit AS (
+        SELECT
+            bh_visit_id,
+            bh_visitdate,
+            patient_id,
+            ad_org_id
+        FROM bh_visit
+        WHERE bh_visit_uu = $P{BH_Visit_UU}
+    ),
+    payment_summary AS (
+		SELECT
+			bh_visit_id,
+			STRING_AGG(payment_type, ', ') AS payment_type,
+			SUM(payamt) AS payment_amount
+		FROM
+			(
+				SELECT
+					v.bh_visit_id,
+					rl.name AS payment_type,
+					SUM(p.payamt) AS payamt
+				FROM
+					visit v
+						JOIN c_payment p
+						ON p.bh_visit_id = v.bh_visit_id
+					    JOIN ad_ref_list rl
+						ON p.tendertype = rl.value AND rl.ad_reference_id = 214
+				GROUP BY v.bh_visit_id, rl.name
+				UNION ALL
+				SELECT
+					v.bh_visit_id,
+					c.name AS payment_type,
+					0 AS payamt
+				FROM
+					visit v
+						JOIN c_order o
+						ON v.bh_visit_id = o.bh_visit_id
+						JOIN c_orderline ol
+						ON o.c_order_id = ol.c_order_id
+						JOIN c_charge c
+						ON c.c_charge_id = ol.c_charge_id
+			) p
+		GROUP BY bh_visit_id
+	),
+    -- If running for insurance, produce one row for each insurer. If for patient, produce 1 row for patient
+    payer AS (
+        SELECT
+            v.bh_visit_id,
+            bpins.c_bpartner_id AS insurer_id,
+            bpins.c_bpartner_uu AS insurer_uu,
+            bpins.name          AS insurer_name,
+            i.documentno        AS invoice_id,
+            i.grandtotal        AS invoice_amount
+        FROM visit v
+            JOIN c_invoice i
+                ON v.bh_visit_id = i.bh_visit_id
+                JOIN c_bpartner bpins
+                ON i.c_bpartner_id = bpins.c_bpartner_id
+                JOIN c_bp_group bpg
+                ON bpins.c_bp_group_id = bpg.c_bp_group_id
+        WHERE
+            i.docstatus = 'CO'
+            AND ( ($P{ShowInsuranceInfo} AND COALESCE(bpg.bh_subtype, '') IN ('I', 'D') )
+                  OR (NOT $P{ShowInsuranceInfo} AND COALESCE(bpg.bh_subtype, '') NOT IN ('I', 'D') )
+                  )
+    )
+SELECT
+    v.bh_visitdate    AS date,
+    bp.name           AS patient,
+    bp.bh_gender      AS gender,
+    bp.bh_patientid   AS patient_id,
+    u.name            AS served_by,
+	o.grandtotal      AS order_total,
+    p.invoice_id,
+    p.invoice_amount,
+   	COALESCE(ps.payment_type, 'None') AS payment_type,
+   	ps.payment_amount,
+	oi.bh_paymentinformation,
+	p.insurer_id,
+	p.insurer_uu,
+	p.insurer_name
+FROM
+    visit v
+        JOIN c_order o
+        ON v.bh_visit_id = o.bh_visit_id
+        JOIN c_bpartner bp
+        ON v.patient_id = bp.c_bpartner_id
+        LEFT JOIN ad_user u
+        ON o.salesrep_id = u.ad_user_id
+		LEFT JOIN payment_summary ps
+		ON ps.bh_visit_id = v.bh_visit_id
+		LEFT JOIN ad_orginfo oi
+		ON v.ad_org_id = oi.ad_org_id
+        LEFT JOIN payer p
+        ON p.bh_visit_id = v.bh_visit_id]]>
+	</queryString>
+	<field name="date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
+	</field>
+	<field name="patient" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patient"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="patient_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="patient_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="served_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="served_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_user"/>
+	</field>
+	<field name="order_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="order_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_order"/>
+	</field>
+	<field name="invoice_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="invoice_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
+	</field>
+	<field name="invoice_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="invoice_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_invoice"/>
+	</field>
+	<field name="payment_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="payment_type"/>
+	</field>
+	<field name="payment_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="payment_amount"/>
+	</field>
+	<field name="bh_paymentinformation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="bh_paymentinformation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ad_orginfo"/>
+	</field>
+	<field name="insurer_id" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="insurer_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="insurer_uu" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="insurer_uu"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<field name="insurer_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="insurer_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
+	</field>
+	<variable name="Total" class="java.math.BigDecimal" calculation="Sum"/>
+	<variable name="OpenBalance" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$P{ShowInsuranceInfo} ? new BigDecimal(0) : ($F{invoice_amount} == null) ? new BigDecimal(0) : $F{invoice_amount}.subtract($F{payment_amount} != null ? $F{payment_amount} : new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<group name="Insurer" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{insurer_uu}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="208">
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="340" y="110" width="140" height="16" uuid="b066fbc9-8a49-49b8-b655-33c911b48b45">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{insurer_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="110" width="141" height="16" uuid="6333bf79-af4d-472e-968c-5560a9430e73">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patient_id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="126" width="80" height="16" uuid="e3174d74-0a4e-4485-aeb1-a6540d24b83b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="250" y="110" width="90" height="16" uuid="6f4106cf-f6cf-4fc3-a9ac-3a02d9cc68e9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Insurer:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="60" width="80" height="16" uuid="024e5e5a-a8e5-4fed-b319-af92ea4cfcf6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Visit:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="110" width="80" height="16" uuid="4f0c4d76-6a7e-42b7-a573-28228dda998a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient #:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="90" width="216" height="17" uuid="3816e330-fc01-496f-a78f-6ae6f2299f90"/>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PATIENT VISIT]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="142" width="141" height="16" uuid="8aa60010-f961-484b-9394-3f78304a6118">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="158" width="141" height="16" uuid="62dba34a-3cc9-42f5-8e08-0395bf5d4a9d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{served_by}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="142" width="80" height="16" uuid="acda3e1c-59ff-4381-a236-bb52858fcad6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gender:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="126" width="141" height="16" uuid="e2fbb537-ae71-4a18-9f5c-6608250d1bbb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{patient}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="158" width="80" height="16" uuid="18c39c99-e6d8-419d-a6af-5618f9f8dcb7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Served by:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="250" y="90" width="230" height="17" uuid="29cc5848-7837-4dfc-8b88-1bdf172f9cd9">
+					<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[BILL TO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="60" width="141" height="16" uuid="666fd3bd-05ad-4cbc-ab27-105ed63c8800">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{date})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="58" width="480" height="1" uuid="30018458-ef41-4b26-9b59-c758b17cae57">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="0" y="0" width="340" height="56" uuid="7cfbc2a1-94d9-4c1d-9553-d9d172e5df17">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<subreportParameter name="BH_Visit_UU">
+					<subreportParameterExpression><![CDATA[$P{BH_Visit_UU}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ClientHeader.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="340" y="0" width="140" height="40" uuid="1e2204bd-dd5b-4b67-b976-9f8267793c56">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="370" y="34" width="110" height="17" uuid="09168294-6d60-41c6-b2f4-f3e4b8d25382"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NO: " +$F{invoice_id}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="250" y="126" width="230" height="80" uuid="5c8acd9c-2da6-49aa-aff7-981b54402d0f">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 2_TD"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="InsurerSpecificFields" uuid="d5186876-5ff0-4e6d-a4fd-53a7a4721dfc">
+						<datasetParameter name="Ins_BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Ins_BPartner_UU">
+							<datasetParameterExpression><![CDATA[$F{insurer_uu}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="13eee51a-9283-4267-8295-d485b690aa2c">
+						<jr:detailCell style="Table 2_TD" height="16">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="90" height="16" uuid="e2550e59-4c7d-4efa-9edd-a01173fe6397"/>
+								<box leftPadding="2"/>
+								<textElement verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{field_name} + ":"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="140" uuid="4baff06e-d614-4a78-8611-0479ac2a4cce">
+						<jr:detailCell style="Table 2_TD" height="16">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement x="0" y="0" width="140" height="16" uuid="42a54821-4c69-4659-afc8-70ff7d8daa1a"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{field_value}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="80" y="174" width="141" height="16" uuid="37730e7e-eb93-4d29-bbfa-61e5b8ac83b7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<printWhenExpression><![CDATA[!$P{ShowInsuranceInfo}]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{payment_type}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="174" width="80" height="16" uuid="39f53e59-8534-46a8-852f-2ca73111fa64">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[!$P{ShowInsuranceInfo}]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment:]]></text>
+			</staticText>
+		</band>
+		<band height="52" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<componentElement>
+				<reportElement style="Table_TH" x="0" y="0" width="480" height="50" uuid="aece4c0b-0d19-4e41-b2dc-ad855614b09f">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="ProductsDataSet" uuid="77f05f28-fa97-43f1-88b9-ebd17b6e4fdd">
+						<datasetParameter name="BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="253" uuid="12c1984e-fcd4-4dc1-b557-47b4d537182f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="253" height="15" uuid="9986b691-2847-415d-8822-066b21d8d5ed"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<text><![CDATA[ITEM]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="0" width="253" height="15" uuid="138a0fd1-3d00-491c-b7a8-30c2685dd428"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{product}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="f6ac971d-6ade-4fef-8fa1-5ee2b17a142e">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="15" uuid="f02ea4ec-4f1c-4a89-b21e-ff61242b0d91"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[UNIT PRICE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="70" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{charge}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="77" uuid="c3d0d070-e0bd-4c54-a6a6-1915ff69bdfd">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="77" height="15" uuid="6df5ed7f-39a6-4654-a4f2-7283daa9f046">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[QTY]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1">
+							<box topPadding="0">
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement style="Table_TF" x="0" y="0" width="77" height="20" uuid="746e194e-52ef-4cc7-81da-69f9ac42b875"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Grand Total:]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="15">
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="77" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="80" uuid="f8fe607e-ee2b-4d58-a7b7-4006bf725c69">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="80" height="15" uuid="1660fb8e-34f5-4aa4-89a1-7163e7a59c23"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph leftIndent="3" rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[TOTAL COST]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1">
+							<box topPadding="0" rightPadding="0">
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Table_TF" x="0" y="0" width="80" height="20" uuid="665e383c-2430-4d82-a8ec-c1fa4b8adabe"/>
+								<box topPadding="4"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($V{sum_TotalAmount})]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField pattern="#,##0">
+								<reportElement x="0" y="0" width="80" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<paragraph leftIndent="0" rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="87" splitType="Prevent">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
+			<componentElement>
+				<reportElement x="76" y="10" width="404" height="54" uuid="4a6229c8-4b35-4bb6-a356-7b99d045e870">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 1_TD"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="PayerDataSet" uuid="25006ac8-2e11-4fde-af83-42d8a1e80318">
+						<datasetParameter name="BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="Payer_ID">
+							<datasetParameterExpression><![CDATA[$F{insurer_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="100" uuid="d27713d1-4ed4-4be7-b906-54c4dd47e3be">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table_TH" height="24" rowSpan="1"/>
+						<jr:columnHeader style="Table_TH" height="15" rowSpan="1"/>
+						<jr:detailCell style="Table_TH" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="100" height="15" uuid="7943bd78-c4fd-4026-bfda-dc37f7dd0ade">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right">
+									<paragraph rightIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{is_main_payer} == 1 ? "PLEASE PAY:" : ""]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="150" uuid="e1b10c0a-0805-4ee1-ba1e-347143cb03a5">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table_TH" height="24" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="24" uuid="5ab575d4-a10f-4dbe-9204-2d5cc5e28e18">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<font size="12" isBold="true" isUnderline="true"/>
+								</textElement>
+								<text><![CDATA[PAYER INFORMATION]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="150" height="15" uuid="95ce2fad-5f3c-4617-859b-b374687379bb">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<font isBold="true"/>
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<text><![CDATA[PAYER NAME]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="150" height="15" uuid="68994f97-065e-4768-9d6f-1d7befadcfab">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{payer_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="74" uuid="48840dab-0888-47b9-bc5c-dd30262b4b59">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table_TH" height="24" rowSpan="1"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="74" height="15" uuid="dbb7978b-48e4-4031-97f2-f190613a7994">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[CURRENCY]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="74" height="15" uuid="c788ccaf-7489-4e2a-a217-47a24c495725">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right">
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="80" uuid="c58ade63-5884-498d-b062-1177524113bc">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:tableHeader style="Table_TH" height="24" rowSpan="1"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="80" height="15" uuid="36f90237-be24-4ef1-97c4-c90b919b9170">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[AMOUNT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="80" height="15" uuid="94e662c9-6ef6-4b35-8981-f74326eeb640">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right">
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[new DecimalFormat("#,###").format($F{line_amount})]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="122" splitType="Prevent">
+			<printWhenExpression><![CDATA[!$P{ShowInsuranceInfo}]]></printWhenExpression>
+			<staticText>
+				<reportElement x="127" y="10" width="200" height="17" uuid="0e4c731f-dc07-4cb6-afc4-67c5c1087abb"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PAYMENT DETAILS]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="127" y="30" width="353" height="50" uuid="bd27c0be-9c12-46aa-8ad7-e526a83ebab3">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 3_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 3_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table 3_TD"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="PaymentDetails" uuid="972230fb-c410-4d2a-815d-31924df28038">
+						<datasetParameter name="BH_Visit_UU">
+							<datasetParameterExpression><![CDATA[$P{BH_Visit_UU}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="OpenBalance">
+							<datasetParameterExpression><![CDATA[$V{OpenBalance}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="110" uuid="e175a8e5-7402-4a37-a3fb-5f81e9e48c2d">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<staticText>
+								<reportElement x="0" y="0" width="110" height="15" uuid="4c4cd0d9-455c-4b09-ab2f-a13ead35caee">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<font isBold="true"/>
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<text><![CDATA[NAME]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
+						<jr:detailCell style="Table 3_TD" height="15">
+							<textField>
+								<reportElement x="0" y="0" width="110" height="15" uuid="3edd391a-35ed-49c8-8b48-a8e70f0da4a7">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<paragraph leftIndent="3" rightIndent="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="73" uuid="cd7f1d4c-28c0-43fe-b297-032786f1a536">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="73" height="15" uuid="6d124628-bf19-480d-9753-602c66cfa812">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<font isBold="true"/>
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<text><![CDATA[CURRENCY]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
+						<jr:detailCell style="Table 3_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="73" height="15" uuid="b3519bb6-779a-4b07-b1ba-2b6c5aa57ef2">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<paragraph leftIndent="3" rightIndent="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{currency}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="205b7ad5-51a7-486a-9d34-29ce13a2a931">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="15" uuid="c7624659-429f-4505-afd2-4b611ecc34d7">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement>
+									<font isBold="true"/>
+									<paragraph leftIndent="3"/>
+								</textElement>
+								<text><![CDATA[METHOD]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="20" uuid="b322b0d3-2719-41e5-9270-8819b28d0a5f"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Payment:]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="Table 3_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="90" height="15" uuid="2cd2cdb4-6cd0-4d4b-b192-e0917098f104">
+									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Left">
+									<paragraph leftIndent="3" rightIndent="0"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{tender_type} != null ? $F{tender_type} : ""]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="80" uuid="bc3cceae-45e3-459d-b0a8-f73446797e3f">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:columnHeader style="Table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="80" height="15" uuid="dba3bd01-5898-471b-84f4-34134401bc2f">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<text><![CDATA[AMOUNT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="Table_TF" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="80" height="20" uuid="af19c42b-444c-4d52-b731-740da8538634">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font isBold="true"/>
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{TotalPayment} != null ? new DecimalFormat("#,###").format($V{TotalPayment}) : 0]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="Table 3_TD" height="15">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<textField>
+								<reportElement x="0" y="0" width="80" height="15" uuid="a6f6e5ce-7ee6-420b-996a-4dc6a8fadcdf">
+									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Right">
+									<paragraph rightIndent="3"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{line_amount} != null ? new DecimalFormat("#,###").format($F{line_amount}) : ""]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement positionType="Float" x="400" y="80" width="80" height="20" uuid="a178092b-6d31-4fff-bcb5-28a8d2b9274a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph rightIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{OpenBalance} != null ? new DecimalFormat("#,###").format($V{OpenBalance}) : ""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="300" y="80" width="100" height="20" uuid="3b37b4fe-17f9-43fb-9ab5-26f01da72e56">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Open Balance:]]></text>
+			</staticText>
+		</band>
+		<band height="124" splitType="Prevent">
+			<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
+			<staticText>
+				<reportElement x="176" y="0" width="200" height="17" uuid="fc90ab68-cadc-4d69-8142-2501281577db"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PAYMENT INFORMATION]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="176" y="20" width="300" height="100" uuid="6527227e-a6a4-4b28-82c2-721304692fc0">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{bh_paymentinformation} != null ? $F{bh_paymentinformation} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="62" splitType="Prevent">
+			<line>
+				<reportElement x="275" y="33" width="140" height="1" uuid="336bed01-c04b-40e6-9d7e-461603774c3a">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="275" y="38" width="140" height="18" uuid="94093777-008b-48a0-8277-0254dd0b7b15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="38" width="179" height="18" uuid="10429e3d-c52a-400d-a68e-a58a10fca6bc"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Signature of Authorized Person"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="33" width="180" height="1" uuid="104a263b-d072-42d8-994f-14f5eb0b139c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21">
+			<textField>
+				<reportElement x="0" y="1" width="259" height="20" uuid="aac9248b-b0c4-4242-8281-90f0b70ea9ae"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Invoice Generated at " + new SimpleDateFormat("dd-MM-YYYY HH:mm").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="0" width="90" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Group" evaluationGroup="Insurer">
+				<reportElement x="457" y="0" width="23" height="20" uuid="f6a22d1e-a219-452f-b548-40c77d6f7cb7">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<noData>
+		<band height="18">
+			<staticText>
+				<reportElement x="0" y="0" width="380" height="16" uuid="7227fd38-a730-477d-a761-4778225a2517">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[No data was found to display on the report.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>
