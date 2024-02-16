@@ -3,9 +3,13 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
+import org.bandahealth.idempiere.rest.model.InventoryLine;
+import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.MovementLine;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MLocator;
+import org.compiere.model.MTransaction;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class MovementLineDBService extends BaseDBService<MovementLine, MMovementLine_BH> {
@@ -25,6 +30,8 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 	private ProductDBService productDBService;
 	@Autowired
 	private AttributeSetInstanceDBService attributeSetInstanceDBService;
+	@Autowired
+	private LocatorDBService locatorDBService;
 
 	public MovementLineDBService() {
 	}
@@ -58,7 +65,7 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 	public Boolean deleteEntity(String entityUuid) {
 		MMovementLine_BH movementLine = new Query(Env.getCtx(), MMovementLine_BH.Table_Name,
 				MMovementLine_BH.COLUMNNAME_M_MovementLine_UU + "=?", null).setParameters(entityUuid).setClient_ID()
-				.first();
+						.first();
 		if (movementLine != null) {
 			movementLine.deleteEx(false);
 
@@ -88,17 +95,17 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 		// get list of products
 		Set<Integer> productIds = dbModels.stream().map(MMovementLine_BH::getM_Product_ID)
 				.filter(m_product_id -> m_product_id > 0).collect(Collectors.toSet());
-		Map<Integer, Product> productsByIds =
-				productDBService.transformData(new ArrayList<>(productDBService.getByIds(productIds).values())).stream()
-						.collect(Collectors.toMap(Product::getId, product -> product));
+		Map<Integer, Product> productsByIds = productDBService
+				.transformData(new ArrayList<>(productDBService.getByIds(productIds).values())).stream()
+				.collect(Collectors.toMap(Product::getId, product -> product));
 
 		// Get a list of attribute sets
 		Set<Integer> attributeSetInstanceIds = dbModels.stream().map(MMovementLine_BH::getM_AttributeSetInstance_ID)
 				.filter(m_attributeSetInstance_id -> m_attributeSetInstance_id > 0).collect(Collectors.toSet());
-		Map<Integer, AttributeSetInstance> attributeSetInstancesById = productIds.isEmpty() ? new HashMap<>() :
-				attributeSetInstanceDBService.getByIds(attributeSetInstanceIds).entrySet().stream().collect(
-						Collectors.toMap(Map.Entry::getKey,
-								attributeSetInstanceEntry -> new AttributeSetInstance(attributeSetInstanceEntry.getValue())));
+		Map<Integer, AttributeSetInstance> attributeSetInstancesById = productIds.isEmpty() ? new HashMap<>()
+				: attributeSetInstanceDBService.getByIds(attributeSetInstanceIds).entrySet().stream().collect(
+						Collectors.toMap(Map.Entry::getKey, attributeSetInstanceEntry -> new AttributeSetInstance(
+								attributeSetInstanceEntry.getValue())));
 
 		productDBService.getProductCosts(productIds, attributeSetInstanceIds).forEach(productCostCalculation -> {
 			if (attributeSetInstancesById.containsKey(productCostCalculation.getAttributeSetInstanceId())) {
@@ -109,6 +116,15 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 			}
 		});
 
+		// get locators
+		Map<Integer, Locator> locatorsById = locatorDBService
+				.transformData(
+						new ArrayList<>(locatorDBService.getByIds(Stream
+								.concat(dbModels.stream().map(MMovementLine_BH::getM_Locator_ID),
+										dbModels.stream().map(MMovementLine_BH::getM_LocatorTo_ID))
+								.collect(Collectors.toSet())).values()))
+				.stream().collect(Collectors.toMap(Locator::getId, line -> line));
+
 		return dbModels.stream().map((line) -> {
 			MovementLine movementLine = createInstanceWithAllFields(line);
 
@@ -116,7 +132,16 @@ public class MovementLineDBService extends BaseDBService<MovementLine, MMovement
 				movementLine.setProduct(productsByIds.get(line.getM_Product_ID()));
 			}
 			if (line.getM_AttributeSetInstance_ID() > 0) {
-				movementLine.setAttributeSetInstance(attributeSetInstancesById.get(line.getM_AttributeSetInstance_ID()));
+				movementLine
+						.setAttributeSetInstance(attributeSetInstancesById.get(line.getM_AttributeSetInstance_ID()));
+			}
+
+			if (locatorsById.containsKey(movementLine.getLocatorId())) {
+				movementLine.setLocator(locatorsById.get(movementLine.getLocatorId()));
+			}
+			
+			if (locatorsById.containsKey(movementLine.getLocatorToId())) {
+				movementLine.setLocatorTo(locatorsById.get(movementLine.getLocatorToId()));
 			}
 
 			return movementLine;
