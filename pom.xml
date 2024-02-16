@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>2.7.3</tycho.version>
+		<tycho.version>3.0.5</tycho.version>
 		<tycho.extras.version>${tycho.version}</tycho.extras.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.dependency.version>3.1.1</maven.dependency.version>
@@ -288,17 +288,56 @@
 		            <url>http://repo.jenkins-ci.org/releases</url>
 	            </repository>
 			</repositories>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho.version}</version>
+						<configuration>
+							<environments>
+								<environment>
+									<os>linux</os>
+									<ws>gtk</ws>
+									<arch>x86_64</arch>
+								</environment>
+								<environment>
+									<os>win32</os>
+									<ws>win32</ws>
+									<arch>x86_64</arch>
+								</environment>
+							</environments>
+							<dependency-resolution>
+								<extraRequirements>
+									<requirement>
+										<type>eclipse-plugin</type>
+										<id>org.eclipse.core.runtime</id>
+										<versionRange>0.0.0</versionRange>
+									</requirement>
+									<requirement>
+										<type>eclipse-plugin</type>
+										<id>org.eclipse.equinox.common</id>
+										<versionRange>0.0.0</versionRange>
+									</requirement>
+								</extraRequirements>
+							</dependency-resolution>
+							<executionEnvironmentDefault>JavaSE-17</executionEnvironmentDefault>
+							<executionEnvironment>JavaSE-17</executionEnvironment>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 	    </profile>
 	</profiles>
 
 	<modules>
 		<module>chuck-test-framework</module>
 		<module>base</module>
-		<module>base-editor</module>
+<!--		<module>base-editor</module>-->
 		<module>base-test</module>
 		<module>reports</module>
 		<module>reports-test</module>
-		<module>webui</module>
+<!--		<module>webui</module>-->
 		<module>rest</module>
 		<module>rest-test</module>
 	</modules>

@@ -15,18 +15,14 @@
             <id>jaspersoft-third-party</id>
             <url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>jasperreports</id>
-            <url>http://jaspersoft.artifactoryonline.com/jaspersoft/jr-ce-releases</url>
-        </pluginRepository>
     </pluginRepositories>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>com.alexnederlof</groupId>
+                <groupId>com.pro-crafting.tools</groupId>
                 <artifactId>jasperreports-plugin</artifactId>
-                <version>2.5</version> <!-- This downloads JasperSoft version 6.8.0, which we currently use -->
+                <version>3.6.0</version> <!-- This downloads JasperSoft version 6.21.1, which we currently use -->
                 <executions>
                     <execution>
                         <phase>process-sources</phase>
@@ -48,7 +44,7 @@
                     <dependency>
                         <groupId>net.sf.jasperreports</groupId>
                         <artifactId>jasperreports-functions</artifactId>
-                        <version>6.8.0</version>
+                        <version>6.20.6</version>
                     </dependency>
                 </dependencies>
             </plugin>
