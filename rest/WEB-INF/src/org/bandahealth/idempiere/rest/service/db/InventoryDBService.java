@@ -20,8 +20,6 @@ import org.compiere.model.MDocType;
 import org.compiere.model.MLocator;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -31,24 +29,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class InventoryDBService extends DocumentDBService<Inventory, MInventory_BH> {
 	private final String NO_PRODUCTS_ADDED = "No products were passed to initialize stock.";
 
-	@Autowired
-	private WarehouseDBService warehouseDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
-	@Autowired
-	private ProductDBService productDBService;
-	@Autowired
-	private LocatorDBService locatorDBService;
-	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService;
-	@Autowired
-	private InventoryLineDBService inventoryLineDBService;
-	@Autowired
-	protected DocumentTypeDBService documentTypeDBService;
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
+	private final ProductDBService productDBService = new ProductDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
+	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	private final InventoryLineDBService inventoryLineDBService = new InventoryLineDBService();
+	protected final DocumentTypeDBService documentTypeDBService = new DocumentTypeDBService();
 
 	@Override
 	public Inventory saveEntity(Inventory entity) {
@@ -73,7 +62,8 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 		}
 
 		inventory.setM_Warehouse_ID(
-				warehouseDBService.getEntityByUuidFromDB(entity.getWarehouse().getUuid()).getM_Warehouse_ID());
+				locatorDBService.getWarehouseDBService().getEntityByUuidFromDB(entity.getWarehouse().getUuid())
+						.getM_Warehouse_ID());
 		if (entity.getUpdateReason() != null && !StringUtil.isNullOrEmpty(entity.getUpdateReason().getUuid())) {
 			inventory.setbh_update_reason(
 					referenceListDBService.getEntityByUuidFromDB(entity.getUpdateReason().getUuid()).getValue());
@@ -115,7 +105,7 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 		Set<Integer> inventoryIds = dbModels.stream().map(MInventory_BH::get_ID).collect(Collectors.toSet());
 		Set<Integer> warehouseIds = dbModels.stream().map(MInventory_BH::getM_Warehouse_ID).collect(Collectors.toSet());
 
-		Map<Integer, MWarehouse_BH> warehousesByIds = warehouseDBService.getByIds(warehouseIds);
+		Map<Integer, MWarehouse_BH> warehousesByIds = locatorDBService.getWarehouseDBService().getByIds(warehouseIds);
 		Map<String, MRefList> updateReasonsByValues =
 				referenceListDBService.getTypes(MReference_BH.STOCK_UPDATE_REASONS_AD_REFERENCE_UU, null).stream()
 						.collect(Collectors.toMap(MRefList::getValue, updateReason -> updateReason));

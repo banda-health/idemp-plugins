@@ -3,9 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class IncludedRoleDBService extends BaseDBService<BaseMetadata, MRoleIncluded> {
 	@Override
 	public BaseMetadata saveEntity(BaseMetadata entity) {

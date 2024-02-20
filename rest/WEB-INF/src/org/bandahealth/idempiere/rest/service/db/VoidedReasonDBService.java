@@ -1,15 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.compiere.model.MWindow;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.HashMap;
+import java.util.Map;
+
 public class VoidedReasonDBService extends BaseDBService<VoidedReason, MBHVoidedReason> {
 	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{
@@ -50,12 +48,12 @@ public class VoidedReasonDBService extends BaseDBService<VoidedReason, MBHVoided
 	protected MBHVoidedReason getModelInstance() {
 		return new MBHVoidedReason(Env.getCtx(), 0, null);
 	}
-	
+
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
-        return new EntityConfiguration() {{
-            setShouldUseContextClientId(true);
-            setShouldFetchFromSystemClient(true);
-        }};
-    }
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(true);
+			setShouldFetchFromSystemClient(true);
+		}};
+	}
 }

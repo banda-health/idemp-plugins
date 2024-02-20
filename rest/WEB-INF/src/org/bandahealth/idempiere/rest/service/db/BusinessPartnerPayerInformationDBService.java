@@ -10,8 +10,6 @@ import org.bandahealth.idempiere.rest.model.BusinessPartnerPayerInformation;
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,15 +18,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class BusinessPartnerPayerInformationDBService
 		extends BaseDBService<BusinessPartnerPayerInformation, MBHBPPayerInfo> {
-	@Autowired
-	private BusinessPartnerDBService businessPartnerDBService;
-	@Autowired
-	private PayerInformationFieldDBService payerInformationFieldDBService;
-	@Autowired
-	private BusinessPartnerGeneralPayerInformationDBService businessPartnerGeneralPayerInformationDBService;
+	private final BusinessPartnerDBService businessPartnerDBService = new BusinessPartnerDBService();
+	private final PayerInformationFieldDBService payerInformationFieldDBService = new PayerInformationFieldDBService();
+	private final BusinessPartnerGeneralPayerInformationDBService businessPartnerGeneralPayerInformationDBService =
+			new BusinessPartnerGeneralPayerInformationDBService();
 
 	@Override
 	public BusinessPartnerPayerInformation saveEntity(BusinessPartnerPayerInformation entity) {

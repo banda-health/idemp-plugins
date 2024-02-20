@@ -6,9 +6,7 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocation;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class LocationDBService extends BaseDBService<Location, MLocation> {
 	@Override
 	public Location saveEntity(Location entity) {

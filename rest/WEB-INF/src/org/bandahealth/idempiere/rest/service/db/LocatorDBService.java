@@ -13,9 +13,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class LocatorDBService extends BaseDBService<Locator, MLocator> {
 	private final WarehouseDBService warehouseDBService = new WarehouseDBService();
+
+	public LocatorDBService() {
+		warehouseDBService.setLocatorDBService(this);
+	}
+
+	public WarehouseDBService getWarehouseDBService() {
+		return warehouseDBService;
+	}
 
 	@Override
 	public Locator saveEntity(Locator entity) {

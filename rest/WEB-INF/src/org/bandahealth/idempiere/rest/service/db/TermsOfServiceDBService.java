@@ -1,20 +1,17 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.sql.Timestamp;
-
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
 
 /**
  * Terms Of Service functionality.
  *
  * @author andrew
- *
  */
-@Component
 public class TermsOfServiceDBService {
 
 	/**

@@ -22,8 +22,6 @@ import org.compiere.model.MInvoiceLine;
 import org.compiere.model.X_C_BPartner;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,22 +40,15 @@ import java.util.stream.Stream;
  *
  * @author andrew
  */
-@Component
 public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
-	@Autowired
-	protected InvoiceLineDBService invoiceLineDBService;
-	@Autowired
-	protected BusinessPartnerDBService businessPartnerDBService;
-	@Autowired
-	protected AttributeSetInstanceDBService attributeSetInstanceDBService;
-	@Autowired
-	protected OrderDBService orderDBService;
-	@Autowired
-	protected DocumentTypeDBService documentTypeDBService;
-	@Autowired
-	protected ProductDBService productDBService;
-	@Autowired
-	protected BusinessPartnerSpecificPayerInformationDBService businessPartnerSpecificPayerInformationDBService;
+	protected final InvoiceLineDBService invoiceLineDBService = new InvoiceLineDBService();
+	protected final BusinessPartnerDBService businessPartnerDBService = new BusinessPartnerDBService();
+	protected final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	protected final OrderDBService orderDBService = new OrderDBService();
+	protected final DocumentTypeDBService documentTypeDBService = new DocumentTypeDBService();
+	protected final ProductDBService productDBService = new ProductDBService();
+	protected final BusinessPartnerSpecificPayerInformationDBService businessPartnerSpecificPayerInformationDBService =
+			new BusinessPartnerSpecificPayerInformationDBService();
 
 	private final Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(X_C_BPartner.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MInvoice_BH.Table_Name + "." +

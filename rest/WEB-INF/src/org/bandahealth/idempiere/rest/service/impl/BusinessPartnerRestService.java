@@ -8,7 +8,6 @@ import org.bandahealth.idempiere.rest.model.BusinessPartnerPayerInformation;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerDBService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerPayerInformationDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -27,10 +26,9 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class BusinessPartnerRestService
 		extends BaseRestService<BusinessPartner, MBPartner_BH, BusinessPartnerDBService> {
-	@Autowired
-	private BusinessPartnerPayerInformationDBService businessPartnerPayerInformationDBService;
-	@Autowired
-	private BusinessPartnerDBService businessPartnerDBService;
+	private final BusinessPartnerPayerInformationDBService businessPartnerPayerInformationDBService =
+			new BusinessPartnerPayerInformationDBService();
+	private final BusinessPartnerDBService businessPartnerDBService = new BusinessPartnerDBService();
 
 	@GET
 	@Path(IRestConfigs.UUID_PATH + IRestConfigs.PAYER_INFORMATION_LIST)

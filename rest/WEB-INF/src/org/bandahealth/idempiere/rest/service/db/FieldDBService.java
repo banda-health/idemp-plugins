@@ -8,8 +8,6 @@ import org.bandahealth.idempiere.rest.model.Field;
 import org.bandahealth.idempiere.rest.model.FieldGroup;
 import org.compiere.model.MField;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,14 +17,10 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Component
 public class FieldDBService extends BaseDBService<Field, MField_BH> {
 
-	@Autowired
-	private ColumnDBService columnDBService;
-
-	@Autowired
-	private FieldGroupDBService fieldGroupDBService;
+	private final ColumnDBService columnDBService = new ColumnDBService();
+	private final FieldGroupDBService fieldGroupDBService = new FieldGroupDBService();
 
 	@Override
 	public Field saveEntity(Field entity) {

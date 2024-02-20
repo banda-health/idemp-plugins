@@ -6,8 +6,6 @@ import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.AttributeSet;
 import org.bandahealth.idempiere.rest.model.SerialNumberControl;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,10 +13,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class AttributeSetDBService extends BaseDBService<AttributeSet, MAttributeSet_BH> {
-	@Autowired
-	private SerialNumberControlDBService serialNumberControlDBService;
+	private final SerialNumberControlDBService serialNumberControlDBService = new SerialNumberControlDBService();
 
 	@Override
 	public AttributeSet saveEntity(AttributeSet entity) {

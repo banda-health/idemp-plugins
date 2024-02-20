@@ -5,7 +5,6 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BusinessPartnerGroup;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.BusinessPartnerGroupDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -17,8 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class BusinessPartnerGroupRestService
 		extends BaseRestService<BusinessPartnerGroup, MBPGroup_BH, BusinessPartnerGroupDBService> {
-	@Autowired
-	private BusinessPartnerGroupDBService businessPartnerGroupDBService;
+	private final BusinessPartnerGroupDBService businessPartnerGroupDBService = new BusinessPartnerGroupDBService();
 
 	@Override
 	protected BusinessPartnerGroupDBService getDBService() {

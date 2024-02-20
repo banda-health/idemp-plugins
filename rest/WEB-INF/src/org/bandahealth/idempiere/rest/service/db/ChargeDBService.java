@@ -15,26 +15,18 @@ import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_Charge_Acct;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class ChargeDBService extends BaseDBService<Charge, MCharge_BH> {
-	@Autowired
-	private AccountDBService accountDBService;
-	@Autowired
-	private ChargeTypeDBService chargeTypeDBService;
-	@Autowired
-	private ChargeAccountDBService chargeAccountDBService;
-	@Autowired
-	private ValidCombinationDBService validCombinationDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
+	private final AccountDBService accountDBService = new AccountDBService();
+	private final ChargeTypeDBService chargeTypeDBService = new ChargeTypeDBService();
+	private final ChargeAccountDBService chargeAccountDBService = new ChargeAccountDBService();
+	private final ValidCombinationDBService validCombinationDBService = new ValidCombinationDBService();
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
 
 	@Override
 	public Charge saveEntity(Charge entity) {

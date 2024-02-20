@@ -21,8 +21,6 @@ import org.compiere.model.MOrder;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,24 +37,15 @@ import java.util.stream.Collectors;
  *
  * @author andrew
  */
-@Component
 public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
-	@Autowired
-	protected OrderLineDBService orderLineDBService;
-	@Autowired
-	protected EntityMetadataDBService entityMetadataDBService;
-	@Autowired
-	protected VoidedReasonDBService voidedReasonDBService;
-	@Autowired
-	protected AttributeSetInstanceDBService attributeSetInstanceDBService;
-	@Autowired
-	protected ProductDBService productDBService;
-	@Autowired
-	protected BusinessPartnerDBService businessPartnerDBService;
-	@Autowired
-	protected DocumentTypeDBService documentTypeDBService;
-	@Autowired
-	private WarehouseDBService warehouseDBService;
+	protected final OrderLineDBService orderLineDBService = new OrderLineDBService();
+	protected final EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
+	protected final VoidedReasonDBService voidedReasonDBService = new VoidedReasonDBService();
+	protected final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	protected final ProductDBService productDBService = new ProductDBService();
+	protected final BusinessPartnerDBService businessPartnerDBService = new BusinessPartnerDBService();
+	protected final DocumentTypeDBService documentTypeDBService = new DocumentTypeDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
 
 	@Override
 	public Order saveEntity(Order entity) {
@@ -218,8 +207,8 @@ public class OrderDBService extends DocumentDBService<Order, MOrder_BH> {
 				.collect(Collectors.toMap(BusinessPartner::getId, businessPartner -> businessPartner));
 
 		// Batch warehouses
-		Map<Integer, MWarehouse_BH> warehousesById =
-				warehouseDBService.getByIds(dbModels.stream().map(MOrder_BH::getM_Warehouse_ID).collect(Collectors.toSet()));
+		Map<Integer, MWarehouse_BH> warehousesById = locatorDBService.getWarehouseDBService()
+				.getByIds(dbModels.stream().map(MOrder_BH::getM_Warehouse_ID).collect(Collectors.toSet()));
 		Map<Integer, MAttributeSetInstance_BH> attributeSetInstancesById = attributeSetInstanceDBService.getByIds(
 				orderLinesByOrderId.values().stream().flatMap(Collection::stream).map(OrderLine::getAttributeSetInstanceId)
 						.filter(attributeSetInstanceId -> attributeSetInstanceId > 0).collect(Collectors.toSet()));
