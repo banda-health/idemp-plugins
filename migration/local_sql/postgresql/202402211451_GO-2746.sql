@@ -1,3 +1,61 @@
+/******************************************************************************************/
+-- When the Inventory/Pharmacy basic role was added to all clients, there was a problem
+-- with the add_roles_to_clients function, in that it set the ad_role.ismanual field to
+-- 'N' when it should have been 'Y'. This caused iDempiere, when running migrations, to
+-- add lots of access records to these roles that shouldn't have been created. This script
+-- changes the ismanual flag on the roles, deletes the problem access records, and fixes
+-- the add_roles_to_clients function.
+/******************************************************************************************/
+
+UPDATE ad_role upd
+SET ismanual = 'Y'
+WHERE upd.ad_role_id IN
+      (SELECT ri.ad_role_id
+       FROM ad_role masterrole
+                JOIN ad_role_included ri
+                     ON ri.included_role_id = masterrole.ad_role_id
+       WHERE masterrole.ad_role_uu = 'a1618fd6-e1ab-4e41-a08d-854229cd5971');
+
+DELETE FROM ad_window_access
+WHERE ad_role_id IN
+      (SELECT ri.ad_role_id
+       FROM ad_role masterrole
+                JOIN ad_role_included ri
+                     ON ri.included_role_id = masterrole.ad_role_id
+       WHERE masterrole.ad_role_uu = 'a1618fd6-e1ab-4e41-a08d-854229cd5971');
+
+DELETE FROM ad_process_access
+WHERE ad_role_id IN
+      (SELECT ri.ad_role_id
+       FROM ad_role masterrole
+                JOIN ad_role_included ri
+                     ON ri.included_role_id = masterrole.ad_role_id
+       WHERE masterrole.ad_role_uu = 'a1618fd6-e1ab-4e41-a08d-854229cd5971');
+
+DELETE FROM ad_form_access
+WHERE ad_role_id IN
+      (SELECT ri.ad_role_id
+       FROM ad_role masterrole JOIN ad_role_included ri ON ri.included_role_id = masterrole.ad_role_id
+       WHERE masterrole.ad_role_uu = 'a1618fd6-e1ab-4e41-a08d-854229cd5971');
+
+DELETE FROM ad_infowindow_access
+WHERE ad_role_id IN
+      (SELECT ri.ad_role_id
+       FROM ad_role masterrole JOIN ad_role_included ri ON ri.included_role_id = masterrole.ad_role_id
+       WHERE masterrole.ad_role_uu = 'a1618fd6-e1ab-4e41-a08d-854229cd5971');
+
+DELETE FROM ad_workflow_access
+WHERE ad_role_id IN
+      (SELECT ri.ad_role_id
+       FROM ad_role masterrole JOIN ad_role_included ri ON ri.included_role_id = masterrole.ad_role_id
+       WHERE masterrole.ad_role_uu = 'a1618fd6-e1ab-4e41-a08d-854229cd5971');
+
+DELETE FROM ad_document_action_access
+WHERE ad_role_id IN
+      (SELECT ri.ad_role_id
+       FROM ad_role masterrole JOIN ad_role_included ri ON ri.included_role_id = masterrole.ad_role_id
+       WHERE masterrole.ad_role_uu = 'a1618fd6-e1ab-4e41-a08d-854229cd5971');
+
 -- Util function that adds the new role to all existing clients and includes it as a default role for
 -- new clients.
 -- Params: ad_role_to_add_uu : Role uuid of the new master role.
@@ -115,3 +173,5 @@ BEGIN
     RAISE NOTICE 'New user role added to % clients', clients_updated;
 END;
 $$;
+
+SELECT register_migration_script('202402211451_GO-2746.sql') FROM dual;
