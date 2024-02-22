@@ -60,7 +60,7 @@ WHERE ad_role_id IN
 -- new clients.
 -- Params: ad_role_to_add_uu : Role uuid of the new master role.
 --         db_user_type: user_type key to be used in ad_reflist for association with the role
-CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, user_type VARCHAR(10)) RETURNS VOID
+CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, user_type VARCHAR(1)) RETURNS VOID
 	LANGUAGE plpgsql
 AS $$
     DECLARE
