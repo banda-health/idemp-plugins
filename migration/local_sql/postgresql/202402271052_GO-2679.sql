@@ -1,24 +1,24 @@
 -- Create Concept table
 CREATE TABLE BH_Concept (
-	AD_Client_ID NUMBER(10) NOT NULL, 
-	AD_Org_ID NUMBER(10) NOT NULL, 
+	AD_Client_ID numeric(10) NOT NULL, 
+	AD_Org_ID numeric(10) NOT NULL, 
 	bh_concept_class VARCHAR2(50) DEFAULT NULL, 
-	BH_Concept_ID NUMBER(10) NOT NULL, 
+	BH_Concept_ID numeric(10) NOT NULL, 
 	BH_Concept_Type VARCHAR2(100) DEFAULT NULL, 
 	BH_Concept_UU VARCHAR2(36) DEFAULT NULL, 
 	BH_Display_Locale VARCHAR2(10) DEFAULT NULL, 
-	BH_Display_Name NUMBER(10) DEFAULT NULL, 
-	BH_External_ID NUMBER(10) DEFAULT NULL, 
-	BH_OCL_ID NUMBER(10) DEFAULT NULL, 
+	BH_Display_Name numeric(10) DEFAULT NULL, 
+	BH_External_ID numeric(10) DEFAULT NULL, 
+	BH_OCL_ID numeric(10) DEFAULT NULL, 
 	BH_Owner VARCHAR2(100) DEFAULT NULL, 
 	BH_Source VARCHAR2(100) DEFAULT NULL, 
 	Created DATE DEFAULT SYSDATE, 
-	CreatedBy NUMBER(10) DEFAULT NULL, 
+	CreatedBy numeric(10) DEFAULT NULL, 
 	DataType VARCHAR2(1) DEFAULT NULL, 
 	Description VARCHAR2(2000) DEFAULT NULL, 
 	IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')), 
 	Updated DATE DEFAULT SYSDATE, 
-	UpdatedBy NUMBER(10) DEFAULT NULL, 
+	UpdatedBy numeric(10) DEFAULT NULL, 
 	URL VARCHAR2(120) DEFAULT NULL, 
 	
 	CONSTRAINT BH_Concept_Key PRIMARY KEY (BH_Concept_ID), 
@@ -30,7 +30,7 @@ INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, create
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 11:06:08.606000', 100, '2024-02-27 11:06:08.606000', 100, 'BH_Display_Locale', 'U', 'Display Locale', 'Display Locale', null, null, null, null, null, null, 'b8e1216f-d353-4fd1-96b1-13b1834a8f3d', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 11:09:42.124000', 100, '2024-02-27 11:09:42.124000', 100, 'BH_Concept_Type', 'U', 'Concept Type', 'Concept Type', null, null, null, null, null, null, '1aaba520-3e7a-4215-8f55-e1c69605a28f', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 11:20:14.551000', 100, '2024-02-27 11:20:14.551000', 100, 'BH_OCL_ID', 'U', 'OCL ID', 'OCL ID', 'A generic ID of type string', null, null, null, null, null, 'e7662faf-2332-4a8e-a31d-ab3f9d806d6d', null) ON CONFLICT DO NOTHING;
-INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 10:51:49.649000', 100, '2024-02-27 10:51:49.649000', 100, 'BH_Concept_ID', 'U', 'Concept', 'Concept', null, null, null, null, null, null, 'f5d356cd-fdb8-4fdd-aea5-2e11726c0141', null) ON CONFLICT DO NOTHING ON CONFLICT DO NOTHING;
+INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 10:51:49.649000', 100, '2024-02-27 10:51:49.649000', 100, 'BH_Concept_ID', 'U', 'Concept', 'Concept', null, null, null, null, null, null, 'f5d356cd-fdb8-4fdd-aea5-2e11726c0141', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 11:12:00.553000', 100, '2024-02-27 11:12:00.553000', 100, 'BH_Concept_Mapping_ID', 'U', 'Concept Mapping', 'Concept Mapping', null, null, null, null, null, null, 'c4cac7f4-c555-4c34-aaaf-1c3557d7aef1', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 11:12:00.600000', 100, '2024-02-27 11:12:00.600000', 100, 'BH_Concept_Mapping_UU', 'U', 'BH_Concept_Mapping_UU', 'BH_Concept_Mapping_UU', null, null, null, null, null, null, '30fe594a-a473-4aed-8704-241b1648632f', null) ON CONFLICT DO NOTHING;
 INSERT INTO ad_element (ad_element_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, columnname, entitytype, name, printname, description, help, po_name, po_printname, po_description, po_help, ad_element_uu, placeholder) VALUES ((SELECT MAX(AD_Element_ID)+1 FROM AD_Element), 0, 0, 'Y', '2024-02-27 11:20:14.551000', 100, '2024-02-27 11:20:14.551000', 100, 'BH_OCL_ID', 'U', 'OCL ID', 'OCL ID', 'A generic ID of type string', null, null, null, null, null, 'e7662faf-2332-4a8e-a31d-ab3f9d806d6d', null) ON CONFLICT DO NOTHING;
@@ -89,18 +89,18 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 -- Create Concept Mapping table
 CREATE TABLE BH_Concept_Mapping (
-    AD_Client_ID NUMBER(10) DEFAULT NULL,
-    AD_Org_ID NUMBER(10) DEFAULT NULL,
-    BH_Concept_ID NUMBER(10) NOT NULL,
-    BH_Concept_Mapping_ID NUMBER(10) DEFAULT NULL,
+    AD_Client_ID numeric(10) DEFAULT NULL,
+    AD_Org_ID numeric(10) DEFAULT NULL,
+    BH_Concept_ID numeric(10) NOT NULL,
+    BH_Concept_Mapping_ID numeric(10) DEFAULT NULL,
     BH_Concept_Mapping_UU VARCHAR2(36) DEFAULT NULL,
-    BH_External_ID NUMBER(10) DEFAULT NULL,
+    BH_External_ID numeric(10) DEFAULT NULL,
     BH_From_Concept_Code VARCHAR2(100) DEFAULT NULL,
     BH_From_Concept_Name VARCHAR2(255) DEFAULT NULL,
     BH_From_Concept_Name_Resolved VARCHAR2(255) DEFAULT NULL,
     BH_From_Concept_Url VARCHAR2(255) DEFAULT NULL,
     BH_Map_Type VARCHAR2(50) DEFAULT NULL,
-    BH_OCL_ID NUMBER(10) DEFAULT NULL,
+    BH_OCL_ID numeric(10) DEFAULT NULL,
     BH_Owner VARCHAR2(100) DEFAULT NULL,
     BH_Source VARCHAR2(100) DEFAULT NULL,
     BH_To_Concept_Code VARCHAR2(100) DEFAULT NULL,
@@ -108,10 +108,10 @@ CREATE TABLE BH_Concept_Mapping (
     BH_To_Concept_Name_Resolved VARCHAR2(255) DEFAULT NULL,
     BH_To_Concept_Url VARCHAR2(255) DEFAULT NULL ,
     Created DATE DEFAULT SYSDATE,
-    CreatedBy NUMBER(10) DEFAULT NULL ,
+    CreatedBy numeric(10) DEFAULT NULL ,
     IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')),
     Updated DATE DEFAULT SYSDATE,
-    UpdatedBy NUMBER(10) DEFAULT NULL ,
+    UpdatedBy numeric(10) DEFAULT NULL ,
 
     CONSTRAINT BH_Concept_Mapping_Key PRIMARY KEY (BH_Concept_Mapping_ID),
     CONSTRAINT BH_Concept_Mapping_UU_idx UNIQUE (BH_Concept_Mapping_UU),
@@ -149,18 +149,18 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 -- Create Concept Extra table
 CREATE TABLE BH_Concept_Extra (
-    AD_Client_ID NUMBER(10) DEFAULT NULL,
-    AD_Org_ID NUMBER(10) DEFAULT NULL,
-    BH_Concept_Extra_ID NUMBER(10) DEFAULT NULL,
+    AD_Client_ID numeric(10) DEFAULT NULL,
+    AD_Org_ID numeric(10) DEFAULT NULL,
+    BH_Concept_Extra_ID numeric(10) DEFAULT NULL,
     BH_Concept_Extra_UU VARCHAR2(36) DEFAULT NULL,
-    BH_Concept_ID NUMBER(10) DEFAULT NULL,
+    BH_Concept_ID numeric(10) DEFAULT NULL,
     BH_Key VARCHAR2(255) DEFAULT NULL,
     BH_Value CLOB DEFAULT NULL,
     Created DATE DEFAULT SYSDATE,
-    CreatedBy NUMBER(10) DEFAULT NULL ,
+    CreatedBy numeric(10) DEFAULT NULL ,
     IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')),
     Updated DATE DEFAULT SYSDATE,
-    UpdatedBy NUMBER(10) DEFAULT NULL,
+    UpdatedBy numeric(10) DEFAULT NULL,
 
     CONSTRAINT BH_Concept_Extra_Key PRIMARY KEY (BH_Concept_Extra_ID),
     CONSTRAINT BH_Concept_Extra_UU_idx UNIQUE (BH_Concept_Extra_UU),
@@ -187,19 +187,19 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 -- Create Concept Name table
 CREATE TABLE BH_Concept_Name (
-    AD_Client_ID NUMBER(10) DEFAULT NULL ,
-    AD_Org_ID NUMBER(10) DEFAULT NULL ,
-    BH_Concept_ID NUMBER(10) NOT NULL,
+    AD_Client_ID numeric(10) DEFAULT NULL ,
+    AD_Org_ID numeric(10) DEFAULT NULL ,
+    BH_Concept_ID numeric(10) NOT NULL,
     BH_Concept_Locale VARCHAR2(10) DEFAULT NULL ,
-    BH_Concept_Name_ID NUMBER(10) DEFAULT NULL ,
+    BH_Concept_Name_ID numeric(10) DEFAULT NULL ,
     BH_Concept_Name_Type VARCHAR2(100) DEFAULT NULL ,
     BH_Concept_Name_UU VARCHAR2(36) DEFAULT NULL ,
     BH_Concept_Type VARCHAR2(100) DEFAULT NULL ,
-    BH_External_ID NUMBER(10) DEFAULT NULL ,
+    BH_External_ID numeric(10) DEFAULT NULL ,
     Created DATE DEFAULT SYSDATE,
-    CreatedBy NUMBER(10) DEFAULT NULL ,
+    CreatedBy numeric(10) DEFAULT NULL ,
     IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')), Name VARCHAR2(60) DEFAULT NULL ,
-    Updated DATE DEFAULT SYSDATE, UpdatedBy NUMBER(10) DEFAULT NULL ,
+    Updated DATE DEFAULT SYSDATE, UpdatedBy numeric(10) DEFAULT NULL ,
 
     CONSTRAINT BH_Concept_Name_Key PRIMARY KEY (BH_Concept_Name_ID),
     CONSTRAINT BH_Concept_Name_UU_idx UNIQUE (BH_Concept_Name_UU),
@@ -229,21 +229,21 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 -- Create Concept Description table
 CREATE TABLE BH_Concept_Description (
-    AD_Client_ID NUMBER(10) DEFAULT NULL ,
-    AD_Org_ID NUMBER(10) DEFAULT NULL ,
-    BH_Concept_Description_ID NUMBER(10) DEFAULT NULL ,
+    AD_Client_ID numeric(10) DEFAULT NULL ,
+    AD_Org_ID numeric(10) DEFAULT NULL ,
+    BH_Concept_Description_ID numeric(10) DEFAULT NULL ,
     BH_Concept_Description_Type VARCHAR2(100) DEFAULT NULL ,
     BH_Concept_Description_UU VARCHAR2(36) DEFAULT NULL ,
-    BH_Concept_ID NUMBER(10) NOT NULL,
+    BH_Concept_ID numeric(10) NOT NULL,
     BH_Concept_Locale VARCHAR2(10) DEFAULT NULL ,
     BH_Concept_Type VARCHAR2(100) DEFAULT NULL ,
-    BH_External_ID NUMBER(10) DEFAULT NULL ,
+    BH_External_ID numeric(10) DEFAULT NULL ,
     Created DATE DEFAULT SYSDATE,
-    CreatedBy NUMBER(10) DEFAULT NULL ,
+    CreatedBy numeric(10) DEFAULT NULL ,
     IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')),
     Name VARCHAR2(60) DEFAULT NULL ,
     Updated DATE DEFAULT SYSDATE,
-    UpdatedBy NUMBER(10) DEFAULT NULL ,
+    UpdatedBy numeric(10) DEFAULT NULL ,
 
     CONSTRAINT BH_Concept_Description_Key PRIMARY KEY (BH_Concept_Description_ID),
     CONSTRAINT BH_Concept_Description_UU_idx UNIQUE (BH_Concept_Description_UU),
@@ -273,20 +273,20 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 -- Create Encounter Diagnostic table
 CREATE TABLE BH_Encounter_Diagnostic (
-    AD_Client_ID NUMBER(10) NOT NULL,
-    AD_Org_ID NUMBER(10) NOT NULL,
-    BH_Concept_ID NUMBER(10) DEFAULT NULL ,
+    AD_Client_ID numeric(10) NOT NULL,
+    AD_Org_ID numeric(10) NOT NULL,
+    BH_Concept_ID numeric(10) DEFAULT NULL ,
     BH_Diagnostic_Status VARCHAR2(10) DEFAULT NULL ,
-    BH_Encounter_Diagnostic_ID NUMBER(10) NOT NULL,
+    BH_Encounter_Diagnostic_ID numeric(10) NOT NULL,
     BH_Encounter_Diagnostic_UU VARCHAR2(36) DEFAULT NULL ,
-    BH_Encounter_ID NUMBER(10) NOT NULL,
+    BH_Encounter_ID numeric(10) NOT NULL,
     BH_Value CLOB DEFAULT NULL ,
     Created DATE DEFAULT SYSDATE NOT NULL,
-    CreatedBy NUMBER(10) NOT NULL,
+    CreatedBy numeric(10) NOT NULL,
     IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')) NOT NULL,
-    LineNo NUMBER(10) DEFAULT NULL ,
+    LineNo numeric(10) DEFAULT NULL ,
     Updated DATE DEFAULT SYSDATE NOT NULL,
-    UpdatedBy NUMBER(10) NOT NULL,
+    UpdatedBy numeric(10) NOT NULL,
 
     CONSTRAINT BH_Encounter_Diagnostic_Key PRIMARY KEY (BH_Encounter_Diagnostic_ID),
     CONSTRAINT BH_Encounter_Diagnostic_UU_idx UNIQUE (BH_Encounter_Diagnostic_UU),
@@ -298,6 +298,12 @@ CREATE TABLE BH_Encounter_Diagnostic (
 
 INSERT INTO ad_table (ad_table_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, tablename, isview, accesslevel, entitytype, ad_window_id, ad_val_rule_id, loadseq, issecurityenabled, isdeleteable, ishighvolume, importtable, ischangelog, replicationtype, po_window_id, copycolumnsfromtable, iscentrallymaintained, ad_table_uu, processing, databaseviewdrop, copycomponentsfromview, createwindowfromtable) VALUES ((SELECT MAX(AD_Table_ID)+1 FROM AD_Table), 0, 0, 'Y', '2024-02-27 15:03:09.682000', 100, '2024-02-27 15:03:09.682000', 100, 'Encounter Diagnostic', null, null, 'BH_Encounter_Diagnostic', 'N', '3', 'U', null, null, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', null, 'N', 'Y', 'b53c83d8-1eb6-4741-b98e-2a21f3341a37', 'N', 'N', 'N', 'N') ON CONFLICT DO NOTHING;
 
+-- add reference
+INSERT INTO ad_reference (ad_reference_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, validationtype, vformat, entitytype, isorderbyvalue, ad_reference_uu, ad_element_id) VALUES ((SELECT MAX(AD_Reference_ID) FROM AD_Reference), 0, 0, 'Y', '2024-02-27 15:16:39.249000', 100, '2024-02-27 15:16:39.249000', 100, 'BH Diagnostic Status', 'Diagnostic Status', null, 'L', null, 'U', 'N', 'e0e8b36f-bb83-4c90-a07c-9b7209b5a8ce', null) ON CONFLICT DO NOTHING;
+
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id)+1 FROM ad_ref_list), 0, 0, 'Y', '2024-02-27 15:17:32.272000', 100, '2024-02-27 15:17:32.272000', 100, 'p', 'Pending', null, (SELECT AD_Reference_ID FROM AD_Reference WHERE AD_Reference_UU='e0e8b36f-bb83-4c90-a07c-9b7209b5a8ce'), null, null, 'U', '5d4d92c0-64a0-4552-aec7-0b73f3f4c189', null, null) ON CONFLICT DO NOTHING;
+INSERT INTO ad_ref_list (ad_ref_list_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, value, name, description, ad_reference_id, validfrom, validto, entitytype, ad_ref_list_uu, bh_update_existing, bh_add_all) VALUES ((SELECT MAX(ad_ref_list_id)+1 FROM ad_ref_list), 0, 0, 'Y', '2024-02-27 15:17:41.886000', 100, '2024-02-27 15:17:41.886000', 100, 'c', 'Complete', null, (SELECT AD_Reference_ID FROM AD_Reference WHERE AD_Reference_UU='e0e8b36f-bb83-4c90-a07c-9b7209b5a8ce'), null, null, 'U', '6c5382b6-6f12-4115-bcea-68a573400296', null, null) ON CONFLICT DO NOTHING;
+
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:03:20.520000', '2024-02-27 15:03:20.520000', 100, 100, 'Encounter Diagnostic', null, null, 1, 'U', 'BH_Encounter_Diagnostic_ID', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 13, null, null, 22, null, 'Y', 'N', 'Y', 'N', null, 'N', null, 'N', 'N', null, null, null, null, 'N', (SELECT AD_Element_ID FROM AD_Element WHERE AD_Element_UU='6184ced8-d5c2-4cbd-b79b-c8d5b70af02d'), null, 'Y', 'N', null, null, null, 'N', 'Y', null, '835ec4c8-0012-4397-9102-8cee37bbeda0', 'N', null, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:03:20.572000', '2024-02-27 15:03:20.572000', 100, 100, 'BH_Encounter_Diagnostic_UU', null, null, 1, 'U', 'BH_Encounter_Diagnostic_UU', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 10, null, null, 36, null, 'N', 'N', 'N', 'Y', null, 'N', null, 'N', 'N', null, null, null, null, 'N', (SELECT AD_Element_ID FROM AD_Element WHERE AD_Element_UU='48f91f27-3e3d-40f0-bc48-581b5352bbea'), null, 'Y', 'N', null, null, null, 'N', 'Y', null, '1d005a0c-16a5-4001-a91d-8d83980e5906', 'N', null, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:03:20.678000', '2024-02-27 15:03:20.678000', 100, 100, 'Created', 'Date this record was created', 'The Created field indicates the date that this record was created.', 1, 'U', 'Created', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 16, null, null, 7, 'SYSDATE', 'N', 'N', 'Y', 'N', null, 'N', null, 'N', 'N', null, null, null, null, 'N', 245, null, 'Y', 'N', null, null, null, 'N', 'Y', null, '484339d0-d8bf-44b4-ab3b-8d1574b9a96c', 'N', null, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
@@ -307,7 +313,7 @@ There are two reasons for de-activating and not deleting records:
 (1) The system requires the record for audit purposes.
 (2) The record is referenced by other records. E.g., you cannot delete a Business Partner, if there are invoices for this partner record existing. You de-activate the Business Partner and prevent that this record is used for future entries.', 1, 'U', 'IsActive', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 20, null, null, 1, 'Y', 'N', 'N', 'Y', 'Y', null, 'N', null, 'N', 'N', null, null, null, null, 'N', 348, null, 'Y', 'N', null, null, null, 'N', 'Y', null, 'fa1cc4d5-d5f3-428c-83ee-7ad292b4becc', 'N', null, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:03:20.731000', '2024-02-27 15:03:20.731000', 100, 100, 'Line', 'Line No', null, 0, 'U', 'LineNo', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 11, null, null, 10, null, 'N', 'N', 'N', 'Y', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', 2945, null, 'N', 'N', null, null, null, 'N', 'Y', null, '3b0dbcd2-0ab0-462e-a347-6beb4c881b1f', 'Y', 0, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
-INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:21:40.062000', '2024-02-27 15:21:40.062000', 100, 100, 'Diagnostic Status', null, null, 0, 'U', 'BH_Diagnostic_Status', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 17, (SELECT AD_Element_ID FROM AD_Element WHERE AD_Element_UU='baff62bc-c8f5-4aae-ac5d-d041f1894eec'), null, 10, null, 'N', 'N', 'N', 'N', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', (SELECT AD_Element_ID FROM AD_Element WHERE AD_Element_UU='56e35611-67d2-4c9b-a999-bb3b3efb9839'), null, 'N', 'N', null, null, null, 'N', 'Y', null, '8a25e6da-7705-4868-809b-8573f08eda46', 'Y', 0, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
+INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:21:40.062000', '2024-02-27 15:21:40.062000', 100, 100, 'Diagnostic Status', null, null, 0, 'U', 'BH_Diagnostic_Status', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 17, (SELECT AD_Reference_ID FROM AD_Reference WHERE AD_Reference_UU='e0e8b36f-bb83-4c90-a07c-9b7209b5a8ce'), null, 10, null, 'N', 'N', 'N', 'N', null, 'N', 0, 'N', 'N', null, null, null, null, 'N', (SELECT AD_Element_ID FROM AD_Element WHERE AD_Element_UU='56e35611-67d2-4c9b-a999-bb3b3efb9839'), null, 'N', 'N', null, null, null, 'N', 'Y', null, '8a25e6da-7705-4868-809b-8573f08eda46', 'Y', 0, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:03:20.413000', '2024-02-28 16:24:07.944000', 100, 100, 'Client', 'Client/Tenant for this installation.', 'A Client is a company or a legal entity. You cannot share data between Clients. Tenant is a synonym for Client.', 1, 'U', 'AD_Client_ID', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 19, null, 129, 22, '@#AD_Client_ID@', 'N', 'N', 'Y', 'N', null, 'N', null, 'N', 'N', null, null, null, null, 'N', 102, null, 'Y', 'N', null, null, null, 'N', 'Y', null, '5a2418b2-4076-4534-be69-4b74af106a2d', 'N', null, 'N', 'N', null, 'ADClient_BHEncounterDiagnostic', 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:03:20.798000', '2024-02-27 15:03:20.798000', 100, 100, 'Updated', 'Date this record was updated', 'The Updated field indicates the date that this record was updated.', 1, 'U', 'Updated', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 16, null, null, 7, 'SYSDATE', 'N', 'N', 'Y', 'N', null, 'N', null, 'N', 'N', null, null, null, null, 'N', 607, null, 'Y', 'N', null, null, null, 'N', 'Y', null, '4d4b348d-2946-458b-a117-5ef4f7f3d612', 'N', null, 'N', 'N', null, null, 'N', null, null, 'N') ON CONFLICT DO NOTHING;
 INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created, updated, createdby, updatedby, name, description, help, version, entitytype, columnname, ad_table_id, ad_reference_id, ad_reference_value_id, ad_val_rule_id, fieldlength, defaultvalue, iskey, isparent, ismandatory, isupdateable, readonlylogic, isidentifier, seqno, istranslated, isencrypted, callout, vformat, valuemin, valuemax, isselectioncolumn, ad_element_id, ad_process_id, issyncdatabase, isalwaysupdateable, columnsql, mandatorylogic, infofactoryclass, isautocomplete, isallowlogging, formatpattern, ad_column_uu, isallowcopy, seqnoselection, istoolbarbutton, issecure, ad_chart_id, fkconstraintname, fkconstrainttype, pa_dashboardcontent_id, placeholder, ishtml) VALUES ((SELECT MAX(AD_Column_ID)+1 FROM AD_Column), 0, 0, 'Y', '2024-02-27 15:03:20.811000', '2024-02-27 15:03:20.811000', 100, 100, 'Updated By', 'User who updated this records', 'The Updated By field indicates the user who updated this record.', 1, 'U', 'UpdatedBy', (SELECT AD_Table_ID From AD_Table WHERE AD_Table_UU='b53c83d8-1eb6-4741-b98e-2a21f3341a37'), 30, 110, null, 22, null, 'N', 'N', 'Y', 'N', null, 'N', null, 'N', 'N', null, null, null, null, 'N', 608, null, 'Y', 'N', null, null, null, 'N', 'Y', null, '3556890c-640f-4a8f-9013-1ed358c1fa4b', 'N', null, 'N', 'N', null, null, 'D', null, null, 'N') ON CONFLICT DO NOTHING;
@@ -318,19 +324,19 @@ INSERT INTO ad_column (ad_column_id, ad_client_id, ad_org_id, isactive, created,
 
 -- Create Client Concept table
 CREATE TABLE BH_Client_Concept (
-    AD_Client_ID NUMBER(10) DEFAULT NULL,
-    AD_Org_ID NUMBER(10) DEFAULT NULL,
-    BH_Client_Concept_ID NUMBER(10) DEFAULT NULL,
+    AD_Client_ID numeric(10) DEFAULT NULL,
+    AD_Org_ID numeric(10) DEFAULT NULL,
+    BH_Client_Concept_ID numeric(10) DEFAULT NULL,
     BH_Client_Concept_UU VARCHAR2(36) DEFAULT NULL,
-    BH_Client_Mapping_ID NUMBER(10) DEFAULT NULL,
-    BH_Concept_ID NUMBER(10) NOT NULL,
+    BH_Client_Mapping_ID numeric(10) DEFAULT NULL,
+    BH_Concept_ID numeric(10) NOT NULL,
     Created DATE DEFAULT SYSDATE,
-    CreatedBy NUMBER(10) DEFAULT NULL,
+    CreatedBy numeric(10) DEFAULT NULL,
     IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')),
-    Updated DATE DEFAULT SYSDATE, UpdatedBy NUMBER(10) DEFAULT NULL,
+    Updated DATE DEFAULT SYSDATE, UpdatedBy numeric(10) DEFAULT NULL,
 
     CONSTRAINT BH_Client_Concept_Key PRIMARY KEY (BH_Client_Concept_ID),
-    CONSTRAINT BH_Client_Concept_UU_idx UNIQUE (BH_Client_Concept_UU)
+    CONSTRAINT BH_Client_Concept_UU_idx UNIQUE (BH_Client_Concept_UU),
     CONSTRAINT BHConcept_BHClientConcept FOREIGN KEY (BH_Concept_ID) REFERENCES bh_concept(bh_concept_id) DEFERRABLE INITIALLY DEFERRED
 );
 
