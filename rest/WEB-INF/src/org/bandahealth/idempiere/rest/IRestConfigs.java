@@ -79,4 +79,6 @@ public interface IRestConfigs {
 	String ENCOUNTER_PATH = AUTHENTICATION_PATH + "/encounters";
 	
 	String ROLES_PATH = AUTHENTICATION_PATH + "/roles";
+	
+	String CONCEPTS_PATH = AUTHENTICATION_PATH + "/concepts";
 }

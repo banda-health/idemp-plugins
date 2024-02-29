@@ -36,6 +36,8 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 	private EncounterDiagnosisDBService encounterDiagnosisDBService;
 	@Autowired
 	private ReferenceListDBService referenceListDBService;
+	@Autowired
+	private EncounterDiagnosticDBService encounterDiagnosticDBService;
 
 	@Override
 	public Encounter saveEntity(Encounter entity) {
@@ -82,6 +84,10 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 		// delete old encounter diagnoses
 		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnoses());
+		
+		// TODO save encounter diagnostic
+		
+		// TODO: delete old encounter diagnostics
 
 		return new Encounter(encounter);
 	}
@@ -163,6 +169,8 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		Map<String, ReferenceList> encounterTypesByValue = referenceListDBService.getTypes(MReference_BH.ENCOUNTER_TYPES,
 						dbModels.stream().map(MBHEncounter::getBH_Encounter_Type).collect(Collectors.toSet())).stream()
 				.collect(Collectors.toMap(MRefList::getValue, ReferenceList::new));
+		
+		// TODO get encounter diagnostics
 
 		return dbModels.stream().map(encounter -> {
 			Encounter result = new Encounter(encounter);
