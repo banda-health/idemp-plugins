@@ -15,7 +15,7 @@
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
 /** Generated Model - DO NOT CHANGE */
-package org.bandahealth.idempiere.base.model;
+package org.bandahealth.idempoiere.base.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;

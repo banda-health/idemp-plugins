@@ -93,18 +93,18 @@ public interface I_BH_Concept_Mapping
 	/** Get BH_Concept_Mapping_UU	  */
 	public String getBH_Concept_Mapping_UU();
 
-    /** Column name BH_External_ID */
-    public static final String COLUMNNAME_BH_External_ID = "BH_External_ID";
+    /** Column name BH_ExternalID */
+    public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
 
-	/** Set BH_External_ID.
-	  * BH_External_ID
+	/** Set BH_ExternalID.
+	  * BH_ExternalID
 	  */
-	public void setBH_External_ID (String BH_External_ID);
+	public void setBH_ExternalID (String BH_ExternalID);
 
-	/** Get BH_External_ID.
-	  * BH_External_ID
+	/** Get BH_ExternalID.
+	  * BH_ExternalID
 	  */
-	public String getBH_External_ID();
+	public String getBH_ExternalID();
 
     /** Column name BH_From_Concept_Code */
     public static final String COLUMNNAME_BH_From_Concept_Code = "BH_From_Concept_Code";
@@ -155,18 +155,18 @@ public interface I_BH_Concept_Mapping
 	  */
 	public String getBH_Map_Type();
 
-    /** Column name BH_OCL_ID */
-    public static final String COLUMNNAME_BH_OCL_ID = "BH_OCL_ID";
+    /** Column name BH_OclID */
+    public static final String COLUMNNAME_BH_OclID = "BH_OclID";
 
 	/** Set OCL ID.
 	  * A generic ID of type string
 	  */
-	public void setBH_OCL_ID (String BH_OCL_ID);
+	public void setBH_OclID (String BH_OclID);
 
 	/** Get OCL ID.
 	  * A generic ID of type string
 	  */
-	public String getBH_OCL_ID();
+	public String getBH_OclID();
 
     /** Column name BH_Owner */
     public static final String COLUMNNAME_BH_Owner = "BH_Owner";

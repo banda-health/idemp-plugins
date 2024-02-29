@@ -1,62 +1,43 @@
 package org.bandahealth.idempiere.rest.model;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHConcept;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@XmlRootElement(name = "codedDiagnosis")
 @JsonInclude(value = Include.NON_NULL)
 public class Concept extends BaseMetadata {
 
-	private static final long serialVersionUID = -2371895179523894294L;
-	private String cielName;
-	private int cielId;
+	private static final long serialVersionUID = -2371895569523894294L;
 	private String conceptClass;
-	private String icd10;
-	private int synomedCT;
-	private int synomedNP;
-	private String synonyms;
+	private String conceptType;
+	private String displayLocale;
+	private String displayName;
+	private String externalId;
+	private String oclId;
+	private String owner;
+	private String source;
+	private String dataType;
 	private String description;
-	private String moh705aLessThan5;
-	private String moh705bGreaterThan5;
-	private String searchTerms;
+	private String url;
 
 	public Concept() {
 	}
 
-	public Concept(MBHCodedDiagnosis entity) {
+	public Concept(MBHConcept entity) {
 		super(entity);
-		setUuid(entity.getBH_Coded_Diagnosis_UU());
-		setCielName(entity.getbh_cielname());
-		setCielId(entity.getBH_CielID());
+		setUuid(entity.getBH_Concept_UU());
 		setConceptClass(entity.getbh_concept_class());
-		setIcd10(entity.getbh_icd10who());
-		setSynomedCT(entity.getbh_synomed_ct());
-		setSynomedNP(entity.getbh_synomed_np());
-		setSynonyms(entity.getbh_synonyms());
+		setConceptType(entity.getBH_Concept_Type());
+		setDisplayLocale(entity.getBH_Display_Locale());
+		setDisplayName(entity.getBH_Display_Name());
+		setExternalId(entity.getBH_ExternalID());
+		setOclId(entity.getBH_OclID());
+		setOwner(entity.getBH_Owner());
+		setSource(entity.getBH_Source());
+		setDataType(entity.getDataType());
 		setDescription(entity.getDescription());
-		setMoh705aLessThan5(entity.getbh_moh705a_lessthan5());
-		setMoh705bGreaterThan5(entity.getbh_moh705b_greaterthan5());
-		setSearchTerms(entity.getbh_searchterms());
-	}
-
-	public String getCielName() {
-		return cielName;
-	}
-
-	public void setCielName(String cielName) {
-		this.cielName = cielName;
-	}
-
-	public int getCielId() {
-		return cielId;
-	}
-
-	public void setCielId(int cielId) {
-		this.cielId = cielId;
+		setUrl(entity.getURL());
 	}
 
 	public String getConceptClass() {
@@ -67,36 +48,60 @@ public class Concept extends BaseMetadata {
 		this.conceptClass = conceptClass;
 	}
 
-	public String getIcd10() {
-		return icd10;
+	public String getConceptType() {
+		return conceptType;
 	}
 
-	public void setIcd10(String icd10) {
-		this.icd10 = icd10;
+	public void setConceptType(String conceptType) {
+		this.conceptType = conceptType;
 	}
 
-	public int getSynomedCT() {
-		return synomedCT;
+	public String getDisplayLocale() {
+		return displayLocale;
 	}
 
-	public void setSynomedCT(int synomedCT) {
-		this.synomedCT = synomedCT;
+	public void setDisplayLocale(String displayLocale) {
+		this.displayLocale = displayLocale;
 	}
 
-	public int getSynomedNP() {
-		return synomedNP;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setSynomedNP(int synomedNP) {
-		this.synomedNP = synomedNP;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
-	public String getSynonyms() {
-		return synonyms;
+	public String getExternalId() {
+		return externalId;
 	}
 
-	public void setSynonyms(String synonyms) {
-		this.synonyms = synonyms;
+	public void setExternalId(String externalId) {
+		this.externalId = externalId;
+	}
+
+	public String getOclId() {
+		return oclId;
+	}
+
+	public void setOclId(String oclId) {
+		this.oclId = oclId;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	public String getDescription() {
@@ -107,27 +112,19 @@ public class Concept extends BaseMetadata {
 		this.description = description;
 	}
 
-	public String getMoh705aLessthan5() {
-		return moh705aLessThan5;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setMoh705aLessThan5(String moh705aLessthan5) {
-		this.moh705aLessThan5 = moh705aLessthan5;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public String getMoh705bGreaterThan5() {
-		return moh705bGreaterThan5;
+	public String getDataType() {
+		return dataType;
 	}
 
-	public void setMoh705bGreaterThan5(String moh705bGreaterThan5) {
-		this.moh705bGreaterThan5 = moh705bGreaterThan5;
-	}
-
-	public String getSearchTerms() {
-		return searchTerms;
-	}
-
-	public void setSearchTerms(String searchTerms) {
-		this.searchTerms = searchTerms;
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
 	}
 }

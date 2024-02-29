@@ -14,25 +14,25 @@
  * ComPiere, Inc., 2620 Augustine Dr. #245, Santa Clara, CA 95054, USA        *
  * or via info@compiere.org or http://www.compiere.org/license.html           *
  *****************************************************************************/
-package org.bandahealth.idempiere.base.model;
+package org.bandahealth.idempoiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Concept
+/** Generated Interface for BH_Concept_Description
  *  @author iDempiere (generated) 
  *  @version Release 7.1
  */
 @SuppressWarnings("all")
-public interface I_BH_Concept 
+public interface I_BH_Concept_Description 
 {
 
-    /** TableName=BH_Concept */
-    public static final String Table_Name = "BH_Concept";
+    /** TableName=BH_Concept_Description */
+    public static final String Table_Name = "BH_Concept_Description";
 
-    /** AD_Table_ID=1000053 */
+    /** AD_Table_ID=1000057 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -64,14 +64,32 @@ public interface I_BH_Concept
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name bh_concept_class */
-    public static final String COLUMNNAME_bh_concept_class = "bh_concept_class";
+    /** Column name BH_Concept_Description_ID */
+    public static final String COLUMNNAME_BH_Concept_Description_ID = "BH_Concept_Description_ID";
 
-	/** Set bh_concept_class	  */
-	public void setbh_concept_class (String bh_concept_class);
+	/** Set Concept Description	  */
+	public void setBH_Concept_Description_ID (int BH_Concept_Description_ID);
 
-	/** Get bh_concept_class	  */
-	public String getbh_concept_class();
+	/** Get Concept Description	  */
+	public int getBH_Concept_Description_ID();
+
+    /** Column name BH_Concept_Description_Type */
+    public static final String COLUMNNAME_BH_Concept_Description_Type = "BH_Concept_Description_Type";
+
+	/** Set Concept Description Type	  */
+	public void setBH_Concept_Description_Type (String BH_Concept_Description_Type);
+
+	/** Get Concept Description Type	  */
+	public String getBH_Concept_Description_Type();
+
+    /** Column name BH_Concept_Description_UU */
+    public static final String COLUMNNAME_BH_Concept_Description_UU = "BH_Concept_Description_UU";
+
+	/** Set BH_Concept_Description_UU	  */
+	public void setBH_Concept_Description_UU (String BH_Concept_Description_UU);
+
+	/** Get BH_Concept_Description_UU	  */
+	public String getBH_Concept_Description_UU();
 
     /** Column name BH_Concept_ID */
     public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
@@ -82,6 +100,17 @@ public interface I_BH_Concept
 	/** Get Concept	  */
 	public int getBH_Concept_ID();
 
+	public I_BH_Concept getBH_Concept() throws RuntimeException;
+
+    /** Column name BH_Concept_Locale */
+    public static final String COLUMNNAME_BH_Concept_Locale = "BH_Concept_Locale";
+
+	/** Set Concept Locale	  */
+	public void setBH_Concept_Locale (String BH_Concept_Locale);
+
+	/** Get Concept Locale	  */
+	public String getBH_Concept_Locale();
+
     /** Column name BH_Concept_Type */
     public static final String COLUMNNAME_BH_Concept_Type = "BH_Concept_Type";
 
@@ -90,33 +119,6 @@ public interface I_BH_Concept
 
 	/** Get Concept Type	  */
 	public String getBH_Concept_Type();
-
-    /** Column name BH_Concept_UU */
-    public static final String COLUMNNAME_BH_Concept_UU = "BH_Concept_UU";
-
-	/** Set BH_Concept_UU	  */
-	public void setBH_Concept_UU (String BH_Concept_UU);
-
-	/** Get BH_Concept_UU	  */
-	public String getBH_Concept_UU();
-
-    /** Column name BH_Display_Locale */
-    public static final String COLUMNNAME_BH_Display_Locale = "BH_Display_Locale";
-
-	/** Set Display Locale	  */
-	public void setBH_Display_Locale (String BH_Display_Locale);
-
-	/** Get Display Locale	  */
-	public String getBH_Display_Locale();
-
-    /** Column name BH_Display_Name */
-    public static final String COLUMNNAME_BH_Display_Name = "BH_Display_Name";
-
-	/** Set Display Name	  */
-	public void setBH_Display_Name (String BH_Display_Name);
-
-	/** Get Display Name	  */
-	public String getBH_Display_Name();
 
     /** Column name BH_ExternalID */
     public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
@@ -130,45 +132,6 @@ public interface I_BH_Concept
 	  * BH_ExternalID
 	  */
 	public String getBH_ExternalID();
-
-    /** Column name BH_OclID */
-    public static final String COLUMNNAME_BH_OclID = "BH_OclID";
-
-	/** Set OCL ID.
-	  * A generic ID of type string
-	  */
-	public void setBH_OclID (String BH_OclID);
-
-	/** Get OCL ID.
-	  * A generic ID of type string
-	  */
-	public String getBH_OclID();
-
-    /** Column name BH_Owner */
-    public static final String COLUMNNAME_BH_Owner = "BH_Owner";
-
-	/** Set BH_Owner.
-	  * BH_Owner
-	  */
-	public void setBH_Owner (String BH_Owner);
-
-	/** Get BH_Owner.
-	  * BH_Owner
-	  */
-	public String getBH_Owner();
-
-    /** Column name BH_Source */
-    public static final String COLUMNNAME_BH_Source = "BH_Source";
-
-	/** Set Source.
-	  * Source
-	  */
-	public void setBH_Source (String BH_Source);
-
-	/** Get Source.
-	  * Source
-	  */
-	public String getBH_Source();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -186,32 +149,6 @@ public interface I_BH_Concept
 	  */
 	public int getCreatedBy();
 
-    /** Column name DataType */
-    public static final String COLUMNNAME_DataType = "DataType";
-
-	/** Set Data Type.
-	  * Type of data
-	  */
-	public void setDataType (String DataType);
-
-	/** Get Data Type.
-	  * Type of data
-	  */
-	public String getDataType();
-
-    /** Column name Description */
-    public static final String COLUMNNAME_Description = "Description";
-
-	/** Set Description.
-	  * Optional short description of the record
-	  */
-	public void setDescription (String Description);
-
-	/** Get Description.
-	  * Optional short description of the record
-	  */
-	public String getDescription();
-
     /** Column name IsActive */
     public static final String COLUMNNAME_IsActive = "IsActive";
 
@@ -224,6 +161,19 @@ public interface I_BH_Concept
 	  * The record is active in the system
 	  */
 	public boolean isActive();
+
+    /** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
+
+	/** Set Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name);
+
+	/** Get Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getName();
 
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
@@ -240,17 +190,4 @@ public interface I_BH_Concept
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
-
-    /** Column name URL */
-    public static final String COLUMNNAME_URL = "URL";
-
-	/** Set URL.
-	  * Full URL address - e.g. http://www.idempiere.org
-	  */
-	public void setURL (String URL);
-
-	/** Get URL.
-	  * Full URL address - e.g. http://www.idempiere.org
-	  */
-	public String getURL();
 }

@@ -30,7 +30,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240227L;
+	private static final long serialVersionUID = 20240229L;
 
     /** Standard Constructor */
     public X_BH_Concept (Properties ctx, int BH_Concept_ID, String trxName)
@@ -148,53 +148,50 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 
 	/** Set Display Name.
 		@param BH_Display_Name Display Name	  */
-	public void setBH_Display_Name (int BH_Display_Name)
+	public void setBH_Display_Name (String BH_Display_Name)
 	{
-		set_Value (COLUMNNAME_BH_Display_Name, Integer.valueOf(BH_Display_Name));
+		set_Value (COLUMNNAME_BH_Display_Name, BH_Display_Name);
 	}
 
 	/** Get Display Name.
 		@return Display Name	  */
-	public int getBH_Display_Name () 
+	public String getBH_Display_Name () 
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Display_Name);
-		if (ii == null)
-			 return 0;
-		return ii.intValue();
+		return (String)get_Value(COLUMNNAME_BH_Display_Name);
 	}
 
-	/** Set BH_External_ID.
-		@param BH_External_ID 
-		BH_External_ID
+	/** Set BH_ExternalID.
+		@param BH_ExternalID 
+		BH_ExternalID
 	  */
-	public void setBH_External_ID (String BH_External_ID)
+	public void setBH_ExternalID (String BH_ExternalID)
 	{
-		set_Value (COLUMNNAME_BH_External_ID, BH_External_ID);
+		set_Value (COLUMNNAME_BH_ExternalID, BH_ExternalID);
 	}
 
-	/** Get BH_External_ID.
-		@return BH_External_ID
+	/** Get BH_ExternalID.
+		@return BH_ExternalID
 	  */
-	public String getBH_External_ID () 
+	public String getBH_ExternalID () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_External_ID);
+		return (String)get_Value(COLUMNNAME_BH_ExternalID);
 	}
 
 	/** Set OCL ID.
-		@param BH_OCL_ID 
+		@param BH_OclID 
 		A generic ID of type string
 	  */
-	public void setBH_OCL_ID (String BH_OCL_ID)
+	public void setBH_OclID (String BH_OclID)
 	{
-		set_Value (COLUMNNAME_BH_OCL_ID, BH_OCL_ID);
+		set_Value (COLUMNNAME_BH_OclID, BH_OclID);
 	}
 
 	/** Get OCL ID.
 		@return A generic ID of type string
 	  */
-	public String getBH_OCL_ID () 
+	public String getBH_OclID () 
 	{
-		return (String)get_Value(COLUMNNAME_BH_OCL_ID);
+		return (String)get_Value(COLUMNNAME_BH_OclID);
 	}
 
 	/** Set BH_Owner.

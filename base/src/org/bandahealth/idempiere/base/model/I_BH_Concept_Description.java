@@ -120,18 +120,18 @@ public interface I_BH_Concept_Description
 	/** Get Concept Type	  */
 	public String getBH_Concept_Type();
 
-    /** Column name BH_External_ID */
-    public static final String COLUMNNAME_BH_External_ID = "BH_External_ID";
+    /** Column name BH_ExternalID */
+    public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
 
-	/** Set BH_External_ID.
-	  * BH_External_ID
+	/** Set BH_ExternalID.
+	  * BH_ExternalID
 	  */
-	public void setBH_External_ID (String BH_External_ID);
+	public void setBH_ExternalID (String BH_ExternalID);
 
-	/** Get BH_External_ID.
-	  * BH_External_ID
+	/** Get BH_ExternalID.
+	  * BH_ExternalID
 	  */
-	public String getBH_External_ID();
+	public String getBH_ExternalID();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
