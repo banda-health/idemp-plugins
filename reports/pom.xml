@@ -22,7 +22,7 @@
             <plugin>
                 <groupId>com.pro-crafting.tools</groupId>
                 <artifactId>jasperreports-plugin</artifactId>
-                <version>3.6.0</version> <!-- This downloads JasperSoft version 6.21.1, which we currently use -->
+                <version>3.2.0</version> <!-- This downloads JasperSoft version 6.17.0, which we currently use -->
                 <executions>
                     <execution>
                         <phase>process-sources</phase>
@@ -44,7 +44,7 @@
                     <dependency>
                         <groupId>net.sf.jasperreports</groupId>
                         <artifactId>jasperreports-functions</artifactId>
-                        <version>6.20.6</version>
+                        <version>6.17.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -56,6 +56,9 @@
                     <filesets>
                         <fileset>
                             <directory>${idempiere.home.dir}/reports</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.basedir}/target</directory>
                         </fileset>
                     </filesets>
                 </configuration>
@@ -73,6 +76,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <overwrite>true</overwrite>
                             <outputDirectory>${project.parent.basedir}/testing/reports</outputDirectory>
                             <resources>
                                 <resource>
@@ -88,6 +92,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <overwrite>true</overwrite>
                             <outputDirectory>${idempiere.home.dir}/reports</outputDirectory>
                             <resources>
                                 <resource>

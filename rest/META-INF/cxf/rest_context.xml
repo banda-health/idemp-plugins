@@ -53,6 +53,7 @@ classpath:META-INF/cxf/jaxrs.xsd">
         <jaxrs:providers>
             <bean class="org.bandahealth.idempiere.rest.provider.BandaJsonProvider"/>
             <bean class="org.bandahealth.idempiere.rest.exceptions.AdempiereExceptionMapper"/>
+            <bean class="org.bandahealth.idempiere.rest.exceptions.DocumentProcessExceptionMapper"/>
             <bean class="org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveExceptionMapper"/>
             <bean class="org.bandahealth.idempiere.rest.filter.AuthenticationFilter"/>
         </jaxrs:providers>

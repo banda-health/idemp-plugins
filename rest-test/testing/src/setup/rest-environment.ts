@@ -1,7 +1,7 @@
-import { Event, State } from 'jest-circus';
 import { EnvironmentContext, JestEnvironmentConfig } from '@jest/environment';
-import NodeEnvironment from 'jest-environment-node';
 import axios, { AxiosError } from 'axios';
+import { Event, State } from 'jest-circus';
+import NodeEnvironment from 'jest-environment-node';
 
 export default class IDempRestEnvironment extends NodeEnvironment {
 	constructor(config: JestEnvironmentConfig, context: EnvironmentContext) {
@@ -25,11 +25,15 @@ export default class IDempRestEnvironment extends NodeEnvironment {
 		if (event.name === 'test_fn_failure' && axios.isAxiosError(event.error)) {
 			const error = event.error as AxiosError;
 			const modifiedAxiosError = new Error(
-				`${error.message}${error.response?.data ? ' - ' + error.response.data : ''}\nMethod: ${
-					error.config?.method
-				}\nURL: ${error.request?.path || error.config?.url}\nData: ${error.config?.data}${
-					error.stack ? '\n\n' + error.stack : undefined
-				}`,
+				`${error.message}${
+					error.response?.data?.toString()
+						? ' - ' + error.response.data
+						: error.response?.headers['exception']
+						? ' - ' + error.response?.headers['exception']
+						: ''
+				}\nMethod: ${error.config?.method}\nURL: ${error.request?.path || error.config?.url}\nData: ${
+					error.config?.data
+				}${error.stack ? '\n\n' + error.stack : undefined}`,
 			);
 			// Replace the last error in the array with ours
 			event.test.errors.pop();

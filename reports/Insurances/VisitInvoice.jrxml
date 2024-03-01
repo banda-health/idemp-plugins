@@ -769,7 +769,7 @@ FROM
 						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement x="0" y="0" width="253" height="15" uuid="138a0fd1-3d00-491c-b7a8-30c2685dd428"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<paragraph leftIndent="3"/>
@@ -1225,7 +1225,7 @@ FROM
 				</textElement>
 				<text><![CDATA[PAYMENT INFORMATION]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement x="176" y="20" width="300" height="100" uuid="6527227e-a6a4-4b28-82c2-721304692fc0">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
