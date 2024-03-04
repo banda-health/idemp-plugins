@@ -44,10 +44,12 @@ SELECT
 		WHEN t.movementtype = 'M+' THEN 'Transfer In'
 		WHEN t.movementtype = 'M-' THEN 'Transfer Out'
 		ELSE 'Unknown Status: ' || t.movementtype
-		END AS                                                          transaction_type,
+		END AS                                                                transaction_type,
 	movementqty,
-		SUM(movementqty) FILTER ( WHERE m_transaction_id IS NOT NULL )
-		OVER (PARTITION BY m_product_id, m_locator_id ORDER BY row_num) runningtotal_bylocator
+	CASE
+		WHEN m_transaction_id IS NULL THEN NULL
+		ELSE SUM(movementqty) FILTER ( WHERE m_transaction_id IS NOT NULL )
+			OVER (PARTITION BY m_product_id, m_locator_id ORDER BY row_num) END runningtotal_bylocator
 FROM
 	(
 		SELECT
@@ -138,7 +140,7 @@ FROM
 				UNION ALL
 				-- Get drafted movements (for the destination locator/warehouse)
 				SELECT
-					m.created,
+					m.created + '1 microsecond',
 					NULL,
 					NULL,
 					NULL,
