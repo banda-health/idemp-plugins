@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.rest.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 
