@@ -1,5 +1,14 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
@@ -11,20 +20,10 @@ import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
-import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
@@ -85,9 +84,14 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		// delete old encounter diagnoses
 		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnoses());
 		
-		// TODO save encounter diagnostic
-		
-		// TODO: delete old encounter diagnostics
+		// save encounter diagnostic
+		entity.setEncounterDiagnostics(entity.getEncounterDiagnostics().stream().map(encounterDiagnostic -> {
+			encounterDiagnostic.setEncounterId(encounterId);
+			return encounterDiagnosticDBService.saveEntity(encounterDiagnostic);
+		}).collect(Collectors.toList()));
+
+		// delete old encounter diagnostics
+		encounterDiagnosticDBService.deleteEncounterDiagnosticNotInList(encounterId, entity.getEncounterDiagnostics());
 
 		return new Encounter(encounter);
 	}

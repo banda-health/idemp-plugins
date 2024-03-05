@@ -10,14 +10,7 @@ public class ConceptDescriptionDBService extends BaseDBService<ConceptDescriptio
 
 	@Override
 	public ConceptDescription saveEntity(ConceptDescription entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean deleteEntity(String entityUuid) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
@@ -35,4 +28,8 @@ public class ConceptDescriptionDBService extends BaseDBService<ConceptDescriptio
 		return new MBHConceptDescription(Env.getCtx(), 0, null);
 	}
 
+	@Override
+	public Boolean deleteEntity(String entityUuid) {
+		throw new UnsupportedOperationException("Not implemented");
+	}
 }

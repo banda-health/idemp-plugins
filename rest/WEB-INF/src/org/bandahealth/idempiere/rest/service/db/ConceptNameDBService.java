@@ -10,14 +10,12 @@ public class ConceptNameDBService extends BaseDBService<ConceptName, MBHConceptN
 
 	@Override
 	public ConceptName saveEntity(ConceptName entity) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override

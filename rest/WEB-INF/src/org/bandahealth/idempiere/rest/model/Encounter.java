@@ -17,6 +17,7 @@ public class Encounter extends BaseMetadata {
 	private ReferenceList encounterType;
 	private List<Observation> observations = new ArrayList<>();
 	private List<EncounterDiagnosis> encounterDiagnoses = new ArrayList<>();
+	private List<EncounterDiagnostic> encounterDiagnostics = new ArrayList<>();
 
 	private static final long serialVersionUID = 1L;
 
@@ -59,5 +60,13 @@ public class Encounter extends BaseMetadata {
 
 	public void setEncounterDiagnoses(List<EncounterDiagnosis> encounterDiagnoses) {
 		this.encounterDiagnoses = encounterDiagnoses;
+	}
+
+	public List<EncounterDiagnostic> getEncounterDiagnostics() {
+		return encounterDiagnostics;
+	}
+
+	public void setEncounterDiagnostics(List<EncounterDiagnostic> encounterDiagnostics) {
+		this.encounterDiagnostics = encounterDiagnostics;
 	}
 }

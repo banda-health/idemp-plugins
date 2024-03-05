@@ -13,11 +13,14 @@ public class EncounterDiagnostic extends BaseMetadata {
 
 	@JsonIgnore
 	private int conceptId;
+	private Concept concept;
 	private String status;
 	private int lineNo;
 	@JsonIgnore
 	private int encounterId;
 	private String value;
+	@JsonIgnore
+	private int visitId;
 
 	public EncounterDiagnostic() {
 	}
@@ -70,5 +73,21 @@ public class EncounterDiagnostic extends BaseMetadata {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public Concept getConcept() {
+		return concept;
+	}
+
+	public void setConcept(Concept concept) {
+		this.concept = concept;
+	}
+
+	public int getVisitId() {
+		return visitId;
+	}
+
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
 	}
 }

@@ -10,14 +10,12 @@ public class ConceptMappingDBService extends BaseDBService<ConceptMapping, MBHCo
 
 	@Override
 	public ConceptMapping saveEntity(ConceptMapping entity) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
