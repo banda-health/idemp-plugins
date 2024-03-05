@@ -11,87 +11,10 @@ WHERE atset.name = 'BandaHealthProductAttributeSet'
 	AND asi.ad_client_id > 999999;
 
 /**********************************************************************************************************/
--- Drop constraints for faster execution
+-- When actually deploying this, we dropped constraints and then re-added them. But, as iDempiere grows,
+-- the number of constraints continues to grow. To avoid having to continually adjust this, we'll skip
+-- it for new DBs since the single transaction won't be that bad
 /**********************************************************************************************************/
-BEGIN;
-
-	-- These first constraints are just for our build process (for some reason, it has different constraints than UAT)
-	-- These will not be re-added because they don't exist in UAT
-	ALTER TABLE m_cost DROP CONSTRAINT IF EXISTS masi_mcost;
-	ALTER TABLE m_costdetail DROP CONSTRAINT IF EXISTS masi_mcostdetail;
-	ALTER TABLE m_inoutlinema DROP CONSTRAINT IF EXISTS masi_minourlinema;
-	ALTER TABLE m_costhistory DROP CONSTRAINT IF EXISTS mattributesetinstance_mcosthis;
-	ALTER TABLE m_matchpo DROP CONSTRAINT IF EXISTS mattributesetinstance_mmatchpo;
-	ALTER TABLE m_storageonhand DROP CONSTRAINT IF EXISTS mattributesetinstance_mstoraoh;
-	ALTER TABLE m_storagereservation DROP CONSTRAINT IF EXISTS mattributesetinstance_mstorare;
-	ALTER TABLE c_invoiceline DROP CONSTRAINT IF EXISTS mattrsetinst_cinvoiceline;
-	ALTER TABLE c_orderline DROP CONSTRAINT IF EXISTS mattrsetinst_corderline;
-	ALTER TABLE m_inoutline DROP CONSTRAINT IF EXISTS mattrsetinst_minoutline;
-	ALTER TABLE m_product DROP CONSTRAINT IF EXISTS mattrsetinst_mproduct;
-	ALTER TABLE m_transaction DROP CONSTRAINT IF EXISTS mattrsetinst_mtransaction;
-
-	-- These constraints exist in UAT (and will be re-added at the end of the script)
-	ALTER TABLE a_asset DROP CONSTRAINT IF EXISTS mattributesetinstance_aasset;
-	ALTER TABLE a_asset_addition DROP CONSTRAINT IF EXISTS mattributesetinstance_aassetad;
-	ALTER TABLE a_asset_product DROP CONSTRAINT IF EXISTS mattributesetinstance_aassetpr;
-	ALTER TABLE bh_stocktake DROP CONSTRAINT IF EXISTS mattributesetinstance_bhstockt;
-	ALTER TABLE c_invoiceline DROP CONSTRAINT IF EXISTS c_invoiceline_m_attributesetinstance_id_fkey;
-	ALTER TABLE c_landedcostallocation DROP CONSTRAINT IF EXISTS masi_clandedcostallocation;
-	ALTER TABLE c_orderline DROP CONSTRAINT IF EXISTS c_orderline_m_attributesetinstance_id_fkey;
-	ALTER TABLE c_projectissue DROP CONSTRAINT IF EXISTS mattrsetinst_cprojectissue;
-	ALTER TABLE c_projectissuema DROP CONSTRAINT IF EXISTS masi_cprojectissuema;
-	ALTER TABLE c_rfqline DROP CONSTRAINT IF EXISTS masetinstance_crfqline;
-	ALTER TABLE dd_orderline DROP CONSTRAINT IF EXISTS mattributesetinstance_ddorderl;
-	ALTER TABLE dd_orderline DROP CONSTRAINT IF EXISTS mattributesetinstanceto_ddorde;
-	ALTER TABLE i_asset DROP CONSTRAINT IF EXISTS mattributesetinstance_iasset;
-	ALTER TABLE m_attributeinstance DROP CONSTRAINT IF EXISTS mattrsetinst__mattrinst;
-	ALTER TABLE m_bomproduct DROP CONSTRAINT IF EXISTS masi_mbomproduct;
-	ALTER TABLE m_cost DROP CONSTRAINT IF EXISTS m_cost_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_costdetail DROP CONSTRAINT IF EXISTS m_costdetail_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_costhistory DROP CONSTRAINT IF EXISTS m_costhistory_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_costqueue DROP CONSTRAINT IF EXISTS masi_mcostqueue;
-	ALTER TABLE m_inoutline DROP CONSTRAINT IF EXISTS m_inoutline_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_inoutlinema DROP CONSTRAINT IF EXISTS m_inoutlinema_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_inventoryline DROP CONSTRAINT IF EXISTS mattrsetinst_minventoryline;
-	ALTER TABLE m_inventorylinema DROP CONSTRAINT IF EXISTS masi_minventorylinema;
-	ALTER TABLE m_matchinv DROP CONSTRAINT IF EXISTS mattributesetinstance_mmatchin;
-	ALTER TABLE m_matchpo DROP CONSTRAINT IF EXISTS m_matchpo_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_movementline DROP CONSTRAINT IF EXISTS mattributesetinstanceto_mmovem;
-	ALTER TABLE m_movementline DROP CONSTRAINT IF EXISTS mattrsetinst_mmovementline;
-	ALTER TABLE m_movementlinema DROP CONSTRAINT IF EXISTS masi_mmovementlinema;
-	ALTER TABLE m_product DROP CONSTRAINT IF EXISTS m_product_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_productionline DROP CONSTRAINT IF EXISTS mattrsetinst_mproductionline;
-	ALTER TABLE m_productionlinema DROP CONSTRAINT IF EXISTS masi_mproductionlinema;
-	ALTER TABLE m_qualitytestresult DROP CONSTRAINT IF EXISTS mattributesetinstance_mquality;
-	ALTER TABLE m_requisitionline DROP CONSTRAINT IF EXISTS mattributesetinstance_mrequisi;
-	ALTER TABLE m_storageonhand DROP CONSTRAINT IF EXISTS m_storageonhand_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_storagereservation DROP CONSTRAINT IF EXISTS m_storagereservation_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_transaction DROP CONSTRAINT IF EXISTS m_transaction_m_attributesetinstance_id_fkey;
-	ALTER TABLE m_transactionallocation DROP CONSTRAINT IF EXISTS mattributesetinst_mtrxalloc;
-	ALTER TABLE pp_cost_collector DROP CONSTRAINT IF EXISTS mattributesetinstance_ppcostco;
-	ALTER TABLE pp_cost_collectorma DROP CONSTRAINT IF EXISTS mattributesetinstance_ppcostma;
-	ALTER TABLE pp_order DROP CONSTRAINT IF EXISTS mattributesetinstance_pporder;
-	ALTER TABLE pp_order_bom DROP CONSTRAINT IF EXISTS mattributesetinstance_pporderb;
-	ALTER TABLE pp_order_bomline DROP CONSTRAINT IF EXISTS mattributesetinstance_ppordbl;
-	ALTER TABLE pp_order_cost DROP CONSTRAINT IF EXISTS mattributesetinstance_pporderc;
-	ALTER TABLE pp_product_bom DROP CONSTRAINT IF EXISTS mattributesetinstance_ppproduc;
-	ALTER TABLE pp_product_bomline DROP CONSTRAINT IF EXISTS mattributesetinstance_ppprodbl;
-	ALTER TABLE t_inventoryvalue DROP CONSTRAINT IF EXISTS masi_tinventoryvalue;
-	ALTER TABLE t_transaction DROP CONSTRAINT IF EXISTS masi_ttransaction;
-	ALTER TABLE c_projectissuema DROP CONSTRAINT IF EXISTS c_projectissuema_pkey;
-	ALTER TABLE m_attributeinstance DROP CONSTRAINT IF EXISTS m_attributeinstance_pkey;
-	ALTER TABLE m_attributesetinstance DROP CONSTRAINT IF EXISTS m_attributesetinstance_pkey;
-	ALTER TABLE m_cost DROP CONSTRAINT IF EXISTS m_cost_pkey;
-	ALTER TABLE m_inoutlinema DROP CONSTRAINT IF EXISTS m_inoutlinema_pkey;
-	ALTER TABLE m_inventorylinema DROP CONSTRAINT IF EXISTS m_inventorylinema_pkey;
-	ALTER TABLE m_movementlinema DROP CONSTRAINT IF EXISTS m_movementlinema_pkey;
-	ALTER TABLE m_productionlinema DROP CONSTRAINT IF EXISTS m_productionlinema_pkey;
-	ALTER TABLE m_storageonhand DROP CONSTRAINT IF EXISTS m_storageonhand_pkey;
-	ALTER TABLE m_storagereservation DROP CONSTRAINT IF EXISTS m_storagereservation_pkey;
-	ALTER TABLE t_inventoryvalue DROP CONSTRAINT IF EXISTS t_inventoryvalue_pkey;
-
-COMMIT;
-
 BEGIN;
 
 	/**********************************************************************************************************/
@@ -290,72 +213,6 @@ BEGIN;
 	/**********************************************************************************************************/
 	DELETE FROM m_storageonhand
 	WHERE qtyonhand = 0 AND updated < now() - INTERVAL '1 MONTH' AND ad_client_id > 999999;
-
-COMMIT;
-
-/**********************************************************************************************************/
--- Re-add the constraints
-/**********************************************************************************************************/
-BEGIN;
-
-	ALTER TABLE t_inventoryvalue ADD CONSTRAINT t_inventoryvalue_pkey PRIMARY KEY (ad_pinstance_id, m_warehouse_id, m_product_id, m_attributesetinstance_id);
-	ALTER TABLE m_storagereservation ADD CONSTRAINT m_storagereservation_pkey PRIMARY KEY (m_product_id, m_warehouse_id, issotrx, m_attributesetinstance_id);
-	ALTER TABLE m_storageonhand ADD CONSTRAINT m_storageonhand_pkey PRIMARY KEY (m_product_id, m_locator_id, m_attributesetinstance_id, datematerialpolicy);
-	ALTER TABLE m_productionlinema ADD CONSTRAINT m_productionlinema_pkey PRIMARY KEY (m_productionline_id, m_attributesetinstance_id, datematerialpolicy);
-	ALTER TABLE m_movementlinema ADD CONSTRAINT m_movementlinema_pkey PRIMARY KEY (m_movementline_id, m_attributesetinstance_id, datematerialpolicy);
-	ALTER TABLE m_inventorylinema ADD CONSTRAINT m_inventorylinema_pkey PRIMARY KEY (m_inventoryline_id, m_attributesetinstance_id, datematerialpolicy);
-	ALTER TABLE m_inoutlinema ADD CONSTRAINT m_inoutlinema_pkey PRIMARY KEY (m_inoutline_id, m_attributesetinstance_id, datematerialpolicy);
-	ALTER TABLE m_cost ADD CONSTRAINT m_cost_pkey PRIMARY KEY (ad_client_id, ad_org_id, m_product_id, m_costtype_id, c_acctschema_id, m_costelement_id, m_attributesetinstance_id);
-	ALTER TABLE m_attributesetinstance ADD CONSTRAINT m_attributesetinstance_pkey PRIMARY KEY (m_attributesetinstance_id);
-	ALTER TABLE m_attributeinstance ADD CONSTRAINT m_attributeinstance_pkey PRIMARY KEY (m_attributesetinstance_id, m_attribute_id);
-	ALTER TABLE c_projectissuema ADD CONSTRAINT c_projectissuema_pkey PRIMARY KEY (c_projectissue_id, m_attributesetinstance_id);
-	ALTER TABLE t_transaction ADD CONSTRAINT masi_ttransaction FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE t_inventoryvalue ADD CONSTRAINT masi_tinventoryvalue FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_product_bomline ADD CONSTRAINT mattributesetinstance_ppprodbl FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_product_bom ADD CONSTRAINT mattributesetinstance_ppproduc FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_order_cost ADD CONSTRAINT mattributesetinstance_pporderc FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_order_bomline ADD CONSTRAINT mattributesetinstance_ppordbl FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_order_bom ADD CONSTRAINT mattributesetinstance_pporderb FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_order ADD CONSTRAINT mattributesetinstance_pporder FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_cost_collectorma ADD CONSTRAINT mattributesetinstance_ppcostma FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE pp_cost_collector ADD CONSTRAINT mattributesetinstance_ppcostco FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_transactionallocation ADD CONSTRAINT mattributesetinst_mtrxalloc FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_transaction ADD CONSTRAINT m_transaction_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_storagereservation ADD CONSTRAINT m_storagereservation_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_storageonhand ADD CONSTRAINT m_storageonhand_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_requisitionline ADD CONSTRAINT mattributesetinstance_mrequisi FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_qualitytestresult ADD CONSTRAINT mattributesetinstance_mquality FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_productionlinema ADD CONSTRAINT masi_mproductionlinema FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_productionline ADD CONSTRAINT mattrsetinst_mproductionline FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_product ADD CONSTRAINT m_product_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_movementlinema ADD CONSTRAINT masi_mmovementlinema FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_movementline ADD CONSTRAINT mattrsetinst_mmovementline FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_movementline ADD CONSTRAINT mattributesetinstanceto_mmovem FOREIGN KEY (m_attributesetinstanceto_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_matchpo ADD CONSTRAINT m_matchpo_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_matchinv ADD CONSTRAINT mattributesetinstance_mmatchin FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_inventorylinema ADD CONSTRAINT masi_minventorylinema FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_inventoryline ADD CONSTRAINT mattrsetinst_minventoryline FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_inoutlinema ADD CONSTRAINT m_inoutlinema_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_inoutline ADD CONSTRAINT m_inoutline_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_costqueue ADD CONSTRAINT masi_mcostqueue FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_costhistory ADD CONSTRAINT m_costhistory_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_costdetail ADD CONSTRAINT m_costdetail_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_cost ADD CONSTRAINT m_cost_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_bomproduct ADD CONSTRAINT masi_mbomproduct FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE m_attributeinstance ADD CONSTRAINT mattrsetinst__mattrinst FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE i_asset ADD CONSTRAINT mattributesetinstance_iasset FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE dd_orderline ADD CONSTRAINT mattributesetinstanceto_ddorde FOREIGN KEY (m_attributesetinstanceto_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE dd_orderline ADD CONSTRAINT mattributesetinstance_ddorderl FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE c_rfqline ADD CONSTRAINT masetinstance_crfqline FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE c_projectissuema ADD CONSTRAINT masi_cprojectissuema FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE c_projectissue ADD CONSTRAINT mattrsetinst_cprojectissue FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE c_orderline ADD CONSTRAINT c_orderline_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE c_landedcostallocation ADD CONSTRAINT masi_clandedcostallocation FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE c_invoiceline ADD CONSTRAINT c_invoiceline_m_attributesetinstance_id_fkey FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE bh_stocktake ADD CONSTRAINT mattributesetinstance_bhstockt FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE a_asset_product ADD CONSTRAINT mattributesetinstance_aassetpr FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE a_asset_addition ADD CONSTRAINT mattributesetinstance_aassetad FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
-	ALTER TABLE a_asset ADD CONSTRAINT mattributesetinstance_aasset FOREIGN KEY (m_attributesetinstance_id) REFERENCES m_attributesetinstance(m_attributesetinstance_id) DEFERRABLE INITIALLY DEFERRED;
 
 COMMIT;
 
