@@ -382,6 +382,59 @@ VALUES
 	), 'cc1987df-8c35-4970-bde8-a3410a99b683', '2024-03-05 11:43:43.122000', 100, 'Y', '2023-03-05 11:43:43.122000', 100,
 	 'l') ON CONFLICT DO NOTHING;
 
+-- update roles
+-- give clinical admin role read/write access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '3084592a-531b-4fbd-a412-5c14c2b15288'), (select ad_role_id FROM ad_role where ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'Y', '85633695-c712-4040-942d-8006d1aac7c8', 'Y') ON CONFLICT DO NOTHING;
+-- give clinician/nurse advanced role read/write access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '3084592a-531b-4fbd-a412-5c14c2b15288'), (select ad_role_id FROM ad_role where ad_role_uu = 'c54253cf-c86b-4aaa-b472-ed8880635c62'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'Y', '21db4f10-3427-4b4b-a128-1fc6c918767d', 'N') ON CONFLICT DO NOTHING;
+-- give clinician/nurse basic role read/write access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '3084592a-531b-4fbd-a412-5c14c2b15288'), (select ad_role_id FROM ad_role where ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'Y', '7a056dba-1f48-4bb8-b30a-d321ccd03007', 'N') ON CONFLICT DO NOTHING;
+-- give lab/radiology role read/write access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '3084592a-531b-4fbd-a412-5c14c2b15288'), (select ad_role_id FROM ad_role where ad_role_uu = '097feff0-3aa6-41fe-bf76-936b03859846'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'Y', '0d11ddc1-6482-444a-bba6-afdf0b0a6d40', 'N') ON CONFLICT DO NOTHING;
+
+-- add diagnostics window
+INSERT INTO ad_window (ad_window_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name, description, help, windowtype, issotrx, entitytype, processing, ad_image_id, ad_color_id, isdefault, winheight, winwidth, isbetafunctionality, ad_window_uu, titlelogic) VALUES ((SELECT MAX(ad_window_id) + 1 FROM ad_window), 0, 0, 'Y', '2024-02-28 19:42:59.772000', 100, '2024-02-28 19:42:59.772000', 100, 'Diagnostics', 'Lab diagnostics', null, 'T', 'N', 'U', 'N', null, null, 'N', 0, 0, 'N', '55f080e3-17f4-4ffa-b03b-6dda34884bcc', null) ON CONFLICT DO NOTHING;
+
+-- update roles
+-- give clinical admin role read/write access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '55f080e3-17f4-4ffa-b03b-6dda34884bcc'), (select ad_role_id FROM ad_role where ad_role_uu = '461b31c5-cae2-449d-8a0c-7385b12f4685'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'Y', 'a8055e0b-b618-4080-abc8-ddae07f909ec', 'Y') ON CONFLICT DO NOTHING;
+-- give clinician/nurse advanced role readonly access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '55f080e3-17f4-4ffa-b03b-6dda34884bcc'), (select ad_role_id FROM ad_role where ad_role_uu = 'c54253cf-c86b-4aaa-b472-ed8880635c62'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'N', 'd991d778-f771-42c9-9a3a-8a3271168909', 'N') ON CONFLICT DO NOTHING;
+-- give clinician/nurse basic role readonly access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '55f080e3-17f4-4ffa-b03b-6dda34884bcc'), (select ad_role_id FROM ad_role where ad_role_uu = '98617c31-55ff-48f9-bd44-253ef323d960'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'N', '6e31638c-c5cf-4cda-92d1-6076ba3a0c0c', 'N') ON CONFLICT DO NOTHING;
+-- give lab/radiology role readonly access
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate) VALUES ((SELECT ad_window_id FROM ad_window where ad_window_uu = '55f080e3-17f4-4ffa-b03b-6dda34884bcc'), (select ad_role_id FROM ad_role where ad_role_uu = '097feff0-3aa6-41fe-bf76-936b03859846'), 0, 0, 'Y', '2024-02-28 19:42:59.833000', 100, '2024-02-28 19:42:59.833000', 100, 'N', 'de672937-b95d-4300-84ab-185ccbf0f273', 'N') ON CONFLICT DO NOTHING;
+
+-- add diagnostics menu item
+INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(ad_menu_id) + 1 FROM ad_menu), 0, 0, 'Y', '2024-02-28 19:44:28.638000', 100, '2024-02-28 19:44:28.638000', 'Diagnostics', 100, 'Lab Diagnostics', 'N', 'Y', 'N', 'W', (SELECT ad_window_id FROM ad_window WHERE ad_window_uu = '55f080e3-17f4-4ffa-b03b-6dda34884bcc'), null, null, null, null, null, 'U', 'Y', '0b9a8d2c-4a92-40af-bde5-7fd79bf3730a', null, 'fas fa-microscope') ON CONFLICT DO NOTHING;
+
+-- add diagnostics menu item to Greenlight -> Back-end tree
+INSERT INTO
+	ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+	               parent_id, seqno, ad_treenodemm_uu)
+VALUES
+	(10, (
+		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '0b9a8d2c-4a92-40af-bde5-7fd79bf3730a'
+	), 0, 0, 'Y', '2024-02-28 19:44:28.693202', 100, '2024-02-28 19:44:28.693202', 100, (
+		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '58e80a91-030d-4679-9c9a-356cffd30a40'
+	), 4, uuid_generate_v4())
+ON CONFLICT DO NOTHING;
+
+
+-- Give all automatic roles (like the admin role in every client) access to the two new Diagnostic windows
+INSERT INTO ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive, created, createdby, 
+	updated, updatedby, isreadwrite, ad_window_access_uu, bh_candeactivate)
+SELECT
+	w.ad_window_id, r.ad_role_id, r.ad_client_id, r.ad_org_id, 'Y',
+	'2024-02-28 19:42:59.833000', 100,
+	'2024-02-28 19:42:59.833000', 100,
+	'Y', uuid_generate_v4(), 'Y'
+FROM ad_role r
+CROSS JOIN ad_window w
+WHERE r.ismanual = 'N'
+AND w.ad_window_uu IN ('55f080e3-17f4-4ffa-b03b-6dda34884bcc', '3084592a-531b-4fbd-a412-5c14c2b15288');
+
+
 SELECT
 	register_migration_script('202402271052_GO-2679.sql')
 FROM
