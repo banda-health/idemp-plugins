@@ -417,7 +417,7 @@ VALUES
 		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '0b9a8d2c-4a92-40af-bde5-7fd79bf3730a'
 	), 0, 0, 'Y', '2024-02-28 19:44:28.693202', 100, '2024-02-28 19:44:28.693202', 100, (
 		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '58e80a91-030d-4679-9c9a-356cffd30a40'
-	), 4, uuid_generate_v4())
+	), 4, 'f0a6e20c-f060-409e-adca-1c6c463f8fa1')
 ON CONFLICT DO NOTHING;
 
 
