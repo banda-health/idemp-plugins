@@ -2631,7 +2631,7 @@ test('lab diagnostic fields', async () => {
 
 	const labDiagnosticEncounterTypeWindow = (
 		await encounterTypeWindowApi.get(valueObject, 0, 10, undefined, undefined)
-	).results.find((result) => result.window.uuid == LAB_DIAGNOSTIC_WINDOW_UUID);
+	).results.find((result) => result.window.uuid == LAB_DIAGNOSTICS_WINDOW_UUID);
 	const fields = labDiagnosticEncounterTypeWindow?.window.tabs[0].fields;
 
 	const LAB_NOTES_VALUE = 'Add a lab note';
