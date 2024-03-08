@@ -2,9 +2,7 @@ package org.bandahealth.idempiere.base.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.StreamSupport;
 
@@ -13,8 +11,8 @@ import org.bandahealth.idempiere.base.utils.JsonUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-@JsonDeserialize(using = OCLCodedDiagnosisDeserializer.class)
-public class OCLCodedDiagnosis {
+@JsonDeserialize(using = OCLConceptDeserializer.class)
+public class OCLConcept {
 
 	private String uuid;
 	private String id;
@@ -34,13 +32,14 @@ public class OCLCodedDiagnosis {
 	private String versionCreatedBy;
 	private String versionCreatedOn;
 	private boolean isLatestVersion;
-	private List<OCLCodedDiagnosisMapping> mappings = new ArrayList<OCLCodedDiagnosisMapping>();
-	private Map<String, String> extras = new LinkedHashMap<String, String>();
+	private String type;
+	private List<OCLConceptMapping> mappings = new ArrayList<OCLConceptMapping>();
+	private List<OCLConceptExtra> extras = new ArrayList<>();
 
-	public OCLCodedDiagnosis() {
+	public OCLConcept() {
 	}
 
-	public OCLCodedDiagnosis(JsonNode node) {
+	public OCLConcept(JsonNode node) {
 		setUuid(JsonUtils.getValue(node.get("uuid")));
 		setId(JsonUtils.getValue(node.get("id")));
 		setExternalId(JsonUtils.getValue(node.get("external_id")));
@@ -59,10 +58,11 @@ public class OCLCodedDiagnosis {
 		setVersionCreatedBy(JsonUtils.getValue(node.get("version_created_by")));
 		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")));
 		setLatestVersion(JsonUtils.getBoolValue(node.get("is_latest_version")));
-
+		setType(JsonUtils.getValue(node.get("type")));
+		
 		if (node.get("mappings") != null) {
 			StreamSupport.stream(node.get("mappings").spliterator(), false).forEach(mapping -> {
-				addMapping(new OCLCodedDiagnosisMapping(mapping));
+				addMapping(new OCLConceptMapping(mapping));
 			});
 		}
 
@@ -70,7 +70,7 @@ public class OCLCodedDiagnosis {
 			Iterator<Entry<String, JsonNode>> iterator = node.get("extras").fields();
 			while (iterator.hasNext()) {
 				Entry<String, JsonNode> entry = iterator.next();
-				addExtra(entry.getKey(), entry.getValue().asText());
+				extras.add(new OCLConceptExtra(entry.getKey(), entry.getValue().asText()));
 			}
 		}
 	}
@@ -219,31 +219,35 @@ public class OCLCodedDiagnosis {
 		this.isLatestVersion = isLatestVersion;
 	}
 
-	public List<OCLCodedDiagnosisMapping> getMappings() {
+	public List<OCLConceptMapping> getMappings() {
 		return mappings;
 	}
 
-	public void setMappings(List<OCLCodedDiagnosisMapping> mappings) {
+	public void setMappings(List<OCLConceptMapping> mappings) {
 		this.mappings = mappings;
 	}
 
-	private void addMapping(OCLCodedDiagnosisMapping mapping) {
+	private void addMapping(OCLConceptMapping mapping) {
 		if (this.mappings == null) {
-			this.mappings = new ArrayList<OCLCodedDiagnosisMapping>();
+			this.mappings = new ArrayList<OCLConceptMapping>();
 		}
 
 		this.mappings.add(mapping);
 	}
 
-	public Map<String, String> getExtras() {
+	public List<OCLConceptExtra> getExtras() {
 		return extras;
 	}
 
-	public void setExtras(Map<String, String> extras) {
+	public void setExtras(List<OCLConceptExtra> extras) {
 		this.extras = extras;
 	}
 
-	public void addExtra(String key, String value) {
-		this.getExtras().put(key, value);
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

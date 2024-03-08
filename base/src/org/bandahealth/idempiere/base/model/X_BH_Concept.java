@@ -30,7 +30,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240229L;
+	private static final long serialVersionUID = 20240308L;
 
     /** Standard Constructor */
     public X_BH_Concept (Properties ctx, int BH_Concept_ID, String trxName)
@@ -132,6 +132,20 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 		return (String)get_Value(COLUMNNAME_BH_Concept_UU);
 	}
 
+	/** Set BH_Data_Type.
+		@param BH_Data_Type BH_Data_Type	  */
+	public void setBH_Data_Type (String BH_Data_Type)
+	{
+		set_Value (COLUMNNAME_BH_Data_Type, BH_Data_Type);
+	}
+
+	/** Get BH_Data_Type.
+		@return BH_Data_Type	  */
+	public String getBH_Data_Type () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_Data_Type);
+	}
+
 	/** Set Display Locale.
 		@param BH_Display_Locale Display Locale	  */
 	public void setBH_Display_Locale (String BH_Display_Locale)
@@ -162,7 +176,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 
 	/** Set BH_ExternalID.
 		@param BH_ExternalID 
-		BH_ExternalID
+		BH_External_ID
 	  */
 	public void setBH_ExternalID (String BH_ExternalID)
 	{
@@ -170,7 +184,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	}
 
 	/** Get BH_ExternalID.
-		@return BH_ExternalID
+		@return BH_External_ID
 	  */
 	public String getBH_ExternalID () 
 	{
@@ -226,23 +240,6 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	public String getBH_Source () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_Source);
-	}
-
-	/** Set Data Type.
-		@param DataType 
-		Type of data
-	  */
-	public void setDataType (String DataType)
-	{
-		set_Value (COLUMNNAME_DataType, DataType);
-	}
-
-	/** Get Data Type.
-		@return Type of data
-	  */
-	public String getDataType () 
-	{
-		return (String)get_Value(COLUMNNAME_DataType);
 	}
 
 	/** Set Description.

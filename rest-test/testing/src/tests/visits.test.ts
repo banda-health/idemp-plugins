@@ -32,6 +32,7 @@ import {
 	Charge,
 	Encounter,
 	EncounterDiagnosis,
+	EncounterDiagnostic,
 	Field,
 	Invoice,
 	InvoiceLine,
@@ -2650,13 +2651,13 @@ test('lab diagnostic fields', async () => {
 		encounterDiagnostics: [
 			{
 				lineNo: 1,
-				concept: { uuid: concepts[0].uuid },
+				concept: { uuid: concepts[0]?.uuid },
 				value: CONCEPT_RESULT_1,
 				status: 'c',
-			} as EncounterDiagnosis,
+			} as EncounterDiagnostic,
 			{
 				lineNo: 2,
-				concept: { uuid: concepts[1].uuid },
+				concept: { uuid: concepts[1]?.uuid },
 				status: 'p',
 				value: CONCEPT_RESULT_2,
 			} as EncounterDiagnostic,

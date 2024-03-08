@@ -97,12 +97,12 @@ public interface I_BH_Concept_Mapping
     public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
 
 	/** Set BH_ExternalID.
-	  * BH_ExternalID
+	  * BH_External_ID
 	  */
 	public void setBH_ExternalID (String BH_ExternalID);
 
 	/** Get BH_ExternalID.
-	  * BH_ExternalID
+	  * BH_External_ID
 	  */
 	public String getBH_ExternalID();
 
@@ -229,6 +229,15 @@ public interface I_BH_Concept_Mapping
 
 	/** Get To Concept Url	  */
 	public String getBH_To_Concept_Url();
+
+    /** Column name BH_To_Source_Name */
+    public static final String COLUMNNAME_BH_To_Source_Name = "BH_To_Source_Name";
+
+	/** Set To Source Name	  */
+	public void setBH_To_Source_Name (String BH_To_Source_Name);
+
+	/** Get To Source Name	  */
+	public String getBH_To_Source_Name();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

@@ -1,10 +1,12 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.rest.model.Concept;
@@ -21,12 +23,44 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 	@Override
 	public Concept saveEntity(Concept entity) {
-		throw new UnsupportedOperationException("Not implemented");
+		MBHConcept concept = getEntityByUuidFromDB(entity.getUuid());
+		if (concept == null) {
+			concept = new MBHConcept(Env.getCtx(), 0, null);
+			concept.setBH_Concept_UU(entity.getUuid());
+		}
+
+		concept.setIsActive(entity.getIsActive());
+		concept.setDataType(entity.getDataType());
+		concept.setbh_concept_class(entity.getConceptClass());
+		concept.setBH_Concept_Type(entity.getConceptType());
+		concept.setBH_Display_Locale(entity.getDisplayLocale());
+		concept.setBH_Display_Name(entity.getDisplayName());
+		concept.setBH_ExternalID(entity.getExternalId());
+		concept.setBH_OclID(entity.getOclId());
+		concept.setBH_Owner(entity.getOwner());
+		concept.setBH_Source(entity.getSource());
+		concept.setURL(entity.getUrl());
+
+		concept.saveEx();
+
+		// save mappings
+		if (entity.getConceptMappings() != null && !entity.getConceptMappings().isEmpty()) {
+			for (ConceptMapping conceptMapping : entity.getConceptMappings()) {
+				conceptMappingDBService.saveEntity(conceptMapping);
+			}
+		}
+
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(concept.getUUIDColumnName()))).get(0);
 	}
 
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
-		throw new UnsupportedOperationException("Not implemented");
+		try {
+			MBHConcept entity = getEntityByUuidFromDB(entityUuid);
+			return entity.delete(false);
+		} catch (Exception ex) {
+			throw new AdempiereException(ex.getLocalizedMessage());
+		}
 	}
 
 	@Override

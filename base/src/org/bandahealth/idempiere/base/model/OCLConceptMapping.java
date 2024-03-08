@@ -4,7 +4,7 @@ import org.bandahealth.idempiere.base.utils.JsonUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class OCLCodedDiagnosisMapping {
+public class OCLConceptMapping {
 
 	private String externalId;
 	private boolean retired;
@@ -49,10 +49,10 @@ public class OCLCodedDiagnosisMapping {
 	private String internalReferenceId;
 	private boolean publicCanView;
 
-	public OCLCodedDiagnosisMapping() {
+	public OCLConceptMapping() {
 	}
 
-	public OCLCodedDiagnosisMapping(JsonNode node) {
+	public OCLConceptMapping(JsonNode node) {
 		setExternalId(JsonUtils.getValue(node.get("external_id")));
 		setRetired(JsonUtils.getBoolValue(node.get("retired")));
 		setMapType(JsonUtils.getValue(node.get("map_type")));

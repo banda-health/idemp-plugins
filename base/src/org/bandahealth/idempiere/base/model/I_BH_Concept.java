@@ -100,6 +100,15 @@ public interface I_BH_Concept
 	/** Get BH_Concept_UU	  */
 	public String getBH_Concept_UU();
 
+    /** Column name BH_Data_Type */
+    public static final String COLUMNNAME_BH_Data_Type = "BH_Data_Type";
+
+	/** Set BH_Data_Type	  */
+	public void setBH_Data_Type (String BH_Data_Type);
+
+	/** Get BH_Data_Type	  */
+	public String getBH_Data_Type();
+
     /** Column name BH_Display_Locale */
     public static final String COLUMNNAME_BH_Display_Locale = "BH_Display_Locale";
 
@@ -122,12 +131,12 @@ public interface I_BH_Concept
     public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
 
 	/** Set BH_ExternalID.
-	  * BH_ExternalID
+	  * BH_External_ID
 	  */
 	public void setBH_ExternalID (String BH_ExternalID);
 
 	/** Get BH_ExternalID.
-	  * BH_ExternalID
+	  * BH_External_ID
 	  */
 	public String getBH_ExternalID();
 
@@ -185,19 +194,6 @@ public interface I_BH_Concept
 	  * User who created this records
 	  */
 	public int getCreatedBy();
-
-    /** Column name DataType */
-    public static final String COLUMNNAME_DataType = "DataType";
-
-	/** Set Data Type.
-	  * Type of data
-	  */
-	public void setDataType (String DataType);
-
-	/** Get Data Type.
-	  * Type of data
-	  */
-	public String getDataType();
 
     /** Column name Description */
     public static final String COLUMNNAME_Description = "Description";

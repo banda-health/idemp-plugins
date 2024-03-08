@@ -30,7 +30,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240229L;
+	private static final long serialVersionUID = 20240307L;
 
     /** Standard Constructor */
     public X_BH_Concept_Mapping (Properties ctx, int BH_Concept_Mapping_ID, String trxName)
@@ -131,7 +131,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 
 	/** Set BH_ExternalID.
 		@param BH_ExternalID 
-		BH_ExternalID
+		BH_External_ID
 	  */
 	public void setBH_ExternalID (String BH_ExternalID)
 	{
@@ -139,7 +139,7 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	}
 
 	/** Get BH_ExternalID.
-		@return BH_ExternalID
+		@return BH_External_ID
 	  */
 	public String getBH_ExternalID () 
 	{
@@ -324,5 +324,19 @@ public class X_BH_Concept_Mapping extends PO implements I_BH_Concept_Mapping, I_
 	public String getBH_To_Concept_Url () 
 	{
 		return (String)get_Value(COLUMNNAME_BH_To_Concept_Url);
+	}
+
+	/** Set To Source Name.
+		@param BH_To_Source_Name To Source Name	  */
+	public void setBH_To_Source_Name (String BH_To_Source_Name)
+	{
+		set_Value (COLUMNNAME_BH_To_Source_Name, BH_To_Source_Name);
+	}
+
+	/** Get To Source Name.
+		@return To Source Name	  */
+	public String getBH_To_Source_Name () 
+	{
+		return (String)get_Value(COLUMNNAME_BH_To_Source_Name);
 	}
 }
