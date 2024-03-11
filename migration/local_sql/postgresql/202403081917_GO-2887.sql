@@ -17348,6 +17348,13 @@ BEGIN
 END;
 $$;
 
+-- Remove eve_bpartner & bandahealth_bpartners
+DELETE
+FROM
+	ad_column
+WHERE
+	ad_column_uu in ('80ed368a-7b59-44d3-b977-9583e60e4528', '6709aa10-f347-451e-9824-c09f29082bb3');
+
 SELECT
 	register_migration_script('202403081917_GO-2887.sql')
 FROM
