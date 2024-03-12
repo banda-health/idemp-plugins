@@ -3931,6 +3931,9 @@ ALTER TABLE c_invoice
 		CHECK (isoverridecurrencyrate = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar]));
 
 ALTER TABLE c_payment
+	ADD IF NOT EXISTS isoverridecurrencyrate char DEFAULT 'N'::bpchar NOT NULL;
+
+ALTER TABLE c_payment
 	DROP CONSTRAINT IF EXISTS celementvalueuser1_cpayment;
 ALTER TABLE c_payment
 	ADD CONSTRAINT celementvalueuser1_cpayment
