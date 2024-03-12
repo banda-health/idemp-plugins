@@ -556,6 +556,11 @@ INSERT INTO ad_process_para (ad_process_para_id, ad_client_id, ad_org_id, isacti
 -- Add menu
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(AD_Menu_ID)+1 FROM AD_Menu), 0, 0, 'Y', '2024-03-08 12:13:25.134000', 100, '2024-03-08 12:13:25.134000', 'BH Ocl Concept Sync', 100, null, 'N', 'Y', 'N', 'P', null, null, null, (SELECT AD_Process_ID FROM AD_Process WHERE AD_Process_UU='97542544-da63-4e5f-85e0-ad35da81318c'), null, null, 'U', 'Y', '432a977a-d0d2-487c-9105-32baa9ac152e', null, null) ON CONFLICT DO NOTHING;
 
+-- Update BH_Coded_Diagnosis_Mapping column
+ALTER TABLE BH_Coded_Diagnosis_Mapping RENAME COLUMN BH_External_ID To BH_ExternalID;
+
+UPDATE ad_column SET name = 'BH_ExternalID', description='BH_ExternalID', columnname='BH_ExternalID' WHERE AD_Column_UU='0816e2b4-b9e2-4ac5-84d1-bb6168109f7c';
+
 SELECT
 	register_migration_script('202402271052_GO-2679.sql')
 FROM

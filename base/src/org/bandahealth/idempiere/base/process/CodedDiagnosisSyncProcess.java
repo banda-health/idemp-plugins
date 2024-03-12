@@ -299,7 +299,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 		List<MBHCodedDiagnosisMapping> mCodedDiagnosisMappings = new Query(getCtx(),
 				MBHCodedDiagnosisMapping.Table_Name,
-				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalId + " IN ( " + inClause + " )", null)
+				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalID + " IN ( " + inClause + " )", null)
 				.setParameters(parameters).list();
 
 		// save every mapping and check underlying concepts
