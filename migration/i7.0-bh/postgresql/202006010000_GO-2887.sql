@@ -840,6 +840,77 @@ ALTER TABLE c_order
 		FOREIGN KEY (link_order_id) REFERENCES c_order
 			DEFERRABLE INITIALLY DEFERRED;
 
+-- We only want to do this if a particular script hasn't been run in the DB
+DO
+$$
+	BEGIN
+		IF NOT EXISTS(
+			SELECT * FROM ad_migrationscript WHERE name ILIKE '201602161510_IDEMPIERE-2955.sql'
+		) THEN
+			ALTER TABLE M_AttributeSet
+				DROP COLUMN IF EXISTS M_AttributeSet_Type;
+		END IF;
+
+		IF NOT EXISTS(
+			SELECT * FROM ad_migrationscript WHERE name ILIKE '201602171713_IDEMPIERE-2999.sql'
+		) THEN
+			ALTER TABLE m_attribute
+				DROP COLUMN IF EXISTS ad_reference_id;
+			ALTER TABLE m_attribute
+				DROP COLUMN IF EXISTS ad_reference_value_id;
+			ALTER TABLE m_attribute
+				DROP COLUMN IF EXISTS ad_val_rule_id;
+		END IF;
+
+		IF NOT EXISTS(
+			SELECT * FROM ad_migrationscript WHERE name ILIKE '201809141624_IDEMPIERE-1604.sql'
+		) THEN
+			ALTER TABLE ad_userdef_tab
+				DROP COLUMN IF EXISTS whereclause;
+			ALTER TABLE ad_userdef_tab
+				DROP COLUMN IF EXISTS orderbyclause;
+			ALTER TABLE ad_userdef_tab
+				DROP COLUMN IF EXISTS seqno;
+			ALTER TABLE ad_userdef_tab
+				DROP COLUMN IF EXISTS ad_process_id;
+			ALTER TABLE ad_userdef_tab
+				DROP COLUMN IF EXISTS displaylogic;
+		END IF;
+
+		IF NOT EXISTS(
+			SELECT * FROM ad_migrationscript WHERE name ILIKE '201912301730_IDEMPIERE-4066.sql'
+		) THEN
+			ALTER TABLE pa_reportcolumn
+				DROP COLUMN IF EXISTS relativeperiodto;
+		END IF;
+
+		IF NOT EXISTS(
+			SELECT * FROM ad_migrationscript WHERE name ILIKE '201912301800_IDEMPIERE-4067.sql'
+		) THEN
+			ALTER TABLE pa_reportline
+				DROP COLUMN IF EXISTS overlinestroketype;
+			ALTER TABLE pa_reportline
+				DROP COLUMN IF EXISTS underlinestroketype;
+		END IF;
+
+		IF NOT EXISTS(
+			SELECT * FROM ad_migrationscript WHERE name ILIKE '202007211900_IDEMPIERE-4083.sql'
+		) THEN
+			ALTER TABLE c_payment
+				DROP COLUMN IF EXISTS isoverridecurrencyrate;
+		END IF;
+
+		IF NOT EXISTS(
+			SELECT * FROM ad_migrationscript WHERE name ILIKE '202007212000_IDEMPIERE-4083.sql'
+		) THEN
+			ALTER TABLE c_invoice
+				DROP COLUMN IF EXISTS isoverridecurrencyrate;
+			ALTER TABLE c_invoice
+				DROP COLUMN IF EXISTS currencyrate;
+		END IF;
+	END
+$$;
+
 SELECT
 	register_migration_script('202006010000_GO-2887.sql')
 FROM
