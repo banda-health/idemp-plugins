@@ -39,7 +39,7 @@ public class Concept extends BaseMetadata {
 		setOclId(entity.getBH_OclID());
 		setOwner(entity.getBH_Owner());
 		setSource(entity.getBH_Source());
-		setDataType(entity.getDataType());
+		setDataType(entity.getBH_Data_Type());
 		setDescription(entity.getDescription());
 		setUrl(entity.getURL());
 	}

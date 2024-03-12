@@ -202,6 +202,7 @@ public class ConceptSyncProcess extends SvrProcess {
 			foundConceptExtra.saveEx();
 		});
 
+		// save mappings
 		downloadChildMappings(mConcept, concept, newRecords, updatedRecords);
 	}
 
@@ -305,44 +306,48 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		// save every mapping and check underlying concepts
 		mappings.forEach((mapping) -> {
-			// search mapping in db list
-			MBHConceptMapping foundConceptMapping = mConceptMappings.stream().filter(
-					filterConceptMapping -> mapping.getId().equals(filterConceptMapping.getBH_OclID()))
-					.findFirst().orElse(null);
+			// we don't need to save SAME-AS concepts
+			if (!MBHConceptMapping.SAME_AS_MAP_TYPE.equals(mapping.getMapType())) {
+				// search mapping in db list
+				MBHConceptMapping foundConceptMapping = mConceptMappings.stream()
+						.filter(filterConceptMapping -> mapping.getId().equals(filterConceptMapping.getBH_OclID()))
+						.findFirst().orElse(null);
 
-			if (foundConceptMapping == null) {
-				// new record
-				foundConceptMapping = new MBHConceptMapping(getCtx(), 0, null);
-			}
+				if (foundConceptMapping == null) {
+					// new record
+					foundConceptMapping = new MBHConceptMapping(getCtx(), 0, null);
+				}
 
-			if (mapping.getExternalId() != null && !mapping.getExternalId().isEmpty()
-					&& !"null".equals(mapping.getExternalId())) {
-				foundConceptMapping.setBH_ExternalID(mapping.getExternalId());
-			}
-			foundConceptMapping.setIsActive(mapping.isRetired());
-			foundConceptMapping.setBH_Concept_ID(parentConcept.get_ID());
-			foundConceptMapping.setBH_Source(mapping.getToSourceOwner());
-			foundConceptMapping.setBH_Map_Type(mapping.getMapType());
-			foundConceptMapping.setBH_Owner(mapping.getOwner());
-			foundConceptMapping.setBH_OclID(mapping.getId());
-			foundConceptMapping.setBH_To_Concept_Code(mapping.getToConceptCode());
-			foundConceptMapping.setBH_To_Concept_Name_Resolved(mapping.getToConceptNameResolved());
-			foundConceptMapping.setBH_To_Concept_Name(mapping.getToConceptName());
-			foundConceptMapping.setBH_To_Source_Name(mapping.getToSourceName());
-			foundConceptMapping.setBH_To_Concept_Url(mapping.getToConceptUrl());
-			foundConceptMapping.setBH_From_Concept_Code(mapping.getFromConceptCode());
-			foundConceptMapping.setBH_From_Concept_Name_Resolved(mapping.getFromConceptNameResolved());
-			foundConceptMapping.setBH_From_Concept_Name(mapping.getFromConceptName());
-			foundConceptMapping.setBH_From_Concept_Url(mapping.getFromConceptUrl());
+				if (mapping.getExternalId() != null && !mapping.getExternalId().isEmpty()
+						&& !"null".equals(mapping.getExternalId())) {
+					foundConceptMapping.setBH_ExternalID(mapping.getExternalId());
+				}
 
-			foundConceptMapping.saveEx();
+				foundConceptMapping.setIsActive(mapping.isRetired());
+				foundConceptMapping.setBH_Concept_ID(parentConcept.get_ID());
+				foundConceptMapping.setBH_Source(mapping.getToSourceOwner());
+				foundConceptMapping.setBH_Map_Type(mapping.getMapType());
+				foundConceptMapping.setBH_Owner(mapping.getOwner());
+				foundConceptMapping.setBH_OclID(mapping.getId());
+				foundConceptMapping.setBH_To_Concept_Code(mapping.getToConceptCode());
+				foundConceptMapping.setBH_To_Concept_Name_Resolved(mapping.getToConceptNameResolved());
+				foundConceptMapping.setBH_To_Concept_Name(mapping.getToConceptName());
+				foundConceptMapping.setBH_To_Source_Name(mapping.getToSourceName());
+				foundConceptMapping.setBH_To_Concept_Url(mapping.getToConceptUrl());
+				foundConceptMapping.setBH_From_Concept_Code(mapping.getFromConceptCode());
+				foundConceptMapping.setBH_From_Concept_Name_Resolved(mapping.getFromConceptNameResolved());
+				foundConceptMapping.setBH_From_Concept_Name(mapping.getFromConceptName());
+				foundConceptMapping.setBH_From_Concept_Url(mapping.getFromConceptUrl());
 
-			String mappingUrl = mapping.getToConceptUrl();
-			// some concepts are mapped to themselves leading to an infinite loop.
-			if (mappingUrl != null && !"null".equals(mappingUrl) && !oclConcept.getUrl().equals(mappingUrl)) {
-				// check mappings
-				saveConcept(getConceptFromOCL(mappingUrl), null, newRecords, updatedRecords);
-				return; // we're only going one level down i.e. traverse only the child nodes.
+				foundConceptMapping.saveEx();
+
+				String mappingUrl = mapping.getToConceptUrl();
+
+				// some concepts are mapped to themselves leading to an infinite loop.
+				if (mappingUrl != null && !"null".equals(mappingUrl) && !oclConcept.getUrl().equals(mappingUrl)) {
+					// check mappings
+					saveConcept(getConceptFromOCL(mappingUrl), null, newRecords, updatedRecords);
+				}
 			}
 		});
 	}

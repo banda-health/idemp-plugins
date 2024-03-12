@@ -30,7 +30,7 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		}
 
 		concept.setIsActive(entity.getIsActive());
-		concept.setDataType(entity.getDataType());
+		concept.setBH_Data_Type(entity.getDataType());
 		concept.setbh_concept_class(entity.getConceptClass());
 		concept.setBH_Concept_Type(entity.getConceptType());
 		concept.setBH_Display_Locale(entity.getDisplayLocale());
