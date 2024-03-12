@@ -10,7 +10,7 @@ test('get concepts fields', async () => {
 			undefined,
 			undefined,
 			undefined,
-			undefined),
+			undefined,
 		)
 	).results;
 
