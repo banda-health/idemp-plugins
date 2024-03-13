@@ -32,11 +32,11 @@ test('the correct concepts are returned', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ displayName: { $text: 'anemia' } }),
+			JSON.stringify({ bh_display_name: { $text: 'urine' } }),
 		)
 	).results;
 
 	expect(concepts.length).not.toBe(0);
-	// This comes from the external-mocks/files/ocl/BHGO-concepts.json file
-	expect(concepts.find((concept) => concept.displayName === 'Anemia, iron deficiency')).toBeTruthy();
+	// This comes from the external-mocks/files/ocl/BHLabs-concepts.json file
+	expect(concepts.find((concept) => concept.displayName === 'Urine microscopy panel')).toBeTruthy();
 });

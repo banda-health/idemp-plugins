@@ -32,4 +32,14 @@ public class ConceptDescriptionDBService extends BaseDBService<ConceptDescriptio
 	public Boolean deleteEntity(String entityUuid) {
 		throw new UnsupportedOperationException("Not implemented");
 	}
+
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(false);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
+	}
 }

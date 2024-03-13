@@ -24,6 +24,7 @@ public class Concept extends BaseMetadata {
 	private String description;
 	private String url;
 	private List<ConceptMapping> conceptMappings = new ArrayList<>();
+	private List<ConceptExtra> conceptExtras = new ArrayList<>();
 
 	public Concept() {
 	}
@@ -138,5 +139,13 @@ public class Concept extends BaseMetadata {
 
 	public void setConceptMappings(List<ConceptMapping> conceptMappings) {
 		this.conceptMappings = conceptMappings;
+	}
+
+	public List<ConceptExtra> getConceptExtras() {
+		return conceptExtras;
+	}
+
+	public void setConceptExtras(List<ConceptExtra> conceptExtras) {
+		this.conceptExtras = conceptExtras;
 	}
 }

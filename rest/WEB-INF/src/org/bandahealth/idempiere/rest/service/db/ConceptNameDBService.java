@@ -33,4 +33,14 @@ public class ConceptNameDBService extends BaseDBService<ConceptName, MBHConceptN
 		return new MBHConceptName(Env.getCtx(), 0, null);
 	}
 
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(false);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
+	}
+
 }

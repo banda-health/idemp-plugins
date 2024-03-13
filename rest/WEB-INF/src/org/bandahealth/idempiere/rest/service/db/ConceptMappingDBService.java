@@ -33,4 +33,14 @@ public class ConceptMappingDBService extends BaseDBService<ConceptMapping, MBHCo
 		return new MBHConceptMapping(Env.getCtx(), 0, null);
 	}
 
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(false);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
+	}
+
 }

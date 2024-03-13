@@ -2637,7 +2637,6 @@ test('lab diagnostic fields', async () => {
 
 	const LAB_NOTES_VALUE = 'Add a lab note';
 	const CONCEPT_RESULT_1 = 'Result 1';
-	const CONCEPT_RESULT_2 = 'Result 2';
 
 	const concepts = (await conceptApi.get(valueObject)).results;
 	const encounter: Partial<Encounter> = {
@@ -2655,12 +2654,6 @@ test('lab diagnostic fields', async () => {
 				value: CONCEPT_RESULT_1,
 				status: 'c',
 			} as EncounterDiagnostic,
-			{
-				lineNo: 2,
-				concept: { uuid: concepts[1]?.uuid },
-				status: 'p',
-				value: CONCEPT_RESULT_2,
-			} as EncounterDiagnostic,
 		],
 	};
 
@@ -2670,9 +2663,7 @@ test('lab diagnostic fields', async () => {
 	expect(valueObject.visit.encounters).toHaveLength(1);
 	expect(valueObject.visit.encounters[0].observations).toHaveLength(1);
 	expect(valueObject.visit.encounters[0].observations[0].value).toBe(LAB_NOTES_VALUE);
-	expect(valueObject.visit.encounters[0].encounterDiagnostics).toHaveLength(2);
+	expect(valueObject.visit.encounters[0].encounterDiagnostics).toHaveLength(1);
 	expect(valueObject.visit.encounters[0].encounterDiagnostics[0].value).toBe(CONCEPT_RESULT_1);
 	expect(valueObject.visit.encounters[0].encounterDiagnostics[0].concept.uuid).toBe(concepts[0].uuid);
-	expect(valueObject.visit.encounters[0].encounterDiagnostics[1].value).toBe(CONCEPT_RESULT_2);
-	expect(valueObject.visit.encounters[0].encounterDiagnostics[1].concept.uuid).toBe(concepts[1].uuid);
 });

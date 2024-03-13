@@ -8,9 +8,11 @@ import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.rest.model.Concept;
 import org.bandahealth.idempiere.rest.model.ConceptMapping;
+import org.bandahealth.idempiere.rest.model.ConceptExtra;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,9 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 	@Autowired
 	private ConceptMappingDBService conceptMappingDBService;
+
+	@Autowired
+	private ConceptExtraDBService conceptExtraDBService;
 
 	@Override
 	public Concept saveEntity(Concept entity) {
@@ -88,6 +93,14 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(ConceptMapping::getConceptId));
 
+		// get concept mappings
+		Map<Integer, List<ConceptExtra>> conceptExtraByConceptId = conceptExtraDBService
+				.transformData(conceptExtraDBService
+						.getGroupsByIds(MBHConceptExtra::getBH_Concept_ID, MBHConceptExtra.COLUMNNAME_BH_Concept_ID,
+								dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()))
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
+				.stream().collect(Collectors.groupingBy(ConceptExtra::getConceptId));
+
 		return dbModels.stream().map(entity -> {
 			Concept result = new Concept(entity);
 
@@ -95,11 +108,15 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 				result.setConceptMappings(conceptMappingByConceptId.get(result.getId()));
 			}
 
+			if (conceptExtraByConceptId.containsKey(result.getId())) {
+				result.setConceptExtras(conceptExtraByConceptId.get(result.getId()));
+			}
+
 			return result;
 
 		}).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
 		return new EntityConfiguration() {

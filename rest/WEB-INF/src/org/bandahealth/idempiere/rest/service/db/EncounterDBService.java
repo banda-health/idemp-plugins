@@ -12,10 +12,12 @@ import java.util.stream.Collectors;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnostic;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.model.Encounter;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
+import org.bandahealth.idempiere.rest.model.EncounterDiagnostic;
 import org.bandahealth.idempiere.rest.model.Observation;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
@@ -168,6 +170,13 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 										MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID, encounterIds).values().stream()
 								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
 				.collect(Collectors.groupingBy(EncounterDiagnosis::getEncounterId));
+		
+		// get encounter diagnostics
+		Map<Integer, List<EncounterDiagnostic>> encounterDiagnosticsByEncounterId = encounterDiagnosticDBService.transformData(
+						encounterDiagnosticDBService.getGroupsByIds(MBHEncounterDiagnostic::getBH_Encounter_ID,
+								MBHEncounterDiagnostic.COLUMNNAME_BH_Encounter_ID, encounterIds).values().stream()
+								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(EncounterDiagnostic::getEncounterId));
 
 		// get reference list values
 		Map<String, ReferenceList> encounterTypesByValue = referenceListDBService.getTypes(MReference_BH.ENCOUNTER_TYPES,
@@ -189,6 +198,10 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 			if (encounterDiagnosesByEncounterId.containsKey(encounter.getBH_Encounter_ID())) {
 				result.setEncounterDiagnoses(encounterDiagnosesByEncounterId.get(encounter.getBH_Encounter_ID()));
+			}
+			
+			if (encounterDiagnosticsByEncounterId.containsKey(encounter.getBH_Encounter_ID())) {
+				result.setEncounterDiagnostics(encounterDiagnosticsByEncounterId.get(encounter.getBH_Encounter_ID()));
 			}
 
 			return result;
