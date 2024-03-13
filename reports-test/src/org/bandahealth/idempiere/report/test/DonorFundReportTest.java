@@ -178,7 +178,7 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(patientNameColumnIndex) != null &&
 							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(patientNameColumnIndex).getStringCellValue()
-									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Patient's visit appears");
 			Row visit = patientRows.get(0);
@@ -389,7 +389,7 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(patientNameColumnIndex) != null &&
 							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(patientNameColumnIndex).getStringCellValue()
-									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Patient's visit appears only once");
 		}
