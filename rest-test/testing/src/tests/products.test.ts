@@ -1,7 +1,7 @@
 import { orderApi, productApi, serviceApi } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { Product, Service } from '../types/org.bandahealth.idempiere.rest';
-import { createBusinessPartner, createOrder, createProduct } from '../utils';
+import { Order, OrderLine, Product, Service } from '../types/org.bandahealth.idempiere.rest';
+import { createBusinessPartner, createCharge, createOrder, createProduct } from '../utils';
 
 test('inactive products and services not returned from the search method', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
@@ -183,4 +183,56 @@ test('buying price can only be updated on new items or items without completed P
 	valueObject.product = await productApi.getByUuid(valueObject, valueObject.product!.uuid);
 	expect(valueObject.product!.hasBeenPurchased).toBeTruthy();
 	expect(valueObject.product!.buyPrice).toBe(120);
+});
+
+test('buying price can be updated when orders with charges exist', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create business partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create charge';
+	await createCharge(valueObject);
+
+	valueObject.stepName = 'Create product';
+	valueObject.setPurchasePrice(100);
+	await createProduct(valueObject);
+
+	expect(valueObject.product!.hasBeenPurchased).toBeFalsy();
+
+	valueObject.stepName = 'Create purchase order';
+	valueObject.documentAction = documentAction.Complete;
+	await valueObject.setDocumentBaseType(documentBaseType.PurchaseOrder, null, false, false, false);
+
+	const order: Partial<Order> = {
+		description: valueObject.getStepMessageLong(),
+		dateOrdered: valueObject.date,
+		businessPartner: valueObject.businessPartner,
+		warehouse: valueObject.warehouse,
+		orderLines: [
+			{
+				description: valueObject.getStepMessageLong(),
+				charge: valueObject.charge,
+				quantity: valueObject.quantity || 1,
+				price: -150,
+				attributeSetInstance: valueObject.attributeSetInstance,
+			} as OrderLine,
+		],
+		isSalesOrderTransaction: valueObject.documentType!.isSalesTransaction,
+		documentTypeTarget: valueObject.documentType,
+	};
+	valueObject.order = await orderApi.save(valueObject, order as Order);
+	if (!valueObject.order) {
+		throw new Error('Order not created');
+	}
+	valueObject.orderLine = valueObject.order!.orderLines[0];
+	valueObject.order = await orderApi.process(valueObject, valueObject.order!.uuid, valueObject.documentAction!);
+	if (!valueObject.order) {
+		throw new Error('Order not processed');
+	}
+
+	valueObject.product = await productApi.getByUuid(valueObject, valueObject.product!.uuid);
+	expect(valueObject.product!.hasBeenPurchased).toBeFalsy();
+	expect(valueObject.product!.buyPrice).toBe(100);
 });
