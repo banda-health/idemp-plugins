@@ -99,4 +99,14 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 		}).collect(Collectors.toList());
 	}
+	
+	@Override
+	protected EntityConfiguration getDefaultEntityConfiguration() {
+		return new EntityConfiguration() {
+			{
+				setShouldUseContextClientId(false);
+				setShouldFetchFromSystemClient(true);
+			}
+		};
+	}
 }
