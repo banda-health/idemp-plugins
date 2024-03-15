@@ -1,5 +1,8 @@
 package org.bandahealth.idempiere.rest.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,6 +28,7 @@ public class ConceptMapping extends BaseMetadata {
 	private String toConceptName;
 	private String toConceptNameResolved;
 	private String toConceptUrl;
+	private List<ConceptExtra> conceptExtras = new ArrayList<>();
 
 	public ConceptMapping() {
 	}
@@ -157,6 +161,14 @@ public class ConceptMapping extends BaseMetadata {
 
 	public void setToConceptUrl(String toConceptUrl) {
 		this.toConceptUrl = toConceptUrl;
+	}
+
+	public List<ConceptExtra> getConceptExtras() {
+		return conceptExtras;
+	}
+
+	public void setConceptExtras(List<ConceptExtra> conceptExtras) {
+		this.conceptExtras = conceptExtras;
 	}
 
 }

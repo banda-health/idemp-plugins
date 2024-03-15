@@ -32,7 +32,7 @@ public interface I_BH_Concept_Extra
     /** TableName=BH_Concept_Extra */
     public static final String Table_Name = "BH_Concept_Extra";
 
-    /** AD_Table_ID=1000058 */
+    /** AD_Table_ID=1000055 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -92,6 +92,17 @@ public interface I_BH_Concept_Extra
 	public int getBH_Concept_ID();
 
 	public I_BH_Concept getBH_Concept() throws RuntimeException;
+
+    /** Column name BH_Concept_Mapping_ID */
+    public static final String COLUMNNAME_BH_Concept_Mapping_ID = "BH_Concept_Mapping_ID";
+
+	/** Set Concept Mapping	  */
+	public void setBH_Concept_Mapping_ID (int BH_Concept_Mapping_ID);
+
+	/** Get Concept Mapping	  */
+	public int getBH_Concept_Mapping_ID();
+
+	public I_BH_Concept_Mapping getBH_Concept_Mapping() throws RuntimeException;
 
     /** Column name BH_Key */
     public static final String COLUMNNAME_BH_Key = "BH_Key";

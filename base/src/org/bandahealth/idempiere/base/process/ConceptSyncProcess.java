@@ -195,6 +195,9 @@ public class ConceptSyncProcess extends SvrProcess {
 				// new record
 				foundConceptExtra = new MBHConceptExtra(getCtx(), 0, null);
 				foundConceptExtra.setBH_Concept_ID(conceptID);
+				newRecords.incrementAndGet();
+			} else {
+				updatedRecords.incrementAndGet();
 			}
 
 			foundConceptExtra.setBH_Key(extra.getKey());
@@ -316,6 +319,9 @@ public class ConceptSyncProcess extends SvrProcess {
 				if (foundConceptMapping == null) {
 					// new record
 					foundConceptMapping = new MBHConceptMapping(getCtx(), 0, null);
+					newRecords.incrementAndGet();
+				} else {
+					updatedRecords.incrementAndGet();
 				}
 
 				if (mapping.getExternalId() != null && !mapping.getExternalId().isEmpty()
@@ -340,6 +346,34 @@ public class ConceptSyncProcess extends SvrProcess {
 				foundConceptMapping.setBH_From_Concept_Url(mapping.getFromConceptUrl());
 
 				foundConceptMapping.saveEx();
+
+				// check existing extras
+				final int conceptMappingID = foundConceptMapping.get_ID();
+
+				List<MBHConceptExtra> mConceptMappingExtras = new Query(getCtx(), MBHConceptExtra.Table_Name,
+						MBHConceptExtra.COLUMNNAME_BH_Concept_Mapping_ID + " =? ", null).setParameters(conceptMappingID)
+								.list();
+
+				// get extras
+				mapping.getExtras().forEach((extra) -> {
+					// search extra in db list
+					MBHConceptExtra foundConceptExtra = mConceptMappingExtras.stream()
+							.filter(filterConceptExtra -> extra.getKey().equals(filterConceptExtra.getBH_Key()))
+							.findFirst().orElse(null);
+
+					if (foundConceptExtra == null) {
+						// new record
+						foundConceptExtra = new MBHConceptExtra(getCtx(), 0, null);
+						foundConceptExtra.setBH_Concept_Mapping_ID(conceptMappingID);
+						newRecords.incrementAndGet();
+					} else {
+						updatedRecords.incrementAndGet();
+					}
+
+					foundConceptExtra.setBH_Key(extra.getKey());
+					foundConceptExtra.setBH_Value(extra.getValue());
+					foundConceptExtra.saveEx();
+				});
 
 				String mappingUrl = mapping.getToConceptUrl();
 

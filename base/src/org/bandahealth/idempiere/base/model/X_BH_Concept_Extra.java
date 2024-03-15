@@ -30,7 +30,7 @@ public class X_BH_Concept_Extra extends PO implements I_BH_Concept_Extra, I_Pers
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240227L;
+	private static final long serialVersionUID = 20240315L;
 
     /** Standard Constructor */
     public X_BH_Concept_Extra (Properties ctx, int BH_Concept_Extra_ID, String trxName)
@@ -123,6 +123,31 @@ public class X_BH_Concept_Extra extends PO implements I_BH_Concept_Extra, I_Pers
 	public int getBH_Concept_ID () 
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	public I_BH_Concept_Mapping getBH_Concept_Mapping() throws RuntimeException
+    {
+		return (I_BH_Concept_Mapping)MTable.get(getCtx(), I_BH_Concept_Mapping.Table_Name)
+			.getPO(getBH_Concept_Mapping_ID(), get_TrxName());	}
+
+	/** Set Concept Mapping.
+		@param BH_Concept_Mapping_ID Concept Mapping	  */
+	public void setBH_Concept_Mapping_ID (int BH_Concept_Mapping_ID)
+	{
+		if (BH_Concept_Mapping_ID < 1) 
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_Mapping_ID, null);
+		else 
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_Mapping_ID, Integer.valueOf(BH_Concept_Mapping_ID));
+	}
+
+	/** Get Concept Mapping.
+		@return Concept Mapping	  */
+	public int getBH_Concept_Mapping_ID () 
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_Mapping_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
