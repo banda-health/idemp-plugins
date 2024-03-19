@@ -558,6 +558,16 @@ INSERT INTO ad_process_para (ad_process_para_id, ad_client_id, ad_org_id, isacti
 -- Add menu
 INSERT INTO ad_menu (ad_menu_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, name, updatedby, description, issummary, issotrx, isreadonly, action, ad_window_id, ad_workflow_id, ad_task_id, ad_process_id, ad_form_id, ad_workbench_id, entitytype, iscentrallymaintained, ad_menu_uu, ad_infowindow_id, iconclassname) VALUES ((SELECT MAX(AD_Menu_ID)+1 FROM AD_Menu), 0, 0, 'Y', '2024-03-08 12:13:25.134000', 100, '2024-03-08 12:13:25.134000', 'BH Ocl Concept Sync', 100, null, 'N', 'Y', 'N', 'P', null, null, null, (SELECT AD_Process_ID FROM AD_Process WHERE AD_Process_UU='97542544-da63-4e5f-85e0-ad35da81318c'), null, null, 'U', 'Y', '432a977a-d0d2-487c-9105-32baa9ac152e', null, null) ON CONFLICT DO NOTHING;
 
+-- Add tree node
+INSERT INTO
+	ad_treenodemm (ad_tree_id, node_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby,
+	               parent_id, seqno, ad_treenodemm_uu)
+VALUES
+	(10, (
+		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '432a977a-d0d2-487c-9105-32baa9ac152e'
+	), 0, 0, 'Y', '2024-03-08 12:13:25.134000', 100, '2024-03-08 12:13:25.134000', 100, 0, 999, 'cae6aef9-ecdb-4249-87ec-e738e4037ff5')
+ON CONFLICT DO NOTHING;
+
 -- Update BH_Coded_Diagnosis_Mapping column
 ALTER TABLE BH_Coded_Diagnosis_Mapping RENAME COLUMN BH_External_ID To BH_ExternalID;
 
