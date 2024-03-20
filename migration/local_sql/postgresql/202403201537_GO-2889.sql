@@ -56,6 +56,8 @@ DROP TABLE IF EXISTS bh_stock_mvt_v;
 
 DROP TABLE IF EXISTS bh_stockrevenue_view;
 
+DROP VIEW IF EXISTS bh_stocktake_v;
+
 DROP TABLE IF EXISTS bh_stocktake;
 
 -- Delete the bh_navbuttons column from the DB records
@@ -1337,6 +1339,225 @@ FROM
 	ad_table
 WHERE
 	tablename ILIKE 'bh_stocktake';
+
+-- Delete the bh_stocktake_v table from the DB records
+DELETE
+FROM
+	ad_field
+WHERE
+	ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+			ad_table_id = (
+				SELECT
+					ad_table_id
+				FROM
+					ad_table
+				WHERE
+					tablename ILIKE 'bh_stocktake_v'
+			)
+	);
+DELETE
+FROM
+	ad_tab
+WHERE
+	ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+			ad_table_id = (
+				SELECT
+					ad_table_id
+				FROM
+					ad_table
+				WHERE
+					tablename ILIKE 'bh_stocktake_v'
+			)
+	);
+DELETE
+FROM
+	ad_column
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_stocktake_v'
+	);
+DELETE
+FROM
+	ad_tab
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_stocktake_v'
+	);
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_stocktake_v'
+	);
+DELETE
+FROM
+	ad_package_imp_detail
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_stocktake_v'
+	);
+DELETE
+FROM
+	ad_printformat_trl
+WHERE
+	ad_printformat_id IN (
+		SELECT
+			ad_printformat_id
+		FROM
+			ad_printformat
+		WHERE
+			ad_table_id = (
+				SELECT
+					ad_table_id
+				FROM
+					ad_table
+				WHERE
+					tablename ILIKE 'bh_stocktake_v'
+			)
+	);
+DELETE
+FROM
+	ad_printformat
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_stocktake_v'
+	);
+DELETE
+FROM
+	ad_printformat
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_stocktake_v'
+	);
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+	ad_process_id IN (
+		SELECT
+			ad_process_id
+		FROM
+			ad_process
+		WHERE
+			ad_reportview_id IN (
+				SELECT
+					ad_reportview_id
+				FROM
+					ad_reportview
+				WHERE
+					ad_table_id = (
+						SELECT
+							ad_table_id
+						FROM
+							ad_table
+						WHERE
+							tablename ILIKE 'bh_stocktake_v'
+					)
+			)
+	);
+DELETE
+FROM
+	ad_pinstance
+WHERE
+	ad_process_id IN (
+		SELECT
+			ad_process_id
+		FROM
+			ad_process
+		WHERE
+			ad_reportview_id IN (
+				SELECT
+					ad_reportview_id
+				FROM
+					ad_reportview
+				WHERE
+					ad_table_id = (
+						SELECT
+							ad_table_id
+						FROM
+							ad_table
+						WHERE
+							tablename ILIKE 'bh_stocktake_v'
+					)
+			)
+	);
+DELETE
+FROM
+	ad_process
+WHERE
+	ad_reportview_id IN (
+		SELECT
+			ad_reportview_id
+		FROM
+			ad_reportview
+		WHERE
+			ad_table_id = (
+				SELECT
+					ad_table_id
+				FROM
+					ad_table
+				WHERE
+					tablename ILIKE 'bh_stocktake_v'
+			)
+	);
+DELETE
+FROM
+	ad_reportview
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_stocktake_v'
+	);
+DELETE
+FROM
+	ad_table
+WHERE
+	tablename ILIKE 'bh_stocktake_v';
 
 SELECT
 	register_migration_script('202403201537_GO-2889.sql')
