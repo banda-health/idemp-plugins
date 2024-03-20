@@ -1559,7 +1559,7 @@ FROM
 WHERE
 	tablename ILIKE 'bh_stocktake_v';
 
--- Remove some virtual columns from m_inventoryline
+-- Remove some virtual columns from m_inventoryline and c_orderline
 DELETE
 FROM
 	ad_field
@@ -1571,14 +1571,14 @@ WHERE
 			ad_column
 		WHERE
 			ad_column_uu IN ('f32628ac-95a6-44f5-83cc-0da8eb59d1bb', '72531553-7bb5-40f8-8242-fb680b54d56b',
-			                 'd7f7b0c6-9e5b-420a-87bc-dc42f84c4fff')
+			                 'd7f7b0c6-9e5b-420a-87bc-dc42f84c4fff', '971c7bbf-83dc-488b-8390-f081c49676a3')
 	);
 DELETE
 FROM
 	ad_column
 WHERE
 	ad_column_uu IN ('f32628ac-95a6-44f5-83cc-0da8eb59d1bb', '72531553-7bb5-40f8-8242-fb680b54d56b',
-	                 'd7f7b0c6-9e5b-420a-87bc-dc42f84c4fff');
+	                 'd7f7b0c6-9e5b-420a-87bc-dc42f84c4fff', '971c7bbf-83dc-488b-8390-f081c49676a3');
 
 SELECT
 	register_migration_script('202403201537_GO-2889.sql')
