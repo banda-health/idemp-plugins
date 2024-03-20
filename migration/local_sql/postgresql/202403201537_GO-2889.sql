@@ -1,3 +1,10 @@
+-- Since we're removing the physical inventory window below, update the menu item that was pointing to it
+UPDATE ad_menu
+SET
+	ad_window_id = 168
+WHERE
+	ad_menu_uu = 'ff40264f-58f9-4cc3-b9b5-49b6975898a4';
+
 ALTER TABLE c_invoice
 	DROP COLUMN IF EXISTS bh_navbuttons;
 
