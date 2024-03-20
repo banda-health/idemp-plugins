@@ -14,10 +14,6 @@ import org.compiere.model.X_I_Product;
 public class MProduct_BH extends MProduct {
 
 	/**
-	 * Column name BH_HasExpiration
-	 */
-	public static final String COLUMNNAME_BH_HasExpiration = "BH_HasExpiration";
-	/**
 	 * Column name bh_reorder_level
 	 */
 	public static final String COLUMNNAME_bh_reorder_level = "bh_reorder_level";
@@ -92,31 +88,6 @@ public class MProduct_BH extends MProduct {
 			}
 		}
 	}  //	set
-
-	/**
-	 * Get Has Expiration.
-	 *
-	 * @return Has Expiration
-	 */
-	public boolean isBH_HasExpiration() {
-		Object oo = get_Value(COLUMNNAME_BH_HasExpiration);
-		if (oo != null) {
-			if (oo instanceof Boolean) {
-				return ((Boolean) oo).booleanValue();
-			}
-			return "Y".equals(oo);
-		}
-		return false;
-	}
-
-	/**
-	 * Set Has Expiration.
-	 *
-	 * @param BH_HasExpiration Has Expiration
-	 */
-	public void setBH_HasExpiration(boolean BH_HasExpiration) {
-		set_Value(COLUMNNAME_BH_HasExpiration, Boolean.valueOf(BH_HasExpiration));
-	}
 
 	public BigDecimal getBH_BuyPrice() {
 		BigDecimal value = (BigDecimal) get_Value(COLUMNNAME_BH_BuyPrice);
