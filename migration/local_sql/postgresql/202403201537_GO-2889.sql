@@ -1562,6 +1562,19 @@ WHERE
 -- Remove some virtual columns from m_inventoryline
 DELETE
 FROM
+	ad_field
+WHERE
+	ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+			ad_column_uu IN ('f32628ac-95a6-44f5-83cc-0da8eb59d1bb', '72531553-7bb5-40f8-8242-fb680b54d56b',
+			                 'd7f7b0c6-9e5b-420a-87bc-dc42f84c4fff')
+	);
+DELETE
+FROM
 	ad_column
 WHERE
 	ad_column_uu IN ('f32628ac-95a6-44f5-83cc-0da8eb59d1bb', '72531553-7bb5-40f8-8242-fb680b54d56b',
