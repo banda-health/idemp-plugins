@@ -101,7 +101,7 @@ public class InitializeStock {
 				// If we should merge, we have to subtract out what's existing
 				if (shouldMergeInventory && existingInventoryList != null && !existingInventoryList.isEmpty()) {
 					MStorageOnHand existingInventory = existingInventoryList.get(0);
-					if (product.isBH_HasExpiration()) {
+					if (product.getAttributeSet().isGuaranteeDate()) {
 						existingInventory = existingInventoryList.stream().filter(
 										existingStorageOnHand -> existingStorageOnHand.getM_AttributeSetInstance_ID() ==
 												existingStorageOnHand.getM_AttributeSetInstance_ID()).findFirst()
