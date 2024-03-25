@@ -28,7 +28,6 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.eevolution.model.I_DD_Order;
 import org.eevolution.model.I_HR_Payroll;
-import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-@Component
 public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefList> {
 	private final CLogger log = CLogger.getCLogger(BaseDBService.class);
 	private final Map<String, Integer> documentBaseTypeToTableId =

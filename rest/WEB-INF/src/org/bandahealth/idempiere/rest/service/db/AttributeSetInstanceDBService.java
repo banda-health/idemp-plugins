@@ -8,15 +8,10 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class AttributeSetInstanceDBService extends BaseDBService<AttributeSetInstance, MAttributeSetInstance_BH> {
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
-	@Autowired
-	private AttributeSetDBService attributeSetDBService;
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
+	private final AttributeSetDBService attributeSetDBService = new AttributeSetDBService();
 
 	@Override
 	public AttributeSetInstance saveEntity(AttributeSetInstance entity) {

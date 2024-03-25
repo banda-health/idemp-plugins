@@ -1,13 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMenu_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
@@ -23,18 +15,25 @@ import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_TreeNodeMM;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 	private final String ERROR_NO_MENU = "Greenlight Menu Tree not found.";
 	private final String ERROR_NO_REPORTS = "No reports found..";
-	@Autowired
-	private WindowDBService windowDBService;
-	@Autowired
+	private final WindowDBService windowDBService = new WindowDBService();
 	private ProcessDBService processDBService;
+
+	public void setProcessDBService(ProcessDBService processDBService) {
+		this.processDBService = processDBService;
+	}
 
 	public BaseListResponse<Menu> getAll(String rootUuid, Paging pagingInfo, String sortJson, String filterJson) {
 		MMenu_BH rootMenu = getEntityByUuidFromDB(rootUuid);
@@ -190,11 +189,11 @@ public class MenuDBService extends BaseDBService<Menu, MMenu_BH> {
 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
-        return new EntityConfiguration() {{
-            setShouldUseContextClientId(true);
-            setShouldFetchFromSystemClient(true);
-        }};
-    }
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(true);
+			setShouldFetchFromSystemClient(true);
+		}};
+	}
 
 	@Override
 	protected Map<String, Function<MMenu_BH, VoidFunction<String>>> getColumnsToTranslate() {

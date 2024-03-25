@@ -21,8 +21,6 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -36,19 +34,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class MovementDBService extends DocumentDBService<Movement, MMovement_BH> {
 
 	private static final String MISSING_FROM_WAREHOUSE = "Missing From warehouse";
 	private static final String MISSING_TO_WAREHOUSE = "Missing To warehouse";
-	@Autowired
-	private MovementLineDBService movementLineDBService;
-	@Autowired
-	private ProductDBService productDBService;
-	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService;
-	@Autowired
-	private LocatorDBService locatorDBService;
+	private final MovementLineDBService movementLineDBService = new MovementLineDBService();
+	private final ProductDBService productDBService = new ProductDBService();
+	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
 
 	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{

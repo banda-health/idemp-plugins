@@ -4,9 +4,7 @@ import org.bandahealth.idempiere.base.model.MSerNoCtl_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.SerialNumberControl;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class SerialNumberControlDBService extends BaseDBService<SerialNumberControl, MSerNoCtl_BH> {
 	@Override
 	public SerialNumberControl saveEntity(SerialNumberControl entity) {

@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.rest.model.Organization;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.db.ClientDBService;
+import org.bandahealth.idempiere.rest.service.db.LocatorDBService;
 import org.bandahealth.idempiere.rest.service.db.OrganizationDBService;
 import org.bandahealth.idempiere.rest.service.db.RoleDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
@@ -40,7 +41,6 @@ import org.compiere.util.Login;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -73,14 +73,10 @@ public class AuthenticationRestService {
 
 	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
-	@Autowired
-	private WarehouseDBService warehouseDBService;
-	@Autowired
-	private RoleDBService roleDBService;
-	@Autowired
-	private ClientDBService clientDBService;
-	@Autowired
-	private OrganizationDBService organizationDBService;
+	private final LocatorDBService locatorDBService = new LocatorDBService();
+	private final RoleDBService roleDBService = new RoleDBService();
+	private final ClientDBService clientDBService = new ClientDBService();
+	private final OrganizationDBService organizationDBService = new OrganizationDBService();
 
 	@POST
 	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
@@ -354,11 +350,11 @@ public class AuthenticationRestService {
 	}
 
 	/**
-	 * Check if a particular username and password have access to any clients other than this one. 
-	 * This is used when creating or updating a username and/or password, to try to ensure someone 
-	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client, 
+	 * Check if a particular username and password have access to any clients other than this one.
+	 * This is used when creating or updating a username and/or password, to try to ensure someone
+	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client,
 	 * inadvertantly giving them access to both.
-	 *  
+	 *
 	 * @param credentials
 	 * @return true if the username/password has access to other clients, false if they don't
 	 */
@@ -375,7 +371,7 @@ public class AuthenticationRestService {
 			return false;
 		}
 
-		for(KeyNamePair client : clients) {
+		for (KeyNamePair client : clients) {
 			if (client.getKey() != currentClient) {
 				// We found a client that the given username and password has access to, that is NOT the same is THIS client.
 				return true;
@@ -383,7 +379,7 @@ public class AuthenticationRestService {
 		}
 
 		return false;
-	}		
+	}
 
 	/**
 	 * The user needs to change their credentials, so set the appropriate data
@@ -446,7 +442,7 @@ public class AuthenticationRestService {
 
 		// check warehouse
 		if (credentials.getWarehouseUuid() != null) {
-			MWarehouse_BH warehouse = warehouseDBService
+			MWarehouse_BH warehouse = locatorDBService.getWarehouseDBService()
 					.getByUuids(Collections.singleton(credentials.getWarehouseUuid()))
 					.get(credentials.getWarehouseUuid());
 			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouse.get_ID());
@@ -517,7 +513,7 @@ public class AuthenticationRestService {
 					List<MWarehouse_BH> dbWarehouses = new Query(Env.getCtx(), MWarehouse_BH.Table_Name, "AD_Org_ID=?",
 							null).setParameters(Env.getAD_Org_ID(Env.getCtx())).setOnlyActiveRecords(true)
 							.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
-					List<Warehouse> warehouses = warehouseDBService.transformData(dbWarehouses);
+					List<Warehouse> warehouses = locatorDBService.getWarehouseDBService().transformData(dbWarehouses);
 					for (Warehouse warehouse : warehouses) {
 						orgResponse.getWarehouses().add(warehouse);
 

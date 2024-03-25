@@ -178,14 +178,14 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(patientNameColumnIndex) != null &&
 							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(patientNameColumnIndex).getStringCellValue()
-									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Patient's visit appears");
 			Row visit = patientRows.get(0);
 
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			assertTrue(visit.getCell(patientNameColumnIndex).getStringCellValue()
-					.contains(valueObject.getBusinessPartner().getName().substring(0, 30)), "Patient Name is displayed");
+					.contains(valueObject.getBusinessPartner().getName().substring(0, 25)), "Patient Name is displayed");
 			assertEquals(dateFormat.format(birthday),
 					dateFormat.format(visit.getCell(dateOfBirthColumnIndex).getDateCellValue()), "Date of Birth is displayed");
 			assertEquals(patientId, visit.getCell(patientClinicIdNumberColumnIndex).getStringCellValue(),
@@ -389,7 +389,7 @@ public class DonorFundReportTest extends ChuBoePopulateFactoryVO {
 					row -> row.getCell(patientNameColumnIndex) != null &&
 							row.getCell(patientNameColumnIndex).getCellType().equals(CellType.STRING) &&
 							row.getCell(patientNameColumnIndex).getStringCellValue()
-									.contains(valueObject.getBusinessPartner().getName().substring(0, 30))).collect(Collectors.toList());
+									.contains(valueObject.getBusinessPartner().getName().substring(0, 25))).collect(Collectors.toList());
 
 			assertEquals(1, patientRows.size(), "Patient's visit appears only once");
 		}

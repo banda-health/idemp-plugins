@@ -53,7 +53,7 @@
 	</background>
 	<detail>
 		<band height="16" splitType="Stretch">
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="0" width="265" height="16" uuid="10786d67-c525-4fab-9b8c-b3b47ae5f901"/>
 				<textFieldExpression><![CDATA[$F{Item}]]></textFieldExpression>
 			</textField>

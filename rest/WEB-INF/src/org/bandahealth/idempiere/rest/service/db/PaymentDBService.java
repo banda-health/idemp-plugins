@@ -20,8 +20,6 @@ import org.compiere.model.MCurrency;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,16 +36,12 @@ import java.util.stream.Collectors;
  *
  * @author andrew
  */
-@Component
 public class PaymentDBService extends DocumentDBService<Payment, MPayment_BH> {
 
 	private final String CURRENCY = "KES";
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
-	@Autowired
-	private BusinessPartnerDBService businessPartnerDBService;
-	@Autowired
-	protected DocumentTypeDBService documentTypeDBService;
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
+	private final BusinessPartnerDBService businessPartnerDBService = new BusinessPartnerDBService();
+	protected final DocumentTypeDBService documentTypeDBService = new DocumentTypeDBService();
 
 	private final Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(MBPartner_BH.Table_Name, "LEFT JOIN  " + MBPartner_BH.Table_Name + " ON " + MPayment_BH.Table_Name + "." +

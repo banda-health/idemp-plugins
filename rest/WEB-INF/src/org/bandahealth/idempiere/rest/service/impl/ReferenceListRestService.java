@@ -6,7 +6,6 @@ import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.ReferenceListDBService;
 import org.compiere.model.MRefList;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -22,8 +21,7 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class ReferenceListRestService extends BaseRestService<ReferenceList, MRefList, ReferenceListDBService> {
 
-	@Autowired
-	private ReferenceListDBService dbService;
+	private final ReferenceListDBService dbService = new ReferenceListDBService();
 
 	@Override
 	protected ReferenceListDBService getDBService() {
@@ -80,7 +78,7 @@ public class ReferenceListRestService extends BaseRestService<ReferenceList, MRe
 		return dbService.getTypes(MReference_BH.PAYER_INFORMATION_FIELD_DATA_TYPE_AD_REFERENCE_UU, null).stream()
 				.map(ReferenceList::new).collect(Collectors.toList());
 	}
-	
+
 	@GET
 	@Path("/stock-update-reasons")
 	public List<ReferenceList> getStockUpdateReasons() {

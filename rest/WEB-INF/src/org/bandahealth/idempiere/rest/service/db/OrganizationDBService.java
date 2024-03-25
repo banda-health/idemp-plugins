@@ -1,38 +1,27 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
+import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
+import org.bandahealth.idempiere.rest.model.Organization;
+import org.compiere.model.MOrg;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
-import org.bandahealth.idempiere.base.model.MInventory_BH;
-import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
-import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
-import org.bandahealth.idempiere.rest.model.Image;
-import org.bandahealth.idempiere.rest.model.Location;
-import org.bandahealth.idempiere.rest.model.Organization;
-import org.bandahealth.idempiere.rest.model.OrganizationInformation;
-import org.compiere.model.MImage;
-import org.compiere.model.MLocation;
-import org.compiere.model.MOrg;
-import org.compiere.model.Query;
-import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-@Component
 public class OrganizationDBService extends BaseDBService<Organization, MOrg> {
 
-	@Autowired
-	private OrganizationInformationDBService organizationInformationDBService;
+	private final OrganizationInformationDBService organizationInformationDBService =
+			new OrganizationInformationDBService();
 
 	/**
 	 * Updates the OrganizationInfo object that's nested in Organization. Updating
 	 * the Organization object is not yet supported.
-	 * 
 	 */
 	@Override
 	public Organization saveEntity(Organization entity) {

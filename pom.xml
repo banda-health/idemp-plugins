@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.bandahealth.idempiere</groupId>
-	<version>7.1.0-SNAPSHOT</version>
+	<version>11.0.0-SNAPSHOT</version>
 	<artifactId>org.bandahealth.idempiere</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>1.5.0</tycho.version>
+		<tycho.version>3.0.5</tycho.version>
 		<tycho.extras.version>${tycho.version}</tycho.extras.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.dependency.version>3.1.1</maven.dependency.version>
@@ -16,7 +16,7 @@
 		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
 		<url.file.srv>https://raw.githubusercontent.com/idempiere/binary.file/master</url.file.srv>
 		<idempiere.core.repository.url>file://${idempiere.home.dir}/org.idempiere.p2/target/repository</idempiere.core.repository.url>
-		<maven.compiler.release>11</maven.compiler.release>
+		<maven.compiler.release>17</maven.compiler.release>
 	</properties>
 
 	<build>
@@ -174,6 +174,9 @@
 				<configuration>
 					<filesets>
 						<fileset>
+							<directory>${idempiere.home.dir}/migration/i7.0-bh</directory>
+						</fileset>
+						<fileset>
 							<directory>${idempiere.home.dir}/migration/local_sql</directory>
 						</fileset>
 						<fileset>
@@ -288,13 +291,51 @@
 		            <url>http://repo.jenkins-ci.org/releases</url>
 	            </repository>
 			</repositories>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho.version}</version>
+						<configuration>
+							<environments>
+								<environment>
+									<os>linux</os>
+									<ws>gtk</ws>
+									<arch>x86_64</arch>
+								</environment>
+								<environment>
+									<os>win32</os>
+									<ws>win32</ws>
+									<arch>x86_64</arch>
+								</environment>
+							</environments>
+							<dependency-resolution>
+								<extraRequirements>
+									<requirement>
+										<type>eclipse-plugin</type>
+										<id>org.eclipse.core.runtime</id>
+										<versionRange>0.0.0</versionRange>
+									</requirement>
+									<requirement>
+										<type>eclipse-plugin</type>
+										<id>org.eclipse.equinox.common</id>
+										<versionRange>0.0.0</versionRange>
+									</requirement>
+								</extraRequirements>
+							</dependency-resolution>
+							<executionEnvironmentDefault>JavaSE-17</executionEnvironmentDefault>
+							<executionEnvironment>JavaSE-17</executionEnvironment>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 	    </profile>
 	</profiles>
 
 	<modules>
 		<module>chuck-test-framework</module>
 		<module>base</module>
-		<module>base-editor</module>
 		<module>base-test</module>
 		<module>graphql</module>
 		<module>graphql-feature</module>
@@ -302,7 +343,6 @@
 		<module>graphql-test</module>
 		<module>reports</module>
 		<module>reports-test</module>
-		<module>webui</module>
 		<module>rest</module>
 		<module>rest-test</module>
 	</modules>

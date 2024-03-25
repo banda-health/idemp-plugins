@@ -6,7 +6,6 @@ import org.bandahealth.idempiere.rest.model.Organization;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.OrganizationDBService;
 import org.compiere.model.MOrg;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,14 +18,13 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class OrganizationRestService extends BaseRestService<Organization, MOrg, OrganizationDBService> {
-	@Autowired
-	private OrganizationDBService dbService;
+	private final OrganizationDBService dbService = new OrganizationDBService();
 
 	@Override
 	protected OrganizationDBService getDBService() {
 		return dbService;
 	}
-	
+
 	@DELETE
 	@Path("/{uuid}")
 	@Override

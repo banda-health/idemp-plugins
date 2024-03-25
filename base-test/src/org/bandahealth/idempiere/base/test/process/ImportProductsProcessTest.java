@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.base.process.ImportProductsProcess;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 import org.hamcrest.Matchers;
 
@@ -96,6 +97,20 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 			nonExpiringAttributeSet.setM_SerNoCtl_ID(serialNumberControls.get(0).getM_SerNoCtl_ID());
 			nonExpiringAttributeSet.saveEx();
 		}
+
+		commitEx();
+	}
+
+	@IPopulateAnnotation.CanRunBefore
+	public void prepareItAgain() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), Matchers.is(Matchers.nullValue()));
+
+		// Remove anything in the import table
+		DB.executeUpdate(
+				"DELETE FROM bh_i_product_quantity	WHERE ad_client_id = " + valueObject.getClient().getAD_Client_ID(),
+				valueObject.getTransactionName());
 
 		commitEx();
 	}
@@ -193,7 +208,7 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 		valueObject.setRandom();
 		X_BH_I_Product_Quantity tooFarExpirationProduct =
 				new X_BH_I_Product_Quantity(valueObject.getContext(), 0, valueObject.getTransactionName());
-		tooFarExpirationProduct.setName(valueObject.getScenarioName());
+		tooFarExpirationProduct.setName(valueObject.getRandomNumber() + valueObject.getScenarioName());
 		tooFarExpirationProduct.setCategoryName("Standard");
 		tooFarExpirationProduct.setBH_HasExpiration(true);
 		tooFarExpirationProduct.setGuaranteeDate(ChuBoeCreateEntity.getDateOffset(valueObject.getDate(), 476 * 365));
@@ -224,7 +239,7 @@ public class ImportProductsProcessTest extends ChuBoePopulateFactoryVO {
 
 		int numberOfProductsAfterImport =
 				new Query(valueObject.getContext(), MProduct_BH.Table_Name, null, valueObject.getTransactionName()).count();
-		assertEquals(numberOfProducts + 1, numberOfProductsAfterImport, "No new products were imported");
+		assertEquals(numberOfProducts + 1, numberOfProductsAfterImport, "Product was imported");
 	}
 
 	@IPopulateAnnotation.CanRunAfter

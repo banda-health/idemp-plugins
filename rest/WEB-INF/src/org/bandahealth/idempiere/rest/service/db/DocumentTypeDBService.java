@@ -4,9 +4,7 @@ import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.DocumentType;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class DocumentTypeDBService extends BaseDBService<DocumentType, MDocType_BH> {
 	@Override
 	public DocumentType saveEntity(DocumentType entity) {

@@ -172,7 +172,7 @@ public class ChuBoeCreateEntity {
 			businessPartnerLocation.setC_BPartner_ID(businessPartner.get_ID());
 			MLocation loc =
 					new MLocation(valueObject.getContext(), valueObject.getCountry().get_ID(), valueObject.getRegion()
-					.get_ID(),
+							.get_ID(),
 							valueObject.getCity(), valueObject.getTransactionName());
 			loc.saveEx();
 			businessPartnerLocation.setC_Location_ID(loc.get_ID());
@@ -987,13 +987,14 @@ public class ChuBoeCreateEntity {
 		}
 
 		// Create process instance (mainly for logging/sync purpose)
-		MPInstance processInstance = new MPInstance(valueObject.getContext(), process.get_ID(), valueObject.getProcessRecordId());
+		MPInstance processInstance =
+				new MPInstance(valueObject.getContext(), process.get_ID(), -1, valueObject.getProcessRecordId(), null);
 		processInstance.saveEx();
 
 		// Connect the process to the process instance.
 		processInformation.setAD_PInstance_ID(processInstance.get_ID());
 
-		procSuccess = processCall.startProcess(Env.getCtx(), processInformation, null);
+		procSuccess = processCall.startProcess(valueObject.getContext(), processInformation, null);
 
 		if (!procSuccess) {
 			valueObject.appendErrorMessage("Process Failed: " + process.getClassname());
