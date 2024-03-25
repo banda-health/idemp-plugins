@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserBPAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBPAccessInput {
 
@@ -43,7 +43,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -70,7 +70,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -175,7 +175,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	}
 
 	/**
-	 * Set Document BaseType.
+	 * Set Document Base Type.
 	 *
 	 * @param DocBaseType Logical type of document
 	 */
@@ -199,7 +199,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	}
 
 	/**
-	 * Get Document BaseType.
+	 * Get Document Base Type.
 	 *
 	 * @return Logical type of document
 	 */

@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_WorkflowProcessorLog;
  * Data Loader for AD_WorkflowProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_WorkflowProcessorLogDataLoader extends PODataLoader<X_AD_WorkflowProcessorLog> {
 	public static String DATALOADER_AD_WorkflowProcessorLog_BY_ID = "AD_WorkflowProcessorLogByIdDataLoader";

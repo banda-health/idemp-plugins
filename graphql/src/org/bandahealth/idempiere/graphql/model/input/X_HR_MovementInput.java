@@ -32,7 +32,7 @@ import java.sql.ResultSet;
  * Generated Model for HR_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementInput {
 
@@ -109,7 +109,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -136,7 +136,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -286,7 +286,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -310,7 +310,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

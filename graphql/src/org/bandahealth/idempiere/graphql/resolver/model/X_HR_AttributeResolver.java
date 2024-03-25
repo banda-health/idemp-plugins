@@ -32,7 +32,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for HR_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implements GraphQLResolver<X_HR_Attribute> {
 
@@ -54,7 +54,7 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

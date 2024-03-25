@@ -9,7 +9,7 @@ import org.compiere.model.MStyleLine;
  * Generated Query Resolver for AD_StyleLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_StyleLineQuery extends POQuery<MStyleLine> implements GraphQLQueryResolver {
 	@Override

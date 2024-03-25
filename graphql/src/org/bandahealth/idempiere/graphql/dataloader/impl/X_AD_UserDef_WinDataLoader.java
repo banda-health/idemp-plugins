@@ -6,7 +6,7 @@ import org.compiere.model.MUserDefWin;
  * Data Loader for AD_UserDef_Win - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_WinDataLoader extends PODataLoader<MUserDefWin> {
 	public static String DATALOADER_AD_UserDef_Win_BY_ID = "AD_UserDef_WinByIdDataLoader";

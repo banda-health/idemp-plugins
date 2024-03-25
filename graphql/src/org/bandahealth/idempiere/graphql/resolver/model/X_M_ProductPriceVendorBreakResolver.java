@@ -17,14 +17,14 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_ProductPriceVendorBreak - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ProductPriceVendorBreakResolver extends POResolver<X_M_ProductPriceVendorBreak> implements GraphQLResolver<X_M_ProductPriceVendorBreak> {
 
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

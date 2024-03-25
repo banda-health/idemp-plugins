@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_User - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLResolver<MUser_BH> {
 
@@ -51,6 +51,22 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 		DataLoader<Integer, MImage> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ImageDataLoader.DATALOADER_AD_Image_BY_ID);
 		return dataLoader.load(entity.getAD_Image_ID());
+	}
+
+	static Map<String, String> AUTHENTICATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("SSO", "d726bc83-5d69-4082-b224-e0803b5c234d");
+			put("APO", "32f2269c-8c71-40f1-a128-d6f805030a69");
+			put("AAS", "7cd3af94-1e49-4d9f-9e33-dbdc0dfce7bb");
+		}
+	};
+	public CompletableFuture<MRefList_BH> AuthenticationType(MUser_BH entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getAuthenticationType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(AUTHENTICATIONTYPE_UUIDS_BY_VALUE.get(entity.getAuthenticationType()));
 	}
 
 	public Boolean BH_HasAcceptedTermsOfUse(MUser_BH entity, DataFetchingEnvironment environment) {
@@ -74,7 +90,7 @@ public class X_AD_UserResolver extends POResolver<MUser_BH> implements GraphQLRe
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

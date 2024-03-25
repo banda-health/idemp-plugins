@@ -1,6 +1,6 @@
 # Generated Schema for C_ElementValue - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ElementValueGet(page: Int, size: Int, sort: String, filter: String): C_ElementValueConnection!
 }
@@ -21,9 +21,9 @@ type C_ElementValue {
 	AccountSign: AD_Ref_List!
 	# Indicates the type of account
 	AccountType: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BPartnerType: AD_Ref_List
 	# Account at the Bank
@@ -78,7 +78,7 @@ input C_ElementValueInput {
 	AccountSign: AD_Ref_ListInput
 	# Indicates the type of account
 	AccountType: AD_Ref_ListInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BPartnerType: AD_Ref_ListInput
 	# Account at the Bank

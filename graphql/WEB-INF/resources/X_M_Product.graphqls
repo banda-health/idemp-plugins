@@ -1,6 +1,6 @@
 # Generated Schema for M_Product - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_ProductGet(page: Int, size: Int, sort: String, filter: String): M_ProductConnection!
 }
@@ -17,15 +17,12 @@ type M_ProductConnection {
 }
 
 type M_Product {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Purchase price of product
 	BH_BuyPrice: BigDecimal
-	BH_HasExpiration: Boolean!
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	BH_PriceMargin: BigDecimal
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
@@ -76,9 +73,11 @@ type M_Product {
 	ImageURL: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# Auto create production to fulfill shipment
+	IsAutoProduce: Boolean!
 	# Bill of Materials
 	IsBOM: Boolean!
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean!
 	# Exclude from automatic Delivery
 	IsExcludeAutoDelivery: Boolean!
@@ -166,13 +165,10 @@ type M_Product {
 }
 
 input M_ProductInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Purchase price of product
 	BH_BuyPrice: BigDecimal
-	BH_HasExpiration: Boolean
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	BH_PriceMargin: BigDecimal
 	bh_reorder_level: Int
 	# How much quantity you want to re-order
@@ -219,9 +215,11 @@ input M_ProductInput {
 	ImageURL: String
 	# The record is active in the system
 	IsActive: Boolean
+	# Auto create production to fulfill shipment
+	IsAutoProduce: Boolean
 	# Bill of Materials
 	IsBOM: Boolean
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean
 	# Exclude from automatic Delivery
 	IsExcludeAutoDelivery: Boolean

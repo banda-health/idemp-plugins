@@ -27,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Charge - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQLResolver<MCharge_BH> {
 
@@ -54,7 +54,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_Imp_Inst - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements I_AD_Package_Imp_InstInput {
 
@@ -36,7 +36,7 @@ public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -63,7 +63,7 @@ public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -99,9 +99,9 @@ public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements
 		return getAD_Package_Imp_Inst_UU();
 	}
 	/**
-	 * Set CreatedDate.
+	 * Set Created Date.
 	 *
-	 * @param CreatedDate CreatedDate
+	 * @param CreatedDate Created Date
 	 */
 
 	public void setCreatedDate(String CreatedDate) {

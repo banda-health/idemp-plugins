@@ -6,7 +6,7 @@ import org.compiere.model.MAttachmentNote;
  * Data Loader for AD_AttachmentNote - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_AttachmentNoteDataLoader extends PODataLoader<MAttachmentNote> {
 	public static String DATALOADER_AD_AttachmentNote_BY_ID = "AD_AttachmentNoteByIdDataLoader";

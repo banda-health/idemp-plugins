@@ -1,6 +1,6 @@
 # Generated Schema for PA_DashboardContent - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_DashboardContentGet(page: Int, size: Int, sort: String, filter: String): PA_DashboardContentConnection!
 }
@@ -18,14 +18,17 @@ type PA_DashboardContentConnection {
 
 type PA_DashboardContent {
 	AD_Chart: AD_Chart
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
 	# Process or Report
 	AD_Process: AD_Process
 	# Responsibility Role
 	AD_Role: AD_Role
+	AD_StatusLine: AD_StatusLine
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Data entry or display window
@@ -49,9 +52,11 @@ type PA_DashboardContent {
 	IsCollapsible: Boolean!
 	# Embed report content into dashboard
 	IsEmbedReportContent: Boolean!
+	IsMaximizable: Boolean!
 	# Show the dashlet in the dashboard
 	IsShowInDashboard: Boolean!
 	IsShowinLogin: Boolean!
+	IsShowTitle: Boolean!
 	# Unique line for this document
 	Line: BigDecimal
 	# Alphanumeric identifier of the entity
@@ -71,12 +76,15 @@ type PA_DashboardContent {
 
 input PA_DashboardContentInput {
 	AD_Chart: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
+	AD_StatusLine: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# Data entry or display window
@@ -96,9 +104,11 @@ input PA_DashboardContentInput {
 	IsCollapsible: Boolean
 	# Embed report content into dashboard
 	IsEmbedReportContent: Boolean
+	IsMaximizable: Boolean
 	# Show the dashlet in the dashboard
 	IsShowInDashboard: Boolean
 	IsShowinLogin: Boolean
+	IsShowTitle: Boolean
 	# Unique line for this document
 	Line: BigDecimal
 	# Alphanumeric identifier of the entity

@@ -9,7 +9,7 @@ import org.compiere.model.MUserDefField;
  * Generated Query Resolver for AD_UserDef_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_FieldQuery extends POQuery<MUserDefField> implements GraphQLQueryResolver {
 	@Override

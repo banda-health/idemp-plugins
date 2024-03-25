@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAuthorizationAccount;
 import org.compiere.model.MOrg;
 import org.compiere.model.MScheduler;
 import org.compiere.model.MSchedulerRecipient;
@@ -18,10 +19,11 @@ import java.sql.ResultSet;
  * Generated Model for AD_SchedulerRecipient - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements I_AD_SchedulerRecipientInput {
 
+	private ForeignEntityInput mAD_AuthorizationAccount;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mAD_Scheduler;
@@ -40,9 +42,46 @@ public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements
 	}
 
 	/**
+	 * Set Authorization Account.
+	 *
+	 * @param AD_AuthorizationAccount Authorization Account
+	 */
+	@JsonProperty("AD_AuthorizationAccount")
+	public void setAD_AuthorizationAccountInput(ForeignEntityInput AD_AuthorizationAccount) {
+		this.mAD_AuthorizationAccount = AD_AuthorizationAccount;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_AuthorizationAccount != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAuthorizationAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_AuthorizationAccount", "AD_AuthorizationAccount_UU=?", get_TrxName())
+							.setParameters(AD_AuthorizationAccount.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_AuthorizationAccount_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_AuthorizationAccount with UUID " + AD_AuthorizationAccount.getUUID());
+			}
+		} else {
+			this.setAD_AuthorizationAccount_ID(0);
+		}
+	}
+
+	/**
+	 * Get Authorization Account.
+	 *
+	 * @return Authorization Account
+	 */
+	@JsonProperty("AD_AuthorizationAccount")
+	public ForeignEntityInput AD_AuthorizationAccount() {
+		return mAD_AuthorizationAccount;
+	}
+
+	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -69,7 +108,7 @@ public class X_AD_SchedulerRecipientInput extends MSchedulerRecipient implements
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for AD_PrintFormatItem_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PrintFormatItem_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_AD_PrintFormatItem_Trl_BY_ID = "AD_PrintFormatItem_TrlByIdDataLoader";

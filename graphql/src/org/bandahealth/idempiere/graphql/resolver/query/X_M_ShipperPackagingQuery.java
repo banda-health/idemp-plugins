@@ -9,7 +9,7 @@ import org.compiere.model.MShipperPackaging;
  * Generated Query Resolver for M_ShipperPackaging - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ShipperPackagingQuery extends POQuery<MShipperPackaging> implements GraphQLQueryResolver {
 	@Override

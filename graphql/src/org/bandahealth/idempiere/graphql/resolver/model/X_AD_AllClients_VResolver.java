@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_AllClients_V - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_AllClients_VResolver extends POResolver<X_AD_AllClients_V> implements GraphQLResolver<X_AD_AllClients_V> {
 

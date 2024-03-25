@@ -1,6 +1,6 @@
 # Generated Schema for C_Bank - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BankGet(page: Int, size: Int, sort: String, filter: String): C_BankConnection!
 }
@@ -17,9 +17,9 @@ type C_BankConnection {
 }
 
 type C_Bank {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Location or Address
@@ -47,7 +47,7 @@ type C_Bank {
 }
 
 input C_BankInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Location or Address

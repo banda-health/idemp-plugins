@@ -24,7 +24,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_DocumentStatus - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_DocumentStatusInput {
 
@@ -90,7 +90,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -117,7 +117,7 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

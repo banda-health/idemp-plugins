@@ -1,6 +1,6 @@
 # Generated Schema for C_TaxDeclarationLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_TaxDeclarationLineGet(page: Int, size: Int, sort: String, filter: String): C_TaxDeclarationLineConnection!
 }
@@ -17,9 +17,9 @@ type C_TaxDeclarationLineConnection {
 }
 
 type C_TaxDeclarationLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Allocation Line
 	C_AllocationLine: C_AllocationLine
@@ -61,7 +61,7 @@ type C_TaxDeclarationLine {
 }
 
 input C_TaxDeclarationLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Allocation Line
 	C_AllocationLine: ForeignEntityInput

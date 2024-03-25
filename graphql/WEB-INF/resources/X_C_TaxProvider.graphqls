@@ -1,6 +1,6 @@
 # Generated Schema for C_TaxProvider - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_TaxProviderGet(page: Int, size: Int, sort: String, filter: String): C_TaxProviderConnection!
 }
@@ -18,9 +18,9 @@ type C_TaxProviderConnection {
 
 type C_TaxProvider {
 	Account: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	C_TaxProviderCfg: C_TaxProviderCfg!
@@ -45,7 +45,7 @@ type C_TaxProvider {
 
 input C_TaxProviderInput {
 	Account: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	C_TaxProviderCfg: ForeignEntityInput

@@ -1,6 +1,6 @@
 # Generated Schema for AD_InfoColumn - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_InfoColumnGet(page: Int, size: Int, sort: String, filter: String): AD_InfoColumnConnection!
 }
@@ -17,7 +17,7 @@ type AD_InfoColumnConnection {
 }
 
 type AD_InfoColumn {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: AD_Element
@@ -26,7 +26,7 @@ type AD_InfoColumn {
 	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# System Reference and Validation
 	AD_Reference: AD_Reference!
@@ -42,6 +42,8 @@ type AD_InfoColumn {
 	CreatedBy: AD_User!
 	# Default value hierarchy, separated by ;
 	DefaultValue: String
+	# Default value hierarchy, separated by ;
+	DefaultValue2: String
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed
@@ -50,11 +52,11 @@ type AD_InfoColumn {
 	AD_EntityType: AD_EntityType!
 	# Comment or Hint
 	Help: String
-	# Input field validaton query
+	# Input field validation query
 	InputFieldValidation: String
 	# The record is active in the system
 	IsActive: Boolean!
-	# Automatic completion for textfields
+	# Automatic completion for text fields
 	IsAutocomplete: Boolean!
 	# Information maintained in System Element table
 	IsCentrallyMaintained: Boolean!
@@ -66,13 +68,18 @@ type AD_InfoColumn {
 	IsKey: Boolean!
 	# Data entry is required in this column
 	IsMandatory: Boolean!
+	# Issues a query request after the user has made changes to the field
+	IsQueryAfterChange: Boolean!
 	# The column is also used as a query criteria
 	IsQueryCriteria: Boolean!
+	# The parameter is a range of values
+	IsRange: Boolean!
 	# Field is read only
 	IsReadOnly: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Placeholder: String
+	Placeholder2: String
 	# Database function for query
 	QueryFunction: String
 	# Operator for database query
@@ -97,7 +104,7 @@ input AD_InfoColumnInput {
 	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
@@ -109,6 +116,8 @@ input AD_InfoColumnInput {
 	ColumnName: String
 	# Default value hierarchy, separated by ;
 	DefaultValue: String
+	# Default value hierarchy, separated by ;
+	DefaultValue2: String
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed
@@ -117,11 +126,11 @@ input AD_InfoColumnInput {
 	AD_EntityType: ForeignEntityInput
 	# Comment or Hint
 	Help: String
-	# Input field validaton query
+	# Input field validation query
 	InputFieldValidation: String
 	# The record is active in the system
 	IsActive: Boolean
-	# Automatic completion for textfields
+	# Automatic completion for text fields
 	IsAutocomplete: Boolean
 	# Information maintained in System Element table
 	IsCentrallyMaintained: Boolean
@@ -133,13 +142,18 @@ input AD_InfoColumnInput {
 	IsKey: Boolean
 	# Data entry is required in this column
 	IsMandatory: Boolean
+	# Issues a query request after the user has made changes to the field
+	IsQueryAfterChange: Boolean
 	# The column is also used as a query criteria
 	IsQueryCriteria: Boolean
+	# The parameter is a range of values
+	IsRange: Boolean
 	# Field is read only
 	IsReadOnly: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
 	Placeholder: String
+	Placeholder2: String
 	# Database function for query
 	QueryFunction: String
 	# Operator for database query

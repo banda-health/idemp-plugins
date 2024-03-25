@@ -9,7 +9,7 @@ import org.compiere.model.MTree_Node;
  * Generated Query Resolver for AD_TreeNode - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_TreeNodeQuery extends POQuery<MTree_Node> implements GraphQLQueryResolver {
 	@Override

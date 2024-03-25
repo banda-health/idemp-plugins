@@ -6,21 +6,21 @@ import org.compiere.model.I_C_Invoice;
  * Generated Interface for C_Invoice - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_C_InvoiceInput extends I_C_Invoice {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -37,25 +37,6 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	ForeignEntityInput AD_User();
-
-	/**
-	 * Column name BH_NavButtons
-	 */
-	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
-
-	/**
-	 * Set BH_NavButtons.
-	 *
-	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	void setBH_NavButtons(Object BH_NavButtons);
-
-	/**
-	 * Get BH_NavButtons.
-	 *
-	 * @return Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	Object getBH_NavButtons();
 
 	/**
 	 * Set BH_Visit.
@@ -336,6 +317,20 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	 * @return The targeted status of the document
 	 */
 	I_AD_Ref_ListInput DocAction();
+
+	/**
+	 * Set DocBaseType.
+	 *
+	 * @param DocBaseType Logical type of document
+	 */
+	void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType);
+
+	/**
+	 * Get DocBaseType.
+	 *
+	 * @return Logical type of document
+	 */
+	I_AD_Ref_ListInput DocBaseType();
 
 	/**
 	 * Set DocStatus.

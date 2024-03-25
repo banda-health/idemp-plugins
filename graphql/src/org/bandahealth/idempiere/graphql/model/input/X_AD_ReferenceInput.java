@@ -18,13 +18,14 @@ import java.sql.ResultSet;
  * Generated Model for AD_Reference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ReferenceInput extends MReference_BH implements I_AD_ReferenceInput {
 
 	private ForeignEntityInput mAD_Element;
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
+	private I_AD_Ref_ListInput mShowInactive;
 	private I_AD_Ref_ListInput mValidationType;
 
 	/**
@@ -76,7 +77,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -103,7 +104,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -171,6 +172,40 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	@JsonProperty("AD_EntityType")
 	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
+	}
+
+	/**
+	 * Set Show Inactive.
+	 *
+	 * @param ShowInactive Show Inactive Records
+	 */
+	@JsonProperty("ShowInactive")
+	public void setShowInactiveInput(I_AD_Ref_ListInput ShowInactive) {
+		this.mShowInactive = ShowInactive;
+		if (ShowInactive != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ShowInactive.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setShowInactive(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ShowInactive.getUUID());
+			}
+		} else {
+			this.setShowInactive(null);
+		}
+	}
+
+	/**
+	 * Get Show Inactive.
+	 *
+	 * @return Show Inactive Records
+	 */
+	@JsonProperty("ShowInactive")
+	public I_AD_Ref_ListInput ShowInactive() {
+		return mShowInactive;
 	}
 
 	/**

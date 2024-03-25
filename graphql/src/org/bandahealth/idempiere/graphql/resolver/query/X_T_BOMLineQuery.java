@@ -9,7 +9,7 @@ import org.eevolution.model.X_T_BOMLine;
  * Generated Query Resolver for T_BOMLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_BOMLineQuery extends POQuery<X_T_BOMLine> implements GraphQLQueryResolver {
 	@Override

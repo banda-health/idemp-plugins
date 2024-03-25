@@ -1,6 +1,6 @@
 # Generated Schema for AD_PrintFormat - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_PrintFormatGet(page: Int, size: Int, sort: String, filter: String): AD_PrintFormatConnection!
 }
@@ -17,15 +17,16 @@ type AD_PrintFormatConnection {
 }
 
 type AD_PrintFormat {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor!
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont!
 	UUID: ID!
+	AD_PrintHeaderFooter: AD_PrintHeaderFooter
 	# Printer paper definition
 	AD_PrintPaper: AD_PrintPaper!
 	# Table Format in Reports
@@ -36,9 +37,6 @@ type AD_PrintFormat {
 	AD_Table: AD_Table!
 	# Data entry or display window
 	AD_Window: AD_Window
-	Args: String
-	# Java Classname
-	Classname: String
 	CreateCopy: String
 	# Date this record was created
 	Created: Date!
@@ -46,6 +44,7 @@ type AD_PrintFormat {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
+	FileNamePattern: String
 	# Margin of the Footer in 1/72 of an inch
 	FooterMargin: Int!
 	# Margin of the Header in 1/72 of an inch
@@ -62,7 +61,7 @@ type AD_PrintFormat {
 	IsStandardHeaderFooter: Boolean!
 	# Table based List Reporting
 	IsTableBased: Boolean!
-	# The Jasper Process used by the printengine if any process defined
+	# The Jasper Process used by the print engine if any process defined
 	JasperProcess: AD_Process
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -75,13 +74,14 @@ type AD_PrintFormat {
 }
 
 input AD_PrintFormatInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
 	UUID: ID
+	AD_PrintHeaderFooter: ForeignEntityInput
 	# Printer paper definition
 	AD_PrintPaper: ForeignEntityInput
 	# Table Format in Reports
@@ -92,12 +92,10 @@ input AD_PrintFormatInput {
 	AD_Table: ForeignEntityInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
-	Args: String
-	# Java Classname
-	Classname: String
 	CreateCopy: String
 	# Optional short description of the record
 	Description: String
+	FileNamePattern: String
 	# Margin of the Footer in 1/72 of an inch
 	FooterMargin: Int
 	# Margin of the Header in 1/72 of an inch
@@ -114,7 +112,7 @@ input AD_PrintFormatInput {
 	IsStandardHeaderFooter: Boolean
 	# Table based List Reporting
 	IsTableBased: Boolean
-	# The Jasper Process used by the printengine if any process defined
+	# The Jasper Process used by the print engine if any process defined
 	JasperProcess: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

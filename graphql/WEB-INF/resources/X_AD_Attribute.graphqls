@@ -1,6 +1,6 @@
 # Generated Schema for AD_Attribute - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_AttributeGet(page: Int, size: Int, sort: String, filter: String): AD_AttributeConnection!
 }
@@ -18,9 +18,9 @@ type AD_AttributeConnection {
 
 type AD_Attribute {
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# System Reference and Validation
 	AD_Reference: AD_Reference!
@@ -82,7 +82,7 @@ type AD_Attribute {
 
 input AD_AttributeInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput

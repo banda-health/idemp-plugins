@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MArchive;
 import org.compiere.model.MOrg;
+import org.compiere.model.MStorageProvider;
 import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -18,12 +19,13 @@ import java.sql.ResultSet;
  * Generated Model for AD_Archive - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
+	private ForeignEntityInput mAD_StorageProvider;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mC_BPartner;
 
@@ -71,7 +73,7 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -98,7 +100,7 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -140,6 +142,43 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	}
 
 	/**
+	 * Set Storage Provider.
+	 *
+	 * @param AD_StorageProvider Storage Provider
+	 */
+	@JsonProperty("AD_StorageProvider")
+	public void setAD_StorageProviderInput(ForeignEntityInput AD_StorageProvider) {
+		this.mAD_StorageProvider = AD_StorageProvider;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_StorageProvider != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MStorageProvider foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
+							.setParameters(AD_StorageProvider.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_StorageProvider_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_StorageProvider with UUID " + AD_StorageProvider.getUUID());
+			}
+		} else {
+			this.setAD_StorageProvider_ID(0);
+		}
+	}
+
+	/**
+	 * Get Storage Provider.
+	 *
+	 * @return Storage Provider
+	 */
+	@JsonProperty("AD_StorageProvider")
+	public ForeignEntityInput AD_StorageProvider() {
+		return mAD_StorageProvider;
+	}
+
+	/**
 	 * Set Table.
 	 *
 	 * @param AD_Table Database Table information
@@ -174,7 +213,7 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -198,12 +237,30 @@ public class X_AD_ArchiveInput extends MArchive implements I_AD_ArchiveInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
 	@JsonProperty("C_BPartner")
 	public ForeignEntityInput C_BPartner() {
 		return mC_BPartner;
+	}
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	public void setUUID(String UUID) {
+		setRecord_UU(UUID);
+	}
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	public String getUUID() {
+		return getRecord_UU();
 	}
 }

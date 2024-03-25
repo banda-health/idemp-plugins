@@ -6,7 +6,7 @@ import org.compiere.model.MPaySchedule;
  * Data Loader for C_PaySchedule - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_PayScheduleDataLoader extends PODataLoader<MPaySchedule> {
 	public static String DATALOADER_C_PaySchedule_BY_ID = "C_PayScheduleByIdDataLoader";

@@ -9,7 +9,7 @@ import org.compiere.model.X_C_Greeting;
  * Generated Query Resolver for C_Greeting - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_GreetingQuery extends POQuery<X_C_Greeting> implements GraphQLQueryResolver {
 	@Override

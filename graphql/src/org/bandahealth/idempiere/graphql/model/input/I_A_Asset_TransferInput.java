@@ -6,7 +6,7 @@ import org.compiere.model.I_A_Asset_Transfer;
  * Generated Interface for A_Asset_Transfer - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_A_Asset_TransferInput extends I_A_Asset_Transfer {
 
@@ -195,14 +195,14 @@ public interface I_A_Asset_TransferInput extends I_A_Asset_Transfer {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 

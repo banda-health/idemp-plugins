@@ -1,6 +1,6 @@
 # Generated Schema for C_CashLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CashLineGet(page: Int, size: Int, sort: String, filter: String): C_CashLineConnection!
 }
@@ -17,9 +17,9 @@ type C_CashLineConnection {
 }
 
 type C_CashLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Amount in a defined currency
 	Amount: BigDecimal!
@@ -63,7 +63,7 @@ type C_CashLine {
 }
 
 input C_CashLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
 	Amount: BigDecimal

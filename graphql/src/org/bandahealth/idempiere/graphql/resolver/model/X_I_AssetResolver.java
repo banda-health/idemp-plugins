@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLResolver<X_I_Asset> {
 
@@ -181,7 +181,7 @@ public class X_I_AssetResolver extends POResolver<X_I_Asset> implements GraphQLR
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

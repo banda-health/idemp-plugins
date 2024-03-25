@@ -9,7 +9,7 @@ import org.compiere.model.MTreeFavoriteNode;
  * Generated Query Resolver for AD_Tree_Favorite_Node - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Tree_Favorite_NodeQuery extends POQuery<MTreeFavoriteNode> implements GraphQLQueryResolver {
 	@Override

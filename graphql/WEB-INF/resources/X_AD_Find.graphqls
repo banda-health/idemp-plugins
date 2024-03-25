@@ -1,6 +1,6 @@
 # Generated Schema for AD_Find - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_FindGet(page: Int, size: Int, sort: String, filter: String): AD_FindConnection!
 }
@@ -17,12 +17,12 @@ type AD_FindConnection {
 }
 
 type AD_Find {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Logical operation: AND or OR
 	AndOr: AD_Ref_List!
@@ -49,7 +49,7 @@ input AD_FindInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Logical operation: AND or OR
 	AndOr: AD_Ref_ListInput

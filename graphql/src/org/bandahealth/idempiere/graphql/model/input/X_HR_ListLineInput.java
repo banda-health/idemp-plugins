@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for HR_ListLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineInput {
 
@@ -38,7 +38,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -65,7 +65,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

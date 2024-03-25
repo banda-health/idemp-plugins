@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Info_Ins - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_Info_InsGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Info_InsConnection!
 }
@@ -26,9 +26,9 @@ type A_Asset_Info_Ins {
 	A_Policy_No: String
 	A_Renewal_Date: Date
 	A_Replace_Cost: BigDecimal
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -53,7 +53,7 @@ input A_Asset_Info_InsInput {
 	A_Policy_No: String
 	A_Renewal_Date: Date
 	A_Replace_Cost: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

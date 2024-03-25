@@ -1,6 +1,6 @@
 # Generated Schema for C_Order - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_OrderGet(page: Int, size: Int, sort: String, filter: String): C_OrderConnection!
 }
@@ -17,9 +17,9 @@ type C_OrderConnection {
 }
 
 type C_Order {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -116,7 +116,7 @@ type C_Order {
 	IsDelivered: Boolean!
 	# Print Discount on Invoice and Order
 	IsDiscountPrinted: Boolean!
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean!
 	# Is this invoiced?
 	IsInvoiced: Boolean!
@@ -185,7 +185,7 @@ type C_Order {
 }
 
 input C_OrderInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
@@ -278,7 +278,7 @@ input C_OrderInput {
 	IsDelivered: Boolean
 	# Print Discount on Invoice and Order
 	IsDiscountPrinted: Boolean
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean
 	# Is this invoiced?
 	IsInvoiced: Boolean

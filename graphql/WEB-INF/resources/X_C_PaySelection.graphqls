@@ -1,6 +1,6 @@
 # Generated Schema for C_PaySelection - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PaySelectionGet(page: Int, size: Int, sort: String, filter: String): C_PaySelectionConnection!
 }
@@ -17,9 +17,9 @@ type C_PaySelectionConnection {
 }
 
 type C_PaySelection {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
@@ -44,6 +44,7 @@ type C_PaySelection {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
+	ReversePreparePayment: String
 	# Total Amount
 	TotalAmt: BigDecimal!
 	# Date this record was updated
@@ -53,7 +54,7 @@ type C_PaySelection {
 }
 
 input C_PaySelectionInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
@@ -74,6 +75,7 @@ input C_PaySelectionInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
+	ReversePreparePayment: String
 	# Total Amount
 	TotalAmt: BigDecimal
 }

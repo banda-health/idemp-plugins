@@ -1,6 +1,6 @@
 # Generated Schema for AD_Form - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_FormGet(page: Int, size: Int, sort: String, filter: String): AD_FormConnection!
 }
@@ -19,11 +19,11 @@ type AD_FormConnection {
 type AD_Form {
 	# Access Level required
 	AccessLevel: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Java Classname
 	Classname: String
@@ -37,6 +37,8 @@ type AD_Form {
 	AD_EntityType: AD_EntityType!
 	# Comment or Hint
 	Help: String
+	# URL of  image
+	ImageURL: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# This functionality is considered Beta
@@ -56,7 +58,7 @@ input AD_FormInput {
 	AccessLevel: AD_Ref_ListInput
 	AD_CtxHelp: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Java Classname
 	Classname: String
@@ -66,6 +68,8 @@ input AD_FormInput {
 	AD_EntityType: ForeignEntityInput
 	# Comment or Hint
 	Help: String
+	# URL of  image
+	ImageURL: String
 	# The record is active in the system
 	IsActive: Boolean
 	# This functionality is considered Beta

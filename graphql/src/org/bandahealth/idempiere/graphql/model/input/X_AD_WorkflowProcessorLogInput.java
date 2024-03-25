@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_WorkflowProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog implements I_AD_WorkflowProcessorLogInput {
 
@@ -38,7 +38,7 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -65,7 +65,7 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -109,7 +109,7 @@ public class X_AD_WorkflowProcessorLogInput extends X_AD_WorkflowProcessorLog im
 		return mAD_WorkflowProcessor;
 	}
 	/**
-	 * Set Workflow Processorl Log.
+	 * Set Workflow Processor Log.
 	 *
 	 * @param AD_WorkflowProcessorLog_ID Result of the execution of the Workflow Processor
 	 */

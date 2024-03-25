@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_PInstance_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PInstance_ParaResolver extends POResolver<MPInstancePara> implements GraphQLResolver<MPInstancePara> {
 
@@ -31,6 +31,10 @@ public class X_AD_PInstance_ParaResolver extends POResolver<MPInstancePara> impl
 		DataLoader<Integer, MPInstance> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_PInstanceDataLoader.DATALOADER_AD_PInstance_BY_ID);
 		return dataLoader.load(entity.getAD_PInstance_ID());
+	}
+
+	public Boolean IsNotClause(MPInstancePara entity, DataFetchingEnvironment environment) {
+		return entity.isNotClause();
 	}
 
 }

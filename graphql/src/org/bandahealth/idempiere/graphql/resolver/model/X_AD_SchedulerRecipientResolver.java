@@ -3,9 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_AuthorizationAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_SchedulerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.compiere.model.MAuthorizationAccount;
 import org.compiere.model.MScheduler;
 import org.compiere.model.MSchedulerRecipient;
 import org.compiere.model.X_AD_Role;
@@ -17,10 +19,25 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_SchedulerRecipient - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_SchedulerRecipientResolver extends POResolver<MSchedulerRecipient> implements GraphQLResolver<MSchedulerRecipient> {
 
+
+
+	/**
+	 * Get Authorization Account.
+	 *
+	 * @return Authorization Account
+	 */
+	public CompletableFuture<MAuthorizationAccount> AD_AuthorizationAccount(MSchedulerRecipient entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_AuthorizationAccount_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MAuthorizationAccount> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_AuthorizationAccountDataLoader.DATALOADER_AD_AuthorizationAccount_BY_ID);
+		return dataLoader.load(entity.getAD_AuthorizationAccount_ID());
+	}
 
 
 	/**
@@ -65,6 +82,10 @@ public class X_AD_SchedulerRecipientResolver extends POResolver<MSchedulerRecipi
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+	public Boolean IsUpload(MSchedulerRecipient entity, DataFetchingEnvironment environment) {
+		return entity.isUpload();
 	}
 
 }

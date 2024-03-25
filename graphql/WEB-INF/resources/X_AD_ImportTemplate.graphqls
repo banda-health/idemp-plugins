@@ -1,6 +1,6 @@
 # Generated Schema for AD_ImportTemplate - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ImportTemplateGet(page: Int, size: Int, sort: String, filter: String): AD_ImportTemplateConnection!
 }
@@ -17,10 +17,10 @@ type AD_ImportTemplateConnection {
 }
 
 type AD_ImportTemplate {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Tab within a Window
 	AD_Tab: AD_Tab!
@@ -47,7 +47,7 @@ type AD_ImportTemplate {
 
 input AD_ImportTemplateInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput

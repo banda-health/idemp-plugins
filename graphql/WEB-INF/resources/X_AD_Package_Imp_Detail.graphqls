@@ -1,6 +1,6 @@
 # Generated Schema for AD_Package_Imp_Detail - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Package_Imp_DetailGet(page: Int, size: Int, sort: String, filter: String): AD_Package_Imp_DetailConnection!
 }
@@ -19,9 +19,9 @@ type AD_Package_Imp_DetailConnection {
 type AD_Package_Imp_Detail {
 	# Indicates the Action to be performed
 	Action: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	AD_Package_Imp: AD_Package_Imp!
@@ -31,12 +31,14 @@ type AD_Package_Imp_Detail {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	ExecCode: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String
-	# Direct internal record ID
-	Record_ID: Int!
+	UUID: ID!
+	# Result of the action taken
+	Result: String
 	Success: String
 	# Name of the table in the database
 	TableName: String
@@ -52,18 +54,20 @@ type AD_Package_Imp_Detail {
 input AD_Package_Imp_DetailInput {
 	# Indicates the Action to be performed
 	Action: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	AD_Package_Imp: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
+	ExecCode: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	# Direct internal record ID
-	Record_ID: Int
+	UUID: ID
+	# Result of the action taken
+	Result: String
 	Success: String
 	# Name of the table in the database
 	TableName: String

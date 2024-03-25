@@ -6,7 +6,7 @@ import org.compiere.model.MTreeFavorite;
  * Data Loader for AD_Tree_Favorite - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Tree_FavoriteDataLoader extends PODataLoader<MTreeFavorite> {
 	public static String DATALOADER_AD_Tree_Favorite_BY_ID = "AD_Tree_FavoriteByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for M_Warehouse - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_WarehouseGet(page: Int, size: Int, sort: String, filter: String): M_WarehouseConnection!
 }
@@ -17,9 +17,9 @@ type M_WarehouseConnection {
 }
 
 type M_Warehouse {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Default Warehouse
 	BH_DefaultWarehouse: Boolean!
@@ -57,7 +57,7 @@ type M_Warehouse {
 }
 
 input M_WarehouseInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Default Warehouse
 	BH_DefaultWarehouse: Boolean

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Task - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_TaskGet(page: Int, size: Int, sort: String, filter: String): AD_TaskConnection!
 }
@@ -19,10 +19,10 @@ type AD_TaskConnection {
 type AD_Task {
 	# Access Level required
 	AccessLevel: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Date this record was created
@@ -51,7 +51,7 @@ input AD_TaskInput {
 	# Access Level required
 	AccessLevel: AD_Ref_ListInput
 	AD_CtxHelp: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Optional short description of the record

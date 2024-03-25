@@ -1,6 +1,6 @@
 # Generated Schema for A_Registration - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_RegistrationGet(page: Int, size: Int, sort: String, filter: String): A_RegistrationConnection!
 }
@@ -20,9 +20,9 @@ type A_Registration {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -67,7 +67,7 @@ input A_RegistrationInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput

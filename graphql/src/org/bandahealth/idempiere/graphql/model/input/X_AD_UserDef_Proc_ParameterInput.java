@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -20,10 +21,11 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Proc_Parameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter implements I_AD_UserDef_Proc_ParameterInput {
 
+	private ForeignEntityInput mAD_FieldGroup;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process_Para;
 	private ForeignEntityInput mAD_Reference;
@@ -46,9 +48,43 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	}
 
 	/**
+	 * Set Field Group.
+	 *
+	 * @param AD_FieldGroup Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public void setAD_FieldGroupInput(ForeignEntityInput AD_FieldGroup) {
+		this.mAD_FieldGroup = AD_FieldGroup;
+		if (AD_FieldGroup != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MFieldGroup_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
+							.setParameters(AD_FieldGroup.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_FieldGroup with UUID " + AD_FieldGroup.getUUID());
+			}
+		} else {
+			this.setAD_FieldGroup_ID(0);
+		}
+	}
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public ForeignEntityInput AD_FieldGroup() {
+		return mAD_FieldGroup;
+	}
+
+	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -75,7 +111,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

@@ -1,6 +1,6 @@
 # Generated Schema for AD_AccessLog - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_AccessLogGet(page: Int, size: Int, sort: String, filter: String): AD_AccessLogConnection!
 }
@@ -18,11 +18,11 @@ type AD_AccessLogConnection {
 
 type AD_AccessLog {
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
@@ -34,8 +34,6 @@ type AD_AccessLog {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	# Direct internal record ID
-	Record_ID: Int
 	# Remote Address
 	Remote_Addr: String
 	# Remote host Info
@@ -54,7 +52,7 @@ input AD_AccessLogInput {
 	UUID: ID
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
@@ -62,8 +60,6 @@ input AD_AccessLogInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	# Direct internal record ID
-	Record_ID: Int
 	# Remote Address
 	Remote_Addr: String
 	# Remote host Info

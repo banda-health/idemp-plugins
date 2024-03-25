@@ -8,8 +8,8 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
+import org.compiere.model.MPOSPayment;
 import org.compiere.model.Query;
-import org.compiere.model.X_C_POSPayment;
 import org.compiere.model.X_C_POSTenderType;
 import org.compiere.util.Env;
 
@@ -19,9 +19,9 @@ import java.sql.ResultSet;
  * Generated Model for C_POSPayment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymentInput {
+public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Order;
@@ -46,7 +46,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -73,7 +73,7 @@ public class X_C_POSPaymentInput extends X_C_POSPayment implements I_C_POSPaymen
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

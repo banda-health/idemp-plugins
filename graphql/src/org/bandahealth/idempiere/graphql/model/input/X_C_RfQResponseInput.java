@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for C_RfQResponse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQResponseInput {
 
@@ -48,7 +48,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -75,7 +75,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -90,9 +90,6 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	@JsonProperty("AD_User")
 	public void setAD_UserInput(ForeignEntityInput AD_User) {
 		this.mAD_User = AD_User;
-		if (get_ID() != 0) {
-			return;
-		}
 		if (AD_User != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MUser_BH foreignEntity;
@@ -120,7 +117,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -144,7 +141,7 @@ public class X_C_RfQResponseInput extends MRfQResponse implements I_C_RfQRespons
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

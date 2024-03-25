@@ -9,7 +9,7 @@ import org.compiere.model.X_IMP_ProcessorParameter;
  * Generated Query Resolver for IMP_ProcessorParameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_IMP_ProcessorParameterQuery extends POQuery<X_IMP_ProcessorParameter> implements GraphQLQueryResolver {
 	@Override

@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Process - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements GraphQLResolver<MProcess_BH> {
 
@@ -136,6 +136,9 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 		{
 			put("N", "cd374cc2-e928-4e76-a376-9021ec5f31e7");
 			put("P", "1dcb3178-d9f5-449e-9592-5e6e29453cf1");
+			put("NA", "8911db76-92ef-4c9b-9482-442cf31a2fc4");
+			put("PA", "d13ecbd0-370f-4935-826b-2ae7313add8a");
+			put("Y", "832cb3cb-d520-4c5d-98e5-a302f0fa0f39");
 		}
 	};
 	public CompletableFuture<MRefList_BH> AllowMultipleExecution(MProcess_BH entity, DataFetchingEnvironment environment) {

@@ -1,6 +1,6 @@
 # Generated Schema for C_OrderLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_OrderLineGet(page: Int, size: Int, sort: String, filter: String): C_OrderLineConnection!
 }
@@ -17,20 +17,11 @@ type C_OrderLineConnection {
 }
 
 type C_OrderLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Expire On
-	BH_Expiration: Date
 	BH_Instructions: String
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
-	# The number of order lines on an order
-	BH_NumOrderLines: Int
-	# The current status of the document
-	BH_OrderDocStatus: String
-	BH_RequiresExpiration: Boolean!
 	# Business Activity
 	C_Activity: C_Activity
 	# Identifies a Business Partner
@@ -141,13 +132,9 @@ type C_OrderLine {
 }
 
 input C_OrderLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Expire On
-	BH_Expiration: Date
 	BH_Instructions: String
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Identifies a Business Partner

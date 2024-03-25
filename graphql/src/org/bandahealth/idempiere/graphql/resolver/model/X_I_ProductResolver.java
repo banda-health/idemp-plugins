@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
@@ -11,6 +12,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_UOMDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_Product_CategoryDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
@@ -26,14 +28,14 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_I_ProductResolver extends POResolver<X_I_Product> implements GraphQLResolver<X_I_Product> {
 
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -82,6 +84,21 @@ public class X_I_ProductResolver extends POResolver<X_I_Product> implements Grap
 
 	public Boolean I_IsImported(X_I_Product entity, DataFetchingEnvironment environment) {
 		return entity.isI_IsImported();
+	}
+
+
+	/**
+	 * Get Attribute Set.
+	 *
+	 * @return Product Attribute Set
+	 */
+	public CompletableFuture<MAttributeSet_BH> M_AttributeSet(X_I_Product entity, DataFetchingEnvironment environment) {
+		if (entity.getM_AttributeSet_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MAttributeSet_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_AttributeSetDataLoader.DATALOADER_M_AttributeSet_BY_ID);
+		return dataLoader.load(entity.getM_AttributeSet_ID());
 	}
 
 

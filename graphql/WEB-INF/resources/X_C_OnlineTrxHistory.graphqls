@@ -1,6 +1,6 @@
 # Generated Schema for C_OnlineTrxHistory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_OnlineTrxHistoryGet(page: Int, size: Int, sort: String, filter: String): C_OnlineTrxHistoryConnection!
 }
@@ -17,9 +17,9 @@ type C_OnlineTrxHistoryConnection {
 }
 
 type C_OnlineTrxHistory {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
@@ -34,8 +34,6 @@ type C_OnlineTrxHistory {
 	IsError: Boolean!
 	# The document has been processed
 	Processed: Boolean!
-	# Direct internal record ID
-	Record_ID: Int!
 	# Text Message
 	TextMsg: String
 	# Date this record was updated
@@ -45,7 +43,7 @@ type C_OnlineTrxHistory {
 }
 
 input C_OnlineTrxHistoryInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
@@ -56,8 +54,6 @@ input C_OnlineTrxHistoryInput {
 	IsError: Boolean
 	# The document has been processed
 	Processed: Boolean
-	# Direct internal record ID
-	Record_ID: Int
 	# Text Message
 	TextMsg: String
 }

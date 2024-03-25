@@ -1,6 +1,6 @@
 # Generated Schema for B_TopicCategory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	B_TopicCategoryGet(page: Int, size: Int, sort: String, filter: String): B_TopicCategoryConnection!
 }
@@ -17,9 +17,9 @@ type B_TopicCategoryConnection {
 }
 
 type B_TopicCategory {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Auction Topic Type
@@ -41,7 +41,7 @@ type B_TopicCategory {
 }
 
 input B_TopicCategoryInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Auction Topic Type

@@ -1,6 +1,6 @@
 # Generated Schema for C_ChargeType_DocType - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ChargeType_DocTypeGet(page: Int, size: Int, sort: String, filter: String): C_ChargeType_DocTypeConnection!
 }
@@ -17,9 +17,9 @@ type C_ChargeType_DocTypeConnection {
 }
 
 type C_ChargeType_DocType {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	C_ChargeType: C_ChargeType!
@@ -40,7 +40,7 @@ type C_ChargeType_DocType {
 }
 
 input C_ChargeType_DocTypeInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	C_ChargeType: ForeignEntityInput

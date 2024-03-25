@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for M_AttributeUse - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_AttributeUseInput extends MAttributeUse implements I_M_AttributeUseInput {
 
@@ -41,7 +41,7 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -68,7 +68,7 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

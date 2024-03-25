@@ -1,6 +1,6 @@
 # Generated Schema for C_LandedCostAllocation - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_LandedCostAllocationGet(page: Int, size: Int, sort: String, filter: String): C_LandedCostAllocationConnection!
 }
@@ -17,9 +17,9 @@ type C_LandedCostAllocationConnection {
 }
 
 type C_LandedCostAllocation {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Amount
 	Amt: BigDecimal!
@@ -49,7 +49,7 @@ type C_LandedCostAllocation {
 }
 
 input C_LandedCostAllocationInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Amount
 	Amt: BigDecimal

@@ -29,7 +29,7 @@ import java.sql.ResultSet;
  * Generated Model for S_TimeExpenseLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_TimeExpenseLineInput {
 
@@ -64,7 +64,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -91,7 +91,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -133,7 +133,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -157,7 +157,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

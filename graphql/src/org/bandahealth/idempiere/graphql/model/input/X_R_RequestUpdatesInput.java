@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for R_RequestUpdates - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_R_RequestUpdatesInput extends X_R_RequestUpdates implements I_R_RequestUpdatesInput {
 
@@ -41,7 +41,7 @@ public class X_R_RequestUpdatesInput extends X_R_RequestUpdates implements I_R_R
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -68,7 +68,7 @@ public class X_R_RequestUpdatesInput extends X_R_RequestUpdates implements I_R_R
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

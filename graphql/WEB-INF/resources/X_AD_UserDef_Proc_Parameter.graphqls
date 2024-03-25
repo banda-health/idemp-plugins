@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserDef_Proc_Parameter - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_UserDef_Proc_ParameterGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_Proc_ParameterConnection!
 }
@@ -17,9 +17,11 @@ type AD_UserDef_Proc_ParameterConnection {
 }
 
 type AD_UserDef_Proc_Parameter {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Logical grouping of fields
+	AD_FieldGroup: AD_FieldGroup
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Process_Para: AD_Process_Para!
 	# System Reference and Validation
@@ -75,7 +77,9 @@ type AD_UserDef_Proc_Parameter {
 }
 
 input AD_UserDef_Proc_ParameterInput {
-	# Organizational entity within client
+	# Logical grouping of fields
+	AD_FieldGroup: ForeignEntityInput
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Process_Para: ForeignEntityInput
 	# System Reference and Validation

@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_TaxDeclarationAcct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAcct> implements GraphQLResolver<MTaxDeclarationAcct> {
 
@@ -62,7 +62,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

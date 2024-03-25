@@ -1,6 +1,6 @@
 # Generated Schema for PP_Order_BOMLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PP_Order_BOMLineGet(page: Int, size: Int, sort: String, filter: String): PP_Order_BOMLineConnection!
 }
@@ -17,9 +17,9 @@ type PP_Order_BOMLineConnection {
 }
 
 type PP_Order_BOMLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -86,7 +86,7 @@ type PP_Order_BOMLine {
 	QtyRequiered: BigDecimal!
 	# Reserved Quantity
 	QtyReserved: BigDecimal!
-	# Scrap % Quantity for this componet
+	# Scrap % Quantity for this component
 	QtyScrap: BigDecimal!
 	# Indicate the Scrap %  for calculate the Scrap Quantity
 	Scrap: BigDecimal
@@ -101,7 +101,7 @@ type PP_Order_BOMLine {
 }
 
 input PP_Order_BOMLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
@@ -164,7 +164,7 @@ input PP_Order_BOMLineInput {
 	QtyRequiered: BigDecimal
 	# Reserved Quantity
 	QtyReserved: BigDecimal
-	# Scrap % Quantity for this componet
+	# Scrap % Quantity for this component
 	QtyScrap: BigDecimal
 	# Indicate the Scrap %  for calculate the Scrap Quantity
 	Scrap: BigDecimal

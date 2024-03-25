@@ -5,11 +5,13 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCommission;
 import org.dataloader.DataLoader;
@@ -22,14 +24,14 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Commission - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_CommissionResolver extends POResolver<MCommission> implements GraphQLResolver<MCommission> {
 
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -107,6 +109,21 @@ public class X_C_CommissionResolver extends POResolver<MCommission> implements G
 
 	public Boolean ListDetails(MCommission entity, DataFetchingEnvironment environment) {
 		return entity.isListDetails();
+	}
+
+
+	/**
+	 * Get Product/Service.
+	 *
+	 * @return Product, Service, Item
+	 */
+	public CompletableFuture<MProduct_BH> M_Product(MCommission entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Product_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MProduct_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_ProductDataLoader.DATALOADER_M_Product_BY_ID);
+		return dataLoader.load(entity.getM_Product_ID());
 	}
 
 	public Boolean Processing(MCommission entity, DataFetchingEnvironment environment) {

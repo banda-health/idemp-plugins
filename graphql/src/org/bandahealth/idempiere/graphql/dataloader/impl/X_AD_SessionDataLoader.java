@@ -6,7 +6,7 @@ import org.compiere.model.MSession;
  * Data Loader for AD_Session - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_SessionDataLoader extends PODataLoader<MSession> {
 	public static String DATALOADER_AD_Session_BY_ID = "AD_SessionByIdDataLoader";

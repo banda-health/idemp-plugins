@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Transfer - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_TransferGet(page: Int, size: Int, sort: String, filter: String): A_Asset_TransferConnection!
 }
@@ -44,9 +44,9 @@ type A_Asset_Transfer {
 	A_Split_Percent: BigDecimal!
 	A_Transfer_Balance: Boolean!
 	A_Transfer_Balance_IS: Boolean!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
@@ -111,7 +111,7 @@ input A_Asset_TransferInput {
 	A_Split_Percent: BigDecimal
 	A_Transfer_Balance: Boolean
 	A_Transfer_Balance_IS: Boolean
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput

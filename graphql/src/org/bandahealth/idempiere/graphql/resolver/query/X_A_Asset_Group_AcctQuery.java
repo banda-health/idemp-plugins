@@ -9,7 +9,7 @@ import org.compiere.model.MAssetGroupAcct;
  * Generated Query Resolver for A_Asset_Group_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_Asset_Group_AcctQuery extends POQuery<MAssetGroupAcct> implements GraphQLQueryResolver {
 	@Override

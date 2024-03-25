@@ -1,6 +1,6 @@
 # Generated Schema for BH_Payer_Info_Fld_Val - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	BH_Payer_Info_Fld_ValGet(page: Int, size: Int, sort: String, filter: String): BH_Payer_Info_Fld_ValConnection!
 }
@@ -17,9 +17,9 @@ type BH_Payer_Info_Fld_ValConnection {
 }
 
 type BH_Payer_Info_Fld_Val {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_Payer_Info_Fld: BH_Payer_Info_Fld!
 	UUID: ID!
@@ -42,7 +42,7 @@ type BH_Payer_Info_Fld_Val {
 }
 
 input BH_Payer_Info_Fld_ValInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_Payer_Info_Fld: ForeignEntityInput
 	UUID: ID

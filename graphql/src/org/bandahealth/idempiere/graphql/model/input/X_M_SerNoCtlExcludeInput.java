@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for M_SerNoCtlExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_SerNoCtlExcludeInput {
 
@@ -40,7 +40,7 @@ public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_Se
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -67,7 +67,7 @@ public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_Se
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -145,7 +145,7 @@ public class X_M_SerNoCtlExcludeInput extends MSerNoCtlExclude implements I_M_Se
 		return mM_SerNoCtl;
 	}
 	/**
-	 * Set Exclude SerNo.
+	 * Set Exclude Ser No.
 	 *
 	 * @param M_SerNoCtlExclude_ID Exclude the ability to create Serial Numbers in Attribute Sets
 	 */

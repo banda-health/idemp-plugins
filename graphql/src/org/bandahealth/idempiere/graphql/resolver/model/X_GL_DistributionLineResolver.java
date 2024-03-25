@@ -29,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for GL_DistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine> implements GraphQLResolver<MDistributionLine> {
 
@@ -51,7 +51,7 @@ public class X_GL_DistributionLineResolver extends POResolver<MDistributionLine>
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

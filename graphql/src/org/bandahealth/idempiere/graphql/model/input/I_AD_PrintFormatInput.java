@@ -6,21 +6,21 @@ import org.compiere.model.I_AD_PrintFormat;
  * Generated Interface for AD_PrintFormat - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_PrintFormatInput extends I_AD_PrintFormat {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -65,6 +65,20 @@ public interface I_AD_PrintFormatInput extends I_AD_PrintFormat {
 	 * @return UUID
 	 */
 	String getUUID();
+
+	/**
+	 * Set AD_PrintHeaderFooter.
+	 *
+	 * @param AD_PrintHeaderFooter AD_PrintHeaderFooter
+	 */
+	void setAD_PrintHeaderFooterInput(ForeignEntityInput AD_PrintHeaderFooter);
+
+	/**
+	 * Get AD_PrintHeaderFooter.
+	 *
+	 * @return AD_PrintHeaderFooter
+	 */
+	ForeignEntityInput AD_PrintHeaderFooter();
 
 	/**
 	 * Set AD_PrintPaper.
@@ -139,14 +153,14 @@ public interface I_AD_PrintFormatInput extends I_AD_PrintFormat {
 	/**
 	 * Set JasperProcess.
 	 *
-	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
+	 * @param JasperProcess The Jasper Process used by the print engine if any process defined
 	 */
 	void setJasperProcessInput(ForeignEntityInput JasperProcess);
 
 	/**
 	 * Get JasperProcess.
 	 *
-	 * @return The Jasper Process used by the printengine if any process defined
+	 * @return The Jasper Process used by the print engine if any process defined
 	 */
 	ForeignEntityInput JasperProcess();
 }

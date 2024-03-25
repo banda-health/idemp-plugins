@@ -1,6 +1,6 @@
 # Generated Schema for M_Production - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_ProductionGet(page: Int, size: Int, sort: String, filter: String): M_ProductionConnection!
 }
@@ -17,9 +17,9 @@ type M_ProductionConnection {
 }
 
 type M_Production {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
@@ -27,6 +27,8 @@ type M_Production {
 	C_BPartner: C_BPartner
 	# Marketing Campaign
 	C_Campaign: C_Campaign
+	# Document type or rules
+	C_DocType: C_DocType!
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Financial Project
@@ -57,6 +59,8 @@ type M_Production {
 	IsComplete: Boolean!
 	IsCreated: AD_Ref_List!
 	IsUseProductionPlan: Boolean!
+	# Line on Shipment or Receipt document
+	M_InOutLine: M_InOutLine
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -68,6 +72,8 @@ type M_Production {
 	Name: String
 	# Posting status
 	Posted: Boolean!
+	# BOM & Formula
+	PP_Product_BOM: PP_Product_BOM
 	# The document has been processed
 	Processed: Boolean!
 	# The date+time (expressed in decimal format) when the document has been processed
@@ -88,7 +94,7 @@ type M_Production {
 }
 
 input M_ProductionInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
@@ -96,6 +102,8 @@ input M_ProductionInput {
 	C_BPartner: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Financial Project
@@ -122,6 +130,8 @@ input M_ProductionInput {
 	IsComplete: Boolean
 	IsCreated: AD_Ref_ListInput
 	IsUseProductionPlan: Boolean
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
@@ -133,6 +143,8 @@ input M_ProductionInput {
 	Name: String
 	# Posting status
 	Posted: Boolean
+	# BOM & Formula
+	PP_Product_BOM: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

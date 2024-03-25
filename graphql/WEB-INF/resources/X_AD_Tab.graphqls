@@ -1,6 +1,6 @@
 # Generated Schema for AD_Tab - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_TabGet(page: Int, size: Int, sort: String, filter: String): AD_TabConnection!
 }
@@ -17,7 +17,7 @@ type AD_TabConnection {
 }
 
 type AD_Tab {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
@@ -28,13 +28,15 @@ type AD_Tab {
 	AD_CtxHelp: AD_CtxHelp
 	# Image or Icon
 	AD_Image: AD_Image
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
 	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table!
+	# Defines Tab Type
+	AD_TabType: AD_Ref_List
 	# Data entry or display window
 	AD_Window: AD_Window!
 	# Warning displayed when saving
@@ -43,6 +45,7 @@ type AD_Tab {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	DeleteConfirmationLogic: String
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed
@@ -62,6 +65,8 @@ type AD_Tab {
 	# This Tab contains advanced Functionality
 	IsAdvancedTab: Boolean!
 	IsAllowAdvancedLookup: Boolean!
+	# Use Search instead of Pick list
+	IsHighVolume: AD_Ref_List
 	# This Tab contains accounting information
 	IsInfoTab: Boolean!
 	# The user can insert a new Record
@@ -111,17 +116,20 @@ input AD_TabInput {
 	AD_CtxHelp: ForeignEntityInput
 	# Image or Icon
 	AD_Image: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
+	# Defines Tab Type
+	AD_TabType: AD_Ref_ListInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# Warning displayed when saving
 	CommitWarning: String
+	DeleteConfirmationLogic: String
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed
@@ -141,6 +149,8 @@ input AD_TabInput {
 	# This Tab contains advanced Functionality
 	IsAdvancedTab: Boolean
 	IsAllowAdvancedLookup: Boolean
+	# Use Search instead of Pick list
+	IsHighVolume: AD_Ref_ListInput
 	# This Tab contains accounting information
 	IsInfoTab: Boolean
 	# The user can insert a new Record

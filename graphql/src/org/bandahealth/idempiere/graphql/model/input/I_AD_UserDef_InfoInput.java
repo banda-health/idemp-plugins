@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserDef_Info;
  * Generated Interface for AD_UserDef_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_UserDef_InfoInput extends I_AD_UserDef_Info {
 
@@ -41,14 +41,14 @@ public interface I_AD_UserDef_InfoInput extends I_AD_UserDef_Info {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -93,4 +93,46 @@ public interface I_AD_UserDef_InfoInput extends I_AD_UserDef_Info {
 	 * @return UUID
 	 */
 	String getUUID();
+
+	/**
+	 * Set AD_Window.
+	 *
+	 * @param AD_Window Data entry or display window
+	 */
+	void setAD_WindowInput(ForeignEntityInput AD_Window);
+
+	/**
+	 * Get AD_Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	ForeignEntityInput AD_Window();
+
+	/**
+	 * Set IsShowInDashboard.
+	 *
+	 * @param IsShowInDashboard Show the dashlet in the dashboard
+	 */
+	void setIsShowInDashboardInput(I_AD_Ref_ListInput IsShowInDashboard);
+
+	/**
+	 * Get IsShowInDashboard.
+	 *
+	 * @return Show the dashlet in the dashboard
+	 */
+	I_AD_Ref_ListInput IsShowInDashboard();
+
+	/**
+	 * Set PO_Window.
+	 *
+	 * @param PO_Window Purchase Order Window
+	 */
+	void setPO_WindowInput(ForeignEntityInput PO_Window);
+
+	/**
+	 * Get PO_Window.
+	 *
+	 * @return Purchase Order Window
+	 */
+	ForeignEntityInput PO_Window();
 }

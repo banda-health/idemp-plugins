@@ -17,7 +17,7 @@ import java.sql.Timestamp;
  * Generated Model for AD_Replication - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ReplicationInput extends MReplication implements I_AD_ReplicationInput {
 
@@ -39,7 +39,7 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -66,7 +66,7 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -136,7 +136,7 @@ public class X_AD_ReplicationInput extends MReplication implements I_AD_Replicat
 		return mAD_ReplicationStrategy;
 	}
 	/**
-	 * Set Date last run.
+	 * Set Date Last Run.
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */

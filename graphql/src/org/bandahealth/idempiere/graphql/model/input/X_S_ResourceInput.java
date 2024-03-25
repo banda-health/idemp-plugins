@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for S_Resource - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 
@@ -44,7 +44,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -71,7 +71,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

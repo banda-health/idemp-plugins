@@ -1,6 +1,6 @@
 # Generated Schema for C_Country - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CountryGet(page: Int, size: Int, sort: String, filter: String): C_CountryConnection!
 }
@@ -17,11 +17,11 @@ type C_CountryConnection {
 }
 
 type C_Country {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
 	AD_Language: AD_Language
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean!
@@ -65,7 +65,7 @@ type C_Country {
 	IsPostcodeLookup: Boolean!
 	# The class name of the postcode lookup plugin
 	LookupClassName: String
-	# The ClientID or Login submitted to the Lookup URL
+	# The Client ID or Login submitted to the Lookup URL
 	LookupClientID: String
 	# The password submitted to the Lookup URL
 	LookupPassword: String
@@ -95,7 +95,7 @@ type C_Country {
 input C_CountryInput {
 	# Language for this entity
 	AD_Language: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean
@@ -135,7 +135,7 @@ input C_CountryInput {
 	IsPostcodeLookup: Boolean
 	# The class name of the postcode lookup plugin
 	LookupClassName: String
-	# The ClientID or Login submitted to the Lookup URL
+	# The Client ID or Login submitted to the Lookup URL
 	LookupClientID: String
 	# The password submitted to the Lookup URL
 	LookupPassword: String

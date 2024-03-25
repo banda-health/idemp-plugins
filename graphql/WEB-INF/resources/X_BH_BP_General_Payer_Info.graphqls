@@ -1,6 +1,6 @@
 # Generated Schema for BH_BP_General_Payer_Info - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	BH_BP_General_Payer_InfoGet(page: Int, size: Int, sort: String, filter: String): BH_BP_General_Payer_InfoConnection!
 }
@@ -17,9 +17,9 @@ type BH_BP_General_Payer_InfoConnection {
 }
 
 type BH_BP_General_Payer_Info {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	BH_BP_Payer_Info: BH_BP_Payer_Info!
@@ -41,7 +41,7 @@ type BH_BP_General_Payer_Info {
 }
 
 input BH_BP_General_Payer_InfoInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	BH_BP_Payer_Info: ForeignEntityInput

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Package_Exp_Detail - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Package_Exp_DetailGet(page: Int, size: Int, sort: String, filter: String): AD_Package_Exp_DetailConnection!
 }
@@ -17,7 +17,7 @@ type AD_Package_Exp_DetailConnection {
 }
 
 type AD_Package_Exp_Detail {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# System Entity Type
 	AD_EntityType: AD_EntityType
@@ -31,7 +31,7 @@ type AD_Package_Exp_Detail {
 	# System Message
 	AD_Message: AD_Message
 	AD_ModelValidator: AD_ModelValidator
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Package_Code_New: String
 	AD_Package_Code_Old: String
@@ -53,8 +53,6 @@ type AD_Package_Exp_Detail {
 	AD_Val_Rule: AD_Val_Rule
 	# Data entry or display window
 	AD_Window: AD_Window
-	# Collection of windows, reports
-	AD_Workbench: AD_Workbench
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
 	# Date this record was created
@@ -66,6 +64,7 @@ type AD_Package_Exp_Detail {
 	Description: String
 	Destination_Directory: String
 	Destination_FileName: String
+	ExecCode: String
 	File_Directory: String
 	# Name of the local file or URL
 	FileName: String
@@ -103,7 +102,7 @@ input AD_Package_Exp_DetailInput {
 	# System Message
 	AD_Message: ForeignEntityInput
 	AD_ModelValidator: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Package_Code_New: String
 	AD_Package_Code_Old: String
@@ -125,8 +124,6 @@ input AD_Package_Exp_DetailInput {
 	AD_Val_Rule: ForeignEntityInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
-	# Collection of windows, reports
-	AD_Workbench: ForeignEntityInput
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
 	DBType: AD_Ref_ListInput
@@ -134,6 +131,7 @@ input AD_Package_Exp_DetailInput {
 	Description: String
 	Destination_Directory: String
 	Destination_FileName: String
+	ExecCode: String
 	File_Directory: String
 	# Name of the local file or URL
 	FileName: String

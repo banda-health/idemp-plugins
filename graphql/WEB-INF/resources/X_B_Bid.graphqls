@@ -1,6 +1,6 @@
 # Generated Schema for B_Bid - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	B_BidGet(page: Int, size: Int, sort: String, filter: String): B_BidConnection!
 }
@@ -17,9 +17,9 @@ type B_BidConnection {
 }
 
 type B_Bid {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
@@ -48,7 +48,7 @@ type B_Bid {
 }
 
 input B_BidInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput

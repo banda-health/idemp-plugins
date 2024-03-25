@@ -3,12 +3,14 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
 import org.compiere.model.MUserDefInfo;
+import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Role;
 import org.compiere.util.Env;
@@ -19,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef_InfoInput {
 
@@ -28,6 +30,9 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mPO_Window;
+	private I_AD_Ref_ListInput mIsShowInDashboard;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -115,7 +120,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -142,7 +147,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -244,5 +249,107 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	 */
 	public String getUUID() {
 		return getAD_UserDef_Info_UU();
+	}
+
+	/**
+	 * Set Window.
+	 *
+	 * @param AD_Window Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
+		this.mAD_Window = AD_Window;
+		if (AD_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+			}
+		} else {
+			this.setAD_Window_ID(0);
+		}
+	}
+
+	/**
+	 * Get Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public ForeignEntityInput AD_Window() {
+		return mAD_Window;
+	}
+
+	/**
+	 * Set Show in Dashboard.
+	 *
+	 * @param IsShowInDashboard Show the dashlet in the dashboard
+	 */
+	@JsonProperty("IsShowInDashboard")
+	public void setIsShowInDashboardInput(I_AD_Ref_ListInput IsShowInDashboard) {
+		this.mIsShowInDashboard = IsShowInDashboard;
+		if (IsShowInDashboard != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsShowInDashboard.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setIsShowInDashboard(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsShowInDashboard.getUUID());
+			}
+		} else {
+			this.setIsShowInDashboard(null);
+		}
+	}
+
+	/**
+	 * Get Show in Dashboard.
+	 *
+	 * @return Show the dashlet in the dashboard
+	 */
+	@JsonProperty("IsShowInDashboard")
+	public I_AD_Ref_ListInput IsShowInDashboard() {
+		return mIsShowInDashboard;
+	}
+
+	/**
+	 * Set PO Window.
+	 *
+	 * @param PO_Window Purchase Order Window
+	 */
+	@JsonProperty("PO_Window")
+	public void setPO_WindowInput(ForeignEntityInput PO_Window) {
+		this.mPO_Window = PO_Window;
+		if (PO_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(PO_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPO_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UUID " + PO_Window.getUUID());
+			}
+		} else {
+			this.setPO_Window_ID(0);
+		}
+	}
+
+	/**
+	 * Get PO Window.
+	 *
+	 * @return Purchase Order Window
+	 */
+	@JsonProperty("PO_Window")
+	public ForeignEntityInput PO_Window() {
+		return mPO_Window;
 	}
 }

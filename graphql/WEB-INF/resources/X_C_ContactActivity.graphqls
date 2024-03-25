@@ -1,6 +1,6 @@
 # Generated Schema for C_ContactActivity - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ContactActivityGet(page: Int, size: Int, sort: String, filter: String): C_ContactActivityConnection!
 }
@@ -17,9 +17,9 @@ type C_ContactActivityConnection {
 }
 
 type C_ContactActivity {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -52,7 +52,7 @@ type C_ContactActivity {
 }
 
 input C_ContactActivityInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput

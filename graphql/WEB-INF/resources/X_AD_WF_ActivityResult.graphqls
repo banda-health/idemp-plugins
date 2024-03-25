@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_ActivityResult - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WF_ActivityResultGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ActivityResultConnection!
 }
@@ -17,9 +17,9 @@ type AD_WF_ActivityResultConnection {
 }
 
 type AD_WF_ActivityResult {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Workflow Activity
 	AD_WF_Activity: AD_WF_Activity!
@@ -45,7 +45,7 @@ type AD_WF_ActivityResult {
 }
 
 input AD_WF_ActivityResultInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Workflow Activity
 	AD_WF_Activity: ForeignEntityInput

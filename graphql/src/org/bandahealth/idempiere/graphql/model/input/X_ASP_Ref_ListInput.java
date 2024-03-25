@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Ref_List - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_ListInput {
 
@@ -43,7 +43,7 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -70,7 +70,7 @@ public class X_ASP_Ref_ListInput extends X_ASP_Ref_List implements I_ASP_Ref_Lis
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

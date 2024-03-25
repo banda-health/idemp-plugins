@@ -36,7 +36,7 @@ import java.sql.ResultSet;
  * Generated Model for I_GLJournal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalInput {
 
@@ -115,7 +115,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -139,7 +139,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -215,7 +215,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -239,7 +239,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -856,7 +856,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	}
 
 	/**
-	 * Set PostingType.
+	 * Set Posting Type.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
@@ -880,7 +880,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	}
 
 	/**
-	 * Get PostingType.
+	 * Get Posting Type.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */

@@ -9,7 +9,7 @@ import org.compiere.model.MProject;
  * Generated Query Resolver for C_Project - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_ProjectQuery extends POQuery<MProject> implements GraphQLQueryResolver {
 	@Override

@@ -48,7 +48,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for HR_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements GraphQLResolver<X_HR_Movement> {
 
@@ -131,7 +131,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

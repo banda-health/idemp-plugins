@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHEncounter;
  * Data Loader for BH_Encounter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_BH_EncounterDataLoader extends PODataLoader<MBHEncounter> {
 	public static String DATALOADER_BH_Encounter_BY_ID = "BH_EncounterByIdDataLoader";

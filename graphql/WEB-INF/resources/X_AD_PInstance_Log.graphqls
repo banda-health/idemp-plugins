@@ -1,6 +1,6 @@
 # Generated Schema for AD_PInstance_Log - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_PInstance_LogGet(page: Int, size: Int, sort: String, filter: String): AD_PInstance_LogConnection!
 }
@@ -22,13 +22,14 @@ type AD_PInstance_Log {
 	UUID: ID!
 	# Database Table information
 	AD_Table: AD_Table
+	Log_ID: Int!
 	# Process Parameter
 	P_Date: Date
 	P_Msg: String
 	# Process Parameter
 	P_Number: BigDecimal
-	# Direct internal record ID
-	Record_ID: Int
+	# Process Audit Log Type
+	PInstanceLogType: AD_Ref_List
 }
 
 input AD_PInstance_LogInput {
@@ -37,11 +38,12 @@ input AD_PInstance_LogInput {
 	UUID: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
+	Log_ID: Int
 	# Process Parameter
 	P_Date: Date
 	P_Msg: String
 	# Process Parameter
 	P_Number: BigDecimal
-	# Direct internal record ID
-	Record_ID: Int
+	# Process Audit Log Type
+	PInstanceLogType: AD_Ref_ListInput
 }

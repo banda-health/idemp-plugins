@@ -1,6 +1,6 @@
 # Generated Schema for AD_AlertProcessor - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_AlertProcessorGet(page: Int, size: Int, sort: String, filter: String): AD_AlertProcessorConnection!
 }
@@ -18,9 +18,9 @@ type AD_AlertProcessorConnection {
 
 type AD_AlertProcessor {
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Schedule: AD_Schedule!
 	# Date this record was created
@@ -50,7 +50,7 @@ type AD_AlertProcessor {
 
 input AD_AlertProcessorInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
 	# Date the process was last run.

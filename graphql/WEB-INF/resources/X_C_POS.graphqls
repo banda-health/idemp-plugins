@@ -1,6 +1,6 @@
 # Generated Schema for C_POS - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_POSGet(page: Int, size: Int, sort: String, filter: String): C_POSConnection!
 }
@@ -17,9 +17,9 @@ type C_POSConnection {
 }
 
 type C_POS {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Automatically logout if terminal inactive for this period
 	AutoLogoutDelay: Int
@@ -68,7 +68,7 @@ type C_POS {
 }
 
 input C_POSInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Automatically logout if terminal inactive for this period
 	AutoLogoutDelay: Int

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_PInstance_Log;
  * Generated Interface for AD_PInstance_Log - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_PInstance_LogInput extends I_AD_PInstance_Log {
 
@@ -51,4 +51,18 @@ public interface I_AD_PInstance_LogInput extends I_AD_PInstance_Log {
 	 * @return Database Table information
 	 */
 	ForeignEntityInput AD_Table();
+
+	/**
+	 * Set PInstanceLogType.
+	 *
+	 * @param PInstanceLogType Process Audit Log Type
+	 */
+	void setPInstanceLogTypeInput(I_AD_Ref_ListInput PInstanceLogType);
+
+	/**
+	 * Get PInstanceLogType.
+	 *
+	 * @return Process Audit Log Type
+	 */
+	I_AD_Ref_ListInput PInstanceLogType();
 }

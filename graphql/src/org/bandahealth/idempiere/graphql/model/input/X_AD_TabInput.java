@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 
@@ -39,6 +39,8 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mIncluded_Tab;
 	private ForeignEntityInput mParent_Column;
+	private I_AD_Ref_ListInput mAD_TabType;
+	private I_AD_Ref_ListInput mIsHighVolume;
 	private I_AD_Ref_ListInput mTreeDisplayedOn;
 
 	/**
@@ -226,7 +228,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -253,7 +255,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -355,6 +357,40 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("AD_Table")
 	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
+	}
+
+	/**
+	 * Set Tab Type.
+	 *
+	 * @param AD_TabType Defines Tab Type
+	 */
+	@JsonProperty("AD_TabType")
+	public void setAD_TabTypeInput(I_AD_Ref_ListInput AD_TabType) {
+		this.mAD_TabType = AD_TabType;
+		if (AD_TabType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(AD_TabType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_TabType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AD_TabType.getUUID());
+			}
+		} else {
+			this.setAD_TabType(null);
+		}
+	}
+
+	/**
+	 * Get Tab Type.
+	 *
+	 * @return Defines Tab Type
+	 */
+	@JsonProperty("AD_TabType")
+	public I_AD_Ref_ListInput AD_TabType() {
+		return mAD_TabType;
 	}
 
 	/**
@@ -460,6 +496,40 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	@JsonProperty("Included_Tab")
 	public ForeignEntityInput Included_Tab() {
 		return mIncluded_Tab;
+	}
+
+	/**
+	 * Set High Volume.
+	 *
+	 * @param IsHighVolume Use Search instead of Pick list
+	 */
+	@JsonProperty("IsHighVolume")
+	public void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume) {
+		this.mIsHighVolume = IsHighVolume;
+		if (IsHighVolume != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsHighVolume.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setIsHighVolume(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsHighVolume.getUUID());
+			}
+		} else {
+			this.setIsHighVolume(null);
+		}
+	}
+
+	/**
+	 * Get High Volume.
+	 *
+	 * @return Use Search instead of Pick list
+	 */
+	@JsonProperty("IsHighVolume")
+	public I_AD_Ref_ListInput IsHighVolume() {
+		return mIsHighVolume;
 	}
 
 	/**

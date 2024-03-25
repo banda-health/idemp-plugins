@@ -18,6 +18,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BP_BankAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankAccountDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankTransferDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CampaignDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashBookDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeDataLoader;
@@ -36,6 +37,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPBankAccount;
+import org.compiere.model.MBankTransfer;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MConversionType;
@@ -55,7 +57,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Payment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements GraphQLResolver<MPayment_BH> {
 
@@ -107,6 +109,21 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 
 
 	/**
+	 * Get Bank Transfer.
+	 *
+	 * @return Bank Transfer
+	 */
+	public CompletableFuture<MBankTransfer> C_BankTransfer(MPayment_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BankTransfer_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MBankTransfer> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankTransferDataLoader.DATALOADER_C_BankTransfer_BY_ID);
+		return dataLoader.load(entity.getC_BankTransfer_ID());
+	}
+
+
+	/**
 	 * Get Partner Bank Account.
 	 *
 	 * @return Bank Account of the Business Partner
@@ -122,7 +139,7 @@ public class X_C_PaymentResolver extends POResolver<MPayment_BH> implements Grap
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

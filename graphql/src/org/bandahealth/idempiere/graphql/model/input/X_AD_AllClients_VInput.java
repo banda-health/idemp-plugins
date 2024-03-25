@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_AllClients_V - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_AllClients_VInput {
 
@@ -35,9 +35,9 @@ public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_Al
 		setUUID(UUID);
 	}
 	/**
-	 * Set Client (All).
+	 * Set Tenant (All).
 	 *
-	 * @param AD_AllClients_V_ID Client (All)
+	 * @param AD_AllClients_V_ID Tenant (All)
 	 */
 
 	public void setAD_AllClients_V_ID(int AD_AllClients_V_ID) {
@@ -104,7 +104,7 @@ public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_Al
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -131,7 +131,7 @@ public class X_AD_AllClients_VInput extends X_AD_AllClients_V implements I_AD_Al
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

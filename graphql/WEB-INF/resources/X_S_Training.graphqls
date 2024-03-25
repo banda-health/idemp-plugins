@@ -1,6 +1,6 @@
 # Generated Schema for S_Training - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	S_TrainingGet(page: Int, size: Int, sort: String, filter: String): S_TrainingConnection!
 }
@@ -17,9 +17,9 @@ type S_TrainingConnection {
 }
 
 type S_Training {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Tax Category
 	C_TaxCategory: C_TaxCategory!
@@ -54,7 +54,7 @@ type S_Training {
 }
 
 input S_TrainingInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput

@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Info_Oth - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_Info_OthGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Info_OthConnection!
 }
@@ -36,9 +36,9 @@ type A_Asset_Info_Oth {
 	A_User7: String
 	A_User8: String
 	A_User9: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -73,7 +73,7 @@ input A_Asset_Info_OthInput {
 	A_User7: String
 	A_User8: String
 	A_User9: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

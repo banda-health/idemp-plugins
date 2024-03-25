@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Replication_Log - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog_BH> implements GraphQLResolver<MReplicationLog_BH> {
 

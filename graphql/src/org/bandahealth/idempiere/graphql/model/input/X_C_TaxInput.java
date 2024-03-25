@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Tax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 
@@ -37,6 +37,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	private ForeignEntityInput mParent_Tax;
 	private ForeignEntityInput mTo_Region;
 	private I_AD_Ref_ListInput mSOPOType;
+	private I_AD_Ref_ListInput mTaxPostingIndicator;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -53,7 +54,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -80,7 +81,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -420,6 +421,40 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	@JsonProperty("SOPOType")
 	public I_AD_Ref_ListInput SOPOType() {
 		return mSOPOType;
+	}
+
+	/**
+	 * Set Posting Indicator.
+	 *
+	 * @param TaxPostingIndicator Type of input tax (deductible and non deductible)
+	 */
+	@JsonProperty("TaxPostingIndicator")
+	public void setTaxPostingIndicatorInput(I_AD_Ref_ListInput TaxPostingIndicator) {
+		this.mTaxPostingIndicator = TaxPostingIndicator;
+		if (TaxPostingIndicator != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(TaxPostingIndicator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setTaxPostingIndicator(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + TaxPostingIndicator.getUUID());
+			}
+		} else {
+			this.setTaxPostingIndicator(null);
+		}
+	}
+
+	/**
+	 * Get Posting Indicator.
+	 *
+	 * @return Type of input tax (deductible and non deductible)
+	 */
+	@JsonProperty("TaxPostingIndicator")
+	public I_AD_Ref_ListInput TaxPostingIndicator() {
+		return mTaxPostingIndicator;
 	}
 
 	/**

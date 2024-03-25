@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserDef_Win - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_UserDef_WinGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_WinConnection!
 }
@@ -17,11 +17,11 @@ type AD_UserDef_WinConnection {
 }
 
 type AD_UserDef_Win {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
 	AD_Language: AD_Language
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
@@ -57,7 +57,7 @@ type AD_UserDef_Win {
 input AD_UserDef_WinInput {
 	# Language for this entity
 	AD_Language: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput

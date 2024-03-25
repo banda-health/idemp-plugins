@@ -1,6 +1,6 @@
 # Generated Schema for C_UOM - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_UOMGet(page: Int, size: Int, sort: String, filter: String): C_UOMConnection!
 }
@@ -17,9 +17,9 @@ type C_UOMConnection {
 }
 
 type C_UOM {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Rounding used costing calculations
@@ -50,7 +50,7 @@ type C_UOM {
 }
 
 input C_UOMInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Rounding used costing calculations

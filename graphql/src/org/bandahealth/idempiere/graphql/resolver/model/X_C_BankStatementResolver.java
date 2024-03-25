@@ -3,9 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankAccountDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MBankStatement;
 import org.dataloader.DataLoader;
@@ -18,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_BankStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BankStatementResolver extends POResolver<MBankStatement> implements GraphQLResolver<MBankStatement> {
 
@@ -36,6 +38,21 @@ public class X_C_BankStatementResolver extends POResolver<MBankStatement> implem
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_BankAccountDataLoader.DATALOADER_C_BankAccount_BY_ID);
 		return dataLoader.load(entity.getC_BankAccount_ID());
+	}
+
+
+	/**
+	 * Get Document Type.
+	 *
+	 * @return Document type or rules
+	 */
+	public CompletableFuture<MDocType_BH> C_DocType(MBankStatement entity, DataFetchingEnvironment environment) {
+		if (entity.getC_DocType_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MDocType_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
+		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
 	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {

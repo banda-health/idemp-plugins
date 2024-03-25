@@ -9,7 +9,7 @@ import org.compiere.model.X_C_Subscription_Delivery;
  * Generated Query Resolver for C_Subscription_Delivery - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_Subscription_DeliveryQuery extends POQuery<X_C_Subscription_Delivery> implements GraphQLQueryResolver {
 	@Override

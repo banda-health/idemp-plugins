@@ -1,6 +1,6 @@
 # Generated Schema for AD_Column - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ColumnGet(page: Int, size: Int, sort: String, filter: String): AD_ColumnConnection!
 }
@@ -18,12 +18,14 @@ type AD_ColumnConnection {
 
 type AD_Column {
 	AD_Chart: AD_Chart
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: AD_Element!
-	# Organizational entity within client
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
@@ -37,6 +39,8 @@ type AD_Column {
 	AD_Val_Rule: AD_Val_Rule
 	# Override Dynamic Validation Rule for Lookup Window
 	AD_Val_Rule_Lookup: AD_Val_Rule
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
 	# Fully qualified class names and method - separated by semicolons
 	Callout: String
 	# Name of the column in the database
@@ -55,6 +59,7 @@ type AD_Column {
 	AD_EntityType: AD_EntityType!
 	# Length of the column in the database
 	FieldLength: Int
+	FKConstraintMsg: AD_Message
 	FKConstraintName: String
 	FKConstraintType: AD_Ref_List
 	# The pattern used to format a number or date.
@@ -69,7 +74,7 @@ type AD_Column {
 	IsAllowLogging: Boolean!
 	# The column is always updateable, even if the record is not active or processed
 	IsAlwaysUpdateable: Boolean!
-	# Automatic completion for textfields
+	# Automatic completion for text fields
 	IsAutocomplete: Boolean!
 	# Display or Storage is encrypted
 	IsEncrypted: AD_Ref_List!
@@ -83,6 +88,8 @@ type AD_Column {
 	IsMandatory: Boolean!
 	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns
 	IsParent: Boolean!
+	# This is a partition key
+	IsPartitionKey: Boolean!
 	# Defines whether content must be treated as secure
 	IsSecure: Boolean!
 	# Is this column used for finding rows in windows
@@ -99,11 +106,17 @@ type AD_Column {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	PA_DashboardContent: PA_DashboardContent
+	# Indicates how the Table is partitioned
+	PartitioningMethod: AD_Ref_List
 	Placeholder: String
+	# Indicates the interval used in a range partitioning
+	RangePartitionInterval: String
 	# Logic to determine if field is read only (applies only when field is read-write)
 	ReadOnlyLogic: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
+	# Indicates the order of partition keys
+	SeqNoPartition: Int
 	# Selection Column Sequence
 	SeqNoSelection: Int
 	# Date this record was updated
@@ -125,7 +138,9 @@ input AD_ColumnInput {
 	UUID: ID
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: ForeignEntityInput
-	# Organizational entity within client
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
@@ -139,6 +154,8 @@ input AD_ColumnInput {
 	AD_Val_Rule: ForeignEntityInput
 	# Override Dynamic Validation Rule for Lookup Window
 	AD_Val_Rule_Lookup: ForeignEntityInput
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
 	# Fully qualified class names and method - separated by semicolons
 	Callout: String
 	# Name of the column in the database
@@ -153,6 +170,7 @@ input AD_ColumnInput {
 	AD_EntityType: ForeignEntityInput
 	# Length of the column in the database
 	FieldLength: Int
+	FKConstraintMsg: ForeignEntityInput
 	FKConstraintName: String
 	FKConstraintType: AD_Ref_ListInput
 	# The pattern used to format a number or date.
@@ -167,7 +185,7 @@ input AD_ColumnInput {
 	IsAllowLogging: Boolean
 	# The column is always updateable, even if the record is not active or processed
 	IsAlwaysUpdateable: Boolean
-	# Automatic completion for textfields
+	# Automatic completion for text fields
 	IsAutocomplete: Boolean
 	# Display or Storage is encrypted
 	IsEncrypted: AD_Ref_ListInput
@@ -181,6 +199,8 @@ input AD_ColumnInput {
 	IsMandatory: Boolean
 	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns
 	IsParent: Boolean
+	# This is a partition key
+	IsPartitionKey: Boolean
 	# Defines whether content must be treated as secure
 	IsSecure: Boolean
 	# Is this column used for finding rows in windows
@@ -197,11 +217,17 @@ input AD_ColumnInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	PA_DashboardContent: ForeignEntityInput
+	# Indicates how the Table is partitioned
+	PartitioningMethod: AD_Ref_ListInput
 	Placeholder: String
+	# Indicates the interval used in a range partitioning
+	RangePartitionInterval: String
 	# Logic to determine if field is read only (applies only when field is read-write)
 	ReadOnlyLogic: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
+	# Indicates the order of partition keys
+	SeqNoPartition: Int
 	# Selection Column Sequence
 	SeqNoSelection: Int
 	# Maximum Value for a field

@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for GL_BudgetControl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_BudgetControlInput {
 
@@ -43,7 +43,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -67,7 +67,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

@@ -6,7 +6,7 @@ import org.compiere.model.MCostType;
  * Data Loader for M_CostType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_CostTypeDataLoader extends PODataLoader<MCostType> {
 	public static String DATALOADER_M_CostType_BY_ID = "M_CostTypeByIdDataLoader";

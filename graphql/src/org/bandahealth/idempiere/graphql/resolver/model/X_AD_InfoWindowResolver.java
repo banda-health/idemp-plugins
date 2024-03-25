@@ -7,11 +7,13 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_CtxHelpDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindow_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MCtxHelp;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MTable;
+import org.compiere.model.MWindow;
 import org.compiere.model.PO;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
@@ -25,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_InfoWindow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements GraphQLResolver<MInfoWindow> {
 
@@ -58,6 +60,21 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 		DataLoader<Integer, MTable> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
 		return dataLoader.load(entity.getAD_Table_ID());
+	}
+
+
+	/**
+	 * Get Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	public CompletableFuture<MWindow> AD_Window(MInfoWindow entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Window_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWindow> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
+		return dataLoader.load(entity.getAD_Window_ID());
 	}
 
 	/**
@@ -154,6 +171,21 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 				.getDataLoader(X_AD_InfoWindow_TrlDataLoader.DATALOADER_AD_InfoWindow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MInfoWindow.COLUMNNAME_Name));
+	}
+
+
+	/**
+	 * Get PO Window.
+	 *
+	 * @return Purchase Order Window
+	 */
+	public CompletableFuture<MWindow> PO_Window(MInfoWindow entity, DataFetchingEnvironment environment) {
+		if (entity.getPO_Window_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWindow> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
+		return dataLoader.load(entity.getPO_Window_ID());
 	}
 
 	public Boolean Processing(MInfoWindow entity, DataFetchingEnvironment environment) {

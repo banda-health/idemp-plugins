@@ -6,9 +6,9 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MDocumentActionAccess;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_AD_Role;
 import org.compiere.util.Env;
 
@@ -18,9 +18,9 @@ import java.sql.ResultSet;
  * Generated Model for AD_Document_Action_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Access implements I_AD_Document_Action_AccessInput {
+public class X_AD_Document_Action_AccessInput extends MDocumentActionAccess implements I_AD_Document_Action_AccessInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Ref_List;
@@ -35,7 +35,7 @@ public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Acces
 	 */
 	@JsonCreator
 	public X_AD_Document_Action_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Document_Action_Access(null, (ResultSet) null, null),
+		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDocumentActionAccess(null, (ResultSet) null, null),
 				null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
@@ -61,7 +61,7 @@ public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Acces
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -88,7 +88,7 @@ public class X_AD_Document_Action_AccessInput extends X_AD_Document_Action_Acces
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

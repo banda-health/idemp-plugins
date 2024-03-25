@@ -1,6 +1,6 @@
 # Generated Schema for AD_StatusLineUsedIn - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_StatusLineUsedInGet(page: Int, size: Int, sort: String, filter: String): AD_StatusLineUsedInConnection!
 }
@@ -17,9 +17,11 @@ type AD_StatusLineUsedInConnection {
 }
 
 type AD_StatusLineUsedIn {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_StatusLine: AD_StatusLine!
 	UUID: ID!
@@ -48,7 +50,9 @@ type AD_StatusLineUsedIn {
 }
 
 input AD_StatusLineUsedInInput {
-	# Organizational entity within client
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_StatusLine: ForeignEntityInput
 	UUID: ID

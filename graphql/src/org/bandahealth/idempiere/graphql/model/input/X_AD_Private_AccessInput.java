@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Private_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Private_AccessInput extends MPrivateAccess implements I_AD_Private_AccessInput {
 
@@ -41,7 +41,7 @@ public class X_AD_Private_AccessInput extends MPrivateAccess implements I_AD_Pri
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -68,7 +68,7 @@ public class X_AD_Private_AccessInput extends MPrivateAccess implements I_AD_Pri
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -165,16 +165,5 @@ public class X_AD_Private_AccessInput extends MPrivateAccess implements I_AD_Pri
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
-	}
-	/**
-	 * Set Record ID.
-	 *
-	 * @param Record_ID Direct internal record ID
-	 */
-
-	public void setRecord_ID(int Record_ID) {
-		if (get_ID() == 0) {
-			super.setRecord_ID(Record_ID);
-		}
 	}
 }

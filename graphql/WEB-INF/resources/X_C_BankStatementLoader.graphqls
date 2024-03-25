@@ -1,6 +1,6 @@
 # Generated Schema for C_BankStatementLoader - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BankStatementLoaderGet(page: Int, size: Int, sort: String, filter: String): C_BankStatementLoaderConnection!
 }
@@ -19,9 +19,9 @@ type C_BankStatementLoaderConnection {
 type C_BankStatementLoader {
 	# Account Number
 	AccountNo: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Bank Branch ID
 	BranchID: String
@@ -75,7 +75,7 @@ type C_BankStatementLoader {
 input C_BankStatementLoaderInput {
 	# Account Number
 	AccountNo: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Bank Branch ID
 	BranchID: String

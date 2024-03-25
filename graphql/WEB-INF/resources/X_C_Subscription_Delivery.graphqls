@@ -1,6 +1,6 @@
 # Generated Schema for C_Subscription_Delivery - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_Subscription_DeliveryGet(page: Int, size: Int, sort: String, filter: String): C_Subscription_DeliveryConnection!
 }
@@ -17,9 +17,9 @@ type C_Subscription_DeliveryConnection {
 }
 
 type C_Subscription_Delivery {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Subscription of a Business Partner of a Product to renew
@@ -37,7 +37,7 @@ type C_Subscription_Delivery {
 }
 
 input C_Subscription_DeliveryInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Subscription of a Business Partner of a Product to renew

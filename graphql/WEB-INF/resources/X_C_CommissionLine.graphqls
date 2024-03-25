@@ -1,6 +1,6 @@
 # Generated Schema for C_CommissionLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CommissionLineGet(page: Int, size: Int, sort: String, filter: String): C_CommissionLineConnection!
 }
@@ -17,9 +17,9 @@ type C_CommissionLineConnection {
 }
 
 type C_CommissionLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Multiplier Amount for generating commissions
 	AmtMultiplier: BigDecimal!
@@ -65,7 +65,7 @@ type C_CommissionLine {
 }
 
 input C_CommissionLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Multiplier Amount for generating commissions
 	AmtMultiplier: BigDecimal

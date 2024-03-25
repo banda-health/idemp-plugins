@@ -1,6 +1,6 @@
 # Generated Schema for C_ProjectLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ProjectLineGet(page: Int, size: Int, sort: String, filter: String): C_ProjectLineConnection!
 }
@@ -17,9 +17,9 @@ type C_ProjectLineConnection {
 }
 
 type C_ProjectLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Order
 	C_Order: C_Order
@@ -78,7 +78,7 @@ type C_ProjectLine {
 }
 
 input C_ProjectLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput

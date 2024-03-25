@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_BroadcastMessage - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMessage> implements GraphQLResolver<X_AD_BroadcastMessage> {
 
@@ -139,6 +139,21 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(TARGET_UUIDS_BY_VALUE.get(entity.getTarget()));
+	}
+
+	/**
+	 * Get Title.
+	 *
+	 * @return Name this entity is referred to as
+	 */
+	public CompletableFuture<String> Title(X_AD_BroadcastMessage entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getTitle);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_BroadcastMessage_TrlDataLoader.DATALOADER_AD_BroadcastMessage_Trl_BY_ID);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_AD_BroadcastMessage.COLUMNNAME_Title));
 	}
 
 }

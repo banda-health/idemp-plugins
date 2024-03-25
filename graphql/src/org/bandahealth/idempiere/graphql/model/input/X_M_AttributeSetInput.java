@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for M_AttributeSet - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_AttributeSetInput {
 
@@ -43,7 +43,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -70,7 +70,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -89,9 +89,9 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	}
 
 	/**
-	 * Set AttributeSet Type.
+	 * Set Attribute Set Type.
 	 *
-	 * @param M_AttributeSet_Type AttributeSet Type
+	 * @param M_AttributeSet_Type Attribute Set Type
 	 */
 	@JsonProperty("M_AttributeSet_Type")
 	public void setM_AttributeSet_TypeInput(I_AD_Ref_ListInput M_AttributeSet_Type) {
@@ -113,9 +113,9 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	}
 
 	/**
-	 * Get AttributeSet Type.
+	 * Get Attribute Set Type.
 	 *
-	 * @return AttributeSet Type
+	 * @return Attribute Set Type
 	 */
 	@JsonProperty("M_AttributeSet_Type")
 	public I_AD_Ref_ListInput M_AttributeSet_Type() {

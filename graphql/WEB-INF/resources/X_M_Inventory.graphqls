@@ -1,6 +1,6 @@
 # Generated Schema for M_Inventory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_InventoryGet(page: Int, size: Int, sort: String, filter: String): M_InventoryConnection!
 }
@@ -17,14 +17,12 @@ type M_InventoryConnection {
 }
 
 type M_Inventory {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	bh_update_reason: AD_Ref_List
 	# Business Activity
 	C_Activity: C_Activity
@@ -86,12 +84,10 @@ type M_Inventory {
 }
 
 input M_InventoryInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	bh_update_reason: AD_Ref_ListInput
 	# Business Activity
 	C_Activity: ForeignEntityInput

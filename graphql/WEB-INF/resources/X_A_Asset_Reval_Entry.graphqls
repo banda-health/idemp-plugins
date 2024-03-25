@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Reval_Entry - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_Reval_EntryGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Reval_EntryConnection!
 }
@@ -23,9 +23,9 @@ type A_Asset_Reval_Entry {
 	A_Reval_Cal_Method: AD_Ref_List!
 	A_Reval_Effective_Date: AD_Ref_List!
 	A_Reval_Multiplier: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
@@ -69,7 +69,7 @@ input A_Asset_Reval_EntryInput {
 	A_Reval_Cal_Method: AD_Ref_ListInput
 	A_Reval_Effective_Date: AD_Ref_ListInput
 	A_Reval_Multiplier: AD_Ref_ListInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput

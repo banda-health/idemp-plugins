@@ -1,6 +1,6 @@
 # Generated Schema for C_InvoiceBatch - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_InvoiceBatchGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceBatchConnection!
 }
@@ -17,9 +17,9 @@ type C_InvoiceBatchConnection {
 }
 
 type C_InvoiceBatch {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Currency Conversion Rate Type
 	C_ConversionType: C_ConversionType
@@ -56,7 +56,7 @@ type C_InvoiceBatch {
 }
 
 input C_InvoiceBatchInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Currency Conversion Rate Type
 	C_ConversionType: ForeignEntityInput

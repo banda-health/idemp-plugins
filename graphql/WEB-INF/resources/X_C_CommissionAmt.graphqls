@@ -1,6 +1,6 @@
 # Generated Schema for C_CommissionAmt - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CommissionAmtGet(page: Int, size: Int, sort: String, filter: String): C_CommissionAmtConnection!
 }
@@ -19,9 +19,9 @@ type C_CommissionAmtConnection {
 type C_CommissionAmt {
 	# The actual quantity
 	ActualQty: BigDecimal!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Commission Line
@@ -47,7 +47,7 @@ type C_CommissionAmt {
 input C_CommissionAmtInput {
 	# The actual quantity
 	ActualQty: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Commission Line

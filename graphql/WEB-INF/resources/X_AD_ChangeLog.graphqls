@@ -1,6 +1,6 @@
 # Generated Schema for AD_ChangeLog - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ChangeLogGet(page: Int, size: Int, sort: String, filter: String): AD_ChangeLogConnection!
 }
@@ -20,11 +20,11 @@ type AD_ChangeLog {
 	# Log of data changes
 	AD_ChangeLog: AD_ChangeLog!
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User Session Online or Web
 	AD_Session: AD_Session!
@@ -46,8 +46,7 @@ type AD_ChangeLog {
 	NewValue: String
 	# The old file data
 	OldValue: String
-	# Direct internal record ID
-	Record_ID: Int!
+	UUID: ID!
 	Redo: String
 	# Name of the transaction
 	TrxName: String
@@ -64,7 +63,7 @@ input AD_ChangeLogInput {
 	UUID: ID
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User Session Online or Web
 	AD_Session: ForeignEntityInput
@@ -82,8 +81,7 @@ input AD_ChangeLogInput {
 	NewValue: String
 	# The old file data
 	OldValue: String
-	# Direct internal record ID
-	Record_ID: Int
+	UUID: ID
 	Redo: String
 	# Name of the transaction
 	TrxName: String

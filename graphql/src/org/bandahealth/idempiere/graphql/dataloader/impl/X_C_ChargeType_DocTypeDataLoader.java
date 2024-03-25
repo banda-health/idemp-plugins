@@ -6,7 +6,7 @@ import org.compiere.model.X_C_ChargeType_DocType;
  * Data Loader for C_ChargeType_DocType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_ChargeType_DocTypeDataLoader extends PODataLoader<X_C_ChargeType_DocType> {
 	public static String DATALOADER_C_ChargeType_DocType_BY_ID = "C_ChargeType_DocTypeByIdDataLoader";

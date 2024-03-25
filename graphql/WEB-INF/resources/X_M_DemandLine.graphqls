@@ -1,6 +1,6 @@
 # Generated Schema for M_DemandLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_DemandLineGet(page: Int, size: Int, sort: String, filter: String): M_DemandLineConnection!
 }
@@ -17,9 +17,9 @@ type M_DemandLineConnection {
 }
 
 type M_DemandLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Period of the Calendar
 	C_Period: C_Period!
@@ -45,7 +45,7 @@ type M_DemandLine {
 }
 
 input M_DemandLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Period of the Calendar
 	C_Period: ForeignEntityInput

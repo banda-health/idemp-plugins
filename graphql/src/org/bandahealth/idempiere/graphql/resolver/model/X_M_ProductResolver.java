@@ -49,14 +49,10 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ProductResolver extends POResolver<MProduct_BH> implements GraphQLResolver<MProduct_BH> {
 
-
-	public Boolean BH_HasExpiration(MProduct_BH entity, DataFetchingEnvironment environment) {
-		return entity.isBH_HasExpiration();
-	}
 
 	public int bh_reorder_level(MProduct_BH entity, DataFetchingEnvironment environment) {
 		return entity.getbh_reorder_level();
@@ -158,6 +154,10 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 				.getDataLoader(X_M_Product_TrlDataLoader.DATALOADER_M_Product_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_DocumentNote));
+	}
+
+	public Boolean IsAutoProduce(MProduct_BH entity, DataFetchingEnvironment environment) {
+		return entity.isAutoProduce();
 	}
 
 	public Boolean IsBOM(MProduct_BH entity, DataFetchingEnvironment environment) {

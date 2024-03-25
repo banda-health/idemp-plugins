@@ -1,6 +1,6 @@
 # Generated Schema for AD_UserDef_Tab - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_UserDef_TabGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_TabConnection!
 }
@@ -17,9 +17,9 @@ type AD_UserDef_TabConnection {
 }
 
 type AD_UserDef_Tab {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
@@ -31,6 +31,7 @@ type AD_UserDef_Tab {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	DeleteConfirmationLogic: String
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed
@@ -40,6 +41,8 @@ type AD_UserDef_Tab {
 	# The record is active in the system
 	IsActive: Boolean!
 	IsAllowAdvancedLookup: AD_Ref_List
+	# Use Search instead of Pick list
+	IsHighVolume: AD_Ref_List
 	# When defined to true Lookup panel will display only selection columns. Default to false.
 	IsLookupOnlySelection: AD_Ref_List
 	# This applies to Multi-Row view only
@@ -65,7 +68,7 @@ type AD_UserDef_Tab {
 }
 
 input AD_UserDef_TabInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
@@ -73,6 +76,7 @@ input AD_UserDef_TabInput {
 	AD_Tab: ForeignEntityInput
 	UUID: ID
 	AD_UserDef_Win: ForeignEntityInput
+	DeleteConfirmationLogic: String
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed
@@ -82,6 +86,8 @@ input AD_UserDef_TabInput {
 	# The record is active in the system
 	IsActive: Boolean
 	IsAllowAdvancedLookup: AD_Ref_ListInput
+	# Use Search instead of Pick list
+	IsHighVolume: AD_Ref_ListInput
 	# When defined to true Lookup panel will display only selection columns. Default to false.
 	IsLookupOnlySelection: AD_Ref_ListInput
 	# This applies to Multi-Row view only

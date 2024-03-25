@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_Block - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WF_BlockGet(page: Int, size: Int, sort: String, filter: String): AD_WF_BlockConnection!
 }
@@ -17,9 +17,9 @@ type AD_WF_BlockConnection {
 }
 
 type AD_WF_Block {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Workflow or combination of tasks
@@ -41,7 +41,7 @@ type AD_WF_Block {
 }
 
 input AD_WF_BlockInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Workflow or combination of tasks

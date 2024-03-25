@@ -28,7 +28,7 @@ import java.sql.Timestamp;
  * Generated Model for A_Asset_Change - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_ChangeInput {
 
@@ -515,7 +515,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -542,7 +542,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -583,9 +583,9 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 		return mAD_User;
 	}
 	/**
-	 * Set AssetAccumDepreciationAmt.
+	 * Set Asset Accum Depreciation Amt.
 	 *
-	 * @param AssetAccumDepreciationAmt AssetAccumDepreciationAmt
+	 * @param AssetAccumDepreciationAmt Asset Accum Depreciation Amt
 	 */
 
 	public void setAssetAccumDepreciationAmt(BigDecimal AssetAccumDepreciationAmt) {
@@ -594,9 +594,9 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 		}
 	}
 	/**
-	 * Set AssetBookValueAmt.
+	 * Set Asset Book Value Amt.
 	 *
-	 * @param AssetBookValueAmt AssetBookValueAmt
+	 * @param AssetBookValueAmt Asset Book Value Amt
 	 */
 
 	public void setAssetBookValueAmt(BigDecimal AssetBookValueAmt) {
@@ -684,7 +684,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -708,7 +708,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -819,9 +819,9 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 		return mC_ValidCombination;
 	}
 	/**
-	 * Set ChangeAmt.
+	 * Set Change Amt.
 	 *
-	 * @param ChangeAmt ChangeAmt
+	 * @param ChangeAmt Change Amt
 	 */
 
 	public void setChangeAmt(BigDecimal ChangeAmt) {
@@ -830,9 +830,9 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 		}
 	}
 	/**
-	 * Set ChangeDate.
+	 * Set Change Date.
 	 *
-	 * @param ChangeDate ChangeDate
+	 * @param ChangeDate Change Date
 	 */
 
 	public void setChangeDate(Timestamp ChangeDate) {
@@ -842,9 +842,9 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	}
 
 	/**
-	 * Set ChangeType.
+	 * Set Change Type.
 	 *
-	 * @param ChangeType ChangeType
+	 * @param ChangeType Change Type
 	 */
 	@JsonProperty("ChangeType")
 	public void setChangeTypeInput(I_AD_Ref_ListInput ChangeType) {
@@ -869,9 +869,9 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	}
 
 	/**
-	 * Get ChangeType.
+	 * Get Change Type.
 	 *
-	 * @return ChangeType
+	 * @return Change Type
 	 */
 	@JsonProperty("ChangeType")
 	public I_AD_Ref_ListInput ChangeType() {
@@ -901,7 +901,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	}
 
 	/**
-	 * Set PostingType.
+	 * Set Posting Type.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
@@ -925,7 +925,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	}
 
 	/**
-	 * Get PostingType.
+	 * Get Posting Type.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
@@ -972,7 +972,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param UseLifeYears Years of the usable life of the asset
 	 */
 
-	public void setUseLifeYears(int UseLifeYears) {
+	public void setUseLifeYears(BigDecimal UseLifeYears) {
 		if (get_ID() == 0) {
 			super.setUseLifeYears(UseLifeYears);
 		}

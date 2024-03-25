@@ -1,6 +1,6 @@
 # Generated Schema for C_CashPlanLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CashPlanLineGet(page: Int, size: Int, sort: String, filter: String): C_CashPlanLineConnection!
 }
@@ -17,9 +17,9 @@ type C_CashPlanLineConnection {
 }
 
 type C_CashPlanLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
@@ -71,7 +71,7 @@ type C_CashPlanLine {
 }
 
 input C_CashPlanLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput

@@ -1,6 +1,6 @@
 # Generated Schema for C_RfQLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_RfQLineGet(page: Int, size: Int, sort: String, filter: String): C_RfQLineConnection!
 }
@@ -17,9 +17,9 @@ type C_RfQLineConnection {
 }
 
 type C_RfQLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Request for Quotation
 	C_RfQ: C_RfQ!
@@ -53,7 +53,7 @@ type C_RfQLine {
 }
 
 input C_RfQLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Request for Quotation
 	C_RfQ: ForeignEntityInput

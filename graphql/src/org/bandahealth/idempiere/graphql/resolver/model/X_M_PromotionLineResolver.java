@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_PromotionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_PromotionLineResolver extends POResolver<X_M_PromotionLine> implements GraphQLResolver<X_M_PromotionLine> {
 

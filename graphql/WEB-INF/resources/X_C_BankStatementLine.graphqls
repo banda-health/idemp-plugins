@@ -1,6 +1,6 @@
 # Generated Schema for C_BankStatementLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BankStatementLineGet(page: Int, size: Int, sort: String, filter: String): C_BankStatementLineConnection!
 }
@@ -17,9 +17,9 @@ type C_BankStatementLineConnection {
 }
 
 type C_BankStatementLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Bank Statement of account
 	C_BankStatement: C_BankStatement!
@@ -99,7 +99,7 @@ type C_BankStatementLine {
 }
 
 input C_BankStatementLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Bank Statement of account
 	C_BankStatement: ForeignEntityInput

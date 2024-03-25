@@ -9,7 +9,7 @@ import org.compiere.model.X_B_Topic;
  * Generated Query Resolver for B_Topic - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_B_TopicQuery extends POQuery<X_B_Topic> implements GraphQLQueryResolver {
 	@Override

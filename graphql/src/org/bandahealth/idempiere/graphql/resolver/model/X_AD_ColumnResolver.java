@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
@@ -10,6 +11,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Column_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ElementDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindowDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_MessageDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
@@ -21,6 +24,7 @@ import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MEntityType;
+import org.compiere.model.MInfoWindow;
 import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
 import org.compiere.model.M_Element;
@@ -37,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLResolver<MColumn> {
 
@@ -70,6 +74,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		DataLoader<Integer, M_Element> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ElementDataLoader.DATALOADER_AD_Element_BY_ID);
 		return dataLoader.load(entity.getAD_Element_ID());
+	}
+
+
+	/**
+	 * Get Info Window.
+	 *
+	 * @return Info and search/select Window
+	 */
+	public CompletableFuture<MInfoWindow> AD_InfoWindow(MColumn entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_InfoWindow_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MInfoWindow> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.DATALOADER_AD_InfoWindow_BY_ID);
+		return dataLoader.load(entity.getAD_InfoWindow_ID());
 	}
 
 
@@ -193,6 +212,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
 	}
 
+
+	/**
+	 * Get Constraint Message.
+	 *
+	 * @return Constraint Message
+	 */
+	public CompletableFuture<MMessage_BH> FKConstraintMsg(MColumn entity, DataFetchingEnvironment environment) {
+		if (entity.getFKConstraintMsg_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MMessage_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_MessageDataLoader.DATALOADER_AD_Message_BY_ID);
+		return dataLoader.load(entity.getFKConstraintMsg_ID());
+	}
+
 	static Map<String, String> FKCONSTRAINTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("D", "ad2bedf7-814f-4b7d-ae4e-dac0a8a406f6");
@@ -200,6 +234,8 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 			put("C", "e3ef6ea1-87c4-4141-9f5a-882741a167cd");
 			put("S", "324b9a18-fc1f-44ba-a1ce-c83e63c7b63b");
 			put("M", "c0542a52-fe58-4b87-8bd4-9dc2fe3afa7a");
+			put("T", "6591e7a2-e8f9-4cd4-9ef2-afea1275e578");
+			put("O", "8300ca2c-50f9-4882-8776-dfdc949db534");
 		}
 	};
 	public CompletableFuture<MRefList_BH> FKConstraintType(MColumn entity, DataFetchingEnvironment environment) {
@@ -262,6 +298,10 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		return entity.isParent();
 	}
 
+	public Boolean IsPartitionKey(MColumn entity, DataFetchingEnvironment environment) {
+		return entity.isPartitionKey();
+	}
+
 	public Boolean IsSecure(MColumn entity, DataFetchingEnvironment environment) {
 		return entity.isSecure();
 	}
@@ -322,6 +362,21 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		DataLoader<Integer, MDashboardContent> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_PA_DashboardContentDataLoader.DATALOADER_PA_DashboardContent_BY_ID);
 		return dataLoader.load(entity.getPA_DashboardContent_ID());
+	}
+
+	static Map<String, String> PARTITIONINGMETHOD_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("R", "d8a5f9ab-574e-4926-93eb-e4a392c36e3c");
+			put("L", "d909c15e-9b97-4171-87bb-7de77cee4eb8");
+		}
+	};
+	public CompletableFuture<MRefList_BH> PartitioningMethod(MColumn entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getPartitioningMethod())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(PARTITIONINGMETHOD_UUIDS_BY_VALUE.get(entity.getPartitioningMethod()));
 	}
 
 	/**

@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
  * Generated Query Resolver for M_AttributeSet - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_AttributeSetQuery extends POQuery<MAttributeSet_BH> implements GraphQLQueryResolver {
 	@Override

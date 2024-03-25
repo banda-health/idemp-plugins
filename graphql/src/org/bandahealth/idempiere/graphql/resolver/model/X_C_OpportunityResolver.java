@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Opportunity - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements GraphQLResolver<MOpportunity> {
 
@@ -45,7 +45,7 @@ public class X_C_OpportunityResolver extends POResolver<MOpportunity> implements
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

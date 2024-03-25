@@ -1,6 +1,6 @@
 # Generated Schema for AD_Tree_Favorite_Node - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Tree_Favorite_NodeGet(page: Int, size: Int, sort: String, filter: String): AD_Tree_Favorite_NodeConnection!
 }
@@ -17,11 +17,11 @@ type AD_Tree_Favorite_NodeConnection {
 }
 
 type AD_Tree_Favorite_Node {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Identifies a Menu
 	AD_Menu: AD_Menu
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Tree_Favorite: AD_Tree_Favorite!
 	UUID: ID!
@@ -54,7 +54,7 @@ type AD_Tree_Favorite_Node {
 input AD_Tree_Favorite_NodeInput {
 	# Identifies a Menu
 	AD_Menu: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Tree_Favorite: ForeignEntityInput
 	UUID: ID

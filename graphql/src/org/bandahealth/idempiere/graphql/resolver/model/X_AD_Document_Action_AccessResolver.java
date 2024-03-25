@@ -7,7 +7,7 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
-import org.compiere.model.X_AD_Document_Action_Access;
+import org.compiere.model.MDocumentActionAccess;
 import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
 
@@ -17,9 +17,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Document_Action_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_AD_Document_Action_AccessResolver extends POResolver<X_AD_Document_Action_Access> implements GraphQLResolver<X_AD_Document_Action_Access> {
+public class X_AD_Document_Action_AccessResolver extends POResolver<MDocumentActionAccess> implements GraphQLResolver<MDocumentActionAccess> {
 
 
 
@@ -28,7 +28,7 @@ public class X_AD_Document_Action_AccessResolver extends POResolver<X_AD_Documen
 	 *
 	 * @return Reference List based on Table
 	 */
-	public CompletableFuture<MRefList_BH> AD_Ref_List(X_AD_Document_Action_Access entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> AD_Ref_List(MDocumentActionAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Ref_List_ID() <= 0) {
 			return null;
 		}
@@ -43,7 +43,7 @@ public class X_AD_Document_Action_AccessResolver extends POResolver<X_AD_Documen
 	 *
 	 * @return Responsibility Role
 	 */
-	public CompletableFuture<X_AD_Role> AD_Role(X_AD_Document_Action_Access entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_AD_Role> AD_Role(MDocumentActionAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Role_ID() <= 0) {
 			return null;
 		}
@@ -58,7 +58,7 @@ public class X_AD_Document_Action_AccessResolver extends POResolver<X_AD_Documen
 	 *
 	 * @return Document type or rules
 	 */
-	public CompletableFuture<MDocType_BH> C_DocType(X_AD_Document_Action_Access entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MDocType_BH> C_DocType(MDocumentActionAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getC_DocType_ID() <= 0) {
 			return null;
 		}

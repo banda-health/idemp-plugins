@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_ViewComponent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ViewComponentResolver extends POResolver<MViewComponent> implements GraphQLResolver<MViewComponent> {
 
@@ -67,6 +67,14 @@ public class X_AD_ViewComponentResolver extends POResolver<MViewComponent> imple
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
+	}
+
+	public Boolean IsDistinct(MViewComponent entity, DataFetchingEnvironment environment) {
+		return entity.isDistinct();
+	}
+
+	public Boolean IsUnionAll(MViewComponent entity, DataFetchingEnvironment environment) {
+		return entity.isUnionAll();
 	}
 
 

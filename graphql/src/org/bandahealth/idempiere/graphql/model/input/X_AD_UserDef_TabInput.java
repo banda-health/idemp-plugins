@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_TabInput {
 
@@ -28,6 +28,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_UserDef_Win;
 	private I_AD_Ref_ListInput mIsAllowAdvancedLookup;
+	private I_AD_Ref_ListInput mIsHighVolume;
 	private I_AD_Ref_ListInput mIsLookupOnlySelection;
 	private I_AD_Ref_ListInput mIsReadOnly;
 	private I_AD_Ref_ListInput mIsSingleRow;
@@ -47,7 +48,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -74,7 +75,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -123,6 +124,9 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	@JsonProperty("AD_Tab")
 	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
 		this.mAD_Tab = AD_Tab;
+		if (get_ID() != 0) {
+			return;
+		}
 		if (AD_Tab != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MTab foreignEntity;
@@ -247,6 +251,40 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	@JsonProperty("IsAllowAdvancedLookup")
 	public I_AD_Ref_ListInput IsAllowAdvancedLookup() {
 		return mIsAllowAdvancedLookup;
+	}
+
+	/**
+	 * Set High Volume.
+	 *
+	 * @param IsHighVolume Use Search instead of Pick list
+	 */
+	@JsonProperty("IsHighVolume")
+	public void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume) {
+		this.mIsHighVolume = IsHighVolume;
+		if (IsHighVolume != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsHighVolume.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setIsHighVolume(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsHighVolume.getUUID());
+			}
+		} else {
+			this.setIsHighVolume(null);
+		}
+	}
+
+	/**
+	 * Get High Volume.
+	 *
+	 * @return Use Search instead of Pick list
+	 */
+	@JsonProperty("IsHighVolume")
+	public I_AD_Ref_ListInput IsHighVolume() {
+		return mIsHighVolume;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 # Generated Schema for I_InOutLineConfirm - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	I_InOutLineConfirmGet(page: Int, size: Int, sort: String, filter: String): I_InOutLineConfirmConnection!
 }
@@ -17,9 +17,9 @@ type I_InOutLineConfirmConnection {
 }
 
 type I_InOutLineConfirm {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Confirmation Number
 	ConfirmationNo: String!
@@ -54,7 +54,7 @@ type I_InOutLineConfirm {
 }
 
 input I_InOutLineConfirmInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Confirmation Number
 	ConfirmationNo: String

@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_InfoColumn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements GraphQLResolver<MInfoColumn> {
 
@@ -213,8 +213,16 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 		return entity.isMandatory();
 	}
 
+	public Boolean IsQueryAfterChange(MInfoColumn entity, DataFetchingEnvironment environment) {
+		return entity.isQueryAfterChange();
+	}
+
 	public Boolean IsQueryCriteria(MInfoColumn entity, DataFetchingEnvironment environment) {
 		return entity.isQueryCriteria();
+	}
+
+	public Boolean IsRange(MInfoColumn entity, DataFetchingEnvironment environment) {
+		return entity.isRange();
 	}
 
 	public Boolean IsReadOnly(MInfoColumn entity, DataFetchingEnvironment environment) {
@@ -249,6 +257,21 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 				.getDataLoader(X_AD_InfoColumn_TrlDataLoader.DATALOADER_AD_InfoColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Placeholder));
+	}
+
+	/**
+	 * Get Placeholder2.
+	 *
+	 * @return Placeholder2
+	 */
+	public CompletableFuture<String> Placeholder2(MInfoColumn entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPlaceholder2);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_InfoColumn_TrlDataLoader.DATALOADER_AD_InfoColumn_Trl_BY_ID);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Placeholder2));
 	}
 
 	static Map<String, String> QUERYOPERATOR_UUIDS_BY_VALUE = new HashMap<>() {

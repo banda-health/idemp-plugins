@@ -1,6 +1,6 @@
 # Generated Schema for T_1099Extract - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	T_1099ExtractGet(page: Int, size: Int, sort: String, filter: String): T_1099ExtractConnection!
 }
@@ -17,9 +17,9 @@ type T_1099ExtractConnection {
 }
 
 type T_1099Extract {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
@@ -65,7 +65,7 @@ type T_1099Extract {
 }
 
 input T_1099ExtractInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput

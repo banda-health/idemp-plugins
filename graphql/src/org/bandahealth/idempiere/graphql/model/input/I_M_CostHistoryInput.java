@@ -6,21 +6,21 @@ import org.compiere.model.I_M_CostHistory;
  * Generated Interface for M_CostHistory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_M_CostHistoryInput extends I_M_CostHistory {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -93,4 +93,18 @@ public interface I_M_CostHistoryInput extends I_M_CostHistory {
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	ForeignEntityInput M_CostType();
+
+	/**
+	 * Set M_Product.
+	 *
+	 * @param M_Product Product, Service, Item
+	 */
+	void setM_ProductInput(ForeignEntityInput M_Product);
+
+	/**
+	 * Get M_Product.
+	 *
+	 * @return Product, Service, Item
+	 */
+	ForeignEntityInput M_Product();
 }

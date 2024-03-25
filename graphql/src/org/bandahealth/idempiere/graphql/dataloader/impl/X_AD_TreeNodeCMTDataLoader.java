@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_TreeNodeCMT;
  * Data Loader for AD_TreeNodeCMT - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_TreeNodeCMTDataLoader extends PODataLoader<X_AD_TreeNodeCMT> {
 	public static String DATALOADER_AD_TreeNodeCMT_BY_ID = "AD_TreeNodeCMTByIdDataLoader";

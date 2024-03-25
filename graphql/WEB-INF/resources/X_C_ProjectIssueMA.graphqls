@@ -1,6 +1,6 @@
 # Generated Schema for C_ProjectIssueMA - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ProjectIssueMAGet(page: Int, size: Int, sort: String, filter: String): C_ProjectIssueMAConnection!
 }
@@ -17,9 +17,9 @@ type C_ProjectIssueMAConnection {
 }
 
 type C_ProjectIssueMA {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue!
@@ -41,7 +41,7 @@ type C_ProjectIssueMA {
 }
 
 input C_ProjectIssueMAInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput

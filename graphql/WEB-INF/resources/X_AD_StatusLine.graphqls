@@ -1,6 +1,6 @@
 # Generated Schema for AD_StatusLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_StatusLineGet(page: Int, size: Int, sort: String, filter: String): AD_StatusLineConnection!
 }
@@ -17,11 +17,11 @@ type AD_StatusLineConnection {
 }
 
 type AD_StatusLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# System Message
 	AD_Message: AD_Message!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Date this record was created
@@ -44,7 +44,7 @@ type AD_StatusLine {
 input AD_StatusLineInput {
 	# System Message
 	AD_Message: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Dictionary Entity Type; Determines ownership and synchronization

@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCommission;
@@ -20,7 +21,7 @@ import java.sql.Timestamp;
  * Generated Model for C_Commission - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_CommissionInput extends MCommission implements I_C_CommissionInput {
 
@@ -28,6 +29,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Charge;
 	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mM_Product;
 	private I_AD_Ref_ListInput mDocBasisType;
 	private I_AD_Ref_ListInput mFrequencyType;
 
@@ -46,7 +48,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -73,7 +75,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -81,7 +83,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -105,7 +107,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -211,7 +213,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 		return mC_Currency;
 	}
 	/**
-	 * Set Date last run.
+	 * Set Date Last Run.
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
@@ -288,5 +290,39 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	@JsonProperty("FrequencyType")
 	public I_AD_Ref_ListInput FrequencyType() {
 		return mFrequencyType;
+	}
+
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
+		this.mM_Product = M_Product;
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
+		} else {
+			this.setM_Product_ID(0);
+		}
+	}
+
+	/**
+	 * Get Product/Service.
+	 *
+	 * @return Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public ForeignEntityInput M_Product() {
+		return mM_Product;
 	}
 }

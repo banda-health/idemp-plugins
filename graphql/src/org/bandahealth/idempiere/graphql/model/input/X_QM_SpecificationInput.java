@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for QM_Specification - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_SpecificationInput {
 
@@ -44,7 +44,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -71,7 +71,7 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

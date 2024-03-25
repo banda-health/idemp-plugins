@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_Asset_Change - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implements GraphQLResolver<MAssetChange> {
 
@@ -254,7 +254,7 @@ public class X_A_Asset_ChangeResolver extends POResolver<MAssetChange> implement
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

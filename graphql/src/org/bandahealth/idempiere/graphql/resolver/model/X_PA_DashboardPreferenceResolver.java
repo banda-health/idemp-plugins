@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_DashboardPreference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_DashboardPreferenceResolver extends POResolver<MDashboardPreference> implements GraphQLResolver<MDashboardPreference> {
 

@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for R_RequestUpdate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_R_RequestUpdateResolver extends POResolver<MRequestUpdate> implements GraphQLResolver<MRequestUpdate> {
 

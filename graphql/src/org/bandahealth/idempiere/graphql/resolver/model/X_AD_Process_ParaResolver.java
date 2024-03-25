@@ -2,13 +2,17 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ElementDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FieldGroupDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Process_Para_TrlDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Val_RuleDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
@@ -29,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implements GraphQLResolver<MProcessPara> {
 
@@ -47,6 +51,21 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 		DataLoader<Integer, M_Element> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ElementDataLoader.DATALOADER_AD_Element_BY_ID);
 		return dataLoader.load(entity.getAD_Element_ID());
+	}
+
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MProcessPara entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_FieldGroup_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MFieldGroup_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldGroupDataLoader.DATALOADER_AD_FieldGroup_BY_ID);
+		return dataLoader.load(entity.getAD_FieldGroup_ID());
 	}
 
 
@@ -107,6 +126,21 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 		DataLoader<Integer, MValRule> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Val_RuleDataLoader.DATALOADER_AD_Val_Rule_BY_ID);
 		return dataLoader.load(entity.getAD_Val_Rule_ID());
+	}
+
+	static Map<String, String> DATERANGEOPTION_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("D", "e56a4c96-0480-4c0e-9f25-e68d1d70d082");
+			put("T", "6ee1efd4-d59f-4efb-b0ca-722d2dd39ce5");
+		}
+	};
+	public CompletableFuture<MRefList_BH> DateRangeOption(MProcessPara entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getDateRangeOption())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(DATERANGEOPTION_UUIDS_BY_VALUE.get(entity.getDateRangeOption()));
 	}
 
 	/**
@@ -188,6 +222,10 @@ public class X_AD_Process_ParaResolver extends POResolver<MProcessPara> implemen
 
 	public Boolean IsRange(MProcessPara entity, DataFetchingEnvironment environment) {
 		return entity.isRange();
+	}
+
+	public Boolean IsShowNegateButton(MProcessPara entity, DataFetchingEnvironment environment) {
+		return entity.isShowNegateButton();
 	}
 
 	/**

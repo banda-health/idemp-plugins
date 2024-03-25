@@ -6,7 +6,7 @@ import org.compiere.model.MRequestProcessorRoute;
  * Data Loader for R_RequestProcessor_Route - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_R_RequestProcessor_RouteDataLoader extends PODataLoader<MRequestProcessorRoute> {
 	public static String DATALOADER_R_RequestProcessor_Route_BY_ID = "R_RequestProcessor_RouteByIdDataLoader";

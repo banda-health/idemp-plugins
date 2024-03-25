@@ -1,6 +1,6 @@
 # Generated Schema for PP_Product_Planning - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PP_Product_PlanningGet(page: Int, size: Int, sort: String, filter: String): PP_Product_PlanningConnection!
 }
@@ -17,9 +17,9 @@ type PP_Product_PlanningConnection {
 }
 
 type PP_Product_Planning {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
@@ -73,7 +73,7 @@ type PP_Product_Planning {
 }
 
 input PP_Product_PlanningInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput

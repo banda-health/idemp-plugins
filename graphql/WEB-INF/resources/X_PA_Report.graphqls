@@ -1,6 +1,6 @@
 # Generated Schema for PA_Report - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_ReportGet(page: Int, size: Int, sort: String, filter: String): PA_ReportConnection!
 }
@@ -17,9 +17,9 @@ type PA_ReportConnection {
 }
 
 type PA_Report {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
@@ -33,9 +33,10 @@ type PA_Report {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
+	ExcludeAdjustmentPeriods: AD_Ref_List!
 	# The record is active in the system
 	IsActive: Boolean!
-	# The Jasper Process used by the printengine if any process defined
+	# The Jasper Process used by the print engine if any process defined
 	JasperProcess: AD_Process
 	JasperProcessing: String
 	# List Report Line Sources
@@ -60,7 +61,7 @@ type PA_Report {
 }
 
 input PA_ReportInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
@@ -70,9 +71,10 @@ input PA_ReportInput {
 	C_Calendar: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
+	ExcludeAdjustmentPeriods: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
-	# The Jasper Process used by the printengine if any process defined
+	# The Jasper Process used by the print engine if any process defined
 	JasperProcess: ForeignEntityInput
 	JasperProcessing: String
 	# List Report Line Sources

@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Style - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_StyleResolver extends POResolver<MStyle> implements GraphQLResolver<MStyle> {
 
@@ -50,6 +50,10 @@ public class X_AD_StyleResolver extends POResolver<MStyle> implements GraphQLRes
 		DataLoader<Integer, MEntityType> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_EntityTypeDataLoader.DATALOADER_AD_EntityType_BY_ID);
 		return dataLoader.load(ENTITYTYPE_IDS_BY_ENTITY_TYPE.get(entity.getEntityType()));
+	}
+
+	public Boolean IsWrapWithSpan(MStyle entity, DataFetchingEnvironment environment) {
+		return entity.isWrapWithSpan();
 	}
 
 }

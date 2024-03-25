@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_UUID_Map - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements I_AD_Package_UUID_MapInput {
 
@@ -38,7 +38,7 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -62,7 +62,7 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -71,7 +71,7 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	/**
 	 * Set UUID Mapping.
 	 *
-	 * @param AD_Package_UUID_Map_ID UUID Mapping between client
+	 * @param AD_Package_UUID_Map_ID UUID Mapping between tenant
 	 */
 
 	public void setAD_Package_UUID_Map_ID(int AD_Package_UUID_Map_ID) {
@@ -137,7 +137,7 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	/**
 	 * Set Source UUID.
 	 *
-	 * @param Source_UUID UUID from the source client
+	 * @param Source_UUID UUID from the source tenant
 	 */
 
 	public void setSource_UUID(String Source_UUID) {
@@ -148,7 +148,7 @@ public class X_AD_Package_UUID_MapInput extends X_AD_Package_UUID_Map implements
 	/**
 	 * Set Target UUID.
 	 *
-	 * @param Target_UUID New UUID created by the pack in client
+	 * @param Target_UUID New UUID created by the pack in tenant
 	 */
 
 	public void setTarget_UUID(String Target_UUID) {

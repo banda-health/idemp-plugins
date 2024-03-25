@@ -9,7 +9,7 @@ import org.compiere.model.MPaySelectionLine;
  * Generated Query Resolver for C_PaySelectionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_PaySelectionLineQuery extends POQuery<MPaySelectionLine> implements GraphQLQueryResolver {
 	@Override

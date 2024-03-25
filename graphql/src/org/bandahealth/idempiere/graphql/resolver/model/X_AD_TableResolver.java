@@ -27,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Table - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLResolver<MTable> {
 
@@ -128,8 +128,16 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 		return entity.isHighVolume();
 	}
 
+	public Boolean IsPartition(MTable entity, DataFetchingEnvironment environment) {
+		return entity.isPartition();
+	}
+
 	public Boolean IsSecurityEnabled(MTable entity, DataFetchingEnvironment environment) {
 		return entity.isSecurityEnabled();
+	}
+
+	public Boolean IsShowInDrillOptions(MTable entity, DataFetchingEnvironment environment) {
+		return entity.isShowInDrillOptions();
 	}
 
 	public Boolean IsView(MTable entity, DataFetchingEnvironment environment) {

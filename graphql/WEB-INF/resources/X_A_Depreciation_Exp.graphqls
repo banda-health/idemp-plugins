@@ -1,6 +1,6 @@
 # Generated Schema for A_Depreciation_Exp - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Depreciation_ExpGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_ExpConnection!
 }
@@ -34,9 +34,9 @@ type A_Depreciation_Exp {
 	UUID: ID!
 	A_Entry_Type: AD_Ref_List!
 	A_Period: Int!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
@@ -92,7 +92,7 @@ input A_Depreciation_ExpInput {
 	UUID: ID
 	A_Entry_Type: AD_Ref_ListInput
 	A_Period: Int
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput

@@ -7,7 +7,6 @@ import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -17,12 +16,11 @@ import java.sql.ResultSet;
  * Generated Model for BH_Encounter_Type_Window - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow implements I_BH_Encounter_Type_WindowInput {
 
 	private ForeignEntityInput mAD_Org;
-	private ForeignEntityInput mAD_Window;
 	private I_AD_Ref_ListInput mBH_Encounter_Type;
 
 	/**
@@ -41,7 +39,7 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -68,45 +66,22 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
-
 	/**
 	 * Set Window.
 	 *
-	 * @param AD_Window Data entry or display window
+	 * @param AD_Window_ID Data entry or display window
 	 */
-	@JsonProperty("AD_Window")
-	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
-		this.mAD_Window = AD_Window;
-		if (AD_Window != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MWindow foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Window_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
-			}
-		} else {
-			this.setAD_Window_ID(0);
-		}
-	}
 
-	/**
-	 * Get Window.
-	 *
-	 * @return Data entry or display window
-	 */
-	@JsonProperty("AD_Window")
-	public ForeignEntityInput AD_Window() {
-		return mAD_Window;
+	public void setAD_Window_ID(int AD_Window_ID) {
+		if (get_ID() == 0) {
+			super.setAD_Window_ID(AD_Window_ID);
+		}
 	}
 
 	/**

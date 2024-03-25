@@ -9,6 +9,7 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AllocationHdrDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BankTransferDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CashLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ChargeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceDataLoader;
@@ -16,6 +17,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentDataLoader;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
+import org.compiere.model.MBankTransfer;
 import org.compiere.model.MCashLine;
 import org.dataloader.DataLoader;
 
@@ -25,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_AllocationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> implements GraphQLResolver<MAllocationLine> {
 
@@ -47,7 +49,22 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Bank Transfer.
+	 *
+	 * @return Bank Transfer
+	 */
+	public CompletableFuture<MBankTransfer> C_BankTransfer(MAllocationLine entity, DataFetchingEnvironment environment) {
+		if (entity.getC_BankTransfer_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MBankTransfer> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_BankTransferDataLoader.DATALOADER_C_BankTransfer_BY_ID);
+		return dataLoader.load(entity.getC_BankTransfer_ID());
+	}
+
+
+	/**
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

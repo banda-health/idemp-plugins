@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for DD_NetworkDistributionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_DD_NetworkDistributionLineResolver extends POResolver<X_DD_NetworkDistributionLine> implements GraphQLResolver<X_DD_NetworkDistributionLine> {
 

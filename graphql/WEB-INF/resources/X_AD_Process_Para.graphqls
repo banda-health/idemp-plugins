@@ -1,6 +1,6 @@
 # Generated Schema for AD_Process_Para - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Process_ParaGet(page: Int, size: Int, sort: String, filter: String): AD_Process_ParaConnection!
 }
@@ -17,11 +17,13 @@ type AD_Process_ParaConnection {
 }
 
 type AD_Process_Para {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: AD_Element
-	# Organizational entity within client
+	# Logical grouping of fields
+	AD_FieldGroup: AD_FieldGroup
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process!
@@ -38,6 +40,8 @@ type AD_Process_Para {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Options, how the date editor will be displayed.
+	DateRangeOption: AD_Ref_List!
 	# Default value hierarchy, separated by ;
 	DefaultValue: String
 	# Default value hierarchy, separated by ;
@@ -54,7 +58,7 @@ type AD_Process_Para {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	# Automatic completion for textfields
+	# Automatic completion for text fields
 	IsAutocomplete: Boolean!
 	# Information maintained in System Element table
 	IsCentrallyMaintained: Boolean!
@@ -64,11 +68,15 @@ type AD_Process_Para {
 	IsMandatory: Boolean!
 	# The parameter is a range of values
 	IsRange: Boolean!
+	# Show Negate Button for Chosen Multiple editors
+	IsShowNegateButton: Boolean!
 	MandatoryLogic: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Placeholder: String
 	Placeholder2: String
+	# SQL
+	Query: String
 	# Logic to determine if field is read only (applies only when field is read-write)
 	ReadOnlyLogic: String
 	# Method of ordering records; lowest number comes first
@@ -88,7 +96,9 @@ type AD_Process_Para {
 input AD_Process_ParaInput {
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: ForeignEntityInput
-	# Organizational entity within client
+	# Logical grouping of fields
+	AD_FieldGroup: ForeignEntityInput
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
@@ -101,6 +111,8 @@ input AD_Process_ParaInput {
 	AD_Val_Rule: ForeignEntityInput
 	# Name of the column in the database
 	ColumnName: String
+	# Options, how the date editor will be displayed.
+	DateRangeOption: AD_Ref_ListInput
 	# Default value hierarchy, separated by ;
 	DefaultValue: String
 	# Default value hierarchy, separated by ;
@@ -117,7 +129,7 @@ input AD_Process_ParaInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	# Automatic completion for textfields
+	# Automatic completion for text fields
 	IsAutocomplete: Boolean
 	# Information maintained in System Element table
 	IsCentrallyMaintained: Boolean
@@ -127,11 +139,15 @@ input AD_Process_ParaInput {
 	IsMandatory: Boolean
 	# The parameter is a range of values
 	IsRange: Boolean
+	# Show Negate Button for Chosen Multiple editors
+	IsShowNegateButton: Boolean
 	MandatoryLogic: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	Placeholder: String
 	Placeholder2: String
+	# SQL
+	Query: String
 	# Logic to determine if field is read only (applies only when field is read-write)
 	ReadOnlyLogic: String
 	# Method of ordering records; lowest number comes first

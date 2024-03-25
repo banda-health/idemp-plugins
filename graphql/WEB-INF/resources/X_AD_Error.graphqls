@@ -1,6 +1,6 @@
 # Generated Schema for AD_Error - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ErrorGet(page: Int, size: Int, sort: String, filter: String): AD_ErrorConnection!
 }
@@ -17,12 +17,12 @@ type AD_ErrorConnection {
 }
 
 type AD_Error {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
 	# Language for this entity
 	AD_Language: AD_Language
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Validation Code
 	Code: String
@@ -44,7 +44,7 @@ input AD_ErrorInput {
 	UUID: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Validation Code
 	Code: String

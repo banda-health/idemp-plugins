@@ -1,6 +1,6 @@
 # Generated Schema for PP_Order_Node_Asset - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PP_Order_Node_AssetGet(page: Int, size: Int, sort: String, filter: String): PP_Order_Node_AssetConnection!
 }
@@ -19,9 +19,9 @@ type PP_Order_Node_AssetConnection {
 type PP_Order_Node_Asset {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -44,7 +44,7 @@ type PP_Order_Node_Asset {
 input PP_Order_Node_AssetInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

@@ -3,12 +3,14 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StatusLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TabDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
+import org.compiere.model.MInfoWindow;
 import org.compiere.model.MStatusLine;
 import org.compiere.model.MStatusLineUsedIn;
 import org.compiere.model.MTab;
@@ -24,10 +26,25 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_StatusLineUsedIn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_StatusLineUsedInResolver extends POResolver<MStatusLineUsedIn> implements GraphQLResolver<MStatusLineUsedIn> {
 
+
+
+	/**
+	 * Get Info Window.
+	 *
+	 * @return Info and search/select Window
+	 */
+	public CompletableFuture<MInfoWindow> AD_InfoWindow(MStatusLineUsedIn entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_InfoWindow_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MInfoWindow> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_InfoWindowDataLoader.DATALOADER_AD_InfoWindow_BY_ID);
+		return dataLoader.load(entity.getAD_InfoWindow_ID());
+	}
 
 
 	/**

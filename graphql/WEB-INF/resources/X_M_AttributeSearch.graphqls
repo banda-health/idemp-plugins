@@ -1,6 +1,6 @@
 # Generated Schema for M_AttributeSearch - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_AttributeSearchGet(page: Int, size: Int, sort: String, filter: String): M_AttributeSearchConnection!
 }
@@ -17,9 +17,9 @@ type M_AttributeSearchConnection {
 }
 
 type M_AttributeSearch {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -39,7 +39,7 @@ type M_AttributeSearch {
 }
 
 input M_AttributeSearchInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

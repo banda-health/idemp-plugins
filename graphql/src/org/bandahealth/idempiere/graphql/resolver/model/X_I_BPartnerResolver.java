@@ -27,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for I_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements GraphQLResolver<X_I_BPartner> {
 
@@ -64,7 +64,7 @@ public class X_I_BPartnerResolver extends POResolver<X_I_BPartner> implements Gr
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

@@ -24,7 +24,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Val_RuleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkbenchDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WorkflowDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MEntityType;
@@ -40,7 +39,6 @@ import org.compiere.model.X_AD_ImpFormat;
 import org.compiere.model.X_AD_ModelValidator;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Role;
-import org.compiere.model.X_AD_Workbench;
 import org.compiere.model.X_AD_Workflow;
 import org.dataloader.DataLoader;
 
@@ -52,7 +50,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Package_Exp_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetail> implements GraphQLResolver<MPackageExpDetail> {
 
@@ -299,21 +297,6 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 
 
 	/**
-	 * Get Workbench.
-	 *
-	 * @return Collection of windows, reports
-	 */
-	public CompletableFuture<X_AD_Workbench> AD_Workbench(MPackageExpDetail entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workbench_ID() <= 0) {
-			return null;
-		}
-		DataLoader<Integer, X_AD_Workbench> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_WorkbenchDataLoader.DATALOADER_AD_Workbench_BY_ID);
-		return dataLoader.load(entity.getAD_Workbench_ID());
-	}
-
-
-	/**
 	 * Get Workflow.
 	 *
 	 * @return Workflow or combination of tasks
@@ -405,6 +388,8 @@ public class X_AD_Package_Exp_DetailResolver extends POResolver<MPackageExpDetai
 			put("SQM", "63605262-3ba3-4140-b839-4e5b0f8ad23d");
 			put("IW", "c1e5ee93-987c-43cd-90e9-e4cf5d592105");
 			put("DS", "bb6620c6-4cef-4796-90d6-007b83fe213f");
+			put("SCJ", "9a9c315b-9af4-4e83-be41-5f5057c13061");
+			put("SH", "48522ab7-f47c-4ee9-a6b3-21fb762b3e1a");
 		}
 	};
 	public CompletableFuture<MRefList_BH> Type(MPackageExpDetail entity, DataFetchingEnvironment environment) {

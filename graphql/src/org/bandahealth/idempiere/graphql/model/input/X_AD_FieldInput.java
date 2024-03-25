@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MOrg;
@@ -23,10 +24,11 @@ import java.sql.ResultSet;
  * Generated Model for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 
+	private ForeignEntityInput mAD_Chart;
 	private ForeignEntityInput mAD_Column;
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_FieldGroup;
@@ -57,6 +59,40 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	public X_AD_FieldInput(@JsonProperty("UUID") String UUID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
+	}
+
+	/**
+	 * Set Chart.
+	 *
+	 * @param AD_Chart Chart
+	 */
+	@JsonProperty("AD_Chart")
+	public void setAD_ChartInput(ForeignEntityInput AD_Chart) {
+		this.mAD_Chart = AD_Chart;
+		if (AD_Chart != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChart foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
+							.setParameters(AD_Chart.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Chart_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Chart with UUID " + AD_Chart.getUUID());
+			}
+		} else {
+			this.setAD_Chart_ID(0);
+		}
+	}
+
+	/**
+	 * Get Chart.
+	 *
+	 * @return Chart
+	 */
+	@JsonProperty("AD_Chart")
+	public ForeignEntityInput AD_Chart() {
+		return mAD_Chart;
 	}
 
 	/**
@@ -227,7 +263,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -254,7 +290,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

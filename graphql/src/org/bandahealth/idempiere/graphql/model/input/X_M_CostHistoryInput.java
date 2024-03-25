@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCostDetail;
 import org.compiere.model.MCostElement;
@@ -20,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for M_CostHistory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHistoryInput {
 
@@ -29,6 +30,7 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	private ForeignEntityInput mM_CostDetail;
 	private ForeignEntityInput mM_CostElement;
 	private ForeignEntityInput mM_CostType;
+	private ForeignEntityInput mM_Product;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -45,7 +47,7 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -72,7 +74,7 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -254,6 +256,40 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	@JsonProperty("M_CostType")
 	public ForeignEntityInput M_CostType() {
 		return mM_CostType;
+	}
+
+	/**
+	 * Set Product/Service.
+	 *
+	 * @param M_Product Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public void setM_ProductInput(ForeignEntityInput M_Product) {
+		this.mM_Product = M_Product;
+		if (M_Product != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProduct_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
+							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setM_Product_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+			}
+		} else {
+			this.setM_Product_ID(0);
+		}
+	}
+
+	/**
+	 * Get Product/Service.
+	 *
+	 * @return Product, Service, Item
+	 */
+	@JsonProperty("M_Product")
+	public ForeignEntityInput M_Product() {
+		return mM_Product;
 	}
 	/**
 	 * Set New Accumulated Amt.

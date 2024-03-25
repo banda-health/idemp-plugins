@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -11,6 +12,7 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MInOutLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProduction;
@@ -19,6 +21,7 @@ import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+import org.eevolution.model.MPPProductBOM;
 
 import java.sql.ResultSet;
 
@@ -26,7 +29,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Production - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ProductionInput extends MProduction implements I_M_ProductionInput {
 
@@ -34,12 +37,15 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	private ForeignEntityInput mC_Activity;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Campaign;
+	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_OrderLine;
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_ProjectPhase;
 	private ForeignEntityInput mC_ProjectTask;
+	private ForeignEntityInput mM_InOutLine;
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPP_Product_BOM;
 	private ForeignEntityInput mReversal;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
@@ -62,7 +68,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -89,7 +95,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -131,7 +137,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -158,7 +164,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -199,6 +205,40 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	@JsonProperty("C_Campaign")
 	public ForeignEntityInput C_Campaign() {
 		return mC_Campaign;
+	}
+
+	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType Document type or rules
+	 */
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
+		this.mC_DocType = C_DocType;
+		if (C_DocType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
+		} else {
+			this.setC_DocType_ID(0);
+		}
+	}
+
+	/**
+	 * Get Document Type.
+	 *
+	 * @return Document type or rules
+	 */
+	@JsonProperty("C_DocType")
+	public ForeignEntityInput C_DocType() {
+		return mC_DocType;
 	}
 
 	/**
@@ -457,6 +497,43 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	}
 
 	/**
+	 * Set Shipment/Receipt Line.
+	 *
+	 * @param M_InOutLine Line on Shipment or Receipt document
+	 */
+	@JsonProperty("M_InOutLine")
+	public void setM_InOutLineInput(ForeignEntityInput M_InOutLine) {
+		this.mM_InOutLine = M_InOutLine;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_InOutLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInOutLine foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
+							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setM_InOutLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
+			}
+		} else {
+			this.setM_InOutLine_ID(0);
+		}
+	}
+
+	/**
+	 * Get Shipment/Receipt Line.
+	 *
+	 * @return Line on Shipment or Receipt document
+	 */
+	@JsonProperty("M_InOutLine")
+	public ForeignEntityInput M_InOutLine() {
+		return mM_InOutLine;
+	}
+
+	/**
 	 * Set Locator.
 	 *
 	 * @param M_Locator Warehouse Locator
@@ -562,6 +639,40 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
+	}
+
+	/**
+	 * Set BOM & Formula.
+	 *
+	 * @param PP_Product_BOM BOM & Formula
+	 */
+	@JsonProperty("PP_Product_BOM")
+	public void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM) {
+		this.mPP_Product_BOM = PP_Product_BOM;
+		if (PP_Product_BOM != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPPProductBOM foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
+							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPP_Product_BOM_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
+			}
+		} else {
+			this.setPP_Product_BOM_ID(0);
+		}
+	}
+
+	/**
+	 * Get BOM & Formula.
+	 *
+	 * @return BOM & Formula
+	 */
+	@JsonProperty("PP_Product_BOM")
+	public ForeignEntityInput PP_Product_BOM() {
+		return mPP_Product_BOM;
 	}
 
 	/**

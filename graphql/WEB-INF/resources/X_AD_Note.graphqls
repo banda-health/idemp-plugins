@@ -1,6 +1,6 @@
 # Generated Schema for AD_Note - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_NoteGet(page: Int, size: Int, sort: String, filter: String): AD_NoteConnection!
 }
@@ -19,12 +19,12 @@ type AD_NoteConnection {
 type AD_Note {
 	# Broadcast Message
 	AD_BroadcastMessage: AD_BroadcastMessage
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# System Message
 	AD_Message: AD_Message!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
@@ -43,8 +43,6 @@ type AD_Note {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
-	# Direct internal record ID
-	Record_ID: Int
 	# Reference for this record
 	Reference: String
 	# Text Message
@@ -61,7 +59,7 @@ input AD_NoteInput {
 	# System Message
 	AD_Message: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
@@ -76,8 +74,6 @@ input AD_NoteInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
-	# Direct internal record ID
-	Record_ID: Int
 	# Reference for this record
 	Reference: String
 	# Text Message

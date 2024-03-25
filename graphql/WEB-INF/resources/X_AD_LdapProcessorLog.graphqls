@@ -1,6 +1,6 @@
 # Generated Schema for AD_LdapProcessorLog - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_LdapProcessorLogGet(page: Int, size: Int, sort: String, filter: String): AD_LdapProcessorLogConnection!
 }
@@ -17,12 +17,12 @@ type AD_LdapProcessorLogConnection {
 }
 
 type AD_LdapProcessorLog {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: AD_LdapProcessor!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Binary Data
 	BinaryData: Binary
@@ -52,7 +52,7 @@ input AD_LdapProcessorLogInput {
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Binary Data
 	BinaryData: Binary

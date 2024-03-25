@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for M_CostQueue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_CostQueueInput extends MCostQueue implements I_M_CostQueueInput {
 
@@ -46,7 +46,7 @@ public class X_M_CostQueueInput extends MCostQueue implements I_M_CostQueueInput
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -73,7 +73,7 @@ public class X_M_CostQueueInput extends MCostQueue implements I_M_CostQueueInput
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

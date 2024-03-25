@@ -1,6 +1,6 @@
 # Generated Schema for C_Payment - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PaymentGet(page: Int, size: Int, sort: String, filter: String): C_PaymentConnection!
 }
@@ -37,18 +37,18 @@ type C_Payment {
 	A_Zip: String
 	# Account Number
 	AccountNo: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	BH_tender_amount: BigDecimal
 	BH_Visit: BH_Visit
 	# Business Activity
 	C_Activity: C_Activity
 	# Account at the Bank
 	C_BankAccount: C_BankAccount
+	# Bank Transfer
+	C_BankTransfer: C_BankTransfer
 	# Bank Account of the Business Partner
 	C_BP_BankAccount: C_BP_BankAccount
 	# Identifies a Business Partner
@@ -232,16 +232,16 @@ input C_PaymentInput {
 	A_Zip: String
 	# Account Number
 	AccountNo: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	BH_tender_amount: BigDecimal
 	BH_Visit: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
+	# Bank Transfer
+	C_BankTransfer: ForeignEntityInput
 	# Bank Account of the Business Partner
 	C_BP_BankAccount: ForeignEntityInput
 	# Identifies a Business Partner

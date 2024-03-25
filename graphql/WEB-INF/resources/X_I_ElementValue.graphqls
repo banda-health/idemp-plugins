@@ -1,6 +1,6 @@
 # Generated Schema for I_ElementValue - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	I_ElementValueGet(page: Int, size: Int, sort: String, filter: String): I_ElementValueConnection!
 }
@@ -21,11 +21,11 @@ type I_ElementValue {
 	AccountSign: AD_Ref_List
 	# Indicates the type of account
 	AccountType: AD_Ref_List
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
 	# Column in the table
 	AD_Column: AD_Column
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Accounting Element
 	C_Element: C_Element
@@ -84,7 +84,7 @@ input I_ElementValueInput {
 	AccountType: AD_Ref_ListInput
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Accounting Element
 	C_Element: ForeignEntityInput

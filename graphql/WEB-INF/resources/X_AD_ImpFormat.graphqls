@@ -1,6 +1,6 @@
 # Generated Schema for AD_ImpFormat - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ImpFormatGet(page: Int, size: Int, sort: String, filter: String): AD_ImpFormatConnection!
 }
@@ -17,10 +17,10 @@ type AD_ImpFormatConnection {
 }
 
 type AD_ImpFormat {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
@@ -46,7 +46,7 @@ type AD_ImpFormat {
 
 input AD_ImpFormatInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

@@ -13,16 +13,16 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_AllUsers_V - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_AllUsers_VResolver extends POResolver<X_AD_AllUsers_V> implements GraphQLResolver<X_AD_AllUsers_V> {
 
 
 
 	/**
-	 * Get Client (All).
+	 * Get Tenant (All).
 	 *
-	 * @return Client (All)
+	 * @return Tenant (All)
 	 */
 	public CompletableFuture<X_AD_AllClients_V> AD_AllClients_V(X_AD_AllUsers_V entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_AllClients_V_ID() <= 0) {

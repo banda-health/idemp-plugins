@@ -1,6 +1,6 @@
 # Generated Schema for M_Transaction - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_TransactionGet(page: Int, size: Int, sort: String, filter: String): M_TransactionConnection!
 }
@@ -17,9 +17,9 @@ type M_TransactionConnection {
 }
 
 type M_Transaction {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue
@@ -58,7 +58,7 @@ type M_Transaction {
 }
 
 input M_TransactionInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput

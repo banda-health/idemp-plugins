@@ -6,21 +6,21 @@ import org.compiere.model.I_C_BankStatement;
  * Generated Interface for C_BankStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_C_BankStatementInput extends I_C_BankStatement {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -51,6 +51,20 @@ public interface I_C_BankStatementInput extends I_C_BankStatement {
 	 * @return UUID
 	 */
 	String getUUID();
+
+	/**
+	 * Set C_DocType.
+	 *
+	 * @param C_DocType Document type or rules
+	 */
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
+
+	/**
+	 * Get C_DocType.
+	 *
+	 * @return Document type or rules
+	 */
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set DocAction.

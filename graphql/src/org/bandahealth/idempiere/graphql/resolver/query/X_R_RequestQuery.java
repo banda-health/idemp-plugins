@@ -9,7 +9,7 @@ import org.compiere.model.MRequest;
  * Generated Query Resolver for R_Request - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_R_RequestQuery extends POQuery<MRequest> implements GraphQLQueryResolver {
 	@Override

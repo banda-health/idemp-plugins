@@ -1,6 +1,6 @@
 # Generated Schema for AD_PrintFormatItem - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_PrintFormatItemGet(page: Int, size: Int, sort: String, filter: String): AD_PrintFormatItemConnection!
 }
@@ -17,11 +17,13 @@ type AD_PrintFormatItemConnection {
 }
 
 type AD_PrintFormatItem {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
-	# Organizational entity within client
+	# Field CSS Style 
+	AD_FieldStyle: AD_Style
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
@@ -92,6 +94,8 @@ type AD_PrintFormatItem {
 	IsPrintBarcodeText: Boolean!
 	# Indicates if this document / line is printed
 	IsPrinted: Boolean!
+	# Print each attributes as report column instead of printing the description of attribute set instance
+	IsPrintInstanceAttributes: Boolean!
 	# The item is relative positioned (not absolute)
 	IsRelativePosition: Boolean!
 	# Create a running total (sum)
@@ -126,6 +130,8 @@ type AD_PrintFormatItem {
 	PrintNameSuffix: String
 	# Create Running Total Lines (page break) every x lines
 	RunningTotalLines: Int
+	# Dynamic Java Language Script to calculate result
+	Script: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Type of the shape to be painted
@@ -149,7 +155,9 @@ type AD_PrintFormatItem {
 input AD_PrintFormatItemInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	# Organizational entity within client
+	# Field CSS Style 
+	AD_FieldStyle: ForeignEntityInput
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
@@ -216,6 +224,8 @@ input AD_PrintFormatItemInput {
 	IsPrintBarcodeText: Boolean
 	# Indicates if this document / line is printed
 	IsPrinted: Boolean
+	# Print each attributes as report column instead of printing the description of attribute set instance
+	IsPrintInstanceAttributes: Boolean
 	# The item is relative positioned (not absolute)
 	IsRelativePosition: Boolean
 	# Create a running total (sum)
@@ -250,6 +260,8 @@ input AD_PrintFormatItemInput {
 	PrintNameSuffix: String
 	# Create Running Total Lines (page break) every x lines
 	RunningTotalLines: Int
+	# Dynamic Java Language Script to calculate result
+	Script: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Type of the shape to be painted

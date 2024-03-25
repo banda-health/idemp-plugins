@@ -6,9 +6,23 @@ import org.compiere.model.I_AD_Field;
  * Generated Interface for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_FieldInput extends I_AD_Field {
+
+	/**
+	 * Set AD_Chart.
+	 *
+	 * @param AD_Chart AD_Chart
+	 */
+	void setAD_ChartInput(ForeignEntityInput AD_Chart);
+
+	/**
+	 * Get AD_Chart.
+	 *
+	 * @return AD_Chart
+	 */
+	ForeignEntityInput AD_Chart();
 
 	/**
 	 * Set AD_Column.
@@ -83,14 +97,14 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 

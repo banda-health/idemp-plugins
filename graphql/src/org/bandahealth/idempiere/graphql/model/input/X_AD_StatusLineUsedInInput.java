@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
+import org.compiere.model.MInfoWindow;
 import org.compiere.model.MOrg;
 import org.compiere.model.MStatusLine;
 import org.compiere.model.MStatusLineUsedIn;
@@ -20,11 +21,12 @@ import java.sql.ResultSet;
  * Generated Model for AD_StatusLineUsedIn - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_AD_StatusLineUsedInInput {
 
 	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_InfoWindow;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_StatusLine;
 	private ForeignEntityInput mAD_Tab;
@@ -44,9 +46,43 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	}
 
 	/**
+	 * Set Info Window.
+	 *
+	 * @param AD_InfoWindow Info and search/select Window
+	 */
+	@JsonProperty("AD_InfoWindow")
+	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
+		this.mAD_InfoWindow = AD_InfoWindow;
+		if (AD_InfoWindow != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInfoWindow foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
+							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
+			}
+		} else {
+			this.setAD_InfoWindow_ID(0);
+		}
+	}
+
+	/**
+	 * Get Info Window.
+	 *
+	 * @return Info and search/select Window
+	 */
+	@JsonProperty("AD_InfoWindow")
+	public ForeignEntityInput AD_InfoWindow() {
+		return mAD_InfoWindow;
+	}
+
+	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -73,7 +109,7 @@ public class X_AD_StatusLineUsedInInput extends MStatusLineUsedIn implements I_A
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

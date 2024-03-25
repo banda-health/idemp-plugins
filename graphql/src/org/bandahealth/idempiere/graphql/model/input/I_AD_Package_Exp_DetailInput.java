@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Package_Exp_Detail;
  * Generated Interface for AD_Package_Exp_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_Package_Exp_DetailInput extends I_AD_Package_Exp_Detail {
 
@@ -111,14 +111,14 @@ public interface I_AD_Package_Exp_DetailInput extends I_AD_Package_Exp_Detail {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -261,20 +261,6 @@ public interface I_AD_Package_Exp_DetailInput extends I_AD_Package_Exp_Detail {
 	 * @return Data entry or display window
 	 */
 	ForeignEntityInput AD_Window();
-
-	/**
-	 * Set AD_Workbench.
-	 *
-	 * @param AD_Workbench Collection of windows, reports
-	 */
-	void setAD_WorkbenchInput(ForeignEntityInput AD_Workbench);
-
-	/**
-	 * Get AD_Workbench.
-	 *
-	 * @return Collection of windows, reports
-	 */
-	ForeignEntityInput AD_Workbench();
 
 	/**
 	 * Set AD_Workflow.

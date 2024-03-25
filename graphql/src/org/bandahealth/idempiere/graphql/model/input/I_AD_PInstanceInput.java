@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_PInstance;
  * Generated Interface for AD_PInstance - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_PInstanceInput extends I_AD_PInstance {
 
@@ -27,14 +27,14 @@ public interface I_AD_PInstanceInput extends I_AD_PInstance {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -81,6 +81,34 @@ public interface I_AD_PInstanceInput extends I_AD_PInstance {
 	ForeignEntityInput AD_Process();
 
 	/**
+	 * Set AD_Session.
+	 *
+	 * @param AD_Session User Session Online or Web
+	 */
+	void setAD_SessionInput(ForeignEntityInput AD_Session);
+
+	/**
+	 * Get AD_Session.
+	 *
+	 * @return User Session Online or Web
+	 */
+	ForeignEntityInput AD_Session();
+
+	/**
+	 * Set AD_Table.
+	 *
+	 * @param AD_Table Database Table information
+	 */
+	void setAD_TableInput(ForeignEntityInput AD_Table);
+
+	/**
+	 * Get AD_Table.
+	 *
+	 * @return Database Table information
+	 */
+	ForeignEntityInput AD_Table();
+
+	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
@@ -107,4 +135,18 @@ public interface I_AD_PInstanceInput extends I_AD_PInstance {
 	 * @return Type of Notifications
 	 */
 	I_AD_Ref_ListInput NotificationType();
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	void setUUID(String UUID);
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	String getUUID();
 }

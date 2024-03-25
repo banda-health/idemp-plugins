@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Change - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_ChangeGet(page: Int, size: Int, sort: String, filter: String): A_Asset_ChangeConnection!
 }
@@ -53,9 +53,9 @@ type A_Asset_Change {
 	A_Reval_Depexp_Offset_Acct: Int
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -118,7 +118,7 @@ type A_Asset_Change {
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
-	UseLifeYears: Int
+	UseLifeYears: BigDecimal
 	# Currently used units of the assets
 	UseUnits: Int
 	# Version Number
@@ -162,7 +162,7 @@ input A_Asset_ChangeInput {
 	A_Reval_Depexp_Offset_Acct: Int
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
@@ -217,7 +217,7 @@ input A_Asset_ChangeInput {
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
-	UseLifeYears: Int
+	UseLifeYears: BigDecimal
 	# Currently used units of the assets
 	UseUnits: Int
 	# Version Number

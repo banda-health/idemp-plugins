@@ -6,7 +6,7 @@ import org.compiere.model.MRoleMenu;
  * Data Loader for U_RoleMenu - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_U_RoleMenuDataLoader extends PODataLoader<MRoleMenu> {
 	public static String DATALOADER_U_RoleMenu_BY_ID = "U_RoleMenuByIdDataLoader";

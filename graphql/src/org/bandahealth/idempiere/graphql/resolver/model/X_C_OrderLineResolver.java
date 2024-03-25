@@ -52,14 +52,10 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_OrderLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements GraphQLResolver<MOrderLine_BH> {
 
-
-	public Boolean BH_RequiresExpiration(MOrderLine_BH entity, DataFetchingEnvironment environment) {
-		return entity.isBH_RequiresExpiration();
-	}
 
 
 	/**
@@ -78,7 +74,7 @@ public class X_C_OrderLineResolver extends POResolver<MOrderLine_BH> implements 
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

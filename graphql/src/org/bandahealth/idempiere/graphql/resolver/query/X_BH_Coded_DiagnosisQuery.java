@@ -9,7 +9,7 @@ import org.bandahealth.idempiere.graphql.model.Connection;
  * Generated Query Resolver for BH_Coded_Diagnosis - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_BH_Coded_DiagnosisQuery extends POQuery<MBHCodedDiagnosis> implements GraphQLQueryResolver {
 	@Override

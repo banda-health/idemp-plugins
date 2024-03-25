@@ -1,6 +1,6 @@
 # Generated Schema for AD_Role - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_RoleGet(page: Int, size: Int, sort: String, filter: String): AD_RoleConnection!
 }
@@ -17,9 +17,9 @@ type AD_RoleConnection {
 }
 
 type AD_Role {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Tree of the menu
@@ -53,7 +53,7 @@ type AD_Role {
 	# Optional short description of the record
 	Description: String
 	IsAccessAdvanced: Boolean!
-	# Access all Organizations (no org access control) of the client
+	# Access all Organizations (no org access control) of the tenant
 	IsAccessAllOrgs: Boolean!
 	# The record is active in the system
 	IsActive: Boolean!
@@ -65,6 +65,8 @@ type AD_Role {
 	IsCanReport: Boolean!
 	# Maintain a log of changes
 	IsChangeLog: Boolean!
+	# This role is a tenant administrator
+	IsClientAdministrator: Boolean!
 	IsDiscountAllowedOnTotal: Boolean!
 	IsDiscountUptoLimitPrice: Boolean!
 	# This is a manual process
@@ -87,6 +89,8 @@ type AD_Role {
 	Name: String!
 	# Overwrite Price Limit if the Price List  enforces the Price Limit
 	OverwritePriceLimit: Boolean!
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
 	# Determines what preferences the user can set
 	PreferenceType: AD_Ref_List!
 	RoleType: AD_Ref_List
@@ -97,12 +101,12 @@ type AD_Role {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	UserDiscount: BigDecimal
-	# System Client Organization
+	# System Tenant Organization
 	UserLevel: AD_Ref_List!
 }
 
 input AD_RoleInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Tree of the menu
@@ -132,7 +136,7 @@ input AD_RoleInput {
 	# Optional short description of the record
 	Description: String
 	IsAccessAdvanced: Boolean
-	# Access all Organizations (no org access control) of the client
+	# Access all Organizations (no org access control) of the tenant
 	IsAccessAllOrgs: Boolean
 	# The record is active in the system
 	IsActive: Boolean
@@ -144,6 +148,8 @@ input AD_RoleInput {
 	IsCanReport: Boolean
 	# Maintain a log of changes
 	IsChangeLog: Boolean
+	# This role is a tenant administrator
+	IsClientAdministrator: Boolean
 	IsDiscountAllowedOnTotal: Boolean
 	IsDiscountUptoLimitPrice: Boolean
 	# This is a manual process
@@ -166,12 +172,14 @@ input AD_RoleInput {
 	Name: String
 	# Overwrite Price Limit if the Price List  enforces the Price Limit
 	OverwritePriceLimit: Boolean
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
 	# Determines what preferences the user can set
 	PreferenceType: AD_Ref_ListInput
 	RoleType: AD_Ref_ListInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput
 	UserDiscount: BigDecimal
-	# System Client Organization
+	# System Tenant Organization
 	UserLevel: AD_Ref_ListInput
 }

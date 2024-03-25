@@ -1,6 +1,6 @@
 # Generated Schema for CM_ChatType - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	CM_ChatTypeGet(page: Int, size: Int, sort: String, filter: String): CM_ChatTypeConnection!
 }
@@ -17,9 +17,9 @@ type CM_ChatTypeConnection {
 }
 
 type CM_ChatType {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
@@ -43,7 +43,7 @@ type CM_ChatType {
 }
 
 input CM_ChatTypeInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

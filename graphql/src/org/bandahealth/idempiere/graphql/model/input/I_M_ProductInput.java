@@ -8,21 +8,21 @@ import org.compiere.model.I_M_Product;
  * Generated Interface for M_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_M_ProductInput extends I_M_Product {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -44,44 +44,6 @@ public interface I_M_ProductInput extends I_M_Product {
 	 * @return Purchase price of product
 	 */
 	BigDecimal getBH_BuyPrice();
-
-	/**
-	 * Column name BH_HasExpiration
-	 */
-	static final String COLUMNNAME_BH_HasExpiration = "BH_HasExpiration";
-
-	/**
-	 * Set Has Expiration.
-	 *
-	 * @param BH_HasExpiration Has Expiration
-	 */
-	void setBH_HasExpiration(boolean BH_HasExpiration);
-
-	/**
-	 * Get Has Expiration.
-	 *
-	 * @return Has Expiration
-	 */
-	boolean isBH_HasExpiration();
-
-	/**
-	 * Column name BH_NavButtons
-	 */
-	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
-
-	/**
-	 * Set BH_NavButtons.
-	 *
-	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	void setBH_NavButtons(Object BH_NavButtons);
-
-	/**
-	 * Get BH_NavButtons.
-	 *
-	 * @return Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	Object getBH_NavButtons();
 
 	/**
 	 * Column name BH_PriceMargin

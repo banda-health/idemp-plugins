@@ -9,7 +9,7 @@ import org.compiere.model.MDashboardContent;
  * Generated Query Resolver for PA_DashboardContent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_DashboardContentQuery extends POQuery<MDashboardContent> implements GraphQLQueryResolver {
 	@Override

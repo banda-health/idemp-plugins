@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_PeriodControl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_PeriodControlResolver extends POResolver<MPeriodControl> implements GraphQLResolver<MPeriodControl> {
 
@@ -89,6 +89,7 @@ public class X_C_PeriodControlResolver extends POResolver<MPeriodControl> implem
 			put("C", "6beb259f-6741-426f-a76e-5f76578d1710");
 			put("P", "019e9f60-00b1-4610-9be6-a23e1527d0a5");
 			put("N", "6d8d0aae-1aa8-4566-b719-17be55dbfd30");
+			put("D", "115de309-7e7b-42a0-873b-7acf400d3ac3");
 		}
 	};
 	public CompletableFuture<MRefList_BH> PeriodAction(MPeriodControl entity, DataFetchingEnvironment environment) {
@@ -106,6 +107,7 @@ public class X_C_PeriodControlResolver extends POResolver<MPeriodControl> implem
 			put("C", "70c7284e-a6de-41b1-b9b0-fc21b6b24ea2");
 			put("P", "1372bf72-0e91-496b-b554-e2aeaa58cd1a");
 			put("N", "83b5a615-686a-4ea2-a87c-dffd45b89c26");
+			put("D", "948b0299-f812-4fc7-92b8-9063f7deae6d");
 		}
 	};
 	public CompletableFuture<MRefList_BH> PeriodStatus(MPeriodControl entity, DataFetchingEnvironment environment) {

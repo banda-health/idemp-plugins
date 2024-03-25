@@ -1,6 +1,6 @@
 # Generated Schema for C_TaxBase - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_TaxBaseGet(page: Int, size: Int, sort: String, filter: String): C_TaxBaseConnection!
 }
@@ -17,9 +17,9 @@ type C_TaxBaseConnection {
 }
 
 type C_TaxBase {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Calculation Base
 	Base: AD_Ref_List
@@ -47,7 +47,7 @@ type C_TaxBase {
 }
 
 input C_TaxBaseInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Calculation Base
 	Base: AD_Ref_ListInput

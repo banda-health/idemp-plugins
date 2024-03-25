@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_WF_Responsible - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_WF_ResponsibleResolver extends POResolver<X_AD_WF_Responsible> implements GraphQLResolver<X_AD_WF_Responsible> {
 

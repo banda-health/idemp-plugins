@@ -1,6 +1,6 @@
 # Generated Schema for M_ShippingProcessor - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_ShippingProcessorGet(page: Int, size: Int, sort: String, filter: String): M_ShippingProcessorConnection!
 }
@@ -17,9 +17,9 @@ type M_ShippingProcessorConnection {
 }
 
 type M_ShippingProcessor {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	ConnectionKey: String
 	ConnectionPassword: String!
@@ -42,7 +42,7 @@ type M_ShippingProcessor {
 }
 
 input M_ShippingProcessorInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	ConnectionKey: String
 	ConnectionPassword: String

@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_AssetGet(page: Int, size: Int, sort: String, filter: String): A_AssetConnection!
 }
@@ -30,9 +30,9 @@ type A_Asset {
 	A_Parent_Asset: A_Asset
 	A_QTY_Current: BigDecimal
 	A_QTY_Original: BigDecimal
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -107,7 +107,7 @@ type A_Asset {
 	Manufacturer: String
 	# Alphanumeric identifier of the entity
 	Name: String!
-	# Next Maintenence Date
+	# Next Maintenance Date
 	NextMaintenenceDate: Date
 	# Next Maintenence Unit
 	NextMaintenenceUnit: Int
@@ -125,7 +125,7 @@ type A_Asset {
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
-	UseLifeYears: Int
+	UseLifeYears: BigDecimal
 	# Currently used units of the assets
 	UseUnits: Int
 	# Search key for the record in the format required - must be unique
@@ -148,7 +148,7 @@ input A_AssetInput {
 	A_Parent_Asset: ForeignEntityInput
 	A_QTY_Current: BigDecimal
 	A_QTY_Original: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
@@ -219,7 +219,7 @@ input A_AssetInput {
 	Manufacturer: String
 	# Alphanumeric identifier of the entity
 	Name: String
-	# Next Maintenence Date
+	# Next Maintenance Date
 	NextMaintenenceDate: Date
 	# Next Maintenence Unit
 	NextMaintenenceUnit: Int
@@ -233,7 +233,7 @@ input A_AssetInput {
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
-	UseLifeYears: Int
+	UseLifeYears: BigDecimal
 	# Currently used units of the assets
 	UseUnits: Int
 	# Search key for the record in the format required - must be unique

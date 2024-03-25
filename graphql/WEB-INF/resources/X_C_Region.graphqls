@@ -1,6 +1,6 @@
 # Generated Schema for C_Region - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_RegionGet(page: Int, size: Int, sort: String, filter: String): C_RegionConnection!
 }
@@ -17,9 +17,9 @@ type C_RegionConnection {
 }
 
 type C_Region {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Country 
 	C_Country: C_Country!
@@ -43,7 +43,7 @@ type C_Region {
 }
 
 input C_RegionInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput

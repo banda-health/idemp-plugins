@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for M_BOMAlternative - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_BOMAlternativeInput extends X_M_BOMAlternative implements I_M_BOMAlternativeInput {
 
@@ -38,7 +38,7 @@ public class X_M_BOMAlternativeInput extends X_M_BOMAlternative implements I_M_B
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -65,7 +65,7 @@ public class X_M_BOMAlternativeInput extends X_M_BOMAlternative implements I_M_B
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

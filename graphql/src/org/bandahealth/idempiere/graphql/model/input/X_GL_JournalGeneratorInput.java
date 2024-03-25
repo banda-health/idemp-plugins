@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for GL_JournalGenerator - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_GL_JournalGeneratorInput {
 
@@ -47,7 +47,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -74,7 +74,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -281,7 +281,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	}
 
 	/**
-	 * Set PostingType.
+	 * Set Posting Type.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
@@ -305,7 +305,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	}
 
 	/**
-	 * Get PostingType.
+	 * Get Posting Type.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */

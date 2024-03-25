@@ -1,6 +1,6 @@
 # Generated Schema for AD_Package_Imp - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Package_ImpGet(page: Int, size: Int, sort: String, filter: String): AD_Package_ImpConnection!
 }
@@ -17,9 +17,9 @@ type AD_Package_ImpConnection {
 }
 
 type AD_Package_Imp {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Package_Imp_Proc: AD_Package_Imp_Proc
 	UUID: ID!
@@ -56,7 +56,7 @@ type AD_Package_Imp {
 }
 
 input AD_Package_ImpInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Package_Imp_Proc: ForeignEntityInput
 	UUID: ID

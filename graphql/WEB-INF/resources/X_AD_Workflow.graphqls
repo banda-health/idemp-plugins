@@ -1,6 +1,6 @@
 # Generated Schema for AD_Workflow - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WorkflowGet(page: Int, size: Int, sort: String, filter: String): AD_WorkflowConnection!
 }
@@ -19,10 +19,10 @@ type AD_WorkflowConnection {
 type AD_Workflow {
 	# Access Level required
 	AccessLevel: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
@@ -111,7 +111,7 @@ input AD_WorkflowInput {
 	# Access Level required
 	AccessLevel: AD_Ref_ListInput
 	AD_CtxHelp: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

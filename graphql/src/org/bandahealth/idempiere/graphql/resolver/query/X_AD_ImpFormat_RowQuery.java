@@ -9,7 +9,7 @@ import org.compiere.model.X_AD_ImpFormat_Row;
  * Generated Query Resolver for AD_ImpFormat_Row - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ImpFormat_RowQuery extends POQuery<X_AD_ImpFormat_Row> implements GraphQLQueryResolver {
 	@Override

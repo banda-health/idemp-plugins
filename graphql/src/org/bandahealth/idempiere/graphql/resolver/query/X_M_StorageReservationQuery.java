@@ -9,7 +9,7 @@ import org.compiere.model.MStorageReservation;
  * Generated Query Resolver for M_StorageReservation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_StorageReservationQuery extends POQuery<MStorageReservation> implements GraphQLQueryResolver {
 	@Override

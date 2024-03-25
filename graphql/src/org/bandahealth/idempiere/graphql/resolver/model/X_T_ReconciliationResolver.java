@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_Reconciliation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_ReconciliationResolver extends POResolver<X_T_Reconciliation> implements GraphQLResolver<X_T_Reconciliation> {
 

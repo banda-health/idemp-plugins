@@ -6,7 +6,7 @@ import org.compiere.model.MBPartnerLocation;
  * Data Loader for C_BPartner_Location - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BPartner_LocationDataLoader extends PODataLoader<MBPartnerLocation> {
 	public static String DATALOADER_C_BPartner_Location_BY_ID = "C_BPartner_LocationByIdDataLoader";

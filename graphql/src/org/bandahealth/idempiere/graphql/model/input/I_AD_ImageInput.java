@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Image;
  * Generated Interface for AD_Image - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_ImageInput extends I_AD_Image {
 
@@ -27,16 +27,30 @@ public interface I_AD_ImageInput extends I_AD_Image {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set AD_StorageProvider.
+	 *
+	 * @param AD_StorageProvider AD_StorageProvider
+	 */
+	void setAD_StorageProviderInput(ForeignEntityInput AD_StorageProvider);
+
+	/**
+	 * Get AD_StorageProvider.
+	 *
+	 * @return AD_StorageProvider
+	 */
+	ForeignEntityInput AD_StorageProvider();
 
 	/**
 	 * Set AD_EntityType.

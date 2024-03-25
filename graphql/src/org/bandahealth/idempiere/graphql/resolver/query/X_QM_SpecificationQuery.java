@@ -9,7 +9,7 @@ import org.eevolution.model.X_QM_Specification;
  * Generated Query Resolver for QM_Specification - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_QM_SpecificationQuery extends POQuery<X_QM_Specification> implements GraphQLQueryResolver {
 	@Override

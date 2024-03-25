@@ -1,6 +1,6 @@
 # Generated Schema for M_AttributeSet - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_AttributeSetGet(page: Int, size: Int, sort: String, filter: String): M_AttributeSetConnection!
 }
@@ -17,9 +17,9 @@ type M_AttributeSetConnection {
 }
 
 type M_AttributeSet {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean!
@@ -74,7 +74,7 @@ type M_AttributeSet {
 }
 
 input M_AttributeSetInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean

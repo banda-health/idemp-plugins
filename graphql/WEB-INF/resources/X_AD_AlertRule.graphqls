@@ -1,6 +1,6 @@
 # Generated Schema for AD_AlertRule - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_AlertRuleGet(page: Int, size: Int, sort: String, filter: String): AD_AlertRuleConnection!
 }
@@ -20,9 +20,9 @@ type AD_AlertRule {
 	# iDempiere Alert
 	AD_Alert: AD_Alert!
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
@@ -59,7 +59,7 @@ input AD_AlertRuleInput {
 	# iDempiere Alert
 	AD_Alert: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

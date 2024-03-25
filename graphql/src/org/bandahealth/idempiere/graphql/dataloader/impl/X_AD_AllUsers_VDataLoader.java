@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_AllUsers_V;
  * Data Loader for AD_AllUsers_V - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_AllUsers_VDataLoader extends PODataLoader<X_AD_AllUsers_V> {
 	public static String DATALOADER_AD_AllUsers_V_BY_ID = "AD_AllUsers_VByIdDataLoader";

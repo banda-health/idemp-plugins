@@ -1,6 +1,6 @@
 # Generated Schema for AD_Client - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ClientGet(page: Int, size: Int, sort: String, filter: String): AD_ClientConnection!
 }
@@ -20,11 +20,12 @@ type AD_Client {
 	UUID: ID!
 	# Language for this entity
 	AD_Language: AD_Language
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_PasswordRule: AD_PasswordRule
 	# Data Replication Strategy
 	AD_ReplicationStrategy: AD_ReplicationStrategy
+	AuthenticationType: AD_Ref_List!
 	# Enable and level of automatic Archive of documents
 	AutoArchive: AD_Ref_List!
 	# Date this record was created
@@ -50,6 +51,7 @@ type AD_Client {
 	IsUseASP: Boolean!
 	# Enable the use of Beta Functionality
 	IsUseBetaFunctions: Boolean!
+	LoginPrefix: String
 	# Material Movement Policy
 	MMPolicy: AD_Ref_List!
 	# List of data model validation classes separated by ;
@@ -80,11 +82,12 @@ input AD_ClientInput {
 	UUID: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_PasswordRule: ForeignEntityInput
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
+	AuthenticationType: AD_Ref_ListInput
 	# Enable and level of automatic Archive of documents
 	AutoArchive: AD_Ref_ListInput
 	# Optional short description of the record
@@ -106,6 +109,7 @@ input AD_ClientInput {
 	IsUseASP: Boolean
 	# Enable the use of Beta Functionality
 	IsUseBetaFunctions: Boolean
+	LoginPrefix: String
 	# Material Movement Policy
 	MMPolicy: AD_Ref_ListInput
 	# List of data model validation classes separated by ;

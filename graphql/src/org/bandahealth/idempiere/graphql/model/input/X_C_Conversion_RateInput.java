@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  * Generated Model for C_Conversion_Rate - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Conversion_RateInput {
 
@@ -42,7 +42,7 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -69,7 +69,7 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

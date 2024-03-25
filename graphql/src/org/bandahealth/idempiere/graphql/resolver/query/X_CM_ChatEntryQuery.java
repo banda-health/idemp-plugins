@@ -9,7 +9,7 @@ import org.compiere.model.MChatEntry;
  * Generated Query Resolver for CM_ChatEntry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_CM_ChatEntryQuery extends POQuery<MChatEntry> implements GraphQLQueryResolver {
 	@Override

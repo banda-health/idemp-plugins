@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Role - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLResolver<X_AD_Role> {
 
@@ -134,6 +134,10 @@ public class X_AD_RoleResolver extends POResolver<X_AD_Role> implements GraphQLR
 
 	public Boolean IsChangeLog(X_AD_Role entity, DataFetchingEnvironment environment) {
 		return entity.isChangeLog();
+	}
+
+	public Boolean IsClientAdministrator(X_AD_Role entity, DataFetchingEnvironment environment) {
+		return entity.isClientAdministrator();
 	}
 
 	public Boolean IsDiscountAllowedOnTotal(X_AD_Role entity, DataFetchingEnvironment environment) {

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Process_Para;
  * Generated Interface for AD_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_Process_ParaInput extends I_AD_Process_Para {
 
@@ -25,16 +25,30 @@ public interface I_AD_Process_ParaInput extends I_AD_Process_Para {
 	ForeignEntityInput AD_Element();
 
 	/**
+	 * Set AD_FieldGroup.
+	 *
+	 * @param AD_FieldGroup Logical grouping of fields
+	 */
+	void setAD_FieldGroupInput(ForeignEntityInput AD_FieldGroup);
+
+	/**
+	 * Get AD_FieldGroup.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	ForeignEntityInput AD_FieldGroup();
+
+	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -107,6 +121,20 @@ public interface I_AD_Process_ParaInput extends I_AD_Process_Para {
 	 * @return Dynamic Validation Rule
 	 */
 	ForeignEntityInput AD_Val_Rule();
+
+	/**
+	 * Set DateRangeOption.
+	 *
+	 * @param DateRangeOption Options, how the date editor will be displayed.
+	 */
+	void setDateRangeOptionInput(I_AD_Ref_ListInput DateRangeOption);
+
+	/**
+	 * Get DateRangeOption.
+	 *
+	 * @return Options, how the date editor will be displayed.
+	 */
+	I_AD_Ref_ListInput DateRangeOption();
 
 	/**
 	 * Set AD_EntityType.

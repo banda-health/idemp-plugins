@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for T_BankRegister - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> implements GraphQLResolver<X_T_BankRegister> {
 
@@ -54,7 +54,7 @@ public class X_T_BankRegisterResolver extends POResolver<X_T_BankRegister> imple
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

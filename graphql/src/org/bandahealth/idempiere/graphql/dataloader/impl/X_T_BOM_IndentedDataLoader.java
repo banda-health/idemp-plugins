@@ -6,7 +6,7 @@ import org.compiere.model.X_T_BOM_Indented;
  * Data Loader for T_BOM_Indented - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_BOM_IndentedDataLoader extends PODataLoader<X_T_BOM_Indented> {
 	public static String DATALOADER_T_BOM_Indented_BY_ID = "T_BOM_IndentedByIdDataLoader";

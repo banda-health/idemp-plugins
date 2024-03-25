@@ -6,7 +6,7 @@ import org.compiere.model.X_GL_Fund;
  * Data Loader for GL_Fund - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_GL_FundDataLoader extends PODataLoader<X_GL_Fund> {
 	public static String DATALOADER_GL_Fund_BY_ID = "GL_FundByIdDataLoader";

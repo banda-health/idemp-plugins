@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MOrg;
+import org.compiere.model.MStyle;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
@@ -21,11 +22,12 @@ import java.sql.ResultSet;
  * Generated Model for AD_PrintFormatItem - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I_AD_PrintFormatItemInput {
 
 	private ForeignEntityInput mAD_Column;
+	private ForeignEntityInput mAD_FieldStyle;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintColor;
 	private ForeignEntityInput mAD_PrintFont;
@@ -86,9 +88,43 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	}
 
 	/**
+	 * Set Field Style.
+	 *
+	 * @param AD_FieldStyle Field CSS Style 
+	 */
+	@JsonProperty("AD_FieldStyle")
+	public void setAD_FieldStyleInput(ForeignEntityInput AD_FieldStyle) {
+		this.mAD_FieldStyle = AD_FieldStyle;
+		if (AD_FieldStyle != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MStyle foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
+							.setParameters(AD_FieldStyle.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_FieldStyle_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Style with UUID " + AD_FieldStyle.getUUID());
+			}
+		} else {
+			this.setAD_FieldStyle_ID(0);
+		}
+	}
+
+	/**
+	 * Get Field Style.
+	 *
+	 * @return Field CSS Style 
+	 */
+	@JsonProperty("AD_FieldStyle")
+	public ForeignEntityInput AD_FieldStyle() {
+		return mAD_FieldStyle;
+	}
+
+	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -115,7 +151,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

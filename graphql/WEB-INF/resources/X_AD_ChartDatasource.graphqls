@@ -1,6 +1,6 @@
 # Generated Schema for AD_ChartDatasource - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ChartDatasourceGet(page: Int, size: Int, sort: String, filter: String): AD_ChartDatasourceConnection!
 }
@@ -19,9 +19,9 @@ type AD_ChartDatasourceConnection {
 type AD_ChartDatasource {
 	AD_Chart: AD_Chart!
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
@@ -55,13 +55,13 @@ type AD_ChartDatasource {
 	# Fully qualified data value column
 	ValueColumn: String!
 	# Fully qualified SQL WHERE clause
-	WhereClause: String!
+	WhereClause: String
 }
 
 input AD_ChartDatasourceInput {
 	AD_Chart: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

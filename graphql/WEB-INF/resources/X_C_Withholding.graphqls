@@ -1,6 +1,6 @@
 # Generated Schema for C_Withholding - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_WithholdingGet(page: Int, size: Int, sort: String, filter: String): C_WithholdingConnection!
 }
@@ -17,9 +17,9 @@ type C_WithholdingConnection {
 }
 
 type C_Withholding {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Business Partner to whom payment is made
 	Benefici: C_BPartner!
@@ -63,7 +63,7 @@ type C_Withholding {
 }
 
 input C_WithholdingInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Business Partner to whom payment is made
 	Benefici: ForeignEntityInput

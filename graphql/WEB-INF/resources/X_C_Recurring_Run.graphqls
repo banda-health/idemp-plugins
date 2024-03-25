@@ -1,6 +1,6 @@
 # Generated Schema for C_Recurring_Run - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_Recurring_RunGet(page: Int, size: Int, sort: String, filter: String): C_Recurring_RunConnection!
 }
@@ -17,9 +17,9 @@ type C_Recurring_RunConnection {
 }
 
 type C_Recurring_Run {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Invoice Identifier
 	C_Invoice: C_Invoice
@@ -49,7 +49,7 @@ type C_Recurring_Run {
 }
 
 input C_Recurring_RunInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput

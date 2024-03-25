@@ -1,6 +1,6 @@
 # Generated Schema for AD_ClientInfo - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ClientInfoGet(page: Int, size: Int, sort: String, filter: String): AD_ClientInfoConnection!
 }
@@ -17,10 +17,10 @@ type AD_ClientInfoConnection {
 }
 
 type AD_ClientInfo {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_StorageProvider: AD_StorageProvider
 	# Trees are used for (financial) reporting
@@ -72,6 +72,8 @@ type AD_ClientInfo {
 	StorageArchive: AD_StorageProvider
 	# Storage provider for Image
 	StorageImage: AD_StorageProvider
+	# Time zone name
+	TimeZone: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -80,7 +82,7 @@ type AD_ClientInfo {
 
 input AD_ClientInfoInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_StorageProvider: ForeignEntityInput
 	# Trees are used for (financial) reporting
@@ -128,4 +130,6 @@ input AD_ClientInfoInput {
 	StorageArchive: ForeignEntityInput
 	# Storage provider for Image
 	StorageImage: ForeignEntityInput
+	# Time zone name
+	TimeZone: String
 }

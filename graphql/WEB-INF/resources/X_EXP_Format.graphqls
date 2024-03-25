@@ -1,6 +1,6 @@
 # Generated Schema for EXP_Format - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	EXP_FormatGet(page: Int, size: Int, sort: String, filter: String): EXP_FormatConnection!
 }
@@ -17,9 +17,9 @@ type EXP_FormatConnection {
 }
 
 type EXP_Format {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
@@ -52,7 +52,7 @@ type EXP_Format {
 }
 
 input EXP_FormatInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

@@ -1,6 +1,6 @@
 # Generated Schema for CM_ChatEntry - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	CM_ChatEntryGet(page: Int, size: Int, sort: String, filter: String): CM_ChatEntryConnection!
 }
@@ -17,9 +17,9 @@ type CM_ChatEntryConnection {
 }
 
 type CM_ChatEntry {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -53,7 +53,7 @@ type CM_ChatEntry {
 }
 
 input CM_ChatEntryInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput

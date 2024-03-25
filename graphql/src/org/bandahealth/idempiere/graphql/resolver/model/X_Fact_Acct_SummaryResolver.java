@@ -41,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for Fact_Acct_Summary - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary> implements GraphQLResolver<X_Fact_Acct_Summary> {
 
@@ -93,7 +93,7 @@ public class X_Fact_Acct_SummaryResolver extends POResolver<X_Fact_Acct_Summary>
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

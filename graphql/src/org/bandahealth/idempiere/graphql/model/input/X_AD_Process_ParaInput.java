@@ -3,7 +3,9 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MEntityType;
@@ -20,17 +22,19 @@ import java.sql.ResultSet;
  * Generated Model for AD_Process_Para - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process_ParaInput {
 
 	private ForeignEntityInput mAD_Element;
 	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_FieldGroup;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_Reference;
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_Val_Rule;
+	private I_AD_Ref_ListInput mDateRangeOption;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -79,9 +83,43 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	}
 
 	/**
+	 * Set Field Group.
+	 *
+	 * @param AD_FieldGroup Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public void setAD_FieldGroupInput(ForeignEntityInput AD_FieldGroup) {
+		this.mAD_FieldGroup = AD_FieldGroup;
+		if (AD_FieldGroup != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MFieldGroup_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_FieldGroup", "AD_FieldGroup_UU=?", get_TrxName())
+							.setParameters(AD_FieldGroup.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_FieldGroup_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_FieldGroup with UUID " + AD_FieldGroup.getUUID());
+			}
+		} else {
+			this.setAD_FieldGroup_ID(0);
+		}
+	}
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	@JsonProperty("AD_FieldGroup")
+	public ForeignEntityInput AD_FieldGroup() {
+		return mAD_FieldGroup;
+	}
+
+	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -108,7 +146,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -281,6 +319,40 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	@JsonProperty("AD_Val_Rule")
 	public ForeignEntityInput AD_Val_Rule() {
 		return mAD_Val_Rule;
+	}
+
+	/**
+	 * Set Date Range Option.
+	 *
+	 * @param DateRangeOption Options, how the date editor will be displayed.
+	 */
+	@JsonProperty("DateRangeOption")
+	public void setDateRangeOptionInput(I_AD_Ref_ListInput DateRangeOption) {
+		this.mDateRangeOption = DateRangeOption;
+		if (DateRangeOption != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DateRangeOption.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setDateRangeOption(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DateRangeOption.getUUID());
+			}
+		} else {
+			this.setDateRangeOption(null);
+		}
+	}
+
+	/**
+	 * Get Date Range Option.
+	 *
+	 * @return Options, how the date editor will be displayed.
+	 */
+	@JsonProperty("DateRangeOption")
+	public I_AD_Ref_ListInput DateRangeOption() {
+		return mDateRangeOption;
 	}
 
 	/**

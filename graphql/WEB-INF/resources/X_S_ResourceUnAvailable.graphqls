@@ -1,6 +1,6 @@
 # Generated Schema for S_ResourceUnAvailable - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	S_ResourceUnAvailableGet(page: Int, size: Int, sort: String, filter: String): S_ResourceUnAvailableConnection!
 }
@@ -17,9 +17,9 @@ type S_ResourceUnAvailableConnection {
 }
 
 type S_ResourceUnAvailable {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -43,7 +43,7 @@ type S_ResourceUnAvailable {
 }
 
 input S_ResourceUnAvailableInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Starting date for a range
 	DateFrom: Date

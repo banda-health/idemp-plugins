@@ -1,6 +1,6 @@
 # Generated Schema for AD_Image - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ImageGet(page: Int, size: Int, sort: String, filter: String): AD_ImageConnection!
 }
@@ -17,11 +17,12 @@ type AD_ImageConnection {
 }
 
 type AD_Image {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	AD_StorageProvider: AD_StorageProvider
 	# Binary Data
 	BinaryData: Binary
 	# Date this record was created
@@ -46,8 +47,9 @@ type AD_Image {
 
 input AD_ImageInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	AD_StorageProvider: ForeignEntityInput
 	# Binary Data
 	BinaryData: Binary
 	# Optional short description of the record

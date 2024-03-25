@@ -5,9 +5,11 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StorageProviderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.compiere.model.MArchive;
+import org.compiere.model.MStorageProvider;
 import org.compiere.model.MTable;
 import org.dataloader.DataLoader;
 
@@ -17,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Archive - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQLResolver<MArchive> {
 
@@ -39,6 +41,21 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 
 
 	/**
+	 * Get Storage Provider.
+	 *
+	 * @return Storage Provider
+	 */
+	public CompletableFuture<MStorageProvider> AD_StorageProvider(MArchive entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_StorageProvider_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MStorageProvider> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StorageProviderDataLoader.DATALOADER_AD_StorageProvider_BY_ID);
+		return dataLoader.load(entity.getAD_StorageProvider_ID());
+	}
+
+
+	/**
 	 * Get Table.
 	 *
 	 * @return Database Table information
@@ -54,7 +71,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

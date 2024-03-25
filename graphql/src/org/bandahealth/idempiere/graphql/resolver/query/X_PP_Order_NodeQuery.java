@@ -9,7 +9,7 @@ import org.eevolution.model.X_PP_Order_Node;
  * Generated Query Resolver for PP_Order_Node - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PP_Order_NodeQuery extends POQuery<X_PP_Order_Node> implements GraphQLQueryResolver {
 	@Override

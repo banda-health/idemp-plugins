@@ -33,7 +33,7 @@ import java.sql.ResultSet;
  * Generated Model for T_Transaction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_TransactionInput extends X_T_Transaction implements I_T_TransactionInput {
 
@@ -74,7 +74,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -101,7 +101,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

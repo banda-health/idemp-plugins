@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for M_PriceList - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput {
 
@@ -39,7 +39,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -66,7 +66,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -74,7 +74,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	}
 
 	/**
-	 * Set Base Pricelist.
+	 * Set Base Price List.
 	 *
 	 * @param BasePriceList Pricelist to be used, if product not found on this pricelist
 	 */
@@ -98,7 +98,7 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	}
 
 	/**
-	 * Get Base Pricelist.
+	 * Get Base Price List.
 	 *
 	 * @return Pricelist to be used, if product not found on this pricelist
 	 */

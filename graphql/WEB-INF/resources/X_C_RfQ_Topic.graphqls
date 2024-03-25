@@ -1,6 +1,6 @@
 # Generated Schema for C_RfQ_Topic - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_RfQ_TopicGet(page: Int, size: Int, sort: String, filter: String): C_RfQ_TopicConnection!
 }
@@ -17,9 +17,9 @@ type C_RfQ_TopicConnection {
 }
 
 type C_RfQ_Topic {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
@@ -43,7 +43,7 @@ type C_RfQ_Topic {
 }
 
 input C_RfQ_TopicInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput

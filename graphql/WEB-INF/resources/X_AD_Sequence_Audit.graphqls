@@ -1,6 +1,6 @@
 # Generated Schema for AD_Sequence_Audit - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Sequence_AuditGet(page: Int, size: Int, sort: String, filter: String): AD_Sequence_AuditConnection!
 }
@@ -17,9 +17,9 @@ type AD_Sequence_AuditConnection {
 }
 
 type AD_Sequence_Audit {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Document Sequence
@@ -34,8 +34,6 @@ type AD_Sequence_Audit {
 	DocumentNo: String!
 	# The record is active in the system
 	IsActive: Boolean!
-	# Direct internal record ID
-	Record_ID: Int!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -43,7 +41,7 @@ type AD_Sequence_Audit {
 }
 
 input AD_Sequence_AuditInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Document Sequence
@@ -54,6 +52,4 @@ input AD_Sequence_AuditInput {
 	DocumentNo: String
 	# The record is active in the system
 	IsActive: Boolean
-	# Direct internal record ID
-	Record_ID: Int
 }

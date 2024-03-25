@@ -6,7 +6,7 @@ import org.compiere.model.MCtxHelpSuggestion;
  * Data Loader for AD_CtxHelpSuggestion - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_CtxHelpSuggestionDataLoader extends PODataLoader<MCtxHelpSuggestion> {
 	public static String DATALOADER_AD_CtxHelpSuggestion_BY_ID = "AD_CtxHelpSuggestionByIdDataLoader";

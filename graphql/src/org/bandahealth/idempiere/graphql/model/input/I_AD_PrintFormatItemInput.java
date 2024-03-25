@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_PrintFormatItem;
  * Generated Interface for AD_PrintFormatItem - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_PrintFormatItemInput extends I_AD_PrintFormatItem {
 
@@ -25,16 +25,30 @@ public interface I_AD_PrintFormatItemInput extends I_AD_PrintFormatItem {
 	ForeignEntityInput AD_Column();
 
 	/**
+	 * Set AD_FieldStyle.
+	 *
+	 * @param AD_FieldStyle Field CSS Style 
+	 */
+	void setAD_FieldStyleInput(ForeignEntityInput AD_FieldStyle);
+
+	/**
+	 * Get AD_FieldStyle.
+	 *
+	 * @return Field CSS Style 
+	 */
+	ForeignEntityInput AD_FieldStyle();
+
+	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 

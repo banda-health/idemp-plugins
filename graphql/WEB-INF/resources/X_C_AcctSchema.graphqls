@@ -1,6 +1,6 @@
 # Generated Schema for C_AcctSchema - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_AcctSchemaGet(page: Int, size: Int, sort: String, filter: String): C_AcctSchemaConnection!
 }
@@ -17,9 +17,9 @@ type C_AcctSchemaConnection {
 }
 
 type C_AcctSchema {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean!
@@ -84,7 +84,7 @@ type C_AcctSchema {
 }
 
 input C_AcctSchemaInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean

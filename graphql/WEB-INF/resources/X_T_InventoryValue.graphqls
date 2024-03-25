@@ -1,6 +1,6 @@
 # Generated Schema for T_InventoryValue - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	T_InventoryValueGet(page: Int, size: Int, sort: String, filter: String): T_InventoryValueConnection!
 }
@@ -17,9 +17,9 @@ type T_InventoryValueConnection {
 }
 
 type T_InventoryValue {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
@@ -67,7 +67,7 @@ type T_InventoryValue {
 }
 
 input T_InventoryValueInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput

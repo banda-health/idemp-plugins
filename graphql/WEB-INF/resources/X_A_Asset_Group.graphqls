@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Group - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_GroupGet(page: Int, size: Int, sort: String, filter: String): A_Asset_GroupConnection!
 }
@@ -20,9 +20,9 @@ type A_Asset_Group {
 	A_Asset_Class: A_Asset_Class
 	UUID: ID!
 	A_Asset_Type: A_Asset_Type
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -59,7 +59,7 @@ input A_Asset_GroupInput {
 	A_Asset_Class: ForeignEntityInput
 	UUID: ID
 	A_Asset_Type: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

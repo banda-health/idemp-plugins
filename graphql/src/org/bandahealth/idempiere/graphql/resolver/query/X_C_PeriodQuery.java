@@ -9,7 +9,7 @@ import org.compiere.model.MPeriod;
  * Generated Query Resolver for C_Period - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_PeriodQuery extends POQuery<MPeriod> implements GraphQLQueryResolver {
 	@Override

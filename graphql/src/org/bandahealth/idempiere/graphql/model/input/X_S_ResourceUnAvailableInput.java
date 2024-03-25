@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for S_ResourceUnAvailable - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_S_ResourceUnAvailableInput extends MResourceUnAvailable implements I_S_ResourceUnAvailableInput {
 
@@ -38,7 +38,7 @@ public class X_S_ResourceUnAvailableInput extends MResourceUnAvailable implement
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -65,7 +65,7 @@ public class X_S_ResourceUnAvailableInput extends MResourceUnAvailable implement
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

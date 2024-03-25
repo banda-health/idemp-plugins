@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BP_Group_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_Group_AcctInput {
 
@@ -53,7 +53,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -80,7 +80,7 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

@@ -24,7 +24,7 @@ import java.sql.ResultSet;
  * Generated Model for HR_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_AttributeInput {
 
@@ -54,7 +54,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -81,7 +81,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -123,7 +123,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -147,7 +147,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

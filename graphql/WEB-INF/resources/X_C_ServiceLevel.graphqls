@@ -1,6 +1,6 @@
 # Generated Schema for C_ServiceLevel - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ServiceLevelGet(page: Int, size: Int, sort: String, filter: String): C_ServiceLevelConnection!
 }
@@ -17,9 +17,9 @@ type C_ServiceLevelConnection {
 }
 
 type C_ServiceLevel {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
@@ -48,7 +48,7 @@ type C_ServiceLevel {
 }
 
 input C_ServiceLevelInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: ForeignEntityInput

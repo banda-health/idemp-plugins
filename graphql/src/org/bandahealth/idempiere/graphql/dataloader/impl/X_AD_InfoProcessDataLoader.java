@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_InfoProcess;
  * Data Loader for AD_InfoProcess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_InfoProcessDataLoader extends PODataLoader<X_AD_InfoProcess> {
 	public static String DATALOADER_AD_InfoProcess_BY_ID = "AD_InfoProcessByIdDataLoader";

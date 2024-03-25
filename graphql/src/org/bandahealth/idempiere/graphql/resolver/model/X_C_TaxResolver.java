@@ -34,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Tax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver<MTax> {
 
@@ -242,6 +242,21 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 				.getDataLoader(X_C_Tax_TrlDataLoader.DATALOADER_C_Tax_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_TaxIndicator));
+	}
+
+	static Map<String, String> TAXPOSTINGINDICATOR_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("0", "e84b618c-a8b3-47cf-89a6-dd674e52d3e4");
+			put("1", "3e8e0d29-29ac-4c67-ae2c-92c0ee43d2e6");
+		}
+	};
+	public CompletableFuture<MRefList_BH> TaxPostingIndicator(MTax entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getTaxPostingIndicator())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(TAXPOSTINGINDICATOR_UUIDS_BY_VALUE.get(entity.getTaxPostingIndicator()));
 	}
 
 

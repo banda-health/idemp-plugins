@@ -1,6 +1,6 @@
 # Generated Schema for PA_ReportSource - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_ReportSourceGet(page: Int, size: Int, sort: String, filter: String): PA_ReportSourceConnection!
 }
@@ -17,9 +17,9 @@ type PA_ReportSourceConnection {
 }
 
 type PA_ReportSource {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
@@ -80,7 +80,7 @@ type PA_ReportSource {
 }
 
 input PA_ReportSourceInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput

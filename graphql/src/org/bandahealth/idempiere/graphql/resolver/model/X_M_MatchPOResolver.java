@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_MatchPO - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQLResolver<MMatchPO> {
 

@@ -6,7 +6,7 @@ import org.compiere.model.I_A_Asset_Info_Fin;
  * Generated Interface for A_Asset_Info_Fin - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_A_Asset_Info_FinInput extends I_A_Asset_Info_Fin {
 
@@ -69,14 +69,14 @@ public interface I_A_Asset_Info_FinInput extends I_A_Asset_Info_Fin {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 

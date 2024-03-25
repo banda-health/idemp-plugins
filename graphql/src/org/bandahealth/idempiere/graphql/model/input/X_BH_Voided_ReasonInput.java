@@ -1,10 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
-import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -15,28 +13,23 @@ import java.sql.ResultSet;
  * Generated Model for BH_Voided_Reason - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voided_ReasonInput {
 
 	private ForeignEntityInput mAD_Org;
 
 	/**
-	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
-	 * annotations from the super class since those aren't inherited)
-	 *
-	 * @param UUID The BH_Voided_Reason_UU to fetch this entity from the DB
+	 * Standard constructor
 	 */
-	@JsonCreator
-	public X_BH_Voided_ReasonInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_Voided_ReasonInput() {
+		super(Env.getCtx(), 0, null);
 	}
 
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -63,7 +56,7 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -79,23 +72,5 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 		if (get_ID() == 0) {
 			super.setBH_Voided_Reason_ID(BH_Voided_Reason_ID);
 		}
-	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setBH_Voided_Reason_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getBH_Voided_Reason_UU();
 	}
 }

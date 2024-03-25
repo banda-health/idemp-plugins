@@ -1,6 +1,6 @@
 # Generated Schema for AD_Language - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_LanguageGet(page: Int, size: Int, sort: String, filter: String): AD_LanguageConnection!
 }
@@ -17,12 +17,12 @@ type AD_LanguageConnection {
 }
 
 type AD_Language {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
 	AD_Language: String!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Printer paper definition
 	AD_PrintPaper: AD_PrintPaper
@@ -62,7 +62,7 @@ input AD_LanguageInput {
 	# Language for this entity
 	AD_Language: String
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Printer paper definition
 	AD_PrintPaper: ForeignEntityInput

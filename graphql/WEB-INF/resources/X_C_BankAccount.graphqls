@@ -1,6 +1,6 @@
 # Generated Schema for C_BankAccount - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BankAccountGet(page: Int, size: Int, sort: String, filter: String): C_BankAccountConnection!
 }
@@ -19,9 +19,9 @@ type C_BankAccountConnection {
 type C_BankAccount {
 	# Account Number
 	AccountNo: String!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Bank Account Type
 	BankAccountType: AD_Ref_List!
@@ -62,7 +62,7 @@ type C_BankAccount {
 input C_BankAccountInput {
 	# Account Number
 	AccountNo: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Bank Account Type
 	BankAccountType: AD_Ref_ListInput

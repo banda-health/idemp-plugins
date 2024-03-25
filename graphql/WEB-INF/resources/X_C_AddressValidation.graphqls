@@ -1,6 +1,6 @@
 # Generated Schema for C_AddressValidation - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_AddressValidationGet(page: Int, size: Int, sort: String, filter: String): C_AddressValidationConnection!
 }
@@ -17,9 +17,9 @@ type C_AddressValidationConnection {
 }
 
 type C_AddressValidation {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	C_AddressValidationCfg: C_AddressValidationCfg!
@@ -46,7 +46,7 @@ type C_AddressValidation {
 }
 
 input C_AddressValidationInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	C_AddressValidationCfg: ForeignEntityInput

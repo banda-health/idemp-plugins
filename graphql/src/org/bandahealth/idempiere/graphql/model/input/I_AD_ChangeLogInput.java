@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_ChangeLog;
  * Generated Interface for AD_ChangeLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_ChangeLogInput extends I_AD_ChangeLog {
 
@@ -55,14 +55,14 @@ public interface I_AD_ChangeLogInput extends I_AD_ChangeLog {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -107,4 +107,18 @@ public interface I_AD_ChangeLogInput extends I_AD_ChangeLog {
 	 * @return Type of Event in Change Log
 	 */
 	I_AD_Ref_ListInput EventChangeLog();
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	void setUUID(String UUID);
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	String getUUID();
 }

@@ -1,6 +1,6 @@
 # Generated Schema for M_InOutConfirm - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_InOutConfirmGet(page: Int, size: Int, sort: String, filter: String): M_InOutConfirmConnection!
 }
@@ -17,9 +17,9 @@ type M_InOutConfirmConnection {
 }
 
 type M_InOutConfirm {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
@@ -65,7 +65,7 @@ type M_InOutConfirm {
 }
 
 input M_InOutConfirmInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal

@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for U_POSTerminal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements GraphQLResolver<MPOSTerminal> {
 
@@ -204,7 +204,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 
 
 	/**
-	 * Get Tranfer Check trx to.
+	 * Get Transfer Check trx to.
 	 *
 	 * @return Bank account on which to transfer Check transactions
 	 */
@@ -268,7 +268,7 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 
 
 	/**
-	 * Get Purchase Pricelist.
+	 * Get Purchase Price List.
 	 *
 	 * @return Price List used by this Business Partner
 	 */
@@ -298,9 +298,9 @@ public class X_U_POSTerminalResolver extends POResolver<MPOSTerminal> implements
 
 
 	/**
-	 * Get Sales Pricelist.
+	 * Get Sales Price List.
 	 *
-	 * @return Sales Pricelist
+	 * @return Sales Price List
 	 */
 	public CompletableFuture<MPriceList> SO_PriceList(MPOSTerminal entity, DataFetchingEnvironment environment) {
 		if (entity.getSO_PriceList_ID() <= 0) {

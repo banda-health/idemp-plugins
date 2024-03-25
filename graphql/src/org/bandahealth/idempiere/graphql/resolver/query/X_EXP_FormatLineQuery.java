@@ -9,7 +9,7 @@ import org.compiere.model.MEXPFormatLine;
  * Generated Query Resolver for EXP_FormatLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_EXP_FormatLineQuery extends POQuery<MEXPFormatLine> implements GraphQLQueryResolver {
 	@Override

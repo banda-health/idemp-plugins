@@ -1,6 +1,6 @@
 # Generated Schema for AD_InfoProcess - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_InfoProcessGet(page: Int, size: Int, sort: String, filter: String): AD_InfoProcessConnection!
 }
@@ -17,14 +17,14 @@ type AD_InfoProcessConnection {
 }
 
 type AD_InfoProcess {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Info Window Column
 	AD_InfoColumn: AD_InfoColumn
 	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process!
@@ -56,7 +56,7 @@ input AD_InfoProcessInput {
 	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput

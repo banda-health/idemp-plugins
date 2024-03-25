@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_BroadcastMessage - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements I_AD_BroadcastMessageInput {
 
@@ -73,7 +73,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -100,7 +100,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -246,7 +246,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	/**
 	 * Set Target.
 	 *
-	 * @param Target Target client
+	 * @param Target Target tenant
 	 */
 	@JsonProperty("Target")
 	public void setTargetInput(I_AD_Ref_ListInput Target) {
@@ -270,7 +270,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	/**
 	 * Get Target.
 	 *
-	 * @return Target client
+	 * @return Target tenant
 	 */
 	@JsonProperty("Target")
 	public I_AD_Ref_ListInput Target() {

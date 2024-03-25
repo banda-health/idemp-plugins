@@ -2,8 +2,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MFieldGroup_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FieldGroupDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Process_ParaDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReferenceDataLoader;
@@ -24,10 +26,25 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserDef_Proc_Parameter - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_Proc_ParameterResolver extends POResolver<MUserDefProcParameter> implements GraphQLResolver<MUserDefProcParameter> {
 
+
+
+	/**
+	 * Get Field Group.
+	 *
+	 * @return Logical grouping of fields
+	 */
+	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MUserDefProcParameter entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_FieldGroup_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MFieldGroup_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FieldGroupDataLoader.DATALOADER_AD_FieldGroup_BY_ID);
+		return dataLoader.load(entity.getAD_FieldGroup_ID());
+	}
 
 
 	/**

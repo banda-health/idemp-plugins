@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_PostIt - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PostItInput extends MPostIt implements I_AD_PostItInput {
 
@@ -38,7 +38,7 @@ public class X_AD_PostItInput extends MPostIt implements I_AD_PostItInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -65,7 +65,7 @@ public class X_AD_PostItInput extends MPostIt implements I_AD_PostItInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -133,5 +133,23 @@ public class X_AD_PostItInput extends MPostIt implements I_AD_PostItInput {
 	@JsonProperty("AD_Table")
 	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
+	}
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	public void setUUID(String UUID) {
+		setRecord_UU(UUID);
+	}
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	public String getUUID() {
+		return getRecord_UU();
 	}
 }

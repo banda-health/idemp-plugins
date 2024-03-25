@@ -1,6 +1,6 @@
 # Generated Schema for PP_Order_Workflow - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PP_Order_WorkflowGet(page: Int, size: Int, sort: String, filter: String): PP_Order_WorkflowConnection!
 }
@@ -19,9 +19,9 @@ type PP_Order_WorkflowConnection {
 type PP_Order_Workflow {
 	# Access Level required
 	AccessLevel: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
@@ -109,7 +109,7 @@ type PP_Order_Workflow {
 input PP_Order_WorkflowInput {
 	# Access Level required
 	AccessLevel: AD_Ref_ListInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

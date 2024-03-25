@@ -17,7 +17,7 @@ import java.sql.Timestamp;
  * Generated Model for AD_AllUsers_V - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUsers_VInput {
 
@@ -37,9 +37,9 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	}
 
 	/**
-	 * Set Client (All).
+	 * Set Tenant (All).
 	 *
-	 * @param AD_AllClients_V Client (All)
+	 * @param AD_AllClients_V Tenant (All)
 	 */
 	@JsonProperty("AD_AllClients_V")
 	public void setAD_AllClients_VInput(ForeignEntityInput AD_AllClients_V) {
@@ -64,9 +64,9 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	}
 
 	/**
-	 * Get Client (All).
+	 * Get Tenant (All).
 	 *
-	 * @return Client (All)
+	 * @return Tenant (All)
 	 */
 	@JsonProperty("AD_AllClients_V")
 	public ForeignEntityInput AD_AllClients_V() {
@@ -105,7 +105,7 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -132,7 +132,7 @@ public class X_AD_AllUsers_VInput extends X_AD_AllUsers_V implements I_AD_AllUse
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

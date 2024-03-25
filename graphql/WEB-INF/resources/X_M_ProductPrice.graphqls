@@ -1,6 +1,6 @@
 # Generated Schema for M_ProductPrice - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_ProductPriceGet(page: Int, size: Int, sort: String, filter: String): M_ProductPriceConnection!
 }
@@ -17,12 +17,10 @@ type M_ProductPriceConnection {
 }
 
 type M_ProductPrice {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -49,10 +47,8 @@ type M_ProductPrice {
 }
 
 input M_ProductPriceInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	# The record is active in the system
 	IsActive: Boolean
 	# Identifies a unique instance of a Price List

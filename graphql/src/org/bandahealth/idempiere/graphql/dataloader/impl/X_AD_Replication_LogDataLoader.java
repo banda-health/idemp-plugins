@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MReplicationLog_BH;
  * Data Loader for AD_Replication_Log - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Replication_LogDataLoader extends PODataLoader<MReplicationLog_BH> {
 	public static String DATALOADER_AD_Replication_Log_BY_ID = "AD_Replication_LogByIdDataLoader";

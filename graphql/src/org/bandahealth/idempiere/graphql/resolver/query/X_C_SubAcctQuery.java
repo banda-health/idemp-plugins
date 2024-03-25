@@ -9,7 +9,7 @@ import org.compiere.model.X_C_SubAcct;
  * Generated Query Resolver for C_SubAcct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_SubAcctQuery extends POQuery<X_C_SubAcct> implements GraphQLQueryResolver {
 	@Override

@@ -1,6 +1,6 @@
 # Generated Schema for C_PaymentTerm - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PaymentTermGet(page: Int, size: Int, sort: String, filter: String): C_PaymentTermConnection!
 }
@@ -17,9 +17,9 @@ type C_PaymentTermConnection {
 }
 
 type C_PaymentTerm {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Due after delivery rather than after invoicing
 	AfterDelivery: Boolean!
@@ -76,7 +76,7 @@ type C_PaymentTerm {
 }
 
 input C_PaymentTermInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Due after delivery rather than after invoicing
 	AfterDelivery: Boolean

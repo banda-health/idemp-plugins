@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCommission;
 import org.compiere.model.MCommissionRun;
@@ -17,12 +18,13 @@ import java.sql.ResultSet;
  * Generated Model for C_CommissionRun - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_CommissionRunInput extends MCommissionRun implements I_C_CommissionRunInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Commission;
+	private ForeignEntityInput mC_Invoice;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -39,7 +41,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -66,7 +68,7 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -137,6 +139,43 @@ public class X_C_CommissionRunInput extends MCommissionRun implements I_C_Commis
 	 */
 	public String getUUID() {
 		return getC_CommissionRun_UU();
+	}
+
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
+		this.mC_Invoice = C_Invoice;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_Invoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+			}
+		} else {
+			this.setC_Invoice_ID(0);
+		}
+	}
+
+	/**
+	 * Get Invoice.
+	 *
+	 * @return Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public ForeignEntityInput C_Invoice() {
+		return mC_Invoice;
 	}
 	/**
 	 * Set Grand Total.

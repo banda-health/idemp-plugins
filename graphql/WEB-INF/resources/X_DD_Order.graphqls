@@ -1,6 +1,6 @@
 # Generated Schema for DD_Order - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	DD_OrderGet(page: Int, size: Int, sort: String, filter: String): DD_OrderConnection!
 }
@@ -17,9 +17,9 @@ type DD_OrderConnection {
 }
 
 type DD_Order {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -83,7 +83,7 @@ type DD_Order {
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
 	IsDelivered: Boolean!
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean!
 	# Document is in dispute
 	IsInDispute: Boolean!
@@ -138,7 +138,7 @@ type DD_Order {
 }
 
 input DD_OrderInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
@@ -198,7 +198,7 @@ input DD_OrderInput {
 	# Indicates if this document requires approval
 	IsApproved: Boolean
 	IsDelivered: Boolean
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean
 	# Document is in dispute
 	IsInDispute: Boolean

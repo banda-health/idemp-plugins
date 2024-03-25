@@ -30,7 +30,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BPartner - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput {
 
@@ -109,7 +109,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -136,7 +136,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -211,7 +211,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 		return mC_BP_Group;
 	}
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner_ID Identifies a Business Partner
 	 */
@@ -853,7 +853,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	}
 
 	/**
-	 * Set Purchase Pricelist.
+	 * Set Purchase Price List.
 	 *
 	 * @param PO_PriceList Price List used by this Business Partner
 	 */
@@ -877,7 +877,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	}
 
 	/**
-	 * Get Purchase Pricelist.
+	 * Get Purchase Price List.
 	 *
 	 * @return Price List used by this Business Partner
 	 */

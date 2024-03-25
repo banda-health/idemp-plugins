@@ -1,6 +1,6 @@
 # Generated Schema for B_SellerFunds - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	B_SellerFundsGet(page: Int, size: Int, sort: String, filter: String): B_SellerFundsConnection!
 }
@@ -17,9 +17,9 @@ type B_SellerFundsConnection {
 }
 
 type B_SellerFunds {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
@@ -45,7 +45,7 @@ type B_SellerFunds {
 }
 
 input B_SellerFundsInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput

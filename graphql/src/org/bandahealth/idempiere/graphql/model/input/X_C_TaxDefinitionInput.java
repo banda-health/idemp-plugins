@@ -25,7 +25,7 @@ import java.sql.ResultSet;
  * Generated Model for C_TaxDefinition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_TaxDefinitionInput {
 
@@ -56,7 +56,7 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -83,7 +83,7 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -159,7 +159,7 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -183,7 +183,7 @@ public class X_C_TaxDefinitionInput extends X_C_TaxDefinition implements I_C_Tax
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

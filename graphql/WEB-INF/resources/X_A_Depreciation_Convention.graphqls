@@ -1,6 +1,6 @@
 # Generated Schema for A_Depreciation_Convention - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Depreciation_ConventionGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_ConventionConnection!
 }
@@ -18,9 +18,9 @@ type A_Depreciation_ConventionConnection {
 
 type A_Depreciation_Convention {
 	UUID: ID!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	ConventionType: String
 	# Date this record was created
@@ -46,7 +46,7 @@ type A_Depreciation_Convention {
 
 input A_Depreciation_ConventionInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	ConventionType: String
 	# Optional short description of the record

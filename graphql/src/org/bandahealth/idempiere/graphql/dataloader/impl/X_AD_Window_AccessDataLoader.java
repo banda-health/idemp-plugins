@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MWindowAccess_BH;
  * Data Loader for AD_Window_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Window_AccessDataLoader extends PODataLoader<MWindowAccess_BH> {
 	public static String DATALOADER_AD_Window_Access_BY_ID = "AD_Window_AccessByIdDataLoader";

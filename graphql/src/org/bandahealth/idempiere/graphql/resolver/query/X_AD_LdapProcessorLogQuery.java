@@ -9,7 +9,7 @@ import org.compiere.model.MLdapProcessorLog;
  * Generated Query Resolver for AD_LdapProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_LdapProcessorLogQuery extends POQuery<MLdapProcessorLog> implements GraphQLQueryResolver {
 	@Override

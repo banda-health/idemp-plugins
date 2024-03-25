@@ -1,6 +1,6 @@
 # Generated Schema for PA_SLA_Criteria - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_SLA_CriteriaGet(page: Int, size: Int, sort: String, filter: String): PA_SLA_CriteriaConnection!
 }
@@ -17,9 +17,9 @@ type PA_SLA_CriteriaConnection {
 }
 
 type PA_SLA_Criteria {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Java Classname
 	Classname: String
@@ -45,7 +45,7 @@ type PA_SLA_Criteria {
 }
 
 input PA_SLA_CriteriaInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Java Classname
 	Classname: String

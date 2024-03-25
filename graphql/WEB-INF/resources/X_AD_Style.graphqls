@@ -1,6 +1,6 @@
 # Generated Schema for AD_Style - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_StyleGet(page: Int, size: Int, sort: String, filter: String): AD_StyleConnection!
 }
@@ -17,9 +17,9 @@ type AD_StyleConnection {
 }
 
 type AD_Style {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Date this record was created
@@ -32,6 +32,8 @@ type AD_Style {
 	AD_EntityType: AD_EntityType!
 	# The record is active in the system
 	IsActive: Boolean!
+	# Wrap content in Span and apply the Style to it.
+	IsWrapWithSpan: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -41,7 +43,7 @@ type AD_Style {
 }
 
 input AD_StyleInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Optional short description of the record
@@ -50,6 +52,8 @@ input AD_StyleInput {
 	AD_EntityType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
+	# Wrap content in Span and apply the Style to it.
+	IsWrapWithSpan: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBankAccount_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MBankStatement;
@@ -17,12 +18,13 @@ import java.sql.ResultSet;
  * Generated Model for C_BankStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BankStatementInput extends MBankStatement implements I_C_BankStatementInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_DocType;
 	private I_AD_Ref_ListInput mDocAction;
 	private I_AD_Ref_ListInput mDocStatus;
 
@@ -41,7 +43,7 @@ public class X_C_BankStatementInput extends MBankStatement implements I_C_BankSt
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -68,7 +70,7 @@ public class X_C_BankStatementInput extends MBankStatement implements I_C_BankSt
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -139,6 +141,40 @@ public class X_C_BankStatementInput extends MBankStatement implements I_C_BankSt
 	}
 
 	/**
+	 * Set Document Type.
+	 *
+	 * @param C_DocType Document type or rules
+	 */
+	@JsonProperty("C_DocType")
+	public void setC_DocTypeInput(ForeignEntityInput C_DocType) {
+		this.mC_DocType = C_DocType;
+		if (C_DocType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_DocType_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+			}
+		} else {
+			this.setC_DocType_ID(0);
+		}
+	}
+
+	/**
+	 * Get Document Type.
+	 *
+	 * @return Document type or rules
+	 */
+	@JsonProperty("C_DocType")
+	public ForeignEntityInput C_DocType() {
+		return mC_DocType;
+	}
+
+	/**
 	 * Set Document Action.
 	 *
 	 * @param DocAction The targeted status of the document
@@ -204,6 +240,17 @@ public class X_C_BankStatementInput extends MBankStatement implements I_C_BankSt
 	@JsonProperty("DocStatus")
 	public I_AD_Ref_ListInput DocStatus() {
 		return mDocStatus;
+	}
+	/**
+	 * Set Document No.
+	 *
+	 * @param DocumentNo Document sequence number of the document
+	 */
+
+	public void setDocumentNo(String DocumentNo) {
+		if (get_ID() == 0) {
+			super.setDocumentNo(DocumentNo);
+		}
 	}
 	/**
 	 * Set Posted.

@@ -1,6 +1,6 @@
 # Generated Schema for C_Conversion_Rate - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_Conversion_RateGet(page: Int, size: Int, sort: String, filter: String): C_Conversion_RateConnection!
 }
@@ -17,9 +17,9 @@ type C_Conversion_RateConnection {
 }
 
 type C_Conversion_Rate {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Currency Conversion Rate Type
@@ -49,7 +49,7 @@ type C_Conversion_Rate {
 }
 
 input C_Conversion_RateInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Currency Conversion Rate Type

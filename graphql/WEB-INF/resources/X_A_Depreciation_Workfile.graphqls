@@ -1,6 +1,6 @@
 # Generated Schema for A_Depreciation_Workfile - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Depreciation_WorkfileGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_WorkfileConnection!
 }
@@ -23,8 +23,8 @@ type A_Depreciation_Workfile {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_Life_Current_Year: BigDecimal!
-	A_Asset_Life_Years: Int!
-	A_Asset_Life_Years_F: Int!
+	A_Asset_Life_Years: BigDecimal!
+	A_Asset_Life_Years_F: BigDecimal!
 	A_Asset_Remaining: BigDecimal
 	A_Asset_Remaining_F: BigDecimal
 	A_Base_Amount: BigDecimal
@@ -48,9 +48,9 @@ type A_Depreciation_Workfile {
 	A_Tip_Finantare: AD_Ref_List!
 	A_Valoare_Cofinantare: BigDecimal
 	A_Valoare_Tert: BigDecimal
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date of last depreciation
 	AssetDepreciationDate: Date
@@ -81,8 +81,8 @@ type A_Depreciation_Workfile {
 	UseLifeMonths: Int!
 	UseLifeMonths_F: Int!
 	# Years of the usable life of the asset
-	UseLifeYears: Int!
-	UseLifeYears_F: Int!
+	UseLifeYears: BigDecimal!
+	UseLifeYears_F: BigDecimal!
 }
 
 input A_Depreciation_WorkfileInput {
@@ -92,8 +92,8 @@ input A_Depreciation_WorkfileInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_Life_Current_Year: BigDecimal
-	A_Asset_Life_Years: Int
-	A_Asset_Life_Years_F: Int
+	A_Asset_Life_Years: BigDecimal
+	A_Asset_Life_Years_F: BigDecimal
 	A_Asset_Remaining: BigDecimal
 	A_Asset_Remaining_F: BigDecimal
 	A_Base_Amount: BigDecimal
@@ -113,7 +113,7 @@ input A_Depreciation_WorkfileInput {
 	A_Tip_Finantare: AD_Ref_ListInput
 	A_Valoare_Cofinantare: BigDecimal
 	A_Valoare_Tert: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Date of last depreciation
 	AssetDepreciationDate: Date
@@ -136,6 +136,6 @@ input A_Depreciation_WorkfileInput {
 	UseLifeMonths: Int
 	UseLifeMonths_F: Int
 	# Years of the usable life of the asset
-	UseLifeYears: Int
-	UseLifeYears_F: Int
+	UseLifeYears: BigDecimal
+	UseLifeYears_F: BigDecimal
 }

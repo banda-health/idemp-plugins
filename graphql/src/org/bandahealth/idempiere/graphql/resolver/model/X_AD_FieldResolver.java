@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_EntityTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FieldGroupDataLoader;
@@ -17,6 +18,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StyleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TabDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Val_RuleDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEntityType;
 import org.compiere.model.MStyle;
@@ -35,10 +37,25 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQLResolver<MField_BH> {
 
+
+
+	/**
+	 * Get Chart.
+	 *
+	 * @return Chart
+	 */
+	public CompletableFuture<MChart> AD_Chart(MField_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Chart_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MChart> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_ChartDataLoader.DATALOADER_AD_Chart_BY_ID);
+		return dataLoader.load(entity.getAD_Chart_ID());
+	}
 
 
 	/**

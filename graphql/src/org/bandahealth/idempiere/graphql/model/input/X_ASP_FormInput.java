@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for ASP_Form - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 
@@ -79,7 +79,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -106,7 +106,7 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

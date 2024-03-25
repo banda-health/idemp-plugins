@@ -6,7 +6,7 @@ import org.compiere.model.MCity;
  * Data Loader for C_City - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_CityDataLoader extends PODataLoader<MCity> {
 	public static String DATALOADER_C_City_BY_ID = "C_CityByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for C_PeriodControl - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PeriodControlGet(page: Int, size: Int, sort: String, filter: String): C_PeriodControlConnection!
 }
@@ -17,9 +17,9 @@ type C_PeriodControlConnection {
 }
 
 type C_PeriodControl {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Period of the Calendar
 	C_Period: C_Period!
@@ -44,7 +44,7 @@ type C_PeriodControl {
 }
 
 input C_PeriodControlInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Period of the Calendar
 	C_Period: ForeignEntityInput

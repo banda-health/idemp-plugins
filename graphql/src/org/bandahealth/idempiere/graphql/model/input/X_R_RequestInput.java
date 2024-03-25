@@ -40,7 +40,7 @@ import java.sql.Timestamp;
  * Generated Model for R_Request - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 
@@ -129,7 +129,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -156,7 +156,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -303,7 +303,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -327,7 +327,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -611,7 +611,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 		return mConfidentialTypeEntry;
 	}
 	/**
-	 * Set Date last action.
+	 * Set Date Last Action.
 	 *
 	 * @param DateLastAction Date this request was last acted on
 	 */
@@ -1273,16 +1273,23 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	public ForeignEntityInput R_Status() {
 		return mR_Status;
 	}
-	/**
-	 * Set Record ID.
-	 *
-	 * @param Record_ID Direct internal record ID
-	 */
 
-	public void setRecord_ID(int Record_ID) {
-		if (get_ID() == 0) {
-			super.setRecord_ID(Record_ID);
-		}
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	public void setUUID(String UUID) {
+		setRecord_UU(UUID);
+	}
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	public String getUUID() {
+		return getRecord_UU();
 	}
 
 	/**

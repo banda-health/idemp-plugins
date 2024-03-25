@@ -1,6 +1,6 @@
 # Generated Schema for AD_InfoRelated - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_InfoRelatedGet(page: Int, size: Int, sort: String, filter: String): AD_InfoRelatedConnection!
 }
@@ -17,12 +17,12 @@ type AD_InfoRelatedConnection {
 }
 
 type AD_InfoRelated {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -56,7 +56,7 @@ input AD_InfoRelatedInput {
 	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

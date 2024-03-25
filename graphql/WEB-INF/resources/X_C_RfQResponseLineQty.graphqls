@@ -1,6 +1,6 @@
 # Generated Schema for C_RfQResponseLineQty - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_RfQResponseLineQtyGet(page: Int, size: Int, sort: String, filter: String): C_RfQResponseLineQtyConnection!
 }
@@ -17,9 +17,9 @@ type C_RfQResponseLineQtyConnection {
 }
 
 type C_RfQResponseLineQty {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Request for Quotation Line Quantity
 	C_RfQLineQty: C_RfQLineQty!
@@ -45,7 +45,7 @@ type C_RfQResponseLineQty {
 }
 
 input C_RfQResponseLineQtyInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Request for Quotation Line Quantity
 	C_RfQLineQty: ForeignEntityInput

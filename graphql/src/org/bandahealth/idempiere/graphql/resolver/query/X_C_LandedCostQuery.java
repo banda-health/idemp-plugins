@@ -9,7 +9,7 @@ import org.compiere.model.MLandedCost;
  * Generated Query Resolver for C_LandedCost - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_LandedCostQuery extends POQuery<MLandedCost> implements GraphQLQueryResolver {
 	@Override

@@ -1,6 +1,6 @@
 # Generated Schema for Fact_Reconciliation - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	Fact_ReconciliationGet(page: Int, size: Int, sort: String, filter: String): Fact_ReconciliationConnection!
 }
@@ -19,9 +19,9 @@ type Fact_ReconciliationConnection {
 type Fact_Reconciliation {
 	# Account used
 	Account: C_ElementValue
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Amount Balance in Currency of Accounting Schema
 	AmtAcct: BigDecimal
@@ -46,7 +46,7 @@ type Fact_Reconciliation {
 }
 
 input Fact_ReconciliationInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	Fact_Acct: ForeignEntityInput
 	UUID: ID

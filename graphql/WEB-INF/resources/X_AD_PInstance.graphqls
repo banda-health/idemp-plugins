@@ -1,6 +1,6 @@
 # Generated Schema for AD_PInstance - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_PInstanceGet(page: Int, size: Int, sort: String, filter: String): AD_PInstanceConnection!
 }
@@ -17,16 +17,20 @@ type AD_PInstanceConnection {
 }
 
 type AD_PInstance {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
 	AD_Language: AD_Language
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	UUID: ID!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
 	# Process or Report
 	AD_Process: AD_Process!
+	# User Session Online or Web
+	AD_Session: AD_Session
+	# Database Table information
+	AD_Table: AD_Table
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Date this record was created
@@ -44,8 +48,7 @@ type AD_PInstance {
 	Name: String
 	# Type of Notifications
 	NotificationType: AD_Ref_List
-	# Direct internal record ID
-	Record_ID: Int!
+	UUID: ID!
 	ReportType: String
 	# Result of the action taken
 	Result: Int
@@ -57,13 +60,17 @@ type AD_PInstance {
 
 input AD_PInstanceInput {
 	AD_Language: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
+	# User Session Online or Web
+	AD_Session: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	ErrorMsg: String
@@ -77,8 +84,7 @@ input AD_PInstanceInput {
 	Name: String
 	# Type of Notifications
 	NotificationType: AD_Ref_ListInput
-	# Direct internal record ID
-	Record_ID: Int
+	UUID: ID
 	ReportType: String
 	# Result of the action taken
 	Result: Int

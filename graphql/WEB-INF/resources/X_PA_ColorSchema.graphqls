@@ -1,6 +1,6 @@
 # Generated Schema for PA_ColorSchema - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_ColorSchemaGet(page: Int, size: Int, sort: String, filter: String): PA_ColorSchemaConnection!
 }
@@ -17,9 +17,9 @@ type PA_ColorSchemaConnection {
 }
 
 type PA_ColorSchema {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# First color used
 	AD_PrintColor1: AD_PrintColor!
@@ -57,7 +57,7 @@ type PA_ColorSchema {
 }
 
 input PA_ColorSchemaInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# First color used
 	AD_PrintColor1: ForeignEntityInput

@@ -32,7 +32,7 @@ import java.sql.Timestamp;
  * Generated Model for M_InOut - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 
@@ -87,7 +87,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -114,7 +114,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -224,7 +224,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -248,7 +248,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

@@ -9,7 +9,7 @@ import org.compiere.model.MBank;
  * Generated Query Resolver for C_Bank - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BankQuery extends POQuery<MBank> implements GraphQLQueryResolver {
 	@Override

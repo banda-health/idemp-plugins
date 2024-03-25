@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_CommissionLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> implements GraphQLResolver<MCommissionLine> {
 
@@ -50,7 +50,7 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

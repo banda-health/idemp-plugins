@@ -1,6 +1,6 @@
 # Generated Schema for C_PaySchedule - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PayScheduleGet(page: Int, size: Int, sort: String, filter: String): C_PayScheduleConnection!
 }
@@ -17,9 +17,9 @@ type C_PayScheduleConnection {
 }
 
 type C_PaySchedule {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm!
@@ -51,7 +51,7 @@ type C_PaySchedule {
 }
 
 input C_PayScheduleInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput

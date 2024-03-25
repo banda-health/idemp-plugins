@@ -6,42 +6,23 @@ import org.compiere.model.I_M_Inventory;
  * Generated Interface for M_Inventory - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_M_InventoryInput extends I_M_Inventory {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
-
-	/**
-	 * Column name BH_NavButtons
-	 */
-	static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
-
-	/**
-	 * Set BH_NavButtons.
-	 *
-	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	void setBH_NavButtons(Object BH_NavButtons);
-
-	/**
-	 * Get BH_NavButtons.
-	 *
-	 * @return Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	Object getBH_NavButtons();
 
 	/**
 	 * Set bh_update_reason.

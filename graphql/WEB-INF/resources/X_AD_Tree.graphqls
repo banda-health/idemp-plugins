@@ -1,6 +1,6 @@
 # Generated Schema for AD_Tree - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_TreeGet(page: Int, size: Int, sort: String, filter: String): AD_TreeConnection!
 }
@@ -17,9 +17,9 @@ type AD_TreeConnection {
 }
 
 type AD_Tree {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table
@@ -55,7 +55,7 @@ type AD_Tree {
 }
 
 input AD_TreeInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

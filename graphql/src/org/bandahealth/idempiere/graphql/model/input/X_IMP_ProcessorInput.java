@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MIMPProcessor;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_IMP_Processor;
 import org.compiere.model.X_IMP_Processor_Type;
 import org.compiere.util.Env;
 
@@ -17,9 +17,9 @@ import java.sql.ResultSet;
  * Generated Model for IMP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_ProcessorInput {
+public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_ProcessorInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mIMP_Processor_Type;
@@ -40,7 +40,7 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -67,7 +67,7 @@ public class X_IMP_ProcessorInput extends X_IMP_Processor implements I_IMP_Proce
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

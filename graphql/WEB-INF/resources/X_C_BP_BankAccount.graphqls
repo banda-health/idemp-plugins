@@ -1,6 +1,6 @@
 # Generated Schema for C_BP_BankAccount - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BP_BankAccountGet(page: Int, size: Int, sort: String, filter: String): C_BP_BankAccountConnection!
 }
@@ -37,9 +37,9 @@ type C_BP_BankAccount {
 	A_Zip: String
 	# Account Number
 	AccountNo: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -108,7 +108,7 @@ input C_BP_BankAccountInput {
 	A_Zip: String
 	# Account Number
 	AccountNo: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput

@@ -1,6 +1,6 @@
 # Generated Schema for C_BankStatement - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BankStatementGet(page: Int, size: Int, sort: String, filter: String): C_BankStatementConnection!
 }
@@ -17,15 +17,17 @@ type C_BankStatementConnection {
 }
 
 type C_BankStatement {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Balance prior to any transactions
 	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
 	UUID: ID!
+	# Document type or rules
+	C_DocType: C_DocType!
 	# Copy From Record
 	CopyFrom: String
 	# Date this record was created
@@ -43,6 +45,8 @@ type C_BankStatement {
 	DocAction: AD_Ref_List!
 	# The current status of the document
 	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
 	# Electronic Funds Transfer Statement Date
 	EftStatementDate: Date
 	# Electronic Funds Transfer Statement Reference
@@ -76,13 +80,15 @@ type C_BankStatement {
 }
 
 input C_BankStatementInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Balance prior to any transactions
 	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	UUID: ID
+	# Document type or rules
+	C_DocType: ForeignEntityInput
 	# Copy From Record
 	CopyFrom: String
 	# Process which will generate a new document lines based on an existing document
@@ -96,6 +102,8 @@ input C_BankStatementInput {
 	DocAction: AD_Ref_ListInput
 	# The current status of the document
 	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
 	# Electronic Funds Transfer Statement Date
 	EftStatementDate: Date
 	# Electronic Funds Transfer Statement Reference

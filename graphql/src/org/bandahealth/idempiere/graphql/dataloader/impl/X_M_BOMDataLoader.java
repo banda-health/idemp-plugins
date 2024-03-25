@@ -6,7 +6,7 @@ import org.compiere.model.MBOM;
  * Data Loader for M_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_BOMDataLoader extends PODataLoader<MBOM> {
 	public static String DATALOADER_M_BOM_BY_ID = "M_BOMByIdDataLoader";

@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MTable;
@@ -18,12 +19,13 @@ import java.sql.Timestamp;
  * Generated Model for AD_PInstance_Log - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_PInstance_LogInput {
 
 	private ForeignEntityInput mAD_PInstance;
 	private ForeignEntityInput mAD_Table;
+	private I_AD_Ref_ListInput mPInstanceLogType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -169,5 +171,39 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 		if (get_ID() == 0) {
 			super.setP_Number(P_Number);
 		}
+	}
+
+	/**
+	 * Set Log Type.
+	 *
+	 * @param PInstanceLogType Process Audit Log Type
+	 */
+	@JsonProperty("PInstanceLogType")
+	public void setPInstanceLogTypeInput(I_AD_Ref_ListInput PInstanceLogType) {
+		this.mPInstanceLogType = PInstanceLogType;
+		if (PInstanceLogType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PInstanceLogType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPInstanceLogType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PInstanceLogType.getUUID());
+			}
+		} else {
+			this.setPInstanceLogType(null);
+		}
+	}
+
+	/**
+	 * Get Log Type.
+	 *
+	 * @return Process Audit Log Type
+	 */
+	@JsonProperty("PInstanceLogType")
+	public I_AD_Ref_ListInput PInstanceLogType() {
+		return mPInstanceLogType;
 	}
 }

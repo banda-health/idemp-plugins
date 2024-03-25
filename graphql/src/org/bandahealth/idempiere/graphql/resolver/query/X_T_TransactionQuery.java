@@ -9,7 +9,7 @@ import org.compiere.model.X_T_Transaction;
  * Generated Query Resolver for T_Transaction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_TransactionQuery extends POQuery<X_T_Transaction> implements GraphQLQueryResolver {
 	@Override

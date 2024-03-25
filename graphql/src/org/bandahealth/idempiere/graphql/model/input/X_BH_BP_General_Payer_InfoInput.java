@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for BH_BP_General_Payer_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_BH_BP_General_Payer_InfoInput extends MBHBPGeneralPayerInfo implements I_BH_BP_General_Payer_InfoInput {
 
@@ -40,7 +40,7 @@ public class X_BH_BP_General_Payer_InfoInput extends MBHBPGeneralPayerInfo imple
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -67,7 +67,7 @@ public class X_BH_BP_General_Payer_InfoInput extends MBHBPGeneralPayerInfo imple
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

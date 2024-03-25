@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for GL_BudgetControl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_GL_BudgetControlResolver extends POResolver<X_GL_BudgetControl> implements GraphQLResolver<X_GL_BudgetControl> {
 

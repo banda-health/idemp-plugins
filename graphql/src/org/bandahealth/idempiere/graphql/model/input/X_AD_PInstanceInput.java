@@ -10,6 +10,8 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
+import org.compiere.model.MSession;
+import org.compiere.model.MTable;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.util.Env;
@@ -20,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_PInstance - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInput {
 
@@ -28,6 +30,8 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintFormat;
 	private ForeignEntityInput mAD_Process;
+	private ForeignEntityInput mAD_Session;
+	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAD_User;
 	private I_AD_Ref_ListInput mNotificationType;
 
@@ -80,7 +84,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -107,7 +111,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -212,6 +216,80 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	}
 
 	/**
+	 * Set Session.
+	 *
+	 * @param AD_Session User Session Online or Web
+	 */
+	@JsonProperty("AD_Session")
+	public void setAD_SessionInput(ForeignEntityInput AD_Session) {
+		this.mAD_Session = AD_Session;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Session != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MSession foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Session", "AD_Session_UU=?", get_TrxName())
+							.setParameters(AD_Session.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Session_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Session with UUID " + AD_Session.getUUID());
+			}
+		} else {
+			this.setAD_Session_ID(0);
+		}
+	}
+
+	/**
+	 * Get Session.
+	 *
+	 * @return User Session Online or Web
+	 */
+	@JsonProperty("AD_Session")
+	public ForeignEntityInput AD_Session() {
+		return mAD_Session;
+	}
+
+	/**
+	 * Set Table.
+	 *
+	 * @param AD_Table Database Table information
+	 */
+	@JsonProperty("AD_Table")
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
+		this.mAD_Table = AD_Table;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
+		} else {
+			this.setAD_Table_ID(0);
+		}
+	}
+
+	/**
+	 * Get Table.
+	 *
+	 * @return Database Table information
+	 */
+	@JsonProperty("AD_Table")
+	public ForeignEntityInput AD_Table() {
+		return mAD_Table;
+	}
+
+	/**
 	 * Set User/Contact.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
@@ -278,15 +356,22 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	public I_AD_Ref_ListInput NotificationType() {
 		return mNotificationType;
 	}
-	/**
-	 * Set Record ID.
-	 *
-	 * @param Record_ID Direct internal record ID
-	 */
 
-	public void setRecord_ID(int Record_ID) {
-		if (get_ID() == 0) {
-			super.setRecord_ID(Record_ID);
-		}
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	public void setUUID(String UUID) {
+		setRecord_UU(UUID);
+	}
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	public String getUUID() {
+		return getRecord_UU();
 	}
 }

@@ -1,6 +1,6 @@
 # Generated Schema for I_FixedAsset - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	I_FixedAssetGet(page: Int, size: Int, sort: String, filter: String): I_FixedAssetConnection!
 }
@@ -34,9 +34,9 @@ type I_FixedAsset {
 	A_Salvage_Value: BigDecimal
 	# Name of the Accounting Schema
 	AcctSchemaName: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AssetAmtEntered: BigDecimal!
 	# Date of last depreciation
@@ -125,7 +125,7 @@ input I_FixedAssetInput {
 	A_Salvage_Value: BigDecimal
 	# Name of the Accounting Schema
 	AcctSchemaName: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AssetAmtEntered: BigDecimal
 	# Date of last depreciation

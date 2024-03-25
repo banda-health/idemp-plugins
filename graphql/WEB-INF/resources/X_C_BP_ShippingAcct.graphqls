@@ -1,6 +1,6 @@
 # Generated Schema for C_BP_ShippingAcct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BP_ShippingAcctGet(page: Int, size: Int, sort: String, filter: String): C_BP_ShippingAcctConnection!
 }
@@ -17,9 +17,9 @@ type C_BP_ShippingAcctConnection {
 }
 
 type C_BP_ShippingAcct {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Identifies a Business Partner
@@ -43,7 +43,7 @@ type C_BP_ShippingAcct {
 }
 
 input C_BP_ShippingAcctInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Identifies a Business Partner

@@ -9,7 +9,7 @@ import org.compiere.model.MPostIt;
  * Generated Query Resolver for AD_PostIt - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PostItQuery extends POQuery<MPostIt> implements GraphQLQueryResolver {
 	@Override

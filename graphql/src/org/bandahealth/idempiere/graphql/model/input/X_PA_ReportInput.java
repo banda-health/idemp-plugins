@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCalendar;
@@ -22,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for PA_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 
@@ -34,6 +35,7 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	private ForeignEntityInput mPA_ReportColumnSet;
 	private ForeignEntityInput mPA_ReportCube;
 	private ForeignEntityInput mPA_ReportLineSet;
+	private I_AD_Ref_ListInput mExcludeAdjustmentPeriods;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -50,7 +52,7 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -77,7 +79,7 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -187,9 +189,43 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	}
 
 	/**
+	 * Set Exclude Adjustment Periods.
+	 *
+	 * @param ExcludeAdjustmentPeriods Exclude Adjustment Periods
+	 */
+	@JsonProperty("ExcludeAdjustmentPeriods")
+	public void setExcludeAdjustmentPeriodsInput(I_AD_Ref_ListInput ExcludeAdjustmentPeriods) {
+		this.mExcludeAdjustmentPeriods = ExcludeAdjustmentPeriods;
+		if (ExcludeAdjustmentPeriods != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(ExcludeAdjustmentPeriods.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setExcludeAdjustmentPeriods(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ExcludeAdjustmentPeriods.getUUID());
+			}
+		} else {
+			this.setExcludeAdjustmentPeriods(null);
+		}
+	}
+
+	/**
+	 * Get Exclude Adjustment Periods.
+	 *
+	 * @return Exclude Adjustment Periods
+	 */
+	@JsonProperty("ExcludeAdjustmentPeriods")
+	public I_AD_Ref_ListInput ExcludeAdjustmentPeriods() {
+		return mExcludeAdjustmentPeriods;
+	}
+
+	/**
 	 * Set Jasper Process.
 	 *
-	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
+	 * @param JasperProcess The Jasper Process used by the print engine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
 	public void setJasperProcessInput(ForeignEntityInput JasperProcess) {
@@ -213,7 +249,7 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	/**
 	 * Get Jasper Process.
 	 *
-	 * @return The Jasper Process used by the printengine if any process defined
+	 * @return The Jasper Process used by the print engine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
 	public ForeignEntityInput JasperProcess() {

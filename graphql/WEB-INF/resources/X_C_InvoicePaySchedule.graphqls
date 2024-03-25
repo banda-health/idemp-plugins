@@ -1,6 +1,6 @@
 # Generated Schema for C_InvoicePaySchedule - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_InvoicePayScheduleGet(page: Int, size: Int, sort: String, filter: String): C_InvoicePayScheduleConnection!
 }
@@ -17,9 +17,9 @@ type C_InvoicePayScheduleConnection {
 }
 
 type C_InvoicePaySchedule {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
@@ -52,7 +52,7 @@ type C_InvoicePaySchedule {
 }
 
 input C_InvoicePayScheduleInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput

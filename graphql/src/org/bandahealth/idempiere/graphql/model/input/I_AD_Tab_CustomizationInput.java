@@ -6,21 +6,21 @@ import org.compiere.model.I_AD_Tab_Customization;
  * Generated Interface for AD_Tab_Customization - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_Tab_CustomizationInput extends I_AD_Tab_Customization {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -65,6 +65,20 @@ public interface I_AD_Tab_CustomizationInput extends I_AD_Tab_Customization {
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	ForeignEntityInput AD_User();
+
+	/**
+	 * Set IsAutoHideEmptyColumn.
+	 *
+	 * @param IsAutoHideEmptyColumn IsAutoHideEmptyColumn
+	 */
+	void setIsAutoHideEmptyColumnInput(I_AD_Ref_ListInput IsAutoHideEmptyColumn);
+
+	/**
+	 * Get IsAutoHideEmptyColumn.
+	 *
+	 * @return IsAutoHideEmptyColumn
+	 */
+	I_AD_Ref_ListInput IsAutoHideEmptyColumn();
 
 	/**
 	 * Set IsDisplayedGrid.

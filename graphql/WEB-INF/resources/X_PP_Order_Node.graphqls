@@ -1,6 +1,6 @@
 # Generated Schema for PP_Order_Node - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PP_Order_NodeGet(page: Int, size: Int, sort: String, filter: String): PP_Order_NodeConnection!
 }
@@ -19,7 +19,7 @@ type PP_Order_NodeConnection {
 type PP_Order_Node {
 	# Indicates the Action to be performed
 	Action: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
@@ -27,7 +27,7 @@ type PP_Order_Node {
 	AD_Form: AD_Form
 	# Image or Icon
 	AD_Image: AD_Image
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
@@ -104,7 +104,7 @@ type PP_Order_Node {
 	QtyDelivered: BigDecimal
 	QtyReject: BigDecimal
 	QtyRequiered: BigDecimal
-	# Scrap % Quantity for this componet
+	# Scrap % Quantity for this component
 	QtyScrap: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
@@ -155,7 +155,7 @@ input PP_Order_NodeInput {
 	AD_Form: ForeignEntityInput
 	# Image or Icon
 	AD_Image: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
@@ -228,7 +228,7 @@ input PP_Order_NodeInput {
 	QtyDelivered: BigDecimal
 	QtyReject: BigDecimal
 	QtyRequiered: BigDecimal
-	# Scrap % Quantity for this componet
+	# Scrap % Quantity for this component
 	QtyScrap: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int

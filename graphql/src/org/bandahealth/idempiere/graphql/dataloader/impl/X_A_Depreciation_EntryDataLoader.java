@@ -6,7 +6,7 @@ import org.compiere.model.MDepreciationEntry;
  * Data Loader for A_Depreciation_Entry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_Depreciation_EntryDataLoader extends PODataLoader<MDepreciationEntry> {
 	public static String DATALOADER_A_Depreciation_Entry_BY_ID = "A_Depreciation_EntryByIdDataLoader";

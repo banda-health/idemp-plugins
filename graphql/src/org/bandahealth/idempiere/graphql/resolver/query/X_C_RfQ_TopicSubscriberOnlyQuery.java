@@ -9,7 +9,7 @@ import org.compiere.model.MRfQTopicSubscriberOnly;
  * Generated Query Resolver for C_RfQ_TopicSubscriberOnly - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_RfQ_TopicSubscriberOnlyQuery extends POQuery<MRfQTopicSubscriberOnly> implements GraphQLQueryResolver {
 	@Override

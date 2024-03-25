@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for U_POSTerminal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTerminalInput {
 
@@ -61,7 +61,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -88,7 +88,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -470,7 +470,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Set Tranfer Check trx to.
+	 * Set Transfer Check trx to.
 	 *
 	 * @param CheckTransferBankAccount Bank account on which to transfer Check transactions
 	 */
@@ -494,7 +494,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Get Tranfer Check trx to.
+	 * Get Transfer Check trx to.
 	 *
 	 * @return Bank account on which to transfer Check transactions
 	 */
@@ -606,7 +606,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Set Purchase Pricelist.
+	 * Set Purchase Price List.
 	 *
 	 * @param PO_PriceList Price List used by this Business Partner
 	 */
@@ -630,7 +630,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Get Purchase Pricelist.
+	 * Get Purchase Price List.
 	 *
 	 * @return Price List used by this Business Partner
 	 */
@@ -674,9 +674,9 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Set Sales Pricelist.
+	 * Set Sales Price List.
 	 *
-	 * @param SO_PriceList Sales Pricelist
+	 * @param SO_PriceList Sales Price List
 	 */
 	@JsonProperty("SO_PriceList")
 	public void setSO_PriceListInput(ForeignEntityInput SO_PriceList) {
@@ -698,9 +698,9 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	}
 
 	/**
-	 * Get Sales Pricelist.
+	 * Get Sales Price List.
 	 *
-	 * @return Sales Pricelist
+	 * @return Sales Price List
 	 */
 	@JsonProperty("SO_PriceList")
 	public ForeignEntityInput SO_PriceList() {

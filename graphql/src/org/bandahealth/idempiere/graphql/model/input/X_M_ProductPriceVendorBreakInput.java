@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for M_ProductPriceVendorBreak - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ProductPriceVendorBreakInput extends X_M_ProductPriceVendorBreak implements I_M_ProductPriceVendorBreakInput {
 
@@ -43,7 +43,7 @@ public class X_M_ProductPriceVendorBreakInput extends X_M_ProductPriceVendorBrea
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -70,7 +70,7 @@ public class X_M_ProductPriceVendorBreakInput extends X_M_ProductPriceVendorBrea
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -89,7 +89,7 @@ public class X_M_ProductPriceVendorBreakInput extends X_M_ProductPriceVendorBrea
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -116,7 +116,7 @@ public class X_M_ProductPriceVendorBreakInput extends X_M_ProductPriceVendorBrea
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

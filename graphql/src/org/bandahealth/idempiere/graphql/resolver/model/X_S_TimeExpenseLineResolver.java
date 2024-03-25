@@ -39,7 +39,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for S_TimeExpenseLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> implements GraphQLResolver<MTimeExpenseLine> {
 
@@ -61,7 +61,7 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

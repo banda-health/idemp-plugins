@@ -1,6 +1,6 @@
 # Generated Schema for AD_InfoWindow_Access - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_InfoWindow_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_InfoWindow_AccessConnection!
 }
@@ -17,12 +17,12 @@ type AD_InfoWindow_AccessConnection {
 }
 
 type AD_InfoWindow_Access {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
@@ -42,7 +42,7 @@ input AD_InfoWindow_AccessInput {
 	UUID: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput

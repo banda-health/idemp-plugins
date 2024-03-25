@@ -9,7 +9,7 @@ import org.compiere.model.MBOM;
  * Generated Query Resolver for M_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_BOMQuery extends POQuery<MBOM> implements GraphQLQueryResolver {
 	@Override

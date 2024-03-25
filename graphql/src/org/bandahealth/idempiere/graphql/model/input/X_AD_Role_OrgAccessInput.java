@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Role_OrgAccess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Role_OrgAccessInput extends MRoleOrgAccess implements I_AD_Role_OrgAccessInput {
 
@@ -39,7 +39,7 @@ public class X_AD_Role_OrgAccessInput extends MRoleOrgAccess implements I_AD_Rol
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -66,7 +66,7 @@ public class X_AD_Role_OrgAccessInput extends MRoleOrgAccess implements I_AD_Rol
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

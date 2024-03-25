@@ -1,6 +1,6 @@
 # Generated Schema for PA_Goal - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_GoalGet(page: Int, size: Int, sort: String, filter: String): PA_GoalConnection!
 }
@@ -17,9 +17,9 @@ type PA_GoalConnection {
 }
 
 type PA_Goal {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
@@ -75,7 +75,7 @@ type PA_Goal {
 }
 
 input PA_GoalInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput

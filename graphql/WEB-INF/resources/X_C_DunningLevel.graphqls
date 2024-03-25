@@ -1,6 +1,6 @@
 # Generated Schema for C_DunningLevel - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_DunningLevelGet(page: Int, size: Int, sort: String, filter: String): C_DunningLevelConnection!
 }
@@ -17,9 +17,9 @@ type C_DunningLevelConnection {
 }
 
 type C_DunningLevel {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning!
@@ -73,7 +73,7 @@ type C_DunningLevel {
 }
 
 input C_DunningLevelInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput

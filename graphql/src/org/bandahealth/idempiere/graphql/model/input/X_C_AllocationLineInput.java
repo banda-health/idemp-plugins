@@ -11,6 +11,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAllocationHdr;
 import org.compiere.model.MAllocationLine;
+import org.compiere.model.MBankTransfer;
 import org.compiere.model.MCashLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -24,13 +25,14 @@ import java.sql.Timestamp;
  * Generated Model for C_AllocationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_AllocationLineInput extends MAllocationLine implements I_C_AllocationLineInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_AllocationHdr;
 	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mC_BankTransfer;
 	private ForeignEntityInput mC_CashLine;
 	private ForeignEntityInput mC_Charge;
 	private ForeignEntityInput mC_Invoice;
@@ -52,7 +54,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -79,7 +81,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -164,7 +166,41 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Bank Transfer.
+	 *
+	 * @param C_BankTransfer Bank Transfer
+	 */
+	@JsonProperty("C_BankTransfer")
+	public void setC_BankTransferInput(ForeignEntityInput C_BankTransfer) {
+		this.mC_BankTransfer = C_BankTransfer;
+		if (C_BankTransfer != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBankTransfer foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankTransfer", "C_BankTransfer_UU=?", get_TrxName())
+							.setParameters(C_BankTransfer.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_BankTransfer_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankTransfer with UUID " + C_BankTransfer.getUUID());
+			}
+		} else {
+			this.setC_BankTransfer_ID(0);
+		}
+	}
+
+	/**
+	 * Get Bank Transfer.
+	 *
+	 * @return Bank Transfer
+	 */
+	@JsonProperty("C_BankTransfer")
+	public ForeignEntityInput C_BankTransfer() {
+		return mC_BankTransfer;
+	}
+
+	/**
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -191,7 +227,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

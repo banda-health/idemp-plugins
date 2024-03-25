@@ -1,6 +1,6 @@
 # Generated Schema for C_InvoiceLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_InvoiceLineGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceLineConnection!
 }
@@ -24,12 +24,10 @@ type C_InvoiceLine {
 	A_CapvsExp: AD_Ref_List
 	A_CreateAsset: Boolean!
 	A_Processed: Boolean!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	C_1099Box: C_1099Box
 	# Business Activity
 	C_Activity: C_Activity
@@ -119,10 +117,8 @@ input C_InvoiceLineInput {
 	A_CapvsExp: AD_Ref_ListInput
 	A_CreateAsset: Boolean
 	A_Processed: Boolean
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	C_1099Box: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput

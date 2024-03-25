@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Task - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	ASP_TaskGet(page: Int, size: Int, sort: String, filter: String): ASP_TaskConnection!
 }
@@ -17,9 +17,9 @@ type ASP_TaskConnection {
 }
 
 type ASP_Task {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Operation System Task
 	AD_Task: AD_Task!
@@ -39,7 +39,7 @@ type ASP_Task {
 }
 
 input ASP_TaskInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Operation System Task
 	AD_Task: ForeignEntityInput

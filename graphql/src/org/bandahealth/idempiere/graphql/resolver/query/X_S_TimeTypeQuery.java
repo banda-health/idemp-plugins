@@ -9,7 +9,7 @@ import org.compiere.model.X_S_TimeType;
  * Generated Query Resolver for S_TimeType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_S_TimeTypeQuery extends POQuery<X_S_TimeType> implements GraphQLQueryResolver {
 	@Override

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Field - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_FieldGet(page: Int, size: Int, sort: String, filter: String): AD_FieldConnection!
 }
@@ -17,7 +17,8 @@ type AD_FieldConnection {
 }
 
 type AD_Field {
-	# Client/Tenant for this installation.
+	AD_Chart: AD_Chart
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
@@ -28,7 +29,7 @@ type AD_Field {
 	AD_FieldStyle: AD_Style
 	# Label CSS Style
 	AD_LabelStyle: AD_Style
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# System Reference and Validation
 	AD_Reference: AD_Reference
@@ -40,10 +41,14 @@ type AD_Field {
 	AD_Val_Rule: AD_Val_Rule
 	# Override Dynamic Validation Rule for Lookup Window
 	AD_Val_Rule_Lookup: AD_Val_Rule
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
 	# An abbreviation for a given name
 	BH_Abbreviation: String
 	# Number of column for a box of field
 	ColumnSpan: Int
+	# Virtual Column (r/o)
+	ColumnSQL: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -122,6 +127,7 @@ type AD_Field {
 }
 
 input AD_FieldInput {
+	AD_Chart: ForeignEntityInput
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	UUID: ID
@@ -131,7 +137,7 @@ input AD_FieldInput {
 	AD_FieldStyle: ForeignEntityInput
 	# Label CSS Style
 	AD_LabelStyle: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
@@ -143,10 +149,14 @@ input AD_FieldInput {
 	AD_Val_Rule: ForeignEntityInput
 	# Override Dynamic Validation Rule for Lookup Window
 	AD_Val_Rule_Lookup: ForeignEntityInput
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
 	# An abbreviation for a given name
 	BH_Abbreviation: String
 	# Number of column for a box of field
 	ColumnSpan: Int
+	# Virtual Column (r/o)
+	ColumnSQL: String
 	# Default value hierarchy, separated by ;
 	DefaultValue: String
 	# Optional short description of the record

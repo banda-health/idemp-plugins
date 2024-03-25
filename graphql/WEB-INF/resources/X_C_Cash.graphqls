@@ -1,6 +1,6 @@
 # Generated Schema for C_Cash - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CashGet(page: Int, size: Int, sort: String, filter: String): C_CashConnection!
 }
@@ -17,9 +17,9 @@ type C_CashConnection {
 }
 
 type C_Cash {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Balance prior to any transactions
 	BeginningBalance: BigDecimal!
@@ -74,7 +74,7 @@ type C_Cash {
 }
 
 input C_CashInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Balance prior to any transactions
 	BeginningBalance: BigDecimal

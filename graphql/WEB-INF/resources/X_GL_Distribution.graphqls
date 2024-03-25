@@ -1,6 +1,6 @@
 # Generated Schema for GL_Distribution - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	GL_DistributionGet(page: Int, size: Int, sort: String, filter: String): GL_DistributionConnection!
 }
@@ -19,9 +19,9 @@ type GL_DistributionConnection {
 type GL_Distribution {
 	# Account used
 	Account: C_ElementValue
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Match any value of the Account segment
 	AnyAcct: Boolean!
@@ -110,7 +110,7 @@ type GL_Distribution {
 input GL_DistributionInput {
 	# Account used
 	Account: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Match any value of the Account segment
 	AnyAcct: Boolean

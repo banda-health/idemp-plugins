@@ -6,7 +6,7 @@ import org.compiere.model.MTransaction;
  * Data Loader for M_Transaction - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_TransactionDataLoader extends PODataLoader<MTransaction> {
 	public static String DATALOADER_M_Transaction_BY_ID = "M_TransactionByIdDataLoader";

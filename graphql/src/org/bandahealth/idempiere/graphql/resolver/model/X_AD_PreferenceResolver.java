@@ -5,11 +5,13 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_AllUsers_VDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FormDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MForm;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MPreference;
 import org.compiere.model.MWindow;
@@ -24,10 +26,25 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Preference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PreferenceResolver extends POResolver<MPreference> implements GraphQLResolver<MPreference> {
 
+
+
+	/**
+	 * Get Special Form.
+	 *
+	 * @return Special Form
+	 */
+	public CompletableFuture<MForm> AD_Form(MPreference entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Form_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MForm> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_FormDataLoader.DATALOADER_AD_Form_BY_ID);
+		return dataLoader.load(entity.getAD_Form_ID());
+	}
 
 
 	/**
@@ -93,6 +110,8 @@ public class X_AD_PreferenceResolver extends POResolver<MPreference> implements 
 		{
 			put("W", "d16e365d-8cc1-489e-b909-89054fdf58af");
 			put("P", "a9497c99-06dd-40ab-b866-b37d3fb60bc7");
+			put("X", "0b1e6c9b-2cc6-4a53-bb47-42dee6f1105d");
+			put("I", "4e05c125-8a96-4a0c-8e7a-57781c141f3a");
 		}
 	};
 	public CompletableFuture<MRefList_BH> PreferenceFor(MPreference entity, DataFetchingEnvironment environment) {

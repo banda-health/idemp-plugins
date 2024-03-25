@@ -1,6 +1,6 @@
 # Generated Schema for PA_DashboardPreference - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_DashboardPreferenceGet(page: Int, size: Int, sort: String, filter: String): PA_DashboardPreferenceConnection!
 }
@@ -17,9 +17,9 @@ type PA_DashboardPreferenceConnection {
 }
 
 type PA_DashboardPreference {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
@@ -31,6 +31,8 @@ type PA_DashboardPreference {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	# This defines the ability for a flex item to grow if necessary. It accepts a unitless value that serves as a proportion. It dictates what amount of the available space inside the flex container the item should take up.
+	FlexGrow: Int!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Flag to set the initial state of collapsible field group.
@@ -48,7 +50,7 @@ type PA_DashboardPreference {
 }
 
 input PA_DashboardPreferenceInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
@@ -56,6 +58,8 @@ input PA_DashboardPreferenceInput {
 	AD_User: ForeignEntityInput
 	# Dashboard content column number
 	ColumnNo: Int
+	# This defines the ability for a flex item to grow if necessary. It accepts a unitless value that serves as a proportion. It dictates what amount of the available space inside the flex container the item should take up.
+	FlexGrow: Int
 	# The record is active in the system
 	IsActive: Boolean
 	# Flag to set the initial state of collapsible field group.

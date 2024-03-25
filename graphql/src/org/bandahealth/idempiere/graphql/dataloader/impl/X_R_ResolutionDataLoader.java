@@ -6,7 +6,7 @@ import org.compiere.model.MResolution;
  * Data Loader for R_Resolution - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_R_ResolutionDataLoader extends PODataLoader<MResolution> {
 	public static String DATALOADER_R_Resolution_BY_ID = "R_ResolutionByIdDataLoader";

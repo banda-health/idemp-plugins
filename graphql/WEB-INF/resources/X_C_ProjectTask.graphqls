@@ -1,6 +1,6 @@
 # Generated Schema for C_ProjectTask - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ProjectTaskGet(page: Int, size: Int, sort: String, filter: String): C_ProjectTaskConnection!
 }
@@ -17,9 +17,9 @@ type C_ProjectTaskConnection {
 }
 
 type C_ProjectTask {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase!
@@ -57,7 +57,7 @@ type C_ProjectTask {
 }
 
 input C_ProjectTaskInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput

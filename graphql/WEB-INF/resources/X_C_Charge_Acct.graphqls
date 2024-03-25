@@ -1,6 +1,6 @@
 # Generated Schema for C_Charge_Acct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_Charge_AcctGet(page: Int, size: Int, sort: String, filter: String): C_Charge_AcctConnection!
 }
@@ -17,9 +17,9 @@ type C_Charge_AcctConnection {
 }
 
 type C_Charge_Acct {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
@@ -41,7 +41,7 @@ type C_Charge_Acct {
 }
 
 input C_Charge_AcctInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput

@@ -10,7 +10,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_POSTenderTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PaymentDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.X_C_POSPayment;
+import org.compiere.model.MPOSPayment;
 import org.compiere.model.X_C_POSTenderType;
 import org.dataloader.DataLoader;
 
@@ -22,9 +22,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_POSPayment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implements GraphQLResolver<X_C_POSPayment> {
+public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements GraphQLResolver<MPOSPayment> {
 
 
 
@@ -33,7 +33,7 @@ public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implement
 	 *
 	 * @return Order
 	 */
-	public CompletableFuture<MOrder_BH> C_Order(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MOrder_BH> C_Order(MPOSPayment entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Order_ID() <= 0) {
 			return null;
 		}
@@ -48,7 +48,7 @@ public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implement
 	 *
 	 * @return Payment identifier
 	 */
-	public CompletableFuture<MPayment_BH> C_Payment(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MPayment_BH> C_Payment(MPOSPayment entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Payment_ID() <= 0) {
 			return null;
 		}
@@ -63,7 +63,7 @@ public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implement
 	 *
 	 * @return POS Tender Type
 	 */
-	public CompletableFuture<X_C_POSTenderType> C_POSTenderType(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_C_POSTenderType> C_POSTenderType(MPOSPayment entity, DataFetchingEnvironment environment) {
 		if (entity.getC_POSTenderType_ID() <= 0) {
 			return null;
 		}
@@ -81,7 +81,7 @@ public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implement
 			put("T", "8acc92df-e6ce-4522-a0e9-5a97919e87a1");
 		}
 	};
-	public CompletableFuture<MRefList_BH> CheckStatus(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CheckStatus(MPOSPayment entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCheckStatus())) {
 			return null;
 		}
@@ -101,7 +101,7 @@ public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implement
 			put("P", "32dc3f71-74c1-4868-9c34-4db70edce0c2");
 		}
 	};
-	public CompletableFuture<MRefList_BH> CreditCardType(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> CreditCardType(MPOSPayment entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getCreditCardType())) {
 			return null;
 		}
@@ -110,11 +110,11 @@ public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implement
 		return dataLoader.load(CREDITCARDTYPE_UUIDS_BY_VALUE.get(entity.getCreditCardType()));
 	}
 
-	public Boolean IsPostDated(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public Boolean IsPostDated(MPOSPayment entity, DataFetchingEnvironment environment) {
 		return entity.isPostDated();
 	}
 
-	public Boolean Processed(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public Boolean Processed(MPOSPayment entity, DataFetchingEnvironment environment) {
 		return entity.isProcessed();
 	}
 
@@ -140,7 +140,7 @@ public class X_C_POSPaymentResolver extends POResolver<X_C_POSPayment> implement
 			put("U", "97e54f17-fbae-40de-8dbd-e8ad7f884732");
 		}
 	};
-	public CompletableFuture<MRefList_BH> TenderType(X_C_POSPayment entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> TenderType(MPOSPayment entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getTenderType())) {
 			return null;
 		}

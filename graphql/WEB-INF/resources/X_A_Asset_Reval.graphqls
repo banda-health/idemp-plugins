@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Reval - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_RevalGet(page: Int, size: Int, sort: String, filter: String): A_Asset_RevalConnection!
 }
@@ -24,9 +24,9 @@ type A_Asset_Reval {
 	A_Asset: A_Asset!
 	UUID: ID!
 	A_Change_Acumulated_Depr: BigDecimal!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -67,7 +67,7 @@ input A_Asset_RevalInput {
 	A_Asset: ForeignEntityInput
 	UUID: ID
 	A_Change_Acumulated_Depr: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date

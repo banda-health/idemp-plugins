@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_Node - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WF_NodeGet(page: Int, size: Int, sort: String, filter: String): AD_WF_NodeConnection!
 }
@@ -19,7 +19,7 @@ type AD_WF_NodeConnection {
 type AD_WF_Node {
 	# Indicates the Action to be performed
 	Action: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
@@ -30,7 +30,7 @@ type AD_WF_Node {
 	AD_Image: AD_Image
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
@@ -79,6 +79,8 @@ type AD_WF_Node {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# Attached document to Email
+	IsAttachedDocumentToEmail: Boolean!
 	# Information maintained in System Element table
 	IsCentrallyMaintained: Boolean!
 	IsMilestone: Boolean!
@@ -148,7 +150,7 @@ input AD_WF_NodeInput {
 	AD_Image: ForeignEntityInput
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
@@ -193,6 +195,8 @@ input AD_WF_NodeInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
+	# Attached document to Email
+	IsAttachedDocumentToEmail: Boolean
 	# Information maintained in System Element table
 	IsCentrallyMaintained: Boolean
 	IsMilestone: Boolean

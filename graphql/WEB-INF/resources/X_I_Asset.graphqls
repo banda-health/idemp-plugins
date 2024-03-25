@@ -1,6 +1,6 @@
 # Generated Schema for I_Asset - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	I_AssetGet(page: Int, size: Int, sort: String, filter: String): I_AssetConnection!
 }
@@ -26,7 +26,7 @@ type I_Asset {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
 	A_Asset_Life_Current_Year: Int
-	A_Asset_Life_Years: Int
+	A_Asset_Life_Years: BigDecimal
 	A_Base_Amount: BigDecimal
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal
@@ -47,9 +47,9 @@ type I_Asset {
 	A_Reval_Cal_Method: AD_Ref_List
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User_ID: Int
@@ -124,7 +124,7 @@ type I_Asset {
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
-	UseLifeYears: Int
+	UseLifeYears: BigDecimal
 	# Currently used units of the assets
 	UseUnits: Int
 	# Search key for the record in the format required - must be unique
@@ -143,7 +143,7 @@ input I_AssetInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_Life_Current_Year: Int
-	A_Asset_Life_Years: Int
+	A_Asset_Life_Years: BigDecimal
 	A_Base_Amount: BigDecimal
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal
@@ -164,7 +164,7 @@ input I_AssetInput {
 	A_Reval_Cal_Method: AD_Ref_ListInput
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User_ID: Int
@@ -231,7 +231,7 @@ input I_AssetInput {
 	# Months of the usable life of the asset
 	UseLifeMonths: Int
 	# Years of the usable life of the asset
-	UseLifeYears: Int
+	UseLifeYears: BigDecimal
 	# Currently used units of the assets
 	UseUnits: Int
 	# Search key for the record in the format required - must be unique

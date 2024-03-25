@@ -1,6 +1,6 @@
 # Generated Schema for M_CostDetail - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_CostDetailGet(page: Int, size: Int, sort: String, filter: String): M_CostDetailConnection!
 }
@@ -17,9 +17,9 @@ type M_CostDetailConnection {
 }
 
 type M_CostDetail {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Amount
 	Amt: BigDecimal!
@@ -84,7 +84,7 @@ type M_CostDetail {
 }
 
 input M_CostDetailInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Amount
 	Amt: BigDecimal

@@ -23,7 +23,7 @@ import java.sql.ResultSet;
  * Generated Model for M_RMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 
@@ -54,7 +54,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -81,7 +81,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -89,7 +89,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -113,7 +113,7 @@ public class X_M_RMAInput extends MRMA implements I_M_RMAInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

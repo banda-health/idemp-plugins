@@ -1,6 +1,6 @@
 # Generated Schema for AD_Attribute_Value - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Attribute_ValueGet(page: Int, size: Int, sort: String, filter: String): AD_Attribute_ValueConnection!
 }
@@ -19,8 +19,6 @@ type AD_Attribute_ValueConnection {
 type AD_Attribute_Value {
 	AD_Attribute: AD_Attribute!
 	UUID: ID!
-	# Direct internal record ID
-	Record_ID: Int!
 	V_Date: Date
 	V_Number: String
 	V_String: String
@@ -29,8 +27,6 @@ type AD_Attribute_Value {
 input AD_Attribute_ValueInput {
 	AD_Attribute: ForeignEntityInput
 	UUID: ID
-	# Direct internal record ID
-	Record_ID: Int
 	V_Date: Date
 	V_Number: String
 	V_String: String

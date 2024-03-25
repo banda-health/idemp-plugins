@@ -9,6 +9,7 @@ import org.compiere.model.MEntityType;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
+import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
@@ -18,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_InfoWindow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindowInput {
 
@@ -26,6 +27,8 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
+	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mPO_Window;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -105,7 +108,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -132,7 +135,7 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -174,6 +177,40 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	}
 
 	/**
+	 * Set Window.
+	 *
+	 * @param AD_Window Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
+		this.mAD_Window = AD_Window;
+		if (AD_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+			}
+		} else {
+			this.setAD_Window_ID(0);
+		}
+	}
+
+	/**
+	 * Get Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public ForeignEntityInput AD_Window() {
+		return mAD_Window;
+	}
+
+	/**
 	 * Set Entity Type.
 	 *
 	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
@@ -205,5 +242,39 @@ public class X_AD_InfoWindowInput extends MInfoWindow implements I_AD_InfoWindow
 	@JsonProperty("AD_EntityType")
 	public ForeignEntityInput AD_EntityType() {
 		return mAD_EntityType;
+	}
+
+	/**
+	 * Set PO Window.
+	 *
+	 * @param PO_Window Purchase Order Window
+	 */
+	@JsonProperty("PO_Window")
+	public void setPO_WindowInput(ForeignEntityInput PO_Window) {
+		this.mPO_Window = PO_Window;
+		if (PO_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(PO_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPO_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UUID " + PO_Window.getUUID());
+			}
+		} else {
+			this.setPO_Window_ID(0);
+		}
+	}
+
+	/**
+	 * Get PO Window.
+	 *
+	 * @return Purchase Order Window
+	 */
+	@JsonProperty("PO_Window")
+	public ForeignEntityInput PO_Window() {
+		return mPO_Window;
 	}
 }

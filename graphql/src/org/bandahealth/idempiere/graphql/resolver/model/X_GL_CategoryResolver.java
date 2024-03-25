@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for GL_Category - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_GL_CategoryResolver extends POResolver<MGLCategory> implements GraphQLResolver<MGLCategory> {
 
@@ -60,6 +60,21 @@ public class X_GL_CategoryResolver extends POResolver<MGLCategory> implements Gr
 				.getDataLoader(X_GL_Category_TrlDataLoader.DATALOADER_GL_Category_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MGLCategory.COLUMNNAME_Name));
+	}
+
+	/**
+	 * Get Print Text.
+	 *
+	 * @return The label text to be printed on a document or correspondence.
+	 */
+	public CompletableFuture<String> PrintName(MGLCategory entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getPrintName);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_GL_Category_TrlDataLoader.DATALOADER_GL_Category_Trl_BY_ID);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MGLCategory.COLUMNNAME_PrintName));
 	}
 
 }

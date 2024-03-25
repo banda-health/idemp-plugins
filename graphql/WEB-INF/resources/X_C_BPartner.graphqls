@@ -1,6 +1,6 @@
 # Generated Schema for C_BPartner - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_BPartnerGet(page: Int, size: Int, sort: String, filter: String): C_BPartnerConnection!
 }
@@ -21,11 +21,11 @@ type C_BPartner {
 	AcqusitionCost: BigDecimal
 	# Actual Life Time Revenue
 	ActualLifeTimeValue: BigDecimal
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Language for this entity
 	AD_Language: AD_Language
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# The Business Partner is another Organization for explicit Inter-Org transactions
 	AD_OrgBP_ID: Int
@@ -183,7 +183,7 @@ input C_BPartnerInput {
 	ActualLifeTimeValue: BigDecimal
 	# Language for this entity
 	AD_Language: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The Business Partner is another Organization for explicit Inter-Org transactions
 	AD_OrgBP_ID: Int

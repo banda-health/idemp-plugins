@@ -9,7 +9,7 @@ import org.compiere.model.MForecastLine;
  * Generated Query Resolver for M_ForecastLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ForecastLineQuery extends POQuery<MForecastLine> implements GraphQLQueryResolver {
 	@Override

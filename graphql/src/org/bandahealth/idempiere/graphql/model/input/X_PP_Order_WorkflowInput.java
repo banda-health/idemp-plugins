@@ -25,7 +25,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Order_Workflow - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_PP_Order_WorkflowInput {
 
@@ -94,7 +94,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -118,7 +118,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

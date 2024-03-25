@@ -1,6 +1,6 @@
 # Generated Schema for M_RMA - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_RMAGet(page: Int, size: Int, sort: String, filter: String): M_RMAConnection!
 }
@@ -17,9 +17,9 @@ type M_RMAConnection {
 }
 
 type M_RMA {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Amount
 	Amt: BigDecimal
@@ -37,6 +37,8 @@ type M_RMA {
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
+	# Process which will generate a new document lines based on an existing document
+	CreateLinesFrom: String
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
@@ -75,7 +77,7 @@ type M_RMA {
 }
 
 input M_RMAInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Amount
 	Amt: BigDecimal
@@ -89,6 +91,8 @@ input M_RMAInput {
 	C_Order: ForeignEntityInput
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
+	# Process which will generate a new document lines based on an existing document
+	CreateLinesFrom: String
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document

@@ -1,6 +1,6 @@
 # Generated Schema for I_FAJournal - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	I_FAJournalGet(page: Int, size: Int, sort: String, filter: String): I_FAJournalConnection!
 }
@@ -26,9 +26,9 @@ type I_FAJournal {
 	AccountValue: String
 	# Name of the Accounting Schema
 	AcctSchemaName: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Accounted Credit Amount
 	AmtAcctCr: BigDecimal
@@ -76,7 +76,7 @@ type I_FAJournal {
 	C_ValidCombination: C_ValidCombination
 	# Name of the Category
 	CategoryName: String
-	# Key of the Client
+	# Key of the Tenant
 	ClientValue: String
 	# Key value for the Currency Conversion Rate Type
 	ConversionTypeValue: String
@@ -159,7 +159,7 @@ input I_FAJournalInput {
 	AccountValue: String
 	# Name of the Accounting Schema
 	AcctSchemaName: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Accounted Credit Amount
 	AmtAcctCr: BigDecimal
@@ -207,7 +207,7 @@ input I_FAJournalInput {
 	C_ValidCombination: ForeignEntityInput
 	# Name of the Category
 	CategoryName: String
-	# Key of the Client
+	# Key of the Tenant
 	ClientValue: String
 	# Key value for the Currency Conversion Rate Type
 	ConversionTypeValue: String

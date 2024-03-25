@@ -1,6 +1,6 @@
 # Generated Schema for C_CommissionDetail - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CommissionDetailGet(page: Int, size: Int, sort: String, filter: String): C_CommissionDetailConnection!
 }
@@ -21,9 +21,9 @@ type C_CommissionDetail {
 	ActualAmt: BigDecimal!
 	# The actual quantity
 	ActualQty: BigDecimal!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Generated Commission Amount 
 	C_CommissionAmt: C_CommissionAmt!
@@ -57,7 +57,7 @@ input C_CommissionDetailInput {
 	ActualAmt: BigDecimal
 	# The actual quantity
 	ActualQty: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Generated Commission Amount 
 	C_CommissionAmt: ForeignEntityInput

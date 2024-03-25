@@ -9,7 +9,7 @@ import org.compiere.model.X_M_Demand;
  * Generated Query Resolver for M_Demand - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_DemandQuery extends POQuery<X_M_Demand> implements GraphQLQueryResolver {
 	@Override

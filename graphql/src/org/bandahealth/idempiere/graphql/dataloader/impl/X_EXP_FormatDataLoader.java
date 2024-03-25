@@ -6,7 +6,7 @@ import org.compiere.model.MEXPFormat;
  * Data Loader for EXP_Format - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_EXP_FormatDataLoader extends PODataLoader<MEXPFormat> {
 	public static String DATALOADER_EXP_Format_BY_ID = "EXP_FormatByIdDataLoader";

@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_Ratio - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_RatioResolver extends POResolver<X_PA_Ratio> implements GraphQLResolver<X_PA_Ratio> {
 

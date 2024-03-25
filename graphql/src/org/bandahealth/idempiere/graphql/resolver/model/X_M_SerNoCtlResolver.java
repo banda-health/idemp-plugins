@@ -9,7 +9,7 @@ import org.dataloader.DataLoader;
  * Generated ModelResolver for M_SerNoCtl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_SerNoCtlResolver extends POResolver<MSerNoCtl_BH> implements GraphQLResolver<MSerNoCtl_BH> {
 

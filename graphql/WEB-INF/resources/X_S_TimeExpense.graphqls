@@ -1,6 +1,6 @@
 # Generated Schema for S_TimeExpense - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	S_TimeExpenseGet(page: Int, size: Int, sort: String, filter: String): S_TimeExpenseConnection!
 }
@@ -17,9 +17,9 @@ type S_TimeExpenseConnection {
 }
 
 type S_TimeExpense {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
@@ -58,7 +58,7 @@ type S_TimeExpense {
 }
 
 input S_TimeExpenseInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal

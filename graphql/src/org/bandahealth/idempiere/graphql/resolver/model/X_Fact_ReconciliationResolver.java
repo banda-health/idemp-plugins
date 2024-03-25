@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for Fact_Reconciliation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliation> implements GraphQLResolver<MFactReconciliation> {
 
@@ -39,7 +39,7 @@ public class X_Fact_ReconciliationResolver extends POResolver<MFactReconciliatio
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

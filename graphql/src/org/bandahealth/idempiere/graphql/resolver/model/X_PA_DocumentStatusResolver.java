@@ -37,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_DocumentStatus - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> implements GraphQLResolver<MDocumentStatus> {
 
@@ -130,6 +130,21 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 		DataLoader<Integer, MProject> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_ProjectDataLoader.DATALOADER_C_Project_BY_ID);
 		return dataLoader.load(entity.getC_Project_ID());
+	}
+
+	/**
+	 * Get Description.
+	 *
+	 * @return Optional short description of the record
+	 */
+	public CompletableFuture<String> Description(MDocumentStatus entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getDescription);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_PA_DocumentStatus_TrlDataLoader.DATALOADER_PA_DocumentStatus_Trl_BY_ID);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(MDocumentStatus.COLUMNNAME_Description));
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {

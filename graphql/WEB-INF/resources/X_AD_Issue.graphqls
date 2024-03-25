@@ -1,6 +1,6 @@
 # Generated Schema for AD_Issue - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_IssueGet(page: Int, size: Int, sort: String, filter: String): AD_IssueConnection!
 }
@@ -19,12 +19,12 @@ type AD_IssueConnection {
 type AD_Issue {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Special Form
 	AD_Form: AD_Form
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
@@ -120,7 +120,7 @@ input AD_IssueInput {
 	# Special Form
 	AD_Form: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput

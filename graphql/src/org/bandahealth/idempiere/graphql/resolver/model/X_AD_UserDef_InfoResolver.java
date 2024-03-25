@@ -2,15 +2,19 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LanguageDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MUserDefInfo;
+import org.compiere.model.MWindow;
 import org.compiere.model.X_AD_Role;
 import org.dataloader.DataLoader;
 
@@ -22,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserDef_Info - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implements GraphQLResolver<MUserDefInfo> {
 
@@ -199,6 +203,51 @@ public class X_AD_UserDef_InfoResolver extends POResolver<MUserDefInfo> implemen
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+
+	/**
+	 * Get Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	public CompletableFuture<MWindow> AD_Window(MUserDefInfo entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Window_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWindow> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
+		return dataLoader.load(entity.getAD_Window_ID());
+	}
+
+	static Map<String, String> ISSHOWINDASHBOARD_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+		}
+	};
+	public CompletableFuture<MRefList_BH> IsShowInDashboard(MUserDefInfo entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getIsShowInDashboard())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(ISSHOWINDASHBOARD_UUIDS_BY_VALUE.get(entity.getIsShowInDashboard()));
+	}
+
+
+	/**
+	 * Get PO Window.
+	 *
+	 * @return Purchase Order Window
+	 */
+	public CompletableFuture<MWindow> PO_Window(MUserDefInfo entity, DataFetchingEnvironment environment) {
+		if (entity.getPO_Window_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWindow> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_WindowDataLoader.DATALOADER_AD_Window_BY_ID);
+		return dataLoader.load(entity.getPO_Window_ID());
 	}
 
 }

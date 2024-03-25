@@ -1,6 +1,6 @@
 # Generated Schema for C_OrderTax - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_OrderTaxGet(page: Int, size: Int, sort: String, filter: String): C_OrderTaxConnection!
 }
@@ -17,9 +17,9 @@ type C_OrderTaxConnection {
 }
 
 type C_OrderTax {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Order
 	C_Order: C_Order!
@@ -48,7 +48,7 @@ type C_OrderTax {
 }
 
 input C_OrderTaxInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput

@@ -9,7 +9,7 @@ import org.compiere.model.X_AD_Find;
  * Generated Query Resolver for AD_Find - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_FindQuery extends POQuery<X_AD_Find> implements GraphQLQueryResolver {
 	@Override

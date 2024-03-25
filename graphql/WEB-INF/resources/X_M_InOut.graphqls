@@ -1,6 +1,6 @@
 # Generated Schema for M_InOut - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_InOutGet(page: Int, size: Int, sort: String, filter: String): M_InOutConnection!
 }
@@ -17,9 +17,9 @@ type M_InOutConnection {
 }
 
 type M_InOut {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -51,6 +51,8 @@ type M_InOut {
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
+	# Process which will generate a new document lines based on an existing document
+	CreateLinesFrom: String
 	CreatePackage: String
 	# Accounting Date
 	DateAcct: Date!
@@ -92,7 +94,7 @@ type M_InOut {
 	IsAlternateReturnAddress: Boolean!
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean!
 	# Document is in dispute
 	IsInDispute: Boolean!
@@ -157,7 +159,7 @@ type M_InOut {
 }
 
 input M_InOutInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
@@ -185,6 +187,8 @@ input M_InOutInput {
 	CreateConfirm: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
+	# Process which will generate a new document lines based on an existing document
+	CreateLinesFrom: String
 	CreatePackage: String
 	# Accounting Date
 	DateAcct: Date
@@ -226,7 +230,7 @@ input M_InOutInput {
 	IsAlternateReturnAddress: Boolean
 	# Indicates if this document requires approval
 	IsApproved: Boolean
-	# Drop Shipments are sent from the Vendor directly to the Customer
+	# Drop Shipments are sent directly to the Drop Shipment Location
 	IsDropShip: Boolean
 	# Document is in dispute
 	IsInDispute: Boolean

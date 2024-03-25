@@ -1,6 +1,6 @@
 # Generated Schema for AD_IndexColumn - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_IndexColumnGet(page: Int, size: Int, sort: String, filter: String): AD_IndexColumnConnection!
 }
@@ -17,12 +17,12 @@ type AD_IndexColumnConnection {
 }
 
 type AD_IndexColumn {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_TableIndex: AD_TableIndex!
 	# Virtual Column (r/o)
@@ -47,7 +47,7 @@ input AD_IndexColumnInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_TableIndex: ForeignEntityInput
 	# Virtual Column (r/o)

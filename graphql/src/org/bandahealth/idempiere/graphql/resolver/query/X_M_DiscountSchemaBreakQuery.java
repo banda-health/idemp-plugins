@@ -9,7 +9,7 @@ import org.compiere.model.MDiscountSchemaBreak;
  * Generated Query Resolver for M_DiscountSchemaBreak - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_DiscountSchemaBreakQuery extends POQuery<MDiscountSchemaBreak> implements GraphQLQueryResolver {
 	@Override

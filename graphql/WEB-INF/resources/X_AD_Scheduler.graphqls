@@ -1,6 +1,6 @@
 # Generated Schema for AD_Scheduler - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_SchedulerGet(page: Int, size: Int, sort: String, filter: String): AD_SchedulerConnection!
 }
@@ -17,9 +17,9 @@ type AD_SchedulerConnection {
 }
 
 type AD_Scheduler {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
@@ -48,8 +48,6 @@ type AD_Scheduler {
 	Processing: Boolean!
 	# Text templates for mailings
 	R_MailText: R_MailText
-	# Direct internal record ID
-	Record_ID: Int
 	ReportOutputType: AD_Ref_List
 	# State of this scheduler record (not scheduled, started or stopped)
 	SchedulerState: Object
@@ -62,7 +60,7 @@ type AD_Scheduler {
 }
 
 input AD_SchedulerInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
@@ -87,8 +85,6 @@ input AD_SchedulerInput {
 	Processing: Boolean
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
-	# Direct internal record ID
-	Record_ID: Int
 	ReportOutputType: AD_Ref_ListInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput

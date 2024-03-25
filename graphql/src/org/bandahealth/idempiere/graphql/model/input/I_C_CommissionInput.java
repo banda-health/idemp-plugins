@@ -6,21 +6,21 @@ import org.compiere.model.I_C_Commission;
  * Generated Interface for C_Commission - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_C_CommissionInput extends I_C_Commission {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -107,4 +107,18 @@ public interface I_C_CommissionInput extends I_C_Commission {
 	 * @return Frequency of event
 	 */
 	I_AD_Ref_ListInput FrequencyType();
+
+	/**
+	 * Set M_Product.
+	 *
+	 * @param M_Product Product, Service, Item
+	 */
+	void setM_ProductInput(ForeignEntityInput M_Product);
+
+	/**
+	 * Get M_Product.
+	 *
+	 * @return Product, Service, Item
+	 */
+	ForeignEntityInput M_Product();
 }

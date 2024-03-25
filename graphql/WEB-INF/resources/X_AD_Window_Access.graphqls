@@ -1,6 +1,6 @@
 # Generated Schema for AD_Window_Access - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Window_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_Window_AccessConnection!
 }
@@ -17,9 +17,9 @@ type AD_Window_AccessConnection {
 }
 
 type AD_Window_Access {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
@@ -42,7 +42,7 @@ type AD_Window_Access {
 }
 
 input AD_Window_AccessInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput

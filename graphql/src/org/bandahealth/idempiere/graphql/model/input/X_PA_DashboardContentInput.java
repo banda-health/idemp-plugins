@@ -11,8 +11,10 @@ import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MGoal;
 import org.compiere.model.MOrg;
+import org.compiere.model.MStatusLine;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
+import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Role;
 import org.compiere.util.Env;
 
@@ -22,14 +24,16 @@ import java.sql.ResultSet;
  * Generated Model for PA_DashboardContent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_DashboardContentInput extends MDashboardContent implements I_PA_DashboardContentInput {
 
 	private ForeignEntityInput mAD_Chart;
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintFormat;
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mAD_StatusLine;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mPA_Goal;
@@ -84,7 +88,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -111,11 +115,45 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+
+	/**
+	 * Set Print Format.
+	 *
+	 * @param AD_PrintFormat Data Print Format
+	 */
+	@JsonProperty("AD_PrintFormat")
+	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
+		this.mAD_PrintFormat = AD_PrintFormat;
+		if (AD_PrintFormat != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+			}
+		} else {
+			this.setAD_PrintFormat_ID(0);
+		}
+	}
+
+	/**
+	 * Get Print Format.
+	 *
+	 * @return Data Print Format
+	 */
+	@JsonProperty("AD_PrintFormat")
+	public ForeignEntityInput AD_PrintFormat() {
+		return mAD_PrintFormat;
 	}
 
 	/**
@@ -184,6 +222,40 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	@JsonProperty("AD_Role")
 	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
+	}
+
+	/**
+	 * Set Status Line.
+	 *
+	 * @param AD_StatusLine Status Line
+	 */
+	@JsonProperty("AD_StatusLine")
+	public void setAD_StatusLineInput(ForeignEntityInput AD_StatusLine) {
+		this.mAD_StatusLine = AD_StatusLine;
+		if (AD_StatusLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MStatusLine foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_StatusLine", "AD_StatusLine_UU=?", get_TrxName())
+							.setParameters(AD_StatusLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_StatusLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_StatusLine with UUID " + AD_StatusLine.getUUID());
+			}
+		} else {
+			this.setAD_StatusLine_ID(0);
+		}
+	}
+
+	/**
+	 * Get Status Line.
+	 *
+	 * @return Status Line
+	 */
+	@JsonProperty("AD_StatusLine")
+	public ForeignEntityInput AD_StatusLine() {
+		return mAD_StatusLine;
 	}
 
 	/**

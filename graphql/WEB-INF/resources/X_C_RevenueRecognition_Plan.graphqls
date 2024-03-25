@@ -1,6 +1,6 @@
 # Generated Schema for C_RevenueRecognition_Plan - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_RevenueRecognition_PlanGet(page: Int, size: Int, sort: String, filter: String): C_RevenueRecognition_PlanConnection!
 }
@@ -17,9 +17,9 @@ type C_RevenueRecognition_PlanConnection {
 }
 
 type C_RevenueRecognition_Plan {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
@@ -50,7 +50,7 @@ type C_RevenueRecognition_Plan {
 }
 
 input C_RevenueRecognition_PlanInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput

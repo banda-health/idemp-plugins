@@ -6,7 +6,7 @@ import org.compiere.model.MIFixedAsset;
  * Data Loader for I_FixedAsset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_I_FixedAssetDataLoader extends PODataLoader<MIFixedAsset> {
 	public static String DATALOADER_I_FixedAsset_BY_ID = "I_FixedAssetByIdDataLoader";

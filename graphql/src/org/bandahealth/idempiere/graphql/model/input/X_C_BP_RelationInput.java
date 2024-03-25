@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_BP_Relation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_RelationInput {
 
@@ -42,7 +42,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -69,7 +69,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -106,7 +106,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -130,7 +130,7 @@ public class X_C_BP_RelationInput extends X_C_BP_Relation implements I_C_BP_Rela
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

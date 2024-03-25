@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  * Generated Model for M_PerpetualInv - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_PerpetualInvInput {
 
@@ -41,7 +41,7 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -68,14 +68,14 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
 	}
 	/**
-	 * Set Date last run.
+	 * Set Date Last Run.
 	 *
 	 * @param DateLastRun Date the process was last run.
 	 */
@@ -86,7 +86,7 @@ public class X_M_PerpetualInvInput extends X_M_PerpetualInv implements I_M_Perpe
 		}
 	}
 	/**
-	 * Set Date next run.
+	 * Set Date Next Run.
 	 *
 	 * @param DateNextRun Date the process will run next
 	 */

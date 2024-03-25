@@ -1,6 +1,6 @@
 # Generated Schema for EXP_Processor_Type - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	EXP_Processor_TypeGet(page: Int, size: Int, sort: String, filter: String): EXP_Processor_TypeConnection!
 }
@@ -17,9 +17,9 @@ type EXP_Processor_TypeConnection {
 }
 
 type EXP_Processor_Type {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -44,7 +44,7 @@ type EXP_Processor_Type {
 }
 
 input EXP_Processor_TypeInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

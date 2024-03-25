@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MField_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MOrg;
 import org.compiere.model.MStyle;
@@ -23,10 +24,11 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserDef_FieldInput {
 
+	private ForeignEntityInput mAD_Chart;
 	private ForeignEntityInput mAD_Field;
 	private ForeignEntityInput mAD_FieldGroup;
 	private ForeignEntityInput mAD_FieldStyle;
@@ -41,6 +43,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	private I_AD_Ref_ListInput mIsAlwaysUpdateable;
 	private I_AD_Ref_ListInput mIsAutocomplete;
 	private I_AD_Ref_ListInput mIsDisplayed;
+	private I_AD_Ref_ListInput mIsDisplayedGrid;
 	private I_AD_Ref_ListInput mIsMandatory;
 	private I_AD_Ref_ListInput mIsReadOnly;
 	private I_AD_Ref_ListInput mIsSameLine;
@@ -57,6 +60,40 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	public X_AD_UserDef_FieldInput(@JsonProperty("UUID") String UUID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
+	}
+
+	/**
+	 * Set Chart.
+	 *
+	 * @param AD_Chart Chart
+	 */
+	@JsonProperty("AD_Chart")
+	public void setAD_ChartInput(ForeignEntityInput AD_Chart) {
+		this.mAD_Chart = AD_Chart;
+		if (AD_Chart != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChart foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
+							.setParameters(AD_Chart.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Chart_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Chart with UUID " + AD_Chart.getUUID());
+			}
+		} else {
+			this.setAD_Chart_ID(0);
+		}
+	}
+
+	/**
+	 * Get Chart.
+	 *
+	 * @return Chart
+	 */
+	@JsonProperty("AD_Chart")
+	public ForeignEntityInput AD_Chart() {
+		return mAD_Chart;
 	}
 
 	/**
@@ -198,7 +235,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -225,7 +262,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -469,9 +506,9 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	}
 
 	/**
-	 * Set Autocomplete.
+	 * Set Auto complete.
 	 *
-	 * @param IsAutocomplete Automatic completion for textfields
+	 * @param IsAutocomplete Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
 	public void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete) {
@@ -493,9 +530,9 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	}
 
 	/**
-	 * Get Autocomplete.
+	 * Get Auto complete.
 	 *
-	 * @return Automatic completion for textfields
+	 * @return Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
 	public I_AD_Ref_ListInput IsAutocomplete() {
@@ -534,6 +571,40 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	@JsonProperty("IsDisplayed")
 	public I_AD_Ref_ListInput IsDisplayed() {
 		return mIsDisplayed;
+	}
+
+	/**
+	 * Set Show in Grid.
+	 *
+	 * @param IsDisplayedGrid Show in Grid
+	 */
+	@JsonProperty("IsDisplayedGrid")
+	public void setIsDisplayedGridInput(I_AD_Ref_ListInput IsDisplayedGrid) {
+		this.mIsDisplayedGrid = IsDisplayedGrid;
+		if (IsDisplayedGrid != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsDisplayedGrid.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setIsDisplayedGrid(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsDisplayedGrid.getUUID());
+			}
+		} else {
+			this.setIsDisplayedGrid(null);
+		}
+	}
+
+	/**
+	 * Get Show in Grid.
+	 *
+	 * @return Show in Grid
+	 */
+	@JsonProperty("IsDisplayedGrid")
+	public I_AD_Ref_ListInput IsDisplayedGrid() {
+		return mIsDisplayedGrid;
 	}
 
 	/**

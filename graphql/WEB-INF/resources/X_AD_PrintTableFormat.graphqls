@@ -1,6 +1,6 @@
 # Generated Schema for AD_PrintTableFormat - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_PrintTableFormatGet(page: Int, size: Int, sort: String, filter: String): AD_PrintTableFormatConnection!
 }
@@ -17,11 +17,11 @@ type AD_PrintTableFormatConnection {
 }
 
 type AD_PrintTableFormat {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Image or Icon
 	AD_Image: AD_Image
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Date this record was created
@@ -68,7 +68,7 @@ type AD_PrintTableFormat {
 	IsActive: Boolean!
 	# Default value
 	IsDefault: Boolean!
-	# Print column headers on mutliple lines if necessary.
+	# Print column headers on multiple lines if necessary.
 	IsMultiLineHeader: Boolean!
 	# Paint table boundary lines
 	IsPaintBoundaryLines: Boolean!
@@ -97,7 +97,7 @@ type AD_PrintTableFormat {
 input AD_PrintTableFormatInput {
 	# Image or Icon
 	AD_Image: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Optional short description of the record
@@ -140,7 +140,7 @@ input AD_PrintTableFormatInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	# Print column headers on mutliple lines if necessary.
+	# Print column headers on multiple lines if necessary.
 	IsMultiLineHeader: Boolean
 	# Paint table boundary lines
 	IsPaintBoundaryLines: Boolean

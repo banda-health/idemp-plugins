@@ -13,6 +13,7 @@ import org.compiere.model.Query;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.model.X_AD_PrintHeaderFooter;
 import org.compiere.model.X_AD_PrintPaper;
 import org.compiere.model.X_AD_PrintTableFormat;
 import org.compiere.util.Env;
@@ -23,13 +24,14 @@ import java.sql.ResultSet;
  * Generated Model for AD_PrintFormat - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_PrintFormatInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintColor;
 	private ForeignEntityInput mAD_PrintFont;
+	private ForeignEntityInput mAD_PrintHeaderFooter;
 	private ForeignEntityInput mAD_PrintPaper;
 	private ForeignEntityInput mAD_PrintTableFormat;
 	private ForeignEntityInput mAD_ReportView;
@@ -52,7 +54,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -79,7 +81,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -184,6 +186,40 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	}
 
 	/**
+	 * Set Print Header/Footer.
+	 *
+	 * @param AD_PrintHeaderFooter Print Header/Footer
+	 */
+	@JsonProperty("AD_PrintHeaderFooter")
+	public void setAD_PrintHeaderFooterInput(ForeignEntityInput AD_PrintHeaderFooter) {
+		this.mAD_PrintHeaderFooter = AD_PrintHeaderFooter;
+		if (AD_PrintHeaderFooter != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintHeaderFooter foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintHeaderFooter", "AD_PrintHeaderFooter_UU=?", get_TrxName())
+							.setParameters(AD_PrintHeaderFooter.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_PrintHeaderFooter_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintHeaderFooter with UUID " + AD_PrintHeaderFooter.getUUID());
+			}
+		} else {
+			this.setAD_PrintHeaderFooter_ID(0);
+		}
+	}
+
+	/**
+	 * Get Print Header/Footer.
+	 *
+	 * @return Print Header/Footer
+	 */
+	@JsonProperty("AD_PrintHeaderFooter")
+	public ForeignEntityInput AD_PrintHeaderFooter() {
+		return mAD_PrintHeaderFooter;
+	}
+
+	/**
 	 * Set Print Paper.
 	 *
 	 * @param AD_PrintPaper Printer paper definition
@@ -259,9 +295,6 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	@JsonProperty("AD_ReportView")
 	public void setAD_ReportViewInput(ForeignEntityInput AD_ReportView) {
 		this.mAD_ReportView = AD_ReportView;
-		if (get_ID() != 0) {
-			return;
-		}
 		if (AD_ReportView != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MReportView foreignEntity;
@@ -373,7 +406,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	/**
 	 * Set Jasper Process.
 	 *
-	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
+	 * @param JasperProcess The Jasper Process used by the print engine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
 	public void setJasperProcessInput(ForeignEntityInput JasperProcess) {
@@ -397,7 +430,7 @@ public class X_AD_PrintFormatInput extends X_AD_PrintFormat implements I_AD_Prin
 	/**
 	 * Get Jasper Process.
 	 *
-	 * @return The Jasper Process used by the printengine if any process defined
+	 * @return The Jasper Process used by the print engine if any process defined
 	 */
 	@JsonProperty("JasperProcess")
 	public ForeignEntityInput JasperProcess() {

@@ -6,21 +6,21 @@ import org.compiere.model.I_C_Tax;
  * Generated Interface for C_Tax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_C_TaxInput extends I_C_Tax {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -163,6 +163,20 @@ public interface I_C_TaxInput extends I_C_Tax {
 	 * @return Sales Tax applies to sales situations, Purchase Tax to purchase situations
 	 */
 	I_AD_Ref_ListInput SOPOType();
+
+	/**
+	 * Set TaxPostingIndicator.
+	 *
+	 * @param TaxPostingIndicator Type of input tax (deductible and non deductible)
+	 */
+	void setTaxPostingIndicatorInput(I_AD_Ref_ListInput TaxPostingIndicator);
+
+	/**
+	 * Get TaxPostingIndicator.
+	 *
+	 * @return Type of input tax (deductible and non deductible)
+	 */
+	I_AD_Ref_ListInput TaxPostingIndicator();
 
 	/**
 	 * Set To_Region.

@@ -16,6 +16,7 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MBPBankAccount;
+import org.compiere.model.MBankTransfer;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCashBook;
 import org.compiere.model.MConversionType;
@@ -35,7 +36,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Payment - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 
@@ -45,6 +46,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	private ForeignEntityInput mC_BP_BankAccount;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_BankAccount;
+	private ForeignEntityInput mC_BankTransfer;
 	private ForeignEntityInput mC_Campaign;
 	private ForeignEntityInput mC_CashBook;
 	private ForeignEntityInput mC_Charge;
@@ -85,7 +87,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -112,7 +114,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -222,6 +224,40 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	}
 
 	/**
+	 * Set Bank Transfer.
+	 *
+	 * @param C_BankTransfer Bank Transfer
+	 */
+	@JsonProperty("C_BankTransfer")
+	public void setC_BankTransferInput(ForeignEntityInput C_BankTransfer) {
+		this.mC_BankTransfer = C_BankTransfer;
+		if (C_BankTransfer != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBankTransfer foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_BankTransfer", "C_BankTransfer_UU=?", get_TrxName())
+							.setParameters(C_BankTransfer.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_BankTransfer_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_BankTransfer with UUID " + C_BankTransfer.getUUID());
+			}
+		} else {
+			this.setC_BankTransfer_ID(0);
+		}
+	}
+
+	/**
+	 * Get Bank Transfer.
+	 *
+	 * @return Bank Transfer
+	 */
+	@JsonProperty("C_BankTransfer")
+	public ForeignEntityInput C_BankTransfer() {
+		return mC_BankTransfer;
+	}
+
+	/**
 	 * Set Partner Bank Account.
 	 *
 	 * @param C_BP_BankAccount Bank Account of the Business Partner
@@ -256,7 +292,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -280,7 +316,7 @@ public class X_C_PaymentInput extends MPayment_BH implements I_C_PaymentInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

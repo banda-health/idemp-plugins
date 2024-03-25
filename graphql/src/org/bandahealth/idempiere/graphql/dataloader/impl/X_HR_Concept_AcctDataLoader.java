@@ -6,7 +6,7 @@ import org.eevolution.model.X_HR_Concept_Acct;
  * Data Loader for HR_Concept_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_HR_Concept_AcctDataLoader extends PODataLoader<X_HR_Concept_Acct> {
 	public static String DATALOADER_HR_Concept_Acct_BY_ID = "HR_Concept_AcctByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.X_AD_WF_NodeNext;
  * Data Loader for AD_WF_NodeNext - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_WF_NodeNextDataLoader extends PODataLoader<X_AD_WF_NodeNext> {
 	public static String DATALOADER_AD_WF_NodeNext_BY_ID = "AD_WF_NodeNextByIdDataLoader";

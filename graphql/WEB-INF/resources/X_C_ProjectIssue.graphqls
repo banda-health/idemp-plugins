@@ -1,6 +1,6 @@
 # Generated Schema for C_ProjectIssue - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_ProjectIssueGet(page: Int, size: Int, sort: String, filter: String): C_ProjectIssueConnection!
 }
@@ -17,9 +17,9 @@ type C_ProjectIssueConnection {
 }
 
 type C_ProjectIssue {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Financial Project
 	C_Project: C_Project!
@@ -30,8 +30,14 @@ type C_ProjectIssue {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
 	# The record is active in the system
 	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
 	# Unique line for this document
 	Line: Int!
 	# Product Attribute Set Instance
@@ -53,6 +59,8 @@ type C_ProjectIssue {
 	# The date+time (expressed in decimal format) when the document has been processed
 	ProcessedOn: BigDecimal
 	Processing: Boolean!
+	# ID of document reversal
+	Reversal: C_ProjectIssue
 	# Time and Expense Report Line
 	S_TimeExpenseLine: S_TimeExpenseLine
 	# Date this record was updated
@@ -62,15 +70,21 @@ type C_ProjectIssue {
 }
 
 input C_ProjectIssueInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
 	UUID: ID
 	# Optional short description of the record
 	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
 	# Unique line for this document
 	Line: Int
 	# Product Attribute Set Instance
@@ -92,6 +106,8 @@ input C_ProjectIssueInput {
 	# The date+time (expressed in decimal format) when the document has been processed
 	ProcessedOn: BigDecimal
 	Processing: Boolean
+	# ID of document reversal
+	Reversal: ForeignEntityInput
 	# Time and Expense Report Line
 	S_TimeExpenseLine: ForeignEntityInput
 }

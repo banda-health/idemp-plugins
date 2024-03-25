@@ -9,7 +9,7 @@ import org.compiere.model.MAttribute;
  * Generated Query Resolver for M_Attribute - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_AttributeQuery extends POQuery<MAttribute> implements GraphQLQueryResolver {
 	@Override

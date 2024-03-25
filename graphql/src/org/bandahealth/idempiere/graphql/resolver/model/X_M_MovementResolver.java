@@ -41,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_MovementResolver extends POResolver<MMovement_BH> implements GraphQLResolver<MMovement_BH> {
 
@@ -108,7 +108,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -304,6 +304,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
 			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272");
 			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
+			put("U", "7ed34a5f-ffe5-499e-afd0-f074cca9d1f6");
 		}
 	};
 	public CompletableFuture<MRefList_BH> FreightCostRule(MMovement_BH entity, DataFetchingEnvironment environment) {
@@ -336,6 +337,36 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 		DataLoader<Integer, MShipper> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_ShipperDataLoader.DATALOADER_M_Shipper_BY_ID);
 		return dataLoader.load(entity.getM_Shipper_ID());
+	}
+
+
+	/**
+	 * Get Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	public CompletableFuture<MWarehouse_BH> M_Warehouse(MMovement_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getM_Warehouse_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWarehouse_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
+		return dataLoader.load(entity.getM_Warehouse_ID());
+	}
+
+
+	/**
+	 * Get Warehouse To.
+	 *
+	 * @return To Storage Warehouse and Service Point
+	 */
+	public CompletableFuture<MWarehouse_BH> M_WarehouseTo(MMovement_BH entity, DataFetchingEnvironment environment) {
+		if (entity.getM_WarehouseTo_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MWarehouse_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_WarehouseDataLoader.DATALOADER_M_Warehouse_BY_ID);
+		return dataLoader.load(entity.getM_WarehouseTo_ID());
 	}
 
 	public Boolean Posted(MMovement_BH entity, DataFetchingEnvironment environment) {

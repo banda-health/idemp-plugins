@@ -6,21 +6,21 @@ import org.compiere.model.I_M_Production;
  * Generated Interface for M_Production - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_M_ProductionInput extends I_M_Production {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -65,6 +65,20 @@ public interface I_M_ProductionInput extends I_M_Production {
 	 * @return Marketing Campaign
 	 */
 	ForeignEntityInput C_Campaign();
+
+	/**
+	 * Set C_DocType.
+	 *
+	 * @param C_DocType Document type or rules
+	 */
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
+
+	/**
+	 * Get C_DocType.
+	 *
+	 * @return Document type or rules
+	 */
+	ForeignEntityInput C_DocType();
 
 	/**
 	 * Set C_OrderLine.
@@ -165,6 +179,20 @@ public interface I_M_ProductionInput extends I_M_Production {
 	I_AD_Ref_ListInput IsCreated();
 
 	/**
+	 * Set M_InOutLine.
+	 *
+	 * @param M_InOutLine Line on Shipment or Receipt document
+	 */
+	void setM_InOutLineInput(ForeignEntityInput M_InOutLine);
+
+	/**
+	 * Get M_InOutLine.
+	 *
+	 * @return Line on Shipment or Receipt document
+	 */
+	ForeignEntityInput M_InOutLine();
+
+	/**
 	 * Set M_Locator.
 	 *
 	 * @param M_Locator Warehouse Locator
@@ -205,6 +233,20 @@ public interface I_M_ProductionInput extends I_M_Production {
 	 * @return UUID
 	 */
 	String getUUID();
+
+	/**
+	 * Set PP_Product_BOM.
+	 *
+	 * @param PP_Product_BOM BOM & Formula
+	 */
+	void setPP_Product_BOMInput(ForeignEntityInput PP_Product_BOM);
+
+	/**
+	 * Get PP_Product_BOM.
+	 *
+	 * @return BOM & Formula
+	 */
+	ForeignEntityInput PP_Product_BOM();
 
 	/**
 	 * Set Reversal.

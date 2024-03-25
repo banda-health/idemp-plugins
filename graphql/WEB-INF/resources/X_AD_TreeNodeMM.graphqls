@@ -1,6 +1,6 @@
 # Generated Schema for AD_TreeNodeMM - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_TreeNodeMMGet(page: Int, size: Int, sort: String, filter: String): AD_TreeNodeMMConnection!
 }
@@ -17,9 +17,9 @@ type AD_TreeNodeMMConnection {
 }
 
 type AD_TreeNodeMM {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Identifies a Tree
 	AD_Tree: AD_Tree!
@@ -39,7 +39,7 @@ type AD_TreeNodeMM {
 }
 
 input AD_TreeNodeMMInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Identifies a Tree
 	AD_Tree: ForeignEntityInput

@@ -1,6 +1,6 @@
 # Generated Schema for AD_Val_Rule - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_Val_RuleGet(page: Int, size: Int, sort: String, filter: String): AD_Val_RuleConnection!
 }
@@ -17,9 +17,9 @@ type AD_Val_RuleConnection {
 }
 
 type AD_Val_Rule {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Validation Code
@@ -45,7 +45,7 @@ type AD_Val_Rule {
 }
 
 input AD_Val_RuleInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Validation Code

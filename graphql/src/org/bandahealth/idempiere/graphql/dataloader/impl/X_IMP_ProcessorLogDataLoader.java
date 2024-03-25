@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_IMP_ProcessorLog;
+import org.compiere.model.MIMPProcessorLog;
 
 /**
  * Data Loader for IMP_ProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_IMP_ProcessorLogDataLoader extends PODataLoader<X_IMP_ProcessorLog> {
+public class X_IMP_ProcessorLogDataLoader extends PODataLoader<MIMPProcessorLog> {
 	public static String DATALOADER_IMP_ProcessorLog_BY_ID = "IMP_ProcessorLogByIdDataLoader";
 	public static String DATALOADER_IMP_ProcessorLog_BY_UUID = "IMP_ProcessorLogByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_IMP_ProcessorLog.Table_Name;
+		return MIMPProcessorLog.Table_Name;
 	}
 
 	@Override

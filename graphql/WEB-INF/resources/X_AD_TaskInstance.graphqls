@@ -1,6 +1,6 @@
 # Generated Schema for AD_TaskInstance - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_TaskInstanceGet(page: Int, size: Int, sort: String, filter: String): AD_TaskInstanceConnection!
 }
@@ -17,9 +17,9 @@ type AD_TaskInstanceConnection {
 }
 
 type AD_TaskInstance {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Operation System Task
 	AD_Task: AD_Task!
@@ -37,7 +37,7 @@ type AD_TaskInstance {
 }
 
 input AD_TaskInstanceInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Operation System Task
 	AD_Task: ForeignEntityInput

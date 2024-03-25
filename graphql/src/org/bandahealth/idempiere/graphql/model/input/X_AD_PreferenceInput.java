@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MForm;
 import org.compiere.model.MInfoWindow;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPreference;
@@ -20,10 +21,11 @@ import java.sql.ResultSet;
  * Generated Model for AD_Preference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PreferenceInput extends MPreference implements I_AD_PreferenceInput {
 
+	private ForeignEntityInput mAD_Form;
 	private ForeignEntityInput mAD_InfoWindow;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
@@ -41,6 +43,40 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	public X_AD_PreferenceInput(@JsonProperty("UUID") String UUID) {
 		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
+	}
+
+	/**
+	 * Set Special Form.
+	 *
+	 * @param AD_Form Special Form
+	 */
+	@JsonProperty("AD_Form")
+	public void setAD_FormInput(ForeignEntityInput AD_Form) {
+		this.mAD_Form = AD_Form;
+		if (AD_Form != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MForm foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
+							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Form_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+			}
+		} else {
+			this.setAD_Form_ID(0);
+		}
+	}
+
+	/**
+	 * Get Special Form.
+	 *
+	 * @return Special Form
+	 */
+	@JsonProperty("AD_Form")
+	public ForeignEntityInput AD_Form() {
+		return mAD_Form;
 	}
 
 	/**
@@ -80,7 +116,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -107,7 +143,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

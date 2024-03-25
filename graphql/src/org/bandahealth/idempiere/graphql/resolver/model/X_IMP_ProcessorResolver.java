@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_IMP_Processor_TypeDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.X_IMP_Processor;
+import org.compiere.model.MIMPProcessor;
 import org.compiere.model.X_IMP_Processor_Type;
 import org.dataloader.DataLoader;
 
@@ -18,9 +18,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for IMP_Processor - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_IMP_ProcessorResolver extends POResolver<X_IMP_Processor> implements GraphQLResolver<X_IMP_Processor> {
+public class X_IMP_ProcessorResolver extends POResolver<MIMPProcessor> implements GraphQLResolver<MIMPProcessor> {
 
 
 	static Map<String, String> FREQUENCYTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -30,7 +30,7 @@ public class X_IMP_ProcessorResolver extends POResolver<X_IMP_Processor> impleme
 			put("D", "6360c9c7-dbf3-4b2f-bd8b-3465a7fde7a7");
 		}
 	};
-	public CompletableFuture<MRefList_BH> FrequencyType(X_IMP_Processor entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> FrequencyType(MIMPProcessor entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getFrequencyType())) {
 			return null;
 		}
@@ -45,7 +45,7 @@ public class X_IMP_ProcessorResolver extends POResolver<X_IMP_Processor> impleme
 	 *
 	 * @return Import Processor Type
 	 */
-	public CompletableFuture<X_IMP_Processor_Type> IMP_Processor_Type(X_IMP_Processor entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_IMP_Processor_Type> IMP_Processor_Type(MIMPProcessor entity, DataFetchingEnvironment environment) {
 		if (entity.getIMP_Processor_Type_ID() <= 0) {
 			return null;
 		}
@@ -54,7 +54,7 @@ public class X_IMP_ProcessorResolver extends POResolver<X_IMP_Processor> impleme
 		return dataLoader.load(entity.getIMP_Processor_Type_ID());
 	}
 
-	public Boolean Processing(X_IMP_Processor entity, DataFetchingEnvironment environment) {
+	public Boolean Processing(MIMPProcessor entity, DataFetchingEnvironment environment) {
 		return entity.isProcessing();
 	}
 

@@ -1,6 +1,6 @@
 # Generated Schema for QM_SpecificationLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	QM_SpecificationLineGet(page: Int, size: Int, sort: String, filter: String): QM_SpecificationLineConnection!
 }
@@ -17,9 +17,9 @@ type QM_SpecificationLineConnection {
 }
 
 type QM_SpecificationLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Logical operation: AND or OR
 	AndOr: AD_Ref_List!
@@ -50,7 +50,7 @@ type QM_SpecificationLine {
 }
 
 input QM_SpecificationLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Logical operation: AND or OR
 	AndOr: AD_Ref_ListInput

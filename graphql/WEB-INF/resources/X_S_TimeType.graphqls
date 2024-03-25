@@ -1,6 +1,6 @@
 # Generated Schema for S_TimeType - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	S_TimeTypeGet(page: Int, size: Int, sort: String, filter: String): S_TimeTypeConnection!
 }
@@ -17,9 +17,9 @@ type S_TimeTypeConnection {
 }
 
 type S_TimeType {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -41,7 +41,7 @@ type S_TimeType {
 }
 
 input S_TimeTypeInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

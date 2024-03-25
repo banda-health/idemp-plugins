@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Win - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_WinInput extends MUserDefWin implements I_AD_UserDef_WinInput {
 
@@ -78,7 +78,7 @@ public class X_AD_UserDef_WinInput extends MUserDefWin implements I_AD_UserDef_W
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -105,7 +105,7 @@ public class X_AD_UserDef_WinInput extends MUserDefWin implements I_AD_UserDef_W
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -217,6 +217,9 @@ public class X_AD_UserDef_WinInput extends MUserDefWin implements I_AD_UserDef_W
 	@JsonProperty("AD_Window")
 	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
 		this.mAD_Window = AD_Window;
+		if (get_ID() != 0) {
+			return;
+		}
 		if (AD_Window != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MWindow foreignEntity;

@@ -25,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Reference - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements GraphQLResolver<MReference_BH> {
 
@@ -123,6 +123,21 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 				.getDataLoader(X_AD_Reference_TrlDataLoader.DATALOADER_AD_Reference_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(MReference_BH.COLUMNNAME_Name));
+	}
+
+	static Map<String, String> SHOWINACTIVE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("N", "f99597a3-8f11-4547-8b62-ab918dad0f8b");
+			put("Y", "4116b567-0f8f-492d-a1f7-4ac3d5a53aaf");
+		}
+	};
+	public CompletableFuture<MRefList_BH> ShowInactive(MReference_BH entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getShowInactive())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(SHOWINACTIVE_UUIDS_BY_VALUE.get(entity.getShowInactive()));
 	}
 
 	static Map<String, String> VALIDATIONTYPE_UUIDS_BY_VALUE = new HashMap<>() {

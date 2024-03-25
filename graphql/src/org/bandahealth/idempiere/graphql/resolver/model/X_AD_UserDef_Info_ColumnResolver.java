@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_UserDef_Info_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoColumn> implements GraphQLResolver<MUserDefInfoColumn> {
 
@@ -164,6 +164,21 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(ISMANDATORY_UUIDS_BY_VALUE.get(entity.getIsMandatory()));
+	}
+
+	static Map<String, String> ISQUERYAFTERCHANGE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+		}
+	};
+	public CompletableFuture<MRefList_BH> IsQueryAfterChange(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getIsQueryAfterChange())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(ISQUERYAFTERCHANGE_UUIDS_BY_VALUE.get(entity.getIsQueryAfterChange()));
 	}
 
 	static Map<String, String> ISQUERYCRITERIA_UUIDS_BY_VALUE = new HashMap<>() {

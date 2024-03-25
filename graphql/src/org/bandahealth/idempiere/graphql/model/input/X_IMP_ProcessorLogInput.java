@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MIMPProcessor;
+import org.compiere.model.MIMPProcessorLog;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
-import org.compiere.model.X_IMP_Processor;
-import org.compiere.model.X_IMP_ProcessorLog;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -16,9 +16,9 @@ import java.sql.ResultSet;
  * Generated Model for IMP_ProcessorLog - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_IMP_ProcessorLogInput extends X_IMP_ProcessorLog implements I_IMP_ProcessorLogInput {
+public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_ProcessorLogInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mIMP_Processor;
@@ -38,7 +38,7 @@ public class X_IMP_ProcessorLogInput extends X_IMP_ProcessorLog implements I_IMP
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -65,7 +65,7 @@ public class X_IMP_ProcessorLogInput extends X_IMP_ProcessorLog implements I_IMP
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -85,7 +85,7 @@ public class X_IMP_ProcessorLogInput extends X_IMP_ProcessorLog implements I_IMP
 		}
 		if (IMP_Processor != null) {
 			// Since an entity was passed, make sure it's in the DB
-			X_IMP_Processor foreignEntity;
+			MIMPProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor", "IMP_Processor_UU=?", get_TrxName())
 							.setParameters(IMP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

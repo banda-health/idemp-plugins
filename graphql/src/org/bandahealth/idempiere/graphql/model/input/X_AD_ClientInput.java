@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Client - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 
@@ -27,6 +27,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PasswordRule;
 	private ForeignEntityInput mAD_ReplicationStrategy;
+	private I_AD_Ref_ListInput mAuthenticationType;
 	private I_AD_Ref_ListInput mAutoArchive;
 	private I_AD_Ref_ListInput mMMPolicy;
 
@@ -97,7 +98,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -124,7 +125,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -197,6 +198,40 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	@JsonProperty("AD_ReplicationStrategy")
 	public ForeignEntityInput AD_ReplicationStrategy() {
 		return mAD_ReplicationStrategy;
+	}
+
+	/**
+	 * Set Authentication Type.
+	 *
+	 * @param AuthenticationType Authentication Type
+	 */
+	@JsonProperty("AuthenticationType")
+	public void setAuthenticationTypeInput(I_AD_Ref_ListInput AuthenticationType) {
+		this.mAuthenticationType = AuthenticationType;
+		if (AuthenticationType != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(AuthenticationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAuthenticationType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AuthenticationType.getUUID());
+			}
+		} else {
+			this.setAuthenticationType(null);
+		}
+	}
+
+	/**
+	 * Get Authentication Type.
+	 *
+	 * @return Authentication Type
+	 */
+	@JsonProperty("AuthenticationType")
+	public I_AD_Ref_ListInput AuthenticationType() {
+		return mAuthenticationType;
 	}
 
 	/**

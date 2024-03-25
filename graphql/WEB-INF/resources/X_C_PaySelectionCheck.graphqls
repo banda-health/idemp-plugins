@@ -1,6 +1,6 @@
 # Generated Schema for C_PaySelectionCheck - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PaySelectionCheckGet(page: Int, size: Int, sort: String, filter: String): C_PaySelectionCheckConnection!
 }
@@ -17,9 +17,9 @@ type C_PaySelectionCheckConnection {
 }
 
 type C_PaySelectionCheck {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Bank Account of the Business Partner
 	C_BP_BankAccount: C_BP_BankAccount
@@ -62,7 +62,7 @@ type C_PaySelectionCheck {
 }
 
 input C_PaySelectionCheckInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Bank Account of the Business Partner
 	C_BP_BankAccount: ForeignEntityInput

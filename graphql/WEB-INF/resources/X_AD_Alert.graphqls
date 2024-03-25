@@ -1,6 +1,6 @@
 # Generated Schema for AD_Alert - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_AlertGet(page: Int, size: Int, sort: String, filter: String): AD_AlertConnection!
 }
@@ -20,9 +20,9 @@ type AD_Alert {
 	UUID: ID!
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: AD_AlertProcessor!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Message of the Alert
 	AlertMessage: String!
@@ -34,7 +34,7 @@ type AD_Alert {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	# Send alerts to recipient only if the client security rules of the role allows
+	# Send alerts to recipient only if the tenant security rules of the role allows
 	EnforceClientSecurity: Boolean!
 	# Send alerts to recipient only if the data security rules of the role allows
 	EnforceRoleSecurity: Boolean!
@@ -56,7 +56,7 @@ input AD_AlertInput {
 	UUID: ID
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Message of the Alert
 	AlertMessage: String
@@ -64,7 +64,7 @@ input AD_AlertInput {
 	AlertSubject: String
 	# Optional short description of the record
 	Description: String
-	# Send alerts to recipient only if the client security rules of the role allows
+	# Send alerts to recipient only if the tenant security rules of the role allows
 	EnforceClientSecurity: Boolean
 	# Send alerts to recipient only if the data security rules of the role allows
 	EnforceRoleSecurity: Boolean

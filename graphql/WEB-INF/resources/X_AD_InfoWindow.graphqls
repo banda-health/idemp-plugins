@@ -1,6 +1,6 @@
 # Generated Schema for AD_InfoWindow - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_InfoWindowGet(page: Int, size: Int, sort: String, filter: String): AD_InfoWindowConnection!
 }
@@ -17,14 +17,16 @@ type AD_InfoWindowConnection {
 }
 
 type AD_InfoWindow {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
+	# Data entry or display window
+	AD_Window: AD_Window
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +62,8 @@ type AD_InfoWindow {
 	# Other SQL Clause
 	OtherClause: String
 	PagingSize: Int!
+	# Purchase Order Window
+	PO_Window: AD_Window
 	Processing: Boolean!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
@@ -74,10 +78,12 @@ type AD_InfoWindow {
 input AD_InfoWindowInput {
 	AD_CtxHelp: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization
@@ -109,6 +115,8 @@ input AD_InfoWindowInput {
 	# Other SQL Clause
 	OtherClause: String
 	PagingSize: Int
+	# Purchase Order Window
+	PO_Window: ForeignEntityInput
 	Processing: Boolean
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int

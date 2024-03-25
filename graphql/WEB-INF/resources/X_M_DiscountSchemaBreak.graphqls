@@ -1,6 +1,6 @@
 # Generated Schema for M_DiscountSchemaBreak - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_DiscountSchemaBreakGet(page: Int, size: Int, sort: String, filter: String): M_DiscountSchemaBreakConnection!
 }
@@ -17,9 +17,9 @@ type M_DiscountSchemaBreakConnection {
 }
 
 type M_DiscountSchemaBreak {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Trade Discount in Percent for the break level
 	BreakDiscount: BigDecimal!
@@ -29,6 +29,8 @@ type M_DiscountSchemaBreak {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
+	# Fixed Price for Product
+	FixedPrice: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean!
 	# Use flat discount defined on Business Partner Level
@@ -49,12 +51,14 @@ type M_DiscountSchemaBreak {
 }
 
 input M_DiscountSchemaBreakInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Trade Discount in Percent for the break level
 	BreakDiscount: BigDecimal
 	# Low Value of trade discount break level
 	BreakValue: BigDecimal
+	# Fixed Price for Product
+	FixedPrice: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Use flat discount defined on Business Partner Level

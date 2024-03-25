@@ -11,8 +11,10 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoa
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatItem_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintGraphDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StyleDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MColumn;
+import org.compiere.model.MStyle;
 import org.compiere.model.PO;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
@@ -31,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_PrintFormatItem - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatItem> implements GraphQLResolver<X_AD_PrintFormatItem> {
 
@@ -49,6 +51,21 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 		DataLoader<Integer, MColumn> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ColumnDataLoader.DATALOADER_AD_Column_BY_ID);
 		return dataLoader.load(entity.getAD_Column_ID());
+	}
+
+
+	/**
+	 * Get Field Style.
+	 *
+	 * @return Field CSS Style 
+	 */
+	public CompletableFuture<MStyle> AD_FieldStyle(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_FieldStyle_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MStyle> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StyleDataLoader.DATALOADER_AD_Style_BY_ID);
+		return dataLoader.load(entity.getAD_FieldStyle_ID());
 	}
 
 
@@ -261,6 +278,10 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 		return entity.isPrinted();
 	}
 
+	public Boolean IsPrintInstanceAttributes(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
+		return entity.isPrintInstanceAttributes();
+	}
+
 	public Boolean IsRelativePosition(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
 		return entity.isRelativePosition();
 	}
@@ -345,6 +366,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 			put("I", "b7f7000b-28ea-486e-896f-3f1e1f465b84");
 			put("R", "c36c78b3-5c92-4e49-8156-dcb6dd2f0c44");
 			put("L", "7b5271ce-5d8f-4068-be40-b589b704d4f8");
+			put("S", "f3acb050-7407-481a-9177-022c134cf3a5");
 		}
 	};
 	public CompletableFuture<MRefList_BH> PrintFormatType(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {

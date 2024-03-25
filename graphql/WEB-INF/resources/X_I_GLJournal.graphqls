@@ -1,6 +1,6 @@
 # Generated Schema for I_GLJournal - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	I_GLJournalGet(page: Int, size: Int, sort: String, filter: String): I_GLJournalConnection!
 }
@@ -25,9 +25,9 @@ type I_GLJournal {
 	AcctSchemaName: String
 	# Text key for Activity
 	ActivityValue: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Accounted Credit Amount
 	AmtAcctCr: BigDecimal
@@ -75,7 +75,7 @@ type I_GLJournal {
 	CampaignValue: String
 	# Name of the Category
 	CategoryName: String
-	# Key of the Client
+	# Key of the Tenant
 	ClientValue: String
 	# Key value for the Currency Conversion Rate Type
 	ConversionTypeValue: String
@@ -160,7 +160,7 @@ input I_GLJournalInput {
 	AcctSchemaName: String
 	# Text key for Activity
 	ActivityValue: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Accounted Credit Amount
 	AmtAcctCr: BigDecimal
@@ -208,7 +208,7 @@ input I_GLJournalInput {
 	CampaignValue: String
 	# Name of the Category
 	CategoryName: String
-	# Key of the Client
+	# Key of the Tenant
 	ClientValue: String
 	# Key value for the Currency Conversion Rate Type
 	ConversionTypeValue: String

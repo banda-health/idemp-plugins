@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Client;
  * Generated Interface for AD_Client - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_ClientInput extends I_AD_Client {
 
@@ -41,14 +41,14 @@ public interface I_AD_ClientInput extends I_AD_Client {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -79,6 +79,20 @@ public interface I_AD_ClientInput extends I_AD_Client {
 	 * @return Data Replication Strategy
 	 */
 	ForeignEntityInput AD_ReplicationStrategy();
+
+	/**
+	 * Set AuthenticationType.
+	 *
+	 * @param AuthenticationType AuthenticationType
+	 */
+	void setAuthenticationTypeInput(I_AD_Ref_ListInput AuthenticationType);
+
+	/**
+	 * Get AuthenticationType.
+	 *
+	 * @return AuthenticationType
+	 */
+	I_AD_Ref_ListInput AuthenticationType();
 
 	/**
 	 * Set AutoArchive.

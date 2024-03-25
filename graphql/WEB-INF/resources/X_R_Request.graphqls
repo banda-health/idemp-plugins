@@ -1,6 +1,6 @@
 # Generated Schema for R_Request - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	R_RequestGet(page: Int, size: Int, sort: String, filter: String): R_RequestConnection!
 }
@@ -19,9 +19,9 @@ type R_RequestConnection {
 type R_Request {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
@@ -124,8 +124,7 @@ type R_Request {
 	R_StandardResponse: R_StandardResponse
 	# Request Status
 	R_Status: R_Status
-	# Direct internal record ID
-	Record_ID: Int
+	UUID: ID!
 	# Amount associated with this request
 	RequestAmt: BigDecimal!
 	# Result of the action taken
@@ -149,7 +148,7 @@ type R_Request {
 input R_RequestInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
@@ -248,8 +247,7 @@ input R_RequestInput {
 	R_StandardResponse: ForeignEntityInput
 	# Request Status
 	R_Status: ForeignEntityInput
-	# Direct internal record ID
-	Record_ID: Int
+	UUID: ID
 	# Amount associated with this request
 	RequestAmt: BigDecimal
 	# Result of the action taken

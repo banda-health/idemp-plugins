@@ -46,14 +46,14 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_MRP - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PP_MRPResolver extends POResolver<X_PP_MRP> implements GraphQLResolver<X_PP_MRP> {
 
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

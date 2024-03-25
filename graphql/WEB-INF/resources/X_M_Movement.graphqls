@@ -1,6 +1,6 @@
 # Generated Schema for M_Movement - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_MovementGet(page: Int, size: Int, sort: String, filter: String): M_MovementConnection!
 }
@@ -17,9 +17,9 @@ type M_MovementConnection {
 }
 
 type M_Movement {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
@@ -79,6 +79,10 @@ type M_Movement {
 	UUID: ID!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# To Storage Warehouse and Service Point
+	M_WarehouseTo: M_Warehouse
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
@@ -107,7 +111,7 @@ type M_Movement {
 }
 
 input M_MovementInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
@@ -163,6 +167,10 @@ input M_MovementInput {
 	UUID: ID
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# To Storage Warehouse and Service Point
+	M_WarehouseTo: ForeignEntityInput
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner

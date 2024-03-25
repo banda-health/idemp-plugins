@@ -1,6 +1,6 @@
 # Generated Schema for AD_FieldGroup - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_FieldGroupGet(page: Int, size: Int, sort: String, filter: String): AD_FieldGroupConnection!
 }
@@ -17,10 +17,10 @@ type AD_FieldGroupConnection {
 }
 
 type AD_FieldGroup {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# An abbreviation for a given name
 	BH_Abbreviation: String
@@ -45,7 +45,7 @@ type AD_FieldGroup {
 
 input AD_FieldGroupInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# An abbreviation for a given name
 	BH_Abbreviation: String

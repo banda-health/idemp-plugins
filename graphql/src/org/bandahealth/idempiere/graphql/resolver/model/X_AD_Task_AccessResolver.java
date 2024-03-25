@@ -5,8 +5,8 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TaskDataLoader;
 import org.compiere.model.MTask;
+import org.compiere.model.MTaskAccess;
 import org.compiere.model.X_AD_Role;
-import org.compiere.model.X_AD_Task_Access;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,9 +15,9 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Task_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_AD_Task_AccessResolver extends POResolver<X_AD_Task_Access> implements GraphQLResolver<X_AD_Task_Access> {
+public class X_AD_Task_AccessResolver extends POResolver<MTaskAccess> implements GraphQLResolver<MTaskAccess> {
 
 
 
@@ -26,7 +26,7 @@ public class X_AD_Task_AccessResolver extends POResolver<X_AD_Task_Access> imple
 	 *
 	 * @return Responsibility Role
 	 */
-	public CompletableFuture<X_AD_Role> AD_Role(X_AD_Task_Access entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_AD_Role> AD_Role(MTaskAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Role_ID() <= 0) {
 			return null;
 		}
@@ -41,7 +41,7 @@ public class X_AD_Task_AccessResolver extends POResolver<X_AD_Task_Access> imple
 	 *
 	 * @return Operation System Task
 	 */
-	public CompletableFuture<MTask> AD_Task(X_AD_Task_Access entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTask> AD_Task(MTaskAccess entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Task_ID() <= 0) {
 			return null;
 		}
@@ -50,7 +50,7 @@ public class X_AD_Task_AccessResolver extends POResolver<X_AD_Task_Access> imple
 		return dataLoader.load(entity.getAD_Task_ID());
 	}
 
-	public Boolean IsReadWrite(X_AD_Task_Access entity, DataFetchingEnvironment environment) {
+	public Boolean IsReadWrite(MTaskAccess entity, DataFetchingEnvironment environment) {
 		return entity.isReadWrite();
 	}
 

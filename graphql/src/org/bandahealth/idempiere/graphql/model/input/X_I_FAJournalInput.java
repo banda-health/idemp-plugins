@@ -37,7 +37,7 @@ import java.sql.ResultSet;
  * Generated Model for I_FAJournal - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInput {
 
@@ -152,7 +152,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -176,7 +176,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -252,7 +252,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -276,7 +276,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -660,9 +660,9 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Set CurrencyRateType.
+	 * Set Currency Rate Type.
 	 *
-	 * @param CurrencyRateType CurrencyRateType
+	 * @param CurrencyRateType Currency Rate Type
 	 */
 	@JsonProperty("CurrencyRateType")
 	public void setCurrencyRateTypeInput(I_AD_Ref_ListInput CurrencyRateType) {
@@ -684,9 +684,9 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Get CurrencyRateType.
+	 * Get Currency Rate Type.
 	 *
-	 * @return CurrencyRateType
+	 * @return Currency Rate Type
 	 */
 	@JsonProperty("CurrencyRateType")
 	public I_AD_Ref_ListInput CurrencyRateType() {
@@ -927,7 +927,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Set PostingType.
+	 * Set Posting Type.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
@@ -951,7 +951,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	}
 
 	/**
-	 * Get PostingType.
+	 * Get Posting Type.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */

@@ -1,6 +1,6 @@
 # Generated Schema for S_TimeExpenseLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	S_TimeExpenseLineGet(page: Int, size: Int, sort: String, filter: String): S_TimeExpenseLineConnection!
 }
@@ -17,9 +17,9 @@ type S_TimeExpenseLineConnection {
 }
 
 type S_TimeExpenseLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
@@ -63,6 +63,8 @@ type S_TimeExpenseLine {
 	IsTimeReport: Boolean!
 	# Unique line for this document
 	Line: Int!
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: BigDecimal
 	# Product, Service, Item
 	M_Product: M_Product
 	# Optional additional user defined information
@@ -93,7 +95,7 @@ type S_TimeExpenseLine {
 }
 
 input S_TimeExpenseLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
@@ -133,6 +135,8 @@ input S_TimeExpenseLineInput {
 	IsTimeReport: Boolean
 	# Unique line for this document
 	Line: Int
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: BigDecimal
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Optional additional user defined information

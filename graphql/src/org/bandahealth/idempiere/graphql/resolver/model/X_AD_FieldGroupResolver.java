@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_FieldGroup - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implements GraphQLResolver<MFieldGroup_BH> {
 
@@ -79,6 +79,7 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 			put("T", "b5911f94-b7c6-4bdc-b582-62397f857c4f");
 			put("L", "057e1b4e-c934-4e45-82eb-9a2eddfb2eb3");
 			put("C", "20ff8355-8157-4b8a-96c6-04062c02a59e");
+			put("D", "5621157f-37ae-4134-95b2-65a957b258a7");
 		}
 	};
 	public CompletableFuture<MRefList_BH> FieldGroupType(MFieldGroup_BH entity, DataFetchingEnvironment environment) {

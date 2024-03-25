@@ -1,6 +1,6 @@
 # Generated Schema for I_Inventory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	I_InventoryGet(page: Int, size: Int, sort: String, filter: String): I_InventoryConnection!
 }
@@ -17,9 +17,9 @@ type I_InventoryConnection {
 }
 
 type I_Inventory {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Additional document charges
 	C_Charge: C_Charge
@@ -92,7 +92,7 @@ type I_Inventory {
 }
 
 input I_InventoryInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Additional document charges
 	C_Charge: ForeignEntityInput

@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_InfoProcess - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_InfoProcessInput {
 
@@ -146,7 +146,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -173,7 +173,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -249,7 +249,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	}
 
 	/**
-	 * Set LayoutType.
+	 * Set Layout Type.
 	 *
 	 * @param LayoutType Layout type of info process
 	 */
@@ -273,7 +273,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	}
 
 	/**
-	 * Get LayoutType.
+	 * Get Layout Type.
 	 *
 	 * @return Layout type of info process
 	 */

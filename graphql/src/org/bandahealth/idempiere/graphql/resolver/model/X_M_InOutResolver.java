@@ -47,7 +47,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_InOut - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLResolver<MInOut_BH> {
 
@@ -99,7 +99,7 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -402,6 +402,7 @@ public class X_M_InOutResolver extends POResolver<MInOut_BH> implements GraphQLR
 			put("F", "3c97df02-d8ed-4bca-91b2-c4ca115533c4");
 			put("C", "43e070a0-f583-4b5d-a11c-6e5945a99272");
 			put("L", "623c0263-3294-4073-9884-e5cb78edb1bd");
+			put("U", "7ed34a5f-ffe5-499e-afd0-f074cca9d1f6");
 		}
 	};
 	public CompletableFuture<MRefList_BH> FreightCostRule(MInOut_BH entity, DataFetchingEnvironment environment) {

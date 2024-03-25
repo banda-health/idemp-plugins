@@ -1,6 +1,6 @@
 # Generated Schema for IMP_Processor - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	IMP_ProcessorGet(page: Int, size: Int, sort: String, filter: String): IMP_ProcessorConnection!
 }
@@ -18,9 +18,9 @@ type IMP_ProcessorConnection {
 
 type IMP_Processor {
 	Account: String
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -60,7 +60,7 @@ type IMP_Processor {
 
 input IMP_ProcessorInput {
 	Account: String
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Date the process was last run.
 	DateLastRun: Date

@@ -6,7 +6,7 @@ import org.compiere.model.MRMATax;
  * Data Loader for M_RMATax - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_RMATaxDataLoader extends PODataLoader<MRMATax> {
 	public static String DATALOADER_M_RMATax_BY_ID = "M_RMATaxByIdDataLoader";

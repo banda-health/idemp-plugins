@@ -1,6 +1,6 @@
 # Generated Schema for M_PriceList_Version - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_PriceList_VersionGet(page: Int, size: Int, sort: String, filter: String): M_PriceList_VersionConnection!
 }
@@ -17,9 +17,9 @@ type M_PriceList_VersionConnection {
 }
 
 type M_PriceList_Version {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -48,7 +48,7 @@ type M_PriceList_Version {
 }
 
 input M_PriceList_VersionInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

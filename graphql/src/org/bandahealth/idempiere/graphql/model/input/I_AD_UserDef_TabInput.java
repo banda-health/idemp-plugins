@@ -6,21 +6,21 @@ import org.compiere.model.I_AD_UserDef_Tab;
  * Generated Interface for AD_UserDef_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_UserDef_TabInput extends I_AD_UserDef_Tab {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -93,6 +93,20 @@ public interface I_AD_UserDef_TabInput extends I_AD_UserDef_Tab {
 	 * @return IsAllowAdvancedLookup
 	 */
 	I_AD_Ref_ListInput IsAllowAdvancedLookup();
+
+	/**
+	 * Set IsHighVolume.
+	 *
+	 * @param IsHighVolume Use Search instead of Pick list
+	 */
+	void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume);
+
+	/**
+	 * Get IsHighVolume.
+	 *
+	 * @return Use Search instead of Pick list
+	 */
+	I_AD_Ref_ListInput IsHighVolume();
 
 	/**
 	 * Set IsLookupOnlySelection.

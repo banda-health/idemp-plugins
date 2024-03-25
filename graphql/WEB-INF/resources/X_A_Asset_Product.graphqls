@@ -1,6 +1,6 @@
 # Generated Schema for A_Asset_Product - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	A_Asset_ProductGet(page: Int, size: Int, sort: String, filter: String): A_Asset_ProductConnection!
 }
@@ -21,9 +21,9 @@ type A_Asset_Product {
 	A_Asset: A_Asset!
 	UUID: ID!
 	A_QTY_Current: BigDecimal!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -50,7 +50,7 @@ input A_Asset_ProductInput {
 	A_Asset: ForeignEntityInput
 	UUID: ID
 	A_QTY_Current: BigDecimal
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

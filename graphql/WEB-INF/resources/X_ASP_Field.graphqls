@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Field - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	ASP_FieldGet(page: Int, size: Int, sort: String, filter: String): ASP_FieldConnection!
 }
@@ -17,11 +17,11 @@ type ASP_FieldConnection {
 }
 
 type ASP_Field {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Field on a database table
 	AD_Field: AD_Field
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	ASP_Status: AD_Ref_List!
@@ -41,7 +41,7 @@ type ASP_Field {
 input ASP_FieldInput {
 	# Field on a database table
 	AD_Field: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	ASP_Status: AD_Ref_ListInput

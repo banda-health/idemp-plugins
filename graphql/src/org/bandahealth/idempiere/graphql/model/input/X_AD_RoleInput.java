@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Role - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 
@@ -47,7 +47,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -74,7 +74,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -317,7 +317,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	/**
 	 * Set User Level.
 	 *
-	 * @param UserLevel System Client Organization
+	 * @param UserLevel System Tenant Organization
 	 */
 	@JsonProperty("UserLevel")
 	public void setUserLevelInput(I_AD_Ref_ListInput UserLevel) {
@@ -341,7 +341,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	/**
 	 * Get User Level.
 	 *
-	 * @return System Client Organization
+	 * @return System Tenant Organization
 	 */
 	@JsonProperty("UserLevel")
 	public I_AD_Ref_ListInput UserLevel() {

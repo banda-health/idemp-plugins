@@ -1,6 +1,6 @@
 # Generated Schema for T_Report - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	T_ReportGet(page: Int, size: Int, sort: String, filter: String): T_ReportConnection!
 }
@@ -57,8 +57,6 @@ type T_Report {
 	# Alphanumeric identifier of the entity
 	Name: String
 	PA_ReportLine: PA_ReportLine!
-	# Direct internal record ID
-	Record_ID: Int!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID!
@@ -105,8 +103,6 @@ input T_ReportInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	PA_ReportLine: ForeignEntityInput
-	# Direct internal record ID
-	Record_ID: Int
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID

@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintColorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFontDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormat_TrlDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintHeaderFooterDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintPaperDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintTableFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
@@ -20,6 +21,7 @@ import org.compiere.model.PO;
 import org.compiere.model.X_AD_PrintColor;
 import org.compiere.model.X_AD_PrintFont;
 import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.model.X_AD_PrintHeaderFooter;
 import org.compiere.model.X_AD_PrintPaper;
 import org.compiere.model.X_AD_PrintTableFormat;
 import org.compiere.util.Env;
@@ -32,7 +34,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_PrintFormat - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> implements GraphQLResolver<X_AD_PrintFormat> {
 
@@ -65,6 +67,21 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFontDataLoader.DATALOADER_AD_PrintFont_BY_ID);
 		return dataLoader.load(entity.getAD_PrintFont_ID());
+	}
+
+
+	/**
+	 * Get Print Header/Footer.
+	 *
+	 * @return Print Header/Footer
+	 */
+	public CompletableFuture<X_AD_PrintHeaderFooter> AD_PrintHeaderFooter(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_PrintHeaderFooter_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, X_AD_PrintHeaderFooter> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintHeaderFooterDataLoader.DATALOADER_AD_PrintHeaderFooter_BY_ID);
+		return dataLoader.load(entity.getAD_PrintHeaderFooter_ID());
 	}
 
 
@@ -157,6 +174,21 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Description));
 	}
 
+	/**
+	 * Get File Name Pattern.
+	 *
+	 * @return File Name Pattern
+	 */
+	public CompletableFuture<String> FileNamePattern(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
+		if (Language.isBaseLanguage(Env.getAD_Language(BandaGraphQLContext.getCtx(environment)))) {
+			return CompletableFuture.supplyAsync(entity::getFileNamePattern);
+		}
+		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.DATALOADER_AD_PrintFormat_Trl_BY_ID);
+		return dataLoader.load(entity.get_ID())
+				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_FileNamePattern));
+	}
+
 	public Boolean IsBreakPagePerRecord(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
 		return entity.isBreakPagePerRecord();
 	}
@@ -181,7 +213,7 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 	/**
 	 * Get Jasper Process.
 	 *
-	 * @return The Jasper Process used by the printengine if any process defined
+	 * @return The Jasper Process used by the print engine if any process defined
 	 */
 	public CompletableFuture<MProcess_BH> JasperProcess(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
 		if (entity.getJasperProcess_ID() <= 0) {

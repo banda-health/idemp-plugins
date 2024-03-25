@@ -9,7 +9,7 @@ import org.compiere.model.MProjectTypeTask;
  * Generated Query Resolver for C_Task - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_TaskQuery extends POQuery<MProjectTypeTask> implements GraphQLQueryResolver {
 	@Override

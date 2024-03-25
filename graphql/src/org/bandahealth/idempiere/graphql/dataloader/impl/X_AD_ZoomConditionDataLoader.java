@@ -6,7 +6,7 @@ import org.compiere.model.MZoomCondition;
  * Data Loader for AD_ZoomCondition - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ZoomConditionDataLoader extends PODataLoader<MZoomCondition> {
 	public static String DATALOADER_AD_ZoomCondition_BY_ID = "AD_ZoomConditionByIdDataLoader";

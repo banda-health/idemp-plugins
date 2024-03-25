@@ -1,6 +1,6 @@
 # Generated Schema for T_DistributionRunDetail - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	T_DistributionRunDetailGet(page: Int, size: Int, sort: String, filter: String): T_DistributionRunDetailConnection!
 }
@@ -17,9 +17,9 @@ type T_DistributionRunDetailConnection {
 }
 
 type T_DistributionRunDetail {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
@@ -55,7 +55,7 @@ type T_DistributionRunDetail {
 }
 
 input T_DistributionRunDetailInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput

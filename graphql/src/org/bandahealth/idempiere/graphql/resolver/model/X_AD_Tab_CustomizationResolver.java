@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_Tab_Customization - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customization> implements GraphQLResolver<X_AD_Tab_Customization> {
 
@@ -53,6 +53,21 @@ public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customiz
 		DataLoader<Integer, MUser_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
 		return dataLoader.load(entity.getAD_User_ID());
+	}
+
+	static Map<String, String> ISAUTOHIDEEMPTYCOLUMN_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("Y", "44077eb2-6028-4a65-b270-bcc3c15ef1e5");
+			put("N", "41aaf35b-62b5-4872-b159-89257acb66db");
+		}
+	};
+	public CompletableFuture<MRefList_BH> IsAutoHideEmptyColumn(X_AD_Tab_Customization entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getIsAutoHideEmptyColumn())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(ISAUTOHIDEEMPTYCOLUMN_UUIDS_BY_VALUE.get(entity.getIsAutoHideEmptyColumn()));
 	}
 
 	static Map<String, String> ISDISPLAYEDGRID_UUIDS_BY_VALUE = new HashMap<>() {

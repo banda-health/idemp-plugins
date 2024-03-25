@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHObservation;
  * Data Loader for BH_Observation - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_BH_ObservationDataLoader extends PODataLoader<MBHObservation> {
 	public static String DATALOADER_BH_Observation_BY_ID = "BH_ObservationByIdDataLoader";

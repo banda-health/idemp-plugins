@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Product_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOMInput {
 
@@ -44,7 +44,7 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -71,11 +71,22 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+	/**
+	 * Set BOM Quantity.
+	 *
+	 * @param BOMQty Bill of Materials Quantity
+	 */
+
+	public void setBOMQty(BigDecimal BOMQty) {
+		if (get_ID() == 0) {
+			super.setBOMQty(BOMQty);
+		}
 	}
 
 	/**
@@ -86,6 +97,9 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("BOMType")
 	public void setBOMTypeInput(I_AD_Ref_ListInput BOMType) {
 		this.mBOMType = BOMType;
+		if (get_ID() != 0) {
+			return;
+		}
 		if (BOMType != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MRefList_BH foreignEntity;
@@ -134,6 +148,17 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 		}
 	}
 	/**
+	 * Set Description.
+	 *
+	 * @param Description Optional short description of the record
+	 */
+
+	public void setDescription(String Description) {
+		if (get_ID() == 0) {
+			super.setDescription(Description);
+		}
+	}
+	/**
 	 * Set Bill of Materials.
 	 *
 	 * @param IsBillOfMaterial Bill of Materials
@@ -142,6 +167,17 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	public void setIsBillOfMaterial(boolean IsBillOfMaterial) {
 		if (get_ID() == 0) {
 			super.setIsBillOfMaterial(IsBillOfMaterial);
+		}
+	}
+	/**
+	 * Set Line No.
+	 *
+	 * @param Line Unique line for this document
+	 */
+
+	public void setLine(int Line) {
+		if (get_ID() == 0) {
+			super.setLine(Line);
 		}
 	}
 
@@ -256,6 +292,9 @@ public class X_M_Product_BOMInput extends MProductBOM implements I_M_Product_BOM
 	@JsonProperty("M_ProductBOM")
 	public void setM_ProductBOMInput(ForeignEntityInput M_ProductBOM) {
 		this.mM_ProductBOM = M_ProductBOM;
+		if (get_ID() != 0) {
+			return;
+		}
 		if (M_ProductBOM != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MProduct_BH foreignEntity;

@@ -9,7 +9,7 @@ import org.compiere.model.MTimeExpense;
  * Generated Query Resolver for S_TimeExpense - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_S_TimeExpenseQuery extends POQuery<MTimeExpense> implements GraphQLQueryResolver {
 	@Override

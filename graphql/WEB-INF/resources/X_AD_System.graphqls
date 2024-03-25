@@ -1,6 +1,6 @@
 # Generated Schema for AD_System - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_SystemGet(page: Int, size: Int, sort: String, filter: String): AD_SystemConnection!
 }
@@ -17,9 +17,9 @@ type AD_SystemConnection {
 }
 
 type AD_System {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Date this record was created
@@ -95,7 +95,7 @@ type AD_System {
 }
 
 input AD_SystemInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Prefix for Custom entities

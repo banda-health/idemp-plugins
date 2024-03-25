@@ -1,6 +1,6 @@
 # Generated Schema for T_Replenish - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	T_ReplenishGet(page: Int, size: Int, sort: String, filter: String): T_ReplenishConnection!
 }
@@ -17,9 +17,9 @@ type T_ReplenishConnection {
 }
 
 type T_Replenish {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
@@ -60,7 +60,7 @@ type T_Replenish {
 }
 
 input T_ReplenishInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput

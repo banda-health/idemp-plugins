@@ -51,7 +51,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_WF_Node - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements GraphQLResolver<X_AD_WF_Node> {
 
@@ -249,7 +249,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -395,6 +395,10 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 				.getDataLoader(X_AD_WF_Node_TrlDataLoader.DATALOADER_AD_WF_Node_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
 				.thenApply(translation -> translation.get_ValueAsString(X_AD_WF_Node.COLUMNNAME_Help));
+	}
+
+	public Boolean IsAttachedDocumentToEmail(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
+		return entity.isAttachedDocumentToEmail();
 	}
 
 	public Boolean IsCentrallyMaintained(X_AD_WF_Node entity, DataFetchingEnvironment environment) {

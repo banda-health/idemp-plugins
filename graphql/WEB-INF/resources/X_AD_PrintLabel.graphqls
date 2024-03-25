@@ -1,6 +1,6 @@
 # Generated Schema for AD_PrintLabel - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_PrintLabelGet(page: Int, size: Int, sort: String, filter: String): AD_PrintLabelConnection!
 }
@@ -17,11 +17,11 @@ type AD_PrintLabelConnection {
 }
 
 type AD_PrintLabel {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Label Printer Definition
 	AD_LabelPrinter: AD_LabelPrinter!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Database Table information
@@ -53,7 +53,7 @@ type AD_PrintLabel {
 input AD_PrintLabelInput {
 	# Label Printer Definition
 	AD_LabelPrinter: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Database Table information

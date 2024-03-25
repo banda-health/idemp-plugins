@@ -6,7 +6,7 @@ import org.compiere.model.I_PA_DashboardContent;
  * Generated Interface for PA_DashboardContent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_PA_DashboardContentInput extends I_PA_DashboardContent {
 
@@ -27,16 +27,30 @@ public interface I_PA_DashboardContentInput extends I_PA_DashboardContent {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set AD_PrintFormat.
+	 *
+	 * @param AD_PrintFormat Data Print Format
+	 */
+	void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat);
+
+	/**
+	 * Get AD_PrintFormat.
+	 *
+	 * @return Data Print Format
+	 */
+	ForeignEntityInput AD_PrintFormat();
 
 	/**
 	 * Set AD_Process.
@@ -65,6 +79,20 @@ public interface I_PA_DashboardContentInput extends I_PA_DashboardContent {
 	 * @return Responsibility Role
 	 */
 	ForeignEntityInput AD_Role();
+
+	/**
+	 * Set AD_StatusLine.
+	 *
+	 * @param AD_StatusLine AD_StatusLine
+	 */
+	void setAD_StatusLineInput(ForeignEntityInput AD_StatusLine);
+
+	/**
+	 * Get AD_StatusLine.
+	 *
+	 * @return AD_StatusLine
+	 */
+	ForeignEntityInput AD_StatusLine();
 
 	/**
 	 * Set AD_User.

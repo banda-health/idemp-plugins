@@ -1,6 +1,6 @@
 # Generated Schema for PA_Benchmark - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_BenchmarkGet(page: Int, size: Int, sort: String, filter: String): PA_BenchmarkConnection!
 }
@@ -19,9 +19,9 @@ type PA_BenchmarkConnection {
 type PA_Benchmark {
 	# How to accumulate data on time axis
 	AccumulationType: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -45,7 +45,7 @@ type PA_Benchmark {
 input PA_BenchmarkInput {
 	# How to accumulate data on time axis
 	AccumulationType: AD_Ref_ListInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

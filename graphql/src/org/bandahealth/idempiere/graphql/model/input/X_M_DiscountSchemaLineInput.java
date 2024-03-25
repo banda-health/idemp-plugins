@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for M_DiscountSchemaLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements I_M_DiscountSchemaLineInput {
 
@@ -53,7 +53,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -80,7 +80,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -88,7 +88,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -112,7 +112,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -328,9 +328,9 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 		return mM_DiscountSchema;
 	}
 	/**
-	 * Set Discount Pricelist.
+	 * Set Discount Price List.
 	 *
-	 * @param M_DiscountSchemaLine_ID Line of the pricelist trade discount schema
+	 * @param M_DiscountSchemaLine_ID Line of the price list trade discount schema
 	 */
 
 	public void setM_DiscountSchemaLine_ID(int M_DiscountSchemaLine_ID) {

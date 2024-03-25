@@ -1,6 +1,6 @@
 # Generated Schema for C_Tax - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_TaxGet(page: Int, size: Int, sort: String, filter: String): C_TaxConnection!
 }
@@ -17,9 +17,9 @@ type C_TaxConnection {
 }
 
 type C_Tax {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Rule: AD_Rule
 	# Country 
@@ -62,6 +62,8 @@ type C_Tax {
 	SOPOType: AD_Ref_List!
 	# Short form for Tax to be printed on documents
 	TaxIndicator: String
+	# Type of input tax (deductible and non deductible)
+	TaxPostingIndicator: AD_Ref_List
 	# Receiving Region
 	To_Region: C_Region
 	# Date this record was updated
@@ -73,7 +75,7 @@ type C_Tax {
 }
 
 input C_TaxInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Rule: ForeignEntityInput
 	# Country 
@@ -112,6 +114,8 @@ input C_TaxInput {
 	SOPOType: AD_Ref_ListInput
 	# Short form for Tax to be printed on documents
 	TaxIndicator: String
+	# Type of input tax (deductible and non deductible)
+	TaxPostingIndicator: AD_Ref_ListInput
 	# Receiving Region
 	To_Region: ForeignEntityInput
 	# Valid from including this date (first day)

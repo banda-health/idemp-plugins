@@ -9,7 +9,7 @@ import org.compiere.model.MCost;
  * Generated Query Resolver for M_Cost - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_CostQuery extends POQuery<MCost> implements GraphQLQueryResolver {
 	@Override

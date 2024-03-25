@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_ClientShare - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientShareInput {
 
@@ -37,9 +37,9 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 		setUUID(UUID);
 	}
 	/**
-	 * Set Client Share.
+	 * Set Tenant Share.
 	 *
-	 * @param AD_ClientShare_ID Force (not) sharing of client/org entities
+	 * @param AD_ClientShare_ID Force (not) sharing of tenant/org entities
 	 */
 
 	public void setAD_ClientShare_ID(int AD_ClientShare_ID) {
@@ -69,7 +69,7 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -96,7 +96,7 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

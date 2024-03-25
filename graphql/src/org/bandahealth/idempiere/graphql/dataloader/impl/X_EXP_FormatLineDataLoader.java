@@ -6,7 +6,7 @@ import org.compiere.model.MEXPFormatLine;
  * Data Loader for EXP_FormatLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_EXP_FormatLineDataLoader extends PODataLoader<MEXPFormatLine> {
 	public static String DATALOADER_EXP_FormatLine_BY_ID = "EXP_FormatLineByIdDataLoader";

@@ -6,7 +6,7 @@ import org.compiere.model.MAccount;
  * Data Loader for C_ValidCombination - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_ValidCombinationDataLoader extends PODataLoader<MAccount> {
 	public static String DATALOADER_C_ValidCombination_BY_ID = "C_ValidCombinationByIdDataLoader";

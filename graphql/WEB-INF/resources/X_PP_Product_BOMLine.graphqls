@@ -1,6 +1,6 @@
 # Generated Schema for PP_Product_BOMLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PP_Product_BOMLineGet(page: Int, size: Int, sort: String, filter: String): PP_Product_BOMLineConnection!
 }
@@ -17,9 +17,9 @@ type PP_Product_BOMLineConnection {
 }
 
 type PP_Product_BOMLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Indicated the Quantity Assay to use into Quality Order
 	Assay: BigDecimal
@@ -50,7 +50,7 @@ type PP_Product_BOMLine {
 	# Indicate that this component is based in % Quantity
 	IsQtyPercentage: Boolean!
 	# There are two methods for issue the components to Manufacturing Order
-	IssueMethod: AD_Ref_List!
+	IssueMethod: AD_Ref_List
 	# Optional Lead Time offset before starting production
 	LeadTimeOffset: Int
 	# Unique line for this document
@@ -75,13 +75,13 @@ type PP_Product_BOMLine {
 	# User who updated this records
 	UpdatedBy: AD_User!
 	# Valid from including this date (first day)
-	ValidFrom: Date!
+	ValidFrom: Date
 	# Valid to including this date (last day)
 	ValidTo: Date
 }
 
 input PP_Product_BOMLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Indicated the Quantity Assay to use into Quality Order
 	Assay: BigDecimal

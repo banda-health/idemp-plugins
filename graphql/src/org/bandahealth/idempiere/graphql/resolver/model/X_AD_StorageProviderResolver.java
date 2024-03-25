@@ -16,10 +16,14 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for AD_StorageProvider - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_StorageProviderResolver extends POResolver<MStorageProvider> implements GraphQLResolver<MStorageProvider> {
 
+
+	public Boolean IsDefault(MStorageProvider entity, DataFetchingEnvironment environment) {
+		return entity.isDefault();
+	}
 
 	static Map<String, String> METHOD_UUIDS_BY_VALUE = new HashMap<>() {
 		{

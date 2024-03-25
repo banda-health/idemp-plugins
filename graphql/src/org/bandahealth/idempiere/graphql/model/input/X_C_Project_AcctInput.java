@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for C_Project_Acct - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Project_AcctInput {
 
@@ -44,7 +44,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -71,7 +71,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

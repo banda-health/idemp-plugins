@@ -28,7 +28,7 @@ import java.sql.ResultSet;
  * Generated Model for M_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput {
 
@@ -45,6 +45,8 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mDD_Order;
 	private ForeignEntityInput mM_Shipper;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mM_WarehouseTo;
 	private ForeignEntityInput mReversal;
 	private ForeignEntityInput mSalesRep;
 	private ForeignEntityInput mUser1;
@@ -71,7 +73,7 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -98,7 +100,7 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -242,7 +244,7 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -266,7 +268,7 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -713,6 +715,74 @@ public class X_M_MovementInput extends MMovement_BH implements I_M_MovementInput
 	@JsonProperty("M_Shipper")
 	public ForeignEntityInput M_Shipper() {
 		return mM_Shipper;
+	}
+
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_Warehouse")
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
+		this.mM_Warehouse = M_Warehouse;
+		if (M_Warehouse != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+			}
+		} else {
+			this.setM_Warehouse_ID(0);
+		}
+	}
+
+	/**
+	 * Get Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_Warehouse")
+	public ForeignEntityInput M_Warehouse() {
+		return mM_Warehouse;
+	}
+
+	/**
+	 * Set Warehouse To.
+	 *
+	 * @param M_WarehouseTo To Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_WarehouseTo")
+	public void setM_WarehouseToInput(ForeignEntityInput M_WarehouseTo) {
+		this.mM_WarehouseTo = M_WarehouseTo;
+		if (M_WarehouseTo != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_WarehouseTo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setM_WarehouseTo_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UUID " + M_WarehouseTo.getUUID());
+			}
+		} else {
+			this.setM_WarehouseTo_ID(0);
+		}
+	}
+
+	/**
+	 * Get Warehouse To.
+	 *
+	 * @return To Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_WarehouseTo")
+	public ForeignEntityInput M_WarehouseTo() {
+		return mM_WarehouseTo;
 	}
 	/**
 	 * Set Posted.

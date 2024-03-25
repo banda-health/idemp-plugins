@@ -1,6 +1,6 @@
 # Generated Schema for AD_PInstance_Para - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_PInstance_ParaGet(page: Int, size: Int, sort: String, filter: String): AD_PInstance_ParaConnection!
 }
@@ -17,9 +17,9 @@ type AD_PInstance_ParaConnection {
 }
 
 type AD_PInstance_Para {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
@@ -33,6 +33,8 @@ type AD_PInstance_Para {
 	Info_To: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# Indicates if a chosen multiple component value must be negate
+	IsNotClause: Boolean!
 	# Process Parameter
 	P_Date: Date
 	# Process Parameter
@@ -53,7 +55,7 @@ type AD_PInstance_Para {
 }
 
 input AD_PInstance_ParaInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
@@ -63,6 +65,8 @@ input AD_PInstance_ParaInput {
 	Info_To: String
 	# The record is active in the system
 	IsActive: Boolean
+	# Indicates if a chosen multiple component value must be negate
+	IsNotClause: Boolean
 	# Process Parameter
 	P_Date: Date
 	# Process Parameter

@@ -1,6 +1,6 @@
 # Generated Schema for BH_Visit - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	BH_VisitGet(page: Int, size: Int, sort: String, filter: String): BH_VisitConnection!
 }
@@ -17,9 +17,9 @@ type BH_VisitConnection {
 }
 
 type BH_Visit {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_NewVisit: Boolean!
 	BH_PatientType: AD_Ref_List
@@ -49,7 +49,7 @@ type BH_Visit {
 }
 
 input BH_VisitInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_NewVisit: Boolean
 	BH_PatientType: AD_Ref_ListInput

@@ -1,6 +1,6 @@
 # Generated Schema for BH_TabNavBtn_Tab - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	BH_TabNavBtn_TabGet(page: Int, size: Int, sort: String, filter: String): BH_TabNavBtn_TabConnection!
 }
@@ -17,9 +17,9 @@ type BH_TabNavBtn_TabConnection {
 }
 
 type BH_TabNavBtn_Tab {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Tab within a Window
 	AD_Tab: AD_Tab!
@@ -54,7 +54,7 @@ type BH_TabNavBtn_Tab {
 }
 
 input BH_TabNavBtn_TabInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput

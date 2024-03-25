@@ -1,6 +1,6 @@
 # Generated Schema for AD_Replication - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ReplicationGet(page: Int, size: Int, sort: String, filter: String): AD_ReplicationConnection!
 }
@@ -17,9 +17,9 @@ type AD_ReplicationConnection {
 }
 
 type AD_Replication {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Data Replication Strategy
@@ -60,7 +60,7 @@ type AD_Replication {
 }
 
 input AD_ReplicationInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Data Replication Strategy

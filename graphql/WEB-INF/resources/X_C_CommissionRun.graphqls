@@ -1,6 +1,6 @@
 # Generated Schema for C_CommissionRun - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_CommissionRunGet(page: Int, size: Int, sort: String, filter: String): C_CommissionRunConnection!
 }
@@ -17,13 +17,15 @@ type C_CommissionRunConnection {
 }
 
 type C_CommissionRun {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Commission
 	C_Commission: C_Commission!
 	UUID: ID!
+	# Invoice Identifier
+	C_Invoice: C_Invoice
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,11 +50,13 @@ type C_CommissionRun {
 }
 
 input C_CommissionRunInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Commission
 	C_Commission: ForeignEntityInput
 	UUID: ID
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document

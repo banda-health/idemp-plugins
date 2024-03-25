@@ -1,6 +1,6 @@
 # Generated Schema for C_RevenueRecognition_Run - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_RevenueRecognition_RunGet(page: Int, size: Int, sort: String, filter: String): C_RevenueRecognition_RunConnection!
 }
@@ -17,9 +17,9 @@ type C_RevenueRecognition_RunConnection {
 }
 
 type C_RevenueRecognition_Run {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	C_RevenueRecog_Service: C_RevenueRecog_Service
 	# Plan for recognizing or recording revenue
@@ -42,7 +42,7 @@ type C_RevenueRecognition_Run {
 }
 
 input C_RevenueRecognition_RunInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	C_RevenueRecog_Service: ForeignEntityInput
 	# Plan for recognizing or recording revenue

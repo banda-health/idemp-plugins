@@ -1,6 +1,6 @@
 # Generated Schema for M_CostQueue - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_CostQueueGet(page: Int, size: Int, sort: String, filter: String): M_CostQueueConnection!
 }
@@ -17,9 +17,9 @@ type M_CostQueueConnection {
 }
 
 type M_CostQueue {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
@@ -49,7 +49,7 @@ type M_CostQueue {
 }
 
 input M_CostQueueInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput

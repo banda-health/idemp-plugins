@@ -6,21 +6,21 @@ import org.compiere.model.I_PA_Report;
  * Generated Interface for PA_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_PA_ReportInput extends I_PA_Report {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -67,16 +67,30 @@ public interface I_PA_ReportInput extends I_PA_Report {
 	ForeignEntityInput C_Calendar();
 
 	/**
+	 * Set ExcludeAdjustmentPeriods.
+	 *
+	 * @param ExcludeAdjustmentPeriods ExcludeAdjustmentPeriods
+	 */
+	void setExcludeAdjustmentPeriodsInput(I_AD_Ref_ListInput ExcludeAdjustmentPeriods);
+
+	/**
+	 * Get ExcludeAdjustmentPeriods.
+	 *
+	 * @return ExcludeAdjustmentPeriods
+	 */
+	I_AD_Ref_ListInput ExcludeAdjustmentPeriods();
+
+	/**
 	 * Set JasperProcess.
 	 *
-	 * @param JasperProcess The Jasper Process used by the printengine if any process defined
+	 * @param JasperProcess The Jasper Process used by the print engine if any process defined
 	 */
 	void setJasperProcessInput(ForeignEntityInput JasperProcess);
 
 	/**
 	 * Get JasperProcess.
 	 *
-	 * @return The Jasper Process used by the printengine if any process defined
+	 * @return The Jasper Process used by the print engine if any process defined
 	 */
 	ForeignEntityInput JasperProcess();
 

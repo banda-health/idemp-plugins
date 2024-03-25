@@ -15,7 +15,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_Cost_CollectorMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PP_Cost_CollectorMAResolver extends POResolver<X_PP_Cost_CollectorMA> implements GraphQLResolver<X_PP_Cost_CollectorMA> {
 

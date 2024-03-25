@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for C_UserRemuneration - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I_C_UserRemunerationInput {
 
@@ -40,7 +40,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -67,7 +67,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

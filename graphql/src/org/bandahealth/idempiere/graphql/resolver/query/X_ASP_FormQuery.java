@@ -9,7 +9,7 @@ import org.compiere.model.X_ASP_Form;
  * Generated Query Resolver for ASP_Form - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_ASP_FormQuery extends POQuery<X_ASP_Form> implements GraphQLQueryResolver {
 	@Override

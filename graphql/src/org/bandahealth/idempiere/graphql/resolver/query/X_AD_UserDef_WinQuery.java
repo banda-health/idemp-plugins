@@ -9,7 +9,7 @@ import org.compiere.model.MUserDefWin;
  * Generated Query Resolver for AD_UserDef_Win - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_WinQuery extends POQuery<MUserDefWin> implements GraphQLQueryResolver {
 	@Override

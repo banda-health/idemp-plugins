@@ -1,6 +1,6 @@
 # Generated Schema for C_AllocationLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_AllocationLineGet(page: Int, size: Int, sort: String, filter: String): C_AllocationLineConnection!
 }
@@ -17,15 +17,17 @@ type C_AllocationLineConnection {
 }
 
 type C_AllocationLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Amount in a defined currency
 	Amount: BigDecimal!
 	# Payment allocation
 	C_AllocationHdr: C_AllocationHdr!
 	UUID: ID!
+	# Bank Transfer
+	C_BankTransfer: C_BankTransfer
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Cash Journal Line
@@ -61,13 +63,15 @@ type C_AllocationLine {
 }
 
 input C_AllocationLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
 	Amount: BigDecimal
 	# Payment allocation
 	C_AllocationHdr: ForeignEntityInput
 	UUID: ID
+	# Bank Transfer
+	C_BankTransfer: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Cash Journal Line

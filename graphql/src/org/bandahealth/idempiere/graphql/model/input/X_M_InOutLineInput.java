@@ -29,7 +29,7 @@ import java.sql.ResultSet;
  * Generated Model for M_InOutLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput {
 
@@ -66,7 +66,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -93,7 +93,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -376,6 +376,17 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	@JsonProperty("C_UOM")
 	public ForeignEntityInput C_UOM() {
 		return mC_UOM;
+	}
+	/**
+	 * Set Auto Produce.
+	 *
+	 * @param IsAutoProduce Auto create production to fulfill shipment
+	 */
+
+	public void setIsAutoProduce(boolean IsAutoProduce) {
+		if (get_ID() == 0) {
+			super.setIsAutoProduce(IsAutoProduce);
+		}
 	}
 
 	/**

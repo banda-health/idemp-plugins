@@ -6,7 +6,7 @@ import org.compiere.model.MPaySelection;
  * Data Loader for C_PaySelection - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_PaySelectionDataLoader extends PODataLoader<MPaySelection> {
 	public static String DATALOADER_C_PaySelection_BY_ID = "C_PaySelectionByIdDataLoader";

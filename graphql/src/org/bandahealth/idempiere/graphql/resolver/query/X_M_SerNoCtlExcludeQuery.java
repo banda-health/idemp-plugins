@@ -9,7 +9,7 @@ import org.compiere.model.MSerNoCtlExclude;
  * Generated Query Resolver for M_SerNoCtlExclude - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_SerNoCtlExcludeQuery extends POQuery<MSerNoCtlExclude> implements GraphQLQueryResolver {
 	@Override

@@ -1,6 +1,6 @@
 # Generated Schema for C_AllocationHdr - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_AllocationHdrGet(page: Int, size: Int, sort: String, filter: String): C_AllocationHdrConnection!
 }
@@ -17,9 +17,9 @@ type C_AllocationHdrConnection {
 }
 
 type C_AllocationHdr {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal!
@@ -66,7 +66,7 @@ type C_AllocationHdr {
 }
 
 input C_AllocationHdrInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal

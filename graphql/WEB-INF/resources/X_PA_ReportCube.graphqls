@@ -1,6 +1,6 @@
 # Generated Schema for PA_ReportCube - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_ReportCubeGet(page: Int, size: Int, sort: String, filter: String): PA_ReportCubeConnection!
 }
@@ -17,9 +17,9 @@ type PA_ReportCubeConnection {
 }
 
 type PA_ReportCube {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Accounting Calendar Name
 	C_Calendar: C_Calendar!
@@ -78,7 +78,7 @@ type PA_ReportCube {
 }
 
 input PA_ReportCubeInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Accounting Calendar Name
 	C_Calendar: ForeignEntityInput

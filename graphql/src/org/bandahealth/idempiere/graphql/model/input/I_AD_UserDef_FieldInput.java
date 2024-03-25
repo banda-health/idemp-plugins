@@ -6,9 +6,23 @@ import org.compiere.model.I_AD_UserDef_Field;
  * Generated Interface for AD_UserDef_Field - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
+
+	/**
+	 * Set AD_Chart.
+	 *
+	 * @param AD_Chart AD_Chart
+	 */
+	void setAD_ChartInput(ForeignEntityInput AD_Chart);
+
+	/**
+	 * Get AD_Chart.
+	 *
+	 * @return AD_Chart
+	 */
+	ForeignEntityInput AD_Chart();
 
 	/**
 	 * Set AD_Field.
@@ -69,14 +83,14 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -181,14 +195,14 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	/**
 	 * Set IsAutocomplete.
 	 *
-	 * @param IsAutocomplete Automatic completion for textfields
+	 * @param IsAutocomplete Automatic completion for text fields
 	 */
 	void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete);
 
 	/**
 	 * Get IsAutocomplete.
 	 *
-	 * @return Automatic completion for textfields
+	 * @return Automatic completion for text fields
 	 */
 	I_AD_Ref_ListInput IsAutocomplete();
 
@@ -205,6 +219,20 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	 * @return Determines, if this field is displayed
 	 */
 	I_AD_Ref_ListInput IsDisplayed();
+
+	/**
+	 * Set IsDisplayedGrid.
+	 *
+	 * @param IsDisplayedGrid IsDisplayedGrid
+	 */
+	void setIsDisplayedGridInput(I_AD_Ref_ListInput IsDisplayedGrid);
+
+	/**
+	 * Get IsDisplayedGrid.
+	 *
+	 * @return IsDisplayedGrid
+	 */
+	I_AD_Ref_ListInput IsDisplayedGrid();
 
 	/**
 	 * Set IsMandatory.

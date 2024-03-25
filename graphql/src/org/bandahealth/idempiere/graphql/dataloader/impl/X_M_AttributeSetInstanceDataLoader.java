@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
  * Data Loader for M_AttributeSetInstance - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_AttributeSetInstanceDataLoader extends PODataLoader<MAttributeSetInstance_BH> {
 	public static String DATALOADER_M_AttributeSetInstance_BY_ID = "M_AttributeSetInstanceByIdDataLoader";

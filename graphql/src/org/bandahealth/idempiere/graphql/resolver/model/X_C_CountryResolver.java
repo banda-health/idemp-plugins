@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_Country - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQLResolver<MCountry> {
 

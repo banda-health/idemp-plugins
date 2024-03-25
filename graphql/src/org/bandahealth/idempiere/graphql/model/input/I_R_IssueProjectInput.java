@@ -6,7 +6,7 @@ import org.compiere.model.I_R_IssueProject;
  * Generated Interface for R_IssueProject - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_R_IssueProjectInput extends I_R_IssueProject {
 
@@ -27,14 +27,14 @@ public interface I_R_IssueProjectInput extends I_R_IssueProject {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 

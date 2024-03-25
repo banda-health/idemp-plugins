@@ -1,6 +1,6 @@
 # Generated Schema for PA_ReportColumn - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_ReportColumnGet(page: Int, size: Int, sort: String, filter: String): PA_ReportColumnConnection!
 }
@@ -17,9 +17,9 @@ type PA_ReportColumnConnection {
 }
 
 type PA_ReportColumn {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
@@ -88,6 +88,8 @@ type PA_ReportColumn {
 	IsPrinted: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product
+	# Type Multiplier (Credit = -1)
+	Multiplier: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# First operand for calculation
@@ -109,6 +111,7 @@ type PA_ReportColumn {
 	RelativePeriod: BigDecimal
 	# Period offset (0 is current)
 	RelativePeriodTo: BigDecimal
+	RoundFactor: Int
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -118,7 +121,7 @@ type PA_ReportColumn {
 }
 
 input PA_ReportColumnInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
@@ -183,6 +186,8 @@ input PA_ReportColumnInput {
 	IsPrinted: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
+	# Type Multiplier (Credit = -1)
+	Multiplier: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# First operand for calculation
@@ -204,6 +209,7 @@ input PA_ReportColumnInput {
 	RelativePeriod: BigDecimal
 	# Period offset (0 is current)
 	RelativePeriodTo: BigDecimal
+	RoundFactor: Int
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

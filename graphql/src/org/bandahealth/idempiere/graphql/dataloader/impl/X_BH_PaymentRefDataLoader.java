@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHPaymentRef;
  * Data Loader for BH_PaymentRef - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_BH_PaymentRefDataLoader extends PODataLoader<MBHPaymentRef> {
 	public static String DATALOADER_BH_PaymentRef_BY_ID = "BH_PaymentRefByIdDataLoader";

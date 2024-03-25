@@ -9,7 +9,7 @@ import org.compiere.model.X_Fact_Acct_Summary;
  * Generated Query Resolver for Fact_Acct_Summary - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_Fact_Acct_SummaryQuery extends POQuery<X_Fact_Acct_Summary> implements GraphQLQueryResolver {
 	@Override

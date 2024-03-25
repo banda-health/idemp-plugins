@@ -51,7 +51,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_Order_Node - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> implements GraphQLResolver<X_PP_Order_Node> {
 
@@ -234,7 +234,7 @@ public class X_PP_Order_NodeResolver extends POResolver<X_PP_Order_Node> impleme
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

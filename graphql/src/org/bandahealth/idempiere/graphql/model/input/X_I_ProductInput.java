@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MProductCategory_BH;
@@ -21,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for I_Product - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 
@@ -29,6 +30,7 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mM_AttributeSet;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Product_Category;
 	private I_AD_Ref_ListInput mProductType;
@@ -48,7 +50,7 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -75,7 +77,7 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -83,7 +85,7 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -107,7 +109,7 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -211,6 +213,40 @@ public class X_I_ProductInput extends X_I_Product implements I_I_ProductInput {
 	 */
 	public String getUUID() {
 		return getI_Product_UU();
+	}
+
+	/**
+	 * Set Attribute Set.
+	 *
+	 * @param M_AttributeSet Product Attribute Set
+	 */
+	@JsonProperty("M_AttributeSet")
+	public void setM_AttributeSetInput(ForeignEntityInput M_AttributeSet) {
+		this.mM_AttributeSet = M_AttributeSet;
+		if (M_AttributeSet != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAttributeSet_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
+							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setM_AttributeSet_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
+			}
+		} else {
+			this.setM_AttributeSet_ID(0);
+		}
+	}
+
+	/**
+	 * Get Attribute Set.
+	 *
+	 * @return Product Attribute Set
+	 */
+	@JsonProperty("M_AttributeSet")
+	public ForeignEntityInput M_AttributeSet() {
+		return mM_AttributeSet;
 	}
 
 	/**

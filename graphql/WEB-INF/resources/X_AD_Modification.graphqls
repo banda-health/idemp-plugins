@@ -1,6 +1,6 @@
 # Generated Schema for AD_Modification - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ModificationGet(page: Int, size: Int, sort: String, filter: String): AD_ModificationConnection!
 }
@@ -17,10 +17,10 @@ type AD_ModificationConnection {
 }
 
 type AD_Modification {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -48,7 +48,7 @@ type AD_Modification {
 
 input AD_ModificationInput {
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

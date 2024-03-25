@@ -9,7 +9,7 @@ import org.compiere.model.X_C_AddressValidationCfg;
  * Generated Query Resolver for C_AddressValidationCfg - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_AddressValidationCfgQuery extends POQuery<X_C_AddressValidationCfg> implements GraphQLQueryResolver {
 	@Override

@@ -17,7 +17,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Info_Related - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implements I_AD_UserDef_Info_RelatedInput {
 
@@ -38,9 +38,9 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	}
 
 	/**
-	 * Set InfoRelated.
+	 * Set Info Related.
 	 *
-	 * @param AD_InfoRelated InfoRelated
+	 * @param AD_InfoRelated Info Related
 	 */
 	@JsonProperty("AD_InfoRelated")
 	public void setAD_InfoRelatedInput(ForeignEntityInput AD_InfoRelated) {
@@ -65,9 +65,9 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	}
 
 	/**
-	 * Get InfoRelated.
+	 * Get Info Related.
 	 *
-	 * @return InfoRelated
+	 * @return Info Related
 	 */
 	@JsonProperty("AD_InfoRelated")
 	public ForeignEntityInput AD_InfoRelated() {
@@ -77,7 +77,7 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -104,7 +104,7 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

@@ -1,6 +1,6 @@
 # Generated Schema for M_BP_Price - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_BP_PriceGet(page: Int, size: Int, sort: String, filter: String): M_BP_PriceConnection!
 }
@@ -17,9 +17,9 @@ type M_BP_PriceConnection {
 }
 
 type M_BP_Price {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Low Value of trade discount break level
 	BreakValue: BigDecimal!
@@ -61,7 +61,7 @@ type M_BP_Price {
 }
 
 input M_BP_PriceInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Low Value of trade discount break level
 	BreakValue: BigDecimal

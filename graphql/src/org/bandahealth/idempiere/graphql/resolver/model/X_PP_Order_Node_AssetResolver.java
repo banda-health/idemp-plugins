@@ -19,7 +19,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PP_Order_Node_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PP_Order_Node_AssetResolver extends POResolver<X_PP_Order_Node_Asset> implements GraphQLResolver<X_PP_Order_Node_Asset> {
 

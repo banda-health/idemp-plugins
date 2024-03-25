@@ -6,21 +6,21 @@ import org.compiere.model.I_M_Movement;
  * Generated Interface for M_Movement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_M_MovementInput extends I_M_Movement {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -275,6 +275,34 @@ public interface I_M_MovementInput extends I_M_Movement {
 	 * @return Method or manner of product delivery
 	 */
 	ForeignEntityInput M_Shipper();
+
+	/**
+	 * Set M_Warehouse.
+	 *
+	 * @param M_Warehouse Storage Warehouse and Service Point
+	 */
+	void setM_WarehouseInput(ForeignEntityInput M_Warehouse);
+
+	/**
+	 * Get M_Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	ForeignEntityInput M_Warehouse();
+
+	/**
+	 * Set M_WarehouseTo.
+	 *
+	 * @param M_WarehouseTo To Storage Warehouse and Service Point
+	 */
+	void setM_WarehouseToInput(ForeignEntityInput M_WarehouseTo);
+
+	/**
+	 * Get M_WarehouseTo.
+	 *
+	 * @return To Storage Warehouse and Service Point
+	 */
+	ForeignEntityInput M_WarehouseTo();
 
 	/**
 	 * Set PriorityRule.

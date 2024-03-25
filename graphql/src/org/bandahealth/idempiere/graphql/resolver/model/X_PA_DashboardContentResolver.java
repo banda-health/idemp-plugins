@@ -7,9 +7,11 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ChartDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RoleDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_StatusLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_WindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_DashboardContent_TrlDataLoader;
@@ -18,8 +20,10 @@ import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MChart;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MGoal;
+import org.compiere.model.MStatusLine;
 import org.compiere.model.MWindow;
 import org.compiere.model.PO;
+import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Role;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
@@ -33,7 +37,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for PA_DashboardContent - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent> implements GraphQLResolver<MDashboardContent> {
 
@@ -51,6 +55,21 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		DataLoader<Integer, MChart> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_ChartDataLoader.DATALOADER_AD_Chart_BY_ID);
 		return dataLoader.load(entity.getAD_Chart_ID());
+	}
+
+
+	/**
+	 * Get Print Format.
+	 *
+	 * @return Data Print Format
+	 */
+	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MDashboardContent entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_PrintFormat_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_PrintFormatDataLoader.DATALOADER_AD_PrintFormat_BY_ID);
+		return dataLoader.load(entity.getAD_PrintFormat_ID());
 	}
 
 
@@ -81,6 +100,21 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		DataLoader<Integer, X_AD_Role> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_RoleDataLoader.DATALOADER_AD_Role_BY_ID);
 		return dataLoader.load(entity.getAD_Role_ID());
+	}
+
+
+	/**
+	 * Get Status Line.
+	 *
+	 * @return Status Line
+	 */
+	public CompletableFuture<MStatusLine> AD_StatusLine(MDashboardContent entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_StatusLine_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MStatusLine> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_StatusLineDataLoader.DATALOADER_AD_StatusLine_BY_ID);
+		return dataLoader.load(entity.getAD_StatusLine_ID());
 	}
 
 
@@ -132,6 +166,7 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		{
 			put("T", "2cd129ed-3973-4e05-a770-94af63a68791");
 			put("C", "4b2f72dc-2ab6-4e4a-9b9a-acf550d12290");
+			put("G", "38f8439b-0232-4ea6-9e3f-98574b2b7326");
 		}
 	};
 	public CompletableFuture<MRefList_BH> GoalDisplay(MDashboardContent entity, DataFetchingEnvironment environment) {
@@ -170,12 +205,20 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		return entity.isEmbedReportContent();
 	}
 
+	public Boolean IsMaximizable(MDashboardContent entity, DataFetchingEnvironment environment) {
+		return entity.isMaximizable();
+	}
+
 	public Boolean IsShowInDashboard(MDashboardContent entity, DataFetchingEnvironment environment) {
 		return entity.isShowInDashboard();
 	}
 
 	public Boolean IsShowinLogin(MDashboardContent entity, DataFetchingEnvironment environment) {
 		return entity.isShowinLogin();
+	}
+
+	public Boolean IsShowTitle(MDashboardContent entity, DataFetchingEnvironment environment) {
+		return entity.isShowTitle();
 	}
 
 	/**

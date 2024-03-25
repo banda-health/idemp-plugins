@@ -1,6 +1,6 @@
 # Generated Schema for PA_ReportLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_ReportLineGet(page: Int, size: Int, sort: String, filter: String): PA_ReportLineConnection!
 }
@@ -17,9 +17,9 @@ type PA_ReportLineConnection {
 }
 
 type PA_ReportLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	CalculationType: AD_Ref_List
 	# Date this record was created
@@ -39,6 +39,8 @@ type PA_ReportLine {
 	# Display values with the opposite sign
 	IsShowOppositeSign: Boolean!
 	LineType: AD_Ref_List!
+	# Type Multiplier (Credit = -1)
+	Multiplier: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# First operand for calculation
@@ -54,6 +56,7 @@ type PA_ReportLine {
 	PAPeriodType: AD_Ref_List
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_List
+	RoundFactor: Int
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	UnderlineStrokeType: AD_Ref_List
@@ -64,7 +67,7 @@ type PA_ReportLine {
 }
 
 input PA_ReportLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	CalculationType: AD_Ref_ListInput
 	# Optional short description of the record
@@ -80,6 +83,8 @@ input PA_ReportLineInput {
 	# Display values with the opposite sign
 	IsShowOppositeSign: Boolean
 	LineType: AD_Ref_ListInput
+	# Type Multiplier (Credit = -1)
+	Multiplier: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
 	# First operand for calculation
@@ -95,6 +100,7 @@ input PA_ReportLineInput {
 	PAPeriodType: AD_Ref_ListInput
 	# The type of posted amount for the transaction
 	PostingType: AD_Ref_ListInput
+	RoundFactor: Int
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UnderlineStrokeType: AD_Ref_ListInput

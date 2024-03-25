@@ -1,6 +1,6 @@
 # Generated Schema for M_CostHistory - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_CostHistoryGet(page: Int, size: Int, sort: String, filter: String): M_CostHistoryConnection!
 }
@@ -17,9 +17,9 @@ type M_CostHistoryConnection {
 }
 
 type M_CostHistory {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -36,6 +36,8 @@ type M_CostHistory {
 	UUID: ID!
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: M_CostType!
+	# Product, Service, Item
+	M_Product: M_Product
 	# Accumulated Amt after processing of M_CostDetail
 	NewCAmt: BigDecimal
 	# New current cost price after processing of M_CostDetail
@@ -59,7 +61,7 @@ type M_CostHistory {
 }
 
 input M_CostHistoryInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
@@ -72,6 +74,8 @@ input M_CostHistoryInput {
 	UUID: ID
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
 	# Accumulated Amt after processing of M_CostDetail
 	NewCAmt: BigDecimal
 	# New current cost price after processing of M_CostDetail

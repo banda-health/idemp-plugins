@@ -1,6 +1,6 @@
 # Generated Schema for M_RMATax - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_RMATaxGet(page: Int, size: Int, sort: String, filter: String): M_RMATaxConnection!
 }
@@ -17,9 +17,9 @@ type M_RMATaxConnection {
 }
 
 type M_RMATax {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Tax identifier
 	C_Tax: C_Tax!
@@ -48,7 +48,7 @@ type M_RMATax {
 }
 
 input M_RMATaxInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Tax identifier
 	C_Tax: ForeignEntityInput

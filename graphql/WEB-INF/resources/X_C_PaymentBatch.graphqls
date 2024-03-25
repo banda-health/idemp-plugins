@@ -1,6 +1,6 @@
 # Generated Schema for C_PaymentBatch - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PaymentBatchGet(page: Int, size: Int, sort: String, filter: String): C_PaymentBatchConnection!
 }
@@ -17,9 +17,9 @@ type C_PaymentBatchConnection {
 }
 
 type C_PaymentBatch {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Payment processor for electronic payments
@@ -45,7 +45,7 @@ type C_PaymentBatch {
 }
 
 input C_PaymentBatchInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Payment processor for electronic payments

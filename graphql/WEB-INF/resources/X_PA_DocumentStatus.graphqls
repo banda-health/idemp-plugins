@@ -1,6 +1,6 @@
 # Generated Schema for PA_DocumentStatus - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	PA_DocumentStatusGet(page: Int, size: Int, sort: String, filter: String): PA_DocumentStatusConnection!
 }
@@ -17,11 +17,11 @@ type PA_DocumentStatusConnection {
 }
 
 type PA_DocumentStatus {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Special Form
 	AD_Form: AD_Form
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
@@ -63,7 +63,7 @@ type PA_DocumentStatus {
 input PA_DocumentStatusInput {
 	# Special Form
 	AD_Form: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput

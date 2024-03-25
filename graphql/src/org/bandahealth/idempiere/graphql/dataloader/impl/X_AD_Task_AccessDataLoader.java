@@ -1,20 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.X_AD_Task_Access;
+import org.compiere.model.MTaskAccess;
 
 /**
  * Data Loader for AD_Task_Access - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
-public class X_AD_Task_AccessDataLoader extends PODataLoader<X_AD_Task_Access> {
+public class X_AD_Task_AccessDataLoader extends PODataLoader<MTaskAccess> {
 	public static String DATALOADER_AD_Task_Access_BY_ID = "AD_Task_AccessByIdDataLoader";
 	public static String DATALOADER_AD_Task_Access_BY_UUID = "AD_Task_AccessByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_AD_Task_Access.Table_Name;
+		return MTaskAccess.Table_Name;
 	}
 
 	@Override

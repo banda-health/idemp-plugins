@@ -1,6 +1,6 @@
 # Generated Schema for C_SubAcct - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_SubAcctGet(page: Int, size: Int, sort: String, filter: String): C_SubAcctConnection!
 }
@@ -17,9 +17,9 @@ type C_SubAcctConnection {
 }
 
 type C_SubAcct {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Account Element
 	C_ElementValue: C_ElementValue!
@@ -45,7 +45,7 @@ type C_SubAcct {
 }
 
 input C_SubAcctInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Account Element
 	C_ElementValue: ForeignEntityInput

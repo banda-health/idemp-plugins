@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
@@ -10,24 +11,29 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CampaignDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_DocTypeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ElementValueDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectPhaseDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ProjectTaskDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InOutLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LocatorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_PP_Product_BOMDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MInOutLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
 import org.dataloader.DataLoader;
+import org.eevolution.model.MPPProductBOM;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +43,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_Production - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ProductionResolver extends POResolver<MProduction> implements GraphQLResolver<MProduction> {
 
@@ -59,7 +65,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -85,6 +91,21 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 		DataLoader<Integer, MCampaign> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_CampaignDataLoader.DATALOADER_C_Campaign_BY_ID);
 		return dataLoader.load(entity.getC_Campaign_ID());
+	}
+
+
+	/**
+	 * Get Document Type.
+	 *
+	 * @return Document type or rules
+	 */
+	public CompletableFuture<MDocType_BH> C_DocType(MProduction entity, DataFetchingEnvironment environment) {
+		if (entity.getC_DocType_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MDocType_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_C_DocTypeDataLoader.DATALOADER_C_DocType_BY_ID);
+		return dataLoader.load(entity.getC_DocType_ID());
 	}
 
 
@@ -224,6 +245,21 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 
 
 	/**
+	 * Get Shipment/Receipt Line.
+	 *
+	 * @return Line on Shipment or Receipt document
+	 */
+	public CompletableFuture<MInOutLine> M_InOutLine(MProduction entity, DataFetchingEnvironment environment) {
+		if (entity.getM_InOutLine_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MInOutLine> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_M_InOutLineDataLoader.DATALOADER_M_InOutLine_BY_ID);
+		return dataLoader.load(entity.getM_InOutLine_ID());
+	}
+
+
+	/**
 	 * Get Locator.
 	 *
 	 * @return Warehouse Locator
@@ -254,6 +290,21 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 
 	public Boolean Posted(MProduction entity, DataFetchingEnvironment environment) {
 		return entity.isPosted();
+	}
+
+
+	/**
+	 * Get BOM & Formula.
+	 *
+	 * @return BOM & Formula
+	 */
+	public CompletableFuture<MPPProductBOM> PP_Product_BOM(MProduction entity, DataFetchingEnvironment environment) {
+		if (entity.getPP_Product_BOM_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MPPProductBOM> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_PP_Product_BOMDataLoader.DATALOADER_PP_Product_BOM_BY_ID);
+		return dataLoader.load(entity.getPP_Product_BOM_ID());
 	}
 
 	public Boolean Processed(MProduction entity, DataFetchingEnvironment environment) {

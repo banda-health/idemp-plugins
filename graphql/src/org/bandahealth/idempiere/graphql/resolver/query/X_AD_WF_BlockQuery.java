@@ -9,7 +9,7 @@ import org.compiere.model.X_AD_WF_Block;
  * Generated Query Resolver for AD_WF_Block - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_WF_BlockQuery extends POQuery<X_AD_WF_Block> implements GraphQLQueryResolver {
 	@Override

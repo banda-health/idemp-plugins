@@ -9,7 +9,7 @@ import org.compiere.model.X_PA_BenchmarkData;
  * Generated Query Resolver for PA_BenchmarkData - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_BenchmarkDataQuery extends POQuery<X_PA_BenchmarkData> implements GraphQLQueryResolver {
 	@Override

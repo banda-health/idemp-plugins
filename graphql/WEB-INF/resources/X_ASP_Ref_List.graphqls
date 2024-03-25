@@ -1,6 +1,6 @@
 # Generated Schema for ASP_Ref_List - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	ASP_Ref_ListGet(page: Int, size: Int, sort: String, filter: String): ASP_Ref_ListConnection!
 }
@@ -17,9 +17,9 @@ type ASP_Ref_ListConnection {
 }
 
 type ASP_Ref_List {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Reference List based on Table
 	AD_Ref_List: AD_Ref_List!
@@ -41,7 +41,7 @@ type ASP_Ref_List {
 }
 
 input ASP_Ref_ListInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Reference List based on Table
 	AD_Ref_List: ForeignEntityInput

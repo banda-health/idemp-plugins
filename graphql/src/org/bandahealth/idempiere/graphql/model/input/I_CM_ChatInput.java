@@ -6,21 +6,21 @@ import org.compiere.model.I_CM_Chat;
  * Generated Interface for CM_Chat - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_CM_ChatInput extends I_CM_Chat {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -93,4 +93,18 @@ public interface I_CM_ChatInput extends I_CM_Chat {
 	 * @return Type of moderation
 	 */
 	I_AD_Ref_ListInput ModerationType();
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	void setUUID(String UUID);
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	String getUUID();
 }

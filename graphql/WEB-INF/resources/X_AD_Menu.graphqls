@@ -1,6 +1,6 @@
 # Generated Schema for AD_Menu - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_MenuGet(page: Int, size: Int, sort: String, filter: String): AD_MenuConnection!
 }
@@ -19,14 +19,14 @@ type AD_MenuConnection {
 type AD_Menu {
 	# Indicates the Action to be performed
 	Action: AD_Ref_List
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Special Form
 	AD_Form: AD_Form
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
@@ -58,6 +58,8 @@ type AD_Menu {
 	IsSummary: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -72,7 +74,7 @@ input AD_MenuInput {
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
@@ -100,4 +102,6 @@ input AD_MenuInput {
 	IsSummary: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
 }

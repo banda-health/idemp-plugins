@@ -1,6 +1,6 @@
 # Generated Schema for C_AcctSchema_Element - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_AcctSchema_ElementGet(page: Int, size: Int, sort: String, filter: String): C_AcctSchema_ElementConnection!
 }
@@ -17,11 +17,11 @@ type C_AcctSchema_ElementConnection {
 }
 
 type C_AcctSchema_Element {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Rules for accounting
@@ -68,7 +68,7 @@ type C_AcctSchema_Element {
 input C_AcctSchema_ElementInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Rules for accounting

@@ -1,6 +1,6 @@
 # Generated Schema for Test - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	TestGet(page: Int, size: Int, sort: String, filter: String): TestConnection!
 }
@@ -18,10 +18,12 @@ type TestConnection {
 
 type Test {
 	Account_A: C_ValidCombination
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# The Currency for this record
@@ -54,13 +56,18 @@ type Test {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
+	UUID: ID!
 	T_Amount: BigDecimal
 	T_Date: Date
 	T_DateTime: Date
 	T_Integer: Int
 	T_Number: BigDecimal
 	T_Qty: BigDecimal
+	# Timestamp with time zone
+	T_Timestamp: Date
 	UUID: ID!
+	# Used only for testing purposes
+	TestVirtualQty: BigDecimal
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -69,8 +76,10 @@ type Test {
 
 input TestInput {
 	Account_A: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# The Currency for this record
@@ -99,11 +108,14 @@ input TestInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
+	UUID: ID
 	T_Amount: BigDecimal
 	T_Date: Date
 	T_DateTime: Date
 	T_Integer: Int
 	T_Number: BigDecimal
 	T_Qty: BigDecimal
+	# Timestamp with time zone
+	T_Timestamp: Date
 	UUID: ID
 }

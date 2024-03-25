@@ -1,6 +1,6 @@
 # Generated Schema for DD_NetworkDistribution - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	DD_NetworkDistributionGet(page: Int, size: Int, sort: String, filter: String): DD_NetworkDistributionConnection!
 }
@@ -17,9 +17,9 @@ type DD_NetworkDistributionConnection {
 }
 
 type DD_NetworkDistribution {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Copy From Record
 	CopyFrom: String
@@ -55,7 +55,7 @@ type DD_NetworkDistribution {
 }
 
 input DD_NetworkDistributionInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Copy From Record
 	CopyFrom: String

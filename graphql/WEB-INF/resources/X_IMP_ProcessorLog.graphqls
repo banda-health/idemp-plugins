@@ -1,6 +1,6 @@
 # Generated Schema for IMP_ProcessorLog - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	IMP_ProcessorLogGet(page: Int, size: Int, sort: String, filter: String): IMP_ProcessorLogConnection!
 }
@@ -17,9 +17,9 @@ type IMP_ProcessorLogConnection {
 }
 
 type IMP_ProcessorLog {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Binary Data
 	BinaryData: Binary
@@ -50,7 +50,7 @@ type IMP_ProcessorLog {
 }
 
 input IMP_ProcessorLogInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Binary Data
 	BinaryData: Binary

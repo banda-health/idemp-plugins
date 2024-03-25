@@ -1,6 +1,6 @@
 # Generated Schema for R_IssueSystem - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	R_IssueSystemGet(page: Int, size: Int, sort: String, filter: String): R_IssueSystemConnection!
 }
@@ -19,9 +19,9 @@ type R_IssueSystemConnection {
 type R_IssueSystem {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
 	Created: Date!
@@ -47,7 +47,7 @@ type R_IssueSystem {
 input R_IssueSystemInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# JDBC URL of the database server
 	DBAddress: String

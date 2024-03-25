@@ -1,6 +1,6 @@
 # Generated Schema for M_InOutLine - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_InOutLineGet(page: Int, size: Int, sort: String, filter: String): M_InOutLineConnection!
 }
@@ -17,9 +17,9 @@ type M_InOutLineConnection {
 }
 
 type M_InOutLine {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Business Activity
 	C_Activity: C_Activity
@@ -47,6 +47,8 @@ type M_InOutLine {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# Auto create production to fulfill shipment
+	IsAutoProduce: Boolean!
 	# if true, the line is just description and no transaction
 	IsDescription: Boolean!
 	# Is this invoiced?
@@ -71,8 +73,6 @@ type M_InOutLine {
 	Processed: Boolean!
 	# The Quantity Entered is based on the selected UoM
 	QtyEntered: BigDecimal!
-	# Over Receipt Quantity
-	QtyOverReceipt: BigDecimal
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: M_InOutLine
 	# The Quantity scrapped due to QA issues
@@ -90,7 +90,7 @@ type M_InOutLine {
 }
 
 input M_InOutLineInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Business Activity
 	C_Activity: ForeignEntityInput
@@ -114,6 +114,8 @@ input M_InOutLineInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
+	# Auto create production to fulfill shipment
+	IsAutoProduce: Boolean
 	# if true, the line is just description and no transaction
 	IsDescription: Boolean
 	# Is this invoiced?
@@ -138,8 +140,6 @@ input M_InOutLineInput {
 	Processed: Boolean
 	# The Quantity Entered is based on the selected UoM
 	QtyEntered: BigDecimal
-	# Over Receipt Quantity
-	QtyOverReceipt: BigDecimal
 	# Use to keep the reversal line ID for reversing costing purpose
 	ReversalLine: ForeignEntityInput
 	# The Quantity scrapped due to QA issues

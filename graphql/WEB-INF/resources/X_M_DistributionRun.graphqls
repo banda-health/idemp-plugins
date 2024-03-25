@@ -1,6 +1,6 @@
 # Generated Schema for M_DistributionRun - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_DistributionRunGet(page: Int, size: Int, sort: String, filter: String): M_DistributionRunConnection!
 }
@@ -17,9 +17,9 @@ type M_DistributionRunConnection {
 }
 
 type M_DistributionRun {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
@@ -46,7 +46,7 @@ type M_DistributionRun {
 }
 
 input M_DistributionRunInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput

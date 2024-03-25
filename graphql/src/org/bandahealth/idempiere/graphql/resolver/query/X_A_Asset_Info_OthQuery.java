@@ -9,7 +9,7 @@ import org.compiere.model.X_A_Asset_Info_Oth;
  * Generated Query Resolver for A_Asset_Info_Oth - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_Asset_Info_OthQuery extends POQuery<X_A_Asset_Info_Oth> implements GraphQLQueryResolver {
 	@Override

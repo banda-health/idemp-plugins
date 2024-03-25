@@ -1,6 +1,6 @@
 # Generated Schema for AD_ImpFormat_Row - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ImpFormat_RowGet(page: Int, size: Int, sort: String, filter: String): AD_ImpFormat_RowConnection!
 }
@@ -17,13 +17,13 @@ type AD_ImpFormat_RowConnection {
 }
 
 type AD_ImpFormat_Row {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
 	AD_ImpFormat: AD_ImpFormat!
 	UUID: ID!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Fully qualified class names and method - separated by semicolons
 	Callout: String
@@ -42,6 +42,8 @@ type AD_ImpFormat_Row {
 	# Divide number by 100 to get correct amount
 	DivideBy100: Boolean!
 	EndNo: Int
+	# This prefix will be added in front of import string if they are not empty
+	ImportPrefix: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -63,7 +65,7 @@ input AD_ImpFormat_RowInput {
 	AD_Column: ForeignEntityInput
 	AD_ImpFormat: ForeignEntityInput
 	UUID: ID
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Fully qualified class names and method - separated by semicolons
 	Callout: String
@@ -78,6 +80,8 @@ input AD_ImpFormat_RowInput {
 	# Divide number by 100 to get correct amount
 	DivideBy100: Boolean
 	EndNo: Int
+	# This prefix will be added in front of import string if they are not empty
+	ImportPrefix: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

@@ -6,7 +6,7 @@ import org.compiere.model.X_T_Replenish;
  * Data Loader for T_Replenish - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_ReplenishDataLoader extends PODataLoader<X_T_Replenish> {
 	public static String DATALOADER_T_Replenish_BY_ID = "T_ReplenishByIdDataLoader";

@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for T_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 
@@ -522,17 +522,6 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	@JsonProperty("PA_ReportLine")
 	public ForeignEntityInput PA_ReportLine() {
 		return mPA_ReportLine;
-	}
-	/**
-	 * Set Record ID.
-	 *
-	 * @param Record_ID Direct internal record ID
-	 */
-
-	public void setRecord_ID(int Record_ID) {
-		if (get_ID() == 0) {
-			super.setRecord_ID(Record_ID);
-		}
 	}
 	/**
 	 * Set Sequence.

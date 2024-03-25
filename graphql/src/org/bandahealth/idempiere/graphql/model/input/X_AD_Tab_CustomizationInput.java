@@ -18,13 +18,14 @@ import java.sql.ResultSet;
  * Generated Model for AD_Tab_Customization - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implements I_AD_Tab_CustomizationInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_User;
+	private I_AD_Ref_ListInput mIsAutoHideEmptyColumn;
 	private I_AD_Ref_ListInput mIsDisplayedGrid;
 
 	/**
@@ -42,7 +43,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -69,7 +70,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -171,6 +172,40 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	@JsonProperty("AD_User")
 	public ForeignEntityInput AD_User() {
 		return mAD_User;
+	}
+
+	/**
+	 * Set Auto Hide Empty Column.
+	 *
+	 * @param IsAutoHideEmptyColumn Auto Hide Empty Column
+	 */
+	@JsonProperty("IsAutoHideEmptyColumn")
+	public void setIsAutoHideEmptyColumnInput(I_AD_Ref_ListInput IsAutoHideEmptyColumn) {
+		this.mIsAutoHideEmptyColumn = IsAutoHideEmptyColumn;
+		if (IsAutoHideEmptyColumn != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsAutoHideEmptyColumn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setIsAutoHideEmptyColumn(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsAutoHideEmptyColumn.getUUID());
+			}
+		} else {
+			this.setIsAutoHideEmptyColumn(null);
+		}
+	}
+
+	/**
+	 * Get Auto Hide Empty Column.
+	 *
+	 * @return Auto Hide Empty Column
+	 */
+	@JsonProperty("IsAutoHideEmptyColumn")
+	public I_AD_Ref_ListInput IsAutoHideEmptyColumn() {
+		return mIsAutoHideEmptyColumn;
 	}
 
 	/**

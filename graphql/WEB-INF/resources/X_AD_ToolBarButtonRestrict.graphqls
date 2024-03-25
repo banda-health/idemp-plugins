@@ -1,6 +1,6 @@
 # Generated Schema for AD_ToolBarButtonRestrict - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ToolBarButtonRestrictGet(page: Int, size: Int, sort: String, filter: String): AD_ToolBarButtonRestrictConnection!
 }
@@ -19,9 +19,9 @@ type AD_ToolBarButtonRestrictConnection {
 type AD_ToolBarButtonRestrict {
 	# Indicates the Action to be performed
 	Action: AD_Ref_List!
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
@@ -50,7 +50,7 @@ type AD_ToolBarButtonRestrict {
 input AD_ToolBarButtonRestrictInput {
 	# Indicates the Action to be performed
 	Action: AD_Ref_ListInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput

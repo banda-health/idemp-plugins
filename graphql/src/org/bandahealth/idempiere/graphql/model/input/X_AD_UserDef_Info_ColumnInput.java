@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Info_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements I_AD_UserDef_Info_ColumnInput {
 
@@ -35,6 +35,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	private I_AD_Ref_ListInput mIsAutocomplete;
 	private I_AD_Ref_ListInput mIsDisplayed;
 	private I_AD_Ref_ListInput mIsMandatory;
+	private I_AD_Ref_ListInput mIsQueryAfterChange;
 	private I_AD_Ref_ListInput mIsQueryCriteria;
 	private I_AD_Ref_ListInput mIsReadOnly;
 	private I_AD_Ref_ListInput mQueryOperator;
@@ -125,7 +126,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -152,7 +153,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -328,9 +329,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	}
 
 	/**
-	 * Set Autocomplete.
+	 * Set Auto complete.
 	 *
-	 * @param IsAutocomplete Automatic completion for textfields
+	 * @param IsAutocomplete Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
 	public void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete) {
@@ -352,9 +353,9 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	}
 
 	/**
-	 * Get Autocomplete.
+	 * Get Auto complete.
 	 *
-	 * @return Automatic completion for textfields
+	 * @return Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
 	public I_AD_Ref_ListInput IsAutocomplete() {
@@ -427,6 +428,40 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	@JsonProperty("IsMandatory")
 	public I_AD_Ref_ListInput IsMandatory() {
 		return mIsMandatory;
+	}
+
+	/**
+	 * Set Query After Change.
+	 *
+	 * @param IsQueryAfterChange Issues a query request after the user has made changes to the field
+	 */
+	@JsonProperty("IsQueryAfterChange")
+	public void setIsQueryAfterChangeInput(I_AD_Ref_ListInput IsQueryAfterChange) {
+		this.mIsQueryAfterChange = IsQueryAfterChange;
+		if (IsQueryAfterChange != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(IsQueryAfterChange.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setIsQueryAfterChange(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsQueryAfterChange.getUUID());
+			}
+		} else {
+			this.setIsQueryAfterChange(null);
+		}
+	}
+
+	/**
+	 * Get Query After Change.
+	 *
+	 * @return Issues a query request after the user has made changes to the field
+	 */
+	@JsonProperty("IsQueryAfterChange")
+	public I_AD_Ref_ListInput IsQueryAfterChange() {
+		return mIsQueryAfterChange;
 	}
 
 	/**

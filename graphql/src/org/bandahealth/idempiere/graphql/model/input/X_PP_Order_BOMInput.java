@@ -21,7 +21,7 @@ import java.sql.ResultSet;
  * Generated Model for PP_Order_BOM - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BOMInput {
 
@@ -49,7 +49,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -73,7 +73,7 @@ public class X_PP_Order_BOMInput extends X_PP_Order_BOM implements I_PP_Order_BO
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

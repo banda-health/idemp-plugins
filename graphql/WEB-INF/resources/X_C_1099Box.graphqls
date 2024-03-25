@@ -1,6 +1,6 @@
 # Generated Schema for C_1099Box - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_1099BoxGet(page: Int, size: Int, sort: String, filter: String): C_1099BoxConnection!
 }
@@ -17,9 +17,9 @@ type C_1099BoxConnection {
 }
 
 type C_1099Box {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	Bucket: Int!
 	UUID: ID!
@@ -44,7 +44,7 @@ type C_1099Box {
 }
 
 input C_1099BoxInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	Bucket: Int
 	UUID: ID

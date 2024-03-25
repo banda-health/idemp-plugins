@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_ActivityApprover - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WF_ActivityApproverGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ActivityApproverConnection!
 }
@@ -17,9 +17,9 @@ type AD_WF_ActivityApproverConnection {
 }
 
 type AD_WF_ActivityApprover {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
@@ -39,7 +39,7 @@ type AD_WF_ActivityApprover {
 }
 
 input AD_WF_ActivityApproverInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput

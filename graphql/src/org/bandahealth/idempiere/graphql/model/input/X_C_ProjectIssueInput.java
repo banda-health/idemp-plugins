@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MLocator;
@@ -21,7 +22,7 @@ import java.sql.ResultSet;
  * Generated Model for C_ProjectIssue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectIssueInput {
 
@@ -31,7 +32,10 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	private ForeignEntityInput mM_InOutLine;
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mReversal;
 	private ForeignEntityInput mS_TimeExpenseLine;
+	private I_AD_Ref_ListInput mDocAction;
+	private I_AD_Ref_ListInput mDocStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -48,7 +52,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -75,7 +79,7 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -146,6 +150,74 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 	 */
 	public String getUUID() {
 		return getC_ProjectIssue_UU();
+	}
+
+	/**
+	 * Set Document Action.
+	 *
+	 * @param DocAction The targeted status of the document
+	 */
+	@JsonProperty("DocAction")
+	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+		this.mDocAction = DocAction;
+		if (DocAction != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setDocAction(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+			}
+		} else {
+			this.setDocAction(null);
+		}
+	}
+
+	/**
+	 * Get Document Action.
+	 *
+	 * @return The targeted status of the document
+	 */
+	@JsonProperty("DocAction")
+	public I_AD_Ref_ListInput DocAction() {
+		return mDocAction;
+	}
+
+	/**
+	 * Set Document Status.
+	 *
+	 * @param DocStatus The current status of the document
+	 */
+	@JsonProperty("DocStatus")
+	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+		this.mDocStatus = DocStatus;
+		if (DocStatus != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setDocStatus(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+			}
+		} else {
+			this.setDocStatus(null);
+		}
+	}
+
+	/**
+	 * Get Document Status.
+	 *
+	 * @return The current status of the document
+	 */
+	@JsonProperty("DocStatus")
+	public I_AD_Ref_ListInput DocStatus() {
+		return mDocStatus;
 	}
 
 	/**
@@ -293,6 +365,43 @@ public class X_C_ProjectIssueInput extends MProjectIssue implements I_C_ProjectI
 		if (get_ID() == 0) {
 			super.setPosted(Posted);
 		}
+	}
+
+	/**
+	 * Set Reversal ID.
+	 *
+	 * @param Reversal ID of document reversal
+	 */
+	@JsonProperty("Reversal")
+	public void setReversalInput(ForeignEntityInput Reversal) {
+		this.mReversal = Reversal;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (Reversal != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProjectIssue foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ProjectIssue", "C_ProjectIssue_UU=?", get_TrxName())
+							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setReversal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ProjectIssue with UUID " + Reversal.getUUID());
+			}
+		} else {
+			this.setReversal_ID(0);
+		}
+	}
+
+	/**
+	 * Get Reversal ID.
+	 *
+	 * @return ID of document reversal
+	 */
+	@JsonProperty("Reversal")
+	public ForeignEntityInput Reversal() {
+		return mReversal;
 	}
 
 	/**

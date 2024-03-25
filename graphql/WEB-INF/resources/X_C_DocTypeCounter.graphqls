@@ -1,6 +1,6 @@
 # Generated Schema for C_DocTypeCounter - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_DocTypeCounterGet(page: Int, size: Int, sort: String, filter: String): C_DocTypeCounterConnection!
 }
@@ -17,9 +17,9 @@ type C_DocTypeCounterConnection {
 }
 
 type C_DocTypeCounter {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Document type or rules
 	C_DocType: C_DocType!
@@ -50,7 +50,7 @@ type C_DocTypeCounter {
 }
 
 input C_DocTypeCounterInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput

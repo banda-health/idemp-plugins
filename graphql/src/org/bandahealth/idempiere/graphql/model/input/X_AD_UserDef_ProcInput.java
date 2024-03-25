@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_UserDef_Proc - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_UserDef_ProcInput extends MUserDefProc implements I_AD_UserDef_ProcInput {
 
@@ -78,7 +78,7 @@ public class X_AD_UserDef_ProcInput extends MUserDefProc implements I_AD_UserDef
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -105,7 +105,7 @@ public class X_AD_UserDef_ProcInput extends MUserDefProc implements I_AD_UserDef
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -120,6 +120,9 @@ public class X_AD_UserDef_ProcInput extends MUserDefProc implements I_AD_UserDef
 	@JsonProperty("AD_Process")
 	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
 		this.mAD_Process = AD_Process;
+		if (get_ID() != 0) {
+			return;
+		}
 		if (AD_Process != null) {
 			// Since an entity was passed, make sure it's in the DB
 			MProcess_BH foreignEntity;

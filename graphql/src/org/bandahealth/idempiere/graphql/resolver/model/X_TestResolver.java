@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_TableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CurrencyDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_LocationDataLoader;
@@ -17,6 +18,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.compiere.model.MAccount;
 import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
+import org.compiere.model.MTable;
 import org.compiere.model.MTest;
 import org.compiere.model.MUOM;
 import org.dataloader.DataLoader;
@@ -27,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for Test - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver<MTest> {
 
@@ -49,7 +51,22 @@ public class X_TestResolver extends POResolver<MTest> implements GraphQLResolver
 
 
 	/**
-	 * Get Business Partner .
+	 * Get Table.
+	 *
+	 * @return Database Table information
+	 */
+	public CompletableFuture<MTable> AD_Table(MTest entity, DataFetchingEnvironment environment) {
+		if (entity.getAD_Table_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MTable> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_TableDataLoader.DATALOADER_AD_Table_BY_ID);
+		return dataLoader.load(entity.getAD_Table_ID());
+	}
+
+
+	/**
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

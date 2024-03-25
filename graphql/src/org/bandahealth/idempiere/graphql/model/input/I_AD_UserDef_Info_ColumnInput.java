@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_UserDef_Info_Column;
  * Generated Interface for AD_UserDef_Info_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_UserDef_Info_ColumnInput extends I_AD_UserDef_Info_Column {
 
@@ -41,14 +41,14 @@ public interface I_AD_UserDef_Info_ColumnInput extends I_AD_UserDef_Info_Column 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -125,14 +125,14 @@ public interface I_AD_UserDef_Info_ColumnInput extends I_AD_UserDef_Info_Column 
 	/**
 	 * Set IsAutocomplete.
 	 *
-	 * @param IsAutocomplete Automatic completion for textfields
+	 * @param IsAutocomplete Automatic completion for text fields
 	 */
 	void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete);
 
 	/**
 	 * Get IsAutocomplete.
 	 *
-	 * @return Automatic completion for textfields
+	 * @return Automatic completion for text fields
 	 */
 	I_AD_Ref_ListInput IsAutocomplete();
 
@@ -163,6 +163,20 @@ public interface I_AD_UserDef_Info_ColumnInput extends I_AD_UserDef_Info_Column 
 	 * @return Data entry is required in this column
 	 */
 	I_AD_Ref_ListInput IsMandatory();
+
+	/**
+	 * Set IsQueryAfterChange.
+	 *
+	 * @param IsQueryAfterChange Issues a query request after the user has made changes to the field
+	 */
+	void setIsQueryAfterChangeInput(I_AD_Ref_ListInput IsQueryAfterChange);
+
+	/**
+	 * Get IsQueryAfterChange.
+	 *
+	 * @return Issues a query request after the user has made changes to the field
+	 */
+	I_AD_Ref_ListInput IsQueryAfterChange();
 
 	/**
 	 * Set IsQueryCriteria.

@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_BroadcastMessage;
  * Generated Interface for AD_BroadcastMessage - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_BroadcastMessageInput extends I_AD_BroadcastMessage {
 
@@ -27,14 +27,14 @@ public interface I_AD_BroadcastMessageInput extends I_AD_BroadcastMessage {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -97,14 +97,14 @@ public interface I_AD_BroadcastMessageInput extends I_AD_BroadcastMessage {
 	/**
 	 * Set Target.
 	 *
-	 * @param Target Target client
+	 * @param Target Target tenant
 	 */
 	void setTargetInput(I_AD_Ref_ListInput Target);
 
 	/**
 	 * Get Target.
 	 *
-	 * @return Target client
+	 * @return Target tenant
 	 */
 	I_AD_Ref_ListInput Target();
 }

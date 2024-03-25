@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Data Loader for PA_DashboardContent_Trl - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_DashboardContent_TrlDataLoader extends PODataLoader<PO> {
 	public static String DATALOADER_PA_DashboardContent_Trl_BY_ID = "PA_DashboardContent_TrlByIdDataLoader";

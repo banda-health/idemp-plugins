@@ -28,7 +28,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for C_DocType - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements GraphQLResolver<MDocType_BH> {
 
@@ -284,6 +284,10 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 
 	public Boolean IsInTransit(MDocType_BH entity, DataFetchingEnvironment environment) {
 		return entity.isInTransit();
+	}
+
+	public Boolean IsNoPriceListCheck(MDocType_BH entity, DataFetchingEnvironment environment) {
+		return entity.isNoPriceListCheck();
 	}
 
 	public Boolean IsOverwriteDateOnComplete(MDocType_BH entity, DataFetchingEnvironment environment) {

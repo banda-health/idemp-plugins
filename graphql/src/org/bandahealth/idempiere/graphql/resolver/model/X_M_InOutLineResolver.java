@@ -40,7 +40,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for M_InOutLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_InOutLineResolver extends POResolver<MInOutLine> implements GraphQLResolver<MInOutLine> {
 
@@ -163,6 +163,10 @@ public class X_M_InOutLineResolver extends POResolver<MInOutLine> implements Gra
 		DataLoader<Integer, MUOM> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_UOMDataLoader.DATALOADER_C_UOM_BY_ID);
 		return dataLoader.load(entity.getC_UOM_ID());
+	}
+
+	public Boolean IsAutoProduce(MInOutLine entity, DataFetchingEnvironment environment) {
+		return entity.isAutoProduce();
 	}
 
 	public Boolean IsDescription(MInOutLine entity, DataFetchingEnvironment environment) {

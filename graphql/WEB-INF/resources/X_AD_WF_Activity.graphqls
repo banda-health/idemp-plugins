@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_Activity - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WF_ActivityGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ActivityConnection!
 }
@@ -17,11 +17,11 @@ type AD_WF_ActivityConnection {
 }
 
 type AD_WF_Activity {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# System Message
 	AD_Message: AD_Message
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
@@ -53,8 +53,6 @@ type AD_WF_Activity {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
-	# Direct internal record ID
-	Record_ID: Int!
 	# Text Message
 	TextMsg: String
 	# Date this record was updated
@@ -68,7 +66,7 @@ type AD_WF_Activity {
 input AD_WF_ActivityInput {
 	# System Message
 	AD_Message: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
@@ -96,8 +94,6 @@ input AD_WF_ActivityInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
-	# Direct internal record ID
-	Record_ID: Int
 	# Text Message
 	TextMsg: String
 	# State of the execution of the workflow

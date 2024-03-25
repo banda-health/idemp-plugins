@@ -30,7 +30,7 @@ import java.sql.Timestamp;
  * Generated Model for A_Asset - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 
@@ -313,7 +313,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -340,7 +340,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -416,7 +416,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -440,7 +440,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

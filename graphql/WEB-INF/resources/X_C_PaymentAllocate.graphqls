@@ -1,6 +1,6 @@
 # Generated Schema for C_PaymentAllocate - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_PaymentAllocateGet(page: Int, size: Int, sort: String, filter: String): C_PaymentAllocateConnection!
 }
@@ -17,9 +17,9 @@ type C_PaymentAllocateConnection {
 }
 
 type C_PaymentAllocate {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Amount in a defined currency
 	Amount: BigDecimal!
@@ -52,7 +52,7 @@ type C_PaymentAllocate {
 }
 
 input C_PaymentAllocateInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Amount in a defined currency
 	Amount: BigDecimal

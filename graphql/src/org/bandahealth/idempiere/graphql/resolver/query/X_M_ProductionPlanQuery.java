@@ -9,7 +9,7 @@ import org.compiere.model.MProductionPlan;
  * Generated Query Resolver for M_ProductionPlan - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ProductionPlanQuery extends POQuery<MProductionPlan> implements GraphQLQueryResolver {
 	@Override

@@ -3,13 +3,16 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ProcessDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_AcctSchemaDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CalendarDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportColumnSetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportCubeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_PA_ReportLineSetDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MReportCube;
@@ -19,13 +22,15 @@ import org.compiere.report.MReportColumnSet;
 import org.compiere.report.MReportLineSet;
 import org.dataloader.DataLoader;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated ModelResolver for PA_Report - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLResolver<MReport> {
 
@@ -75,11 +80,27 @@ public class X_PA_ReportResolver extends POResolver<MReport> implements GraphQLR
 		return dataLoader.load(entity.getC_Calendar_ID());
 	}
 
+	static Map<String, String> EXCLUDEADJUSTMENTPERIODS_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("0", "f04dfda3-2f17-4d27-83d2-696941a8a181");
+			put("1", "540fdd4a-4c09-46ee-b1b1-92c6b79c2f76");
+			put("2", "3b897a74-e4c7-4832-87ee-936bf71cf182");
+		}
+	};
+	public CompletableFuture<MRefList_BH> ExcludeAdjustmentPeriods(MReport entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getExcludeAdjustmentPeriods())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(EXCLUDEADJUSTMENTPERIODS_UUIDS_BY_VALUE.get(entity.getExcludeAdjustmentPeriods()));
+	}
+
 
 	/**
 	 * Get Jasper Process.
 	 *
-	 * @return The Jasper Process used by the printengine if any process defined
+	 * @return The Jasper Process used by the print engine if any process defined
 	 */
 	public CompletableFuture<MProcess_BH> JasperProcess(MReport entity, DataFetchingEnvironment environment) {
 		if (entity.getJasperProcess_ID() <= 0) {

@@ -1,6 +1,6 @@
 # Generated Schema for AD_ViewComponent - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_ViewComponentGet(page: Int, size: Int, sort: String, filter: String): AD_ViewComponentConnection!
 }
@@ -17,9 +17,9 @@ type AD_ViewComponentConnection {
 }
 
 type AD_ViewComponent {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
@@ -38,6 +38,10 @@ type AD_ViewComponent {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
+	# Select Distinct
+	IsDistinct: Boolean!
+	# The component view is UNION ALL
+	IsUnionAll: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Other SQL Clause
@@ -54,7 +58,7 @@ type AD_ViewComponent {
 }
 
 input AD_ViewComponentInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
@@ -69,6 +73,10 @@ input AD_ViewComponentInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
+	# Select Distinct
+	IsDistinct: Boolean
+	# The component view is UNION ALL
+	IsUnionAll: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Other SQL Clause

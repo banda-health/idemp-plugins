@@ -25,7 +25,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Issue - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 
@@ -159,7 +159,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -186,7 +186,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -554,7 +554,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	}
 
 	/**
-	 * Set IssueUser.
+	 * Set Issue User.
 	 *
 	 * @param R_IssueUser User who reported issues
 	 */
@@ -578,7 +578,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	}
 
 	/**
-	 * Get IssueUser.
+	 * Get Issue User.
 	 *
 	 * @return User who reported issues
 	 */

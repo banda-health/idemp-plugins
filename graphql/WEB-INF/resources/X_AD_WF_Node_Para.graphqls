@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_Node_Para - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WF_Node_ParaGet(page: Int, size: Int, sort: String, filter: String): AD_WF_Node_ParaConnection!
 }
@@ -17,9 +17,9 @@ type AD_WF_Node_ParaConnection {
 }
 
 type AD_WF_Node_Para {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Process_Para: AD_Process_Para
 	# Workflow Node (activity), step or process
@@ -46,7 +46,7 @@ type AD_WF_Node_Para {
 }
 
 input AD_WF_Node_ParaInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Process_Para: ForeignEntityInput
 	# Workflow Node (activity), step or process

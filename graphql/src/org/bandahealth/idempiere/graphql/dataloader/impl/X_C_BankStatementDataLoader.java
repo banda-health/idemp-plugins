@@ -6,7 +6,7 @@ import org.compiere.model.MBankStatement;
  * Data Loader for C_BankStatement - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_BankStatementDataLoader extends PODataLoader<MBankStatement> {
 	public static String DATALOADER_C_BankStatement_BY_ID = "C_BankStatementByIdDataLoader";

@@ -1,6 +1,6 @@
 # Generated Schema for M_Promotion - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	M_PromotionGet(page: Int, size: Int, sort: String, filter: String): M_PromotionConnection!
 }
@@ -17,9 +17,9 @@ type M_PromotionConnection {
 }
 
 type M_Promotion {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Marketing Campaign
 	C_Campaign: C_Campaign
@@ -43,7 +43,7 @@ type M_Promotion {
 }
 
 input M_PromotionInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput

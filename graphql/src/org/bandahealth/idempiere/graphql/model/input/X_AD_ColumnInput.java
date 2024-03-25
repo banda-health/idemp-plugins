@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
@@ -11,6 +12,7 @@ import org.compiere.model.MChart;
 import org.compiere.model.MColumn;
 import org.compiere.model.MDashboardContent;
 import org.compiere.model.MEntityType;
+import org.compiere.model.MInfoWindow;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
 import org.compiere.model.MValRule;
@@ -24,13 +26,14 @@ import java.sql.ResultSet;
  * Generated Model for AD_Column - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 
 	private ForeignEntityInput mAD_Chart;
 	private ForeignEntityInput mAD_Element;
 	private ForeignEntityInput mAD_EntityType;
+	private ForeignEntityInput mAD_InfoWindow;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_Reference;
@@ -38,10 +41,12 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAD_Val_Rule;
 	private ForeignEntityInput mAD_Val_Rule_Lookup;
+	private ForeignEntityInput mFKConstraintMsg;
 	private ForeignEntityInput mPA_DashboardContent;
 	private I_AD_Ref_ListInput mFKConstraintType;
 	private I_AD_Ref_ListInput mIsEncrypted;
 	private I_AD_Ref_ListInput mIsToolbarButton;
+	private I_AD_Ref_ListInput mPartitioningMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -153,9 +158,43 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	}
 
 	/**
+	 * Set Info Window.
+	 *
+	 * @param AD_InfoWindow Info and search/select Window
+	 */
+	@JsonProperty("AD_InfoWindow")
+	public void setAD_InfoWindowInput(ForeignEntityInput AD_InfoWindow) {
+		this.mAD_InfoWindow = AD_InfoWindow;
+		if (AD_InfoWindow != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInfoWindow foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
+							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
+			}
+		} else {
+			this.setAD_InfoWindow_ID(0);
+		}
+	}
+
+	/**
+	 * Get Info Window.
+	 *
+	 * @return Info and search/select Window
+	 */
+	@JsonProperty("AD_InfoWindow")
+	public ForeignEntityInput AD_InfoWindow() {
+		return mAD_InfoWindow;
+	}
+
+	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -182,7 +221,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -431,6 +470,40 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	}
 
 	/**
+	 * Set Constraint Message.
+	 *
+	 * @param FKConstraintMsg Constraint Message
+	 */
+	@JsonProperty("FKConstraintMsg")
+	public void setFKConstraintMsgInput(ForeignEntityInput FKConstraintMsg) {
+		this.mFKConstraintMsg = FKConstraintMsg;
+		if (FKConstraintMsg != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MMessage_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
+							.setParameters(FKConstraintMsg.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setFKConstraintMsg_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Message with UUID " + FKConstraintMsg.getUUID());
+			}
+		} else {
+			this.setFKConstraintMsg_ID(0);
+		}
+	}
+
+	/**
+	 * Get Constraint Message.
+	 *
+	 * @return Constraint Message
+	 */
+	@JsonProperty("FKConstraintMsg")
+	public ForeignEntityInput FKConstraintMsg() {
+		return mFKConstraintMsg;
+	}
+
+	/**
 	 * Set Constraint Type.
 	 *
 	 * @param FKConstraintType Constraint Type
@@ -564,5 +637,39 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	@JsonProperty("PA_DashboardContent")
 	public ForeignEntityInput PA_DashboardContent() {
 		return mPA_DashboardContent;
+	}
+
+	/**
+	 * Set Partitioning Method.
+	 *
+	 * @param PartitioningMethod Indicates how the Table is partitioned
+	 */
+	@JsonProperty("PartitioningMethod")
+	public void setPartitioningMethodInput(I_AD_Ref_ListInput PartitioningMethod) {
+		this.mPartitioningMethod = PartitioningMethod;
+		if (PartitioningMethod != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(PartitioningMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPartitioningMethod(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PartitioningMethod.getUUID());
+			}
+		} else {
+			this.setPartitioningMethod(null);
+		}
+	}
+
+	/**
+	 * Get Partitioning Method.
+	 *
+	 * @return Indicates how the Table is partitioned
+	 */
+	@JsonProperty("PartitioningMethod")
+	public I_AD_Ref_ListInput PartitioningMethod() {
+		return mPartitioningMethod;
 	}
 }

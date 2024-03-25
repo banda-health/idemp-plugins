@@ -1,6 +1,6 @@
 # Generated Schema for BH_Encounter_Type_Window - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	BH_Encounter_Type_WindowGet(page: Int, size: Int, sort: String, filter: String): BH_Encounter_Type_WindowConnection!
 }
@@ -17,13 +17,10 @@ type BH_Encounter_Type_WindowConnection {
 }
 
 type BH_Encounter_Type_Window {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	# Data entry or display window
-	AD_Window: AD_Window!
-	BH_Encounter_Type: AD_Ref_List!
 	UUID: ID!
 	# Date this record was created
 	Created: Date!
@@ -38,11 +35,8 @@ type BH_Encounter_Type_Window {
 }
 
 input BH_Encounter_Type_WindowInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	# Data entry or display window
-	AD_Window: ForeignEntityInput
-	BH_Encounter_Type: AD_Ref_ListInput
 	UUID: ID
 	# The record is active in the system
 	IsActive: Boolean

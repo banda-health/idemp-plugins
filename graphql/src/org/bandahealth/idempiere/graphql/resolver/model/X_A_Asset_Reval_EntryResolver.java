@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
  * Generated ModelResolver for A_Asset_Reval_Entry - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_Asset_Reval_EntryResolver extends POResolver<X_A_Asset_Reval_Entry> implements GraphQLResolver<X_A_Asset_Reval_Entry> {
 

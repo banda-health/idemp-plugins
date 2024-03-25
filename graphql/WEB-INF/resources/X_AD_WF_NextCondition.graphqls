@@ -1,6 +1,6 @@
 # Generated Schema for AD_WF_NextCondition - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	AD_WF_NextConditionGet(page: Int, size: Int, sort: String, filter: String): AD_WF_NextConditionConnection!
 }
@@ -17,11 +17,11 @@ type AD_WF_NextConditionConnection {
 }
 
 type AD_WF_NextCondition {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
-	AD_Column: AD_Column!
-	# Organizational entity within client
+	AD_Column: AD_Column
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
 	# Workflow Node Transition
@@ -40,6 +40,7 @@ type AD_WF_NextCondition {
 	Operation: AD_Ref_List!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
+	SQLStatement: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -53,7 +54,7 @@ type AD_WF_NextCondition {
 input AD_WF_NextConditionInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
 	# Workflow Node Transition
@@ -68,6 +69,7 @@ input AD_WF_NextConditionInput {
 	Operation: AD_Ref_ListInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
+	SQLStatement: String
 	# Search key for the record in the format required - must be unique
 	Value: String
 	# Value To

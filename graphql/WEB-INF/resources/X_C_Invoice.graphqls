@@ -1,6 +1,6 @@
 # Generated Schema for C_Invoice - DO NOT CHANGE
 #		@author Banda Health (generated) 
-#		@version Release 8.2 - $Id$
+#		@version Release 11 - $Id$
 extend type Query {
 	C_InvoiceGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceConnection!
 }
@@ -17,14 +17,12 @@ type C_InvoiceConnection {
 }
 
 type C_Invoice {
-	# Client/Tenant for this installation.
+	# Tenant for this installation.
 	AD_Client: AD_Client!
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	BH_Visit: BH_Visit
 	BH_Voided_Reason: BH_Voided_Reason
 	# Business Activity
@@ -68,6 +66,8 @@ type C_Invoice {
 	CreatedBy: AD_User!
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
+	# Process which will generate a new document lines based on an existing document
+	CreateLinesFrom: String
 	# Currency Conversion Rate
 	CurrencyRate: BigDecimal
 	# Accounting Date
@@ -82,6 +82,8 @@ type C_Invoice {
 	Description: String
 	# The targeted status of the document
 	DocAction: AD_Ref_List!
+	# Logical type of document
+	DocBaseType: AD_Ref_List
 	# The current status of the document
 	DocStatus: AD_Ref_List!
 	# Document sequence number of the document
@@ -104,7 +106,7 @@ type C_Invoice {
 	IsInDispute: Boolean!
 	# Override Currency Conversion Rate
 	IsOverrideCurrencyRate: Boolean!
-	# The document is paid
+	# The document is fully paid
 	IsPaid: Boolean!
 	# Is the Payment Schedule is valid
 	IsPayScheduleValid: Boolean!
@@ -153,12 +155,10 @@ type C_Invoice {
 }
 
 input C_InvoiceInput {
-	# Organizational entity within client
+	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	# Element to allow buttons to be displayed that trigger tab navigation
-	BH_NavButtons: Object
 	BH_Visit: ForeignEntityInput
 	BH_Voided_Reason: ForeignEntityInput
 	# Business Activity
@@ -198,6 +198,8 @@ input C_InvoiceInput {
 	CopyFrom: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
+	# Process which will generate a new document lines based on an existing document
+	CreateLinesFrom: String
 	# Currency Conversion Rate
 	CurrencyRate: BigDecimal
 	# Accounting Date
@@ -234,7 +236,7 @@ input C_InvoiceInput {
 	IsInDispute: Boolean
 	# Override Currency Conversion Rate
 	IsOverrideCurrencyRate: Boolean
-	# The document is paid
+	# The document is fully paid
 	IsPaid: Boolean
 	# Is the Payment Schedule is valid
 	IsPayScheduleValid: Boolean

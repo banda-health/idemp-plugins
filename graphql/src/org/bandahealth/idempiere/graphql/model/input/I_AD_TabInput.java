@@ -6,7 +6,7 @@ import org.compiere.model.I_AD_Tab;
  * Generated Interface for AD_Tab - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_AD_TabInput extends I_AD_Tab {
 
@@ -83,14 +83,14 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -137,6 +137,20 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	ForeignEntityInput AD_Table();
 
 	/**
+	 * Set AD_TabType.
+	 *
+	 * @param AD_TabType Defines Tab Type
+	 */
+	void setAD_TabTypeInput(I_AD_Ref_ListInput AD_TabType);
+
+	/**
+	 * Get AD_TabType.
+	 *
+	 * @return Defines Tab Type
+	 */
+	I_AD_Ref_ListInput AD_TabType();
+
+	/**
 	 * Set AD_Window.
 	 *
 	 * @param AD_Window Data entry or display window
@@ -177,6 +191,20 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	 * @return Included Tab in this Tab (Master Detail)
 	 */
 	ForeignEntityInput Included_Tab();
+
+	/**
+	 * Set IsHighVolume.
+	 *
+	 * @param IsHighVolume Use Search instead of Pick list
+	 */
+	void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume);
+
+	/**
+	 * Get IsHighVolume.
+	 *
+	 * @return Use Search instead of Pick list
+	 */
+	I_AD_Ref_ListInput IsHighVolume();
 
 	/**
 	 * Set Parent_Column.

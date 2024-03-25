@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * Generated Model for A_Asset_Info_Fin - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_Asset_Info_FinInput {
 
@@ -177,7 +177,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -204,7 +204,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -212,7 +212,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -236,7 +236,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */

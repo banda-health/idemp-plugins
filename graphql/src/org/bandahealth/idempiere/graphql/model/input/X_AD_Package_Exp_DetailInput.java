@@ -24,7 +24,6 @@ import org.compiere.model.X_AD_ImpFormat;
 import org.compiere.model.X_AD_ModelValidator;
 import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Role;
-import org.compiere.model.X_AD_Workbench;
 import org.compiere.model.X_AD_Workflow;
 import org.compiere.util.Env;
 
@@ -34,7 +33,7 @@ import java.sql.ResultSet;
  * Generated Model for AD_Package_Exp_Detail - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I_AD_Package_Exp_DetailInput {
 
@@ -55,7 +54,6 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAD_Val_Rule;
 	private ForeignEntityInput mAD_Window;
-	private ForeignEntityInput mAD_Workbench;
 	private ForeignEntityInput mAD_Workflow;
 	private I_AD_Ref_ListInput mDBType;
 	private I_AD_Ref_ListInput mReleaseNo;
@@ -314,7 +312,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -341,7 +339,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -676,40 +674,6 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	}
 
 	/**
-	 * Set Workbench.
-	 *
-	 * @param AD_Workbench Collection of windows, reports
-	 */
-	@JsonProperty("AD_Workbench")
-	public void setAD_WorkbenchInput(ForeignEntityInput AD_Workbench) {
-		this.mAD_Workbench = AD_Workbench;
-		if (AD_Workbench != null) {
-			// Since an entity was passed, make sure it's in the DB
-			X_AD_Workbench foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Workbench", "AD_Workbench_UU=?", get_TrxName())
-							.setParameters(AD_Workbench.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Workbench_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Workbench with UUID " + AD_Workbench.getUUID());
-			}
-		} else {
-			this.setAD_Workbench_ID(0);
-		}
-	}
-
-	/**
-	 * Get Workbench.
-	 *
-	 * @return Collection of windows, reports
-	 */
-	@JsonProperty("AD_Workbench")
-	public ForeignEntityInput AD_Workbench() {
-		return mAD_Workbench;
-	}
-
-	/**
 	 * Set Workflow.
 	 *
 	 * @param AD_Workflow Workflow or combination of tasks
@@ -744,9 +708,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	}
 
 	/**
-	 * Set DBType.
+	 * Set DB Type.
 	 *
-	 * @param DBType DBType
+	 * @param DBType DB Type
 	 */
 	@JsonProperty("DBType")
 	public void setDBTypeInput(I_AD_Ref_ListInput DBType) {
@@ -768,9 +732,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	}
 
 	/**
-	 * Get DBType.
+	 * Get DB Type.
 	 *
-	 * @return DBType
+	 * @return DB Type
 	 */
 	@JsonProperty("DBType")
 	public I_AD_Ref_ListInput DBType() {

@@ -12,22 +12,25 @@ import org.compiere.model.MAccount;
 import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
+import org.compiere.model.MTable;
 import org.compiere.model.MTest;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
  * Generated Model for Test - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_TestInput extends MTest implements I_TestInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAccount_A;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Currency;
@@ -86,7 +89,7 @@ public class X_TestInput extends MTest implements I_TestInput {
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -113,7 +116,7 @@ public class X_TestInput extends MTest implements I_TestInput {
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -121,7 +124,41 @@ public class X_TestInput extends MTest implements I_TestInput {
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Table.
+	 *
+	 * @param AD_Table Database Table information
+	 */
+	@JsonProperty("AD_Table")
+	public void setAD_TableInput(ForeignEntityInput AD_Table) {
+		this.mAD_Table = AD_Table;
+		if (AD_Table != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MTable foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
+							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Table_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+			}
+		} else {
+			this.setAD_Table_ID(0);
+		}
+	}
+
+	/**
+	 * Get Table.
+	 *
+	 * @return Database Table information
+	 */
+	@JsonProperty("AD_Table")
+	public ForeignEntityInput AD_Table() {
+		return mAD_Table;
+	}
+
+	/**
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -145,7 +182,7 @@ public class X_TestInput extends MTest implements I_TestInput {
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
@@ -357,6 +394,24 @@ public class X_TestInput extends MTest implements I_TestInput {
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	public void setUUID(String UUID) {
+		setRecord_UU(UUID);
+	}
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	public String getUUID() {
+		return getRecord_UU();
+	}
 	/**
 	 * Set Test ID.
 	 *
@@ -385,5 +440,16 @@ public class X_TestInput extends MTest implements I_TestInput {
 	 */
 	public String getUUID() {
 		return getTest_UU();
+	}
+	/**
+	 * Set Virtual Quantity.
+	 *
+	 * @param TestVirtualQty Used only for testing purposes
+	 */
+
+	public void setTestVirtualQty(BigDecimal TestVirtualQty) {
+		if (get_ID() == 0) {
+			super.setTestVirtualQty(TestVirtualQty);
+		}
 	}
 }

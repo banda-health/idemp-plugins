@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  * Generated Model for M_ProductionLineMA - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_ProductionLineMAInput {
 
@@ -42,7 +42,7 @@ public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -69,7 +69,7 @@ public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {

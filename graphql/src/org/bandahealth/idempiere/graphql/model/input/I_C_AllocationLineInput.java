@@ -6,21 +6,21 @@ import org.compiere.model.I_C_AllocationLine;
  * Generated Interface for C_AllocationLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public interface I_C_AllocationLineInput extends I_C_AllocationLine {
 
 	/**
 	 * Set AD_Org.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
 	 * Get AD_Org.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
 
@@ -51,6 +51,20 @@ public interface I_C_AllocationLineInput extends I_C_AllocationLine {
 	 * @return UUID
 	 */
 	String getUUID();
+
+	/**
+	 * Set C_BankTransfer.
+	 *
+	 * @param C_BankTransfer Bank Transfer
+	 */
+	void setC_BankTransferInput(ForeignEntityInput C_BankTransfer);
+
+	/**
+	 * Get C_BankTransfer.
+	 *
+	 * @return Bank Transfer
+	 */
+	ForeignEntityInput C_BankTransfer();
 
 	/**
 	 * Set C_BPartner.

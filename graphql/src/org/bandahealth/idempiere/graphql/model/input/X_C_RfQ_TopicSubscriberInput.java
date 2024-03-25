@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * Generated Model for C_RfQ_TopicSubscriber - DO NOT CHANGE
  *
  * @author Banda Health (generated)
- * @version Release 8.2 - $Id$
+ * @version Release 11 - $Id$
  */
 public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements I_C_RfQ_TopicSubscriberInput {
 
@@ -44,7 +44,7 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 	/**
 	 * Set Organization.
 	 *
-	 * @param AD_Org Organizational entity within client
+	 * @param AD_Org Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
@@ -71,7 +71,7 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 	/**
 	 * Get Organization.
 	 *
-	 * @return Organizational entity within client
+	 * @return Organizational entity within tenant
 	 */
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
@@ -113,7 +113,7 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 	}
 
 	/**
-	 * Set Business Partner .
+	 * Set Business Partner.
 	 *
 	 * @param C_BPartner Identifies a Business Partner
 	 */
@@ -137,7 +137,7 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 	}
 
 	/**
-	 * Get Business Partner .
+	 * Get Business Partner.
 	 *
 	 * @return Identifies a Business Partner
 	 */
