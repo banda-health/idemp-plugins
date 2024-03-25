@@ -133,8 +133,32 @@ test('cashier/registration advanced role has correct access', async () => {
 	).toBeFalsy();
 });
 
-test('inventory/pharmacy role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacy);
+test('inventory/pharmacy advanced role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyAdvanced);
+	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
+
+	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
+		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.DR).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+		expect(statusActionMapForASpecificDocumentBaseType.IP).not.toContain(documentAction.Void);
+
+		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+	});
+
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
+			(action) =>
+				action === documentAction.ReActivate ||
+				action === documentAction.ReverseAccrual ||
+				action === documentAction.ReverseCorrect,
+		),
+	).toBeTruthy();
+});
+
+test('inventory/pharmacy basic role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyBasic);
 	const documentStatusActionMap = await referenceListApi.getDocumentStatusActionMap(globalThis.__VALUE_OBJECT__);
 
 	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {

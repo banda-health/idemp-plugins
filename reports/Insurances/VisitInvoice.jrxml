@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InsuranceInvoice" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere Docker PostgreSQL"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere UAT PostgreSQL 5552"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
@@ -29,7 +29,7 @@
 			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF" isBlankWhenNull="true">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -59,7 +59,7 @@
 			<rightPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF" isBlankWhenNull="true">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
@@ -80,7 +80,7 @@
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF" isBlankWhenNull="true">
 		<box>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
@@ -98,7 +98,7 @@
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+	<style name="Table 3_TD" mode="Opaque" backcolor="#FFFFFF" isBlankWhenNull="true">
 		<box>
 			<topPen lineWidth="0.5" lineColor="#000000"/>
 			<bottomPen lineWidth="0.5" lineColor="#000000"/>
@@ -184,6 +184,7 @@ FROM visit v
     ON bp.c_bpartner_id = v.patient_id
     LEFT JOIN c_currency c
     ON c.c_currency_id = i.c_currency_id
+WHERE i.grandtotal <> 0
 ORDER BY is_main_payer;]]>
 		</queryString>
 		<field name="payer_name" class="java.lang.String">
@@ -683,7 +684,7 @@ FROM
 								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="90" height="16" uuid="e2550e59-4c7d-4efa-9edd-a01173fe6397"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
@@ -702,7 +703,7 @@ FROM
 								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
-							<textField>
+							<textField isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="140" height="16" uuid="42a54821-4c69-4659-afc8-70ff7d8daa1a"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{field_value}]]></textFieldExpression>
@@ -768,7 +769,7 @@ FROM
 						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="253" height="15" uuid="138a0fd1-3d00-491c-b7a8-30c2685dd428"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<paragraph leftIndent="3"/>
@@ -793,7 +794,7 @@ FROM
 						<jr:columnFooter style="Table_TF" height="20" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField pattern="#,##0">
+							<textField pattern="#,##0" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="70" height="15" uuid="1b080468-3c74-4a87-ba7d-7742b28ff72e"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
@@ -833,7 +834,7 @@ FROM
 							</staticText>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField pattern="#,##0">
+							<textField pattern="#,##0" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="77" height="15" uuid="1cca82bb-cb6b-4c49-886a-2093e05addd2"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
@@ -872,7 +873,7 @@ FROM
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField pattern="#,##0">
+							<textField pattern="#,##0" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="80" height="15" uuid="afa3425e-0418-4a7e-90cd-eb27491a256b"/>
 								<textElement textAlignment="Right" verticalAlignment="Middle">
 									<paragraph leftIndent="0" rightIndent="3"/>
