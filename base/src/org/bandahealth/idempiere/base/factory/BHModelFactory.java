@@ -458,4 +458,131 @@ public class BHModelFactory implements IModelFactory {
 
 		return null;
 	}
+
+	@Override
+	public PO getPO(String tableName, String Record_UU, String trxName) {
+		if (tableName.equalsIgnoreCase(MBPartner_BH.Table_Name)) {
+			return new MBPartner_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MOrder_BH.Table_Name)) {
+			return new MOrder_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MInvoice_BH.Table_Name)) {
+			return new MInvoice_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MPayment_BH.Table_Name)) {
+			return new MPayment_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MOrderLine_BH.Table_Name)) {
+			return new MOrderLine_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MInventory_BH.Table_Name)) {
+			return new MInventory_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MInventoryLine_BH.Table_Name)) {
+			return new MInventoryLine_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MProduct_BH.Table_Name)) {
+			return new MProduct_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MCharge_BH.Table_Name)) {
+			return new MCharge_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRef.Table_Name)) {
+			return new MBHPaymentRef(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPaymentRefBankAccount.Table_Name)) {
+			return new MBHPaymentRefBankAccount(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MChargeType_BH.Table_Name)) {
+			return new MChargeType_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MProductCategory_BH.Table_Name)) {
+			return new MProductCategory_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHProductCategoryDefault.Table_Name)) {
+			return new MBHProductCategoryDefault(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHDefaultIncludedRole.Table_Name)) {
+			return new MBHDefaultIncludedRole(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBPGroup_BH.Table_Name)) {
+			return new MBPGroup_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHDefaultDocActionAccess.Table_Name)) {
+			return new MBHDefaultDocActionAccess(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MReference_BH.Table_Name)) {
+			return new MReference_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MUser_BH.Table_Name)) {
+			return new MUser_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
+			return new MWindowAccess_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosis.Table_Name)) {
+			return new MBHCodedDiagnosis(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFld.Table_Name)) {
+			return new MBHPayerInfoFld(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFldVal.Table_Name)) {
+			return new MBHPayerInfoFldVal(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFldSug.Table_Name)) {
+			return new MBHPayerInfoFldSug(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFldValSug.Table_Name)) {
+			return new MBHPayerInfoFldValSug(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPSpecificPayerInfo.Table_Name)) {
+			return new MBHBPSpecificPayerInfo(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPGeneralPayerInfo.Table_Name)) {
+			return new MBHBPGeneralPayerInfo(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHBPPayerInfo.Table_Name)) {
+			return new MBHBPPayerInfo(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVoidedReason.Table_Name)) {
+			return new MBHVoidedReason(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovement_BH.Table_Name)) {
+			return new MMovement_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MMovementLine_BH.Table_Name)) {
+			return new MMovementLine_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MWarehouse_BH.Table_Name)) {
+			return new MWarehouse_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
+			return new MBHRoleWarehouseAccess(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
+			return new MBHCodedDiagnosisMapping(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MAttributeSetInstance_BH.Table_Name)) {
+			return new MAttributeSetInstance_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {
+			return new MMenu_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MInOut_BH.Table_Name)) {
+			return new MInOut_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
+			return new MBHVisit(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
+			return new MAttributeSet_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
+			return new MProcess_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MSysConfig_BH.Table_Name)) {
+			return new MSysConfig_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MSerNoCtl_BH.Table_Name)) {
+			return new MSerNoCtl_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MClient_BH.Table_Name)) {
+			return new MClient_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MDocType_BH.Table_Name)) {
+			return new MDocType_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MSequence_BH.Table_Name)) {
+			return new MSequence_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEncounter.Table_Name)) {
+			return new MBHEncounter(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHObservation.Table_Name)) {
+			return new MBHObservation(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBankAccount_BH.Table_Name)) {
+			return new MBankAccount_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MReplicationRun_BH.Table_Name)) {
+			return new MReplicationRun_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MReplicationLog_BH.Table_Name)) {
+			return new MReplicationLog_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MProductPO_BH.Table_Name)) {
+			return new MProductPO_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MProductPrice_BH.Table_Name)) {
+			return new MProductPrice_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MTree_BH.Table_Name)) {
+			return new MTree_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MRefList_BH.Table_Name)) {
+			return new MRefList_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MInvoiceLine_BH.Table_Name)) {
+			return new MInvoiceLine_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MCurrency_BH.Table_Name)) {
+			return new MCurrency_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEncounterDiagnosis.Table_Name)) {
+			return new MBHEncounterDiagnosis(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEncounterTypeWindow.Table_Name)) {
+			return new MBHEncounterTypeWindow(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MField_BH.Table_Name)) {
+			return new MField_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MFieldGroup_BH.Table_Name)) {
+			return new MFieldGroup_BH(Env.getCtx(), Record_UU, trxName);
+		}
+		
+		return null;
+	}
 }
