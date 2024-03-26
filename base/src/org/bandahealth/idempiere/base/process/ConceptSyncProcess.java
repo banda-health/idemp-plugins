@@ -9,6 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -113,7 +114,7 @@ public class ConceptSyncProcess extends SvrProcess {
 							.filter(filterConcept -> concept.getExternalId().equals(filterConcept.getBH_Concept_UU()))
 							.findFirst().orElse(null);
 
-					saveConcept(concept, foundConcept, newRecords, updatedRecords);
+					saveConcept(concept, foundConcept, newRecords, updatedRecords, new HashSet<>());
 
 				} catch (Exception ex) {
 					log.log(Level.SEVERE, ex.getMessage());
@@ -147,8 +148,8 @@ public class ConceptSyncProcess extends SvrProcess {
 	 * @param updatedRecords
 	 */
 	private void saveConcept(OCLConcept concept, MBHConcept mConcept, AtomicInteger newRecords,
-			AtomicInteger updatedRecords) {
-		if (concept == null) {
+			AtomicInteger updatedRecords, Set<String> visitedConcepts) {
+		if (concept == null || visitedConcepts.contains(concept.getId())) {
 			return;
 		}
 
@@ -179,6 +180,8 @@ public class ConceptSyncProcess extends SvrProcess {
 		mConcept.setBH_Source(concept.getSource());
 		mConcept.setURL(concept.getUrl());
 		mConcept.saveEx();
+		
+		visitedConcepts.add(concept.getId());
 
 		final int conceptID = mConcept.getBH_Concept_ID();
 
@@ -208,7 +211,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		});
 
 		// save mappings
-		downloadChildMappings(mConcept, concept, newRecords, updatedRecords);
+		downloadChildMappings(mConcept, concept, newRecords, updatedRecords, visitedConcepts);
 	}
 
 	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page) {
@@ -293,7 +296,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	 * @param ConceptMapping
 	 */
 	private void downloadChildMappings(MBHConcept parentConcept, OCLConcept oclConcept, AtomicInteger newRecords,
-			AtomicInteger updatedRecords) {
+			AtomicInteger updatedRecords, Set<String> visitedConcepts) {
 		List<OCLConceptMapping> mappings = oclConcept.getMappings();
 		if (mappings.isEmpty()) {
 			return;
@@ -383,7 +386,7 @@ public class ConceptSyncProcess extends SvrProcess {
 				// some concepts are mapped to themselves leading to an infinite loop.
 				if (mappingUrl != null && !"null".equals(mappingUrl) && !oclConcept.getUrl().equals(mappingUrl)) {
 					// check mappings
-					saveConcept(getConceptFromOCL(mappingUrl), null, newRecords, updatedRecords);
+					saveConcept(getConceptFromOCL(mappingUrl), null, newRecords, updatedRecords, visitedConcepts);
 				}
 			}
 		});
