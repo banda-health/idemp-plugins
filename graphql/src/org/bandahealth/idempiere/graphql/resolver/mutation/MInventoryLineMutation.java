@@ -1,10 +1,8 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.graphql.model.input.I_M_InventoryLineInput;
 import org.compiere.model.MStorageOnHand;
-import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 

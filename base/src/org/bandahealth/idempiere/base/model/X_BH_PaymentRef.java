@@ -23,21 +23,58 @@ import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_PaymentRef
- *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
-public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_PaymentRef")
+public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240111L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_PaymentRef (Properties ctx, int BH_PaymentRef_ID, String trxName)
     {
       super (ctx, BH_PaymentRef_ID, trxName);
       /** if (BH_PaymentRef_ID == 0)
+        {
+			setAD_Reference_ID (0);
+			setBH_PaymentRef_ID (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_PaymentRef (Properties ctx, int BH_PaymentRef_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_PaymentRef_ID, trxName, virtualColumns);
+      /** if (BH_PaymentRef_ID == 0)
+        {
+			setAD_Reference_ID (0);
+			setBH_PaymentRef_ID (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_PaymentRef (Properties ctx, String BH_PaymentRef_UU, String trxName)
+    {
+      super (ctx, BH_PaymentRef_UU, trxName);
+      /** if (BH_PaymentRef_UU == null)
+        {
+			setAD_Reference_ID (0);
+			setBH_PaymentRef_ID (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_PaymentRef (Properties ctx, String BH_PaymentRef_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_PaymentRef_UU, trxName, virtualColumns);
+      /** if (BH_PaymentRef_UU == null)
         {
 			setAD_Reference_ID (0);
 			setBH_PaymentRef_ID (0);
@@ -52,7 +89,7 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
     }
 
     /** AccessLevel
-      * @return 2 - Client 
+      * @return 2 - Client
       */
     protected int get_AccessLevel()
     {
@@ -74,26 +111,26 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
     }
 
 	public org.compiere.model.I_AD_Reference getAD_Reference() throws RuntimeException
-    {
-		return (org.compiere.model.I_AD_Reference)MTable.get(getCtx(), org.compiere.model.I_AD_Reference.Table_Name)
-			.getPO(getAD_Reference_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_AD_Reference)MTable.get(getCtx(), org.compiere.model.I_AD_Reference.Table_ID)
+			.getPO(getAD_Reference_ID(), get_TrxName());
+	}
 
 	/** Set Reference.
-		@param AD_Reference_ID 
-		System Reference and Validation
-	  */
+		@param AD_Reference_ID System Reference and Validation
+	*/
 	public void setAD_Reference_ID (int AD_Reference_ID)
 	{
-		if (AD_Reference_ID < 1) 
+		if (AD_Reference_ID < 1)
 			set_Value (COLUMNNAME_AD_Reference_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_AD_Reference_ID, Integer.valueOf(AD_Reference_ID));
 	}
 
 	/** Get Reference.
 		@return System Reference and Validation
 	  */
-	public int getAD_Reference_ID () 
+	public int getAD_Reference_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Reference_ID);
 		if (ii == null)
@@ -102,9 +139,8 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 	}
 
 	/** Set BH_PaymentRef_Action.
-		@param BH_PaymentRef_Action 
-		Represents an action the can be performed for the payment reference
-	  */
+		@param BH_PaymentRef_Action Represents an action the can be performed for the payment reference
+	*/
 	public void setBH_PaymentRef_Action (String BH_PaymentRef_Action)
 	{
 		set_Value (COLUMNNAME_BH_PaymentRef_Action, BH_PaymentRef_Action);
@@ -113,24 +149,25 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 	/** Get BH_PaymentRef_Action.
 		@return Represents an action the can be performed for the payment reference
 	  */
-	public String getBH_PaymentRef_Action () 
+	public String getBH_PaymentRef_Action()
 	{
 		return (String)get_Value(COLUMNNAME_BH_PaymentRef_Action);
 	}
 
 	/** Set BH_PaymentRef.
-		@param BH_PaymentRef_ID BH_PaymentRef	  */
+		@param BH_PaymentRef_ID BH_PaymentRef
+	*/
 	public void setBH_PaymentRef_ID (int BH_PaymentRef_ID)
 	{
-		if (BH_PaymentRef_ID < 1) 
+		if (BH_PaymentRef_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_PaymentRef_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_PaymentRef_ID, Integer.valueOf(BH_PaymentRef_ID));
 	}
 
 	/** Get BH_PaymentRef.
 		@return BH_PaymentRef	  */
-	public int getBH_PaymentRef_ID () 
+	public int getBH_PaymentRef_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_PaymentRef_ID);
 		if (ii == null)
@@ -139,7 +176,8 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 	}
 
 	/** Set BH_PaymentRef_UU.
-		@param BH_PaymentRef_UU BH_PaymentRef_UU	  */
+		@param BH_PaymentRef_UU BH_PaymentRef_UU
+	*/
 	public void setBH_PaymentRef_UU (String BH_PaymentRef_UU)
 	{
 		set_Value (COLUMNNAME_BH_PaymentRef_UU, BH_PaymentRef_UU);
@@ -147,15 +185,14 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 
 	/** Get BH_PaymentRef_UU.
 		@return BH_PaymentRef_UU	  */
-	public String getBH_PaymentRef_UU () 
+	public String getBH_PaymentRef_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_PaymentRef_UU);
 	}
 
 	/** Set Description.
-		@param Description 
-		Optional short description of the record
-	  */
+		@param Description Optional short description of the record
+	*/
 	public void setDescription (String Description)
 	{
 		set_Value (COLUMNNAME_Description, Description);
@@ -164,15 +201,14 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 	/** Get Description.
 		@return Optional short description of the record
 	  */
-	public String getDescription () 
+	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
 	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
+		@param Name Alphanumeric identifier of the entity
+	*/
 	public void setName (String Name)
 	{
 		set_Value (COLUMNNAME_Name, Name);
@@ -181,7 +217,7 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
 	/** Get Name.
 		@return Alphanumeric identifier of the entity
 	  */
-	public String getName () 
+	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
@@ -189,7 +225,7 @@ public class X_BH_PaymentRef extends PO implements I_BH_PaymentRef, I_Persistent
     /** Get Record ID/ColumnName
         @return ID/ColumnName pair
       */
-    public KeyNamePair getKeyNamePair() 
+    public KeyNamePair getKeyNamePair()
     {
         return new KeyNamePair(get_ID(), getName());
     }

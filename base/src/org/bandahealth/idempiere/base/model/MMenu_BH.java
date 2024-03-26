@@ -1,9 +1,9 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.MMenu;
+
 import java.sql.ResultSet;
 import java.util.Properties;
-
-import org.compiere.model.MMenu;
 
 public class MMenu_BH extends MMenu {
 
@@ -11,8 +11,20 @@ public class MMenu_BH extends MMenu {
 	public static final String MENUUUID_GREENLIGHT_REPORT_DROPDOWN = "35ce7d6a-cf7d-4962-a748-75e27d0121bf";
 	public static final String COLUMNNAME_IconClassName = "IconClassName";
 
-	public MMenu_BH(Properties ctx, int M_Menu_ID, String trxName) {
-		super(ctx, M_Menu_ID, trxName);
+	public MMenu_BH(Properties ctx, MMenu copy) {
+		super(ctx, copy);
+	}
+
+	public MMenu_BH(Properties ctx, MMenu copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
+
+	public MMenu_BH(Properties ctx, String AD_Menu_UU, String trxName) {
+		super(ctx, AD_Menu_UU, trxName);
+	}
+
+	public MMenu_BH(Properties ctx, int AD_Menu_ID, String trxName) {
+		super(ctx, AD_Menu_ID, trxName);
 	}
 
 	public MMenu_BH(Properties ctx, ResultSet rs, String trxName) {

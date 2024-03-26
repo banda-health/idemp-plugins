@@ -37,6 +37,10 @@ public class MReference_BH extends MReference {
 	public static final String SUFFIX_ID = "id";
 	private static final long serialVersionUID = 1L;
 
+	public MReference_BH(Properties ctx, String AD_Reference_UU, String trxName) {
+		super(ctx, AD_Reference_UU, trxName);
+	}
+
 	public MReference_BH(Properties ctx, int AD_Reference_ID, String trxName) {
 		super(ctx, AD_Reference_ID, trxName);
 	}

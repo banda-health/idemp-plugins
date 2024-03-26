@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.graphql.model.input.I_AD_TreeInput;
 import org.bandahealth.idempiere.graphql.model.input.X_AD_TreeInput;
 

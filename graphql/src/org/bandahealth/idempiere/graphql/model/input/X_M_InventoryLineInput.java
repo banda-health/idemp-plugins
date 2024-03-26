@@ -5,18 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 
 /**
  * Generated Model for M_InventoryLine - DO NOT CHANGE
@@ -24,7 +23,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_M_InventoryLineInput extends MInventoryLine_BH implements I_M_InventoryLineInput {
+public class X_M_InventoryLineInput extends MInventoryLine implements I_M_InventoryLineInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Charge;

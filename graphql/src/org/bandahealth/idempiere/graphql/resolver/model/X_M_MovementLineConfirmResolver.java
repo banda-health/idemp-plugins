@@ -2,8 +2,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
-import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InventoryLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MovementConfirmDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MovementLineDataLoader;

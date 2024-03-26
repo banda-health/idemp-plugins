@@ -3,14 +3,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MReplicationRun_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReplication;
+import org.compiere.model.MReplicationRun;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-
-import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Replication_Run - DO NOT CHANGE
@@ -18,7 +16,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_AD_Replication_RunInput extends MReplicationRun_BH implements I_AD_Replication_RunInput {
+public class X_AD_Replication_RunInput extends MReplicationRun implements I_AD_Replication_RunInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Replication;

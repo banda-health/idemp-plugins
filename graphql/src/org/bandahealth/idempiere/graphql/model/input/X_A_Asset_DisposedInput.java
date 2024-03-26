@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -14,8 +13,6 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MPeriod;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-
-import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Disposed - DO NOT CHANGE

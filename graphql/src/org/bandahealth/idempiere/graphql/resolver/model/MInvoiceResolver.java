@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAllocationLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInvoiceLineDataLoader;

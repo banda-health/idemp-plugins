@@ -16,6 +16,18 @@ public class MChargeType_BH extends X_C_ChargeType {
 		super(ctx, C_ChargeType_ID, trxName);
 	}
 
+	public MChargeType_BH(Properties ctx, int C_ChargeType_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_ChargeType_ID, trxName, virtualColumns);
+	}
+
+	public MChargeType_BH(Properties ctx, String C_ChargeType_UU, String trxName) {
+		super(ctx, C_ChargeType_UU, trxName);
+	}
+
+	public MChargeType_BH(Properties ctx, String C_ChargeType_UU, String trxName, String... virtualColumns) {
+		super(ctx, C_ChargeType_UU, trxName, virtualColumns);
+	}
+
 	public MChargeType_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}

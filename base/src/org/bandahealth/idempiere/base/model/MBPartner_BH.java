@@ -94,20 +94,36 @@ public class MBPartner_BH extends MBPartner {
 		super(ctx);
 	}
 
-	public MBPartner_BH(X_I_BPartner impBP) {
-		super(impBP);
-	}
-
 	public MBPartner_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
+	}
+
+	public MBPartner_BH(Properties ctx, String C_BPartner_UU, String trxName) {
+		super(ctx, C_BPartner_UU, trxName);
 	}
 
 	public MBPartner_BH(Properties ctx, int C_BPartner_ID, String trxName) {
 		super(ctx, C_BPartner_ID, trxName);
 	}
 
-	public MBPartner_BH(Properties ctx, String C_BPartner_UU, String trxName) {
-		super(ctx, C_BPartner_UU, trxName);
+	public MBPartner_BH(X_I_BPartner impBP) {
+		super(impBP);
+	}
+
+	public MBPartner_BH(MBPartner copy) {
+		super(copy);
+	}
+
+	public MBPartner_BH(Properties ctx, MBPartner copy) {
+		super(ctx, copy);
+	}
+
+	public MBPartner_BH(Properties ctx, MBPartner copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
+
+	public MBPartner_BH(Properties ctx, int C_BPartner_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_BPartner_ID, trxName, virtualColumns);
 	}
 
 	@Override

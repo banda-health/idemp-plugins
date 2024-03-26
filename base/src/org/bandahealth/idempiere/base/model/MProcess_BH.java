@@ -32,11 +32,27 @@ public class MProcess_BH extends MProcess {
 	public static final String PROCESSUUID_THERMAL_RECEIPT_REPORT = "30dd7243-11c1-4584-af26-5d977d117c84";
 	public static final String PROCESSUUID_DEBT_PAYMENT_RECEIPT = "173a691b-ba89-4987-9216-9b3f0a60c864";
 
+	public MProcess_BH(Properties ctx, String AD_Process_UU, String trxName) {
+		super(ctx, AD_Process_UU, trxName);
+	}
+
 	public MProcess_BH(Properties ctx, int AD_Process_ID, String trxName) {
 		super(ctx, AD_Process_ID, trxName);
 	}
 
 	public MProcess_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
+	}
+
+	public MProcess_BH(MProcess copy) {
+		super(copy);
+	}
+
+	public MProcess_BH(Properties ctx, MProcess copy) {
+		super(ctx, copy);
+	}
+
+	public MProcess_BH(Properties ctx, MProcess copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 }

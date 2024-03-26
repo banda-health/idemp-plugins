@@ -18,12 +18,20 @@ public class MOrderLine_BH extends MOrderLine {
 
 	public static final String COLUMNNAME_BH_Instructions = "BH_Instructions";
 
-	public MOrderLine_BH(MOrder order) {
-		super(order);
+	public MOrderLine_BH(Properties ctx, String C_OrderLine_UU, String trxName) {
+		super(ctx, C_OrderLine_UU, trxName);
 	}
 
 	public MOrderLine_BH(Properties ctx, int C_OrderLine_ID, String trxName) {
 		super(ctx, C_OrderLine_ID, trxName);
+	}
+
+	public MOrderLine_BH(Properties ctx, int C_OrderLine_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_OrderLine_ID, trxName, virtualColumns);
+	}
+
+	public MOrderLine_BH(MOrder order) {
+		super(order);
 	}
 
 	public MOrderLine_BH(Properties ctx, ResultSet rs, String trxName) {

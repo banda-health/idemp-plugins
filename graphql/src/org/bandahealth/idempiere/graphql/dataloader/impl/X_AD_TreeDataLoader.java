@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MTree_BH;
-
 /**
  * Data Loader for AD_Tree - DO NOT CHANGE
  *

@@ -13,19 +13,32 @@ public class MUser_BH extends MUser {
 	public static String COLUMNNAME_BH_HasAcceptedTermsOfUse = "BH_HasAcceptedTermsOfUse";
 	public static String COLUMNNAME_BH_TOS_DATE_ACCEPTED = "BH_TOS_DATE_ACCEPTED";
 
-	public MUser_BH(Properties ctx, int AD_User_ID, String trxName) {
-		super(ctx, AD_User_ID, trxName);
-		// TODO Auto-generated constructor stub
+	public MUser_BH(Properties ctx, String AD_User_UU, String trxName) {
+		super(ctx, AD_User_UU, trxName);
 	}
 
-	public MUser_BH(Properties ctx, ResultSet rs, String trxName) {
-		super(ctx, rs, trxName);
-		// TODO Auto-generated constructor stub
+	public MUser_BH(Properties ctx, int AD_User_ID, String trxName) {
+		super(ctx, AD_User_ID, trxName);
 	}
 
 	public MUser_BH(X_C_BPartner partner) {
 		super(partner);
-		// TODO Auto-generated constructor stub
+	}
+
+	public MUser_BH(Properties ctx, ResultSet rs, String trxName) {
+		super(ctx, rs, trxName);
+	}
+
+	public MUser_BH(MUser copy) {
+		super(copy);
+	}
+
+	public MUser_BH(Properties ctx, MUser copy) {
+		super(ctx, copy);
+	}
+
+	public MUser_BH(Properties ctx, MUser copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	/**

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
-import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -30,7 +29,6 @@ import org.compiere.model.X_C_1099Box;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 
 /**
  * Generated Model for C_InvoiceLine - DO NOT CHANGE

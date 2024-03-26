@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MMovementLine_BH;
-
 /**
  * Data Loader for M_MovementLine - DO NOT CHANGE
  *

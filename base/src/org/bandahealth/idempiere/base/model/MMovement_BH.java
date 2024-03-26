@@ -17,12 +17,16 @@ public class MMovement_BH extends MMovement {
 	 */
 	public static final String COLUMNNAME_BH_To_Warehouse_ID = "BH_To_Warehouse_ID";
 
-	public MMovement_BH(Properties context, int cOrderId, String transactionName) {
-		super(context, cOrderId, transactionName);
+	public MMovement_BH(Properties ctx, String M_Movement_UU, String trxName) {
+		super(ctx, M_Movement_UU, trxName);
 	}
 
-	public MMovement_BH(Properties contex, ResultSet resultSet, String transactionName) {
-		super(contex, resultSet, transactionName);
+	public MMovement_BH(Properties ctx, int M_Movement_ID, String trxName) {
+		super(ctx, M_Movement_ID, trxName);
+	}
+
+	public MMovement_BH(Properties ctx, ResultSet rs, String trxName) {
+		super(ctx, rs, trxName);
 	}
 
 	/**

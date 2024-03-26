@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Role_WarehouseAccess
  *  @author iDempiere (generated) 
- *  @version Release 8.2
+ *  @version Release 11
  */
 @SuppressWarnings("all")
 public interface I_BH_Role_WarehouseAccess 

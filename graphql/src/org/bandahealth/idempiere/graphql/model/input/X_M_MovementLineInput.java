@@ -4,17 +4,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
-import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MLocator;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.MDDOrderLine;
-
-import java.sql.ResultSet;
 
 /**
  * Generated Model for M_MovementLine - DO NOT CHANGE
@@ -22,7 +20,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_M_MovementLineInput extends MMovementLine_BH implements I_M_MovementLineInput {
+public class X_M_MovementLineInput extends MMovementLine implements I_M_MovementLineInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mDD_OrderLine;

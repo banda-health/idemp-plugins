@@ -50,8 +50,16 @@ public class MProduct_BH extends MProduct {
 	 */
 	public static final String COLUMNNAME_QtyInStore = "QtyInStore";
 
+	public MProduct_BH(Properties ctx, String M_Product_UU, String trxName) {
+		super(ctx, M_Product_UU, trxName);
+	}
+
 	public MProduct_BH(Properties ctx, int M_Product_ID, String trxName) {
 		super(ctx, M_Product_ID, trxName);
+	}
+
+	public MProduct_BH(Properties ctx, int M_Product_ID, String trxName, String... virtualColumns) {
+		super(ctx, M_Product_ID, trxName, virtualColumns);
 	}
 
 	public MProduct_BH(Properties ctx, ResultSet rs, String trxName) {
@@ -70,9 +78,16 @@ public class MProduct_BH extends MProduct {
 		super(impP);
 	}
 
-	public MProduct_BH(X_BH_I_Product_Quantity importProductQuantity) {
-		this(importProductQuantity.getCtx(), 0, importProductQuantity.get_TrxName());
-		set(importProductQuantity);
+	public MProduct_BH(MProduct copy) {
+		super(copy);
+	}
+
+	public MProduct_BH(Properties ctx, MProduct copy) {
+		super(ctx, copy);
+	}
+
+	public MProduct_BH(Properties ctx, MProduct copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	/**

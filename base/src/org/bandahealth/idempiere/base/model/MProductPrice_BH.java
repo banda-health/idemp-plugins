@@ -10,14 +10,13 @@ import java.util.Properties;
 public class MProductPrice_BH extends MProductPrice {
 
 	/**
-	 * Column name BH_NavButtons
-	 */
-	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
-
-	/**
 	 * Column name ProductName
 	 */
 	public static final String COLUMNNAME_ProductName = "ProductName";
+
+	public MProductPrice_BH(Properties ctx, String M_ProductPrice_UU, String trxName) {
+		super(ctx, M_ProductPrice_UU, trxName);
+	}
 
 	public MProductPrice_BH(Properties ctx, int M_ProductPrice_ID, String trxName) {
 		super(ctx, M_ProductPrice_ID, trxName);
@@ -36,27 +35,21 @@ public class MProductPrice_BH extends MProductPrice {
 		super(ctx, M_PriceList_Version_ID, M_Product_ID, PriceList, PriceStd, PriceLimit, trxName);
 	}
 
-	public MProductPrice_BH(MPriceListVersion plv, int M_Product_ID, BigDecimal PriceList,
-			BigDecimal PriceStd, BigDecimal PriceLimit) {
+	public MProductPrice_BH(MPriceListVersion plv, int M_Product_ID, BigDecimal PriceList, BigDecimal PriceStd,
+			BigDecimal PriceLimit) {
 		super(plv, M_Product_ID, PriceList, PriceStd, PriceLimit);
 	}
 
-	/**
-	 * Set BH_NavButtons.
-	 *
-	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	public void setBH_NavButtons(Object BH_NavButtons) {
-		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	public MProductPrice_BH(MProductPrice copy) {
+		super(copy);
 	}
 
-	/**
-	 * Get BH_NavButtons.
-	 *
-	 * @return Element to allow buttons to be displayed that trigger tab navigation
-	 */
-	public Object getBH_NavButtons() {
-		return get_Value(COLUMNNAME_BH_NavButtons);
+	public MProductPrice_BH(Properties ctx, MProductPrice copy) {
+		super(ctx, copy);
+	}
+
+	public MProductPrice_BH(Properties ctx, MProductPrice copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	/**

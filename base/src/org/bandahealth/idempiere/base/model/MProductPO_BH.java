@@ -13,6 +13,10 @@ public class MProductPO_BH extends MProductPO {
 	 */
 	public static final String COLUMNNAME_DiscontinuedBy = "DiscontinuedBy";
 
+	public MProductPO_BH(Properties ctx, String M_Product_PO_UU, String trxName) {
+		super(ctx, M_Product_PO_UU, trxName);
+	}
+
 	public MProductPO_BH(Properties ctx, int ignored, String trxName) {
 		super(ctx, ignored, trxName);
 	}

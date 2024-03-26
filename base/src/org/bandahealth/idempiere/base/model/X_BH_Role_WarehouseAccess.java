@@ -22,21 +22,58 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for BH_Role_WarehouseAccess
- *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
-public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_WarehouseAccess, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Role_WarehouseAccess")
+public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_WarehouseAccess, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240111L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Role_WarehouseAccess (Properties ctx, int BH_Role_WarehouseAccess_ID, String trxName)
     {
       super (ctx, BH_Role_WarehouseAccess_ID, trxName);
       /** if (BH_Role_WarehouseAccess_ID == 0)
+        {
+			setBH_Role_WarehouseAccess_ID (0);
+			setIsReadOnly (false);
+			setM_Warehouse_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Role_WarehouseAccess (Properties ctx, int BH_Role_WarehouseAccess_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Role_WarehouseAccess_ID, trxName, virtualColumns);
+      /** if (BH_Role_WarehouseAccess_ID == 0)
+        {
+			setBH_Role_WarehouseAccess_ID (0);
+			setIsReadOnly (false);
+			setM_Warehouse_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Role_WarehouseAccess (Properties ctx, String BH_Role_WarehouseAccess_UU, String trxName)
+    {
+      super (ctx, BH_Role_WarehouseAccess_UU, trxName);
+      /** if (BH_Role_WarehouseAccess_UU == null)
+        {
+			setBH_Role_WarehouseAccess_ID (0);
+			setIsReadOnly (false);
+			setM_Warehouse_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Role_WarehouseAccess (Properties ctx, String BH_Role_WarehouseAccess_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Role_WarehouseAccess_UU, trxName, virtualColumns);
+      /** if (BH_Role_WarehouseAccess_UU == null)
         {
 			setBH_Role_WarehouseAccess_ID (0);
 			setIsReadOnly (false);
@@ -51,7 +88,7 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
     }
 
     /** AccessLevel
-      * @return 6 - System - Client 
+      * @return 6 - System - Client
       */
     protected int get_AccessLevel()
     {
@@ -68,31 +105,31 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
     public String toString()
     {
       StringBuilder sb = new StringBuilder ("X_BH_Role_WarehouseAccess[")
-        .append(get_ID()).append("]");
+        .append(get_UUID()).append("]");
       return sb.toString();
     }
 
 	public org.compiere.model.I_AD_Role getAD_Role() throws RuntimeException
-    {
-		return (org.compiere.model.I_AD_Role)MTable.get(getCtx(), org.compiere.model.I_AD_Role.Table_Name)
-			.getPO(getAD_Role_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_AD_Role)MTable.get(getCtx(), org.compiere.model.I_AD_Role.Table_ID)
+			.getPO(getAD_Role_ID(), get_TrxName());
+	}
 
 	/** Set Role.
-		@param AD_Role_ID 
-		Responsibility Role
-	  */
+		@param AD_Role_ID Responsibility Role
+	*/
 	public void setAD_Role_ID (int AD_Role_ID)
 	{
-		if (AD_Role_ID < 0) 
+		if (AD_Role_ID < 0)
 			set_ValueNoCheck (COLUMNNAME_AD_Role_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_AD_Role_ID, Integer.valueOf(AD_Role_ID));
 	}
 
 	/** Get Role.
 		@return Responsibility Role
 	  */
-	public int getAD_Role_ID () 
+	public int getAD_Role_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Role_ID);
 		if (ii == null)
@@ -101,18 +138,19 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
 	}
 
 	/** Set BH_Role_WarehouseAccess_ID.
-		@param BH_Role_WarehouseAccess_ID BH_Role_WarehouseAccess_ID	  */
+		@param BH_Role_WarehouseAccess_ID BH_Role_WarehouseAccess_ID
+	*/
 	public void setBH_Role_WarehouseAccess_ID (int BH_Role_WarehouseAccess_ID)
 	{
-		if (BH_Role_WarehouseAccess_ID < 1) 
+		if (BH_Role_WarehouseAccess_ID < 1)
 			set_Value (COLUMNNAME_BH_Role_WarehouseAccess_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_BH_Role_WarehouseAccess_ID, Integer.valueOf(BH_Role_WarehouseAccess_ID));
 	}
 
 	/** Get BH_Role_WarehouseAccess_ID.
 		@return BH_Role_WarehouseAccess_ID	  */
-	public int getBH_Role_WarehouseAccess_ID () 
+	public int getBH_Role_WarehouseAccess_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Role_WarehouseAccess_ID);
 		if (ii == null)
@@ -121,7 +159,8 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
 	}
 
 	/** Set BH_Role_WarehouseAccess_UU.
-		@param BH_Role_WarehouseAccess_UU BH_Role_WarehouseAccess_UU	  */
+		@param BH_Role_WarehouseAccess_UU BH_Role_WarehouseAccess_UU
+	*/
 	public void setBH_Role_WarehouseAccess_UU (String BH_Role_WarehouseAccess_UU)
 	{
 		set_Value (COLUMNNAME_BH_Role_WarehouseAccess_UU, BH_Role_WarehouseAccess_UU);
@@ -129,15 +168,14 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
 
 	/** Get BH_Role_WarehouseAccess_UU.
 		@return BH_Role_WarehouseAccess_UU	  */
-	public String getBH_Role_WarehouseAccess_UU () 
+	public String getBH_Role_WarehouseAccess_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Role_WarehouseAccess_UU);
 	}
 
 	/** Set Read Only.
-		@param IsReadOnly 
-		Field is read only
-	  */
+		@param IsReadOnly Field is read only
+	*/
 	public void setIsReadOnly (boolean IsReadOnly)
 	{
 		set_Value (COLUMNNAME_IsReadOnly, Boolean.valueOf(IsReadOnly));
@@ -146,39 +184,39 @@ public class X_BH_Role_WarehouseAccess extends PO implements I_BH_Role_Warehouse
 	/** Get Read Only.
 		@return Field is read only
 	  */
-	public boolean isReadOnly () 
+	public boolean isReadOnly()
 	{
 		Object oo = get_Value(COLUMNNAME_IsReadOnly);
-		if (oo != null) 
+		if (oo != null)
 		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
+			 if (oo instanceof Boolean)
+				 return ((Boolean)oo).booleanValue();
 			return "Y".equals(oo);
 		}
 		return false;
 	}
 
 	public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException
-    {
-		return (org.compiere.model.I_M_Warehouse)MTable.get(getCtx(), org.compiere.model.I_M_Warehouse.Table_Name)
-			.getPO(getM_Warehouse_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_M_Warehouse)MTable.get(getCtx(), org.compiere.model.I_M_Warehouse.Table_ID)
+			.getPO(getM_Warehouse_ID(), get_TrxName());
+	}
 
 	/** Set Warehouse.
-		@param M_Warehouse_ID 
-		Storage Warehouse and Service Point
-	  */
+		@param M_Warehouse_ID Storage Warehouse and Service Point
+	*/
 	public void setM_Warehouse_ID (int M_Warehouse_ID)
 	{
-		if (M_Warehouse_ID < 1) 
+		if (M_Warehouse_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_M_Warehouse_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
 	}
 
 	/** Get Warehouse.
 		@return Storage Warehouse and Service Point
 	  */
-	public int getM_Warehouse_ID () 
+	public int getM_Warehouse_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_M_Warehouse_ID);
 		if (ii == null)

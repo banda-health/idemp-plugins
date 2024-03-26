@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MReplicationRun_BH;
-
 /**
  * Data Loader for AD_Replication_Run - DO NOT CHANGE
  *

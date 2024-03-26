@@ -3,8 +3,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
-import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutConfirm;
 import org.compiere.model.MInOutLine;
@@ -14,7 +12,6 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 
 /**
  * Generated Model for M_InOutLineConfirm - DO NOT CHANGE

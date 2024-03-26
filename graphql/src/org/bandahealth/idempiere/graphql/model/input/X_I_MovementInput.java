@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
@@ -18,8 +17,6 @@ import org.compiere.model.MShipper;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.X_I_Movement;
-
-import java.sql.ResultSet;
 
 /**
  * Generated Model for I_Movement - DO NOT CHANGE

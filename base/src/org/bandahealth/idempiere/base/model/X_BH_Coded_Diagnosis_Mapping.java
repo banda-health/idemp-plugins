@@ -22,21 +22,52 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for BH_Coded_Diagnosis_Mapping
- *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
-public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagnosis_Mapping, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Coded_Diagnosis_Mapping")
+public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagnosis_Mapping, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240111L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Coded_Diagnosis_Mapping (Properties ctx, int BH_Coded_Diagnosis_Mapping_ID, String trxName)
     {
       super (ctx, BH_Coded_Diagnosis_Mapping_ID, trxName);
       /** if (BH_Coded_Diagnosis_Mapping_ID == 0)
+        {
+			setBH_Coded_Diagnosis_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Coded_Diagnosis_Mapping (Properties ctx, int BH_Coded_Diagnosis_Mapping_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Coded_Diagnosis_Mapping_ID, trxName, virtualColumns);
+      /** if (BH_Coded_Diagnosis_Mapping_ID == 0)
+        {
+			setBH_Coded_Diagnosis_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Coded_Diagnosis_Mapping (Properties ctx, String BH_Coded_Diagnosis_Mapping_UU, String trxName)
+    {
+      super (ctx, BH_Coded_Diagnosis_Mapping_UU, trxName);
+      /** if (BH_Coded_Diagnosis_Mapping_UU == null)
+        {
+			setBH_Coded_Diagnosis_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Coded_Diagnosis_Mapping (Properties ctx, String BH_Coded_Diagnosis_Mapping_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Coded_Diagnosis_Mapping_UU, trxName, virtualColumns);
+      /** if (BH_Coded_Diagnosis_Mapping_UU == null)
         {
 			setBH_Coded_Diagnosis_ID (0);
         } */
@@ -49,7 +80,7 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 3 - Client - Org
       */
     protected int get_AccessLevel()
     {
@@ -71,23 +102,25 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
     }
 
 	public I_BH_Coded_Diagnosis getBH_Coded_Diagnosis() throws RuntimeException
-    {
-		return (I_BH_Coded_Diagnosis)MTable.get(getCtx(), I_BH_Coded_Diagnosis.Table_Name)
-			.getPO(getBH_Coded_Diagnosis_ID(), get_TrxName());	}
+	{
+		return (I_BH_Coded_Diagnosis)MTable.get(getCtx(), I_BH_Coded_Diagnosis.Table_ID)
+			.getPO(getBH_Coded_Diagnosis_ID(), get_TrxName());
+	}
 
 	/** Set Coded Diagnosis.
-		@param BH_Coded_Diagnosis_ID Coded Diagnosis	  */
+		@param BH_Coded_Diagnosis_ID Coded Diagnosis
+	*/
 	public void setBH_Coded_Diagnosis_ID (int BH_Coded_Diagnosis_ID)
 	{
-		if (BH_Coded_Diagnosis_ID < 1) 
+		if (BH_Coded_Diagnosis_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Coded_Diagnosis_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Coded_Diagnosis_ID, Integer.valueOf(BH_Coded_Diagnosis_ID));
 	}
 
 	/** Get Coded Diagnosis.
 		@return Coded Diagnosis	  */
-	public int getBH_Coded_Diagnosis_ID () 
+	public int getBH_Coded_Diagnosis_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Coded_Diagnosis_ID);
 		if (ii == null)
@@ -96,21 +129,20 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	}
 
 	/** Set Coded Diagnosis Mapping ID.
-		@param BH_Coded_Diagnosis_Mapping_ID 
-		Coded Diagnosis Mapping ID
-	  */
+		@param BH_Coded_Diagnosis_Mapping_ID Coded Diagnosis Mapping ID
+	*/
 	public void setBH_Coded_Diagnosis_Mapping_ID (int BH_Coded_Diagnosis_Mapping_ID)
 	{
-		if (BH_Coded_Diagnosis_Mapping_ID < 1) 
+		if (BH_Coded_Diagnosis_Mapping_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Coded_Diagnosis_Mapping_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Coded_Diagnosis_Mapping_ID, Integer.valueOf(BH_Coded_Diagnosis_Mapping_ID));
 	}
 
 	/** Get Coded Diagnosis Mapping ID.
 		@return Coded Diagnosis Mapping ID
 	  */
-	public int getBH_Coded_Diagnosis_Mapping_ID () 
+	public int getBH_Coded_Diagnosis_Mapping_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Coded_Diagnosis_Mapping_ID);
 		if (ii == null)
@@ -119,7 +151,8 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	}
 
 	/** Set BH_Coded_Diagnosis_Mapping_UU.
-		@param BH_Coded_Diagnosis_Mapping_UU BH_Coded_Diagnosis_Mapping_UU	  */
+		@param BH_Coded_Diagnosis_Mapping_UU BH_Coded_Diagnosis_Mapping_UU
+	*/
 	public void setBH_Coded_Diagnosis_Mapping_UU (String BH_Coded_Diagnosis_Mapping_UU)
 	{
 		set_ValueNoCheck (COLUMNNAME_BH_Coded_Diagnosis_Mapping_UU, BH_Coded_Diagnosis_Mapping_UU);
@@ -127,15 +160,14 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 
 	/** Get BH_Coded_Diagnosis_Mapping_UU.
 		@return BH_Coded_Diagnosis_Mapping_UU	  */
-	public String getBH_Coded_Diagnosis_Mapping_UU () 
+	public String getBH_Coded_Diagnosis_Mapping_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Coded_Diagnosis_Mapping_UU);
 	}
 
 	/** Set BH_Concept_Code.
-		@param BH_Concept_Code 
-		BH_Concept_Code
-	  */
+		@param BH_Concept_Code BH_Concept_Code
+	*/
 	public void setBH_Concept_Code (String BH_Concept_Code)
 	{
 		set_Value (COLUMNNAME_BH_Concept_Code, BH_Concept_Code);
@@ -144,15 +176,14 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	/** Get BH_Concept_Code.
 		@return BH_Concept_Code
 	  */
-	public String getBH_Concept_Code () 
+	public String getBH_Concept_Code()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Concept_Code);
 	}
 
 	/** Set BH_Concept_Name_Resolved.
-		@param BH_Concept_Name_Resolved 
-		BH_Concept_Name_Resolved
-	  */
+		@param BH_Concept_Name_Resolved BH_Concept_Name_Resolved
+	*/
 	public void setBH_Concept_Name_Resolved (String BH_Concept_Name_Resolved)
 	{
 		set_Value (COLUMNNAME_BH_Concept_Name_Resolved, BH_Concept_Name_Resolved);
@@ -161,15 +192,14 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	/** Get BH_Concept_Name_Resolved.
 		@return BH_Concept_Name_Resolved
 	  */
-	public String getBH_Concept_Name_Resolved () 
+	public String getBH_Concept_Name_Resolved()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Concept_Name_Resolved);
 	}
 
 	/** Set BH_External_ID.
-		@param BH_External_ID 
-		BH_External_ID
-	  */
+		@param BH_External_ID BH_External_ID
+	*/
 	public void setBH_External_ID (String BH_External_ID)
 	{
 		set_Value (COLUMNNAME_BH_External_ID, BH_External_ID);
@@ -178,15 +208,14 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	/** Get BH_External_ID.
 		@return BH_External_ID
 	  */
-	public String getBH_External_ID () 
+	public String getBH_External_ID()
 	{
 		return (String)get_Value(COLUMNNAME_BH_External_ID);
 	}
 
 	/** Set BH_Map_Type.
-		@param BH_Map_Type 
-		BH_Map_Type
-	  */
+		@param BH_Map_Type BH_Map_Type
+	*/
 	public void setBH_Map_Type (String BH_Map_Type)
 	{
 		set_Value (COLUMNNAME_BH_Map_Type, BH_Map_Type);
@@ -195,15 +224,14 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	/** Get BH_Map_Type.
 		@return BH_Map_Type
 	  */
-	public String getBH_Map_Type () 
+	public String getBH_Map_Type()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Map_Type);
 	}
 
 	/** Set BH_Owner.
-		@param BH_Owner 
-		BH_Owner
-	  */
+		@param BH_Owner BH_Owner
+	*/
 	public void setBH_Owner (String BH_Owner)
 	{
 		set_Value (COLUMNNAME_BH_Owner, BH_Owner);
@@ -212,15 +240,14 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	/** Get BH_Owner.
 		@return BH_Owner
 	  */
-	public String getBH_Owner () 
+	public String getBH_Owner()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Owner);
 	}
 
 	/** Set Source.
-		@param BH_Source 
-		Source
-	  */
+		@param BH_Source Source
+	*/
 	public void setBH_Source (String BH_Source)
 	{
 		set_Value (COLUMNNAME_BH_Source, BH_Source);
@@ -229,7 +256,7 @@ public class X_BH_Coded_Diagnosis_Mapping extends PO implements I_BH_Coded_Diagn
 	/** Get Source.
 		@return Source
 	  */
-	public String getBH_Source () 
+	public String getBH_Source()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Source);
 	}

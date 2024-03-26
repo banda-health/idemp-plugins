@@ -19,6 +19,10 @@ public class MAttributeSetInstance_BH extends MAttributeSetInstance {
 	 */
 	public static final String COLUMNNAME_bh_update_reason = "bh_update_reason";
 
+	public MAttributeSetInstance_BH(Properties ctx, String M_AttributeSetInstance_UU, String trxName) {
+		super(ctx, M_AttributeSetInstance_UU, trxName);
+	}
+
 	public MAttributeSetInstance_BH(Properties ctx, int M_AttributeSetInstance_ID, String trxName) {
 		super(ctx, M_AttributeSetInstance_ID, trxName);
 	}

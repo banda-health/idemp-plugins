@@ -8,6 +8,10 @@ import java.util.Properties;
 public class MDocType_BH extends MDocType {
 	public static final int DOCTYPEID_NEW = 0;
 
+	public MDocType_BH(Properties ctx, String C_DocType_UU, String trxName) {
+		super(ctx, C_DocType_UU, trxName);
+	}
+
 	public MDocType_BH(Properties ctx, int C_DocType_ID, String trxName) {
 		super(ctx, C_DocType_ID, trxName);
 	}

@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.MOrg;
 import org.compiere.model.MWarehouse;
-import org.compiere.model.PO;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -13,6 +13,10 @@ public class MWarehouse_BH extends MWarehouse {
 	 */
 	public static final String COLUMNNAME_BH_DefaultWarehouse = "BH_DefaultWarehouse";
 
+	public MWarehouse_BH(Properties ctx, String M_Warehouse_UU, String trxName) {
+		super(ctx, M_Warehouse_UU, trxName);
+	}
+
 	public MWarehouse_BH(Properties ctx, int M_Warehouse_ID, String trxName) {
 		super(ctx, M_Warehouse_ID, trxName);
 	}
@@ -21,15 +25,20 @@ public class MWarehouse_BH extends MWarehouse {
 		super(ctx, rs, trxName);
 	}
 
-	/**
-	 * This won't copy keys (ids and uuids) to the new MWarehouse_BH object.
-	 *
-	 * @param warehouse
-	 */
-	public MWarehouse_BH(MWarehouse warehouse) {
-		super(warehouse.getCtx(), 0, warehouse.get_TrxName());
+	public MWarehouse_BH(MOrg org) {
+		super(org);
+	}
 
-		PO.copyValues(warehouse, this, warehouse.getAD_Client_ID(), warehouse.getAD_Org_ID());
+	public MWarehouse_BH(MWarehouse copy) {
+		super(copy);
+	}
+
+	public MWarehouse_BH(Properties ctx, MWarehouse copy) {
+		super(ctx, copy);
+	}
+
+	public MWarehouse_BH(Properties ctx, MWarehouse copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	/**

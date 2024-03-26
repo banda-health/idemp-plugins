@@ -35,7 +35,6 @@ import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -52,6 +51,7 @@ import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
@@ -1287,8 +1287,8 @@ public class ChuBoeCreateEntity {
 		valueObject.setInventory(inventory);
 
 		// create inventory line
-		MInventoryLine_BH inventoryLine =
-				new MInventoryLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MInventoryLine inventoryLine =
+				new MInventoryLine(valueObject.getContext(), 0, valueObject.getTransactionName());
 		inventoryLine.setAD_Org_ID(valueObject.getOrg().get_ID());
 		inventoryLine.setDescription(valueObject.getStepMessageLong());
 		inventoryLine.setM_Inventory_ID(inventory.get_ID());

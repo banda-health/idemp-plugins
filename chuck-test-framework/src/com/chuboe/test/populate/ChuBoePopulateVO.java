@@ -28,21 +28,12 @@
 
 package com.chuboe.test.populate;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.Random;
-
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -58,8 +49,8 @@ import org.compiere.model.MBankStatementLine;
 import org.compiere.model.MCountry;
 import org.compiere.model.MCurrency;
 import org.compiere.model.MDocType;
-import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
@@ -70,6 +61,14 @@ import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.TimeUtil;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
 public class ChuBoePopulateVO {
 	protected CLogger logger = CLogger.getCLogger(getClass());
@@ -113,7 +112,7 @@ public class ChuBoePopulateVO {
 	private MInvoice_BH invoice = null;
 	private MInvoiceLine invoiceLine = null;
 	private MInventory_BH inventory = null;
-	private MInventoryLine_BH inventoryLine = null;
+	private MInventoryLine inventoryLine = null;
 	private MPayment_BH payment = null;
 	private MBankAccount bankAccount = null;
 	private MBankStatement bankStatement = null;
@@ -208,7 +207,8 @@ public class ChuBoePopulateVO {
 	}
 
 	/**
-	 * This allows us to pop a BP and it's associated data from the stack, such as when finished dealing with insurance or
+	 * This allows us to pop a BP and it's associated data from the stack, such as when finished dealing with
+	 * insurance or
 	 * donors.
 	 */
 	public void popBusinessPartnerFromStack() {
@@ -826,11 +826,11 @@ public class ChuBoePopulateVO {
 		this.inventory = inventory;
 	}
 
-	public MInventoryLine_BH getInventoryLine() {
+	public MInventoryLine getInventoryLine() {
 		return inventoryLine;
 	}
 
-	public void setInventoryLine(MInventoryLine_BH inventoryLine) {
+	public void setInventoryLine(MInventoryLine inventoryLine) {
 		this.inventoryLine = inventoryLine;
 	}
 

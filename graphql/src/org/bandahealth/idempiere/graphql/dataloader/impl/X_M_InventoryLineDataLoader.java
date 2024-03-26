@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
-
 /**
  * Data Loader for M_InventoryLine - DO NOT CHANGE
  *

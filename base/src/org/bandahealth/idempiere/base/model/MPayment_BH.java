@@ -59,6 +59,10 @@ public class MPayment_BH extends MPayment {
 
 	private static final long serialVersionUID = 1L;
 
+	public MPayment_BH(Properties ctx, String C_Payment_UU, String trxName) {
+		super(ctx, C_Payment_UU, trxName);
+	}
+
 	public MPayment_BH(Properties ctx, int C_Payment_ID, String trxName) {
 		super(ctx, C_Payment_ID, trxName);
 	}

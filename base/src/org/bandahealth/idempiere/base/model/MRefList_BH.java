@@ -16,6 +16,18 @@ public class MRefList_BH extends MRefList {
 	 */
 	public static final String COLUMNNAME_BH_Update_Existing = "BH_Update_Existing";
 
+	public MRefList_BH(Properties ctx, MRefList copy) {
+		super(ctx, copy);
+	}
+
+	public MRefList_BH(Properties ctx, MRefList copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
+
+	public MRefList_BH(Properties ctx, String AD_Ref_List_UU, String trxName) {
+		super(ctx, AD_Ref_List_UU, trxName);
+	}
+
 	public MRefList_BH(Properties ctx, int AD_Ref_List_ID, String trxName) {
 		super(ctx, AD_Ref_List_ID, trxName);
 	}

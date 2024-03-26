@@ -6,7 +6,6 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -22,7 +21,6 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 
 /**
  * Generated Model for C_InvoiceBatchLine - DO NOT CHANGE

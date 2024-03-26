@@ -20,11 +20,27 @@ public class MMessage_BH extends MMessage {
 	public static int NO_OF_SECURITY_QUESTION = 5;
 	public static String SECURITY_QUESTION_PREFIX = "SecurityQuestion_";
 
+	public MMessage_BH(Properties ctx, String AD_Message_UU, String trxName) {
+		super(ctx, AD_Message_UU, trxName);
+	}
+
 	public MMessage_BH(Properties ctx, int AD_Message_ID, String trxName) {
 		super(ctx, AD_Message_ID, trxName);
 	}
 
 	public MMessage_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
+	}
+
+	public MMessage_BH(MMessage copy) {
+		super(copy);
+	}
+
+	public MMessage_BH(Properties ctx, MMessage copy) {
+		super(ctx, copy);
+	}
+
+	public MMessage_BH(Properties ctx, MMessage copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 }

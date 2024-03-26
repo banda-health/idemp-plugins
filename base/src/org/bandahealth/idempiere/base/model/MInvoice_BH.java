@@ -1,6 +1,9 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MInvoiceBatch;
+import org.compiere.model.MInvoiceBatchLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MTable;
@@ -36,8 +39,16 @@ public class MInvoice_BH extends MInvoice {
 	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
 	private static final long serialVersionUID = 1L;
 
+	public MInvoice_BH(Properties ctx, String C_Invoice_UU, String trxName) {
+		super(ctx, C_Invoice_UU, trxName);
+	}
+
 	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
 		super(ctx, C_Invoice_ID, trxName);
+	}
+
+	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_Invoice_ID, trxName, virtualColumns);
 	}
 
 	public MInvoice_BH(Properties ctx, ResultSet rs, String trxName) {
@@ -48,10 +59,24 @@ public class MInvoice_BH extends MInvoice {
 		super(order, C_DocTypeTarget_ID, invoiceDate);
 	}
 
-	public MInvoice_BH(MInvoice invoice) {
-		super(invoice.getCtx(), 0, invoice.get_TrxName());
+	public MInvoice_BH(MInOut ship, Timestamp invoiceDate) {
+		super(ship, invoiceDate);
+	}
 
-		PO.copyValues(invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
+	public MInvoice_BH(MInvoiceBatch batch, MInvoiceBatchLine line) {
+		super(batch, line);
+	}
+
+	public MInvoice_BH(MInvoice copy) {
+		super(copy);
+	}
+
+	public MInvoice_BH(Properties ctx, MInvoice copy) {
+		super(ctx, copy);
+	}
+
+	public MInvoice_BH(Properties ctx, MInvoice copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	public int getBH_Voided_Reason_ID() {

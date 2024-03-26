@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.bandahealth.idempiere.base.model.MInvoiceLine_BH;
-
 /**
  * Data Loader for C_InvoiceLine - DO NOT CHANGE
  *

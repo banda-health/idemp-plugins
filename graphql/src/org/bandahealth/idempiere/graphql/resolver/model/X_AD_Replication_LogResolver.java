@@ -2,8 +2,6 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
-import org.bandahealth.idempiere.base.model.MReplicationLog_BH;
-import org.bandahealth.idempiere.base.model.MReplicationRun_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReplicationTableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Replication_RunDataLoader;
 import org.compiere.model.X_AD_ReplicationTable;
