@@ -39,6 +39,7 @@ type AD_WF_Node {
 	# Workflow Transaction Execution Block
 	AD_WF_Block: AD_WF_Block
 	UUID: ID!
+	AD_WF_Node_UU: String
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible
 	# Data entry or display window
@@ -159,6 +160,7 @@ input AD_WF_NodeInput {
 	# Workflow Transaction Execution Block
 	AD_WF_Block: ForeignEntityInput
 	UUID: ID
+	AD_WF_Node_UU: String
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
 	# Data entry or display window

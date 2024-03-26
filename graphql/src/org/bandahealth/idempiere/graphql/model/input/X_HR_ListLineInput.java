@@ -31,7 +31,7 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	 */
 	@JsonCreator
 	public X_HR_ListLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

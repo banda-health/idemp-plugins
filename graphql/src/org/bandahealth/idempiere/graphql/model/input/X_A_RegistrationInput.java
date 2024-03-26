@@ -9,8 +9,8 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRegistration;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Registration;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ import java.sql.Timestamp;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_A_RegistrationInput extends MRegistration implements I_A_RegistrationInput {
+public class X_A_RegistrationInput extends X_A_Registration implements I_A_RegistrationInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
@@ -38,7 +38,7 @@ public class X_A_RegistrationInput extends MRegistration implements I_A_Registra
 	 */
 	@JsonCreator
 	public X_A_RegistrationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

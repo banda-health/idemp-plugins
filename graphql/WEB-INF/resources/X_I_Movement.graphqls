@@ -54,6 +54,7 @@ type I_Movement {
 	# Has this import been processed
 	I_IsImported: Boolean!
 	UUID: ID!
+	I_Movement_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	LocatorToValue: String
@@ -131,6 +132,7 @@ input I_MovementInput {
 	# Has this import been processed
 	I_IsImported: Boolean
 	UUID: ID
+	I_Movement_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	LocatorToValue: String

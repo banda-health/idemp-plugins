@@ -33,8 +33,7 @@ public class X_T_ReconciliationInput extends X_T_Reconciliation implements I_T_R
 	 */
 	@JsonCreator
 	public X_T_ReconciliationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_T_Reconciliation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

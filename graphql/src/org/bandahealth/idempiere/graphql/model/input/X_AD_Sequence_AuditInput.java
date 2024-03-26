@@ -33,8 +33,7 @@ public class X_AD_Sequence_AuditInput extends X_AD_Sequence_Audit implements I_A
 	 */
 	@JsonCreator
 	public X_AD_Sequence_AuditInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Sequence_Audit(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

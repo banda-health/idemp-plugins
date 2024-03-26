@@ -31,7 +31,7 @@ public class X_BH_I_Product_QuantityInput extends X_BH_I_Product_Quantity implem
 	 */
 	@JsonCreator
 	public X_BH_I_Product_QuantityInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

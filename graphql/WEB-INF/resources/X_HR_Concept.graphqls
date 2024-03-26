@@ -34,6 +34,7 @@ type HR_Concept {
 	Description: String
 	HR_Concept_Category: HR_Concept_Category
 	UUID: ID!
+	HR_Concept_UU: String
 	HR_Department: HR_Department
 	HR_Job: HR_Job
 	HR_Payroll: HR_Payroll
@@ -83,6 +84,7 @@ input HR_ConceptInput {
 	Description: String
 	HR_Concept_Category: ForeignEntityInput
 	UUID: ID
+	HR_Concept_UU: String
 	HR_Department: ForeignEntityInput
 	HR_Job: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput

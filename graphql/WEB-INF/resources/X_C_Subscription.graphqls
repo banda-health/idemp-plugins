@@ -24,6 +24,7 @@ type C_Subscription {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	UUID: ID!
+	C_Subscription_UU: String
 	# Type of subscription
 	C_SubscriptionType: C_SubscriptionType!
 	# Date this record was created
@@ -55,6 +56,7 @@ input C_SubscriptionInput {
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	UUID: ID
+	C_Subscription_UU: String
 	# Type of subscription
 	C_SubscriptionType: ForeignEntityInput
 	# The record is active in the system

@@ -73,6 +73,7 @@ type PA_ReportSource {
 	M_Product: M_Product
 	PA_ReportLine: PA_ReportLine!
 	UUID: ID!
+	PA_ReportSource_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -130,4 +131,5 @@ input PA_ReportSourceInput {
 	M_Product: ForeignEntityInput
 	PA_ReportLine: ForeignEntityInput
 	UUID: ID
+	PA_ReportSource_UU: String
 }

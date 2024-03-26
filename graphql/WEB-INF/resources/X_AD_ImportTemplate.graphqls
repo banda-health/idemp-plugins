@@ -20,6 +20,7 @@ type AD_ImportTemplate {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_ImportTemplate_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Tab within a Window
@@ -47,6 +48,7 @@ type AD_ImportTemplate {
 
 input AD_ImportTemplateInput {
 	UUID: ID
+	AD_ImportTemplate_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Tab within a Window

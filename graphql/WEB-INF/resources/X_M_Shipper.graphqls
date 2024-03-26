@@ -32,6 +32,7 @@ type M_Shipper {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_Shipper_UU: String
 	M_ShipperCfg: M_ShipperCfg
 	M_ShippingProcessor: M_ShippingProcessor
 	# Alphanumeric identifier of the entity
@@ -52,6 +53,7 @@ input M_ShipperInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_Shipper_UU: String
 	M_ShipperCfg: ForeignEntityInput
 	M_ShippingProcessor: ForeignEntityInput
 	# Alphanumeric identifier of the entity

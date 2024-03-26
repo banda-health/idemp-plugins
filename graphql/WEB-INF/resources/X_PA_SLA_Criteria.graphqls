@@ -38,6 +38,7 @@ type PA_SLA_Criteria {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	PA_SLA_Criteria_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -60,4 +61,5 @@ input PA_SLA_CriteriaInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	PA_SLA_Criteria_UU: String
 }

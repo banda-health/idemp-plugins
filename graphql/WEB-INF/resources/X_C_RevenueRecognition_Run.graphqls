@@ -25,6 +25,7 @@ type C_RevenueRecognition_Run {
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
 	UUID: ID!
+	C_RevenueRecognition_Run_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input C_RevenueRecognition_RunInput {
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: ForeignEntityInput
 	UUID: ID
+	C_RevenueRecognition_Run_UU: String
 	DateRecognized: Date
 	# General Ledger Journal
 	GL_Journal: ForeignEntityInput

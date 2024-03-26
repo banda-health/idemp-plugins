@@ -29,6 +29,7 @@ type C_CashPlanLine {
 	C_Campaign: C_Campaign
 	C_CashPlan: C_CashPlan!
 	UUID: ID!
+	C_CashPlanLine_UU: String
 	# Additional document charges
 	C_Charge: C_Charge
 	# Financial Project
@@ -81,6 +82,7 @@ input C_CashPlanLineInput {
 	C_Campaign: ForeignEntityInput
 	C_CashPlan: ForeignEntityInput
 	UUID: ID
+	C_CashPlanLine_UU: String
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Financial Project

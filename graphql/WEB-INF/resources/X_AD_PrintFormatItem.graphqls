@@ -34,6 +34,7 @@ type AD_PrintFormatItem {
 	# Print format that is included here.
 	AD_PrintFormatChild: AD_PrintFormat!
 	UUID: ID!
+	AD_PrintFormatItem_UU: String
 	# Graph included in Reports
 	AD_PrintGraph: AD_PrintGraph
 	# Arc Diameter for rounded Rectangles
@@ -168,6 +169,7 @@ input AD_PrintFormatItemInput {
 	# Print format that is included here.
 	AD_PrintFormatChild: ForeignEntityInput
 	UUID: ID
+	AD_PrintFormatItem_UU: String
 	# Graph included in Reports
 	AD_PrintGraph: ForeignEntityInput
 	# Arc Diameter for rounded Rectangles

@@ -37,6 +37,7 @@ type M_ShipperCfg {
 	IsResidential: Boolean!
 	IsSaturdayDelivery: Boolean!
 	UUID: ID!
+	M_ShipperCfg_UU: String
 	M_ShippingProcessorCfg: M_ShippingProcessorCfg
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -64,6 +65,7 @@ input M_ShipperCfgInput {
 	IsResidential: Boolean
 	IsSaturdayDelivery: Boolean
 	UUID: ID
+	M_ShipperCfg_UU: String
 	M_ShippingProcessorCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

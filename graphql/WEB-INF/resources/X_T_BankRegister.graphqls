@@ -40,6 +40,7 @@ type T_BankRegister {
 	# Document sequence number of the document
 	DocumentNo: String
 	UUID: ID!
+	T_BankRegister_UU: String
 }
 
 input T_BankRegisterInput {
@@ -64,4 +65,5 @@ input T_BankRegisterInput {
 	# Document sequence number of the document
 	DocumentNo: String
 	UUID: ID
+	T_BankRegister_UU: String
 }

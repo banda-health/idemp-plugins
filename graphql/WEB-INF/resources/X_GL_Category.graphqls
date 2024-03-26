@@ -30,6 +30,7 @@ type GL_Category {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	GL_Category_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
@@ -54,6 +55,7 @@ input GL_CategoryInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	GL_Category_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Default value

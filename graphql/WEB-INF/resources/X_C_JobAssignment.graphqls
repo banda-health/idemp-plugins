@@ -26,6 +26,7 @@ type C_JobAssignment {
 	# Job Position
 	C_Job: C_Job!
 	UUID: ID!
+	C_JobAssignment_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,6 +53,7 @@ input C_JobAssignmentInput {
 	# Job Position
 	C_Job: ForeignEntityInput
 	UUID: ID
+	C_JobAssignment_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

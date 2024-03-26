@@ -33,6 +33,7 @@ type C_ElementValue {
 	# Accounting Element
 	C_Element: C_Element!
 	UUID: ID!
+	C_ElementValue_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -88,6 +89,7 @@ input C_ElementValueInput {
 	# Accounting Element
 	C_Element: ForeignEntityInput
 	UUID: ID
+	C_ElementValue_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

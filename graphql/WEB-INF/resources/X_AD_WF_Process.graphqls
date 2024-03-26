@@ -28,6 +28,7 @@ type AD_WF_Process {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	UUID: ID!
+	AD_WF_Process_UU: String
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible!
 	# Workflow or combination of tasks
@@ -63,6 +64,7 @@ input AD_WF_ProcessInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_WF_Process_UU: String
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
 	# Workflow or combination of tasks

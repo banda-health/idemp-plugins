@@ -54,7 +54,7 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	 */
 	@JsonCreator
 	public X_I_ProductPlanningInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

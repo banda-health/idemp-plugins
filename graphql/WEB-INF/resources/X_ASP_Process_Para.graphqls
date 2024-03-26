@@ -24,6 +24,7 @@ type ASP_Process_Para {
 	AD_Process_Para: AD_Process_Para
 	ASP_Process: ASP_Process
 	UUID: ID!
+	ASP_Process_Para_UU: String
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -43,6 +44,7 @@ input ASP_Process_ParaInput {
 	AD_Process_Para: ForeignEntityInput
 	ASP_Process: ForeignEntityInput
 	UUID: ID
+	ASP_Process_Para_UU: String
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

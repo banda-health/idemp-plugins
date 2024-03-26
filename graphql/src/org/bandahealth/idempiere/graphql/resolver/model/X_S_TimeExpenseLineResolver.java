@@ -22,6 +22,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_TimeExpenseDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_S_TimeTypeDataLoader;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
@@ -109,11 +110,11 @@ public class X_S_TimeExpenseLineResolver extends POResolver<MTimeExpenseLine> im
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MTimeExpenseLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

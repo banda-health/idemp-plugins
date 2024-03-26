@@ -30,6 +30,7 @@ type C_RfQ_TopicSubscriber {
 	# Topic for Request for Quotations
 	C_RfQ_Topic: C_RfQ_Topic!
 	UUID: ID!
+	C_RfQ_TopicSubscriber_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,6 +59,7 @@ input C_RfQ_TopicSubscriberInput {
 	# Topic for Request for Quotations
 	C_RfQ_Topic: ForeignEntityInput
 	UUID: ID
+	C_RfQ_TopicSubscriber_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Date the contact opted out

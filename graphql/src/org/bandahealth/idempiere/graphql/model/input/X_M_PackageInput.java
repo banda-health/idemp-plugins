@@ -14,13 +14,11 @@ import org.compiere.model.MShipper;
 import org.compiere.model.MShipperLabels;
 import org.compiere.model.MShipperPackaging;
 import org.compiere.model.MShipperPickupTypes;
-import org.compiere.model.MShippingProcessor;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_C_BP_ShippingAcct;
 import org.compiere.util.Env;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -43,13 +41,9 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	private ForeignEntityInput mM_ShipperLabels;
 	private ForeignEntityInput mM_ShipperPackaging;
 	private ForeignEntityInput mM_ShipperPickupTypes;
-	private ForeignEntityInput mM_ShippingProcessor;
 	private I_AD_Ref_ListInput mDeliveryConfirmationType;
 	private I_AD_Ref_ListInput mDotHazardClassOrDivision;
-	private I_AD_Ref_ListInput mFOB;
-	private I_AD_Ref_ListInput mFreightCharges;
 	private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
-	private I_AD_Ref_ListInput mInsurance;
 	private I_AD_Ref_ListInput mNotificationType;
 	private I_AD_Ref_ListInput mPaymentRule;
 
@@ -61,7 +55,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 */
 	@JsonCreator
 	public X_M_PackageInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -350,91 +344,6 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	public I_AD_Ref_ListInput DotHazardClassOrDivision() {
 		return mDotHazardClassOrDivision;
 	}
-	/**
-	 * Set Estimated Weight.
-	 *
-	 * @param EstimatedWeight Estimated Weight
-	 */
-
-	public void setEstimatedWeight(BigDecimal EstimatedWeight) {
-		if (get_ID() == 0) {
-			super.setEstimatedWeight(EstimatedWeight);
-		}
-	}
-
-	/**
-	 * Set Freight Terms.
-	 *
-	 * @param FOB Freight Terms
-	 */
-	@JsonProperty("FOB")
-	public void setFOBInput(I_AD_Ref_ListInput FOB) {
-		this.mFOB = FOB;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (FOB != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FOB.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setFOB(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FOB.getUUID());
-			}
-		} else {
-			this.setFOB(null);
-		}
-	}
-
-	/**
-	 * Get Freight Terms.
-	 *
-	 * @return Freight Terms
-	 */
-	@JsonProperty("FOB")
-	public I_AD_Ref_ListInput FOB() {
-		return mFOB;
-	}
-
-	/**
-	 * Set Freight Charges.
-	 *
-	 * @param FreightCharges Freight Charges
-	 */
-	@JsonProperty("FreightCharges")
-	public void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges) {
-		this.mFreightCharges = FreightCharges;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (FreightCharges != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FreightCharges.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setFreightCharges(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FreightCharges.getUUID());
-			}
-		} else {
-			this.setFreightCharges(null);
-		}
-	}
-
-	/**
-	 * Get Freight Charges.
-	 *
-	 * @return Freight Charges
-	 */
-	@JsonProperty("FreightCharges")
-	public I_AD_Ref_ListInput FreightCharges() {
-		return mFreightCharges;
-	}
 
 	/**
 	 * Set Hold Address.
@@ -502,43 +411,6 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	@JsonProperty("HomeDeliveryPremiumType")
 	public I_AD_Ref_ListInput HomeDeliveryPremiumType() {
 		return mHomeDeliveryPremiumType;
-	}
-
-	/**
-	 * Set Insurance.
-	 *
-	 * @param Insurance Insurance
-	 */
-	@JsonProperty("Insurance")
-	public void setInsuranceInput(I_AD_Ref_ListInput Insurance) {
-		this.mInsurance = Insurance;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (Insurance != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Insurance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setInsurance(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Insurance.getUUID());
-			}
-		} else {
-			this.setInsurance(null);
-		}
-	}
-
-	/**
-	 * Get Insurance.
-	 *
-	 * @return Insurance
-	 */
-	@JsonProperty("Insurance")
-	public I_AD_Ref_ListInput Insurance() {
-		return mInsurance;
 	}
 
 	/**
@@ -744,43 +616,6 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	}
 
 	/**
-	 * Set Shipping Processor.
-	 *
-	 * @param M_ShippingProcessor Shipping Processor
-	 */
-	@JsonProperty("M_ShippingProcessor")
-	public void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor) {
-		this.mM_ShippingProcessor = M_ShippingProcessor;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (M_ShippingProcessor != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MShippingProcessor foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "M_ShippingProcessor", "M_ShippingProcessor_UU=?", get_TrxName())
-							.setParameters(M_ShippingProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setM_ShippingProcessor_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table M_ShippingProcessor with UUID " + M_ShippingProcessor.getUUID());
-			}
-		} else {
-			this.setM_ShippingProcessor_ID(0);
-		}
-	}
-
-	/**
-	 * Get Shipping Processor.
-	 *
-	 * @return Shipping Processor
-	 */
-	@JsonProperty("M_ShippingProcessor")
-	public ForeignEntityInput M_ShippingProcessor() {
-		return mM_ShippingProcessor;
-	}
-
-	/**
 	 * Set Notification Type.
 	 *
 	 * @param NotificationType Type of Notifications
@@ -846,16 +681,5 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	@JsonProperty("PaymentRule")
 	public I_AD_Ref_ListInput PaymentRule() {
 		return mPaymentRule;
-	}
-	/**
-	 * Set Total Price.
-	 *
-	 * @param TotalPrice Total Price
-	 */
-
-	public void setTotalPrice(BigDecimal TotalPrice) {
-		if (get_ID() == 0) {
-			super.setTotalPrice(TotalPrice);
-		}
 	}
 }

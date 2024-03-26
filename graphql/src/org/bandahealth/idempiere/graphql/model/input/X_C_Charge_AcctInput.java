@@ -35,8 +35,7 @@ public class X_C_Charge_AcctInput extends X_C_Charge_Acct implements I_C_Charge_
 	 */
 	@JsonCreator
 	public X_C_Charge_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_Charge_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_PeriodDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MAssetDisposed;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MPeriod;
 import org.dataloader.DataLoader;
 
@@ -170,11 +171,11 @@ public class X_A_Asset_DisposedResolver extends POResolver<MAssetDisposed> imple
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MAssetDisposed entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MAssetDisposed entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

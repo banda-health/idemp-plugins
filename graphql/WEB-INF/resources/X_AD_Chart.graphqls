@@ -18,6 +18,7 @@ type AD_ChartConnection {
 
 type AD_Chart {
 	UUID: ID!
+	AD_Chart_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -59,6 +60,7 @@ type AD_Chart {
 
 input AD_ChartInput {
 	UUID: ID
+	AD_Chart_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The orientation of the chart.

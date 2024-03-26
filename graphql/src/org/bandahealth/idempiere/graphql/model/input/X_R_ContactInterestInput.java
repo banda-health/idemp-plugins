@@ -33,8 +33,7 @@ public class X_R_ContactInterestInput extends MContactInterest implements I_R_Co
 	 */
 	@JsonCreator
 	public X_R_ContactInterestInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MContactInterest(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

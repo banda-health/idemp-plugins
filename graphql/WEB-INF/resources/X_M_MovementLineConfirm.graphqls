@@ -40,6 +40,7 @@ type M_MovementLineConfirm {
 	# Inventory Move document Line
 	M_MovementLine: M_MovementLine!
 	UUID: ID!
+	M_MovementLineConfirm_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	# The Quantity scrapped due to QA issues
@@ -70,6 +71,7 @@ input M_MovementLineConfirmInput {
 	# Inventory Move document Line
 	M_MovementLine: ForeignEntityInput
 	UUID: ID
+	M_MovementLineConfirm_UU: String
 	# The document has been processed
 	Processed: Boolean
 	# The Quantity scrapped due to QA issues

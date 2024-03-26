@@ -31,6 +31,7 @@ type AD_Workflow {
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible
 	UUID: ID!
+	AD_Workflow_UU: String
 	# Workflow Processor Server
 	AD_WorkflowProcessor: AD_WorkflowProcessor
 	# Author/Creator of the Entity
@@ -120,6 +121,7 @@ input AD_WorkflowInput {
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
 	UUID: ID
+	AD_Workflow_UU: String
 	# Workflow Processor Server
 	AD_WorkflowProcessor: ForeignEntityInput
 	# Author/Creator of the Entity

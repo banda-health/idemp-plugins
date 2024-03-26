@@ -18,6 +18,7 @@ type AD_ArchiveConnection {
 
 type AD_Archive {
 	UUID: ID!
+	AD_Archive_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -45,7 +46,6 @@ type AD_Archive {
 	IsReport: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -54,6 +54,7 @@ type AD_Archive {
 
 input AD_ArchiveInput {
 	UUID: ID
+	AD_Archive_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report
@@ -75,5 +76,4 @@ input AD_ArchiveInput {
 	IsReport: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
 }

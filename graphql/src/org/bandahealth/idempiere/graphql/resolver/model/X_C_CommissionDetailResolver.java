@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceLineDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_OrderLineDataLoader;
 import org.compiere.model.MCommissionAmt;
 import org.compiere.model.MCommissionDetail;
+import org.compiere.model.MInvoiceLine;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -59,11 +60,11 @@ public class X_C_CommissionDetailResolver extends POResolver<MCommissionDetail> 
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MCommissionDetail entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MCommissionDetail entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

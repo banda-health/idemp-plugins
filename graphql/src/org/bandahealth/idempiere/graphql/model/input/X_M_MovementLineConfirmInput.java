@@ -4,11 +4,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MMovementConfirm;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MMovementLineConfirm;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_MovementLineConfirm - DO NOT CHANGE
@@ -31,7 +35,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 	 */
 	@JsonCreator
 	public X_M_MovementLineConfirmInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -82,7 +86,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 		this.mM_InventoryLine = M_InventoryLine;
 		if (M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -153,7 +157,7 @@ public class X_M_MovementLineConfirmInput extends MMovementLineConfirm implement
 		this.mM_MovementLine = M_MovementLine;
 		if (M_MovementLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MMovementLine_BH foreignEntity;
+			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

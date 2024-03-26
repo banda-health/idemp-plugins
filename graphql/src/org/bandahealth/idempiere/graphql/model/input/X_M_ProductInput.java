@@ -59,7 +59,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 */
 	@JsonCreator
 	public X_M_ProductInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -512,17 +512,6 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	@JsonProperty("ProductType")
 	public I_AD_Ref_ListInput ProductType() {
 		return mProductType;
-	}
-	/**
-	 * Set QtyInStore.
-	 *
-	 * @param QtyInStore Quantity In Store
-	 */
-
-	public void setQtyInStore(int QtyInStore) {
-		if (get_ID() == 0) {
-			super.setQtyInStore(QtyInStore);
-		}
 	}
 
 	/**

@@ -74,6 +74,7 @@ type Fact_Acct {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	Fact_Acct_UU: String
 	# General Ledger Budget
 	GL_Budget: GL_Budget
 	# General Ledger Category
@@ -150,6 +151,7 @@ input Fact_AcctInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	Fact_Acct_UU: String
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
 	# General Ledger Category

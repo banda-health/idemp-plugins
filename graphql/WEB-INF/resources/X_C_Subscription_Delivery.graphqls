@@ -22,6 +22,7 @@ type C_Subscription_Delivery {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_Subscription_Delivery_UU: String
 	# Subscription of a Business Partner of a Product to renew
 	C_Subscription: C_Subscription!
 	# Date this record was created
@@ -40,6 +41,7 @@ input C_Subscription_DeliveryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_Subscription_Delivery_UU: String
 	# Subscription of a Business Partner of a Product to renew
 	C_Subscription: ForeignEntityInput
 	# The record is active in the system

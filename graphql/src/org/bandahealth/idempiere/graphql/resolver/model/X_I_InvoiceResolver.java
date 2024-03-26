@@ -32,6 +32,7 @@ import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCountry;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocation;
 import org.compiere.model.MPaymentTerm;
 import org.compiere.model.MPriceList;
@@ -224,11 +225,11 @@ public class X_I_InvoiceResolver extends POResolver<X_I_Invoice> implements Grap
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(X_I_Invoice entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(X_I_Invoice entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

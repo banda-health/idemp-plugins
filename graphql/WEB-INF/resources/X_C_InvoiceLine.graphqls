@@ -38,6 +38,7 @@ type C_InvoiceLine {
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
 	UUID: ID!
+	C_InvoiceLine_UU: String
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Financial Project
@@ -129,6 +130,7 @@ input C_InvoiceLineInput {
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	UUID: ID
+	C_InvoiceLine_UU: String
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Financial Project

@@ -6,9 +6,12 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for BH_BP_Specific_Payer_Info - DO NOT CHANGE
@@ -30,7 +33,7 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 	 */
 	@JsonCreator
 	public X_BH_BP_Specific_Payer_InfoInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -150,7 +153,7 @@ public class X_BH_BP_Specific_Payer_InfoInput extends MBHBPSpecificPayerInfo imp
 		}
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

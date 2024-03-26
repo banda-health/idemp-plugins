@@ -20,6 +20,7 @@ type AD_ChangeLog {
 	# Log of data changes
 	AD_ChangeLog: AD_ChangeLog!
 	UUID: ID!
+	AD_ChangeLog_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
@@ -46,7 +47,6 @@ type AD_ChangeLog {
 	NewValue: String
 	# The old file data
 	OldValue: String
-	UUID: ID!
 	Redo: String
 	# Name of the transaction
 	TrxName: String
@@ -61,6 +61,7 @@ input AD_ChangeLogInput {
 	# Log of data changes
 	AD_ChangeLog: ForeignEntityInput
 	UUID: ID
+	AD_ChangeLog_UU: String
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant
@@ -81,7 +82,6 @@ input AD_ChangeLogInput {
 	NewValue: String
 	# The old file data
 	OldValue: String
-	UUID: ID
 	Redo: String
 	# Name of the transaction
 	TrxName: String

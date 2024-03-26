@@ -33,6 +33,7 @@ type IMP_ProcessorLog {
 	Help: String
 	IMP_Processor: IMP_Processor!
 	UUID: ID!
+	IMP_ProcessorLog_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# An Error occurred in the execution
@@ -60,6 +61,7 @@ input IMP_ProcessorLogInput {
 	Help: String
 	IMP_Processor: ForeignEntityInput
 	UUID: ID
+	IMP_ProcessorLog_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# An Error occurred in the execution

@@ -47,7 +47,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 */
 	@JsonCreator
 	public X_PA_DashboardContentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

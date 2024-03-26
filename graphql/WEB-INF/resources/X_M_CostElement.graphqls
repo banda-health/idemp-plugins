@@ -36,6 +36,7 @@ type M_CostElement {
 	# The value is calculated by the system
 	IsCalculated: Boolean!
 	UUID: ID!
+	M_CostElement_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -58,6 +59,7 @@ input M_CostElementInput {
 	# The value is calculated by the system
 	IsCalculated: Boolean
 	UUID: ID
+	M_CostElement_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 }

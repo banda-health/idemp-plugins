@@ -23,6 +23,7 @@ type AD_ImpFormat_Row {
 	AD_Column: AD_Column!
 	AD_ImpFormat: AD_ImpFormat!
 	UUID: ID!
+	AD_ImpFormat_Row_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Fully qualified class names and method - separated by semicolons
@@ -65,6 +66,7 @@ input AD_ImpFormat_RowInput {
 	AD_Column: ForeignEntityInput
 	AD_ImpFormat: ForeignEntityInput
 	UUID: ID
+	AD_ImpFormat_Row_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Fully qualified class names and method - separated by semicolons

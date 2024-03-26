@@ -24,6 +24,7 @@ type C_AllocationHdr {
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal!
 	UUID: ID!
+	C_AllocationHdr_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Document type or rules
@@ -71,6 +72,7 @@ input C_AllocationHdrInput {
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
 	UUID: ID
+	C_AllocationHdr_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Document type or rules

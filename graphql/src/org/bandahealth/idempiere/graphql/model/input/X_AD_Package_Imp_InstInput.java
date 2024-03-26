@@ -29,7 +29,7 @@ public class X_AD_Package_Imp_InstInput extends X_AD_Package_Imp_Inst implements
 	 */
 	@JsonCreator
 	public X_AD_Package_Imp_InstInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -31,8 +31,7 @@ public class X_AD_Sequence_NoInput extends X_AD_Sequence_No implements I_AD_Sequ
 	 */
 	@JsonCreator
 	public X_AD_Sequence_NoInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Sequence_No(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

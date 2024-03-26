@@ -34,6 +34,7 @@ type T_MRP_CRP {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID!
+	T_MRP_CRP_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,4 +53,5 @@ input T_MRP_CRPInput {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID
+	T_MRP_CRP_UU: String
 }

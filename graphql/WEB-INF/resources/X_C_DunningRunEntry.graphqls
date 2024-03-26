@@ -35,6 +35,7 @@ type C_DunningRunEntry {
 	# Dunning Run
 	C_DunningRun: C_DunningRun!
 	UUID: ID!
+	C_DunningRunEntry_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -72,6 +73,7 @@ input C_DunningRunEntryInput {
 	# Dunning Run
 	C_DunningRun: ForeignEntityInput
 	UUID: ID
+	C_DunningRunEntry_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Optional additional user defined information

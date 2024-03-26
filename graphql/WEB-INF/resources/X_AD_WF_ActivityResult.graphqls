@@ -24,6 +24,7 @@ type AD_WF_ActivityResult {
 	# Workflow Activity
 	AD_WF_Activity: AD_WF_Activity!
 	UUID: ID!
+	AD_WF_ActivityResult_UU: String
 	# Name of the Attribute
 	AttributeName: String!
 	# Value of the Attribute
@@ -50,6 +51,7 @@ input AD_WF_ActivityResultInput {
 	# Workflow Activity
 	AD_WF_Activity: ForeignEntityInput
 	UUID: ID
+	AD_WF_ActivityResult_UU: String
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

@@ -35,6 +35,7 @@ type M_RMATax {
 	# Return Material Authorization
 	M_RMA: M_RMA!
 	UUID: ID!
+	M_RMATax_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	# Tax Amount for a document
@@ -60,6 +61,7 @@ input M_RMATaxInput {
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
 	UUID: ID
+	M_RMATax_UU: String
 	# The document has been processed
 	Processed: Boolean
 	# Tax Amount for a document

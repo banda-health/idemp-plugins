@@ -64,6 +64,7 @@ type T_BOMLine {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID!
+	T_BOMLine_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -112,4 +113,5 @@ input T_BOMLineInput {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID
+	T_BOMLine_UU: String
 }

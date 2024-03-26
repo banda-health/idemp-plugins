@@ -24,6 +24,7 @@ type C_OrderPaySchedule {
 	# Order
 	C_Order: C_Order!
 	UUID: ID!
+	C_OrderPaySchedule_UU: String
 	# Payment Schedule Template
 	C_PaySchedule: C_PaySchedule
 	# Date this record was created
@@ -57,6 +58,7 @@ input C_OrderPayScheduleInput {
 	# Order
 	C_Order: ForeignEntityInput
 	UUID: ID
+	C_OrderPaySchedule_UU: String
 	# Payment Schedule Template
 	C_PaySchedule: ForeignEntityInput
 	# Calculated amount of discount

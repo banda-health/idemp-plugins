@@ -53,6 +53,7 @@ type M_InOutConfirm {
 	# Material Shipment Document
 	M_InOut: M_InOut!
 	UUID: ID!
+	M_InOutConfirm_UU: String
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory
 	# The document has been processed
@@ -95,6 +96,7 @@ input M_InOutConfirmInput {
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
 	UUID: ID
+	M_InOutConfirm_UU: String
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
 	# The document has been processed

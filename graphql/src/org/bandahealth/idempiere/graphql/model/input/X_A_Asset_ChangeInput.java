@@ -62,7 +62,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 */
 	@JsonCreator
 	public X_A_Asset_ChangeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

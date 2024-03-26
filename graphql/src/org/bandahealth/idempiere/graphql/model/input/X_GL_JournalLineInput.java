@@ -66,7 +66,7 @@ public class X_GL_JournalLineInput extends MJournalLine implements I_GL_JournalL
 	 */
 	@JsonCreator
 	public X_GL_JournalLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -24,6 +24,7 @@ type C_CashBook_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_CashBook_Acct_UU: String
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
 	# Cash Book Asset Account
@@ -54,6 +55,7 @@ input C_CashBook_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_CashBook_Acct_UU: String
 	# Cash Book for recording petty cash transactions
 	C_CashBook: ForeignEntityInput
 	# Cash Book Asset Account

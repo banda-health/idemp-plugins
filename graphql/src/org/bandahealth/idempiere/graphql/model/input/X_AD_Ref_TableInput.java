@@ -42,8 +42,7 @@ public class X_AD_Ref_TableInput extends MRefTable implements I_AD_Ref_TableInpu
 	 */
 	@JsonCreator
 	public X_AD_Ref_TableInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRefTable(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

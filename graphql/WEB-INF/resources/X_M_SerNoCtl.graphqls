@@ -36,6 +36,7 @@ type M_SerNoCtl {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_SerNoCtl_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Prefix before the sequence number
@@ -64,6 +65,7 @@ input M_SerNoCtlInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_SerNoCtl_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Prefix before the sequence number

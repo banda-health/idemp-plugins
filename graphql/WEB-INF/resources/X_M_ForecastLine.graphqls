@@ -34,6 +34,7 @@ type M_ForecastLine {
 	# Material Forecast
 	M_Forecast: M_Forecast!
 	UUID: ID!
+	M_ForecastLine_UU: String
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Storage Warehouse and Service Point
@@ -62,6 +63,7 @@ input M_ForecastLineInput {
 	# Material Forecast
 	M_Forecast: ForeignEntityInput
 	UUID: ID
+	M_ForecastLine_UU: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Storage Warehouse and Service Point

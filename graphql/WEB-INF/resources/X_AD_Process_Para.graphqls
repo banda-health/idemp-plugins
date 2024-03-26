@@ -28,6 +28,7 @@ type AD_Process_Para {
 	# Process or Report
 	AD_Process: AD_Process!
 	UUID: ID!
+	AD_Process_Para_UU: String
 	# System Reference and Validation
 	AD_Reference: AD_Reference!
 	# Required to specify, if data type is Table or List
@@ -103,6 +104,7 @@ input AD_Process_ParaInput {
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	UUID: ID
+	AD_Process_Para_UU: String
 	# System Reference and Validation
 	AD_Reference: ForeignEntityInput
 	# Required to specify, if data type is Table or List

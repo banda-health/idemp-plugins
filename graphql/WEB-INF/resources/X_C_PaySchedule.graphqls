@@ -24,6 +24,7 @@ type C_PaySchedule {
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm!
 	UUID: ID!
+	C_PaySchedule_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,6 +57,7 @@ input C_PayScheduleInput {
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
 	UUID: ID
+	C_PaySchedule_UU: String
 	# Discount in percent
 	Discount: BigDecimal
 	# Number of days from invoice date to be eligible for discount

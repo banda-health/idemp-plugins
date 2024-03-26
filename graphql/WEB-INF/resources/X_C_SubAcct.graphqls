@@ -24,6 +24,7 @@ type C_SubAcct {
 	# Account Element
 	C_ElementValue: C_ElementValue!
 	UUID: ID!
+	C_SubAcct_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,6 +51,7 @@ input C_SubAcctInput {
 	# Account Element
 	C_ElementValue: ForeignEntityInput
 	UUID: ID
+	C_SubAcct_UU: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

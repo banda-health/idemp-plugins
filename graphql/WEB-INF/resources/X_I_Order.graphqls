@@ -98,6 +98,7 @@ type I_Order {
 	# Has this import been processed
 	I_IsImported: Boolean!
 	UUID: ID!
+	I_Order_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# This is a Sales Transaction
@@ -223,6 +224,7 @@ input I_OrderInput {
 	# Has this import been processed
 	I_IsImported: Boolean
 	UUID: ID
+	I_Order_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a Sales Transaction

@@ -28,6 +28,7 @@ type C_ProjectPhase {
 	# Financial Project
 	C_Project: C_Project!
 	UUID: ID!
+	C_ProjectPhase_UU: String
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal!
 	# Date this record was created
@@ -80,6 +81,7 @@ input C_ProjectPhaseInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	UUID: ID
+	C_ProjectPhase_UU: String
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal
 	# Optional short description of the record

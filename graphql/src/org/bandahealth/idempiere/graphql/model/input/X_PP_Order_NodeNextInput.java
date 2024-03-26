@@ -39,7 +39,7 @@ public class X_PP_Order_NodeNextInput extends X_PP_Order_NodeNext implements I_P
 	 */
 	@JsonCreator
 	public X_PP_Order_NodeNextInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

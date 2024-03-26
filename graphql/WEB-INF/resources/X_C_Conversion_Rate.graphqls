@@ -22,6 +22,7 @@ type C_Conversion_Rate {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_Conversion_Rate_UU: String
 	# Currency Conversion Rate Type
 	C_ConversionType: C_ConversionType!
 	# The Currency for this record
@@ -52,6 +53,7 @@ input C_Conversion_RateInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_Conversion_Rate_UU: String
 	# Currency Conversion Rate Type
 	C_ConversionType: ForeignEntityInput
 	# The Currency for this record

@@ -26,6 +26,7 @@ type AD_User_Roles {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	AD_User_Roles_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input AD_User_RolesInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_User_Roles_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 }

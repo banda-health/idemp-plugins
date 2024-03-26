@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InventoryLineDataLoader;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MInventoryLineMA;
 import org.dataloader.DataLoader;
 
@@ -44,11 +45,11 @@ public class X_M_InventoryLineMAResolver extends POResolver<MInventoryLineMA> im
 	 *
 	 * @return Unique line in an Inventory document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_InventoryLine(MInventoryLineMA entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_InventoryLine(MInventoryLineMA entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}

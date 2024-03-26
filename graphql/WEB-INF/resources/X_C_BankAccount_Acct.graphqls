@@ -36,6 +36,7 @@ type C_BankAccount_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_BankAccount_Acct_UU: String
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
 	# Date this record was created
@@ -68,6 +69,7 @@ input C_BankAccount_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_BankAccount_Acct_UU: String
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	# The record is active in the system

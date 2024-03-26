@@ -35,8 +35,7 @@ public class X_AD_Column_AccessInput extends MColumnAccess implements I_AD_Colum
 	 */
 	@JsonCreator
 	public X_AD_Column_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MColumnAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

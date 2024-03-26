@@ -31,8 +31,7 @@ public class X_AD_Role_OrgAccessInput extends MRoleOrgAccess implements I_AD_Rol
 	 */
 	@JsonCreator
 	public X_AD_Role_OrgAccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRoleOrgAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

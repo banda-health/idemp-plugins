@@ -24,6 +24,7 @@ type AD_Table {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Table_UU: String
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
 	# Data entry or display window
@@ -86,6 +87,7 @@ input AD_TableInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Table_UU: String
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
 	# Data entry or display window

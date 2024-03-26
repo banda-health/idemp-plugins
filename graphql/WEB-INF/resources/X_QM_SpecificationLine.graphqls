@@ -35,6 +35,7 @@ type QM_SpecificationLine {
 	Operation: AD_Ref_List!
 	QM_Specification: QM_Specification
 	UUID: ID!
+	QM_SpecificationLine_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Date this record was updated
@@ -62,6 +63,7 @@ input QM_SpecificationLineInput {
 	Operation: AD_Ref_ListInput
 	QM_Specification: ForeignEntityInput
 	UUID: ID
+	QM_SpecificationLine_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Valid from including this date (first day)

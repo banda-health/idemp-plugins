@@ -20,6 +20,7 @@ type A_Asset_Info_Ins {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UUID: ID!
+	A_Asset_Info_Ins_UU: String
 	A_Ins_Premium: BigDecimal
 	A_Ins_Value: BigDecimal
 	A_Insurance_Co: String
@@ -47,6 +48,7 @@ input A_Asset_Info_InsInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Asset_Info_Ins_UU: String
 	A_Ins_Premium: BigDecimal
 	A_Ins_Value: BigDecimal
 	A_Insurance_Co: String

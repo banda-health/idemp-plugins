@@ -9,6 +9,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InventoryLineDataLo
 import org.compiere.model.MInOutConfirm;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInOutLineConfirm;
+import org.compiere.model.MInventoryLine;
+import org.compiere.model.MInvoiceLine;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -28,11 +30,11 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
@@ -73,11 +75,11 @@ public class X_M_InOutLineConfirmResolver extends POResolver<MInOutLineConfirm> 
 	 *
 	 * @return Unique line in an Inventory document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_InventoryLine(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_InventoryLine(MInOutLineConfirm entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}

@@ -25,6 +25,7 @@ type AD_Package_Imp_Proc {
 	# Package directory, default to AdempiereHome/packages
 	AD_Package_Dir: String
 	UUID: ID!
+	AD_Package_Imp_Proc_UU: String
 	# Fully qualified package source file name
 	AD_Package_Source: String
 	# Type of package source - file, ftp, webservice etc
@@ -53,6 +54,7 @@ input AD_Package_Imp_ProcInput {
 	# Package directory, default to AdempiereHome/packages
 	AD_Package_Dir: String
 	UUID: ID
+	AD_Package_Imp_Proc_UU: String
 	# Fully qualified package source file name
 	AD_Package_Source: String
 	# Type of package source - file, ftp, webservice etc

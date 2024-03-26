@@ -38,6 +38,7 @@ type PA_BenchmarkData {
 	# Performance Benchmark
 	PA_Benchmark: PA_Benchmark!
 	UUID: ID!
+	PA_BenchmarkData_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -60,4 +61,5 @@ input PA_BenchmarkDataInput {
 	# Performance Benchmark
 	PA_Benchmark: ForeignEntityInput
 	UUID: ID
+	PA_BenchmarkData_UU: String
 }

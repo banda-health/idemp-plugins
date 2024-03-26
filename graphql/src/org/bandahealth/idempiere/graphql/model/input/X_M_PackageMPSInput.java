@@ -11,7 +11,6 @@ import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -35,7 +34,7 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 */
 	@JsonCreator
 	public X_M_PackageMPSInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -142,17 +141,6 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	@JsonProperty("C_UOM_Weight")
 	public ForeignEntityInput C_UOM_Weight() {
 		return mC_UOM_Weight;
-	}
-	/**
-	 * Set Estimated Weight.
-	 *
-	 * @param EstimatedWeight Estimated Weight
-	 */
-
-	public void setEstimatedWeight(BigDecimal EstimatedWeight) {
-		if (get_ID() == 0) {
-			super.setEstimatedWeight(EstimatedWeight);
-		}
 	}
 
 	/**

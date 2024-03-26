@@ -32,6 +32,7 @@ type M_AttributeValue {
 	# Product Attribute
 	M_Attribute: M_Attribute!
 	UUID: ID!
+	M_AttributeValue_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -52,6 +53,7 @@ input M_AttributeValueInput {
 	# Product Attribute
 	M_Attribute: ForeignEntityInput
 	UUID: ID
+	M_AttributeValue_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

@@ -26,6 +26,7 @@ type AD_WizardProcess {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	UUID: ID!
+	AD_WizardProcess_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -49,6 +50,7 @@ input AD_WizardProcessInput {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	UUID: ID
+	AD_WizardProcess_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Optional additional user defined information

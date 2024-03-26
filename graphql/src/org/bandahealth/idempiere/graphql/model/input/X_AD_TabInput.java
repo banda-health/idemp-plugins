@@ -51,7 +51,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 */
 	@JsonCreator
 	public X_AD_TabInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

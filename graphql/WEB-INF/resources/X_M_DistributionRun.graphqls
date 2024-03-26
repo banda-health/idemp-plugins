@@ -36,6 +36,7 @@ type M_DistributionRun {
 	# For all shipments create one Order
 	IsCreateSingleOrder: Boolean!
 	UUID: ID!
+	M_DistributionRun_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -59,6 +60,7 @@ input M_DistributionRunInput {
 	# For all shipments create one Order
 	IsCreateSingleOrder: Boolean
 	UUID: ID
+	M_DistributionRun_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

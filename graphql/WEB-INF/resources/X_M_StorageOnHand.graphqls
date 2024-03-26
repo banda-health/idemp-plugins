@@ -38,6 +38,7 @@ type M_StorageOnHand {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_StorageOnHand_UU: String
 	# On Hand Quantity
 	QtyOnHand: BigDecimal!
 	# Date this record was updated
@@ -62,6 +63,7 @@ input M_StorageOnHandInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_StorageOnHand_UU: String
 	# On Hand Quantity
 	QtyOnHand: BigDecimal
 }

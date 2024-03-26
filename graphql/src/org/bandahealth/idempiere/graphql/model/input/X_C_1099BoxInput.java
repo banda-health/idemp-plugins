@@ -29,7 +29,7 @@ public class X_C_1099BoxInput extends X_C_1099Box implements I_C_1099BoxInput {
 	 */
 	@JsonCreator
 	public X_C_1099BoxInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

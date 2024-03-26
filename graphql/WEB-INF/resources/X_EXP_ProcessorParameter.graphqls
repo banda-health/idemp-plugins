@@ -29,6 +29,7 @@ type EXP_ProcessorParameter {
 	Description: String
 	EXP_Processor: EXP_Processor!
 	UUID: ID!
+	EXP_ProcessorParameter_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -51,6 +52,7 @@ input EXP_ProcessorParameterInput {
 	Description: String
 	EXP_Processor: ForeignEntityInput
 	UUID: ID
+	EXP_ProcessorParameter_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

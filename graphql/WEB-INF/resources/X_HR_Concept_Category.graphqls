@@ -29,6 +29,7 @@ type HR_Concept_Category {
 	Description: String
 	HR_Concept_A: C_ValidCombination
 	UUID: ID!
+	HR_Concept_Category_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Default value
@@ -50,6 +51,7 @@ input HR_Concept_CategoryInput {
 	Description: String
 	HR_Concept_A: ForeignEntityInput
 	UUID: ID
+	HR_Concept_Category_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Default value

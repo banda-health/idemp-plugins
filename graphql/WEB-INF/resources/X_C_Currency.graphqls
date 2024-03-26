@@ -22,6 +22,7 @@ type C_Currency {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_Currency_UU: String
 	# Rounding used costing calculations
 	CostingPrecision: Int!
 	# Date this record was created
@@ -60,6 +61,7 @@ input C_CurrencyInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_Currency_UU: String
 	# Rounding used costing calculations
 	CostingPrecision: Int
 	# The name of the currency

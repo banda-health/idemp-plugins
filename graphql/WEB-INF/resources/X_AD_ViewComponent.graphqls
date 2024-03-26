@@ -24,6 +24,7 @@ type AD_ViewComponent {
 	# Database Table information
 	AD_Table: AD_Table!
 	UUID: ID!
+	AD_ViewComponent_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -63,6 +64,7 @@ input AD_ViewComponentInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	UUID: ID
+	AD_ViewComponent_UU: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

@@ -32,6 +32,7 @@ type M_Substitute {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_Substitute_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Entity which can be used in place of this entity
@@ -52,6 +53,7 @@ input M_SubstituteInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_Substitute_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Entity which can be used in place of this entity

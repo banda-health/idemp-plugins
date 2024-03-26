@@ -26,6 +26,7 @@ type C_POSKeyLayout {
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont
 	UUID: ID!
+	C_POSKeyLayout_UU: String
 	# Number of columns
 	Columns: Int
 	# Date this record was created
@@ -56,6 +57,7 @@ input C_POSKeyLayoutInput {
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
 	UUID: ID
+	C_POSKeyLayout_UU: String
 	# Number of columns
 	Columns: Int
 	# Optional short description of the record

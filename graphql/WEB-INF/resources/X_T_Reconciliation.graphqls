@@ -33,6 +33,7 @@ type T_Reconciliation {
 	# String identifying related accounting facts
 	MatchCode: String
 	UUID: ID!
+	T_Reconciliation_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,4 +51,5 @@ input T_ReconciliationInput {
 	# String identifying related accounting facts
 	MatchCode: String
 	UUID: ID
+	T_Reconciliation_UU: String
 }

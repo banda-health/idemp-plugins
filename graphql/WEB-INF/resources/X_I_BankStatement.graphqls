@@ -81,6 +81,7 @@ type I_BankStatement {
 	# Electronic Funds Transfer Valuta (effective) Date
 	EftValutaDate: Date
 	UUID: ID!
+	I_BankStatement_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -192,6 +193,7 @@ input I_BankStatementInput {
 	# Electronic Funds Transfer Valuta (effective) Date
 	EftValutaDate: Date
 	UUID: ID
+	I_BankStatement_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

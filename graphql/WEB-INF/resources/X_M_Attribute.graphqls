@@ -44,6 +44,7 @@ type M_Attribute {
 	# Data entry is required in this column
 	IsMandatory: Boolean!
 	UUID: ID!
+	M_Attribute_UU: String
 	# Common Search Attribute 
 	M_AttributeSearch: M_AttributeSearch
 	# Alphanumeric identifier of the entity
@@ -76,6 +77,7 @@ input M_AttributeInput {
 	# Data entry is required in this column
 	IsMandatory: Boolean
 	UUID: ID
+	M_Attribute_UU: String
 	# Common Search Attribute 
 	M_AttributeSearch: ForeignEntityInput
 	# Alphanumeric identifier of the entity

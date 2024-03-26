@@ -56,7 +56,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 */
 	@JsonCreator
 	public X_C_ProjectInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -40,6 +40,7 @@ type M_Warehouse {
 	# Reservation Locator (just for reporting purposes)
 	M_ReserveLocator: M_Locator
 	UUID: ID!
+	M_Warehouse_UU: String
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: M_Warehouse
 	# Alphanumeric identifier of the entity
@@ -74,6 +75,7 @@ input M_WarehouseInput {
 	# Reservation Locator (just for reporting purposes)
 	M_ReserveLocator: ForeignEntityInput
 	UUID: ID
+	M_Warehouse_UU: String
 	# Optional Warehouse to replenish from
 	M_WarehouseSource: ForeignEntityInput
 	# Alphanumeric identifier of the entity

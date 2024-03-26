@@ -47,6 +47,7 @@ type S_Resource {
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: BigDecimal
 	UUID: ID!
+	S_Resource_UU: String
 	S_ResourceType: S_ResourceType!
 	# Date this record was updated
 	Updated: Date!
@@ -83,6 +84,7 @@ input S_ResourceInput {
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: BigDecimal
 	UUID: ID
+	S_Resource_UU: String
 	S_ResourceType: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String

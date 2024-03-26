@@ -24,6 +24,7 @@ type A_Asset_Split {
 	A_Asset: A_Asset!
 	A_Asset_To: A_Asset
 	UUID: ID!
+	A_Asset_Split_UU: String
 	A_Depreciation_Workfile_ID: Int!
 	A_Percent_Original: BigDecimal
 	A_Percent_Split: BigDecimal
@@ -64,6 +65,7 @@ input A_Asset_SplitInput {
 	A_Asset: ForeignEntityInput
 	A_Asset_To: ForeignEntityInput
 	UUID: ID
+	A_Asset_Split_UU: String
 	A_Depreciation_Workfile_ID: Int
 	A_Percent_Original: BigDecimal
 	A_Percent_Split: BigDecimal

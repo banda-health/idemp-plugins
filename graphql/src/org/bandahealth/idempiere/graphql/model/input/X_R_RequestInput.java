@@ -88,7 +88,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 */
 	@JsonCreator
 	public X_R_RequestInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -1272,24 +1272,6 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	@JsonProperty("R_Status")
 	public ForeignEntityInput R_Status() {
 		return mR_Status;
-	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setRecord_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getRecord_UU();
 	}
 
 	/**

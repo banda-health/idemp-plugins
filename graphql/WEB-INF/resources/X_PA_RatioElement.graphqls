@@ -40,6 +40,7 @@ type PA_RatioElement {
 	# Performance Ratio
 	PA_Ratio: PA_Ratio!
 	UUID: ID!
+	PA_RatioElement_UU: String
 	# Performance Ratio Used
 	PA_RatioUsed: PA_Ratio
 	# The type of posted amount for the transaction
@@ -74,6 +75,7 @@ input PA_RatioElementInput {
 	# Performance Ratio
 	PA_Ratio: ForeignEntityInput
 	UUID: ID
+	PA_RatioElement_UU: String
 	# Performance Ratio Used
 	PA_RatioUsed: ForeignEntityInput
 	# The type of posted amount for the transaction

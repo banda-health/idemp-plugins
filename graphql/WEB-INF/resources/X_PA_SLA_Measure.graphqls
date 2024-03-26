@@ -38,6 +38,7 @@ type PA_SLA_Measure {
 	# Service Level Agreement Goal
 	PA_SLA_Goal: PA_SLA_Goal!
 	UUID: ID!
+	PA_SLA_Measure_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -63,6 +64,7 @@ input PA_SLA_MeasureInput {
 	# Service Level Agreement Goal
 	PA_SLA_Goal: ForeignEntityInput
 	UUID: ID
+	PA_SLA_Measure_UU: String
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

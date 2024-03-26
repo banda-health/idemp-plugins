@@ -60,6 +60,7 @@ type M_InOutLine {
 	# Material Shipment Document
 	M_InOut: M_InOut!
 	UUID: ID!
+	M_InOutLine_UU: String
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -127,6 +128,7 @@ input M_InOutLineInput {
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
 	UUID: ID
+	M_InOutLine_UU: String
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item

@@ -22,6 +22,7 @@ type AD_Replication_Log {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Replication_Log_UU: String
 	# Data Replication Run
 	AD_Replication_Run: AD_Replication_Run!
 	# Data Replication Strategy Table Info
@@ -45,6 +46,7 @@ input AD_Replication_LogInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Replication_Log_UU: String
 	# Data Replication Run
 	AD_Replication_Run: ForeignEntityInput
 	# Data Replication Strategy Table Info

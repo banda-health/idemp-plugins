@@ -26,6 +26,7 @@ type C_RfQResponseLine {
 	# Request for Quotation Response from a potential Vendor
 	C_RfQResponse: C_RfQResponse!
 	UUID: ID!
+	C_RfQResponseLine_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input C_RfQResponseLineInput {
 	# Request for Quotation Response from a potential Vendor
 	C_RfQResponse: ForeignEntityInput
 	UUID: ID
+	C_RfQResponseLine_UU: String
 	# Date when work is (planned to be) complete
 	DateWorkComplete: Date
 	# Date when work is (planned to be) started

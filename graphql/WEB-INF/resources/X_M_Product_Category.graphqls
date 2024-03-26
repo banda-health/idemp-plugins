@@ -41,6 +41,7 @@ type M_Product_Category {
 	IsSelfService: Boolean!
 	M_Product_Category_Parent: M_Product_Category
 	UUID: ID!
+	M_Product_Category_UU: String
 	# Material Movement Policy
 	MMPolicy: AD_Ref_List!
 	# Alphanumeric identifier of the entity
@@ -74,6 +75,7 @@ input M_Product_CategoryInput {
 	IsSelfService: Boolean
 	M_Product_Category_Parent: ForeignEntityInput
 	UUID: ID
+	M_Product_Category_UU: String
 	# Material Movement Policy
 	MMPolicy: AD_Ref_ListInput
 	# Alphanumeric identifier of the entity

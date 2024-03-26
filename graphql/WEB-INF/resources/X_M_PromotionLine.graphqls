@@ -32,6 +32,7 @@ type M_PromotionLine {
 	M_Promotion: M_Promotion!
 	M_PromotionGroup: M_PromotionGroup
 	UUID: ID!
+	M_PromotionLine_UU: String
 	# Minimum Amount in Document Currency
 	MinimumAmt: BigDecimal
 	# Date this record was updated
@@ -50,6 +51,7 @@ input M_PromotionLineInput {
 	M_Promotion: ForeignEntityInput
 	M_PromotionGroup: ForeignEntityInput
 	UUID: ID
+	M_PromotionLine_UU: String
 	# Minimum Amount in Document Currency
 	MinimumAmt: BigDecimal
 }

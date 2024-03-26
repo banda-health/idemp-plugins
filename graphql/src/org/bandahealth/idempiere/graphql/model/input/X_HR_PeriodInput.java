@@ -37,7 +37,7 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	 */
 	@JsonCreator
 	public X_HR_PeriodInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

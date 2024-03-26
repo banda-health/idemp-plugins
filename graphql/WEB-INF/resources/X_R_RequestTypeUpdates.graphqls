@@ -34,6 +34,7 @@ type R_RequestTypeUpdates {
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType!
 	UUID: ID!
+	R_RequestTypeUpdates_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,4 +53,5 @@ input R_RequestTypeUpdatesInput {
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	UUID: ID
+	R_RequestTypeUpdates_UU: String
 }

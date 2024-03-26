@@ -32,6 +32,7 @@ type S_Training_Class {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	S_Training_Class_UU: String
 	# Repeated Training
 	S_Training: S_Training!
 	# First effective day (inclusive)
@@ -52,6 +53,7 @@ input S_Training_ClassInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	S_Training_Class_UU: String
 	# Repeated Training
 	S_Training: ForeignEntityInput
 	# First effective day (inclusive)

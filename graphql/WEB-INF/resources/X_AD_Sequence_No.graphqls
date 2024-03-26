@@ -24,6 +24,7 @@ type AD_Sequence_No {
 	# Document Sequence
 	AD_Sequence: AD_Sequence!
 	UUID: ID!
+	AD_Sequence_No_UU: String
 	# YYYYMM
 	CalendarYearMonth: String!
 	# Date this record was created
@@ -46,6 +47,7 @@ input AD_Sequence_NoInput {
 	# Document Sequence
 	AD_Sequence: ForeignEntityInput
 	UUID: ID
+	AD_Sequence_No_UU: String
 	# YYYYMM
 	CalendarYearMonth: String
 	# The next number to be used

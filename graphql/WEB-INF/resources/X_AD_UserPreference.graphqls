@@ -24,6 +24,7 @@ type AD_UserPreference {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	AD_UserPreference_UU: String
 	AutoCommit: Boolean!
 	# Automatically insert a decimal point
 	AutomaticDecimalPlacesForAmoun: Int
@@ -55,6 +56,7 @@ input AD_UserPreferenceInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_UserPreference_UU: String
 	AutoCommit: Boolean
 	# Automatically insert a decimal point
 	AutomaticDecimalPlacesForAmoun: Int

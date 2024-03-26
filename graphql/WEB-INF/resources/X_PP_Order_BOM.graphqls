@@ -50,6 +50,7 @@ type PP_Order_BOM {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	PP_Order_BOM_UU: String
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	Processing: Boolean!
@@ -94,6 +95,7 @@ input PP_Order_BOMInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	PP_Order_BOM_UU: String
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	Processing: Boolean

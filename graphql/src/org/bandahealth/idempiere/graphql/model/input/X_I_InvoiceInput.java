@@ -15,6 +15,7 @@ import org.compiere.model.MActivity;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MCountry;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocation;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPaymentTerm;
@@ -26,6 +27,8 @@ import org.compiere.model.Query;
 import org.compiere.model.X_C_1099Box;
 import org.compiere.model.X_I_Invoice;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for I_Invoice - DO NOT CHANGE
@@ -65,7 +68,7 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 	 */
 	@JsonCreator
 	public X_I_InvoiceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -490,7 +493,7 @@ public class X_I_InvoiceInput extends X_I_Invoice implements I_I_InvoiceInput {
 		this.mC_InvoiceLine = C_InvoiceLine;
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

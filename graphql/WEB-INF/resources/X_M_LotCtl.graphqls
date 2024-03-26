@@ -34,6 +34,7 @@ type M_LotCtl {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_LotCtl_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Prefix before the sequence number
@@ -60,6 +61,7 @@ input M_LotCtlInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_LotCtl_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Prefix before the sequence number

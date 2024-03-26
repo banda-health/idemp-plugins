@@ -32,6 +32,7 @@ type M_Promotion {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_Promotion_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Which promotion should be apply to a product
@@ -52,6 +53,7 @@ input M_PromotionInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_Promotion_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Which promotion should be apply to a product

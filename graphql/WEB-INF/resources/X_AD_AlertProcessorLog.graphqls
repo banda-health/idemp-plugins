@@ -20,6 +20,7 @@ type AD_AlertProcessorLog {
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: AD_AlertProcessor!
 	UUID: ID!
+	AD_AlertProcessorLog_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -52,6 +53,7 @@ input AD_AlertProcessorLogInput {
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: ForeignEntityInput
 	UUID: ID
+	AD_AlertProcessorLog_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Binary Data

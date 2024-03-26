@@ -11,20 +11,6 @@ import org.compiere.model.I_Fact_Reconciliation;
 public interface I_Fact_ReconciliationInput extends I_Fact_Reconciliation {
 
 	/**
-	 * Set Account.
-	 *
-	 * @param Account Account used
-	 */
-	void setAccountInput(ForeignEntityInput Account);
-
-	/**
-	 * Get Account.
-	 *
-	 * @return Account used
-	 */
-	ForeignEntityInput Account();
-
-	/**
 	 * Set AD_Org.
 	 *
 	 * @param AD_Org Organizational entity within tenant
@@ -37,20 +23,6 @@ public interface I_Fact_ReconciliationInput extends I_Fact_Reconciliation {
 	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
-
-	/**
-	 * Set C_BPartner.
-	 *
-	 * @param C_BPartner Identifies a Business Partner
-	 */
-	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
-
-	/**
-	 * Get C_BPartner.
-	 *
-	 * @return Identifies a Business Partner
-	 */
-	ForeignEntityInput C_BPartner();
 
 	/**
 	 * Set Fact_Acct.

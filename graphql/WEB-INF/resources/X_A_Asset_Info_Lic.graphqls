@@ -20,6 +20,7 @@ type A_Asset_Info_Lic {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UUID: ID!
+	A_Asset_Info_Lic_UU: String
 	A_Issuing_Agency: String
 	A_License_Fee: BigDecimal
 	A_License_No: String
@@ -49,6 +50,7 @@ input A_Asset_Info_LicInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Asset_Info_Lic_UU: String
 	A_Issuing_Agency: String
 	A_License_Fee: BigDecimal
 	A_License_No: String

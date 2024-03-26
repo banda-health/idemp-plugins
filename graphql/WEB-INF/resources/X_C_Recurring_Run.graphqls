@@ -32,6 +32,7 @@ type C_Recurring_Run {
 	# Recurring Document
 	C_Recurring: C_Recurring!
 	UUID: ID!
+	C_Recurring_Run_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,6 +63,7 @@ input C_Recurring_RunInput {
 	# Recurring Document
 	C_Recurring: ForeignEntityInput
 	UUID: ID
+	C_Recurring_Run_UU: String
 	# Date of the Document
 	DateDoc: Date
 	# General Ledger Journal Batch

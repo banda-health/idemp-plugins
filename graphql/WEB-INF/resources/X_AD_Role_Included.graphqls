@@ -24,6 +24,7 @@ type AD_Role_Included {
 	# Responsibility Role
 	AD_Role: AD_Role!
 	UUID: ID!
+	AD_Role_Included_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,6 +46,7 @@ input AD_Role_IncludedInput {
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	UUID: ID
+	AD_Role_Included_UU: String
 	Included_Role: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

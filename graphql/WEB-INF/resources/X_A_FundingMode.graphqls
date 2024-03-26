@@ -18,6 +18,7 @@ type A_FundingModeConnection {
 
 type A_FundingMode {
 	UUID: ID!
+	A_FundingMode_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -42,6 +43,7 @@ type A_FundingMode {
 
 input A_FundingModeInput {
 	UUID: ID
+	A_FundingMode_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

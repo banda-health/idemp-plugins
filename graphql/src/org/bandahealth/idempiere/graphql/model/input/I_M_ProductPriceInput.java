@@ -65,23 +65,4 @@ public interface I_M_ProductPriceInput extends I_M_ProductPrice {
 	 * @return UUID
 	 */
 	String getUUID();
-
-	/**
-	 * Column name ProductName
-	 */
-	static final String COLUMNNAME_ProductName = "ProductName";
-
-	/**
-	 * Set Product Name.
-	 *
-	 * @param ProductName Name of the Product
-	 */
-	void setProductName(String ProductName);
-
-	/**
-	 * Get Product Name.
-	 *
-	 * @return Name of the Product
-	 */
-	String getProductName();
 }

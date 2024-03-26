@@ -129,6 +129,6 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 
 	@Override
 	protected MOrgInfo_BH getModelInstance() {
-		return new MOrgInfo_BH(Env.getCtx(), null, null);
+		return new MOrgInfo_BH(Env.getCtx(), 0, null);
 	}
 }

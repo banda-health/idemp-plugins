@@ -31,8 +31,7 @@ public class X_AD_PInstance_ParaInput extends MPInstancePara implements I_AD_PIn
 	 */
 	@JsonCreator
 	public X_AD_PInstance_ParaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MPInstancePara(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

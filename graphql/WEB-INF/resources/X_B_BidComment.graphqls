@@ -24,6 +24,7 @@ type B_BidComment {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	B_BidComment_UU: String
 	# Auction Topic
 	B_Topic: B_Topic!
 	# Date this record was created
@@ -46,6 +47,7 @@ input B_BidCommentInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	B_BidComment_UU: String
 	# Auction Topic
 	B_Topic: ForeignEntityInput
 	# The record is active in the system

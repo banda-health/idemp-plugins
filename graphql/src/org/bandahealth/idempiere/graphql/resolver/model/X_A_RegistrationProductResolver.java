@@ -5,7 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_RegistrationAttributeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
-import org.compiere.model.MRegistrationAttribute;
+import org.compiere.model.X_A_RegistrationAttribute;
 import org.compiere.model.X_A_RegistrationProduct;
 import org.dataloader.DataLoader;
 
@@ -26,11 +26,11 @@ public class X_A_RegistrationProductResolver extends POResolver<X_A_Registration
 	 *
 	 * @return Asset Registration Attribute
 	 */
-	public CompletableFuture<MRegistrationAttribute> A_RegistrationAttribute(X_A_RegistrationProduct entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_A_RegistrationAttribute> A_RegistrationAttribute(X_A_RegistrationProduct entity, DataFetchingEnvironment environment) {
 		if (entity.getA_RegistrationAttribute_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MRegistrationAttribute> dataLoader =
+		DataLoader<Integer, X_A_RegistrationAttribute> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_A_RegistrationAttributeDataLoader.DATALOADER_A_RegistrationAttribute_BY_ID);
 		return dataLoader.load(entity.getA_RegistrationAttribute_ID());
 	}

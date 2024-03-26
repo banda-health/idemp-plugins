@@ -35,8 +35,7 @@ public class X_AD_Document_Action_AccessInput extends MDocumentActionAccess impl
 	 */
 	@JsonCreator
 	public X_AD_Document_Action_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MDocumentActionAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

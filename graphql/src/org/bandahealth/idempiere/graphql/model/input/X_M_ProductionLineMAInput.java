@@ -34,8 +34,7 @@ public class X_M_ProductionLineMAInput extends MProductionLineMA implements I_M_
 	 */
 	@JsonCreator
 	public X_M_ProductionLineMAInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MProductionLineMA(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

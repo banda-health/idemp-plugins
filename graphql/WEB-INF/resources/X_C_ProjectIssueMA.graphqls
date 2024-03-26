@@ -24,6 +24,7 @@ type C_ProjectIssueMA {
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue!
 	UUID: ID!
+	C_ProjectIssueMA_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input C_ProjectIssueMAInput {
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput
 	UUID: ID
+	C_ProjectIssueMA_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Product Attribute Set Instance

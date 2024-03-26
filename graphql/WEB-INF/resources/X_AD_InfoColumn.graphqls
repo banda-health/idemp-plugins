@@ -24,6 +24,7 @@ type AD_InfoColumn {
 	# Field CSS Style 
 	AD_FieldStyle: AD_Style
 	UUID: ID!
+	AD_InfoColumn_UU: String
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
 	# Organizational entity within tenant
@@ -102,6 +103,7 @@ input AD_InfoColumnInput {
 	# Field CSS Style 
 	AD_FieldStyle: ForeignEntityInput
 	UUID: ID
+	AD_InfoColumn_UU: String
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within tenant

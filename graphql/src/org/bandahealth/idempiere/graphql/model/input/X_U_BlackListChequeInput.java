@@ -29,7 +29,7 @@ public class X_U_BlackListChequeInput extends MBlackListCheque implements I_U_Bl
 	 */
 	@JsonCreator
 	public X_U_BlackListChequeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

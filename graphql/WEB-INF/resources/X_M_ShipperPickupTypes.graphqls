@@ -32,6 +32,7 @@ type M_ShipperPickupTypes {
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
 	UUID: ID!
+	M_ShipperPickupTypes_UU: String
 	M_ShipperPickupTypesCfg: M_ShipperPickupTypesCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -51,6 +52,7 @@ input M_ShipperPickupTypesInput {
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	UUID: ID
+	M_ShipperPickupTypes_UU: String
 	M_ShipperPickupTypesCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

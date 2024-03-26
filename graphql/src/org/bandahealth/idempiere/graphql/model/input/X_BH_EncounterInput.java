@@ -33,7 +33,7 @@ public class X_BH_EncounterInput extends MBHEncounter implements I_BH_EncounterI
 	 */
 	@JsonCreator
 	public X_BH_EncounterInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

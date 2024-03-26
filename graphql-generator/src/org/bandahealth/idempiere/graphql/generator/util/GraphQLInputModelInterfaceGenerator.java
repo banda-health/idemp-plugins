@@ -223,7 +223,7 @@ public class GraphQLInputModelInterfaceGenerator {
 		StringBuilder columnBuilder = new StringBuilder();
 
 		if (columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
-				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID")) {
+				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn) {
 			return "";
 		}
 
@@ -261,7 +261,7 @@ public class GraphQLInputModelInterfaceGenerator {
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
 					returnType = "I_M_WarehouseInput";
-				}  else {
+				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";
 				}
@@ -283,13 +283,16 @@ public class GraphQLInputModelInterfaceGenerator {
 					.append("\tForeignEntityInput ").append(entityName).append("();");
 
 			return columnBuilder.toString();
-		} else if (columnName.endsWith("_UU")) {
+		} else if (columnName.equalsIgnoreCase(MTable.get(AD_Table_ID).getTableName() + "_UU")) {
 			columnBuilder.append("\n");
 			generateJavaSetComment("UUID", "UUID", Description, columnBuilder);
 			columnBuilder.append("\tvoid setUUID(String UUID);\n");
 			generateJavaGetComment("UUID", Description, columnBuilder);
 			columnBuilder.append("\tString getUUID();");
 			return columnBuilder.toString();
+		} else if (columnName.endsWith("_UU")) {
+			log.warning("Did not generate a field for: " + columnName);
+			return "";
 		}
 
 		if (AD_Reference_ID > 0 &&

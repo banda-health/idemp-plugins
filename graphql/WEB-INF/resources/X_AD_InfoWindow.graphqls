@@ -21,6 +21,7 @@ type AD_InfoWindow {
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
 	UUID: ID!
+	AD_InfoWindow_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
@@ -78,6 +79,7 @@ type AD_InfoWindow {
 input AD_InfoWindowInput {
 	AD_CtxHelp: ForeignEntityInput
 	UUID: ID
+	AD_InfoWindow_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

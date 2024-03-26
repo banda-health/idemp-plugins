@@ -23,6 +23,7 @@ type BH_Coded_Diagnosis_Mapping {
 	AD_Org: AD_Org
 	BH_Coded_Diagnosis: BH_Coded_Diagnosis!
 	UUID: ID!
+	BH_Coded_Diagnosis_Mapping_UU: String
 	# BH_Concept_Code
 	BH_Concept_Code: String
 	# BH_Concept_Name_Resolved
@@ -52,6 +53,7 @@ input BH_Coded_Diagnosis_MappingInput {
 	AD_Org: ForeignEntityInput
 	BH_Coded_Diagnosis: ForeignEntityInput
 	UUID: ID
+	BH_Coded_Diagnosis_Mapping_UU: String
 	# BH_Concept_Code
 	BH_Concept_Code: String
 	# BH_Concept_Name_Resolved

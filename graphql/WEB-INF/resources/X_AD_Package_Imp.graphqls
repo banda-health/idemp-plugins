@@ -23,6 +23,7 @@ type AD_Package_Imp {
 	AD_Org: AD_Org!
 	AD_Package_Imp_Proc: AD_Package_Imp_Proc
 	UUID: ID!
+	AD_Package_Imp_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input AD_Package_ImpInput {
 	AD_Org: ForeignEntityInput
 	AD_Package_Imp_Proc: ForeignEntityInput
 	UUID: ID
+	AD_Package_Imp_UU: String
 	CreatedDate: String
 	Creator: String
 	CreatorContact: String

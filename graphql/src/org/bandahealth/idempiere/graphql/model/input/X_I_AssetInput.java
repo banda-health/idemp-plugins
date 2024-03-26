@@ -58,7 +58,7 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 	 */
 	@JsonCreator
 	public X_I_AssetInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

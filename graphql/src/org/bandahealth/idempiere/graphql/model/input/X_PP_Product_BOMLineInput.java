@@ -42,7 +42,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	 */
 	@JsonCreator
 	public X_PP_Product_BOMLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

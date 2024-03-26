@@ -16,6 +16,7 @@ import org.compiere.model.MAssetAddition;
 import org.compiere.model.MConversionType;
 import org.compiere.model.MIFixedAsset;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MJournalBatch;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMatchInv;
@@ -23,6 +24,8 @@ import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for A_Asset_Addition - DO NOT CHANGE
@@ -62,7 +65,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	 */
 	@JsonCreator
 	public X_A_Asset_AdditionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**
@@ -161,28 +164,6 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 	@JsonProperty("A_CapvsExp")
 	public I_AD_Ref_ListInput A_CapvsExp() {
 		return mA_CapvsExp;
-	}
-	/**
-	 * Set Life periods (max).
-	 *
-	 * @param A_Life_Period_Max Life periods (max)
-	 */
-
-	public void setA_Life_Period_Max(int A_Life_Period_Max) {
-		if (get_ID() == 0) {
-			super.setA_Life_Period_Max(A_Life_Period_Max);
-		}
-	}
-	/**
-	 * Set Life periods (min).
-	 *
-	 * @param A_Life_Period_Min Life periods (min)
-	 */
-
-	public void setA_Life_Period_Min(int A_Life_Period_Min) {
-		if (get_ID() == 0) {
-			super.setA_Life_Period_Min(A_Life_Period_Min);
-		}
 	}
 
 	/**
@@ -433,7 +414,7 @@ public class X_A_Asset_AdditionInput extends MAssetAddition implements I_A_Asset
 		this.mC_InvoiceLine = C_InvoiceLine;
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

@@ -61,7 +61,7 @@ public class X_A_Asset_AcctInput extends MAssetAcct implements I_A_Asset_AcctInp
 	 */
 	@JsonCreator
 	public X_A_Asset_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

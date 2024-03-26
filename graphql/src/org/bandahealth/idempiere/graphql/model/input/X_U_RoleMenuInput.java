@@ -33,7 +33,7 @@ public class X_U_RoleMenuInput extends MRoleMenu implements I_U_RoleMenuInput {
 	 */
 	@JsonCreator
 	public X_U_RoleMenuInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

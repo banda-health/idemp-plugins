@@ -47,7 +47,7 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 */
 	@JsonCreator
 	public X_I_PaymentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

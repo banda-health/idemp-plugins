@@ -3,7 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.Connection;
-import org.compiere.model.MRegistrationAttribute;
+import org.compiere.model.X_A_RegistrationAttribute;
 
 /**
  * Generated Query Resolver for A_RegistrationAttribute - DO NOT CHANGE
@@ -11,13 +11,13 @@ import org.compiere.model.MRegistrationAttribute;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_A_RegistrationAttributeQuery extends POQuery<MRegistrationAttribute> implements GraphQLQueryResolver {
+public class X_A_RegistrationAttributeQuery extends POQuery<X_A_RegistrationAttribute> implements GraphQLQueryResolver {
 	@Override
 	protected String getTableName() {
-		return MRegistrationAttribute.Table_Name;
+		return X_A_RegistrationAttribute.Table_Name;
 	}
 
-	public Connection<MRegistrationAttribute> A_RegistrationAttributeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_RegistrationAttribute> A_RegistrationAttributeGet(int page, int pageSize, String sort, String filter,
 			DataFetchingEnvironment environment) {
 		return super.get(page, pageSize, sort, filter, environment);
 	}

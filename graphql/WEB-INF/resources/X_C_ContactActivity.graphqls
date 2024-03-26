@@ -24,6 +24,7 @@ type C_ContactActivity {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	UUID: ID!
+	C_ContactActivity_UU: String
 	C_Opportunity: C_Opportunity
 	# Comments or additional information
 	Comments: String
@@ -57,6 +58,7 @@ input C_ContactActivityInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	C_ContactActivity_UU: String
 	C_Opportunity: ForeignEntityInput
 	# Comments or additional information
 	Comments: String

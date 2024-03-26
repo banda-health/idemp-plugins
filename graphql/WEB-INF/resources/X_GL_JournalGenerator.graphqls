@@ -37,6 +37,7 @@ type GL_JournalGenerator {
 	# General Ledger Category
 	GL_Category: GL_Category
 	UUID: ID!
+	GL_JournalGenerator_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -66,6 +67,7 @@ input GL_JournalGeneratorInput {
 	# General Ledger Category
 	GL_Category: ForeignEntityInput
 	UUID: ID
+	GL_JournalGenerator_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

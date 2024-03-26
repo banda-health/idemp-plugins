@@ -56,7 +56,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	 */
 	@JsonCreator
 	public X_T_CashFlowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

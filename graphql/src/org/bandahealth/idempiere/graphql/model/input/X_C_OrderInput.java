@@ -98,7 +98,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 */
 	@JsonCreator
 	public X_C_OrderInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

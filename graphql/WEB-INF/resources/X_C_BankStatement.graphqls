@@ -26,6 +26,7 @@ type C_BankStatement {
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
 	UUID: ID!
+	C_BankStatement_UU: String
 	# Document type or rules
 	C_DocType: C_DocType!
 	# Copy From Record
@@ -87,6 +88,7 @@ input C_BankStatementInput {
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	UUID: ID
+	C_BankStatement_UU: String
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# Copy From Record

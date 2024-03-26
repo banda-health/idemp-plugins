@@ -42,6 +42,7 @@ type M_InventoryLine {
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory!
 	UUID: ID!
+	M_InventoryLine_UU: String
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -89,6 +90,7 @@ input M_InventoryLineInput {
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
 	UUID: ID
+	M_InventoryLine_UU: String
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item

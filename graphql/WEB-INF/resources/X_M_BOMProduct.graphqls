@@ -48,6 +48,7 @@ type M_BOMProduct {
 	# Product BOM Alternative Group
 	M_BOMAlternative: M_BOMAlternative
 	UUID: ID!
+	M_BOMProduct_UU: String
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
 	# Bill of Material Component Product
@@ -88,6 +89,7 @@ input M_BOMProductInput {
 	# Product BOM Alternative Group
 	M_BOMAlternative: ForeignEntityInput
 	UUID: ID
+	M_BOMProduct_UU: String
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput
 	# Bill of Material Component Product

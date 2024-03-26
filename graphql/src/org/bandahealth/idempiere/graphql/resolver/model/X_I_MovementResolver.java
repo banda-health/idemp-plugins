@@ -19,6 +19,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ShipperDataLoader;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MLocator;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MProject;
 import org.compiere.model.MShipper;
 import org.dataloader.DataLoader;
@@ -165,11 +166,11 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 *
 	 * @return Inventory Move document Line
 	 */
-	public CompletableFuture<MMovementLine_BH> M_MovementLine(X_I_Movement entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MMovementLine> M_MovementLine(X_I_Movement entity, DataFetchingEnvironment environment) {
 		if (entity.getM_MovementLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MMovementLine_BH> dataLoader =
+		DataLoader<Integer, MMovementLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.DATALOADER_M_MovementLine_BY_ID);
 		return dataLoader.load(entity.getM_MovementLine_ID());
 	}

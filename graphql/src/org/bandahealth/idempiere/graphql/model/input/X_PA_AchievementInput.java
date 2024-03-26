@@ -31,7 +31,7 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 */
 	@JsonCreator
 	public X_PA_AchievementInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

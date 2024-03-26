@@ -42,7 +42,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 */
 	@JsonCreator
 	public X_C_BP_GroupInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -29,6 +29,7 @@ type HR_Job {
 	Description: String
 	HR_Department: HR_Department
 	UUID: ID!
+	HR_Job_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns
@@ -54,6 +55,7 @@ input HR_JobInput {
 	Description: String
 	HR_Department: ForeignEntityInput
 	UUID: ID
+	HR_Job_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns

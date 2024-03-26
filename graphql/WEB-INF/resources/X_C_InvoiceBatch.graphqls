@@ -26,6 +26,7 @@ type C_InvoiceBatch {
 	# The Currency for this record
 	C_Currency: C_Currency!
 	UUID: ID!
+	C_InvoiceBatch_UU: String
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal!
 	# Date this record was created
@@ -63,6 +64,7 @@ input C_InvoiceBatchInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	UUID: ID
+	C_InvoiceBatch_UU: String
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal
 	# Date of the Document

@@ -7,11 +7,14 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutConfirm;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInOutLineConfirm;
+import org.compiere.model.MInventoryLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_InOutLineConfirm - DO NOT CHANGE
@@ -35,7 +38,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	 */
 	@JsonCreator
 	public X_M_InOutLineConfirmInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -86,7 +89,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 		this.mC_InvoiceLine = C_InvoiceLine;
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -223,7 +226,7 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 		this.mM_InventoryLine = M_InventoryLine;
 		if (M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

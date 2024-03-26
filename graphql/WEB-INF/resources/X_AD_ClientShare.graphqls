@@ -20,6 +20,7 @@ type AD_ClientShare {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_ClientShare_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
@@ -44,6 +45,7 @@ type AD_ClientShare {
 
 input AD_ClientShareInput {
 	UUID: ID
+	AD_ClientShare_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

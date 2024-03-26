@@ -46,6 +46,7 @@ type M_RMALine {
 	# Return Material Authorization
 	M_RMA: M_RMA!
 	UUID: ID!
+	M_RMALine_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
@@ -85,6 +86,7 @@ input M_RMALineInput {
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
 	UUID: ID
+	M_RMALine_UU: String
 	# The document has been processed
 	Processed: Boolean
 	# Quantity

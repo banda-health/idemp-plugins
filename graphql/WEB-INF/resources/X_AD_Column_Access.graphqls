@@ -20,6 +20,7 @@ type AD_Column_Access {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Column_Access_UU: String
 	# Column in the table
 	AD_Column: AD_Column!
 	# Organizational entity within tenant
@@ -46,6 +47,7 @@ type AD_Column_Access {
 
 input AD_Column_AccessInput {
 	UUID: ID
+	AD_Column_Access_UU: String
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant

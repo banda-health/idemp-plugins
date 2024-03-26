@@ -24,6 +24,7 @@ type BH_Default_DocAction_Access {
 	# Reference List based on Table
 	AD_Ref_List: AD_Ref_List!
 	UUID: ID!
+	BH_Default_DocAction_Access_UU: String
 	# Document type or rules
 	C_DocType: C_DocType!
 	# Date this record was created
@@ -46,6 +47,7 @@ input BH_Default_DocAction_AccessInput {
 	# Reference List based on Table
 	AD_Ref_List: ForeignEntityInput
 	UUID: ID
+	BH_Default_DocAction_Access_UU: String
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# The User Type when a new client is created

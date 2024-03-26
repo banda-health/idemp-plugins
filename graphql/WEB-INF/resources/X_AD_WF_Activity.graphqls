@@ -28,6 +28,7 @@ type AD_WF_Activity {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	UUID: ID!
+	AD_WF_Activity_UU: String
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	# Actual Workflow Process Instance
@@ -73,6 +74,7 @@ input AD_WF_ActivityInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_WF_Activity_UU: String
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	# Actual Workflow Process Instance

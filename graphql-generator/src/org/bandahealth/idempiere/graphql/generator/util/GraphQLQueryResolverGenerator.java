@@ -86,7 +86,7 @@ public class GraphQLQueryResolverGenerator {
 	/**
 	 * Add Header info to buffer
 	 *
-	 * @param AD_Table_ID      table
+	 * @param AD_Table_ID   table
 	 * @param generatedFile GeneratedColumns
 	 * @return file name
 	 */
@@ -184,7 +184,8 @@ public class GraphQLQueryResolverGenerator {
 		// 1) Must understand which class to reference
 		if (shouldSkipInputField || !DisplayType.isID(displayType) || IsKey) {
 			// If this is the UUID column, we need to generate the ID fields
-			if ((!DisplayType.isID(displayType) || IsKey) && columnName.endsWith("_UU")) {
+			if ((!DisplayType.isID(displayType) || IsKey) &&
+					columnName.equalsIgnoreCase(MTable.get(AD_Table_ID).getTableName() + "_UU")) {
 				columnBuilder.append("\n");
 				generateJavaSetComment("ID", "ID", Description, columnBuilder);
 				columnBuilder.append("\tvoid setID(String ID);\n");

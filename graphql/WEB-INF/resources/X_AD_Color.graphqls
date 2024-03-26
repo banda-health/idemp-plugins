@@ -20,6 +20,7 @@ type AD_Color {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Color_UU: String
 	# Image or Icon
 	AD_Image: AD_Image
 	# Organizational entity within tenant
@@ -70,6 +71,7 @@ type AD_Color {
 
 input AD_ColorInput {
 	UUID: ID
+	AD_Color_UU: String
 	# Image or Icon
 	AD_Image: ForeignEntityInput
 	# Organizational entity within tenant

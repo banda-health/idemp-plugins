@@ -37,6 +37,7 @@ type GL_JournalGeneratorLine {
 	Description: String
 	GL_JournalGenerator: GL_JournalGenerator!
 	UUID: ID!
+	GL_JournalGeneratorLine_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -67,6 +68,7 @@ input GL_JournalGeneratorLineInput {
 	Description: String
 	GL_JournalGenerator: ForeignEntityInput
 	UUID: ID
+	GL_JournalGeneratorLine_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

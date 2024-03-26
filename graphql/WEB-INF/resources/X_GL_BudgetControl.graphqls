@@ -36,6 +36,7 @@ type GL_BudgetControl {
 	# General Ledger Budget
 	GL_Budget: GL_Budget!
 	UUID: ID!
+	GL_BudgetControl_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -64,6 +65,7 @@ input GL_BudgetControlInput {
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
 	UUID: ID
+	GL_BudgetControl_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

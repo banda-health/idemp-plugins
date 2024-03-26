@@ -10,6 +10,8 @@ import org.compiere.model.MReplicationRun;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
+import java.sql.ResultSet;
+
 /**
  * Generated Model for AD_Replication_Run - DO NOT CHANGE
  *
@@ -29,7 +31,7 @@ public class X_AD_Replication_RunInput extends MReplicationRun implements I_AD_R
 	 */
 	@JsonCreator
 	public X_AD_Replication_RunInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

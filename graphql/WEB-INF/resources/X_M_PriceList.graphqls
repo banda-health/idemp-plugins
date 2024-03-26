@@ -45,6 +45,7 @@ type M_PriceList {
 	# Tax is included in the price 
 	IsTaxIncluded: Boolean!
 	UUID: ID!
+	M_PriceList_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Precision (number of decimals) for the Price
@@ -78,6 +79,7 @@ input M_PriceListInput {
 	# Tax is included in the price 
 	IsTaxIncluded: Boolean
 	UUID: ID
+	M_PriceList_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Precision (number of decimals) for the Price

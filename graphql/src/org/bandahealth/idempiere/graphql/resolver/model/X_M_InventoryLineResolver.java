@@ -15,6 +15,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InventoryLineDataLo
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LocatorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
 import org.dataloader.DataLoader;
 
@@ -28,7 +29,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> implements GraphQLResolver<MInventoryLine_BH> {
+public class X_M_InventoryLineResolver extends POResolver<MInventoryLine> implements GraphQLResolver<MInventoryLine> {
 
 
 
@@ -37,7 +38,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 	 *
 	 * @return Additional document charges
 	 */
-	public CompletableFuture<MCharge_BH> C_Charge(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCharge_BH> C_Charge(MInventoryLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Charge_ID() <= 0) {
 			return null;
 		}
@@ -52,7 +53,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 			put("C", "3159e11b-bc67-450f-960f-93b2dc5f0c31");
 		}
 	};
-	public CompletableFuture<MRefList_BH> InventoryType(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> InventoryType(MInventoryLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getInventoryType())) {
 			return null;
 		}
@@ -67,7 +68,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MInventoryLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_AttributeSetInstance_ID() <= 0) {
 			return null;
 		}
@@ -82,7 +83,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 	 *
 	 * @return Parameters for a Physical Inventory
 	 */
-	public CompletableFuture<MInventory_BH> M_Inventory(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventory_BH> M_Inventory(MInventoryLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Inventory_ID() <= 0) {
 			return null;
 		}
@@ -97,7 +98,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 	 *
 	 * @return Warehouse Locator
 	 */
-	public CompletableFuture<MLocator> M_Locator(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MLocator> M_Locator(MInventoryLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Locator_ID() <= 0) {
 			return null;
 		}
@@ -112,7 +113,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(MInventoryLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() <= 0) {
 			return null;
 		}
@@ -121,7 +122,7 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	public Boolean Processed(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean Processed(MInventoryLine entity, DataFetchingEnvironment environment) {
 		return entity.isProcessed();
 	}
 
@@ -131,11 +132,11 @@ public class X_M_InventoryLineResolver extends POResolver<MInventoryLine_BH> imp
 	 *
 	 * @return Use to keep the reversal line ID for reversing costing purpose
 	 */
-	public CompletableFuture<MInventoryLine_BH> ReversalLine(MInventoryLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> ReversalLine(MInventoryLine entity, DataFetchingEnvironment environment) {
 		if (entity.getReversalLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getReversalLine_ID());
 	}

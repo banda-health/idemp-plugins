@@ -26,6 +26,7 @@ type CM_ChatTypeUpdate {
 	# Type of discussion / chat
 	CM_ChatType: CM_ChatType!
 	UUID: ID!
+	CM_ChatTypeUpdate_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input CM_ChatTypeUpdateInput {
 	# Type of discussion / chat
 	CM_ChatType: ForeignEntityInput
 	UUID: ID
+	CM_ChatTypeUpdate_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a Self-Service entry or this entry can be changed via Self-Service

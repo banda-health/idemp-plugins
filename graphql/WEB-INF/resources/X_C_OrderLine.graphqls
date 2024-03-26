@@ -37,6 +37,7 @@ type C_OrderLine {
 	# Order
 	C_Order: C_Order!
 	UUID: ID!
+	C_OrderLine_UU: String
 	# Financial Project
 	C_Project: C_Project
 	# Phase of a Project
@@ -150,6 +151,7 @@ input C_OrderLineInput {
 	# Order
 	C_Order: ForeignEntityInput
 	UUID: ID
+	C_OrderLine_UU: String
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Phase of a Project

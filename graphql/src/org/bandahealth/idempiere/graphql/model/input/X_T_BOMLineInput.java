@@ -45,7 +45,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 	 */
 	@JsonCreator
 	public X_T_BOMLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

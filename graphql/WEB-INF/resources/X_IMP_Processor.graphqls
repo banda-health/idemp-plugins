@@ -41,6 +41,7 @@ type IMP_Processor {
 	Host: String
 	IMP_Processor_Type: IMP_Processor_Type!
 	UUID: ID!
+	IMP_Processor_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Number of days to keep the log entries
@@ -77,6 +78,7 @@ input IMP_ProcessorInput {
 	Host: String
 	IMP_Processor_Type: ForeignEntityInput
 	UUID: ID
+	IMP_Processor_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Number of days to keep the log entries

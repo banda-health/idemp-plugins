@@ -13,7 +13,9 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProduction;
@@ -64,8 +66,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	 */
 	@JsonCreator
 	public X_T_TransactionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_T_Transaction(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -354,7 +355,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 		this.mM_InventoryLine = M_InventoryLine;
 		if (M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -456,7 +457,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 		this.mM_MovementLine = M_MovementLine;
 		if (M_MovementLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MMovementLine_BH foreignEntity;
+			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

@@ -32,7 +32,7 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	 */
 	@JsonCreator
 	public X_A_Depreciation_Table_HeaderInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

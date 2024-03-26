@@ -78,7 +78,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 */
 	@JsonCreator
 	public X_M_ShippingTransactionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

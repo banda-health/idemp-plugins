@@ -27,6 +27,7 @@ type AD_Scheduler {
 	AD_Process: AD_Process!
 	AD_Schedule: AD_Schedule!
 	UUID: ID!
+	AD_Scheduler_UU: String
 	# Database Table information
 	AD_Table: AD_Table
 	# Date this record was created
@@ -68,6 +69,7 @@ input AD_SchedulerInput {
 	AD_Process: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
 	UUID: ID
+	AD_Scheduler_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Date the process was last run.

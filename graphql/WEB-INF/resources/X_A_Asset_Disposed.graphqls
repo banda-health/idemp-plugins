@@ -22,6 +22,7 @@ type A_Asset_Disposed {
 	A_Activation_Method: AD_Ref_List!
 	A_Asset_Cost: BigDecimal
 	UUID: ID!
+	A_Asset_Disposed_UU: String
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_Status: AD_Ref_List
@@ -87,6 +88,7 @@ input A_Asset_DisposedInput {
 	A_Activation_Method: AD_Ref_ListInput
 	A_Asset_Cost: BigDecimal
 	UUID: ID
+	A_Asset_Disposed_UU: String
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_Status: AD_Ref_ListInput

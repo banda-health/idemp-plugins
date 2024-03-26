@@ -59,7 +59,7 @@ public class X_M_InOutLineInput extends MInOutLine implements I_M_InOutLineInput
 	 */
 	@JsonCreator
 	public X_M_InOutLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

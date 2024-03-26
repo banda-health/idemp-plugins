@@ -75,8 +75,6 @@ public class BandaObjectMapper {
 							addMapping(I_AD_CtxHelpInput.class, MCtxHelpInput.class);
 							addMapping(I_AD_CtxHelpMsgInput.class, MCtxHelpMsgInput.class);
 							addMapping(I_AD_CtxHelpSuggestionInput.class, MCtxHelpSuggestionInput.class);
-							addMapping(I_AD_DesktopInput.class, X_AD_DesktopInput.class);
-							addMapping(I_AD_DesktopWorkbenchInput.class, X_AD_DesktopWorkbenchInput.class);
 							addMapping(I_AD_Document_Action_AccessInput.class, X_AD_Document_Action_AccessInput.class);
 							addMapping(I_AD_ElementInput.class, M_ElementInput.class);
 							addMapping(I_AD_EntityTypeInput.class, MEntityTypeInput.class);
@@ -241,8 +239,6 @@ public class BandaObjectMapper {
 							addMapping(I_AD_WindowInput.class, MWindowInput.class);
 							addMapping(I_AD_Window_AccessInput.class, MWindowAccessInput.class);
 							addMapping(I_AD_WizardProcessInput.class, X_AD_WizardProcessInput.class);
-							addMapping(I_AD_WorkbenchInput.class, X_AD_WorkbenchInput.class);
-							addMapping(I_AD_WorkbenchWindowInput.class, X_AD_WorkbenchWindowInput.class);
 							addMapping(I_AD_WorkflowInput.class, X_AD_WorkflowInput.class);
 							addMapping(I_AD_WorkflowProcessorInput.class, X_AD_WorkflowProcessorInput.class);
 							addMapping(I_AD_WorkflowProcessorLogInput.class, X_AD_WorkflowProcessorLogInput.class);
@@ -320,10 +316,6 @@ public class BandaObjectMapper {
 							addMapping(I_BH_PaymentRef_BankAcctInput.class, MBHPaymentRefBankAccountInput.class);
 							addMapping(I_BH_Product_CategoryDefaultInput.class, MBHProductCategoryDefaultInput.class);
 							addMapping(I_BH_Role_WarehouseAccessInput.class, MBHRoleWarehouseAccessInput.class);
-							addMapping(I_BH_Stocktake_vInput.class, X_BH_Stocktake_vInput.class);
-							addMapping(I_BH_TabNavBtnInput.class, MTabNavBtnInput.class);
-							addMapping(I_BH_TabNavBtn_TabInput.class, MTabNavBtnTabInput.class);
-							addMapping(I_BH_UIButtonInput.class, MUIButtonInput.class);
 							addMapping(I_BH_VisitInput.class, MBHVisitInput.class);
 							addMapping(I_BH_Voided_ReasonInput.class, MBHVoidedReasonInput.class);
 							addMapping(I_B_BidCommentInput.class, X_B_BidCommentInput.class);
@@ -656,7 +648,6 @@ public class BandaObjectMapper {
 							addMapping(I_M_ProductPriceInput.class, MProductPriceInput.class);
 							addMapping(I_M_ProductPriceVendorBreakInput.class, X_M_ProductPriceVendorBreakInput.class);
 							addMapping(I_M_Product_AcctInput.class, X_M_Product_AcctInput.class);
-							addMapping(I_M_Product_BOMInput.class, MProductBOMInput.class);
 							addMapping(I_M_Product_CategoryInput.class, MProductCategoryInput.class);
 							addMapping(I_M_Product_Category_AcctInput.class, MProductCategoryAcctInput.class);
 							addMapping(I_M_Product_POInput.class, MProductPOInput.class);
@@ -802,13 +793,6 @@ public class BandaObjectMapper {
 							addMapping(I_U_RoleMenuInput.class, MRoleMenuInput.class);
 							addMapping(I_U_WebMenuInput.class, MWebMenuInput.class);
 							addMapping(I_U_Web_PropertiesInput.class, MWebPropertiesInput.class);
-							addMapping(I_WS_WebServiceFieldInputInput.class, X_WS_WebServiceFieldInputInput.class);
-							addMapping(I_WS_WebServiceFieldOutputInput.class, X_WS_WebServiceFieldOutputInput.class);
-							addMapping(I_WS_WebServiceInput.class, X_WS_WebServiceInput.class);
-							addMapping(I_WS_WebServiceMethodInput.class, X_WS_WebServiceMethodInput.class);
-							addMapping(I_WS_WebServiceTypeAccessInput.class, X_WS_WebServiceTypeAccessInput.class);
-							addMapping(I_WS_WebServiceTypeInput.class, X_WS_WebServiceTypeInput.class);
-							addMapping(I_WS_WebService_ParaInput.class, X_WS_WebService_ParaInput.class);
 						}});
 					}
 				})

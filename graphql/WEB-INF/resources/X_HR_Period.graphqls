@@ -37,6 +37,7 @@ type HR_Period {
 	EndDate: Date
 	HR_Payroll: HR_Payroll!
 	UUID: ID!
+	HR_Period_UU: String
 	HR_Year: HR_Year
 	# The record is active in the system
 	IsActive: Boolean!
@@ -74,6 +75,7 @@ input HR_PeriodInput {
 	EndDate: Date
 	HR_Payroll: ForeignEntityInput
 	UUID: ID
+	HR_Period_UU: String
 	HR_Year: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

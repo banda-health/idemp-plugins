@@ -20,6 +20,7 @@ type A_Depreciation_Table_Detail {
 	A_Depreciation_Rate: BigDecimal!
 	A_Depreciation_Table_Code: String!
 	UUID: ID!
+	A_Depreciation_Table_Detail_UU: String
 	A_Period: Int!
 	A_Table_Rate_Type: AD_Ref_List
 	# Tenant for this installation.
@@ -44,6 +45,7 @@ input A_Depreciation_Table_DetailInput {
 	A_Depreciation_Rate: BigDecimal
 	A_Depreciation_Table_Code: String
 	UUID: ID
+	A_Depreciation_Table_Detail_UU: String
 	A_Period: Int
 	A_Table_Rate_Type: AD_Ref_ListInput
 	# Organizational entity within tenant

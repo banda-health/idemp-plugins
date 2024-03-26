@@ -31,8 +31,7 @@ public class X_AD_User_OrgAccessInput extends MUserOrgAccess implements I_AD_Use
 	 */
 	@JsonCreator
 	public X_AD_User_OrgAccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MUserOrgAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

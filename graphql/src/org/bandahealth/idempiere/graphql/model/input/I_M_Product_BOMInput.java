@@ -39,20 +39,6 @@ public interface I_M_Product_BOMInput extends I_M_Product_BOM {
 	I_AD_Ref_ListInput BOMType();
 
 	/**
-	 * Set M_PartType.
-	 *
-	 * @param M_PartType M_PartType
-	 */
-	void setM_PartTypeInput(ForeignEntityInput M_PartType);
-
-	/**
-	 * Get M_PartType.
-	 *
-	 * @return M_PartType
-	 */
-	ForeignEntityInput M_PartType();
-
-	/**
 	 * Set UUID.
 	 *
 	 * @param UUID UUID

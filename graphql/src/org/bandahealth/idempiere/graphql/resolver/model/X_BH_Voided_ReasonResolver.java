@@ -16,10 +16,6 @@ import java.math.BigDecimal;
 public class X_BH_Voided_ReasonResolver extends POResolver<MBHVoidedReason> implements GraphQLResolver<MBHVoidedReason> {
 
 
-	public String bh_voided_reason_uu(MBHVoidedReason entity, DataFetchingEnvironment environment) {
-		return entity.getbh_voided_reason_uu();
-	}
-
 	public BigDecimal bh_window_id(MBHVoidedReason entity, DataFetchingEnvironment environment) {
 		return entity.getbh_window_id();
 	}

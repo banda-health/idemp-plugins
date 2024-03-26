@@ -38,8 +38,7 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	 */
 	@JsonCreator
 	public X_M_ReplenishInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MReplenish(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

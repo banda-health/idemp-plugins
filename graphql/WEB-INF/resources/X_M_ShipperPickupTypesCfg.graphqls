@@ -33,6 +33,7 @@ type M_ShipperPickupTypesCfg {
 	IsDefault: Boolean!
 	M_ShipperCfg: M_ShipperCfg!
 	UUID: ID!
+	M_ShipperPickupTypesCfg_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -54,6 +55,7 @@ input M_ShipperPickupTypesCfgInput {
 	IsDefault: Boolean
 	M_ShipperCfg: ForeignEntityInput
 	UUID: ID
+	M_ShipperPickupTypesCfg_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

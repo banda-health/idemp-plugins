@@ -38,7 +38,7 @@ public class X_M_BP_PriceInput extends X_M_BP_Price implements I_M_BP_PriceInput
 	 */
 	@JsonCreator
 	public X_M_BP_PriceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

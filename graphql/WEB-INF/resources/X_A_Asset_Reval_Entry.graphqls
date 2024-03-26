@@ -18,6 +18,7 @@ type A_Asset_Reval_EntryConnection {
 
 type A_Asset_Reval_Entry {
 	UUID: ID!
+	A_Asset_Reval_Entry_UU: String
 	A_Effective_Date: Date!
 	A_Rev_Code: AD_Ref_List!
 	A_Reval_Cal_Method: AD_Ref_List!
@@ -64,6 +65,7 @@ type A_Asset_Reval_Entry {
 
 input A_Asset_Reval_EntryInput {
 	UUID: ID
+	A_Asset_Reval_Entry_UU: String
 	A_Effective_Date: Date
 	A_Rev_Code: AD_Ref_ListInput
 	A_Reval_Cal_Method: AD_Ref_ListInput

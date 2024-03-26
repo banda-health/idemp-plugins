@@ -31,6 +31,7 @@ type AD_UserDef_Proc_Parameter {
 	# Primary Key : User defined Process
 	AD_UserDef_Proc: AD_UserDef_Proc!
 	UUID: ID!
+	AD_UserDef_Proc_Parameter_UU: String
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
 	# Date this record was created
@@ -89,6 +90,7 @@ input AD_UserDef_Proc_ParameterInput {
 	# Primary Key : User defined Process
 	AD_UserDef_Proc: ForeignEntityInput
 	UUID: ID
+	AD_UserDef_Proc_Parameter_UU: String
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
 	# Default value hierarchy, separated by ;

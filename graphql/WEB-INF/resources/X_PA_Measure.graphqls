@@ -48,6 +48,7 @@ type PA_Measure {
 	# Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	PA_Hierarchy: PA_Hierarchy
 	UUID: ID!
+	PA_Measure_UU: String
 	# Calculation method for measuring performance
 	PA_MeasureCalc: PA_MeasureCalc
 	# Performance Ratio
@@ -86,6 +87,7 @@ input PA_MeasureInput {
 	# Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	PA_Hierarchy: ForeignEntityInput
 	UUID: ID
+	PA_Measure_UU: String
 	# Calculation method for measuring performance
 	PA_MeasureCalc: ForeignEntityInput
 	# Performance Ratio

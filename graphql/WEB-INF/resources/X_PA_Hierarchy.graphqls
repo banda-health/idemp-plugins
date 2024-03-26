@@ -50,6 +50,7 @@ type PA_Hierarchy {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	PA_Hierarchy_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -84,4 +85,5 @@ input PA_HierarchyInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	PA_Hierarchy_UU: String
 }

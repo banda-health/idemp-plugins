@@ -33,8 +33,7 @@ public class X_AD_InfoWindow_AccessInput extends MInfoWindowAccess implements I_
 	 */
 	@JsonCreator
 	public X_AD_InfoWindow_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MInfoWindowAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

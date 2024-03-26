@@ -36,8 +36,7 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 	 */
 	@JsonCreator
 	public X_C_Project_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_Project_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

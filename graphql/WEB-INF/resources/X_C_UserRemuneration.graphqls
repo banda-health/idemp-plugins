@@ -26,6 +26,7 @@ type C_UserRemuneration {
 	# Wage or Salary
 	C_Remuneration: C_Remuneration!
 	UUID: ID!
+	C_UserRemuneration_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input C_UserRemunerationInput {
 	# Wage or Salary
 	C_Remuneration: ForeignEntityInput
 	UUID: ID
+	C_UserRemuneration_UU: String
 	# Optional short description of the record
 	Description: String
 	# Gross Remuneration Amount

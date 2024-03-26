@@ -24,6 +24,7 @@ type C_Channel {
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
 	UUID: ID!
+	C_Channel_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input C_ChannelInput {
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
 	UUID: ID
+	C_Channel_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

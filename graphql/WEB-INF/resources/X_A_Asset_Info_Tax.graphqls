@@ -20,6 +20,7 @@ type A_Asset_Info_Tax {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UUID: ID!
+	A_Asset_Info_Tax_UU: String
 	A_Finance_Meth: AD_Ref_List
 	A_Investment_CR: Int
 	A_New_Used: Boolean!
@@ -48,6 +49,7 @@ input A_Asset_Info_TaxInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Asset_Info_Tax_UU: String
 	A_Finance_Meth: AD_Ref_ListInput
 	A_Investment_CR: Int
 	A_New_Used: Boolean

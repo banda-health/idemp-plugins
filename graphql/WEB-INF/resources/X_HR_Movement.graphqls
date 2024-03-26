@@ -54,6 +54,7 @@ type HR_Movement {
 	HR_Department: HR_Department
 	HR_Job: HR_Job
 	UUID: ID!
+	HR_Movement_UU: String
 	HR_Process: HR_Process
 	# The record is active in the system
 	IsActive: Boolean!
@@ -116,6 +117,7 @@ input HR_MovementInput {
 	HR_Department: ForeignEntityInput
 	HR_Job: ForeignEntityInput
 	UUID: ID
+	HR_Movement_UU: String
 	HR_Process: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

@@ -18,6 +18,7 @@ type AD_AttachmentConnection {
 
 type AD_Attachment {
 	UUID: ID!
+	AD_Attachment_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -33,7 +34,6 @@ type AD_Attachment {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
 	# Text Message
 	TextMsg: String
 	# Name this entity is referred to as
@@ -46,6 +46,7 @@ type AD_Attachment {
 
 input AD_AttachmentInput {
 	UUID: ID
+	AD_Attachment_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_StorageProvider: ForeignEntityInput
@@ -55,7 +56,6 @@ input AD_AttachmentInput {
 	BinaryData: Binary
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
 	# Text Message
 	TextMsg: String
 	# Name this entity is referred to as

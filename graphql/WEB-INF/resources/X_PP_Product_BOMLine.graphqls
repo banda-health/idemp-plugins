@@ -64,6 +64,7 @@ type PP_Product_BOMLine {
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM!
 	UUID: ID!
+	PP_Product_BOMLine_UU: String
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
 	# Indicate the Quantity  use in this BOM
@@ -122,6 +123,7 @@ input PP_Product_BOMLineInput {
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
 	UUID: ID
+	PP_Product_BOMLine_UU: String
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
 	# Indicate the Quantity  use in this BOM

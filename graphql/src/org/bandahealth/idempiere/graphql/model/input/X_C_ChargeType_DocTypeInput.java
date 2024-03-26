@@ -33,8 +33,7 @@ public class X_C_ChargeType_DocTypeInput extends X_C_ChargeType_DocType implemen
 	 */
 	@JsonCreator
 	public X_C_ChargeType_DocTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_ChargeType_DocType(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

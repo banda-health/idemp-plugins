@@ -24,6 +24,7 @@ type C_ServiceLevelLine {
 	# Product Revenue Recognition Service Level 
 	C_ServiceLevel: C_ServiceLevel!
 	UUID: ID!
+	C_ServiceLevelLine_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,6 +51,7 @@ input C_ServiceLevelLineInput {
 	# Product Revenue Recognition Service Level 
 	C_ServiceLevel: ForeignEntityInput
 	UUID: ID
+	C_ServiceLevelLine_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -26,6 +26,7 @@ type C_Commission {
 	# Additional document charges
 	C_Charge: C_Charge
 	UUID: ID!
+	C_Commission_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -65,6 +66,7 @@ input C_CommissionInput {
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	UUID: ID
+	C_Commission_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Process which will generate a new document lines based on an existing document

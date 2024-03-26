@@ -35,8 +35,7 @@ public class X_A_FundingMode_AcctInput extends X_A_FundingMode_Acct implements I
 	 */
 	@JsonCreator
 	public X_A_FundingMode_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_FundingMode_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

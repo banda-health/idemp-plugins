@@ -40,6 +40,7 @@ type R_RequestUpdate {
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
 	UUID: ID!
+	R_RequestUpdate_UU: String
 	# Result of the action taken
 	Result: String
 	# Time started
@@ -68,6 +69,7 @@ input R_RequestUpdateInput {
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
 	UUID: ID
+	R_RequestUpdate_UU: String
 	# Result of the action taken
 	Result: String
 	# Time started

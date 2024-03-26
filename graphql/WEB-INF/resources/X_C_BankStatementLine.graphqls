@@ -24,6 +24,7 @@ type C_BankStatementLine {
 	# Bank Statement of account
 	C_BankStatement: C_BankStatement!
 	UUID: ID!
+	C_BankStatementLine_UU: String
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Additional document charges
@@ -104,6 +105,7 @@ input C_BankStatementLineInput {
 	# Bank Statement of account
 	C_BankStatement: ForeignEntityInput
 	UUID: ID
+	C_BankStatementLine_UU: String
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Additional document charges

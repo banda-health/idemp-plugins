@@ -29,8 +29,7 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	 */
 	@JsonCreator
 	public X_AD_Attribute_ValueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_Attribute_Value(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

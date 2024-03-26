@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MMovementLineMA;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -33,8 +34,7 @@ public class X_M_MovementLineMAInput extends MMovementLineMA implements I_M_Move
 	 */
 	@JsonCreator
 	public X_M_MovementLineMAInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MMovementLineMA(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -147,7 +147,7 @@ public class X_M_MovementLineMAInput extends MMovementLineMA implements I_M_Move
 		}
 		if (M_MovementLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MMovementLine_BH foreignEntity;
+			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

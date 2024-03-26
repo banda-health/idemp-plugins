@@ -22,6 +22,7 @@ type AD_PostIt {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_PostIt_UU: String
 	# Database Table information
 	AD_Table: AD_Table
 	# Date this record was created
@@ -30,7 +31,6 @@ type AD_PostIt {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
 	Text: String
 	# Date this record was updated
 	Updated: Date!
@@ -42,10 +42,10 @@ input AD_PostItInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_PostIt_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
 	Text: String
 }

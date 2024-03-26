@@ -24,6 +24,7 @@ type C_PaySelection {
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
 	UUID: ID!
+	C_PaySelection_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -59,6 +60,7 @@ input C_PaySelectionInput {
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	UUID: ID
+	C_PaySelection_UU: String
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Optional short description of the record

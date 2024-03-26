@@ -32,6 +32,7 @@ type C_CommissionLine {
 	# Commission
 	C_Commission: C_Commission!
 	UUID: ID!
+	C_CommissionLine_UU: String
 	# Sales coverage region
 	C_SalesRegion: C_SalesRegion
 	# Commission only Orders or Invoices, where this Sales Rep is entered
@@ -78,6 +79,7 @@ input C_CommissionLineInput {
 	# Commission
 	C_Commission: ForeignEntityInput
 	UUID: ID
+	C_CommissionLine_UU: String
 	# Sales coverage region
 	C_SalesRegion: ForeignEntityInput
 	# Commission only Orders or Invoices, where this Sales Rep is entered

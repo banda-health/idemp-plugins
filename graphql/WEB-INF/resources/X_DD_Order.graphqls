@@ -60,6 +60,7 @@ type DD_Order {
 	# Date a product was received
 	DateReceived: Date
 	UUID: ID!
+	DD_Order_UU: String
 	# Defines the timing of Delivery
 	DeliveryRule: AD_Ref_List!
 	# How the order will be delivered
@@ -175,6 +176,7 @@ input DD_OrderInput {
 	# Date a product was received
 	DateReceived: Date
 	UUID: ID
+	DD_Order_UU: String
 	# Defines the timing of Delivery
 	DeliveryRule: AD_Ref_ListInput
 	# How the order will be delivered

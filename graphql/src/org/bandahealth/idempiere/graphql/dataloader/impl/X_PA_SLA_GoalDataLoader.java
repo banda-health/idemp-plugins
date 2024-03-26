@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MSLAGoal;
+import org.compiere.model.X_PA_SLA_Goal;
 
 /**
  * Data Loader for PA_SLA_Goal - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MSLAGoal;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_PA_SLA_GoalDataLoader extends PODataLoader<MSLAGoal> {
+public class X_PA_SLA_GoalDataLoader extends PODataLoader<X_PA_SLA_Goal> {
 	public static String DATALOADER_PA_SLA_Goal_BY_ID = "PA_SLA_GoalByIdDataLoader";
 	public static String DATALOADER_PA_SLA_Goal_BY_UUID = "PA_SLA_GoalByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MSLAGoal.Table_Name;
+		return X_PA_SLA_Goal.Table_Name;
 	}
 
 	@Override

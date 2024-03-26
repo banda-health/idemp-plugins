@@ -38,6 +38,7 @@ type M_Demand {
 	# Default value
 	IsDefault: Boolean!
 	UUID: ID!
+	M_Demand_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -63,6 +64,7 @@ input M_DemandInput {
 	# Default value
 	IsDefault: Boolean
 	UUID: ID
+	M_Demand_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

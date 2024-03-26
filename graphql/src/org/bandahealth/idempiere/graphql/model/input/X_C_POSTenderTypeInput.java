@@ -31,7 +31,7 @@ public class X_C_POSTenderTypeInput extends X_C_POSTenderType implements I_C_POS
 	 */
 	@JsonCreator
 	public X_C_POSTenderTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

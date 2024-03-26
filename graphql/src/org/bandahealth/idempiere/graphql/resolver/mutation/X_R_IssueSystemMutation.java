@@ -4,7 +4,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.input.I_R_IssueSystemInput;
 import org.bandahealth.idempiere.graphql.model.input.X_R_IssueSystemInput;
-import org.compiere.model.MIssueSystem;
+import org.compiere.model.X_R_IssueSystem;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,13 +21,13 @@ public class X_R_IssueSystemMutation extends POMutation implements GraphQLMutati
 		return X_R_IssueSystemInput.Table_Name;
 	}
 
-	public MIssueSystem R_IssueSystemSave(I_R_IssueSystemInput entity, DataFetchingEnvironment environment) {
-		return (MIssueSystem) super.save((X_R_IssueSystemInput) entity, environment);
+	public X_R_IssueSystem R_IssueSystemSave(I_R_IssueSystemInput entity, DataFetchingEnvironment environment) {
+		return (X_R_IssueSystem) super.save((X_R_IssueSystemInput) entity, environment);
 	}
 
-	public List<MIssueSystem> R_IssueSystemSaveMany(List<I_R_IssueSystemInput> entities, DataFetchingEnvironment environment) {
+	public List<X_R_IssueSystem> R_IssueSystemSaveMany(List<I_R_IssueSystemInput> entities, DataFetchingEnvironment environment) {
 		return super.saveMany(entities.stream().map(entity -> (X_R_IssueSystemInput) entity).collect(Collectors.toList()),
-				environment).stream().map(entity -> (MIssueSystem) entity).collect(Collectors.toList());
+				environment).stream().map(entity -> (X_R_IssueSystem) entity).collect(Collectors.toList());
 	}
 
 	public boolean R_IssueSystemDelete(List<String> uuids, DataFetchingEnvironment environment) {

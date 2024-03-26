@@ -34,7 +34,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	 */
 	@JsonCreator
 	public X_C_DocTypeCounterInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

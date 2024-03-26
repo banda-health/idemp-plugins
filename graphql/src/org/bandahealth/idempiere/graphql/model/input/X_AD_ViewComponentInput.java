@@ -34,7 +34,7 @@ public class X_AD_ViewComponentInput extends MViewComponent implements I_AD_View
 	 */
 	@JsonCreator
 	public X_AD_ViewComponentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

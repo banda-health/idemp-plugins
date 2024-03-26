@@ -58,6 +58,7 @@ type GL_Journal {
 	# General Ledger Category
 	GL_Category: GL_Category!
 	UUID: ID!
+	GL_Journal_UU: String
 	# General Ledger Journal Batch
 	GL_JournalBatch: GL_JournalBatch
 	# The record is active in the system
@@ -123,6 +124,7 @@ input GL_JournalInput {
 	# General Ledger Category
 	GL_Category: ForeignEntityInput
 	UUID: ID
+	GL_Journal_UU: String
 	# General Ledger Journal Batch
 	GL_JournalBatch: ForeignEntityInput
 	# The record is active in the system

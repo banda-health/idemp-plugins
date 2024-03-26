@@ -39,20 +39,6 @@ public interface I_M_CostInput extends I_M_Cost {
 	ForeignEntityInput C_AcctSchema();
 
 	/**
-	 * Set CostingMethod.
-	 *
-	 * @param CostingMethod Indicates how Costs will be calculated
-	 */
-	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
-
-	/**
-	 * Get CostingMethod.
-	 *
-	 * @return Indicates how Costs will be calculated
-	 */
-	I_AD_Ref_ListInput CostingMethod();
-
-	/**
 	 * Set M_AttributeSetInstance.
 	 *
 	 * @param M_AttributeSetInstance Product Attribute Set Instance

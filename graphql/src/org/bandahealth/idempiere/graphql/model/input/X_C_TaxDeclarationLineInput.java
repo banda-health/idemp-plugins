@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MCurrency_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAllocationLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTax;
 import org.compiere.model.MTaxDeclaration;
@@ -16,6 +17,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 
 /**
@@ -43,7 +45,7 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	 */
 	@JsonCreator
 	public X_C_TaxDeclarationLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -245,7 +247,7 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 		}
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

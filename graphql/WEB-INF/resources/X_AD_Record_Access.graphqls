@@ -22,6 +22,7 @@ type AD_Record_Access {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Record_Access_UU: String
 	# Responsibility Role
 	AD_Role: AD_Role!
 	# Database Table information
@@ -48,6 +49,7 @@ input AD_Record_AccessInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Record_Access_UU: String
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	# Database Table information

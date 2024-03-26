@@ -25,6 +25,7 @@ type C_CountryGroupCountry {
 	C_Country: C_Country
 	C_CountryGroup: C_CountryGroup
 	UUID: ID!
+	C_CountryGroupCountry_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input C_CountryGroupCountryInput {
 	C_Country: ForeignEntityInput
 	C_CountryGroup: ForeignEntityInput
 	UUID: ID
+	C_CountryGroupCountry_UU: String
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range

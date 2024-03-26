@@ -24,6 +24,7 @@ type C_ProjectIssue {
 	# Financial Project
 	C_Project: C_Project!
 	UUID: ID!
+	C_ProjectIssue_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -75,6 +76,7 @@ input C_ProjectIssueInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	UUID: ID
+	C_ProjectIssue_UU: String
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document

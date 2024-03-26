@@ -33,8 +33,7 @@ public class X_C_BP_WithholdingInput extends X_C_BP_Withholding implements I_C_B
 	 */
 	@JsonCreator
 	public X_C_BP_WithholdingInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_BP_Withholding(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

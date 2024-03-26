@@ -24,6 +24,7 @@ type B_SellerFunds {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	B_SellerFunds_UU: String
 	# Order
 	C_Order: C_Order
 	# Payment identifier
@@ -50,6 +51,7 @@ input B_SellerFundsInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	B_SellerFunds_UU: String
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier

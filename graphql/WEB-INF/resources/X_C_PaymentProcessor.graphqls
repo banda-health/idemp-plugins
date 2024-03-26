@@ -48,6 +48,7 @@ type C_PaymentProcessor {
 	# The Currency for this record
 	C_Currency: C_Currency
 	UUID: ID!
+	C_PaymentProcessor_UU: String
 	# Commission stated as a percentage
 	Commission: BigDecimal!
 	# Fixed cost per transaction
@@ -118,6 +119,7 @@ input C_PaymentProcessorInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	UUID: ID
+	C_PaymentProcessor_UU: String
 	# Commission stated as a percentage
 	Commission: BigDecimal
 	# Fixed cost per transaction

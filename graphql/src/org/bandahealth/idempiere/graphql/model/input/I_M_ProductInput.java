@@ -347,25 +347,6 @@ public interface I_M_ProductInput extends I_M_Product {
 	I_AD_Ref_ListInput ProductType();
 
 	/**
-	 * Column name QtyInStore
-	 */
-	static final String COLUMNNAME_QtyInStore = "QtyInStore";
-
-	/**
-	 * Set QtyInStore.
-	 *
-	 * @param QtyInStore Quantity In Store
-	 */
-	void setQtyInStore(int QtyInStore);
-
-	/**
-	 * Get QtyInStore.
-	 *
-	 * @return Quantity In Store
-	 */
-	int getQtyInStore();
-
-	/**
 	 * Set R_MailText.
 	 *
 	 * @param R_MailText Text templates for mailings

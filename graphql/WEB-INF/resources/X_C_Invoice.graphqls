@@ -48,6 +48,7 @@ type C_Invoice {
 	C_DocTypeTarget: C_DocType!
 	C_DunningLevel: C_DunningLevel
 	UUID: ID!
+	C_Invoice_UU: String
 	# Order
 	C_Order: C_Order
 	# Payment identifier
@@ -184,6 +185,7 @@ input C_InvoiceInput {
 	C_DocTypeTarget: ForeignEntityInput
 	C_DunningLevel: ForeignEntityInput
 	UUID: ID
+	C_Invoice_UU: String
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier

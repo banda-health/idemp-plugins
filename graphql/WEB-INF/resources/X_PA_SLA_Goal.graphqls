@@ -44,6 +44,7 @@ type PA_SLA_Goal {
 	# Service Level Agreement Criteria
 	PA_SLA_Criteria: PA_SLA_Criteria!
 	UUID: ID!
+	PA_SLA_Goal_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -79,6 +80,7 @@ input PA_SLA_GoalInput {
 	# Service Level Agreement Criteria
 	PA_SLA_Criteria: ForeignEntityInput
 	UUID: ID
+	PA_SLA_Goal_UU: String
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

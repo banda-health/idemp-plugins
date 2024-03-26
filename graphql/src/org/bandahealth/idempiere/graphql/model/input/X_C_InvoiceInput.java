@@ -71,7 +71,6 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
 	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocBaseType;
 	private I_AD_Ref_ListInput mDocStatus;
 	private I_AD_Ref_ListInput mInvoiceCollectionType;
 
@@ -83,7 +82,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 */
 	@JsonCreator
 	public X_C_InvoiceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -845,43 +844,6 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	@JsonProperty("DocAction")
 	public I_AD_Ref_ListInput DocAction() {
 		return mDocAction;
-	}
-
-	/**
-	 * Set Document Base Type.
-	 *
-	 * @param DocBaseType Logical type of document
-	 */
-	@JsonProperty("DocBaseType")
-	public void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType) {
-		this.mDocBaseType = DocBaseType;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (DocBaseType != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setDocBaseType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocBaseType.getUUID());
-			}
-		} else {
-			this.setDocBaseType(null);
-		}
-	}
-
-	/**
-	 * Get Document Base Type.
-	 *
-	 * @return Logical type of document
-	 */
-	@JsonProperty("DocBaseType")
-	public I_AD_Ref_ListInput DocBaseType() {
-		return mDocBaseType;
 	}
 
 	/**

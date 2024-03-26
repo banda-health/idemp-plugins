@@ -35,7 +35,7 @@ public class X_R_IssueKnownInput extends X_R_IssueKnown implements I_R_IssueKnow
 	 */
 	@JsonCreator
 	public X_R_IssueKnownInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

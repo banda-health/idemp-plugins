@@ -32,6 +32,7 @@ type PA_ReportColumnSet {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	PA_ReportColumnSet_UU: String
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
@@ -49,5 +50,6 @@ input PA_ReportColumnSetInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	PA_ReportColumnSet_UU: String
 	Processing: Boolean
 }

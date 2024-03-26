@@ -46,6 +46,7 @@ type R_RequestProcessor {
 	OverdueAssignDays: Int!
 	Processing: Boolean!
 	UUID: ID!
+	R_RequestProcessor_UU: String
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Days between sending Reminder Emails for a due or inactive Document
@@ -82,6 +83,7 @@ input R_RequestProcessorInput {
 	OverdueAssignDays: Int
 	Processing: Boolean
 	UUID: ID
+	R_RequestProcessor_UU: String
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Days between sending Reminder Emails for a due or inactive Document

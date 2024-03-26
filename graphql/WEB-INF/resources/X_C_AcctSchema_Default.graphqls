@@ -34,6 +34,7 @@ type C_AcctSchema_Default {
 	# Unallocated Cash Clearing Account
 	B_UnallocatedCash_A: C_ValidCombination!
 	UUID: ID!
+	C_AcctSchema_Default_UU: String
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Account for customer prepayments
@@ -145,6 +146,7 @@ input C_AcctSchema_DefaultInput {
 	# Unallocated Cash Clearing Account
 	B_UnallocatedCash_A: ForeignEntityInput
 	UUID: ID
+	C_AcctSchema_Default_UU: String
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Account for customer prepayments

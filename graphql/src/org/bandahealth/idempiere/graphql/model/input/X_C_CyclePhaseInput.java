@@ -33,8 +33,7 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	 */
 	@JsonCreator
 	public X_C_CyclePhaseInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_CyclePhase(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

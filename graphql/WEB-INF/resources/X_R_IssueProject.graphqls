@@ -38,6 +38,7 @@ type R_IssueProject {
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
 	UUID: ID!
+	R_IssueProject_UU: String
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status
@@ -64,6 +65,7 @@ input R_IssueProjectInput {
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
 	UUID: ID
+	R_IssueProject_UU: String
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status

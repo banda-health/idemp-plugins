@@ -24,6 +24,7 @@ type BH_Payer_Info_Fld {
 	BH_FillFromPatient: Boolean!
 	BH_Payer: C_BPartner!
 	UUID: ID!
+	BH_Payer_Info_Fld_UU: String
 	BH_PayerInfoFieldDataType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -49,6 +50,7 @@ input BH_Payer_Info_FldInput {
 	BH_FillFromPatient: Boolean
 	BH_Payer: ForeignEntityInput
 	UUID: ID
+	BH_Payer_Info_Fld_UU: String
 	BH_PayerInfoFieldDataType: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String

@@ -24,6 +24,7 @@ type AD_Package_Imp_Detail {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Package_Imp_Detail_UU: String
 	AD_Package_Imp: AD_Package_Imp!
 	# Database Table information
 	AD_Table: AD_Table
@@ -36,7 +37,6 @@ type AD_Package_Imp_Detail {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID!
 	# Result of the action taken
 	Result: String
 	Success: String
@@ -57,6 +57,7 @@ input AD_Package_Imp_DetailInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Package_Imp_Detail_UU: String
 	AD_Package_Imp: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
@@ -65,7 +66,6 @@ input AD_Package_Imp_DetailInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
 	# Result of the action taken
 	Result: String
 	Success: String

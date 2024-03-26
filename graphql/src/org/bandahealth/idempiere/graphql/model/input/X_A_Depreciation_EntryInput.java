@@ -42,7 +42,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 */
 	@JsonCreator
 	public X_A_Depreciation_EntryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

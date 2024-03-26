@@ -54,7 +54,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 	 */
 	@JsonCreator
 	public X_GL_DistributionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

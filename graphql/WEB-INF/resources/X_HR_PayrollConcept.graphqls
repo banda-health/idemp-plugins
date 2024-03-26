@@ -29,6 +29,7 @@ type HR_PayrollConcept {
 	HR_Concept: HR_Concept!
 	HR_Payroll: HR_Payroll!
 	UUID: ID!
+	HR_PayrollConcept_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Determines, if this field is displayed
@@ -54,6 +55,7 @@ input HR_PayrollConceptInput {
 	HR_Concept: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
 	UUID: ID
+	HR_PayrollConcept_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Determines, if this field is displayed

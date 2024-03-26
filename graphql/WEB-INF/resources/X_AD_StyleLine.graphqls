@@ -24,6 +24,8 @@ type AD_StyleLine {
 	# CSS style for field and label
 	AD_Style: AD_Style!
 	UUID: ID!
+	# CSS Style Line
+	AD_StyleLine_UU: String!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,6 +54,8 @@ input AD_StyleLineInput {
 	# CSS style for field and label
 	AD_Style: ForeignEntityInput
 	UUID: ID
+	# CSS Style Line
+	AD_StyleLine_UU: String
 	# If the Field is displayed, the result determines if the field is actually displayed
 	DisplayLogic: String
 	# Dictionary Entity Type; Determines ownership and synchronization

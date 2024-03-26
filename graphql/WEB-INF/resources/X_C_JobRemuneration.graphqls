@@ -24,6 +24,7 @@ type C_JobRemuneration {
 	# Job Position
 	C_Job: C_Job!
 	UUID: ID!
+	C_JobRemuneration_UU: String
 	# Wage or Salary
 	C_Remuneration: C_Remuneration!
 	# Date this record was created
@@ -50,6 +51,7 @@ input C_JobRemunerationInput {
 	# Job Position
 	C_Job: ForeignEntityInput
 	UUID: ID
+	C_JobRemuneration_UU: String
 	# Wage or Salary
 	C_Remuneration: ForeignEntityInput
 	# Optional short description of the record

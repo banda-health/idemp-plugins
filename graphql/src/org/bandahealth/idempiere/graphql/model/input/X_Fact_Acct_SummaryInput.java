@@ -62,8 +62,7 @@ public class X_Fact_Acct_SummaryInput extends X_Fact_Acct_Summary implements I_F
 	 */
 	@JsonCreator
 	public X_Fact_Acct_SummaryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_Fact_Acct_Summary(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

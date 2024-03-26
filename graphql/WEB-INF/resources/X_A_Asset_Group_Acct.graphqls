@@ -20,6 +20,7 @@ type A_Asset_Group_Acct {
 	A_Accumdepreciation_A: C_ValidCombination!
 	A_Asset_A: C_ValidCombination!
 	UUID: ID!
+	A_Asset_Group_Acct_UU: String
 	# Group of Assets
 	A_Asset_Group: A_Asset_Group!
 	A_Depreciation_A: C_ValidCombination!
@@ -75,6 +76,7 @@ input A_Asset_Group_AcctInput {
 	A_Accumdepreciation_A: ForeignEntityInput
 	A_Asset_A: ForeignEntityInput
 	UUID: ID
+	A_Asset_Group_Acct_UU: String
 	# Group of Assets
 	A_Asset_Group: ForeignEntityInput
 	A_Depreciation_A: ForeignEntityInput

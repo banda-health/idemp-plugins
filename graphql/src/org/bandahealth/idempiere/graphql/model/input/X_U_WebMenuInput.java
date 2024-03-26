@@ -30,7 +30,7 @@ public class X_U_WebMenuInput extends MWebMenu implements I_U_WebMenuInput {
 	 */
 	@JsonCreator
 	public X_U_WebMenuInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

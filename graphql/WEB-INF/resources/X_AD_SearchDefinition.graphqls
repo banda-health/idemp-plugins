@@ -24,6 +24,7 @@ type AD_SearchDefinition {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_SearchDefinition_UU: String
 	# Database Table information
 	AD_Table: AD_Table!
 	# Data entry or display window
@@ -64,6 +65,7 @@ input AD_SearchDefinitionInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_SearchDefinition_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Data entry or display window

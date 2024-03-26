@@ -51,7 +51,7 @@ public class X_PP_Order_BOMLineInput extends X_PP_Order_BOMLine implements I_PP_
 	 */
 	@JsonCreator
 	public X_PP_Order_BOMLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

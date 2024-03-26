@@ -24,6 +24,7 @@ type C_OrderTax {
 	# Order
 	C_Order: C_Order!
 	UUID: ID!
+	C_OrderTax_UU: String
 	# Tax identifier
 	C_Tax: C_Tax!
 	C_TaxProvider: C_TaxProvider
@@ -53,6 +54,7 @@ input C_OrderTaxInput {
 	# Order
 	C_Order: ForeignEntityInput
 	UUID: ID
+	C_OrderTax_UU: String
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	C_TaxProvider: ForeignEntityInput

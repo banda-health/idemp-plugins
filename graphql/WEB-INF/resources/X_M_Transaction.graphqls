@@ -44,6 +44,7 @@ type M_Transaction {
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine
 	UUID: ID!
+	M_Transaction_UU: String
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Quantity of a product moved.
@@ -79,6 +80,7 @@ input M_TransactionInput {
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
 	UUID: ID
+	M_Transaction_UU: String
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Quantity of a product moved.

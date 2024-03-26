@@ -30,6 +30,7 @@ type U_Web_Properties {
 	U_Key: String!
 	U_Value: String!
 	UUID: ID!
+	U_Web_Properties_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -44,4 +45,5 @@ input U_Web_PropertiesInput {
 	U_Key: String
 	U_Value: String
 	UUID: ID
+	U_Web_Properties_UU: String
 }

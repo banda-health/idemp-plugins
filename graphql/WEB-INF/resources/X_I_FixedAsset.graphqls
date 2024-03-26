@@ -72,6 +72,7 @@ type I_FixedAsset {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID!
+	I_FixedAsset_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean!
 	InventoryNo: String
@@ -157,6 +158,7 @@ input I_FixedAssetInput {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID
+	I_FixedAsset_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean
 	InventoryNo: String

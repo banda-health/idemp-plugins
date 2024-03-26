@@ -33,7 +33,7 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	 */
 	@JsonCreator
 	public X_B_TopicInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

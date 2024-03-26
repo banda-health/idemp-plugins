@@ -20,6 +20,7 @@ type AD_AttachmentNote {
 	# Attachment for the document
 	AD_Attachment: AD_Attachment!
 	UUID: ID!
+	AD_AttachmentNote_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -46,6 +47,7 @@ input AD_AttachmentNoteInput {
 	# Attachment for the document
 	AD_Attachment: ForeignEntityInput
 	UUID: ID
+	AD_AttachmentNote_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

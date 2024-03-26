@@ -49,7 +49,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 */
 	@JsonCreator
 	public X_AD_PrintFormatItemInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

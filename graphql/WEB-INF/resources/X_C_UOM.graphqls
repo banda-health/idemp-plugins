@@ -22,6 +22,7 @@ type C_UOM {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_UOM_UU: String
 	# Rounding used costing calculations
 	CostingPrecision: Int!
 	# Date this record was created
@@ -53,6 +54,7 @@ input C_UOMInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_UOM_UU: String
 	# Rounding used costing calculations
 	CostingPrecision: Int
 	# Optional short description of the record

@@ -18,6 +18,7 @@ type A_Depreciation_BuildConnection {
 
 type A_Depreciation_Build {
 	UUID: ID!
+	A_Depreciation_Build_UU: String
 	A_End_Asset: A_Asset
 	A_Start_Asset: A_Asset
 	# Tenant for this installation.
@@ -51,6 +52,7 @@ type A_Depreciation_Build {
 
 input A_Depreciation_BuildInput {
 	UUID: ID
+	A_Depreciation_Build_UU: String
 	A_End_Asset: ForeignEntityInput
 	A_Start_Asset: ForeignEntityInput
 	# Organizational entity within tenant

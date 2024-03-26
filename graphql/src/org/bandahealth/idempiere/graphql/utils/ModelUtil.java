@@ -96,64 +96,6 @@ public class ModelUtil {
 	}
 
 	/**
-	 * A method to get the result set for the given entity based on the passed-in UUID. This is largely copied from
-	 * iDempiere 8.2's PO.load(String, String) method to load an entity by its UUID.
-	 *
-	 * @param modelTemplate
-	 * @param idempiereContext
-	 * @param tableName
-	 * @param uuid
-	 * @param <T>
-	 * @return
-	 */
-	public static <T extends PO> ResultSet getModelResultSet(T modelTemplate, Properties idempiereContext,
-			String tableName, String uuid) {
-		MTable table;
-		// First check that the user has access to this table, if we can
-		if (idempiereContext != null) {
-			table = getTableAndCheckAccess(idempiereContext, tableName, true);
-		} else {
-			table = MTable.get(null, tableName, null);
-		}
-		if (Util.isEmpty(uuid, true)) {
-			return null;
-		}
-		POInfo poInfo = POInfo.getPOInfo(null, table.getAD_Table_ID());
-		StringBuilder sql = new StringBuilder("SELECT ");
-		int size = poInfo.getColumnCount();
-		for (int i = 0; i < size; i++) {
-			if (i != 0) {
-				sql.append(",");
-			}
-			String columnSQL = poInfo.getColumnSQL(i);
-			if (!poInfo.isVirtualColumn(i)) {
-				columnSQL = DB.getDatabase().quoteColumnName(columnSQL);
-			}
-			sql.append(columnSQL);  //	Normal and Virtual Column
-		}
-		sql.append(" FROM ").append(poInfo.getTableName())
-				.append(" WHERE ")
-				.append(modelTemplate.get_WhereClause(false, uuid));
-
-		//
-		//	int index = -1;
-		if (log.isLoggable(Level.FINEST)) log.finest(modelTemplate.get_WhereClause(true, uuid));
-		try (PreparedStatement preparedStatement = DB.prepareStatement(sql.toString(), null)) {  //	local trx only
-			preparedStatement.setString(1, uuid);
-			ResultSet resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				return new PostConnectionResultSet(POInfo.getPOInfo(idempiereContext, table.getAD_Table_ID()), resultSet);
-			} else {
-				log.log(Level.INFO, "NO Data found for " + modelTemplate.get_WhereClause(true, uuid), new Exception());
-			}
-		} catch (Exception e) {
-			String msg = modelTemplate.get_WhereClause(true, uuid) + ", SQL=" + sql;
-			log.log(Level.SEVERE, msg, e);
-		}
-		return null;
-	}
-
-	/**
 	 * This method is called by the input models to automatically get data from iDempiere to update/create
 	 *
 	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
@@ -162,38 +104,13 @@ public class ModelUtil {
 	 * @return An ID that can be used to fetch the data from the DB
 	 * @throws AdempiereException If a user doesn't have access to this table, we'll abort this endpoint
 	 */
-	public static int getEntityIDFromUuidOrError(Properties idempiereContext, String tableName, String uuid)
+	public static String confirmUuidOrError(Properties idempiereContext, String tableName, String uuid)
 			throws AdempiereException {
-		MTable table;
 		// First check that the user has access to this table, if we can
 		if (idempiereContext != null) {
-			table = getTableAndCheckAccess(idempiereContext, tableName, true);
-		} else {
-			table = MTable.get(null, tableName, null);
+			getTableAndCheckAccess(idempiereContext, tableName, true);
 		}
-		int entityId = 0;
-		if (StringUtil.isNullOrEmpty(uuid)) {
-			return entityId;
-		}
-		String keyColumn = tableName + "_ID";
-		if (table.getColumnIndex(keyColumn) < 0) {
-			if (table.getIdentifierColumns().length > 0) {
-				keyColumn = table.getIdentifierColumns()[0];
-			} else {
-				keyColumn = table.get_ColumnName(0);
-			}
-		}
-		try (PreparedStatement preparedStatement = DB.prepareStatement(
-				"SELECT " + keyColumn + " FROM " + tableName + " WHERE " + tableName + "_UU=?", null)) {
-			DB.setParameters(preparedStatement, Collections.singletonList(uuid));
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				entityId = resultSet.getInt(1);
-			}
-		} catch (SQLException e) {
-			log.log(Level.INFO, "NO data found for " + tableName + " with UUID " + uuid, new Exception());
-		}
-		return entityId;
+		return uuid;
 	}
 
 	/**

@@ -26,6 +26,7 @@ type ASP_Workflow {
 	ASP_Level: ASP_Level!
 	ASP_Status: AD_Ref_List!
 	UUID: ID!
+	ASP_Workflow_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input ASP_WorkflowInput {
 	ASP_Level: ForeignEntityInput
 	ASP_Status: AD_Ref_ListInput
 	UUID: ID
+	ASP_Workflow_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 }

@@ -26,6 +26,7 @@ type AD_Preference {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Preference_UU: String
 	# Process or Report
 	AD_Process: AD_Process
 	# User within the system - Internal or Business Partner Contact
@@ -57,6 +58,7 @@ input AD_PreferenceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Preference_UU: String
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

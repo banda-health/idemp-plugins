@@ -33,7 +33,7 @@ public class X_AD_SysConfigInput extends MSysConfig_BH implements I_AD_SysConfig
 	 */
 	@JsonCreator
 	public X_AD_SysConfigInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

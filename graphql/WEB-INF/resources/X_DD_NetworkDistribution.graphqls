@@ -28,6 +28,7 @@ type DD_NetworkDistribution {
 	# User who created this records
 	CreatedBy: AD_User!
 	UUID: ID!
+	DD_NetworkDistribution_UU: String
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
@@ -60,6 +61,7 @@ input DD_NetworkDistributionInput {
 	# Copy From Record
 	CopyFrom: String
 	UUID: ID
+	DD_NetworkDistribution_UU: String
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document

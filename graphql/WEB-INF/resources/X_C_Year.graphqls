@@ -24,6 +24,7 @@ type C_Year {
 	# Accounting Calendar Name
 	C_Calendar: C_Calendar!
 	UUID: ID!
+	C_Year_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -47,6 +48,7 @@ input C_YearInput {
 	# Accounting Calendar Name
 	C_Calendar: ForeignEntityInput
 	UUID: ID
+	C_Year_UU: String
 	# Optional short description of the record
 	Description: String
 	# The Fiscal Year

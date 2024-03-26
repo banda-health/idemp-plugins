@@ -35,6 +35,7 @@ type M_MovementLineMA {
 	# Inventory Move document Line
 	M_MovementLine: M_MovementLine!
 	UUID: ID!
+	M_MovementLineMA_UU: String
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 	# Date this record was updated
@@ -56,6 +57,7 @@ input M_MovementLineMAInput {
 	# Inventory Move document Line
 	M_MovementLine: ForeignEntityInput
 	UUID: ID
+	M_MovementLineMA_UU: String
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

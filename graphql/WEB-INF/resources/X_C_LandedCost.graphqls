@@ -24,6 +24,7 @@ type C_LandedCost {
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
 	UUID: ID!
+	C_LandedCost_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -53,6 +54,7 @@ input C_LandedCostInput {
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	UUID: ID
+	C_LandedCost_UU: String
 	# Optional short description of the record
 	Description: String
 	# Landed Cost Distribution

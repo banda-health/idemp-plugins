@@ -26,6 +26,7 @@ type C_NonBusinessDay {
 	# Country 
 	C_Country: C_Country
 	UUID: ID!
+	C_NonBusinessDay_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,6 +51,7 @@ input C_NonBusinessDayInput {
 	# Country 
 	C_Country: ForeignEntityInput
 	UUID: ID
+	C_NonBusinessDay_UU: String
 	# Date when business is not conducted
 	Date1: Date
 	# The record is active in the system

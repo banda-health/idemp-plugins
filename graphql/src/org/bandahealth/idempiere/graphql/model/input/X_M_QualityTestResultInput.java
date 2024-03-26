@@ -33,7 +33,7 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	 */
 	@JsonCreator
 	public X_M_QualityTestResultInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -72,28 +72,6 @@ public class X_M_QualityTestResultInput extends MQualityTestResult implements I_
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
-	}
-	/**
-	 * Set Description.
-	 *
-	 * @param Description Optional short description of the record
-	 */
-
-	public void setDescription(String Description) {
-		if (get_ID() == 0) {
-			super.setDescription(Description);
-		}
-	}
-	/**
-	 * Set Expected Result.
-	 *
-	 * @param ExpectedResult Expected Result
-	 */
-
-	public void setExpectedResult(String ExpectedResult) {
-		if (get_ID() == 0) {
-			super.setExpectedResult(ExpectedResult);
-		}
 	}
 
 	/**

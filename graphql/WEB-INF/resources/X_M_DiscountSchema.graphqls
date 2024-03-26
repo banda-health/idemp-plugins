@@ -40,6 +40,7 @@ type M_DiscountSchema {
 	# Trade discount break level based on Quantity (not value)
 	IsQuantityBased: Boolean!
 	UUID: ID!
+	M_DiscountSchema_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -71,6 +72,7 @@ input M_DiscountSchemaInput {
 	# Trade discount break level based on Quantity (not value)
 	IsQuantityBased: Boolean
 	UUID: ID
+	M_DiscountSchema_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

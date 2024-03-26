@@ -30,6 +30,7 @@ type AD_UserDef_Info_Column {
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: AD_Reference
 	UUID: ID!
+	AD_UserDef_Info_Column_UU: String
 	AD_UserDef_Info: AD_UserDef_Info!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
@@ -90,6 +91,7 @@ input AD_UserDef_Info_ColumnInput {
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: ForeignEntityInput
 	UUID: ID
+	AD_UserDef_Info_Column_UU: String
 	AD_UserDef_Info: ForeignEntityInput
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput

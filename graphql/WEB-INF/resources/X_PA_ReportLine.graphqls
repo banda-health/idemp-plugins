@@ -49,6 +49,7 @@ type PA_ReportLine {
 	Oper_2: PA_ReportLine
 	OverlineStrokeType: AD_Ref_List
 	UUID: ID!
+	PA_ReportLine_UU: String
 	PA_ReportLineSet: PA_ReportLineSet!
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_List
@@ -93,6 +94,7 @@ input PA_ReportLineInput {
 	Oper_2: ForeignEntityInput
 	OverlineStrokeType: AD_Ref_ListInput
 	UUID: ID
+	PA_ReportLine_UU: String
 	PA_ReportLineSet: ForeignEntityInput
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_ListInput

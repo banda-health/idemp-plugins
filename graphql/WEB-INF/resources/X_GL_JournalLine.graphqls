@@ -76,6 +76,7 @@ type GL_JournalLine {
 	# General Ledger Journal
 	GL_Journal: GL_Journal!
 	UUID: ID!
+	GL_JournalLine_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# This Line is generated
@@ -152,6 +153,7 @@ input GL_JournalLineInput {
 	# General Ledger Journal
 	GL_Journal: ForeignEntityInput
 	UUID: ID
+	GL_JournalLine_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# This Line is generated

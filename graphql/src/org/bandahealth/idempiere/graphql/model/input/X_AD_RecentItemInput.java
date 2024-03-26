@@ -39,7 +39,7 @@ public class X_AD_RecentItemInput extends MRecentItem implements I_AD_RecentItem
 	 */
 	@JsonCreator
 	public X_AD_RecentItemInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -277,23 +277,5 @@ public class X_AD_RecentItemInput extends MRecentItem implements I_AD_RecentItem
 	@JsonProperty("AD_Window")
 	public ForeignEntityInput AD_Window() {
 		return mAD_Window;
-	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setRecord_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getRecord_UU();
 	}
 }

@@ -20,6 +20,7 @@ type AD_Form_Access {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Form_Access_UU: String
 	# Special Form
 	AD_Form: AD_Form!
 	# Organizational entity within tenant
@@ -42,6 +43,7 @@ type AD_Form_Access {
 
 input AD_Form_AccessInput {
 	UUID: ID
+	AD_Form_Access_UU: String
 	# Special Form
 	AD_Form: ForeignEntityInput
 	# Organizational entity within tenant

@@ -24,6 +24,7 @@ type C_AcctSchema_Element {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_AcctSchema_Element_UU: String
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Business Activity
@@ -71,6 +72,7 @@ input C_AcctSchema_ElementInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_AcctSchema_Element_UU: String
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Business Activity

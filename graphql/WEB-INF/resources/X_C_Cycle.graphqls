@@ -24,6 +24,7 @@ type C_Cycle {
 	# The Currency for this record
 	C_Currency: C_Currency!
 	UUID: ID!
+	C_Cycle_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input C_CycleInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	UUID: ID
+	C_Cycle_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

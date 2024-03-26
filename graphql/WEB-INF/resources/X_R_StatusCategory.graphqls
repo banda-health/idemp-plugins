@@ -36,6 +36,7 @@ type R_StatusCategory {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	R_StatusCategory_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -56,4 +57,5 @@ input R_StatusCategoryInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	R_StatusCategory_UU: String
 }

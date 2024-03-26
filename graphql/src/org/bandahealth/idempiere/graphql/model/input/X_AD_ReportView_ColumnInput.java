@@ -33,8 +33,7 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	 */
 	@JsonCreator
 	public X_AD_ReportView_ColumnInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_ReportView_Column(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

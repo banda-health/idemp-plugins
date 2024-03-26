@@ -30,6 +30,7 @@ type U_RoleMenu {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	U_RoleMenu_UU: String
 	U_WebMenu: U_WebMenu!
 	# Date this record was updated
 	Updated: Date!
@@ -45,5 +46,6 @@ input U_RoleMenuInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	U_RoleMenu_UU: String
 	U_WebMenu: ForeignEntityInput
 }

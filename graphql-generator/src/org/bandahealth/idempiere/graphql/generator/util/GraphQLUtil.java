@@ -45,6 +45,7 @@ public class GraphQLUtil {
 		Map<String, String> packageByClass = new HashMap<>();
 		List<String> filesToSkip =
 				Arrays.asList("PO.java", "Lookup.java", "TestCase.java", "EventObject.java", "EventListener.java");
+		String deprecatedClass = "@Deprecated" + System.lineSeparator() + "public class ";
 
 		// Cycle through the interfaces to find which tables we have
 		for (File modelFile : modelFiles) {
@@ -79,9 +80,9 @@ public class GraphQLUtil {
 							generatedClassByInterface.get(implementedInterfaceName) + " and " + structureName);
 				}
 				generatedClassByInterface.put(implementedInterfaceName, structureName);
-			} else if (content.contains(" extends ")) {
+			} else if (content.contains(" extends ")) { // TODO - filter out if the class is deprecated...
 				// This is a manual model of some sort, so put it in the appropriate place if it's not final
-				if (!content.contains(" final class " + structureName)) {
+				if (!content.contains(" final class " + structureName) && !content.contains(deprecatedClass)) {
 					String extendedClassName = content.split(" extends ")[1].trim().split("[\\s{]")[0].split(",")[0].trim();
 					if (manualClassByExtendedClass.containsKey(extendedClassName)) {
 						log.warning(("More than one file extends class " + extendedClassName + ": " +

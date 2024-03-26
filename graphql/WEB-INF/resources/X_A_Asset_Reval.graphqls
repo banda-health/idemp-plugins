@@ -23,6 +23,7 @@ type A_Asset_Reval {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UUID: ID!
+	A_Asset_Reval_UU: String
 	A_Change_Acumulated_Depr: BigDecimal!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
@@ -66,6 +67,7 @@ input A_Asset_RevalInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Asset_Reval_UU: String
 	A_Change_Acumulated_Depr: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

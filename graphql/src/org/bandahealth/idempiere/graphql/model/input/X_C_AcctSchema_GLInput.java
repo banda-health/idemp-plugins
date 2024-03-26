@@ -39,8 +39,7 @@ public class X_C_AcctSchema_GLInput extends MAcctSchemaGL implements I_C_AcctSch
 	 */
 	@JsonCreator
 	public X_C_AcctSchema_GLInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAcctSchemaGL(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

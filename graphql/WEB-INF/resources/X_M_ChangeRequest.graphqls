@@ -40,6 +40,7 @@ type M_ChangeRequest {
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
 	UUID: ID!
+	M_ChangeRequest_UU: String
 	# Fixed in Change Notice
 	M_FixChangeNotice: M_ChangeNotice
 	# Alphanumeric identifier of the entity
@@ -72,6 +73,7 @@ input M_ChangeRequestInput {
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput
 	UUID: ID
+	M_ChangeRequest_UU: String
 	# Fixed in Change Notice
 	M_FixChangeNotice: ForeignEntityInput
 	# Alphanumeric identifier of the entity

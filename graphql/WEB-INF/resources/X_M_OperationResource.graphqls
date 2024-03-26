@@ -36,6 +36,7 @@ type M_OperationResource {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_OperationResource_UU: String
 	# Product Manufacturing Operation
 	M_ProductOperation: M_ProductOperation!
 	# Alphanumeric identifier of the entity
@@ -66,6 +67,7 @@ input M_OperationResourceInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_OperationResource_UU: String
 	# Product Manufacturing Operation
 	M_ProductOperation: ForeignEntityInput
 	# Alphanumeric identifier of the entity

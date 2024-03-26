@@ -35,6 +35,7 @@ type Fact_Reconciliation {
 	DateAcct: Date
 	Fact_Acct: Fact_Acct!
 	UUID: ID!
+	Fact_Reconciliation_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# String identifying related accounting facts
@@ -50,6 +51,7 @@ input Fact_ReconciliationInput {
 	AD_Org: ForeignEntityInput
 	Fact_Acct: ForeignEntityInput
 	UUID: ID
+	Fact_Reconciliation_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# String identifying related accounting facts

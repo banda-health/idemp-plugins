@@ -30,6 +30,7 @@ type HR_ListVersion {
 	HR_List: HR_List!
 	HR_ListBase: HR_List
 	UUID: ID!
+	HR_ListVersion_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -52,6 +53,7 @@ input HR_ListVersionInput {
 	HR_List: ForeignEntityInput
 	HR_ListBase: ForeignEntityInput
 	UUID: ID
+	HR_ListVersion_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

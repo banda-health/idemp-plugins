@@ -34,6 +34,7 @@ type M_AttributeSetExclude {
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet!
 	UUID: ID!
+	M_AttributeSetExclude_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,4 +53,5 @@ input M_AttributeSetExcludeInput {
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
 	UUID: ID
+	M_AttributeSetExclude_UU: String
 }

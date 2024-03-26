@@ -20,6 +20,7 @@ type AD_FieldGroup {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_FieldGroup_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# An abbreviation for a given name
@@ -45,6 +46,7 @@ type AD_FieldGroup {
 
 input AD_FieldGroupInput {
 	UUID: ID
+	AD_FieldGroup_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# An abbreviation for a given name

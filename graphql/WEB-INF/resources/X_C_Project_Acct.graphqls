@@ -24,6 +24,7 @@ type C_Project_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_Project_Acct_UU: String
 	# Financial Project
 	C_Project: C_Project!
 	# Date this record was created
@@ -48,6 +49,7 @@ input C_Project_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_Project_Acct_UU: String
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# The record is active in the system

@@ -21,6 +21,7 @@ type AD_Column {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Column_UU: String
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: AD_Element!
 	# Info and search/select Window
@@ -136,6 +137,7 @@ type AD_Column {
 input AD_ColumnInput {
 	AD_Chart: ForeignEntityInput
 	UUID: ID
+	AD_Column_UU: String
 	# System Element enables the central maintenance of column description and help.
 	AD_Element: ForeignEntityInput
 	# Info and search/select Window

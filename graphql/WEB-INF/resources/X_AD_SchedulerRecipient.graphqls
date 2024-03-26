@@ -27,6 +27,7 @@ type AD_SchedulerRecipient {
 	# Schedule Processes
 	AD_Scheduler: AD_Scheduler!
 	UUID: ID!
+	AD_SchedulerRecipient_UU: String
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	# Date this record was created
@@ -53,6 +54,7 @@ input AD_SchedulerRecipientInput {
 	# Schedule Processes
 	AD_Scheduler: ForeignEntityInput
 	UUID: ID
+	AD_SchedulerRecipient_UU: String
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# Name of the local file or URL

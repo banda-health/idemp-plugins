@@ -24,6 +24,7 @@ type AD_WF_NextCondition {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_WF_NextCondition_UU: String
 	# Workflow Node Transition
 	AD_WF_NodeNext: AD_WF_NodeNext!
 	# Logical operation: AND or OR
@@ -57,6 +58,7 @@ input AD_WF_NextConditionInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_WF_NextCondition_UU: String
 	# Workflow Node Transition
 	AD_WF_NodeNext: ForeignEntityInput
 	# Logical operation: AND or OR

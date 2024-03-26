@@ -58,6 +58,7 @@ type Fact_Acct_Summary {
 	# Accounting Date
 	DateAcct: Date
 	UUID: ID!
+	Fact_Acct_Summary_UU: String
 	# General Ledger Budget
 	GL_Budget: GL_Budget
 	# The record is active in the system
@@ -116,6 +117,7 @@ input Fact_Acct_SummaryInput {
 	# Accounting Date
 	DateAcct: Date
 	UUID: ID
+	Fact_Acct_Summary_UU: String
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
 	# The record is active in the system

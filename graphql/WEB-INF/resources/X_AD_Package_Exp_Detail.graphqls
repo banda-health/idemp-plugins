@@ -36,6 +36,7 @@ type AD_Package_Exp_Detail {
 	AD_Package_Code_New: String
 	AD_Package_Code_Old: String
 	UUID: ID!
+	AD_Package_Exp_Detail_UU: String
 	AD_Package_Exp: AD_Package_Exp!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
@@ -107,6 +108,7 @@ input AD_Package_Exp_DetailInput {
 	AD_Package_Code_New: String
 	AD_Package_Code_Old: String
 	UUID: ID
+	AD_Package_Exp_Detail_UU: String
 	AD_Package_Exp: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput

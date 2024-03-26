@@ -24,6 +24,7 @@ type AD_UserMail {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	AD_UserMail_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -57,6 +58,7 @@ input AD_UserMailInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_UserMail_UU: String
 	# EMail Delivery confirmation
 	DeliveryConfirmation: String
 	EMailFrom: String

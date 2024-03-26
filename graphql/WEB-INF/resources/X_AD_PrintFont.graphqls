@@ -22,6 +22,7 @@ type AD_PrintFont {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_PrintFont_UU: String
 	# Validation Code
 	Code: String!
 	# Date this record was created
@@ -44,6 +45,7 @@ input AD_PrintFontInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_PrintFont_UU: String
 	# Validation Code
 	Code: String
 	# The record is active in the system

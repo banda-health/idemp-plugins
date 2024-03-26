@@ -30,6 +30,7 @@ type AD_UserDef_Proc {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	UUID: ID!
+	AD_UserDef_Proc_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,6 +63,7 @@ input AD_UserDef_ProcInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_UserDef_Proc_UU: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

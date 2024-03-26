@@ -33,8 +33,7 @@ public class X_AD_Process_AccessInput extends MProcessAccess implements I_AD_Pro
 	 */
 	@JsonCreator
 	public X_AD_Process_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MProcessAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

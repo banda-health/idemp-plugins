@@ -24,6 +24,7 @@ type C_Currency_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_Currency_Acct_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -44,6 +45,7 @@ input C_Currency_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_Currency_Acct_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# The record is active in the system

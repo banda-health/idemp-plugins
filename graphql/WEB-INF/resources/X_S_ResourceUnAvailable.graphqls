@@ -36,6 +36,7 @@ type S_ResourceUnAvailable {
 	# Resource
 	S_Resource: S_Resource!
 	UUID: ID!
+	S_ResourceUnAvailable_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -56,4 +57,5 @@ input S_ResourceUnAvailableInput {
 	# Resource
 	S_Resource: ForeignEntityInput
 	UUID: ID
+	S_ResourceUnAvailable_UU: String
 }

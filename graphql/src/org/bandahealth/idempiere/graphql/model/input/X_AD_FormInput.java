@@ -35,7 +35,7 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 	 */
 	@JsonCreator
 	public X_AD_FormInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

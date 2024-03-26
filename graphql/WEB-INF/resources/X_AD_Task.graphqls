@@ -25,6 +25,7 @@ type AD_Task {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Task_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,6 +55,7 @@ input AD_TaskInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Task_UU: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

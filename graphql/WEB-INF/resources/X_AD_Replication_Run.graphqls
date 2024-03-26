@@ -24,6 +24,7 @@ type AD_Replication_Run {
 	# Data Replication Target
 	AD_Replication: AD_Replication!
 	UUID: ID!
+	AD_Replication_Run_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input AD_Replication_RunInput {
 	# Data Replication Target
 	AD_Replication: ForeignEntityInput
 	UUID: ID
+	AD_Replication_Run_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -30,6 +30,7 @@ type CM_ChatEntry {
 	# Chat or discussion thread
 	CM_Chat: CM_Chat!
 	UUID: ID!
+	CM_ChatEntry_UU: String
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: CM_ChatEntry
 	# Link to direct Parent
@@ -64,6 +65,7 @@ input CM_ChatEntryInput {
 	# Chat or discussion thread
 	CM_Chat: ForeignEntityInput
 	UUID: ID
+	CM_ChatEntry_UU: String
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: ForeignEntityInput
 	# Link to direct Parent

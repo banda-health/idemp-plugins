@@ -32,7 +32,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	 */
 	@JsonCreator
 	public X_M_DiscountSchemaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

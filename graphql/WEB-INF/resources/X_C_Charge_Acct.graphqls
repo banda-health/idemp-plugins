@@ -24,6 +24,7 @@ type C_Charge_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_Charge_Acct_UU: String
 	# Additional document charges
 	C_Charge: C_Charge!
 	# Charge Account
@@ -46,6 +47,7 @@ input C_Charge_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_Charge_Acct_UU: String
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Charge Account

@@ -34,6 +34,7 @@ type M_ProductOperation {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_ProductOperation_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Setup time before starting Production
@@ -60,6 +61,7 @@ input M_ProductOperationInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_ProductOperation_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Setup time before starting Production

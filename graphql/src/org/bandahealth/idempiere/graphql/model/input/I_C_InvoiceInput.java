@@ -319,20 +319,6 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	I_AD_Ref_ListInput DocAction();
 
 	/**
-	 * Set DocBaseType.
-	 *
-	 * @param DocBaseType Logical type of document
-	 */
-	void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType);
-
-	/**
-	 * Get DocBaseType.
-	 *
-	 * @return Logical type of document
-	 */
-	I_AD_Ref_ListInput DocBaseType();
-
-	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document

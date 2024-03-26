@@ -47,7 +47,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	 */
 	@JsonCreator
 	public X_HR_AttributeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

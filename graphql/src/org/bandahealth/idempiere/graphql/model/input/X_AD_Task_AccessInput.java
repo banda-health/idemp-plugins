@@ -33,8 +33,7 @@ public class X_AD_Task_AccessInput extends MTaskAccess implements I_AD_Task_Acce
 	 */
 	@JsonCreator
 	public X_AD_Task_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MTaskAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

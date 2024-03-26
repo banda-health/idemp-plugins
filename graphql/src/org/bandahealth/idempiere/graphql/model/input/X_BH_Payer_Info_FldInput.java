@@ -33,7 +33,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 	 */
 	@JsonCreator
 	public X_BH_Payer_Info_FldInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

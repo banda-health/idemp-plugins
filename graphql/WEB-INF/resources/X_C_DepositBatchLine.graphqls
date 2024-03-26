@@ -23,6 +23,7 @@ type C_DepositBatchLine {
 	AD_Org: AD_Org!
 	C_DepositBatch: C_DepositBatch!
 	UUID: ID!
+	C_DepositBatchLine_UU: String
 	# Payment identifier
 	C_Payment: C_Payment!
 	# Date this record was created
@@ -49,6 +50,7 @@ input C_DepositBatchLineInput {
 	AD_Org: ForeignEntityInput
 	C_DepositBatch: ForeignEntityInput
 	UUID: ID
+	C_DepositBatchLine_UU: String
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# The record is active in the system

@@ -38,6 +38,7 @@ type M_ProductionPlan {
 	# Plan for producing a product
 	M_Production: M_Production!
 	UUID: ID!
+	M_ProductionPlan_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity of products to produce
@@ -64,6 +65,7 @@ input M_ProductionPlanInput {
 	# Plan for producing a product
 	M_Production: ForeignEntityInput
 	UUID: ID
+	M_ProductionPlan_UU: String
 	# The document has been processed
 	Processed: Boolean
 	# Quantity of products to produce

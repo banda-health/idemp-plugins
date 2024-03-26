@@ -50,6 +50,7 @@ type C_BP_BankAccount {
 	# Bank
 	C_Bank: C_Bank
 	UUID: ID!
+	C_BP_BankAccount_UU: String
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Payment processor for electronic payments
@@ -119,6 +120,7 @@ input C_BP_BankAccountInput {
 	# Bank
 	C_Bank: ForeignEntityInput
 	UUID: ID
+	C_BP_BankAccount_UU: String
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Payment processor for electronic payments

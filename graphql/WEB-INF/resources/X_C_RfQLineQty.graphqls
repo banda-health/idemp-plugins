@@ -28,6 +28,7 @@ type C_RfQLineQty {
 	# Request for Quotation Line
 	C_RfQLine: C_RfQLine!
 	UUID: ID!
+	C_RfQLineQty_UU: String
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Date this record was created
@@ -64,6 +65,7 @@ input C_RfQLineQtyInput {
 	# Request for Quotation Line
 	C_RfQLine: ForeignEntityInput
 	UUID: ID
+	C_RfQLineQty_UU: String
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# The record is active in the system

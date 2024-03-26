@@ -24,6 +24,7 @@ type BH_Product_CategoryDefault {
 	# Contains a character the is linked to a ref list to determine types of product categories
 	BH_Product_Category_Type: AD_Ref_List!
 	UUID: ID!
+	BH_Product_CategoryDefault_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input BH_Product_CategoryDefaultInput {
 	# Contains a character the is linked to a ref list to determine types of product categories
 	BH_Product_Category_Type: AD_Ref_ListInput
 	UUID: ID
+	BH_Product_CategoryDefault_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

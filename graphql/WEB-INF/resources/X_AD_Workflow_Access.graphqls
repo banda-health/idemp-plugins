@@ -24,6 +24,7 @@ type AD_Workflow_Access {
 	# Responsibility Role
 	AD_Role: AD_Role!
 	UUID: ID!
+	AD_Workflow_Access_UU: String
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow!
 	# Date this record was created
@@ -46,6 +47,7 @@ input AD_Workflow_AccessInput {
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	UUID: ID
+	AD_Workflow_Access_UU: String
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
 	# The record is active in the system

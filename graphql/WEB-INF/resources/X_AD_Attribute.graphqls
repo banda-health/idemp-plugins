@@ -18,6 +18,7 @@ type AD_AttributeConnection {
 
 type AD_Attribute {
 	UUID: ID!
+	AD_Attribute_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -82,6 +83,7 @@ type AD_Attribute {
 
 input AD_AttributeInput {
 	UUID: ID
+	AD_Attribute_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation

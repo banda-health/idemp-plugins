@@ -19,6 +19,7 @@ type AD_AllUsers_VConnection {
 type AD_AllUsers_V {
 	AD_AllClients_V: AD_AllClients_V
 	UUID: ID!
+	AD_AllUsers_V_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client
 	# Organizational entity within tenant
@@ -62,6 +63,7 @@ type AD_AllUsers_V {
 input AD_AllUsers_VInput {
 	AD_AllClients_V: ForeignEntityInput
 	UUID: ID
+	AD_AllUsers_V_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	DateAccountLocked: Date

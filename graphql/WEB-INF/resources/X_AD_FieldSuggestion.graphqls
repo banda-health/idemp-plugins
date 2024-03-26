@@ -24,6 +24,7 @@ type AD_FieldSuggestion {
 	# Field on a database table
 	AD_Field: AD_Field!
 	UUID: ID!
+	AD_FieldSuggestion_UU: String!
 	# Language for this entity
 	AD_Language: AD_Language!
 	# Organizational entity within tenant
@@ -69,6 +70,7 @@ input AD_FieldSuggestionInput {
 	# Field on a database table
 	AD_Field: ForeignEntityInput
 	UUID: ID
+	AD_FieldSuggestion_UU: String
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant

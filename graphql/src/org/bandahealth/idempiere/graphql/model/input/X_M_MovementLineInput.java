@@ -14,6 +14,8 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.MDDOrderLine;
 
+import java.sql.ResultSet;
+
 /**
  * Generated Model for M_MovementLine - DO NOT CHANGE
  *
@@ -40,7 +42,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 	 */
 	@JsonCreator
 	public X_M_MovementLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -364,7 +366,7 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 		this.mReversalLine = ReversalLine;
 		if (ReversalLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MMovementLine_BH foreignEntity;
+			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(ReversalLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -386,16 +388,5 @@ public class X_M_MovementLineInput extends MMovementLine implements I_M_Movement
 	@JsonProperty("ReversalLine")
 	public ForeignEntityInput ReversalLine() {
 		return mReversalLine;
-	}
-	/**
-	 * Set Search Key.
-	 *
-	 * @param Value Search key for the record in the format required - must be unique
-	 */
-
-	public void setValue(String Value) {
-		if (get_ID() == 0) {
-			super.setValue(Value);
-		}
 	}
 }

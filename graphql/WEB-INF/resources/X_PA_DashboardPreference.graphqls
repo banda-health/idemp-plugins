@@ -43,6 +43,7 @@ type PA_DashboardPreference {
 	Line: BigDecimal
 	PA_DashboardContent: PA_DashboardContent!
 	UUID: ID!
+	PA_DashboardPreference_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -70,4 +71,5 @@ input PA_DashboardPreferenceInput {
 	Line: BigDecimal
 	PA_DashboardContent: ForeignEntityInput
 	UUID: ID
+	PA_DashboardPreference_UU: String
 }

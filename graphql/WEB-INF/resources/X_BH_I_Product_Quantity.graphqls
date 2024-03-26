@@ -32,6 +32,7 @@ type BH_I_Product_Quantity {
 	BH_HasLot2: Boolean!
 	BH_HasLot3: Boolean!
 	UUID: ID!
+	BH_I_Product_Quantity_UU: String
 	# The initial quantity of a product
 	BH_InitialQuantity: BigDecimal!
 	BH_InitialQuantity_Lot2: BigDecimal
@@ -82,6 +83,7 @@ input BH_I_Product_QuantityInput {
 	BH_HasLot2: Boolean
 	BH_HasLot3: Boolean
 	UUID: ID
+	BH_I_Product_Quantity_UU: String
 	# The initial quantity of a product
 	BH_InitialQuantity: BigDecimal
 	BH_InitialQuantity_Lot2: BigDecimal

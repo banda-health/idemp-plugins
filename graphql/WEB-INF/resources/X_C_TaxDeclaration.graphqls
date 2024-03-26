@@ -22,6 +22,7 @@ type C_TaxDeclaration {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_TaxDeclaration_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -51,6 +52,7 @@ input C_TaxDeclarationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_TaxDeclaration_UU: String
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range

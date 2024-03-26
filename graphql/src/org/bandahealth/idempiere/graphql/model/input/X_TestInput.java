@@ -18,7 +18,6 @@ import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -48,7 +47,7 @@ public class X_TestInput extends MTest implements I_TestInput {
 	 */
 	@JsonCreator
 	public X_TestInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -394,24 +393,6 @@ public class X_TestInput extends MTest implements I_TestInput {
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
 	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setRecord_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getRecord_UU();
-	}
 	/**
 	 * Set Test ID.
 	 *
@@ -440,16 +421,5 @@ public class X_TestInput extends MTest implements I_TestInput {
 	 */
 	public String getUUID() {
 		return getTest_UU();
-	}
-	/**
-	 * Set Virtual Quantity.
-	 *
-	 * @param TestVirtualQty Used only for testing purposes
-	 */
-
-	public void setTestVirtualQty(BigDecimal TestVirtualQty) {
-		if (get_ID() == 0) {
-			super.setTestVirtualQty(TestVirtualQty);
-		}
 	}
 }

@@ -23,6 +23,7 @@ type BH_Encounter {
 	AD_Org: AD_Org!
 	BH_Encounter_Type: AD_Ref_List!
 	UUID: ID!
+	BH_Encounter_UU: String
 	BH_Visit: BH_Visit!
 	# Date this record was created
 	Created: Date!
@@ -41,6 +42,7 @@ input BH_EncounterInput {
 	AD_Org: ForeignEntityInput
 	BH_Encounter_Type: AD_Ref_ListInput
 	UUID: ID
+	BH_Encounter_UU: String
 	BH_Visit: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

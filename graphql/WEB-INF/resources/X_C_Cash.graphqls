@@ -28,6 +28,7 @@ type C_Cash {
 	# Marketing Campaign
 	C_Campaign: C_Campaign
 	UUID: ID!
+	C_Cash_UU: String
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
 	# Financial Project
@@ -83,6 +84,7 @@ input C_CashInput {
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
 	UUID: ID
+	C_Cash_UU: String
 	# Cash Book for recording petty cash transactions
 	C_CashBook: ForeignEntityInput
 	# Financial Project

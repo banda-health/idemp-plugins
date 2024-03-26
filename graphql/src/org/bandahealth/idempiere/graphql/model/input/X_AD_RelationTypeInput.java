@@ -38,7 +38,7 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 */
 	@JsonCreator
 	public X_AD_RelationTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

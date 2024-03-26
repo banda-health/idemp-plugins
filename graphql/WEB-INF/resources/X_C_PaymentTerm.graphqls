@@ -24,6 +24,7 @@ type C_PaymentTerm {
 	# Due after delivery rather than after invoicing
 	AfterDelivery: Boolean!
 	UUID: ID!
+	C_PaymentTerm_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -81,6 +82,7 @@ input C_PaymentTermInput {
 	# Due after delivery rather than after invoicing
 	AfterDelivery: Boolean
 	UUID: ID
+	C_PaymentTerm_UU: String
 	# Optional short description of the record
 	Description: String
 	# Discount in percent

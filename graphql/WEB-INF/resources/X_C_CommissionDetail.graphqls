@@ -28,6 +28,7 @@ type C_CommissionDetail {
 	# Generated Commission Amount 
 	C_CommissionAmt: C_CommissionAmt!
 	UUID: ID!
+	C_CommissionDetail_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Invoice Detail Line
@@ -62,6 +63,7 @@ input C_CommissionDetailInput {
 	# Generated Commission Amount 
 	C_CommissionAmt: ForeignEntityInput
 	UUID: ID
+	C_CommissionDetail_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Invoice Detail Line

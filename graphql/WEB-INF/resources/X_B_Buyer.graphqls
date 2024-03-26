@@ -24,6 +24,7 @@ type B_Buyer {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	B_Buyer_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input B_BuyerInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	B_Buyer_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

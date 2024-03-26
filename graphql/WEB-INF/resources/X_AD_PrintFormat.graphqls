@@ -26,6 +26,7 @@ type AD_PrintFormat {
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont!
 	UUID: ID!
+	AD_PrintFormat_UU: String
 	AD_PrintHeaderFooter: AD_PrintHeaderFooter
 	# Printer paper definition
 	AD_PrintPaper: AD_PrintPaper!
@@ -81,6 +82,7 @@ input AD_PrintFormatInput {
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
 	UUID: ID
+	AD_PrintFormat_UU: String
 	AD_PrintHeaderFooter: ForeignEntityInput
 	# Printer paper definition
 	AD_PrintPaper: ForeignEntityInput

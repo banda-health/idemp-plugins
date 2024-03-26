@@ -22,6 +22,7 @@ type AD_Role {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Role_UU: String
 	# Tree of the menu
 	AD_Tree_Menu: AD_Tree
 	# Trees are used for (financial) reporting and security access (via role)
@@ -109,6 +110,7 @@ input AD_RoleInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Role_UU: String
 	# Tree of the menu
 	AD_Tree_Menu: ForeignEntityInput
 	# Trees are used for (financial) reporting and security access (via role)

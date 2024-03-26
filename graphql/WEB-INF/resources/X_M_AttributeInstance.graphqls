@@ -30,6 +30,7 @@ type M_AttributeInstance {
 	# Product Attribute
 	M_Attribute: M_Attribute!
 	UUID: ID!
+	M_AttributeInstance_UU: String
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Product Attribute Value
@@ -53,6 +54,7 @@ input M_AttributeInstanceInput {
 	# Product Attribute
 	M_Attribute: ForeignEntityInput
 	UUID: ID
+	M_AttributeInstance_UU: String
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product Attribute Value

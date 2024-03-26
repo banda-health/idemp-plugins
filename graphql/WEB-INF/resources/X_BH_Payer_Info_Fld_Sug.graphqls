@@ -23,6 +23,7 @@ type BH_Payer_Info_Fld_Sug {
 	AD_Org: AD_Org!
 	BH_FillFromPatient: Boolean!
 	UUID: ID!
+	BH_Payer_Info_Fld_Sug_UU: String
 	BH_PayerInfoFieldDataType: AD_Ref_List!
 	# Meant to be a sub-type of the charge type
 	BH_SubType: AD_Ref_List!
@@ -49,6 +50,7 @@ input BH_Payer_Info_Fld_SugInput {
 	AD_Org: ForeignEntityInput
 	BH_FillFromPatient: Boolean
 	UUID: ID
+	BH_Payer_Info_Fld_Sug_UU: String
 	BH_PayerInfoFieldDataType: AD_Ref_ListInput
 	# Meant to be a sub-type of the charge type
 	BH_SubType: AD_Ref_ListInput

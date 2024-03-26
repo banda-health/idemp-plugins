@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MInventoryLineMA;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -33,8 +34,7 @@ public class X_M_InventoryLineMAInput extends MInventoryLineMA implements I_M_In
 	 */
 	@JsonCreator
 	public X_M_InventoryLineMAInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MInventoryLineMA(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -147,7 +147,7 @@ public class X_M_InventoryLineMAInput extends MInventoryLineMA implements I_M_In
 		}
 		if (M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

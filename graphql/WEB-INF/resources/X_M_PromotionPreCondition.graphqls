@@ -39,6 +39,7 @@ type M_PromotionPreCondition {
 	M_PriceList: M_PriceList
 	M_Promotion: M_Promotion!
 	UUID: ID!
+	M_PromotionPreCondition_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
 	# User entered promotion code at sales time
@@ -74,6 +75,7 @@ input M_PromotionPreConditionInput {
 	M_PriceList: ForeignEntityInput
 	M_Promotion: ForeignEntityInput
 	UUID: ID
+	M_PromotionPreCondition_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# User entered promotion code at sales time

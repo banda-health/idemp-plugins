@@ -93,18 +93,4 @@ public interface I_AD_ArchiveInput extends I_AD_Archive {
 	 * @return Identifies a Business Partner
 	 */
 	ForeignEntityInput C_BPartner();
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	void setUUID(String UUID);
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	String getUUID();
 }

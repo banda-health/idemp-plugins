@@ -4,6 +4,8 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ReplicationTableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Replication_RunDataLoader;
+import org.compiere.model.MReplicationLog;
+import org.compiere.model.MReplicationRun;
 import org.compiere.model.X_AD_ReplicationTable;
 import org.dataloader.DataLoader;
 
@@ -15,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog_BH> implements GraphQLResolver<MReplicationLog_BH> {
+public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog> implements GraphQLResolver<MReplicationLog> {
 
 
 
@@ -24,11 +26,11 @@ public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog_BH>
 	 *
 	 * @return Data Replication Run
 	 */
-	public CompletableFuture<MReplicationRun_BH> AD_Replication_Run(MReplicationLog_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MReplicationRun> AD_Replication_Run(MReplicationLog entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_Replication_Run_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MReplicationRun_BH> dataLoader =
+		DataLoader<Integer, MReplicationRun> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Replication_RunDataLoader.DATALOADER_AD_Replication_Run_BY_ID);
 		return dataLoader.load(entity.getAD_Replication_Run_ID());
 	}
@@ -39,7 +41,7 @@ public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog_BH>
 	 *
 	 * @return Data Replication Strategy Table Info
 	 */
-	public CompletableFuture<X_AD_ReplicationTable> AD_ReplicationTable(MReplicationLog_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_AD_ReplicationTable> AD_ReplicationTable(MReplicationLog entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_ReplicationTable_ID() <= 0) {
 			return null;
 		}
@@ -48,7 +50,7 @@ public class X_AD_Replication_LogResolver extends POResolver<MReplicationLog_BH>
 		return dataLoader.load(entity.getAD_ReplicationTable_ID());
 	}
 
-	public Boolean IsReplicated(MReplicationLog_BH entity, DataFetchingEnvironment environment) {
+	public Boolean IsReplicated(MReplicationLog entity, DataFetchingEnvironment environment) {
 		return entity.isReplicated();
 	}
 

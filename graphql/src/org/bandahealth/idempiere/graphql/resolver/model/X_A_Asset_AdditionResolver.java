@@ -31,6 +31,7 @@ import org.compiere.model.MAssetAddition;
 import org.compiere.model.MConversionType;
 import org.compiere.model.MIFixedAsset;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MJournalBatch;
 import org.compiere.model.MLocator;
 import org.compiere.model.MMatchInv;
@@ -183,11 +184,11 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MAssetAddition entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MAssetAddition entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

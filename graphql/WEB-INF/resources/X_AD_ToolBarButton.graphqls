@@ -32,6 +32,7 @@ type AD_ToolBarButton {
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	UUID: ID!
+	AD_ToolBarButton_UU: String
 	ComponentName: String!
 	# Date this record was created
 	Created: Date!
@@ -80,6 +81,7 @@ input AD_ToolBarButtonInput {
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	UUID: ID
+	AD_ToolBarButton_UU: String
 	ComponentName: String
 	# If the Field is displayed, the result determines if the field is actually displayed
 	DisplayLogic: String

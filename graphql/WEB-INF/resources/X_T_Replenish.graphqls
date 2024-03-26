@@ -53,6 +53,7 @@ type T_Replenish {
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_List!
 	UUID: ID!
+	T_Replenish_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -94,4 +95,5 @@ input T_ReplenishInput {
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_ListInput
 	UUID: ID
+	T_Replenish_UU: String
 }

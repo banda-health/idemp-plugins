@@ -29,7 +29,7 @@ public class X_R_InterestAreaInput extends MInterestArea implements I_R_Interest
 	 */
 	@JsonCreator
 	public X_R_InterestAreaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

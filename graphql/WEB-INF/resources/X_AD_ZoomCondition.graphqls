@@ -26,6 +26,7 @@ type AD_ZoomCondition {
 	# Data entry or display window
 	AD_Window: AD_Window!
 	UUID: ID!
+	AD_ZoomCondition_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,6 +59,7 @@ input AD_ZoomConditionInput {
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	UUID: ID
+	AD_ZoomCondition_UU: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

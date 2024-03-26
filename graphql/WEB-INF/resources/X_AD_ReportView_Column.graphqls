@@ -24,6 +24,7 @@ type AD_ReportView_Column {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_ReportView_Column_UU: String
 	# View used to generate this report
 	AD_ReportView: AD_ReportView!
 	# Date this record was created
@@ -44,6 +45,7 @@ input AD_ReportView_ColumnInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_ReportView_Column_UU: String
 	# View used to generate this report
 	AD_ReportView: ForeignEntityInput
 	# The record is active in the system

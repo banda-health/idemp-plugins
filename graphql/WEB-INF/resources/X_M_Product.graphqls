@@ -121,6 +121,7 @@ type M_Product {
 	# Category of a Product
 	M_Product_Category: M_Product_Category!
 	UUID: ID!
+	M_Product_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -263,6 +264,7 @@ input M_ProductInput {
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	UUID: ID
+	M_Product_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

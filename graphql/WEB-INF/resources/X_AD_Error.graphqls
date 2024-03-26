@@ -20,6 +20,7 @@ type AD_Error {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Error_UU: String
 	# Language for this entity
 	AD_Language: AD_Language
 	# Organizational entity within tenant
@@ -42,6 +43,7 @@ type AD_Error {
 
 input AD_ErrorInput {
 	UUID: ID
+	AD_Error_UU: String
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant

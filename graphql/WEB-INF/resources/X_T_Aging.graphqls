@@ -84,6 +84,7 @@ type T_Aging {
 	# Date of the statement
 	StatementDate: Date!
 	UUID: ID!
+	T_Aging_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -152,4 +153,5 @@ input T_AgingInput {
 	# Date of the statement
 	StatementDate: Date
 	UUID: ID
+	T_Aging_UU: String
 }

@@ -22,6 +22,7 @@ type A_RegistrationValue {
 	# Asset Registration Attribute
 	A_RegistrationAttribute: A_RegistrationAttribute!
 	UUID: ID!
+	A_RegistrationValue_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -48,6 +49,7 @@ input A_RegistrationValueInput {
 	# Asset Registration Attribute
 	A_RegistrationAttribute: ForeignEntityInput
 	UUID: ID
+	A_RegistrationValue_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

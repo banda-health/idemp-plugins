@@ -32,8 +32,7 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 	 */
 	@JsonCreator
 	public X_M_SubstituteInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_Substitute(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

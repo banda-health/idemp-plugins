@@ -36,6 +36,7 @@ type M_DistributionRunLine {
 	# Distribution Run create Orders to distribute products to a selected list of partners
 	M_DistributionRun: M_DistributionRun!
 	UUID: ID!
+	M_DistributionRunLine_UU: String
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Minimum quantity for the business partner
@@ -62,6 +63,7 @@ input M_DistributionRunLineInput {
 	# Distribution Run create Orders to distribute products to a selected list of partners
 	M_DistributionRun: ForeignEntityInput
 	UUID: ID
+	M_DistributionRunLine_UU: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Minimum quantity for the business partner

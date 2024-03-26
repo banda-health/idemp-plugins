@@ -29,7 +29,7 @@ public class X_C_RecurringGroupInput extends X_C_RecurringGroup implements I_C_R
 	 */
 	@JsonCreator
 	public X_C_RecurringGroupInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

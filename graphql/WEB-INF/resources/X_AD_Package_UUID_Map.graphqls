@@ -22,6 +22,7 @@ type AD_Package_UUID_Map {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Package_UUID_Map_UU: String!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -44,6 +45,7 @@ input AD_Package_UUID_MapInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Package_UUID_Map_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# The record is active in the system

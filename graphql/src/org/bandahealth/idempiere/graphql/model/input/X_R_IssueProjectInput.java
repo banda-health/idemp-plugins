@@ -6,10 +6,10 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
-import org.compiere.model.MIssueProject;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.Query;
+import org.compiere.model.X_R_IssueProject;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_R_IssueProjectInput extends MIssueProject implements I_R_IssueProjectInput {
+public class X_R_IssueProjectInput extends X_R_IssueProject implements I_R_IssueProjectInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
@@ -35,7 +35,7 @@ public class X_R_IssueProjectInput extends MIssueProject implements I_R_IssuePro
 	 */
 	@JsonCreator
 	public X_R_IssueProjectInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

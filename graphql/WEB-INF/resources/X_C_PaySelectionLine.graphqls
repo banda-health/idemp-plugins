@@ -28,6 +28,7 @@ type C_PaySelectionLine {
 	# Payment Selection Check
 	C_PaySelectionCheck: C_PaySelectionCheck
 	UUID: ID!
+	C_PaySelectionLine_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -72,6 +73,7 @@ input C_PaySelectionLineInput {
 	# Payment Selection Check
 	C_PaySelectionCheck: ForeignEntityInput
 	UUID: ID
+	C_PaySelectionLine_UU: String
 	# Optional short description of the record
 	Description: String
 	# Difference Amount

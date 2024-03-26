@@ -36,6 +36,7 @@ type GL_Fund {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	GL_Fund_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -62,6 +63,7 @@ input GL_FundInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	GL_Fund_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

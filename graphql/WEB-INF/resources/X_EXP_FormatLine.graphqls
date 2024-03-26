@@ -36,6 +36,7 @@ type EXP_FormatLine {
 	EXP_EmbeddedFormat: EXP_Format
 	EXP_Format: EXP_Format
 	UUID: ID!
+	EXP_FormatLine_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -68,6 +69,7 @@ input EXP_FormatLineInput {
 	EXP_EmbeddedFormat: ForeignEntityInput
 	EXP_Format: ForeignEntityInput
 	UUID: ID
+	EXP_FormatLine_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

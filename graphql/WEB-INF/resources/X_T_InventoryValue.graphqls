@@ -64,6 +64,7 @@ type T_InventoryValue {
 	# On Hand Quantity
 	QtyOnHand: BigDecimal
 	UUID: ID!
+	T_InventoryValue_UU: String
 }
 
 input T_InventoryValueInput {
@@ -112,4 +113,5 @@ input T_InventoryValueInput {
 	# On Hand Quantity
 	QtyOnHand: BigDecimal
 	UUID: ID
+	T_InventoryValue_UU: String
 }

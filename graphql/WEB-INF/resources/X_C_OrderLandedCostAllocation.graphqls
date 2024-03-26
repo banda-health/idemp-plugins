@@ -27,6 +27,7 @@ type C_OrderLandedCostAllocation {
 	Base: BigDecimal!
 	C_OrderLandedCost: C_OrderLandedCost!
 	UUID: ID!
+	C_OrderLandedCostAllocation_UU: String
 	# Sales Order Line
 	C_OrderLine: C_OrderLine!
 	# Date this record was created
@@ -54,6 +55,7 @@ input C_OrderLandedCostAllocationInput {
 	Base: BigDecimal
 	C_OrderLandedCost: ForeignEntityInput
 	UUID: ID
+	C_OrderLandedCostAllocation_UU: String
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# The record is active in the system

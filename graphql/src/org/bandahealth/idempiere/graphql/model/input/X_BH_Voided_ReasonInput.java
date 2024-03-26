@@ -1,8 +1,10 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -20,10 +22,15 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 	private ForeignEntityInput mAD_Org;
 
 	/**
-	 * Standard constructor
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The BH_Voided_Reason_UU to fetch this entity from the DB
 	 */
-	public X_BH_Voided_ReasonInput() {
-		super(Env.getCtx(), 0, null);
+	@JsonCreator
+	public X_BH_Voided_ReasonInput(@JsonProperty("UUID") String UUID) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
+		setUUID(UUID);
 	}
 
 	/**
@@ -72,5 +79,23 @@ public class X_BH_Voided_ReasonInput extends MBHVoidedReason implements I_BH_Voi
 		if (get_ID() == 0) {
 			super.setBH_Voided_Reason_ID(BH_Voided_Reason_ID);
 		}
+	}
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	public void setUUID(String UUID) {
+		setBH_Voided_Reason_UU(UUID);
+	}
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	public String getUUID() {
+		return getBH_Voided_Reason_UU();
 	}
 }

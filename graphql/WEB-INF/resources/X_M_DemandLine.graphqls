@@ -32,6 +32,7 @@ type M_DemandLine {
 	# Material Demand
 	M_Demand: M_Demand!
 	UUID: ID!
+	M_DemandLine_UU: String
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Quantity
@@ -54,6 +55,7 @@ input M_DemandLineInput {
 	# Material Demand
 	M_Demand: ForeignEntityInput
 	UUID: ID
+	M_DemandLine_UU: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity

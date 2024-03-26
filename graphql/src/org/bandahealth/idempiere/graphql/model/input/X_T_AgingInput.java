@@ -48,8 +48,7 @@ public class X_T_AgingInput extends MAging implements I_T_AgingInput {
 	 */
 	@JsonCreator
 	public X_T_AgingInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAging(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

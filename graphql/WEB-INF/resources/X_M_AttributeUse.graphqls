@@ -32,6 +32,7 @@ type M_AttributeUse {
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet!
 	UUID: ID!
+	M_AttributeUse_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -50,6 +51,7 @@ input M_AttributeUseInput {
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
 	UUID: ID
+	M_AttributeUse_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

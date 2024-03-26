@@ -37,6 +37,7 @@ type I_ReportLine {
 	# Has this import been processed
 	I_IsImported: Boolean!
 	UUID: ID!
+	I_ReportLine_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this document / line is printed
@@ -84,6 +85,7 @@ input I_ReportLineInput {
 	# Has this import been processed
 	I_IsImported: Boolean
 	UUID: ID
+	I_ReportLine_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document / line is printed

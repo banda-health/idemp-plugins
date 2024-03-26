@@ -35,7 +35,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	 */
 	@JsonCreator
 	public X_R_RequestUpdateInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

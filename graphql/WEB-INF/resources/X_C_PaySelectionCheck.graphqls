@@ -30,6 +30,7 @@ type C_PaySelectionCheck {
 	# Payment Selection
 	C_PaySelection: C_PaySelection!
 	UUID: ID!
+	C_PaySelectionCheck_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -73,6 +74,7 @@ input C_PaySelectionCheckInput {
 	# Payment Selection
 	C_PaySelection: ForeignEntityInput
 	UUID: ID
+	C_PaySelectionCheck_UU: String
 	# Calculated amount of discount
 	DiscountAmt: BigDecimal
 	# Document sequence number of the document

@@ -67,20 +67,6 @@ public interface I_AD_FieldSuggestionInput extends I_AD_FieldSuggestion {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set AD_Tab.
-	 *
-	 * @param AD_Tab Tab within a Window
-	 */
-	void setAD_TabInput(ForeignEntityInput AD_Tab);
-
-	/**
-	 * Get AD_Tab.
-	 *
-	 * @return Tab within a Window
-	 */
-	ForeignEntityInput AD_Tab();
-
-	/**
 	 * Set AD_User.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
@@ -107,20 +93,6 @@ public interface I_AD_FieldSuggestionInput extends I_AD_FieldSuggestion {
 	 * @return AD_UserClient
 	 */
 	ForeignEntityInput AD_UserClient();
-
-	/**
-	 * Set AD_Window.
-	 *
-	 * @param AD_Window Data entry or display window
-	 */
-	void setAD_WindowInput(ForeignEntityInput AD_Window);
-
-	/**
-	 * Get AD_Window.
-	 *
-	 * @return Data entry or display window
-	 */
-	ForeignEntityInput AD_Window();
 
 	/**
 	 * Set FieldSuggestionTarget.

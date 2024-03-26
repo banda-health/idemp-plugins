@@ -36,7 +36,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	 */
 	@JsonCreator
 	public X_CM_ChatInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -243,23 +243,5 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	@JsonProperty("ModerationType")
 	public I_AD_Ref_ListInput ModerationType() {
 		return mModerationType;
-	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setRecord_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getRecord_UU();
 	}
 }

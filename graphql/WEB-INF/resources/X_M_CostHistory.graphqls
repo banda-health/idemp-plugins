@@ -34,6 +34,7 @@ type M_CostHistory {
 	# Product Cost Element
 	M_CostElement: M_CostElement!
 	UUID: ID!
+	M_CostHistory_UU: String!
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: M_CostType!
 	# Product, Service, Item
@@ -72,6 +73,7 @@ input M_CostHistoryInput {
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	UUID: ID
+	M_CostHistory_UU: String
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: ForeignEntityInput
 	# Product, Service, Item

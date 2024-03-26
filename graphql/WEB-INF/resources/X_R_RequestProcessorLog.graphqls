@@ -36,6 +36,7 @@ type R_RequestProcessorLog {
 	# Processor for Requests
 	R_RequestProcessor: R_RequestProcessor!
 	UUID: ID!
+	R_RequestProcessorLog_UU: String
 	# Reference for this record
 	Reference: String
 	# Textual summary of this request
@@ -62,6 +63,7 @@ input R_RequestProcessorLogInput {
 	# Processor for Requests
 	R_RequestProcessor: ForeignEntityInput
 	UUID: ID
+	R_RequestProcessorLog_UU: String
 	# Reference for this record
 	Reference: String
 	# Textual summary of this request

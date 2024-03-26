@@ -24,6 +24,7 @@ type AD_Issue {
 	# Special Form
 	AD_Form: AD_Form
 	UUID: ID!
+	AD_Issue_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
@@ -120,6 +121,7 @@ input AD_IssueInput {
 	# Special Form
 	AD_Form: ForeignEntityInput
 	UUID: ID
+	AD_Issue_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report

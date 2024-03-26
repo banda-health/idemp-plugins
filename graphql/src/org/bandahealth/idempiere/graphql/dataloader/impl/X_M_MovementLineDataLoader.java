@@ -1,18 +1,20 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
+import org.compiere.model.MMovementLine;
+
 /**
  * Data Loader for M_MovementLine - DO NOT CHANGE
  *
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_M_MovementLineDataLoader extends PODataLoader<MMovementLine_BH> {
+public class X_M_MovementLineDataLoader extends PODataLoader<MMovementLine> {
 	public static String DATALOADER_M_MovementLine_BY_ID = "M_MovementLineByIdDataLoader";
 	public static String DATALOADER_M_MovementLine_BY_UUID = "M_MovementLineByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MMovementLine_BH.Table_Name;
+		return MMovementLine.Table_Name;
 	}
 
 	@Override

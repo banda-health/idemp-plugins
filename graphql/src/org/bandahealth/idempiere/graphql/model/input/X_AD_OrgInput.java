@@ -29,7 +29,7 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 	 */
 	@JsonCreator
 	public X_AD_OrgInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

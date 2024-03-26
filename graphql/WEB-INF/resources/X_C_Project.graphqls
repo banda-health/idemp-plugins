@@ -40,6 +40,7 @@ type C_Project {
 	# Standard Phase of the Project Type
 	C_Phase: C_Phase
 	UUID: ID!
+	C_Project_UU: String
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount
@@ -131,6 +132,7 @@ input C_ProjectInput {
 	# Standard Phase of the Project Type
 	C_Phase: ForeignEntityInput
 	UUID: ID
+	C_Project_UU: String
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount

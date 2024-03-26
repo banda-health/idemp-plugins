@@ -106,6 +106,7 @@ type I_FAJournal {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID!
+	I_FAJournal_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean!
 	# The record is active in the system
@@ -233,6 +234,7 @@ input I_FAJournalInput {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID
+	I_FAJournal_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean
 	# The record is active in the system

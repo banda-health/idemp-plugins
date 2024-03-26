@@ -32,6 +32,7 @@ type R_IssueStatus {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	R_IssueStatus_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -48,4 +49,5 @@ input R_IssueStatusInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	R_IssueStatus_UU: String
 }

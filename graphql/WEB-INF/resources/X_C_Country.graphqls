@@ -26,6 +26,7 @@ type C_Country {
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean!
 	UUID: ID!
+	C_Country_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency
 	CaptureSequence: String
@@ -100,6 +101,7 @@ input C_CountryInput {
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean
 	UUID: ID
+	C_Country_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	CaptureSequence: String

@@ -20,6 +20,7 @@ type AD_AlertRule {
 	# iDempiere Alert
 	AD_Alert: AD_Alert!
 	UUID: ID!
+	AD_AlertRule_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -59,6 +60,7 @@ input AD_AlertRuleInput {
 	# iDempiere Alert
 	AD_Alert: ForeignEntityInput
 	UUID: ID
+	AD_AlertRule_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

@@ -56,6 +56,7 @@ type M_CostDetail {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	UUID: ID!
+	M_CostDetail_UU: String
 	# Product Cost Element
 	M_CostElement: M_CostElement
 	# Line on Shipment or Receipt document
@@ -117,6 +118,7 @@ input M_CostDetailInput {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	UUID: ID
+	M_CostDetail_UU: String
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	# Line on Shipment or Receipt document

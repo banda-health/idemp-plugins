@@ -33,6 +33,7 @@ type M_PromotionDistribution {
 	IsActive: Boolean!
 	M_Promotion: M_Promotion!
 	UUID: ID!
+	M_PromotionDistribution_UU: String
 	M_PromotionLine: M_PromotionLine!
 	# Compare Operation
 	Operation: AD_Ref_List!
@@ -57,6 +58,7 @@ input M_PromotionDistributionInput {
 	IsActive: Boolean
 	M_Promotion: ForeignEntityInput
 	UUID: ID
+	M_PromotionDistribution_UU: String
 	M_PromotionLine: ForeignEntityInput
 	# Compare Operation
 	Operation: AD_Ref_ListInput

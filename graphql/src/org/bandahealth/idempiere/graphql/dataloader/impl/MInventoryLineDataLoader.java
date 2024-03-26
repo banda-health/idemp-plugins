@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
 import org.bandahealth.idempiere.graphql.repository.Repository;
+import org.compiere.model.MInventoryLine;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
 import org.dataloader.MappedBatchLoaderWithContext;
@@ -18,9 +19,9 @@ public class MInventoryLineDataLoader extends X_M_InventoryLineDataLoader {
 				DataLoader.newMappedDataLoader(getByInventoryIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
-	private MappedBatchLoaderWithContext<String, List<MInventoryLine_BH>> getByInventoryIdBatchLoader() {
+	private MappedBatchLoaderWithContext<String, List<MInventoryLine>> getByInventoryIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
-				batchLoaderEnvironment.getContext(), getTableName(), null, MInventoryLine_BH::getM_Inventory_ID,
-				MInventoryLine_BH.COLUMNNAME_M_Inventory_ID, keys);
+				batchLoaderEnvironment.getContext(), getTableName(), null, MInventoryLine::getM_Inventory_ID,
+				MInventoryLine.COLUMNNAME_M_Inventory_ID, keys);
 	}
 }

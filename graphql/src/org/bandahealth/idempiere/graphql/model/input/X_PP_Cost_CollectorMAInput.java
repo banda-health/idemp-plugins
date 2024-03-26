@@ -33,7 +33,7 @@ public class X_PP_Cost_CollectorMAInput extends X_PP_Cost_CollectorMA implements
 	 */
 	@JsonCreator
 	public X_PP_Cost_CollectorMAInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

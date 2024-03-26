@@ -43,7 +43,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	 */
 	@JsonCreator
 	public X_AD_PInstanceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -355,23 +355,5 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	@JsonProperty("NotificationType")
 	public I_AD_Ref_ListInput NotificationType() {
 		return mNotificationType;
-	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setRecord_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getRecord_UU();
 	}
 }

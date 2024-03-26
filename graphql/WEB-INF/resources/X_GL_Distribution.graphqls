@@ -74,6 +74,7 @@ type GL_Distribution {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	GL_Distribution_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -159,6 +160,7 @@ input GL_DistributionInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	GL_Distribution_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRegistration;
-import org.compiere.model.MRegistrationAttribute;
-import org.compiere.model.MRegistrationValue;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_Registration;
+import org.compiere.model.X_A_RegistrationAttribute;
+import org.compiere.model.X_A_RegistrationValue;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_A_RegistrationValueInput extends MRegistrationValue implements I_A_RegistrationValueInput {
+public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements I_A_RegistrationValueInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Registration;
@@ -33,8 +33,7 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 	 */
 	@JsonCreator
 	public X_A_RegistrationValueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRegistrationValue(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -51,7 +50,7 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 		}
 		if (A_Registration != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MRegistration foreignEntity;
+			X_A_Registration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Registration", "A_Registration_UU=?", get_TrxName())
 							.setParameters(A_Registration.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -88,7 +87,7 @@ public class X_A_RegistrationValueInput extends MRegistrationValue implements I_
 		}
 		if (A_RegistrationAttribute != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MRegistrationAttribute foreignEntity;
+			X_A_RegistrationAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
 							.setParameters(A_RegistrationAttribute.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

@@ -29,7 +29,7 @@ public class X_C_CalendarInput extends MCalendar implements I_C_CalendarInput {
 	 */
 	@JsonCreator
 	public X_C_CalendarInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

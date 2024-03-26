@@ -6,8 +6,8 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRegistrationAttribute;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_RegistrationAttribute;
 import org.compiere.model.X_A_RegistrationProduct;
 import org.compiere.util.Env;
 
@@ -33,8 +33,7 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 	 */
 	@JsonCreator
 	public X_A_RegistrationProductInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_A_RegistrationProduct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -51,7 +50,7 @@ public class X_A_RegistrationProductInput extends X_A_RegistrationProduct implem
 		}
 		if (A_RegistrationAttribute != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MRegistrationAttribute foreignEntity;
+			X_A_RegistrationAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
 							.setParameters(A_RegistrationAttribute.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

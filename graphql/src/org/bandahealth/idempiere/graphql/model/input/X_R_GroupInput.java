@@ -33,7 +33,7 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 	 */
 	@JsonCreator
 	public X_R_GroupInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

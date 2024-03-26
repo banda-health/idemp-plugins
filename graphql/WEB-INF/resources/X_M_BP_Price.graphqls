@@ -40,6 +40,7 @@ type M_BP_Price {
 	# Net Price including all discounts
 	IsNetPrice: Boolean!
 	UUID: ID!
+	M_BP_Price_UU: String
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Lowest price for a product
@@ -78,6 +79,7 @@ input M_BP_PriceInput {
 	# Net Price including all discounts
 	IsNetPrice: Boolean
 	UUID: ID
+	M_BP_Price_UU: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Lowest price for a product

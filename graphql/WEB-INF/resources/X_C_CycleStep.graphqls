@@ -24,6 +24,7 @@ type C_CycleStep {
 	# Identifier for this Project Reporting Cycle
 	C_Cycle: C_Cycle!
 	UUID: ID!
+	C_CycleStep_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input C_CycleStepInput {
 	# Identifier for this Project Reporting Cycle
 	C_Cycle: ForeignEntityInput
 	UUID: ID
+	C_CycleStep_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

@@ -26,6 +26,7 @@ type AD_WF_EventAudit {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	UUID: ID!
+	AD_WF_EventAudit_UU: String
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	# Actual Workflow Process Instance
@@ -68,6 +69,7 @@ input AD_WF_EventAuditInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_WF_EventAudit_UU: String
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	# Actual Workflow Process Instance

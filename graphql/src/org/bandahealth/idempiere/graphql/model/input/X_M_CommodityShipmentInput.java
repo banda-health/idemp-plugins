@@ -31,7 +31,7 @@ public class X_M_CommodityShipmentInput extends X_M_CommodityShipment implements
 	 */
 	@JsonCreator
 	public X_M_CommodityShipmentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

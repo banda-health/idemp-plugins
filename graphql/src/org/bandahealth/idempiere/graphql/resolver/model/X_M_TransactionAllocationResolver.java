@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductionLineDataL
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_TransactionDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MTransaction;
 import org.compiere.model.X_M_TransactionAllocation;
@@ -91,11 +92,11 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 *
 	 * @return Unique line in an Inventory document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_InventoryLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_InventoryLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
@@ -166,11 +167,11 @@ public class X_M_TransactionAllocationResolver extends POResolver<X_M_Transactio
 	 *
 	 * @return Outgoing Inventory Line
 	 */
-	public CompletableFuture<MInventoryLine_BH> Out_M_InventoryLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> Out_M_InventoryLine(X_M_TransactionAllocation entity, DataFetchingEnvironment environment) {
 		if (entity.getOut_M_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getOut_M_InventoryLine_ID());
 	}

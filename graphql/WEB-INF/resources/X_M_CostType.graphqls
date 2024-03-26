@@ -32,6 +32,7 @@ type M_CostType {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_CostType_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -50,6 +51,7 @@ input M_CostTypeInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_CostType_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 }

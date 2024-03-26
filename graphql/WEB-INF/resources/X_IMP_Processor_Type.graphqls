@@ -30,6 +30,7 @@ type IMP_Processor_Type {
 	# Comment or Hint
 	Help: String
 	UUID: ID!
+	IMP_Processor_Type_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	JavaClass: String!
@@ -51,6 +52,7 @@ input IMP_Processor_TypeInput {
 	# Comment or Hint
 	Help: String
 	UUID: ID
+	IMP_Processor_Type_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	JavaClass: String

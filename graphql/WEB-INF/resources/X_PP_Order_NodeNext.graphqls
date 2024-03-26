@@ -43,6 +43,7 @@ type PP_Order_NodeNext {
 	# Workflow Node (activity), step or process
 	PP_Order_Node: PP_Order_Node!
 	UUID: ID!
+	PP_Order_NodeNext_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Code resulting in TRUE of FALSE
@@ -74,6 +75,7 @@ input PP_Order_NodeNextInput {
 	# Workflow Node (activity), step or process
 	PP_Order_Node: ForeignEntityInput
 	UUID: ID
+	PP_Order_NodeNext_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Code resulting in TRUE of FALSE

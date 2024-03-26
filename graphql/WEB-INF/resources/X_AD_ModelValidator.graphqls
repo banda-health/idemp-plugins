@@ -20,6 +20,7 @@ type AD_ModelValidator {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_ModelValidator_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -47,6 +48,7 @@ type AD_ModelValidator {
 
 input AD_ModelValidatorInput {
 	UUID: ID
+	AD_ModelValidator_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

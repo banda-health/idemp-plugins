@@ -33,7 +33,7 @@ public class X_AD_UserDef_Info_RelatedInput extends MUserDefInfoRelated implemen
 	 */
 	@JsonCreator
 	public X_AD_UserDef_Info_RelatedInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

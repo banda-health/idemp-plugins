@@ -31,7 +31,7 @@ public class X_T_MRP_CRPInput extends X_T_MRP_CRP implements I_T_MRP_CRPInput {
 	 */
 	@JsonCreator
 	public X_T_MRP_CRPInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -28,6 +28,7 @@ type C_CashLine {
 	# Cash Journal
 	C_Cash: C_Cash!
 	UUID: ID!
+	C_CashLine_UU: String
 	# Additional document charges
 	C_Charge: C_Charge
 	# The Currency for this record
@@ -72,6 +73,7 @@ input C_CashLineInput {
 	# Cash Journal
 	C_Cash: ForeignEntityInput
 	UUID: ID
+	C_CashLine_UU: String
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# The Currency for this record

@@ -22,6 +22,7 @@ type AD_LdapProcessorLog {
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: AD_LdapProcessor!
 	UUID: ID!
+	AD_LdapProcessorLog_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Binary Data
@@ -52,6 +53,7 @@ input AD_LdapProcessorLogInput {
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: ForeignEntityInput
 	UUID: ID
+	AD_LdapProcessorLog_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Binary Data

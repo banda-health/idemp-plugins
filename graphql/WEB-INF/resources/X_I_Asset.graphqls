@@ -80,6 +80,7 @@ type I_Asset {
 	# Comment or Hint
 	Help: String
 	UUID: ID!
+	I_Asset_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -191,6 +192,7 @@ input I_AssetInput {
 	# Comment or Hint
 	Help: String
 	UUID: ID
+	I_Asset_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

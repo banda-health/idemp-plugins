@@ -30,6 +30,7 @@ type C_Opportunity {
 	# The Currency for this record
 	C_Currency: C_Currency!
 	UUID: ID!
+	C_Opportunity_UU: String
 	# Order
 	C_Order: C_Order
 	# Stages of the sales process
@@ -77,6 +78,7 @@ input C_OpportunityInput {
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	UUID: ID
+	C_Opportunity_UU: String
 	# Order
 	C_Order: ForeignEntityInput
 	# Stages of the sales process

@@ -40,7 +40,7 @@ public class X_M_RMALineInput extends MRMALine implements I_M_RMALineInput {
 	 */
 	@JsonCreator
 	public X_M_RMALineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -29,7 +29,7 @@ public class X_R_StatusCategoryInput extends MStatusCategory implements I_R_Stat
 	 */
 	@JsonCreator
 	public X_R_StatusCategoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

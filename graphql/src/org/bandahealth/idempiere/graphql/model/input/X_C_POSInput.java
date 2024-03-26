@@ -47,7 +47,7 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 */
 	@JsonCreator
 	public X_C_POSInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

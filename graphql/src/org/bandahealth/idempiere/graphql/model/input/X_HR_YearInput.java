@@ -33,7 +33,7 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 	 */
 	@JsonCreator
 	public X_HR_YearInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -46,6 +46,7 @@ type R_Status {
 	# Move to next status automatically after timeout
 	Next_Status: R_Status
 	UUID: ID!
+	R_Status_UU: String
 	# Request Status Category
 	R_StatusCategory: R_StatusCategory!
 	# Method of ordering records; lowest number comes first
@@ -86,6 +87,7 @@ input R_StatusInput {
 	# Move to next status automatically after timeout
 	Next_Status: ForeignEntityInput
 	UUID: ID
+	R_Status_UU: String
 	# Request Status Category
 	R_StatusCategory: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

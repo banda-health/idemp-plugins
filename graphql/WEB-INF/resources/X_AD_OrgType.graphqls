@@ -22,6 +22,7 @@ type AD_OrgType {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_OrgType_UU: String
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
 	# Date this record was created
@@ -44,6 +45,7 @@ input AD_OrgTypeInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_OrgType_UU: String
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
 	# Optional short description of the record

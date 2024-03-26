@@ -60,6 +60,7 @@ type T_InvoiceGL {
 	# Percentage
 	Percent: BigDecimal
 	UUID: ID!
+	T_InvoiceGL_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -104,4 +105,5 @@ input T_InvoiceGLInput {
 	# Percentage
 	Percent: BigDecimal
 	UUID: ID
+	T_InvoiceGL_UU: String
 }

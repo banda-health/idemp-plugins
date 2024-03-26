@@ -35,7 +35,7 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 	 */
 	@JsonCreator
 	public X_ASP_WindowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

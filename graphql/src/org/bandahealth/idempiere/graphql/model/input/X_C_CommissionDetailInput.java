@@ -8,9 +8,12 @@ import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCommissionAmt;
 import org.compiere.model.MCommissionDetail;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_CommissionDetail - DO NOT CHANGE
@@ -34,7 +37,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 	 */
 	@JsonCreator
 	public X_C_CommissionDetailInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -188,7 +191,7 @@ public class X_C_CommissionDetailInput extends MCommissionDetail implements I_C_
 		}
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

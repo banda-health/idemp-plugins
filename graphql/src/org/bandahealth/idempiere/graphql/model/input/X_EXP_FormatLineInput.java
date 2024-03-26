@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
-import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MEXPFormat;
@@ -25,7 +24,6 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 
 	private ForeignEntityInput mAD_Column;
 	private ForeignEntityInput mAD_Org;
-	private ForeignEntityInput mAD_Reference;
 	private ForeignEntityInput mEXP_EmbeddedFormat;
 	private ForeignEntityInput mEXP_Format;
 	private I_AD_Ref_ListInput mType;
@@ -38,7 +36,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	 */
 	@JsonCreator
 	public X_EXP_FormatLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -111,43 +109,6 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
-	}
-
-	/**
-	 * Set Reference.
-	 *
-	 * @param AD_Reference System Reference and Validation
-	 */
-	@JsonProperty("AD_Reference")
-	public void setAD_ReferenceInput(ForeignEntityInput AD_Reference) {
-		this.mAD_Reference = AD_Reference;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (AD_Reference != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MReference_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Reference_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
-			}
-		} else {
-			this.setAD_Reference_ID(0);
-		}
-	}
-
-	/**
-	 * Get Reference.
-	 *
-	 * @return System Reference and Validation
-	 */
-	@JsonProperty("AD_Reference")
-	public ForeignEntityInput AD_Reference() {
-		return mAD_Reference;
 	}
 
 	/**

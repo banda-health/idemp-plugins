@@ -65,18 +65,4 @@ public interface I_AD_AttachmentInput extends I_AD_Attachment {
 	 * @return Database Table information
 	 */
 	ForeignEntityInput AD_Table();
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	void setUUID(String UUID);
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	String getUUID();
 }

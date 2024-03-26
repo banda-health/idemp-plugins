@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MMovementLine_BH;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -18,6 +17,7 @@ import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.DateUtil;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -148,8 +148,8 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 			}
 
 			// Delete movement lines not on the movement anymore
-			List<MMovementLine_BH> movementsLines = movementLineDBService.getGroupsByIds(MMovementLine_BH::getM_Movement_ID,
-					MMovementLine_BH.COLUMNNAME_M_Movement_ID, Collections.singleton(mMovement.get_ID())).get(mMovement.get_ID());
+			List<MMovementLine> movementsLines = movementLineDBService.getGroupsByIds(MMovementLine::getM_Movement_ID,
+					MMovementLine.COLUMNNAME_M_Movement_ID, Collections.singleton(mMovement.get_ID())).get(mMovement.get_ID());
 			Set<String> expectedMovementLineUuids =
 					entity.getMovementLines().stream().map(MovementLine::getUuid).collect(Collectors.toSet());
 			movementsLines.stream().filter(movementLine -> expectedMovementLineUuids.stream()
@@ -310,8 +310,8 @@ public class MovementDBService extends DocumentDBService<Movement, MMovement_BH>
 		// Get movement lines
 		Set<Integer> movementIds = dbModels.stream().map(MMovement_BH::get_ID).collect(Collectors.toSet());
 		Map<Integer, List<MovementLine>> movementLinesByMovementId = movementLineDBService.transformData(
-				movementLineDBService.getGroupsByIds(MMovementLine_BH::getM_Movement_ID,
-								MMovementLine_BH.COLUMNNAME_M_Movement_ID, movementIds).values().stream().flatMap(Collection::stream)
+				movementLineDBService.getGroupsByIds(MMovementLine::getM_Movement_ID,
+								MMovementLine.COLUMNNAME_M_Movement_ID, movementIds).values().stream().flatMap(Collection::stream)
 						.collect(Collectors.toList())).stream().collect(Collectors.groupingBy(MovementLine::getMovementId));
 
 		List<MUser_BH> users = new Query(Env.getCtx(), MUser_BH.Table_Name,

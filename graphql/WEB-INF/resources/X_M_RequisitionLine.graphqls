@@ -48,6 +48,7 @@ type M_RequisitionLine {
 	# Material Requisition
 	M_Requisition: M_Requisition!
 	UUID: ID!
+	M_RequisitionLine_UU: String
 	# Actual Price 
 	PriceActual: BigDecimal!
 	# Quantity
@@ -84,6 +85,7 @@ input M_RequisitionLineInput {
 	# Material Requisition
 	M_Requisition: ForeignEntityInput
 	UUID: ID
+	M_RequisitionLine_UU: String
 	# Actual Price 
 	PriceActual: BigDecimal
 	# Quantity

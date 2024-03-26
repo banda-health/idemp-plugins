@@ -60,6 +60,7 @@ type T_Report {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID!
+	T_Report_UU: String
 }
 
 input T_ReportInput {
@@ -106,4 +107,5 @@ input T_ReportInput {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	UUID: ID
+	T_Report_UU: String
 }

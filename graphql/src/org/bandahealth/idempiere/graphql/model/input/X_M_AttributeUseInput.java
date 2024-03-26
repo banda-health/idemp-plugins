@@ -33,8 +33,7 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 	 */
 	@JsonCreator
 	public X_M_AttributeUseInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MAttributeUse(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

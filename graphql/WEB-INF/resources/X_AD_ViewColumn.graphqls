@@ -22,6 +22,7 @@ type AD_ViewColumn {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_ViewColumn_UU: String
 	AD_ViewComponent: AD_ViewComponent!
 	# Name of the column in the database
 	ColumnName: String!
@@ -52,6 +53,7 @@ input AD_ViewColumnInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_ViewColumn_UU: String
 	AD_ViewComponent: ForeignEntityInput
 	# Name of the column in the database
 	ColumnName: String

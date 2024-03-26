@@ -24,6 +24,7 @@ type AD_PrintGraph {
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat!
 	UUID: ID!
+	AD_PrintGraph_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input AD_PrintGraphInput {
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	UUID: ID
+	AD_PrintGraph_UU: String
 	# Data Column for Pie and Line Charts
 	Data_PrintFormatItem: ForeignEntityInput
 	# Data Column for Line Charts

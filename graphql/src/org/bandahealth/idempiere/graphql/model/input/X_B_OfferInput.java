@@ -35,7 +35,7 @@ public class X_B_OfferInput extends X_B_Offer implements I_B_OfferInput {
 	 */
 	@JsonCreator
 	public X_B_OfferInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

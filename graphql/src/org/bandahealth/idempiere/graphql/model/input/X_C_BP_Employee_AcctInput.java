@@ -33,8 +33,7 @@ public class X_C_BP_Employee_AcctInput extends X_C_BP_Employee_Acct implements I
 	 */
 	@JsonCreator
 	public X_C_BP_Employee_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_BP_Employee_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

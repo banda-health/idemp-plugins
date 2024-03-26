@@ -18,6 +18,7 @@ type AD_AlertConnection {
 
 type AD_Alert {
 	UUID: ID!
+	AD_Alert_UU: String
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: AD_AlertProcessor!
 	# Tenant for this installation.
@@ -54,6 +55,7 @@ type AD_Alert {
 
 input AD_AlertInput {
 	UUID: ID
+	AD_Alert_UU: String
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: ForeignEntityInput
 	# Organizational entity within tenant

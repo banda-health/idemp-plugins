@@ -18,6 +18,7 @@ type A_RegistrationAttributeConnection {
 
 type A_RegistrationAttribute {
 	UUID: ID!
+	A_RegistrationAttribute_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -50,6 +51,7 @@ type A_RegistrationAttribute {
 
 input A_RegistrationAttributeInput {
 	UUID: ID
+	A_RegistrationAttribute_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation

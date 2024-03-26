@@ -33,7 +33,7 @@ public class X_M_LotInput extends MLot implements I_M_LotInput {
 	 */
 	@JsonCreator
 	public X_M_LotInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

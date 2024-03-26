@@ -20,6 +20,7 @@ type AD_Image {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Image_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_StorageProvider: AD_StorageProvider
@@ -47,6 +48,7 @@ type AD_Image {
 
 input AD_ImageInput {
 	UUID: ID
+	AD_Image_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_StorageProvider: ForeignEntityInput

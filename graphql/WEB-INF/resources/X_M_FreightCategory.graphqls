@@ -32,6 +32,7 @@ type M_FreightCategory {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_FreightCategory_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -52,6 +53,7 @@ input M_FreightCategoryInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_FreightCategory_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

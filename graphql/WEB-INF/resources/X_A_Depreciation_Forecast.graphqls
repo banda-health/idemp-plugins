@@ -18,6 +18,7 @@ type A_Depreciation_ForecastConnection {
 
 type A_Depreciation_Forecast {
 	UUID: ID!
+	A_Depreciation_Forecast_UU: String
 	A_End_Asset: A_Asset!
 	A_Start_Asset: A_Asset!
 	# Tenant for this installation.
@@ -45,6 +46,7 @@ type A_Depreciation_Forecast {
 
 input A_Depreciation_ForecastInput {
 	UUID: ID
+	A_Depreciation_Forecast_UU: String
 	A_End_Asset: ForeignEntityInput
 	A_Start_Asset: ForeignEntityInput
 	# Organizational entity within tenant

@@ -29,7 +29,7 @@ public class X_R_ResolutionInput extends MResolution implements I_R_ResolutionIn
 	 */
 	@JsonCreator
 	public X_R_ResolutionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

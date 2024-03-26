@@ -23,6 +23,7 @@ type AD_Field {
 	# Column in the table
 	AD_Column: AD_Column!
 	UUID: ID!
+	AD_Field_UU: String
 	# Logical grouping of fields
 	AD_FieldGroup: AD_FieldGroup
 	# Field CSS Style 
@@ -131,6 +132,7 @@ input AD_FieldInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	UUID: ID
+	AD_Field_UU: String
 	# Logical grouping of fields
 	AD_FieldGroup: ForeignEntityInput
 	# Field CSS Style 

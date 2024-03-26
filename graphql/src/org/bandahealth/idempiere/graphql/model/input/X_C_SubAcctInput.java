@@ -31,7 +31,7 @@ public class X_C_SubAcctInput extends X_C_SubAcct implements I_C_SubAcctInput {
 	 */
 	@JsonCreator
 	public X_C_SubAcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

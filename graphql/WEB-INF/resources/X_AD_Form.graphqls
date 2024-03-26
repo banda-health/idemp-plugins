@@ -23,6 +23,7 @@ type AD_Form {
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp
 	UUID: ID!
+	AD_Form_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Java Classname
@@ -58,6 +59,7 @@ input AD_FormInput {
 	AccessLevel: AD_Ref_ListInput
 	AD_CtxHelp: ForeignEntityInput
 	UUID: ID
+	AD_Form_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Java Classname

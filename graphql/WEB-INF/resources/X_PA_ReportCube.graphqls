@@ -70,6 +70,7 @@ type PA_ReportCube {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	PA_ReportCube_UU: String
 	Processing: Boolean!
 	# Date this record was updated
 	Updated: Date!
@@ -125,5 +126,6 @@ input PA_ReportCubeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	PA_ReportCube_UU: String
 	Processing: Boolean
 }

@@ -35,7 +35,7 @@ public class X_C_Conversion_RateInput extends MConversionRate implements I_C_Con
 	 */
 	@JsonCreator
 	public X_C_Conversion_RateInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

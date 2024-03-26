@@ -25,6 +25,7 @@ type BH_Observation {
 	AD_Org: AD_Org!
 	BH_Encounter: BH_Encounter!
 	UUID: ID!
+	BH_Observation_UU: String
 	# BH_Value
 	BH_Value: String!
 	# Date this record was created
@@ -46,6 +47,7 @@ input BH_ObservationInput {
 	AD_Org: ForeignEntityInput
 	BH_Encounter: ForeignEntityInput
 	UUID: ID
+	BH_Observation_UU: String
 	# BH_Value
 	BH_Value: String
 	# The record is active in the system

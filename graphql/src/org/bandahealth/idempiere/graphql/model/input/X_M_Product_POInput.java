@@ -38,8 +38,7 @@ public class X_M_Product_POInput extends MProductPO_BH implements I_M_Product_PO
 	 */
 	@JsonCreator
 	public X_M_Product_POInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MProductPO_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

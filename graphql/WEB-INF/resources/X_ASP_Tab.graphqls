@@ -26,6 +26,7 @@ type ASP_Tab {
 	AllFields: Boolean!
 	ASP_Status: AD_Ref_List!
 	UUID: ID!
+	ASP_Tab_UU: String
 	ASP_Window: ASP_Window
 	# Date this record was created
 	Created: Date!
@@ -48,6 +49,7 @@ input ASP_TabInput {
 	AllFields: Boolean
 	ASP_Status: AD_Ref_ListInput
 	UUID: ID
+	ASP_Tab_UU: String
 	ASP_Window: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

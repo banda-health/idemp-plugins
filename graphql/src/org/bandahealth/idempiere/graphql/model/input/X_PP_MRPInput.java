@@ -63,7 +63,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 */
 	@JsonCreator
 	public X_PP_MRPInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

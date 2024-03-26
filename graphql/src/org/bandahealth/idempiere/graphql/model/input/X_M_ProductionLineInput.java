@@ -14,7 +14,6 @@ import org.compiere.model.MProductionPlan;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -40,7 +39,7 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	 */
 	@JsonCreator
 	public X_M_ProductionLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -284,27 +283,5 @@ public class X_M_ProductionLineInput extends MProductionLine implements I_M_Prod
 	@JsonProperty("M_ProductionPlan")
 	public ForeignEntityInput M_ProductionPlan() {
 		return mM_ProductionPlan;
-	}
-	/**
-	 * Set Product Type.
-	 *
-	 * @param ProductType Type of product
-	 */
-
-	public void setProductType(String ProductType) {
-		if (get_ID() == 0) {
-			super.setProductType(ProductType);
-		}
-	}
-	/**
-	 * Set Available Quantity.
-	 *
-	 * @param QtyAvailable Available Quantity (On Hand - Reserved)
-	 */
-
-	public void setQtyAvailable(BigDecimal QtyAvailable) {
-		if (get_ID() == 0) {
-			super.setQtyAvailable(QtyAvailable);
-		}
 	}
 }

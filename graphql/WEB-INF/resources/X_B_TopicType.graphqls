@@ -23,6 +23,7 @@ type B_TopicType {
 	AD_Org: AD_Org!
 	AuctionType: String!
 	UUID: ID!
+	B_TopicType_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,6 +53,7 @@ input B_TopicTypeInput {
 	AD_Org: ForeignEntityInput
 	AuctionType: String
 	UUID: ID
+	B_TopicType_UU: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

@@ -29,6 +29,7 @@ type HR_Year {
 	CreatedBy: AD_User!
 	HR_Payroll: HR_Payroll!
 	UUID: ID!
+	HR_Year_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Net Days in which payment is due
@@ -53,6 +54,7 @@ input HR_YearInput {
 	C_Year: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
 	UUID: ID
+	HR_Year_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Net Days in which payment is due

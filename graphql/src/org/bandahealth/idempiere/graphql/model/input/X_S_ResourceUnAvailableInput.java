@@ -31,7 +31,7 @@ public class X_S_ResourceUnAvailableInput extends MResourceUnAvailable implement
 	 */
 	@JsonCreator
 	public X_S_ResourceUnAvailableInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

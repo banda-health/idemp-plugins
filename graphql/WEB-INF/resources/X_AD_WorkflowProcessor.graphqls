@@ -23,6 +23,7 @@ type AD_WorkflowProcessor {
 	AD_Org: AD_Org!
 	AD_Schedule: AD_Schedule!
 	UUID: ID!
+	AD_WorkflowProcessor_UU: String
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date this record was created
@@ -59,6 +60,7 @@ input AD_WorkflowProcessorInput {
 	AD_Org: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
 	UUID: ID
+	AD_WorkflowProcessor_UU: String
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date the process was last run.

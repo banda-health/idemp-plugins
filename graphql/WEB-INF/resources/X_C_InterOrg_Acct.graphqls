@@ -24,6 +24,7 @@ type C_InterOrg_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_InterOrg_Acct_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input C_InterOrg_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_InterOrg_Acct_UU: String
 	# Intercompany Due From / Receivables Account
 	IntercompanyDueFrom_A: ForeignEntityInput
 	# Intercompany Due To / Payable Account

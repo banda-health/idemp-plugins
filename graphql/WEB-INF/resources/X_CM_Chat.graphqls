@@ -24,6 +24,7 @@ type CM_Chat {
 	# Database Table information
 	AD_Table: AD_Table!
 	UUID: ID!
+	CM_Chat_UU: String
 	# Type of discussion / chat
 	CM_ChatType: CM_ChatType
 	# Type of Confidentiality
@@ -38,7 +39,6 @@ type CM_Chat {
 	IsActive: Boolean!
 	# Type of moderation
 	ModerationType: AD_Ref_List
-	UUID: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -51,6 +51,7 @@ input CM_ChatInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	UUID: ID
+	CM_Chat_UU: String
 	# Type of discussion / chat
 	CM_ChatType: ForeignEntityInput
 	# Type of Confidentiality
@@ -61,5 +62,4 @@ input CM_ChatInput {
 	IsActive: Boolean
 	# Type of moderation
 	ModerationType: AD_Ref_ListInput
-	UUID: ID
 }

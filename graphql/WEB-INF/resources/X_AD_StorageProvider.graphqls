@@ -22,6 +22,7 @@ type AD_StorageProvider {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_StorageProvider_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,6 +51,7 @@ input AD_StorageProviderInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_StorageProvider_UU: String
 	# A folder on a local or remote system to store data into
 	Folder: String
 	# The record is active in the system

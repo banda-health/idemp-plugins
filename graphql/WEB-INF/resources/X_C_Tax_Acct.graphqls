@@ -24,6 +24,7 @@ type C_Tax_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_Tax_Acct_UU: String
 	# Tax identifier
 	C_Tax: C_Tax!
 	# Date this record was created
@@ -50,6 +51,7 @@ input C_Tax_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_Tax_Acct_UU: String
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	# The record is active in the system

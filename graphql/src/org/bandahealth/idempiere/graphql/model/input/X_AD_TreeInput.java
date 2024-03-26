@@ -4,13 +4,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MTree_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MColumn;
 import org.compiere.model.MOrg;
 import org.compiere.model.MTable;
-import org.compiere.model.MTree;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Tree - DO NOT CHANGE
@@ -18,7 +20,7 @@ import org.compiere.util.Env;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
+public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
@@ -33,7 +35,7 @@ public class X_AD_TreeInput extends MTree implements I_AD_TreeInput {
 	 */
 	@JsonCreator
 	public X_AD_TreeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -29,7 +29,7 @@ public class X_AD_PrintFontInput extends X_AD_PrintFont implements I_AD_PrintFon
 	 */
 	@JsonCreator
 	public X_AD_PrintFontInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

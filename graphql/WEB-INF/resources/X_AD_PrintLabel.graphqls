@@ -24,6 +24,7 @@ type AD_PrintLabel {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_PrintLabel_UU: String
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -56,6 +57,7 @@ input AD_PrintLabelInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_PrintLabel_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Optional short description of the record

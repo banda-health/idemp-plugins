@@ -30,6 +30,7 @@ type M_DemandDetail {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_DemandDetail_UU: String
 	# Material Demand Line
 	M_DemandLine: M_DemandLine!
 	# Forecast Line
@@ -50,6 +51,7 @@ input M_DemandDetailInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_DemandDetail_UU: String
 	# Material Demand Line
 	M_DemandLine: ForeignEntityInput
 	# Forecast Line

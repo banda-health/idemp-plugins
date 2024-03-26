@@ -34,6 +34,7 @@ type HR_Contract {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	HR_Contract_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -64,6 +65,7 @@ input HR_ContractInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	HR_Contract_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

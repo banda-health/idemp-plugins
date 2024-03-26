@@ -24,6 +24,7 @@ type C_BPartner_Location {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	UUID: ID!
+	C_BPartner_Location_UU: String
 	# Location or Address
 	C_Location: C_Location!
 	# Sales coverage region
@@ -66,6 +67,7 @@ input C_BPartner_LocationInput {
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	UUID: ID
+	C_BPartner_Location_UU: String
 	# Location or Address
 	C_Location: ForeignEntityInput
 	# Sales coverage region

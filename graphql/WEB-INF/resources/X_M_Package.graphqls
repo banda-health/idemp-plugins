@@ -81,6 +81,7 @@ type M_Package {
 	# Material Shipment Document
 	M_InOut: M_InOut!
 	UUID: ID!
+	M_Package_UU: String
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
 	M_ShipperLabels: M_ShipperLabels
@@ -178,6 +179,7 @@ input M_PackageInput {
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
 	UUID: ID
+	M_Package_UU: String
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	M_ShipperLabels: ForeignEntityInput

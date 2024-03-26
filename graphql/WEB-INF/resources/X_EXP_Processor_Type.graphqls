@@ -28,6 +28,7 @@ type EXP_Processor_Type {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	EXP_Processor_Type_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -49,6 +50,7 @@ input EXP_Processor_TypeInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	EXP_Processor_Type_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

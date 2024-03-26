@@ -32,6 +32,7 @@ type R_ContactInterest {
 	# Date the contact opted out
 	OptOutDate: Date
 	UUID: ID!
+	R_ContactInterest_UU: String
 	# Interest Area or Topic
 	R_InterestArea: R_InterestArea!
 	# Date the contact actively subscribed
@@ -52,6 +53,7 @@ input R_ContactInterestInput {
 	# Date the contact opted out
 	OptOutDate: Date
 	UUID: ID
+	R_ContactInterest_UU: String
 	# Interest Area or Topic
 	R_InterestArea: ForeignEntityInput
 	# Date the contact actively subscribed

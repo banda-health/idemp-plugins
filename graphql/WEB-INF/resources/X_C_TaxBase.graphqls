@@ -24,6 +24,7 @@ type C_TaxBase {
 	# Calculation Base
 	Base: AD_Ref_List
 	UUID: ID!
+	C_TaxBase_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,6 +53,7 @@ input C_TaxBaseInput {
 	# Calculation Base
 	Base: AD_Ref_ListInput
 	UUID: ID
+	C_TaxBase_UU: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

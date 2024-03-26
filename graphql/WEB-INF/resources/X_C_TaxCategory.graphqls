@@ -22,6 +22,7 @@ type C_TaxCategory {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_TaxCategory_UU: String
 	# Commodity code used for tax calculation
 	CommodityCode: String
 	# Date this record was created
@@ -46,6 +47,7 @@ input C_TaxCategoryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_TaxCategory_UU: String
 	# Commodity code used for tax calculation
 	CommodityCode: String
 	# Optional short description of the record

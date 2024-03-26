@@ -24,6 +24,7 @@ type AD_UserDef_Info_Related {
 	AD_Org: AD_Org!
 	AD_UserDef_Info: AD_UserDef_Info!
 	UUID: ID!
+	AD_UserDef_Info_Related_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,6 +53,7 @@ input AD_UserDef_Info_RelatedInput {
 	AD_Org: ForeignEntityInput
 	AD_UserDef_Info: ForeignEntityInput
 	UUID: ID
+	AD_UserDef_Info_Related_UU: String
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed

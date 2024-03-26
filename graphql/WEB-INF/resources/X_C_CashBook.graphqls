@@ -22,6 +22,7 @@ type C_CashBook {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_CashBook_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -46,6 +47,7 @@ input C_CashBookInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_CashBook_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Optional short description of the record

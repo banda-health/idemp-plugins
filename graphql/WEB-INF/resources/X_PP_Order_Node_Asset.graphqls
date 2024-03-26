@@ -32,6 +32,7 @@ type PP_Order_Node_Asset {
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	UUID: ID!
+	PP_Order_Node_Asset_UU: String
 	# Workflow Node (activity), step or process
 	PP_Order_Node: PP_Order_Node!
 	PP_Order_Workflow: PP_Order_Workflow!
@@ -51,6 +52,7 @@ input PP_Order_Node_AssetInput {
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	UUID: ID
+	PP_Order_Node_Asset_UU: String
 	# Workflow Node (activity), step or process
 	PP_Order_Node: ForeignEntityInput
 	PP_Order_Workflow: ForeignEntityInput

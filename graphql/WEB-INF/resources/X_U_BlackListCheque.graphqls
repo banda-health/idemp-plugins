@@ -30,6 +30,7 @@ type U_BlackListCheque {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	U_BlackListCheque_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -44,4 +45,5 @@ input U_BlackListChequeInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	U_BlackListCheque_UU: String
 }

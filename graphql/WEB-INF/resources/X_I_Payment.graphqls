@@ -94,6 +94,7 @@ type I_Payment {
 	# Has this import been processed
 	I_IsImported: Boolean!
 	UUID: ID!
+	I_Payment_UU: String
 	# International Bank Account Number
 	IBAN: String
 	# Document Number of the Invoice
@@ -229,6 +230,7 @@ input I_PaymentInput {
 	# Has this import been processed
 	I_IsImported: Boolean
 	UUID: ID
+	I_Payment_UU: String
 	# International Bank Account Number
 	IBAN: String
 	# Document Number of the Invoice

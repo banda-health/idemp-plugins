@@ -32,6 +32,7 @@ type M_RelatedProduct {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_RelatedProduct_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Related Product
@@ -53,6 +54,7 @@ input M_RelatedProductInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_RelatedProduct_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Related Product

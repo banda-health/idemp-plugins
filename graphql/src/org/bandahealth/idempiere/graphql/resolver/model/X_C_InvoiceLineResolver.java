@@ -35,6 +35,7 @@ import org.compiere.model.MAssetGroup;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
 import org.compiere.model.MProjectTask;
@@ -55,7 +56,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> implements GraphQLResolver<MInvoiceLine_BH> {
+public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements GraphQLResolver<MInvoiceLine> {
 
 
 
@@ -64,7 +65,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Group of Assets
 	 */
-	public CompletableFuture<MAssetGroup> A_Asset_Group(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAssetGroup> A_Asset_Group(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getA_Asset_Group_ID() <= 0) {
 			return null;
 		}
@@ -79,7 +80,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public CompletableFuture<MAsset> A_Asset(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAsset> A_Asset(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getA_Asset_ID() <= 0) {
 			return null;
 		}
@@ -94,7 +95,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 			put("Exp", "4a84ac91-9720-40a2-8529-6a139dabb96a");
 		}
 	};
-	public CompletableFuture<MRefList_BH> A_CapvsExp(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRefList_BH> A_CapvsExp(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (StringUtil.isNullOrEmpty(entity.getA_CapvsExp())) {
 			return null;
 		}
@@ -103,11 +104,11 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 		return dataLoader.load(A_CAPVSEXP_UUIDS_BY_VALUE.get(entity.getA_CapvsExp()));
 	}
 
-	public Boolean A_CreateAsset(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean A_CreateAsset(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		return entity.isA_CreateAsset();
 	}
 
-	public Boolean A_Processed(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean A_Processed(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		return entity.isA_Processed();
 	}
 
@@ -117,7 +118,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return 1099 Box
 	 */
-	public CompletableFuture<X_C_1099Box> C_1099Box(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_C_1099Box> C_1099Box(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_1099Box_ID() <= 0) {
 			return null;
 		}
@@ -132,7 +133,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Business Activity
 	 */
-	public CompletableFuture<MActivity> C_Activity(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MActivity> C_Activity(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Activity_ID() <= 0) {
 			return null;
 		}
@@ -147,7 +148,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Marketing Campaign
 	 */
-	public CompletableFuture<MCampaign> C_Campaign(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCampaign> C_Campaign(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Campaign_ID() <= 0) {
 			return null;
 		}
@@ -162,7 +163,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Additional document charges
 	 */
-	public CompletableFuture<MCharge_BH> C_Charge(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MCharge_BH> C_Charge(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Charge_ID() <= 0) {
 			return null;
 		}
@@ -177,7 +178,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Invoice Identifier
 	 */
-	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Invoice_ID() <= 0) {
 			return null;
 		}
@@ -192,7 +193,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Sales Order Line
 	 */
-	public CompletableFuture<MOrderLine_BH> C_OrderLine(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MOrderLine_BH> C_OrderLine(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_OrderLine_ID() <= 0) {
 			return null;
 		}
@@ -207,7 +208,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Financial Project
 	 */
-	public CompletableFuture<MProject> C_Project(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProject> C_Project(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Project_ID() <= 0) {
 			return null;
 		}
@@ -222,7 +223,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Phase of a Project
 	 */
-	public CompletableFuture<MProjectPhase> C_ProjectPhase(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProjectPhase> C_ProjectPhase(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_ProjectPhase_ID() <= 0) {
 			return null;
 		}
@@ -237,7 +238,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Actual Project Task in a Phase
 	 */
-	public CompletableFuture<MProjectTask> C_ProjectTask(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProjectTask> C_ProjectTask(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_ProjectTask_ID() <= 0) {
 			return null;
 		}
@@ -252,7 +253,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Tax identifier
 	 */
-	public CompletableFuture<MTax> C_Tax(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MTax> C_Tax(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Tax_ID() <= 0) {
 			return null;
 		}
@@ -267,7 +268,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Unit of Measure
 	 */
-	public CompletableFuture<MUOM> C_UOM(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MUOM> C_UOM(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_UOM_ID() <= 0) {
 			return null;
 		}
@@ -276,15 +277,15 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 		return dataLoader.load(entity.getC_UOM_ID());
 	}
 
-	public Boolean IsDescription(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean IsDescription(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		return entity.isDescription();
 	}
 
-	public Boolean IsFixedAssetInvoice(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean IsFixedAssetInvoice(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		return entity.isFixedAssetInvoice();
 	}
 
-	public Boolean IsPrinted(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean IsPrinted(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		return entity.isPrinted();
 	}
 
@@ -294,7 +295,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Product Attribute Set Instance
 	 */
-	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_AttributeSetInstance_ID() <= 0) {
 			return null;
 		}
@@ -309,7 +310,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Line on Shipment or Receipt document
 	 */
-	public CompletableFuture<MInOutLine> M_InOutLine(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInOutLine> M_InOutLine(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InOutLine_ID() <= 0) {
 			return null;
 		}
@@ -324,7 +325,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() <= 0) {
 			return null;
 		}
@@ -339,7 +340,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Return Material Authorization Line
 	 */
-	public CompletableFuture<MRMALine> M_RMALine(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MRMALine> M_RMALine(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getM_RMALine_ID() <= 0) {
 			return null;
 		}
@@ -348,7 +349,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 		return dataLoader.load(entity.getM_RMALine_ID());
 	}
 
-	public Boolean Processed(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public Boolean Processed(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		return entity.isProcessed();
 	}
 
@@ -358,7 +359,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return Resource Assignment
 	 */
-	public CompletableFuture<MResourceAssignment> S_ResourceAssignment(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MResourceAssignment> S_ResourceAssignment(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getS_ResourceAssignment_ID() <= 0) {
 			return null;
 		}
@@ -373,7 +374,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return User defined list element #1
 	 */
-	public CompletableFuture<MElementValue> User1(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MElementValue> User1(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getUser1_ID() <= 0) {
 			return null;
 		}
@@ -388,7 +389,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine_BH> impleme
 	 *
 	 * @return User defined list element #2
 	 */
-	public CompletableFuture<MElementValue> User2(MInvoiceLine_BH entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MElementValue> User2(MInvoiceLine entity, DataFetchingEnvironment environment) {
 		if (entity.getUser2_ID() <= 0) {
 			return null;
 		}

@@ -51,6 +51,7 @@ type S_TimeExpense {
 	Processed: Boolean!
 	Processing: Boolean!
 	UUID: ID!
+	S_TimeExpense_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -86,4 +87,5 @@ input S_TimeExpenseInput {
 	Processed: Boolean
 	Processing: Boolean
 	UUID: ID
+	S_TimeExpense_UU: String
 }

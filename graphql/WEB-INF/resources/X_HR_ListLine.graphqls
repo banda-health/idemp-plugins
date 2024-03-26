@@ -34,6 +34,7 @@ type HR_ListLine {
 	# User who created this records
 	CreatedBy: AD_User!
 	UUID: ID!
+	HR_ListLine_UU: String
 	HR_ListVersion: HR_ListVersion
 	# The record is active in the system
 	IsActive: Boolean!
@@ -59,6 +60,7 @@ input HR_ListLineInput {
 	Col_7: BigDecimal
 	Col_8: BigDecimal
 	UUID: ID
+	HR_ListLine_UU: String
 	HR_ListVersion: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

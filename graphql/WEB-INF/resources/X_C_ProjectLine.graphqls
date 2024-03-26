@@ -30,6 +30,7 @@ type C_ProjectLine {
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue
 	UUID: ID!
+	C_ProjectLine_UU: String
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
@@ -89,6 +90,7 @@ input C_ProjectLineInput {
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput
 	UUID: ID
+	C_ProjectLine_UU: String
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput
 	# Actual Project Task in a Phase

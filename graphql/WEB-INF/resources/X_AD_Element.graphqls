@@ -20,6 +20,7 @@ type AD_Element {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Element_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Name of the column in the database
@@ -57,6 +58,7 @@ type AD_Element {
 
 input AD_ElementInput {
 	UUID: ID
+	AD_Element_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Name of the column in the database

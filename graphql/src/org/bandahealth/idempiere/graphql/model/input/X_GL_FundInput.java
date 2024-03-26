@@ -31,7 +31,7 @@ public class X_GL_FundInput extends X_GL_Fund implements I_GL_FundInput {
 	 */
 	@JsonCreator
 	public X_GL_FundInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

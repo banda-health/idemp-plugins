@@ -22,6 +22,7 @@ type C_Phase {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_Phase_UU: String
 	# Type of the project
 	C_ProjectType: C_ProjectType!
 	# Date this record was created
@@ -52,6 +53,7 @@ input C_PhaseInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_Phase_UU: String
 	# Type of the project
 	C_ProjectType: ForeignEntityInput
 	# Optional short description of the record

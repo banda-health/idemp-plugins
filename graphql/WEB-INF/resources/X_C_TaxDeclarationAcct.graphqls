@@ -42,6 +42,7 @@ type C_TaxDeclarationAcct {
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: C_TaxDeclaration!
 	UUID: ID!
+	C_TaxDeclarationAcct_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -69,6 +70,7 @@ input C_TaxDeclarationAcctInput {
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: ForeignEntityInput
 	UUID: ID
+	C_TaxDeclarationAcct_UU: String
 	# Optional short description of the record
 	Description: String
 	Fact_Acct: ForeignEntityInput

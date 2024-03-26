@@ -38,6 +38,7 @@ type M_ShippingTransactionLine {
 	M_PackageMPS: M_PackageMPS
 	M_ShippingTransaction: M_ShippingTransaction!
 	UUID: ID!
+	M_ShippingTransactionLine_UU: String
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
@@ -72,6 +73,7 @@ input M_ShippingTransactionLineInput {
 	M_PackageMPS: ForeignEntityInput
 	M_ShippingTransaction: ForeignEntityInput
 	UUID: ID
+	M_ShippingTransactionLine_UU: String
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal

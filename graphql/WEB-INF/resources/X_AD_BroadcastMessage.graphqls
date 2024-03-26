@@ -18,6 +18,7 @@ type AD_BroadcastMessageConnection {
 
 type AD_BroadcastMessage {
 	UUID: ID!
+	AD_BroadcastMessage_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -65,6 +66,7 @@ type AD_BroadcastMessage {
 
 input AD_BroadcastMessageInput {
 	UUID: ID
+	AD_BroadcastMessage_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role

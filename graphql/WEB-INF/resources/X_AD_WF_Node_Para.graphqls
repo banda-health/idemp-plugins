@@ -25,6 +25,7 @@ type AD_WF_Node_Para {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	UUID: ID!
+	AD_WF_Node_Para_UU: String
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute
@@ -52,6 +53,7 @@ input AD_WF_Node_ParaInput {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	UUID: ID
+	AD_WF_Node_Para_UU: String
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

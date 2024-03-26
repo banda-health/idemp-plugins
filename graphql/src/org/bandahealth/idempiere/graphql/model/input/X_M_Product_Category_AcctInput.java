@@ -50,8 +50,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	 */
 	@JsonCreator
 	public X_M_Product_Category_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MProductCategoryAcct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -41,6 +41,7 @@ type I_HR_Movement {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID!
+	I_HR_Movement_UU: String
 	# Has this import been processed
 	I_IsImported: String!
 	# The record is active in the system
@@ -83,6 +84,7 @@ input I_HR_MovementInput {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID
+	I_HR_Movement_UU: String
 	# Has this import been processed
 	I_IsImported: String
 	# The record is active in the system

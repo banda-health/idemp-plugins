@@ -24,6 +24,7 @@ type C_ServiceLevel {
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
 	UUID: ID!
+	C_ServiceLevel_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -53,6 +54,7 @@ input C_ServiceLevelInput {
 	# Plan for recognizing or recording revenue
 	C_RevenueRecognition_Plan: ForeignEntityInput
 	UUID: ID
+	C_ServiceLevel_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

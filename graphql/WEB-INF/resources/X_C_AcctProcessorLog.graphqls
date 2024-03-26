@@ -26,6 +26,7 @@ type C_AcctProcessorLog {
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: C_AcctProcessor!
 	UUID: ID!
+	C_AcctProcessorLog_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,6 +57,7 @@ input C_AcctProcessorLogInput {
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: ForeignEntityInput
 	UUID: ID
+	C_AcctProcessorLog_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

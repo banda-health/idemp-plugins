@@ -39,6 +39,7 @@ type R_IssueKnown {
 	LoggerName: String
 	Processing: Boolean!
 	UUID: ID!
+	R_IssueKnown_UU: String
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: R_IssueRecommendation
 	# Status of an Issue
@@ -74,6 +75,7 @@ input R_IssueKnownInput {
 	LoggerName: String
 	Processing: Boolean
 	UUID: ID
+	R_IssueKnown_UU: String
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: ForeignEntityInput
 	# Status of an Issue

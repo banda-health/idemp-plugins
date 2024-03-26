@@ -44,6 +44,7 @@ type GL_DistributionLine {
 	# General Ledger Distribution
 	GL_Distribution: GL_Distribution!
 	UUID: ID!
+	GL_DistributionLine_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Unique line for this document
@@ -110,6 +111,7 @@ input GL_DistributionLineInput {
 	# General Ledger Distribution
 	GL_Distribution: ForeignEntityInput
 	UUID: ID
+	GL_DistributionLine_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Unique line for this document

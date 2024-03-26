@@ -24,6 +24,7 @@ import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MInvoiceBatch;
 import org.compiere.model.MInvoiceBatchLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MProject;
 import org.compiere.model.MTax;
 import org.dataloader.DataLoader;
@@ -165,11 +166,11 @@ public class X_C_InvoiceBatchLineResolver extends POResolver<MInvoiceBatchLine> 
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MInvoiceBatchLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

@@ -28,6 +28,7 @@ type AD_PrintLabelLine {
 	# Label Format to print
 	AD_PrintLabel: AD_PrintLabel!
 	UUID: ID!
+	AD_PrintLabelLine_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,6 +63,7 @@ input AD_PrintLabelLineInput {
 	# Label Format to print
 	AD_PrintLabel: ForeignEntityInput
 	UUID: ID
+	AD_PrintLabelLine_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Label Format Type

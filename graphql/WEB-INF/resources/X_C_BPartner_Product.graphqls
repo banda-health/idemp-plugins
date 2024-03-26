@@ -24,6 +24,7 @@ type C_BPartner_Product {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	UUID: ID!
+	C_BPartner_Product_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input C_BPartner_ProductInput {
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	UUID: ID
+	C_BPartner_Product_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

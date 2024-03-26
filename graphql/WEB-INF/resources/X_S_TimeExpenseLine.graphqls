@@ -86,6 +86,7 @@ type S_TimeExpenseLine {
 	# Time and Expense Report
 	S_TimeExpense: S_TimeExpense!
 	UUID: ID!
+	S_TimeExpenseLine_UU: String
 	# Type of time recorded
 	S_TimeType: S_TimeType
 	# Date this record was updated
@@ -158,6 +159,7 @@ input S_TimeExpenseLineInput {
 	# Time and Expense Report
 	S_TimeExpense: ForeignEntityInput
 	UUID: ID
+	S_TimeExpenseLine_UU: String
 	# Type of time recorded
 	S_TimeType: ForeignEntityInput
 }

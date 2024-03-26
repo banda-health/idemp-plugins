@@ -50,6 +50,7 @@ type M_Requisition {
 	# Unique identifier of a Price List
 	M_PriceList: M_PriceList!
 	UUID: ID!
+	M_Requisition_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Posting status
@@ -97,6 +98,7 @@ input M_RequisitionInput {
 	# Unique identifier of a Price List
 	M_PriceList: ForeignEntityInput
 	UUID: ID
+	M_Requisition_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Posting status

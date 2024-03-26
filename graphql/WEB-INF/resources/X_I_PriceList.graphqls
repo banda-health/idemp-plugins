@@ -44,6 +44,7 @@ type I_PriceList {
 	# Has this import been processed
 	I_IsImported: Boolean!
 	UUID: ID!
+	I_PriceList_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Three letter ISO 4217 Code of the Currency
@@ -105,6 +106,7 @@ input I_PriceListInput {
 	# Has this import been processed
 	I_IsImported: Boolean
 	UUID: ID
+	I_PriceList_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Three letter ISO 4217 Code of the Currency

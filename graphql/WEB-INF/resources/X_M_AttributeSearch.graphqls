@@ -30,6 +30,7 @@ type M_AttributeSearch {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_AttributeSearch_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -46,6 +47,7 @@ input M_AttributeSearchInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_AttributeSearch_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 }

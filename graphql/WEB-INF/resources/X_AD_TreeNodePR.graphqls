@@ -24,6 +24,7 @@ type AD_TreeNodePR {
 	# Identifies a Tree
 	AD_Tree: AD_Tree!
 	UUID: ID!
+	AD_TreeNodePR_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,6 +45,7 @@ input AD_TreeNodePRInput {
 	# Identifies a Tree
 	AD_Tree: ForeignEntityInput
 	UUID: ID
+	AD_TreeNodePR_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Method of ordering records; lowest number comes first

@@ -48,6 +48,7 @@ type T_DistributionRunDetail {
 	# Relative Ratio for Distributions
 	Ratio: BigDecimal!
 	UUID: ID!
+	T_DistributionRunDetail_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -80,4 +81,5 @@ input T_DistributionRunDetailInput {
 	# Relative Ratio for Distributions
 	Ratio: BigDecimal
 	UUID: ID
+	T_DistributionRunDetail_UU: String
 }

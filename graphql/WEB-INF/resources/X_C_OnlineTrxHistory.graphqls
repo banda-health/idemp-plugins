@@ -24,6 +24,7 @@ type C_OnlineTrxHistory {
 	# Database Table information
 	AD_Table: AD_Table!
 	UUID: ID!
+	C_OnlineTrxHistory_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input C_OnlineTrxHistoryInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	UUID: ID
+	C_OnlineTrxHistory_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# An Error occurred in the execution

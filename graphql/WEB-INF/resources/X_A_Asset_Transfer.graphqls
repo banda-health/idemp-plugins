@@ -27,6 +27,7 @@ type A_Asset_Transfer {
 	A_Asset: A_Asset!
 	A_Asset_New_A: C_ValidCombination!
 	UUID: ID!
+	A_Asset_Transfer_UU: String
 	A_CapvsExp: AD_Ref_List!
 	A_Depreciation_A: C_ValidCombination
 	A_Depreciation_Acct_Str: String
@@ -94,6 +95,7 @@ input A_Asset_TransferInput {
 	A_Asset: ForeignEntityInput
 	A_Asset_New_A: ForeignEntityInput
 	UUID: ID
+	A_Asset_Transfer_UU: String
 	A_CapvsExp: AD_Ref_ListInput
 	A_Depreciation_A: ForeignEntityInput
 	A_Depreciation_Acct_Str: String

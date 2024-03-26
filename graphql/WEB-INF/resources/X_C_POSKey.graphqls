@@ -28,6 +28,7 @@ type C_POSKey {
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont
 	UUID: ID!
+	C_POSKey_UU: String
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout!
 	# Date this record was created
@@ -69,6 +70,7 @@ input C_POSKeyInput {
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
 	UUID: ID
+	C_POSKey_UU: String
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
 	# Optional short description of the record

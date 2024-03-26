@@ -44,6 +44,7 @@ type C_ValidCombination {
 	# Sub account for Element Value
 	C_SubAcct: C_SubAcct
 	UUID: ID!
+	C_ValidCombination_UU: String
 	# Unique combination of account elements
 	Combination: String
 	# Date this record was created
@@ -94,6 +95,7 @@ input C_ValidCombinationInput {
 	# Sub account for Element Value
 	C_SubAcct: ForeignEntityInput
 	UUID: ID
+	C_ValidCombination_UU: String
 	# Unique combination of account elements
 	Combination: String
 	# Optional short description of the record

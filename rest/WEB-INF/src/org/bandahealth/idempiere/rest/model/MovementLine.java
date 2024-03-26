@@ -1,12 +1,11 @@
 package org.bandahealth.idempiere.rest.model;
 
-import java.math.BigDecimal;
-
-import org.bandahealth.idempiere.base.model.MMovementLine_BH;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.compiere.model.MMovementLine;
+
+import java.math.BigDecimal;
 
 @JsonInclude(value = Include.NON_NULL)
 public class MovementLine extends BaseEntity {
@@ -31,7 +30,7 @@ public class MovementLine extends BaseEntity {
 	public MovementLine() {
 	}
 
-	public MovementLine(MMovementLine_BH entity) {
+	public MovementLine(MMovementLine entity) {
 		super(entity, null, entity.getDescription(), entity.getValue());
 
 		setMovementId(entity.getM_Movement_ID());

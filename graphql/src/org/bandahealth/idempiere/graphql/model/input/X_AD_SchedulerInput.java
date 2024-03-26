@@ -43,7 +43,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	 */
 	@JsonCreator
 	public X_AD_SchedulerInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -321,17 +321,6 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	@JsonProperty("ReportOutputType")
 	public I_AD_Ref_ListInput ReportOutputType() {
 		return mReportOutputType;
-	}
-	/**
-	 * Set Scheduler State.
-	 *
-	 * @param SchedulerState State of this scheduler record (not scheduled, started or stopped)
-	 */
-
-	public void setSchedulerState(Object SchedulerState) {
-		if (get_ID() == 0) {
-			super.setSchedulerState(SchedulerState);
-		}
 	}
 
 	/**

@@ -35,7 +35,7 @@ public class X_C_BPartner_LocationInput extends MBPartnerLocation implements I_C
 	 */
 	@JsonCreator
 	public X_C_BPartner_LocationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

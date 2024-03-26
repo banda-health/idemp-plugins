@@ -48,6 +48,7 @@ type PA_Report {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	PA_Report_UU: String
 	# Collection of Columns for Report
 	PA_ReportColumnSet: PA_ReportColumnSet!
 	# Define reporting cube for pre-calculation of summary accounting data.
@@ -86,6 +87,7 @@ input PA_ReportInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	PA_Report_UU: String
 	# Collection of Columns for Report
 	PA_ReportColumnSet: ForeignEntityInput
 	# Define reporting cube for pre-calculation of summary accounting data.

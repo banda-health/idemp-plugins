@@ -34,8 +34,7 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 */
 	@JsonCreator
 	public X_T_ReportInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_T_Report(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

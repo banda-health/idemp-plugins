@@ -93,18 +93,4 @@ public interface I_CM_ChatInput extends I_CM_Chat {
 	 * @return Type of moderation
 	 */
 	I_AD_Ref_ListInput ModerationType();
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	void setUUID(String UUID);
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	String getUUID();
 }

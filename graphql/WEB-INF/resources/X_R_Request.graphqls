@@ -114,6 +114,7 @@ type R_Request {
 	# Text templates for mailings
 	R_MailText: R_MailText
 	UUID: ID!
+	R_Request_UU: String
 	# Related Request (Master Issue, ..)
 	R_RequestRelated: R_Request
 	# Type of request (e.g. Inquiry, Complaint, ..)
@@ -124,7 +125,6 @@ type R_Request {
 	R_StandardResponse: R_StandardResponse
 	# Request Status
 	R_Status: R_Status
-	UUID: ID!
 	# Amount associated with this request
 	RequestAmt: BigDecimal!
 	# Result of the action taken
@@ -237,6 +237,7 @@ input R_RequestInput {
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
 	UUID: ID
+	R_Request_UU: String
 	# Related Request (Master Issue, ..)
 	R_RequestRelated: ForeignEntityInput
 	# Type of request (e.g. Inquiry, Complaint, ..)
@@ -247,7 +248,6 @@ input R_RequestInput {
 	R_StandardResponse: ForeignEntityInput
 	# Request Status
 	R_Status: ForeignEntityInput
-	UUID: ID
 	# Amount associated with this request
 	RequestAmt: BigDecimal
 	# Result of the action taken

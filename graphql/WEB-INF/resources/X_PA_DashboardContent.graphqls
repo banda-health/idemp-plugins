@@ -62,6 +62,7 @@ type PA_DashboardContent {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	PA_DashboardContent_UU: String
 	# Performance Goal
 	PA_Goal: PA_Goal
 	# Comma separated process parameter list
@@ -114,6 +115,7 @@ input PA_DashboardContentInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	PA_DashboardContent_UU: String
 	# Performance Goal
 	PA_Goal: ForeignEntityInput
 	# Comma separated process parameter list

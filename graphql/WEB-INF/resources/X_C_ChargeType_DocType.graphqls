@@ -22,6 +22,7 @@ type C_ChargeType_DocType {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_ChargeType_DocType_UU: String
 	C_ChargeType: C_ChargeType!
 	# Document type or rules
 	C_DocType: C_DocType!
@@ -43,6 +44,7 @@ input C_ChargeType_DocTypeInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_ChargeType_DocType_UU: String
 	C_ChargeType: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput

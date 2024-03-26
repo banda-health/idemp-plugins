@@ -31,6 +31,7 @@ type AD_ToolBarButtonRestrict {
 	AD_Tab: AD_Tab
 	AD_ToolBarButton: AD_ToolBarButton
 	UUID: ID!
+	AD_ToolBarButtonRestrict_UU: String
 	# Data entry or display window
 	AD_Window: AD_Window
 	# Date this record was created
@@ -60,6 +61,7 @@ input AD_ToolBarButtonRestrictInput {
 	AD_Tab: ForeignEntityInput
 	AD_ToolBarButton: ForeignEntityInput
 	UUID: ID
+	AD_ToolBarButtonRestrict_UU: String
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# The record is active in the system

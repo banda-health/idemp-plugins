@@ -22,6 +22,7 @@ type C_CyclePhase {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_CyclePhase_UU: String
 	# The step for this Cycle
 	C_CycleStep: C_CycleStep!
 	# Standard Phase of the Project Type
@@ -42,6 +43,7 @@ input C_CyclePhaseInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_CyclePhase_UU: String
 	# The step for this Cycle
 	C_CycleStep: ForeignEntityInput
 	# Standard Phase of the Project Type

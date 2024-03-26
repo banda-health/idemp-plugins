@@ -20,6 +20,7 @@ type A_Asset_Use {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UUID: ID!
+	A_Asset_Use_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -45,6 +46,7 @@ input A_Asset_UseInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Asset_Use_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

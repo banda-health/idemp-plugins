@@ -20,6 +20,7 @@ type AD_Document_Action_Access {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Document_Action_Access_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Reference List based on Table
@@ -42,6 +43,7 @@ type AD_Document_Action_Access {
 
 input AD_Document_Action_AccessInput {
 	UUID: ID
+	AD_Document_Action_Access_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Reference List based on Table

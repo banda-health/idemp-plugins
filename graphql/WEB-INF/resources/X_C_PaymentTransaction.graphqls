@@ -70,6 +70,7 @@ type C_PaymentTransaction {
 	# Payment processor for electronic payments
 	C_PaymentProcessor: C_PaymentProcessor
 	UUID: ID!
+	C_PaymentTransaction_UU: String
 	C_POSTenderType: C_POSTenderType
 	# Financial Project
 	C_Project: C_Project
@@ -214,6 +215,7 @@ input C_PaymentTransactionInput {
 	# Payment processor for electronic payments
 	C_PaymentProcessor: ForeignEntityInput
 	UUID: ID
+	C_PaymentTransaction_UU: String
 	C_POSTenderType: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput

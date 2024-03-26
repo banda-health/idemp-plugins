@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
 import org.bandahealth.idempiere.graphql.repository.Repository;
+import org.compiere.model.MInvoiceLine;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
 import org.dataloader.MappedBatchLoaderWithContext;
@@ -18,9 +19,9 @@ public class MInvoiceLineDataLoader extends X_C_InvoiceLineDataLoader {
 				DataLoader.newMappedDataLoader(getByInvoiceIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
-	private MappedBatchLoaderWithContext<String, List<MInvoiceLine_BH>> getByInvoiceIdBatchLoader() {
+	private MappedBatchLoaderWithContext<String, List<MInvoiceLine>> getByInvoiceIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
-				batchLoaderEnvironment.getContext(), getTableName(), null, MInvoiceLine_BH::getC_Invoice_ID,
-				MInvoiceLine_BH.COLUMNNAME_C_Invoice_ID, keys);
+				batchLoaderEnvironment.getContext(), getTableName(), null, MInvoiceLine::getC_Invoice_ID,
+				MInvoiceLine.COLUMNNAME_C_Invoice_ID, keys);
 	}
 }

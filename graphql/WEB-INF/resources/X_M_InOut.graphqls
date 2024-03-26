@@ -105,6 +105,7 @@ type M_InOut {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
 	UUID: ID!
+	M_InOut_UU: String
 	# Return Material Authorization
 	M_RMA: M_RMA
 	# Method or manner of product delivery
@@ -241,6 +242,7 @@ input M_InOutInput {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
 	UUID: ID
+	M_InOut_UU: String
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
 	# Method or manner of product delivery

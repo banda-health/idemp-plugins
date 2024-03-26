@@ -318,9 +318,11 @@ public class GraphQLSchemaGenerator {
 				}
 			}
 			return;
-		} else if (columnName.endsWith("_UU")) {
+		} else if (columnName.equalsIgnoreCase(MTable.get(AD_Table_ID).getTableName() + "_UU")) {
 			generatedColumns.regularModel.append("\tUUID: ID!\n");
 			generatedColumns.inputModel.append("\tUUID: ID\n");
+		} else if (columnName.endsWith("_UU")) {
+			log.warning("Did not generate a field for: " + columnName);
 			return;
 		} else if (IsKey) {
 			return;

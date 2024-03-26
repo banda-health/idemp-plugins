@@ -22,6 +22,7 @@ type B_TopicCategory {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	B_TopicCategory_UU: String
 	# Auction Topic Type
 	B_TopicType: B_TopicType!
 	# Date this record was created
@@ -44,6 +45,7 @@ input B_TopicCategoryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	B_TopicCategory_UU: String
 	# Auction Topic Type
 	B_TopicType: ForeignEntityInput
 	# Optional short description of the record

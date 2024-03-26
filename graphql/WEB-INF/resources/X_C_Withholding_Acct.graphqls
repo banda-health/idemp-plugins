@@ -24,6 +24,7 @@ type C_Withholding_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_Withholding_Acct_UU: String
 	# Withholding type defined
 	C_Withholding: C_Withholding!
 	# Date this record was created
@@ -46,6 +47,7 @@ input C_Withholding_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_Withholding_Acct_UU: String
 	# Withholding type defined
 	C_Withholding: ForeignEntityInput
 	# The record is active in the system

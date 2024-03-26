@@ -22,6 +22,7 @@ type C_Dunning {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_Dunning_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input C_DunningInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_Dunning_UU: String
 	# Create Dunning Letter by level sequentially
 	CreateLevelsSequentially: Boolean
 	# Optional short description of the record

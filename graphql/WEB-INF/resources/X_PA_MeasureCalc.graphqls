@@ -44,6 +44,7 @@ type PA_MeasureCalc {
 	# Fully qualified Organization column (AD_Org_ID)
 	OrgColumn: String!
 	UUID: ID!
+	PA_MeasureCalc_UU: String
 	# Fully qualified Product column (M_Product_ID)
 	ProductColumn: String
 	# SQL SELECT clause
@@ -78,6 +79,7 @@ input PA_MeasureCalcInput {
 	# Fully qualified Organization column (AD_Org_ID)
 	OrgColumn: String
 	UUID: ID
+	PA_MeasureCalc_UU: String
 	# Fully qualified Product column (M_Product_ID)
 	ProductColumn: String
 	# SQL SELECT clause

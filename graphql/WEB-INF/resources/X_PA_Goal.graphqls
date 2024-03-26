@@ -60,6 +60,7 @@ type PA_Goal {
 	# Performance Color Schema
 	PA_ColorSchema: PA_ColorSchema!
 	UUID: ID!
+	PA_Goal_UU: String
 	# Parent Goal
 	PA_GoalParent: PA_Goal
 	# Concrete Performance Measurement
@@ -112,6 +113,7 @@ input PA_GoalInput {
 	# Performance Color Schema
 	PA_ColorSchema: ForeignEntityInput
 	UUID: ID
+	PA_Goal_UU: String
 	# Parent Goal
 	PA_GoalParent: ForeignEntityInput
 	# Concrete Performance Measurement

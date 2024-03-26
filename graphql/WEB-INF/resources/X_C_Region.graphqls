@@ -24,6 +24,7 @@ type C_Region {
 	# Country 
 	C_Country: C_Country!
 	UUID: ID!
+	C_Region_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input C_RegionInput {
 	# Country 
 	C_Country: ForeignEntityInput
 	UUID: ID
+	C_Region_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

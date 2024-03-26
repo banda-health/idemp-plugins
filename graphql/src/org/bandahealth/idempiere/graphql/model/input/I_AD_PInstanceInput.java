@@ -135,18 +135,4 @@ public interface I_AD_PInstanceInput extends I_AD_PInstance {
 	 * @return Type of Notifications
 	 */
 	I_AD_Ref_ListInput NotificationType();
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	void setUUID(String UUID);
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	String getUUID();
 }

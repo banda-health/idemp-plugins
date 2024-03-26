@@ -41,7 +41,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 */
 	@JsonCreator
 	public X_C_AcctSchemaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

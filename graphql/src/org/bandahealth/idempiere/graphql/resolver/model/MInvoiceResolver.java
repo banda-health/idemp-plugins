@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MAllocationLineDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInvoiceLineDataLoader;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAllocationLine;
+import org.compiere.model.MInvoiceLine;
 import org.dataloader.DataLoader;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class MInvoiceResolver extends X_C_InvoiceResolver {
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_Invoice_ID()));
 	}
 
-	public CompletableFuture<List<MInvoiceLine_BH>> C_InvoiceLines(MInvoice_BH entity,
+	public CompletableFuture<List<MInvoiceLine>> C_InvoiceLines(MInvoice_BH entity,
 			DataFetchingEnvironment environment) {
-		DataLoader<String, List<MInvoiceLine_BH>> dataLoader = environment.getDataLoaderRegistry()
+		DataLoader<String, List<MInvoiceLine>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MInvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_C_Invoice_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_Invoice_ID()));
 	}

@@ -38,6 +38,7 @@ type C_InvoiceBatchLine {
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: C_InvoiceBatch!
 	UUID: ID!
+	C_InvoiceBatchLine_UU: String
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
 	# Financial Project
@@ -104,6 +105,7 @@ input C_InvoiceBatchLineInput {
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: ForeignEntityInput
 	UUID: ID
+	C_InvoiceBatchLine_UU: String
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	# Financial Project

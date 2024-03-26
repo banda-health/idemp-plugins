@@ -38,7 +38,7 @@ public class X_T_BOM_IndentedInput extends X_T_BOM_Indented implements I_T_BOM_I
 	 */
 	@JsonCreator
 	public X_T_BOM_IndentedInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

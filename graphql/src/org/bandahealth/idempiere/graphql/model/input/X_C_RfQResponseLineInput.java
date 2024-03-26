@@ -33,7 +33,7 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 	 */
 	@JsonCreator
 	public X_C_RfQResponseLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

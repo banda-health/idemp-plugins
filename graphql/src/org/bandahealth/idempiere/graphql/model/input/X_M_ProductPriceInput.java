@@ -33,7 +33,7 @@ public class X_M_ProductPriceInput extends MProductPrice_BH implements I_M_Produ
 	 */
 	@JsonCreator
 	public X_M_ProductPriceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -175,16 +175,5 @@ public class X_M_ProductPriceInput extends MProductPrice_BH implements I_M_Produ
 	 */
 	public String getUUID() {
 		return getM_ProductPrice_UU();
-	}
-	/**
-	 * Set Product Name.
-	 *
-	 * @param ProductName Name of the Product
-	 */
-
-	public void setProductName(String ProductName) {
-		if (get_ID() == 0) {
-			super.setProductName(ProductName);
-		}
 	}
 }

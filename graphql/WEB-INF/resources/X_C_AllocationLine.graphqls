@@ -26,6 +26,7 @@ type C_AllocationLine {
 	# Payment allocation
 	C_AllocationHdr: C_AllocationHdr!
 	UUID: ID!
+	C_AllocationLine_UU: String
 	# Bank Transfer
 	C_BankTransfer: C_BankTransfer
 	# Identifies a Business Partner
@@ -70,6 +71,7 @@ input C_AllocationLineInput {
 	# Payment allocation
 	C_AllocationHdr: ForeignEntityInput
 	UUID: ID
+	C_AllocationLine_UU: String
 	# Bank Transfer
 	C_BankTransfer: ForeignEntityInput
 	# Identifies a Business Partner

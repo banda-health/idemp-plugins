@@ -153,18 +153,8 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t * @param UUID The ").append(tableName).append("_UU to fetch this entity from the DB\n\t */\n")
 					.append("\t@JsonCreator\n")
 					.append("\tpublic ").append(className).append("(@JsonProperty(\"UUID\") String UUID) {\n");
-			// If we have the UUID, we can leverage the ID constructor
-			// Otherwise we'll use the result set constructor
-			if (hasIDColumn) {
-				generatedClass
-						.append("\t\tsuper(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);\n");
-			} else {
-				generatedClass
-						.append("\t\tsuper(Env.getCtx(), ModelUtil.getModelResultSet(new ")
-						.append(tableStructureExtensions.getClassName())
-						.append("(null, (ResultSet) null, null),\n")
-						.append("\t\t\t\tnull, Table_Name, UUID), null);\n");
-			}
+			generatedClass
+					.append("\t\tsuper(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);\n");
 			generatedClass
 					.append("\t\tsetUUID(UUID);\n")
 					.append("\t}");
@@ -289,7 +279,7 @@ public class GraphQLInputModelClassGenerator {
 		StringBuilder columnBuilder = new StringBuilder();
 
 		if (columnName.equals("Created") || columnName.equals("CreatedBy") || columnName.equals("Updated") ||
-				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID")) {
+				columnName.equals("UpdatedBy") || columnName.equals("AD_Client_ID") || virtualColumn) {
 			return "";
 		}
 
@@ -413,7 +403,7 @@ public class GraphQLInputModelClassGenerator {
 //			addImportClass(clazz);
 
 			return columnBuilder.toString();
-		} else if (columnName.endsWith("_UU")) {
+		} else if (columnName.equalsIgnoreCase(MTable.get(AD_Table_ID).getTableName() + "_UU")) {
 			// If this is the UUID column, we need to generate the UUID fields
 			columnBuilder.append("\n");
 			generateJavaSetComment("UUID", "UUID", Description, columnBuilder);
@@ -429,6 +419,9 @@ public class GraphQLInputModelClassGenerator {
 
 			// Since the UUID is always defined on the base, generated model, return
 			return columnBuilder.toString();
+		} else if (columnName.endsWith("_UU")) {
+			log.warning("Did not generate a field for: " + columnName);
+			return "";
 		}
 //
 //		// If the column is user-maintained and the table isn't, we need to generate

@@ -29,6 +29,7 @@ type AD_Process {
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
 	UUID: ID!
+	AD_Process_UU: String
 	# View used to generate this report
 	AD_ReportView: AD_ReportView
 	# Workflow or combination of tasks
@@ -91,6 +92,7 @@ input AD_ProcessInput {
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	UUID: ID
+	AD_Process_UU: String
 	# View used to generate this report
 	AD_ReportView: ForeignEntityInput
 	# Workflow or combination of tasks

@@ -23,6 +23,7 @@ type C_AddressValidationCfg {
 	AD_Org: AD_Org!
 	AddressValidationClass: String
 	UUID: ID!
+	C_AddressValidationCfg_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -57,6 +58,7 @@ input C_AddressValidationCfgInput {
 	AD_Org: ForeignEntityInput
 	AddressValidationClass: String
 	UUID: ID
+	C_AddressValidationCfg_UU: String
 	# Optional short description of the record
 	Description: String
 	# Host Address URL or DNS

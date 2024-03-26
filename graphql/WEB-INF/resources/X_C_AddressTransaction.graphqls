@@ -32,6 +32,7 @@ type C_AddressTransaction {
 	# Address Line 5 for the location
 	Address5: String
 	UUID: ID!
+	C_AddressTransaction_UU: String
 	C_AddressValidation: C_AddressValidation!
 	# Location or Address
 	C_Location: C_Location
@@ -75,6 +76,7 @@ input C_AddressTransactionInput {
 	# Address Line 5 for the location
 	Address5: String
 	UUID: ID
+	C_AddressTransaction_UU: String
 	C_AddressValidation: ForeignEntityInput
 	# Location or Address
 	C_Location: ForeignEntityInput

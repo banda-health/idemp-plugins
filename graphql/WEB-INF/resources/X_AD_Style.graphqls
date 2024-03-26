@@ -22,6 +22,8 @@ type AD_Style {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	# CSS Style for field and label
+	AD_Style_UU: String!
 	# Date this record was created
 	Created: Date
 	# User who created this records
@@ -46,6 +48,8 @@ input AD_StyleInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	# CSS Style for field and label
+	AD_Style_UU: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

@@ -9,14 +9,14 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAsset;
 import org.compiere.model.MForm;
 import org.compiere.model.MIssue;
-import org.compiere.model.MIssueProject;
-import org.compiere.model.MIssueSystem;
-import org.compiere.model.MIssueUser;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRequest;
 import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_R_IssueKnown;
+import org.compiere.model.X_R_IssueProject;
+import org.compiere.model.X_R_IssueSystem;
+import org.compiere.model.X_R_IssueUser;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -52,7 +52,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 */
 	@JsonCreator
 	public X_AD_IssueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -495,7 +495,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 		this.mR_IssueProject = R_IssueProject;
 		if (R_IssueProject != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MIssueProject foreignEntity;
+			X_R_IssueProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueProject", "R_IssueProject_UU=?", get_TrxName())
 							.setParameters(R_IssueProject.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -529,7 +529,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 		this.mR_IssueSystem = R_IssueSystem;
 		if (R_IssueSystem != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MIssueSystem foreignEntity;
+			X_R_IssueSystem foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueSystem", "R_IssueSystem_UU=?", get_TrxName())
 							.setParameters(R_IssueSystem.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -563,7 +563,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 		this.mR_IssueUser = R_IssueUser;
 		if (R_IssueUser != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MIssueUser foreignEntity;
+			X_R_IssueUser foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_IssueUser", "R_IssueUser_UU=?", get_TrxName())
 							.setParameters(R_IssueUser.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

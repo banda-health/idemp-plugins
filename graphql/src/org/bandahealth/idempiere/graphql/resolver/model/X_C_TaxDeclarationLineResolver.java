@@ -13,6 +13,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceLineDataLoad
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_TaxDeclarationDataLoader;
 import org.compiere.model.MAllocationLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MTax;
 import org.compiere.model.MTaxDeclaration;
 import org.compiere.model.MTaxDeclarationLine;
@@ -95,11 +96,11 @@ public class X_C_TaxDeclarationLineResolver extends POResolver<MTaxDeclarationLi
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MTaxDeclarationLine entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

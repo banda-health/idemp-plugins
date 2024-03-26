@@ -18,6 +18,7 @@ type A_Asset_DeliveryConnection {
 
 type A_Asset_Delivery {
 	UUID: ID!
+	A_Asset_Delivery_UU: String
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	# Tenant for this installation.
@@ -68,6 +69,7 @@ type A_Asset_Delivery {
 
 input A_Asset_DeliveryInput {
 	UUID: ID
+	A_Asset_Delivery_UU: String
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	# Organizational entity within tenant

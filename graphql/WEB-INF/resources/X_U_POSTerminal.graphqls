@@ -77,6 +77,7 @@ type U_POSTerminal {
 	SalesRep: AD_User
 	SO_PriceList: M_PriceList
 	UUID: ID!
+	U_POSTerminal_UU: String
 	# Time at which the terminal should be unlocked
 	UnlockingTime: Date
 	# Date this record was updated
@@ -142,6 +143,7 @@ input U_POSTerminalInput {
 	SalesRep: ForeignEntityInput
 	SO_PriceList: ForeignEntityInput
 	UUID: ID
+	U_POSTerminal_UU: String
 	# Time at which the terminal should be unlocked
 	UnlockingTime: Date
 	# Search key for the record in the format required - must be unique

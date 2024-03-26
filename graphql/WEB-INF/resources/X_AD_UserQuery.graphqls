@@ -30,6 +30,7 @@ type AD_UserQuery {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
 	UUID: ID!
+	AD_UserQuery_UU: String
 	# Data entry or display window
 	AD_Window: AD_Window!
 	# Validation Code
@@ -64,6 +65,7 @@ input AD_UserQueryInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_UserQuery_UU: String
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# Validation Code

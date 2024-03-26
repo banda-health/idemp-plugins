@@ -28,6 +28,7 @@ type C_Charge {
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	UUID: ID!
+	C_Charge_UU: String
 	C_ChargeType: C_ChargeType
 	# Tax Category
 	C_TaxCategory: C_TaxCategory!
@@ -64,6 +65,7 @@ input C_ChargeInput {
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	UUID: ID
+	C_Charge_UU: String
 	C_ChargeType: ForeignEntityInput
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput

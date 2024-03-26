@@ -36,6 +36,7 @@ type I_InOutLineConfirm {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID!
+	I_InOutLineConfirm_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean!
 	# The record is active in the system
@@ -67,6 +68,7 @@ input I_InOutLineConfirmInput {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID
+	I_InOutLineConfirm_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean
 	# The record is active in the system

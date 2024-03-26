@@ -45,6 +45,7 @@ type M_TransactionAllocation {
 	M_ProductionLine: M_ProductionLine
 	M_Transaction: M_Transaction!
 	UUID: ID!
+	M_TransactionAllocation_UU: String
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: M_InOutLine
 	# Outgoing Inventory Line
@@ -84,6 +85,7 @@ input M_TransactionAllocationInput {
 	M_ProductionLine: ForeignEntityInput
 	M_Transaction: ForeignEntityInput
 	UUID: ID
+	M_TransactionAllocation_UU: String
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: ForeignEntityInput
 	# Outgoing Inventory Line

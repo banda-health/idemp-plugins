@@ -44,6 +44,7 @@ type M_MovementConfirm {
 	# Movement of Inventory
 	M_Movement: M_Movement!
 	UUID: ID!
+	M_MovementConfirm_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -75,6 +76,7 @@ input M_MovementConfirmInput {
 	# Movement of Inventory
 	M_Movement: ForeignEntityInput
 	UUID: ID
+	M_MovementConfirm_UU: String
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

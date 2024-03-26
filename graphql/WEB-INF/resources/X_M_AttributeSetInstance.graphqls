@@ -39,6 +39,7 @@ type M_AttributeSetInstance {
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet!
 	UUID: ID!
+	M_AttributeSetInstance_UU: String
 	# Product Lot Definition
 	M_Lot: M_Lot
 	# Product Serial Number 
@@ -64,6 +65,7 @@ input M_AttributeSetInstanceInput {
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
 	UUID: ID
+	M_AttributeSetInstance_UU: String
 	# Product Lot Definition
 	M_Lot: ForeignEntityInput
 	# Product Serial Number 

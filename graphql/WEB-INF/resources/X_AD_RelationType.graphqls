@@ -24,6 +24,7 @@ type AD_RelationType {
 	AD_Reference_Source: AD_Reference
 	AD_Reference_Target: AD_Reference
 	UUID: ID!
+	AD_RelationType_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,6 +57,7 @@ input AD_RelationTypeInput {
 	AD_Reference_Source: ForeignEntityInput
 	AD_Reference_Target: ForeignEntityInput
 	UUID: ID
+	AD_RelationType_UU: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

@@ -26,6 +26,7 @@ type AD_TableIndex {
 	# Database Table information
 	AD_Table: AD_Table!
 	UUID: ID!
+	AD_TableIndex_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input AD_TableIndexInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	UUID: ID
+	AD_TableIndex_UU: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

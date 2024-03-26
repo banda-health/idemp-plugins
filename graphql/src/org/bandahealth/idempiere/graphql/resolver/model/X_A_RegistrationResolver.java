@@ -10,7 +10,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_AssetDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.compiere.model.MAsset;
-import org.compiere.model.MRegistration;
+import org.compiere.model.X_A_Registration;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_A_RegistrationResolver extends POResolver<MRegistration> implements GraphQLResolver<MRegistration> {
+public class X_A_RegistrationResolver extends POResolver<X_A_Registration> implements GraphQLResolver<X_A_Registration> {
 
 
 
@@ -30,7 +30,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 	 *
 	 * @return Asset used internally or by customers
 	 */
-	public CompletableFuture<MAsset> A_Asset(MRegistration entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MAsset> A_Asset(X_A_Registration entity, DataFetchingEnvironment environment) {
 		if (entity.getA_Asset_ID() <= 0) {
 			return null;
 		}
@@ -45,7 +45,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 	 *
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
-	public CompletableFuture<MUser_BH> AD_User(MRegistration entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MUser_BH> AD_User(X_A_Registration entity, DataFetchingEnvironment environment) {
 		if (entity.getAD_User_ID() <= 0) {
 			return null;
 		}
@@ -60,7 +60,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(MRegistration entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MBPartner_BH> C_BPartner(X_A_Registration entity, DataFetchingEnvironment environment) {
 		if (entity.getC_BPartner_ID() <= 0) {
 			return null;
 		}
@@ -69,15 +69,15 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 		return dataLoader.load(entity.getC_BPartner_ID());
 	}
 
-	public Boolean IsAllowPublish(MRegistration entity, DataFetchingEnvironment environment) {
+	public Boolean IsAllowPublish(X_A_Registration entity, DataFetchingEnvironment environment) {
 		return entity.isAllowPublish();
 	}
 
-	public Boolean IsInProduction(MRegistration entity, DataFetchingEnvironment environment) {
+	public Boolean IsInProduction(X_A_Registration entity, DataFetchingEnvironment environment) {
 		return entity.isInProduction();
 	}
 
-	public Boolean IsRegistered(MRegistration entity, DataFetchingEnvironment environment) {
+	public Boolean IsRegistered(X_A_Registration entity, DataFetchingEnvironment environment) {
 		return entity.isRegistered();
 	}
 
@@ -87,7 +87,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 	 *
 	 * @return Product, Service, Item
 	 */
-	public CompletableFuture<MProduct_BH> M_Product(MRegistration entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MProduct_BH> M_Product(X_A_Registration entity, DataFetchingEnvironment environment) {
 		if (entity.getM_Product_ID() <= 0) {
 			return null;
 		}
@@ -96,7 +96,7 @@ public class X_A_RegistrationResolver extends POResolver<MRegistration> implemen
 		return dataLoader.load(entity.getM_Product_ID());
 	}
 
-	public Boolean Processing(MRegistration entity, DataFetchingEnvironment environment) {
+	public Boolean Processing(X_A_Registration entity, DataFetchingEnvironment environment) {
 		return entity.isProcessing();
 	}
 

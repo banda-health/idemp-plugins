@@ -6,8 +6,8 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MRegistrationAttribute;
 import org.compiere.model.Query;
+import org.compiere.model.X_A_RegistrationAttribute;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_A_RegistrationAttributeInput extends MRegistrationAttribute implements I_A_RegistrationAttributeInput {
+public class X_A_RegistrationAttributeInput extends X_A_RegistrationAttribute implements I_A_RegistrationAttributeInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Reference;
@@ -32,7 +32,7 @@ public class X_A_RegistrationAttributeInput extends MRegistrationAttribute imple
 	 */
 	@JsonCreator
 	public X_A_RegistrationAttributeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

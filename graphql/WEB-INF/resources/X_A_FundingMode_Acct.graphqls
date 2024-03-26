@@ -19,6 +19,7 @@ type A_FundingMode_AcctConnection {
 type A_FundingMode_Acct {
 	A_FundingMode_A: C_ValidCombination!
 	UUID: ID!
+	A_FundingMode_Acct_UU: String
 	A_FundingMode: A_FundingMode!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
@@ -41,6 +42,7 @@ type A_FundingMode_Acct {
 input A_FundingMode_AcctInput {
 	A_FundingMode_A: ForeignEntityInput
 	UUID: ID
+	A_FundingMode_Acct_UU: String
 	A_FundingMode: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

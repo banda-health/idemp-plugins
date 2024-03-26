@@ -34,8 +34,7 @@ public class X_M_InOutLineMAInput extends MInOutLineMA implements I_M_InOutLineM
 	 */
 	@JsonCreator
 	public X_M_InOutLineMAInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MInOutLineMA(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

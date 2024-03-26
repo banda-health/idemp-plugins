@@ -23,6 +23,7 @@ type BH_Payer_Info_Fld_Val_Sug {
 	AD_Org: AD_Org!
 	BH_Payer_Info_Fld_Sug: BH_Payer_Info_Fld_Sug!
 	UUID: ID!
+	BH_Payer_Info_Fld_Val_Sug_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input BH_Payer_Info_Fld_Val_SugInput {
 	AD_Org: ForeignEntityInput
 	BH_Payer_Info_Fld_Sug: ForeignEntityInput
 	UUID: ID
+	BH_Payer_Info_Fld_Val_Sug_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

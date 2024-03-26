@@ -69,6 +69,7 @@ type T_Transaction {
 	# Order Identifier
 	Search_Order: C_Order
 	UUID: ID!
+	T_Transaction_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -122,4 +123,5 @@ input T_TransactionInput {
 	# Order Identifier
 	Search_Order: ForeignEntityInput
 	UUID: ID
+	T_Transaction_UU: String
 }

@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
 import org.bandahealth.idempiere.graphql.repository.Repository;
+import org.compiere.model.MMovementLine;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
 import org.dataloader.MappedBatchLoaderWithContext;
@@ -18,9 +19,9 @@ public class MMovementLineDataLoader extends X_M_MovementLineDataLoader {
 				DataLoader.newMappedDataLoader(getByMovementIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 
-	private MappedBatchLoaderWithContext<String, List<MMovementLine_BH>> getByMovementIdBatchLoader() {
+	private MappedBatchLoaderWithContext<String, List<MMovementLine>> getByMovementIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> Repository.getGroupsByModelKeysCompletableFuture(
-				batchLoaderEnvironment.getContext(), getTableName(), null, MMovementLine_BH::getM_Movement_ID,
-				MMovementLine_BH.COLUMNNAME_M_Movement_ID, keys);
+				batchLoaderEnvironment.getContext(), getTableName(), null, MMovementLine::getM_Movement_ID,
+				MMovementLine.COLUMNNAME_M_Movement_ID, keys);
 	}
 }

@@ -30,6 +30,7 @@ type M_BOMAlternative {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_BOMAlternative_UU: String
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Alphanumeric identifier of the entity
@@ -48,6 +49,7 @@ input M_BOMAlternativeInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_BOMAlternative_UU: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity

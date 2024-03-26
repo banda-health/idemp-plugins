@@ -24,6 +24,7 @@ type C_BP_Group_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_BP_Group_Acct_UU: String
 	# Business Partner Group
 	C_BP_Group: C_BP_Group!
 	# Account for customer prepayments
@@ -67,6 +68,7 @@ input C_BP_Group_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_BP_Group_Acct_UU: String
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
 	# Account for customer prepayments

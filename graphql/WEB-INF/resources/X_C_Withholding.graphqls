@@ -26,6 +26,7 @@ type C_Withholding {
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm!
 	UUID: ID!
+	C_Withholding_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -70,6 +71,7 @@ input C_WithholdingInput {
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
 	UUID: ID
+	C_Withholding_UU: String
 	# Optional short description of the record
 	Description: String
 	# Fix amounted amount to be levied or paid

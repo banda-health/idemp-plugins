@@ -34,6 +34,7 @@ type M_Product_Category_Acct {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_Product_Category_Acct_UU: String
 	# Category of a Product
 	M_Product_Category: M_Product_Category!
 	# Account for Product Asset (Inventory)
@@ -81,6 +82,7 @@ input M_Product_Category_AcctInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_Product_Category_Acct_UU: String
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Account for Product Asset (Inventory)

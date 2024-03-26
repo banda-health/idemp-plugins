@@ -46,6 +46,7 @@ type M_MatchPO {
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine!
 	UUID: ID!
+	M_MatchPO_UU: String
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Posting status
@@ -92,6 +93,7 @@ input M_MatchPOInput {
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
 	UUID: ID
+	M_MatchPO_UU: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Posting status

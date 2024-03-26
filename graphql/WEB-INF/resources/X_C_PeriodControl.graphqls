@@ -24,6 +24,7 @@ type C_PeriodControl {
 	# Period of the Calendar
 	C_Period: C_Period!
 	UUID: ID!
+	C_PeriodControl_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -49,6 +50,7 @@ input C_PeriodControlInput {
 	# Period of the Calendar
 	C_Period: ForeignEntityInput
 	UUID: ID
+	C_PeriodControl_UU: String
 	# Logical type of document
 	DocBaseType: AD_Ref_ListInput
 	# The record is active in the system

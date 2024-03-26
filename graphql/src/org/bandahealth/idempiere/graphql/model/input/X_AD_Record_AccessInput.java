@@ -33,8 +33,7 @@ public class X_AD_Record_AccessInput extends MRecordAccess implements I_AD_Recor
 	 */
 	@JsonCreator
 	public X_AD_Record_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRecordAccess(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

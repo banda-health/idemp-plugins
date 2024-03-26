@@ -20,6 +20,7 @@ type AD_Modification {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_Modification_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -48,6 +49,7 @@ type AD_Modification {
 
 input AD_ModificationInput {
 	UUID: ID
+	AD_Modification_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

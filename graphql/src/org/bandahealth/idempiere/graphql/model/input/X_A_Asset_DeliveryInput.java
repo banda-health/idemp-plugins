@@ -38,7 +38,7 @@ public class X_A_Asset_DeliveryInput extends MAssetDelivery implements I_A_Asset
 	 */
 	@JsonCreator
 	public X_A_Asset_DeliveryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**

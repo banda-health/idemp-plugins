@@ -39,7 +39,7 @@ public class X_M_CostQueueInput extends MCostQueue implements I_M_CostQueueInput
 	 */
 	@JsonCreator
 	public X_M_CostQueueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

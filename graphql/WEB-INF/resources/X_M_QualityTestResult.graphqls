@@ -35,6 +35,7 @@ type M_QualityTestResult {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	M_QualityTest: M_QualityTest!
 	UUID: ID!
+	M_QualityTestResult_UU: String
 	# The document has been processed
 	Processed: Boolean!
 	# Result of the action taken
@@ -55,6 +56,7 @@ input M_QualityTestResultInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	M_QualityTest: ForeignEntityInput
 	UUID: ID
+	M_QualityTestResult_UU: String
 	# The document has been processed
 	Processed: Boolean
 	# Result of the action taken

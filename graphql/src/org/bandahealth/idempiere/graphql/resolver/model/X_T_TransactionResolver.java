@@ -30,7 +30,9 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductionLineDataL
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_TransactionDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProduction;
 import org.compiere.model.MProductionLine;
@@ -164,11 +166,11 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 	 *
 	 * @return Unique line in an Inventory document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_InventoryLine(X_T_Transaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_InventoryLine(X_T_Transaction entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
@@ -209,11 +211,11 @@ public class X_T_TransactionResolver extends POResolver<X_T_Transaction> impleme
 	 *
 	 * @return Inventory Move document Line
 	 */
-	public CompletableFuture<MMovementLine_BH> M_MovementLine(X_T_Transaction entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MMovementLine> M_MovementLine(X_T_Transaction entity, DataFetchingEnvironment environment) {
 		if (entity.getM_MovementLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MMovementLine_BH> dataLoader =
+		DataLoader<Integer, MMovementLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.DATALOADER_M_MovementLine_BY_ID);
 		return dataLoader.load(entity.getM_MovementLine_ID());
 	}

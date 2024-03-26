@@ -37,8 +37,7 @@ public class X_C_BP_Customer_AcctInput extends X_C_BP_Customer_Acct implements I
 	 */
 	@JsonCreator
 	public X_C_BP_Customer_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_BP_Customer_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -16,6 +16,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_InventoryLine - DO NOT CHANGE
@@ -42,7 +43,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	 */
 	@JsonCreator
 	public X_M_InventoryLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -351,7 +352,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 		this.mReversalLine = ReversalLine;
 		if (ReversalLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(ReversalLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -373,27 +374,5 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	@JsonProperty("ReversalLine")
 	public ForeignEntityInput ReversalLine() {
 		return mReversalLine;
-	}
-	/**
-	 * Set UPC/EAN.
-	 *
-	 * @param UPC Bar Code (Universal Product Code or its superset European Article Number)
-	 */
-
-	public void setUPC(String UPC) {
-		if (get_ID() == 0) {
-			super.setUPC(UPC);
-		}
-	}
-	/**
-	 * Set Search Key.
-	 *
-	 * @param Value Search key for the record in the format required - must be unique
-	 */
-
-	public void setValue(String Value) {
-		if (get_ID() == 0) {
-			super.setValue(Value);
-		}
 	}
 }

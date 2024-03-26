@@ -123,34 +123,6 @@ public interface I_M_PackageInput extends I_M_Package {
 	I_AD_Ref_ListInput DotHazardClassOrDivision();
 
 	/**
-	 * Set FOB.
-	 *
-	 * @param FOB FOB
-	 */
-	void setFOBInput(I_AD_Ref_ListInput FOB);
-
-	/**
-	 * Get FOB.
-	 *
-	 * @return FOB
-	 */
-	I_AD_Ref_ListInput FOB();
-
-	/**
-	 * Set FreightCharges.
-	 *
-	 * @param FreightCharges FreightCharges
-	 */
-	void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges);
-
-	/**
-	 * Get FreightCharges.
-	 *
-	 * @return FreightCharges
-	 */
-	I_AD_Ref_ListInput FreightCharges();
-
-	/**
 	 * Set HoldAddress.
 	 *
 	 * @param HoldAddress HoldAddress
@@ -177,20 +149,6 @@ public interface I_M_PackageInput extends I_M_Package {
 	 * @return HomeDeliveryPremiumType
 	 */
 	I_AD_Ref_ListInput HomeDeliveryPremiumType();
-
-	/**
-	 * Set Insurance.
-	 *
-	 * @param Insurance Insurance
-	 */
-	void setInsuranceInput(I_AD_Ref_ListInput Insurance);
-
-	/**
-	 * Get Insurance.
-	 *
-	 * @return Insurance
-	 */
-	I_AD_Ref_ListInput Insurance();
 
 	/**
 	 * Set M_InOut.
@@ -275,20 +233,6 @@ public interface I_M_PackageInput extends I_M_Package {
 	 * @return M_ShipperPickupTypes
 	 */
 	ForeignEntityInput M_ShipperPickupTypes();
-
-	/**
-	 * Set M_ShippingProcessor.
-	 *
-	 * @param M_ShippingProcessor M_ShippingProcessor
-	 */
-	void setM_ShippingProcessorInput(ForeignEntityInput M_ShippingProcessor);
-
-	/**
-	 * Get M_ShippingProcessor.
-	 *
-	 * @return M_ShippingProcessor
-	 */
-	ForeignEntityInput M_ShippingProcessor();
 
 	/**
 	 * Set NotificationType.

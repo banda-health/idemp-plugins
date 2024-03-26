@@ -31,6 +31,7 @@ type M_Product_QualityTest {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_Product_QualityTest_UU: String
 	M_QualityTest: M_QualityTest!
 	# Date this record was updated
 	Updated: Date!
@@ -47,5 +48,6 @@ input M_Product_QualityTestInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_Product_QualityTest_UU: String
 	M_QualityTest: ForeignEntityInput
 }

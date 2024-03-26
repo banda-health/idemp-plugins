@@ -24,6 +24,7 @@ type AD_ReplicationTable {
 	# Data Replication Strategy
 	AD_ReplicationStrategy: AD_ReplicationStrategy!
 	UUID: ID!
+	AD_ReplicationTable_UU: String
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -50,6 +51,7 @@ input AD_ReplicationTableInput {
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
 	UUID: ID
+	AD_ReplicationTable_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Optional short description of the record

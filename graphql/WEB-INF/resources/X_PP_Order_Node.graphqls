@@ -97,6 +97,7 @@ type PP_Order_Node {
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	UUID: ID!
+	PP_Order_Node_UU: String
 	PP_Order_Workflow: PP_Order_Workflow!
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int!
@@ -221,6 +222,7 @@ input PP_Order_NodeInput {
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	UUID: ID
+	PP_Order_Node_UU: String
 	PP_Order_Workflow: ForeignEntityInput
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int

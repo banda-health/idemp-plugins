@@ -25,6 +25,7 @@ type AD_Tree_Favorite_Node {
 	AD_Org: AD_Org!
 	AD_Tree_Favorite: AD_Tree_Favorite!
 	UUID: ID!
+	AD_Tree_Favorite_Node_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,6 +59,7 @@ input AD_Tree_Favorite_NodeInput {
 	AD_Org: ForeignEntityInput
 	AD_Tree_Favorite: ForeignEntityInput
 	UUID: ID
+	AD_Tree_Favorite_Node_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Flag to indicate the state of the dashboard panel

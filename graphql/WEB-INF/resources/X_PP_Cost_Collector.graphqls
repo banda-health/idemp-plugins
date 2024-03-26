@@ -71,6 +71,7 @@ type PP_Cost_Collector {
 	# Posting status
 	Posted: Boolean!
 	UUID: ID!
+	PP_Cost_Collector_UU: String
 	PP_Order_BOMLine: PP_Order_BOMLine
 	# Manufacturing Order
 	PP_Order: PP_Order!
@@ -149,6 +150,7 @@ input PP_Cost_CollectorInput {
 	# Posting status
 	Posted: Boolean
 	UUID: ID
+	PP_Cost_Collector_UU: String
 	PP_Order_BOMLine: ForeignEntityInput
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput

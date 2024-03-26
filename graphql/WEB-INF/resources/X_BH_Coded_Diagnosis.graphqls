@@ -24,6 +24,7 @@ type BH_Coded_Diagnosis {
 	BH_CielID: Int
 	bh_cielname: String
 	UUID: ID!
+	BH_Coded_Diagnosis_UU: String
 	bh_concept_class: String
 	bh_icd10who: String
 	bh_moh705a_lessthan5: String
@@ -53,6 +54,7 @@ input BH_Coded_DiagnosisInput {
 	BH_CielID: Int
 	bh_cielname: String
 	UUID: ID
+	BH_Coded_Diagnosis_UU: String
 	bh_concept_class: String
 	bh_icd10who: String
 	bh_moh705a_lessthan5: String

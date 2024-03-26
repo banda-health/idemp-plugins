@@ -30,6 +30,7 @@ type C_BankAccount {
 	# Bank
 	C_Bank: C_Bank!
 	UUID: ID!
+	C_BankAccount_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -71,6 +72,7 @@ input C_BankAccountInput {
 	# Bank
 	C_Bank: ForeignEntityInput
 	UUID: ID
+	C_BankAccount_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Amount of Credit allowed

@@ -32,8 +32,7 @@ public class X_AD_Role_IncludedInput extends MRoleIncluded implements I_AD_Role_
 	 */
 	@JsonCreator
 	public X_AD_Role_IncludedInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRoleIncluded(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

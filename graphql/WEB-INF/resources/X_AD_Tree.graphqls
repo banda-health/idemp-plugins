@@ -24,6 +24,7 @@ type AD_Tree {
 	# Database Table information
 	AD_Table: AD_Table
 	UUID: ID!
+	AD_Tree_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input AD_TreeInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	UUID: ID
+	AD_Tree_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -24,6 +24,7 @@ type C_InvoicePaySchedule {
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
 	UUID: ID!
+	C_InvoicePaySchedule_UU: String
 	# Payment Schedule Template
 	C_PaySchedule: C_PaySchedule
 	# Date this record was created
@@ -57,6 +58,7 @@ input C_InvoicePayScheduleInput {
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	UUID: ID
+	C_InvoicePaySchedule_UU: String
 	# Payment Schedule Template
 	C_PaySchedule: ForeignEntityInput
 	# Calculated amount of discount

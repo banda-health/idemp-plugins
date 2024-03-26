@@ -34,6 +34,7 @@ type S_TimeType {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	S_TimeType_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,4 +53,5 @@ input S_TimeTypeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	S_TimeType_UU: String
 }

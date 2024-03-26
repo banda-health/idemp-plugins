@@ -36,8 +36,7 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 	 */
 	@JsonCreator
 	public X_M_RMATaxInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MRMATax(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

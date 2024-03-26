@@ -103,6 +103,7 @@ type M_ShippingTransaction {
 	M_ShipperPickupTypes: M_ShipperPickupTypes
 	M_ShippingProcessor: M_ShippingProcessor
 	UUID: ID!
+	M_ShippingTransaction_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
 	NotificationMessage: String
@@ -223,6 +224,7 @@ input M_ShippingTransactionInput {
 	M_ShipperPickupTypes: ForeignEntityInput
 	M_ShippingProcessor: ForeignEntityInput
 	UUID: ID
+	M_ShippingTransaction_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	NotificationMessage: String

@@ -38,6 +38,7 @@ type M_Forecast {
 	# Default value
 	IsDefault: Boolean!
 	UUID: ID!
+	M_Forecast_UU: String
 	# Unique identifier of a Price List
 	M_PriceList: M_PriceList
 	# Alphanumeric identifier of the entity
@@ -65,6 +66,7 @@ input M_ForecastInput {
 	# Default value
 	IsDefault: Boolean
 	UUID: ID
+	M_Forecast_UU: String
 	# Unique identifier of a Price List
 	M_PriceList: ForeignEntityInput
 	# Alphanumeric identifier of the entity

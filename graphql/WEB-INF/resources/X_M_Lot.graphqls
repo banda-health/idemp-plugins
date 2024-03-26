@@ -36,6 +36,7 @@ type M_Lot {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_Lot_UU: String
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
 	# Product, Service, Item
@@ -62,6 +63,7 @@ input M_LotInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_Lot_UU: String
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
 	# Product, Service, Item

@@ -24,6 +24,7 @@ type AD_WF_ProcessData {
 	# Actual Workflow Process Instance
 	AD_WF_Process: AD_WF_Process!
 	UUID: ID!
+	AD_WF_ProcessData_UU: String
 	# Name of the Attribute
 	AttributeName: String!
 	# Value of the Attribute
@@ -46,6 +47,7 @@ input AD_WF_ProcessDataInput {
 	# Actual Workflow Process Instance
 	AD_WF_Process: ForeignEntityInput
 	UUID: ID
+	AD_WF_ProcessData_UU: String
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

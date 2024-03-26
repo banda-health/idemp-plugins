@@ -66,6 +66,7 @@ type M_Production {
 	# Product, Service, Item
 	M_Product: M_Product
 	UUID: ID!
+	M_Production_UU: String
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Alphanumeric identifier of the entity
@@ -137,6 +138,7 @@ input M_ProductionInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_Production_UU: String
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Alphanumeric identifier of the entity

@@ -35,6 +35,7 @@ type HR_Employee {
 	EndDate: Date
 	HR_Department: HR_Department!
 	UUID: ID!
+	HR_Employee_UU: String
 	HR_Job: HR_Job!
 	HR_Payroll: HR_Payroll
 	# URL of  image
@@ -68,6 +69,7 @@ input HR_EmployeeInput {
 	EndDate: Date
 	HR_Department: ForeignEntityInput
 	UUID: ID
+	HR_Employee_UU: String
 	HR_Job: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
 	# URL of  image

@@ -24,6 +24,7 @@ type C_AcctSchema {
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean!
 	UUID: ID!
+	C_AcctSchema_UU: String
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Period of the Calendar
@@ -89,6 +90,7 @@ input C_AcctSchemaInput {
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean
 	UUID: ID
+	C_AcctSchema_UU: String
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Period of the Calendar

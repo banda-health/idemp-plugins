@@ -24,6 +24,7 @@ type C_Element {
 	# Identifies a Tree
 	AD_Tree: AD_Tree!
 	UUID: ID!
+	C_Element_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,6 +55,7 @@ input C_ElementInput {
 	# Identifies a Tree
 	AD_Tree: ForeignEntityInput
 	UUID: ID
+	C_Element_UU: String
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)

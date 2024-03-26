@@ -29,7 +29,7 @@ public class X_M_AttributeSearchInput extends X_M_AttributeSearch implements I_M
 	 */
 	@JsonCreator
 	public X_M_AttributeSearchInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

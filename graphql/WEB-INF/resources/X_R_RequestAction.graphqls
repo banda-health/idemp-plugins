@@ -88,6 +88,7 @@ type R_RequestAction {
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
 	UUID: ID!
+	R_RequestAction_UU: String
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Request Resolution
@@ -174,6 +175,7 @@ input R_RequestActionInput {
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
 	UUID: ID
+	R_RequestAction_UU: String
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Request Resolution

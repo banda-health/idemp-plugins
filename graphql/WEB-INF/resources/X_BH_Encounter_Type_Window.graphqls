@@ -21,7 +21,11 @@ type BH_Encounter_Type_Window {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# Data entry or display window
+	AD_Window: AD_Window!
+	BH_Encounter_Type: AD_Ref_List!
 	UUID: ID!
+	BH_Encounter_Type_Window_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -37,7 +41,11 @@ type BH_Encounter_Type_Window {
 input BH_Encounter_Type_WindowInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	BH_Encounter_Type: AD_Ref_ListInput
 	UUID: ID
+	BH_Encounter_Type_Window_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 }

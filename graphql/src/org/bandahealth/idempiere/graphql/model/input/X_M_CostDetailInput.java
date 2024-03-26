@@ -11,7 +11,10 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCostDetail;
 import org.compiere.model.MCostElement;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMatchInv;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MProjectIssue;
@@ -19,7 +22,7 @@ import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.X_PP_Cost_Collector;
 
-import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for M_CostDetail - DO NOT CHANGE
@@ -52,7 +55,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	 */
 	@JsonCreator
 	public X_M_CostDetailInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -143,7 +146,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 		}
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -388,7 +391,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 		this.mM_InventoryLine = M_InventoryLine;
 		if (M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -459,7 +462,7 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 		this.mM_MovementLine = M_MovementLine;
 		if (M_MovementLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MMovementLine_BH foreignEntity;
+			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -589,16 +592,5 @@ public class X_M_CostDetailInput extends MCostDetail implements I_M_CostDetailIn
 	@JsonProperty("PP_Cost_Collector")
 	public ForeignEntityInput PP_Cost_Collector() {
 		return mPP_Cost_Collector;
-	}
-	/**
-	 * Set Price.
-	 *
-	 * @param Price Price
-	 */
-
-	public void setPrice(BigDecimal Price) {
-		if (get_ID() == 0) {
-			super.setPrice(Price);
-		}
 	}
 }

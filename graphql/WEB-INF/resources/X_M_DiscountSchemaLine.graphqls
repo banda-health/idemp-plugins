@@ -72,6 +72,7 @@ type M_DiscountSchemaLine {
 	# Schema to calculate the trade discount percentage
 	M_DiscountSchema: M_DiscountSchema!
 	UUID: ID!
+	M_DiscountSchemaLine_UU: String
 	# Category of a Product
 	M_Product_Category: M_Product_Category
 	# Product, Service, Item
@@ -150,6 +151,7 @@ input M_DiscountSchemaLineInput {
 	# Schema to calculate the trade discount percentage
 	M_DiscountSchema: ForeignEntityInput
 	UUID: ID
+	M_DiscountSchemaLine_UU: String
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Product, Service, Item

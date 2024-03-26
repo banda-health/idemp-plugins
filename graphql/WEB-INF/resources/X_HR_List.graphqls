@@ -30,6 +30,7 @@ type HR_List {
 	HR_Department: HR_Department
 	HR_Employee: HR_Employee
 	UUID: ID!
+	HR_List_UU: String
 	HR_ListType: HR_ListType
 	HR_Payroll: HR_Payroll
 	# The record is active in the system
@@ -56,6 +57,7 @@ input HR_ListInput {
 	HR_Department: ForeignEntityInput
 	HR_Employee: ForeignEntityInput
 	UUID: ID
+	HR_List_UU: String
 	HR_ListType: ForeignEntityInput
 	HR_Payroll: ForeignEntityInput
 	# The record is active in the system

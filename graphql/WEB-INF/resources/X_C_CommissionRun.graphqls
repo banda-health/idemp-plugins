@@ -24,6 +24,7 @@ type C_CommissionRun {
 	# Commission
 	C_Commission: C_Commission!
 	UUID: ID!
+	C_CommissionRun_UU: String
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Date this record was created
@@ -55,6 +56,7 @@ input C_CommissionRunInput {
 	# Commission
 	C_Commission: ForeignEntityInput
 	UUID: ID
+	C_CommissionRun_UU: String
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Optional short description of the record

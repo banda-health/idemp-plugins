@@ -36,6 +36,7 @@ type M_PerpetualInv {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_PerpetualInv_UU: String
 	# Category of a Product
 	M_Product_Category: M_Product_Category
 	# Storage Warehouse and Service Point
@@ -69,6 +70,7 @@ input M_PerpetualInvInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_PerpetualInv_UU: String
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Storage Warehouse and Service Point

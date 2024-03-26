@@ -5,7 +5,9 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InventoryLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MovementConfirmDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MovementLineDataLoader;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MMovementConfirm;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MMovementLineConfirm;
 import org.dataloader.DataLoader;
 
@@ -26,11 +28,11 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 	 *
 	 * @return Unique line in an Inventory document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_InventoryLine(MMovementLineConfirm entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_InventoryLine(MMovementLineConfirm entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
@@ -56,11 +58,11 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 	 *
 	 * @return Inventory Move document Line
 	 */
-	public CompletableFuture<MMovementLine_BH> M_MovementLine(MMovementLineConfirm entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MMovementLine> M_MovementLine(MMovementLineConfirm entity, DataFetchingEnvironment environment) {
 		if (entity.getM_MovementLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MMovementLine_BH> dataLoader =
+		DataLoader<Integer, MMovementLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.DATALOADER_M_MovementLine_BY_ID);
 		return dataLoader.load(entity.getM_MovementLine_ID());
 	}

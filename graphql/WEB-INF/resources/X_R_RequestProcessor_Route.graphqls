@@ -34,6 +34,7 @@ type R_RequestProcessor_Route {
 	# Processor for Requests
 	R_RequestProcessor: R_RequestProcessor!
 	UUID: ID!
+	R_RequestProcessor_Route_UU: String
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Method of ordering records; lowest number comes first
@@ -56,6 +57,7 @@ input R_RequestProcessor_RouteInput {
 	# Processor for Requests
 	R_RequestProcessor: ForeignEntityInput
 	UUID: ID
+	R_RequestProcessor_Route_UU: String
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

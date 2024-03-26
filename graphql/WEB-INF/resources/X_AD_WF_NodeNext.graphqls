@@ -26,6 +26,7 @@ type AD_WF_NodeNext {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	UUID: ID!
+	AD_WF_NodeNext_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,6 +57,7 @@ input AD_WF_NodeNextInput {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	UUID: ID
+	AD_WF_NodeNext_UU: String
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

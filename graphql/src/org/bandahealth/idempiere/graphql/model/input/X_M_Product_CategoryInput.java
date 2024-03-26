@@ -37,7 +37,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 */
 	@JsonCreator
 	public X_M_Product_CategoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

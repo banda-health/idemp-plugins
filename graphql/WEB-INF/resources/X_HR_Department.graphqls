@@ -30,6 +30,7 @@ type HR_Department {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	HR_Department_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -50,6 +51,7 @@ input HR_DepartmentInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	HR_Department_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

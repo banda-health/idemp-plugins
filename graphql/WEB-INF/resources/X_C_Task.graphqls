@@ -24,6 +24,7 @@ type C_Task {
 	# Standard Phase of the Project Type
 	C_Phase: C_Phase!
 	UUID: ID!
+	C_Task_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,6 +55,7 @@ input C_TaskInput {
 	# Standard Phase of the Project Type
 	C_Phase: ForeignEntityInput
 	UUID: ID
+	C_Task_UU: String
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

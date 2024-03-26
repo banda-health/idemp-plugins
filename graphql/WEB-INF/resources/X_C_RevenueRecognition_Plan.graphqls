@@ -30,6 +30,7 @@ type C_RevenueRecognition_Plan {
 	# Method for recording revenue
 	C_RevenueRecognition: C_RevenueRecognition!
 	UUID: ID!
+	C_RevenueRecognition_Plan_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -61,6 +62,7 @@ input C_RevenueRecognition_PlanInput {
 	# Method for recording revenue
 	C_RevenueRecognition: ForeignEntityInput
 	UUID: ID
+	C_RevenueRecognition_Plan_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Account for Product Revenue (Sales Account)

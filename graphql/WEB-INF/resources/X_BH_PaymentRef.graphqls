@@ -26,6 +26,7 @@ type BH_PaymentRef {
 	# Represents an action the can be performed for the payment reference
 	BH_PaymentRef_Action: String
 	UUID: ID!
+	BH_PaymentRef_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,6 +51,7 @@ input BH_PaymentRefInput {
 	# Represents an action the can be performed for the payment reference
 	BH_PaymentRef_Action: String
 	UUID: ID
+	BH_PaymentRef_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

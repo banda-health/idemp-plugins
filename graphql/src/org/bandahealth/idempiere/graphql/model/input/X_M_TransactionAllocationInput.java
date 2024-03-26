@@ -8,6 +8,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MTransaction;
@@ -46,8 +47,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	 */
 	@JsonCreator
 	public X_M_TransactionAllocationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_TransactionAllocation(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -200,7 +200,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 		this.mM_InventoryLine = M_InventoryLine;
 		if (M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -391,7 +391,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 		this.mOut_M_InventoryLine = Out_M_InventoryLine;
 		if (Out_M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(Out_M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

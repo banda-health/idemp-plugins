@@ -22,6 +22,7 @@ type AD_OrgInfo {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_OrgInfo_UU: String
 	# Organization Type
 	AD_OrgType: AD_OrgType
 	# Enter additional information for this organization
@@ -78,6 +79,7 @@ input AD_OrgInfoInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_OrgInfo_UU: String
 	# Organization Type
 	AD_OrgType: ForeignEntityInput
 	# Enter additional information for this organization

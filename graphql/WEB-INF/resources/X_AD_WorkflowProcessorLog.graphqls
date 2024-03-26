@@ -24,6 +24,7 @@ type AD_WorkflowProcessorLog {
 	# Workflow Processor Server
 	AD_WorkflowProcessor: AD_WorkflowProcessor!
 	UUID: ID!
+	AD_WorkflowProcessorLog_UU: String
 	# Binary Data
 	BinaryData: Binary
 	# Date this record was created
@@ -54,6 +55,7 @@ input AD_WorkflowProcessorLogInput {
 	# Workflow Processor Server
 	AD_WorkflowProcessor: ForeignEntityInput
 	UUID: ID
+	AD_WorkflowProcessorLog_UU: String
 	# Binary Data
 	BinaryData: Binary
 	# Optional short description of the record

@@ -33,7 +33,7 @@ public class X_AD_AttachmentInput extends MAttachment implements I_AD_Attachment
 	 */
 	@JsonCreator
 	public X_AD_AttachmentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 	/**
@@ -186,23 +186,5 @@ public class X_AD_AttachmentInput extends MAttachment implements I_AD_Attachment
 		if (get_ID() == 0) {
 			super.setBinaryData(BinaryData);
 		}
-	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setRecord_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getRecord_UU();
 	}
 }

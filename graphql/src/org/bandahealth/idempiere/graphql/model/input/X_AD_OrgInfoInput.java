@@ -46,8 +46,7 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	 */
 	@JsonCreator
 	public X_AD_OrgInfoInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MOrgInfo_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

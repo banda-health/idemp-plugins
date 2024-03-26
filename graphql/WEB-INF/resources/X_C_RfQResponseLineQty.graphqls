@@ -26,6 +26,7 @@ type C_RfQResponseLineQty {
 	# Request for Quotation Response Line
 	C_RfQResponseLine: C_RfQResponseLine!
 	UUID: ID!
+	C_RfQResponseLineQty_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,6 +53,7 @@ input C_RfQResponseLineQtyInput {
 	# Request for Quotation Response Line
 	C_RfQResponseLine: ForeignEntityInput
 	UUID: ID
+	C_RfQResponseLineQty_UU: String
 	# Discount in percent
 	Discount: BigDecimal
 	# The record is active in the system

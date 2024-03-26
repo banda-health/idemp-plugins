@@ -20,6 +20,7 @@ type A_Asset_Info_Fin {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UUID: ID!
+	A_Asset_Info_Fin_UU: String
 	A_Contract_Date: Date
 	A_Due_On: AD_Ref_List
 	A_Expired_Date: Date
@@ -55,6 +56,7 @@ input A_Asset_Info_FinInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Asset_Info_Fin_UU: String
 	A_Contract_Date: Date
 	A_Due_On: AD_Ref_ListInput
 	A_Expired_Date: Date

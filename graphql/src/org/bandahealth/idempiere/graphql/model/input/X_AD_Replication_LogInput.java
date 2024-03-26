@@ -6,9 +6,12 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.MReplicationLog;
+import org.compiere.model.MReplicationRun;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_ReplicationTable;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for AD_Replication_Log - DO NOT CHANGE
@@ -30,7 +33,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	 */
 	@JsonCreator
 	public X_AD_Replication_LogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -113,7 +116,7 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 		}
 		if (AD_Replication_Run != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MReplicationRun_BH foreignEntity;
+			MReplicationRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Replication_Run", "AD_Replication_Run_UU=?", get_TrxName())
 							.setParameters(AD_Replication_Run.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

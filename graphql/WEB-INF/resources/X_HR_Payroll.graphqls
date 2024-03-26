@@ -33,6 +33,7 @@ type HR_Payroll {
 	Description: String
 	HR_Contract: HR_Contract!
 	UUID: ID!
+	HR_Payroll_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -61,6 +62,7 @@ input HR_PayrollInput {
 	Description: String
 	HR_Contract: ForeignEntityInput
 	UUID: ID
+	HR_Payroll_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

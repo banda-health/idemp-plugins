@@ -4,7 +4,7 @@ import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.graphql.model.input.I_A_RegistrationValueInput;
 import org.bandahealth.idempiere.graphql.model.input.X_A_RegistrationValueInput;
-import org.compiere.model.MRegistrationValue;
+import org.compiere.model.X_A_RegistrationValue;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,13 +21,13 @@ public class X_A_RegistrationValueMutation extends POMutation implements GraphQL
 		return X_A_RegistrationValueInput.Table_Name;
 	}
 
-	public MRegistrationValue A_RegistrationValueSave(I_A_RegistrationValueInput entity, DataFetchingEnvironment environment) {
-		return (MRegistrationValue) super.save((X_A_RegistrationValueInput) entity, environment);
+	public X_A_RegistrationValue A_RegistrationValueSave(I_A_RegistrationValueInput entity, DataFetchingEnvironment environment) {
+		return (X_A_RegistrationValue) super.save((X_A_RegistrationValueInput) entity, environment);
 	}
 
-	public List<MRegistrationValue> A_RegistrationValueSaveMany(List<I_A_RegistrationValueInput> entities, DataFetchingEnvironment environment) {
+	public List<X_A_RegistrationValue> A_RegistrationValueSaveMany(List<I_A_RegistrationValueInput> entities, DataFetchingEnvironment environment) {
 		return super.saveMany(entities.stream().map(entity -> (X_A_RegistrationValueInput) entity).collect(Collectors.toList()),
-				environment).stream().map(entity -> (MRegistrationValue) entity).collect(Collectors.toList());
+				environment).stream().map(entity -> (X_A_RegistrationValue) entity).collect(Collectors.toList());
 	}
 
 	public boolean A_RegistrationValueDelete(List<String> uuids, DataFetchingEnvironment environment) {

@@ -25,6 +25,7 @@ type AD_StatusLineUsedIn {
 	AD_Org: AD_Org!
 	AD_StatusLine: AD_StatusLine!
 	UUID: ID!
+	AD_StatusLineUsedIn_UU: String
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	# Database Table information
@@ -56,6 +57,7 @@ input AD_StatusLineUsedInInput {
 	AD_Org: ForeignEntityInput
 	AD_StatusLine: ForeignEntityInput
 	UUID: ID
+	AD_StatusLineUsedIn_UU: String
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	# Database Table information

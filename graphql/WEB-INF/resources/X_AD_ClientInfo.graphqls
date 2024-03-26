@@ -20,6 +20,7 @@ type AD_ClientInfo {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_ClientInfo_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_StorageProvider: AD_StorageProvider
@@ -82,6 +83,7 @@ type AD_ClientInfo {
 
 input AD_ClientInfoInput {
 	UUID: ID
+	AD_ClientInfo_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_StorageProvider: ForeignEntityInput

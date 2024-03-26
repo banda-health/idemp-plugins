@@ -24,6 +24,7 @@ type AD_UserBPAccess {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	AD_UserBPAccess_UU: String
 	# Type of Access of the user/contact to Business Partner information and resources
 	BPAccessType: AD_Ref_List!
 	# Date this record was created
@@ -48,6 +49,7 @@ input AD_UserBPAccessInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	AD_UserBPAccess_UU: String
 	# Type of Access of the user/contact to Business Partner information and resources
 	BPAccessType: AD_Ref_ListInput
 	# Logical type of document

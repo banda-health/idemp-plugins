@@ -32,6 +32,7 @@ type R_IssueUser {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	R_IssueUser_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -49,5 +50,6 @@ input R_IssueUserInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	R_IssueUser_UU: String
 	UserName: String
 }

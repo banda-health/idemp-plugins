@@ -20,6 +20,7 @@ type AD_InfoRelated {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_InfoRelated_UU: String
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
 	# Organizational entity within tenant
@@ -54,6 +55,7 @@ type AD_InfoRelated {
 
 input AD_InfoRelatedInput {
 	UUID: ID
+	AD_InfoRelated_UU: String
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within tenant

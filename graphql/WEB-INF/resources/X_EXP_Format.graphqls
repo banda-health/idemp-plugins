@@ -30,6 +30,7 @@ type EXP_Format {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	EXP_Format_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -59,6 +60,7 @@ input EXP_FormatInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	EXP_Format_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

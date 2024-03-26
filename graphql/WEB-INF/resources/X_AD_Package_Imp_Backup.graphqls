@@ -24,6 +24,7 @@ type AD_Package_Imp_Backup {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_Package_Imp_Backup_UU: String
 	AD_Package_Imp_Bck_Dir: String
 	AD_Package_Imp_Detail: AD_Package_Imp_Detail!
 	AD_Package_Imp: AD_Package_Imp!
@@ -52,6 +53,7 @@ input AD_Package_Imp_BackupInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_Package_Imp_Backup_UU: String
 	AD_Package_Imp_Bck_Dir: String
 	AD_Package_Imp_Detail: ForeignEntityInput
 	AD_Package_Imp: ForeignEntityInput

@@ -23,6 +23,7 @@ type C_TaxProvider {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_TaxProvider_UU: String
 	C_TaxProviderCfg: C_TaxProviderCfg!
 	CompanyCode: String
 	# Date this record was created
@@ -48,6 +49,7 @@ input C_TaxProviderInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_TaxProvider_UU: String
 	C_TaxProviderCfg: ForeignEntityInput
 	CompanyCode: String
 	# The record is active in the system

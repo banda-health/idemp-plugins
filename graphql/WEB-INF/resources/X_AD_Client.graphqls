@@ -18,6 +18,7 @@ type AD_ClientConnection {
 
 type AD_Client {
 	UUID: ID!
+	AD_Client_UU: String
 	# Language for this entity
 	AD_Language: AD_Language
 	# Organizational entity within tenant
@@ -80,6 +81,7 @@ type AD_Client {
 
 input AD_ClientInput {
 	UUID: ID
+	AD_Client_UU: String
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant

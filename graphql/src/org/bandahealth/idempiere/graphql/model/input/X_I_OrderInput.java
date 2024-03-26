@@ -77,7 +77,7 @@ public class X_I_OrderInput extends X_I_Order implements I_I_OrderInput {
 	 */
 	@JsonCreator
 	public X_I_OrderInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

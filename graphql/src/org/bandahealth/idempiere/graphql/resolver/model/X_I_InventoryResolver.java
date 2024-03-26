@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_InventoryLineDataLo
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_LocatorDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_ProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_WarehouseDataLoader;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.X_I_Inventory;
 import org.dataloader.DataLoader;
@@ -69,11 +70,11 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 *
 	 * @return Unique line in an Inventory cost adjustment document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_CostingLine(X_I_Inventory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_CostingLine(X_I_Inventory entity, DataFetchingEnvironment environment) {
 		if (entity.getM_CostingLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_CostingLine_ID());
 	}
@@ -99,11 +100,11 @@ public class X_I_InventoryResolver extends POResolver<X_I_Inventory> implements 
 	 *
 	 * @return Unique line in an Inventory document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_InventoryLine(X_I_Inventory entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_InventoryLine(X_I_Inventory entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}

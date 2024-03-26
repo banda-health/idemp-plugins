@@ -1,0 +1,115 @@
+# Generated Schema for C_BankTransfer - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BankTransferGet(page: Int, size: Int, sort: String, filter: String): C_BankTransferConnection!
+}
+
+extend type Mutation {
+	C_BankTransferSave(entity: C_BankTransferInput!): C_BankTransfer!
+	C_BankTransferSaveMany(entities: [C_BankTransferInput!]!): [C_BankTransfer!]!
+	C_BankTransferDelete(uuids: [String!]!): Boolean!
+}
+
+type C_BankTransferConnection {
+	results: [C_BankTransfer!]!
+	pagingInfo: PagingInfo!
+}
+
+type C_BankTransfer {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UUID: ID!
+	C_BankTransfer_UU: String
+	# Currency Conversion Rate Type
+	C_ConversionType: C_ConversionType
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	From_Amt: BigDecimal!
+	From_C_BankAccount: C_BankAccount!
+	# Identifies a Business Partner
+	From_C_BPartner: C_BPartner!
+	From_C_Charge: C_Charge!
+	From_C_Currency: C_Currency!
+	From_TenderType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Override Currency Conversion Rate
+	IsOverrideCurrencyRate: Boolean!
+	# Date Payment made
+	PayDate: Date!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Rate or Tax or Exchange
+	Rate: BigDecimal!
+	To_Amt: BigDecimal!
+	To_C_BankAccount: C_BankAccount!
+	# Identifies a Business Partner
+	To_C_BPartner: C_BPartner!
+	To_C_Charge: C_Charge!
+	To_C_Currency: C_Currency!
+	To_TenderType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BankTransferInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UUID: ID
+	C_BankTransfer_UU: String
+	# Currency Conversion Rate Type
+	C_ConversionType: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_ListInput
+	# The current status of the document
+	DocStatus: AD_Ref_ListInput
+	# Document sequence number of the document
+	DocumentNo: String
+	From_Amt: BigDecimal
+	From_C_BankAccount: ForeignEntityInput
+	# Identifies a Business Partner
+	From_C_BPartner: ForeignEntityInput
+	From_C_Charge: ForeignEntityInput
+	From_C_Currency: ForeignEntityInput
+	From_TenderType: AD_Ref_ListInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Override Currency Conversion Rate
+	IsOverrideCurrencyRate: Boolean
+	# Date Payment made
+	PayDate: Date
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Rate or Tax or Exchange
+	Rate: BigDecimal
+	To_Amt: BigDecimal
+	To_C_BankAccount: ForeignEntityInput
+	# Identifies a Business Partner
+	To_C_BPartner: ForeignEntityInput
+	To_C_Charge: ForeignEntityInput
+	To_C_Currency: ForeignEntityInput
+	To_TenderType: AD_Ref_ListInput
+}

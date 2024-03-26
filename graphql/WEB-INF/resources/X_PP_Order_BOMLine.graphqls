@@ -71,6 +71,7 @@ type PP_Order_BOMLine {
 	M_Warehouse: M_Warehouse!
 	PP_Order_BOM: PP_Order_BOM!
 	UUID: ID!
+	PP_Order_BOMLine_UU: String
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	# Indicate the Quantity % use in this Formula
@@ -149,6 +150,7 @@ input PP_Order_BOMLineInput {
 	M_Warehouse: ForeignEntityInput
 	PP_Order_BOM: ForeignEntityInput
 	UUID: ID
+	PP_Order_BOMLine_UU: String
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	# Indicate the Quantity % use in this Formula

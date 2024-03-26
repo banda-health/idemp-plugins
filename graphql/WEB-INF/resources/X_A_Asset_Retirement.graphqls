@@ -20,6 +20,7 @@ type A_Asset_Retirement {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	UUID: ID!
+	A_Asset_Retirement_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -46,6 +47,7 @@ input A_Asset_RetirementInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Asset_Retirement_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Market value of the asset

@@ -33,8 +33,7 @@ public class X_CM_ChatTypeUpdateInput extends X_CM_ChatTypeUpdate implements I_C
 	 */
 	@JsonCreator
 	public X_CM_ChatTypeUpdateInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_CM_ChatTypeUpdate(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -20,6 +20,7 @@ type A_Asset_Acct {
 	A_Accumdepreciation_A: C_ValidCombination!
 	A_Asset_A: C_ValidCombination!
 	UUID: ID!
+	A_Asset_Acct_UU: String
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Depreciation_A: C_ValidCombination!
@@ -74,6 +75,7 @@ input A_Asset_AcctInput {
 	A_Accumdepreciation_A: ForeignEntityInput
 	A_Asset_A: ForeignEntityInput
 	UUID: ID
+	A_Asset_Acct_UU: String
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Depreciation_A: ForeignEntityInput

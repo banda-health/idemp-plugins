@@ -32,6 +32,7 @@ type M_DistributionList {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_DistributionList_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -53,6 +54,7 @@ input M_DistributionListInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_DistributionList_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

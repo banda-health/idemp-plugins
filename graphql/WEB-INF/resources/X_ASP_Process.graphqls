@@ -25,6 +25,7 @@ type ASP_Process {
 	AD_Process: AD_Process!
 	ASP_Level: ASP_Level!
 	UUID: ID!
+	ASP_Process_UU: String
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -45,6 +46,7 @@ input ASP_ProcessInput {
 	AD_Process: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
 	UUID: ID
+	ASP_Process_UU: String
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

@@ -28,6 +28,7 @@ type C_CashPlan {
 	# Marketing Campaign
 	C_Campaign: C_Campaign
 	UUID: ID!
+	C_CashPlan_UU: String
 	# Financial Project
 	C_Project: C_Project
 	CashFlowType: AD_Ref_List
@@ -74,6 +75,7 @@ input C_CashPlanInput {
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
 	UUID: ID
+	C_CashPlan_UU: String
 	# Financial Project
 	C_Project: ForeignEntityInput
 	CashFlowType: AD_Ref_ListInput

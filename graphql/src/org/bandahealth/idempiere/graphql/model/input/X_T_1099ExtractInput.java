@@ -35,8 +35,7 @@ public class X_T_1099ExtractInput extends X_T_1099Extract implements I_T_1099Ext
 	 */
 	@JsonCreator
 	public X_T_1099ExtractInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_T_1099Extract(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

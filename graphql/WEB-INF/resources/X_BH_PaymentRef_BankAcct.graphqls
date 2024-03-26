@@ -24,6 +24,7 @@ type BH_PaymentRef_BankAcct {
 	# Reference List based on Table
 	AD_Ref_List: AD_Ref_List
 	UUID: ID!
+	BH_PaymentRef_BankAcct_UU: String
 	BH_PaymentRef: BH_PaymentRef!
 	# The value of the payment reference list entry
 	BH_PaymentRefList_Value: String
@@ -52,6 +53,7 @@ input BH_PaymentRef_BankAcctInput {
 	# Reference List based on Table
 	AD_Ref_List: ForeignEntityInput
 	UUID: ID
+	BH_PaymentRef_BankAcct_UU: String
 	BH_PaymentRef: ForeignEntityInput
 	# The value of the payment reference list entry
 	BH_PaymentRefList_Value: String

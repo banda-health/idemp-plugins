@@ -33,8 +33,7 @@ public class X_AD_Scheduler_ParaInput extends MSchedulerPara implements I_AD_Sch
 	 */
 	@JsonCreator
 	public X_AD_Scheduler_ParaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MSchedulerPara(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

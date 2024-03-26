@@ -34,6 +34,7 @@ type M_ShippingProcessorCfg {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_ShippingProcessorCfg_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	#  Address of your proxy server
@@ -64,6 +65,7 @@ input M_ShippingProcessorCfgInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_ShippingProcessorCfg_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	#  Address of your proxy server

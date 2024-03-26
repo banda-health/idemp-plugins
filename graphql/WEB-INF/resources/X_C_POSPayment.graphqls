@@ -30,6 +30,7 @@ type C_POSPayment {
 	# Payment identifier
 	C_Payment: C_Payment
 	UUID: ID!
+	C_POSPayment_UU: String
 	C_POSTenderType: C_POSTenderType!
 	# Check Number
 	CheckNo: String
@@ -84,6 +85,7 @@ input C_POSPaymentInput {
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	UUID: ID
+	C_POSPayment_UU: String
 	C_POSTenderType: ForeignEntityInput
 	# Check Number
 	CheckNo: String

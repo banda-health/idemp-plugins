@@ -24,6 +24,7 @@ type AD_PInstance_Para {
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
 	UUID: ID!
+	AD_PInstance_Para_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,6 +61,7 @@ input AD_PInstance_ParaInput {
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
 	UUID: ID
+	AD_PInstance_Para_UU: String
 	# Information
 	Info: String
 	Info_To: String

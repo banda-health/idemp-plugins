@@ -24,6 +24,7 @@ type C_RfQLine {
 	# Request for Quotation
 	C_RfQ: C_RfQ!
 	UUID: ID!
+	C_RfQLine_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,6 +59,7 @@ input C_RfQLineInput {
 	# Request for Quotation
 	C_RfQ: ForeignEntityInput
 	UUID: ID
+	C_RfQLine_UU: String
 	# Date when work is (planned to be) complete
 	DateWorkComplete: Date
 	# Date when work is (planned to be) started

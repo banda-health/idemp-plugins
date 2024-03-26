@@ -33,6 +33,7 @@ type AD_Tab {
 	# Process or Report
 	AD_Process: AD_Process
 	UUID: ID!
+	AD_Tab_UU: String
 	# Database Table information
 	AD_Table: AD_Table!
 	# Defines Tab Type
@@ -121,6 +122,7 @@ input AD_TabInput {
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	UUID: ID
+	AD_Tab_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Defines Tab Type

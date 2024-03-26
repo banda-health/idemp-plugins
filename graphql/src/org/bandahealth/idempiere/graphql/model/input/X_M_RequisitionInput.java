@@ -41,7 +41,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	 */
 	@JsonCreator
 	public X_M_RequisitionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

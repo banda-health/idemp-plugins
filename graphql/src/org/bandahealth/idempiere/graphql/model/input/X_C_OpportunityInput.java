@@ -15,7 +15,6 @@ import org.compiere.model.Query;
 import org.compiere.model.X_C_SalesStage;
 import org.compiere.util.Env;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -43,7 +42,7 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	 */
 	@JsonCreator
 	public X_C_OpportunityInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -349,16 +348,5 @@ public class X_C_OpportunityInput extends MOpportunity implements I_C_Opportunit
 	@JsonProperty("SalesRep")
 	public ForeignEntityInput SalesRep() {
 		return mSalesRep;
-	}
-	/**
-	 * Set Weighted Amount.
-	 *
-	 * @param WeightedAmt The amount adjusted by the probability.
-	 */
-
-	public void setWeightedAmt(BigDecimal WeightedAmt) {
-		if (get_ID() == 0) {
-			super.setWeightedAmt(WeightedAmt);
-		}
 	}
 }

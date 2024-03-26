@@ -35,8 +35,7 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 */
 	@JsonCreator
 	public X_AD_PInstance_LogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_AD_PInstance_Log(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

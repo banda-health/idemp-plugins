@@ -50,6 +50,7 @@ type M_Product_PO {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_Product_PO_UU: String
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM
@@ -110,6 +111,7 @@ input M_Product_POInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_Product_PO_UU: String
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM

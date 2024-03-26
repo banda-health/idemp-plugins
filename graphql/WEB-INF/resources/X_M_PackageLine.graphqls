@@ -34,6 +34,7 @@ type M_PackageLine {
 	# Shipment Package
 	M_Package: M_Package!
 	UUID: ID!
+	M_PackageLine_UU: String
 	M_PackageMPS: M_PackageMPS
 	# Product, Service, Item
 	M_Product: M_Product
@@ -57,6 +58,7 @@ input M_PackageLineInput {
 	# Shipment Package
 	M_Package: ForeignEntityInput
 	UUID: ID
+	M_PackageLine_UU: String
 	M_PackageMPS: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput

@@ -26,6 +26,7 @@ type C_OrderLandedCost {
 	# Order
 	C_Order: C_Order!
 	UUID: ID!
+	C_OrderLandedCost_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,6 +55,7 @@ input C_OrderLandedCostInput {
 	# Order
 	C_Order: ForeignEntityInput
 	UUID: ID
+	C_OrderLandedCost_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

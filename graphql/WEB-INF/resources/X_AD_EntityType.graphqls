@@ -20,6 +20,7 @@ type AD_EntityType {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_EntityType_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Extension Classpath
@@ -51,6 +52,7 @@ type AD_EntityType {
 
 input AD_EntityTypeInput {
 	UUID: ID
+	AD_EntityType_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Extension Classpath

@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MCampaign;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
@@ -21,6 +22,8 @@ import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.model.X_S_TimeType;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for S_TimeExpenseLine - DO NOT CHANGE
@@ -54,7 +57,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 	 */
 	@JsonCreator
 	public X_S_TimeExpenseLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -244,7 +247,7 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 		}
 		if (C_InvoiceLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInvoiceLine_BH foreignEntity;
+			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
 							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

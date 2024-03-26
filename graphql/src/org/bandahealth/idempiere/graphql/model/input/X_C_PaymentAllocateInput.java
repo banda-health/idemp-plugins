@@ -12,7 +12,6 @@ import org.compiere.model.MPaymentAllocate;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 
 /**
@@ -36,7 +35,7 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	 */
 	@JsonCreator
 	public X_C_PaymentAllocateInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -203,16 +202,5 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	 */
 	public String getUUID() {
 		return getC_PaymentAllocate_UU();
-	}
-	/**
-	 * Set Remaining Amt.
-	 *
-	 * @param RemainingAmt Remaining Amount
-	 */
-
-	public void setRemainingAmt(BigDecimal RemainingAmt) {
-		if (get_ID() == 0) {
-			super.setRemainingAmt(RemainingAmt);
-		}
 	}
 }

@@ -36,6 +36,7 @@ type M_BOM {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_BOM_UU: String
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
 	# Product, Service, Item
@@ -63,6 +64,7 @@ input M_BOMInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_BOM_UU: String
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput
 	# Product, Service, Item

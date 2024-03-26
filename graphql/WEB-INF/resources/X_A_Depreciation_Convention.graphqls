@@ -18,6 +18,7 @@ type A_Depreciation_ConventionConnection {
 
 type A_Depreciation_Convention {
 	UUID: ID!
+	A_Depreciation_Convention_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -46,6 +47,7 @@ type A_Depreciation_Convention {
 
 input A_Depreciation_ConventionInput {
 	UUID: ID
+	A_Depreciation_Convention_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	ConventionType: String

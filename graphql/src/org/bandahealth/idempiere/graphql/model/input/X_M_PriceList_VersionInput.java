@@ -34,7 +34,7 @@ public class X_M_PriceList_VersionInput extends MPriceListVersion implements I_M
 	 */
 	@JsonCreator
 	public X_M_PriceList_VersionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

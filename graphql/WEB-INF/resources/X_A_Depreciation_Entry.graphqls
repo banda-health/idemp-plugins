@@ -18,6 +18,7 @@ type A_Depreciation_EntryConnection {
 
 type A_Depreciation_Entry {
 	UUID: ID!
+	A_Depreciation_Entry_UU: String
 	A_Entry_Type: AD_Ref_List
 	# Tenant for this installation.
 	AD_Client: AD_Client!
@@ -68,6 +69,7 @@ type A_Depreciation_Entry {
 
 input A_Depreciation_EntryInput {
 	UUID: ID
+	A_Depreciation_Entry_UU: String
 	A_Entry_Type: AD_Ref_ListInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

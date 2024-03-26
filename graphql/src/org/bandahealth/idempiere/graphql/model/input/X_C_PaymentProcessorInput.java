@@ -37,7 +37,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 */
 	@JsonCreator
 	public X_C_PaymentProcessorInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

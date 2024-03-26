@@ -21,6 +21,7 @@ type A_Asset_Info_Oth {
 	A_Asset: A_Asset!
 	A_Asset_Info_Oth: A_Asset_Info_Oth!
 	UUID: ID!
+	A_Asset_Info_Oth_UU: String
 	A_User1: String
 	A_User10: String
 	A_User11: String
@@ -58,6 +59,7 @@ input A_Asset_Info_OthInput {
 	A_Asset: ForeignEntityInput
 	A_Asset_Info_Oth: ForeignEntityInput
 	UUID: ID
+	A_Asset_Info_Oth_UU: String
 	A_User1: String
 	A_User10: String
 	A_User11: String

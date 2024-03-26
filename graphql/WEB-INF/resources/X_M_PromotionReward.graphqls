@@ -40,6 +40,7 @@ type M_PromotionReward {
 	M_Promotion: M_Promotion!
 	M_PromotionDistribution: M_PromotionDistribution
 	UUID: ID!
+	M_PromotionReward_UU: String
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: M_PromotionDistribution
 	# Quantity
@@ -72,6 +73,7 @@ input M_PromotionRewardInput {
 	M_Promotion: ForeignEntityInput
 	M_PromotionDistribution: ForeignEntityInput
 	UUID: ID
+	M_PromotionReward_UU: String
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: ForeignEntityInput
 	# Quantity

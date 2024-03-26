@@ -25,6 +25,7 @@ type C_AcctProcessor {
 	# Database Table information
 	AD_Table: AD_Table
 	UUID: ID!
+	C_AcctProcessor_UU: String
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# Date this record was created
@@ -59,6 +60,7 @@ input C_AcctProcessorInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	UUID: ID
+	C_AcctProcessor_UU: String
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Date the process was last run.

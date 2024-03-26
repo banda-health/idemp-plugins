@@ -24,6 +24,7 @@ type C_InvoiceSchedule {
 	# Amount
 	Amt: BigDecimal!
 	UUID: ID!
+	C_InvoiceSchedule_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,6 +63,7 @@ input C_InvoiceScheduleInput {
 	# Amount
 	Amt: BigDecimal
 	UUID: ID
+	C_InvoiceSchedule_UU: String
 	# Optional short description of the record
 	Description: String
 	# Send invoices on even weeks

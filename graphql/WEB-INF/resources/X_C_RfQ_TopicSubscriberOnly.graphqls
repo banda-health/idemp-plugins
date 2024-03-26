@@ -24,6 +24,7 @@ type C_RfQ_TopicSubscriberOnly {
 	# Request for Quotation Topic Subscriber
 	C_RfQ_TopicSubscriber: C_RfQ_TopicSubscriber!
 	UUID: ID!
+	C_RfQ_TopicSubscriberOnly_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,6 +49,7 @@ input C_RfQ_TopicSubscriberOnlyInput {
 	# Request for Quotation Topic Subscriber
 	C_RfQ_TopicSubscriber: ForeignEntityInput
 	UUID: ID
+	C_RfQ_TopicSubscriberOnly_UU: String
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -35,7 +35,7 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	 */
 	@JsonCreator
 	public X_M_DistributionListLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

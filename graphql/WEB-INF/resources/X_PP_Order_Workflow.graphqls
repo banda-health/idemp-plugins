@@ -69,6 +69,7 @@ type PP_Order_Workflow {
 	# Workflow Node (activity), step or process
 	PP_Order_Node: PP_Order_Node
 	UUID: ID!
+	PP_Order_Workflow_UU: String
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int!
 	ProcessType: AD_Ref_List
@@ -153,6 +154,7 @@ input PP_Order_WorkflowInput {
 	# Workflow Node (activity), step or process
 	PP_Order_Node: ForeignEntityInput
 	UUID: ID
+	PP_Order_Workflow_UU: String
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int
 	ProcessType: AD_Ref_ListInput

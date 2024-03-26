@@ -107,18 +107,4 @@ public interface I_AD_ChangeLogInput extends I_AD_ChangeLog {
 	 * @return Type of Event in Change Log
 	 */
 	I_AD_Ref_ListInput EventChangeLog();
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	void setUUID(String UUID);
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	String getUUID();
 }

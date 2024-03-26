@@ -37,6 +37,7 @@ type C_Location {
 	# Country 
 	C_Country: C_Country!
 	UUID: ID!
+	C_Location_UU: String
 	# Identifies a geographical Region
 	C_Region: C_Region
 	# Identifies a City
@@ -85,6 +86,7 @@ input C_LocationInput {
 	# Country 
 	C_Country: ForeignEntityInput
 	UUID: ID
+	C_Location_UU: String
 	# Identifies a geographical Region
 	C_Region: ForeignEntityInput
 	# Identifies a City

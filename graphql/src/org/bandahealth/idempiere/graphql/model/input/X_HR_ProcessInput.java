@@ -57,7 +57,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 */
 	@JsonCreator
 	public X_HR_ProcessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

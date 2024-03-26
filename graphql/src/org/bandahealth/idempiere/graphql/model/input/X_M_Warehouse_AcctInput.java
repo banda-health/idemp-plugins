@@ -35,8 +35,7 @@ public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_W
 	 */
 	@JsonCreator
 	public X_M_Warehouse_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_M_Warehouse_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

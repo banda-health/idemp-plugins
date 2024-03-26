@@ -24,6 +24,7 @@ type C_DocTypeCounter {
 	# Document type or rules
 	C_DocType: C_DocType!
 	UUID: ID!
+	C_DocTypeCounter_UU: String
 	# Generated Counter Document Type (To)
 	Counter_C_DocType: C_DocType!
 	# Date this record was created
@@ -55,6 +56,7 @@ input C_DocTypeCounterInput {
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	UUID: ID
+	C_DocTypeCounter_UU: String
 	# Generated Counter Document Type (To)
 	Counter_C_DocType: ForeignEntityInput
 	# Optional short description of the record

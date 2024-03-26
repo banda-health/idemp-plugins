@@ -35,6 +35,7 @@ type T_ReportStatement {
 	# Quantity
 	Qty: BigDecimal
 	UUID: ID!
+	T_ReportStatement_UU: String
 }
 
 input T_ReportStatementInput {
@@ -56,4 +57,5 @@ input T_ReportStatementInput {
 	# Quantity
 	Qty: BigDecimal
 	UUID: ID
+	T_ReportStatement_UU: String
 }

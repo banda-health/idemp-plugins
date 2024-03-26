@@ -47,7 +47,7 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 */
 	@JsonCreator
 	public X_C_AllocationLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

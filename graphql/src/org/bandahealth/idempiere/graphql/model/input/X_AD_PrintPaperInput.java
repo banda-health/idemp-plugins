@@ -31,7 +31,7 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	 */
 	@JsonCreator
 	public X_AD_PrintPaperInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

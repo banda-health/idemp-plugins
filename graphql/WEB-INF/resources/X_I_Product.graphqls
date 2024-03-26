@@ -60,6 +60,7 @@ type I_Product {
 	# Has this import been processed
 	I_IsImported: Boolean!
 	UUID: ID!
+	I_Product_UU: String
 	# URL of  image
 	ImageURL: String
 	# The record is active in the system
@@ -166,6 +167,7 @@ input I_ProductInput {
 	# Has this import been processed
 	I_IsImported: Boolean
 	UUID: ID
+	I_Product_UU: String
 	# URL of  image
 	ImageURL: String
 	# The record is active in the system

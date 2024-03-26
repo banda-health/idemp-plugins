@@ -21,6 +21,7 @@ type AD_ImportTemplateAccess {
 	AD_Client: AD_Client
 	AD_ImportTemplate: AD_ImportTemplate
 	UUID: ID!
+	AD_ImportTemplateAccess_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org
 	# Responsibility Role
@@ -43,6 +44,7 @@ type AD_ImportTemplateAccess {
 input AD_ImportTemplateAccessInput {
 	AD_ImportTemplate: ForeignEntityInput
 	UUID: ID
+	AD_ImportTemplateAccess_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role

@@ -16,6 +16,7 @@ import org.compiere.model.MAssetGroup;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MProjectPhase;
@@ -29,6 +30,7 @@ import org.compiere.model.X_C_1099Box;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 
 /**
  * Generated Model for C_InvoiceLine - DO NOT CHANGE
@@ -36,7 +38,7 @@ import java.math.BigDecimal;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_InvoiceLineInput {
+public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLineInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
@@ -69,7 +71,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine_BH implements I_C_Invoice
 	 */
 	@JsonCreator
 	public X_C_InvoiceLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

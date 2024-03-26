@@ -21,7 +21,8 @@ type BH_Voided_Reason {
 	AD_Client: AD_Client
 	# Organizational entity within tenant
 	AD_Org: AD_Org
-	bh_voided_reason_uu: String
+	UUID: ID!
+	BH_Voided_Reason_UU: String
 	bh_window_id: BigDecimal
 	# Date this record was created
 	Created: Date
@@ -44,7 +45,8 @@ type BH_Voided_Reason {
 input BH_Voided_ReasonInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	bh_voided_reason_uu: String
+	UUID: ID
+	BH_Voided_Reason_UU: String
 	bh_window_id: BigDecimal
 	# Optional short description of the record
 	Description: String

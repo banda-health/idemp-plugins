@@ -73,6 +73,7 @@ type PP_MRP {
 	OrderType: AD_Ref_List
 	Planner: AD_User
 	UUID: ID!
+	PP_MRP_UU: String
 	PP_Order_BOMLine: PP_Order_BOMLine
 	# Manufacturing Order
 	PP_Order: PP_Order
@@ -145,6 +146,7 @@ input PP_MRPInput {
 	OrderType: AD_Ref_ListInput
 	Planner: ForeignEntityInput
 	UUID: ID
+	PP_MRP_UU: String
 	PP_Order_BOMLine: ForeignEntityInput
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput

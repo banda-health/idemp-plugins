@@ -24,6 +24,7 @@ type C_DunningLevel {
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning!
 	UUID: ID!
+	C_DunningLevel_UU: String
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm
 	# Indicates if fees will be charged for overdue invoices
@@ -78,6 +79,7 @@ input C_DunningLevelInput {
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
 	UUID: ID
+	C_DunningLevel_UU: String
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
 	# Indicates if fees will be charged for overdue invoices

@@ -24,6 +24,7 @@ type AD_TaskInstance {
 	# Operation System Task
 	AD_Task: AD_Task!
 	UUID: ID!
+	AD_TaskInstance_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,6 +43,7 @@ input AD_TaskInstanceInput {
 	# Operation System Task
 	AD_Task: ForeignEntityInput
 	UUID: ID
+	AD_TaskInstance_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 }

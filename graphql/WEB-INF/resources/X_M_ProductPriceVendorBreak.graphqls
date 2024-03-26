@@ -36,6 +36,7 @@ type M_ProductPriceVendorBreak {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_ProductPriceVendorBreak_UU: String
 	# Lowest price for a product
 	PriceLimit: BigDecimal!
 	# List Price
@@ -62,6 +63,7 @@ input M_ProductPriceVendorBreakInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_ProductPriceVendorBreak_UU: String
 	# Lowest price for a product
 	PriceLimit: BigDecimal
 	# List Price

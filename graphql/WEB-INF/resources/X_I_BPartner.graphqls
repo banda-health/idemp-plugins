@@ -68,6 +68,7 @@ type I_BPartner {
 	# Business Partner Group Key
 	GroupValue: String
 	UUID: ID!
+	I_BPartner_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -163,6 +164,7 @@ input I_BPartnerInput {
 	# Business Partner Group Key
 	GroupValue: String
 	UUID: ID
+	I_BPartner_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

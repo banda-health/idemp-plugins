@@ -33,6 +33,7 @@ type GL_JournalGeneratorSource {
 	GL_Category: GL_Category
 	GL_JournalGeneratorLine: GL_JournalGeneratorLine!
 	UUID: ID!
+	GL_JournalGeneratorSource_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -55,6 +56,7 @@ input GL_JournalGeneratorSourceInput {
 	GL_Category: ForeignEntityInput
 	GL_JournalGeneratorLine: ForeignEntityInput
 	UUID: ID
+	GL_JournalGeneratorSource_UU: String
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

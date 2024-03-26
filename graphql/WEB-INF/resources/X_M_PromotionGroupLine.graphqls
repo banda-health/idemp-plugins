@@ -31,6 +31,7 @@ type M_PromotionGroupLine {
 	M_Product: M_Product!
 	M_PromotionGroup: M_PromotionGroup!
 	UUID: ID!
+	M_PromotionGroupLine_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -46,4 +47,5 @@ input M_PromotionGroupLineInput {
 	M_Product: ForeignEntityInput
 	M_PromotionGroup: ForeignEntityInput
 	UUID: ID
+	M_PromotionGroupLine_UU: String
 }

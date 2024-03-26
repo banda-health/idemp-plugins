@@ -20,6 +20,7 @@ type AD_ImpFormat {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	UUID: ID!
+	AD_ImpFormat_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
@@ -46,6 +47,7 @@ type AD_ImpFormat {
 
 input AD_ImpFormatInput {
 	UUID: ID
+	AD_ImpFormat_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

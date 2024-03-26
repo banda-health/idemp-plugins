@@ -23,6 +23,7 @@ type AD_PInstance {
 	# Organizational entity within tenant
 	AD_Org: AD_Org
 	UUID: ID!
+	AD_PInstance_UU: String
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
 	# Process or Report
@@ -48,7 +49,6 @@ type AD_PInstance {
 	Name: String
 	# Type of Notifications
 	NotificationType: AD_Ref_List
-	UUID: ID!
 	ReportType: String
 	# Result of the action taken
 	Result: Int
@@ -63,6 +63,7 @@ input AD_PInstanceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_PInstance_UU: String
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	# Process or Report
@@ -84,7 +85,6 @@ input AD_PInstanceInput {
 	Name: String
 	# Type of Notifications
 	NotificationType: AD_Ref_ListInput
-	UUID: ID
 	ReportType: String
 	# Result of the action taken
 	Result: Int

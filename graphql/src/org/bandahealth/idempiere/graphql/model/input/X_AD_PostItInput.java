@@ -31,7 +31,7 @@ public class X_AD_PostItInput extends MPostIt implements I_AD_PostItInput {
 	 */
 	@JsonCreator
 	public X_AD_PostItInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -133,23 +133,5 @@ public class X_AD_PostItInput extends MPostIt implements I_AD_PostItInput {
 	@JsonProperty("AD_Table")
 	public ForeignEntityInput AD_Table() {
 		return mAD_Table;
-	}
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	public void setUUID(String UUID) {
-		setRecord_UU(UUID);
-	}
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	public String getUUID() {
-		return getRecord_UU();
 	}
 }

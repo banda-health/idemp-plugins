@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.compiere.model.MRegistrationValue;
+import org.compiere.model.X_A_RegistrationValue;
 
 /**
  * Data Loader for A_RegistrationValue - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.compiere.model.MRegistrationValue;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_A_RegistrationValueDataLoader extends PODataLoader<MRegistrationValue> {
+public class X_A_RegistrationValueDataLoader extends PODataLoader<X_A_RegistrationValue> {
 	public static String DATALOADER_A_RegistrationValue_BY_ID = "A_RegistrationValueByIdDataLoader";
 	public static String DATALOADER_A_RegistrationValue_BY_UUID = "A_RegistrationValueByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return MRegistrationValue.Table_Name;
+		return X_A_RegistrationValue.Table_Name;
 	}
 
 	@Override

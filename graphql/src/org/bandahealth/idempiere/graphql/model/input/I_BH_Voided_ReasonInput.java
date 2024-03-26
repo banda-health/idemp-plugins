@@ -23,4 +23,18 @@ public interface I_BH_Voided_ReasonInput extends I_BH_Voided_Reason {
 	 * @return Organizational entity within tenant
 	 */
 	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set UUID.
+	 *
+	 * @param UUID UUID
+	 */
+	void setUUID(String UUID);
+
+	/**
+	 * Get UUID.
+	 *
+	 * @return UUID
+	 */
+	String getUUID();
 }

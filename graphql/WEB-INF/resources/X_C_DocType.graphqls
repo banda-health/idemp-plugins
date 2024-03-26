@@ -24,6 +24,7 @@ type C_DocType {
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
 	UUID: ID!
+	C_DocType_UU: String
 	# Document type for generating in dispute Shipments
 	C_DocTypeDifference: C_DocType
 	# Document type used for invoices generated from this sales document
@@ -101,6 +102,7 @@ input C_DocTypeInput {
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	UUID: ID
+	C_DocType_UU: String
 	# Document type for generating in dispute Shipments
 	C_DocTypeDifference: ForeignEntityInput
 	# Document type used for invoices generated from this sales document

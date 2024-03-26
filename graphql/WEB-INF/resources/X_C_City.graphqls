@@ -24,6 +24,7 @@ type C_City {
 	# Phone Area Code
 	AreaCode: String
 	UUID: ID!
+	C_City_UU: String
 	# Country 
 	C_Country: C_Country
 	# Identifies a geographical Region
@@ -54,6 +55,7 @@ input C_CityInput {
 	# Phone Area Code
 	AreaCode: String
 	UUID: ID
+	C_City_UU: String
 	# Country 
 	C_Country: ForeignEntityInput
 	# Identifies a geographical Region

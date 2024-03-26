@@ -24,6 +24,7 @@ type C_CommissionAmt {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_CommissionAmt_UU: String
 	# Commission Line
 	C_CommissionLine: C_CommissionLine!
 	# Commission Run or Process
@@ -50,6 +51,7 @@ input C_CommissionAmtInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_CommissionAmt_UU: String
 	# Commission Line
 	C_CommissionLine: ForeignEntityInput
 	# Commission Run or Process

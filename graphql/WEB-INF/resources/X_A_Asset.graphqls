@@ -26,6 +26,7 @@ type A_Asset {
 	A_Asset_Status: AD_Ref_List!
 	A_Asset_Type: A_Asset_Type
 	UUID: ID!
+	A_Asset_UU: String
 	A_AssetType: String
 	A_Parent_Asset: A_Asset
 	A_QTY_Current: BigDecimal
@@ -144,6 +145,7 @@ input A_AssetInput {
 	A_Asset_Status: AD_Ref_ListInput
 	A_Asset_Type: ForeignEntityInput
 	UUID: ID
+	A_Asset_UU: String
 	A_AssetType: String
 	A_Parent_Asset: ForeignEntityInput
 	A_QTY_Current: BigDecimal

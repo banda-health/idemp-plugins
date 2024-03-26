@@ -30,6 +30,7 @@ type HR_Concept_Acct {
 	# User who created this records
 	CreatedBy: AD_User!
 	UUID: ID!
+	HR_Concept_Acct_UU: String
 	HR_Concept: HR_Concept!
 	HR_Expense_A: C_ValidCombination!
 	HR_Revenue_A: C_ValidCombination!
@@ -55,6 +56,7 @@ input HR_Concept_AcctInput {
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
 	UUID: ID
+	HR_Concept_Acct_UU: String
 	HR_Concept: ForeignEntityInput
 	HR_Expense_A: ForeignEntityInput
 	HR_Revenue_A: ForeignEntityInput

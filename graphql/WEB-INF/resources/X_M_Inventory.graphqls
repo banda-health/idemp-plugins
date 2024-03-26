@@ -57,6 +57,7 @@ type M_Inventory {
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
 	UUID: ID!
+	M_Inventory_UU: String
 	# Rules for generating physical inventory
 	M_PerpetualInv: M_PerpetualInv
 	# Storage Warehouse and Service Point
@@ -118,6 +119,7 @@ input M_InventoryInput {
 	# Indicates if this document requires approval
 	IsApproved: Boolean
 	UUID: ID
+	M_Inventory_UU: String
 	# Rules for generating physical inventory
 	M_PerpetualInv: ForeignEntityInput
 	# Storage Warehouse and Service Point

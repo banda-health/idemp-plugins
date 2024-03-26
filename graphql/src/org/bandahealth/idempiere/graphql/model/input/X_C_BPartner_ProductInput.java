@@ -33,8 +33,7 @@ public class X_C_BPartner_ProductInput extends MBPartnerProduct implements I_C_B
 	 */
 	@JsonCreator
 	public X_C_BPartner_ProductInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MBPartnerProduct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

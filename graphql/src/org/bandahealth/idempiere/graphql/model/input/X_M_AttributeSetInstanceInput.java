@@ -35,7 +35,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 */
 	@JsonCreator
 	public X_M_AttributeSetInstanceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -74,17 +74,6 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
-	}
-	/**
-	 * Set Guarantee Date String.
-	 *
-	 * @param BH_GuaranteeDateString String date when guarantee expires
-	 */
-
-	public void setBH_GuaranteeDateString(String BH_GuaranteeDateString) {
-		if (get_ID() == 0) {
-			super.setBH_GuaranteeDateString(BH_GuaranteeDateString);
-		}
 	}
 
 	/**

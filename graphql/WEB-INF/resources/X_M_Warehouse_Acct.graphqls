@@ -30,6 +30,7 @@ type M_Warehouse_Acct {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_Warehouse_Acct_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Date this record was updated
@@ -48,6 +49,7 @@ input M_Warehouse_AcctInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_Warehouse_Acct_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Warehouse Differences Account

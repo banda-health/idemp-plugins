@@ -42,6 +42,7 @@ type S_ResourceAssignment {
 	# Resource
 	S_Resource: S_Resource!
 	UUID: ID!
+	S_ResourceAssignment_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -68,4 +69,5 @@ input S_ResourceAssignmentInput {
 	# Resource
 	S_Resource: ForeignEntityInput
 	UUID: ID
+	S_ResourceAssignment_UU: String
 }

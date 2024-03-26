@@ -24,6 +24,7 @@ type ASP_Field {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	ASP_Field_UU: String
 	ASP_Status: AD_Ref_List!
 	ASP_Tab: ASP_Tab
 	# Date this record was created
@@ -44,6 +45,7 @@ input ASP_FieldInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	ASP_Field_UU: String
 	ASP_Status: AD_Ref_ListInput
 	ASP_Tab: ForeignEntityInput
 	# The record is active in the system

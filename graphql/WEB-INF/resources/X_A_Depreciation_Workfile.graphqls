@@ -32,6 +32,7 @@ type A_Depreciation_Workfile {
 	A_Curr_Dep_Exp: BigDecimal!
 	A_Current_Period: Int
 	UUID: ID!
+	A_Depreciation_Workfile_UU: String
 	A_Expense_SL: BigDecimal
 	A_Expense_SL_F: BigDecimal
 	A_FundingMode: A_FundingMode
@@ -101,6 +102,7 @@ input A_Depreciation_WorkfileInput {
 	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
 	UUID: ID
+	A_Depreciation_Workfile_UU: String
 	A_FundingMode: ForeignEntityInput
 	A_Life_Period: Int
 	A_Life_Period_F: Int

@@ -31,7 +31,7 @@ public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInpu
 	 */
 	@JsonCreator
 	public X_GL_CategoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

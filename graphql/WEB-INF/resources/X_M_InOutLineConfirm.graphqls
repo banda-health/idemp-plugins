@@ -42,6 +42,7 @@ type M_InOutLineConfirm {
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine!
 	UUID: ID!
+	M_InOutLineConfirm_UU: String
 	# Unique line in an Inventory document
 	M_InventoryLine: M_InventoryLine
 	# The document has been processed
@@ -76,6 +77,7 @@ input M_InOutLineConfirmInput {
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
 	UUID: ID
+	M_InOutLineConfirm_UU: String
 	# Unique line in an Inventory document
 	M_InventoryLine: ForeignEntityInput
 	# The document has been processed

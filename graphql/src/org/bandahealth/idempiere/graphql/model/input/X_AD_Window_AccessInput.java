@@ -33,8 +33,7 @@ public class X_AD_Window_AccessInput extends MWindowAccess_BH implements I_AD_Wi
 	 */
 	@JsonCreator
 	public X_AD_Window_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MWindowAccess_BH(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

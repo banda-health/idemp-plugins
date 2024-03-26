@@ -22,6 +22,7 @@ type C_BP_ShippingAcct {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	C_BP_ShippingAcct_UU: String
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Identifies the (ship to) address for this Business Partner
@@ -46,6 +47,7 @@ input C_BP_ShippingAcctInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	C_BP_ShippingAcct_UU: String
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Identifies the (ship to) address for this Business Partner

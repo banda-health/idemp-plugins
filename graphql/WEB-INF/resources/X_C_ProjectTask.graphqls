@@ -24,6 +24,7 @@ type C_ProjectTask {
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase!
 	UUID: ID!
+	C_ProjectTask_UU: String
 	# Standard Project Type Task
 	C_Task: C_Task
 	# The (legal) commitment amount
@@ -62,6 +63,7 @@ input C_ProjectTaskInput {
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput
 	UUID: ID
+	C_ProjectTask_UU: String
 	# Standard Project Type Task
 	C_Task: ForeignEntityInput
 	# The (legal) commitment amount

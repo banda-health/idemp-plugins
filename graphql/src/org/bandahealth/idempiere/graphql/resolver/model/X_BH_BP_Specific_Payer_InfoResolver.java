@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHBPSpecificPayerInfo;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFld;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Payer_Info_FldDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_InvoiceLineDataLoader;
+import org.compiere.model.MInvoiceLine;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -40,11 +41,11 @@ public class X_BH_BP_Specific_Payer_InfoResolver extends POResolver<MBHBPSpecifi
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MBHBPSpecificPayerInfo entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MBHBPSpecificPayerInfo entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}

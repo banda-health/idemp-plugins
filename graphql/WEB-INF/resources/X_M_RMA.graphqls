@@ -60,6 +60,7 @@ type M_RMA {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean!
 	UUID: ID!
+	M_RMA_UU: String
 	# Return Material Authorization Type
 	M_RMAType: M_RMAType!
 	# Alphanumeric identifier of the entity
@@ -114,6 +115,7 @@ input M_RMAInput {
 	# This is a Sales Transaction
 	IsSOTrx: Boolean
 	UUID: ID
+	M_RMA_UU: String
 	# Return Material Authorization Type
 	M_RMAType: ForeignEntityInput
 	# Alphanumeric identifier of the entity

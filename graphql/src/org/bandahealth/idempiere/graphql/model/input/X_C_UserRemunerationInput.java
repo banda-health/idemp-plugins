@@ -33,7 +33,7 @@ public class X_C_UserRemunerationInput extends X_C_UserRemuneration implements I
 	 */
 	@JsonCreator
 	public X_C_UserRemunerationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

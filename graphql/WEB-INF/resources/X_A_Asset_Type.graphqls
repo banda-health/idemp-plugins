@@ -18,6 +18,7 @@ type A_Asset_TypeConnection {
 
 type A_Asset_Type {
 	UUID: ID!
+	A_Asset_Type_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -48,6 +49,7 @@ type A_Asset_Type {
 
 input A_Asset_TypeInput {
 	UUID: ID
+	A_Asset_Type_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

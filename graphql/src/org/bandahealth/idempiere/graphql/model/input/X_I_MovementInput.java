@@ -11,12 +11,15 @@ import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MCampaign;
 import org.compiere.model.MLocator;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MOrg;
 import org.compiere.model.MProject;
 import org.compiere.model.MShipper;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.X_I_Movement;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for I_Movement - DO NOT CHANGE
@@ -47,7 +50,7 @@ public class X_I_MovementInput extends X_I_Movement implements I_I_MovementInput
 	 */
 	@JsonCreator
 	public X_I_MovementInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -399,7 +402,7 @@ public class X_I_MovementInput extends X_I_Movement implements I_I_MovementInput
 		this.mM_MovementLine = M_MovementLine;
 		if (M_MovementLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MMovementLine_BH foreignEntity;
+			MMovementLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_MovementLine", "M_MovementLine_UU=?", get_TrxName())
 							.setParameters(M_MovementLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

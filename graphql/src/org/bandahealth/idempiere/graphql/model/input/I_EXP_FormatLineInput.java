@@ -39,20 +39,6 @@ public interface I_EXP_FormatLineInput extends I_EXP_FormatLine {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set AD_Reference.
-	 *
-	 * @param AD_Reference System Reference and Validation
-	 */
-	void setAD_ReferenceInput(ForeignEntityInput AD_Reference);
-
-	/**
-	 * Get AD_Reference.
-	 *
-	 * @return System Reference and Validation
-	 */
-	ForeignEntityInput AD_Reference();
-
-	/**
 	 * Set EXP_EmbeddedFormat.
 	 *
 	 * @param EXP_EmbeddedFormat EXP_EmbeddedFormat

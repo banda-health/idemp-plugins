@@ -26,6 +26,7 @@ type C_DunningRunLine {
 	# Dunning Run Entry
 	C_DunningRunEntry: C_DunningRunEntry!
 	UUID: ID!
+	C_DunningRunLine_UU: String
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Invoice Payment Schedule
@@ -70,6 +71,7 @@ input C_DunningRunLineInput {
 	# Dunning Run Entry
 	C_DunningRunEntry: ForeignEntityInput
 	UUID: ID
+	C_DunningRunLine_UU: String
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Invoice Payment Schedule

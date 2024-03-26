@@ -20,6 +20,7 @@ type A_Registration {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
 	UUID: ID!
+	A_Registration_UU: String
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -67,6 +68,7 @@ input A_RegistrationInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UUID: ID
+	A_Registration_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

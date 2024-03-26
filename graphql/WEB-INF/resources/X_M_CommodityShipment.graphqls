@@ -32,6 +32,7 @@ type M_CommodityShipment {
 	# The record is active in the system
 	IsActive: Boolean!
 	UUID: ID!
+	M_CommodityShipment_UU: String
 	# Product, Service, Item
 	M_Product: M_Product
 	# Date this record was updated
@@ -50,6 +51,7 @@ input M_CommodityShipmentInput {
 	# The record is active in the system
 	IsActive: Boolean
 	UUID: ID
+	M_CommodityShipment_UU: String
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 }

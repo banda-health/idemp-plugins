@@ -22,6 +22,7 @@ type AD_PrintForm {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	UUID: ID!
+	AD_PrintForm_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -70,6 +71,7 @@ input AD_PrintFormInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UUID: ID
+	AD_PrintForm_UU: String
 	# Optional short description of the record
 	Description: String
 	# Email text used for sending Distribution Order

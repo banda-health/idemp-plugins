@@ -34,8 +34,7 @@ public class X_C_InterOrg_AcctInput extends X_C_InterOrg_Acct implements I_C_Int
 	 */
 	@JsonCreator
 	public X_C_InterOrg_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new X_C_InterOrg_Acct(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -26,6 +26,7 @@ type AD_Table_Access {
 	# Responsibility Role
 	AD_Role: AD_Role!
 	UUID: ID!
+	AD_Table_Access_UU: String
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -52,6 +53,7 @@ input AD_Table_AccessInput {
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	UUID: ID
+	AD_Table_Access_UU: String
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# The record is active in the system

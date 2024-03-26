@@ -71,6 +71,7 @@ type C_Payment {
 	# Order
 	C_Order: C_Order
 	UUID: ID!
+	C_Payment_UU: String
 	# Payment batch for EFT
 	C_PaymentBatch: C_PaymentBatch
 	# Payment processor for electronic payments
@@ -264,6 +265,7 @@ input C_PaymentInput {
 	# Order
 	C_Order: ForeignEntityInput
 	UUID: ID
+	C_Payment_UU: String
 	# Payment batch for EFT
 	C_PaymentBatch: ForeignEntityInput
 	# Payment processor for electronic payments

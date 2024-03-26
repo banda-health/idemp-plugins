@@ -22,7 +22,10 @@ import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCostDetail;
 import org.compiere.model.MCostElement;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
+import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MMatchInv;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MProductionLine;
 import org.compiere.model.MProjectIssue;
 import org.dataloader.DataLoader;
@@ -60,11 +63,11 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 *
 	 * @return Invoice Detail Line
 	 */
-	public CompletableFuture<MInvoiceLine_BH> C_InvoiceLine(MCostDetail entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MCostDetail entity, DataFetchingEnvironment environment) {
 		if (entity.getC_InvoiceLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInvoiceLine_BH> dataLoader =
+		DataLoader<Integer, MInvoiceLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_C_InvoiceLineDataLoader.DATALOADER_C_InvoiceLine_BY_ID);
 		return dataLoader.load(entity.getC_InvoiceLine_ID());
 	}
@@ -154,11 +157,11 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 *
 	 * @return Unique line in an Inventory document
 	 */
-	public CompletableFuture<MInventoryLine_BH> M_InventoryLine(MCostDetail entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MInventoryLine> M_InventoryLine(MCostDetail entity, DataFetchingEnvironment environment) {
 		if (entity.getM_InventoryLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MInventoryLine_BH> dataLoader =
+		DataLoader<Integer, MInventoryLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_InventoryLineDataLoader.DATALOADER_M_InventoryLine_BY_ID);
 		return dataLoader.load(entity.getM_InventoryLine_ID());
 	}
@@ -184,11 +187,11 @@ public class X_M_CostDetailResolver extends POResolver<MCostDetail> implements G
 	 *
 	 * @return Inventory Move document Line
 	 */
-	public CompletableFuture<MMovementLine_BH> M_MovementLine(MCostDetail entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MMovementLine> M_MovementLine(MCostDetail entity, DataFetchingEnvironment environment) {
 		if (entity.getM_MovementLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MMovementLine_BH> dataLoader =
+		DataLoader<Integer, MMovementLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.DATALOADER_M_MovementLine_BY_ID);
 		return dataLoader.load(entity.getM_MovementLine_ID());
 	}

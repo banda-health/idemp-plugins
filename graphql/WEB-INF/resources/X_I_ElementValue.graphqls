@@ -42,6 +42,7 @@ type I_ElementValue {
 	# Name of the Element
 	ElementName: String
 	UUID: ID!
+	I_ElementValue_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -97,6 +98,7 @@ input I_ElementValueInput {
 	# Name of the Element
 	ElementName: String
 	UUID: ID
+	I_ElementValue_UU: String
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

@@ -40,6 +40,7 @@ type S_ExpenseType {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	S_ExpenseType_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -66,6 +67,7 @@ input S_ExpenseTypeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	S_ExpenseType_UU: String
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

@@ -9,8 +9,6 @@ import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MFieldSuggestion;
 import org.compiere.model.MLanguage;
 import org.compiere.model.MOrg;
-import org.compiere.model.MTab;
-import org.compiere.model.MWindow;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_AllClients_V;
 import org.compiere.model.X_AD_AllUsers_V;
@@ -29,10 +27,8 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	private ForeignEntityInput mAD_Field;
 	private ForeignEntityInput mAD_Language;
 	private ForeignEntityInput mAD_Org;
-	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mAD_UserClient;
-	private ForeignEntityInput mAD_Window;
 	private I_AD_Ref_ListInput mFieldSuggestionTarget;
 
 	/**
@@ -43,7 +39,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	 */
 	@JsonCreator
 	public X_AD_FieldSuggestionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -188,43 +184,6 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	}
 
 	/**
-	 * Set Tab.
-	 *
-	 * @param AD_Tab Tab within a Window
-	 */
-	@JsonProperty("AD_Tab")
-	public void setAD_TabInput(ForeignEntityInput AD_Tab) {
-		this.mAD_Tab = AD_Tab;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (AD_Tab != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MTab foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Tab_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
-			}
-		} else {
-			this.setAD_Tab_ID(0);
-		}
-	}
-
-	/**
-	 * Get Tab.
-	 *
-	 * @return Tab within a Window
-	 */
-	@JsonProperty("AD_Tab")
-	public ForeignEntityInput AD_Tab() {
-		return mAD_Tab;
-	}
-
-	/**
 	 * Set User/Contact.
 	 *
 	 * @param AD_User User within the system - Internal or Business Partner Contact
@@ -296,43 +255,6 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	@JsonProperty("AD_UserClient")
 	public ForeignEntityInput AD_UserClient() {
 		return mAD_UserClient;
-	}
-
-	/**
-	 * Set Window.
-	 *
-	 * @param AD_Window Data entry or display window
-	 */
-	@JsonProperty("AD_Window")
-	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
-		this.mAD_Window = AD_Window;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (AD_Window != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MWindow foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setAD_Window_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
-			}
-		} else {
-			this.setAD_Window_ID(0);
-		}
-	}
-
-	/**
-	 * Get Window.
-	 *
-	 * @return Data entry or display window
-	 */
-	@JsonProperty("AD_Window")
-	public ForeignEntityInput AD_Window() {
-		return mAD_Window;
 	}
 
 	/**

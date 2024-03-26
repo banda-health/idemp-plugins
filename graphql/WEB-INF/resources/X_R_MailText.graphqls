@@ -40,6 +40,7 @@ type R_MailText {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	R_MailText_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -64,4 +65,5 @@ input R_MailTextInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	R_MailText_UU: String
 }

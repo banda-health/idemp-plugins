@@ -33,7 +33,7 @@ public class X_A_Asset_GroupInput extends MAssetGroup implements I_A_Asset_Group
 	 */
 	@JsonCreator
 	public X_A_Asset_GroupInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

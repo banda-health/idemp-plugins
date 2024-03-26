@@ -30,6 +30,7 @@ type GL_Budget {
 	# Optional short description of the record
 	Description: String
 	UUID: ID!
+	GL_Budget_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this is the primary budget
@@ -50,6 +51,7 @@ input GL_BudgetInput {
 	# Optional short description of the record
 	Description: String
 	UUID: ID
+	GL_Budget_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this is the primary budget

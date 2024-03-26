@@ -31,7 +31,7 @@ public class X_C_CycleStepInput extends X_C_CycleStep implements I_C_CycleStepIn
 	 */
 	@JsonCreator
 	public X_C_CycleStepInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

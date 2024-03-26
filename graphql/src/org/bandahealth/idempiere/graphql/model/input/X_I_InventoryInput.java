@@ -9,11 +9,14 @@ import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.model.X_I_Inventory;
 import org.compiere.util.Env;
+
+import java.sql.ResultSet;
 
 /**
  * Generated Model for I_Inventory - DO NOT CHANGE
@@ -41,7 +44,7 @@ public class X_I_InventoryInput extends X_I_Inventory implements I_I_InventoryIn
 	 */
 	@JsonCreator
 	public X_I_InventoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -189,7 +192,7 @@ public class X_I_InventoryInput extends X_I_Inventory implements I_I_InventoryIn
 		this.mM_CostingLine = M_CostingLine;
 		if (M_CostingLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_CostingLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
@@ -257,7 +260,7 @@ public class X_I_InventoryInput extends X_I_Inventory implements I_I_InventoryIn
 		this.mM_InventoryLine = M_InventoryLine;
 		if (M_InventoryLine != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MInventoryLine_BH foreignEntity;
+			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
 							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

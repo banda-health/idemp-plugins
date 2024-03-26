@@ -55,6 +55,7 @@ type HR_Process {
 	HR_Payroll: HR_Payroll!
 	HR_Period: HR_Period
 	UUID: ID!
+	HR_Process_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -107,6 +108,7 @@ input HR_ProcessInput {
 	HR_Payroll: ForeignEntityInput
 	HR_Period: ForeignEntityInput
 	UUID: ID
+	HR_Process_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

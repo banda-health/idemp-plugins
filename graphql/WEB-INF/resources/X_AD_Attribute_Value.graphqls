@@ -19,6 +19,7 @@ type AD_Attribute_ValueConnection {
 type AD_Attribute_Value {
 	AD_Attribute: AD_Attribute!
 	UUID: ID!
+	AD_Attribute_Value_UU: String
 	V_Date: Date
 	V_Number: String
 	V_String: String
@@ -27,6 +28,7 @@ type AD_Attribute_Value {
 input AD_Attribute_ValueInput {
 	AD_Attribute: ForeignEntityInput
 	UUID: ID
+	AD_Attribute_Value_UU: String
 	V_Date: Date
 	V_Number: String
 	V_String: String

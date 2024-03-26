@@ -57,7 +57,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 */
 	@JsonCreator
 	public X_AD_FieldInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

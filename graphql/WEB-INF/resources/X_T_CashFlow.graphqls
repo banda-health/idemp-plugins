@@ -66,6 +66,7 @@ type T_CashFlow {
 	Name: String
 	Probability: BigDecimal
 	UUID: ID!
+	T_CashFlow_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -116,4 +117,5 @@ input T_CashFlowInput {
 	Name: String
 	Probability: BigDecimal
 	UUID: ID
+	T_CashFlow_UU: String
 }

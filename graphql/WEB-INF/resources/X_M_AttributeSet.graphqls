@@ -54,6 +54,7 @@ type M_AttributeSet {
 	LotCharSOverwrite: String
 	M_AttributeSet_Type: AD_Ref_List!
 	UUID: ID!
+	M_AttributeSet_UU: String
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
 	# Product Serial Number Control
@@ -105,6 +106,7 @@ input M_AttributeSetInput {
 	LotCharSOverwrite: String
 	M_AttributeSet_Type: AD_Ref_ListInput
 	UUID: ID
+	M_AttributeSet_UU: String
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
 	# Product Serial Number Control

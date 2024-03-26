@@ -24,6 +24,7 @@ type B_Bid {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	UUID: ID!
+	B_Bid_UU: String
 	# Buyer Funds for Bids on Topics
 	B_BuyerFunds: B_BuyerFunds!
 	# Auction Topic
@@ -53,6 +54,7 @@ input B_BidInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	UUID: ID
+	B_Bid_UU: String
 	# Buyer Funds for Bids on Topics
 	B_BuyerFunds: ForeignEntityInput
 	# Auction Topic

@@ -36,6 +36,7 @@ type M_StorageReservation {
 	# Product, Service, Item
 	M_Product: M_Product!
 	UUID: ID!
+	M_StorageReservation_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Quantity
@@ -60,6 +61,7 @@ input M_StorageReservationInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	UUID: ID
+	M_StorageReservation_UU: String
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Quantity

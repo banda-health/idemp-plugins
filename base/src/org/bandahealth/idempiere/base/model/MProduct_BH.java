@@ -90,6 +90,11 @@ public class MProduct_BH extends MProduct {
 		super(ctx, copy, trxName);
 	}
 
+	public MProduct_BH(X_BH_I_Product_Quantity importProductQuantity) {
+		this(importProductQuantity.getCtx(), 0, importProductQuantity.get_TrxName());
+		set(importProductQuantity);
+	}
+
 	/**
 	 * Set/Update Settings from import
 	 *

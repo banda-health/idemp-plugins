@@ -18,6 +18,7 @@ type A_Asset_ClassConnection {
 
 type A_Asset_Class {
 	UUID: ID!
+	A_Asset_Class_UU: String
 	A_Life_Period_2004: Int
 	A_Life_Period_Max: Int!
 	A_Life_Period_Min: Int!
@@ -50,6 +51,7 @@ type A_Asset_Class {
 
 input A_Asset_ClassInput {
 	UUID: ID
+	A_Asset_Class_UU: String
 	A_Life_Period_2004: Int
 	A_Life_Period_Max: Int
 	A_Life_Period_Min: Int

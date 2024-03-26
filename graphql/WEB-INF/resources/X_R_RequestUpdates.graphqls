@@ -34,6 +34,7 @@ type R_RequestUpdates {
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
 	UUID: ID!
+	R_RequestUpdates_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,4 +53,5 @@ input R_RequestUpdatesInput {
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
 	UUID: ID
+	R_RequestUpdates_UU: String
 }

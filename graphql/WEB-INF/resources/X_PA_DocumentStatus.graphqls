@@ -50,6 +50,7 @@ type PA_DocumentStatus {
 	Number_PrintColor: AD_PrintColor
 	Number_PrintFont: AD_PrintFont
 	UUID: ID!
+	PA_DocumentStatus_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -88,6 +89,7 @@ input PA_DocumentStatusInput {
 	Number_PrintColor: ForeignEntityInput
 	Number_PrintFont: ForeignEntityInput
 	UUID: ID
+	PA_DocumentStatus_UU: String
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Fully qualified SQL WHERE clause

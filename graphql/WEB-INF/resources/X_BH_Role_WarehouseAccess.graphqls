@@ -21,6 +21,7 @@ type BH_Role_WarehouseAccess {
 	AD_Role: AD_Role
 	BH_Role_WarehouseAccess: BH_Role_WarehouseAccess!
 	UUID: ID!
+	BH_Role_WarehouseAccess_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,6 +43,7 @@ input BH_Role_WarehouseAccessInput {
 	AD_Role: ForeignEntityInput
 	BH_Role_WarehouseAccess: ForeignEntityInput
 	UUID: ID
+	BH_Role_WarehouseAccess_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Field is read only

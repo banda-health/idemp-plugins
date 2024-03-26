@@ -90,6 +90,7 @@ type I_Invoice {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID!
+	I_Invoice_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean!
 	# The record is active in the system
@@ -207,6 +208,7 @@ input I_InvoiceInput {
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UUID: ID
+	I_Invoice_UU: String
 	# Has this import been processed
 	I_IsImported: Boolean
 	# The record is active in the system

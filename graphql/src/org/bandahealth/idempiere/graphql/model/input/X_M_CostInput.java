@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCost;
@@ -32,7 +31,6 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	private ForeignEntityInput mM_CostElement;
 	private ForeignEntityInput mM_CostType;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mCostingMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -42,8 +40,7 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	 */
 	@JsonCreator
 	public X_M_CostInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getModelResultSet(new MCost(null, (ResultSet) null, null),
-				null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -119,43 +116,6 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("C_AcctSchema")
 	public ForeignEntityInput C_AcctSchema() {
 		return mC_AcctSchema;
-	}
-
-	/**
-	 * Set Costing Method.
-	 *
-	 * @param CostingMethod Indicates how Costs will be calculated
-	 */
-	@JsonProperty("CostingMethod")
-	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
-		this.mCostingMethod = CostingMethod;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (CostingMethod != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setCostingMethod(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingMethod.getUUID());
-			}
-		} else {
-			this.setCostingMethod(null);
-		}
-	}
-
-	/**
-	 * Get Costing Method.
-	 *
-	 * @return Indicates how Costs will be calculated
-	 */
-	@JsonProperty("CostingMethod")
-	public I_AD_Ref_ListInput CostingMethod() {
-		return mCostingMethod;
 	}
 	/**
 	 * Set Accumulated Amt.
@@ -344,16 +304,5 @@ public class X_M_CostInput extends MCost implements I_M_CostInput {
 	@JsonProperty("M_Product")
 	public ForeignEntityInput M_Product() {
 		return mM_Product;
-	}
-	/**
-	 * Set Processed.
-	 *
-	 * @param Processed The document has been processed
-	 */
-
-	public void setProcessed(boolean Processed) {
-		if (get_ID() == 0) {
-			super.setProcessed(Processed);
-		}
 	}
 }

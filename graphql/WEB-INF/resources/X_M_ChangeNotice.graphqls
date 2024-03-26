@@ -36,6 +36,7 @@ type M_ChangeNotice {
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
 	UUID: ID!
+	M_ChangeNotice_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# The document has been processed
@@ -61,6 +62,7 @@ input M_ChangeNoticeInput {
 	# Indicates if this document requires approval
 	IsApproved: Boolean
 	UUID: ID
+	M_ChangeNotice_UU: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The document has been processed

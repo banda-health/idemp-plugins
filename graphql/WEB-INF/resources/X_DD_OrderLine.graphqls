@@ -45,6 +45,7 @@ type DD_OrderLine {
 	DatePromised: Date
 	DD_Order: DD_Order!
 	UUID: ID!
+	DD_OrderLine_UU: String
 	# Optional short description of the record
 	Description: String
 	# Freight Amount 
@@ -120,6 +121,7 @@ input DD_OrderLineInput {
 	DatePromised: Date
 	DD_Order: ForeignEntityInput
 	UUID: ID
+	DD_OrderLine_UU: String
 	# Optional short description of the record
 	Description: String
 	# Freight Amount 

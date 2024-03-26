@@ -32,6 +32,7 @@ type C_POS {
 	# Document type or rules
 	C_DocType: C_DocType
 	UUID: ID!
+	C_POS_UU: String
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout
 	CashDrawer: String
@@ -81,6 +82,7 @@ input C_POSInput {
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	UUID: ID
+	C_POS_UU: String
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
 	CashDrawer: String

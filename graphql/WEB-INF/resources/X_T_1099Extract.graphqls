@@ -54,6 +54,7 @@ type T_1099Extract {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	T_1099Extract_UU: String
 	# Tax Identification
 	TaxID: String
 	# Date this record was updated
@@ -96,6 +97,7 @@ input T_1099ExtractInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	T_1099Extract_UU: String
 	# Tax Identification
 	TaxID: String
 	# Search key for the record in the format required - must be unique

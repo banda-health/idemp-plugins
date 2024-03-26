@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_AttributeSetInstanceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_MovementLineDataLoader;
+import org.compiere.model.MMovementLine;
 import org.compiere.model.MMovementLineMA;
 import org.dataloader.DataLoader;
 
@@ -44,11 +45,11 @@ public class X_M_MovementLineMAResolver extends POResolver<MMovementLineMA> impl
 	 *
 	 * @return Inventory Move document Line
 	 */
-	public CompletableFuture<MMovementLine_BH> M_MovementLine(MMovementLineMA entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MMovementLine> M_MovementLine(MMovementLineMA entity, DataFetchingEnvironment environment) {
 		if (entity.getM_MovementLine_ID() <= 0) {
 			return null;
 		}
-		DataLoader<Integer, MMovementLine_BH> dataLoader =
+		DataLoader<Integer, MMovementLine> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_M_MovementLineDataLoader.DATALOADER_M_MovementLine_BY_ID);
 		return dataLoader.load(entity.getM_MovementLine_ID());
 	}

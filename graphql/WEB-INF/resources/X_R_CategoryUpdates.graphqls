@@ -34,6 +34,7 @@ type R_CategoryUpdates {
 	# Request Category
 	R_Category: R_Category!
 	UUID: ID!
+	R_CategoryUpdates_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,4 +53,5 @@ input R_CategoryUpdatesInput {
 	# Request Category
 	R_Category: ForeignEntityInput
 	UUID: ID
+	R_CategoryUpdates_UU: String
 }

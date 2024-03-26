@@ -21,6 +21,7 @@ type AD_CtxHelpMsg {
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp!
 	UUID: ID!
+	AD_CtxHelpMsg_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -40,6 +41,7 @@ type AD_CtxHelpMsg {
 input AD_CtxHelpMsgInput {
 	AD_CtxHelp: ForeignEntityInput
 	UUID: ID
+	AD_CtxHelpMsg_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The record is active in the system

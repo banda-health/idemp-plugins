@@ -28,6 +28,7 @@ type BH_Visit {
 	bh_referral: AD_Ref_List
 	BH_ReferredFromTo: String
 	UUID: ID!
+	BH_Visit_UU: String
 	BH_VisitDate: Date
 	BH_Voided_Reason: BH_Voided_Reason
 	# Date this record was created
@@ -58,6 +59,7 @@ input BH_VisitInput {
 	bh_referral: AD_Ref_ListInput
 	BH_ReferredFromTo: String
 	UUID: ID
+	BH_Visit_UU: String
 	BH_VisitDate: Date
 	BH_Voided_Reason: ForeignEntityInput
 	# Optional short description of the record

@@ -58,6 +58,7 @@ type R_RequestType {
 	# Alphanumeric identifier of the entity
 	Name: String!
 	UUID: ID!
+	R_RequestType_UU: String
 	# Request Status Category
 	R_StatusCategory: R_StatusCategory!
 	# Date this record was updated
@@ -102,6 +103,7 @@ input R_RequestTypeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	UUID: ID
+	R_RequestType_UU: String
 	# Request Status Category
 	R_StatusCategory: ForeignEntityInput
 }

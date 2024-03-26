@@ -56,7 +56,6 @@ type Test {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
-	UUID: ID!
 	T_Amount: BigDecimal
 	T_Date: Date
 	T_DateTime: Date
@@ -66,6 +65,7 @@ type Test {
 	# Timestamp with time zone
 	T_Timestamp: Date
 	UUID: ID!
+	Test_UU: String
 	# Used only for testing purposes
 	TestVirtualQty: BigDecimal
 	# Date this record was updated
@@ -108,7 +108,6 @@ input TestInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
-	UUID: ID
 	T_Amount: BigDecimal
 	T_Date: Date
 	T_DateTime: Date
@@ -118,4 +117,5 @@ input TestInput {
 	# Timestamp with time zone
 	T_Timestamp: Date
 	UUID: ID
+	Test_UU: String
 }

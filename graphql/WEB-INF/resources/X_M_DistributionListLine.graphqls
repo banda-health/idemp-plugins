@@ -36,6 +36,7 @@ type M_DistributionListLine {
 	# Distribution Lists allow to distribute products to a selected list of partners
 	M_DistributionList: M_DistributionList!
 	UUID: ID!
+	M_DistributionListLine_UU: String
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal!
 	# Relative Ratio for Distributions
@@ -60,6 +61,7 @@ input M_DistributionListLineInput {
 	# Distribution Lists allow to distribute products to a selected list of partners
 	M_DistributionList: ForeignEntityInput
 	UUID: ID
+	M_DistributionListLine_UU: String
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal
 	# Relative Ratio for Distributions

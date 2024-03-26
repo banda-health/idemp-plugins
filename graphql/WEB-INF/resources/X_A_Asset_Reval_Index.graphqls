@@ -18,6 +18,7 @@ type A_Asset_Reval_IndexConnection {
 
 type A_Asset_Reval_Index {
 	UUID: ID!
+	A_Asset_Reval_Index_UU: String
 	A_Effective_Date: Date!
 	A_Reval_Code: AD_Ref_List!
 	A_Reval_Multiplier: AD_Ref_List!
@@ -40,6 +41,7 @@ type A_Asset_Reval_Index {
 
 input A_Asset_Reval_IndexInput {
 	UUID: ID
+	A_Asset_Reval_Index_UU: String
 	A_Effective_Date: Date
 	A_Reval_Code: AD_Ref_ListInput
 	A_Reval_Multiplier: AD_Ref_ListInput

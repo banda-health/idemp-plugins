@@ -33,6 +33,7 @@ type PP_Cost_CollectorMA {
 	MovementQty: BigDecimal!
 	PP_Cost_Collector: PP_Cost_Collector!
 	UUID: ID!
+	PP_Cost_CollectorMA_UU: String
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,4 +51,5 @@ input PP_Cost_CollectorMAInput {
 	MovementQty: BigDecimal
 	PP_Cost_Collector: ForeignEntityInput
 	UUID: ID
+	PP_Cost_CollectorMA_UU: String
 }

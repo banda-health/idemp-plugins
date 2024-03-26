@@ -54,7 +54,7 @@ public class X_DD_OrderLineInput extends MDDOrderLine implements I_DD_OrderLineI
 	 */
 	@JsonCreator
 	public X_DD_OrderLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

@@ -51,18 +51,4 @@ public interface I_AD_PostItInput extends I_AD_PostIt {
 	 * @return Database Table information
 	 */
 	ForeignEntityInput AD_Table();
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	void setUUID(String UUID);
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	String getUUID();
 }

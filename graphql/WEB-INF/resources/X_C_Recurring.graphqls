@@ -30,6 +30,7 @@ type C_Recurring {
 	# Financial Project
 	C_Project: C_Project
 	UUID: ID!
+	C_Recurring_UU: String
 	C_RecurringGroup: C_RecurringGroup
 	# Date this record was created
 	Created: Date!
@@ -78,6 +79,7 @@ input C_RecurringInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	UUID: ID
+	C_Recurring_UU: String
 	C_RecurringGroup: ForeignEntityInput
 	# Date the process was last run.
 	DateLastRun: Date

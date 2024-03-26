@@ -24,6 +24,7 @@ type C_TaxPostal {
 	# Tax identifier
 	C_Tax: C_Tax!
 	UUID: ID!
+	C_TaxPostal_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,6 +47,7 @@ input C_TaxPostalInput {
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	UUID: ID
+	C_TaxPostal_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Postal code

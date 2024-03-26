@@ -26,6 +26,7 @@ type AD_Menu {
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow
 	UUID: ID!
+	AD_Menu_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
@@ -74,6 +75,7 @@ input AD_MenuInput {
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	UUID: ID
+	AD_Menu_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report

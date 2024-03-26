@@ -39,6 +39,7 @@ type ASP_ClientException {
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
 	UUID: ID!
+	ASP_ClientException_UU: String
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -73,6 +74,7 @@ input ASP_ClientExceptionInput {
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
 	UUID: ID
+	ASP_ClientException_UU: String
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

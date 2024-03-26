@@ -29,7 +29,7 @@ public class X_C_ChargeTypeInput extends MChargeType_BH implements I_C_ChargeTyp
 	 */
 	@JsonCreator
 	public X_C_ChargeTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

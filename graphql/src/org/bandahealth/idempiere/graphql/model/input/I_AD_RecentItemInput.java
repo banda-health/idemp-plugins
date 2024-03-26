@@ -107,18 +107,4 @@ public interface I_AD_RecentItemInput extends I_AD_RecentItem {
 	 * @return Data entry or display window
 	 */
 	ForeignEntityInput AD_Window();
-
-	/**
-	 * Set UUID.
-	 *
-	 * @param UUID UUID
-	 */
-	void setUUID(String UUID);
-
-	/**
-	 * Get UUID.
-	 *
-	 * @return UUID
-	 */
-	String getUUID();
 }

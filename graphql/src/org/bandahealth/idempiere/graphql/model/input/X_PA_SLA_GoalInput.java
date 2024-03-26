@@ -6,9 +6,9 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
-import org.compiere.model.MSLACriteria;
-import org.compiere.model.MSLAGoal;
 import org.compiere.model.Query;
+import org.compiere.model.X_PA_SLA_Criteria;
+import org.compiere.model.X_PA_SLA_Goal;
 import org.compiere.util.Env;
 
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 11 - $Id$
  */
-public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
+public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BPartner;
@@ -33,7 +33,7 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 	 */
 	@JsonCreator
 	public X_PA_SLA_GoalInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 
@@ -121,7 +121,7 @@ public class X_PA_SLA_GoalInput extends MSLAGoal implements I_PA_SLA_GoalInput {
 		this.mPA_SLA_Criteria = PA_SLA_Criteria;
 		if (PA_SLA_Criteria != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MSLACriteria foreignEntity;
+			X_PA_SLA_Criteria foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_SLA_Criteria", "PA_SLA_Criteria_UU=?", get_TrxName())
 							.setParameters(PA_SLA_Criteria.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {

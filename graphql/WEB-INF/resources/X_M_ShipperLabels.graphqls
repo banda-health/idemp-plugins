@@ -33,6 +33,7 @@ type M_ShipperLabels {
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
 	UUID: ID!
+	M_ShipperLabels_UU: String
 	M_ShipperLabelsCfg: M_ShipperLabelsCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -53,6 +54,7 @@ input M_ShipperLabelsInput {
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	UUID: ID
+	M_ShipperLabels_UU: String
 	M_ShipperLabelsCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

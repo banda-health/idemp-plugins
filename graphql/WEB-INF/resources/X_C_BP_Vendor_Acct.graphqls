@@ -24,6 +24,7 @@ type C_BP_Vendor_Acct {
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	UUID: ID!
+	C_BP_Vendor_Acct_UU: String
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Date this record was created
@@ -50,6 +51,7 @@ input C_BP_Vendor_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	UUID: ID
+	C_BP_Vendor_Acct_UU: String
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# The record is active in the system

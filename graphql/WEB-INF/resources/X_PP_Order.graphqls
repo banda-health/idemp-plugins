@@ -98,6 +98,7 @@ type PP_Order {
 	# Posting status
 	Posted: Boolean!
 	UUID: ID!
+	PP_Order_UU: String
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM!
 	# Priority of a document
@@ -214,6 +215,7 @@ input PP_OrderInput {
 	# Posting status
 	Posted: Boolean
 	UUID: ID
+	PP_Order_UU: String
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
 	# Priority of a document

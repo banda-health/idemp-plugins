@@ -99,6 +99,7 @@ type PA_ReportColumn {
 	# Name of the financial report line to take values from
 	Oper_2_LineName: String
 	UUID: ID!
+	PA_ReportColumn_UU: String
 	# Collection of Columns for Report
 	PA_ReportColumnSet: PA_ReportColumnSet!
 	# PA Amount Type for reporting
@@ -197,6 +198,7 @@ input PA_ReportColumnInput {
 	# Name of the financial report line to take values from
 	Oper_2_LineName: String
 	UUID: ID
+	PA_ReportColumn_UU: String
 	# Collection of Columns for Report
 	PA_ReportColumnSet: ForeignEntityInput
 	# PA Amount Type for reporting

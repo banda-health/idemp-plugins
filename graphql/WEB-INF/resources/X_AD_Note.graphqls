@@ -24,6 +24,7 @@ type AD_Note {
 	# System Message
 	AD_Message: AD_Message!
 	UUID: ID!
+	AD_Note_UU: String
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
@@ -59,6 +60,7 @@ input AD_NoteInput {
 	# System Message
 	AD_Message: ForeignEntityInput
 	UUID: ID
+	AD_Note_UU: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

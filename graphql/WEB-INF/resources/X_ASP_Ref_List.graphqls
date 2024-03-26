@@ -27,6 +27,7 @@ type ASP_Ref_List {
 	AD_Reference: AD_Reference!
 	ASP_Level: ASP_Level!
 	UUID: ID!
+	ASP_Ref_List_UU: String
 	ASP_Status: AD_Ref_List
 	# Date this record was created
 	Created: Date!
@@ -49,6 +50,7 @@ input ASP_Ref_ListInput {
 	AD_Reference: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
 	UUID: ID
+	ASP_Ref_List_UU: String
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

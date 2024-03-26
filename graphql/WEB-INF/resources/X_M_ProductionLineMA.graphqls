@@ -34,6 +34,7 @@ type M_ProductionLineMA {
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine!
 	UUID: ID!
+	M_ProductionLineMA_UU: String
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
@@ -54,6 +55,7 @@ input M_ProductionLineMAInput {
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
 	UUID: ID
+	M_ProductionLineMA_UU: String
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

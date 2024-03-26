@@ -31,6 +31,7 @@ type IMP_ProcessorParameter {
 	Help: String
 	IMP_Processor: IMP_Processor!
 	UUID: ID!
+	IMP_ProcessorParameter_UU: String
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -53,6 +54,7 @@ input IMP_ProcessorParameterInput {
 	Help: String
 	IMP_Processor: ForeignEntityInput
 	UUID: ID
+	IMP_ProcessorParameter_UU: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

@@ -29,7 +29,7 @@ public class X_EXP_Processor_TypeInput extends MEXPProcessorType implements I_EX
 	 */
 	@JsonCreator
 	public X_EXP_Processor_TypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.getEntityIDFromUuidOrError(null, Table_Name, UUID), null);
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
 		setUUID(UUID);
 	}
 

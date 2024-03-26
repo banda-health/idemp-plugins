@@ -28,6 +28,7 @@ type C_LandedCostAllocation {
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
 	UUID: ID!
+	C_LandedCostAllocation_UU: String
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,6 +59,7 @@ input C_LandedCostAllocationInput {
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	UUID: ID
+	C_LandedCostAllocation_UU: String
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product Cost Element
