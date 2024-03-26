@@ -13,6 +13,8 @@ public class ConceptExtra extends BaseMetadata {
 
 	@JsonIgnore
 	private int conceptId;
+	@JsonIgnore
+	private int conceptMappingId;
 	private String key;
 	private String value;
 
@@ -24,6 +26,7 @@ public class ConceptExtra extends BaseMetadata {
 		setConceptId(entity.getBH_Concept_ID());
 		setKey(entity.getBH_Key());
 		setValue(entity.getBH_Value());
+		setConceptMappingId(entity.getBH_Concept_Mapping_ID());
 	}
 
 	public int getConceptId() {
@@ -50,4 +53,11 @@ public class ConceptExtra extends BaseMetadata {
 		this.value = value;
 	}
 
+	public int getConceptMappingId() {
+		return conceptMappingId;
+	}
+
+	public void setConceptMappingId(int conceptMappingId) {
+		this.conceptMappingId = conceptMappingId;
+	}
 }

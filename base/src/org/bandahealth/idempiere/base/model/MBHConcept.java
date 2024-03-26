@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MBHConcept extends X_BH_Concept {
+	public final static String TEST_CONCEPT_CLASS = "Test";
+
 	public MBHConcept(Properties ctx, int BH_Concept_ID, String trxName) {
 		super(ctx, BH_Concept_ID, trxName);
 	}

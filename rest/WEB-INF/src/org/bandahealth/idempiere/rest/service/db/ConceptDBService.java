@@ -1,5 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -11,8 +12,10 @@ import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.rest.model.Concept;
-import org.bandahealth.idempiere.rest.model.ConceptMapping;
 import org.bandahealth.idempiere.rest.model.ConceptExtra;
+import org.bandahealth.idempiere.rest.model.ConceptMapping;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -85,7 +88,7 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 	@Override
 	public List<Concept> transformData(List<MBHConcept> dbModels) {
-		// get concept mappings
+		// get child concept mappings
 		Map<Integer, List<ConceptMapping>> conceptMappingByConceptId = conceptMappingDBService
 				.transformData(conceptMappingDBService
 						.getGroupsByIds(MBHConceptMapping::getBH_Concept_ID, MBHConceptMapping.COLUMNNAME_BH_Concept_ID,
@@ -101,6 +104,36 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(ConceptExtra::getConceptId));
 
+		// get parent concept mappings
+		List<Object> parameters = new ArrayList<>();
+		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
+				dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()), parameters);
+
+		String whereClause = MBHConceptMapping.COLUMNNAME_BH_To_Concept_Code + " IN ( SELECT "
+				+ MBHConcept.COLUMNNAME_BH_OclID + " FROM " + MBHConcept.Table_Name + " WHERE "
+				+ MBHConcept.COLUMNNAME_BH_Concept_ID + " IN (" + inClause + ") AND "
+				+ MBHConcept.COLUMNNAME_bh_concept_class + " = ?)";
+
+		parameters.add(MBHConcept.TEST_CONCEPT_CLASS);
+
+		List<MBHConceptMapping> parentMappingList = new Query(Env.getCtx(), MBHConceptMapping.Table_Name, whereClause,
+				null).setParameters(parameters).list();
+
+		Map<String, MBHConceptMapping> parentConceptMappings = parentMappingList.stream()
+				.collect(Collectors.toMap(MBHConceptMapping::getBH_To_Concept_Code, mapping -> mapping,
+						(existingMmapping, newMapping) -> existingMmapping));
+
+		parameters.clear();
+		whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(parentConceptMappings.values().stream()
+				.map(MBHConceptMapping::getBH_From_Concept_Code).collect(Collectors.toSet()), parameters);
+
+		// Use Query to avoid cyclic dependencies
+		List<MBHConcept> parentConcepts = new Query(Env.getCtx(), MBHConcept.Table_Name,
+				MBHConcept.COLUMNNAME_BH_OclID + " IN (" + whereClause + ")", null).setParameters(parameters).list();
+
+		Map<String, MBHConcept> parentConceptsByConceptId = parentConcepts.stream()
+				.collect(Collectors.toMap(MBHConcept::getBH_OclID, concept -> concept));
+
 		return dbModels.stream().map(entity -> {
 			Concept result = new Concept(entity);
 
@@ -110,6 +143,11 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 			if (conceptExtraByConceptId.containsKey(result.getId())) {
 				result.setConceptExtras(conceptExtraByConceptId.get(result.getId()));
+			}
+
+			if (parentConceptMappings.containsKey(result.getOclId())) {
+				result.setParentConcept(new Concept(parentConceptsByConceptId
+						.get(parentConceptMappings.get(result.getOclId()).getBH_From_Concept_Code())));
 			}
 
 			return result;
