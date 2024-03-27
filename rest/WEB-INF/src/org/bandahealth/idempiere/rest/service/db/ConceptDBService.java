@@ -11,6 +11,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
+import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Concept;
 import org.bandahealth.idempiere.rest.model.ConceptExtra;
 import org.bandahealth.idempiere.rest.model.ConceptMapping;
@@ -85,6 +86,11 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 	protected MBHConcept getModelInstance() {
 		return new MBHConcept(Env.getCtx(), 0, null);
 	}
+
+	@Override
+	public Concept getEntity(String uuid) {
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
+	}	
 
 	@Override
 	public List<Concept> transformData(List<MBHConcept> dbModels) {
