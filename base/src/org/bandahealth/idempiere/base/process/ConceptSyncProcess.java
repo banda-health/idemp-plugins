@@ -316,7 +316,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		mappings.forEach((mapping) -> {
 			// we don't need to save SAME-AS, BROADER-THAN concepts
 			if (!MBHConceptMapping.SAME_AS_MAP_TYPE.equals(mapping.getMapType())
-					|| !MBHConceptMapping.BROADER_THAN_MAP_TYPE.equals(mapping.getMapType())) {
+					&& !MBHConceptMapping.BROADER_THAN_MAP_TYPE.equals(mapping.getMapType())) {
 				// search mapping in db list
 				MBHConceptMapping foundConceptMapping = mConceptMappings.stream()
 						.filter(filterConceptMapping -> mapping.getId().equals(filterConceptMapping.getBH_OclID()))
