@@ -62,6 +62,9 @@ public class BandaObjectMapper {
 							addMapping(I_AD_AttachmentNoteInput.class, MAttachmentNoteInput.class);
 							addMapping(I_AD_AttributeInput.class, X_AD_AttributeInput.class);
 							addMapping(I_AD_Attribute_ValueInput.class, X_AD_Attribute_ValueInput.class);
+							addMapping(I_AD_AuthorizationAccountInput.class, MAuthorizationAccountInput.class);
+							addMapping(I_AD_AuthorizationCredentialInput.class, MAuthorizationCredentialInput.class);
+							addMapping(I_AD_AuthorizationProviderInput.class, MAuthorizationProviderInput.class);
 							addMapping(I_AD_BroadcastMessageInput.class, X_AD_BroadcastMessageInput.class);
 							addMapping(I_AD_ChangeLogInput.class, MChangeLogInput.class);
 							addMapping(I_AD_ChartDatasourceInput.class, MChartDatasourceInput.class);
@@ -134,6 +137,7 @@ public class BandaObjectMapper {
 							addMapping(I_AD_PrintFormatItemInput.class, X_AD_PrintFormatItemInput.class);
 							addMapping(I_AD_PrintFormInput.class, X_AD_PrintFormInput.class);
 							addMapping(I_AD_PrintGraphInput.class, X_AD_PrintGraphInput.class);
+							addMapping(I_AD_PrintHeaderFooterInput.class, X_AD_PrintHeaderFooterInput.class);
 							addMapping(I_AD_PrintLabelInput.class, X_AD_PrintLabelInput.class);
 							addMapping(I_AD_PrintLabelLineInput.class, X_AD_PrintLabelLineInput.class);
 							addMapping(I_AD_PrintPaperInput.class, X_AD_PrintPaperInput.class);
@@ -355,6 +359,7 @@ public class BandaObjectMapper {
 							addMapping(I_C_BankStatementLineInput.class, MBankStatementLineInput.class);
 							addMapping(I_C_BankStatementLoaderInput.class, MBankStatementLoaderInput.class);
 							addMapping(I_C_BankStatementMatcherInput.class, MBankStatementMatcherInput.class);
+							addMapping(I_C_BankTransferInput.class, MBankTransferInput.class);
 							addMapping(I_C_BPartnerInput.class, MBPartnerInput.class);
 							addMapping(I_C_BPartner_LocationInput.class, MBPartnerLocationInput.class);
 							addMapping(I_C_BPartner_ProductInput.class, MBPartnerProductInput.class);

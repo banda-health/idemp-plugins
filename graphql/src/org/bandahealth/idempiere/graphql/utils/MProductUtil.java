@@ -6,6 +6,7 @@ import org.compiere.util.Env;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class MProductUtil {
 	private static final CLogger log = CLogger.getCLogger(MProductUtil.class);
@@ -13,9 +14,10 @@ public class MProductUtil {
 	/**
 	 * Gets the IDs of products that haven't had any finished POs
 	 *
+	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
 	 * @return A list of product ids that have no POs
 	 */
-	public static List<Integer> getProductIdsWithNoFinishedPurchaseOrders() {
+	public static List<Integer> getProductIdsWithNoFinishedPurchaseOrders(Properties idempiereContext) {
 		List<Integer> productIds = new ArrayList<>();
 		List<Object> parameters = new ArrayList<>();
 		String sql =
@@ -40,7 +42,7 @@ public class MProductUtil {
 		parameters.add(false);
 		parameters.add(MOrder_BH.DOCSTATUS_Completed);
 		parameters.add(MOrder_BH.DOCSTATUS_Closed);
-		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Client_ID(idempiereContext));
 		SqlUtil.executeQuery(sql, parameters, null, data -> {
 			try {
 				productIds.add((data.getInt(1)));

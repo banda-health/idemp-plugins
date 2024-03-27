@@ -5,11 +5,9 @@ import org.bandahealth.idempiere.graphql.function.VoidFunction;
 import org.compiere.model.MRole;
 import org.compiere.model.MTable;
 import org.compiere.model.PO;
-import org.compiere.model.POInfo;
 import org.compiere.model.X_AD_Table;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
-import org.compiere.util.Util;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -110,7 +108,22 @@ public class ModelUtil {
 		if (idempiereContext != null) {
 			getTableAndCheckAccess(idempiereContext, tableName, true);
 		}
-		return uuid;
+		String uuidToReturn = "";
+		if (StringUtil.isNullOrEmpty(uuid)) {
+			return uuidToReturn;
+		}
+		String keyColumn = tableName + "_UU";
+		try (PreparedStatement preparedStatement = DB.prepareStatement(
+				"SELECT " + keyColumn + " FROM " + tableName + " WHERE " + tableName + "_UU=?", null)) {
+			DB.setParameters(preparedStatement, Collections.singletonList(uuid));
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				uuidToReturn = uuid;
+			}
+		} catch (SQLException e) {
+			log.log(Level.INFO, "NO data found for " + tableName + " with UUID " + uuid, new Exception());
+		}
+		return uuidToReturn;
 	}
 
 	/**

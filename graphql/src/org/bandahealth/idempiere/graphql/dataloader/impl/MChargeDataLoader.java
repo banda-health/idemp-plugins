@@ -39,8 +39,8 @@ public class MChargeDataLoader extends X_C_ChargeDataLoader {
 			String modelName = ModelUtil.getModelFromKey(keys.iterator().next());
 			Set<Integer> businessPartnerGroupIds = keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet());
 
-			MTable chargeTable = MTable.get(Env.getCtx(), MTable.getTable_ID(MCharge_BH.Table_Name));
-			POInfo chargePO = POInfo.getPOInfo(Env.getCtx(), chargeTable.getAD_Table_ID(), null);
+			MTable chargeTable = MTable.get(batchLoaderEnvironment.getContext(), MTable.getTable_ID(MCharge_BH.Table_Name));
+			POInfo chargePO = POInfo.getPOInfo(batchLoaderEnvironment.getContext(), chargeTable.getAD_Table_ID(), null);
 			String chargeSql = chargePO.buildSelect(true, true).toString().replaceAll(" FROM " + MCharge_BH.Table_Name, "");
 			chargeSql += ",bpg.c_bp_group_id " +
 					" FROM" +
@@ -64,9 +64,8 @@ public class MChargeDataLoader extends X_C_ChargeDataLoader {
 					" WHERE bpg.ad_client_id=?" +
 					"   AND ct.name=?" +
 					"   AND c_charge.isactive=?";
-			List<Object> parameters =
-					new ArrayList<>(
-							List.of(Env.getAD_Client_ID(Env.getCtx()), MChargeType_BH.CHARGETYPENAME_NON_PATIENT_PAYMENT, "Y"));
+			List<Object> parameters = new ArrayList<>(List.of(Env.getAD_Client_ID(batchLoaderEnvironment.getContext()),
+					MChargeType_BH.CHARGETYPENAME_NON_PATIENT_PAYMENT, "Y"));
 			String businessPartnerGroupIdWhereClause =
 					QueryUtil.getWhereClauseAndSetParametersForSet(businessPartnerGroupIds, parameters);
 

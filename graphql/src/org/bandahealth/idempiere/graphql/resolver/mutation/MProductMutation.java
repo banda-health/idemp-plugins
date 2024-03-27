@@ -17,8 +17,8 @@ public class MProductMutation extends X_M_ProductMutation {
 	public MProduct_BH M_ProductSave(I_M_ProductInput input, DataFetchingEnvironment environment) {
 		Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 		// If the product is existing and it already has a PO, make sure the purchase price can't be overridden
-		if (input.getM_Product_ID() != 0 &&
-				!MProductUtil.getProductIdsWithNoFinishedPurchaseOrders().contains(input.getM_Product_ID())) {
+		if (input.getM_Product_ID() != 0 && !MProductUtil.getProductIdsWithNoFinishedPurchaseOrders(idempiereProperties)
+				.contains(input.getM_Product_ID())) {
 			input.setBH_BuyPrice(
 					((MProduct_BH) Repository.getById(BandaGraphQLContext.getCtx(environment), MProduct_BH.Table_Name, null,
 							input.getM_Product_ID())).getBH_BuyPrice());

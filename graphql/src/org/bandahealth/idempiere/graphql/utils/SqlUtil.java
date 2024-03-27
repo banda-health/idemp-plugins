@@ -12,7 +12,6 @@ import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
-import org.compiere.util.Env;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -27,6 +26,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.logging.Level;
@@ -238,16 +238,18 @@ public class SqlUtil {
 	 * On the dashboard, we have user-entered queries that need to be run. This sanitizes and runs them for a given
 	 * client.
 	 *
-	 * @param sql        The SQL to run
-	 * @param clientUuid The client to run the SQL for
+	 * @param idempiereContext The context since Env.getCtx() isn't thread-safe
+	 * @param sql              The SQL to run
+	 * @param clientUuid       The client to run the SQL for
 	 * @return The JSON array of data
 	 * @throws JsonProcessingException The typical error that Jackson could throw when processing Java to JSON
 	 */
-	public static ArrayNode executeDashboardQueryForClient(String sql, String clientUuid) throws JsonProcessingException {
+	public static ArrayNode executeDashboardQueryForClient(Properties idempiereContext, String sql, String clientUuid)
+			throws JsonProcessingException {
 		PO.setCrossTenantSafe();
 		MClient clientToGetDataFor =
-				new Query(Env.getCtx(), MClient_BH.Table_Name, MClient_BH.COLUMNNAME_AD_Client_UU + "=?", null).setParameters(
-						clientUuid).first();
+				new Query(idempiereContext, MClient_BH.Table_Name, MClient_BH.COLUMNNAME_AD_Client_UU + "=?",
+						null).setParameters(clientUuid).first();
 		PO.clearCrossTenantSafe();
 		// We don't allow querying for the system client
 		if (clientToGetDataFor == null || clientToGetDataFor.get_ID() == 0) {

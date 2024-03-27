@@ -162,7 +162,7 @@ test('cashier/registration advanced role has correct access', async () => {
 });
 
 test('inventory/pharmacy role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacy);
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyAdvanced);
 	const documentStatusActionMap = JSON.parse(
 		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
 	) as {

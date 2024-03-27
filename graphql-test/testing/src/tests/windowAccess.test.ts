@@ -1,5 +1,12 @@
 import { query } from '../api';
-import { DocumentAction, documentAction, DocumentBaseType, documentBaseType, DocumentStatus, documentStatus } from '../models';
+import {
+	DocumentAction,
+	documentAction,
+	DocumentBaseType,
+	documentBaseType,
+	DocumentStatus,
+	documentStatus,
+} from '../models';
 import { RoleName } from '../types/roleName';
 import { Ad_MenuGetDocument, DocumentStatusActionMapDocument } from '../__generated__/graphql';
 
@@ -517,8 +524,8 @@ test('cashier/registration advanced role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.facilityInformation]).toBeUndefined();
 });
 
-test('inventory/pharmacy role has correct access', async () => {
-	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacy);
+test('inventory/pharmacy advanced role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyAdvanced);
 	const windowAccess = globalThis.__VALUE_OBJECT__.AD_Window_AccessMap;
 	const menus = (
 		await query(globalThis.__VALUE_OBJECT__)({
@@ -555,11 +562,11 @@ test('inventory/pharmacy role has correct access', async () => {
 		documentStatusActionMap[documentBaseType.SalesOrder]?.[documentStatus.Completed]?.includes(documentAction.Void),
 	).toBe(false);
 
-	expect(windowAccess?.[windowUuid.vitals]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
 
-	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
 
-	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
@@ -572,6 +579,127 @@ test('inventory/pharmacy role has correct access', async () => {
 
 	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.manageInventory)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.manageInventory]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(
+		documentStatusActionMap[documentBaseType.MaterialPhysicalInventory]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.debtPayments)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.debtPayments]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.ARReceipt]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.expenseCategories)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.expenseCategories]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.trackExpenses)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackExpenses]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.APInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
+	expect(
+		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.nonPatientPayments)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.manageUsers)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.manageUsers]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.transferInventory)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.transferInventory]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(
+		documentStatusActionMap[documentBaseType.MaterialMovement]?.[documentStatus.Completed]?.some(
+			(availableDocumentAction) =>
+				availableDocumentAction === documentAction.ReverseAccrual ||
+				availableDocumentAction === documentAction.ReverseCorrect,
+		),
+	).toBe(false);
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.dashboard)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.otcPharmacySales)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.otcPharmacySales]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.facilityInformation)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.facilityInformation]).toBeUndefined();
+});
+
+test('inventory/pharmacy basic role has correct access', async () => {
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyBasic);
+	const windowAccess = globalThis.__VALUE_OBJECT__.AD_Window_AccessMap;
+	const menus = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_MenuGetDocument,
+			variables: { size: 1, filter: JSON.stringify({ ad_menu_uu: mainMenuRootUuid }) },
+		})
+	).data.AD_MenuGet.results[0]
+		.ChildrenTree_NodeMMList!.flatMap((menuNode) => [
+			menuNode.Node,
+			...(menuNode.Node?.ChildrenTree_NodeMMList?.map((childNode) => childNode.Node) || []),
+		])
+		.filter((item) => !!item);
+	const documentStatusActionMap = JSON.parse(
+		(await query(globalThis.__VALUE_OBJECT__)({ query: DocumentStatusActionMapDocument })).data.DocumentStatusActionMap,
+	) as {
+		[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
+	};
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.patients)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.patients]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.suppliers)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.suppliers]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.products)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.products]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.services)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.services]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.visitsBills)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.visitsBills]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+	expect(
+		documentStatusActionMap[documentBaseType.SalesOrder]?.[documentStatus.Completed]?.includes(documentAction.Void),
+	).toBe(false);
+
+	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.diagnoses)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.receiveProducts)).not.toBeUndefined();
+	expect(windowAccess?.[windowUuid.receiveProducts]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(
+		documentStatusActionMap[documentBaseType.PurchaseOrder]?.[documentStatus.Completed]?.includes(documentAction.Void),
+	).toBe(false);
+
+	expect(menus.find((menu) => menu?.AD_Window?.UUID === windowUuid.manageInventory)).toBeUndefined();
 	expect(
 		documentStatusActionMap[documentBaseType.MaterialPhysicalInventory]?.[documentStatus.Completed]?.some(
 			(availableDocumentAction) =>

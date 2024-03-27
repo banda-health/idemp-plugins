@@ -176,12 +176,12 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			// TODO: Update all reports to use UUIDs instead of IDs
 			if (processParameter.getName().toLowerCase().endsWith(MReference_BH.SUFFIX_ID)) {
 				if (process.getAD_Process_UU().equalsIgnoreCase(MProcess_BH.PROCESSUUID_THERMAL_RECEIPT_REPORT)) {
-					MBHVisit visit = new Query(Env.getCtx(), MBHVisit.Table_Name,
+					MBHVisit visit = new Query(process.getCtx(), MBHVisit.Table_Name,
 							MBHVisit.COLUMNNAME_BH_Visit_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
 					parameter = BigDecimal.valueOf(visit.get_ID());
 				} else if (process.getAD_Process_UU().equalsIgnoreCase(MProcess_BH.PROCESSUUID_DEBT_PAYMENT_RECEIPT)) {
-					MPayment_BH payment = new Query(Env.getCtx(), MPayment_BH.Table_Name,
+					MPayment_BH payment = new Query(process.getCtx(), MPayment_BH.Table_Name,
 							MPayment_BH.COLUMNNAME_C_Payment_UU + "=?", null)
 							.setParameters(parameter.toString()).first();
 					parameter = BigDecimal.valueOf(payment.get_ID());

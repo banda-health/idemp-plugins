@@ -42,8 +42,9 @@ public class ProductCostCalculationDataLoader implements DataLoaderRegisterer {
 	private MappedBatchLoaderWithContext<String, List<ProductCostCalculation>> getByProductIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
 			String modelName = ModelUtil.getModelFromKey(keys.iterator().next());
-			return getProductCosts(keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet()), null).stream()
-					.collect(Collectors.groupingBy(
+			return getProductCosts(batchLoaderEnvironment.getContext(),
+					keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet()), null).stream().collect(
+					Collectors.groupingBy(
 							productCostCalculation -> ModelUtil.getModelKey(modelName, productCostCalculation.getM_Product_ID())));
 		});
 	}
@@ -51,8 +52,9 @@ public class ProductCostCalculationDataLoader implements DataLoaderRegisterer {
 	private MappedBatchLoaderWithContext<String, List<ProductCostCalculation>> getByAttributeSetInstanceIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
 			String modelName = ModelUtil.getModelFromKey(keys.iterator().next());
-			return getProductCosts(null, keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet())).stream()
-					.collect(Collectors.groupingBy(productCostCalculation -> ModelUtil.getModelKey(modelName,
+			return getProductCosts(batchLoaderEnvironment.getContext(), null,
+					keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet())).stream().collect(
+					Collectors.groupingBy(productCostCalculation -> ModelUtil.getModelKey(modelName,
 							productCostCalculation.getM_AttributeSetInstance_ID())));
 		});
 	}
@@ -60,11 +62,13 @@ public class ProductCostCalculationDataLoader implements DataLoaderRegisterer {
 	/**
 	 * Gets the costs associated with products
 	 *
+	 * @param idempiereContext        The context since Env.getCtx() isn't thread-safe
 	 * @param productIds              The products ids to get the costs for
 	 * @param attributeSetInstanceIds The attribute set instance ids to get the costs for
 	 * @return A map of product ids, each of which holds a map of attribute set instance ids to their costs
 	 */
-	private List<ProductCostCalculation> getProductCosts(Set<Integer> productIds, Set<Integer> attributeSetInstanceIds) {
+	private List<ProductCostCalculation> getProductCosts(Properties idempiereContext, Set<Integer> productIds,
+			Set<Integer> attributeSetInstanceIds) {
 		if (productIds == null) {
 			productIds = new HashSet<>();
 		}
@@ -74,7 +78,7 @@ public class ProductCostCalculationDataLoader implements DataLoaderRegisterer {
 		List<Object> parameters = new ArrayList<>();
 		StringBuilder costSql = new StringBuilder(
 				"SELECT m_product_id, m_attributesetinstance_id, purchase_price, purchase_date FROM get_product_costs(?)");
-		parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+		parameters.add(Env.getAD_Client_ID(idempiereContext));
 		if (!productIds.isEmpty() || !attributeSetInstanceIds.isEmpty()) {
 			costSql.append(" WHERE ");
 			if (!productIds.isEmpty()) {

@@ -44,6 +44,9 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MAttributeSetExcludeDat
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAttributeSetInstanceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAttributeUseDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MAttributeValueDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MAuthorizationAccountDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MAuthorizationCredentialDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MAuthorizationProviderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPGeneralPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPSpecificPayerInfoDataLoader;
@@ -80,6 +83,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBankStatementDataLoade
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBankStatementLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBankStatementLoaderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBankStatementMatcherDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBankTransferDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBlackListChequeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MCalendarDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MCampaignDataLoader;
@@ -505,6 +509,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatItemDat
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatItem_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormat_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintGraphDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintHeaderFooterDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintLabelDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintLabelLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintLabelLine_TrlDataLoader;
@@ -875,6 +880,9 @@ public class BandaDataLoaderComposer {
 				new MAttributeSetInstanceDataLoader(),
 				new MAttributeUseDataLoader(),
 				new MAttributeValueDataLoader(),
+				new MAuthorizationAccountDataLoader(),
+				new MAuthorizationCredentialDataLoader(),
+				new MAuthorizationProviderDataLoader(),
 				new MBankAccountDataLoader(),
 				new MBankAccountProcessorDataLoader(),
 				new MBankDataLoader(),
@@ -882,6 +890,7 @@ public class BandaDataLoaderComposer {
 				new MBankStatementLineDataLoader(),
 				new MBankStatementLoaderDataLoader(),
 				new MBankStatementMatcherDataLoader(),
+				new MBankTransferDataLoader(),
 				new MBHBPGeneralPayerInfoDataLoader(),
 				new MBHBPPayerInfoDataLoader(),
 				new MBHBPSpecificPayerInfoDataLoader(),
@@ -1350,6 +1359,7 @@ public class BandaDataLoaderComposer {
 				new X_AD_PrintFormatItemDataLoader(),
 				new X_AD_PrintFormDataLoader(),
 				new X_AD_PrintGraphDataLoader(),
+				new X_AD_PrintHeaderFooterDataLoader(),
 				new X_AD_PrintLabelDataLoader(),
 				new X_AD_PrintLabelLine_TrlDataLoader(),
 				new X_AD_PrintLabelLineDataLoader(),

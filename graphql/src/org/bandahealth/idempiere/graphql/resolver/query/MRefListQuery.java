@@ -2,6 +2,8 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.utils.DocumentUtil;
 
 import java.util.List;
@@ -10,13 +12,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class MRefListQuery extends X_AD_Ref_ListQuery {
-	public CompletableFuture<String> DocumentStatusActionMap() {
+	public CompletableFuture<String> DocumentStatusActionMap(DataFetchingEnvironment environment) {
 		return CompletableFuture.supplyAsync(
 				() -> {
 					try {
 						// For some reason, Eclipse doesn't like this being in one line (😂), so we separate it here
 						Map<String, Map<String, List<String>>> documentStatusActionMap =
-								DocumentUtil.getDocumentStatusActionMap().entrySet()
+								DocumentUtil.getDocumentStatusActionMap(BandaGraphQLContext.getCtx(environment)).entrySet()
 										.stream().collect(
 												Collectors.toMap(
 														documentStatusActionMapEntry -> documentStatusActionMapEntry.getKey().getDocBaseType(),

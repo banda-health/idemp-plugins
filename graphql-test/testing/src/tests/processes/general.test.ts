@@ -549,7 +549,7 @@ test(`cashier/registration advanced role has correct access`, async () => {
 });
 
 test(`inventory/pharmacy role has correct access`, async () => {
-	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacy);
+	await globalThis.__VALUE_OBJECT__.login(RoleName.InventoryPharmacyAdvanced);
 	const reportMenuList = (
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_MenuGetDocument,

@@ -118,7 +118,7 @@ test('cashier/registration advanced role can run report', async () => {
 
 test('inventory/pharmacy role can run report', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login(RoleName.InventoryPharmacy);
+	await valueObject.login(RoleName.InventoryPharmacyAdvanced);
 
 	valueObject.stepName = 'Run report';
 	valueObject.processUuid = process!.UUID;

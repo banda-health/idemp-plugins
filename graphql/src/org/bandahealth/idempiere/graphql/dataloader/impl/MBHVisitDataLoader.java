@@ -48,7 +48,7 @@ public class MBHVisitDataLoader extends X_BH_VisitDataLoader {
 
 			parameters.add("Y");
 			parameters.add("VO");
-			parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+			parameters.add(Env.getAD_Client_ID(batchLoaderEnvironment.getContext()));
 			String patientIdInWhereClause = QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters);
 
 			return SqlUtil.getGroupCount(MBHVisit.Table_Name, sqlWhere + patientIdInWhereClause + ")",
@@ -76,7 +76,7 @@ public class MBHVisitDataLoader extends X_BH_VisitDataLoader {
 			String whereClause = "WHERE " + MBHVisit.COLUMNNAME_Patient_ID + " IN ("
 					+ QueryUtil.getWhereClauseAndSetParametersForSet(patientIds, parameters) + ") AND "
 					+ MBHVisit.COLUMNNAME_AD_Client_ID + "=?";
-			parameters.add(Env.getAD_Client_ID(Env.getCtx()));
+			parameters.add(Env.getAD_Client_ID(batchLoaderEnvironment.getContext()));
 
 			String sql = "SELECT " + MBHVisit.COLUMNNAME_Patient_ID + ", MAX(" + MBHVisit.COLUMNNAME_BH_VisitDate
 					+ ") FROM " + MBHVisit.Table_Name + " " + whereClause + " GROUP BY " + MBHVisit.COLUMNNAME_Patient_ID;

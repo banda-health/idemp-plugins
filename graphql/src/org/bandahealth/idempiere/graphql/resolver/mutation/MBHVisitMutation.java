@@ -39,7 +39,8 @@ import java.util.stream.Collectors;
 public class MBHVisitMutation extends X_BH_VisitMutation {
 	public MBHVisit BH_VisitProcess(String uuid, String documentAction, DataFetchingEnvironment environment)
 			throws SQLException {
-		if (!DocumentUtil.isDocActionValidForUser(MDocType_BH.DOCBASETYPE_SalesOrder, documentAction)) {
+		if (!DocumentUtil.isDocActionValidForUser(BandaGraphQLContext.getCtx(environment),
+				MDocType_BH.DOCBASETYPE_SalesOrder, documentAction)) {
 			return null;
 		}
 
@@ -77,7 +78,7 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 
 				// Handle the invoices (if the order document type is appropriate)
 				MDocType_BH documentType = documentTypesById.containsKey(order.getC_DocTypeTarget_ID()) ?
-						documentTypesById.get(order.getC_DocTypeTarget_ID()) : new MDocType_BH(Env.getCtx(), 0, null);
+						documentTypesById.get(order.getC_DocTypeTarget_ID()) : new MDocType_BH(idempiereProperties, 0, null);
 				//
 				if (!MDocType.DOCSUBTYPESO_OnCreditOrder.equals(documentType.getDocSubTypeSO()) &&
 						!MDocType.DOCSUBTYPESO_POSOrder.equals(documentType.getDocSubTypeSO()) &&
