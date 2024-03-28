@@ -7,7 +7,6 @@ import org.bandahealth.idempiere.rest.model.InventoryTransaction;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.service.db.InventoryTransactionDBService;
 import org.compiere.util.CLogger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -21,8 +20,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class InventoryTransactionRestService {
 	final CLogger log = CLogger.getCLogger(InventoryTransactionRestService.class);
-	@Autowired
-	private InventoryTransactionDBService inventoryTransactionDBService;
+	private final InventoryTransactionDBService inventoryTransactionDBService = new InventoryTransactionDBService();
 
 	/**
 	 * The base method to fetch all data in a paged format matching a specific filter and sort criteria

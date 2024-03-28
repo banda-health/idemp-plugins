@@ -382,7 +382,7 @@ WHERE
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
+							<textField textAdjust="StretchHeight" pattern="dd MMM yyyy">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="4631c789-6baa-44e0-97bf-f3d1b995a4e9"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Bottom">
@@ -406,7 +406,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="ee417bb7-7867-429f-8881-4281e044c6e4"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Bottom">
@@ -429,7 +429,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="d041908f-eb5d-436f-aab0-b75d6457764c"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Bottom">
@@ -452,7 +452,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="120" height="17" uuid="c34edb9a-52d5-475b-bc68-5f2889e0f0d8"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Bottom">
@@ -475,7 +475,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="dea7c297-fcde-4522-bf47-12d602e2cf55"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -485,7 +485,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="110" height="17" uuid="a8894f20-9576-4c44-87f7-542123498f12"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -509,7 +509,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="412d5229-8fe5-4142-aeef-de9c0a243be5"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -519,7 +519,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="a99155e9-d371-487b-bc7c-21d8ad0bcd30"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -542,7 +542,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="df24ff61-81e9-420a-9c0c-6036ce4e3f10"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -552,7 +552,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="d8d9c53d-8288-4604-884e-b4e2864a516f"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -575,7 +575,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="a0b7624d-6feb-422a-8f74-1cb9e2d4cd9e"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -585,7 +585,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="4a578785-9570-44d8-b41f-24543b7207e3"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -608,7 +608,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="10759a67-9b8e-4ee0-ab08-c7f1d7e2f14f"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -619,7 +619,7 @@ WHERE
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="70" height="17" uuid="2a347324-935b-4fb7-924d-be87da7f414a"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -642,7 +642,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="28029a51-cce6-4cb8-9f32-8281fa85835f"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -653,7 +653,7 @@ WHERE
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="100" height="17" uuid="ac0a8625-32b4-444e-b376-06b3ffb9626f"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -676,7 +676,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="5daf0a94-fe26-4200-bdb5-89a458efda85"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -686,7 +686,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="04279964-5d09-4d29-8807-06e086fa4661"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -710,7 +710,7 @@ WHERE
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1"/>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="130" height="17" uuid="004130a2-07ab-435f-a027-f35a616d2967"/>
 								<box leftPadding="2" rightPadding="0"/>
 								<textElement textAlignment="Left" verticalAlignment="Bottom">
@@ -734,7 +734,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="90c0bcc5-b5d5-4bf7-b251-9d749fc16edf"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -744,7 +744,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="90" height="17" uuid="90bb4b73-0f89-4e4c-8209-6875a71cd7e0"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -768,7 +768,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="314a588e-52b6-4459-bf62-991686587515"/>
 								<box leftPadding="0" rightPadding="2">
 									<pen lineWidth="0.5"/>
@@ -780,7 +780,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="60" height="17" uuid="cd885cc9-a11a-4465-9638-c2b55dccd2f9"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -804,7 +804,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="3ddc15a2-b0f4-407e-ad99-2f8d5f4283ca"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -814,7 +814,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="8e0ef211-fcff-46b6-b117-d2ea38e129cf"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -838,7 +838,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="2cdfaef7-b156-4a8f-b57e-4a94b15284df"/>
 								<box leftPadding="0" rightPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -848,7 +848,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="80" height="17" uuid="e3f9a9bc-d134-4606-85c1-76ac8087273a"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right" verticalAlignment="Bottom">
@@ -872,7 +872,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_CH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="85" height="17" uuid="a1a17fe9-3355-4b77-ba54-741666eba1aa">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>
@@ -885,7 +885,7 @@ WHERE
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="85" height="17" uuid="89c33d2b-cbbf-464b-af01-66a3b8e1c500">
 									<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 								</reportElement>

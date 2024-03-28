@@ -172,7 +172,7 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="71e6489e-c51c-4059-b5ba-41808ea6e04f"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left">
@@ -196,7 +196,7 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
+							<textField textAdjust="StretchHeight" pattern="dd MMM yyyy">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="00832274-ddb5-4b2c-b800-a4025a10f934"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -221,7 +221,7 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="240" height="17" uuid="e48575ef-eaf2-4e8b-91f8-1a39c3088122"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Left">
@@ -244,7 +244,7 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="8525a671-43ca-40e6-b599-f10437cc3a14"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -268,7 +268,7 @@ limit 1;]]>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="70" height="17" uuid="3e409f36-aa69-42a8-81da-79b4ace95a35">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
@@ -295,7 +295,7 @@ limit 1;]]>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="110" height="17" uuid="8cc531f8-111d-4dd5-81d8-f96e18f29ed2"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">

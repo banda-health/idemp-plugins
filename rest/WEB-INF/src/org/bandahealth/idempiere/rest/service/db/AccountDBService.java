@@ -7,9 +7,7 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MElementValue;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class AccountDBService extends BaseDBService<Account, MElementValue> {
 
 	private final CLogger log = CLogger.getCLogger(AccountDBService.class);

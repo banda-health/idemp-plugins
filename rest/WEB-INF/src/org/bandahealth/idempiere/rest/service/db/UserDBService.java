@@ -1,41 +1,35 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MMovement_BH;
 import org.bandahealth.idempiere.base.model.MRole_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.bandahealth.idempiere.rest.utils.QueryUtil;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.exceptions.DuplicateEntitySaveException;
+import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Paging;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.User;
+import org.bandahealth.idempiere.rest.utils.QueryUtil;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class UserDBService extends BaseDBService<User, MUser_BH> {
-	@Autowired
-	private UserRolesDBService userRolesDBService;
-
-	@Autowired
-	private RoleDBService roleDBService;
+	private final UserRolesDBService userRolesDBService = new UserRolesDBService();
+	private final RoleDBService roleDBService = new RoleDBService();
 
 	private static final int SYSTEM_ADMIN_ORG_ID = 0;
 

@@ -40,8 +40,6 @@ import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -62,31 +60,19 @@ import java.util.stream.Collectors;
  *
  * @author andrew
  */
-@Component
 public class VisitDBService extends BaseDBService<Visit, MBHVisit> {
 
-	@Autowired
-	private PaymentDBService paymentDBService;
-	@Autowired
-	private OrderDBService orderDBService;
-	@Autowired
-	private OrderLineDBService orderLineDBService;
-	@Autowired
-	private InvoiceDBService invoiceDBService;
-	@Autowired
-	private InvoiceLineDBService invoiceLineDBService;
-	@Autowired
-	private UserDBService userDBService;
-	@Autowired
-	private EntityMetadataDBService entityMetadataDBService;
-	@Autowired
-	private VoidedReasonDBService voidedReasonDBService;
-	@Autowired
-	private BusinessPartnerDBService businessPartnerDBService;
-	@Autowired
-	private EncounterDBService encounterDBService;
-	@Autowired
-	private DocumentTypeDBService documentTypeDBService;
+	private final PaymentDBService paymentDBService = new PaymentDBService();
+	private final OrderDBService orderDBService = new OrderDBService();
+	private final OrderLineDBService orderLineDBService = new OrderLineDBService();
+	private final InvoiceDBService invoiceDBService = new InvoiceDBService();
+	private final InvoiceLineDBService invoiceLineDBService = new InvoiceLineDBService();
+	private final UserDBService userDBService = new UserDBService();
+	private final EntityMetadataDBService entityMetadataDBService = new EntityMetadataDBService();
+	private final VoidedReasonDBService voidedReasonDBService = new VoidedReasonDBService();
+	private final BusinessPartnerDBService businessPartnerDBService = new BusinessPartnerDBService();
+	private final EncounterDBService encounterDBService = new EncounterDBService();
+	private final DocumentTypeDBService documentTypeDBService = new DocumentTypeDBService();
 
 	private final Map<String, String> dynamicJoins = new HashMap<>() {
 		{

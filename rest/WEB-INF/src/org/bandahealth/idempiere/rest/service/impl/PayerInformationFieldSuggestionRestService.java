@@ -5,7 +5,6 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.PayerInformationFieldSuggestion;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.PayerInformationFieldSuggestionDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -18,8 +17,7 @@ import javax.ws.rs.core.MediaType;
 public class PayerInformationFieldSuggestionRestService extends
 		BaseRestService<PayerInformationFieldSuggestion, MBHPayerInfoFldSug,
 				PayerInformationFieldSuggestionDBService> {
-	@Autowired
-	private PayerInformationFieldSuggestionDBService dbService;
+	private final PayerInformationFieldSuggestionDBService dbService = new PayerInformationFieldSuggestionDBService();
 
 	@Override
 	protected PayerInformationFieldSuggestionDBService getDBService() {

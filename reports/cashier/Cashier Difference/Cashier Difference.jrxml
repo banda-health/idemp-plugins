@@ -216,7 +216,7 @@ ORDER BY
 	<detail>
 		<band height="17" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-			<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
+			<textField textAdjust="StretchHeight" pattern="dd MMM yyyy">
 				<reportElement style="Table_TD" stretchType="ContainerHeight" x="0" y="0" width="210" height="17" uuid="74c52545-1f3f-4032-967b-769f67fdd098"/>
 				<box leftPadding="2"/>
 				<textElement>
@@ -224,7 +224,7 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+			<textField textAdjust="StretchHeight" pattern="#,##0.00">
 				<reportElement style="Table_TD" stretchType="ContainerBottom" x="210" y="0" width="110" height="17" uuid="4b284d3d-6144-4967-b440-37e7f30e26cd">
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
@@ -235,7 +235,7 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bill_total}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+			<textField textAdjust="StretchHeight" pattern="#,##0.00">
 				<reportElement style="Table_TD" stretchType="ContainerBottom" x="320" y="0" width="100" height="17" uuid="db192845-7470-4b44-ac1e-57584e71a0de">
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>
@@ -246,7 +246,7 @@ ORDER BY
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total_payment}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+			<textField textAdjust="StretchHeight" pattern="#,##0.00">
 				<reportElement style="Table_TD" stretchType="ContainerBottom" x="420" y="0" width="90" height="17" uuid="e9ecb4b6-83de-4803-b571-eebc14b1d285">
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 				</reportElement>

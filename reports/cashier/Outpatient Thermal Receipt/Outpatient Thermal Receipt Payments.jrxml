@@ -60,7 +60,7 @@ GROUP BY
 	</background>
 	<detail>
 		<band height="17" splitType="Stretch">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement key="" x="0" y="2" width="101" height="15" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
 				<box leftPadding="2"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">

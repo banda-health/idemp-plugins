@@ -29,8 +29,6 @@ import org.compiere.model.MTaxCategory;
 import org.compiere.model.MUOM;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -48,23 +46,24 @@ import java.util.stream.Collectors;
 /*
  * Carry out all Product DB Operations.
  */
-@Component
 public class ProductDBService extends BaseDBService<Product, MProduct_BH> {
 
 	private static final String COLUMNNAME_REORDER_LEVEL = "bh_reorder_level";
 	private static final String COLUMNNAME_REORDER_QUANTITY = "bh_reorder_quantity";
-	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService;
-	@Autowired
-	private ProductCategoryDBService productCategoryDBService;
-	@Autowired
-	private AttributeSetDBService attributeSetDBService;
-	@Autowired
-	private SerialNumberControlDBService serialNumberControlDBService;
-	@Autowired
-	private LocatorDBService locatorDBService;
-	@Autowired
-	private StorageOnHandDBService storageOnHandDBService;
+	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+	private final ProductCategoryDBService productCategoryDBService = new ProductCategoryDBService();
+	private final AttributeSetDBService attributeSetDBService = new AttributeSetDBService();
+	private final SerialNumberControlDBService serialNumberControlDBService = new SerialNumberControlDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
+	private final StorageOnHandDBService storageOnHandDBService = new StorageOnHandDBService();
+
+	public ProductDBService() {
+		storageOnHandDBService.setProductDBService(this);
+	}
+
+	public StorageOnHandDBService getStorageOnHandDBService() {
+		return storageOnHandDBService;
+	}
 
 	@Override
 	public Map<String, String> getDynamicJoins() {
