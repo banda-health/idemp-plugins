@@ -3,8 +3,10 @@ package org.bandahealth.idempiere.rest.service.db;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
@@ -53,8 +55,8 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		concept.saveEx();
 
 		// save mappings
-		if (entity.getConceptMappings() != null && !entity.getConceptMappings().isEmpty()) {
-			for (ConceptMapping conceptMapping : entity.getConceptMappings()) {
+		if (entity.getToConceptMappings() != null && !entity.getToConceptMappings().isEmpty()) {
+			for (ConceptMapping conceptMapping : entity.getToConceptMappings()) {
 				conceptMappingDBService.saveEntity(conceptMapping);
 			}
 		}
@@ -89,6 +91,14 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 	@Override
 	public List<Concept> transformData(List<MBHConcept> dbModels) {
+		return transformData(dbModels, new HashMap<>());
+	}
+
+	private List<Concept> transformData(List<MBHConcept> dbModels, Map<Integer, Concept> visitedConcepts) {
+		if (dbModels.isEmpty()) {
+			return new ArrayList<Concept>();
+		}
+
 		// get child concept mappings
 		Map<Integer, List<ConceptMapping>> conceptMappingByConceptId = conceptMappingDBService
 				.transformData(conceptMappingDBService
@@ -124,22 +134,30 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 				.collect(Collectors.toMap(MBHConceptMapping::getBH_To_Concept_Code, mapping -> mapping,
 						(existingMmapping, newMapping) -> existingMmapping));
 
-		parameters.clear();
-		whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(parentConceptMappings.values().stream()
-				.map(MBHConceptMapping::getBH_From_Concept_Code).collect(Collectors.toSet()), parameters);
+		final Map<String, MBHConcept> parentConceptsByConceptId = new HashMap<>();
 
-		// Use Query to avoid cyclic dependencies
-		List<MBHConcept> parentConcepts = new Query(Env.getCtx(), MBHConcept.Table_Name,
-				MBHConcept.COLUMNNAME_BH_OclID + " IN (" + whereClause + ")", null).setParameters(parameters).list();
+		if (!parentConceptMappings.isEmpty()) {
+			parameters.clear();
+			whereClause = QueryUtil.getWhereClauseAndSetParametersForSet(parentConceptMappings.values().stream()
+					.map(MBHConceptMapping::getBH_From_Concept_Code).collect(Collectors.toSet()), parameters);
 
-		Map<String, MBHConcept> parentConceptsByConceptId = parentConcepts.stream()
-				.collect(Collectors.toMap(MBHConcept::getBH_OclID, concept -> concept));
+			List<MBHConcept> parentConcepts = new Query(Env.getCtx(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_OclID + " IN (" + whereClause + ")", null).setParameters(parameters)
+							.list();
+
+			parentConceptsByConceptId.putAll(
+					parentConcepts.stream().collect(Collectors.toMap(MBHConcept::getBH_OclID, concept -> concept)));
+		}
 
 		return dbModels.stream().map(entity -> {
+			if (visitedConcepts.containsKey(entity.get_ID())) {
+				return visitedConcepts.get(entity.get_ID());
+			}
+
 			Concept result = new Concept(entity);
 
 			if (conceptMappingByConceptId.containsKey(result.getId())) {
-				result.setConceptMappings(conceptMappingByConceptId.get(result.getId()));
+				result.setToConceptMappings(conceptMappingByConceptId.get(result.getId()));
 			}
 
 			if (conceptExtraByConceptId.containsKey(result.getId())) {
@@ -147,8 +165,8 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 			}
 
 			if (parentConceptMappings.containsKey(result.getOclId())) {
-				result.setParentConcept(new Concept(parentConceptsByConceptId
-						.get(parentConceptMappings.get(result.getOclId()).getBH_From_Concept_Code())));
+				result.getFromConceptMappings().add(transformData(Collections.singletonList(parentConceptsByConceptId
+						.get(parentConceptMappings.get(result.getOclId()).getBH_From_Concept_Code()))).get(0));
 			}
 
 			return result;

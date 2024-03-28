@@ -23,10 +23,11 @@ public class Concept extends BaseMetadata {
 	private String dataType;
 	private String description;
 	private String url;
-	private List<ConceptMapping> conceptMappings = new ArrayList<>();
+	private List<ConceptMapping> toConceptMappings = new ArrayList<>();
 	private List<ConceptExtra> conceptExtras = new ArrayList<>();
-	private Concept parentConcept;
+	private List<Concept> fromConceptMappings = new ArrayList<>();
 
+	
 	public Concept() {
 	}
 
@@ -134,12 +135,12 @@ public class Concept extends BaseMetadata {
 		this.dataType = dataType;
 	}
 
-	public List<ConceptMapping> getConceptMappings() {
-		return conceptMappings;
+	public List<ConceptMapping> getToConceptMappings() {
+		return toConceptMappings;
 	}
 
-	public void setConceptMappings(List<ConceptMapping> conceptMappings) {
-		this.conceptMappings = conceptMappings;
+	public void setToConceptMappings(List<ConceptMapping> conceptMappings) {
+		this.toConceptMappings = conceptMappings;
 	}
 
 	public List<ConceptExtra> getConceptExtras() {
@@ -150,11 +151,11 @@ public class Concept extends BaseMetadata {
 		this.conceptExtras = conceptExtras;
 	}
 
-	public Concept getParentConcept() {
-		return parentConcept;
+	public List<Concept> getFromConceptMappings() {
+		return fromConceptMappings;
 	}
 
-	public void setParentConcept(Concept parentConcept) {
-		this.parentConcept = parentConcept;
+	public void setFromConceptMappings(List<Concept> fromConceptMappings) {
+		this.fromConceptMappings = fromConceptMappings;
 	}
 }
