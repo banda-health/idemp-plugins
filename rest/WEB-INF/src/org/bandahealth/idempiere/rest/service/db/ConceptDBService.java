@@ -79,18 +79,13 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 	@Override
 	protected Concept createInstanceWithAllFields(MBHConcept instance) {
-		return new Concept(instance);
+		return transformData(Collections.singletonList(instance)).get(0);
 	}
 
 	@Override
 	protected MBHConcept getModelInstance() {
 		return new MBHConcept(Env.getCtx(), 0, null);
 	}
-
-	@Override
-	public Concept getEntity(String uuid) {
-		return transformData(Collections.singletonList(getEntityByUuidFromDB(uuid))).get(0);
-	}	
 
 	@Override
 	public List<Concept> transformData(List<MBHConcept> dbModels) {
