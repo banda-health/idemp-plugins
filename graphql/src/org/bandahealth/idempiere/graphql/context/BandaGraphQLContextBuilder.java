@@ -7,7 +7,6 @@ import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.graphql.dataloader.BandaDataLoaderComposer;
 import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
 import org.compiere.util.CLogger;
-import org.compiere.util.Env;
 import org.dataloader.DataLoaderRegistry;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +34,8 @@ public class BandaGraphQLContextBuilder implements GraphQLServletContextBuilder 
 	}
 
 	/**
-	 * By the time this context builder is invoked, the user is already authorized due to the filter. This is the
-	 * constructor used for GET/POST requests to GraphQL.
+	 * By the time this context builder is invoked, the user might already be authorized due to the filter. Regardless,
+	 * we'll re-check everything here. This is the constructor used for GET/POST requests to GraphQL.
 	 *
 	 * @param httpServletRequest  The request object passed by GraphQL, needed for the context.
 	 * @param httpServletResponse The response object passed by GraphQL, needed for the context.
@@ -49,12 +48,12 @@ public class BandaGraphQLContextBuilder implements GraphQLServletContextBuilder 
 		// Create a copy the current context and use it everywhere appropriately
 		Properties idempiereContext = new Properties();
 		idempiereContext.putAll(ServerContext.getCurrentInstance());
-		ServerContext.setCurrentInstance(idempiereContext);
-		Env.setCtx(idempiereContext);
-		try {
-			AuthenticationUtil.validate(authHeaderVal.split(" ")[1], idempiereContext);
-		} catch (Exception e) {
-			logger.warning(e.getMessage());
+		if (authHeaderVal != null && authHeaderVal.startsWith("Bearer")) {
+			try {
+				AuthenticationUtil.validate(authHeaderVal.split(" ")[1], idempiereContext);
+			} catch (Exception e) {
+				logger.warning(e.getMessage());
+			}
 		}
 		DefaultGraphQLServletContext context = DefaultGraphQLServletContext.createServletContext()
 				.with(httpServletRequest).with(httpServletResponse).with(buildDataLoaderRegistry(idempiereContext)).build();

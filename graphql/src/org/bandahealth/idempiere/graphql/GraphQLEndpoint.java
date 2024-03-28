@@ -23,6 +23,7 @@ import org.bandahealth.idempiere.graphql.context.BandaGraphQLContextBuilder;
 import org.bandahealth.idempiere.graphql.directive.BandaDirectiveComposer;
 import org.bandahealth.idempiere.graphql.error.ErrorHandler;
 import org.bandahealth.idempiere.graphql.instrumentation.LoggingInstrumentation;
+import org.bandahealth.idempiere.graphql.instrumentation.ThreadContextSettingInstrumentation;
 import org.bandahealth.idempiere.graphql.model.BandaObjectMapper;
 import org.bandahealth.idempiere.graphql.resolver.model.BandaResolverComposer;
 import org.bandahealth.idempiere.graphql.resolver.mutation.BandaMutationComposer;
@@ -95,6 +96,8 @@ public class GraphQLEndpoint extends GraphQLHttpServlet {
 			instrumentationList.add(new MaxQueryDepthInstrumentation(8));
 		}
 		instrumentationList.add(new LoggingInstrumentation());
+		// This is to make sure that each thread accurately gets the right context
+		instrumentationList.add(new ThreadContextSettingInstrumentation());
 		// TODO: Uncomment for localized instrumentation figures
 //		instrumentationList.add(new TracingInstrumentation());
 //		instrumentationList.add(dispatcherInstrumentation);

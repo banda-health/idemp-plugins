@@ -136,7 +136,7 @@ test('complex role filtering works', async () => {
 	const complexFilter = {
 		$not: [
 			{
-				'ad_role_included.ad_role::included_role_id.ad_role_uu': {
+				'ad_role_included.ad_role::included_role_id->ad_role_id.ad_role_uu': {
 					$in: masterRoles
 						.filter((masterRole) => !roleUuidsWeWillUse.includes(masterRole.UUID))
 						.map((masterRole) => masterRole.UUID),
@@ -145,7 +145,7 @@ test('complex role filtering works', async () => {
 		],
 	} as any;
 	complexFilter.$and = roleUuidsWeWillUse.map((roleUuid) => ({
-		'ad_role_included.ad_role::included_role_id.ad_role_uu': { $eq: roleUuid },
+		'ad_role_included.ad_role::included_role_id->ad_role_id.ad_role_uu': { $eq: roleUuid },
 	}));
 	const initialRoleQueryResults = (
 		await query(valueObject)({

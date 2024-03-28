@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.graphql.resolver.mutation;
 
 import graphql.schema.DataFetchingEnvironment;
-import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -27,20 +26,6 @@ public abstract class POMutation {
 	protected PO save(PO entity, DataFetchingEnvironment environment) {
 		Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 		ModelUtil.getTableAndCheckAccess(idempiereProperties, getTableName(), true);
-		// For some reason the context isn't always set during entity initialization, so set some fields correctly
-		if (entity.getAD_Client_ID() == 0) {
-			entity.set_ValueNoCheck("AD_Client_ID", Env.getAD_Client_ID(idempiereProperties));
-		}
-		// These properties only get updated if the entity is new
-		if (entity.get_ID() == 0) {
-			if ( entity.getAD_Org_ID() == 0) {
-				entity.setAD_Org_ID(Env.getAD_Org_ID(idempiereProperties));
-			}
-			if ( entity.getCreatedBy() == 0) {
-				entity.set_ValueNoCheck("CreatedBy", Env.getAD_User_ID(idempiereProperties));
-			}
-		}
-		entity.set_ValueNoCheck("UpdatedBy", Env.getAD_User_ID(idempiereProperties));
 		entity.saveEx();
 		return entity;
 	}
@@ -48,7 +33,6 @@ public abstract class POMutation {
 	protected List<PO> saveMany(List<PO> entities, DataFetchingEnvironment environment) {
 		Trx saveManyTransaction = Trx.get(Trx.createTrxName("SaveMany"), true);
 		try {
-			Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 			for (PO entity : entities) {
 				entity.set_TrxName(saveManyTransaction.getTrxName());
 				save(entity, environment);
@@ -57,8 +41,7 @@ public abstract class POMutation {
 		} catch (Exception exception) {
 			saveManyTransaction.rollback();
 			throw exception;
-		}
-		finally {
+		} finally {
 			saveManyTransaction.close();
 		}
 		return entities;
