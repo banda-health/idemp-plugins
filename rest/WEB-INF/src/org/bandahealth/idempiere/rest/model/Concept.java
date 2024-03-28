@@ -26,7 +26,6 @@ public class Concept extends BaseMetadata {
 	private List<ConceptMapping> toConceptMappings = new ArrayList<>();
 	private List<ConceptExtra> conceptExtras = new ArrayList<>();
 	private List<Concept> fromConceptMappings = new ArrayList<>();
-
 	
 	public Concept() {
 	}
