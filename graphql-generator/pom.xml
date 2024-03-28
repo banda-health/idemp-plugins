@@ -9,12 +9,4 @@
 	</parent>
 	<artifactId>org.bandahealth.idempiere.graphql.generator</artifactId>
 	<packaging>eclipse-plugin</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>p2.eclipse-plugin</groupId>
-            <artifactId>org.eclipse.equinox.app</artifactId>
-            <version>1.5.0.v20200717-0620</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 </project>
