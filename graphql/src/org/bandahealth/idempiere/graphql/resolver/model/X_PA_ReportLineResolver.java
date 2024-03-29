@@ -60,7 +60,8 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportLine_TrlDataLoader.DATALOADER_PA_ReportLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReportLine.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MReportLine.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 
@@ -118,7 +119,8 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportLine_TrlDataLoader.DATALOADER_PA_ReportLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReportLine.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MReportLine.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

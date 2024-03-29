@@ -33,7 +33,8 @@ public class X_C_GreetingResolver extends POResolver<X_C_Greeting> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Greeting_TrlDataLoader.DATALOADER_C_Greeting_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_C_Greeting.COLUMNNAME_Greeting));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_C_Greeting.COLUMNNAME_Greeting) :
+						entity.getGreeting());
 	}
 
 	public Boolean IsDefault(X_C_Greeting entity, DataFetchingEnvironment environment) {
@@ -56,7 +57,8 @@ public class X_C_GreetingResolver extends POResolver<X_C_Greeting> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Greeting_TrlDataLoader.DATALOADER_C_Greeting_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_C_Greeting.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_C_Greeting.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

@@ -109,7 +109,8 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Charge_TrlDataLoader.DATALOADER_C_Charge_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsSameCurrency(MCharge_BH entity, DataFetchingEnvironment environment) {
@@ -136,7 +137,8 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Charge_TrlDataLoader.DATALOADER_C_Charge_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCharge_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

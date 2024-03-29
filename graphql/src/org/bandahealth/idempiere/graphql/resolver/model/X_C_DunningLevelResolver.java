@@ -134,7 +134,8 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_DunningLevel_TrlDataLoader.DATALOADER_C_DunningLevel_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MDunningLevel.COLUMNNAME_Note));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDunningLevel.COLUMNNAME_Note) :
+						entity.getNote());
 	}
 
 	/**
@@ -149,7 +150,8 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_DunningLevel_TrlDataLoader.DATALOADER_C_DunningLevel_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MDunningLevel.COLUMNNAME_PrintName));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDunningLevel.COLUMNNAME_PrintName) :
+						entity.getPrintName());
 	}
 
 }

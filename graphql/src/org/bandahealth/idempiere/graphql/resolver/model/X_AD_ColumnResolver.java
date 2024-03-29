@@ -346,7 +346,8 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Column_TrlDataLoader.DATALOADER_AD_Column_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MColumn.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MColumn.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 
@@ -391,7 +392,8 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Column_TrlDataLoader.DATALOADER_AD_Column_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MColumn.COLUMNNAME_Placeholder));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MColumn.COLUMNNAME_Placeholder) :
+						entity.getPlaceholder());
 	}
 
 }

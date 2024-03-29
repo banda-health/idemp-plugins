@@ -80,7 +80,8 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MChart.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	/**
@@ -95,7 +96,8 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_DomainLabel));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MChart.COLUMNNAME_DomainLabel) :
+						entity.getDomainLabel());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -149,7 +151,8 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MChart.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	/**
@@ -164,7 +167,8 @@ public class X_AD_ChartResolver extends POResolver<MChart> implements GraphQLRes
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Chart_TrlDataLoader.DATALOADER_AD_Chart_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MChart.COLUMNNAME_RangeLabel));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MChart.COLUMNNAME_RangeLabel) :
+						entity.getRangeLabel());
 	}
 
 	static Map<String, String> TIMEUNIT_UUIDS_BY_VALUE = new HashMap<>() {

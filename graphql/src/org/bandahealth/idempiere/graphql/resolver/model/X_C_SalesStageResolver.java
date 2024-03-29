@@ -33,7 +33,8 @@ public class X_C_SalesStageResolver extends POResolver<X_C_SalesStage> implement
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_SalesStage_TrlDataLoader.DATALOADER_C_SalesStage_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_C_SalesStage.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_C_SalesStage.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsClosed(X_C_SalesStage entity, DataFetchingEnvironment environment) {
@@ -56,7 +57,8 @@ public class X_C_SalesStageResolver extends POResolver<X_C_SalesStage> implement
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_SalesStage_TrlDataLoader.DATALOADER_C_SalesStage_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_C_SalesStage.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_C_SalesStage.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

@@ -35,7 +35,8 @@ public class X_C_SalesRegionResolver extends POResolver<MSalesRegion> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_SalesRegion_TrlDataLoader.DATALOADER_C_SalesRegion_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MSalesRegion.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MSalesRegion.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsDefault(MSalesRegion entity, DataFetchingEnvironment environment) {
@@ -58,7 +59,8 @@ public class X_C_SalesRegionResolver extends POResolver<MSalesRegion> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_SalesRegion_TrlDataLoader.DATALOADER_C_SalesRegion_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MSalesRegion.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MSalesRegion.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

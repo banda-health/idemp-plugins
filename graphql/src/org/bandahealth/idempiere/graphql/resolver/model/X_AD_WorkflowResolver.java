@@ -146,7 +146,8 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Workflow_TrlDataLoader.DATALOADER_AD_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, String> DURATIONUNIT_UUIDS_BY_VALUE = new HashMap<>() {
@@ -211,7 +212,8 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Workflow_TrlDataLoader.DATALOADER_AD_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsBetaFunctionality(X_AD_Workflow entity, DataFetchingEnvironment environment) {
@@ -238,7 +240,8 @@ public class X_AD_WorkflowResolver extends POResolver<X_AD_Workflow> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Workflow_TrlDataLoader.DATALOADER_AD_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_Workflow.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	static Map<String, String> PROCESSTYPE_UUIDS_BY_VALUE = new HashMap<>() {

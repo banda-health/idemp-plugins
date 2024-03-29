@@ -33,7 +33,8 @@ public class X_C_CountryGroupResolver extends POResolver<MCountryGroup> implemen
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_CountryGroup_TrlDataLoader.DATALOADER_C_CountryGroup_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountryGroup.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountryGroup.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	/**
@@ -48,7 +49,8 @@ public class X_C_CountryGroupResolver extends POResolver<MCountryGroup> implemen
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_CountryGroup_TrlDataLoader.DATALOADER_C_CountryGroup_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountryGroup.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountryGroup.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

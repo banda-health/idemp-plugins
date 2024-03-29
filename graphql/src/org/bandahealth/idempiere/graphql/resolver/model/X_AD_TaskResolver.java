@@ -76,7 +76,8 @@ public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResol
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Task_TrlDataLoader.DATALOADER_AD_Task_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTask.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MTask.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -122,7 +123,8 @@ public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResol
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Task_TrlDataLoader.DATALOADER_AD_Task_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTask.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MTask.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	/**
@@ -137,7 +139,8 @@ public class X_AD_TaskResolver extends POResolver<MTask> implements GraphQLResol
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Task_TrlDataLoader.DATALOADER_AD_Task_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTask.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MTask.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

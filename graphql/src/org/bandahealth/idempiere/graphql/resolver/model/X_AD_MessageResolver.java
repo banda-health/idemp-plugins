@@ -71,7 +71,8 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Message_TrlDataLoader.DATALOADER_AD_Message_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MMessage_BH.COLUMNNAME_MsgText));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MMessage_BH.COLUMNNAME_MsgText) :
+						entity.getMsgText());
 	}
 
 	/**
@@ -86,7 +87,8 @@ public class X_AD_MessageResolver extends POResolver<MMessage_BH> implements Gra
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Message_TrlDataLoader.DATALOADER_AD_Message_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MMessage_BH.COLUMNNAME_MsgTip));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MMessage_BH.COLUMNNAME_MsgTip) :
+						entity.getMsgTip());
 	}
 
 	static Map<String, String> MSGTYPE_UUIDS_BY_VALUE = new HashMap<>() {

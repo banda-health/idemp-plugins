@@ -339,7 +339,8 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.DATALOADER_AD_PrintFormatItem_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	static Map<String, String> PRINTAREATYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -390,7 +391,8 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.DATALOADER_AD_PrintFormatItem_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_PrintName));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_PrintName) :
+						entity.getPrintName());
 	}
 
 	/**
@@ -405,7 +407,8 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintFormatItem_TrlDataLoader.DATALOADER_AD_PrintFormatItem_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_PrintNameSuffix));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintFormatItem.COLUMNNAME_PrintNameSuffix) :
+						entity.getPrintNameSuffix());
 	}
 
 	static Map<String, String> SHAPETYPE_UUIDS_BY_VALUE = new HashMap<>() {

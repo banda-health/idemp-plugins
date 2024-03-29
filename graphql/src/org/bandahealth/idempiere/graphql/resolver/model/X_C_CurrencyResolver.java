@@ -33,7 +33,8 @@ public class X_C_CurrencyResolver extends POResolver<MCurrency_BH> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Currency_TrlDataLoader.DATALOADER_C_Currency_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCurrency_BH.COLUMNNAME_CurSymbol));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCurrency_BH.COLUMNNAME_CurSymbol) :
+						entity.getCurSymbol());
 	}
 
 	/**
@@ -48,7 +49,8 @@ public class X_C_CurrencyResolver extends POResolver<MCurrency_BH> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Currency_TrlDataLoader.DATALOADER_C_Currency_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCurrency_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCurrency_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsEMUMember(MCurrency_BH entity, DataFetchingEnvironment environment) {

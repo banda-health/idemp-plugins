@@ -42,7 +42,8 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.DATALOADER_C_PaymentTerm_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	/**
@@ -57,7 +58,8 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.DATALOADER_C_PaymentTerm_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_DocumentNote));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_DocumentNote) :
+						entity.getDocumentNote());
 	}
 
 	public Boolean IsDefault(MPaymentTerm entity, DataFetchingEnvironment environment) {
@@ -88,7 +90,8 @@ public class X_C_PaymentTermResolver extends POResolver<MPaymentTerm> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_PaymentTerm_TrlDataLoader.DATALOADER_C_PaymentTerm_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MPaymentTerm.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	static Map<String, String> NETDAY_UUIDS_BY_VALUE = new HashMap<>() {

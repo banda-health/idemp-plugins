@@ -89,7 +89,8 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_BroadcastMessage_TrlDataLoader.DATALOADER_AD_BroadcastMessage_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_BroadcastMessage.COLUMNNAME_BroadcastMessage));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_BroadcastMessage.COLUMNNAME_BroadcastMessage) :
+						entity.getBroadcastMessage());
 	}
 
 	static Map<String, String> BROADCASTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -153,7 +154,8 @@ public class X_AD_BroadcastMessageResolver extends POResolver<X_AD_BroadcastMess
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_BroadcastMessage_TrlDataLoader.DATALOADER_AD_BroadcastMessage_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_BroadcastMessage.COLUMNNAME_Title));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_BroadcastMessage.COLUMNNAME_Title) :
+						entity.getTitle());
 	}
 
 }

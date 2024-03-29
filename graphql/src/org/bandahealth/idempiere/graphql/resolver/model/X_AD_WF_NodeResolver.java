@@ -274,7 +274,8 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_WF_Node_TrlDataLoader.DATALOADER_AD_WF_Node_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_WF_Node.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_WF_Node.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, String> DOCACTION_UUIDS_BY_VALUE = new HashMap<>() {
@@ -394,7 +395,8 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_WF_Node_TrlDataLoader.DATALOADER_AD_WF_Node_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_WF_Node.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_WF_Node.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsAttachedDocumentToEmail(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
@@ -440,7 +442,8 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_WF_Node_TrlDataLoader.DATALOADER_AD_WF_Node_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_WF_Node.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_WF_Node.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

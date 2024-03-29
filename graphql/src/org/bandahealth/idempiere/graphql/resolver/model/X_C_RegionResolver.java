@@ -54,7 +54,8 @@ public class X_C_RegionResolver extends POResolver<MRegion> implements GraphQLRe
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Region_TrlDataLoader.DATALOADER_C_Region_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MRegion.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MRegion.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

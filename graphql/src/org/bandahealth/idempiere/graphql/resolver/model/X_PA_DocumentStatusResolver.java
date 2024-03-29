@@ -144,7 +144,8 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_DocumentStatus_TrlDataLoader.DATALOADER_PA_DocumentStatus_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MDocumentStatus.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDocumentStatus.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -190,7 +191,8 @@ public class X_PA_DocumentStatusResolver extends POResolver<MDocumentStatus> imp
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_DocumentStatus_TrlDataLoader.DATALOADER_PA_DocumentStatus_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MDocumentStatus.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDocumentStatus.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

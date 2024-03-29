@@ -88,7 +88,8 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_M_Product_Category_TrlDataLoader.DATALOADER_M_Product_Category_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProductCategory_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProductCategory_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsDefault(MProductCategory_BH entity, DataFetchingEnvironment environment) {
@@ -141,7 +142,8 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_M_Product_Category_TrlDataLoader.DATALOADER_M_Product_Category_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProductCategory_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProductCategory_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

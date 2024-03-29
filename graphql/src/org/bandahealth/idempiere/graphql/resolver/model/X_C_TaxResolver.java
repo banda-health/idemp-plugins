@@ -156,7 +156,8 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Tax_TrlDataLoader.DATALOADER_C_Tax_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MTax.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsDefault(MTax entity, DataFetchingEnvironment environment) {
@@ -191,7 +192,8 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Tax_TrlDataLoader.DATALOADER_C_Tax_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MTax.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 
@@ -241,7 +243,8 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Tax_TrlDataLoader.DATALOADER_C_Tax_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTax.COLUMNNAME_TaxIndicator));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MTax.COLUMNNAME_TaxIndicator) :
+						entity.getTaxIndicator());
 	}
 
 	static Map<String, String> TAXPOSTINGINDICATOR_UUIDS_BY_VALUE = new HashMap<>() {

@@ -85,7 +85,8 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Product_BOMLine_TrlDataLoader.DATALOADER_PP_Product_BOMLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MPPProductBOMLine.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MPPProductBOMLine.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	/**
@@ -100,7 +101,8 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Product_BOMLine_TrlDataLoader.DATALOADER_PP_Product_BOMLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MPPProductBOMLine.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MPPProductBOMLine.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsCritical(MPPProductBOMLine entity, DataFetchingEnvironment environment) {

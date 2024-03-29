@@ -59,7 +59,8 @@ public class X_GL_CategoryResolver extends POResolver<MGLCategory> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_GL_Category_TrlDataLoader.DATALOADER_GL_Category_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MGLCategory.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MGLCategory.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	/**
@@ -74,7 +75,8 @@ public class X_GL_CategoryResolver extends POResolver<MGLCategory> implements Gr
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_GL_Category_TrlDataLoader.DATALOADER_GL_Category_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MGLCategory.COLUMNNAME_PrintName));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MGLCategory.COLUMNNAME_PrintName) :
+						entity.getPrintName());
 	}
 
 }

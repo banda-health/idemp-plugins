@@ -103,7 +103,8 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Order_BOM_TrlDataLoader.DATALOADER_PP_Order_BOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_BOM.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_PP_Order_BOM.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	/**
@@ -118,7 +119,8 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Order_BOM_TrlDataLoader.DATALOADER_PP_Order_BOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_BOM.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_PP_Order_BOM.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 
@@ -178,7 +180,8 @@ public class X_PP_Order_BOMResolver extends POResolver<X_PP_Order_BOM> implement
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Order_BOM_TrlDataLoader.DATALOADER_PP_Order_BOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_BOM.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_PP_Order_BOM.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

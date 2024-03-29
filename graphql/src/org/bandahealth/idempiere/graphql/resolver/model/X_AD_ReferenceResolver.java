@@ -57,7 +57,8 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Reference_TrlDataLoader.DATALOADER_AD_Reference_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReference_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MReference_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -103,7 +104,8 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Reference_TrlDataLoader.DATALOADER_AD_Reference_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReference_BH.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MReference_BH.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsOrderByValue(MReference_BH entity, DataFetchingEnvironment environment) {
@@ -122,7 +124,8 @@ public class X_AD_ReferenceResolver extends POResolver<MReference_BH> implements
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Reference_TrlDataLoader.DATALOADER_AD_Reference_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReference_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MReference_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	static Map<String, String> SHOWINACTIVE_UUIDS_BY_VALUE = new HashMap<>() {

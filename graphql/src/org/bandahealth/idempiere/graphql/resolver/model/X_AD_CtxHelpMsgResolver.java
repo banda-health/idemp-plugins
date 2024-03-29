@@ -50,7 +50,8 @@ public class X_AD_CtxHelpMsgResolver extends POResolver<MCtxHelpMsg> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_CtxHelpMsg_TrlDataLoader.DATALOADER_AD_CtxHelpMsg_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCtxHelpMsg.COLUMNNAME_MsgText));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCtxHelpMsg.COLUMNNAME_MsgText) :
+						entity.getMsgText());
 	}
 
 }

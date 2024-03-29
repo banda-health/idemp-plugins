@@ -188,7 +188,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean HasPostal_Add(MCountry entity, DataFetchingEnvironment environment) {
@@ -223,7 +224,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	/**
@@ -238,7 +240,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress1));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress1) :
+						entity.getPlaceholderAddress1());
 	}
 
 	/**
@@ -253,7 +256,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress2));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress2) :
+						entity.getPlaceholderAddress2());
 	}
 
 	/**
@@ -268,7 +272,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress3));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress3) :
+						entity.getPlaceholderAddress3());
 	}
 
 	/**
@@ -283,7 +288,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress4));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress4) :
+						entity.getPlaceholderAddress4());
 	}
 
 	/**
@@ -298,7 +304,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress5));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderAddress5) :
+						entity.getPlaceholderAddress5());
 	}
 
 	/**
@@ -313,7 +320,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderCity));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderCity) :
+						entity.getPlaceholderCity());
 	}
 
 	/**
@@ -328,7 +336,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderComments));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderComments) :
+						entity.getPlaceholderComments());
 	}
 
 	/**
@@ -343,7 +352,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderPostal));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderPostal) :
+						entity.getPlaceholderPostal());
 	}
 
 	/**
@@ -358,7 +368,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderPostal_Add));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_PlaceholderPostal_Add) :
+						entity.getPlaceholderPostal_Add());
 	}
 
 	/**
@@ -373,7 +384,8 @@ public class X_C_CountryResolver extends POResolver<MCountry> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Country_TrlDataLoader.DATALOADER_C_Country_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCountry.COLUMNNAME_RegionName));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCountry.COLUMNNAME_RegionName) :
+						entity.getRegionName());
 	}
 
 }

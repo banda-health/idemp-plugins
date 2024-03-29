@@ -159,7 +159,8 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_DashboardContent_TrlDataLoader.DATALOADER_PA_DashboardContent_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MDashboardContent.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDashboardContent.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, String> GOALDISPLAY_UUIDS_BY_VALUE = new HashMap<>() {
@@ -190,7 +191,8 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_DashboardContent_TrlDataLoader.DATALOADER_PA_DashboardContent_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MDashboardContent.COLUMNNAME_HTML));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDashboardContent.COLUMNNAME_HTML) :
+						entity.getHTML());
 	}
 
 	public Boolean IsCollapsedByDefault(MDashboardContent entity, DataFetchingEnvironment environment) {
@@ -233,7 +235,8 @@ public class X_PA_DashboardContentResolver extends POResolver<MDashboardContent>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_DashboardContent_TrlDataLoader.DATALOADER_PA_DashboardContent_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MDashboardContent.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MDashboardContent.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

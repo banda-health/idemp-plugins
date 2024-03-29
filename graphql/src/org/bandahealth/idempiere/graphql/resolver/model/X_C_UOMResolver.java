@@ -38,7 +38,8 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_UOM_TrlDataLoader.DATALOADER_C_UOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MUOM.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MUOM.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsDefault(MUOM entity, DataFetchingEnvironment environment) {
@@ -57,7 +58,8 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_UOM_TrlDataLoader.DATALOADER_C_UOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MUOM.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MUOM.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	/**
@@ -72,7 +74,8 @@ public class X_C_UOMResolver extends POResolver<MUOM> implements GraphQLResolver
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_UOM_TrlDataLoader.DATALOADER_C_UOM_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MUOM.COLUMNNAME_UOMSymbol));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MUOM.COLUMNNAME_UOMSymbol) :
+						entity.getUOMSymbol());
 	}
 
 	static Map<String, String> UOMTYPE_UUIDS_BY_VALUE = new HashMap<>() {

@@ -40,7 +40,8 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_FieldGroup_TrlDataLoader.DATALOADER_AD_FieldGroup_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MFieldGroup_BH.COLUMNNAME_BH_Abbreviation));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MFieldGroup_BH.COLUMNNAME_BH_Abbreviation) :
+						entity.getBH_Abbreviation());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -107,7 +108,8 @@ public class X_AD_FieldGroupResolver extends POResolver<MFieldGroup_BH> implemen
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_FieldGroup_TrlDataLoader.DATALOADER_AD_FieldGroup_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MFieldGroup_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MFieldGroup_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

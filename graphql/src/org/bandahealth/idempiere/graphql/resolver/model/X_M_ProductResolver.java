@@ -134,7 +134,8 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_M_Product_TrlDataLoader.DATALOADER_M_Product_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean Discontinued(MProduct_BH entity, DataFetchingEnvironment environment) {
@@ -153,7 +154,8 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_M_Product_TrlDataLoader.DATALOADER_M_Product_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_DocumentNote));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProduct_BH.COLUMNNAME_DocumentNote) :
+						entity.getDocumentNote());
 	}
 
 	public Boolean IsAutoProduce(MProduct_BH entity, DataFetchingEnvironment environment) {
@@ -330,7 +332,8 @@ public class X_M_ProductResolver extends POResolver<MProduct_BH> implements Grap
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_M_Product_TrlDataLoader.DATALOADER_M_Product_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProduct_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	public Boolean Processing(MProduct_BH entity, DataFetchingEnvironment environment) {

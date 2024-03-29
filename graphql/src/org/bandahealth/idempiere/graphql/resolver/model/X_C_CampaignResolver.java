@@ -50,7 +50,8 @@ public class X_C_CampaignResolver extends POResolver<MCampaign> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Campaign_TrlDataLoader.DATALOADER_C_Campaign_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCampaign.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCampaign.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	public Boolean IsSummary(MCampaign entity, DataFetchingEnvironment environment) {
@@ -69,7 +70,8 @@ public class X_C_CampaignResolver extends POResolver<MCampaign> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_C_Campaign_TrlDataLoader.DATALOADER_C_Campaign_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MCampaign.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MCampaign.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

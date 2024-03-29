@@ -37,7 +37,8 @@ public class X_AD_PrintColorResolver extends POResolver<X_AD_PrintColor> impleme
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintColor_TrlDataLoader.DATALOADER_AD_PrintColor_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintColor.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintColor.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

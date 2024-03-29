@@ -229,7 +229,8 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.DATALOADER_PA_ReportColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReportColumn.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MReportColumn.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, String> ELEMENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -379,7 +380,8 @@ public class X_PA_ReportColumnResolver extends POResolver<MReportColumn> impleme
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PA_ReportColumn_TrlDataLoader.DATALOADER_PA_ReportColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MReportColumn.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MReportColumn.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

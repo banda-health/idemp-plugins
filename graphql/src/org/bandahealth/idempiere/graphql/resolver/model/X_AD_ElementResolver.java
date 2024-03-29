@@ -38,7 +38,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -84,7 +85,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	/**
@@ -99,7 +101,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	/**
@@ -114,7 +117,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_Placeholder));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_Placeholder) :
+						entity.getPlaceholder());
 	}
 
 	/**
@@ -129,7 +133,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Description) :
+						entity.getPO_Description());
 	}
 
 	/**
@@ -144,7 +149,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Help) :
+						entity.getPO_Help());
 	}
 
 	/**
@@ -159,7 +165,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_PO_Name) :
+						entity.getPO_Name());
 	}
 
 	/**
@@ -174,7 +181,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PO_PrintName));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_PO_PrintName) :
+						entity.getPO_PrintName());
 	}
 
 	/**
@@ -189,7 +197,8 @@ public class X_AD_ElementResolver extends POResolver<M_Element> implements Graph
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Element_TrlDataLoader.DATALOADER_AD_Element_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(M_Element.COLUMNNAME_PrintName));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(M_Element.COLUMNNAME_PrintName) :
+						entity.getPrintName());
 	}
 
 }

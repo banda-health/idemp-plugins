@@ -150,7 +150,8 @@ public class X_PP_Order_WorkflowResolver extends POResolver<X_PP_Order_Workflow>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Order_Workflow_TrlDataLoader.DATALOADER_PP_Order_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, String> DURATIONUNIT_UUIDS_BY_VALUE = new HashMap<>() {
@@ -215,7 +216,8 @@ public class X_PP_Order_WorkflowResolver extends POResolver<X_PP_Order_Workflow>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Order_Workflow_TrlDataLoader.DATALOADER_PP_Order_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsDefault(X_PP_Order_Workflow entity, DataFetchingEnvironment environment) {
@@ -234,7 +236,8 @@ public class X_PP_Order_WorkflowResolver extends POResolver<X_PP_Order_Workflow>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_PP_Order_Workflow_TrlDataLoader.DATALOADER_PP_Order_Workflow_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_PP_Order_Workflow.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

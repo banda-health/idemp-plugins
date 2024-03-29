@@ -416,8 +416,9 @@ public class GraphQLModelResolverGenerator {
 							GraphQLDataLoaderGenerator.getDataLoaderByIdProperty(tableStructureExtensions.getTableName() + "_Trl"))
 					.append(");\n")
 					.append("\t\treturn dataLoader.load(entity.get_ID())\n")
-					.append("\t\t\t\t.thenApply(translation -> translation.get_ValueAsString(")
-					.append(tableStructureExtensions.getClassName()).append(".COLUMNNAME_").append(columnName).append("));\n")
+					.append("\t\t\t\t.thenApply(translation -> translation != null ? translation.get_ValueAsString(")
+					.append(tableStructureExtensions.getClassName()).append(".COLUMNNAME_").append(columnName).append(") :\n")
+					.append("\t\t\t\t\t\tentity.get").append(columnName).append("());\n")
 					.append("\t}\n");
 			return columnBuilder.toString();
 		}

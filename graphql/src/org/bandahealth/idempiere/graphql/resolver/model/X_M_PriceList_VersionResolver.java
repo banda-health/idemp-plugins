@@ -83,7 +83,8 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_M_PriceList_Version_TrlDataLoader.DATALOADER_M_PriceList_Version_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MPriceListVersion.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MPriceListVersion.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

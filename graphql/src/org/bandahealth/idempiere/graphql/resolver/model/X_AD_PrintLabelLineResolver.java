@@ -104,7 +104,8 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintLabelLine_TrlDataLoader.DATALOADER_AD_PrintLabelLine_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintLabelLine.COLUMNNAME_PrintName));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintLabelLine.COLUMNNAME_PrintName) :
+						entity.getPrintName());
 	}
 
 }

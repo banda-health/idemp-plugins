@@ -204,7 +204,8 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Field_TrlDataLoader.DATALOADER_AD_Field_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MField_BH.COLUMNNAME_BH_Abbreviation));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MField_BH.COLUMNNAME_BH_Abbreviation) :
+						entity.getBH_Abbreviation());
 	}
 
 	/**
@@ -219,7 +220,8 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Field_TrlDataLoader.DATALOADER_AD_Field_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MField_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MField_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -265,7 +267,8 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Field_TrlDataLoader.DATALOADER_AD_Field_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MField_BH.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MField_BH.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 
@@ -434,7 +437,8 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Field_TrlDataLoader.DATALOADER_AD_Field_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MField_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MField_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	static Map<String, String> OBSCURETYPE_UUIDS_BY_VALUE = new HashMap<>() {
@@ -466,7 +470,8 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Field_TrlDataLoader.DATALOADER_AD_Field_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MField_BH.COLUMNNAME_Placeholder));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MField_BH.COLUMNNAME_Placeholder) :
+						entity.getPlaceholder());
 	}
 
 }

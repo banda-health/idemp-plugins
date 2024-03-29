@@ -162,7 +162,8 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Process_TrlDataLoader.DATALOADER_AD_Process_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProcess_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProcess_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -223,7 +224,8 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Process_TrlDataLoader.DATALOADER_AD_Process_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProcess_BH.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProcess_BH.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsBetaFunctionality(MProcess_BH entity, DataFetchingEnvironment environment) {
@@ -250,7 +252,8 @@ public class X_AD_ProcessResolver extends POResolver<MProcess_BH> implements Gra
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Process_TrlDataLoader.DATALOADER_AD_Process_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MProcess_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MProcess_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	static Map<String, String> SHOWHELP_UUIDS_BY_VALUE = new HashMap<>() {

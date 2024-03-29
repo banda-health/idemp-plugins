@@ -140,7 +140,8 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_InfoColumn_TrlDataLoader.DATALOADER_AD_InfoColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -186,7 +187,8 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_InfoColumn_TrlDataLoader.DATALOADER_AD_InfoColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsAutocomplete(MInfoColumn entity, DataFetchingEnvironment environment) {
@@ -241,7 +243,8 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_InfoColumn_TrlDataLoader.DATALOADER_AD_InfoColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	/**
@@ -256,7 +259,8 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_InfoColumn_TrlDataLoader.DATALOADER_AD_InfoColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Placeholder));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Placeholder) :
+						entity.getPlaceholder());
 	}
 
 	/**
@@ -271,7 +275,8 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_InfoColumn_TrlDataLoader.DATALOADER_AD_InfoColumn_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Placeholder2));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MInfoColumn.COLUMNNAME_Placeholder2) :
+						entity.getPlaceholder2());
 	}
 
 	static Map<String, String> QUERYOPERATOR_UUIDS_BY_VALUE = new HashMap<>() {

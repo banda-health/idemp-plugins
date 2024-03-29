@@ -67,7 +67,8 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_A_Asset_Group_TrlDataLoader.DATALOADER_A_Asset_Group_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	/**
@@ -82,7 +83,8 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_A_Asset_Group_TrlDataLoader.DATALOADER_A_Asset_Group_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsCreateAsActive(MAssetGroup entity, DataFetchingEnvironment environment) {
@@ -125,7 +127,8 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_A_Asset_Group_TrlDataLoader.DATALOADER_A_Asset_Group_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MAssetGroup.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

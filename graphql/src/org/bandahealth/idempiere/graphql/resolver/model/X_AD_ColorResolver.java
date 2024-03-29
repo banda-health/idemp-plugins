@@ -76,7 +76,8 @@ public class X_AD_ColorResolver extends POResolver<MColor> implements GraphQLRes
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Color_TrlDataLoader.DATALOADER_AD_Color_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MColor.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MColor.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 	static Map<String, String> STARTPOINT_UUIDS_BY_VALUE = new HashMap<>() {

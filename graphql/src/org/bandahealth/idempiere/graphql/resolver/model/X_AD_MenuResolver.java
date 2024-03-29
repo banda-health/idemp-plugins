@@ -164,7 +164,8 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Menu_TrlDataLoader.DATALOADER_AD_Menu_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MMenu_BH.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MMenu_BH.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -226,7 +227,8 @@ public class X_AD_MenuResolver extends POResolver<MMenu_BH> implements GraphQLRe
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Menu_TrlDataLoader.DATALOADER_AD_Menu_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MMenu_BH.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MMenu_BH.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

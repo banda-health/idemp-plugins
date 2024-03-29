@@ -171,7 +171,8 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.DATALOADER_AD_PrintFormat_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	/**
@@ -186,7 +187,8 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.DATALOADER_AD_PrintFormat_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_FileNamePattern));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_FileNamePattern) :
+						entity.getFileNamePattern());
 	}
 
 	public Boolean IsBreakPagePerRecord(X_AD_PrintFormat entity, DataFetchingEnvironment environment) {
@@ -236,7 +238,8 @@ public class X_AD_PrintFormatResolver extends POResolver<X_AD_PrintFormat> imple
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_PrintFormat_TrlDataLoader.DATALOADER_AD_PrintFormat_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(X_AD_PrintFormat.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

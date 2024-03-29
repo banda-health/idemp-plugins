@@ -76,7 +76,8 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Form_TrlDataLoader.DATALOADER_AD_Form_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MForm.COLUMNNAME_Description));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MForm.COLUMNNAME_Description) :
+						entity.getDescription());
 	}
 
 	static Map<String, Integer> ENTITYTYPE_IDS_BY_ENTITY_TYPE = new HashMap<>() {
@@ -122,7 +123,8 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Form_TrlDataLoader.DATALOADER_AD_Form_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MForm.COLUMNNAME_Help));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MForm.COLUMNNAME_Help) :
+						entity.getHelp());
 	}
 
 	public Boolean IsBetaFunctionality(MForm entity, DataFetchingEnvironment environment) {
@@ -141,7 +143,8 @@ public class X_AD_FormResolver extends POResolver<MForm> implements GraphQLResol
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Form_TrlDataLoader.DATALOADER_AD_Form_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MForm.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MForm.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }

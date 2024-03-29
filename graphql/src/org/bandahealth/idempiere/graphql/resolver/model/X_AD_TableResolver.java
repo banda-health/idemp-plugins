@@ -156,7 +156,8 @@ public class X_AD_TableResolver extends POResolver<MTable> implements GraphQLRes
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_Table_TrlDataLoader.DATALOADER_AD_Table_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MTable.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MTable.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 

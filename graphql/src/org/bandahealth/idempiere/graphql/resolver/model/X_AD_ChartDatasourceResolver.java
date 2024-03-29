@@ -103,7 +103,8 @@ public class X_AD_ChartDatasourceResolver extends POResolver<MChartDatasource> i
 		DataLoader<Integer, PO> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(X_AD_ChartDatasource_TrlDataLoader.DATALOADER_AD_ChartDatasource_Trl_BY_ID);
 		return dataLoader.load(entity.get_ID())
-				.thenApply(translation -> translation.get_ValueAsString(MChartDatasource.COLUMNNAME_Name));
+				.thenApply(translation -> translation != null ? translation.get_ValueAsString(MChartDatasource.COLUMNNAME_Name) :
+						entity.getName());
 	}
 
 }
