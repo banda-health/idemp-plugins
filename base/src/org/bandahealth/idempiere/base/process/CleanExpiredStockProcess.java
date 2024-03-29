@@ -56,7 +56,7 @@ public class CleanExpiredStockProcess extends SvrProcess {
 		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_AD_Process_UU + "=?",
 				get_TrxName()).setOnlyActiveRecords(true).setParameters(STORAGE_CLEANUP_PROCESS_STRING).first();
 
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
+		MPInstance mpInstance = new MPInstance(mprocess, -1, 0, null);
 
 		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
 		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());

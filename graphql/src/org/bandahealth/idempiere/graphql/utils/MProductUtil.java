@@ -38,6 +38,7 @@ public class MProductUtil {
 						"       WHERE issotrx = ? " +
 						"         AND docstatus IN (?,?) " +
 						"     ) " +
+						"     AND m_product_id IS NOT NULL " +
 						" ) AND ad_client_id = ?";
 		parameters.add(false);
 		parameters.add(MOrder_BH.DOCSTATUS_Completed);

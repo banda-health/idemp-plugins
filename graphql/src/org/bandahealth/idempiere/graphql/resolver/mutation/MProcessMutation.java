@@ -68,7 +68,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 		}
 
 		// Initialize report info
-		MPInstance mpInstance = new MPInstance(process, 0);
+		MPInstance mpInstance = new MPInstance(process, -1, 0, null);
 		ProcessInfo processInfo = new ProcessInfo(process.getName(), process.getAD_Process_ID());
 		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
 		processInfo.setAD_Process_UU(process.getAD_Process_UU());
@@ -102,7 +102,7 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 	 */
 	private String run(MProcess process, List<ProcessInfoParameterInput> processInformationParameterInputList) {
 		// Initialize process info
-		MPInstance mpInstance = new MPInstance(process, 0);
+		MPInstance mpInstance = new MPInstance(process, -1, 0, null);
 		ProcessInfo processInfo = new ProcessInfo(process.getName(), process.getAD_Process_ID());
 		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
 		processInfo.setAD_Process_UU(process.getAD_Process_UU());
