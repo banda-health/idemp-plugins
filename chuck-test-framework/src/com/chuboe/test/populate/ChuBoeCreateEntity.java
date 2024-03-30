@@ -1217,7 +1217,7 @@ public class ChuBoeCreateEntity {
 		}
 
 		// Create process instance (mainly for logging/sync purpose)
-		MPInstance mpi = new MPInstance(valueObject.getContext(), -1, process.get_ID(), valueObject.getProcessRecordId(), null);
+		MPInstance mpi = new MPInstance(valueObject.getContext(), process.get_ID(), -1, valueObject.getProcessRecordId(), null);
 		mpi.saveEx();
 
 		// Connect the process to the process instance.
