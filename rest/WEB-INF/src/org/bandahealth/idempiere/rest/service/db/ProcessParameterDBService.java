@@ -3,15 +3,12 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
 import org.bandahealth.idempiere.rest.model.ProcessParameter;
 import org.compiere.model.MProcessPara;
-import org.compiere.model.MRefList;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@Component
 public class ProcessParameterDBService extends BaseDBService<ProcessParameter, MProcessPara> {
 	@Override
 	public ProcessParameter saveEntity(ProcessParameter entity) {
@@ -48,9 +45,9 @@ public class ProcessParameterDBService extends BaseDBService<ProcessParameter, M
 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
-        return new EntityConfiguration() {{
-            setShouldUseContextClientId(true);
-            setShouldFetchFromSystemClient(true);
-        }};
-    }
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(true);
+			setShouldFetchFromSystemClient(true);
+		}};
+	}
 }

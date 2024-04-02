@@ -118,7 +118,7 @@ WHERE
 	</columnHeader>
 	<detail>
 		<band height="14" splitType="Stretch">
-			<textField isStretchWithOverflow="true" pattern="#,##0">
+			<textField textAdjust="StretchHeight" pattern="#,##0">
 				<reportElement key="" x="120" y="-3" width="42" height="12" uuid="dc85c118-c2be-4f47-86e0-4e76af74686e"/>
 				<box rightPadding="2">
 					<pen lineWidth="0.0"/>
@@ -132,7 +132,7 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{price}.multiply($F{quantity})]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true">
+			<textField textAdjust="StretchHeight">
 				<reportElement key="" x="0" y="-3" width="95" height="12" uuid="f8dd639a-af30-4867-a180-6edad823c7e0"/>
 				<box leftPadding="6">
 					<pen lineWidth="0.0"/>

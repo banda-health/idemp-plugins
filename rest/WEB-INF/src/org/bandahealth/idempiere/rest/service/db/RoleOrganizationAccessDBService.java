@@ -7,9 +7,7 @@ import org.compiere.model.MRole;
 import org.compiere.model.MRoleOrgAccess;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class RoleOrganizationAccessDBService extends BaseDBService<BaseMetadata, MRoleOrgAccess> {
 	@Override
 	public BaseMetadata saveEntity(BaseMetadata entity) {

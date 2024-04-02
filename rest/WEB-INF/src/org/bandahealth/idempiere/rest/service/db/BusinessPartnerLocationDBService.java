@@ -4,9 +4,7 @@ import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class BusinessPartnerLocationDBService extends BaseDBService<BaseMetadata, MBPartnerLocation> {
 	@Override
 	public BaseMetadata saveEntity(BaseMetadata entity) {

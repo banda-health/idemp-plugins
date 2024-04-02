@@ -10,21 +10,17 @@ import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class PayerInformationFieldSuggestionDBService
 		extends BaseDBService<PayerInformationFieldSuggestion, MBHPayerInfoFldSug> {
-	@Autowired
-	private PayerInformationFieldValueSuggestionDBService payerInformationFieldValueSuggestionDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
+	private final PayerInformationFieldValueSuggestionDBService payerInformationFieldValueSuggestionDBService =
+			new PayerInformationFieldValueSuggestionDBService();
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
 
 	@Override
 	public PayerInformationFieldSuggestion saveEntity(PayerInformationFieldSuggestion entity) {

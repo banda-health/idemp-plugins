@@ -251,7 +251,7 @@ WHERE
 					<crosstabColumnHeader>
 						<cellContents mode="Opaque" style="Crosstab_CH">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="">
+							<textField textAdjust="StretchHeight" pattern="">
 								<reportElement x="0" y="0" width="80" height="17" uuid="0b80f2d1-fc1c-4da5-ae6f-0feb33127562"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font size="11" isBold="false"/>

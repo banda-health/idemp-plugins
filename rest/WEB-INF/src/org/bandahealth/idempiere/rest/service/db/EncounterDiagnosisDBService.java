@@ -6,8 +6,6 @@ import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,11 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class EncounterDiagnosisDBService extends BaseDBService<EncounterDiagnosis, MBHEncounterDiagnosis> {
 
-	@Autowired
-	private CodedDiagnosisDBService codedDiagnosisDBService;
+	private final CodedDiagnosisDBService codedDiagnosisDBService = new CodedDiagnosisDBService();
 
 	public void deleteEncounterDiagnosisNotInList(int encounterId, List<EncounterDiagnosis> encounterDiagnoses) {
 		// get existing diagnoses

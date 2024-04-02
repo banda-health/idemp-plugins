@@ -4,13 +4,9 @@ import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.InOutLine;
 import org.compiere.model.MInOutLine;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class InOutLineDBService extends BaseDBService<InOutLine, MInOutLine> {
-	@Autowired
-	private InOutDBService inOutDBService;
+	private final InOutDBService inOutDBService = new InOutDBService();
 
 	@Override
 	public InOutLine saveEntity(InOutLine entity) {

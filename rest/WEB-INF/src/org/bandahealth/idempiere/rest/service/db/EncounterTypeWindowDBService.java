@@ -10,8 +10,6 @@ import org.bandahealth.idempiere.rest.model.Window;
 import org.compiere.model.MRefList;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,13 +17,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class EncounterTypeWindowDBService extends BaseDBService<EncounterTypeWindow, MBHEncounterTypeWindow> {
 
-	@Autowired
-	private WindowDBService windowDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
+	private final WindowDBService windowDBService = new WindowDBService();
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
 
 	@Override
 	public EncounterTypeWindow saveEntity(EncounterTypeWindow entity) {

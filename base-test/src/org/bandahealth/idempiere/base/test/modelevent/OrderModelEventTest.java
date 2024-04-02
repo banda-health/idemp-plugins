@@ -16,7 +16,6 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
@@ -113,10 +112,16 @@ public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Void);
 		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Void), "Order was successfully voided");
+		valueObject.getOrder().saveEx();
+		commitEx();
 
-		MInOut materialReceipt = new Query(valueObject.getContext(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID +
-				"=?", valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		String materialReceiptFromPOWhereClause =
+				"m_inout_id in (select m_inout_id from m_inoutline where m_inoutline_id in (select m_inoutline_id from " +
+						"m_matchpo where c_orderline_id = ?))";
+		MInOut materialReceipt = new Query(valueObject.getContext(), MInOut.Table_Name, materialReceiptFromPOWhereClause,
+				valueObject.getTransactionName()).setParameters(valueObject.getOrderLine().get_ID()).first();
 
+		assertNotNull(materialReceipt, "Order material receipt can be found");
 		assertTrue(materialReceipt.getDocStatus().equalsIgnoreCase(MInOut.STATUS_Reversed), "Material receipt is voided");
 	}
 
@@ -141,11 +146,19 @@ public class OrderModelEventTest extends ChuBoePopulateFactoryVO {
 		commitEx();
 
 		valueObject.getOrder().setDocAction(MOrder_BH.DOCACTION_Re_Activate);
-		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Order was successfully reactivated");
+		assertTrue(valueObject.getOrder().processIt(MOrder_BH.DOCACTION_Re_Activate), "Order was successfully " +
+				"reactivated");
+		valueObject.getOrder().saveEx();
+		commitEx();
 
-		MInOut materialReceipt = new Query(valueObject.getContext(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID +
-				"=?", valueObject.getTransactionName()).setParameters(valueObject.getOrder().get_ID()).first();
+		String materialReceiptFromPOWhereClause =
+				"m_inout_id in (select m_inout_id from m_inoutline where m_inoutline_id in (select m_inoutline_id from " +
+						"m_matchpo where c_orderline_id = ?))";
+		MInOut materialReceipt = new Query(valueObject.getContext(), MInOut.Table_Name, materialReceiptFromPOWhereClause,
+				valueObject.getTransactionName()).setParameters(valueObject.getOrderLine().get_ID()).first();
 
-		assertTrue(materialReceipt.getDocStatus().equalsIgnoreCase(MInOut.STATUS_Reversed), "Material receipt is reversed");
+		assertNotNull(materialReceipt, "Order material receipt can be found");
+		assertTrue(materialReceipt.getDocStatus().equalsIgnoreCase(MInOut.STATUS_Reversed), "Material receipt is " +
+				"reversed");
 	}
 }

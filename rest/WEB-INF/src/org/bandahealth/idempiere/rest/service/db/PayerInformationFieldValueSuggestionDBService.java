@@ -3,9 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MBHPayerInfoFldValSug;
 import org.bandahealth.idempiere.rest.model.PayerInformationFieldValueSuggestion;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class PayerInformationFieldValueSuggestionDBService
 		extends BaseDBService<PayerInformationFieldValueSuggestion, MBHPayerInfoFldValSug> {
 	@Override
@@ -35,9 +33,9 @@ public class PayerInformationFieldValueSuggestionDBService
 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
-        return new EntityConfiguration() {{
-            setShouldUseContextClientId(true);
-            setShouldFetchFromSystemClient(true);
-        }};
-    }
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(true);
+			setShouldFetchFromSystemClient(true);
+		}};
+	}
 }

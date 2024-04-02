@@ -3,13 +3,11 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MClient_BH;
-import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.function.VoidFunction;
-import org.bandahealth.idempiere.rest.model.BHProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Menu;
 import org.bandahealth.idempiere.rest.model.Paging;
@@ -28,8 +26,6 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -50,21 +46,24 @@ import java.util.stream.Collectors;
  *
  * @author andrew
  */
-@Component
 public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 
 	// report UUIDs
 	public static final String THERMAL_RECEIPT_REPORT = "30dd7243-11c1-4584-af26-5d977d117c84";
 	public static final String DEBT_PAYMENT_RECEIPT = "173a691b-ba89-4987-9216-9b3f0a60c864";
 
-	@Autowired
-	private ProcessParameterDBService processParameterDBService;
-	@Autowired
-	private ReferenceDBService referenceDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
-	@Autowired
-	private MenuDBService menuDBService;
+	private final ProcessParameterDBService processParameterDBService = new ProcessParameterDBService();
+	private final ReferenceDBService referenceDBService = new ReferenceDBService();
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
+	private final MenuDBService menuDBService = new MenuDBService();
+
+	public ProcessDBService() {
+		menuDBService.setProcessDBService(this);
+	}
+
+	public MenuDBService getMenuDBService() {
+		return menuDBService;
+	}
 
 	@Override
 	public Process getEntity(String uuid) {
@@ -106,11 +105,11 @@ public class ProcessDBService extends BaseDBService<Process, MProcess_BH> {
 
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
-        return new EntityConfiguration() {{
-            setShouldUseContextClientId(true);
-            setShouldFetchFromSystemClient(true);
-        }};
-    }
+		return new EntityConfiguration() {{
+			setShouldUseContextClientId(true);
+			setShouldFetchFromSystemClient(true);
+		}};
+	}
 
 	/**
 	 * Return all active processes for the logged in client

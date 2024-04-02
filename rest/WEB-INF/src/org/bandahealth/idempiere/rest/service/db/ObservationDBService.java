@@ -8,8 +8,6 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MField;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,11 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class ObservationDBService extends BaseDBService<Observation, MBHObservation> {
 
-	@Autowired
-	private FieldDBService fieldDBService;
+	private final FieldDBService fieldDBService = new FieldDBService();
 
 	public void deleteObservationsNotInList(int encounterId, List<Observation> observations) {
 		// get existing observations

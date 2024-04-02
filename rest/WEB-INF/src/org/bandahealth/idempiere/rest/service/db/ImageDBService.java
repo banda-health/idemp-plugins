@@ -6,11 +6,9 @@ import org.bandahealth.idempiere.rest.model.Image;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MImage;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 
-@Component
 public class ImageDBService extends BaseDBService<Image, MImage> {
 
 	@Override

@@ -15,8 +15,6 @@ import org.compiere.model.MRefList;
 import org.compiere.model.MTable;
 import org.compiere.model.POInfo;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,10 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class BusinessPartnerGroupDBService extends BaseDBService<BusinessPartnerGroup, MBPGroup_BH> {
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
 
 	@Override
 	public BusinessPartnerGroup saveEntity(BusinessPartnerGroup entity) {

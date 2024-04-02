@@ -52,14 +52,14 @@ group by payment.c_payment_id, tendertype.name;]]>
 	</background>
 	<detail>
 		<band height="13" splitType="Stretch">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement key="" x="3" y="0" width="86" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement key="" x="94" y="0" width="68" height="12" uuid="3c6e796f-4ded-4100-859a-fbec76f7868b"/>
 				<textElement textAlignment="Right">
 					<font fontName="Arial" size="10"/>

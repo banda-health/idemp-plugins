@@ -4,9 +4,7 @@ import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.compiere.model.X_C_Charge_Acct;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ChargeAccountDBService extends BaseDBService<BaseMetadata, X_C_Charge_Acct> {
 	@Override
 	public BaseMetadata saveEntity(BaseMetadata entity) {

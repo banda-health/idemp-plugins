@@ -180,7 +180,7 @@ ORDER BY
 						<jr:detailCell style="Table_TD" height="15">
 							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="162" height="15" uuid="fcbec586-4a7d-4f21-ba7c-cf694455110a">
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								</reportElement>

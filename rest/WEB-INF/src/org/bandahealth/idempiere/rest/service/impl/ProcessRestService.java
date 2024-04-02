@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
-import org.bandahealth.idempiere.rest.model.BHProcessInfo;
 import org.bandahealth.idempiere.rest.model.Process;
 import org.bandahealth.idempiere.rest.model.ProcessInfoParameter;
 import org.bandahealth.idempiere.rest.model.ReportType;
@@ -11,7 +10,6 @@ import org.bandahealth.idempiere.rest.service.db.ProcessDBService;
 import org.bandahealth.idempiere.rest.utils.HttpHeaderUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MProcess;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -29,8 +27,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProcessRestService extends BaseRestService<Process, MProcess_BH, ProcessDBService> {
 
-	@Autowired
-	private ProcessDBService dbService;
+	private final ProcessDBService dbService = new ProcessDBService();
 
 	@POST
 	@Path(IRestConfigs.RUN_AND_EXPORT_PATH + "/{processUuid}/{reportType}")

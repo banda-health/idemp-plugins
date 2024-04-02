@@ -24,8 +24,6 @@ import org.compiere.model.MTransaction;
 import org.compiere.util.CLogger;
 import org.compiere.util.DB;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -36,24 +34,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class InventoryTransactionDBService {
 	private CLogger log = CLogger.getCLogger(InventoryTransactionDBService.class);
 
-	@Autowired
-	private TransactionDBService transactionDBService;
-	@Autowired
-	private OrderDBService orderDBService;
-	@Autowired
-	private MovementDBService movementDBService;
-	@Autowired
-	private VisitDBService visitDBService;
-	@Autowired
-	private UserDBService userDBService;
-	@Autowired
-	private AttributeSetInstanceDBService attributeInstanceDBService;
-	@Autowired
-	private LocatorDBService locatorDBService;
+	private final TransactionDBService transactionDBService = new TransactionDBService();
+	private final OrderDBService orderDBService = new OrderDBService();
+	private final MovementDBService movementDBService = new MovementDBService();
+	private final VisitDBService visitDBService = new VisitDBService();
+	private final UserDBService userDBService = new UserDBService();
+	private final AttributeSetInstanceDBService attributeInstanceDBService = new AttributeSetInstanceDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
 
 	public BaseListResponse<InventoryTransaction> getAll(Paging pagingInfo, String sortJson, String filterJson) {
 		try {

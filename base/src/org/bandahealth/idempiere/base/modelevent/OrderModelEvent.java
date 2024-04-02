@@ -3,17 +3,16 @@ package org.bandahealth.idempiere.base.modelevent;
 import org.adempiere.base.event.AbstractEventHandler;
 import org.adempiere.base.event.IEventTopics;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MDocType_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MMatchPO;
 import org.compiere.model.MOrderLine;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
-import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
@@ -23,7 +22,6 @@ import org.osgi.service.event.Event;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.util.logging.Level;
 
 public class OrderModelEvent extends AbstractEventHandler {
 
@@ -186,8 +184,23 @@ public class OrderModelEvent extends AbstractEventHandler {
 
 	private void afterPurchaseOrderVoid(MOrder_BH order) {
 		// Get the material receipt associated with this order, if any
-		MInOut materialReceipt = new Query(Env.getCtx(), MInOut.Table_Name, MInOut.COLUMNNAME_C_Order_ID + "=?",
-				order.get_TrxName()).setParameters(order.getC_Order_ID()).setClient_ID().first();
+		MInOut materialReceipt = null;
+		MOrderLine[] orderLines = order.getLines();
+		for (MOrderLine orderLine : orderLines) {
+			MMatchPO[] matchedPOList =
+					MMatchPO.getOrderLine(order.getCtx(), orderLine.getC_OrderLine_ID(), order.get_TrxName());
+			MInOutLine inOutLine;
+			for (MMatchPO matchedPO : matchedPOList) {
+				if ((inOutLine = (MInOutLine) matchedPO.getM_InOutLine()) != null &&
+						(materialReceipt = inOutLine.getParent()) != null) {
+					break;
+				}
+			}
+			if (materialReceipt != null) {
+				break;
+			}
+		}
+		// If we didn't find a material receipt, just be done
 		if (materialReceipt == null) {
 			return;
 		}
