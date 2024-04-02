@@ -461,3 +461,42 @@ export async function createInventory(valueObject: ValueObject) {
 		}
 	}
 }
+
+
+export async function createInvoiceWithPaymentType(valueObject: ValueObject) {
+	valueObject.validate();
+
+ if (!valueObject.businessPartner) {
+		throw new Error('Business Partner is Null');
+	} 
+
+	const invoice: Partial<Invoice> = {
+		orgId: 0,
+		description: valueObject.getStepMessageLong(),
+		businessPartner: valueObject.businessPartner,
+		dateInvoiced: valueObject.date?.toISOString(),
+		invoiceLines: [],
+		documentTypeTarget: valueObject.documentType,
+		paymentRule : valueObject.paymentRule,
+		grandTotal: valueObject.paymentAmount
+	};
+	const invoiceLine: Partial<InvoiceLine> = {
+		description: valueObject.getStepMessageLong(),
+		quantity: valueObject.quantity || 1,
+	};
+	if (valueObject.product) {
+		invoiceLine.product = valueObject.product;
+	} else if (valueObject.charge) {
+		invoiceLine.charge = valueObject.charge;
+	}
+	invoiceLine.price =
+		valueObject.salesStandardPrice || (invoiceLine.quantity || 0) * (invoiceLine.product?.sellPrice || 0);
+	invoice.invoiceLines?.push(invoiceLine as unknown as InvoiceLine);
+
+	valueObject.invoice = await invoiceApi.save(valueObject, invoice as Invoice);
+	if (!valueObject.invoice) {
+		throw new Error('Invoice not created');
+	}
+	valueObject.invoiceLine = valueObject.invoice!.invoiceLines[0];
+	valueObject.visit?.invoices?.push(valueObject.invoice!);
+}
