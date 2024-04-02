@@ -5,7 +5,7 @@ export const tenderTypeName = {
 	MOBILE_MONEY: 'Mobile Money',
 } as const;
 
-export const paymentRule = {
+export const paymentRuleValue = {
 	CASH: 'B',
 	CREDIT_CARD: 'K',
 	DIRECT_DEPOSIT: 'T',
