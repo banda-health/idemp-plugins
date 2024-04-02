@@ -12,6 +12,8 @@ services:
 
   test:
     build: .
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     volumes:
       - ./rest-test/testing:/app/rest-test
       - /app/rest-test/node_modules
@@ -26,5 +28,6 @@ services:
       - PGUSER=adempiere
       - PGPASSWORD=${IDEMPIERE_DATABASE_PASSWORD}
     entrypoint: [tail, -f, /dev/null]
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
+
+
+    
