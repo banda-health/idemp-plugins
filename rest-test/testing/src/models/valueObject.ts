@@ -304,4 +304,6 @@ export class ValueObject {
 		this.charge = undefined;
 		this.setRandom();
 	}
+
+	paymentRule? : string
 }
