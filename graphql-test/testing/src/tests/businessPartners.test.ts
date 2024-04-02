@@ -21,46 +21,45 @@ test(`information saved correctly`, async () => {
 	valueObject.stepName = 'Create business partner';
 	const businessPartnerUuid = v4();
 	const locationUuid = v4();
-	const savedBusinessPartner = (
-		await mutate(valueObject)({
-			mutation: C_BPartnerSaveWithLocationDocument,
-			variables: {
+	const businessPartnerName = valueObject.getDynamicStepMessage();
+	await mutate(valueObject)({
+		mutation: C_BPartnerSaveWithLocationDocument,
+		variables: {
+			C_BPartner: {
+				UUID: businessPartnerUuid,
+				Name: businessPartnerName,
+				Description: valueObject.getStepMessageLong(),
+				BH_Birthday: valueObject.date?.getTime(),
+				bh_gender: { UUID: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
+				IsCustomer: true,
+				IsVendor: true,
+			},
+			C_Location: {
+				UUID: locationUuid,
+				C_Region: valueObject.region
+					? {
+							UUID: valueObject.region.UUID,
+					  }
+					: undefined,
+				C_Country: valueObject.country
+					? {
+							UUID: valueObject.country.UUID,
+					  }
+					: undefined,
+				City: 'Test',
+				Address1: '514 E North Ave',
+			},
+			C_BPartner_Location: {
 				C_BPartner: {
 					UUID: businessPartnerUuid,
-					Name: valueObject.getDynamicStepMessage(),
-					Description: valueObject.getStepMessageLong(),
-					BH_Birthday: valueObject.date?.getTime(),
-					bh_gender: { UUID: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
-					IsCustomer: true,
-					IsVendor: true,
 				},
 				C_Location: {
 					UUID: locationUuid,
-					C_Region: valueObject.region
-						? {
-								UUID: valueObject.region.UUID,
-						  }
-						: undefined,
-					C_Country: valueObject.country
-						? {
-								UUID: valueObject.country.UUID,
-						  }
-						: undefined,
-					City: 'Test',
-					Address1: '514 E North Ave',
 				},
-				C_BPartner_Location: {
-					C_BPartner: {
-						UUID: businessPartnerUuid,
-					},
-					C_Location: {
-						UUID: locationUuid,
-					},
-					Name: valueObject.city + ' ' + valueObject.region?.Name,
-				},
+				Name: valueObject.city + ' ' + valueObject.region?.Name,
 			},
-		})
-	).data?.C_BPartnerSave;
+		},
+	});
 
 	const fetchedBusinessPartner = (
 		await query(valueObject)({
@@ -70,7 +69,7 @@ test(`information saved correctly`, async () => {
 	).data.C_BPartnerGet.results[0];
 
 	expect(fetchedBusinessPartner.TotalOpenBalance).toBe(0);
-	expect(fetchedBusinessPartner.Name).toBe(savedBusinessPartner?.Name);
+	expect(fetchedBusinessPartner.Name).toBe(businessPartnerName);
 	expect(fetchedBusinessPartner.C_BPartner_Locations?.[0].C_Location.Address1).toBe('514 E North Ave');
 });
 
@@ -81,54 +80,58 @@ test(`get method returns the correct data`, async () => {
 	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
 	const locationUuid = v4();
-	valueObject.businessPartner = (
-		await mutate(valueObject)({
-			mutation: C_LocationUpdateWithBPartnerDocument,
-			variables: {
+	await mutate(valueObject)({
+		mutation: C_LocationUpdateWithBPartnerDocument,
+		variables: {
+			C_BPartner: {
+				UUID: valueObject.businessPartner!.UUID,
+				bh_gender: { UUID: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
+				NationalID: '156156',
+				bh_occupation: 'Programmer',
+				NextOfKin_Name: 'Wifey',
+				NextOfKin_Contact: '155155',
+				C_BP_Group: {
+					UUID: (
+						await query(valueObject)({
+							query: C_Bp_GroupGetDocument,
+							variables: { filter: JSON.stringify({ name: 'Patients - DO NOT CHANGE' }) },
+						})
+					).data.C_BP_GroupGet.results[0].UUID,
+				},
+			},
+			C_Location: {
+				UUID: locationUuid,
+				C_Region: valueObject.region
+					? {
+							UUID: valueObject.region.UUID,
+					  }
+					: undefined,
+				C_Country: valueObject.country
+					? {
+							UUID: valueObject.country.UUID,
+					  }
+					: undefined,
+				City: 'Test',
+				Address1: '514 E North Ave',
+			},
+			C_BPartner_Location: {
+				UUID: valueObject.businessPartner!.C_BPartner_Locations?.[0].UUID,
 				C_BPartner: {
 					UUID: valueObject.businessPartner!.UUID,
-					bh_gender: { UUID: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
-					NationalID: '156156',
-					bh_occupation: 'Programmer',
-					NextOfKin_Name: 'Wifey',
-					NextOfKin_Contact: '155155',
-					C_BP_Group: {
-						UUID: (
-							await query(valueObject)({
-								query: C_Bp_GroupGetDocument,
-								variables: { filter: JSON.stringify({ name: 'Patients - DO NOT CHANGE' }) },
-							})
-						).data.C_BP_GroupGet.results[0].UUID,
-					},
 				},
 				C_Location: {
 					UUID: locationUuid,
-					C_Region: valueObject.region
-						? {
-								UUID: valueObject.region.UUID,
-						  }
-						: undefined,
-					C_Country: valueObject.country
-						? {
-								UUID: valueObject.country.UUID,
-						  }
-						: undefined,
-					City: 'Test',
-					Address1: '514 E North Ave',
 				},
-				C_BPartner_Location: {
-					UUID: valueObject.businessPartner!.C_BPartner_Locations?.[0].UUID,
-					C_BPartner: {
-						UUID: valueObject.businessPartner!.UUID,
-					},
-					C_Location: {
-						UUID: locationUuid,
-					},
-					Name: valueObject.city + ' ' + valueObject.region?.Name,
-				},
+				Name: valueObject.city + ' ' + valueObject.region?.Name,
 			},
+		},
+	});
+	valueObject.businessPartner = (
+		await query(valueObject)({
+			query: C_BPartnerGetDocument,
+			variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
 		})
-	).data?.C_BPartnerSave;
+	).data.C_BPartnerGet.results[0];
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;

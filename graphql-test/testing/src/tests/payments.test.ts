@@ -146,25 +146,23 @@ test('filtering by payments not on a visit works', async () => {
 
 	valueObject.stepName = 'Create visit';
 	const visitUuid = v4();
-	valueObject.visit = (
-		await mutate(valueObject)({
-			mutation: Bh_VisitSaveWithPaymentsDocument,
-			variables: {
-				BH_Visit: {
-					UUID: visitUuid,
-					Description: valueObject.getDynamicStepMessage(),
-					Patient: { UUID: valueObject.businessPartner!.UUID },
-					BH_VisitDate: valueObject.date?.getTime(),
-				},
-				C_Payments: [
-					{
-						UUID: valueObject.payment!.UUID,
-						BH_Visit: { UUID: visitUuid },
-					},
-				],
+	await mutate(valueObject)({
+		mutation: Bh_VisitSaveWithPaymentsDocument,
+		variables: {
+			BH_Visit: {
+				UUID: visitUuid,
+				Description: valueObject.getDynamicStepMessage(),
+				Patient: { UUID: valueObject.businessPartner!.UUID },
+				BH_VisitDate: valueObject.date?.getTime(),
 			},
-		})
-	).data?.BH_VisitSave;
+			C_Payments: [
+				{
+					UUID: valueObject.payment!.UUID,
+					BH_Visit: { UUID: visitUuid },
+				},
+			],
+		},
+	});
 
 	expect(
 		(

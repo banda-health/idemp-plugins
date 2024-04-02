@@ -4,6 +4,7 @@ import { documentStatus, referenceUuid, tenderTypeName, ValueObject } from '../m
 import {
 	Ad_ProcessRunAndExportDocument,
 	Ad_Ref_ListGetDocument,
+	Bh_VisitGetDocument,
 	Bh_VisitSaveDocument,
 	C_AcctSchemaGetDocument,
 	C_BankAccountGetDocument,
@@ -207,7 +208,7 @@ export async function createVisit(valueObject: ValueObject) {
 		throw new Error('Business Partner is Null');
 	}
 
-	valueObject.visit = (
+	const visitUuid = (
 		await mutate(valueObject)({
 			mutation: Bh_VisitSaveDocument,
 			variables: {
@@ -218,7 +219,13 @@ export async function createVisit(valueObject: ValueObject) {
 				},
 			},
 		})
-	).data?.BH_VisitSave;
+	).data?.BH_VisitSave.UUID;
+	valueObject.visit = (
+		await query(valueObject)({
+			query: Bh_VisitGetDocument,
+			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+		})
+	).data.BH_VisitGet.results[0];
 	if (!valueObject.visit) {
 		throw new Error('Visit not created');
 	}

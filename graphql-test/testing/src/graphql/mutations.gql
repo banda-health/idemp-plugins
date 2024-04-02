@@ -174,7 +174,7 @@ mutation BH_VisitDelete($uuids: [String!]!) {
 
 mutation BH_VisitProcess($uuid: String!, $documentAction: String!) {
 	BH_VisitProcess(uuid: $uuid, documentAction: $documentAction) {
-		...BH_VisitFields
+		UUID
 	}
 }
 
@@ -192,7 +192,7 @@ mutation BH_VisitRemoveInsurancePayer(
 
 mutation BH_VisitSave($entity: BH_VisitInput!) {
 	BH_VisitSave(entity: $entity) {
-		...BH_VisitFields
+		UUID
 	}
 }
 
@@ -445,10 +445,10 @@ mutation BH_VisitSaveWithOrdersAndInvoices(
 
 mutation BH_VisitSaveWithPayments($BH_Visit: BH_VisitInput!, $C_Payments: [C_PaymentInput!]!) {
 	BH_VisitSave(entity: $BH_Visit) {
-		...BH_VisitFields
+		UUID
 	}
 	C_PaymentSaveMany(entities: $C_Payments) {
-		...C_PaymentFields
+		UUID
 	}
 }
 
@@ -460,7 +460,7 @@ mutation C_BPartner_LocationSave($entity: C_BPartner_LocationInput!) {
 
 mutation C_BPartnerSave($entity: C_BPartnerInput!) {
 	C_BPartnerSave(entity: $entity) {
-		...C_BPartnerFields
+		UUID
 	}
 }
 
@@ -470,10 +470,10 @@ mutation C_BPartnerSaveWithLocation(
 	$C_BPartner_Location: C_BPartner_LocationInput!
 ) {
 	C_BPartnerSave(entity: $C_BPartner) {
-		...C_BPartnerFields
+		UUID
 	}
 	C_LocationSave(entity: $C_Location) {
-		...C_LocationFields
+		UUID
 	}
 	C_BPartner_LocationSave(entity: $C_BPartner_Location) {
 		UUID
@@ -512,13 +512,13 @@ mutation C_LocationUpdateWithBPartner(
 	$C_BPartner_Location: C_BPartner_LocationInput!
 ) {
 	C_LocationSave(entity: $C_Location) {
-		...C_LocationFields
+		UUID
 	}
 	C_BPartner_LocationSave(entity: $C_BPartner_Location) {
 		UUID
 	}
 	C_BPartnerSave(entity: $C_BPartner) {
-		...C_BPartnerFields
+		UUID
 	}
 }
 
@@ -533,7 +533,7 @@ mutation C_InvoiceDelete($uuids: [String!]!) {
 
 mutation C_InvoiceSaveWithInvoiceLines($C_Invoice: C_InvoiceInput!, $C_InvoiceLine: C_InvoiceLineInput!) {
 	C_InvoiceSave(entity: $C_Invoice) {
-		...C_InvoiceFields
+		UUID
 	}
 	C_InvoiceLineSave(entity: $C_InvoiceLine) {
 		UUID
@@ -570,7 +570,7 @@ mutation C_OrderSave($entity: C_OrderInput!) {
 
 mutation C_OrderSaveWithOrderLines($C_Order: C_OrderInput!, $C_OrderLine: C_OrderLineInput!) {
 	C_OrderSave(entity: $C_Order) {
-		...C_OrderFields
+		UUID
 	}
 	C_OrderLineSave(entity: $C_OrderLine) {
 		UUID
