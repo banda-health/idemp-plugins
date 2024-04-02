@@ -4,7 +4,7 @@ UPDATE c_invoice
 SET
 	paymentrule = 'T'  
 WHERE
-	paymentrule != 'P'
+	paymentrule != 'P';
 
 SELECT
 	register_migration_script('202404011434_GO-2592.sql')
