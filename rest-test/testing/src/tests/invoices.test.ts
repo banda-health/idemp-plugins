@@ -1,7 +1,7 @@
 import { PaymentType } from 'src/types/org.bandahealth.idempiere.rest';
 import { businessPartnerApi, invoiceApi, paymentApi, referenceListApi } from '../api';
 import { documentAction, documentBaseType, documentStatus, paymentRuleValue, referenceUuid, tenderTypeName } from '../models';
-import { createBusinessPartner, createCharge, createInvoice, createInvoiceWithPaymentType, createPayment, createProduct } from '../utils';
+import { createBusinessPartner, createCharge, createInvoice, createPayment, createProduct } from '../utils';
 
 test('creating an invoice with a charge', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
