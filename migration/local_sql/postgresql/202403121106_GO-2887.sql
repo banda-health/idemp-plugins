@@ -5385,9 +5385,6 @@ ALTER TABLE adempiere.ad_orginfo
 
 ALTER TABLE m_product
 	DROP CONSTRAINT IF EXISTS m_product_bh_hasexpiration_check;
-ALTER TABLE m_product
-	ADD CONSTRAINT m_product_bh_hasexpiration_check
-		CHECK (bh_hasexpiration = ANY (ARRAY ['Y'::bpchar, 'N'::bpchar]));
 
 DELETE
 FROM
@@ -5589,9 +5586,6 @@ WHERE
 	                 '425e0fbc-e2a2-4c61-a8c1-55b89d45faee', '2809e796-6771-402b-bba0-1a0251aa8273',
 	                 '5d699b4f-cb2a-4abd-8759-a9afb59a4e95');
 
-CREATE INDEX IF NOT EXISTS bh_tabnavbtn_tabid_index
-	ON bh_tabnavbtn (ad_tab_id, isactive);
-
 ALTER TABLE c_charge
 	DROP CONSTRAINT IF EXISTS c_charge_bh_locked_check;
 ALTER TABLE c_charge
@@ -5603,9 +5597,6 @@ ALTER TABLE m_relatedproduct
 ALTER TABLE m_relatedproduct
 	ADD CONSTRAINT m_relatedproduct_pkey
 		PRIMARY KEY (m_product_id, relatedproduct_id, relatedproducttype);
-
-ALTER TABLE c_invoice
-	ALTER COLUMN bh_navbuttons SET DEFAULT NULL::character varying;
 
 ALTER TABLE c_order
 	DROP CONSTRAINT IF EXISTS baytable_corder;
@@ -5619,9 +5610,6 @@ ALTER TABLE m_product
 	ALTER COLUMN bh_reorder_level DROP DEFAULT;
 
 ALTER TABLE m_product
-	ALTER COLUMN bh_product_category_type SET DEFAULT NULL::bpchar;
-
-ALTER TABLE m_product
 	DROP CONSTRAINT IF EXISTS bxsposoutputdevice_mproduct;
 
 ALTER TABLE m_product
@@ -5629,9 +5617,6 @@ ALTER TABLE m_product
 
 ALTER TABLE c_orderline
 	ALTER COLUMN bh_instructions SET DEFAULT NULL::character varying;
-
-ALTER TABLE c_invoiceline
-	ALTER COLUMN bh_navbuttons SET DEFAULT NULL::character varying;
 
 ALTER TABLE bh_paymentref
 	ALTER COLUMN description SET DEFAULT NULL::character varying;
