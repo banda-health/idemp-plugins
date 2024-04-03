@@ -3,9 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MBHConceptName;
 import org.bandahealth.idempiere.rest.model.ConceptName;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ConceptNameDBService extends BaseDBService<ConceptName, MBHConceptName> {
 
 	@Override

@@ -10,14 +10,10 @@ import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.rest.model.ConceptExtra;
 import org.bandahealth.idempiere.rest.model.ConceptMapping;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ConceptMappingDBService extends BaseDBService<ConceptMapping, MBHConceptMapping> {
 
-	@Autowired
-	private ConceptExtraDBService conceptExtraDBService;
+	private final ConceptExtraDBService conceptExtraDBService = new ConceptExtraDBService();
 
 	@Override
 	public ConceptMapping saveEntity(ConceptMapping entity) {
@@ -59,8 +55,10 @@ public class ConceptMappingDBService extends BaseDBService<ConceptMapping, MBHCo
 		// get concept extras
 		Map<Integer, List<ConceptExtra>> conceptExtraByConceptMappingId = conceptExtraDBService
 				.transformData(conceptExtraDBService
-						.getGroupsByIds(MBHConceptExtra::getBH_Concept_Mapping_ID, MBHConceptExtra.COLUMNNAME_BH_Concept_Mapping_ID,
-								dbModels.stream().map(MBHConceptMapping::getBH_Concept_Mapping_ID).collect(Collectors.toSet()))
+						.getGroupsByIds(MBHConceptExtra::getBH_Concept_Mapping_ID,
+								MBHConceptExtra.COLUMNNAME_BH_Concept_Mapping_ID,
+								dbModels.stream().map(MBHConceptMapping::getBH_Concept_Mapping_ID)
+										.collect(Collectors.toSet()))
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(ConceptExtra::getConceptMappingId));
 

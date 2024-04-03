@@ -6,31 +6,23 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
-import org.bandahealth.idempiere.rest.model.BusinessPartner;
 import org.bandahealth.idempiere.rest.model.Concept;
 import org.bandahealth.idempiere.rest.model.ConceptExtra;
 import org.bandahealth.idempiere.rest.model.ConceptMapping;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
-	@Autowired
-	private ConceptMappingDBService conceptMappingDBService;
-
-	@Autowired
-	private ConceptExtraDBService conceptExtraDBService;
+	private final ConceptMappingDBService conceptMappingDBService = new ConceptMappingDBService();
+	private final ConceptExtraDBService conceptExtraDBService = new ConceptExtraDBService();
 
 	@Override
 	public Concept saveEntity(Concept entity) {

@@ -12,14 +12,10 @@ import org.bandahealth.idempiere.rest.model.Concept;
 import org.bandahealth.idempiere.rest.model.EncounterDiagnostic;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class EncounterDiagnosticDBService extends BaseDBService<EncounterDiagnostic, MBHEncounterDiagnostic> {
 
-	@Autowired
-	private ConceptDBService conceptDBService;
+	private final ConceptDBService conceptDBService = new ConceptDBService();
 
 	@Override
 	public EncounterDiagnostic saveEntity(EncounterDiagnostic entity) {
@@ -50,13 +46,14 @@ public class EncounterDiagnosticDBService extends BaseDBService<EncounterDiagnos
 		// get existing diagnostics
 		List<MBHEncounterDiagnostic> mEncounterDiagnostics = new Query(Env.getCtx(), MBHEncounterDiagnostic.Table_Name,
 				MBHEncounterDiagnostic.COLUMNNAME_BH_Encounter_ID + " =?", null).setParameters(encounterId)
-				.setClient_ID().list();
+						.setClient_ID().list();
 
-		mEncounterDiagnostics.stream().filter(existingDiagnostic -> encounterDiagnostics.stream().noneMatch(
+		mEncounterDiagnostics.stream()
+				.filter(existingDiagnostic -> encounterDiagnostics.stream().noneMatch(
 						concept -> concept.getUuid().equals(existingDiagnostic.getBH_Encounter_Diagnostic_UU())))
 				.forEach(entity -> deleteEntity(entity.getBH_Encounter_Diagnostic_UU()));
 	}
-	
+
 	@Override
 	protected EncounterDiagnostic createInstanceWithDefaultFields(MBHEncounterDiagnostic instance) {
 		return createInstanceWithAllFields(instance);
@@ -91,14 +88,13 @@ public class EncounterDiagnosticDBService extends BaseDBService<EncounterDiagnos
 
 		return false;
 	}
-	
+
 	@Override
 	public List<EncounterDiagnostic> transformData(List<MBHEncounterDiagnostic> dbModels) {
 		// get concepts
-		Map<Integer, Concept> conceptsById = conceptDBService.transformData(new ArrayList<>(
-				conceptDBService.getByIds(
-								dbModels.stream().map(MBHEncounterDiagnostic::getBH_Concept_ID).collect(Collectors.toSet()))
-						.values())).stream().collect(Collectors.toMap(Concept::getId, concept -> concept));
+		Map<Integer, Concept> conceptsById = conceptDBService.transformData(new ArrayList<>(conceptDBService
+				.getByIds(dbModels.stream().map(MBHEncounterDiagnostic::getBH_Concept_ID).collect(Collectors.toSet()))
+				.values())).stream().collect(Collectors.toMap(Concept::getId, concept -> concept));
 
 		return dbModels.stream().map(entity -> {
 			EncounterDiagnostic result = new EncounterDiagnostic(entity);
