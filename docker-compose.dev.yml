@@ -29,5 +29,4 @@ services:
       - PGPASSWORD=${IDEMPIERE_DATABASE_PASSWORD}
     entrypoint: [tail, -f, /dev/null]
 
-
     

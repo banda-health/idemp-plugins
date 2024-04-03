@@ -15,5 +15,5 @@ export const paymentRuleValue = {
 	MIXED_POS: 'M',
 	MOBILE_ACCOUNT: 'A',
 	CASH_DRAWER: 'b'
+};
 
-}

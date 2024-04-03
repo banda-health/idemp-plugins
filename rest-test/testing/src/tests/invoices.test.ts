@@ -1,6 +1,13 @@
 import { PaymentType } from 'src/types/org.bandahealth.idempiere.rest';
 import { businessPartnerApi, invoiceApi, paymentApi, referenceListApi } from '../api';
-import { documentAction, documentBaseType, documentStatus, paymentRuleValue, referenceUuid, tenderTypeName } from '../models';
+import {
+	documentAction,
+	documentBaseType,
+	documentStatus,
+	paymentRuleValue,
+	referenceUuid,
+	tenderTypeName,
+} from '../models';
 import { createBusinessPartner, createCharge, createInvoice, createPayment, createProduct } from '../utils';
 
 test('creating an invoice with a charge', async () => {
@@ -197,7 +204,7 @@ test('child data present when fetching an invoice', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	valueObject.setSalesPrice(10);
 	await createInvoice(valueObject);
-	
+
 	const fetchedInvoice = await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid);
 	expect(valueObject.invoice!.invoiceLines.length).not.toBe(0);
 	expect(fetchedInvoice.invoiceLines.length).toBe(valueObject.invoice!.invoiceLines.length);
@@ -212,10 +219,11 @@ test('The payment type for an invoice is returned correctly', async () => {
 
 	valueObject.stepName = 'Create Charge';
 	await createCharge(valueObject);
-	
 
 	valueObject.stepName = 'Create Invoice';
-	const directDepositPaymentRule =  (await referenceListApi.getByReference(valueObject, referenceUuid.PAYMENT_TYPES, false)).find((paymentType) => paymentType.value == paymentRuleValue.DIRECT_DEPOSIT)
+	const directDepositPaymentRule = (
+		await referenceListApi.getByReference(valueObject, referenceUuid.PAYMENT_TYPES, false)
+	).find((paymentType) => paymentType.value == paymentRuleValue.DIRECT_DEPOSIT);
 
 	valueObject.paymentRule = directDepositPaymentRule?.value;
 	await valueObject.setDocumentBaseType(documentBaseType.APPayment, null, false, false, false);
@@ -226,6 +234,3 @@ test('The payment type for an invoice is returned correctly', async () => {
 	expect(valueObject.invoice).toBeTruthy();
 	expect(savedInvoice?.paymentRule).toBe(paymentRuleValue.DIRECT_DEPOSIT);
 });
-
-
-
