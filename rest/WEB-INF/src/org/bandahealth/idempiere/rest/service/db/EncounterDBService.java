@@ -24,22 +24,14 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
-	@Autowired
-	private ObservationDBService observationDBService;
-
-	@Autowired
-	private EncounterDiagnosisDBService encounterDiagnosisDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
-	@Autowired
-	private EncounterDiagnosticDBService encounterDiagnosticDBService;
-
+	private final ObservationDBService observationDBService = new ObservationDBService();
+	private final EncounterDiagnosisDBService encounterDiagnosisDBService = new EncounterDiagnosisDBService();
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
+	private final EncounterDiagnosticDBService encounterDiagnosticDBService = new EncounterDiagnosticDBService();
+	
 	@Override
 	public Encounter saveEntity(Encounter entity) {
 		return createInstanceWithAllFields(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()));
@@ -97,7 +89,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 		return new Encounter(encounter);
 	}
-	
+
 	@Override
 	public Boolean deleteEntity(String entityUuid) {
 		MBHEncounter entity = getEntityByUuidFromDB(entityUuid);
@@ -207,7 +199,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 			return result;
 		}).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public Boolean delete(List<String> uuids) {
 		Map<String, MBHEncounter> encounters = getByUuids(new HashSet<>(uuids));

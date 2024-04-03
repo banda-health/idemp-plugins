@@ -158,7 +158,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement positionType="Float" stretchType="ContainerHeight" x="0" y="0" width="320" height="17" uuid="c46d139a-2c85-4836-a003-fc8f9b146148">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>

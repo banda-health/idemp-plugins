@@ -1,23 +1,19 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.Window;
 import org.compiere.model.MTab;
 import org.compiere.model.MWindow;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class WindowDBService extends BaseDBService<Window, MWindow> {
 
-	@Autowired
-	private TabDBService tabDBService;
+	private final TabDBService tabDBService = new TabDBService();
 
 	@Override
 	public Window saveEntity(Window entity) {
@@ -62,7 +58,7 @@ public class WindowDBService extends BaseDBService<Window, MWindow> {
 			return result;
 		}).collect(Collectors.toList());
 	}
-	
+
 	@Override
 	protected EntityConfiguration getDefaultEntityConfiguration() {
 		return new EntityConfiguration() {

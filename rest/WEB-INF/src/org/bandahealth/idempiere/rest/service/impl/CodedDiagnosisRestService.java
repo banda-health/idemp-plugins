@@ -1,16 +1,15 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.CodedDiagnosis;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.CodedDiagnosisDBService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 @Path(IRestConfigs.CODED_DIAGNOSES_PATH)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -18,8 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CodedDiagnosisRestService
 		extends BaseRestService<CodedDiagnosis, MBHCodedDiagnosis, CodedDiagnosisDBService> {
 
-	@Autowired
-	private CodedDiagnosisDBService dbService;
+	private final CodedDiagnosisDBService dbService = new CodedDiagnosisDBService();
 
 	@Override
 	protected CodedDiagnosisDBService getDBService() {

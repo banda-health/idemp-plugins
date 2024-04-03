@@ -43,10 +43,13 @@ SELECT
 		WHEN t.movementtype = 'V-' THEN 'Vendor Returns'
 		WHEN t.movementtype = 'M+' THEN 'Transfer In'
 		WHEN t.movementtype = 'M-' THEN 'Transfer Out'
-		ELSE 'Unknown Status: ' || t.movementtype 
-	END AS transaction_type,
+		ELSE 'Unknown Status: ' || t.movementtype
+		END AS                                                                transaction_type,
 	movementqty,
-	SUM(movementqty) FILTER ( WHERE m_transaction_id IS NOT NULL ) OVER (PARTITION BY m_product_id, m_locator_id ORDER BY created) runningtotal_bylocator
+	CASE
+		WHEN m_transaction_id IS NULL THEN NULL
+		ELSE SUM(movementqty) FILTER ( WHERE m_transaction_id IS NOT NULL )
+			OVER (PARTITION BY m_product_id, m_locator_id ORDER BY row_num) END runningtotal_bylocator
 FROM
 	(
 		SELECT
@@ -65,6 +68,7 @@ FROM
 			ROW_NUMBER() OVER (PARTITION BY m_product_id ORDER BY t.created) AS row_num
 		FROM
 			(
+				-- Get completed transactions
 				SELECT
 					t.created,
 					t.m_transaction_id,
@@ -89,6 +93,7 @@ FROM
 				WHERE
 					t.ad_client_id = _ad_client_id
 				UNION ALL
+				-- Get drafted orders
 				SELECT
 					o.created,
 					NULL,
@@ -111,6 +116,7 @@ FROM
 					AND o.ad_client_id = _ad_client_id
 					AND ol.m_product_id IS NOT NULL
 				UNION ALL
+				-- Get drafted movements (for the source locator/warehouse)
 				SELECT
 					m.created,
 					NULL,
@@ -130,9 +136,11 @@ FROM
 						ON m.m_movement_id = ml.m_movement_id
 				WHERE
 					m.ad_client_id = _ad_client_id
+					AND m.docstatus = 'DR'
 				UNION ALL
+				-- Get drafted movements (for the destination locator/warehouse)
 				SELECT
-					m.created,
+					m.created + '1 microsecond',
 					NULL,
 					NULL,
 					NULL,
@@ -150,6 +158,7 @@ FROM
 						ON m.m_movement_id = ml.m_movement_id
 				WHERE
 					m.ad_client_id = _ad_client_id
+					AND m.docstatus = 'DR'
 			) t
 	) t;
 $$;

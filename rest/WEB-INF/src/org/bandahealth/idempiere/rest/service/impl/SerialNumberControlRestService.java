@@ -5,7 +5,6 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.SerialNumberControl;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.SerialNumberControlDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,8 +19,7 @@ import java.util.Collections;
 @Produces(MediaType.APPLICATION_JSON)
 public class SerialNumberControlRestService
 		extends BaseRestService<SerialNumberControl, MSerNoCtl_BH, SerialNumberControlDBService> {
-	@Autowired
-	private SerialNumberControlDBService serialNumberControlDBService;
+	private final SerialNumberControlDBService serialNumberControlDBService = new SerialNumberControlDBService();
 
 	@Override
 	protected SerialNumberControlDBService getDBService() {

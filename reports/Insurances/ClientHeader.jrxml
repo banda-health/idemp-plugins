@@ -62,7 +62,7 @@ WHERE
 	</field>
 	<title>
 		<band height="57" splitType="Stretch">
-			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="false">
 				<reportElement x="110" y="0" width="250" height="56" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="b1cec7ed-c752-4275-bf7c-5ba2ab438e41"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="9" isBold="true"/>

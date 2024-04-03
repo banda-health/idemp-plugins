@@ -3,9 +3,7 @@ package org.bandahealth.idempiere.rest.service.db;
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.rest.model.Client;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ClientDBService extends BaseDBService<Client, MClient_BH> {
 	@Override
 	public Client saveEntity(Client entity) {

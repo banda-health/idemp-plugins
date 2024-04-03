@@ -14,11 +14,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class UserRolesDBService extends BaseDBService<UserRoles, MUserRoles> {
 
-	@Autowired
-	private RoleDBService roleDBService;
+	private final RoleDBService roleDBService = new RoleDBService();
 
 	public void saveRoles(MUser_BH user, List<Role> roles) {
 		// get roles

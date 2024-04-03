@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.rest.model.Organization;
 import org.bandahealth.idempiere.rest.model.Role;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.db.ClientDBService;
+import org.bandahealth.idempiere.rest.service.db.LocatorDBService;
 import org.bandahealth.idempiere.rest.service.db.OrganizationDBService;
 import org.bandahealth.idempiere.rest.service.db.RoleDBService;
 import org.bandahealth.idempiere.rest.service.db.TermsOfServiceDBService;
@@ -32,6 +33,7 @@ import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
@@ -39,7 +41,6 @@ import org.compiere.util.Login;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -72,14 +73,10 @@ public class AuthenticationRestService {
 
 	public static final String M_WAREHOUSE_UUID = "#M_Warehouse_Uuid";
 	public static String ERROR_USER_NOT_FOUND = "Could not find user";
-	@Autowired
-	private WarehouseDBService warehouseDBService;
-	@Autowired
-	private RoleDBService roleDBService;
-	@Autowired
-	private ClientDBService clientDBService;
-	@Autowired
-	private OrganizationDBService organizationDBService;
+	private final LocatorDBService locatorDBService = new LocatorDBService();
+	private final RoleDBService roleDBService = new RoleDBService();
+	private final ClientDBService clientDBService = new ClientDBService();
+	private final OrganizationDBService organizationDBService = new OrganizationDBService();
 
 	@POST
 	@Path(IRestConfigs.TERMSOFSERVICE_PATH)
@@ -167,6 +164,7 @@ public class AuthenticationRestService {
 					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_Role_ID;
 
+			PO.setCrossTenantSafe();
 			MUserRoles userRoles = new Query(Env.getCtx(), MUserRoles.Table_Name, whereClause, null)
 					.addJoinClause(joinClause).setParameters(parameters).first();
 			if (userRoles == null) {
@@ -200,6 +198,7 @@ public class AuthenticationRestService {
 					return new AuthResponse(Status.UNAUTHORIZED);
 				}
 			}
+			PO.clearCrossTenantSafe();
 
 			Builder builder = JWT.create().withSubject(credentials.getUsername());
 			Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
@@ -351,11 +350,11 @@ public class AuthenticationRestService {
 	}
 
 	/**
-	 * Check if a particular username and password have access to any clients other than this one. 
-	 * This is used when creating or updating a username and/or password, to try to ensure someone 
-	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client, 
+	 * Check if a particular username and password have access to any clients other than this one.
+	 * This is used when creating or updating a username and/or password, to try to ensure someone
+	 * doesn't accidentally set up a user at one client that matches one at a DIFFERENT client,
 	 * inadvertantly giving them access to both.
-	 *  
+	 *
 	 * @param credentials
 	 * @return true if the username/password has access to other clients, false if they don't
 	 */
@@ -372,7 +371,7 @@ public class AuthenticationRestService {
 			return false;
 		}
 
-		for(KeyNamePair client : clients) {
+		for (KeyNamePair client : clients) {
 			if (client.getKey() != currentClient) {
 				// We found a client that the given username and password has access to, that is NOT the same is THIS client.
 				return true;
@@ -380,7 +379,7 @@ public class AuthenticationRestService {
 		}
 
 		return false;
-	}		
+	}
 
 	/**
 	 * The user needs to change their credentials, so set the appropriate data
@@ -410,6 +409,7 @@ public class AuthenticationRestService {
 	 * @param builder
 	 */
 	private void changeLoginProperties(Authentication credentials, Builder builder, AuthResponse response) {
+		PO.setCrossTenantSafe();
 		// set client id
 		if (credentials.getClientUuid() != null) {
 			Client client = clientDBService.getEntity(credentials.getClientUuid());
@@ -442,7 +442,7 @@ public class AuthenticationRestService {
 
 		// check warehouse
 		if (credentials.getWarehouseUuid() != null) {
-			MWarehouse_BH warehouse = warehouseDBService
+			MWarehouse_BH warehouse = locatorDBService.getWarehouseDBService()
 					.getByUuids(Collections.singleton(credentials.getWarehouseUuid()))
 					.get(credentials.getWarehouseUuid());
 			Env.setContext(Env.getCtx(), Env.M_WAREHOUSE_ID, warehouse.get_ID());
@@ -450,6 +450,7 @@ public class AuthenticationRestService {
 			response.setWarehouseUuid(credentials.getWarehouseUuid());
 		}
 
+		PO.clearCrossTenantSafe();
 	}
 
 	/**
@@ -480,7 +481,7 @@ public class AuthenticationRestService {
 					response.setClientUuid(client.getUuid());
 				}
 
-				// PO.setCrossTenantSafe();
+				PO.setCrossTenantSafe();
 				// check orgs.
 				MOrg[] orgs = MOrg.getOfClient(new MClient(Env.getCtx(), client.getId(), null));
 
@@ -511,8 +512,8 @@ public class AuthenticationRestService {
 					// check warehouses
 					List<MWarehouse_BH> dbWarehouses = new Query(Env.getCtx(), MWarehouse_BH.Table_Name, "AD_Org_ID=?",
 							null).setParameters(Env.getAD_Org_ID(Env.getCtx())).setOnlyActiveRecords(true)
-									.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
-					List<Warehouse> warehouses = warehouseDBService.transformData(dbWarehouses);
+							.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
+					List<Warehouse> warehouses = locatorDBService.getWarehouseDBService().transformData(dbWarehouses);
 					for (Warehouse warehouse : warehouses) {
 						orgResponse.getWarehouses().add(warehouse);
 
@@ -531,7 +532,7 @@ public class AuthenticationRestService {
 			}
 		} finally {
 			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
-			// PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+			PO.clearCrossTenantSafe();
 		}
 	}
 }

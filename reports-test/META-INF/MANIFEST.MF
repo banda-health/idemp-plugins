@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Banda Health Report Tests
 Bundle-SymbolicName: org.bandahealth.idempiere.report.test;singleton:=true
-Bundle-Version: 7.1.0.qualifier
+Bundle-Version: 11.0.0.qualifier
 Automatic-Module-Name: org.bandahealth.idempiere.report.test
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.adempiere.base;bundle-version="7.1.0",
  org.adempiere.plugin.utils;bundle-version="7.1.0",
  org.bandahealth.idempiere.base;bundle-version="7.1.0"

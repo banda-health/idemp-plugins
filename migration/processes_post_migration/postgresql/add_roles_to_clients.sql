@@ -1,5 +1,5 @@
 -- Util function that adds the new role to all existing clients and includes it as a default role for
--- new clients. The function already existed, but had a few bugs, so has been corrected here
+-- new clients.
 -- Params: ad_role_to_add_uu : Role uuid of the new master role.
 --         db_user_type: user_type key to be used in ad_reflist for association with the role
 CREATE OR REPLACE FUNCTION add_roles_to_clients(ad_role_to_add_uu UUID, user_type VARCHAR(1)) RETURNS VOID
@@ -44,7 +44,7 @@ BEGIN
                              allow_info_product, allow_info_resource, allow_info_schedule, userdiscount, allow_info_mrp,
                              allow_info_crp, isdiscountuptolimitprice, isdiscountallowedontotal, amtapprovalaccum,
                              daysapprovalaccum, ad_role_uu, ismenuautoexpand, ismasterrole, isaccessadvanced, roletype)
-    SELECT c.ad_client_id,0,'Y',100,c.name || ' ' || r.name,100,null,'  O',null,0,null,'N','N','N','N','Y','Y',null,'Y',
+    SELECT c.ad_client_id,0,'Y',100,c.name || ' ' || r.name,100,null,'  O',null,0,null,'Y','N','N','N','Y','Y',null,'Y',
            'N','N','O','N','N',null,0,0,null,'Y','Y','Y','N','Y','Y','Y','Y','Y','Y','Y',null,'N','N','N','N',null,null,
            uuid_generate_v4(),'N','N','N',null 
     FROM adempiere.ad_client c 

@@ -6,7 +6,6 @@ import org.bandahealth.idempiere.rest.annotation.AdministratorOnly;
 import org.bandahealth.idempiere.rest.model.Client;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.ClientDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -18,8 +17,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @AdministratorOnly
 public class ClientRestService extends BaseRestService<Client, MClient_BH, ClientDBService> {
-	@Autowired
-	private ClientDBService clientDBService;
+	private final ClientDBService clientDBService = new ClientDBService();
 
 	@Override
 	protected ClientDBService getDBService() {

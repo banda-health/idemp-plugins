@@ -167,7 +167,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy">
+							<textField textAdjust="StretchHeight" pattern="dd MMM yyyy">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="100" height="17" uuid="00832274-ddb5-4b2c-b800-a4025a10f934"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -190,7 +190,7 @@ ORDER BY
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true">
+							<textField textAdjust="StretchHeight">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="240" height="17" uuid="8525a671-43ca-40e6-b599-f10437cc3a14"/>
 								<box leftPadding="2"/>
 								<textElement>
@@ -214,7 +214,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="17">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="70" height="17" uuid="3e409f36-aa69-42a8-81da-79b4ace95a35">
 									<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 								</reportElement>
@@ -242,7 +242,7 @@ ORDER BY
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
-							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00" isBlankWhenNull="false">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="fff1d762-b433-4a16-a57f-4b92f26fcca1"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -252,7 +252,7 @@ ORDER BY
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="false">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00" isBlankWhenNull="false">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="80" height="17" uuid="8cc531f8-111d-4dd5-81d8-f96e18f29ed2"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -275,7 +275,7 @@ ORDER BY
 							</staticText>
 						</jr:columnHeader>
 						<jr:columnFooter style="Table_TH" height="17" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="120" height="17" uuid="d674d3ec-6407-4ce4-b26c-8a50e3b9a5df"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">
@@ -285,7 +285,7 @@ ORDER BY
 							</textField>
 						</jr:columnFooter>
 						<jr:detailCell style="Table_TD" height="17">
-							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+							<textField textAdjust="StretchHeight" pattern="#,##0.00">
 								<reportElement stretchType="ContainerBottom" x="0" y="0" width="120" height="17" uuid="d59c560d-00b9-4c2f-ba74-5702f4a5e7d6"/>
 								<box leftPadding="2"/>
 								<textElement textAlignment="Right">

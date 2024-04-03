@@ -22,8 +22,6 @@ import org.compiere.model.MRefList;
 import org.compiere.model.MRegion;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,20 +32,15 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBPartner_BH> {
-	@Autowired
-	private PayerInformationFieldDBService payerInformationFieldDBService;
-	@Autowired
-	private PayerInformationFieldValueDBService payerInformationFieldValueDBService;
-	@Autowired
-	private ReferenceListDBService referenceListDBService;
-	@Autowired
-	private BusinessPartnerGroupDBService businessPartnerGroupDBService;
-	@Autowired
-	private BusinessPartnerLocationDBService businessPartnerLocationDBService;
-	@Autowired
-	private LocationDBService locationDBService;
+	private final PayerInformationFieldDBService payerInformationFieldDBService = new PayerInformationFieldDBService();
+	private final PayerInformationFieldValueDBService payerInformationFieldValueDBService =
+			new PayerInformationFieldValueDBService();
+	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
+	private final BusinessPartnerGroupDBService businessPartnerGroupDBService = new BusinessPartnerGroupDBService();
+	private final BusinessPartnerLocationDBService businessPartnerLocationDBService =
+			new BusinessPartnerLocationDBService();
+	private final LocationDBService locationDBService = new LocationDBService();
 
 	private final Map<String, String> dynamicJoins = new HashMap<>() {{
 		put(MOrder_BH.Table_Name, "LEFT JOIN (" + "SELECT " + MOrder_BH.COLUMNNAME_C_BPartner_ID
@@ -226,7 +219,7 @@ public class BusinessPartnerDBService extends BaseDBService<BusinessPartner, MBP
 		if (dbModels.isEmpty()) {
 			return new ArrayList<>();
 		}
-		
+
 		Set<Integer> businessPartnerIds = dbModels.stream().map(MBPartner_BH::get_ID).collect(Collectors.toSet());
 		Set<Integer> businessPartnerGroupIds = dbModels.stream().map(MBPartner_BH::getC_BP_Group_ID)
 				.filter(businessPartnerGroupId -> businessPartnerGroupId > 0).collect(Collectors.toSet());

@@ -127,42 +127,42 @@ AND corder.c_order_id = $P{C_ORDER_ID} ]]>
 				</textElement>
 				<text><![CDATA[Diagnosis:]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="80" y="-42" width="84" height="16" uuid="a4ceb03f-ea50-424f-99fc-7bd205a1be9a"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{DATE_CREATED}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="81" y="-19" width="84" height="16" uuid="6466658b-14fd-4f79-b32b-a2adfd819650"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{NHIF_NO}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="232" y="-19" width="84" height="16" uuid="bb045ab2-a238-4187-803b-a7261d7e3d81"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{ID_NO}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="81" y="3" width="84" height="16" uuid="f2bc303b-2b17-4e2b-bb07-bbc77bdf204c"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{MEMBER_NAME}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="81" y="24" width="84" height="16" uuid="2b9956ad-5bb2-4b37-82fc-3e232fa0f6fe"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{PATIENT_NAME}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="80" y="46" width="84" height="16" uuid="3ecea53b-6bf9-47dd-8c47-287c9c803bfb"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{TIME_IN}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="248" y="48" width="84" height="16" uuid="b3af258f-be26-4a05-8884-4914b9395961"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{TIME_OUT}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="81" y="87" width="84" height="16" uuid="649071d2-4907-44ed-b142-d72bca3851b9"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{DIAGNOSIS}]]></textFieldExpression>
@@ -177,7 +177,7 @@ AND corder.c_order_id = $P{C_ORDER_ID} ]]>
 			<line>
 				<reportElement x="12" y="117" width="530" height="1" uuid="09635107-5034-4f0c-b5f6-1961563b7881"/>
 			</line>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="81" y="67" width="84" height="16" uuid="7c6a28c1-b504-44a8-80c0-bbb5d343a748"/>
 				<textElement textAlignment="Left"/>
 				<textFieldExpression><![CDATA[$F{OP_ID}]]></textFieldExpression>

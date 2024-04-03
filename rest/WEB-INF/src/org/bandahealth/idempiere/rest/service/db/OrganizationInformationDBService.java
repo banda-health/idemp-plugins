@@ -1,10 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MOrgInfo_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
@@ -14,22 +9,20 @@ import org.bandahealth.idempiere.rest.model.OrganizationInformation;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MImage;
 import org.compiere.model.MLocation;
-import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class OrganizationInformationDBService extends BaseDBService<OrganizationInformation, MOrgInfo_BH> {
-	@Autowired
-	private LocationDBService locationDBService;
-	@Autowired
-	private ImageDBService imageDBService;
+	private final LocationDBService locationDBService = new LocationDBService();
+	private final ImageDBService imageDBService = new ImageDBService();
 
 	/**
 	 * Updates the OrganizationInfo object that's nested in Organization.
-	 * 
 	 */
 	@Override
 	public OrganizationInformation saveEntity(OrganizationInformation entity) {
@@ -69,7 +62,7 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 				locationEntity = locationDBService.saveEntity(locationEntity);
 				MLocation location = new Query(Env.getCtx(), MLocation.Table_Name,
 						MLocation.COLUMNNAME_C_Location_UU + " =?", null).setParameters(locationEntity.getUuid())
-								.first();
+						.first();
 				organizationInfo.setC_Location_ID(location.get_ID());
 			}
 
@@ -124,7 +117,7 @@ public class OrganizationInformationDBService extends BaseDBService<Organization
 
 			if (mOrganizationInformation.getC_Location_ID() > 0) {
 				Location location = locationDBService.transformData(
-						Collections.singletonList(locationsById.get(mOrganizationInformation.getC_Location_ID())))
+								Collections.singletonList(locationsById.get(mOrganizationInformation.getC_Location_ID())))
 						.get(0);
 				organizationInfo.setLocation(location);
 			}

@@ -59,7 +59,7 @@ where cp.c_payment_id = $P{debtPaymentID};]]>
 	<detail>
 		<band height="30" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="mm"/>
-			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+			<textField textAdjust="StretchHeight" pattern="#,##0.00">
 				<reportElement key="" x="100" y="-4" width="61" height="12" uuid="f27b9b2b-699c-4252-813c-e3a266b1c405">
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="mm"/>
 				</reportElement>
