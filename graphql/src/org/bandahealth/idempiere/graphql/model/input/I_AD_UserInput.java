@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import java.sql.Timestamp;
 import org.compiere.model.I_AD_User;
+
+import java.sql.Timestamp;
 
 /**
  * Generated Interface for AD_User - DO NOT CHANGE

@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import java.math.BigDecimal;
 import org.compiere.model.I_C_OrderLine;
+
+import java.math.BigDecimal;
 
 /**
  * Generated Interface for C_OrderLine - DO NOT CHANGE

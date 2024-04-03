@@ -1,8 +1,9 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
+import org.compiere.model.I_M_Product;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import org.compiere.model.I_M_Product;
 
 /**
  * Generated Interface for M_Product - DO NOT CHANGE

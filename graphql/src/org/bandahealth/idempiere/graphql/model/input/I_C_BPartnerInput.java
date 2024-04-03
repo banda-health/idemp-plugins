@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import java.sql.Timestamp;
 import org.compiere.model.I_C_BPartner;
+
+import java.sql.Timestamp;
 
 /**
  * Generated Interface for C_BPartner - DO NOT CHANGE

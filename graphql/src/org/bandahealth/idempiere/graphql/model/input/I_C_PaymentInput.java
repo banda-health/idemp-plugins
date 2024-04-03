@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import java.math.BigDecimal;
 import org.compiere.model.I_C_Payment;
+
+import java.math.BigDecimal;
 
 /**
  * Generated Interface for C_Payment - DO NOT CHANGE

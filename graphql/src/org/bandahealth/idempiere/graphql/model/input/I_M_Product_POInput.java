@@ -1,7 +1,8 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-import java.sql.Timestamp;
 import org.compiere.model.I_M_Product_PO;
+
+import java.sql.Timestamp;
 
 /**
  * Generated Interface for M_Product_PO - DO NOT CHANGE

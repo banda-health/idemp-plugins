@@ -33,10 +33,7 @@ import org.compiere.util.Util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,20 +41,18 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
-import java.util.logging.Level;
 
 /**
- * Generate GraphQL Schemas.
+ * Generate GraphQL model resolvers.
  *
  * @author Kevin Burnett
  */
 public class GraphQLModelResolverGenerator {
 	private static final CLogger log = CLogger.getCLogger(GraphQLModelResolverGenerator.class);
-	private String packageName = "";
-	private ModelMap tableStructureExtensions;
-	private Map<String, ModelMap> modelsForTables;
-	private String dataLoaderPackageName;
-	private TreeSet<String> privateProperties = new TreeSet<>();
+	private final String packageName;
+	private final ModelMap tableStructureExtensions;
+	private final Map<String, ModelMap> modelsForTables;
+	private final String dataLoaderPackageName;
 
 	/**
 	 * Generate Schema
@@ -90,7 +85,7 @@ public class GraphQLModelResolverGenerator {
 			directory += File.separator;
 		}
 
-		writeToFile(generatedColumns, directory + fileName + ".java");
+		GraphQLUtil.writeToFile(generatedColumns, directory + fileName + ".java");
 	}
 
 	/**
@@ -126,7 +121,7 @@ public class GraphQLModelResolverGenerator {
 		classesToImport.add("org.dataloader.DataLoader");
 		classesToImport.add(tableStructureExtensions.getClassPackageName() + "." + tableStructureExtensions.getClassName());
 
-		createImports(generatedClass);
+		GraphQLUtil.createImports(classesToImport, generatedClass);
 		generatedClass
 				.append("/**\n * Generated ModelResolver for ").append(tableName).append(" - DO NOT CHANGE\n *\n")
 				.append(" * @author Banda Health (generated)").append("\n")
@@ -152,11 +147,8 @@ public class GraphQLModelResolverGenerator {
 	 */
 	private StringBuilder createColumns(int AD_Table_ID, String entityTypeFilter) {
 		StringBuilder generatedColumns = new StringBuilder();
-		String sql = "SELECT c.ColumnName, c.IsUpdateable, c.IsMandatory,"    //	1..3
-				+ " c.AD_Reference_ID, c.AD_Reference_Value_ID, DefaultValue, SeqNo, "  //	4..7
-				+ " c.FieldLength, c.ValueMin, c.ValueMax, c.VFormat, c.Callout, "  //	8..12
-				+ " c.Name, c.Description, c.ColumnSQL, c.IsEncrypted, c.IsKey, "  // 13..17
-				+ " c.IsTranslated "  // 18
+		String sql = "SELECT c.ColumnName, c.AD_Reference_ID, c.AD_Reference_Value_ID, "    //	1..3
+				+ " c.Name, c.Description, c.IsKey, c.IsTranslated "  // 4..7
 				+ "FROM AD_Column c "
 				+ "WHERE c.AD_Table_ID=?"
 				+ " AND c.IsActive='Y'"
@@ -167,29 +159,16 @@ public class GraphQLModelResolverGenerator {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				String columnName = resultSet.getString(1);
-				boolean isUpdatable = "Y".equals(resultSet.getString(2));
-				boolean isMandatory = "Y".equals(resultSet.getString(3));
-				int displayType = resultSet.getInt(4);
-				int AD_Reference_Value_ID = resultSet.getInt(5);
-				String defaultValue = resultSet.getString(6);
-				int seqNo = resultSet.getInt(7);
-				int fieldLength = resultSet.getInt(8);
-				String ValueMin = resultSet.getString(9);
-				String ValueMax = resultSet.getString(10);
-				String VFormat = resultSet.getString(11);
-				String Callout = resultSet.getString(12);
-				String Name = resultSet.getString(13);
-				String Description = resultSet.getString(14);
-				String ColumnSQL = resultSet.getString(15);
-				boolean virtualColumn = ColumnSQL != null && !ColumnSQL.isEmpty();
-				boolean IsEncrypted = "Y".equals(resultSet.getString(16));
-				boolean IsKey = "Y".equals(resultSet.getString(17));
-				boolean isTranslated = "Y".equals(resultSet.getString(18));
+				int displayType = resultSet.getInt(2);
+				int AD_Reference_Value_ID = resultSet.getInt(3);
+				String Name = resultSet.getString(4);
+				String Description = resultSet.getString(5);
+				boolean IsKey = "Y".equals(resultSet.getString(6));
+				boolean isTranslated = "Y".equals(resultSet.getString(7));
 				//
 				generatedColumns.append(
-						createColumnMethods(columnName, isUpdatable, isMandatory, displayType, AD_Reference_Value_ID, fieldLength,
-								defaultValue, ValueMin, ValueMax, VFormat, Callout, Name, Description, virtualColumn, IsEncrypted,
-								IsKey, isTranslated, AD_Table_ID));
+						createColumnMethods(columnName, displayType, AD_Reference_Value_ID, Name, Description, IsKey, isTranslated,
+								AD_Table_ID));
 			}
 		} catch (SQLException e) {
 			throw new DBException(e, sql);
@@ -201,31 +180,16 @@ public class GraphQLModelResolverGenerator {
 	 * Create the definitions for the schema fields
 	 *
 	 * @param columnName      column name
-	 * @param isUpdateable    updateable
-	 * @param isMandatory     mandatory
 	 * @param displayType     display type
 	 * @param AD_Reference_ID validation reference
-	 * @param fieldLength     int
-	 * @param defaultValue    default value
-	 * @param ValueMin        String
-	 * @param ValueMax        String
-	 * @param VFormat         String
-	 * @param Callout         String
 	 * @param Name            String
 	 * @param Description     String
-	 * @param virtualColumn   virtual column
-	 * @param IsEncrypted     stored encrypted
 	 * @return set/get method
 	 */
-	private String createColumnMethods(String columnName, boolean isUpdateable, boolean isMandatory, int displayType,
-			int AD_Reference_ID, int fieldLength, String defaultValue, String ValueMin, String ValueMax, String VFormat,
-			String Callout, String Name, String Description, boolean virtualColumn, boolean IsEncrypted, boolean IsKey,
-			boolean isTranslated, int AD_Table_ID) {
+	private String createColumnMethods(String columnName, int displayType, int AD_Reference_ID, String Name,
+			String Description, boolean IsKey, boolean isTranslated, int AD_Table_ID) {
 		Class<?> clazz = ModelInterfaceGenerator.getClass(columnName, displayType, AD_Reference_ID);
 		String dataType = ModelInterfaceGenerator.getDataTypeName(clazz, displayType);
-		if (defaultValue == null) {
-			defaultValue = "";
-		}
 
 		StringBuilder columnBuilder = new StringBuilder();
 
@@ -246,7 +210,6 @@ public class GraphQLModelResolverGenerator {
 
 			String foreignEntityTable = "";
 			String entityName = "";
-			String returnType = "";
 			String defaultCheckToReturnNull = "";
 			String valueMapPrefix = "";
 			String valueMapSuffix = "";
@@ -256,12 +219,10 @@ public class GraphQLModelResolverGenerator {
 				String[] packagePath = referenceClassName.split("\\.");
 				referenceClassName = packagePath[packagePath.length - 1].substring(2);
 				entityName = fieldName;
-				returnType = "I_" + referenceClassName + "Input";
 				foreignEntityTable = referenceClassName;
 				defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 			} else if (columnName.equals("AD_Language")) {
 				entityName = columnName;
-				returnType = "I_" + columnName + "Input";
 				foreignEntityTable = columnName;
 				addImportClass("org.bandahealth.idempiere.graphql.utils.StringUtil");
 				defaultCheckToReturnNull = "StringUtil.isNullOrEmpty(entity.get" + columnName + "())";
@@ -270,7 +231,6 @@ public class GraphQLModelResolverGenerator {
 				valueMapSuffix = ")";
 			} else if (columnName.equals("EntityType")) {
 				entityName = "AD_EntityType";
-				returnType = "I_" + entityName + "Input";
 				foreignEntityTable = entityName;
 				addImportClass("org.bandahealth.idempiere.graphql.utils.StringUtil");
 				defaultCheckToReturnNull = "StringUtil.isNullOrEmpty(entity.get" + columnName + "())";
@@ -282,20 +242,17 @@ public class GraphQLModelResolverGenerator {
 				if (columnName.endsWith("_ID") &&
 						MTable.get(Env.getCtx(), columnNameWithSuffixedIdRemoved) != null) {
 					entityName = columnNameWithSuffixedIdRemoved;
-					returnType = "I_" + columnNameWithSuffixedIdRemoved + "Input";
 					foreignEntityTable = entityName;
 					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else if (columnName.equals("Logo_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
-					returnType = "I_AD_ImageInput";
 					foreignEntityTable = "AD_Image";
 					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
 				} else if (columnName.equals("BH_To_Warehouse_ID") || columnName.equals("BH_From_Warehouse_ID")) {
 					entityName = columnNameWithSuffixedIdRemoved;
-					returnType = "I_M_WarehouseInput";
 					foreignEntityTable = "M_Warehouse";
 					defaultCheckToReturnNull = "entity.get" + columnName + "() <= 0";
-				}  else {
+				} else {
 					log.warning("Did not generate a field for: " + columnName);
 					return "";
 				}
@@ -316,7 +273,7 @@ public class GraphQLModelResolverGenerator {
 			classesToImport.add(dataLoaderPackageName + "." + dataLoader);
 			classesToImport.add("java.util.concurrent.CompletableFuture");
 
-			generateJavaGetComment(Name, Description, columnBuilder);
+			GraphQLUtil.generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder
 					.append("\tpublic CompletableFuture<").append(modelForForeignEntity).append("> ")
 					.append(entityName).append("(").append(tableStructureExtensions.getClassName())
@@ -402,7 +359,7 @@ public class GraphQLModelResolverGenerator {
 			addImportClass("org.dataloader.DataLoader");
 			addImportClass("java.util.concurrent.CompletableFuture");
 			addImportClass(dataLoaderPackageName + "." + languageDataLoaderName);
-			generateJavaGetComment(Name, Description, columnBuilder);
+			GraphQLUtil.generateJavaGetComment(Name, Description, columnBuilder);
 			columnBuilder
 					.append("\tpublic CompletableFuture<String> ").append(columnName).append("(")
 					.append(tableStructureExtensions.getClassName())
@@ -427,45 +384,21 @@ public class GraphQLModelResolverGenerator {
 	}
 
 	/**
-	 * Set Comment
+	 * Since the DB stores values and we want reference lists, we need a way to map the values to the reference UUID so
+	 * it can be loaded via a data loader
 	 *
-	 * @param columnName    The column we're setting
-	 * @param propertyName  The property to generate a get comment for
-	 * @param description   An optional description of the property
-	 * @param generatedCode The column getters/setters we're generating
-	 */
-	public void generateJavaSetComment(String columnName, String propertyName, String description,
-			StringBuilder generatedCode) {
-		generatedCode.append("\n").append("\t/**\n\t * Set ").append(propertyName).append(".\n\t *\n\t * @param ")
-				.append(columnName).append(" ")
-				.append(description != null && !description.isEmpty() ? description : propertyName).append("\n\t */\n");
-	}
-
-	/**
-	 * Get Comment
-	 *
-	 * @param propertyName  The property to generate a get comment for
-	 * @param description   An optional description of the property
-	 * @param generatedCode The column getters/setters we're generating
-	 */
-	public void generateJavaGetComment(String propertyName, String description, StringBuilder generatedCode) {
-		generatedCode.append("\n").append("\t/**\n\t * Get ").append(propertyName).append(".\n\t *\n\t * @return ")
-				.append(description != null && !description.isEmpty() ? description : propertyName).append("\n\t */\n");
-	}
-
-	/**
-	 * Add List Validation
-	 *
-	 * @param generatedCode   buffer - example:
-	 *                        if (NextAction.equals("N") || NextAction.equals("F"));
-	 *                        else throw new IllegalArgumentException ("NextAction Invalid value - Reference_ID=219 - N
-	 *                        - F");
+	 * @param generatedCode   buffer
 	 * @param AD_Reference_ID reference
 	 * @param columnName      column
 	 * @return static parameter - Example:
-	 * public static final int NEXTACTION_AD_Reference_ID=219;
-	 * public static final String NEXTACTION_None = "N";
-	 * public static final String NEXTACTION_FollowUp = "F";
+	 * static Map<String, String> BH_PROCESS_STAGE_UUIDS_BY_VALUE = new HashMap<>() {
+	 * {
+	 * put("toclinician", "e74d5f99-fd01-4d54-ab35-7a630c43f064");
+	 * put("tocashier", "fed0d4f4-4eb2-478c-beb4-9570a8da06bf");
+	 * put("tolab", "e3eace1e-ee22-409b-a7ae-09cee5350b91");
+	 * put("topharmacy", "24c32cc4-3fdb-4448-85a5-879eea7866ea");
+	 * }
+	 * };
 	 */
 	private String addListValidationCodeAndReturnReferenceUuidsByValueProperty(StringBuilder generatedCode,
 			int AD_Reference_ID, String columnName) {
@@ -496,17 +429,12 @@ public class GraphQLModelResolverGenerator {
 	}
 
 	/**
-	 * Add List Validation
+	 * Since the DB stores values and we want entity types, we need a way to map the values to the entity type UUID so
+	 * it can be loaded via a data loader
 	 *
-	 * @param generatedCode buffer - example:
-	 *                      if (NextAction.equals("N") || NextAction.equals("F"));
-	 *                      else throw new IllegalArgumentException ("NextAction Invalid value - Reference_ID=219 - N
-	 *                      - F");
+	 * @param generatedCode buffer
 	 * @param columnName    column
-	 * @return static parameter - Example:
-	 * public static final int NEXTACTION_AD_Reference_ID=219;
-	 * public static final String NEXTACTION_None = "N";
-	 * public static final String NEXTACTION_FollowUp = "F";
+	 * @return static parameter
 	 */
 	private String addEntityTypeCodeAndReturnReferenceUuidsByValueProperty(StringBuilder generatedCode,
 			String columnName) {
@@ -536,17 +464,12 @@ public class GraphQLModelResolverGenerator {
 	}
 
 	/**
-	 * Add List Validation
+	 * Since the DB stores values and we want languages, we need a way to map the values to the language UUID so
+	 * it can be loaded via a data loader
 	 *
-	 * @param generatedCode buffer - example:
-	 *                      if (NextAction.equals("N") || NextAction.equals("F"));
-	 *                      else throw new IllegalArgumentException ("NextAction Invalid value - Reference_ID=219 - N
-	 *                      - F");
+	 * @param generatedCode buffer
 	 * @param columnName    column
-	 * @return static parameter - Example:
-	 * public static final int NEXTACTION_AD_Reference_ID=219;
-	 * public static final String NEXTACTION_None = "N";
-	 * public static final String NEXTACTION_FollowUp = "F";
+	 * @return static parameter
 	 */
 	private String addLanguageCodeAndReturnReferenceUuidsByValueProperty(StringBuilder generatedCode,
 			String columnName) {
@@ -573,40 +496,6 @@ public class GraphQLModelResolverGenerator {
 		generatedCode.append("\t\t}\n")
 				.append("\t};\n");
 		return uuidsByValuePropertyName;
-	}
-
-	/**************************************************************************
-	 * 	Write to file
-	 *  @param stringBuilder string buffer
-	 *  @param fileName file name
-	 */
-	private void writeToFile(StringBuilder stringBuilder, String fileName) {
-		try {
-			File out = new File(fileName);
-			Writer fw = new OutputStreamWriter(new FileOutputStream(out, false), "UTF-8");
-			for (int i = 0; i < stringBuilder.length(); i++) {
-				char c = stringBuilder.charAt(i);
-				//	after
-				if (c == ';' || c == '}') {
-					fw.write(c);
-				}
-				//	before & after
-				else if (c == '{') {
-					fw.write(c);
-				} else {
-					fw.write(c);
-				}
-			}
-			fw.flush();
-			fw.close();
-			float size = out.length();
-			size /= 1024;
-			String msgout = out.getAbsolutePath() + " - " + size + " " + "kB";
-			System.out.println(msgout);
-		} catch (Exception ex) {
-			log.log(Level.SEVERE, fileName, ex);
-			throw new RuntimeException(ex);
-		}
 	}
 
 	/**
@@ -647,53 +536,6 @@ public class GraphQLModelResolverGenerator {
 	}
 
 	/**
-	 * Generate java imports
-	 *
-	 * @param generatedCode
-	 */
-	private void createImports(StringBuilder generatedCode) {
-		boolean hasJavaImports = false;
-		for (String name : classesToImport) {
-			if (name.startsWith("java.")) {
-				hasJavaImports = true;
-				continue;
-			}
-			generatedCode.append("import ").append(name).append(";").append("\n");
-		}
-		if (hasJavaImports) {
-			generatedCode.append("\n");
-			for (String name : classesToImport) {
-				if (!name.startsWith("java.")) {
-					continue;
-				}
-				generatedCode.append("import ").append(name).append(";").append("\n");
-			}
-		}
-		generatedCode.append("\n");
-	}
-
-	/**
-	 * Generate java imports
-	 *
-	 * @param generatedClass
-	 */
-	private void createPrivateProperties(StringBuilder generatedClass) {
-		for (String privateProperty : privateProperties) {
-			generatedClass.append("\t private ").append(privateProperty).append(";").append("\n");
-		}
-		generatedClass.append("\n");
-	}
-
-	/**
-	 * String representation
-	 *
-	 * @return string representation
-	 */
-	public String toString() {
-		return "GenerateModel[]";
-	}
-
-	/**
 	 * @param sourceFolder
 	 * @param entityType
 	 * @param tableName
@@ -701,122 +543,14 @@ public class GraphQLModelResolverGenerator {
 	 */
 	public static void generateSource(String entityType, String tableName, String columnEntityType, String sourceFolder,
 			String packageName, String dataLoaderPackageName, Map<String, ModelMap> modelsForTables) {
-		if (sourceFolder == null || sourceFolder.trim().isEmpty()) {
-			throw new IllegalArgumentException("Must specify source folder");
-		}
-
-		File file = new File(sourceFolder);
-		if (!file.exists()) {
-			throw new IllegalArgumentException("Source folder doesn't exists. sourceFolder=" + sourceFolder);
-		}
-		if (tableName == null || tableName.trim().isEmpty()) {
-			throw new IllegalArgumentException("Must specify table name");
-		}
-		if (packageName == null || packageName.trim().isEmpty()) {
-			throw new IllegalArgumentException("Must specify package name");
-		}
-
-		StringBuilder tableLike = new StringBuilder().append(tableName.trim());
-		if (!tableLike.toString().startsWith("'") || !tableLike.toString().endsWith("'")) {
-			tableLike = new StringBuilder("'").append(tableLike).append("'");
-		}
-
-		StringBuilder entityTypeFilter = new StringBuilder();
-		if (entityType != null && !entityType.trim().isEmpty()) {
-			entityTypeFilter.append("EntityType IN (");
-			StringTokenizer tokenizer = new StringTokenizer(entityType, ",");
-			int i = 0;
-			while (tokenizer.hasMoreTokens()) {
-				StringBuilder token = new StringBuilder().append(tokenizer.nextToken().trim());
-				if (!token.toString().startsWith("'") || !token.toString().endsWith("'")) {
-					token = new StringBuilder("'").append(token).append("'");
-				}
-				if (i > 0) {
-					entityTypeFilter.append(",");
-				}
-				entityTypeFilter.append(token);
-				i++;
-			}
-			entityTypeFilter.append(")");
-		} else {
-			entityTypeFilter.append("EntityType IN ('U','A')");
-		}
-
-		StringBuilder directory = new StringBuilder().append(sourceFolder.trim());
-		if (!(directory.toString().endsWith("/") || directory.toString().endsWith("\\"))) {
-			directory.append(File.separator);
-		}
-		if (File.separator.equals("/")) {
-			directory = new StringBuilder(directory.toString().replaceAll("[\\\\]", File.separator));
-		} else {
-			directory = new StringBuilder(directory.toString().replaceAll("[/]", File.separator));
-		}
-		file = new File(directory.toString());
-		if (!file.exists()) {
-			file.mkdirs();
-		}
-
-		//	complete sql
-		String filterViews = null;
-		if (tableLike.toString().contains("%")) {
-			filterViews = "AND (TableName IN ('RV_WarehousePrice','RV_BPartner') OR IsView='N')";  //	special views
-		}
-		if (tableLike.toString().equals("'%'")) {
-			filterViews += " AND TableName NOT LIKE 'W|_%' ESCAPE '|'";  //	exclude webstore from general model generator
-		}
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT AD_Table_ID ")
-				.append("FROM AD_Table ")
-				.append("WHERE IsActive = 'Y' AND TableName NOT LIKE '%_Trl' ");
-		// Autodetect if we need to use IN or LIKE clause - teo_sarca [ 3020640 ]
-		if (tableLike.indexOf(",") == -1) {
-			sql.append(" AND TableName LIKE ").append(tableLike);
-		} else {
-			sql.append(" AND TableName IN (").append(tableLike).append(")"); // o"\n"y specific tables
-		}
-		sql.append(" AND ").append(entityTypeFilter);
-		if (filterViews != null) {
-			sql.append(filterViews);
-		}
-		sql.append(" ORDER BY TableName");
 		//
-		StringBuilder columnFilterBuilder = new StringBuilder();
-		if (!Util.isEmpty(columnEntityType, true)) {
-			columnFilterBuilder.append("EntityType IN (");
-			StringTokenizer tokenizer = new StringTokenizer(columnEntityType, ",");
-			int i = 0;
-			while (tokenizer.hasMoreTokens()) {
-				StringBuilder token = new StringBuilder().append(tokenizer.nextToken().trim());
-				if (!token.toString().startsWith("'") || !token.toString().endsWith("'")) {
-					token = new StringBuilder("'").append(token).append("'");
-				}
-				if (i > 0) {
-					columnFilterBuilder.append(",");
-				}
-				columnFilterBuilder.append(token);
-				i++;
-			}
-			columnFilterBuilder.append(")");
-		}
-		String columnFilter = columnFilterBuilder.length() > 0 ? columnFilterBuilder.toString() : null;
-
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			preparedStatement = DB.prepareStatement(sql.toString(), null);
-			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				new GraphQLModelResolverGenerator(resultSet.getInt(1), columnFilter, directory.toString(), packageName,
-						dataLoaderPackageName, modelsForTables);
-			}
-		} catch (SQLException e) {
-			throw new DBException(e, sql.toString());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			DB.close(resultSet, preparedStatement);
-			resultSet = null;
-			preparedStatement = null;
-		}
+		String directory =
+				GraphQLUtil.validateSourceFolderTableNamePackageNameAndGetFileOutputDirectory(sourceFolder, tableName,
+						packageName);
+		String columnFilter = GraphQLUtil.getColumnFilter(columnEntityType);
+		//
+		GraphQLUtil.buildAndExecuteTableSql(tableName, entityType,
+				(resultSet -> new GraphQLModelResolverGenerator(resultSet.getInt(1), columnFilter, directory, packageName,
+						dataLoaderPackageName, modelsForTables)));
 	}
 }

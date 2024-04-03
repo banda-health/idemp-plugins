@@ -30,40 +30,37 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 	 * default generated serial version Id
 	 */
 	private static final long serialVersionUID = 3546051609729699491L;
-	private JButton generateButton;
-	private JButton cancelButton;
-	private JButton getSchemaFolderButton;
-	private JButton getInputModelFolderButton;
-	private JButton getCustomModelFolderButton;
-	private JButton getQueryResolverFolderButton;
-	private JButton getMutationResolverFolderButton;
-	private JButton getModelResolverFolderButton;
-	private JButton getDataLoaderFolderButton;
-	private JTextField schemaFolderField;
-	private JTextField fPackageName;
-	private JTextField fTableName;
-	private JCheckBox generateSchemaCheckbox;
-	private JCheckBox generateInputModelCheckbox;
-	private JCheckBox generateQueryResolverCheckbox;
-	private JCheckBox generateMutationResolverCheckbox;
-	private JCheckBox generateModelResolverCheckbox;
-	private JCheckBox generateDataLoaderCheckbox;
-	private JCheckBox fGenerateInterface;
-	private JCheckBox fGenerateClass;
-	private JTextField fEntityType;
-	private JTextField fColumnEntityType;
-	private JTextField inputModelDirectoryNameField;
-	private JTextField inputModelPackageNameField;
-	private JTextField customModelDirectoryNameField;
-	private JTextField customModelPackageField;
-	private JTextField queryResolverDirectoryNameField;
-	private JTextField queryResolverPackageField;
-	private JTextField mutationResolverDirectoryNameField;
-	private JTextField mutationResolverPackageField;
-	private JTextField modelResolverDirectoryNameField;
-	private JTextField modelResolverPackageField;
-	private JTextField dataLoaderDirectoryNameField;
-	private JTextField dataLoaderPackageField;
+	private final JButton generateButton;
+	private final JButton cancelButton;
+	private final JButton getSchemaFolderButton;
+	private final JButton getInputModelFolderButton;
+	private final JButton getCustomModelFolderButton;
+	private final JButton getQueryResolverFolderButton;
+	private final JButton getMutationResolverFolderButton;
+	private final JButton getModelResolverFolderButton;
+	private final JButton getDataLoaderFolderButton;
+	private final JTextField schemaFolderField;
+	private final JTextField fTableName;
+	private final JCheckBox generateSchemaCheckbox;
+	private final JCheckBox generateInputModelCheckbox;
+	private final JCheckBox generateQueryResolverCheckbox;
+	private final JCheckBox generateMutationResolverCheckbox;
+	private final JCheckBox generateModelResolverCheckbox;
+	private final JCheckBox generateDataLoaderCheckbox;
+	private final JTextField fEntityType;
+	private final JTextField fColumnEntityType;
+	private final JTextField inputModelDirectoryNameField;
+	private final JTextField inputModelPackageNameField;
+	private final JTextField customModelDirectoryNameField;
+	private final JTextField customModelPackageField;
+	private final JTextField queryResolverDirectoryNameField;
+	private final JTextField queryResolverPackageField;
+	private final JTextField mutationResolverDirectoryNameField;
+	private final JTextField mutationResolverPackageField;
+	private final JTextField modelResolverDirectoryNameField;
+	private final JTextField modelResolverPackageField;
+	private final JTextField dataLoaderDirectoryNameField;
+	private final JTextField dataLoaderPackageField;
 
 	public GraphQLGeneratorDialog() {
 		super();
@@ -263,17 +260,6 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 		dataLoaderPackageField = new JTextField("org.bandahealth.idempiere.graphql.dataloader.impl");
 		mainPanel.add(dataLoaderPackageField, makeGbc(1, 21));
 
-//		chkPanel = new Panel();
-//		chkPanel.setLayout(new GridLayout(1, 2));
-//		mainPanel.add(new JLabel(""), makeGbc(0, 5));
-//		mainPanel.add(chkPanel, makeGbc(1, 5));
-//		fGenerateInterface = new JCheckBox("Generate Interface");
-//		fGenerateInterface.setSelected(true);
-//		chkPanel.add(fGenerateInterface);
-//		fGenerateClass = new JCheckBox("Generate Class");
-//		fGenerateClass.setSelected(true);
-//		chkPanel.add(fGenerateClass);
-
 		generateButton = new JButton("Generate Source");
 		confirmPanel.add(generateButton);
 		cancelButton = new JButton("Cancel");
@@ -426,16 +412,16 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 						queryResolverPackageName, modelsForTables);
 			}
 			if (generateMutationResolverCheckbox.isSelected()) {
-				GraphQLMutationResolverGenerator.generateSource(entityType, tableName, columnEntityType,
-						mutationResolverFolder, mutationResolverPackageName, inputModelPackageName, modelsForTables);
+				GraphQLMutationResolverGenerator.generateSource(entityType, tableName, mutationResolverFolder,
+						mutationResolverPackageName, inputModelPackageName, modelsForTables);
 			}
 			if (generateModelResolverCheckbox.isSelected()) {
 				GraphQLModelResolverGenerator.generateSource(entityType, tableName, columnEntityType,
 						modelResolverFolder, modelResolverPackageName, dataLoaderPackageName, modelsForTables);
 			}
 			if (generateDataLoaderCheckbox.isSelected()) {
-				GraphQLDataLoaderGenerator.generateSource(entityType, tableName, columnEntityType, dataLoaderFolder,
-						dataLoaderPackageName, modelsForTables);
+				GraphQLDataLoaderGenerator.generateSource(entityType, tableName, dataLoaderFolder, dataLoaderPackageName,
+						modelsForTables);
 			}
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 //			this.dispose();
