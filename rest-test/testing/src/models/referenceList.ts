@@ -14,6 +14,5 @@ export const paymentRuleValue = {
 	DIRECT_DEBIT: 'D',
 	MIXED_POS: 'M',
 	MOBILE_ACCOUNT: 'A',
-	CASH_DRAWER: 'b'
+	CASH_DRAWER: 'b',
 };
-

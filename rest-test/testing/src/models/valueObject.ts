@@ -73,7 +73,7 @@ export class ValueObject {
 	payment?: Payment;
 	tenderType?: PaymentType;
 	paymentAmount?: number;
-	paymentRule? : string
+	paymentRule?: string;
 	// private MBankAccount m_bankAcct = null;
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
@@ -305,7 +305,4 @@ export class ValueObject {
 		this.charge = undefined;
 		this.setRandom();
 	}
-
 }
-
-
