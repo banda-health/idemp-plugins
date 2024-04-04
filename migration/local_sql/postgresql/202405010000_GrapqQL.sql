@@ -1507,8 +1507,8 @@ INSERT INTO
 VALUES
 	(10, (
 		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'f1da7101-afba-421a-8d35-ee8007f29b79'
-	), 0, 0, 'Y', '2021-01-28 08:37:03.225184', 100, '2021-01-28 12:46:59.408796', 100, 156, 9,
-	 '3bbe61f5-92e6-435b-ad8c-a0db30360eb9');
+	), 0, 0, 'Y', '2024-04-04 17:11:46.567673', 100, '2024-04-04 17:12:15.744000', 100, 153, 41,
+	 'ae962ebd-7085-4b25-a7de-c95fb5ed5655');
 
 -- Insert the new sequence
 INSERT INTO
