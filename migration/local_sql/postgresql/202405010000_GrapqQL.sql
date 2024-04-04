@@ -1506,7 +1506,7 @@ INSERT INTO
 	               parent_id, seqno, ad_treenodemm_uu)
 VALUES
 	(10, (
-		SELECT ad_window_id FROM ad_window WHERE ad_window_uu = 'dea40a7e-2328-4a93-a60e-5fcc4d96cfc6'
+		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = 'f1da7101-afba-421a-8d35-ee8007f29b79'
 	), 0, 0, 'Y', '2021-01-28 08:37:03.225184', 100, '2021-01-28 12:46:59.408796', 100, 156, 9,
 	 '3bbe61f5-92e6-435b-ad8c-a0db30360eb9');
 
@@ -1535,10 +1535,8 @@ INSERT INTO
 	                             queryresolverfolder, queryresolverpackagename, schemafolder, tableentitytype, tablename,
 	                             updated, updatedby, mutationresolverpackagename)
 VALUES
-	(0, 0, (
-		SELECT MAX(bh_graphqlgeneratortemplate_id) + 1 FROM bh_graphqlgeneratortemplate
-	), '0b9c9d6a-6e59-4ba4-995a-6762c9effe03', 'U,D,EE01,EE04,EE05,EE02', '2024-04-04 19:08:54.096000', 100, NULL,
-	 'org.bandahealth.idempiere.base.model', NULL, 'org.bandahealth.idempiere.graphql.dataloader.impl', NULL,
+	(0, 0, 1000000, '0b9c9d6a-6e59-4ba4-995a-6762c9effe03', 'U,D,EE01,EE04,EE05,EE02', '2024-04-04 19:08:54.096000', 100,
+	 NULL, 'org.bandahealth.idempiere.base.model', NULL, 'org.bandahealth.idempiere.graphql.dataloader.impl', NULL,
 	 'org.bandahealth.idempiere.graphql.model.input', 'Y', NULL, 'org.bandahealth.idempiere.graphql.resolver.model', NULL,
 	 'Create Everything - Feel free to enter your own folders and packages', NULL,
 	 'org.bandahealth.idempiere.graphql.resolver.query', NULL, 'U,D,EE01,EE04,EE05,EE02',
