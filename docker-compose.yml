@@ -5,7 +5,7 @@ services:
       - postgres
     volumes:
       - ./testing:${INSTALLATION_HOME}
-      - ./idempiere-logs:${INSTALLATION_HOME}/log
+      - ./idempiere-logs:/opt/idempiere/log
     environment:
       - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
       - DB_HOST=${POSTGRES_HOST}
