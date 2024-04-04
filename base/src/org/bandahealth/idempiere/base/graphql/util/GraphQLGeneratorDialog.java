@@ -13,12 +13,19 @@
  *****************************************************************************/
 package org.bandahealth.idempiere.base.graphql.util;
 
+import org.bandahealth.idempiere.base.model.MBHGraphqlGeneratorTemplate;
+import org.bandahealth.idempiere.base.utils.StringUtil;
+import org.compiere.model.Query;
+import org.compiere.util.Env;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,6 +68,8 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 	private final JTextField modelResolverPackageField;
 	private final JTextField dataLoaderDirectoryNameField;
 	private final JTextField dataLoaderPackageField;
+	private final JComboBox<String> generatorTemplates;
+	private final List<MBHGraphqlGeneratorTemplate> templates;
 
 	public GraphQLGeneratorDialog() {
 		super();
@@ -72,193 +81,200 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 		this.getContentPane().add(mainPanel, BorderLayout.CENTER);
 		mainPanel.setLayout(new GridBagLayout());
 
-		mainPanel.add(new JLabel("Table Name"), makeGbc(0, 0));
+		int yPosition = 0;
+		mainPanel.add(new JLabel("Template"), makeGbc(0, yPosition));
+		templates =
+				new Query(Env.getCtx(), MBHGraphqlGeneratorTemplate.Table_Name, null, null).setOnlyActiveRecords(true).list();
+		List<String> templateNameSuggestions = new java.util.ArrayList<>(Collections.singletonList(""));
+		templateNameSuggestions.addAll(templates.stream().map(MBHGraphqlGeneratorTemplate::getName).toList());
+		generatorTemplates = new JComboBox<>(templateNameSuggestions.toArray(String[]::new));
+		mainPanel.add(generatorTemplates, makeGbc(1, yPosition));
+		generatorTemplates.addActionListener(this);
+
+		yPosition++;
+		mainPanel.add(new JLabel("Table Name"), makeGbc(0, yPosition));
 		fTableName = new JTextField("AD_ReplaceThis%");
-		mainPanel.add(fTableName, makeGbc(1, 0));
+		mainPanel.add(fTableName, makeGbc(1, yPosition));
 
-		mainPanel.add(new JLabel("Table Entity Type"), makeGbc(0, 1));
+		yPosition++;
+		mainPanel.add(new JLabel("Table Entity Type"), makeGbc(0, yPosition));
 		fEntityType = new JTextField("D");
-		mainPanel.add(fEntityType, makeGbc(1, 1));
+		mainPanel.add(fEntityType, makeGbc(1, yPosition));
 
-		mainPanel.add(new JLabel("Column Entity Type"), makeGbc(0, 2));
+		yPosition++;
+		mainPanel.add(new JLabel("Column Entity Type"), makeGbc(0, yPosition));
 		fColumnEntityType = new JTextField("");
-		mainPanel.add(fColumnEntityType, makeGbc(1, 2));
+		mainPanel.add(fColumnEntityType, makeGbc(1, yPosition));
 
 		String defaultPath = Path.of("").toAbsolutePath().getParent().getParent().toString();
 
+		yPosition++;
 		Panel filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-//		customModelDirectoryNameField = new JTextField(defaultPath);
-		customModelDirectoryNameField = new JTextField(
-				Path.of("C:/source/Banda-Health/iDempiere/idemp-banda/base/src/org/bandahealth/idempiere/base/model")
-						.toString());
+		customModelDirectoryNameField = new JTextField(defaultPath);
 		filePanel.add(customModelDirectoryNameField, BorderLayout.CENTER);
 		getCustomModelFolderButton = new JButton("...");
 		getCustomModelFolderButton.setMargin(new Insets(0, 0, 0, 0));
 		filePanel.add(getCustomModelFolderButton, BorderLayout.EAST);
-		mainPanel.add(new JLabel("Custom Model Folder"), makeGbc(0, 3));
-		mainPanel.add(filePanel, makeGbc(1, 3));
+		mainPanel.add(new JLabel("Custom Model Folder"), makeGbc(0, yPosition));
+		mainPanel.add(filePanel, makeGbc(1, yPosition));
 		getCustomModelFolderButton.addActionListener(this);
 
-		mainPanel.add(new JLabel("Custom Model Package Name"), makeGbc(0, 4));
-		customModelPackageField = new JTextField("org.bandahealth.idempiere.base.model");
-		mainPanel.add(customModelPackageField, makeGbc(1, 4));
+		yPosition++;
+		mainPanel.add(new JLabel("Custom Model Package Name"), makeGbc(0, yPosition));
+		customModelPackageField = new JTextField("");
+		mainPanel.add(customModelPackageField, makeGbc(1, yPosition));
 
+		yPosition++;
 		Panel chkPanel = new Panel();
 		chkPanel.setLayout(new GridLayout(1, 2));
-		mainPanel.add(new JLabel(""), makeGbc(0, 5));
-		mainPanel.add(chkPanel, makeGbc(1, 5));
+		mainPanel.add(new JLabel(""), makeGbc(0, yPosition));
+		mainPanel.add(chkPanel, makeGbc(1, yPosition));
 		generateSchemaCheckbox = new JCheckBox("Generate Schema");
 		generateSchemaCheckbox.setSelected(true);
 		chkPanel.add(generateSchemaCheckbox);
 
+		yPosition++;
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-//		schemaFolderField = new JTextField(defaultPath);
-		schemaFolderField = new JTextField(Path.of(
-						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/WEB-INF/resources")
-				.toString());
+		schemaFolderField = new JTextField(defaultPath);
 		filePanel.add(schemaFolderField, BorderLayout.CENTER);
 		getSchemaFolderButton = new JButton("...");
 		getSchemaFolderButton.setMargin(new Insets(0, 0, 0, 0));
 		filePanel.add(getSchemaFolderButton, BorderLayout.EAST);
-		mainPanel.add(new JLabel("Schema Directory"), makeGbc(0, 6));
-		mainPanel.add(filePanel, makeGbc(1, 6));
+		mainPanel.add(new JLabel("Schema Directory"), makeGbc(0, yPosition));
+		mainPanel.add(filePanel, makeGbc(1, yPosition));
 		getSchemaFolderButton.addActionListener(this);
 
+		yPosition++;
 		chkPanel = new Panel();
 		chkPanel.setLayout(new GridLayout(1, 2));
-		mainPanel.add(new JLabel(""), makeGbc(0, 7));
-		mainPanel.add(chkPanel, makeGbc(1, 7));
+		mainPanel.add(new JLabel(""), makeGbc(0, yPosition));
+		mainPanel.add(chkPanel, makeGbc(1, yPosition));
 		generateInputModelCheckbox = new JCheckBox("Generate Input Models");
 		generateInputModelCheckbox.setSelected(true);
 		chkPanel.add(generateInputModelCheckbox);
 
+		yPosition++;
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-//		inputModelDirectoryNameField = new JTextField(defaultPath);
-		inputModelDirectoryNameField = new JTextField(Path.of(
-						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/model/input")
-				.toString());
+		inputModelDirectoryNameField = new JTextField(defaultPath);
 		filePanel.add(inputModelDirectoryNameField, BorderLayout.CENTER);
 		getInputModelFolderButton = new JButton("...");
 		getInputModelFolderButton.setMargin(new Insets(0, 0, 0, 0));
 		filePanel.add(getInputModelFolderButton, BorderLayout.EAST);
-		mainPanel.add(new JLabel("Input Model Folder"), makeGbc(0, 8));
-		mainPanel.add(filePanel, makeGbc(1, 8));
+		mainPanel.add(new JLabel("Input Model Folder"), makeGbc(0, yPosition));
+		mainPanel.add(filePanel, makeGbc(1, yPosition));
 		getInputModelFolderButton.addActionListener(this);
 
-		mainPanel.add(new JLabel("Input Model Package Name"), makeGbc(0, 9));
-		inputModelPackageNameField = new JTextField("org.bandahealth.idempiere.graphql.model.input");
-		mainPanel.add(inputModelPackageNameField, makeGbc(1, 9));
+		yPosition++;
+		mainPanel.add(new JLabel("Input Model Package Name"), makeGbc(0, yPosition));
+		inputModelPackageNameField = new JTextField("");
+		mainPanel.add(inputModelPackageNameField, makeGbc(1, yPosition));
 
+		yPosition++;
 		chkPanel = new Panel();
 		chkPanel.setLayout(new GridLayout(1, 2));
-		mainPanel.add(new JLabel(""), makeGbc(0, 10));
-		mainPanel.add(chkPanel, makeGbc(1, 10));
+		mainPanel.add(new JLabel(""), makeGbc(0, yPosition));
+		mainPanel.add(chkPanel, makeGbc(1, yPosition));
 		generateQueryResolverCheckbox = new JCheckBox("Generate Query Resolvers");
 		generateQueryResolverCheckbox.setSelected(true);
 		chkPanel.add(generateQueryResolverCheckbox);
 
+		yPosition++;
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-//		queryResolverDirectoryNameField = new JTextField(defaultPath);
-		queryResolverDirectoryNameField = new JTextField(Path.of(
-						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/resolver" +
-								"/query")
-				.toString());
+		queryResolverDirectoryNameField = new JTextField(defaultPath);
 		filePanel.add(queryResolverDirectoryNameField, BorderLayout.CENTER);
 		getQueryResolverFolderButton = new JButton("...");
 		getQueryResolverFolderButton.setMargin(new Insets(0, 0, 0, 0));
 		filePanel.add(getQueryResolverFolderButton, BorderLayout.EAST);
-		mainPanel.add(new JLabel("Query Resolver Folder"), makeGbc(0, 11));
-		mainPanel.add(filePanel, makeGbc(1, 11));
+		mainPanel.add(new JLabel("Query Resolver Folder"), makeGbc(0, yPosition));
+		mainPanel.add(filePanel, makeGbc(1, yPosition));
 		getQueryResolverFolderButton.addActionListener(this);
 
-		mainPanel.add(new JLabel("Query Resolver Package Name"), makeGbc(0, 12));
-		queryResolverPackageField = new JTextField("org.bandahealth.idempiere.graphql.resolver.query");
-		mainPanel.add(queryResolverPackageField, makeGbc(1, 12));
+		yPosition++;
+		mainPanel.add(new JLabel("Query Resolver Package Name"), makeGbc(0, yPosition));
+		queryResolverPackageField = new JTextField("");
+		mainPanel.add(queryResolverPackageField, makeGbc(1, yPosition));
 
+		yPosition++;
 		chkPanel = new Panel();
 		chkPanel.setLayout(new GridLayout(1, 2));
-		mainPanel.add(new JLabel(""), makeGbc(0, 13));
-		mainPanel.add(chkPanel, makeGbc(1, 13));
+		mainPanel.add(new JLabel(""), makeGbc(0, yPosition));
+		mainPanel.add(chkPanel, makeGbc(1, yPosition));
 		generateMutationResolverCheckbox = new JCheckBox("Generate Mutation Resolvers");
 		generateMutationResolverCheckbox.setSelected(true);
 		chkPanel.add(generateMutationResolverCheckbox);
 
+		yPosition++;
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-//		mutationResolverDirectoryNameField = new JTextField(defaultPath);
-		mutationResolverDirectoryNameField = new JTextField(Path.of(
-						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/resolver" +
-								"/mutation")
-				.toString());
+		mutationResolverDirectoryNameField = new JTextField(defaultPath);
 		filePanel.add(mutationResolverDirectoryNameField, BorderLayout.CENTER);
 		getMutationResolverFolderButton = new JButton("...");
 		getMutationResolverFolderButton.setMargin(new Insets(0, 0, 0, 0));
 		filePanel.add(getMutationResolverFolderButton, BorderLayout.EAST);
-		mainPanel.add(new JLabel("Mutation Resolver Folder"), makeGbc(0, 14));
-		mainPanel.add(filePanel, makeGbc(1, 14));
+		mainPanel.add(new JLabel("Mutation Resolver Folder"), makeGbc(0, yPosition));
+		mainPanel.add(filePanel, makeGbc(1, yPosition));
 		getMutationResolverFolderButton.addActionListener(this);
 
-		mainPanel.add(new JLabel("Mutation Resolver Package Name"), makeGbc(0, 15));
-		mutationResolverPackageField = new JTextField("org.bandahealth.idempiere.graphql.resolver.mutation");
-		mainPanel.add(mutationResolverPackageField, makeGbc(1, 15));
+		yPosition++;
+		mainPanel.add(new JLabel("Mutation Resolver Package Name"), makeGbc(0, yPosition));
+		mutationResolverPackageField = new JTextField("");
+		mainPanel.add(mutationResolverPackageField, makeGbc(1, yPosition));
 
+		yPosition++;
 		chkPanel = new Panel();
 		chkPanel.setLayout(new GridLayout(1, 2));
-		mainPanel.add(new JLabel(""), makeGbc(0, 16));
-		mainPanel.add(chkPanel, makeGbc(1, 16));
+		mainPanel.add(new JLabel(""), makeGbc(0, yPosition));
+		mainPanel.add(chkPanel, makeGbc(1, yPosition));
 		generateModelResolverCheckbox = new JCheckBox("Generate Model Resolvers");
 		generateModelResolverCheckbox.setSelected(true);
 		chkPanel.add(generateModelResolverCheckbox);
 
+		yPosition++;
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-//		modelResolverDirectoryNameField = new JTextField(defaultPath);
-		modelResolverDirectoryNameField = new JTextField(Path.of(
-						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/resolver" +
-								"/model")
-				.toString());
+		modelResolverDirectoryNameField = new JTextField(defaultPath);
 		filePanel.add(modelResolverDirectoryNameField, BorderLayout.CENTER);
 		getModelResolverFolderButton = new JButton("...");
 		getModelResolverFolderButton.setMargin(new Insets(0, 0, 0, 0));
 		filePanel.add(getModelResolverFolderButton, BorderLayout.EAST);
-		mainPanel.add(new JLabel("Model Resolver Folder"), makeGbc(0, 17));
-		mainPanel.add(filePanel, makeGbc(1, 17));
+		mainPanel.add(new JLabel("Model Resolver Folder"), makeGbc(0, yPosition));
+		mainPanel.add(filePanel, makeGbc(1, yPosition));
 		getModelResolverFolderButton.addActionListener(this);
 
-		mainPanel.add(new JLabel("Model Resolver Package Name"), makeGbc(0, 18));
-		modelResolverPackageField = new JTextField("org.bandahealth.idempiere.graphql.resolver.model");
-		mainPanel.add(modelResolverPackageField, makeGbc(1, 18));
+		yPosition++;
+		mainPanel.add(new JLabel("Model Resolver Package Name"), makeGbc(0, yPosition));
+		modelResolverPackageField = new JTextField("");
+		mainPanel.add(modelResolverPackageField, makeGbc(1, yPosition));
 
+		yPosition++;
 		chkPanel = new Panel();
 		chkPanel.setLayout(new GridLayout(1, 2));
-		mainPanel.add(new JLabel(""), makeGbc(0, 19));
-		mainPanel.add(chkPanel, makeGbc(1, 19));
+		mainPanel.add(new JLabel(""), makeGbc(0, yPosition));
+		mainPanel.add(chkPanel, makeGbc(1, yPosition));
 		generateDataLoaderCheckbox = new JCheckBox("Generate Data Loaders");
 		generateDataLoaderCheckbox.setSelected(true);
 		chkPanel.add(generateDataLoaderCheckbox);
 
+		yPosition++;
 		filePanel = new Panel();
 		filePanel.setLayout(new BorderLayout());
-//		dataLoaderDirectoryNameField = new JTextField(defaultPath);
-		dataLoaderDirectoryNameField = new JTextField(Path.of(
-						"C:/source/Banda-Health/iDempiere/idemp-banda/graphql/src/org/bandahealth/idempiere/graphql/dataloader" +
-								"/impl")
-				.toString());
+		dataLoaderDirectoryNameField = new JTextField(defaultPath);
 		filePanel.add(dataLoaderDirectoryNameField, BorderLayout.CENTER);
 		getDataLoaderFolderButton = new JButton("...");
 		getDataLoaderFolderButton.setMargin(new Insets(0, 0, 0, 0));
 		filePanel.add(getDataLoaderFolderButton, BorderLayout.EAST);
-		mainPanel.add(new JLabel("Data Loader Folder"), makeGbc(0, 20));
-		mainPanel.add(filePanel, makeGbc(1, 20));
+		mainPanel.add(new JLabel("Data Loader Folder"), makeGbc(0, yPosition));
+		mainPanel.add(filePanel, makeGbc(1, yPosition));
 		getDataLoaderFolderButton.addActionListener(this);
 
-		mainPanel.add(new JLabel("Data Loader Package Name"), makeGbc(0, 21));
-		dataLoaderPackageField = new JTextField("org.bandahealth.idempiere.graphql.dataloader.impl");
-		mainPanel.add(dataLoaderPackageField, makeGbc(1, 21));
+		yPosition++;
+		mainPanel.add(new JLabel("Data Loader Package Name"), makeGbc(0, yPosition));
+		dataLoaderPackageField = new JTextField("");
+		mainPanel.add(dataLoaderPackageField, makeGbc(1, yPosition));
 
 		generateButton = new JButton("Generate Source");
 		confirmPanel.add(generateButton);
@@ -266,6 +282,18 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 		confirmPanel.add(cancelButton);
 		generateButton.addActionListener(this);
 		cancelButton.addActionListener(this);
+
+		if (!templates.isEmpty()) {
+			generatorTemplates.setSelectedIndex(1);
+			updateFieldsWithTemplate(templates.get(0));
+		}
+
+		// Reset the size so that the boxes aren't too long
+		SwingUtilities.invokeLater(() -> {
+			pack();
+			setSize(700, 750);
+			setLocationRelativeTo(null);
+		});
 	}
 
 	private GridBagConstraints makeGbc(int x, int y) {
@@ -518,7 +546,72 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			if (state == JFileChooser.APPROVE_OPTION) {
 				dataLoaderDirectoryNameField.setText(fileChooser.getSelectedFile().getAbsolutePath());
 			}
+		} else if (e.getSource() == generatorTemplates) {
+			// If we just selected the empty value, don't do anything
+			MBHGraphqlGeneratorTemplate selectedTemplate;
+			if (generatorTemplates.getSelectedIndex() == 0 || (selectedTemplate =
+					templates.stream().filter(template -> template.getName() == generatorTemplates.getSelectedItem()).findFirst()
+							.orElse(null)) == null) {
+				return;
+			}
+			// Update all the fields accordingly
+			updateFieldsWithTemplate(selectedTemplate);
 		}
 	}
 
+	/**
+	 * Based on the combobox selection, update the fields with whatever is saved in the selected template
+	 *
+	 * @param selectedTemplate The template to populate the fields with
+	 */
+	private void updateFieldsWithTemplate(MBHGraphqlGeneratorTemplate selectedTemplate) {
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getTableName())) {
+			fTableName.setText(selectedTemplate.getTableName());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getTableEntityType())) {
+			fEntityType.setText(selectedTemplate.getTableEntityType());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getColumnEntityType())) {
+			fColumnEntityType.setText(selectedTemplate.getColumnEntityType());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getCustomModelFolder())) {
+			customModelDirectoryNameField.setText(Path.of(selectedTemplate.getCustomModelFolder()).toString());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getCustomModelPackageName())) {
+			customModelPackageField.setText(selectedTemplate.getCustomModelPackageName());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getSchemaFolder())) {
+			schemaFolderField.setText(Path.of(selectedTemplate.getSchemaFolder()).toString());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getInputModelFolder())) {
+			inputModelDirectoryNameField.setText(Path.of(selectedTemplate.getInputModelFolder()).toString());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getInputModelPackageName())) {
+			inputModelPackageNameField.setText(selectedTemplate.getInputModelPackageName());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getQueryResolverFolder())) {
+			queryResolverDirectoryNameField.setText(Path.of(selectedTemplate.getQueryResolverFolder()).toString());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getQueryResolverPackageName())) {
+			queryResolverPackageField.setText(selectedTemplate.getQueryResolverPackageName());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getMutationResolverFolder())) {
+			mutationResolverDirectoryNameField.setText(Path.of(selectedTemplate.getMutationResolverFolder()).toString());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getMutationResolverPackageName())) {
+			mutationResolverPackageField.setText(selectedTemplate.getMutationResolverPackageName());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getModelResolverFolder())) {
+			modelResolverDirectoryNameField.setText(Path.of(selectedTemplate.getModelResolverFolder()).toString());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getModelResolverPackageName())) {
+			modelResolverPackageField.setText(selectedTemplate.getModelResolverPackageName());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getDataLoaderFolder())) {
+			dataLoaderDirectoryNameField.setText(Path.of(selectedTemplate.getDataLoaderFolder()).toString());
+		}
+		if (!StringUtil.isNullOrEmpty(selectedTemplate.getDataLoaderPackageName())) {
+			dataLoaderPackageField.setText(selectedTemplate.getDataLoaderPackageName());
+		}
+	}
 }
