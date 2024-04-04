@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.graphql.generator.util;
+package org.bandahealth.idempiere.base.graphql.util;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.exceptions.DBException;

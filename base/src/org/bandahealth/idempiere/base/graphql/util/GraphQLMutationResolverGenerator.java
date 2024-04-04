@@ -17,7 +17,7 @@
  *                 Teo Sarca - www.arhipac.ro                                 *
  *                 Trifon Trifonov                                            *
  *****************************************************************************/
-package org.bandahealth.idempiere.graphql.generator.util;
+package org.bandahealth.idempiere.base.graphql.util;
 
 import org.adempiere.exceptions.DBException;
 import org.compiere.Adempiere;

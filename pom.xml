@@ -341,7 +341,6 @@
 		<module>base-test</module>
 		<module>graphql</module>
 		<module>graphql-feature</module>
-		<module>graphql-generator</module>
 		<module>graphql-test</module>
 		<module>reports</module>
 		<module>reports-test</module>

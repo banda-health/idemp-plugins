@@ -11,11 +11,11 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,    *
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.                     *
  *****************************************************************************/
-package org.bandahealth.idempiere.graphql.generator;
+package org.bandahealth.idempiere.base.graphql;
 
 import org.adempiere.util.ModelClassGenerator;
 import org.adempiere.util.ModelInterfaceGenerator;
-import org.bandahealth.idempiere.graphql.generator.util.GraphQLGeneratorDialog;
+import org.bandahealth.idempiere.base.graphql.util.GraphQLGeneratorDialog;
 import org.compiere.Adempiere;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;

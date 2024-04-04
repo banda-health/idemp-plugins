@@ -17,32 +17,22 @@
  *                 Teo Sarca - www.arhipac.ro                                 *
  *                 Trifon Trifonov                                            *
  *****************************************************************************/
-package org.bandahealth.idempiere.graphql.generator.util;
+package org.bandahealth.idempiere.base.graphql.util;
 
 import org.adempiere.exceptions.DBException;
-import org.adempiere.util.ModelInterfaceGenerator;
 import org.compiere.Adempiere;
 import org.compiere.model.MTable;
-import org.compiere.util.CLogger;
 import org.compiere.util.DB;
-import org.compiere.util.DisplayType;
 import org.compiere.util.Env;
-import org.compiere.util.Util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
-import java.util.logging.Level;
 
 /**
  * Generate GraphQL Schemas.
