@@ -36,5 +36,9 @@ cat testResults.txt
 psql -c "select case when description = 'Error' then 'FAIL' else 'PASS' end as status, name as test_suite, round(executiontime / 1000, 3) as \"execution_time [s]\", case when description = 'Error' then note end as result from chuboe_populateresponse where lower(classname) like 'org.bandahealth.idempiere.report.test%' order by created"
 
 if ! grep -q "Success!!" testResults.txt; then
+  cd ../
+  mkdir -p output
+  cd ./output
+  pg_dump -Fc -f output.dmp
   exit 1
 fi
