@@ -28,9 +28,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author hengsin
- */
 public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 
 	/**

@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class MBHObservationDataLoader extends X_BH_ObservationDataLoader {
-	public static String BH_Observation_BY_ENCOUNTER_ID_DATA_LOADER = "BH_ObservationByEncounterIdDataLoader";
+	public static String DATALOADER_BH_Observation_BY_Encounter_ID = "DATALOADER_BH_Observation_BY_Encounter_ID";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(BH_Observation_BY_ENCOUNTER_ID_DATA_LOADER,
+		registry.register(DATALOADER_BH_Observation_BY_Encounter_ID,
 				DataLoader.newMappedDataLoader(getByEncounterIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 

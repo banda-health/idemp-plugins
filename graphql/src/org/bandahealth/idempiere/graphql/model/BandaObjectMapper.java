@@ -589,8 +589,6 @@ public class BandaObjectMapper {
 							addMapping(I_M_AttributeUseInput.class, MAttributeUseInput.class);
 							addMapping(I_M_AttributeValueInput.class, MAttributeValueInput.class);
 							addMapping(I_M_BOMAlternativeInput.class, X_M_BOMAlternativeInput.class);
-							addMapping(I_M_BOMInput.class, MBOMInput.class);
-							addMapping(I_M_BOMProductInput.class, MBOMProductInput.class);
 							addMapping(I_M_BP_PriceInput.class, X_M_BP_PriceInput.class);
 							addMapping(I_M_ChangeNoticeInput.class, MChangeNoticeInput.class);
 							addMapping(I_M_ChangeRequestInput.class, MChangeRequestInput.class);
@@ -793,7 +791,6 @@ public class BandaObjectMapper {
 							addMapping(I_T_ReportInput.class, X_T_ReportInput.class);
 							addMapping(I_T_ReportStatementInput.class, X_T_ReportStatementInput.class);
 							addMapping(I_T_TransactionInput.class, X_T_TransactionInput.class);
-							addMapping(I_U_BlackListChequeInput.class, MBlackListChequeInput.class);
 							addMapping(I_U_POSTerminalInput.class, MPOSTerminalInput.class);
 							addMapping(I_U_RoleMenuInput.class, MRoleMenuInput.class);
 							addMapping(I_U_WebMenuInput.class, MWebMenuInput.class);

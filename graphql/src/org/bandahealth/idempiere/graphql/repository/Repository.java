@@ -312,7 +312,7 @@ public class Repository {
 				() -> getByUuids(idempiereContext, tableName, transactionName, new HashSet<>(uuids)));
 	}
 
-	private static void setCopyOfPropertiesForNestedThreadUsage(Properties idempiereContext) {
+	public static void setCopyOfPropertiesForNestedThreadUsage(Properties idempiereContext) {
 		// Create a copy of properties in case anything in the model modifies it
 		Properties copyOfIdempiereContextForTheThread = new Properties();
 		copyOfIdempiereContextForTheThread.putAll(idempiereContext);

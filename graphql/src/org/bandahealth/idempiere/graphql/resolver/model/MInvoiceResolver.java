@@ -16,7 +16,7 @@ public class MInvoiceResolver extends X_C_InvoiceResolver {
 	public CompletableFuture<List<MAllocationLine>> C_AllocationLines(MInvoice_BH entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MAllocationLine>> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(MAllocationLineDataLoader.DATALOADER_C_AllocationLineByC_Invoice_ID);
+				.getDataLoader(MAllocationLineDataLoader.DATALOADER_C_AllocationLine_BY_C_Invoice_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_Invoice_ID()));
 	}
 

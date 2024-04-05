@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Properties;
 
 public class MBHEncounterDiagnosisDataLoader extends X_BH_Encounter_DiagnosisDataLoader {
-	public static String BH_Encounter_Diagnosis_BY_ENCOUNTER_ID_DATA_LOADER =
-			"BH_Encounter_DiagnosisByEncounterIdDataLoader";
+	public static String DATALOADER_BH_Encounter_Diagnosis_BY_Encounter_ID =
+			"DATALOADER_BH_Encounter_Diagnosis_BY_Encounter_ID";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(BH_Encounter_Diagnosis_BY_ENCOUNTER_ID_DATA_LOADER,
+		registry.register(DATALOADER_BH_Encounter_Diagnosis_BY_Encounter_ID,
 				DataLoader.newMappedDataLoader(getByEncounterIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 

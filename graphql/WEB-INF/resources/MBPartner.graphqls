@@ -1,6 +1,8 @@
 extend type C_BPartner {
 	BH_Payer_Info_FldList: [BH_Payer_Info_Fld!]
 	C_BPartner_Locations: [C_BPartner_Location!]
+	C_BP_BankAccounts: [C_BP_BankAccount!]
+	Contacts: [AD_User!]
 	LastVisitDate: Date
 	TotalVisits: Int!
 }

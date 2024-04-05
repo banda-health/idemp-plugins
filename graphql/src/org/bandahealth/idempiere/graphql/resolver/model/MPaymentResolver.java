@@ -14,7 +14,7 @@ public class MPaymentResolver extends X_C_PaymentResolver {
 	public CompletableFuture<List<MAllocationLine>> C_AllocationLines(MPayment_BH entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MAllocationLine>> dataLoader = environment.getDataLoaderRegistry()
-				.getDataLoader(MAllocationLineDataLoader.DATALOADER_C_AllocationLineByC_Payment_ID);
+				.getDataLoader(MAllocationLineDataLoader.DATALOADER_C_AllocationLine_BY_C_Payment_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getC_Payment_ID()));
 	}
 }

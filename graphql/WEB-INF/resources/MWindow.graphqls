@@ -1,3 +1,4 @@
 extend type AD_Window {
 	AD_Tabs: [AD_Tab!]
+	BH_Encounter_Type_Windows: [BH_Encounter_Type_Window!]
 }

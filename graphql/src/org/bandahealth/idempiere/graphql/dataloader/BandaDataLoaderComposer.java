@@ -68,8 +68,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHProductCategoryDefau
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHRoleWarehouseAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVisitDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVoidedReasonDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.MBOMDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.MBOMProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPBankAccountDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPGroupDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBPartnerDataLoader;
@@ -84,7 +82,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBankStatementLineDataL
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBankStatementLoaderDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBankStatementMatcherDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBankTransferDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.MBlackListChequeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MCalendarDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MCampaignDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MCashBookDataLoader;
@@ -912,9 +909,6 @@ public class BandaDataLoaderComposer {
 				new MBHRoleWarehouseAccessDataLoader(),
 				new MBHVisitDataLoader(),
 				new MBHVoidedReasonDataLoader(),
-				new MBlackListChequeDataLoader(),
-				new MBOMDataLoader(),
-				new MBOMProductDataLoader(),
 				new MBPartnerDataLoader(),
 				new MBPartnerInfoDataLoader(),
 				new MBPartnerLocationDataLoader(),
