@@ -3,5 +3,6 @@ extend type Mutation {
 }
 
 extend type M_Movement {
+	M_MovementConfirmList: [M_MovementConfirm!]
 	M_MovementLines: [M_MovementLine!]
 }

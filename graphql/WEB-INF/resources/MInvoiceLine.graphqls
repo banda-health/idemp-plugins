@@ -1,5 +1,8 @@
 extend type C_InvoiceLine {
 	BH_BP_Specific_Payer_InfoList: [BH_BP_Specific_Payer_Info!]
+	C_LandedCostAllocationList: [C_LandedCostAllocation!]
+	C_LandedCostList: [C_LandedCost!]
+	M_MatchInvList: [M_MatchInv!]
 }
 
 extend input C_InvoiceLineInput {

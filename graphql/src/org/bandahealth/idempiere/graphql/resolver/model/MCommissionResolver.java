@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class MCommissionResolver extends X_C_CommissionResolver {
 
-	public CompletableFuture<List<MCommissionLine>> C_CommissionDetails(MCommission entity,
+	public CompletableFuture<List<MCommissionLine>> C_CommissionLines(MCommission entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MCommissionLine>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MCommissionLineDataLoader.DATALOADER_C_CommissionLine_BY_C_Commission_ID);

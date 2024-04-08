@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class MDunningRunResolver extends X_C_DunningRunResolver {
 
-	public CompletableFuture<List<MDunningRunEntry>> C_DunningRunLines(MDunningRun entity,
+	public CompletableFuture<List<MDunningRunEntry>> C_DunningRunEntries(MDunningRun entity,
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MDunningRunEntry>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MDunningRunEntryDataLoader.DATALOADER_C_DunningRunEntry_BY_C_DunningRun_ID);

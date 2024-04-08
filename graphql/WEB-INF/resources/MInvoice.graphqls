@@ -5,4 +5,5 @@ extend type Mutation {
 extend type C_Invoice {
 	C_AllocationLines: [C_AllocationLine!]
 	C_InvoiceLines: [C_InvoiceLine!]
+	C_InvoiceTaxes: [C_InvoiceTax!]
 }

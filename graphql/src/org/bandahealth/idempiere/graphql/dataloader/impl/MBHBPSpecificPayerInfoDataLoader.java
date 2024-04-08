@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Properties;
 
 public class MBHBPSpecificPayerInfoDataLoader extends X_BH_BP_Specific_Payer_InfoDataLoader {
-	public static String BH_BP_Specific_Payer_Info_BY_InvoiceLine_ID_DATA_LOADER =
-			"BH_BP_Specific_Payer_Info_ByInvoiceLineIdDataLoader";
+	public static String DATALOADER_BH_BP_Specific_Payer_Info_BY_C_InvoiceLine_ID =
+			"DATALOADER_BH_BP_Specific_Payer_Info_BY_C_InvoiceLine_ID";
 
 	@Override
 	public void register(DataLoaderRegistry registry, Properties idempiereContext) {
 		super.register(registry, idempiereContext);
-		registry.register(BH_BP_Specific_Payer_Info_BY_InvoiceLine_ID_DATA_LOADER,
+		registry.register(DATALOADER_BH_BP_Specific_Payer_Info_BY_C_InvoiceLine_ID,
 				DataLoader.newMappedDataLoader(getByInvoiceLineIdBatchLoader(), getOptionsWithoutCache(idempiereContext)));
 	}
 

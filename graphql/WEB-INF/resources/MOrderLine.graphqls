@@ -1,5 +1,8 @@
-#extend type C_OrderLine {
-#}
+extend type C_OrderLine {
+	C_OrderLandedCostAllocationList: [C_OrderLandedCostAllocation!]
+	M_InOutLines: [M_InOutLine!]
+	M_MatchPOList: [M_MatchPO!]
+}
 
 extend input C_OrderLineInput {
 	Qty: BigDecimal

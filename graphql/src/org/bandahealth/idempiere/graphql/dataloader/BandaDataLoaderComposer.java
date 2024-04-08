@@ -197,6 +197,8 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MInOutLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInOutLineMADataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MIndexColumnDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInfoColumnDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MInfoProcessDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MInfoRelatedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInfoWindowAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInfoWindowDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInterestAreaDataLoader;
@@ -256,6 +258,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MOrderTaxDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MOrgDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MOrgInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MPInstanceDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MPInstanceLogDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MPInstanceParaDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MPOSDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MPOSKeyDataLoader;
@@ -480,7 +483,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImpFormat_RowDataL
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImportTemplateAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoColumn_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoProcessDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoRelatedDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoWindow_TrlDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LabelPrinterDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_LabelPrinterFunctionDataLoader;
@@ -1025,6 +1027,8 @@ public class BandaDataLoaderComposer {
 				new MImportTemplateDataLoader(),
 				new MIndexColumnDataLoader(),
 				new MInfoColumnDataLoader(),
+				new MInfoProcessDataLoader(),
+				new MInfoRelatedDataLoader(),
 				new MInfoWindowAccessDataLoader(),
 				new MInfoWindowDataLoader(),
 				new MInOutConfirmDataLoader(),
@@ -1108,6 +1112,7 @@ public class BandaDataLoaderComposer {
 				new MPeriodControlDataLoader(),
 				new MPeriodDataLoader(),
 				new MPInstanceDataLoader(),
+				new MPInstanceLogDataLoader(),
 				new MPInstanceParaDataLoader(),
 				new MPOSDataLoader(),
 				new MPOSKeyDataLoader(),
@@ -1326,8 +1331,6 @@ public class BandaDataLoaderComposer {
 				new X_AD_ImpFormatDataLoader(),
 				new X_AD_ImportTemplateAccessDataLoader(),
 				new X_AD_InfoColumn_TrlDataLoader(),
-				new X_AD_InfoProcessDataLoader(),
-				new X_AD_InfoRelatedDataLoader(),
 				new X_AD_InfoWindow_TrlDataLoader(),
 				new X_AD_LabelPrinterDataLoader(),
 				new X_AD_LabelPrinterFunctionDataLoader(),

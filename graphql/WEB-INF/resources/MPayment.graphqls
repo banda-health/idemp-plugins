@@ -4,4 +4,5 @@ extend type Mutation {
 
 extend type C_Payment {
 	C_AllocationLines: [C_AllocationLine!]
+	C_PaymentAllocateList: [C_PaymentAllocate!]
 }
