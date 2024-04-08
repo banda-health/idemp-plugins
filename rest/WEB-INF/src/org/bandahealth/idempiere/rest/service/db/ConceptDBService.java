@@ -53,6 +53,13 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 			}
 		}
 
+		// save extras
+		if (entity.getConceptExtras() != null && !entity.getConceptExtras().isEmpty()) {
+			for (ConceptExtra extra : entity.getConceptExtras()) {
+				conceptExtraDBService.saveEntity(extra);
+			}
+		}
+		
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(concept.getUUIDColumnName()))).get(0);
 	}
 

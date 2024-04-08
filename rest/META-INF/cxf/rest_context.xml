@@ -20,7 +20,6 @@ classpath:META-INF/cxf/jaxrs.xsd">
             <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ChargeTypeRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ClientRestService"/>
-            <bean class="org.bandahealth.idempiere.rest.service.impl.CodedDiagnosisRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.ConceptRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.DashboardRestService"/>
             <bean class="org.bandahealth.idempiere.rest.service.impl.DocumentTypeRestService"/>
