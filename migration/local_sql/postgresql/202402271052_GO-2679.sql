@@ -205,10 +205,10 @@ CREATE TABLE BH_Concept_Name (
     BH_Concept_Name_UU VARCHAR(36) DEFAULT NULL ,
     BH_Concept_Type VARCHAR(100) DEFAULT NULL ,
     BH_ExternalID VARCHAR(100) DEFAULT NULL,
-    Name VARCHAR(255),
     Created timestamp DEFAULT NOW(),
     CreatedBy numeric(10) DEFAULT NULL ,
-    IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')), Name VARCHAR(60) DEFAULT NULL ,
+    IsActive CHAR(1) DEFAULT 'Y' CHECK (IsActive IN ('Y','N')), 
+    Name VARCHAR(60) DEFAULT NULL ,
     Updated timestamp DEFAULT NOW(), UpdatedBy numeric(10) DEFAULT NULL ,
 
     CONSTRAINT BH_Concept_Name_Key PRIMARY KEY (BH_Concept_Name_ID),
