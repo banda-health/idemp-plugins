@@ -21,16 +21,16 @@ public class X_AD_PostItMutation extends POMutation implements GraphQLMutationRe
 		return X_AD_PostItInput.Table_Name;
 	}
 
-	public MPostIt AD_PostItSave(I_AD_PostItInput entity, DataFetchingEnvironment environment) {
-		return (MPostIt) super.save((X_AD_PostItInput) entity, environment);
+	public MPostIt AD_PostItSave(I_AD_PostItInput Entity, DataFetchingEnvironment environment) {
+		return (MPostIt) super.save((X_AD_PostItInput) Entity, environment);
 	}
 
-	public List<MPostIt> AD_PostItSaveMany(List<I_AD_PostItInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PostItInput) entity).collect(Collectors.toList()),
+	public List<MPostIt> AD_PostItSaveMany(List<I_AD_PostItInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PostItInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPostIt) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PostItDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PostItDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

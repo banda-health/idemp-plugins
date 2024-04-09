@@ -17,8 +17,8 @@ public class X_C_CampaignQuery extends POQuery<MCampaign> implements GraphQLQuer
 		return MCampaign.Table_Name;
 	}
 
-	public Connection<MCampaign> C_CampaignGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCampaign> C_CampaignGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

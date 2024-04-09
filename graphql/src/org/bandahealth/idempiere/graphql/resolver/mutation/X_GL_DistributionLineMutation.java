@@ -21,16 +21,16 @@ public class X_GL_DistributionLineMutation extends POMutation implements GraphQL
 		return X_GL_DistributionLineInput.Table_Name;
 	}
 
-	public MDistributionLine GL_DistributionLineSave(I_GL_DistributionLineInput entity, DataFetchingEnvironment environment) {
-		return (MDistributionLine) super.save((X_GL_DistributionLineInput) entity, environment);
+	public MDistributionLine GL_DistributionLineSave(I_GL_DistributionLineInput Entity, DataFetchingEnvironment environment) {
+		return (MDistributionLine) super.save((X_GL_DistributionLineInput) Entity, environment);
 	}
 
-	public List<MDistributionLine> GL_DistributionLineSaveMany(List<I_GL_DistributionLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_GL_DistributionLineInput) entity).collect(Collectors.toList()),
+	public List<MDistributionLine> GL_DistributionLineSaveMany(List<I_GL_DistributionLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_DistributionLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDistributionLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean GL_DistributionLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean GL_DistributionLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

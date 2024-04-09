@@ -31,12 +31,12 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_DistributionListLine_UU to fetch this entity from the DB
+	 * @param UU The M_DistributionListLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_DistributionListLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_DistributionListLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -123,11 +123,11 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
+						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
 			}
 		} else {
 			this.setC_BPartner_Location_ID(0);
@@ -160,11 +160,11 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 			MDistributionList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DistributionList", "M_DistributionList_UU=?", get_TrxName())
-							.setParameters(M_DistributionList.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DistributionList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DistributionList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_DistributionList with UUID " + M_DistributionList.getUUID());
+						"Could not find entity in table M_DistributionList with UU " + M_DistributionList.getUU());
 			}
 		} else {
 			this.setM_DistributionList_ID(0);
@@ -193,20 +193,20 @@ public class X_M_DistributionListLineInput extends MDistributionListLine impleme
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_DistributionListLine_UU(UUID);
+	public void setUU(String UU) {
+		setM_DistributionListLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_DistributionListLine_UU();
 	}
 }

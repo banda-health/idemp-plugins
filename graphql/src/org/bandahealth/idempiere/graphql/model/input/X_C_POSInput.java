@@ -43,12 +43,12 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_POS_UU to fetch this entity from the DB
+	 * @param UU The C_POS_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_POSInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_POSInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -67,11 +67,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -101,11 +101,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
+						"Could not find entity in table C_BankAccount with UU " + C_BankAccount.getUU());
 			}
 		} else {
 			this.setC_BankAccount_ID(0);
@@ -135,11 +135,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartnerCashTrx.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartnerCashTrx.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartnerCashTrx_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartnerCashTrx.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartnerCashTrx.getUU());
 			}
 		} else {
 			this.setC_BPartnerCashTrx_ID(0);
@@ -169,11 +169,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_CashBook with UUID " + C_CashBook.getUUID());
+						"Could not find entity in table C_CashBook with UU " + C_CashBook.getUU());
 			}
 		} else {
 			this.setC_CashBook_ID(0);
@@ -203,11 +203,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
 			this.setC_DocType_ID(0);
@@ -236,20 +236,20 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_POS_UU(UUID);
+	public void setUU(String UU) {
+		setC_POS_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_POS_UU();
 	}
 
@@ -266,11 +266,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(C_POSKeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_POSKeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_POSKeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_POSKeyLayout with UUID " + C_POSKeyLayout.getUUID());
+						"Could not find entity in table C_POSKeyLayout with UU " + C_POSKeyLayout.getUU());
 			}
 		} else {
 			this.setC_POSKeyLayout_ID(0);
@@ -300,11 +300,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
+						"Could not find entity in table M_PriceList with UU " + M_PriceList.getUU());
 			}
 		} else {
 			this.setM_PriceList_ID(0);
@@ -334,11 +334,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);
@@ -368,11 +368,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(OSK_KeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(OSK_KeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOSK_KeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_POSKeyLayout with UUID " + OSK_KeyLayout.getUUID());
+						"Could not find entity in table C_POSKeyLayout with UU " + OSK_KeyLayout.getUU());
 			}
 		} else {
 			this.setOSK_KeyLayout_ID(0);
@@ -402,11 +402,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MPOSKeyLayout foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSKeyLayout", "C_POSKeyLayout_UU=?", get_TrxName())
-							.setParameters(OSNP_KeyLayout.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(OSNP_KeyLayout.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOSNP_KeyLayout_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_POSKeyLayout with UUID " + OSNP_KeyLayout.getUUID());
+						"Could not find entity in table C_POSKeyLayout with UU " + OSNP_KeyLayout.getUU());
 			}
 		} else {
 			this.setOSNP_KeyLayout_ID(0);
@@ -436,11 +436,11 @@ public class X_C_POSInput extends MPOS implements I_C_POSInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
 			}
 		} else {
 			this.setSalesRep_ID(0);

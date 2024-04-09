@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ModelValidatorGet(page: Int, size: Int, sort: String, filter: String): AD_ModelValidatorConnection!
+	AD_ModelValidatorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ModelValidatorConnection!
 }
 
 extend type Mutation {
-	AD_ModelValidatorSave(entity: AD_ModelValidatorInput!): AD_ModelValidator!
-	AD_ModelValidatorSaveMany(entities: [AD_ModelValidatorInput!]!): [AD_ModelValidator!]!
-	AD_ModelValidatorDelete(uuids: [String!]!): Boolean!
+	AD_ModelValidatorSave(Entity: AD_ModelValidatorInput!): AD_ModelValidator!
+	AD_ModelValidatorSaveMany(Entities: [AD_ModelValidatorInput!]!): [AD_ModelValidator!]!
+	AD_ModelValidatorDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ModelValidatorConnection {
-	results: [AD_ModelValidator!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ModelValidator!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ModelValidator {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_ModelValidator_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -47,8 +46,7 @@ type AD_ModelValidator {
 }
 
 input AD_ModelValidatorInput {
-	UUID: ID
-	AD_ModelValidator_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

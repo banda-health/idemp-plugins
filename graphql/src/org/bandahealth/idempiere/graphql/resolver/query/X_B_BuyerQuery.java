@@ -17,8 +17,8 @@ public class X_B_BuyerQuery extends POQuery<X_B_Buyer> implements GraphQLQueryRe
 		return X_B_Buyer.Table_Name;
 	}
 
-	public Connection<X_B_Buyer> B_BuyerGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_B_Buyer> B_BuyerGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

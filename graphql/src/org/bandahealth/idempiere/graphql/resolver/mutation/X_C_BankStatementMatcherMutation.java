@@ -21,16 +21,16 @@ public class X_C_BankStatementMatcherMutation extends POMutation implements Grap
 		return X_C_BankStatementMatcherInput.Table_Name;
 	}
 
-	public MBankStatementMatcher C_BankStatementMatcherSave(I_C_BankStatementMatcherInput entity, DataFetchingEnvironment environment) {
-		return (MBankStatementMatcher) super.save((X_C_BankStatementMatcherInput) entity, environment);
+	public MBankStatementMatcher C_BankStatementMatcherSave(I_C_BankStatementMatcherInput Entity, DataFetchingEnvironment environment) {
+		return (MBankStatementMatcher) super.save((X_C_BankStatementMatcherInput) Entity, environment);
 	}
 
-	public List<MBankStatementMatcher> C_BankStatementMatcherSaveMany(List<I_C_BankStatementMatcherInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BankStatementMatcherInput) entity).collect(Collectors.toList()),
+	public List<MBankStatementMatcher> C_BankStatementMatcherSaveMany(List<I_C_BankStatementMatcherInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BankStatementMatcherInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBankStatementMatcher) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BankStatementMatcherDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BankStatementMatcherDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

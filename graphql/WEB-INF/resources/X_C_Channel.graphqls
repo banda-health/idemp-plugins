@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ChannelGet(page: Int, size: Int, sort: String, filter: String): C_ChannelConnection!
+	C_ChannelGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ChannelConnection!
 }
 
 extend type Mutation {
-	C_ChannelSave(entity: C_ChannelInput!): C_Channel!
-	C_ChannelSaveMany(entities: [C_ChannelInput!]!): [C_Channel!]!
-	C_ChannelDelete(uuids: [String!]!): Boolean!
+	C_ChannelSave(Entity: C_ChannelInput!): C_Channel!
+	C_ChannelSaveMany(Entities: [C_ChannelInput!]!): [C_Channel!]!
+	C_ChannelDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ChannelConnection {
-	results: [C_Channel!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Channel!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Channel {
@@ -23,8 +23,7 @@ type C_Channel {
 	AD_Org: AD_Org!
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
-	UUID: ID!
-	C_Channel_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ input C_ChannelInput {
 	AD_Org: ForeignEntityInput
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
-	UUID: ID
-	C_Channel_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_AcctProcessorLogGet(page: Int, size: Int, sort: String, filter: String): C_AcctProcessorLogConnection!
+	C_AcctProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctProcessorLogConnection!
 }
 
 extend type Mutation {
-	C_AcctProcessorLogSave(entity: C_AcctProcessorLogInput!): C_AcctProcessorLog!
-	C_AcctProcessorLogSaveMany(entities: [C_AcctProcessorLogInput!]!): [C_AcctProcessorLog!]!
-	C_AcctProcessorLogDelete(uuids: [String!]!): Boolean!
+	C_AcctProcessorLogSave(Entity: C_AcctProcessorLogInput!): C_AcctProcessorLog!
+	C_AcctProcessorLogSaveMany(Entities: [C_AcctProcessorLogInput!]!): [C_AcctProcessorLog!]!
+	C_AcctProcessorLogDelete(UUs: [String!]!): Boolean!
 }
 
 type C_AcctProcessorLogConnection {
-	results: [C_AcctProcessorLog!]!
-	pagingInfo: PagingInfo!
+	Results: [C_AcctProcessorLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_AcctProcessorLog {
@@ -25,8 +25,7 @@ type C_AcctProcessorLog {
 	BinaryData: Binary
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: C_AcctProcessor!
-	UUID: ID!
-	C_AcctProcessorLog_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,8 +55,7 @@ input C_AcctProcessorLogInput {
 	BinaryData: Binary
 	# Accounting Processor/Server Parameters
 	C_AcctProcessor: ForeignEntityInput
-	UUID: ID
-	C_AcctProcessorLog_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

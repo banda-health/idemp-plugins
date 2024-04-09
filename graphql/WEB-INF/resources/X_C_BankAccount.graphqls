@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BankAccountGet(page: Int, size: Int, sort: String, filter: String): C_BankAccountConnection!
+	C_BankAccountGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccountConnection!
 }
 
 extend type Mutation {
-	C_BankAccountSave(entity: C_BankAccountInput!): C_BankAccount!
-	C_BankAccountSaveMany(entities: [C_BankAccountInput!]!): [C_BankAccount!]!
-	C_BankAccountDelete(uuids: [String!]!): Boolean!
+	C_BankAccountSave(Entity: C_BankAccountInput!): C_BankAccount!
+	C_BankAccountSaveMany(Entities: [C_BankAccountInput!]!): [C_BankAccount!]!
+	C_BankAccountDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BankAccountConnection {
-	results: [C_BankAccount!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BankAccount!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BankAccount {
@@ -29,8 +29,7 @@ type C_BankAccount {
 	BBAN: String
 	# Bank
 	C_Bank: C_Bank!
-	UUID: ID!
-	C_BankAccount_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -71,8 +70,7 @@ input C_BankAccountInput {
 	BBAN: String
 	# Bank
 	C_Bank: ForeignEntityInput
-	UUID: ID
-	C_BankAccount_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Amount of Credit allowed

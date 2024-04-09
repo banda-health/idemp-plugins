@@ -67,16 +67,16 @@ public interface I_M_MovementLineConfirmInput extends I_M_MovementLineConfirm {
 	ForeignEntityInput M_MovementLine();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

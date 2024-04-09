@@ -17,8 +17,8 @@ public class X_R_RequestQuery extends POQuery<MRequest> implements GraphQLQueryR
 		return MRequest.Table_Name;
 	}
 
-	public Connection<MRequest> R_RequestGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRequest> R_RequestGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

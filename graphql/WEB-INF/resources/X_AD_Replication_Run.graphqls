@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Replication_RunGet(page: Int, size: Int, sort: String, filter: String): AD_Replication_RunConnection!
+	AD_Replication_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Replication_RunConnection!
 }
 
 extend type Mutation {
-	AD_Replication_RunSave(entity: AD_Replication_RunInput!): AD_Replication_Run!
-	AD_Replication_RunSaveMany(entities: [AD_Replication_RunInput!]!): [AD_Replication_Run!]!
-	AD_Replication_RunDelete(uuids: [String!]!): Boolean!
+	AD_Replication_RunSave(Entity: AD_Replication_RunInput!): AD_Replication_Run!
+	AD_Replication_RunSaveMany(Entities: [AD_Replication_RunInput!]!): [AD_Replication_Run!]!
+	AD_Replication_RunDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Replication_RunConnection {
-	results: [AD_Replication_Run!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Replication_Run!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Replication_Run {
@@ -23,8 +23,7 @@ type AD_Replication_Run {
 	AD_Org: AD_Org!
 	# Data Replication Target
 	AD_Replication: AD_Replication!
-	UUID: ID!
-	AD_Replication_Run_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input AD_Replication_RunInput {
 	AD_Org: ForeignEntityInput
 	# Data Replication Target
 	AD_Replication: ForeignEntityInput
-	UUID: ID
-	AD_Replication_Run_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

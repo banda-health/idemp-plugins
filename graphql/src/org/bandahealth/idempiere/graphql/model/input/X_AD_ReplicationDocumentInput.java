@@ -33,12 +33,12 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_ReplicationDocument_UU to fetch this entity from the DB
+	 * @param UU The AD_ReplicationDocument_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ReplicationDocumentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_ReplicationDocumentInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,20 +90,20 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_ReplicationDocument_UU(UUID);
+	public void setUU(String UU) {
+		setAD_ReplicationDocument_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_ReplicationDocument_UU();
 	}
 
@@ -123,11 +123,11 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
+						"Could not find entity in table AD_ReplicationStrategy with UU " + AD_ReplicationStrategy.getUU());
 			}
 		} else {
 			this.setAD_ReplicationStrategy_ID(0);
@@ -157,11 +157,11 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -191,11 +191,11 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
 			this.setC_DocType_ID(0);
@@ -225,11 +225,11 @@ public class X_AD_ReplicationDocumentInput extends X_AD_ReplicationDocument impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ReplicationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReplicationType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReplicationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReplicationType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ReplicationType.getUU());
 			}
 		} else {
 			this.setReplicationType(null);

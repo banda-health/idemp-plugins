@@ -21,16 +21,16 @@ public class X_C_RegionMutation extends POMutation implements GraphQLMutationRes
 		return X_C_RegionInput.Table_Name;
 	}
 
-	public MRegion C_RegionSave(I_C_RegionInput entity, DataFetchingEnvironment environment) {
-		return (MRegion) super.save((X_C_RegionInput) entity, environment);
+	public MRegion C_RegionSave(I_C_RegionInput Entity, DataFetchingEnvironment environment) {
+		return (MRegion) super.save((X_C_RegionInput) Entity, environment);
 	}
 
-	public List<MRegion> C_RegionSaveMany(List<I_C_RegionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RegionInput) entity).collect(Collectors.toList()),
+	public List<MRegion> C_RegionSaveMany(List<I_C_RegionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RegionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRegion) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RegionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RegionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

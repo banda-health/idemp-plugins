@@ -17,8 +17,8 @@ public class X_C_PeriodQuery extends POQuery<MPeriod> implements GraphQLQueryRes
 		return MPeriod.Table_Name;
 	}
 
-	public Connection<MPeriod> C_PeriodGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPeriod> C_PeriodGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

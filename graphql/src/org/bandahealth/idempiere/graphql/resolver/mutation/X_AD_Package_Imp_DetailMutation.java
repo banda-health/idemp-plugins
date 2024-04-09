@@ -21,16 +21,16 @@ public class X_AD_Package_Imp_DetailMutation extends POMutation implements Graph
 		return X_AD_Package_Imp_DetailInput.Table_Name;
 	}
 
-	public X_AD_Package_Imp_Detail AD_Package_Imp_DetailSave(I_AD_Package_Imp_DetailInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_Package_Imp_Detail) super.save((X_AD_Package_Imp_DetailInput) entity, environment);
+	public X_AD_Package_Imp_Detail AD_Package_Imp_DetailSave(I_AD_Package_Imp_DetailInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_Package_Imp_Detail) super.save((X_AD_Package_Imp_DetailInput) Entity, environment);
 	}
 
-	public List<X_AD_Package_Imp_Detail> AD_Package_Imp_DetailSaveMany(List<I_AD_Package_Imp_DetailInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Package_Imp_DetailInput) entity).collect(Collectors.toList()),
+	public List<X_AD_Package_Imp_Detail> AD_Package_Imp_DetailSaveMany(List<I_AD_Package_Imp_DetailInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Package_Imp_DetailInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_Package_Imp_Detail) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Package_Imp_DetailDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Package_Imp_DetailDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

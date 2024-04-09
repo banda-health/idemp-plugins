@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_Product_POGet(page: Int, size: Int, sort: String, filter: String): M_Product_POConnection!
+	M_Product_POGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_POConnection!
 }
 
 extend type Mutation {
-	M_Product_POSave(entity: M_Product_POInput!): M_Product_PO!
-	M_Product_POSaveMany(entities: [M_Product_POInput!]!): [M_Product_PO!]!
-	M_Product_PODelete(uuids: [String!]!): Boolean!
+	M_Product_POSave(Entity: M_Product_POInput!): M_Product_PO!
+	M_Product_POSaveMany(Entities: [M_Product_POInput!]!): [M_Product_PO!]!
+	M_Product_PODelete(UUs: [String!]!): Boolean!
 }
 
 type M_Product_POConnection {
-	results: [M_Product_PO!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Product_PO!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Product_PO {
@@ -49,8 +49,7 @@ type M_Product_PO {
 	IsCurrentVendor: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	M_Product_PO_UU: String
+	UU: ID!
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM
@@ -110,8 +109,7 @@ input M_Product_POInput {
 	IsCurrentVendor: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	M_Product_PO_UU: String
+	UU: ID
 	# Manufacturer of the Product
 	Manufacturer: String
 	# Minimum order quantity in UOM

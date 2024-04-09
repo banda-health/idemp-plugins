@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_InventoryGet(page: Int, size: Int, sort: String, filter: String): M_InventoryConnection!
+	M_InventoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InventoryConnection!
 }
 
 extend type Mutation {
-	M_InventorySave(entity: M_InventoryInput!): M_Inventory!
-	M_InventorySaveMany(entities: [M_InventoryInput!]!): [M_Inventory!]!
-	M_InventoryDelete(uuids: [String!]!): Boolean!
+	M_InventorySave(Entity: M_InventoryInput!): M_Inventory!
+	M_InventorySaveMany(Entities: [M_InventoryInput!]!): [M_Inventory!]!
+	M_InventoryDelete(UUs: [String!]!): Boolean!
 }
 
 type M_InventoryConnection {
-	results: [M_Inventory!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Inventory!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Inventory {
@@ -56,8 +56,7 @@ type M_Inventory {
 	IsActive: Boolean!
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
-	UUID: ID!
-	M_Inventory_UU: String
+	UU: ID!
 	# Rules for generating physical inventory
 	M_PerpetualInv: M_PerpetualInv
 	# Storage Warehouse and Service Point
@@ -118,8 +117,7 @@ input M_InventoryInput {
 	IsActive: Boolean
 	# Indicates if this document requires approval
 	IsApproved: Boolean
-	UUID: ID
-	M_Inventory_UU: String
+	UU: ID
 	# Rules for generating physical inventory
 	M_PerpetualInv: ForeignEntityInput
 	# Storage Warehouse and Service Point

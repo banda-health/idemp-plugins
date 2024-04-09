@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_MovementLineConfirmGet(page: Int, size: Int, sort: String, filter: String): M_MovementLineConfirmConnection!
+	M_MovementLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineConfirmConnection!
 }
 
 extend type Mutation {
-	M_MovementLineConfirmSave(entity: M_MovementLineConfirmInput!): M_MovementLineConfirm!
-	M_MovementLineConfirmSaveMany(entities: [M_MovementLineConfirmInput!]!): [M_MovementLineConfirm!]!
-	M_MovementLineConfirmDelete(uuids: [String!]!): Boolean!
+	M_MovementLineConfirmSave(Entity: M_MovementLineConfirmInput!): M_MovementLineConfirm!
+	M_MovementLineConfirmSaveMany(Entities: [M_MovementLineConfirmInput!]!): [M_MovementLineConfirm!]!
+	M_MovementLineConfirmDelete(UUs: [String!]!): Boolean!
 }
 
 type M_MovementLineConfirmConnection {
-	results: [M_MovementLineConfirm!]!
-	pagingInfo: PagingInfo!
+	Results: [M_MovementLineConfirm!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_MovementLineConfirm {
@@ -39,8 +39,7 @@ type M_MovementLineConfirm {
 	M_MovementConfirm: M_MovementConfirm!
 	# Inventory Move document Line
 	M_MovementLine: M_MovementLine!
-	UUID: ID!
-	M_MovementLineConfirm_UU: String
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# The Quantity scrapped due to QA issues
@@ -70,8 +69,7 @@ input M_MovementLineConfirmInput {
 	M_MovementConfirm: ForeignEntityInput
 	# Inventory Move document Line
 	M_MovementLine: ForeignEntityInput
-	UUID: ID
-	M_MovementLineConfirm_UU: String
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	# The Quantity scrapped due to QA issues

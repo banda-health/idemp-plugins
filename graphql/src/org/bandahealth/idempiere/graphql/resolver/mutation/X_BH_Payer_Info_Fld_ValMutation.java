@@ -21,16 +21,16 @@ public class X_BH_Payer_Info_Fld_ValMutation extends POMutation implements Graph
 		return X_BH_Payer_Info_Fld_ValInput.Table_Name;
 	}
 
-	public MBHPayerInfoFldVal BH_Payer_Info_Fld_ValSave(I_BH_Payer_Info_Fld_ValInput entity, DataFetchingEnvironment environment) {
-		return (MBHPayerInfoFldVal) super.save((X_BH_Payer_Info_Fld_ValInput) entity, environment);
+	public MBHPayerInfoFldVal BH_Payer_Info_Fld_ValSave(I_BH_Payer_Info_Fld_ValInput Entity, DataFetchingEnvironment environment) {
+		return (MBHPayerInfoFldVal) super.save((X_BH_Payer_Info_Fld_ValInput) Entity, environment);
 	}
 
-	public List<MBHPayerInfoFldVal> BH_Payer_Info_Fld_ValSaveMany(List<I_BH_Payer_Info_Fld_ValInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_Payer_Info_Fld_ValInput) entity).collect(Collectors.toList()),
+	public List<MBHPayerInfoFldVal> BH_Payer_Info_Fld_ValSaveMany(List<I_BH_Payer_Info_Fld_ValInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_Payer_Info_Fld_ValInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHPayerInfoFldVal) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_Payer_Info_Fld_ValDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_Payer_Info_Fld_ValDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

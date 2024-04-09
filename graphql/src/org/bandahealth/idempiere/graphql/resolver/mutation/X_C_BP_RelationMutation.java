@@ -21,16 +21,16 @@ public class X_C_BP_RelationMutation extends POMutation implements GraphQLMutati
 		return X_C_BP_RelationInput.Table_Name;
 	}
 
-	public X_C_BP_Relation C_BP_RelationSave(I_C_BP_RelationInput entity, DataFetchingEnvironment environment) {
-		return (X_C_BP_Relation) super.save((X_C_BP_RelationInput) entity, environment);
+	public X_C_BP_Relation C_BP_RelationSave(I_C_BP_RelationInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_BP_Relation) super.save((X_C_BP_RelationInput) Entity, environment);
 	}
 
-	public List<X_C_BP_Relation> C_BP_RelationSaveMany(List<I_C_BP_RelationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BP_RelationInput) entity).collect(Collectors.toList()),
+	public List<X_C_BP_Relation> C_BP_RelationSaveMany(List<I_C_BP_RelationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BP_RelationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_BP_Relation) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BP_RelationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BP_RelationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

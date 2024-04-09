@@ -39,16 +39,16 @@ public interface I_IMP_ProcessorLogInput extends I_IMP_ProcessorLog {
 	ForeignEntityInput IMP_Processor();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

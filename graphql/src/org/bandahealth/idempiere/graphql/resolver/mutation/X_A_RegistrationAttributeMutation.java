@@ -21,16 +21,16 @@ public class X_A_RegistrationAttributeMutation extends POMutation implements Gra
 		return X_A_RegistrationAttributeInput.Table_Name;
 	}
 
-	public X_A_RegistrationAttribute A_RegistrationAttributeSave(I_A_RegistrationAttributeInput entity, DataFetchingEnvironment environment) {
-		return (X_A_RegistrationAttribute) super.save((X_A_RegistrationAttributeInput) entity, environment);
+	public X_A_RegistrationAttribute A_RegistrationAttributeSave(I_A_RegistrationAttributeInput Entity, DataFetchingEnvironment environment) {
+		return (X_A_RegistrationAttribute) super.save((X_A_RegistrationAttributeInput) Entity, environment);
 	}
 
-	public List<X_A_RegistrationAttribute> A_RegistrationAttributeSaveMany(List<I_A_RegistrationAttributeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_RegistrationAttributeInput) entity).collect(Collectors.toList()),
+	public List<X_A_RegistrationAttribute> A_RegistrationAttributeSaveMany(List<I_A_RegistrationAttributeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_RegistrationAttributeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_A_RegistrationAttribute) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_RegistrationAttributeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_RegistrationAttributeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

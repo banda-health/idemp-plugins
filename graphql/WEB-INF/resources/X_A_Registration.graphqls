@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_RegistrationGet(page: Int, size: Int, sort: String, filter: String): A_RegistrationConnection!
+	A_RegistrationGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationConnection!
 }
 
 extend type Mutation {
-	A_RegistrationSave(entity: A_RegistrationInput!): A_Registration!
-	A_RegistrationSaveMany(entities: [A_RegistrationInput!]!): [A_Registration!]!
-	A_RegistrationDelete(uuids: [String!]!): Boolean!
+	A_RegistrationSave(Entity: A_RegistrationInput!): A_Registration!
+	A_RegistrationSaveMany(Entities: [A_RegistrationInput!]!): [A_Registration!]!
+	A_RegistrationDelete(UUs: [String!]!): Boolean!
 }
 
 type A_RegistrationConnection {
-	results: [A_Registration!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Registration!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Registration {
 	# Asset used internally or by customers
 	A_Asset: A_Asset
-	UUID: ID!
-	A_Registration_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -67,8 +66,7 @@ type A_Registration {
 input A_RegistrationInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	UUID: ID
-	A_Registration_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

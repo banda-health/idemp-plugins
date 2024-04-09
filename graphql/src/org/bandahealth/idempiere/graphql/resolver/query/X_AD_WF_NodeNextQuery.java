@@ -17,8 +17,8 @@ public class X_AD_WF_NodeNextQuery extends POQuery<X_AD_WF_NodeNext> implements 
 		return X_AD_WF_NodeNext.Table_Name;
 	}
 
-	public Connection<X_AD_WF_NodeNext> AD_WF_NodeNextGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_WF_NodeNext> AD_WF_NodeNextGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

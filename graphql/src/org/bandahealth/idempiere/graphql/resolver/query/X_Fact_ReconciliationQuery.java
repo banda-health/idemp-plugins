@@ -17,8 +17,8 @@ public class X_Fact_ReconciliationQuery extends POQuery<MFactReconciliation> imp
 		return MFactReconciliation.Table_Name;
 	}
 
-	public Connection<MFactReconciliation> Fact_ReconciliationGet(int page, int pageSize, String sort, String filter,
+	public Connection<MFactReconciliation> Fact_ReconciliationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

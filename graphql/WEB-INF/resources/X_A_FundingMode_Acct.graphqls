@@ -2,24 +2,23 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_FundingMode_AcctGet(page: Int, size: Int, sort: String, filter: String): A_FundingMode_AcctConnection!
+	A_FundingMode_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): A_FundingMode_AcctConnection!
 }
 
 extend type Mutation {
-	A_FundingMode_AcctSave(entity: A_FundingMode_AcctInput!): A_FundingMode_Acct!
-	A_FundingMode_AcctSaveMany(entities: [A_FundingMode_AcctInput!]!): [A_FundingMode_Acct!]!
-	A_FundingMode_AcctDelete(uuids: [String!]!): Boolean!
+	A_FundingMode_AcctSave(Entity: A_FundingMode_AcctInput!): A_FundingMode_Acct!
+	A_FundingMode_AcctSaveMany(Entities: [A_FundingMode_AcctInput!]!): [A_FundingMode_Acct!]!
+	A_FundingMode_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type A_FundingMode_AcctConnection {
-	results: [A_FundingMode_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [A_FundingMode_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_FundingMode_Acct {
 	A_FundingMode_A: C_ValidCombination!
-	UUID: ID!
-	A_FundingMode_Acct_UU: String
+	UU: ID!
 	A_FundingMode: A_FundingMode!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
@@ -41,8 +40,7 @@ type A_FundingMode_Acct {
 
 input A_FundingMode_AcctInput {
 	A_FundingMode_A: ForeignEntityInput
-	UUID: ID
-	A_FundingMode_Acct_UU: String
+	UU: ID
 	A_FundingMode: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

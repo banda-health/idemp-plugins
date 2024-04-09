@@ -17,8 +17,8 @@ public class X_I_FixedAssetQuery extends POQuery<MIFixedAsset> implements GraphQ
 		return MIFixedAsset.Table_Name;
 	}
 
-	public Connection<MIFixedAsset> I_FixedAssetGet(int page, int pageSize, String sort, String filter,
+	public Connection<MIFixedAsset> I_FixedAssetGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

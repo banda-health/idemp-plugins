@@ -21,16 +21,16 @@ public class X_M_ShipperPackagingCfgMutation extends POMutation implements Graph
 		return X_M_ShipperPackagingCfgInput.Table_Name;
 	}
 
-	public X_M_ShipperPackagingCfg M_ShipperPackagingCfgSave(I_M_ShipperPackagingCfgInput entity, DataFetchingEnvironment environment) {
-		return (X_M_ShipperPackagingCfg) super.save((X_M_ShipperPackagingCfgInput) entity, environment);
+	public X_M_ShipperPackagingCfg M_ShipperPackagingCfgSave(I_M_ShipperPackagingCfgInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_ShipperPackagingCfg) super.save((X_M_ShipperPackagingCfgInput) Entity, environment);
 	}
 
-	public List<X_M_ShipperPackagingCfg> M_ShipperPackagingCfgSaveMany(List<I_M_ShipperPackagingCfgInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ShipperPackagingCfgInput) entity).collect(Collectors.toList()),
+	public List<X_M_ShipperPackagingCfg> M_ShipperPackagingCfgSaveMany(List<I_M_ShipperPackagingCfgInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ShipperPackagingCfgInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_ShipperPackagingCfg) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ShipperPackagingCfgDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ShipperPackagingCfgDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

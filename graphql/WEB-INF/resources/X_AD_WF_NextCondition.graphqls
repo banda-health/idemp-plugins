@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_WF_NextConditionGet(page: Int, size: Int, sort: String, filter: String): AD_WF_NextConditionConnection!
+	AD_WF_NextConditionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_NextConditionConnection!
 }
 
 extend type Mutation {
-	AD_WF_NextConditionSave(entity: AD_WF_NextConditionInput!): AD_WF_NextCondition!
-	AD_WF_NextConditionSaveMany(entities: [AD_WF_NextConditionInput!]!): [AD_WF_NextCondition!]!
-	AD_WF_NextConditionDelete(uuids: [String!]!): Boolean!
+	AD_WF_NextConditionSave(Entity: AD_WF_NextConditionInput!): AD_WF_NextCondition!
+	AD_WF_NextConditionSaveMany(Entities: [AD_WF_NextConditionInput!]!): [AD_WF_NextCondition!]!
+	AD_WF_NextConditionDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_WF_NextConditionConnection {
-	results: [AD_WF_NextCondition!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_WF_NextCondition!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_WF_NextCondition {
@@ -23,8 +23,7 @@ type AD_WF_NextCondition {
 	AD_Column: AD_Column
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_WF_NextCondition_UU: String
+	UU: ID!
 	# Workflow Node Transition
 	AD_WF_NodeNext: AD_WF_NodeNext!
 	# Logical operation: AND or OR
@@ -57,8 +56,7 @@ input AD_WF_NextConditionInput {
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_WF_NextCondition_UU: String
+	UU: ID
 	# Workflow Node Transition
 	AD_WF_NodeNext: ForeignEntityInput
 	# Logical operation: AND or OR

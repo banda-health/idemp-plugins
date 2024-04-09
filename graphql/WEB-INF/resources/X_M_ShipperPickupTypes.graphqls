@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ShipperPickupTypesGet(page: Int, size: Int, sort: String, filter: String): M_ShipperPickupTypesConnection!
+	M_ShipperPickupTypesGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperPickupTypesConnection!
 }
 
 extend type Mutation {
-	M_ShipperPickupTypesSave(entity: M_ShipperPickupTypesInput!): M_ShipperPickupTypes!
-	M_ShipperPickupTypesSaveMany(entities: [M_ShipperPickupTypesInput!]!): [M_ShipperPickupTypes!]!
-	M_ShipperPickupTypesDelete(uuids: [String!]!): Boolean!
+	M_ShipperPickupTypesSave(Entity: M_ShipperPickupTypesInput!): M_ShipperPickupTypes!
+	M_ShipperPickupTypesSaveMany(Entities: [M_ShipperPickupTypesInput!]!): [M_ShipperPickupTypes!]!
+	M_ShipperPickupTypesDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ShipperPickupTypesConnection {
-	results: [M_ShipperPickupTypes!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ShipperPickupTypes!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ShipperPickupTypes {
@@ -31,8 +31,7 @@ type M_ShipperPickupTypes {
 	IsDefault: Boolean!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	UUID: ID!
-	M_ShipperPickupTypes_UU: String
+	UU: ID!
 	M_ShipperPickupTypesCfg: M_ShipperPickupTypesCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -51,8 +50,7 @@ input M_ShipperPickupTypesInput {
 	IsDefault: Boolean
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	UUID: ID
-	M_ShipperPickupTypes_UU: String
+	UU: ID
 	M_ShipperPickupTypesCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	S_Training_ClassGet(page: Int, size: Int, sort: String, filter: String): S_Training_ClassConnection!
+	S_Training_ClassGet(Page: Int, Size: Int, Sort: String, Filter: String): S_Training_ClassConnection!
 }
 
 extend type Mutation {
-	S_Training_ClassSave(entity: S_Training_ClassInput!): S_Training_Class!
-	S_Training_ClassSaveMany(entities: [S_Training_ClassInput!]!): [S_Training_Class!]!
-	S_Training_ClassDelete(uuids: [String!]!): Boolean!
+	S_Training_ClassSave(Entity: S_Training_ClassInput!): S_Training_Class!
+	S_Training_ClassSaveMany(Entities: [S_Training_ClassInput!]!): [S_Training_Class!]!
+	S_Training_ClassDelete(UUs: [String!]!): Boolean!
 }
 
 type S_Training_ClassConnection {
-	results: [S_Training_Class!]!
-	pagingInfo: PagingInfo!
+	Results: [S_Training_Class!]!
+	PagingInfo: PagingInfo!
 }
 
 type S_Training_Class {
@@ -31,8 +31,7 @@ type S_Training_Class {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	S_Training_Class_UU: String
+	UU: ID!
 	# Repeated Training
 	S_Training: S_Training!
 	# First effective day (inclusive)
@@ -52,8 +51,7 @@ input S_Training_ClassInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	S_Training_Class_UU: String
+	UU: ID
 	# Repeated Training
 	S_Training: ForeignEntityInput
 	# First effective day (inclusive)

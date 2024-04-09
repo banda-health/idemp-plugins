@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_InvoiceTaxGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceTaxConnection!
+	C_InvoiceTaxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceTaxConnection!
 }
 
 extend type Mutation {
-	C_InvoiceTaxSave(entity: C_InvoiceTaxInput!): C_InvoiceTax!
-	C_InvoiceTaxSaveMany(entities: [C_InvoiceTaxInput!]!): [C_InvoiceTax!]!
-	C_InvoiceTaxDelete(uuids: [String!]!): Boolean!
+	C_InvoiceTaxSave(Entity: C_InvoiceTaxInput!): C_InvoiceTax!
+	C_InvoiceTaxSaveMany(Entities: [C_InvoiceTaxInput!]!): [C_InvoiceTax!]!
+	C_InvoiceTaxDelete(UUs: [String!]!): Boolean!
 }
 
 type C_InvoiceTaxConnection {
-	results: [C_InvoiceTax!]!
-	pagingInfo: PagingInfo!
+	Results: [C_InvoiceTax!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_InvoiceTax {
@@ -23,8 +23,7 @@ type C_InvoiceTax {
 	AD_Org: AD_Org!
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
-	UUID: ID!
-	C_InvoiceTax_UU: String
+	UU: ID!
 	# Tax identifier
 	C_Tax: C_Tax!
 	C_TaxProvider: C_TaxProvider
@@ -53,8 +52,7 @@ input C_InvoiceTaxInput {
 	AD_Org: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
-	UUID: ID
-	C_InvoiceTax_UU: String
+	UU: ID
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	C_TaxProvider: ForeignEntityInput

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_OrderSourceGet(page: Int, size: Int, sort: String, filter: String): C_OrderSourceConnection!
+	C_OrderSourceGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderSourceConnection!
 }
 
 extend type Mutation {
-	C_OrderSourceSave(entity: C_OrderSourceInput!): C_OrderSource!
-	C_OrderSourceSaveMany(entities: [C_OrderSourceInput!]!): [C_OrderSource!]!
-	C_OrderSourceDelete(uuids: [String!]!): Boolean!
+	C_OrderSourceSave(Entity: C_OrderSourceInput!): C_OrderSource!
+	C_OrderSourceSaveMany(Entities: [C_OrderSourceInput!]!): [C_OrderSource!]!
+	C_OrderSourceDelete(UUs: [String!]!): Boolean!
 }
 
 type C_OrderSourceConnection {
-	results: [C_OrderSource!]!
-	pagingInfo: PagingInfo!
+	Results: [C_OrderSource!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_OrderSource {
@@ -21,8 +21,7 @@ type C_OrderSource {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_OrderSource_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ type C_OrderSource {
 input C_OrderSourceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_OrderSource_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

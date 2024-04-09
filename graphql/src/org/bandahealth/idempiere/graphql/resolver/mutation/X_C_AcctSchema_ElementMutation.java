@@ -21,16 +21,16 @@ public class X_C_AcctSchema_ElementMutation extends POMutation implements GraphQ
 		return X_C_AcctSchema_ElementInput.Table_Name;
 	}
 
-	public MAcctSchemaElement C_AcctSchema_ElementSave(I_C_AcctSchema_ElementInput entity, DataFetchingEnvironment environment) {
-		return (MAcctSchemaElement) super.save((X_C_AcctSchema_ElementInput) entity, environment);
+	public MAcctSchemaElement C_AcctSchema_ElementSave(I_C_AcctSchema_ElementInput Entity, DataFetchingEnvironment environment) {
+		return (MAcctSchemaElement) super.save((X_C_AcctSchema_ElementInput) Entity, environment);
 	}
 
-	public List<MAcctSchemaElement> C_AcctSchema_ElementSaveMany(List<I_C_AcctSchema_ElementInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_AcctSchema_ElementInput) entity).collect(Collectors.toList()),
+	public List<MAcctSchemaElement> C_AcctSchema_ElementSaveMany(List<I_C_AcctSchema_ElementInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_AcctSchema_ElementInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAcctSchemaElement) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_AcctSchema_ElementDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_AcctSchema_ElementDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

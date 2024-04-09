@@ -21,16 +21,16 @@ public class X_AD_WF_ActivityMutation extends POMutation implements GraphQLMutat
 		return X_AD_WF_ActivityInput.Table_Name;
 	}
 
-	public X_AD_WF_Activity AD_WF_ActivitySave(I_AD_WF_ActivityInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_WF_Activity) super.save((X_AD_WF_ActivityInput) entity, environment);
+	public X_AD_WF_Activity AD_WF_ActivitySave(I_AD_WF_ActivityInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_Activity) super.save((X_AD_WF_ActivityInput) Entity, environment);
 	}
 
-	public List<X_AD_WF_Activity> AD_WF_ActivitySaveMany(List<I_AD_WF_ActivityInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_ActivityInput) entity).collect(Collectors.toList()),
+	public List<X_AD_WF_Activity> AD_WF_ActivitySaveMany(List<I_AD_WF_ActivityInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WF_ActivityInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_WF_Activity) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WF_ActivityDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WF_ActivityDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

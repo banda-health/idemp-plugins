@@ -21,16 +21,16 @@ public class X_M_ProductionPlanMutation extends POMutation implements GraphQLMut
 		return X_M_ProductionPlanInput.Table_Name;
 	}
 
-	public MProductionPlan M_ProductionPlanSave(I_M_ProductionPlanInput entity, DataFetchingEnvironment environment) {
-		return (MProductionPlan) super.save((X_M_ProductionPlanInput) entity, environment);
+	public MProductionPlan M_ProductionPlanSave(I_M_ProductionPlanInput Entity, DataFetchingEnvironment environment) {
+		return (MProductionPlan) super.save((X_M_ProductionPlanInput) Entity, environment);
 	}
 
-	public List<MProductionPlan> M_ProductionPlanSaveMany(List<I_M_ProductionPlanInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ProductionPlanInput) entity).collect(Collectors.toList()),
+	public List<MProductionPlan> M_ProductionPlanSaveMany(List<I_M_ProductionPlanInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ProductionPlanInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProductionPlan) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ProductionPlanDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ProductionPlanDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

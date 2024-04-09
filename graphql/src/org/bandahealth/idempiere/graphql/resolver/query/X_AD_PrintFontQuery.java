@@ -17,8 +17,8 @@ public class X_AD_PrintFontQuery extends POQuery<X_AD_PrintFont> implements Grap
 		return X_AD_PrintFont.Table_Name;
 	}
 
-	public Connection<X_AD_PrintFont> AD_PrintFontGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_PrintFont> AD_PrintFontGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

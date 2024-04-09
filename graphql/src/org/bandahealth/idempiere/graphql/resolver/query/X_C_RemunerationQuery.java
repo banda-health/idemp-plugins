@@ -17,8 +17,8 @@ public class X_C_RemunerationQuery extends POQuery<X_C_Remuneration> implements 
 		return X_C_Remuneration.Table_Name;
 	}
 
-	public Connection<X_C_Remuneration> C_RemunerationGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_Remuneration> C_RemunerationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PrintFormatItemGet(page: Int, size: Int, sort: String, filter: String): AD_PrintFormatItemConnection!
+	AD_PrintFormatItemGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintFormatItemConnection!
 }
 
 extend type Mutation {
-	AD_PrintFormatItemSave(entity: AD_PrintFormatItemInput!): AD_PrintFormatItem!
-	AD_PrintFormatItemSaveMany(entities: [AD_PrintFormatItemInput!]!): [AD_PrintFormatItem!]!
-	AD_PrintFormatItemDelete(uuids: [String!]!): Boolean!
+	AD_PrintFormatItemSave(Entity: AD_PrintFormatItemInput!): AD_PrintFormatItem!
+	AD_PrintFormatItemSaveMany(Entities: [AD_PrintFormatItemInput!]!): [AD_PrintFormatItem!]!
+	AD_PrintFormatItemDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PrintFormatItemConnection {
-	results: [AD_PrintFormatItem!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PrintFormatItem!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PrintFormatItem {
@@ -33,8 +33,7 @@ type AD_PrintFormatItem {
 	AD_PrintFormat: AD_PrintFormat!
 	# Print format that is included here.
 	AD_PrintFormatChild: AD_PrintFormat!
-	UUID: ID!
-	AD_PrintFormatItem_UU: String
+	UU: ID!
 	# Graph included in Reports
 	AD_PrintGraph: AD_PrintGraph
 	# Arc Diameter for rounded Rectangles
@@ -168,8 +167,7 @@ input AD_PrintFormatItemInput {
 	AD_PrintFormat: ForeignEntityInput
 	# Print format that is included here.
 	AD_PrintFormatChild: ForeignEntityInput
-	UUID: ID
-	AD_PrintFormatItem_UU: String
+	UU: ID
 	# Graph included in Reports
 	AD_PrintGraph: ForeignEntityInput
 	# Arc Diameter for rounded Rectangles

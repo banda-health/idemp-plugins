@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CashBookGet(page: Int, size: Int, sort: String, filter: String): C_CashBookConnection!
+	C_CashBookGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashBookConnection!
 }
 
 extend type Mutation {
-	C_CashBookSave(entity: C_CashBookInput!): C_CashBook!
-	C_CashBookSaveMany(entities: [C_CashBookInput!]!): [C_CashBook!]!
-	C_CashBookDelete(uuids: [String!]!): Boolean!
+	C_CashBookSave(Entity: C_CashBookInput!): C_CashBook!
+	C_CashBookSaveMany(Entities: [C_CashBookInput!]!): [C_CashBook!]!
+	C_CashBookDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CashBookConnection {
-	results: [C_CashBook!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CashBook!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CashBook {
@@ -21,8 +21,7 @@ type C_CashBook {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_CashBook_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -46,8 +45,7 @@ type C_CashBook {
 input C_CashBookInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_CashBook_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Optional short description of the record

@@ -17,8 +17,8 @@ public class X_PA_ReportLineQuery extends POQuery<MReportLine> implements GraphQ
 		return MReportLine.Table_Name;
 	}
 
-	public Connection<MReportLine> PA_ReportLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MReportLine> PA_ReportLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

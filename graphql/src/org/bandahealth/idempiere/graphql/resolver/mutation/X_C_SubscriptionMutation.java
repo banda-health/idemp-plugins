@@ -21,16 +21,16 @@ public class X_C_SubscriptionMutation extends POMutation implements GraphQLMutat
 		return X_C_SubscriptionInput.Table_Name;
 	}
 
-	public X_C_Subscription C_SubscriptionSave(I_C_SubscriptionInput entity, DataFetchingEnvironment environment) {
-		return (X_C_Subscription) super.save((X_C_SubscriptionInput) entity, environment);
+	public X_C_Subscription C_SubscriptionSave(I_C_SubscriptionInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_Subscription) super.save((X_C_SubscriptionInput) Entity, environment);
 	}
 
-	public List<X_C_Subscription> C_SubscriptionSaveMany(List<I_C_SubscriptionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_SubscriptionInput) entity).collect(Collectors.toList()),
+	public List<X_C_Subscription> C_SubscriptionSaveMany(List<I_C_SubscriptionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_SubscriptionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_Subscription) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_SubscriptionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_SubscriptionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

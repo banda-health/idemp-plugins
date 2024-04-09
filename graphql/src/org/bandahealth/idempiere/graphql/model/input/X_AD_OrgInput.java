@@ -25,29 +25,29 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Org_UU to fetch this entity from the DB
+	 * @param UU The AD_Org_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_OrgInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_OrgInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Org_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Org_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Org_UU();
 	}
 
@@ -64,11 +64,11 @@ public class X_AD_OrgInput extends MOrg implements I_AD_OrgInput {
 			MReplicationStrategy foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationStrategy", "AD_ReplicationStrategy_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationStrategy.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReplicationStrategy.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReplicationStrategy_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_ReplicationStrategy with UUID " + AD_ReplicationStrategy.getUUID());
+						"Could not find entity in table AD_ReplicationStrategy with UU " + AD_ReplicationStrategy.getUU());
 			}
 		} else {
 			this.setAD_ReplicationStrategy_ID(0);

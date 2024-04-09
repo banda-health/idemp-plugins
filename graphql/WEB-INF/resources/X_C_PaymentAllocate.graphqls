@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_PaymentAllocateGet(page: Int, size: Int, sort: String, filter: String): C_PaymentAllocateConnection!
+	C_PaymentAllocateGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentAllocateConnection!
 }
 
 extend type Mutation {
-	C_PaymentAllocateSave(entity: C_PaymentAllocateInput!): C_PaymentAllocate!
-	C_PaymentAllocateSaveMany(entities: [C_PaymentAllocateInput!]!): [C_PaymentAllocate!]!
-	C_PaymentAllocateDelete(uuids: [String!]!): Boolean!
+	C_PaymentAllocateSave(Entity: C_PaymentAllocateInput!): C_PaymentAllocate!
+	C_PaymentAllocateSaveMany(Entities: [C_PaymentAllocateInput!]!): [C_PaymentAllocate!]!
+	C_PaymentAllocateDelete(UUs: [String!]!): Boolean!
 }
 
 type C_PaymentAllocateConnection {
-	results: [C_PaymentAllocate!]!
-	pagingInfo: PagingInfo!
+	Results: [C_PaymentAllocate!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_PaymentAllocate {
@@ -29,8 +29,7 @@ type C_PaymentAllocate {
 	C_Invoice: C_Invoice!
 	# Payment identifier
 	C_Payment: C_Payment!
-	UUID: ID!
-	C_PaymentAllocate_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -63,8 +62,7 @@ input C_PaymentAllocateInput {
 	C_Invoice: ForeignEntityInput
 	# Payment identifier
 	C_Payment: ForeignEntityInput
-	UUID: ID
-	C_PaymentAllocate_UU: String
+	UU: ID
 	# Calculated amount of discount
 	DiscountAmt: BigDecimal
 	InvoiceAmt: BigDecimal

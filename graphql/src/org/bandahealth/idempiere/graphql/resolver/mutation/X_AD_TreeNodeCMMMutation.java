@@ -21,16 +21,16 @@ public class X_AD_TreeNodeCMMMutation extends POMutation implements GraphQLMutat
 		return X_AD_TreeNodeCMMInput.Table_Name;
 	}
 
-	public X_AD_TreeNodeCMM AD_TreeNodeCMMSave(I_AD_TreeNodeCMMInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_TreeNodeCMM) super.save((X_AD_TreeNodeCMMInput) entity, environment);
+	public X_AD_TreeNodeCMM AD_TreeNodeCMMSave(I_AD_TreeNodeCMMInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_TreeNodeCMM) super.save((X_AD_TreeNodeCMMInput) Entity, environment);
 	}
 
-	public List<X_AD_TreeNodeCMM> AD_TreeNodeCMMSaveMany(List<I_AD_TreeNodeCMMInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_TreeNodeCMMInput) entity).collect(Collectors.toList()),
+	public List<X_AD_TreeNodeCMM> AD_TreeNodeCMMSaveMany(List<I_AD_TreeNodeCMMInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_TreeNodeCMMInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_TreeNodeCMM) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_TreeNodeCMMDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_TreeNodeCMMDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

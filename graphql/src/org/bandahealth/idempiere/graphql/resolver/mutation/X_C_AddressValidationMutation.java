@@ -21,16 +21,16 @@ public class X_C_AddressValidationMutation extends POMutation implements GraphQL
 		return X_C_AddressValidationInput.Table_Name;
 	}
 
-	public MAddressValidation C_AddressValidationSave(I_C_AddressValidationInput entity, DataFetchingEnvironment environment) {
-		return (MAddressValidation) super.save((X_C_AddressValidationInput) entity, environment);
+	public MAddressValidation C_AddressValidationSave(I_C_AddressValidationInput Entity, DataFetchingEnvironment environment) {
+		return (MAddressValidation) super.save((X_C_AddressValidationInput) Entity, environment);
 	}
 
-	public List<MAddressValidation> C_AddressValidationSaveMany(List<I_C_AddressValidationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_AddressValidationInput) entity).collect(Collectors.toList()),
+	public List<MAddressValidation> C_AddressValidationSaveMany(List<I_C_AddressValidationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_AddressValidationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAddressValidation) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_AddressValidationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_AddressValidationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

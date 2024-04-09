@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_Info_FinGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Info_FinConnection!
+	A_Asset_Info_FinGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_FinConnection!
 }
 
 extend type Mutation {
-	A_Asset_Info_FinSave(entity: A_Asset_Info_FinInput!): A_Asset_Info_Fin!
-	A_Asset_Info_FinSaveMany(entities: [A_Asset_Info_FinInput!]!): [A_Asset_Info_Fin!]!
-	A_Asset_Info_FinDelete(uuids: [String!]!): Boolean!
+	A_Asset_Info_FinSave(Entity: A_Asset_Info_FinInput!): A_Asset_Info_Fin!
+	A_Asset_Info_FinSaveMany(Entities: [A_Asset_Info_FinInput!]!): [A_Asset_Info_Fin!]!
+	A_Asset_Info_FinDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_Info_FinConnection {
-	results: [A_Asset_Info_Fin!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Info_Fin!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Info_Fin {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	UUID: ID!
-	A_Asset_Info_Fin_UU: String
+	UU: ID!
 	A_Contract_Date: Date
 	A_Due_On: AD_Ref_List
 	A_Expired_Date: Date
@@ -55,8 +54,7 @@ type A_Asset_Info_Fin {
 input A_Asset_Info_FinInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	UUID: ID
-	A_Asset_Info_Fin_UU: String
+	UU: ID
 	A_Contract_Date: Date
 	A_Due_On: AD_Ref_ListInput
 	A_Expired_Date: Date

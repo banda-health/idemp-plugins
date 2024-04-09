@@ -21,16 +21,16 @@ public class X_C_RevenueRecognitionMutation extends POMutation implements GraphQ
 		return X_C_RevenueRecognitionInput.Table_Name;
 	}
 
-	public MRevenueRecognition C_RevenueRecognitionSave(I_C_RevenueRecognitionInput entity, DataFetchingEnvironment environment) {
-		return (MRevenueRecognition) super.save((X_C_RevenueRecognitionInput) entity, environment);
+	public MRevenueRecognition C_RevenueRecognitionSave(I_C_RevenueRecognitionInput Entity, DataFetchingEnvironment environment) {
+		return (MRevenueRecognition) super.save((X_C_RevenueRecognitionInput) Entity, environment);
 	}
 
-	public List<MRevenueRecognition> C_RevenueRecognitionSaveMany(List<I_C_RevenueRecognitionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RevenueRecognitionInput) entity).collect(Collectors.toList()),
+	public List<MRevenueRecognition> C_RevenueRecognitionSaveMany(List<I_C_RevenueRecognitionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RevenueRecognitionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRevenueRecognition) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RevenueRecognitionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RevenueRecognitionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_AD_WF_BlockQuery extends POQuery<X_AD_WF_Block> implements GraphQ
 		return X_AD_WF_Block.Table_Name;
 	}
 
-	public Connection<X_AD_WF_Block> AD_WF_BlockGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_WF_Block> AD_WF_BlockGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

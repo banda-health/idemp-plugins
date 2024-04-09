@@ -17,8 +17,8 @@ public class X_AD_WF_NodeQuery extends POQuery<X_AD_WF_Node> implements GraphQLQ
 		return X_AD_WF_Node.Table_Name;
 	}
 
-	public Connection<X_AD_WF_Node> AD_WF_NodeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_WF_Node> AD_WF_NodeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

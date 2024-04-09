@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BankStatementLineGet(page: Int, size: Int, sort: String, filter: String): C_BankStatementLineConnection!
+	C_BankStatementLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementLineConnection!
 }
 
 extend type Mutation {
-	C_BankStatementLineSave(entity: C_BankStatementLineInput!): C_BankStatementLine!
-	C_BankStatementLineSaveMany(entities: [C_BankStatementLineInput!]!): [C_BankStatementLine!]!
-	C_BankStatementLineDelete(uuids: [String!]!): Boolean!
+	C_BankStatementLineSave(Entity: C_BankStatementLineInput!): C_BankStatementLine!
+	C_BankStatementLineSaveMany(Entities: [C_BankStatementLineInput!]!): [C_BankStatementLine!]!
+	C_BankStatementLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BankStatementLineConnection {
-	results: [C_BankStatementLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BankStatementLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BankStatementLine {
@@ -23,8 +23,7 @@ type C_BankStatementLine {
 	AD_Org: AD_Org!
 	# Bank Statement of account
 	C_BankStatement: C_BankStatement!
-	UUID: ID!
-	C_BankStatementLine_UU: String
+	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
 	# Additional document charges
@@ -104,8 +103,7 @@ input C_BankStatementLineInput {
 	AD_Org: ForeignEntityInput
 	# Bank Statement of account
 	C_BankStatement: ForeignEntityInput
-	UUID: ID
-	C_BankStatementLine_UU: String
+	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Additional document charges

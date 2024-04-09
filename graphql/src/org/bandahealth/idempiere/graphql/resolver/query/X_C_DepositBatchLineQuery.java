@@ -17,8 +17,8 @@ public class X_C_DepositBatchLineQuery extends POQuery<MDepositBatchLine> implem
 		return MDepositBatchLine.Table_Name;
 	}
 
-	public Connection<MDepositBatchLine> C_DepositBatchLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDepositBatchLine> C_DepositBatchLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_R_IssueSystemMutation extends POMutation implements GraphQLMutati
 		return X_R_IssueSystemInput.Table_Name;
 	}
 
-	public X_R_IssueSystem R_IssueSystemSave(I_R_IssueSystemInput entity, DataFetchingEnvironment environment) {
-		return (X_R_IssueSystem) super.save((X_R_IssueSystemInput) entity, environment);
+	public X_R_IssueSystem R_IssueSystemSave(I_R_IssueSystemInput Entity, DataFetchingEnvironment environment) {
+		return (X_R_IssueSystem) super.save((X_R_IssueSystemInput) Entity, environment);
 	}
 
-	public List<X_R_IssueSystem> R_IssueSystemSaveMany(List<I_R_IssueSystemInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_IssueSystemInput) entity).collect(Collectors.toList()),
+	public List<X_R_IssueSystem> R_IssueSystemSaveMany(List<I_R_IssueSystemInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_IssueSystemInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_R_IssueSystem) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_IssueSystemDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_IssueSystemDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

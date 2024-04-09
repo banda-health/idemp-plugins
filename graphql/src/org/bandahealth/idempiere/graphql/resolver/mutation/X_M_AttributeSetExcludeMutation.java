@@ -21,16 +21,16 @@ public class X_M_AttributeSetExcludeMutation extends POMutation implements Graph
 		return X_M_AttributeSetExcludeInput.Table_Name;
 	}
 
-	public MAttributeSetExclude M_AttributeSetExcludeSave(I_M_AttributeSetExcludeInput entity, DataFetchingEnvironment environment) {
-		return (MAttributeSetExclude) super.save((X_M_AttributeSetExcludeInput) entity, environment);
+	public MAttributeSetExclude M_AttributeSetExcludeSave(I_M_AttributeSetExcludeInput Entity, DataFetchingEnvironment environment) {
+		return (MAttributeSetExclude) super.save((X_M_AttributeSetExcludeInput) Entity, environment);
 	}
 
-	public List<MAttributeSetExclude> M_AttributeSetExcludeSaveMany(List<I_M_AttributeSetExcludeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_AttributeSetExcludeInput) entity).collect(Collectors.toList()),
+	public List<MAttributeSetExclude> M_AttributeSetExcludeSaveMany(List<I_M_AttributeSetExcludeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_AttributeSetExcludeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAttributeSetExclude) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_AttributeSetExcludeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_AttributeSetExcludeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

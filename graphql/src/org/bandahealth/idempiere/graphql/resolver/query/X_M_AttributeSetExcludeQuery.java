@@ -17,8 +17,8 @@ public class X_M_AttributeSetExcludeQuery extends POQuery<MAttributeSetExclude> 
 		return MAttributeSetExclude.Table_Name;
 	}
 
-	public Connection<MAttributeSetExclude> M_AttributeSetExcludeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAttributeSetExclude> M_AttributeSetExcludeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

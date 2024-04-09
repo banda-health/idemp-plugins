@@ -17,8 +17,8 @@ public class X_M_ChangeNoticeQuery extends POQuery<MChangeNotice> implements Gra
 		return MChangeNotice.Table_Name;
 	}
 
-	public Connection<MChangeNotice> M_ChangeNoticeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MChangeNotice> M_ChangeNoticeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RfQ_TopicSubscriberGet(page: Int, size: Int, sort: String, filter: String): C_RfQ_TopicSubscriberConnection!
+	C_RfQ_TopicSubscriberGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicSubscriberConnection!
 }
 
 extend type Mutation {
-	C_RfQ_TopicSubscriberSave(entity: C_RfQ_TopicSubscriberInput!): C_RfQ_TopicSubscriber!
-	C_RfQ_TopicSubscriberSaveMany(entities: [C_RfQ_TopicSubscriberInput!]!): [C_RfQ_TopicSubscriber!]!
-	C_RfQ_TopicSubscriberDelete(uuids: [String!]!): Boolean!
+	C_RfQ_TopicSubscriberSave(Entity: C_RfQ_TopicSubscriberInput!): C_RfQ_TopicSubscriber!
+	C_RfQ_TopicSubscriberSaveMany(Entities: [C_RfQ_TopicSubscriberInput!]!): [C_RfQ_TopicSubscriber!]!
+	C_RfQ_TopicSubscriberDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RfQ_TopicSubscriberConnection {
-	results: [C_RfQ_TopicSubscriber!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RfQ_TopicSubscriber!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RfQ_TopicSubscriber {
@@ -29,8 +29,7 @@ type C_RfQ_TopicSubscriber {
 	C_BPartner_Location: C_BPartner_Location!
 	# Topic for Request for Quotations
 	C_RfQ_Topic: C_RfQ_Topic!
-	UUID: ID!
-	C_RfQ_TopicSubscriber_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,8 +57,7 @@ input C_RfQ_TopicSubscriberInput {
 	C_BPartner_Location: ForeignEntityInput
 	# Topic for Request for Quotations
 	C_RfQ_Topic: ForeignEntityInput
-	UUID: ID
-	C_RfQ_TopicSubscriber_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Date the contact opted out

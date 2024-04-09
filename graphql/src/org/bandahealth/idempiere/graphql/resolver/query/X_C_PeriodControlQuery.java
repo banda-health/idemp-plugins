@@ -17,8 +17,8 @@ public class X_C_PeriodControlQuery extends POQuery<MPeriodControl> implements G
 		return MPeriodControl.Table_Name;
 	}
 
-	public Connection<MPeriodControl> C_PeriodControlGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPeriodControl> C_PeriodControlGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

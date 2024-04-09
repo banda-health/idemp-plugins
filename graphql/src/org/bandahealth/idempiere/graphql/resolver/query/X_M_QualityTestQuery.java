@@ -17,8 +17,8 @@ public class X_M_QualityTestQuery extends POQuery<MQualityTest> implements Graph
 		return MQualityTest.Table_Name;
 	}
 
-	public Connection<MQualityTest> M_QualityTestGet(int page, int pageSize, String sort, String filter,
+	public Connection<MQualityTest> M_QualityTestGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

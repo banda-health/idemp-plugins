@@ -21,16 +21,16 @@ public class X_C_RfQResponseLineMutation extends POMutation implements GraphQLMu
 		return X_C_RfQResponseLineInput.Table_Name;
 	}
 
-	public MRfQResponseLine C_RfQResponseLineSave(I_C_RfQResponseLineInput entity, DataFetchingEnvironment environment) {
-		return (MRfQResponseLine) super.save((X_C_RfQResponseLineInput) entity, environment);
+	public MRfQResponseLine C_RfQResponseLineSave(I_C_RfQResponseLineInput Entity, DataFetchingEnvironment environment) {
+		return (MRfQResponseLine) super.save((X_C_RfQResponseLineInput) Entity, environment);
 	}
 
-	public List<MRfQResponseLine> C_RfQResponseLineSaveMany(List<I_C_RfQResponseLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RfQResponseLineInput) entity).collect(Collectors.toList()),
+	public List<MRfQResponseLine> C_RfQResponseLineSaveMany(List<I_C_RfQResponseLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RfQResponseLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRfQResponseLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RfQResponseLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RfQResponseLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

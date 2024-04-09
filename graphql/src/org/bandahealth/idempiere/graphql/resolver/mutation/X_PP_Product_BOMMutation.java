@@ -21,16 +21,16 @@ public class X_PP_Product_BOMMutation extends POMutation implements GraphQLMutat
 		return X_PP_Product_BOMInput.Table_Name;
 	}
 
-	public MPPProductBOM PP_Product_BOMSave(I_PP_Product_BOMInput entity, DataFetchingEnvironment environment) {
-		return (MPPProductBOM) super.save((X_PP_Product_BOMInput) entity, environment);
+	public MPPProductBOM PP_Product_BOMSave(I_PP_Product_BOMInput Entity, DataFetchingEnvironment environment) {
+		return (MPPProductBOM) super.save((X_PP_Product_BOMInput) Entity, environment);
 	}
 
-	public List<MPPProductBOM> PP_Product_BOMSaveMany(List<I_PP_Product_BOMInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Product_BOMInput) entity).collect(Collectors.toList()),
+	public List<MPPProductBOM> PP_Product_BOMSaveMany(List<I_PP_Product_BOMInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Product_BOMInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPPProductBOM) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Product_BOMDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Product_BOMDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

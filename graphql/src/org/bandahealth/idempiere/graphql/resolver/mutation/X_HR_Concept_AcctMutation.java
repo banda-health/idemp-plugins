@@ -21,16 +21,16 @@ public class X_HR_Concept_AcctMutation extends POMutation implements GraphQLMuta
 		return X_HR_Concept_AcctInput.Table_Name;
 	}
 
-	public X_HR_Concept_Acct HR_Concept_AcctSave(I_HR_Concept_AcctInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_Concept_Acct) super.save((X_HR_Concept_AcctInput) entity, environment);
+	public X_HR_Concept_Acct HR_Concept_AcctSave(I_HR_Concept_AcctInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_Concept_Acct) super.save((X_HR_Concept_AcctInput) Entity, environment);
 	}
 
-	public List<X_HR_Concept_Acct> HR_Concept_AcctSaveMany(List<I_HR_Concept_AcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_Concept_AcctInput) entity).collect(Collectors.toList()),
+	public List<X_HR_Concept_Acct> HR_Concept_AcctSaveMany(List<I_HR_Concept_AcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_Concept_AcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_Concept_Acct) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_Concept_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_Concept_AcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

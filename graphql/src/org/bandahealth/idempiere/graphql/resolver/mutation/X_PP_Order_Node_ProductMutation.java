@@ -21,16 +21,16 @@ public class X_PP_Order_Node_ProductMutation extends POMutation implements Graph
 		return X_PP_Order_Node_ProductInput.Table_Name;
 	}
 
-	public X_PP_Order_Node_Product PP_Order_Node_ProductSave(I_PP_Order_Node_ProductInput entity, DataFetchingEnvironment environment) {
-		return (X_PP_Order_Node_Product) super.save((X_PP_Order_Node_ProductInput) entity, environment);
+	public X_PP_Order_Node_Product PP_Order_Node_ProductSave(I_PP_Order_Node_ProductInput Entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_Node_Product) super.save((X_PP_Order_Node_ProductInput) Entity, environment);
 	}
 
-	public List<X_PP_Order_Node_Product> PP_Order_Node_ProductSaveMany(List<I_PP_Order_Node_ProductInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_Node_ProductInput) entity).collect(Collectors.toList()),
+	public List<X_PP_Order_Node_Product> PP_Order_Node_ProductSaveMany(List<I_PP_Order_Node_ProductInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Order_Node_ProductInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PP_Order_Node_Product) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Order_Node_ProductDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Order_Node_ProductDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

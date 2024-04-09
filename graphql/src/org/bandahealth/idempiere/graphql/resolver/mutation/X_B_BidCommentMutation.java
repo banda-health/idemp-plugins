@@ -21,16 +21,16 @@ public class X_B_BidCommentMutation extends POMutation implements GraphQLMutatio
 		return X_B_BidCommentInput.Table_Name;
 	}
 
-	public X_B_BidComment B_BidCommentSave(I_B_BidCommentInput entity, DataFetchingEnvironment environment) {
-		return (X_B_BidComment) super.save((X_B_BidCommentInput) entity, environment);
+	public X_B_BidComment B_BidCommentSave(I_B_BidCommentInput Entity, DataFetchingEnvironment environment) {
+		return (X_B_BidComment) super.save((X_B_BidCommentInput) Entity, environment);
 	}
 
-	public List<X_B_BidComment> B_BidCommentSaveMany(List<I_B_BidCommentInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_B_BidCommentInput) entity).collect(Collectors.toList()),
+	public List<X_B_BidComment> B_BidCommentSaveMany(List<I_B_BidCommentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_B_BidCommentInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_B_BidComment) entity).collect(Collectors.toList());
 	}
 
-	public boolean B_BidCommentDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean B_BidCommentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

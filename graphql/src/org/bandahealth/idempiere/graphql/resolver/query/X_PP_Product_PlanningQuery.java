@@ -17,8 +17,8 @@ public class X_PP_Product_PlanningQuery extends POQuery<MPPProductPlanning> impl
 		return MPPProductPlanning.Table_Name;
 	}
 
-	public Connection<MPPProductPlanning> PP_Product_PlanningGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPPProductPlanning> PP_Product_PlanningGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

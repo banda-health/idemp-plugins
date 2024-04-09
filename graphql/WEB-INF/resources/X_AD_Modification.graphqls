@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ModificationGet(page: Int, size: Int, sort: String, filter: String): AD_ModificationConnection!
+	AD_ModificationGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ModificationConnection!
 }
 
 extend type Mutation {
-	AD_ModificationSave(entity: AD_ModificationInput!): AD_Modification!
-	AD_ModificationSaveMany(entities: [AD_ModificationInput!]!): [AD_Modification!]!
-	AD_ModificationDelete(uuids: [String!]!): Boolean!
+	AD_ModificationSave(Entity: AD_ModificationInput!): AD_Modification!
+	AD_ModificationSaveMany(Entities: [AD_ModificationInput!]!): [AD_Modification!]!
+	AD_ModificationDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ModificationConnection {
-	results: [AD_Modification!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Modification!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Modification {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_Modification_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -48,8 +47,7 @@ type AD_Modification {
 }
 
 input AD_ModificationInput {
-	UUID: ID
-	AD_Modification_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

@@ -42,12 +42,12 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_OrgInfo_UU to fetch this entity from the DB
+	 * @param UU The AD_OrgInfo_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_OrgInfoInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_OrgInfoInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -66,11 +66,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,20 +88,20 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_OrgInfo_UU(UUID);
+	public void setUU(String UU) {
+		setAD_OrgInfo_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_OrgInfo_UU();
 	}
 
@@ -118,11 +118,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			X_AD_OrgType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_OrgType", "AD_OrgType_UU=?", get_TrxName())
-							.setParameters(AD_OrgType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_OrgType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_OrgType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_OrgType with UUID " + AD_OrgType.getUUID());
+						"Could not find entity in table AD_OrgType with UU " + AD_OrgType.getUU());
 			}
 		} else {
 			this.setAD_OrgType_ID(0);
@@ -152,11 +152,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MCalendar foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-							.setParameters(C_Calendar.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Calendar_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Calendar with UUID " + C_Calendar.getUUID());
+						"Could not find entity in table C_Calendar with UU " + C_Calendar.getUU());
 			}
 		} else {
 			this.setC_Calendar_ID(0);
@@ -186,11 +186,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
+						"Could not find entity in table C_Location with UU " + C_Location.getUU());
 			}
 		} else {
 			this.setC_Location_ID(0);
@@ -220,11 +220,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(DropShip_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DropShip_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDropShip_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + DropShip_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + DropShip_Warehouse.getUU());
 			}
 		} else {
 			this.setDropShip_Warehouse_ID(0);
@@ -254,11 +254,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(Logo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Logo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLogo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Image with UUID " + Logo.getUUID());
+						"Could not find entity in table AD_Image with UU " + Logo.getUU());
 			}
 		} else {
 			this.setLogo_ID(0);
@@ -288,11 +288,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);
@@ -322,11 +322,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+						"Could not find entity in table AD_User with UU " + Supervisor.getUU());
 			}
 		} else {
 			this.setSupervisor_ID(0);
@@ -356,11 +356,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-							.setParameters(TransferBank.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TransferBank.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTransferBank_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Bank with UUID " + TransferBank.getUUID());
+						"Could not find entity in table C_Bank with UU " + TransferBank.getUU());
 			}
 		} else {
 			this.setTransferBank_ID(0);
@@ -390,11 +390,11 @@ public class X_AD_OrgInfoInput extends MOrgInfo_BH implements I_AD_OrgInfoInput 
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(TransferCashBook.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TransferCashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTransferCashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_CashBook with UUID " + TransferCashBook.getUUID());
+						"Could not find entity in table C_CashBook with UU " + TransferCashBook.getUU());
 			}
 		} else {
 			this.setTransferCashBook_ID(0);

@@ -21,16 +21,16 @@ public class X_C_YearMutation extends POMutation implements GraphQLMutationResol
 		return X_C_YearInput.Table_Name;
 	}
 
-	public MYear C_YearSave(I_C_YearInput entity, DataFetchingEnvironment environment) {
-		return (MYear) super.save((X_C_YearInput) entity, environment);
+	public MYear C_YearSave(I_C_YearInput Entity, DataFetchingEnvironment environment) {
+		return (MYear) super.save((X_C_YearInput) Entity, environment);
 	}
 
-	public List<MYear> C_YearSaveMany(List<I_C_YearInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_YearInput) entity).collect(Collectors.toList()),
+	public List<MYear> C_YearSaveMany(List<I_C_YearInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_YearInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MYear) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_YearDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_YearDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

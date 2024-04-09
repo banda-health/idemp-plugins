@@ -17,8 +17,8 @@ public class X_B_BidQuery extends POQuery<X_B_Bid> implements GraphQLQueryResolv
 		return X_B_Bid.Table_Name;
 	}
 
-	public Connection<X_B_Bid> B_BidGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_B_Bid> B_BidGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

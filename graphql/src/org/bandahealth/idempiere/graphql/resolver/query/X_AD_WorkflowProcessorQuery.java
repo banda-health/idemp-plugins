@@ -17,8 +17,8 @@ public class X_AD_WorkflowProcessorQuery extends POQuery<X_AD_WorkflowProcessor>
 		return X_AD_WorkflowProcessor.Table_Name;
 	}
 
-	public Connection<X_AD_WorkflowProcessor> AD_WorkflowProcessorGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_WorkflowProcessor> AD_WorkflowProcessorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

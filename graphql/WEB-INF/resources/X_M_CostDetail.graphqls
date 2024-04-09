@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_CostDetailGet(page: Int, size: Int, sort: String, filter: String): M_CostDetailConnection!
+	M_CostDetailGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostDetailConnection!
 }
 
 extend type Mutation {
-	M_CostDetailSave(entity: M_CostDetailInput!): M_CostDetail!
-	M_CostDetailSaveMany(entities: [M_CostDetailInput!]!): [M_CostDetail!]!
-	M_CostDetailDelete(uuids: [String!]!): Boolean!
+	M_CostDetailSave(Entity: M_CostDetailInput!): M_CostDetail!
+	M_CostDetailSaveMany(Entities: [M_CostDetailInput!]!): [M_CostDetail!]!
+	M_CostDetailDelete(UUs: [String!]!): Boolean!
 }
 
 type M_CostDetailConnection {
-	results: [M_CostDetail!]!
-	pagingInfo: PagingInfo!
+	Results: [M_CostDetail!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_CostDetail {
@@ -55,8 +55,7 @@ type M_CostDetail {
 	IsSOTrx: Boolean!
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
-	UUID: ID!
-	M_CostDetail_UU: String
+	UU: ID!
 	# Product Cost Element
 	M_CostElement: M_CostElement
 	# Line on Shipment or Receipt document
@@ -117,8 +116,7 @@ input M_CostDetailInput {
 	IsSOTrx: Boolean
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
-	UUID: ID
-	M_CostDetail_UU: String
+	UU: ID
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	# Line on Shipment or Receipt document

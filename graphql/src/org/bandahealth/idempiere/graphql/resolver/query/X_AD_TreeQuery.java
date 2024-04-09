@@ -17,8 +17,8 @@ public class X_AD_TreeQuery extends POQuery<MTree_BH> implements GraphQLQueryRes
 		return MTree_BH.Table_Name;
 	}
 
-	public Connection<MTree_BH> AD_TreeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTree_BH> AD_TreeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_PeriodGet(page: Int, size: Int, sort: String, filter: String): C_PeriodConnection!
+	C_PeriodGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PeriodConnection!
 }
 
 extend type Mutation {
-	C_PeriodSave(entity: C_PeriodInput!): C_Period!
-	C_PeriodSaveMany(entities: [C_PeriodInput!]!): [C_Period!]!
-	C_PeriodDelete(uuids: [String!]!): Boolean!
+	C_PeriodSave(Entity: C_PeriodInput!): C_Period!
+	C_PeriodSaveMany(Entities: [C_PeriodInput!]!): [C_Period!]!
+	C_PeriodDelete(UUs: [String!]!): Boolean!
 }
 
 type C_PeriodConnection {
-	results: [C_Period!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Period!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Period {
@@ -21,8 +21,7 @@ type C_Period {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_Period_UU: String
+	UU: ID!
 	# Calendar Year
 	C_Year: C_Year!
 	# Date this record was created
@@ -51,8 +50,7 @@ type C_Period {
 input C_PeriodInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_Period_UU: String
+	UU: ID
 	# Calendar Year
 	C_Year: ForeignEntityInput
 	# Last effective date (inclusive)

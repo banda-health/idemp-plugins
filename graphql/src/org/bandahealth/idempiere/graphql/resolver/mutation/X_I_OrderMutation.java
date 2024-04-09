@@ -21,16 +21,16 @@ public class X_I_OrderMutation extends POMutation implements GraphQLMutationReso
 		return X_I_OrderInput.Table_Name;
 	}
 
-	public X_I_Order I_OrderSave(I_I_OrderInput entity, DataFetchingEnvironment environment) {
-		return (X_I_Order) super.save((X_I_OrderInput) entity, environment);
+	public X_I_Order I_OrderSave(I_I_OrderInput Entity, DataFetchingEnvironment environment) {
+		return (X_I_Order) super.save((X_I_OrderInput) Entity, environment);
 	}
 
-	public List<X_I_Order> I_OrderSaveMany(List<I_I_OrderInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_I_OrderInput) entity).collect(Collectors.toList()),
+	public List<X_I_Order> I_OrderSaveMany(List<I_I_OrderInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_I_OrderInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_I_Order) entity).collect(Collectors.toList());
 	}
 
-	public boolean I_OrderDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean I_OrderDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

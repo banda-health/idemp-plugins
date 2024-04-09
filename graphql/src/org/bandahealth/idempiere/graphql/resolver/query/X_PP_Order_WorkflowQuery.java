@@ -17,8 +17,8 @@ public class X_PP_Order_WorkflowQuery extends POQuery<X_PP_Order_Workflow> imple
 		return X_PP_Order_Workflow.Table_Name;
 	}
 
-	public Connection<X_PP_Order_Workflow> PP_Order_WorkflowGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PP_Order_Workflow> PP_Order_WorkflowGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_ASP_LevelQuery extends POQuery<X_ASP_Level> implements GraphQLQue
 		return X_ASP_Level.Table_Name;
 	}
 
-	public Connection<X_ASP_Level> ASP_LevelGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_ASP_Level> ASP_LevelGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

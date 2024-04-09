@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ProductionLineGet(page: Int, size: Int, sort: String, filter: String): M_ProductionLineConnection!
+	M_ProductionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductionLineConnection!
 }
 
 extend type Mutation {
-	M_ProductionLineSave(entity: M_ProductionLineInput!): M_ProductionLine!
-	M_ProductionLineSaveMany(entities: [M_ProductionLineInput!]!): [M_ProductionLine!]!
-	M_ProductionLineDelete(uuids: [String!]!): Boolean!
+	M_ProductionLineSave(Entity: M_ProductionLineInput!): M_ProductionLine!
+	M_ProductionLineSaveMany(Entities: [M_ProductionLineInput!]!): [M_ProductionLine!]!
+	M_ProductionLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ProductionLineConnection {
-	results: [M_ProductionLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ProductionLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ProductionLine {
@@ -41,8 +41,7 @@ type M_ProductionLine {
 	M_Product: M_Product!
 	# Plan for producing a product
 	M_Production: M_Production
-	UUID: ID!
-	M_ProductionLine_UU: String
+	UU: ID!
 	# Plan for how a product is produced
 	M_ProductionPlan: M_ProductionPlan
 	# Quantity of a product moved.
@@ -81,8 +80,7 @@ input M_ProductionLineInput {
 	M_Product: ForeignEntityInput
 	# Plan for producing a product
 	M_Production: ForeignEntityInput
-	UUID: ID
-	M_ProductionLine_UU: String
+	UU: ID
 	# Plan for how a product is produced
 	M_ProductionPlan: ForeignEntityInput
 	# Quantity of a product moved.

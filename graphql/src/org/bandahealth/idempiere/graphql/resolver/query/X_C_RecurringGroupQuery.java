@@ -17,8 +17,8 @@ public class X_C_RecurringGroupQuery extends POQuery<X_C_RecurringGroup> impleme
 		return X_C_RecurringGroup.Table_Name;
 	}
 
-	public Connection<X_C_RecurringGroup> C_RecurringGroupGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_RecurringGroup> C_RecurringGroupGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

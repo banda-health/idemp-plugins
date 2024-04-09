@@ -21,16 +21,16 @@ public class X_AD_ToolBarButtonMutation extends POMutation implements GraphQLMut
 		return X_AD_ToolBarButtonInput.Table_Name;
 	}
 
-	public MToolBarButton AD_ToolBarButtonSave(I_AD_ToolBarButtonInput entity, DataFetchingEnvironment environment) {
-		return (MToolBarButton) super.save((X_AD_ToolBarButtonInput) entity, environment);
+	public MToolBarButton AD_ToolBarButtonSave(I_AD_ToolBarButtonInput Entity, DataFetchingEnvironment environment) {
+		return (MToolBarButton) super.save((X_AD_ToolBarButtonInput) Entity, environment);
 	}
 
-	public List<MToolBarButton> AD_ToolBarButtonSaveMany(List<I_AD_ToolBarButtonInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ToolBarButtonInput) entity).collect(Collectors.toList()),
+	public List<MToolBarButton> AD_ToolBarButtonSaveMany(List<I_AD_ToolBarButtonInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ToolBarButtonInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MToolBarButton) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ToolBarButtonDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ToolBarButtonDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_BH_Encounter_DiagnosisQuery extends POQuery<MBHEncounterDiagnosis
 		return MBHEncounterDiagnosis.Table_Name;
 	}
 
-	public Connection<MBHEncounterDiagnosis> BH_Encounter_DiagnosisGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHEncounterDiagnosis> BH_Encounter_DiagnosisGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_OrderLandedCostAllocationGet(page: Int, size: Int, sort: String, filter: String): C_OrderLandedCostAllocationConnection!
+	C_OrderLandedCostAllocationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderLandedCostAllocationConnection!
 }
 
 extend type Mutation {
-	C_OrderLandedCostAllocationSave(entity: C_OrderLandedCostAllocationInput!): C_OrderLandedCostAllocation!
-	C_OrderLandedCostAllocationSaveMany(entities: [C_OrderLandedCostAllocationInput!]!): [C_OrderLandedCostAllocation!]!
-	C_OrderLandedCostAllocationDelete(uuids: [String!]!): Boolean!
+	C_OrderLandedCostAllocationSave(Entity: C_OrderLandedCostAllocationInput!): C_OrderLandedCostAllocation!
+	C_OrderLandedCostAllocationSaveMany(Entities: [C_OrderLandedCostAllocationInput!]!): [C_OrderLandedCostAllocation!]!
+	C_OrderLandedCostAllocationDelete(UUs: [String!]!): Boolean!
 }
 
 type C_OrderLandedCostAllocationConnection {
-	results: [C_OrderLandedCostAllocation!]!
-	pagingInfo: PagingInfo!
+	Results: [C_OrderLandedCostAllocation!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_OrderLandedCostAllocation {
@@ -26,8 +26,7 @@ type C_OrderLandedCostAllocation {
 	# Calculation Base
 	Base: BigDecimal!
 	C_OrderLandedCost: C_OrderLandedCost!
-	UUID: ID!
-	C_OrderLandedCostAllocation_UU: String
+	UU: ID!
 	# Sales Order Line
 	C_OrderLine: C_OrderLine!
 	# Date this record was created
@@ -54,8 +53,7 @@ input C_OrderLandedCostAllocationInput {
 	# Calculation Base
 	Base: BigDecimal
 	C_OrderLandedCost: ForeignEntityInput
-	UUID: ID
-	C_OrderLandedCostAllocation_UU: String
+	UU: ID
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# The record is active in the system

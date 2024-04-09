@@ -17,8 +17,8 @@ public class X_T_AgingQuery extends POQuery<MAging> implements GraphQLQueryResol
 		return MAging.Table_Name;
 	}
 
-	public Connection<MAging> T_AgingGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAging> T_AgingGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

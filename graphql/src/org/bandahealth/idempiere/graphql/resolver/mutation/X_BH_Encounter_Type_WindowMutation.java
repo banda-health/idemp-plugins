@@ -21,16 +21,16 @@ public class X_BH_Encounter_Type_WindowMutation extends POMutation implements Gr
 		return X_BH_Encounter_Type_WindowInput.Table_Name;
 	}
 
-	public MBHEncounterTypeWindow BH_Encounter_Type_WindowSave(I_BH_Encounter_Type_WindowInput entity, DataFetchingEnvironment environment) {
-		return (MBHEncounterTypeWindow) super.save((X_BH_Encounter_Type_WindowInput) entity, environment);
+	public MBHEncounterTypeWindow BH_Encounter_Type_WindowSave(I_BH_Encounter_Type_WindowInput Entity, DataFetchingEnvironment environment) {
+		return (MBHEncounterTypeWindow) super.save((X_BH_Encounter_Type_WindowInput) Entity, environment);
 	}
 
-	public List<MBHEncounterTypeWindow> BH_Encounter_Type_WindowSaveMany(List<I_BH_Encounter_Type_WindowInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_Encounter_Type_WindowInput) entity).collect(Collectors.toList()),
+	public List<MBHEncounterTypeWindow> BH_Encounter_Type_WindowSaveMany(List<I_BH_Encounter_Type_WindowInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_Encounter_Type_WindowInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHEncounterTypeWindow) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_Encounter_Type_WindowDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_Encounter_Type_WindowDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

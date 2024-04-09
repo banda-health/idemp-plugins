@@ -17,8 +17,8 @@ public class X_IMP_ProcessorQuery extends POQuery<MIMPProcessor> implements Grap
 		return MIMPProcessor.Table_Name;
 	}
 
-	public Connection<MIMPProcessor> IMP_ProcessorGet(int page, int pageSize, String sort, String filter,
+	public Connection<MIMPProcessor> IMP_ProcessorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

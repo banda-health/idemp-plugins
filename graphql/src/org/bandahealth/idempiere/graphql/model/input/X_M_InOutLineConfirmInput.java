@@ -34,12 +34,12 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_InOutLineConfirm_UU to fetch this entity from the DB
+	 * @param UU The M_InOutLineConfirm_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_InOutLineConfirmInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_InOutLineConfirmInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
+						"Could not find entity in table C_InvoiceLine with UU " + C_InvoiceLine.getUU());
 			}
 		} else {
 			this.setC_InvoiceLine_ID(0);
@@ -129,11 +129,11 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 			MInOutConfirm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutConfirm", "M_InOutConfirm_UU=?", get_TrxName())
-							.setParameters(M_InOutConfirm.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutConfirm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InOutConfirm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InOutConfirm with UUID " + M_InOutConfirm.getUUID());
+						"Could not find entity in table M_InOutConfirm with UU " + M_InOutConfirm.getUU());
 			}
 		} else {
 			this.setM_InOutConfirm_ID(0);
@@ -166,11 +166,11 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
+						"Could not find entity in table M_InOutLine with UU " + M_InOutLine.getUU());
 			}
 		} else {
 			this.setM_InOutLine_ID(0);
@@ -199,20 +199,20 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_InOutLineConfirm_UU(UUID);
+	public void setUU(String UU) {
+		setM_InOutLineConfirm_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_InOutLineConfirm_UU();
 	}
 
@@ -229,11 +229,11 @@ public class X_M_InOutLineConfirmInput extends MInOutLineConfirm implements I_M_
 			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InventoryLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InventoryLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InventoryLine with UUID " + M_InventoryLine.getUUID());
+						"Could not find entity in table M_InventoryLine with UU " + M_InventoryLine.getUU());
 			}
 		} else {
 			this.setM_InventoryLine_ID(0);

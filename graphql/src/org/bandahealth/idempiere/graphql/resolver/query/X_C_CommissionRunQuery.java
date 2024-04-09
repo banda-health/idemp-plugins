@@ -17,8 +17,8 @@ public class X_C_CommissionRunQuery extends POQuery<MCommissionRun> implements G
 		return MCommissionRun.Table_Name;
 	}
 
-	public Connection<MCommissionRun> C_CommissionRunGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCommissionRun> C_CommissionRunGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

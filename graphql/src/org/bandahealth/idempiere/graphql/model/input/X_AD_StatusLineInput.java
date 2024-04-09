@@ -29,12 +29,12 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_StatusLine_UU to fetch this entity from the DB
+	 * @param UU The AD_StatusLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_StatusLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_StatusLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -50,11 +50,11 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 			MMessage_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Message", "AD_Message_UU=?", get_TrxName())
-							.setParameters(AD_Message.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Message.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Message_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Message with UUID " + AD_Message.getUUID());
+						"Could not find entity in table AD_Message with UU " + AD_Message.getUU());
 			}
 		} else {
 			this.setAD_Message_ID(0);
@@ -87,11 +87,11 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -120,20 +120,20 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_StatusLine_UU(UUID);
+	public void setUU(String UU) {
+		setAD_StatusLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_StatusLine_UU();
 	}
 
@@ -150,11 +150,11 @@ public class X_AD_StatusLineInput extends MStatusLine implements I_AD_StatusLine
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);

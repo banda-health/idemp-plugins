@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_InfoColumnGet(page: Int, size: Int, sort: String, filter: String): AD_InfoColumnConnection!
+	AD_InfoColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_InfoColumnConnection!
 }
 
 extend type Mutation {
-	AD_InfoColumnSave(entity: AD_InfoColumnInput!): AD_InfoColumn!
-	AD_InfoColumnSaveMany(entities: [AD_InfoColumnInput!]!): [AD_InfoColumn!]!
-	AD_InfoColumnDelete(uuids: [String!]!): Boolean!
+	AD_InfoColumnSave(Entity: AD_InfoColumnInput!): AD_InfoColumn!
+	AD_InfoColumnSaveMany(Entities: [AD_InfoColumnInput!]!): [AD_InfoColumn!]!
+	AD_InfoColumnDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_InfoColumnConnection {
-	results: [AD_InfoColumn!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_InfoColumn!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_InfoColumn {
@@ -23,8 +23,7 @@ type AD_InfoColumn {
 	AD_Element: AD_Element
 	# Field CSS Style 
 	AD_FieldStyle: AD_Style
-	UUID: ID!
-	AD_InfoColumn_UU: String
+	UU: ID!
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow!
 	# Organizational entity within tenant
@@ -102,8 +101,7 @@ input AD_InfoColumnInput {
 	AD_Element: ForeignEntityInput
 	# Field CSS Style 
 	AD_FieldStyle: ForeignEntityInput
-	UUID: ID
-	AD_InfoColumn_UU: String
+	UU: ID
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within tenant

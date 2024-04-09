@@ -32,12 +32,12 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_RMATax_UU to fetch this entity from the DB
+	 * @param UU The M_RMATax_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_RMATaxInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_RMATaxInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -93,11 +93,11 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
+						"Could not find entity in table C_Tax with UU " + C_Tax.getUU());
 			}
 		} else {
 			this.setC_Tax_ID(0);
@@ -130,11 +130,11 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 			MTaxProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxProvider", "C_TaxProvider_UU=?", get_TrxName())
-							.setParameters(C_TaxProvider.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_TaxProvider with UUID " + C_TaxProvider.getUUID());
+						"Could not find entity in table C_TaxProvider with UU " + C_TaxProvider.getUU());
 			}
 		} else {
 			this.setC_TaxProvider_ID(0);
@@ -167,11 +167,11 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 			MRMA foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RMA", "M_RMA_UU=?", get_TrxName())
-							.setParameters(M_RMA.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_RMA.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_RMA_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_RMA with UUID " + M_RMA.getUUID());
+						"Could not find entity in table M_RMA with UU " + M_RMA.getUU());
 			}
 		} else {
 			this.setM_RMA_ID(0);
@@ -189,20 +189,20 @@ public class X_M_RMATaxInput extends MRMATax implements I_M_RMATaxInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_RMATax_UU(UUID);
+	public void setUU(String UU) {
+		setM_RMATax_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_RMATax_UU();
 	}
 	/**

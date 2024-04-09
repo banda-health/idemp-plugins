@@ -21,16 +21,16 @@ public class X_PA_GoalRestrictionMutation extends POMutation implements GraphQLM
 		return X_PA_GoalRestrictionInput.Table_Name;
 	}
 
-	public MGoalRestriction PA_GoalRestrictionSave(I_PA_GoalRestrictionInput entity, DataFetchingEnvironment environment) {
-		return (MGoalRestriction) super.save((X_PA_GoalRestrictionInput) entity, environment);
+	public MGoalRestriction PA_GoalRestrictionSave(I_PA_GoalRestrictionInput Entity, DataFetchingEnvironment environment) {
+		return (MGoalRestriction) super.save((X_PA_GoalRestrictionInput) Entity, environment);
 	}
 
-	public List<MGoalRestriction> PA_GoalRestrictionSaveMany(List<I_PA_GoalRestrictionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_GoalRestrictionInput) entity).collect(Collectors.toList()),
+	public List<MGoalRestriction> PA_GoalRestrictionSaveMany(List<I_PA_GoalRestrictionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_GoalRestrictionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MGoalRestriction) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_GoalRestrictionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_GoalRestrictionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

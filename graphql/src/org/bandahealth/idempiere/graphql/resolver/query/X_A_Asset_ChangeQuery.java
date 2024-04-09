@@ -17,8 +17,8 @@ public class X_A_Asset_ChangeQuery extends POQuery<MAssetChange> implements Grap
 		return MAssetChange.Table_Name;
 	}
 
-	public Connection<MAssetChange> A_Asset_ChangeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetChange> A_Asset_ChangeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

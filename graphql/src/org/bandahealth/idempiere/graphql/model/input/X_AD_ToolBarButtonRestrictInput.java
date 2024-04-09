@@ -37,12 +37,12 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_ToolBarButtonRestrict_UU to fetch this entity from the DB
+	 * @param UU The AD_ToolBarButtonRestrict_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ToolBarButtonRestrictInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_ToolBarButtonRestrictInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Action.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Action.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Action.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + Action.getUU());
 			}
 		} else {
 			this.setAction(null);
@@ -95,11 +95,11 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -129,11 +129,11 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+						"Could not find entity in table AD_Process with UU " + AD_Process.getUU());
 			}
 		} else {
 			this.setAD_Process_ID(0);
@@ -163,11 +163,11 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
 			this.setAD_Role_ID(0);
@@ -197,11 +197,11 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
+						"Could not find entity in table AD_Tab with UU " + AD_Tab.getUU());
 			}
 		} else {
 			this.setAD_Tab_ID(0);
@@ -231,11 +231,11 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MToolBarButton foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ToolBarButton", "AD_ToolBarButton_UU=?", get_TrxName())
-							.setParameters(AD_ToolBarButton.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ToolBarButton.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ToolBarButton_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_ToolBarButton with UUID " + AD_ToolBarButton.getUUID());
+						"Could not find entity in table AD_ToolBarButton with UU " + AD_ToolBarButton.getUU());
 			}
 		} else {
 			this.setAD_ToolBarButton_ID(0);
@@ -264,20 +264,20 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_ToolBarButtonRestrict_UU(UUID);
+	public void setUU(String UU) {
+		setAD_ToolBarButtonRestrict_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_ToolBarButtonRestrict_UU();
 	}
 
@@ -294,11 +294,11 @@ public class X_AD_ToolBarButtonRestrictInput extends MToolBarButtonRestrict impl
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);

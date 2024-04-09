@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BPartner_LocationGet(page: Int, size: Int, sort: String, filter: String): C_BPartner_LocationConnection!
+	C_BPartner_LocationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BPartner_LocationConnection!
 }
 
 extend type Mutation {
-	C_BPartner_LocationSave(entity: C_BPartner_LocationInput!): C_BPartner_Location!
-	C_BPartner_LocationSaveMany(entities: [C_BPartner_LocationInput!]!): [C_BPartner_Location!]!
-	C_BPartner_LocationDelete(uuids: [String!]!): Boolean!
+	C_BPartner_LocationSave(Entity: C_BPartner_LocationInput!): C_BPartner_Location!
+	C_BPartner_LocationSaveMany(Entities: [C_BPartner_LocationInput!]!): [C_BPartner_Location!]!
+	C_BPartner_LocationDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BPartner_LocationConnection {
-	results: [C_BPartner_Location!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BPartner_Location!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BPartner_Location {
@@ -23,8 +23,7 @@ type C_BPartner_Location {
 	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	UUID: ID!
-	C_BPartner_Location_UU: String
+	UU: ID!
 	# Location or Address
 	C_Location: C_Location!
 	# Sales coverage region
@@ -66,8 +65,7 @@ input C_BPartner_LocationInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	UUID: ID
-	C_BPartner_Location_UU: String
+	UU: ID
 	# Location or Address
 	C_Location: ForeignEntityInput
 	# Sales coverage region

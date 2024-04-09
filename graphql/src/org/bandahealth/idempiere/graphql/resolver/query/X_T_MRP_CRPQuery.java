@@ -17,8 +17,8 @@ public class X_T_MRP_CRPQuery extends POQuery<X_T_MRP_CRP> implements GraphQLQue
 		return X_T_MRP_CRP.Table_Name;
 	}
 
-	public Connection<X_T_MRP_CRP> T_MRP_CRPGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_T_MRP_CRP> T_MRP_CRPGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

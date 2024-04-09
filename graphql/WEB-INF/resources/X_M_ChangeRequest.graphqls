@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ChangeRequestGet(page: Int, size: Int, sort: String, filter: String): M_ChangeRequestConnection!
+	M_ChangeRequestGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ChangeRequestConnection!
 }
 
 extend type Mutation {
-	M_ChangeRequestSave(entity: M_ChangeRequestInput!): M_ChangeRequest!
-	M_ChangeRequestSaveMany(entities: [M_ChangeRequestInput!]!): [M_ChangeRequest!]!
-	M_ChangeRequestDelete(uuids: [String!]!): Boolean!
+	M_ChangeRequestSave(Entity: M_ChangeRequestInput!): M_ChangeRequest!
+	M_ChangeRequestSaveMany(Entities: [M_ChangeRequestInput!]!): [M_ChangeRequest!]!
+	M_ChangeRequestDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ChangeRequestConnection {
-	results: [M_ChangeRequest!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ChangeRequest!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ChangeRequest {
@@ -39,8 +39,7 @@ type M_ChangeRequest {
 	IsApproved: Boolean!
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: M_ChangeNotice
-	UUID: ID!
-	M_ChangeRequest_UU: String
+	UU: ID!
 	# Fixed in Change Notice
 	M_FixChangeNotice: M_ChangeNotice
 	# Alphanumeric identifier of the entity
@@ -72,8 +71,7 @@ input M_ChangeRequestInput {
 	IsApproved: Boolean
 	# Bill of Materials (Engineering) Change Notice (Version)
 	M_ChangeNotice: ForeignEntityInput
-	UUID: ID
-	M_ChangeRequest_UU: String
+	UU: ID
 	# Fixed in Change Notice
 	M_FixChangeNotice: ForeignEntityInput
 	# Alphanumeric identifier of the entity

@@ -53,18 +53,18 @@ public interface I_I_InventoryInput extends I_I_Inventory {
 	ForeignEntityInput C_DocType();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set M_CostingLine.

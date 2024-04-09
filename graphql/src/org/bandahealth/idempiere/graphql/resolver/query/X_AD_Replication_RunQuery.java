@@ -17,8 +17,8 @@ public class X_AD_Replication_RunQuery extends POQuery<MReplicationRun> implemen
 		return MReplicationRun.Table_Name;
 	}
 
-	public Connection<MReplicationRun> AD_Replication_RunGet(int page, int pageSize, String sort, String filter,
+	public Connection<MReplicationRun> AD_Replication_RunGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

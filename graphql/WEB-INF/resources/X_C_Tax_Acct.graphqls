@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_Tax_AcctGet(page: Int, size: Int, sort: String, filter: String): C_Tax_AcctConnection!
+	C_Tax_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Tax_AcctConnection!
 }
 
 extend type Mutation {
-	C_Tax_AcctSave(entity: C_Tax_AcctInput!): C_Tax_Acct!
-	C_Tax_AcctSaveMany(entities: [C_Tax_AcctInput!]!): [C_Tax_Acct!]!
-	C_Tax_AcctDelete(uuids: [String!]!): Boolean!
+	C_Tax_AcctSave(Entity: C_Tax_AcctInput!): C_Tax_Acct!
+	C_Tax_AcctSaveMany(Entities: [C_Tax_AcctInput!]!): [C_Tax_Acct!]!
+	C_Tax_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_Tax_AcctConnection {
-	results: [C_Tax_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Tax_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Tax_Acct {
@@ -23,8 +23,7 @@ type C_Tax_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UUID: ID!
-	C_Tax_Acct_UU: String
+	UU: ID!
 	# Tax identifier
 	C_Tax: C_Tax!
 	# Date this record was created
@@ -50,8 +49,7 @@ input C_Tax_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UUID: ID
-	C_Tax_Acct_UU: String
+	UU: ID
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	# The record is active in the system

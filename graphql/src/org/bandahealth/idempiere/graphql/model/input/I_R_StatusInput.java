@@ -39,18 +39,18 @@ public interface I_R_StatusInput extends I_R_Status {
 	ForeignEntityInput Next_Status();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set R_StatusCategory.

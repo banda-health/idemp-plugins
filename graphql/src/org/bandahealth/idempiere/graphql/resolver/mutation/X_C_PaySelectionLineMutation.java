@@ -21,16 +21,16 @@ public class X_C_PaySelectionLineMutation extends POMutation implements GraphQLM
 		return X_C_PaySelectionLineInput.Table_Name;
 	}
 
-	public MPaySelectionLine C_PaySelectionLineSave(I_C_PaySelectionLineInput entity, DataFetchingEnvironment environment) {
-		return (MPaySelectionLine) super.save((X_C_PaySelectionLineInput) entity, environment);
+	public MPaySelectionLine C_PaySelectionLineSave(I_C_PaySelectionLineInput Entity, DataFetchingEnvironment environment) {
+		return (MPaySelectionLine) super.save((X_C_PaySelectionLineInput) Entity, environment);
 	}
 
-	public List<MPaySelectionLine> C_PaySelectionLineSaveMany(List<I_C_PaySelectionLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_PaySelectionLineInput) entity).collect(Collectors.toList()),
+	public List<MPaySelectionLine> C_PaySelectionLineSaveMany(List<I_C_PaySelectionLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_PaySelectionLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPaySelectionLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_PaySelectionLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_PaySelectionLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

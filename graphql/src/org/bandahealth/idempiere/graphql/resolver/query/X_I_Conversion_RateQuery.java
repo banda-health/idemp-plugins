@@ -17,8 +17,8 @@ public class X_I_Conversion_RateQuery extends POQuery<X_I_Conversion_Rate> imple
 		return X_I_Conversion_Rate.Table_Name;
 	}
 
-	public Connection<X_I_Conversion_Rate> I_Conversion_RateGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_I_Conversion_Rate> I_Conversion_RateGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

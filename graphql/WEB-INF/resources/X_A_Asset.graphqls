@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_AssetGet(page: Int, size: Int, sort: String, filter: String): A_AssetConnection!
+	A_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String): A_AssetConnection!
 }
 
 extend type Mutation {
-	A_AssetSave(entity: A_AssetInput!): A_Asset!
-	A_AssetSaveMany(entities: [A_AssetInput!]!): [A_Asset!]!
-	A_AssetDelete(uuids: [String!]!): Boolean!
+	A_AssetSave(Entity: A_AssetInput!): A_Asset!
+	A_AssetSaveMany(Entities: [A_AssetInput!]!): [A_Asset!]!
+	A_AssetDelete(UUs: [String!]!): Boolean!
 }
 
 type A_AssetConnection {
-	results: [A_Asset!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset {
@@ -25,8 +25,7 @@ type A_Asset {
 	A_Asset_RevalDate: Date
 	A_Asset_Status: AD_Ref_List!
 	A_Asset_Type: A_Asset_Type
-	UUID: ID!
-	A_Asset_UU: String
+	UU: ID!
 	A_AssetType: String
 	A_Parent_Asset: A_Asset
 	A_QTY_Current: BigDecimal
@@ -144,8 +143,7 @@ input A_AssetInput {
 	A_Asset_RevalDate: Date
 	A_Asset_Status: AD_Ref_ListInput
 	A_Asset_Type: ForeignEntityInput
-	UUID: ID
-	A_Asset_UU: String
+	UU: ID
 	A_AssetType: String
 	A_Parent_Asset: ForeignEntityInput
 	A_QTY_Current: BigDecimal

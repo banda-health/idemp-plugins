@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_CostQueueGet(page: Int, size: Int, sort: String, filter: String): M_CostQueueConnection!
+	M_CostQueueGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostQueueConnection!
 }
 
 extend type Mutation {
-	M_CostQueueSave(entity: M_CostQueueInput!): M_CostQueue!
-	M_CostQueueSaveMany(entities: [M_CostQueueInput!]!): [M_CostQueue!]!
-	M_CostQueueDelete(uuids: [String!]!): Boolean!
+	M_CostQueueSave(Entity: M_CostQueueInput!): M_CostQueue!
+	M_CostQueueSaveMany(Entities: [M_CostQueueInput!]!): [M_CostQueue!]!
+	M_CostQueueDelete(UUs: [String!]!): Boolean!
 }
 
 type M_CostQueueConnection {
-	results: [M_CostQueue!]!
-	pagingInfo: PagingInfo!
+	Results: [M_CostQueue!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_CostQueue {
@@ -37,8 +37,7 @@ type M_CostQueue {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Product Cost Element
 	M_CostElement: M_CostElement!
-	UUID: ID!
-	M_CostQueue_UU: String
+	UU: ID!
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: M_CostType!
 	# Product, Service, Item
@@ -64,8 +63,7 @@ input M_CostQueueInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
-	UUID: ID
-	M_CostQueue_UU: String
+	UU: ID
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: ForeignEntityInput
 	# Product, Service, Item

@@ -21,16 +21,16 @@ public class X_AD_WF_BlockMutation extends POMutation implements GraphQLMutation
 		return X_AD_WF_BlockInput.Table_Name;
 	}
 
-	public X_AD_WF_Block AD_WF_BlockSave(I_AD_WF_BlockInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_WF_Block) super.save((X_AD_WF_BlockInput) entity, environment);
+	public X_AD_WF_Block AD_WF_BlockSave(I_AD_WF_BlockInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_Block) super.save((X_AD_WF_BlockInput) Entity, environment);
 	}
 
-	public List<X_AD_WF_Block> AD_WF_BlockSaveMany(List<I_AD_WF_BlockInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_BlockInput) entity).collect(Collectors.toList()),
+	public List<X_AD_WF_Block> AD_WF_BlockSaveMany(List<I_AD_WF_BlockInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WF_BlockInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_WF_Block) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WF_BlockDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WF_BlockDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_RemunerationMutation extends POMutation implements GraphQLMutat
 		return X_C_RemunerationInput.Table_Name;
 	}
 
-	public X_C_Remuneration C_RemunerationSave(I_C_RemunerationInput entity, DataFetchingEnvironment environment) {
-		return (X_C_Remuneration) super.save((X_C_RemunerationInput) entity, environment);
+	public X_C_Remuneration C_RemunerationSave(I_C_RemunerationInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_Remuneration) super.save((X_C_RemunerationInput) Entity, environment);
 	}
 
-	public List<X_C_Remuneration> C_RemunerationSaveMany(List<I_C_RemunerationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RemunerationInput) entity).collect(Collectors.toList()),
+	public List<X_C_Remuneration> C_RemunerationSaveMany(List<I_C_RemunerationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RemunerationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_Remuneration) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RemunerationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RemunerationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

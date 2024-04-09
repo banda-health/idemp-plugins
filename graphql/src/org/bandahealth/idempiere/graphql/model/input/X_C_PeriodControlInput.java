@@ -31,12 +31,12 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_PeriodControl_UU to fetch this entity from the DB
+	 * @param UU The C_PeriodControl_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_PeriodControlInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_PeriodControlInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+						"Could not find entity in table C_Period with UU " + C_Period.getUU());
 			}
 		} else {
 			this.setC_Period_ID(0);
@@ -125,20 +125,20 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_PeriodControl_UU(UUID);
+	public void setUU(String UU) {
+		setC_PeriodControl_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_PeriodControl_UU();
 	}
 
@@ -158,11 +158,11 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocBaseType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocBaseType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocBaseType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocBaseType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocBaseType.getUU());
 			}
 		} else {
 			this.setDocBaseType(null);
@@ -192,11 +192,11 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PeriodAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PeriodAction.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPeriodAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PeriodAction.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PeriodAction.getUU());
 			}
 		} else {
 			this.setPeriodAction(null);
@@ -229,11 +229,11 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PeriodStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PeriodStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPeriodStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PeriodStatus.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PeriodStatus.getUU());
 			}
 		} else {
 			this.setPeriodStatus(null);

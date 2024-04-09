@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CountryGroupCountryGet(page: Int, size: Int, sort: String, filter: String): C_CountryGroupCountryConnection!
+	C_CountryGroupCountryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryGroupCountryConnection!
 }
 
 extend type Mutation {
-	C_CountryGroupCountrySave(entity: C_CountryGroupCountryInput!): C_CountryGroupCountry!
-	C_CountryGroupCountrySaveMany(entities: [C_CountryGroupCountryInput!]!): [C_CountryGroupCountry!]!
-	C_CountryGroupCountryDelete(uuids: [String!]!): Boolean!
+	C_CountryGroupCountrySave(Entity: C_CountryGroupCountryInput!): C_CountryGroupCountry!
+	C_CountryGroupCountrySaveMany(Entities: [C_CountryGroupCountryInput!]!): [C_CountryGroupCountry!]!
+	C_CountryGroupCountryDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CountryGroupCountryConnection {
-	results: [C_CountryGroupCountry!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CountryGroupCountry!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CountryGroupCountry {
@@ -24,8 +24,7 @@ type C_CountryGroupCountry {
 	# Country 
 	C_Country: C_Country
 	C_CountryGroup: C_CountryGroup
-	UUID: ID!
-	C_CountryGroupCountry_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input C_CountryGroupCountryInput {
 	# Country 
 	C_Country: ForeignEntityInput
 	C_CountryGroup: ForeignEntityInput
-	UUID: ID
-	C_CountryGroupCountry_UU: String
+	UU: ID
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range

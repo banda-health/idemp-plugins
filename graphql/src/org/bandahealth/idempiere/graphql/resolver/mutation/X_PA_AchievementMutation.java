@@ -21,16 +21,16 @@ public class X_PA_AchievementMutation extends POMutation implements GraphQLMutat
 		return X_PA_AchievementInput.Table_Name;
 	}
 
-	public MAchievement PA_AchievementSave(I_PA_AchievementInput entity, DataFetchingEnvironment environment) {
-		return (MAchievement) super.save((X_PA_AchievementInput) entity, environment);
+	public MAchievement PA_AchievementSave(I_PA_AchievementInput Entity, DataFetchingEnvironment environment) {
+		return (MAchievement) super.save((X_PA_AchievementInput) Entity, environment);
 	}
 
-	public List<MAchievement> PA_AchievementSaveMany(List<I_PA_AchievementInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_AchievementInput) entity).collect(Collectors.toList()),
+	public List<MAchievement> PA_AchievementSaveMany(List<I_PA_AchievementInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_AchievementInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAchievement) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_AchievementDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_AchievementDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

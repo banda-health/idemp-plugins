@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PrintColorGet(page: Int, size: Int, sort: String, filter: String): AD_PrintColorConnection!
+	AD_PrintColorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintColorConnection!
 }
 
 extend type Mutation {
-	AD_PrintColorSave(entity: AD_PrintColorInput!): AD_PrintColor!
-	AD_PrintColorSaveMany(entities: [AD_PrintColorInput!]!): [AD_PrintColor!]!
-	AD_PrintColorDelete(uuids: [String!]!): Boolean!
+	AD_PrintColorSave(Entity: AD_PrintColorInput!): AD_PrintColor!
+	AD_PrintColorSaveMany(Entities: [AD_PrintColorInput!]!): [AD_PrintColor!]!
+	AD_PrintColorDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PrintColorConnection {
-	results: [AD_PrintColor!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PrintColor!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PrintColor {
@@ -21,8 +21,7 @@ type AD_PrintColor {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_PrintColor_UU: String
+	UU: ID!
 	# Validation Code
 	Code: String!
 	# Date this record was created
@@ -44,8 +43,7 @@ type AD_PrintColor {
 input AD_PrintColorInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_PrintColor_UU: String
+	UU: ID
 	# Validation Code
 	Code: String
 	# The record is active in the system

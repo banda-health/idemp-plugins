@@ -21,16 +21,16 @@ public class X_I_GLJournalMutation extends POMutation implements GraphQLMutation
 		return X_I_GLJournalInput.Table_Name;
 	}
 
-	public X_I_GLJournal I_GLJournalSave(I_I_GLJournalInput entity, DataFetchingEnvironment environment) {
-		return (X_I_GLJournal) super.save((X_I_GLJournalInput) entity, environment);
+	public X_I_GLJournal I_GLJournalSave(I_I_GLJournalInput Entity, DataFetchingEnvironment environment) {
+		return (X_I_GLJournal) super.save((X_I_GLJournalInput) Entity, environment);
 	}
 
-	public List<X_I_GLJournal> I_GLJournalSaveMany(List<I_I_GLJournalInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_I_GLJournalInput) entity).collect(Collectors.toList()),
+	public List<X_I_GLJournal> I_GLJournalSaveMany(List<I_I_GLJournalInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_I_GLJournalInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_I_GLJournal) entity).collect(Collectors.toList());
 	}
 
-	public boolean I_GLJournalDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean I_GLJournalDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

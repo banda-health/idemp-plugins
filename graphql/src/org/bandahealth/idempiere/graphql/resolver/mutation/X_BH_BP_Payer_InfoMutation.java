@@ -21,16 +21,16 @@ public class X_BH_BP_Payer_InfoMutation extends POMutation implements GraphQLMut
 		return X_BH_BP_Payer_InfoInput.Table_Name;
 	}
 
-	public MBHBPPayerInfo BH_BP_Payer_InfoSave(I_BH_BP_Payer_InfoInput entity, DataFetchingEnvironment environment) {
-		return (MBHBPPayerInfo) super.save((X_BH_BP_Payer_InfoInput) entity, environment);
+	public MBHBPPayerInfo BH_BP_Payer_InfoSave(I_BH_BP_Payer_InfoInput Entity, DataFetchingEnvironment environment) {
+		return (MBHBPPayerInfo) super.save((X_BH_BP_Payer_InfoInput) Entity, environment);
 	}
 
-	public List<MBHBPPayerInfo> BH_BP_Payer_InfoSaveMany(List<I_BH_BP_Payer_InfoInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_BP_Payer_InfoInput) entity).collect(Collectors.toList()),
+	public List<MBHBPPayerInfo> BH_BP_Payer_InfoSaveMany(List<I_BH_BP_Payer_InfoInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_BP_Payer_InfoInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHBPPayerInfo) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_BP_Payer_InfoDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_BP_Payer_InfoDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	U_RoleMenuGet(page: Int, size: Int, sort: String, filter: String): U_RoleMenuConnection!
+	U_RoleMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_RoleMenuConnection!
 }
 
 extend type Mutation {
-	U_RoleMenuSave(entity: U_RoleMenuInput!): U_RoleMenu!
-	U_RoleMenuSaveMany(entities: [U_RoleMenuInput!]!): [U_RoleMenu!]!
-	U_RoleMenuDelete(uuids: [String!]!): Boolean!
+	U_RoleMenuSave(Entity: U_RoleMenuInput!): U_RoleMenu!
+	U_RoleMenuSaveMany(Entities: [U_RoleMenuInput!]!): [U_RoleMenu!]!
+	U_RoleMenuDelete(UUs: [String!]!): Boolean!
 }
 
 type U_RoleMenuConnection {
-	results: [U_RoleMenu!]!
-	pagingInfo: PagingInfo!
+	Results: [U_RoleMenu!]!
+	PagingInfo: PagingInfo!
 }
 
 type U_RoleMenu {
@@ -29,8 +29,7 @@ type U_RoleMenu {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	U_RoleMenu_UU: String
+	UU: ID!
 	U_WebMenu: U_WebMenu!
 	# Date this record was updated
 	Updated: Date!
@@ -45,7 +44,6 @@ input U_RoleMenuInput {
 	AD_Role: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	U_RoleMenu_UU: String
+	UU: ID
 	U_WebMenu: ForeignEntityInput
 }

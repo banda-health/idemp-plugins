@@ -17,8 +17,8 @@ public class X_C_AcctSchema_GLQuery extends POQuery<MAcctSchemaGL> implements Gr
 		return MAcctSchemaGL.Table_Name;
 	}
 
-	public Connection<MAcctSchemaGL> C_AcctSchema_GLGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAcctSchemaGL> C_AcctSchema_GLGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

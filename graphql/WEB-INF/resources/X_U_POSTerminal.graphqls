@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	U_POSTerminalGet(page: Int, size: Int, sort: String, filter: String): U_POSTerminalConnection!
+	U_POSTerminalGet(Page: Int, Size: Int, Sort: String, Filter: String): U_POSTerminalConnection!
 }
 
 extend type Mutation {
-	U_POSTerminalSave(entity: U_POSTerminalInput!): U_POSTerminal!
-	U_POSTerminalSaveMany(entities: [U_POSTerminalInput!]!): [U_POSTerminal!]!
-	U_POSTerminalDelete(uuids: [String!]!): Boolean!
+	U_POSTerminalSave(Entity: U_POSTerminalInput!): U_POSTerminal!
+	U_POSTerminalSaveMany(Entities: [U_POSTerminalInput!]!): [U_POSTerminal!]!
+	U_POSTerminalDelete(UUs: [String!]!): Boolean!
 }
 
 type U_POSTerminalConnection {
-	results: [U_POSTerminal!]!
-	pagingInfo: PagingInfo!
+	Results: [U_POSTerminal!]!
+	PagingInfo: PagingInfo!
 }
 
 type U_POSTerminal {
@@ -76,8 +76,7 @@ type U_POSTerminal {
 	# Sales Representative or Company Agent
 	SalesRep: AD_User
 	SO_PriceList: M_PriceList
-	UUID: ID!
-	U_POSTerminal_UU: String
+	UU: ID!
 	# Time at which the terminal should be unlocked
 	UnlockingTime: Date
 	# Date this record was updated
@@ -142,8 +141,7 @@ input U_POSTerminalInput {
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	SO_PriceList: ForeignEntityInput
-	UUID: ID
-	U_POSTerminal_UU: String
+	UU: ID
 	# Time at which the terminal should be unlocked
 	UnlockingTime: Date
 	# Search key for the record in the format required - must be unique

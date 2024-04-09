@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RevenueRecognition_PlanGet(page: Int, size: Int, sort: String, filter: String): C_RevenueRecognition_PlanConnection!
+	C_RevenueRecognition_PlanGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecognition_PlanConnection!
 }
 
 extend type Mutation {
-	C_RevenueRecognition_PlanSave(entity: C_RevenueRecognition_PlanInput!): C_RevenueRecognition_Plan!
-	C_RevenueRecognition_PlanSaveMany(entities: [C_RevenueRecognition_PlanInput!]!): [C_RevenueRecognition_Plan!]!
-	C_RevenueRecognition_PlanDelete(uuids: [String!]!): Boolean!
+	C_RevenueRecognition_PlanSave(Entity: C_RevenueRecognition_PlanInput!): C_RevenueRecognition_Plan!
+	C_RevenueRecognition_PlanSaveMany(Entities: [C_RevenueRecognition_PlanInput!]!): [C_RevenueRecognition_Plan!]!
+	C_RevenueRecognition_PlanDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RevenueRecognition_PlanConnection {
-	results: [C_RevenueRecognition_Plan!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RevenueRecognition_Plan!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RevenueRecognition_Plan {
@@ -29,8 +29,7 @@ type C_RevenueRecognition_Plan {
 	C_InvoiceLine: C_InvoiceLine!
 	# Method for recording revenue
 	C_RevenueRecognition: C_RevenueRecognition!
-	UUID: ID!
-	C_RevenueRecognition_Plan_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -61,8 +60,7 @@ input C_RevenueRecognition_PlanInput {
 	C_InvoiceLine: ForeignEntityInput
 	# Method for recording revenue
 	C_RevenueRecognition: ForeignEntityInput
-	UUID: ID
-	C_RevenueRecognition_Plan_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Account for Product Revenue (Sales Account)

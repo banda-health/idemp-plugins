@@ -21,16 +21,16 @@ public class X_AD_ColumnMutation extends POMutation implements GraphQLMutationRe
 		return X_AD_ColumnInput.Table_Name;
 	}
 
-	public MColumn AD_ColumnSave(I_AD_ColumnInput entity, DataFetchingEnvironment environment) {
-		return (MColumn) super.save((X_AD_ColumnInput) entity, environment);
+	public MColumn AD_ColumnSave(I_AD_ColumnInput Entity, DataFetchingEnvironment environment) {
+		return (MColumn) super.save((X_AD_ColumnInput) Entity, environment);
 	}
 
-	public List<MColumn> AD_ColumnSaveMany(List<I_AD_ColumnInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ColumnInput) entity).collect(Collectors.toList()),
+	public List<MColumn> AD_ColumnSaveMany(List<I_AD_ColumnInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ColumnInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MColumn) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ColumnDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ColumnDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

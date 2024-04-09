@@ -21,16 +21,16 @@ public class X_ASP_ClientLevelMutation extends POMutation implements GraphQLMuta
 		return X_ASP_ClientLevelInput.Table_Name;
 	}
 
-	public X_ASP_ClientLevel ASP_ClientLevelSave(I_ASP_ClientLevelInput entity, DataFetchingEnvironment environment) {
-		return (X_ASP_ClientLevel) super.save((X_ASP_ClientLevelInput) entity, environment);
+	public X_ASP_ClientLevel ASP_ClientLevelSave(I_ASP_ClientLevelInput Entity, DataFetchingEnvironment environment) {
+		return (X_ASP_ClientLevel) super.save((X_ASP_ClientLevelInput) Entity, environment);
 	}
 
-	public List<X_ASP_ClientLevel> ASP_ClientLevelSaveMany(List<I_ASP_ClientLevelInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_ASP_ClientLevelInput) entity).collect(Collectors.toList()),
+	public List<X_ASP_ClientLevel> ASP_ClientLevelSaveMany(List<I_ASP_ClientLevelInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_ASP_ClientLevelInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_ASP_ClientLevel) entity).collect(Collectors.toList());
 	}
 
-	public boolean ASP_ClientLevelDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean ASP_ClientLevelDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

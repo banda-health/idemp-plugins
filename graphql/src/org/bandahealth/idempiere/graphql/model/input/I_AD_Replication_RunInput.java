@@ -39,16 +39,16 @@ public interface I_AD_Replication_RunInput extends I_AD_Replication_Run {
 	ForeignEntityInput AD_Replication();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

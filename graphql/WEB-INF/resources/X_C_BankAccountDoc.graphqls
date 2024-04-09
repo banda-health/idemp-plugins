@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BankAccountDocGet(page: Int, size: Int, sort: String, filter: String): C_BankAccountDocConnection!
+	C_BankAccountDocGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccountDocConnection!
 }
 
 extend type Mutation {
-	C_BankAccountDocSave(entity: C_BankAccountDocInput!): C_BankAccountDoc!
-	C_BankAccountDocSaveMany(entities: [C_BankAccountDocInput!]!): [C_BankAccountDoc!]!
-	C_BankAccountDocDelete(uuids: [String!]!): Boolean!
+	C_BankAccountDocSave(Entity: C_BankAccountDocInput!): C_BankAccountDoc!
+	C_BankAccountDocSaveMany(Entities: [C_BankAccountDocInput!]!): [C_BankAccountDoc!]!
+	C_BankAccountDocDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BankAccountDocConnection {
-	results: [C_BankAccountDoc!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BankAccountDoc!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BankAccountDoc {
@@ -23,8 +23,7 @@ type C_BankAccountDoc {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	UUID: ID!
-	C_BankAccountDoc_UU: String
+	UU: ID!
 	# Print Format for printing Checks
 	Check_PrintFormat: AD_PrintFormat
 	# Date this record was created
@@ -52,8 +51,7 @@ input C_BankAccountDocInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	UUID: ID
-	C_BankAccountDoc_UU: String
+	UU: ID
 	# Print Format for printing Checks
 	Check_PrintFormat: ForeignEntityInput
 	# The next number to be used

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_TableGet(page: Int, size: Int, sort: String, filter: String): AD_TableConnection!
+	AD_TableGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TableConnection!
 }
 
 extend type Mutation {
-	AD_TableSave(entity: AD_TableInput!): AD_Table!
-	AD_TableSaveMany(entities: [AD_TableInput!]!): [AD_Table!]!
-	AD_TableDelete(uuids: [String!]!): Boolean!
+	AD_TableSave(Entity: AD_TableInput!): AD_Table!
+	AD_TableSaveMany(Entities: [AD_TableInput!]!): [AD_Table!]!
+	AD_TableDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_TableConnection {
-	results: [AD_Table!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Table!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Table {
@@ -23,8 +23,7 @@ type AD_Table {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Table_UU: String
+	UU: ID!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
 	# Data entry or display window
@@ -86,8 +85,7 @@ input AD_TableInput {
 	AccessLevel: AD_Ref_ListInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Table_UU: String
+	UU: ID
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
 	# Data entry or display window

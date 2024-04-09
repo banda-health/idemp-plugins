@@ -21,16 +21,16 @@ public class X_C_RecurringMutation extends POMutation implements GraphQLMutation
 		return X_C_RecurringInput.Table_Name;
 	}
 
-	public MRecurring C_RecurringSave(I_C_RecurringInput entity, DataFetchingEnvironment environment) {
-		return (MRecurring) super.save((X_C_RecurringInput) entity, environment);
+	public MRecurring C_RecurringSave(I_C_RecurringInput Entity, DataFetchingEnvironment environment) {
+		return (MRecurring) super.save((X_C_RecurringInput) Entity, environment);
 	}
 
-	public List<MRecurring> C_RecurringSaveMany(List<I_C_RecurringInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RecurringInput) entity).collect(Collectors.toList()),
+	public List<MRecurring> C_RecurringSaveMany(List<I_C_RecurringInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RecurringInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRecurring) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RecurringDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RecurringDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -30,12 +30,12 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Find_UU to fetch this entity from the DB
+	 * @param UU The AD_Find_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_FindInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_FindInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_Column.getUU());
 			}
 		} else {
 			this.setAD_Column_ID(0);
@@ -84,20 +84,20 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Find_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Find_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Find_UU();
 	}
 
@@ -117,11 +117,11 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -151,11 +151,11 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AndOr.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AndOr.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAndOr(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AndOr.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + AndOr.getUU());
 			}
 		} else {
 			this.setAndOr(null);
@@ -185,11 +185,11 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Operation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOperation(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Operation.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + Operation.getUU());
 			}
 		} else {
 			this.setOperation(null);

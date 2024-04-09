@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Package_Imp_InstGet(page: Int, size: Int, sort: String, filter: String): AD_Package_Imp_InstConnection!
+	AD_Package_Imp_InstGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_Imp_InstConnection!
 }
 
 extend type Mutation {
-	AD_Package_Imp_InstSave(entity: AD_Package_Imp_InstInput!): AD_Package_Imp_Inst!
-	AD_Package_Imp_InstSaveMany(entities: [AD_Package_Imp_InstInput!]!): [AD_Package_Imp_Inst!]!
-	AD_Package_Imp_InstDelete(uuids: [String!]!): Boolean!
+	AD_Package_Imp_InstSave(Entity: AD_Package_Imp_InstInput!): AD_Package_Imp_Inst!
+	AD_Package_Imp_InstSaveMany(Entities: [AD_Package_Imp_InstInput!]!): [AD_Package_Imp_Inst!]!
+	AD_Package_Imp_InstDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Package_Imp_InstConnection {
-	results: [AD_Package_Imp_Inst!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Package_Imp_Inst!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Package_Imp_Inst {
@@ -21,8 +21,7 @@ type AD_Package_Imp_Inst {
 	AD_Client: AD_Client
 	# Organizational entity within tenant
 	AD_Org: AD_Org
-	UUID: ID!
-	AD_Package_Imp_Inst_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,8 +57,7 @@ type AD_Package_Imp_Inst {
 input AD_Package_Imp_InstInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Package_Imp_Inst_UU: String
+	UU: ID
 	CreatedDate: String
 	Creator: String
 	CreatorContact: String

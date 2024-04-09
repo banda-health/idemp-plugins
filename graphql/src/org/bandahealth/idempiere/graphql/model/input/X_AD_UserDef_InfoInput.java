@@ -38,12 +38,12 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_UserDef_Info_UU to fetch this entity from the DB
+	 * @param UU The AD_UserDef_Info_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_UserDef_InfoInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_UserDef_InfoInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -62,11 +62,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
+						"Could not find entity in table AD_InfoWindow with UU " + AD_InfoWindow.getUU());
 			}
 		} else {
 			this.setAD_InfoWindow_ID(0);
@@ -96,11 +96,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
+						"Could not find entity in table AD_Language with UU " + AD_Language.getUU());
 			}
 		} else {
 			this.setAD_Language(null);
@@ -133,11 +133,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -167,11 +167,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
 			this.setAD_Role_ID(0);
@@ -201,11 +201,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -234,20 +234,20 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_UserDef_Info_UU(UUID);
+	public void setUU(String UU) {
+		setAD_UserDef_Info_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_UserDef_Info_UU();
 	}
 
@@ -264,11 +264,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);
@@ -298,11 +298,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsShowInDashboard.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsShowInDashboard.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsShowInDashboard(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsShowInDashboard.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsShowInDashboard.getUU());
 			}
 		} else {
 			this.setIsShowInDashboard(null);
@@ -332,11 +332,11 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(PO_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPO_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + PO_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + PO_Window.getUU());
 			}
 		} else {
 			this.setPO_Window_ID(0);

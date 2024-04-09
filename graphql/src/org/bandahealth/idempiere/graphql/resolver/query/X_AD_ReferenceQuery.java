@@ -17,8 +17,8 @@ public class X_AD_ReferenceQuery extends POQuery<MReference_BH> implements Graph
 		return MReference_BH.Table_Name;
 	}
 
-	public Connection<MReference_BH> AD_ReferenceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MReference_BH> AD_ReferenceGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_T_ReportStatementMutation extends POMutation implements GraphQLMu
 		return X_T_ReportStatementInput.Table_Name;
 	}
 
-	public X_T_ReportStatement T_ReportStatementSave(I_T_ReportStatementInput entity, DataFetchingEnvironment environment) {
-		return (X_T_ReportStatement) super.save((X_T_ReportStatementInput) entity, environment);
+	public X_T_ReportStatement T_ReportStatementSave(I_T_ReportStatementInput Entity, DataFetchingEnvironment environment) {
+		return (X_T_ReportStatement) super.save((X_T_ReportStatementInput) Entity, environment);
 	}
 
-	public List<X_T_ReportStatement> T_ReportStatementSaveMany(List<I_T_ReportStatementInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_T_ReportStatementInput) entity).collect(Collectors.toList()),
+	public List<X_T_ReportStatement> T_ReportStatementSaveMany(List<I_T_ReportStatementInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_T_ReportStatementInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_T_ReportStatement) entity).collect(Collectors.toList());
 	}
 
-	public boolean T_ReportStatementDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean T_ReportStatementDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

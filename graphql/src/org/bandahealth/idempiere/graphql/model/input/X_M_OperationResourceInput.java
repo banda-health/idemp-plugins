@@ -31,12 +31,12 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_OperationResource_UU to fetch this entity from the DB
+	 * @param UU The M_OperationResource_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_OperationResourceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_OperationResourceInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
+						"Could not find entity in table A_Asset with UU " + A_Asset.getUU());
 			}
 		} else {
 			this.setA_Asset_ID(0);
@@ -89,11 +89,11 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -123,11 +123,11 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			X_C_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Job", "C_Job_UU=?", get_TrxName())
-							.setParameters(C_Job.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Job.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Job_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Job with UUID " + C_Job.getUUID());
+						"Could not find entity in table C_Job with UU " + C_Job.getUU());
 			}
 		} else {
 			this.setC_Job_ID(0);
@@ -156,20 +156,20 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_OperationResource_UU(UUID);
+	public void setUU(String UU) {
+		setM_OperationResource_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_OperationResource_UU();
 	}
 
@@ -189,11 +189,11 @@ public class X_M_OperationResourceInput extends X_M_OperationResource implements
 			X_M_ProductOperation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductOperation", "M_ProductOperation_UU=?", get_TrxName())
-							.setParameters(M_ProductOperation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductOperation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductOperation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_ProductOperation with UUID " + M_ProductOperation.getUUID());
+						"Could not find entity in table M_ProductOperation with UU " + M_ProductOperation.getUU());
 			}
 		} else {
 			this.setM_ProductOperation_ID(0);

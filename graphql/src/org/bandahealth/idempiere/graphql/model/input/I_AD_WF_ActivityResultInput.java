@@ -39,16 +39,16 @@ public interface I_AD_WF_ActivityResultInput extends I_AD_WF_ActivityResult {
 	ForeignEntityInput AD_WF_Activity();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

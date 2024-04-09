@@ -17,8 +17,8 @@ public class X_PA_ReportCubeQuery extends POQuery<MReportCube> implements GraphQ
 		return MReportCube.Table_Name;
 	}
 
-	public Connection<MReportCube> PA_ReportCubeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MReportCube> PA_ReportCubeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

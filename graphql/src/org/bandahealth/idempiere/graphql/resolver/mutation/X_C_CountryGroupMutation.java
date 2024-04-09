@@ -21,16 +21,16 @@ public class X_C_CountryGroupMutation extends POMutation implements GraphQLMutat
 		return X_C_CountryGroupInput.Table_Name;
 	}
 
-	public MCountryGroup C_CountryGroupSave(I_C_CountryGroupInput entity, DataFetchingEnvironment environment) {
-		return (MCountryGroup) super.save((X_C_CountryGroupInput) entity, environment);
+	public MCountryGroup C_CountryGroupSave(I_C_CountryGroupInput Entity, DataFetchingEnvironment environment) {
+		return (MCountryGroup) super.save((X_C_CountryGroupInput) Entity, environment);
 	}
 
-	public List<MCountryGroup> C_CountryGroupSaveMany(List<I_C_CountryGroupInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CountryGroupInput) entity).collect(Collectors.toList()),
+	public List<MCountryGroup> C_CountryGroupSaveMany(List<I_C_CountryGroupInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CountryGroupInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCountryGroup) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CountryGroupDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CountryGroupDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

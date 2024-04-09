@@ -21,16 +21,16 @@ public class X_AD_PInstanceMutation extends POMutation implements GraphQLMutatio
 		return X_AD_PInstanceInput.Table_Name;
 	}
 
-	public MPInstance AD_PInstanceSave(I_AD_PInstanceInput entity, DataFetchingEnvironment environment) {
-		return (MPInstance) super.save((X_AD_PInstanceInput) entity, environment);
+	public MPInstance AD_PInstanceSave(I_AD_PInstanceInput Entity, DataFetchingEnvironment environment) {
+		return (MPInstance) super.save((X_AD_PInstanceInput) Entity, environment);
 	}
 
-	public List<MPInstance> AD_PInstanceSaveMany(List<I_AD_PInstanceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PInstanceInput) entity).collect(Collectors.toList()),
+	public List<MPInstance> AD_PInstanceSaveMany(List<I_AD_PInstanceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PInstanceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPInstance) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PInstanceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PInstanceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

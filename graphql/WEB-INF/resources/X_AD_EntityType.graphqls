@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_EntityTypeGet(page: Int, size: Int, sort: String, filter: String): AD_EntityTypeConnection!
+	AD_EntityTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_EntityTypeConnection!
 }
 
 extend type Mutation {
-	AD_EntityTypeSave(entity: AD_EntityTypeInput!): AD_EntityType!
-	AD_EntityTypeSaveMany(entities: [AD_EntityTypeInput!]!): [AD_EntityType!]!
-	AD_EntityTypeDelete(uuids: [String!]!): Boolean!
+	AD_EntityTypeSave(Entity: AD_EntityTypeInput!): AD_EntityType!
+	AD_EntityTypeSaveMany(Entities: [AD_EntityTypeInput!]!): [AD_EntityType!]!
+	AD_EntityTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_EntityTypeConnection {
-	results: [AD_EntityType!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_EntityType!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_EntityType {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_EntityType_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Extension Classpath
@@ -51,8 +50,7 @@ type AD_EntityType {
 }
 
 input AD_EntityTypeInput {
-	UUID: ID
-	AD_EntityType_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Extension Classpath

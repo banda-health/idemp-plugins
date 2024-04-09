@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_1099BoxGet(page: Int, size: Int, sort: String, filter: String): C_1099BoxConnection!
+	C_1099BoxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_1099BoxConnection!
 }
 
 extend type Mutation {
-	C_1099BoxSave(entity: C_1099BoxInput!): C_1099Box!
-	C_1099BoxSaveMany(entities: [C_1099BoxInput!]!): [C_1099Box!]!
-	C_1099BoxDelete(uuids: [String!]!): Boolean!
+	C_1099BoxSave(Entity: C_1099BoxInput!): C_1099Box!
+	C_1099BoxSaveMany(Entities: [C_1099BoxInput!]!): [C_1099Box!]!
+	C_1099BoxDelete(UUs: [String!]!): Boolean!
 }
 
 type C_1099BoxConnection {
-	results: [C_1099Box!]!
-	pagingInfo: PagingInfo!
+	Results: [C_1099Box!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_1099Box {
@@ -22,8 +22,7 @@ type C_1099Box {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	Bucket: Int!
-	UUID: ID!
-	C_1099Box_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input C_1099BoxInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	Bucket: Int
-	UUID: ID
-	C_1099Box_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

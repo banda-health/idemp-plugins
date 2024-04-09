@@ -17,8 +17,8 @@ public class X_M_PromotionQuery extends POQuery<X_M_Promotion> implements GraphQ
 		return X_M_Promotion.Table_Name;
 	}
 
-	public Connection<X_M_Promotion> M_PromotionGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_Promotion> M_PromotionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

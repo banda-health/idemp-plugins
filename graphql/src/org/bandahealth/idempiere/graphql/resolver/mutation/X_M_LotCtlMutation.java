@@ -21,16 +21,16 @@ public class X_M_LotCtlMutation extends POMutation implements GraphQLMutationRes
 		return X_M_LotCtlInput.Table_Name;
 	}
 
-	public MLotCtl M_LotCtlSave(I_M_LotCtlInput entity, DataFetchingEnvironment environment) {
-		return (MLotCtl) super.save((X_M_LotCtlInput) entity, environment);
+	public MLotCtl M_LotCtlSave(I_M_LotCtlInput Entity, DataFetchingEnvironment environment) {
+		return (MLotCtl) super.save((X_M_LotCtlInput) Entity, environment);
 	}
 
-	public List<MLotCtl> M_LotCtlSaveMany(List<I_M_LotCtlInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_LotCtlInput) entity).collect(Collectors.toList()),
+	public List<MLotCtl> M_LotCtlSaveMany(List<I_M_LotCtlInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_LotCtlInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MLotCtl) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_LotCtlDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_LotCtlDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

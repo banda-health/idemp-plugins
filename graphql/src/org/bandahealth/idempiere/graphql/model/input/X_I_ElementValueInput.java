@@ -35,12 +35,12 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The I_ElementValue_UU to fetch this entity from the DB
+	 * @param UU The I_ElementValue_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_I_ElementValueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_I_ElementValueInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AccountSign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AccountSign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccountSign(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AccountSign.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + AccountSign.getUU());
 			}
 		} else {
 			this.setAccountSign(null);
@@ -90,11 +90,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AccountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AccountType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AccountType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + AccountType.getUU());
 			}
 		} else {
 			this.setAccountType(null);
@@ -124,11 +124,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_Column.getUU());
 			}
 		} else {
 			this.setAD_Column_ID(0);
@@ -161,11 +161,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -195,11 +195,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 			MElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Element", "C_Element_UU=?", get_TrxName())
-							.setParameters(C_Element.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Element.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Element_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Element with UUID " + C_Element.getUUID());
+						"Could not find entity in table C_Element with UU " + C_Element.getUU());
 			}
 		} else {
 			this.setC_Element_ID(0);
@@ -229,11 +229,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + C_ElementValue.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + C_ElementValue.getUU());
 			}
 		} else {
 			this.setC_ElementValue_ID(0);
@@ -262,20 +262,20 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setI_ElementValue_UU(UUID);
+	public void setUU(String UU) {
+		setI_ElementValue_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getI_ElementValue_UU();
 	}
 
@@ -292,11 +292,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(ParentElementValue.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ParentElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setParentElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + ParentElementValue.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + ParentElementValue.getUU());
 			}
 		} else {
 			this.setParentElementValue_ID(0);

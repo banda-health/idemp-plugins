@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_User_OrgAccessGet(page: Int, size: Int, sort: String, filter: String): AD_User_OrgAccessConnection!
+	AD_User_OrgAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_User_OrgAccessConnection!
 }
 
 extend type Mutation {
-	AD_User_OrgAccessSave(entity: AD_User_OrgAccessInput!): AD_User_OrgAccess!
-	AD_User_OrgAccessSaveMany(entities: [AD_User_OrgAccessInput!]!): [AD_User_OrgAccess!]!
-	AD_User_OrgAccessDelete(uuids: [String!]!): Boolean!
+	AD_User_OrgAccessSave(Entity: AD_User_OrgAccessInput!): AD_User_OrgAccess!
+	AD_User_OrgAccessSaveMany(Entities: [AD_User_OrgAccessInput!]!): [AD_User_OrgAccess!]!
+	AD_User_OrgAccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_User_OrgAccessConnection {
-	results: [AD_User_OrgAccess!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_User_OrgAccess!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_User_OrgAccess {
@@ -23,8 +23,7 @@ type AD_User_OrgAccess {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	UUID: ID!
-	AD_User_OrgAccess_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,8 +43,7 @@ input AD_User_OrgAccessInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UUID: ID
-	AD_User_OrgAccess_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Field is read only

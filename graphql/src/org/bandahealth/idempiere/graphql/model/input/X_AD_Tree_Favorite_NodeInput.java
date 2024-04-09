@@ -30,12 +30,12 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Tree_Favorite_Node_UU to fetch this entity from the DB
+	 * @param UU The AD_Tree_Favorite_Node_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Tree_Favorite_NodeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_Tree_Favorite_NodeInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -54,11 +54,11 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 			MMenu_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Menu", "AD_Menu_UU=?", get_TrxName())
-							.setParameters(AD_Menu.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Menu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Menu with UUID " + AD_Menu.getUUID());
+						"Could not find entity in table AD_Menu with UU " + AD_Menu.getUU());
 			}
 		} else {
 			this.setAD_Menu_ID(0);
@@ -91,11 +91,11 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -128,11 +128,11 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 			MTreeFavorite foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree_Favorite", "AD_Tree_Favorite_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Favorite.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Favorite.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tree_Favorite_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Tree_Favorite with UUID " + AD_Tree_Favorite.getUUID());
+						"Could not find entity in table AD_Tree_Favorite with UU " + AD_Tree_Favorite.getUU());
 			}
 		} else {
 			this.setAD_Tree_Favorite_ID(0);
@@ -161,20 +161,20 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Tree_Favorite_Node_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Tree_Favorite_Node_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Tree_Favorite_Node_UU();
 	}
 
@@ -191,11 +191,11 @@ public class X_AD_Tree_Favorite_NodeInput extends MTreeFavoriteNode implements I
 			MTreeFavoriteNode foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree_Favorite_Node", "AD_Tree_Favorite_Node_UU=?", get_TrxName())
-							.setParameters(Parent.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Parent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setParent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Tree_Favorite_Node with UUID " + Parent.getUUID());
+						"Could not find entity in table AD_Tree_Favorite_Node with UU " + Parent.getUU());
 			}
 		} else {
 			this.setParent_ID(0);

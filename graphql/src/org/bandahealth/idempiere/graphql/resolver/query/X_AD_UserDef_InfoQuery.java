@@ -17,8 +17,8 @@ public class X_AD_UserDef_InfoQuery extends POQuery<MUserDefInfo> implements Gra
 		return MUserDefInfo.Table_Name;
 	}
 
-	public Connection<MUserDefInfo> AD_UserDef_InfoGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUserDefInfo> AD_UserDef_InfoGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

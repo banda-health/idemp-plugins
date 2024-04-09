@@ -17,8 +17,8 @@ public class X_AD_PreferenceQuery extends POQuery<MPreference> implements GraphQ
 		return MPreference.Table_Name;
 	}
 
-	public Connection<MPreference> AD_PreferenceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPreference> AD_PreferenceGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

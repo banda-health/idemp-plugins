@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_FixedAssetGet(page: Int, size: Int, sort: String, filter: String): I_FixedAssetConnection!
+	I_FixedAssetGet(Page: Int, Size: Int, Sort: String, Filter: String): I_FixedAssetConnection!
 }
 
 extend type Mutation {
-	I_FixedAssetSave(entity: I_FixedAssetInput!): I_FixedAsset!
-	I_FixedAssetSaveMany(entities: [I_FixedAssetInput!]!): [I_FixedAsset!]!
-	I_FixedAssetDelete(uuids: [String!]!): Boolean!
+	I_FixedAssetSave(Entity: I_FixedAssetInput!): I_FixedAsset!
+	I_FixedAssetSaveMany(Entities: [I_FixedAssetInput!]!): [I_FixedAsset!]!
+	I_FixedAssetDelete(UUs: [String!]!): Boolean!
 }
 
 type I_FixedAssetConnection {
-	results: [I_FixedAsset!]!
-	pagingInfo: PagingInfo!
+	Results: [I_FixedAsset!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_FixedAsset {
@@ -71,8 +71,7 @@ type I_FixedAsset {
 	DocAction: AD_Ref_List!
 	# Messages generated from import process
 	I_ErrorMsg: String
-	UUID: ID!
-	I_FixedAsset_UU: String
+	UU: ID!
 	# Has this import been processed
 	I_IsImported: Boolean!
 	InventoryNo: String
@@ -157,8 +156,7 @@ input I_FixedAssetInput {
 	DocAction: AD_Ref_ListInput
 	# Messages generated from import process
 	I_ErrorMsg: String
-	UUID: ID
-	I_FixedAsset_UU: String
+	UU: ID
 	# Has this import been processed
 	I_IsImported: Boolean
 	InventoryNo: String

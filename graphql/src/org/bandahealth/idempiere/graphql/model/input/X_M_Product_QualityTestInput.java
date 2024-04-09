@@ -29,12 +29,12 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_Product_QualityTest_UU to fetch this entity from the DB
+	 * @param UU The M_Product_QualityTest_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_Product_QualityTestInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_Product_QualityTestInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -123,20 +123,20 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_Product_QualityTest_UU(UUID);
+	public void setUU(String UU) {
+		setM_Product_QualityTest_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_Product_QualityTest_UU();
 	}
 
@@ -156,11 +156,11 @@ public class X_M_Product_QualityTestInput extends X_M_Product_QualityTest implem
 			MQualityTest foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_QualityTest", "M_QualityTest_UU=?", get_TrxName())
-							.setParameters(M_QualityTest.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_QualityTest.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_QualityTest_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_QualityTest with UUID " + M_QualityTest.getUUID());
+						"Could not find entity in table M_QualityTest with UU " + M_QualityTest.getUU());
 			}
 		} else {
 			this.setM_QualityTest_ID(0);

@@ -21,16 +21,16 @@ public class X_AD_HouseKeepingMutation extends POMutation implements GraphQLMuta
 		return X_AD_HouseKeepingInput.Table_Name;
 	}
 
-	public MHouseKeeping AD_HouseKeepingSave(I_AD_HouseKeepingInput entity, DataFetchingEnvironment environment) {
-		return (MHouseKeeping) super.save((X_AD_HouseKeepingInput) entity, environment);
+	public MHouseKeeping AD_HouseKeepingSave(I_AD_HouseKeepingInput Entity, DataFetchingEnvironment environment) {
+		return (MHouseKeeping) super.save((X_AD_HouseKeepingInput) Entity, environment);
 	}
 
-	public List<MHouseKeeping> AD_HouseKeepingSaveMany(List<I_AD_HouseKeepingInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_HouseKeepingInput) entity).collect(Collectors.toList()),
+	public List<MHouseKeeping> AD_HouseKeepingSaveMany(List<I_AD_HouseKeepingInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_HouseKeepingInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MHouseKeeping) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_HouseKeepingDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_HouseKeepingDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

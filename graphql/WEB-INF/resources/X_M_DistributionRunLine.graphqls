@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_DistributionRunLineGet(page: Int, size: Int, sort: String, filter: String): M_DistributionRunLineConnection!
+	M_DistributionRunLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionRunLineConnection!
 }
 
 extend type Mutation {
-	M_DistributionRunLineSave(entity: M_DistributionRunLineInput!): M_DistributionRunLine!
-	M_DistributionRunLineSaveMany(entities: [M_DistributionRunLineInput!]!): [M_DistributionRunLine!]!
-	M_DistributionRunLineDelete(uuids: [String!]!): Boolean!
+	M_DistributionRunLineSave(Entity: M_DistributionRunLineInput!): M_DistributionRunLine!
+	M_DistributionRunLineSaveMany(Entities: [M_DistributionRunLineInput!]!): [M_DistributionRunLine!]!
+	M_DistributionRunLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_DistributionRunLineConnection {
-	results: [M_DistributionRunLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_DistributionRunLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_DistributionRunLine {
@@ -35,8 +35,7 @@ type M_DistributionRunLine {
 	M_DistributionList: M_DistributionList!
 	# Distribution Run create Orders to distribute products to a selected list of partners
 	M_DistributionRun: M_DistributionRun!
-	UUID: ID!
-	M_DistributionRunLine_UU: String
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Minimum quantity for the business partner
@@ -62,8 +61,7 @@ input M_DistributionRunLineInput {
 	M_DistributionList: ForeignEntityInput
 	# Distribution Run create Orders to distribute products to a selected list of partners
 	M_DistributionRun: ForeignEntityInput
-	UUID: ID
-	M_DistributionRunLine_UU: String
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Minimum quantity for the business partner

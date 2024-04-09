@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CommissionAmtGet(page: Int, size: Int, sort: String, filter: String): C_CommissionAmtConnection!
+	C_CommissionAmtGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionAmtConnection!
 }
 
 extend type Mutation {
-	C_CommissionAmtSave(entity: C_CommissionAmtInput!): C_CommissionAmt!
-	C_CommissionAmtSaveMany(entities: [C_CommissionAmtInput!]!): [C_CommissionAmt!]!
-	C_CommissionAmtDelete(uuids: [String!]!): Boolean!
+	C_CommissionAmtSave(Entity: C_CommissionAmtInput!): C_CommissionAmt!
+	C_CommissionAmtSaveMany(Entities: [C_CommissionAmtInput!]!): [C_CommissionAmt!]!
+	C_CommissionAmtDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CommissionAmtConnection {
-	results: [C_CommissionAmt!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CommissionAmt!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CommissionAmt {
@@ -23,8 +23,7 @@ type C_CommissionAmt {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_CommissionAmt_UU: String
+	UU: ID!
 	# Commission Line
 	C_CommissionLine: C_CommissionLine!
 	# Commission Run or Process
@@ -50,8 +49,7 @@ input C_CommissionAmtInput {
 	ActualQty: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_CommissionAmt_UU: String
+	UU: ID
 	# Commission Line
 	C_CommissionLine: ForeignEntityInput
 	# Commission Run or Process

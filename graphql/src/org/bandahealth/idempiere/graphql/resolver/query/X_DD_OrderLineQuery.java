@@ -17,8 +17,8 @@ public class X_DD_OrderLineQuery extends POQuery<MDDOrderLine> implements GraphQ
 		return MDDOrderLine.Table_Name;
 	}
 
-	public Connection<MDDOrderLine> DD_OrderLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDDOrderLine> DD_OrderLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

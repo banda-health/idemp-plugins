@@ -33,12 +33,12 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_AllocationHdr_UU to fetch this entity from the DB
+	 * @param UU The C_AllocationHdr_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_AllocationHdrInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_AllocationHdrInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,20 +90,20 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_AllocationHdr_UU(UUID);
+	public void setUU(String UU) {
+		setC_AllocationHdr_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_AllocationHdr_UU();
 	}
 
@@ -120,11 +120,11 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -157,11 +157,11 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
 			this.setC_DocType_ID(0);
@@ -191,11 +191,11 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocAction.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocAction.getUU());
 			}
 		} else {
 			this.setDocAction(null);
@@ -225,11 +225,11 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocStatus.getUU());
 			}
 		} else {
 			this.setDocStatus(null);
@@ -270,11 +270,11 @@ public class X_C_AllocationHdrInput extends MAllocationHdr implements I_C_Alloca
 			MAllocationHdr foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationHdr", "C_AllocationHdr_UU=?", get_TrxName())
-							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReversal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AllocationHdr with UUID " + Reversal.getUUID());
+						"Could not find entity in table C_AllocationHdr with UU " + Reversal.getUU());
 			}
 		} else {
 			this.setReversal_ID(0);

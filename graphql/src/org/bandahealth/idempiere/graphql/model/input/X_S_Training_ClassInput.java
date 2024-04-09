@@ -29,12 +29,12 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The S_Training_Class_UU to fetch this entity from the DB
+	 * @param UU The S_Training_Class_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_S_Training_ClassInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_S_Training_ClassInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -123,20 +123,20 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setS_Training_Class_UU(UUID);
+	public void setUU(String UU) {
+		setS_Training_Class_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getS_Training_Class_UU();
 	}
 
@@ -156,11 +156,11 @@ public class X_S_Training_ClassInput extends X_S_Training_Class implements I_S_T
 			X_S_Training foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Training", "S_Training_UU=?", get_TrxName())
-							.setParameters(S_Training.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_Training.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_Training_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table S_Training with UUID " + S_Training.getUUID());
+						"Could not find entity in table S_Training with UU " + S_Training.getUU());
 			}
 		} else {
 			this.setS_Training_ID(0);

@@ -21,16 +21,16 @@ public class X_T_BankRegisterMutation extends POMutation implements GraphQLMutat
 		return X_T_BankRegisterInput.Table_Name;
 	}
 
-	public X_T_BankRegister T_BankRegisterSave(I_T_BankRegisterInput entity, DataFetchingEnvironment environment) {
-		return (X_T_BankRegister) super.save((X_T_BankRegisterInput) entity, environment);
+	public X_T_BankRegister T_BankRegisterSave(I_T_BankRegisterInput Entity, DataFetchingEnvironment environment) {
+		return (X_T_BankRegister) super.save((X_T_BankRegisterInput) Entity, environment);
 	}
 
-	public List<X_T_BankRegister> T_BankRegisterSaveMany(List<I_T_BankRegisterInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_T_BankRegisterInput) entity).collect(Collectors.toList()),
+	public List<X_T_BankRegister> T_BankRegisterSaveMany(List<I_T_BankRegisterInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_T_BankRegisterInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_T_BankRegister) entity).collect(Collectors.toList());
 	}
 
-	public boolean T_BankRegisterDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean T_BankRegisterDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

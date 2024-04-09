@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_WorkflowProcessorLogGet(page: Int, size: Int, sort: String, filter: String): AD_WorkflowProcessorLogConnection!
+	AD_WorkflowProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WorkflowProcessorLogConnection!
 }
 
 extend type Mutation {
-	AD_WorkflowProcessorLogSave(entity: AD_WorkflowProcessorLogInput!): AD_WorkflowProcessorLog!
-	AD_WorkflowProcessorLogSaveMany(entities: [AD_WorkflowProcessorLogInput!]!): [AD_WorkflowProcessorLog!]!
-	AD_WorkflowProcessorLogDelete(uuids: [String!]!): Boolean!
+	AD_WorkflowProcessorLogSave(Entity: AD_WorkflowProcessorLogInput!): AD_WorkflowProcessorLog!
+	AD_WorkflowProcessorLogSaveMany(Entities: [AD_WorkflowProcessorLogInput!]!): [AD_WorkflowProcessorLog!]!
+	AD_WorkflowProcessorLogDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_WorkflowProcessorLogConnection {
-	results: [AD_WorkflowProcessorLog!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_WorkflowProcessorLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_WorkflowProcessorLog {
@@ -23,8 +23,7 @@ type AD_WorkflowProcessorLog {
 	AD_Org: AD_Org!
 	# Workflow Processor Server
 	AD_WorkflowProcessor: AD_WorkflowProcessor!
-	UUID: ID!
-	AD_WorkflowProcessorLog_UU: String
+	UU: ID!
 	# Binary Data
 	BinaryData: Binary
 	# Date this record was created
@@ -54,8 +53,7 @@ input AD_WorkflowProcessorLogInput {
 	AD_Org: ForeignEntityInput
 	# Workflow Processor Server
 	AD_WorkflowProcessor: ForeignEntityInput
-	UUID: ID
-	AD_WorkflowProcessorLog_UU: String
+	UU: ID
 	# Binary Data
 	BinaryData: Binary
 	# Optional short description of the record

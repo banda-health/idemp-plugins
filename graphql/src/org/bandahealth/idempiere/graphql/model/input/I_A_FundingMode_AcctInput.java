@@ -25,18 +25,18 @@ public interface I_A_FundingMode_AcctInput extends I_A_FundingMode_Acct {
 	ForeignEntityInput A_FundingMode_A();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set A_FundingMode.

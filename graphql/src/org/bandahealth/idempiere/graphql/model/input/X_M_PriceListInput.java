@@ -28,12 +28,12 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_PriceList_UU to fetch this entity from the DB
+	 * @param UU The M_PriceList_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_PriceListInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_PriceListInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,11 +86,11 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(BasePriceList.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BasePriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBasePriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PriceList with UUID " + BasePriceList.getUUID());
+						"Could not find entity in table M_PriceList with UU " + BasePriceList.getUU());
 			}
 		} else {
 			this.setBasePriceList_ID(0);
@@ -120,11 +120,11 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -153,20 +153,20 @@ public class X_M_PriceListInput extends MPriceList implements I_M_PriceListInput
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_PriceList_UU(UUID);
+	public void setUU(String UU) {
+		setM_PriceList_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_PriceList_UU();
 	}
 }

@@ -21,16 +21,16 @@ public class X_EXP_ProcessorParameterMutation extends POMutation implements Grap
 		return X_EXP_ProcessorParameterInput.Table_Name;
 	}
 
-	public MEXPProcessorParameter EXP_ProcessorParameterSave(I_EXP_ProcessorParameterInput entity, DataFetchingEnvironment environment) {
-		return (MEXPProcessorParameter) super.save((X_EXP_ProcessorParameterInput) entity, environment);
+	public MEXPProcessorParameter EXP_ProcessorParameterSave(I_EXP_ProcessorParameterInput Entity, DataFetchingEnvironment environment) {
+		return (MEXPProcessorParameter) super.save((X_EXP_ProcessorParameterInput) Entity, environment);
 	}
 
-	public List<MEXPProcessorParameter> EXP_ProcessorParameterSaveMany(List<I_EXP_ProcessorParameterInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_EXP_ProcessorParameterInput) entity).collect(Collectors.toList()),
+	public List<MEXPProcessorParameter> EXP_ProcessorParameterSaveMany(List<I_EXP_ProcessorParameterInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_EXP_ProcessorParameterInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MEXPProcessorParameter) entity).collect(Collectors.toList());
 	}
 
-	public boolean EXP_ProcessorParameterDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean EXP_ProcessorParameterDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

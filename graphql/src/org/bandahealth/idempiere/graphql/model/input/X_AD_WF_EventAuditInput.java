@@ -38,12 +38,12 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_WF_EventAudit_UU to fetch this entity from the DB
+	 * @param UU The AD_WF_EventAudit_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_WF_EventAuditInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_WF_EventAuditInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -62,11 +62,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -96,11 +96,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -130,11 +130,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -163,20 +163,20 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_WF_EventAudit_UU(UUID);
+	public void setUU(String UU) {
+		setAD_WF_EventAudit_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_WF_EventAudit_UU();
 	}
 
@@ -193,11 +193,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Node.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Node_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
+						"Could not find entity in table AD_WF_Node with UU " + AD_WF_Node.getUU());
 			}
 		} else {
 			this.setAD_WF_Node_ID(0);
@@ -227,11 +227,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			X_AD_WF_Process foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Process", "AD_WF_Process_UU=?", get_TrxName())
-							.setParameters(AD_WF_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_WF_Process with UUID " + AD_WF_Process.getUUID());
+						"Could not find entity in table AD_WF_Process with UU " + AD_WF_Process.getUU());
 			}
 		} else {
 			this.setAD_WF_Process_ID(0);
@@ -261,11 +261,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			X_AD_WF_Responsible foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Responsible", "AD_WF_Responsible_UU=?", get_TrxName())
-							.setParameters(AD_WF_Responsible.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Responsible.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Responsible_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_WF_Responsible with UUID " + AD_WF_Responsible.getUUID());
+						"Could not find entity in table AD_WF_Responsible with UU " + AD_WF_Responsible.getUU());
 			}
 		} else {
 			this.setAD_WF_Responsible_ID(0);
@@ -295,11 +295,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(EventType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EventType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEventType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + EventType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + EventType.getUU());
 			}
 		} else {
 			this.setEventType(null);
@@ -329,11 +329,11 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(WFState.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(WFState.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWFState(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + WFState.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + WFState.getUU());
 			}
 		} else {
 			this.setWFState(null);

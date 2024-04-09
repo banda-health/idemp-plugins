@@ -74,12 +74,12 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_AcctSchema_Default_UU to fetch this entity from the DB
+	 * @param UU The C_AcctSchema_Default_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_AcctSchema_DefaultInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_AcctSchema_DefaultInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -98,11 +98,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -132,11 +132,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_Asset_A.getUU());
 			}
 		} else {
 			this.setB_Asset_Acct(0);
@@ -166,11 +166,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestExp_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestExp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_InterestExp_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_InterestExp_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_InterestExp_A.getUU());
 			}
 		} else {
 			this.setB_InterestExp_Acct(0);
@@ -200,11 +200,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestRev_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestRev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_InterestRev_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_InterestRev_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_InterestRev_A.getUU());
 			}
 		} else {
 			this.setB_InterestRev_Acct(0);
@@ -234,11 +234,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InTransit_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InTransit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_InTransit_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_InTransit_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_InTransit_A.getUU());
 			}
 		} else {
 			this.setB_InTransit_Acct(0);
@@ -268,11 +268,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_PaymentSelect_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_PaymentSelect_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_PaymentSelect_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_PaymentSelect_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_PaymentSelect_A.getUU());
 			}
 		} else {
 			this.setB_PaymentSelect_Acct(0);
@@ -302,11 +302,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_UnallocatedCash_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_UnallocatedCash_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_UnallocatedCash_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_UnallocatedCash_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_UnallocatedCash_A.getUU());
 			}
 		} else {
 			this.setB_UnallocatedCash_Acct(0);
@@ -324,20 +324,20 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_AcctSchema_Default_UU(UUID);
+	public void setUU(String UU) {
+		setC_AcctSchema_Default_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_AcctSchema_Default_UU();
 	}
 
@@ -357,11 +357,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -391,11 +391,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Prepayment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + C_Prepayment_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + C_Prepayment_A.getUU());
 			}
 		} else {
 			this.setC_Prepayment_Acct(0);
@@ -425,11 +425,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Receivable_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Receivable_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + C_Receivable_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_A.getUU());
 			}
 		} else {
 			this.setC_Receivable_Acct(0);
@@ -459,11 +459,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Receivable_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Receivable_Services_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + C_Receivable_Services_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_Services_A.getUU());
 			}
 		} else {
 			this.setC_Receivable_Services_Acct(0);
@@ -493,11 +493,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Asset_A.getUU());
 			}
 		} else {
 			this.setCB_Asset_Acct(0);
@@ -527,11 +527,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_CashTransfer_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_CashTransfer_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_CashTransfer_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_CashTransfer_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_CashTransfer_A.getUU());
 			}
 		} else {
 			this.setCB_CashTransfer_Acct(0);
@@ -561,11 +561,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Differences_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Differences_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Differences_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Differences_A.getUU());
 			}
 		} else {
 			this.setCB_Differences_Acct(0);
@@ -595,11 +595,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Expense_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Expense_A.getUU());
 			}
 		} else {
 			this.setCB_Expense_Acct(0);
@@ -629,11 +629,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Receipt_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Receipt_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Receipt_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Receipt_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Receipt_A.getUU());
 			}
 		} else {
 			this.setCB_Receipt_Acct(0);
@@ -663,11 +663,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(Ch_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Ch_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCh_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + Ch_Expense_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + Ch_Expense_A.getUU());
 			}
 		} else {
 			this.setCh_Expense_Acct(0);
@@ -697,11 +697,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(NotInvoicedReceipts_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(NotInvoicedReceipts_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNotInvoicedReceipts_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + NotInvoicedReceipts_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + NotInvoicedReceipts_A.getUU());
 			}
 		} else {
 			this.setNotInvoicedReceipts_Acct(0);
@@ -731,11 +731,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_Asset_A.getUU());
 			}
 		} else {
 			this.setP_Asset_Acct(0);
@@ -765,11 +765,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_AverageCostVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_AverageCostVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_AverageCostVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_AverageCostVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_AverageCostVariance_A.getUU());
 			}
 		} else {
 			this.setP_AverageCostVariance_Acct(0);
@@ -799,11 +799,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_COGS_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_COGS_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_COGS_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_COGS_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_COGS_A.getUU());
 			}
 		} else {
 			this.setP_COGS_Acct(0);
@@ -833,11 +833,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_CostAdjustment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_CostAdjustment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_CostAdjustment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_CostAdjustment_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_CostAdjustment_A.getUU());
 			}
 		} else {
 			this.setP_CostAdjustment_Acct(0);
@@ -867,11 +867,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_Expense_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_Expense_A.getUU());
 			}
 		} else {
 			this.setP_Expense_Acct(0);
@@ -901,11 +901,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InventoryClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_InventoryClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_InventoryClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_InventoryClearing_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_InventoryClearing_A.getUU());
 			}
 		} else {
 			this.setP_InventoryClearing_Acct(0);
@@ -935,11 +935,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InvoicePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_InvoicePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_InvoicePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_InvoicePriceVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_InvoicePriceVariance_A.getUU());
 			}
 		} else {
 			this.setP_InvoicePriceVariance_Acct(0);
@@ -969,11 +969,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_LandedCostClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_LandedCostClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_LandedCostClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_LandedCostClearing_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_LandedCostClearing_A.getUU());
 			}
 		} else {
 			this.setP_LandedCostClearing_Acct(0);
@@ -1003,11 +1003,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_PurchasePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_PurchasePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_PurchasePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_PurchasePriceVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_PurchasePriceVariance_A.getUU());
 			}
 		} else {
 			this.setP_PurchasePriceVariance_Acct(0);
@@ -1037,11 +1037,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_RateVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_RateVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_RateVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_RateVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_RateVariance_A.getUU());
 			}
 		} else {
 			this.setP_RateVariance_Acct(0);
@@ -1071,11 +1071,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_Revenue_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_Revenue_A.getUU());
 			}
 		} else {
 			this.setP_Revenue_Acct(0);
@@ -1105,11 +1105,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountGrant_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_TradeDiscountGrant_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_TradeDiscountGrant_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_TradeDiscountGrant_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_TradeDiscountGrant_A.getUU());
 			}
 		} else {
 			this.setP_TradeDiscountGrant_Acct(0);
@@ -1139,11 +1139,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountRec_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_TradeDiscountRec_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_TradeDiscountRec_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_TradeDiscountRec_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_TradeDiscountRec_A.getUU());
 			}
 		} else {
 			this.setP_TradeDiscountRec_Acct(0);
@@ -1173,11 +1173,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Exp_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PayDiscount_Exp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPayDiscount_Exp_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PayDiscount_Exp_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Exp_A.getUU());
 			}
 		} else {
 			this.setPayDiscount_Exp_Acct(0);
@@ -1207,11 +1207,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Rev_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PayDiscount_Rev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPayDiscount_Rev_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PayDiscount_Rev_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Rev_A.getUU());
 			}
 		} else {
 			this.setPayDiscount_Rev_Acct(0);
@@ -1241,11 +1241,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPJ_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PJ_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PJ_Asset_A.getUU());
 			}
 		} else {
 			this.setPJ_Asset_Acct(0);
@@ -1275,11 +1275,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_WIP_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPJ_WIP_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PJ_WIP_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PJ_WIP_A.getUU());
 			}
 		} else {
 			this.setPJ_WIP_Acct(0);
@@ -1309,11 +1309,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(RealizedGain_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RealizedGain_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRealizedGain_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + RealizedGain_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + RealizedGain_A.getUU());
 			}
 		} else {
 			this.setRealizedGain_Acct(0);
@@ -1343,11 +1343,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(RealizedLoss_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RealizedLoss_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRealizedLoss_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + RealizedLoss_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + RealizedLoss_A.getUU());
 			}
 		} else {
 			this.setRealizedLoss_Acct(0);
@@ -1377,11 +1377,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Credit_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Credit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setT_Credit_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + T_Credit_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + T_Credit_A.getUU());
 			}
 		} else {
 			this.setT_Credit_Acct(0);
@@ -1411,11 +1411,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Due_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Due_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setT_Due_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + T_Due_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + T_Due_A.getUU());
 			}
 		} else {
 			this.setT_Due_Acct(0);
@@ -1445,11 +1445,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(T_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(T_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setT_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + T_Expense_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + T_Expense_A.getUU());
 			}
 		} else {
 			this.setT_Expense_Acct(0);
@@ -1479,11 +1479,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnEarnedRevenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnEarnedRevenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUnEarnedRevenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + UnEarnedRevenue_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + UnEarnedRevenue_A.getUU());
 			}
 		} else {
 			this.setUnEarnedRevenue_Acct(0);
@@ -1513,11 +1513,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnrealizedGain_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnrealizedGain_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUnrealizedGain_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + UnrealizedGain_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + UnrealizedGain_A.getUU());
 			}
 		} else {
 			this.setUnrealizedGain_Acct(0);
@@ -1547,11 +1547,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnrealizedLoss_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnrealizedLoss_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUnrealizedLoss_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + UnrealizedLoss_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + UnrealizedLoss_A.getUU());
 			}
 		} else {
 			this.setUnrealizedLoss_Acct(0);
@@ -1581,11 +1581,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Liability_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Liability_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + V_Liability_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + V_Liability_A.getUU());
 			}
 		} else {
 			this.setV_Liability_Acct(0);
@@ -1615,11 +1615,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Liability_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Liability_Services_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + V_Liability_Services_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + V_Liability_Services_A.getUU());
 			}
 		} else {
 			this.setV_Liability_Services_Acct(0);
@@ -1649,11 +1649,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Prepayment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + V_Prepayment_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + V_Prepayment_A.getUU());
 			}
 		} else {
 			this.setV_Prepayment_Acct(0);
@@ -1683,11 +1683,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(W_Differences_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(W_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setW_Differences_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + W_Differences_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + W_Differences_A.getUU());
 			}
 		} else {
 			this.setW_Differences_Acct(0);
@@ -1717,11 +1717,11 @@ public class X_C_AcctSchema_DefaultInput extends MAcctSchemaDefault implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(WriteOff_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(WriteOff_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWriteOff_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + WriteOff_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + WriteOff_A.getUU());
 			}
 		} else {
 			this.setWriteOff_Acct(0);

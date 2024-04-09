@@ -17,8 +17,8 @@ public class X_C_CycleStepQuery extends POQuery<X_C_CycleStep> implements GraphQ
 		return X_C_CycleStep.Table_Name;
 	}
 
-	public Connection<X_C_CycleStep> C_CycleStepGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_CycleStep> C_CycleStepGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Val_RuleGet(page: Int, size: Int, sort: String, filter: String): AD_Val_RuleConnection!
+	AD_Val_RuleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Val_RuleConnection!
 }
 
 extend type Mutation {
-	AD_Val_RuleSave(entity: AD_Val_RuleInput!): AD_Val_Rule!
-	AD_Val_RuleSaveMany(entities: [AD_Val_RuleInput!]!): [AD_Val_Rule!]!
-	AD_Val_RuleDelete(uuids: [String!]!): Boolean!
+	AD_Val_RuleSave(Entity: AD_Val_RuleInput!): AD_Val_Rule!
+	AD_Val_RuleSaveMany(Entities: [AD_Val_RuleInput!]!): [AD_Val_Rule!]!
+	AD_Val_RuleDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Val_RuleConnection {
-	results: [AD_Val_Rule!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Val_Rule!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Val_Rule {
@@ -21,8 +21,7 @@ type AD_Val_Rule {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Val_Rule_UU: String
+	UU: ID!
 	# Validation Code
 	Code: String
 	# Date this record was created
@@ -48,8 +47,7 @@ type AD_Val_Rule {
 input AD_Val_RuleInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Val_Rule_UU: String
+	UU: ID
 	# Validation Code
 	Code: String
 	# Optional short description of the record

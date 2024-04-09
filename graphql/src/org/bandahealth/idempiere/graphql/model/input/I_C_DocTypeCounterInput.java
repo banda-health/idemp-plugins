@@ -39,18 +39,18 @@ public interface I_C_DocTypeCounterInput extends I_C_DocTypeCounter {
 	ForeignEntityInput C_DocType();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set Counter_C_DocType.

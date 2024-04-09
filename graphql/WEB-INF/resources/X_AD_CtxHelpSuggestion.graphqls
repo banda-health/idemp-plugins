@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_CtxHelpSuggestionGet(page: Int, size: Int, sort: String, filter: String): AD_CtxHelpSuggestionConnection!
+	AD_CtxHelpSuggestionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_CtxHelpSuggestionConnection!
 }
 
 extend type Mutation {
-	AD_CtxHelpSuggestionSave(entity: AD_CtxHelpSuggestionInput!): AD_CtxHelpSuggestion!
-	AD_CtxHelpSuggestionSaveMany(entities: [AD_CtxHelpSuggestionInput!]!): [AD_CtxHelpSuggestion!]!
-	AD_CtxHelpSuggestionDelete(uuids: [String!]!): Boolean!
+	AD_CtxHelpSuggestionSave(Entity: AD_CtxHelpSuggestionInput!): AD_CtxHelpSuggestion!
+	AD_CtxHelpSuggestionSaveMany(Entities: [AD_CtxHelpSuggestionInput!]!): [AD_CtxHelpSuggestion!]!
+	AD_CtxHelpSuggestionDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_CtxHelpSuggestionConnection {
-	results: [AD_CtxHelpSuggestion!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_CtxHelpSuggestion!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_CtxHelpSuggestion {
@@ -23,8 +23,7 @@ type AD_CtxHelpSuggestion {
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp!
 	AD_CtxHelpMsg: AD_CtxHelpMsg!
-	UUID: ID!
-	AD_CtxHelpSuggestion_UU: String!
+	UU: ID!
 	# Language for this entity
 	AD_Language: AD_Language!
 	# Organizational entity within tenant
@@ -61,8 +60,7 @@ input AD_CtxHelpSuggestionInput {
 	AcceptSuggestion: String
 	AD_CtxHelp: ForeignEntityInput
 	AD_CtxHelpMsg: ForeignEntityInput
-	UUID: ID
-	AD_CtxHelpSuggestion_UU: String
+	UU: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant

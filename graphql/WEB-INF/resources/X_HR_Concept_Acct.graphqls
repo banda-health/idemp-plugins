@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	HR_Concept_AcctGet(page: Int, size: Int, sort: String, filter: String): HR_Concept_AcctConnection!
+	HR_Concept_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_Concept_AcctConnection!
 }
 
 extend type Mutation {
-	HR_Concept_AcctSave(entity: HR_Concept_AcctInput!): HR_Concept_Acct!
-	HR_Concept_AcctSaveMany(entities: [HR_Concept_AcctInput!]!): [HR_Concept_Acct!]!
-	HR_Concept_AcctDelete(uuids: [String!]!): Boolean!
+	HR_Concept_AcctSave(Entity: HR_Concept_AcctInput!): HR_Concept_Acct!
+	HR_Concept_AcctSaveMany(Entities: [HR_Concept_AcctInput!]!): [HR_Concept_Acct!]!
+	HR_Concept_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type HR_Concept_AcctConnection {
-	results: [HR_Concept_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [HR_Concept_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type HR_Concept_Acct {
@@ -29,8 +29,7 @@ type HR_Concept_Acct {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
-	UUID: ID!
-	HR_Concept_Acct_UU: String
+	UU: ID!
 	HR_Concept: HR_Concept!
 	HR_Expense_A: C_ValidCombination!
 	HR_Revenue_A: C_ValidCombination!
@@ -55,8 +54,7 @@ input HR_Concept_AcctInput {
 	C_AcctSchema: ForeignEntityInput
 	# Business Partner Group
 	C_BP_Group: ForeignEntityInput
-	UUID: ID
-	HR_Concept_Acct_UU: String
+	UU: ID
 	HR_Concept: ForeignEntityInput
 	HR_Expense_A: ForeignEntityInput
 	HR_Revenue_A: ForeignEntityInput

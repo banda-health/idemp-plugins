@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BankStatementMatcherGet(page: Int, size: Int, sort: String, filter: String): C_BankStatementMatcherConnection!
+	C_BankStatementMatcherGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementMatcherConnection!
 }
 
 extend type Mutation {
-	C_BankStatementMatcherSave(entity: C_BankStatementMatcherInput!): C_BankStatementMatcher!
-	C_BankStatementMatcherSaveMany(entities: [C_BankStatementMatcherInput!]!): [C_BankStatementMatcher!]!
-	C_BankStatementMatcherDelete(uuids: [String!]!): Boolean!
+	C_BankStatementMatcherSave(Entity: C_BankStatementMatcherInput!): C_BankStatementMatcher!
+	C_BankStatementMatcherSaveMany(Entities: [C_BankStatementMatcherInput!]!): [C_BankStatementMatcher!]!
+	C_BankStatementMatcherDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BankStatementMatcherConnection {
-	results: [C_BankStatementMatcher!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BankStatementMatcher!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BankStatementMatcher {
@@ -21,8 +21,7 @@ type C_BankStatementMatcher {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_BankStatementMatcher_UU: String
+	UU: ID!
 	# Java Classname
 	Classname: String!
 	# Date this record was created
@@ -46,8 +45,7 @@ type C_BankStatementMatcher {
 input C_BankStatementMatcherInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_BankStatementMatcher_UU: String
+	UU: ID
 	# Java Classname
 	Classname: String
 	# Optional short description of the record

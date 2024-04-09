@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_AttributeGet(page: Int, size: Int, sort: String, filter: String): AD_AttributeConnection!
+	AD_AttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AttributeConnection!
 }
 
 extend type Mutation {
-	AD_AttributeSave(entity: AD_AttributeInput!): AD_Attribute!
-	AD_AttributeSaveMany(entities: [AD_AttributeInput!]!): [AD_Attribute!]!
-	AD_AttributeDelete(uuids: [String!]!): Boolean!
+	AD_AttributeSave(Entity: AD_AttributeInput!): AD_Attribute!
+	AD_AttributeSaveMany(Entities: [AD_AttributeInput!]!): [AD_Attribute!]!
+	AD_AttributeDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_AttributeConnection {
-	results: [AD_Attribute!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Attribute!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Attribute {
-	UUID: ID!
-	AD_Attribute_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -82,8 +81,7 @@ type AD_Attribute {
 }
 
 input AD_AttributeInput {
-	UUID: ID
-	AD_Attribute_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	ASP_FormGet(page: Int, size: Int, sort: String, filter: String): ASP_FormConnection!
+	ASP_FormGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_FormConnection!
 }
 
 extend type Mutation {
-	ASP_FormSave(entity: ASP_FormInput!): ASP_Form!
-	ASP_FormSaveMany(entities: [ASP_FormInput!]!): [ASP_Form!]!
-	ASP_FormDelete(uuids: [String!]!): Boolean!
+	ASP_FormSave(Entity: ASP_FormInput!): ASP_Form!
+	ASP_FormSaveMany(Entities: [ASP_FormInput!]!): [ASP_Form!]!
+	ASP_FormDelete(UUs: [String!]!): Boolean!
 }
 
 type ASP_FormConnection {
-	results: [ASP_Form!]!
-	pagingInfo: PagingInfo!
+	Results: [ASP_Form!]!
+	PagingInfo: PagingInfo!
 }
 
 type ASP_Form {
@@ -23,8 +23,7 @@ type ASP_Form {
 	AD_Form: AD_Form!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	ASP_Form_UU: String
+	UU: ID!
 	ASP_Level: ASP_Level!
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
@@ -44,8 +43,7 @@ input ASP_FormInput {
 	AD_Form: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	ASP_Form_UU: String
+	UU: ID
 	ASP_Level: ForeignEntityInput
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system

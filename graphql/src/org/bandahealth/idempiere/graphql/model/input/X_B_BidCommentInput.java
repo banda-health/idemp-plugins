@@ -29,12 +29,12 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The B_BidComment_UU to fetch this entity from the DB
+	 * @param UU The B_BidComment_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_B_BidCommentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_B_BidCommentInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -87,11 +87,11 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -120,20 +120,20 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setB_BidComment_UU(UUID);
+	public void setUU(String UU) {
+		setB_BidComment_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getB_BidComment_UU();
 	}
 
@@ -150,11 +150,11 @@ public class X_B_BidCommentInput extends X_B_BidComment implements I_B_BidCommen
 			X_B_Topic foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_Topic", "B_Topic_UU=?", get_TrxName())
-							.setParameters(B_Topic.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_Topic.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_Topic_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table B_Topic with UUID " + B_Topic.getUUID());
+						"Could not find entity in table B_Topic with UU " + B_Topic.getUU());
 			}
 		} else {
 			this.setB_Topic_ID(0);

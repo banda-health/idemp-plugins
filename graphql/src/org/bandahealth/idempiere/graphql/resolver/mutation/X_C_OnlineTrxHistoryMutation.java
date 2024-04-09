@@ -21,16 +21,16 @@ public class X_C_OnlineTrxHistoryMutation extends POMutation implements GraphQLM
 		return X_C_OnlineTrxHistoryInput.Table_Name;
 	}
 
-	public MOnlineTrxHistory C_OnlineTrxHistorySave(I_C_OnlineTrxHistoryInput entity, DataFetchingEnvironment environment) {
-		return (MOnlineTrxHistory) super.save((X_C_OnlineTrxHistoryInput) entity, environment);
+	public MOnlineTrxHistory C_OnlineTrxHistorySave(I_C_OnlineTrxHistoryInput Entity, DataFetchingEnvironment environment) {
+		return (MOnlineTrxHistory) super.save((X_C_OnlineTrxHistoryInput) Entity, environment);
 	}
 
-	public List<MOnlineTrxHistory> C_OnlineTrxHistorySaveMany(List<I_C_OnlineTrxHistoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_OnlineTrxHistoryInput) entity).collect(Collectors.toList()),
+	public List<MOnlineTrxHistory> C_OnlineTrxHistorySaveMany(List<I_C_OnlineTrxHistoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OnlineTrxHistoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MOnlineTrxHistory) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_OnlineTrxHistoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_OnlineTrxHistoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

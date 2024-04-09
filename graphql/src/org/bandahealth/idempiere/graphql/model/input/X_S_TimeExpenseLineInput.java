@@ -53,12 +53,12 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The S_TimeExpenseLine_UU to fetch this entity from the DB
+	 * @param UU The S_TimeExpenseLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_S_TimeExpenseLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_S_TimeExpenseLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -77,11 +77,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -111,11 +111,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
+						"Could not find entity in table C_Activity with UU " + C_Activity.getUU());
 			}
 		} else {
 			this.setC_Activity_ID(0);
@@ -145,11 +145,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -179,11 +179,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
+						"Could not find entity in table C_Campaign with UU " + C_Campaign.getUU());
 			}
 		} else {
 			this.setC_Campaign_ID(0);
@@ -213,11 +213,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -250,11 +250,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
+						"Could not find entity in table C_InvoiceLine with UU " + C_InvoiceLine.getUU());
 			}
 		} else {
 			this.setC_InvoiceLine_ID(0);
@@ -287,11 +287,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
+						"Could not find entity in table C_OrderLine with UU " + C_OrderLine.getUU());
 			}
 		} else {
 			this.setC_OrderLine_ID(0);
@@ -321,11 +321,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+						"Could not find entity in table C_Project with UU " + C_Project.getUU());
 			}
 		} else {
 			this.setC_Project_ID(0);
@@ -355,11 +355,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProjectPhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectPhase", "C_ProjectPhase_UU=?", get_TrxName())
-							.setParameters(C_ProjectPhase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectPhase.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ProjectPhase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ProjectPhase with UUID " + C_ProjectPhase.getUUID());
+						"Could not find entity in table C_ProjectPhase with UU " + C_ProjectPhase.getUU());
 			}
 		} else {
 			this.setC_ProjectPhase_ID(0);
@@ -389,11 +389,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProjectTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ProjectTask", "C_ProjectTask_UU=?", get_TrxName())
-							.setParameters(C_ProjectTask.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ProjectTask.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ProjectTask_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ProjectTask with UUID " + C_ProjectTask.getUUID());
+						"Could not find entity in table C_ProjectTask with UU " + C_ProjectTask.getUU());
 			}
 		} else {
 			this.setC_ProjectTask_ID(0);
@@ -423,11 +423,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
+						"Could not find entity in table C_UOM with UU " + C_UOM.getUU());
 			}
 		} else {
 			this.setC_UOM_ID(0);
@@ -457,11 +457,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -491,11 +491,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MResourceAssignment foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ResourceAssignment", "S_ResourceAssignment_UU=?", get_TrxName())
-							.setParameters(S_ResourceAssignment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_ResourceAssignment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_ResourceAssignment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table S_ResourceAssignment with UUID " + S_ResourceAssignment.getUUID());
+						"Could not find entity in table S_ResourceAssignment with UU " + S_ResourceAssignment.getUU());
 			}
 		} else {
 			this.setS_ResourceAssignment_ID(0);
@@ -528,11 +528,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			MTimeExpense foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_TimeExpense", "S_TimeExpense_UU=?", get_TrxName())
-							.setParameters(S_TimeExpense.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_TimeExpense.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_TimeExpense_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table S_TimeExpense with UUID " + S_TimeExpense.getUUID());
+						"Could not find entity in table S_TimeExpense with UU " + S_TimeExpense.getUU());
 			}
 		} else {
 			this.setS_TimeExpense_ID(0);
@@ -561,20 +561,20 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setS_TimeExpenseLine_UU(UUID);
+	public void setUU(String UU) {
+		setS_TimeExpenseLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getS_TimeExpenseLine_UU();
 	}
 
@@ -591,11 +591,11 @@ public class X_S_TimeExpenseLineInput extends MTimeExpenseLine implements I_S_Ti
 			X_S_TimeType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_TimeType", "S_TimeType_UU=?", get_TrxName())
-							.setParameters(S_TimeType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_TimeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_TimeType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table S_TimeType with UUID " + S_TimeType.getUUID());
+						"Could not find entity in table S_TimeType with UU " + S_TimeType.getUU());
 			}
 		} else {
 			this.setS_TimeType_ID(0);

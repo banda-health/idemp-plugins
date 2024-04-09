@@ -17,8 +17,8 @@ public class X_C_PaySelectionLineQuery extends POQuery<MPaySelectionLine> implem
 		return MPaySelectionLine.Table_Name;
 	}
 
-	public Connection<MPaySelectionLine> C_PaySelectionLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPaySelectionLine> C_PaySelectionLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

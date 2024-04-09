@@ -21,16 +21,16 @@ public class X_C_TaxPostalMutation extends POMutation implements GraphQLMutation
 		return X_C_TaxPostalInput.Table_Name;
 	}
 
-	public MTaxPostal C_TaxPostalSave(I_C_TaxPostalInput entity, DataFetchingEnvironment environment) {
-		return (MTaxPostal) super.save((X_C_TaxPostalInput) entity, environment);
+	public MTaxPostal C_TaxPostalSave(I_C_TaxPostalInput Entity, DataFetchingEnvironment environment) {
+		return (MTaxPostal) super.save((X_C_TaxPostalInput) Entity, environment);
 	}
 
-	public List<MTaxPostal> C_TaxPostalSaveMany(List<I_C_TaxPostalInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_TaxPostalInput) entity).collect(Collectors.toList()),
+	public List<MTaxPostal> C_TaxPostalSaveMany(List<I_C_TaxPostalInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_TaxPostalInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTaxPostal) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_TaxPostalDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_TaxPostalDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

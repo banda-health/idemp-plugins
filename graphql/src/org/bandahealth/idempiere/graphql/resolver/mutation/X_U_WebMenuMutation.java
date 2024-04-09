@@ -21,16 +21,16 @@ public class X_U_WebMenuMutation extends POMutation implements GraphQLMutationRe
 		return X_U_WebMenuInput.Table_Name;
 	}
 
-	public MWebMenu U_WebMenuSave(I_U_WebMenuInput entity, DataFetchingEnvironment environment) {
-		return (MWebMenu) super.save((X_U_WebMenuInput) entity, environment);
+	public MWebMenu U_WebMenuSave(I_U_WebMenuInput Entity, DataFetchingEnvironment environment) {
+		return (MWebMenu) super.save((X_U_WebMenuInput) Entity, environment);
 	}
 
-	public List<MWebMenu> U_WebMenuSaveMany(List<I_U_WebMenuInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_U_WebMenuInput) entity).collect(Collectors.toList()),
+	public List<MWebMenu> U_WebMenuSaveMany(List<I_U_WebMenuInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_U_WebMenuInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MWebMenu) entity).collect(Collectors.toList());
 	}
 
-	public boolean U_WebMenuDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean U_WebMenuDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

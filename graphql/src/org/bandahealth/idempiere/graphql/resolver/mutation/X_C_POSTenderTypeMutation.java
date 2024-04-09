@@ -21,16 +21,16 @@ public class X_C_POSTenderTypeMutation extends POMutation implements GraphQLMuta
 		return X_C_POSTenderTypeInput.Table_Name;
 	}
 
-	public X_C_POSTenderType C_POSTenderTypeSave(I_C_POSTenderTypeInput entity, DataFetchingEnvironment environment) {
-		return (X_C_POSTenderType) super.save((X_C_POSTenderTypeInput) entity, environment);
+	public X_C_POSTenderType C_POSTenderTypeSave(I_C_POSTenderTypeInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_POSTenderType) super.save((X_C_POSTenderTypeInput) Entity, environment);
 	}
 
-	public List<X_C_POSTenderType> C_POSTenderTypeSaveMany(List<I_C_POSTenderTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_POSTenderTypeInput) entity).collect(Collectors.toList()),
+	public List<X_C_POSTenderType> C_POSTenderTypeSaveMany(List<I_C_POSTenderTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_POSTenderTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_POSTenderType) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_POSTenderTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_POSTenderTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

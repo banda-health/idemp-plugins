@@ -21,16 +21,16 @@ public class X_AD_SystemMutation extends POMutation implements GraphQLMutationRe
 		return X_AD_SystemInput.Table_Name;
 	}
 
-	public MSystem AD_SystemSave(I_AD_SystemInput entity, DataFetchingEnvironment environment) {
-		return (MSystem) super.save((X_AD_SystemInput) entity, environment);
+	public MSystem AD_SystemSave(I_AD_SystemInput Entity, DataFetchingEnvironment environment) {
+		return (MSystem) super.save((X_AD_SystemInput) Entity, environment);
 	}
 
-	public List<MSystem> AD_SystemSaveMany(List<I_AD_SystemInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_SystemInput) entity).collect(Collectors.toList()),
+	public List<MSystem> AD_SystemSaveMany(List<I_AD_SystemInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_SystemInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSystem) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_SystemDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_SystemDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

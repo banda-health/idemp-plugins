@@ -17,8 +17,8 @@ public class X_A_Asset_Reval_IndexQuery extends POQuery<X_A_Asset_Reval_Index> i
 		return X_A_Asset_Reval_Index.Table_Name;
 	}
 
-	public Connection<X_A_Asset_Reval_Index> A_Asset_Reval_IndexGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_Asset_Reval_Index> A_Asset_Reval_IndexGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

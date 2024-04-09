@@ -29,12 +29,12 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_RfQResponseLine_UU to fetch this entity from the DB
+	 * @param UU The C_RfQResponseLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_RfQResponseLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_RfQResponseLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 			MRfQLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQLine", "C_RfQLine_UU=?", get_TrxName())
-							.setParameters(C_RfQLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RfQLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RfQLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_RfQLine with UUID " + C_RfQLine.getUUID());
+						"Could not find entity in table C_RfQLine with UU " + C_RfQLine.getUU());
 			}
 		} else {
 			this.setC_RfQLine_ID(0);
@@ -127,11 +127,11 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 			MRfQResponse foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQResponse", "C_RfQResponse_UU=?", get_TrxName())
-							.setParameters(C_RfQResponse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RfQResponse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RfQResponse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_RfQResponse with UUID " + C_RfQResponse.getUUID());
+						"Could not find entity in table C_RfQResponse with UU " + C_RfQResponse.getUU());
 			}
 		} else {
 			this.setC_RfQResponse_ID(0);
@@ -160,20 +160,20 @@ public class X_C_RfQResponseLineInput extends MRfQResponseLine implements I_C_Rf
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_RfQResponseLine_UU(UUID);
+	public void setUU(String UU) {
+		setC_RfQResponseLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_RfQResponseLine_UU();
 	}
 }

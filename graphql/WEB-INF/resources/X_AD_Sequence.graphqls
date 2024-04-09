@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_SequenceGet(page: Int, size: Int, sort: String, filter: String): AD_SequenceConnection!
+	AD_SequenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SequenceConnection!
 }
 
 extend type Mutation {
-	AD_SequenceSave(entity: AD_SequenceInput!): AD_Sequence!
-	AD_SequenceSaveMany(entities: [AD_SequenceInput!]!): [AD_Sequence!]!
-	AD_SequenceDelete(uuids: [String!]!): Boolean!
+	AD_SequenceSave(Entity: AD_SequenceInput!): AD_Sequence!
+	AD_SequenceSaveMany(Entities: [AD_SequenceInput!]!): [AD_Sequence!]!
+	AD_SequenceDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_SequenceConnection {
-	results: [AD_Sequence!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Sequence!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Sequence {
@@ -21,8 +21,7 @@ type AD_Sequence {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Sequence_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -73,8 +72,7 @@ type AD_Sequence {
 input AD_SequenceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Sequence_UU: String
+	UU: ID
 	# The next number to be used
 	CurrentNext: Int
 	# Next sequence for system use

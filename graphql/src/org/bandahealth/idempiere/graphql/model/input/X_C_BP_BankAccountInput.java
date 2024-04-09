@@ -39,12 +39,12 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_BP_BankAccount_UU to fetch this entity from the DB
+	 * @param UU The C_BP_BankAccount_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_BP_BankAccountInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_BP_BankAccountInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -63,11 +63,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -97,11 +97,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -131,11 +131,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BankAccountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BankAccountType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBankAccountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BankAccountType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BankAccountType.getUU());
 			}
 		} else {
 			this.setBankAccountType(null);
@@ -165,11 +165,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BPBankAcctUse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BPBankAcctUse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBPBankAcctUse(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BPBankAcctUse.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BPBankAcctUse.getUU());
 			}
 		} else {
 			this.setBPBankAcctUse(null);
@@ -199,11 +199,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MBank foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Bank", "C_Bank_UU=?", get_TrxName())
-							.setParameters(C_Bank.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Bank.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Bank_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Bank with UUID " + C_Bank.getUUID());
+						"Could not find entity in table C_Bank with UU " + C_Bank.getUU());
 			}
 		} else {
 			this.setC_Bank_ID(0);
@@ -232,20 +232,20 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_BP_BankAccount_UU(UUID);
+	public void setUU(String UU) {
+		setC_BP_BankAccount_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_BP_BankAccount_UU();
 	}
 
@@ -265,11 +265,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -299,11 +299,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MPaymentProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentProcessor", "C_PaymentProcessor_UU=?", get_TrxName())
-							.setParameters(C_PaymentProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaymentProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_PaymentProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_PaymentProcessor with UUID " + C_PaymentProcessor.getUUID());
+						"Could not find entity in table C_PaymentProcessor with UU " + C_PaymentProcessor.getUU());
 			}
 		} else {
 			this.setC_PaymentProcessor_ID(0);
@@ -333,11 +333,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CreditCardType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCreditCardType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CreditCardType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CreditCardType.getUU());
 			}
 		} else {
 			this.setCreditCardType(null);
@@ -370,11 +370,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(R_AvsAddr.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_AvsAddr.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_AvsAddr(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + R_AvsAddr.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + R_AvsAddr.getUU());
 			}
 		} else {
 			this.setR_AvsAddr(null);
@@ -407,11 +407,11 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(R_AvsZip.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_AvsZip.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_AvsZip(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + R_AvsZip.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + R_AvsZip.getUU());
 			}
 		} else {
 			this.setR_AvsZip(null);

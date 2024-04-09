@@ -17,8 +17,8 @@ public class X_AD_ImageQuery extends POQuery<MImage> implements GraphQLQueryReso
 		return MImage.Table_Name;
 	}
 
-	public Connection<MImage> AD_ImageGet(int page, int pageSize, String sort, String filter,
+	public Connection<MImage> AD_ImageGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

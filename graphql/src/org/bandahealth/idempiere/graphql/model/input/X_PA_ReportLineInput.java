@@ -39,12 +39,12 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_ReportLine_UU to fetch this entity from the DB
+	 * @param UU The PA_ReportLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_ReportLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_ReportLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -63,11 +63,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -97,11 +97,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CalculationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CalculationType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCalculationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CalculationType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CalculationType.getUU());
 			}
 		} else {
 			this.setCalculationType(null);
@@ -131,11 +131,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_Budget with UUID " + GL_Budget.getUUID());
+						"Could not find entity in table GL_Budget with UU " + GL_Budget.getUU());
 			}
 		} else {
 			this.setGL_Budget_ID(0);
@@ -165,11 +165,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(LineType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(LineType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLineType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + LineType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + LineType.getUU());
 			}
 		} else {
 			this.setLineType(null);
@@ -199,11 +199,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MReportLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
-							.setParameters(Oper_1.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Oper_1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOper_1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_ReportLine with UUID " + Oper_1.getUUID());
+						"Could not find entity in table PA_ReportLine with UU " + Oper_1.getUU());
 			}
 		} else {
 			this.setOper_1_ID(0);
@@ -233,11 +233,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MReportLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
-							.setParameters(Oper_2.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Oper_2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOper_2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_ReportLine with UUID " + Oper_2.getUUID());
+						"Could not find entity in table PA_ReportLine with UU " + Oper_2.getUU());
 			}
 		} else {
 			this.setOper_2_ID(0);
@@ -267,11 +267,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(OverlineStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(OverlineStrokeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOverlineStrokeType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + OverlineStrokeType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + OverlineStrokeType.getUU());
 			}
 		} else {
 			this.setOverlineStrokeType(null);
@@ -300,20 +300,20 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_ReportLine_UU(UUID);
+	public void setUU(String UU) {
+		setPA_ReportLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_ReportLine_UU();
 	}
 
@@ -333,11 +333,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MReportLineSet foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLineSet", "PA_ReportLineSet_UU=?", get_TrxName())
-							.setParameters(PA_ReportLineSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ReportLineSet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_ReportLineSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_ReportLineSet with UUID " + PA_ReportLineSet.getUUID());
+						"Could not find entity in table PA_ReportLineSet with UU " + PA_ReportLineSet.getUU());
 			}
 		} else {
 			this.setPA_ReportLineSet_ID(0);
@@ -367,11 +367,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PAAmountType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PAAmountType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPAAmountType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PAAmountType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PAAmountType.getUU());
 			}
 		} else {
 			this.setPAAmountType(null);
@@ -401,11 +401,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PAPeriodType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PAPeriodType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPAPeriodType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PAPeriodType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PAPeriodType.getUU());
 			}
 		} else {
 			this.setPAPeriodType(null);
@@ -435,11 +435,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PostingType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PostingType.getUU());
 			}
 		} else {
 			this.setPostingType(null);
@@ -469,11 +469,11 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(UnderlineStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnderlineStrokeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUnderlineStrokeType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + UnderlineStrokeType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + UnderlineStrokeType.getUU());
 			}
 		} else {
 			this.setUnderlineStrokeType(null);

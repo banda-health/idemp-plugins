@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_QualityTestGet(page: Int, size: Int, sort: String, filter: String): M_QualityTestConnection!
+	M_QualityTestGet(Page: Int, Size: Int, Sort: String, Filter: String): M_QualityTestConnection!
 }
 
 extend type Mutation {
-	M_QualityTestSave(entity: M_QualityTestInput!): M_QualityTest!
-	M_QualityTestSaveMany(entities: [M_QualityTestInput!]!): [M_QualityTest!]!
-	M_QualityTestDelete(uuids: [String!]!): Boolean!
+	M_QualityTestSave(Entity: M_QualityTestInput!): M_QualityTest!
+	M_QualityTestSaveMany(Entities: [M_QualityTestInput!]!): [M_QualityTest!]!
+	M_QualityTestDelete(UUs: [String!]!): Boolean!
 }
 
 type M_QualityTestConnection {
-	results: [M_QualityTest!]!
-	pagingInfo: PagingInfo!
+	Results: [M_QualityTest!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_QualityTest {
@@ -31,8 +31,7 @@ type M_QualityTest {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_QualityTest_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -50,8 +49,7 @@ input M_QualityTestInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_QualityTest_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

@@ -27,12 +27,12 @@ public class X_I_InOutLineConfirmInput extends X_I_InOutLineConfirm implements I
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The I_InOutLineConfirm_UU to fetch this entity from the DB
+	 * @param UU The I_InOutLineConfirm_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_I_InOutLineConfirmInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_I_InOutLineConfirmInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_I_InOutLineConfirmInput extends X_I_InOutLineConfirm implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -84,20 +84,20 @@ public class X_I_InOutLineConfirmInput extends X_I_InOutLineConfirm implements I
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setI_InOutLineConfirm_UU(UUID);
+	public void setUU(String UU) {
+		setI_InOutLineConfirm_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getI_InOutLineConfirm_UU();
 	}
 
@@ -114,11 +114,11 @@ public class X_I_InOutLineConfirmInput extends X_I_InOutLineConfirm implements I
 			MInOutLineConfirm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLineConfirm", "M_InOutLineConfirm_UU=?", get_TrxName())
-							.setParameters(M_InOutLineConfirm.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLineConfirm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InOutLineConfirm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InOutLineConfirm with UUID " + M_InOutLineConfirm.getUUID());
+						"Could not find entity in table M_InOutLineConfirm with UU " + M_InOutLineConfirm.getUU());
 			}
 		} else {
 			this.setM_InOutLineConfirm_ID(0);

@@ -109,18 +109,18 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	ForeignEntityInput PA_ColorSchema();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set PA_GoalParent.

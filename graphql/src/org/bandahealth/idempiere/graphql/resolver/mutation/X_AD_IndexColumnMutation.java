@@ -21,16 +21,16 @@ public class X_AD_IndexColumnMutation extends POMutation implements GraphQLMutat
 		return X_AD_IndexColumnInput.Table_Name;
 	}
 
-	public MIndexColumn AD_IndexColumnSave(I_AD_IndexColumnInput entity, DataFetchingEnvironment environment) {
-		return (MIndexColumn) super.save((X_AD_IndexColumnInput) entity, environment);
+	public MIndexColumn AD_IndexColumnSave(I_AD_IndexColumnInput Entity, DataFetchingEnvironment environment) {
+		return (MIndexColumn) super.save((X_AD_IndexColumnInput) Entity, environment);
 	}
 
-	public List<MIndexColumn> AD_IndexColumnSaveMany(List<I_AD_IndexColumnInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_IndexColumnInput) entity).collect(Collectors.toList()),
+	public List<MIndexColumn> AD_IndexColumnSaveMany(List<I_AD_IndexColumnInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_IndexColumnInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MIndexColumn) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_IndexColumnDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_IndexColumnDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

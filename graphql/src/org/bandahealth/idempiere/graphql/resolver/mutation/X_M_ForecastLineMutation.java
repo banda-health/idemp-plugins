@@ -21,16 +21,16 @@ public class X_M_ForecastLineMutation extends POMutation implements GraphQLMutat
 		return X_M_ForecastLineInput.Table_Name;
 	}
 
-	public MForecastLine M_ForecastLineSave(I_M_ForecastLineInput entity, DataFetchingEnvironment environment) {
-		return (MForecastLine) super.save((X_M_ForecastLineInput) entity, environment);
+	public MForecastLine M_ForecastLineSave(I_M_ForecastLineInput Entity, DataFetchingEnvironment environment) {
+		return (MForecastLine) super.save((X_M_ForecastLineInput) Entity, environment);
 	}
 
-	public List<MForecastLine> M_ForecastLineSaveMany(List<I_M_ForecastLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ForecastLineInput) entity).collect(Collectors.toList()),
+	public List<MForecastLine> M_ForecastLineSaveMany(List<I_M_ForecastLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ForecastLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MForecastLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ForecastLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ForecastLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

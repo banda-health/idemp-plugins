@@ -17,8 +17,8 @@ public class X_C_InvoiceBatchQuery extends POQuery<MInvoiceBatch> implements Gra
 		return MInvoiceBatch.Table_Name;
 	}
 
-	public Connection<MInvoiceBatch> C_InvoiceBatchGet(int page, int pageSize, String sort, String filter,
+	public Connection<MInvoiceBatch> C_InvoiceBatchGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

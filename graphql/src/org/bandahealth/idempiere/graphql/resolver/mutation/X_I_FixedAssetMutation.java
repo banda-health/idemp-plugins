@@ -21,16 +21,16 @@ public class X_I_FixedAssetMutation extends POMutation implements GraphQLMutatio
 		return X_I_FixedAssetInput.Table_Name;
 	}
 
-	public MIFixedAsset I_FixedAssetSave(I_I_FixedAssetInput entity, DataFetchingEnvironment environment) {
-		return (MIFixedAsset) super.save((X_I_FixedAssetInput) entity, environment);
+	public MIFixedAsset I_FixedAssetSave(I_I_FixedAssetInput Entity, DataFetchingEnvironment environment) {
+		return (MIFixedAsset) super.save((X_I_FixedAssetInput) Entity, environment);
 	}
 
-	public List<MIFixedAsset> I_FixedAssetSaveMany(List<I_I_FixedAssetInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_I_FixedAssetInput) entity).collect(Collectors.toList()),
+	public List<MIFixedAsset> I_FixedAssetSaveMany(List<I_I_FixedAssetInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_I_FixedAssetInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MIFixedAsset) entity).collect(Collectors.toList());
 	}
 
-	public boolean I_FixedAssetDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean I_FixedAssetDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

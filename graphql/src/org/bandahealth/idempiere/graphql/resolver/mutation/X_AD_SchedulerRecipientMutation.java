@@ -21,16 +21,16 @@ public class X_AD_SchedulerRecipientMutation extends POMutation implements Graph
 		return X_AD_SchedulerRecipientInput.Table_Name;
 	}
 
-	public MSchedulerRecipient AD_SchedulerRecipientSave(I_AD_SchedulerRecipientInput entity, DataFetchingEnvironment environment) {
-		return (MSchedulerRecipient) super.save((X_AD_SchedulerRecipientInput) entity, environment);
+	public MSchedulerRecipient AD_SchedulerRecipientSave(I_AD_SchedulerRecipientInput Entity, DataFetchingEnvironment environment) {
+		return (MSchedulerRecipient) super.save((X_AD_SchedulerRecipientInput) Entity, environment);
 	}
 
-	public List<MSchedulerRecipient> AD_SchedulerRecipientSaveMany(List<I_AD_SchedulerRecipientInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_SchedulerRecipientInput) entity).collect(Collectors.toList()),
+	public List<MSchedulerRecipient> AD_SchedulerRecipientSaveMany(List<I_AD_SchedulerRecipientInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_SchedulerRecipientInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSchedulerRecipient) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_SchedulerRecipientDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_SchedulerRecipientDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

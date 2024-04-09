@@ -21,16 +21,16 @@ public class X_S_ResourceAssignmentMutation extends POMutation implements GraphQ
 		return X_S_ResourceAssignmentInput.Table_Name;
 	}
 
-	public MResourceAssignment S_ResourceAssignmentSave(I_S_ResourceAssignmentInput entity, DataFetchingEnvironment environment) {
-		return (MResourceAssignment) super.save((X_S_ResourceAssignmentInput) entity, environment);
+	public MResourceAssignment S_ResourceAssignmentSave(I_S_ResourceAssignmentInput Entity, DataFetchingEnvironment environment) {
+		return (MResourceAssignment) super.save((X_S_ResourceAssignmentInput) Entity, environment);
 	}
 
-	public List<MResourceAssignment> S_ResourceAssignmentSaveMany(List<I_S_ResourceAssignmentInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_S_ResourceAssignmentInput) entity).collect(Collectors.toList()),
+	public List<MResourceAssignment> S_ResourceAssignmentSaveMany(List<I_S_ResourceAssignmentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_ResourceAssignmentInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MResourceAssignment) entity).collect(Collectors.toList());
 	}
 
-	public boolean S_ResourceAssignmentDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean S_ResourceAssignmentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_OrderPayScheduleGet(page: Int, size: Int, sort: String, filter: String): C_OrderPayScheduleConnection!
+	C_OrderPayScheduleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderPayScheduleConnection!
 }
 
 extend type Mutation {
-	C_OrderPayScheduleSave(entity: C_OrderPayScheduleInput!): C_OrderPaySchedule!
-	C_OrderPayScheduleSaveMany(entities: [C_OrderPayScheduleInput!]!): [C_OrderPaySchedule!]!
-	C_OrderPayScheduleDelete(uuids: [String!]!): Boolean!
+	C_OrderPayScheduleSave(Entity: C_OrderPayScheduleInput!): C_OrderPaySchedule!
+	C_OrderPayScheduleSaveMany(Entities: [C_OrderPayScheduleInput!]!): [C_OrderPaySchedule!]!
+	C_OrderPayScheduleDelete(UUs: [String!]!): Boolean!
 }
 
 type C_OrderPayScheduleConnection {
-	results: [C_OrderPaySchedule!]!
-	pagingInfo: PagingInfo!
+	Results: [C_OrderPaySchedule!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_OrderPaySchedule {
@@ -23,8 +23,7 @@ type C_OrderPaySchedule {
 	AD_Org: AD_Org!
 	# Order
 	C_Order: C_Order!
-	UUID: ID!
-	C_OrderPaySchedule_UU: String
+	UU: ID!
 	# Payment Schedule Template
 	C_PaySchedule: C_PaySchedule
 	# Date this record was created
@@ -57,8 +56,7 @@ input C_OrderPayScheduleInput {
 	AD_Org: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
-	UUID: ID
-	C_OrderPaySchedule_UU: String
+	UU: ID
 	# Payment Schedule Template
 	C_PaySchedule: ForeignEntityInput
 	# Calculated amount of discount

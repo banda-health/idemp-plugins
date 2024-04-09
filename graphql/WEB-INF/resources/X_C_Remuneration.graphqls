@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RemunerationGet(page: Int, size: Int, sort: String, filter: String): C_RemunerationConnection!
+	C_RemunerationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RemunerationConnection!
 }
 
 extend type Mutation {
-	C_RemunerationSave(entity: C_RemunerationInput!): C_Remuneration!
-	C_RemunerationSaveMany(entities: [C_RemunerationInput!]!): [C_Remuneration!]!
-	C_RemunerationDelete(uuids: [String!]!): Boolean!
+	C_RemunerationSave(Entity: C_RemunerationInput!): C_Remuneration!
+	C_RemunerationSaveMany(Entities: [C_RemunerationInput!]!): [C_Remuneration!]!
+	C_RemunerationDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RemunerationConnection {
-	results: [C_Remuneration!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Remuneration!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Remuneration {
@@ -21,8 +21,7 @@ type C_Remuneration {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_Remuneration_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,8 +55,7 @@ type C_Remuneration {
 input C_RemunerationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_Remuneration_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Gross Remuneration Amount

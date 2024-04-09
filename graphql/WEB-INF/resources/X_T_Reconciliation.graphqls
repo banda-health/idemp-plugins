@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	T_ReconciliationGet(page: Int, size: Int, sort: String, filter: String): T_ReconciliationConnection!
+	T_ReconciliationGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReconciliationConnection!
 }
 
 extend type Mutation {
-	T_ReconciliationSave(entity: T_ReconciliationInput!): T_Reconciliation!
-	T_ReconciliationSaveMany(entities: [T_ReconciliationInput!]!): [T_Reconciliation!]!
-	T_ReconciliationDelete(uuids: [String!]!): Boolean!
+	T_ReconciliationSave(Entity: T_ReconciliationInput!): T_Reconciliation!
+	T_ReconciliationSaveMany(Entities: [T_ReconciliationInput!]!): [T_Reconciliation!]!
+	T_ReconciliationDelete(UUs: [String!]!): Boolean!
 }
 
 type T_ReconciliationConnection {
-	results: [T_Reconciliation!]!
-	pagingInfo: PagingInfo!
+	Results: [T_Reconciliation!]!
+	PagingInfo: PagingInfo!
 }
 
 type T_Reconciliation {
@@ -32,8 +32,7 @@ type T_Reconciliation {
 	IsActive: Boolean!
 	# String identifying related accounting facts
 	MatchCode: String
-	UUID: ID!
-	T_Reconciliation_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -50,6 +49,5 @@ input T_ReconciliationInput {
 	IsActive: Boolean
 	# String identifying related accounting facts
 	MatchCode: String
-	UUID: ID
-	T_Reconciliation_UU: String
+	UU: ID
 }

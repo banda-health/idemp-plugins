@@ -21,16 +21,16 @@ public class X_M_TransactionAllocationMutation extends POMutation implements Gra
 		return X_M_TransactionAllocationInput.Table_Name;
 	}
 
-	public X_M_TransactionAllocation M_TransactionAllocationSave(I_M_TransactionAllocationInput entity, DataFetchingEnvironment environment) {
-		return (X_M_TransactionAllocation) super.save((X_M_TransactionAllocationInput) entity, environment);
+	public X_M_TransactionAllocation M_TransactionAllocationSave(I_M_TransactionAllocationInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_TransactionAllocation) super.save((X_M_TransactionAllocationInput) Entity, environment);
 	}
 
-	public List<X_M_TransactionAllocation> M_TransactionAllocationSaveMany(List<I_M_TransactionAllocationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_TransactionAllocationInput) entity).collect(Collectors.toList()),
+	public List<X_M_TransactionAllocation> M_TransactionAllocationSaveMany(List<I_M_TransactionAllocationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_TransactionAllocationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_TransactionAllocation) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_TransactionAllocationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_TransactionAllocationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

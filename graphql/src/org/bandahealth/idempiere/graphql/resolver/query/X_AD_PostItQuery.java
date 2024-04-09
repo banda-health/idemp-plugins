@@ -17,8 +17,8 @@ public class X_AD_PostItQuery extends POQuery<MPostIt> implements GraphQLQueryRe
 		return MPostIt.Table_Name;
 	}
 
-	public Connection<MPostIt> AD_PostItGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPostIt> AD_PostItGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

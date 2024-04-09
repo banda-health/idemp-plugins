@@ -17,8 +17,8 @@ public class X_M_ShipperPackagingQuery extends POQuery<MShipperPackaging> implem
 		return MShipperPackaging.Table_Name;
 	}
 
-	public Connection<MShipperPackaging> M_ShipperPackagingGet(int page, int pageSize, String sort, String filter,
+	public Connection<MShipperPackaging> M_ShipperPackagingGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

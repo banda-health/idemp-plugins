@@ -29,12 +29,12 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_CommissionAmt_UU to fetch this entity from the DB
+	 * @param UU The C_CommissionAmt_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_CommissionAmtInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_CommissionAmtInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,20 +86,20 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_CommissionAmt_UU(UUID);
+	public void setUU(String UU) {
+		setC_CommissionAmt_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_CommissionAmt_UU();
 	}
 
@@ -116,11 +116,11 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 			MCommissionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionLine", "C_CommissionLine_UU=?", get_TrxName())
-							.setParameters(C_CommissionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CommissionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CommissionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_CommissionLine with UUID " + C_CommissionLine.getUUID());
+						"Could not find entity in table C_CommissionLine with UU " + C_CommissionLine.getUU());
 			}
 		} else {
 			this.setC_CommissionLine_ID(0);
@@ -153,11 +153,11 @@ public class X_C_CommissionAmtInput extends MCommissionAmt implements I_C_Commis
 			MCommissionRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CommissionRun", "C_CommissionRun_UU=?", get_TrxName())
-							.setParameters(C_CommissionRun.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CommissionRun.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CommissionRun_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_CommissionRun with UUID " + C_CommissionRun.getUUID());
+						"Could not find entity in table C_CommissionRun with UU " + C_CommissionRun.getUU());
 			}
 		} else {
 			this.setC_CommissionRun_ID(0);

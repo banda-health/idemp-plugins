@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_ChangeGet(page: Int, size: Int, sort: String, filter: String): A_Asset_ChangeConnection!
+	A_Asset_ChangeGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_ChangeConnection!
 }
 
 extend type Mutation {
-	A_Asset_ChangeSave(entity: A_Asset_ChangeInput!): A_Asset_Change!
-	A_Asset_ChangeSaveMany(entities: [A_Asset_ChangeInput!]!): [A_Asset_Change!]!
-	A_Asset_ChangeDelete(uuids: [String!]!): Boolean!
+	A_Asset_ChangeSave(Entity: A_Asset_ChangeInput!): A_Asset_Change!
+	A_Asset_ChangeSaveMany(Entities: [A_Asset_ChangeInput!]!): [A_Asset_Change!]!
+	A_Asset_ChangeDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_ChangeConnection {
-	results: [A_Asset_Change!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Change!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Change {
@@ -21,8 +21,7 @@ type A_Asset_Change {
 	A_Asset_A: C_ValidCombination
 	A_Asset_Acct_ID: Int
 	A_Asset_Addition: A_Asset_Addition
-	UUID: ID!
-	A_Asset_Change_UU: String
+	UU: ID!
 	A_Asset_CreateDate: Date
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
@@ -131,8 +130,7 @@ input A_Asset_ChangeInput {
 	A_Asset_A: ForeignEntityInput
 	A_Asset_Acct_ID: Int
 	A_Asset_Addition: ForeignEntityInput
-	UUID: ID
-	A_Asset_Change_UU: String
+	UU: ID
 	A_Asset_CreateDate: Date
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput

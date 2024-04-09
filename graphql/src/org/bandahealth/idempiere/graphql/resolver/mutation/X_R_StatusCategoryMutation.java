@@ -21,16 +21,16 @@ public class X_R_StatusCategoryMutation extends POMutation implements GraphQLMut
 		return X_R_StatusCategoryInput.Table_Name;
 	}
 
-	public MStatusCategory R_StatusCategorySave(I_R_StatusCategoryInput entity, DataFetchingEnvironment environment) {
-		return (MStatusCategory) super.save((X_R_StatusCategoryInput) entity, environment);
+	public MStatusCategory R_StatusCategorySave(I_R_StatusCategoryInput Entity, DataFetchingEnvironment environment) {
+		return (MStatusCategory) super.save((X_R_StatusCategoryInput) Entity, environment);
 	}
 
-	public List<MStatusCategory> R_StatusCategorySaveMany(List<I_R_StatusCategoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_StatusCategoryInput) entity).collect(Collectors.toList()),
+	public List<MStatusCategory> R_StatusCategorySaveMany(List<I_R_StatusCategoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_StatusCategoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MStatusCategory) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_StatusCategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_StatusCategoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

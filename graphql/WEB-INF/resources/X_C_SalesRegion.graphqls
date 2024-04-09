@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_SalesRegionGet(page: Int, size: Int, sort: String, filter: String): C_SalesRegionConnection!
+	C_SalesRegionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SalesRegionConnection!
 }
 
 extend type Mutation {
-	C_SalesRegionSave(entity: C_SalesRegionInput!): C_SalesRegion!
-	C_SalesRegionSaveMany(entities: [C_SalesRegionInput!]!): [C_SalesRegion!]!
-	C_SalesRegionDelete(uuids: [String!]!): Boolean!
+	C_SalesRegionSave(Entity: C_SalesRegionInput!): C_SalesRegion!
+	C_SalesRegionSaveMany(Entities: [C_SalesRegionInput!]!): [C_SalesRegion!]!
+	C_SalesRegionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_SalesRegionConnection {
-	results: [C_SalesRegion!]!
-	pagingInfo: PagingInfo!
+	Results: [C_SalesRegion!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_SalesRegion {
@@ -21,8 +21,7 @@ type C_SalesRegion {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_SalesRegion_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,8 +49,7 @@ type C_SalesRegion {
 input C_SalesRegionInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_SalesRegion_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

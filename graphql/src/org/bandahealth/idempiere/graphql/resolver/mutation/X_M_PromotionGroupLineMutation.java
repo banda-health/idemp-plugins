@@ -21,16 +21,16 @@ public class X_M_PromotionGroupLineMutation extends POMutation implements GraphQ
 		return X_M_PromotionGroupLineInput.Table_Name;
 	}
 
-	public X_M_PromotionGroupLine M_PromotionGroupLineSave(I_M_PromotionGroupLineInput entity, DataFetchingEnvironment environment) {
-		return (X_M_PromotionGroupLine) super.save((X_M_PromotionGroupLineInput) entity, environment);
+	public X_M_PromotionGroupLine M_PromotionGroupLineSave(I_M_PromotionGroupLineInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_PromotionGroupLine) super.save((X_M_PromotionGroupLineInput) Entity, environment);
 	}
 
-	public List<X_M_PromotionGroupLine> M_PromotionGroupLineSaveMany(List<I_M_PromotionGroupLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PromotionGroupLineInput) entity).collect(Collectors.toList()),
+	public List<X_M_PromotionGroupLine> M_PromotionGroupLineSaveMany(List<I_M_PromotionGroupLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PromotionGroupLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_PromotionGroupLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PromotionGroupLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PromotionGroupLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

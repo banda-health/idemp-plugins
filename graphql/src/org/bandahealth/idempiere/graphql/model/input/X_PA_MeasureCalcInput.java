@@ -29,12 +29,12 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_MeasureCalc_UU to fetch this entity from the DB
+	 * @param UU The PA_MeasureCalc_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_MeasureCalcInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_MeasureCalcInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -87,11 +87,11 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -121,11 +121,11 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);
@@ -154,20 +154,20 @@ public class X_PA_MeasureCalcInput extends MMeasureCalc implements I_PA_MeasureC
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_MeasureCalc_UU(UUID);
+	public void setUU(String UU) {
+		setPA_MeasureCalc_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_MeasureCalc_UU();
 	}
 }

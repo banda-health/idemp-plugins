@@ -17,8 +17,8 @@ public class X_PA_BenchmarkQuery extends POQuery<X_PA_Benchmark> implements Grap
 		return X_PA_Benchmark.Table_Name;
 	}
 
-	public Connection<X_PA_Benchmark> PA_BenchmarkGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PA_Benchmark> PA_BenchmarkGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

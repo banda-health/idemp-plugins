@@ -21,16 +21,16 @@ public class X_PP_Cost_CollectorMAMutation extends POMutation implements GraphQL
 		return X_PP_Cost_CollectorMAInput.Table_Name;
 	}
 
-	public X_PP_Cost_CollectorMA PP_Cost_CollectorMASave(I_PP_Cost_CollectorMAInput entity, DataFetchingEnvironment environment) {
-		return (X_PP_Cost_CollectorMA) super.save((X_PP_Cost_CollectorMAInput) entity, environment);
+	public X_PP_Cost_CollectorMA PP_Cost_CollectorMASave(I_PP_Cost_CollectorMAInput Entity, DataFetchingEnvironment environment) {
+		return (X_PP_Cost_CollectorMA) super.save((X_PP_Cost_CollectorMAInput) Entity, environment);
 	}
 
-	public List<X_PP_Cost_CollectorMA> PP_Cost_CollectorMASaveMany(List<I_PP_Cost_CollectorMAInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Cost_CollectorMAInput) entity).collect(Collectors.toList()),
+	public List<X_PP_Cost_CollectorMA> PP_Cost_CollectorMASaveMany(List<I_PP_Cost_CollectorMAInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Cost_CollectorMAInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PP_Cost_CollectorMA) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Cost_CollectorMADelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Cost_CollectorMADelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

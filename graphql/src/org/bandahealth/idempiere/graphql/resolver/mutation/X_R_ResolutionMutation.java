@@ -21,16 +21,16 @@ public class X_R_ResolutionMutation extends POMutation implements GraphQLMutatio
 		return X_R_ResolutionInput.Table_Name;
 	}
 
-	public MResolution R_ResolutionSave(I_R_ResolutionInput entity, DataFetchingEnvironment environment) {
-		return (MResolution) super.save((X_R_ResolutionInput) entity, environment);
+	public MResolution R_ResolutionSave(I_R_ResolutionInput Entity, DataFetchingEnvironment environment) {
+		return (MResolution) super.save((X_R_ResolutionInput) Entity, environment);
 	}
 
-	public List<MResolution> R_ResolutionSaveMany(List<I_R_ResolutionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_ResolutionInput) entity).collect(Collectors.toList()),
+	public List<MResolution> R_ResolutionSaveMany(List<I_R_ResolutionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_ResolutionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MResolution) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_ResolutionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_ResolutionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

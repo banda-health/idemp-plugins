@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Replication_LogGet(page: Int, size: Int, sort: String, filter: String): AD_Replication_LogConnection!
+	AD_Replication_LogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Replication_LogConnection!
 }
 
 extend type Mutation {
-	AD_Replication_LogSave(entity: AD_Replication_LogInput!): AD_Replication_Log!
-	AD_Replication_LogSaveMany(entities: [AD_Replication_LogInput!]!): [AD_Replication_Log!]!
-	AD_Replication_LogDelete(uuids: [String!]!): Boolean!
+	AD_Replication_LogSave(Entity: AD_Replication_LogInput!): AD_Replication_Log!
+	AD_Replication_LogSaveMany(Entities: [AD_Replication_LogInput!]!): [AD_Replication_Log!]!
+	AD_Replication_LogDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Replication_LogConnection {
-	results: [AD_Replication_Log!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Replication_Log!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Replication_Log {
@@ -21,8 +21,7 @@ type AD_Replication_Log {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Replication_Log_UU: String
+	UU: ID!
 	# Data Replication Run
 	AD_Replication_Run: AD_Replication_Run!
 	# Data Replication Strategy Table Info
@@ -45,8 +44,7 @@ type AD_Replication_Log {
 input AD_Replication_LogInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Replication_Log_UU: String
+	UU: ID
 	# Data Replication Run
 	AD_Replication_Run: ForeignEntityInput
 	# Data Replication Strategy Table Info

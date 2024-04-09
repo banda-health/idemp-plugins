@@ -28,12 +28,12 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The A_Depreciation_Table_Header_UU to fetch this entity from the DB
+	 * @param UU The A_Depreciation_Table_Header_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_Depreciation_Table_HeaderInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_A_Depreciation_Table_HeaderInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 	/**
 	 * Set A_Depreciation_Table_Header_ID.
@@ -48,20 +48,20 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setA_Depreciation_Table_Header_UU(UUID);
+	public void setUU(String UU) {
+		setA_Depreciation_Table_Header_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getA_Depreciation_Table_Header_UU();
 	}
 
@@ -78,11 +78,11 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Table_Rate_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Table_Rate_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Table_Rate_Type(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Table_Rate_Type.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + A_Table_Rate_Type.getUU());
 			}
 		} else {
 			this.setA_Table_Rate_Type(null);
@@ -112,11 +112,11 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Term.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Term.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Term(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Term.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + A_Term.getUU());
 			}
 		} else {
 			this.setA_Term(null);
@@ -146,11 +146,11 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);

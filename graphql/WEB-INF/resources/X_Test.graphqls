@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	TestGet(page: Int, size: Int, sort: String, filter: String): TestConnection!
+	TestGet(Page: Int, Size: Int, Sort: String, Filter: String): TestConnection!
 }
 
 extend type Mutation {
-	TestSave(entity: TestInput!): Test!
-	TestSaveMany(entities: [TestInput!]!): [Test!]!
-	TestDelete(uuids: [String!]!): Boolean!
+	TestSave(Entity: TestInput!): Test!
+	TestSaveMany(Entities: [TestInput!]!): [Test!]!
+	TestDelete(UUs: [String!]!): Boolean!
 }
 
 type TestConnection {
-	results: [Test!]!
-	pagingInfo: PagingInfo!
+	Results: [Test!]!
+	PagingInfo: PagingInfo!
 }
 
 type Test {
@@ -64,8 +64,7 @@ type Test {
 	T_Qty: BigDecimal
 	# Timestamp with time zone
 	T_Timestamp: Date
-	UUID: ID!
-	Test_UU: String
+	UU: ID!
 	# Used only for testing purposes
 	TestVirtualQty: BigDecimal
 	# Date this record was updated
@@ -116,6 +115,5 @@ input TestInput {
 	T_Qty: BigDecimal
 	# Timestamp with time zone
 	T_Timestamp: Date
-	UUID: ID
-	Test_UU: String
+	UU: ID
 }

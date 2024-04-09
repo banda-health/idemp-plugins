@@ -21,16 +21,16 @@ public class X_BH_I_Product_QuantityMutation extends POMutation implements Graph
 		return X_BH_I_Product_QuantityInput.Table_Name;
 	}
 
-	public X_BH_I_Product_Quantity BH_I_Product_QuantitySave(I_BH_I_Product_QuantityInput entity, DataFetchingEnvironment environment) {
-		return (X_BH_I_Product_Quantity) super.save((X_BH_I_Product_QuantityInput) entity, environment);
+	public X_BH_I_Product_Quantity BH_I_Product_QuantitySave(I_BH_I_Product_QuantityInput Entity, DataFetchingEnvironment environment) {
+		return (X_BH_I_Product_Quantity) super.save((X_BH_I_Product_QuantityInput) Entity, environment);
 	}
 
-	public List<X_BH_I_Product_Quantity> BH_I_Product_QuantitySaveMany(List<I_BH_I_Product_QuantityInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_I_Product_QuantityInput) entity).collect(Collectors.toList()),
+	public List<X_BH_I_Product_Quantity> BH_I_Product_QuantitySaveMany(List<I_BH_I_Product_QuantityInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_I_Product_QuantityInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_BH_I_Product_Quantity) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_I_Product_QuantityDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_I_Product_QuantityDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

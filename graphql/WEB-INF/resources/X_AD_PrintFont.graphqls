@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PrintFontGet(page: Int, size: Int, sort: String, filter: String): AD_PrintFontConnection!
+	AD_PrintFontGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintFontConnection!
 }
 
 extend type Mutation {
-	AD_PrintFontSave(entity: AD_PrintFontInput!): AD_PrintFont!
-	AD_PrintFontSaveMany(entities: [AD_PrintFontInput!]!): [AD_PrintFont!]!
-	AD_PrintFontDelete(uuids: [String!]!): Boolean!
+	AD_PrintFontSave(Entity: AD_PrintFontInput!): AD_PrintFont!
+	AD_PrintFontSaveMany(Entities: [AD_PrintFontInput!]!): [AD_PrintFont!]!
+	AD_PrintFontDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PrintFontConnection {
-	results: [AD_PrintFont!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PrintFont!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PrintFont {
@@ -21,8 +21,7 @@ type AD_PrintFont {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_PrintFont_UU: String
+	UU: ID!
 	# Validation Code
 	Code: String!
 	# Date this record was created
@@ -44,8 +43,7 @@ type AD_PrintFont {
 input AD_PrintFontInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_PrintFont_UU: String
+	UU: ID
 	# Validation Code
 	Code: String
 	# The record is active in the system

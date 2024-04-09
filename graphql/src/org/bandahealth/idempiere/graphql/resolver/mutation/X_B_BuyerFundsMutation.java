@@ -21,16 +21,16 @@ public class X_B_BuyerFundsMutation extends POMutation implements GraphQLMutatio
 		return X_B_BuyerFundsInput.Table_Name;
 	}
 
-	public X_B_BuyerFunds B_BuyerFundsSave(I_B_BuyerFundsInput entity, DataFetchingEnvironment environment) {
-		return (X_B_BuyerFunds) super.save((X_B_BuyerFundsInput) entity, environment);
+	public X_B_BuyerFunds B_BuyerFundsSave(I_B_BuyerFundsInput Entity, DataFetchingEnvironment environment) {
+		return (X_B_BuyerFunds) super.save((X_B_BuyerFundsInput) Entity, environment);
 	}
 
-	public List<X_B_BuyerFunds> B_BuyerFundsSaveMany(List<I_B_BuyerFundsInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_B_BuyerFundsInput) entity).collect(Collectors.toList()),
+	public List<X_B_BuyerFunds> B_BuyerFundsSaveMany(List<I_B_BuyerFundsInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_B_BuyerFundsInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_B_BuyerFunds) entity).collect(Collectors.toList());
 	}
 
-	public boolean B_BuyerFundsDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean B_BuyerFundsDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

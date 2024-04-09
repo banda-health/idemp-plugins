@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ChangeLogGet(page: Int, size: Int, sort: String, filter: String): AD_ChangeLogConnection!
+	AD_ChangeLogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ChangeLogConnection!
 }
 
 extend type Mutation {
-	AD_ChangeLogSave(entity: AD_ChangeLogInput!): AD_ChangeLog!
-	AD_ChangeLogSaveMany(entities: [AD_ChangeLogInput!]!): [AD_ChangeLog!]!
-	AD_ChangeLogDelete(uuids: [String!]!): Boolean!
+	AD_ChangeLogSave(Entity: AD_ChangeLogInput!): AD_ChangeLog!
+	AD_ChangeLogSaveMany(Entities: [AD_ChangeLogInput!]!): [AD_ChangeLog!]!
+	AD_ChangeLogDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ChangeLogConnection {
-	results: [AD_ChangeLog!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ChangeLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ChangeLog {
 	# Log of data changes
 	AD_ChangeLog: AD_ChangeLog!
-	UUID: ID!
-	AD_ChangeLog_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
@@ -60,8 +59,7 @@ type AD_ChangeLog {
 input AD_ChangeLogInput {
 	# Log of data changes
 	AD_ChangeLog: ForeignEntityInput
-	UUID: ID
-	AD_ChangeLog_UU: String
+	UU: ID
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant

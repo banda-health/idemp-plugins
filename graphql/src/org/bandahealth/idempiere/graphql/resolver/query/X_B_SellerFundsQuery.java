@@ -17,8 +17,8 @@ public class X_B_SellerFundsQuery extends POQuery<X_B_SellerFunds> implements Gr
 		return X_B_SellerFunds.Table_Name;
 	}
 
-	public Connection<X_B_SellerFunds> B_SellerFundsGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_B_SellerFunds> B_SellerFundsGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

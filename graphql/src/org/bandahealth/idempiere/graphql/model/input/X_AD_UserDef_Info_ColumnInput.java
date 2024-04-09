@@ -44,12 +44,12 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_UserDef_Info_Column_UU to fetch this entity from the DB
+	 * @param UU The AD_UserDef_Info_Column_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_UserDef_Info_ColumnInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_UserDef_Info_ColumnInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -65,11 +65,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MStyle foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Style", "AD_Style_UU=?", get_TrxName())
-							.setParameters(AD_FieldStyle.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_FieldStyle.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_FieldStyle_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Style with UUID " + AD_FieldStyle.getUUID());
+						"Could not find entity in table AD_Style with UU " + AD_FieldStyle.getUU());
 			}
 		} else {
 			this.setAD_FieldStyle_ID(0);
@@ -102,11 +102,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-							.setParameters(AD_InfoColumn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoColumn.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_InfoColumn_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_InfoColumn with UUID " + AD_InfoColumn.getUUID());
+						"Could not find entity in table AD_InfoColumn with UU " + AD_InfoColumn.getUU());
 			}
 		} else {
 			this.setAD_InfoColumn_ID(0);
@@ -139,11 +139,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -173,11 +173,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Reference with UUID " + AD_Reference.getUUID());
+						"Could not find entity in table AD_Reference with UU " + AD_Reference.getUU());
 			}
 		} else {
 			this.setAD_Reference_ID(0);
@@ -207,11 +207,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Value.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Value.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_Value_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Value.getUUID());
+						"Could not find entity in table AD_Reference with UU " + AD_Reference_Value.getUU());
 			}
 		} else {
 			this.setAD_Reference_Value_ID(0);
@@ -240,20 +240,20 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_UserDef_Info_Column_UU(UUID);
+	public void setUU(String UU) {
+		setAD_UserDef_Info_Column_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_UserDef_Info_Column_UU();
 	}
 
@@ -273,11 +273,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MUserDefInfo foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_UserDef_Info", "AD_UserDef_Info_UU=?", get_TrxName())
-							.setParameters(AD_UserDef_Info.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_UserDef_Info.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_UserDef_Info_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_UserDef_Info with UUID " + AD_UserDef_Info.getUUID());
+						"Could not find entity in table AD_UserDef_Info with UU " + AD_UserDef_Info.getUU());
 			}
 		} else {
 			this.setAD_UserDef_Info_ID(0);
@@ -307,11 +307,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MValRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Val_Rule", "AD_Val_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Val_Rule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Val_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Val_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Val_Rule with UUID " + AD_Val_Rule.getUUID());
+						"Could not find entity in table AD_Val_Rule with UU " + AD_Val_Rule.getUU());
 			}
 		} else {
 			this.setAD_Val_Rule_ID(0);
@@ -341,11 +341,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsAutocomplete.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsAutocomplete.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsAutocomplete(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsAutocomplete.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsAutocomplete.getUU());
 			}
 		} else {
 			this.setIsAutocomplete(null);
@@ -375,11 +375,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsDisplayed.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsDisplayed.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsDisplayed(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsDisplayed.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsDisplayed.getUU());
 			}
 		} else {
 			this.setIsDisplayed(null);
@@ -409,11 +409,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsMandatory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsMandatory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsMandatory(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsMandatory.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsMandatory.getUU());
 			}
 		} else {
 			this.setIsMandatory(null);
@@ -443,11 +443,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsQueryAfterChange.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsQueryAfterChange.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsQueryAfterChange(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsQueryAfterChange.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsQueryAfterChange.getUU());
 			}
 		} else {
 			this.setIsQueryAfterChange(null);
@@ -477,11 +477,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsQueryCriteria.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsQueryCriteria.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsQueryCriteria(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsQueryCriteria.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsQueryCriteria.getUU());
 			}
 		} else {
 			this.setIsQueryCriteria(null);
@@ -511,11 +511,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsReadOnly.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsReadOnly.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsReadOnly(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsReadOnly.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsReadOnly.getUU());
 			}
 		} else {
 			this.setIsReadOnly(null);
@@ -545,11 +545,11 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(QueryOperator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(QueryOperator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setQueryOperator(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + QueryOperator.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + QueryOperator.getUU());
 			}
 		} else {
 			this.setQueryOperator(null);

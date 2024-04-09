@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ProductionLineMAGet(page: Int, size: Int, sort: String, filter: String): M_ProductionLineMAConnection!
+	M_ProductionLineMAGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductionLineMAConnection!
 }
 
 extend type Mutation {
-	M_ProductionLineMASave(entity: M_ProductionLineMAInput!): M_ProductionLineMA!
-	M_ProductionLineMASaveMany(entities: [M_ProductionLineMAInput!]!): [M_ProductionLineMA!]!
-	M_ProductionLineMADelete(uuids: [String!]!): Boolean!
+	M_ProductionLineMASave(Entity: M_ProductionLineMAInput!): M_ProductionLineMA!
+	M_ProductionLineMASaveMany(Entities: [M_ProductionLineMAInput!]!): [M_ProductionLineMA!]!
+	M_ProductionLineMADelete(UUs: [String!]!): Boolean!
 }
 
 type M_ProductionLineMAConnection {
-	results: [M_ProductionLineMA!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ProductionLineMA!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ProductionLineMA {
@@ -33,8 +33,7 @@ type M_ProductionLineMA {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine!
-	UUID: ID!
-	M_ProductionLineMA_UU: String
+	UU: ID!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
@@ -54,8 +53,7 @@ input M_ProductionLineMAInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
-	UUID: ID
-	M_ProductionLineMA_UU: String
+	UU: ID
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

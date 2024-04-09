@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	Fact_AcctGet(page: Int, size: Int, sort: String, filter: String): Fact_AcctConnection!
+	Fact_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): Fact_AcctConnection!
 }
 
 extend type Mutation {
-	Fact_AcctSave(entity: Fact_AcctInput!): Fact_Acct!
-	Fact_AcctSaveMany(entities: [Fact_AcctInput!]!): [Fact_Acct!]!
-	Fact_AcctDelete(uuids: [String!]!): Boolean!
+	Fact_AcctSave(Entity: Fact_AcctInput!): Fact_Acct!
+	Fact_AcctSaveMany(Entities: [Fact_AcctInput!]!): [Fact_Acct!]!
+	Fact_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type Fact_AcctConnection {
-	results: [Fact_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [Fact_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type Fact_Acct {
@@ -73,8 +73,7 @@ type Fact_Acct {
 	DateTrx: Date!
 	# Optional short description of the record
 	Description: String
-	UUID: ID!
-	Fact_Acct_UU: String
+	UU: ID!
 	# General Ledger Budget
 	GL_Budget: GL_Budget
 	# General Ledger Category
@@ -150,8 +149,7 @@ input Fact_AcctInput {
 	DateTrx: Date
 	# Optional short description of the record
 	Description: String
-	UUID: ID
-	Fact_Acct_UU: String
+	UU: ID
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
 	# General Ledger Category

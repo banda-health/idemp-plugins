@@ -21,16 +21,16 @@ public class X_AD_UserMailMutation extends POMutation implements GraphQLMutation
 		return X_AD_UserMailInput.Table_Name;
 	}
 
-	public MUserMail AD_UserMailSave(I_AD_UserMailInput entity, DataFetchingEnvironment environment) {
-		return (MUserMail) super.save((X_AD_UserMailInput) entity, environment);
+	public MUserMail AD_UserMailSave(I_AD_UserMailInput Entity, DataFetchingEnvironment environment) {
+		return (MUserMail) super.save((X_AD_UserMailInput) Entity, environment);
 	}
 
-	public List<MUserMail> AD_UserMailSaveMany(List<I_AD_UserMailInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserMailInput) entity).collect(Collectors.toList()),
+	public List<MUserMail> AD_UserMailSaveMany(List<I_AD_UserMailInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserMailInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserMail) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserMailDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserMailDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PInstanceGet(page: Int, size: Int, sort: String, filter: String): AD_PInstanceConnection!
+	AD_PInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstanceConnection!
 }
 
 extend type Mutation {
-	AD_PInstanceSave(entity: AD_PInstanceInput!): AD_PInstance!
-	AD_PInstanceSaveMany(entities: [AD_PInstanceInput!]!): [AD_PInstance!]!
-	AD_PInstanceDelete(uuids: [String!]!): Boolean!
+	AD_PInstanceSave(Entity: AD_PInstanceInput!): AD_PInstance!
+	AD_PInstanceSaveMany(Entities: [AD_PInstanceInput!]!): [AD_PInstance!]!
+	AD_PInstanceDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PInstanceConnection {
-	results: [AD_PInstance!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PInstance!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PInstance {
@@ -22,8 +22,7 @@ type AD_PInstance {
 	AD_Language: AD_Language
 	# Organizational entity within tenant
 	AD_Org: AD_Org
-	UUID: ID!
-	AD_PInstance_UU: String
+	UU: ID!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
 	# Process or Report
@@ -62,8 +61,7 @@ input AD_PInstanceInput {
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_PInstance_UU: String
+	UU: ID
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
 	# Process or Report

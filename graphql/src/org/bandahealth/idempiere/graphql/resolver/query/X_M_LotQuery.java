@@ -17,8 +17,8 @@ public class X_M_LotQuery extends POQuery<MLot> implements GraphQLQueryResolver 
 		return MLot.Table_Name;
 	}
 
-	public Connection<MLot> M_LotGet(int page, int pageSize, String sort, String filter,
+	public Connection<MLot> M_LotGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

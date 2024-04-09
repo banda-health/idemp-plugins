@@ -17,8 +17,8 @@ public class X_PA_ColorSchemaQuery extends POQuery<MColorSchema> implements Grap
 		return MColorSchema.Table_Name;
 	}
 
-	public Connection<MColorSchema> PA_ColorSchemaGet(int page, int pageSize, String sort, String filter,
+	public Connection<MColorSchema> PA_ColorSchemaGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

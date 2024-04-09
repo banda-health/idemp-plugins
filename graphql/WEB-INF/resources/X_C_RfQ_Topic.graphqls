@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RfQ_TopicGet(page: Int, size: Int, sort: String, filter: String): C_RfQ_TopicConnection!
+	C_RfQ_TopicGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicConnection!
 }
 
 extend type Mutation {
-	C_RfQ_TopicSave(entity: C_RfQ_TopicInput!): C_RfQ_Topic!
-	C_RfQ_TopicSaveMany(entities: [C_RfQ_TopicInput!]!): [C_RfQ_Topic!]!
-	C_RfQ_TopicDelete(uuids: [String!]!): Boolean!
+	C_RfQ_TopicSave(Entity: C_RfQ_TopicInput!): C_RfQ_Topic!
+	C_RfQ_TopicSaveMany(Entities: [C_RfQ_TopicInput!]!): [C_RfQ_Topic!]!
+	C_RfQ_TopicDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RfQ_TopicConnection {
-	results: [C_RfQ_Topic!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RfQ_Topic!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RfQ_Topic {
@@ -23,8 +23,7 @@ type C_RfQ_Topic {
 	AD_Org: AD_Org!
 	# Data Print Format
 	AD_PrintFormat: AD_PrintFormat
-	UUID: ID!
-	C_RfQ_Topic_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input C_RfQ_TopicInput {
 	AD_Org: ForeignEntityInput
 	# Data Print Format
 	AD_PrintFormat: ForeignEntityInput
-	UUID: ID
-	C_RfQ_Topic_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

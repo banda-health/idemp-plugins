@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ElementGet(page: Int, size: Int, sort: String, filter: String): C_ElementConnection!
+	C_ElementGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ElementConnection!
 }
 
 extend type Mutation {
-	C_ElementSave(entity: C_ElementInput!): C_Element!
-	C_ElementSaveMany(entities: [C_ElementInput!]!): [C_Element!]!
-	C_ElementDelete(uuids: [String!]!): Boolean!
+	C_ElementSave(Entity: C_ElementInput!): C_Element!
+	C_ElementSaveMany(Entities: [C_ElementInput!]!): [C_Element!]!
+	C_ElementDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ElementConnection {
-	results: [C_Element!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Element!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Element {
@@ -23,8 +23,7 @@ type C_Element {
 	AD_Org: AD_Org!
 	# Identifies a Tree
 	AD_Tree: AD_Tree!
-	UUID: ID!
-	C_Element_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,8 +53,7 @@ input C_ElementInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Tree
 	AD_Tree: ForeignEntityInput
-	UUID: ID
-	C_Element_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)

@@ -21,16 +21,16 @@ public class X_AD_ViewComponentMutation extends POMutation implements GraphQLMut
 		return X_AD_ViewComponentInput.Table_Name;
 	}
 
-	public MViewComponent AD_ViewComponentSave(I_AD_ViewComponentInput entity, DataFetchingEnvironment environment) {
-		return (MViewComponent) super.save((X_AD_ViewComponentInput) entity, environment);
+	public MViewComponent AD_ViewComponentSave(I_AD_ViewComponentInput Entity, DataFetchingEnvironment environment) {
+		return (MViewComponent) super.save((X_AD_ViewComponentInput) Entity, environment);
 	}
 
-	public List<MViewComponent> AD_ViewComponentSaveMany(List<I_AD_ViewComponentInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ViewComponentInput) entity).collect(Collectors.toList()),
+	public List<MViewComponent> AD_ViewComponentSaveMany(List<I_AD_ViewComponentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ViewComponentInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MViewComponent) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ViewComponentDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ViewComponentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -33,12 +33,12 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_AcctProcessor_UU to fetch this entity from the DB
+	 * @param UU The C_AcctProcessor_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_AcctProcessorInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_AcctProcessorInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 			MSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
-							.setParameters(AD_Schedule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Schedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Schedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Schedule with UUID " + AD_Schedule.getUUID());
+						"Could not find entity in table AD_Schedule with UU " + AD_Schedule.getUU());
 			}
 		} else {
 			this.setAD_Schedule_ID(0);
@@ -125,11 +125,11 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -158,20 +158,20 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_AcctProcessor_UU(UUID);
+	public void setUU(String UU) {
+		setC_AcctProcessor_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_AcctProcessor_UU();
 	}
 
@@ -188,11 +188,11 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -222,11 +222,11 @@ public class X_C_AcctProcessorInput extends MAcctProcessor implements I_C_AcctPr
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+						"Could not find entity in table AD_User with UU " + Supervisor.getUU());
 			}
 		} else {
 			this.setSupervisor_ID(0);

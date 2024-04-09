@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PromotionGroupGet(page: Int, size: Int, sort: String, filter: String): M_PromotionGroupConnection!
+	M_PromotionGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionGroupConnection!
 }
 
 extend type Mutation {
-	M_PromotionGroupSave(entity: M_PromotionGroupInput!): M_PromotionGroup!
-	M_PromotionGroupSaveMany(entities: [M_PromotionGroupInput!]!): [M_PromotionGroup!]!
-	M_PromotionGroupDelete(uuids: [String!]!): Boolean!
+	M_PromotionGroupSave(Entity: M_PromotionGroupInput!): M_PromotionGroup!
+	M_PromotionGroupSaveMany(Entities: [M_PromotionGroupInput!]!): [M_PromotionGroup!]!
+	M_PromotionGroupDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PromotionGroupConnection {
-	results: [M_PromotionGroup!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PromotionGroup!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PromotionGroup {
@@ -29,8 +29,7 @@ type M_PromotionGroup {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_PromotionGroup_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -46,8 +45,7 @@ input M_PromotionGroupInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_PromotionGroup_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

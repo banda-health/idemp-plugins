@@ -17,8 +17,8 @@ public class X_C_JobAssignmentQuery extends POQuery<X_C_JobAssignment> implement
 		return X_C_JobAssignment.Table_Name;
 	}
 
-	public Connection<X_C_JobAssignment> C_JobAssignmentGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_JobAssignment> C_JobAssignmentGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

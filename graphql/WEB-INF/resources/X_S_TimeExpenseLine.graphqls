@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	S_TimeExpenseLineGet(page: Int, size: Int, sort: String, filter: String): S_TimeExpenseLineConnection!
+	S_TimeExpenseLineGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeExpenseLineConnection!
 }
 
 extend type Mutation {
-	S_TimeExpenseLineSave(entity: S_TimeExpenseLineInput!): S_TimeExpenseLine!
-	S_TimeExpenseLineSaveMany(entities: [S_TimeExpenseLineInput!]!): [S_TimeExpenseLine!]!
-	S_TimeExpenseLineDelete(uuids: [String!]!): Boolean!
+	S_TimeExpenseLineSave(Entity: S_TimeExpenseLineInput!): S_TimeExpenseLine!
+	S_TimeExpenseLineSaveMany(Entities: [S_TimeExpenseLineInput!]!): [S_TimeExpenseLine!]!
+	S_TimeExpenseLineDelete(UUs: [String!]!): Boolean!
 }
 
 type S_TimeExpenseLineConnection {
-	results: [S_TimeExpenseLine!]!
-	pagingInfo: PagingInfo!
+	Results: [S_TimeExpenseLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type S_TimeExpenseLine {
@@ -85,8 +85,7 @@ type S_TimeExpenseLine {
 	S_ResourceAssignment: S_ResourceAssignment
 	# Time and Expense Report
 	S_TimeExpense: S_TimeExpense!
-	UUID: ID!
-	S_TimeExpenseLine_UU: String
+	UU: ID!
 	# Type of time recorded
 	S_TimeType: S_TimeType
 	# Date this record was updated
@@ -158,8 +157,7 @@ input S_TimeExpenseLineInput {
 	S_ResourceAssignment: ForeignEntityInput
 	# Time and Expense Report
 	S_TimeExpense: ForeignEntityInput
-	UUID: ID
-	S_TimeExpenseLine_UU: String
+	UU: ID
 	# Type of time recorded
 	S_TimeType: ForeignEntityInput
 }

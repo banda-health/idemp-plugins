@@ -17,8 +17,8 @@ public class X_M_PromotionPreConditionQuery extends POQuery<X_M_PromotionPreCond
 		return X_M_PromotionPreCondition.Table_Name;
 	}
 
-	public Connection<X_M_PromotionPreCondition> M_PromotionPreConditionGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_PromotionPreCondition> M_PromotionPreConditionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

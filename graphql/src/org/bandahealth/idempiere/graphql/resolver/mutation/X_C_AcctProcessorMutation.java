@@ -21,16 +21,16 @@ public class X_C_AcctProcessorMutation extends POMutation implements GraphQLMuta
 		return X_C_AcctProcessorInput.Table_Name;
 	}
 
-	public MAcctProcessor C_AcctProcessorSave(I_C_AcctProcessorInput entity, DataFetchingEnvironment environment) {
-		return (MAcctProcessor) super.save((X_C_AcctProcessorInput) entity, environment);
+	public MAcctProcessor C_AcctProcessorSave(I_C_AcctProcessorInput Entity, DataFetchingEnvironment environment) {
+		return (MAcctProcessor) super.save((X_C_AcctProcessorInput) Entity, environment);
 	}
 
-	public List<MAcctProcessor> C_AcctProcessorSaveMany(List<I_C_AcctProcessorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_AcctProcessorInput) entity).collect(Collectors.toList()),
+	public List<MAcctProcessor> C_AcctProcessorSaveMany(List<I_C_AcctProcessorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_AcctProcessorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAcctProcessor) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_AcctProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_AcctProcessorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_OpportunityMutation extends POMutation implements GraphQLMutati
 		return X_C_OpportunityInput.Table_Name;
 	}
 
-	public MOpportunity C_OpportunitySave(I_C_OpportunityInput entity, DataFetchingEnvironment environment) {
-		return (MOpportunity) super.save((X_C_OpportunityInput) entity, environment);
+	public MOpportunity C_OpportunitySave(I_C_OpportunityInput Entity, DataFetchingEnvironment environment) {
+		return (MOpportunity) super.save((X_C_OpportunityInput) Entity, environment);
 	}
 
-	public List<MOpportunity> C_OpportunitySaveMany(List<I_C_OpportunityInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_OpportunityInput) entity).collect(Collectors.toList()),
+	public List<MOpportunity> C_OpportunitySaveMany(List<I_C_OpportunityInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OpportunityInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MOpportunity) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_OpportunityDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_OpportunityDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

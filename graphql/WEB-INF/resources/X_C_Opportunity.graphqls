@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_OpportunityGet(page: Int, size: Int, sort: String, filter: String): C_OpportunityConnection!
+	C_OpportunityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OpportunityConnection!
 }
 
 extend type Mutation {
-	C_OpportunitySave(entity: C_OpportunityInput!): C_Opportunity!
-	C_OpportunitySaveMany(entities: [C_OpportunityInput!]!): [C_Opportunity!]!
-	C_OpportunityDelete(uuids: [String!]!): Boolean!
+	C_OpportunitySave(Entity: C_OpportunityInput!): C_Opportunity!
+	C_OpportunitySaveMany(Entities: [C_OpportunityInput!]!): [C_Opportunity!]!
+	C_OpportunityDelete(UUs: [String!]!): Boolean!
 }
 
 type C_OpportunityConnection {
-	results: [C_Opportunity!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Opportunity!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Opportunity {
@@ -29,8 +29,7 @@ type C_Opportunity {
 	C_Campaign: C_Campaign
 	# The Currency for this record
 	C_Currency: C_Currency!
-	UUID: ID!
-	C_Opportunity_UU: String
+	UU: ID!
 	# Order
 	C_Order: C_Order
 	# Stages of the sales process
@@ -77,8 +76,7 @@ input C_OpportunityInput {
 	C_Campaign: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	UUID: ID
-	C_Opportunity_UU: String
+	UU: ID
 	# Order
 	C_Order: ForeignEntityInput
 	# Stages of the sales process

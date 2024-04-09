@@ -21,16 +21,16 @@ public class X_M_InOutLineMAMutation extends POMutation implements GraphQLMutati
 		return X_M_InOutLineMAInput.Table_Name;
 	}
 
-	public MInOutLineMA M_InOutLineMASave(I_M_InOutLineMAInput entity, DataFetchingEnvironment environment) {
-		return (MInOutLineMA) super.save((X_M_InOutLineMAInput) entity, environment);
+	public MInOutLineMA M_InOutLineMASave(I_M_InOutLineMAInput Entity, DataFetchingEnvironment environment) {
+		return (MInOutLineMA) super.save((X_M_InOutLineMAInput) Entity, environment);
 	}
 
-	public List<MInOutLineMA> M_InOutLineMASaveMany(List<I_M_InOutLineMAInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_InOutLineMAInput) entity).collect(Collectors.toList()),
+	public List<MInOutLineMA> M_InOutLineMASaveMany(List<I_M_InOutLineMAInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_InOutLineMAInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInOutLineMA) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_InOutLineMADelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_InOutLineMADelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

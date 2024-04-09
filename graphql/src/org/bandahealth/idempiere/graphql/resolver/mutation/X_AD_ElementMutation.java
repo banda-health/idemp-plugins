@@ -21,16 +21,16 @@ public class X_AD_ElementMutation extends POMutation implements GraphQLMutationR
 		return X_AD_ElementInput.Table_Name;
 	}
 
-	public M_Element AD_ElementSave(I_AD_ElementInput entity, DataFetchingEnvironment environment) {
-		return (M_Element) super.save((X_AD_ElementInput) entity, environment);
+	public M_Element AD_ElementSave(I_AD_ElementInput Entity, DataFetchingEnvironment environment) {
+		return (M_Element) super.save((X_AD_ElementInput) Entity, environment);
 	}
 
-	public List<M_Element> AD_ElementSaveMany(List<I_AD_ElementInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ElementInput) entity).collect(Collectors.toList()),
+	public List<M_Element> AD_ElementSaveMany(List<I_AD_ElementInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ElementInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (M_Element) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ElementDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ElementDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

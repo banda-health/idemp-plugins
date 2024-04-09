@@ -21,16 +21,16 @@ public class X_S_TimeExpenseLineMutation extends POMutation implements GraphQLMu
 		return X_S_TimeExpenseLineInput.Table_Name;
 	}
 
-	public MTimeExpenseLine S_TimeExpenseLineSave(I_S_TimeExpenseLineInput entity, DataFetchingEnvironment environment) {
-		return (MTimeExpenseLine) super.save((X_S_TimeExpenseLineInput) entity, environment);
+	public MTimeExpenseLine S_TimeExpenseLineSave(I_S_TimeExpenseLineInput Entity, DataFetchingEnvironment environment) {
+		return (MTimeExpenseLine) super.save((X_S_TimeExpenseLineInput) Entity, environment);
 	}
 
-	public List<MTimeExpenseLine> S_TimeExpenseLineSaveMany(List<I_S_TimeExpenseLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_S_TimeExpenseLineInput) entity).collect(Collectors.toList()),
+	public List<MTimeExpenseLine> S_TimeExpenseLineSaveMany(List<I_S_TimeExpenseLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_TimeExpenseLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTimeExpenseLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean S_TimeExpenseLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean S_TimeExpenseLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

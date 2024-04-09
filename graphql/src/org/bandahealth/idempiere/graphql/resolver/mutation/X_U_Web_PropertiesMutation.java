@@ -21,16 +21,16 @@ public class X_U_Web_PropertiesMutation extends POMutation implements GraphQLMut
 		return X_U_Web_PropertiesInput.Table_Name;
 	}
 
-	public MWebProperties U_Web_PropertiesSave(I_U_Web_PropertiesInput entity, DataFetchingEnvironment environment) {
-		return (MWebProperties) super.save((X_U_Web_PropertiesInput) entity, environment);
+	public MWebProperties U_Web_PropertiesSave(I_U_Web_PropertiesInput Entity, DataFetchingEnvironment environment) {
+		return (MWebProperties) super.save((X_U_Web_PropertiesInput) Entity, environment);
 	}
 
-	public List<MWebProperties> U_Web_PropertiesSaveMany(List<I_U_Web_PropertiesInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_U_Web_PropertiesInput) entity).collect(Collectors.toList()),
+	public List<MWebProperties> U_Web_PropertiesSaveMany(List<I_U_Web_PropertiesInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_U_Web_PropertiesInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MWebProperties) entity).collect(Collectors.toList());
 	}
 
-	public boolean U_Web_PropertiesDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean U_Web_PropertiesDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

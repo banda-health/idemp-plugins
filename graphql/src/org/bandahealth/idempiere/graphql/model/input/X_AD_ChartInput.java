@@ -31,12 +31,12 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Chart_UU to fetch this entity from the DB
+	 * @param UU The AD_Chart_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ChartInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_ChartInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 	/**
 	 * Set Chart.
@@ -51,20 +51,20 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Chart_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Chart_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Chart_UU();
 	}
 
@@ -81,11 +81,11 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -115,11 +115,11 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ChartOrientation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ChartOrientation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setChartOrientation(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ChartOrientation.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ChartOrientation.getUU());
 			}
 		} else {
 			this.setChartOrientation(null);
@@ -149,11 +149,11 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ChartType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ChartType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setChartType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ChartType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ChartType.getUU());
 			}
 		} else {
 			this.setChartType(null);
@@ -183,11 +183,11 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);
@@ -217,11 +217,11 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(TimeUnit.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TimeUnit.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTimeUnit(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + TimeUnit.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + TimeUnit.getUU());
 			}
 		} else {
 			this.setTimeUnit(null);

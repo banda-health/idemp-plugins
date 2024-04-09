@@ -21,16 +21,16 @@ public class X_C_CalendarMutation extends POMutation implements GraphQLMutationR
 		return X_C_CalendarInput.Table_Name;
 	}
 
-	public MCalendar C_CalendarSave(I_C_CalendarInput entity, DataFetchingEnvironment environment) {
-		return (MCalendar) super.save((X_C_CalendarInput) entity, environment);
+	public MCalendar C_CalendarSave(I_C_CalendarInput Entity, DataFetchingEnvironment environment) {
+		return (MCalendar) super.save((X_C_CalendarInput) Entity, environment);
 	}
 
-	public List<MCalendar> C_CalendarSaveMany(List<I_C_CalendarInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CalendarInput) entity).collect(Collectors.toList()),
+	public List<MCalendar> C_CalendarSaveMany(List<I_C_CalendarInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CalendarInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCalendar) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CalendarDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CalendarDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

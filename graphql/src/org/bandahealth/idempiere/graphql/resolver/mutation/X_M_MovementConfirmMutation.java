@@ -21,16 +21,16 @@ public class X_M_MovementConfirmMutation extends POMutation implements GraphQLMu
 		return X_M_MovementConfirmInput.Table_Name;
 	}
 
-	public MMovementConfirm M_MovementConfirmSave(I_M_MovementConfirmInput entity, DataFetchingEnvironment environment) {
-		return (MMovementConfirm) super.save((X_M_MovementConfirmInput) entity, environment);
+	public MMovementConfirm M_MovementConfirmSave(I_M_MovementConfirmInput Entity, DataFetchingEnvironment environment) {
+		return (MMovementConfirm) super.save((X_M_MovementConfirmInput) Entity, environment);
 	}
 
-	public List<MMovementConfirm> M_MovementConfirmSaveMany(List<I_M_MovementConfirmInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_MovementConfirmInput) entity).collect(Collectors.toList()),
+	public List<MMovementConfirm> M_MovementConfirmSaveMany(List<I_M_MovementConfirmInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_MovementConfirmInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MMovementConfirm) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_MovementConfirmDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_MovementConfirmDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

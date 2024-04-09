@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Scheduler_ParaGet(page: Int, size: Int, sort: String, filter: String): AD_Scheduler_ParaConnection!
+	AD_Scheduler_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Scheduler_ParaConnection!
 }
 
 extend type Mutation {
-	AD_Scheduler_ParaSave(entity: AD_Scheduler_ParaInput!): AD_Scheduler_Para!
-	AD_Scheduler_ParaSaveMany(entities: [AD_Scheduler_ParaInput!]!): [AD_Scheduler_Para!]!
-	AD_Scheduler_ParaDelete(uuids: [String!]!): Boolean!
+	AD_Scheduler_ParaSave(Entity: AD_Scheduler_ParaInput!): AD_Scheduler_Para!
+	AD_Scheduler_ParaSaveMany(Entities: [AD_Scheduler_ParaInput!]!): [AD_Scheduler_Para!]!
+	AD_Scheduler_ParaDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Scheduler_ParaConnection {
-	results: [AD_Scheduler_Para!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Scheduler_Para!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Scheduler_Para {
@@ -24,8 +24,7 @@ type AD_Scheduler_Para {
 	AD_Process_Para: AD_Process_Para!
 	# Schedule Processes
 	AD_Scheduler: AD_Scheduler!
-	UUID: ID!
-	AD_Scheduler_Para_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,8 +49,7 @@ input AD_Scheduler_ParaInput {
 	AD_Process_Para: ForeignEntityInput
 	# Schedule Processes
 	AD_Scheduler: ForeignEntityInput
-	UUID: ID
-	AD_Scheduler_Para_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

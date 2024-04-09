@@ -17,8 +17,8 @@ public class X_QM_SpecificationQuery extends POQuery<X_QM_Specification> impleme
 		return X_QM_Specification.Table_Name;
 	}
 
-	public Connection<X_QM_Specification> QM_SpecificationGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_QM_Specification> QM_SpecificationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

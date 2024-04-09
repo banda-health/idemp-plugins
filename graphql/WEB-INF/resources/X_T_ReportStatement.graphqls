@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	T_ReportStatementGet(page: Int, size: Int, sort: String, filter: String): T_ReportStatementConnection!
+	T_ReportStatementGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReportStatementConnection!
 }
 
 extend type Mutation {
-	T_ReportStatementSave(entity: T_ReportStatementInput!): T_ReportStatement!
-	T_ReportStatementSaveMany(entities: [T_ReportStatementInput!]!): [T_ReportStatement!]!
-	T_ReportStatementDelete(uuids: [String!]!): Boolean!
+	T_ReportStatementSave(Entity: T_ReportStatementInput!): T_ReportStatement!
+	T_ReportStatementSaveMany(Entities: [T_ReportStatementInput!]!): [T_ReportStatement!]!
+	T_ReportStatementDelete(UUs: [String!]!): Boolean!
 }
 
 type T_ReportStatementConnection {
-	results: [T_ReportStatement!]!
-	pagingInfo: PagingInfo!
+	Results: [T_ReportStatement!]!
+	PagingInfo: PagingInfo!
 }
 
 type T_ReportStatement {
@@ -34,8 +34,7 @@ type T_ReportStatement {
 	Name: String
 	# Quantity
 	Qty: BigDecimal
-	UUID: ID!
-	T_ReportStatement_UU: String
+	UU: ID!
 }
 
 input T_ReportStatementInput {
@@ -56,6 +55,5 @@ input T_ReportStatementInput {
 	Name: String
 	# Quantity
 	Qty: BigDecimal
-	UUID: ID
-	T_ReportStatement_UU: String
+	UU: ID
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PackageGet(page: Int, size: Int, sort: String, filter: String): M_PackageConnection!
+	M_PackageGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PackageConnection!
 }
 
 extend type Mutation {
-	M_PackageSave(entity: M_PackageInput!): M_Package!
-	M_PackageSaveMany(entities: [M_PackageInput!]!): [M_Package!]!
-	M_PackageDelete(uuids: [String!]!): Boolean!
+	M_PackageSave(Entity: M_PackageInput!): M_Package!
+	M_PackageSaveMany(Entities: [M_PackageInput!]!): [M_Package!]!
+	M_PackageDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PackageConnection {
-	results: [M_Package!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Package!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Package {
@@ -80,8 +80,7 @@ type M_Package {
 	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: M_InOut!
-	UUID: ID!
-	M_Package_UU: String
+	UU: ID!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
 	M_ShipperLabels: M_ShipperLabels
@@ -178,8 +177,7 @@ input M_PackageInput {
 	Length: BigDecimal
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
-	UUID: ID
-	M_Package_UU: String
+	UU: ID
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	M_ShipperLabels: ForeignEntityInput

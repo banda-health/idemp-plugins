@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_LdapAccessGet(page: Int, size: Int, sort: String, filter: String): AD_LdapAccessConnection!
+	AD_LdapAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LdapAccessConnection!
 }
 
 extend type Mutation {
-	AD_LdapAccessSave(entity: AD_LdapAccessInput!): AD_LdapAccess!
-	AD_LdapAccessSaveMany(entities: [AD_LdapAccessInput!]!): [AD_LdapAccess!]!
-	AD_LdapAccessDelete(uuids: [String!]!): Boolean!
+	AD_LdapAccessSave(Entity: AD_LdapAccessInput!): AD_LdapAccess!
+	AD_LdapAccessSaveMany(Entities: [AD_LdapAccessInput!]!): [AD_LdapAccess!]!
+	AD_LdapAccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_LdapAccessConnection {
-	results: [AD_LdapAccess!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_LdapAccess!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_LdapAccess {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_LdapAccess_UU: String
+	UU: ID!
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: AD_LdapProcessor!
 	# Organizational entity within tenant
@@ -48,8 +47,7 @@ type AD_LdapAccess {
 }
 
 input AD_LdapAccessInput {
-	UUID: ID
-	AD_LdapAccess_UU: String
+	UU: ID
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: ForeignEntityInput
 	# Organizational entity within tenant

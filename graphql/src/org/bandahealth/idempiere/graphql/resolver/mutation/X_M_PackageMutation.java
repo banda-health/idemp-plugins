@@ -21,16 +21,16 @@ public class X_M_PackageMutation extends POMutation implements GraphQLMutationRe
 		return X_M_PackageInput.Table_Name;
 	}
 
-	public MPackage M_PackageSave(I_M_PackageInput entity, DataFetchingEnvironment environment) {
-		return (MPackage) super.save((X_M_PackageInput) entity, environment);
+	public MPackage M_PackageSave(I_M_PackageInput Entity, DataFetchingEnvironment environment) {
+		return (MPackage) super.save((X_M_PackageInput) Entity, environment);
 	}
 
-	public List<MPackage> M_PackageSaveMany(List<I_M_PackageInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PackageInput) entity).collect(Collectors.toList()),
+	public List<MPackage> M_PackageSaveMany(List<I_M_PackageInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PackageInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPackage) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PackageDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PackageDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

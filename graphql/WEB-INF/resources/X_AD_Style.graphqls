@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_StyleGet(page: Int, size: Int, sort: String, filter: String): AD_StyleConnection!
+	AD_StyleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StyleConnection!
 }
 
 extend type Mutation {
-	AD_StyleSave(entity: AD_StyleInput!): AD_Style!
-	AD_StyleSaveMany(entities: [AD_StyleInput!]!): [AD_Style!]!
-	AD_StyleDelete(uuids: [String!]!): Boolean!
+	AD_StyleSave(Entity: AD_StyleInput!): AD_Style!
+	AD_StyleSaveMany(Entities: [AD_StyleInput!]!): [AD_Style!]!
+	AD_StyleDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_StyleConnection {
-	results: [AD_Style!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Style!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Style {
@@ -21,9 +21,7 @@ type AD_Style {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	# CSS Style for field and label
-	AD_Style_UU: String!
+	UU: ID!
 	# Date this record was created
 	Created: Date
 	# User who created this records
@@ -47,9 +45,7 @@ type AD_Style {
 input AD_StyleInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	# CSS Style for field and label
-	AD_Style_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

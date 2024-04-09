@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_Recurring_RunGet(page: Int, size: Int, sort: String, filter: String): C_Recurring_RunConnection!
+	C_Recurring_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Recurring_RunConnection!
 }
 
 extend type Mutation {
-	C_Recurring_RunSave(entity: C_Recurring_RunInput!): C_Recurring_Run!
-	C_Recurring_RunSaveMany(entities: [C_Recurring_RunInput!]!): [C_Recurring_Run!]!
-	C_Recurring_RunDelete(uuids: [String!]!): Boolean!
+	C_Recurring_RunSave(Entity: C_Recurring_RunInput!): C_Recurring_Run!
+	C_Recurring_RunSaveMany(Entities: [C_Recurring_RunInput!]!): [C_Recurring_Run!]!
+	C_Recurring_RunDelete(UUs: [String!]!): Boolean!
 }
 
 type C_Recurring_RunConnection {
-	results: [C_Recurring_Run!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Recurring_Run!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Recurring_Run {
@@ -31,8 +31,7 @@ type C_Recurring_Run {
 	C_Project: C_Project
 	# Recurring Document
 	C_Recurring: C_Recurring!
-	UUID: ID!
-	C_Recurring_Run_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,8 +61,7 @@ input C_Recurring_RunInput {
 	C_Project: ForeignEntityInput
 	# Recurring Document
 	C_Recurring: ForeignEntityInput
-	UUID: ID
-	C_Recurring_Run_UU: String
+	UU: ID
 	# Date of the Document
 	DateDoc: Date
 	# General Ledger Journal Batch

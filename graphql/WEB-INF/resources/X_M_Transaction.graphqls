@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_TransactionGet(page: Int, size: Int, sort: String, filter: String): M_TransactionConnection!
+	M_TransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_TransactionConnection!
 }
 
 extend type Mutation {
-	M_TransactionSave(entity: M_TransactionInput!): M_Transaction!
-	M_TransactionSaveMany(entities: [M_TransactionInput!]!): [M_Transaction!]!
-	M_TransactionDelete(uuids: [String!]!): Boolean!
+	M_TransactionSave(Entity: M_TransactionInput!): M_Transaction!
+	M_TransactionSaveMany(Entities: [M_TransactionInput!]!): [M_Transaction!]!
+	M_TransactionDelete(UUs: [String!]!): Boolean!
 }
 
 type M_TransactionConnection {
-	results: [M_Transaction!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Transaction!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Transaction {
@@ -43,8 +43,7 @@ type M_Transaction {
 	M_Product: M_Product!
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine
-	UUID: ID!
-	M_Transaction_UU: String
+	UU: ID!
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Quantity of a product moved.
@@ -79,8 +78,7 @@ input M_TransactionInput {
 	M_Product: ForeignEntityInput
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
-	UUID: ID
-	M_Transaction_UU: String
+	UU: ID
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Quantity of a product moved.

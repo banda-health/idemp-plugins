@@ -35,12 +35,12 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_FieldSuggestion_UU to fetch this entity from the DB
+	 * @param UU The AD_FieldSuggestion_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_FieldSuggestionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_FieldSuggestionInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Field with UUID " + AD_Field.getUUID());
+						"Could not find entity in table AD_Field with UU " + AD_Field.getUU());
 			}
 		} else {
 			this.setAD_Field_ID(0);
@@ -92,20 +92,20 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_FieldSuggestion_UU(UUID);
+	public void setUU(String UU) {
+		setAD_FieldSuggestion_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_FieldSuggestion_UU();
 	}
 
@@ -125,11 +125,11 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
+						"Could not find entity in table AD_Language with UU " + AD_Language.getUU());
 			}
 		} else {
 			this.setAD_Language(null);
@@ -162,11 +162,11 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -199,11 +199,11 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			X_AD_AllUsers_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_AllUsers_V with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_AllUsers_V with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -236,11 +236,11 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			X_AD_AllClients_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
-							.setParameters(AD_UserClient.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_UserClient.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_UserClient_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_AllClients_V with UUID " + AD_UserClient.getUUID());
+						"Could not find entity in table AD_AllClients_V with UU " + AD_UserClient.getUU());
 			}
 		} else {
 			this.setAD_UserClient_ID(0);
@@ -270,11 +270,11 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FieldSuggestionTarget.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FieldSuggestionTarget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFieldSuggestionTarget(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FieldSuggestionTarget.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + FieldSuggestionTarget.getUU());
 			}
 		} else {
 			this.setFieldSuggestionTarget(null);

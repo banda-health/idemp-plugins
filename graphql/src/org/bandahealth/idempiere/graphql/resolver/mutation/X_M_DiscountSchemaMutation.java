@@ -21,16 +21,16 @@ public class X_M_DiscountSchemaMutation extends POMutation implements GraphQLMut
 		return X_M_DiscountSchemaInput.Table_Name;
 	}
 
-	public MDiscountSchema M_DiscountSchemaSave(I_M_DiscountSchemaInput entity, DataFetchingEnvironment environment) {
-		return (MDiscountSchema) super.save((X_M_DiscountSchemaInput) entity, environment);
+	public MDiscountSchema M_DiscountSchemaSave(I_M_DiscountSchemaInput Entity, DataFetchingEnvironment environment) {
+		return (MDiscountSchema) super.save((X_M_DiscountSchemaInput) Entity, environment);
 	}
 
-	public List<MDiscountSchema> M_DiscountSchemaSaveMany(List<I_M_DiscountSchemaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_DiscountSchemaInput) entity).collect(Collectors.toList()),
+	public List<MDiscountSchema> M_DiscountSchemaSaveMany(List<I_M_DiscountSchemaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_DiscountSchemaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDiscountSchema) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_DiscountSchemaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_DiscountSchemaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_AD_AlertProcessorMutation extends POMutation implements GraphQLMu
 		return X_AD_AlertProcessorInput.Table_Name;
 	}
 
-	public MAlertProcessor AD_AlertProcessorSave(I_AD_AlertProcessorInput entity, DataFetchingEnvironment environment) {
-		return (MAlertProcessor) super.save((X_AD_AlertProcessorInput) entity, environment);
+	public MAlertProcessor AD_AlertProcessorSave(I_AD_AlertProcessorInput Entity, DataFetchingEnvironment environment) {
+		return (MAlertProcessor) super.save((X_AD_AlertProcessorInput) Entity, environment);
 	}
 
-	public List<MAlertProcessor> AD_AlertProcessorSaveMany(List<I_AD_AlertProcessorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AlertProcessorInput) entity).collect(Collectors.toList()),
+	public List<MAlertProcessor> AD_AlertProcessorSaveMany(List<I_AD_AlertProcessorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AlertProcessorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAlertProcessor) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AlertProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AlertProcessorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_AD_Package_Exp_DetailMutation extends POMutation implements Graph
 		return X_AD_Package_Exp_DetailInput.Table_Name;
 	}
 
-	public MPackageExpDetail AD_Package_Exp_DetailSave(I_AD_Package_Exp_DetailInput entity, DataFetchingEnvironment environment) {
-		return (MPackageExpDetail) super.save((X_AD_Package_Exp_DetailInput) entity, environment);
+	public MPackageExpDetail AD_Package_Exp_DetailSave(I_AD_Package_Exp_DetailInput Entity, DataFetchingEnvironment environment) {
+		return (MPackageExpDetail) super.save((X_AD_Package_Exp_DetailInput) Entity, environment);
 	}
 
-	public List<MPackageExpDetail> AD_Package_Exp_DetailSaveMany(List<I_AD_Package_Exp_DetailInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Package_Exp_DetailInput) entity).collect(Collectors.toList()),
+	public List<MPackageExpDetail> AD_Package_Exp_DetailSaveMany(List<I_AD_Package_Exp_DetailInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Package_Exp_DetailInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPackageExpDetail) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Package_Exp_DetailDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Package_Exp_DetailDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

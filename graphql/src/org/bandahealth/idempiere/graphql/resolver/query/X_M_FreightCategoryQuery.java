@@ -17,8 +17,8 @@ public class X_M_FreightCategoryQuery extends POQuery<MFreightCategory> implemen
 		return MFreightCategory.Table_Name;
 	}
 
-	public Connection<MFreightCategory> M_FreightCategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MFreightCategory> M_FreightCategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

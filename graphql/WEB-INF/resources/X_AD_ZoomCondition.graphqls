@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ZoomConditionGet(page: Int, size: Int, sort: String, filter: String): AD_ZoomConditionConnection!
+	AD_ZoomConditionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ZoomConditionConnection!
 }
 
 extend type Mutation {
-	AD_ZoomConditionSave(entity: AD_ZoomConditionInput!): AD_ZoomCondition!
-	AD_ZoomConditionSaveMany(entities: [AD_ZoomConditionInput!]!): [AD_ZoomCondition!]!
-	AD_ZoomConditionDelete(uuids: [String!]!): Boolean!
+	AD_ZoomConditionSave(Entity: AD_ZoomConditionInput!): AD_ZoomCondition!
+	AD_ZoomConditionSaveMany(Entities: [AD_ZoomConditionInput!]!): [AD_ZoomCondition!]!
+	AD_ZoomConditionDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ZoomConditionConnection {
-	results: [AD_ZoomCondition!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ZoomCondition!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ZoomCondition {
@@ -25,8 +25,7 @@ type AD_ZoomCondition {
 	AD_Table: AD_Table!
 	# Data entry or display window
 	AD_Window: AD_Window!
-	UUID: ID!
-	AD_ZoomCondition_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,8 +57,7 @@ input AD_ZoomConditionInput {
 	AD_Table: ForeignEntityInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
-	UUID: ID
-	AD_ZoomCondition_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

@@ -21,16 +21,16 @@ public class X_ASP_FormMutation extends POMutation implements GraphQLMutationRes
 		return X_ASP_FormInput.Table_Name;
 	}
 
-	public X_ASP_Form ASP_FormSave(I_ASP_FormInput entity, DataFetchingEnvironment environment) {
-		return (X_ASP_Form) super.save((X_ASP_FormInput) entity, environment);
+	public X_ASP_Form ASP_FormSave(I_ASP_FormInput Entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Form) super.save((X_ASP_FormInput) Entity, environment);
 	}
 
-	public List<X_ASP_Form> ASP_FormSaveMany(List<I_ASP_FormInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_ASP_FormInput) entity).collect(Collectors.toList()),
+	public List<X_ASP_Form> ASP_FormSaveMany(List<I_ASP_FormInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_ASP_FormInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_ASP_Form) entity).collect(Collectors.toList());
 	}
 
-	public boolean ASP_FormDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean ASP_FormDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

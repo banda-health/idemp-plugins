@@ -29,12 +29,12 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_CyclePhase_UU to fetch this entity from the DB
+	 * @param UU The C_CyclePhase_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_CyclePhaseInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_CyclePhaseInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -75,20 +75,20 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_CyclePhase_UU(UUID);
+	public void setUU(String UU) {
+		setC_CyclePhase_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_CyclePhase_UU();
 	}
 
@@ -108,11 +108,11 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 			X_C_CycleStep foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CycleStep", "C_CycleStep_UU=?", get_TrxName())
-							.setParameters(C_CycleStep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CycleStep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CycleStep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_CycleStep with UUID " + C_CycleStep.getUUID());
+						"Could not find entity in table C_CycleStep with UU " + C_CycleStep.getUU());
 			}
 		} else {
 			this.setC_CycleStep_ID(0);
@@ -145,11 +145,11 @@ public class X_C_CyclePhaseInput extends X_C_CyclePhase implements I_C_CyclePhas
 			MProjectTypePhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
-							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Phase.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Phase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Phase with UUID " + C_Phase.getUUID());
+						"Could not find entity in table C_Phase with UU " + C_Phase.getUU());
 			}
 		} else {
 			this.setC_Phase_ID(0);

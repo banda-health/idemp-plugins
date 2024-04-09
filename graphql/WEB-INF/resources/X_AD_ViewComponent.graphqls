@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ViewComponentGet(page: Int, size: Int, sort: String, filter: String): AD_ViewComponentConnection!
+	AD_ViewComponentGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ViewComponentConnection!
 }
 
 extend type Mutation {
-	AD_ViewComponentSave(entity: AD_ViewComponentInput!): AD_ViewComponent!
-	AD_ViewComponentSaveMany(entities: [AD_ViewComponentInput!]!): [AD_ViewComponent!]!
-	AD_ViewComponentDelete(uuids: [String!]!): Boolean!
+	AD_ViewComponentSave(Entity: AD_ViewComponentInput!): AD_ViewComponent!
+	AD_ViewComponentSaveMany(Entities: [AD_ViewComponentInput!]!): [AD_ViewComponent!]!
+	AD_ViewComponentDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ViewComponentConnection {
-	results: [AD_ViewComponent!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ViewComponent!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ViewComponent {
@@ -23,8 +23,7 @@ type AD_ViewComponent {
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
-	UUID: ID!
-	AD_ViewComponent_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -63,8 +62,7 @@ input AD_ViewComponentInput {
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	UUID: ID
-	AD_ViewComponent_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

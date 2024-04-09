@@ -21,16 +21,16 @@ public class X_A_Depreciation_WorkfileMutation extends POMutation implements Gra
 		return X_A_Depreciation_WorkfileInput.Table_Name;
 	}
 
-	public MDepreciationWorkfile A_Depreciation_WorkfileSave(I_A_Depreciation_WorkfileInput entity, DataFetchingEnvironment environment) {
-		return (MDepreciationWorkfile) super.save((X_A_Depreciation_WorkfileInput) entity, environment);
+	public MDepreciationWorkfile A_Depreciation_WorkfileSave(I_A_Depreciation_WorkfileInput Entity, DataFetchingEnvironment environment) {
+		return (MDepreciationWorkfile) super.save((X_A_Depreciation_WorkfileInput) Entity, environment);
 	}
 
-	public List<MDepreciationWorkfile> A_Depreciation_WorkfileSaveMany(List<I_A_Depreciation_WorkfileInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Depreciation_WorkfileInput) entity).collect(Collectors.toList()),
+	public List<MDepreciationWorkfile> A_Depreciation_WorkfileSaveMany(List<I_A_Depreciation_WorkfileInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Depreciation_WorkfileInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDepreciationWorkfile) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Depreciation_WorkfileDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Depreciation_WorkfileDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

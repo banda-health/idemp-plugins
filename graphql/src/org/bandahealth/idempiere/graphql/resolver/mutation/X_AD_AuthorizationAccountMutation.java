@@ -21,16 +21,16 @@ public class X_AD_AuthorizationAccountMutation extends POMutation implements Gra
 		return X_AD_AuthorizationAccountInput.Table_Name;
 	}
 
-	public MAuthorizationAccount AD_AuthorizationAccountSave(I_AD_AuthorizationAccountInput entity, DataFetchingEnvironment environment) {
-		return (MAuthorizationAccount) super.save((X_AD_AuthorizationAccountInput) entity, environment);
+	public MAuthorizationAccount AD_AuthorizationAccountSave(I_AD_AuthorizationAccountInput Entity, DataFetchingEnvironment environment) {
+		return (MAuthorizationAccount) super.save((X_AD_AuthorizationAccountInput) Entity, environment);
 	}
 
-	public List<MAuthorizationAccount> AD_AuthorizationAccountSaveMany(List<I_AD_AuthorizationAccountInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AuthorizationAccountInput) entity).collect(Collectors.toList()),
+	public List<MAuthorizationAccount> AD_AuthorizationAccountSaveMany(List<I_AD_AuthorizationAccountInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AuthorizationAccountInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAuthorizationAccount) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AuthorizationAccountDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AuthorizationAccountDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

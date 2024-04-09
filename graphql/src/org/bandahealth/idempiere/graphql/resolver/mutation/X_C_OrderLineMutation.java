@@ -21,16 +21,16 @@ public class X_C_OrderLineMutation extends POMutation implements GraphQLMutation
 		return X_C_OrderLineInput.Table_Name;
 	}
 
-	public MOrderLine_BH C_OrderLineSave(I_C_OrderLineInput entity, DataFetchingEnvironment environment) {
-		return (MOrderLine_BH) super.save((X_C_OrderLineInput) entity, environment);
+	public MOrderLine_BH C_OrderLineSave(I_C_OrderLineInput Entity, DataFetchingEnvironment environment) {
+		return (MOrderLine_BH) super.save((X_C_OrderLineInput) Entity, environment);
 	}
 
-	public List<MOrderLine_BH> C_OrderLineSaveMany(List<I_C_OrderLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_OrderLineInput) entity).collect(Collectors.toList()),
+	public List<MOrderLine_BH> C_OrderLineSaveMany(List<I_C_OrderLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OrderLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MOrderLine_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_OrderLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_OrderLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

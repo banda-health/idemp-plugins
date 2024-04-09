@@ -17,8 +17,8 @@ public class X_M_InOutLineMAQuery extends POQuery<MInOutLineMA> implements Graph
 		return MInOutLineMA.Table_Name;
 	}
 
-	public Connection<MInOutLineMA> M_InOutLineMAGet(int page, int pageSize, String sort, String filter,
+	public Connection<MInOutLineMA> M_InOutLineMAGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

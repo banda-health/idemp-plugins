@@ -17,8 +17,8 @@ public class X_AD_UserMailQuery extends POQuery<MUserMail> implements GraphQLQue
 		return MUserMail.Table_Name;
 	}
 
-	public Connection<MUserMail> AD_UserMailGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUserMail> AD_UserMailGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

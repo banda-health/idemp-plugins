@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_DocumentStatusGet(page: Int, size: Int, sort: String, filter: String): PA_DocumentStatusConnection!
+	PA_DocumentStatusGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DocumentStatusConnection!
 }
 
 extend type Mutation {
-	PA_DocumentStatusSave(entity: PA_DocumentStatusInput!): PA_DocumentStatus!
-	PA_DocumentStatusSaveMany(entities: [PA_DocumentStatusInput!]!): [PA_DocumentStatus!]!
-	PA_DocumentStatusDelete(uuids: [String!]!): Boolean!
+	PA_DocumentStatusSave(Entity: PA_DocumentStatusInput!): PA_DocumentStatus!
+	PA_DocumentStatusSaveMany(Entities: [PA_DocumentStatusInput!]!): [PA_DocumentStatus!]!
+	PA_DocumentStatusDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_DocumentStatusConnection {
-	results: [PA_DocumentStatus!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_DocumentStatus!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_DocumentStatus {
@@ -49,8 +49,7 @@ type PA_DocumentStatus {
 	Name_PrintFont: AD_PrintFont
 	Number_PrintColor: AD_PrintColor
 	Number_PrintFont: AD_PrintFont
-	UUID: ID!
-	PA_DocumentStatus_UU: String
+	UU: ID!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -88,8 +87,7 @@ input PA_DocumentStatusInput {
 	Name_PrintFont: ForeignEntityInput
 	Number_PrintColor: ForeignEntityInput
 	Number_PrintFont: ForeignEntityInput
-	UUID: ID
-	PA_DocumentStatus_UU: String
+	UU: ID
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Fully qualified SQL WHERE clause

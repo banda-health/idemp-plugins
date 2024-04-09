@@ -36,12 +36,12 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_CostHistory_UU to fetch this entity from the DB
+	 * @param UU The M_CostHistory_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_CostHistoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_CostHistoryInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -60,11 +60,11 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -97,11 +97,11 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSetInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
 			this.setM_AttributeSetInstance_ID(0);
@@ -134,11 +134,11 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 			MCostDetail foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostDetail", "M_CostDetail_UU=?", get_TrxName())
-							.setParameters(M_CostDetail.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostDetail.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_CostDetail_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_CostDetail with UUID " + M_CostDetail.getUUID());
+						"Could not find entity in table M_CostDetail with UU " + M_CostDetail.getUU());
 			}
 		} else {
 			this.setM_CostDetail_ID(0);
@@ -171,11 +171,11 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_CostElement with UUID " + M_CostElement.getUUID());
+						"Could not find entity in table M_CostElement with UU " + M_CostElement.getUU());
 			}
 		} else {
 			this.setM_CostElement_ID(0);
@@ -204,20 +204,20 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_CostHistory_UU(UUID);
+	public void setUU(String UU) {
+		setM_CostHistory_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_CostHistory_UU();
 	}
 
@@ -237,11 +237,11 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 			MCostType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
-							.setParameters(M_CostType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_CostType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_CostType with UUID " + M_CostType.getUUID());
+						"Could not find entity in table M_CostType with UU " + M_CostType.getUU());
 			}
 		} else {
 			this.setM_CostType_ID(0);
@@ -271,11 +271,11 @@ public class X_M_CostHistoryInput extends X_M_CostHistory implements I_M_CostHis
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);

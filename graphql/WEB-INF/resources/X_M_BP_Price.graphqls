@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_BP_PriceGet(page: Int, size: Int, sort: String, filter: String): M_BP_PriceConnection!
+	M_BP_PriceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_BP_PriceConnection!
 }
 
 extend type Mutation {
-	M_BP_PriceSave(entity: M_BP_PriceInput!): M_BP_Price!
-	M_BP_PriceSaveMany(entities: [M_BP_PriceInput!]!): [M_BP_Price!]!
-	M_BP_PriceDelete(uuids: [String!]!): Boolean!
+	M_BP_PriceSave(Entity: M_BP_PriceInput!): M_BP_Price!
+	M_BP_PriceSaveMany(Entities: [M_BP_PriceInput!]!): [M_BP_Price!]!
+	M_BP_PriceDelete(UUs: [String!]!): Boolean!
 }
 
 type M_BP_PriceConnection {
-	results: [M_BP_Price!]!
-	pagingInfo: PagingInfo!
+	Results: [M_BP_Price!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_BP_Price {
@@ -39,8 +39,7 @@ type M_BP_Price {
 	IsActive: Boolean!
 	# Net Price including all discounts
 	IsNetPrice: Boolean!
-	UUID: ID!
-	M_BP_Price_UU: String
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Lowest price for a product
@@ -78,8 +77,7 @@ input M_BP_PriceInput {
 	IsActive: Boolean
 	# Net Price including all discounts
 	IsNetPrice: Boolean
-	UUID: ID
-	M_BP_Price_UU: String
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Lowest price for a product

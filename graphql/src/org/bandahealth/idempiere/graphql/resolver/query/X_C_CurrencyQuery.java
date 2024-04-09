@@ -17,8 +17,8 @@ public class X_C_CurrencyQuery extends POQuery<MCurrency_BH> implements GraphQLQ
 		return MCurrency_BH.Table_Name;
 	}
 
-	public Connection<MCurrency_BH> C_CurrencyGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCurrency_BH> C_CurrencyGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

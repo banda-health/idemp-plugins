@@ -17,8 +17,8 @@ public class X_C_BP_GroupQuery extends POQuery<MBPGroup_BH> implements GraphQLQu
 		return MBPGroup_BH.Table_Name;
 	}
 
-	public Connection<MBPGroup_BH> C_BP_GroupGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBPGroup_BH> C_BP_GroupGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

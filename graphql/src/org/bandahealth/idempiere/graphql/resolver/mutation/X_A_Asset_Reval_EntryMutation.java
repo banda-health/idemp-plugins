@@ -21,16 +21,16 @@ public class X_A_Asset_Reval_EntryMutation extends POMutation implements GraphQL
 		return X_A_Asset_Reval_EntryInput.Table_Name;
 	}
 
-	public X_A_Asset_Reval_Entry A_Asset_Reval_EntrySave(I_A_Asset_Reval_EntryInput entity, DataFetchingEnvironment environment) {
-		return (X_A_Asset_Reval_Entry) super.save((X_A_Asset_Reval_EntryInput) entity, environment);
+	public X_A_Asset_Reval_Entry A_Asset_Reval_EntrySave(I_A_Asset_Reval_EntryInput Entity, DataFetchingEnvironment environment) {
+		return (X_A_Asset_Reval_Entry) super.save((X_A_Asset_Reval_EntryInput) Entity, environment);
 	}
 
-	public List<X_A_Asset_Reval_Entry> A_Asset_Reval_EntrySaveMany(List<I_A_Asset_Reval_EntryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_Reval_EntryInput) entity).collect(Collectors.toList()),
+	public List<X_A_Asset_Reval_Entry> A_Asset_Reval_EntrySaveMany(List<I_A_Asset_Reval_EntryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_Reval_EntryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_A_Asset_Reval_Entry) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_Reval_EntryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_Reval_EntryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

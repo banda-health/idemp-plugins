@@ -21,16 +21,16 @@ public class X_AD_Process_AccessMutation extends POMutation implements GraphQLMu
 		return X_AD_Process_AccessInput.Table_Name;
 	}
 
-	public MProcessAccess AD_Process_AccessSave(I_AD_Process_AccessInput entity, DataFetchingEnvironment environment) {
-		return (MProcessAccess) super.save((X_AD_Process_AccessInput) entity, environment);
+	public MProcessAccess AD_Process_AccessSave(I_AD_Process_AccessInput Entity, DataFetchingEnvironment environment) {
+		return (MProcessAccess) super.save((X_AD_Process_AccessInput) Entity, environment);
 	}
 
-	public List<MProcessAccess> AD_Process_AccessSaveMany(List<I_AD_Process_AccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Process_AccessInput) entity).collect(Collectors.toList()),
+	public List<MProcessAccess> AD_Process_AccessSaveMany(List<I_AD_Process_AccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Process_AccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProcessAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Process_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Process_AccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

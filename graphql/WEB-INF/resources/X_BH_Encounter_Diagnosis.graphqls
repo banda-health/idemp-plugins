@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_Encounter_DiagnosisGet(page: Int, size: Int, sort: String, filter: String): BH_Encounter_DiagnosisConnection!
+	BH_Encounter_DiagnosisGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Encounter_DiagnosisConnection!
 }
 
 extend type Mutation {
-	BH_Encounter_DiagnosisSave(entity: BH_Encounter_DiagnosisInput!): BH_Encounter_Diagnosis!
-	BH_Encounter_DiagnosisSaveMany(entities: [BH_Encounter_DiagnosisInput!]!): [BH_Encounter_Diagnosis!]!
-	BH_Encounter_DiagnosisDelete(uuids: [String!]!): Boolean!
+	BH_Encounter_DiagnosisSave(Entity: BH_Encounter_DiagnosisInput!): BH_Encounter_Diagnosis!
+	BH_Encounter_DiagnosisSaveMany(Entities: [BH_Encounter_DiagnosisInput!]!): [BH_Encounter_Diagnosis!]!
+	BH_Encounter_DiagnosisDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_Encounter_DiagnosisConnection {
-	results: [BH_Encounter_Diagnosis!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_Encounter_Diagnosis!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_Encounter_Diagnosis {
@@ -22,8 +22,7 @@ type BH_Encounter_Diagnosis {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_Coded_Diagnosis: BH_Coded_Diagnosis
-	UUID: ID!
-	BH_Encounter_Diagnosis_UU: String
+	UU: ID!
 	BH_Encounter: BH_Encounter!
 	# uncoded diagnosis
 	BH_Uncoded_Diagnosis: String
@@ -45,8 +44,7 @@ input BH_Encounter_DiagnosisInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_Coded_Diagnosis: ForeignEntityInput
-	UUID: ID
-	BH_Encounter_Diagnosis_UU: String
+	UU: ID
 	BH_Encounter: ForeignEntityInput
 	# uncoded diagnosis
 	BH_Uncoded_Diagnosis: String

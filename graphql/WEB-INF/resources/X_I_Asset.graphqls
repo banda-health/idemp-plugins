@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_AssetGet(page: Int, size: Int, sort: String, filter: String): I_AssetConnection!
+	I_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String): I_AssetConnection!
 }
 
 extend type Mutation {
-	I_AssetSave(entity: I_AssetInput!): I_Asset!
-	I_AssetSaveMany(entities: [I_AssetInput!]!): [I_Asset!]!
-	I_AssetDelete(uuids: [String!]!): Boolean!
+	I_AssetSave(Entity: I_AssetInput!): I_Asset!
+	I_AssetSaveMany(Entities: [I_AssetInput!]!): [I_Asset!]!
+	I_AssetDelete(UUs: [String!]!): Boolean!
 }
 
 type I_AssetConnection {
-	results: [I_Asset!]!
-	pagingInfo: PagingInfo!
+	Results: [I_Asset!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_Asset {
@@ -79,8 +79,7 @@ type I_Asset {
 	GuaranteeDate: Date
 	# Comment or Hint
 	Help: String
-	UUID: ID!
-	I_Asset_UU: String
+	UU: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -191,8 +190,7 @@ input I_AssetInput {
 	GuaranteeDate: Date
 	# Comment or Hint
 	Help: String
-	UUID: ID
-	I_Asset_UU: String
+	UU: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

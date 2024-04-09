@@ -17,8 +17,8 @@ public class X_BH_PaymentRef_BankAcctQuery extends POQuery<MBHPaymentRefBankAcco
 		return MBHPaymentRefBankAccount.Table_Name;
 	}
 
-	public Connection<MBHPaymentRefBankAccount> BH_PaymentRef_BankAcctGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHPaymentRefBankAccount> BH_PaymentRef_BankAcctGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

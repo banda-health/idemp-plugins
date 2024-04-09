@@ -17,8 +17,8 @@ public class X_AD_SysConfigQuery extends POQuery<MSysConfig_BH> implements Graph
 		return MSysConfig_BH.Table_Name;
 	}
 
-	public Connection<MSysConfig_BH> AD_SysConfigGet(int page, int pageSize, String sort, String filter,
+	public Connection<MSysConfig_BH> AD_SysConfigGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

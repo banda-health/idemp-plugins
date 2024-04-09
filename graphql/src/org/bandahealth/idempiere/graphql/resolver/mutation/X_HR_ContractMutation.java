@@ -21,16 +21,16 @@ public class X_HR_ContractMutation extends POMutation implements GraphQLMutation
 		return X_HR_ContractInput.Table_Name;
 	}
 
-	public X_HR_Contract HR_ContractSave(I_HR_ContractInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_Contract) super.save((X_HR_ContractInput) entity, environment);
+	public X_HR_Contract HR_ContractSave(I_HR_ContractInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_Contract) super.save((X_HR_ContractInput) Entity, environment);
 	}
 
-	public List<X_HR_Contract> HR_ContractSaveMany(List<I_HR_ContractInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_ContractInput) entity).collect(Collectors.toList()),
+	public List<X_HR_Contract> HR_ContractSaveMany(List<I_HR_ContractInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_ContractInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_Contract) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_ContractDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_ContractDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

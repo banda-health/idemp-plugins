@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_UserDef_Info_RelatedGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_Info_RelatedConnection!
+	AD_UserDef_Info_RelatedGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_Info_RelatedConnection!
 }
 
 extend type Mutation {
-	AD_UserDef_Info_RelatedSave(entity: AD_UserDef_Info_RelatedInput!): AD_UserDef_Info_Related!
-	AD_UserDef_Info_RelatedSaveMany(entities: [AD_UserDef_Info_RelatedInput!]!): [AD_UserDef_Info_Related!]!
-	AD_UserDef_Info_RelatedDelete(uuids: [String!]!): Boolean!
+	AD_UserDef_Info_RelatedSave(Entity: AD_UserDef_Info_RelatedInput!): AD_UserDef_Info_Related!
+	AD_UserDef_Info_RelatedSaveMany(Entities: [AD_UserDef_Info_RelatedInput!]!): [AD_UserDef_Info_Related!]!
+	AD_UserDef_Info_RelatedDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_UserDef_Info_RelatedConnection {
-	results: [AD_UserDef_Info_Related!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_UserDef_Info_Related!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_UserDef_Info_Related {
@@ -23,8 +23,7 @@ type AD_UserDef_Info_Related {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_UserDef_Info: AD_UserDef_Info!
-	UUID: ID!
-	AD_UserDef_Info_Related_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,8 +51,7 @@ input AD_UserDef_Info_RelatedInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_UserDef_Info: ForeignEntityInput
-	UUID: ID
-	AD_UserDef_Info_Related_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# If the Field is displayed, the result determines if the field is actually displayed

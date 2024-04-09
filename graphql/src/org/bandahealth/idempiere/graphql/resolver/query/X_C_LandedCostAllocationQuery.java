@@ -17,8 +17,8 @@ public class X_C_LandedCostAllocationQuery extends POQuery<MLandedCostAllocation
 		return MLandedCostAllocation.Table_Name;
 	}
 
-	public Connection<MLandedCostAllocation> C_LandedCostAllocationGet(int page, int pageSize, String sort, String filter,
+	public Connection<MLandedCostAllocation> C_LandedCostAllocationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_BH_BP_General_Payer_InfoQuery extends POQuery<MBHBPGeneralPayerIn
 		return MBHBPGeneralPayerInfo.Table_Name;
 	}
 
-	public Connection<MBHBPGeneralPayerInfo> BH_BP_General_Payer_InfoGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHBPGeneralPayerInfo> BH_BP_General_Payer_InfoGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

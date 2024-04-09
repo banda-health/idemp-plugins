@@ -21,16 +21,16 @@ public class X_T_InventoryValueMutation extends POMutation implements GraphQLMut
 		return X_T_InventoryValueInput.Table_Name;
 	}
 
-	public X_T_InventoryValue T_InventoryValueSave(I_T_InventoryValueInput entity, DataFetchingEnvironment environment) {
-		return (X_T_InventoryValue) super.save((X_T_InventoryValueInput) entity, environment);
+	public X_T_InventoryValue T_InventoryValueSave(I_T_InventoryValueInput Entity, DataFetchingEnvironment environment) {
+		return (X_T_InventoryValue) super.save((X_T_InventoryValueInput) Entity, environment);
 	}
 
-	public List<X_T_InventoryValue> T_InventoryValueSaveMany(List<I_T_InventoryValueInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_T_InventoryValueInput) entity).collect(Collectors.toList()),
+	public List<X_T_InventoryValue> T_InventoryValueSaveMany(List<I_T_InventoryValueInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_T_InventoryValueInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_T_InventoryValue) entity).collect(Collectors.toList());
 	}
 
-	public boolean T_InventoryValueDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean T_InventoryValueDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

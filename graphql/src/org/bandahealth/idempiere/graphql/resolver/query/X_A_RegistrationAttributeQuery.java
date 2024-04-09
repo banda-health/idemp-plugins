@@ -17,8 +17,8 @@ public class X_A_RegistrationAttributeQuery extends POQuery<X_A_RegistrationAttr
 		return X_A_RegistrationAttribute.Table_Name;
 	}
 
-	public Connection<X_A_RegistrationAttribute> A_RegistrationAttributeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_RegistrationAttribute> A_RegistrationAttributeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

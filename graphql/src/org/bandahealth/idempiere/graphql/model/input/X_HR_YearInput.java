@@ -29,12 +29,12 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The HR_Year_UU to fetch this entity from the DB
+	 * @param UU The HR_Year_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_YearInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_HR_YearInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -87,11 +87,11 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
-							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Year with UUID " + C_Year.getUUID());
+						"Could not find entity in table C_Year with UU " + C_Year.getUU());
 			}
 		} else {
 			this.setC_Year_ID(0);
@@ -124,11 +124,11 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Payroll.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
+						"Could not find entity in table HR_Payroll with UU " + HR_Payroll.getUU());
 			}
 		} else {
 			this.setHR_Payroll_ID(0);
@@ -157,20 +157,20 @@ public class X_HR_YearInput extends X_HR_Year implements I_HR_YearInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setHR_Year_UU(UUID);
+	public void setUU(String UU) {
+		setHR_Year_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getHR_Year_UU();
 	}
 }

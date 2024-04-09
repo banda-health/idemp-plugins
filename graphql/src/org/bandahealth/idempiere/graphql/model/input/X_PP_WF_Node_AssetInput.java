@@ -29,12 +29,12 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PP_WF_Node_Asset_UU to fetch this entity from the DB
+	 * @param UU The PP_WF_Node_Asset_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PP_WF_Node_AssetInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PP_WF_Node_AssetInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -50,11 +50,11 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
+						"Could not find entity in table A_Asset with UU " + A_Asset.getUU());
 			}
 		} else {
 			this.setA_Asset_ID(0);
@@ -87,11 +87,11 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -124,11 +124,11 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Node.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Node_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
+						"Could not find entity in table AD_WF_Node with UU " + AD_WF_Node.getUU());
 			}
 		} else {
 			this.setAD_WF_Node_ID(0);
@@ -157,20 +157,20 @@ public class X_PP_WF_Node_AssetInput extends X_PP_WF_Node_Asset implements I_PP_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPP_WF_Node_Asset_UU(UUID);
+	public void setUU(String UU) {
+		setPP_WF_Node_Asset_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPP_WF_Node_Asset_UU();
 	}
 	/**

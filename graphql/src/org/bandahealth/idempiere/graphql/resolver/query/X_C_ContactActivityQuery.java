@@ -17,8 +17,8 @@ public class X_C_ContactActivityQuery extends POQuery<X_C_ContactActivity> imple
 		return X_C_ContactActivity.Table_Name;
 	}
 
-	public Connection<X_C_ContactActivity> C_ContactActivityGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_ContactActivity> C_ContactActivityGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

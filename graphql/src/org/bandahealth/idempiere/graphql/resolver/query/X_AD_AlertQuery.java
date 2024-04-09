@@ -17,8 +17,8 @@ public class X_AD_AlertQuery extends POQuery<MAlert> implements GraphQLQueryReso
 		return MAlert.Table_Name;
 	}
 
-	public Connection<MAlert> AD_AlertGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAlert> AD_AlertGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

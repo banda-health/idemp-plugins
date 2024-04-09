@@ -17,8 +17,8 @@ public class X_M_RMAQuery extends POQuery<MRMA> implements GraphQLQueryResolver 
 		return MRMA.Table_Name;
 	}
 
-	public Connection<MRMA> M_RMAGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRMA> M_RMAGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

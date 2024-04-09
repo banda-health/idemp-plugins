@@ -17,8 +17,8 @@ public class X_AD_RoleQuery extends POQuery<X_AD_Role> implements GraphQLQueryRe
 		return X_AD_Role.Table_Name;
 	}
 
-	public Connection<X_AD_Role> AD_RoleGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_Role> AD_RoleGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

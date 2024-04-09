@@ -17,8 +17,8 @@ public class X_AD_AlertProcessorLogQuery extends POQuery<MAlertProcessorLog> imp
 		return MAlertProcessorLog.Table_Name;
 	}
 
-	public Connection<MAlertProcessorLog> AD_AlertProcessorLogGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAlertProcessorLog> AD_AlertProcessorLogGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

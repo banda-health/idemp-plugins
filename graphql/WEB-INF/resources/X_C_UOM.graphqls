@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_UOMGet(page: Int, size: Int, sort: String, filter: String): C_UOMConnection!
+	C_UOMGet(Page: Int, Size: Int, Sort: String, Filter: String): C_UOMConnection!
 }
 
 extend type Mutation {
-	C_UOMSave(entity: C_UOMInput!): C_UOM!
-	C_UOMSaveMany(entities: [C_UOMInput!]!): [C_UOM!]!
-	C_UOMDelete(uuids: [String!]!): Boolean!
+	C_UOMSave(Entity: C_UOMInput!): C_UOM!
+	C_UOMSaveMany(Entities: [C_UOMInput!]!): [C_UOM!]!
+	C_UOMDelete(UUs: [String!]!): Boolean!
 }
 
 type C_UOMConnection {
-	results: [C_UOM!]!
-	pagingInfo: PagingInfo!
+	Results: [C_UOM!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_UOM {
@@ -21,8 +21,7 @@ type C_UOM {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_UOM_UU: String
+	UU: ID!
 	# Rounding used costing calculations
 	CostingPrecision: Int!
 	# Date this record was created
@@ -53,8 +52,7 @@ type C_UOM {
 input C_UOMInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_UOM_UU: String
+	UU: ID
 	# Rounding used costing calculations
 	CostingPrecision: Int
 	# Optional short description of the record

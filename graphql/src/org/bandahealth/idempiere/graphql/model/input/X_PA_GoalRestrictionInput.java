@@ -37,12 +37,12 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_GoalRestriction_UU to fetch this entity from the DB
+	 * @param UU The PA_GoalRestriction_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_GoalRestrictionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_GoalRestrictionInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -61,11 +61,11 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -95,11 +95,11 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
+						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
 			}
 		} else {
 			this.setC_BP_Group_ID(0);
@@ -129,11 +129,11 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -163,11 +163,11 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(GoalRestrictionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GoalRestrictionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGoalRestrictionType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + GoalRestrictionType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + GoalRestrictionType.getUU());
 			}
 		} else {
 			this.setGoalRestrictionType(null);
@@ -197,11 +197,11 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
+						"Could not find entity in table M_Product_Category with UU " + M_Product_Category.getUU());
 			}
 		} else {
 			this.setM_Product_Category_ID(0);
@@ -231,11 +231,11 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -265,11 +265,11 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_Goal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Goal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Goal with UUID " + PA_Goal.getUUID());
+						"Could not find entity in table PA_Goal with UU " + PA_Goal.getUU());
 			}
 		} else {
 			this.setPA_Goal_ID(0);
@@ -298,20 +298,20 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_GoalRestriction_UU(UUID);
+	public void setUU(String UU) {
+		setPA_GoalRestriction_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_GoalRestriction_UU();
 	}
 }

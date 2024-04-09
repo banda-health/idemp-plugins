@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_InterOrg_AcctGet(page: Int, size: Int, sort: String, filter: String): C_InterOrg_AcctConnection!
+	C_InterOrg_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InterOrg_AcctConnection!
 }
 
 extend type Mutation {
-	C_InterOrg_AcctSave(entity: C_InterOrg_AcctInput!): C_InterOrg_Acct!
-	C_InterOrg_AcctSaveMany(entities: [C_InterOrg_AcctInput!]!): [C_InterOrg_Acct!]!
-	C_InterOrg_AcctDelete(uuids: [String!]!): Boolean!
+	C_InterOrg_AcctSave(Entity: C_InterOrg_AcctInput!): C_InterOrg_Acct!
+	C_InterOrg_AcctSaveMany(Entities: [C_InterOrg_AcctInput!]!): [C_InterOrg_Acct!]!
+	C_InterOrg_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_InterOrg_AcctConnection {
-	results: [C_InterOrg_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_InterOrg_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_InterOrg_Acct {
@@ -23,8 +23,7 @@ type C_InterOrg_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UUID: ID!
-	C_InterOrg_Acct_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ input C_InterOrg_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UUID: ID
-	C_InterOrg_Acct_UU: String
+	UU: ID
 	# Intercompany Due From / Receivables Account
 	IntercompanyDueFrom_A: ForeignEntityInput
 	# Intercompany Due To / Payable Account

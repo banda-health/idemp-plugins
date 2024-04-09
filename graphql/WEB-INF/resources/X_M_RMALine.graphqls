@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_RMALineGet(page: Int, size: Int, sort: String, filter: String): M_RMALineConnection!
+	M_RMALineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RMALineConnection!
 }
 
 extend type Mutation {
-	M_RMALineSave(entity: M_RMALineInput!): M_RMALine!
-	M_RMALineSaveMany(entities: [M_RMALineInput!]!): [M_RMALine!]!
-	M_RMALineDelete(uuids: [String!]!): Boolean!
+	M_RMALineSave(Entity: M_RMALineInput!): M_RMALine!
+	M_RMALineSaveMany(Entities: [M_RMALineInput!]!): [M_RMALine!]!
+	M_RMALineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_RMALineConnection {
-	results: [M_RMALine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_RMALine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_RMALine {
@@ -45,8 +45,7 @@ type M_RMALine {
 	M_Product: M_Product
 	# Return Material Authorization
 	M_RMA: M_RMA!
-	UUID: ID!
-	M_RMALine_UU: String
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity
@@ -85,8 +84,7 @@ input M_RMALineInput {
 	M_Product: ForeignEntityInput
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
-	UUID: ID
-	M_RMALine_UU: String
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	# Quantity

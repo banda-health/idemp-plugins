@@ -17,8 +17,8 @@ public class X_I_ElementValueQuery extends POQuery<X_I_ElementValue> implements 
 		return X_I_ElementValue.Table_Name;
 	}
 
-	public Connection<X_I_ElementValue> I_ElementValueGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_I_ElementValue> I_ElementValueGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_AD_Process_ParaQuery extends POQuery<MProcessPara> implements Gra
 		return MProcessPara.Table_Name;
 	}
 
-	public Connection<MProcessPara> AD_Process_ParaGet(int page, int pageSize, String sort, String filter,
+	public Connection<MProcessPara> AD_Process_ParaGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ActivityGet(page: Int, size: Int, sort: String, filter: String): C_ActivityConnection!
+	C_ActivityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ActivityConnection!
 }
 
 extend type Mutation {
-	C_ActivitySave(entity: C_ActivityInput!): C_Activity!
-	C_ActivitySaveMany(entities: [C_ActivityInput!]!): [C_Activity!]!
-	C_ActivityDelete(uuids: [String!]!): Boolean!
+	C_ActivitySave(Entity: C_ActivityInput!): C_Activity!
+	C_ActivitySaveMany(Entities: [C_ActivityInput!]!): [C_Activity!]!
+	C_ActivityDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ActivityConnection {
-	results: [C_Activity!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Activity!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Activity {
@@ -21,8 +21,7 @@ type C_Activity {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_Activity_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ type C_Activity {
 input C_ActivityInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_Activity_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

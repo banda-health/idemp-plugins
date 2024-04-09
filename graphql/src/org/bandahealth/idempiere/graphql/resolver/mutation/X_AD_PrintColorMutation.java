@@ -21,16 +21,16 @@ public class X_AD_PrintColorMutation extends POMutation implements GraphQLMutati
 		return X_AD_PrintColorInput.Table_Name;
 	}
 
-	public X_AD_PrintColor AD_PrintColorSave(I_AD_PrintColorInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_PrintColor) super.save((X_AD_PrintColorInput) entity, environment);
+	public X_AD_PrintColor AD_PrintColorSave(I_AD_PrintColorInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintColor) super.save((X_AD_PrintColorInput) Entity, environment);
 	}
 
-	public List<X_AD_PrintColor> AD_PrintColorSaveMany(List<I_AD_PrintColorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintColorInput) entity).collect(Collectors.toList()),
+	public List<X_AD_PrintColor> AD_PrintColorSaveMany(List<I_AD_PrintColorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PrintColorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_PrintColor) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PrintColorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PrintColorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

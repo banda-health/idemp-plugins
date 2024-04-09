@@ -17,8 +17,8 @@ public class X_AD_ClientInfoQuery extends POQuery<MClientInfo> implements GraphQ
 		return MClientInfo.Table_Name;
 	}
 
-	public Connection<MClientInfo> AD_ClientInfoGet(int page, int pageSize, String sort, String filter,
+	public Connection<MClientInfo> AD_ClientInfoGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

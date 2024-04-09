@@ -21,16 +21,16 @@ public class X_T_ReplenishMutation extends POMutation implements GraphQLMutation
 		return X_T_ReplenishInput.Table_Name;
 	}
 
-	public X_T_Replenish T_ReplenishSave(I_T_ReplenishInput entity, DataFetchingEnvironment environment) {
-		return (X_T_Replenish) super.save((X_T_ReplenishInput) entity, environment);
+	public X_T_Replenish T_ReplenishSave(I_T_ReplenishInput Entity, DataFetchingEnvironment environment) {
+		return (X_T_Replenish) super.save((X_T_ReplenishInput) Entity, environment);
 	}
 
-	public List<X_T_Replenish> T_ReplenishSaveMany(List<I_T_ReplenishInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_T_ReplenishInput) entity).collect(Collectors.toList()),
+	public List<X_T_Replenish> T_ReplenishSaveMany(List<I_T_ReplenishInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_T_ReplenishInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_T_Replenish) entity).collect(Collectors.toList());
 	}
 
-	public boolean T_ReplenishDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean T_ReplenishDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

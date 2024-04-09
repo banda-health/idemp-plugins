@@ -21,16 +21,16 @@ public class X_PP_Order_Node_AssetMutation extends POMutation implements GraphQL
 		return X_PP_Order_Node_AssetInput.Table_Name;
 	}
 
-	public X_PP_Order_Node_Asset PP_Order_Node_AssetSave(I_PP_Order_Node_AssetInput entity, DataFetchingEnvironment environment) {
-		return (X_PP_Order_Node_Asset) super.save((X_PP_Order_Node_AssetInput) entity, environment);
+	public X_PP_Order_Node_Asset PP_Order_Node_AssetSave(I_PP_Order_Node_AssetInput Entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_Node_Asset) super.save((X_PP_Order_Node_AssetInput) Entity, environment);
 	}
 
-	public List<X_PP_Order_Node_Asset> PP_Order_Node_AssetSaveMany(List<I_PP_Order_Node_AssetInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_Node_AssetInput) entity).collect(Collectors.toList()),
+	public List<X_PP_Order_Node_Asset> PP_Order_Node_AssetSaveMany(List<I_PP_Order_Node_AssetInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Order_Node_AssetInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PP_Order_Node_Asset) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Order_Node_AssetDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Order_Node_AssetDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_RfQ_TopicSubscriberOnlyMutation extends POMutation implements G
 		return X_C_RfQ_TopicSubscriberOnlyInput.Table_Name;
 	}
 
-	public MRfQTopicSubscriberOnly C_RfQ_TopicSubscriberOnlySave(I_C_RfQ_TopicSubscriberOnlyInput entity, DataFetchingEnvironment environment) {
-		return (MRfQTopicSubscriberOnly) super.save((X_C_RfQ_TopicSubscriberOnlyInput) entity, environment);
+	public MRfQTopicSubscriberOnly C_RfQ_TopicSubscriberOnlySave(I_C_RfQ_TopicSubscriberOnlyInput Entity, DataFetchingEnvironment environment) {
+		return (MRfQTopicSubscriberOnly) super.save((X_C_RfQ_TopicSubscriberOnlyInput) Entity, environment);
 	}
 
-	public List<MRfQTopicSubscriberOnly> C_RfQ_TopicSubscriberOnlySaveMany(List<I_C_RfQ_TopicSubscriberOnlyInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RfQ_TopicSubscriberOnlyInput) entity).collect(Collectors.toList()),
+	public List<MRfQTopicSubscriberOnly> C_RfQ_TopicSubscriberOnlySaveMany(List<I_C_RfQ_TopicSubscriberOnlyInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RfQ_TopicSubscriberOnlyInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRfQTopicSubscriberOnly) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RfQ_TopicSubscriberOnlyDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RfQ_TopicSubscriberOnlyDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Task_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_Task_AccessConnection!
+	AD_Task_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Task_AccessConnection!
 }
 
 extend type Mutation {
-	AD_Task_AccessSave(entity: AD_Task_AccessInput!): AD_Task_Access!
-	AD_Task_AccessSaveMany(entities: [AD_Task_AccessInput!]!): [AD_Task_Access!]!
-	AD_Task_AccessDelete(uuids: [String!]!): Boolean!
+	AD_Task_AccessSave(Entity: AD_Task_AccessInput!): AD_Task_Access!
+	AD_Task_AccessSaveMany(Entities: [AD_Task_AccessInput!]!): [AD_Task_Access!]!
+	AD_Task_AccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Task_AccessConnection {
-	results: [AD_Task_Access!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Task_Access!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Task_Access {
@@ -23,8 +23,7 @@ type AD_Task_Access {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	UUID: ID!
-	AD_Task_Access_UU: String
+	UU: ID!
 	# Operation System Task
 	AD_Task: AD_Task!
 	# Date this record was created
@@ -46,8 +45,7 @@ input AD_Task_AccessInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	UUID: ID
-	AD_Task_Access_UU: String
+	UU: ID
 	# Operation System Task
 	AD_Task: ForeignEntityInput
 	# The record is active in the system

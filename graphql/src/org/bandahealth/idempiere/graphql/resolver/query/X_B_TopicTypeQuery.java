@@ -17,8 +17,8 @@ public class X_B_TopicTypeQuery extends POQuery<X_B_TopicType> implements GraphQ
 		return X_B_TopicType.Table_Name;
 	}
 
-	public Connection<X_B_TopicType> B_TopicTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_B_TopicType> B_TopicTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

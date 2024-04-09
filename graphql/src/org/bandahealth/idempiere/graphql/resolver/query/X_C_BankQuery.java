@@ -17,8 +17,8 @@ public class X_C_BankQuery extends POQuery<MBank> implements GraphQLQueryResolve
 		return MBank.Table_Name;
 	}
 
-	public Connection<MBank> C_BankGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBank> C_BankGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

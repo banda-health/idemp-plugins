@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_NonBusinessDayGet(page: Int, size: Int, sort: String, filter: String): C_NonBusinessDayConnection!
+	C_NonBusinessDayGet(Page: Int, Size: Int, Sort: String, Filter: String): C_NonBusinessDayConnection!
 }
 
 extend type Mutation {
-	C_NonBusinessDaySave(entity: C_NonBusinessDayInput!): C_NonBusinessDay!
-	C_NonBusinessDaySaveMany(entities: [C_NonBusinessDayInput!]!): [C_NonBusinessDay!]!
-	C_NonBusinessDayDelete(uuids: [String!]!): Boolean!
+	C_NonBusinessDaySave(Entity: C_NonBusinessDayInput!): C_NonBusinessDay!
+	C_NonBusinessDaySaveMany(Entities: [C_NonBusinessDayInput!]!): [C_NonBusinessDay!]!
+	C_NonBusinessDayDelete(UUs: [String!]!): Boolean!
 }
 
 type C_NonBusinessDayConnection {
-	results: [C_NonBusinessDay!]!
-	pagingInfo: PagingInfo!
+	Results: [C_NonBusinessDay!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_NonBusinessDay {
@@ -25,8 +25,7 @@ type C_NonBusinessDay {
 	C_Calendar: C_Calendar!
 	# Country 
 	C_Country: C_Country
-	UUID: ID!
-	C_NonBusinessDay_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,8 +49,7 @@ input C_NonBusinessDayInput {
 	C_Calendar: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	UUID: ID
-	C_NonBusinessDay_UU: String
+	UU: ID
 	# Date when business is not conducted
 	Date1: Date
 	# The record is active in the system

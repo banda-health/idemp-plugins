@@ -17,8 +17,8 @@ public class X_AD_TreeNodeU2Query extends POQuery<X_AD_TreeNodeU2> implements Gr
 		return X_AD_TreeNodeU2.Table_Name;
 	}
 
-	public Connection<X_AD_TreeNodeU2> AD_TreeNodeU2Get(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_TreeNodeU2> AD_TreeNodeU2Get(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

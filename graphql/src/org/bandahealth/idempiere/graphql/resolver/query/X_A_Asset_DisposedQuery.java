@@ -17,8 +17,8 @@ public class X_A_Asset_DisposedQuery extends POQuery<MAssetDisposed> implements 
 		return MAssetDisposed.Table_Name;
 	}
 
-	public Connection<MAssetDisposed> A_Asset_DisposedGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetDisposed> A_Asset_DisposedGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

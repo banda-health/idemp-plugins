@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	S_TimeExpenseGet(page: Int, size: Int, sort: String, filter: String): S_TimeExpenseConnection!
+	S_TimeExpenseGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeExpenseConnection!
 }
 
 extend type Mutation {
-	S_TimeExpenseSave(entity: S_TimeExpenseInput!): S_TimeExpense!
-	S_TimeExpenseSaveMany(entities: [S_TimeExpenseInput!]!): [S_TimeExpense!]!
-	S_TimeExpenseDelete(uuids: [String!]!): Boolean!
+	S_TimeExpenseSave(Entity: S_TimeExpenseInput!): S_TimeExpense!
+	S_TimeExpenseSaveMany(Entities: [S_TimeExpenseInput!]!): [S_TimeExpense!]!
+	S_TimeExpenseDelete(UUs: [String!]!): Boolean!
 }
 
 type S_TimeExpenseConnection {
-	results: [S_TimeExpense!]!
-	pagingInfo: PagingInfo!
+	Results: [S_TimeExpense!]!
+	PagingInfo: PagingInfo!
 }
 
 type S_TimeExpense {
@@ -50,8 +50,7 @@ type S_TimeExpense {
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
-	UUID: ID!
-	S_TimeExpense_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -86,6 +85,5 @@ input S_TimeExpenseInput {
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean
-	UUID: ID
-	S_TimeExpense_UU: String
+	UU: ID
 }

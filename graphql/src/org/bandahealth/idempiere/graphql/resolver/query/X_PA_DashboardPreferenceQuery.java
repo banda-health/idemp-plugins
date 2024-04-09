@@ -17,8 +17,8 @@ public class X_PA_DashboardPreferenceQuery extends POQuery<MDashboardPreference>
 		return MDashboardPreference.Table_Name;
 	}
 
-	public Connection<MDashboardPreference> PA_DashboardPreferenceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDashboardPreference> PA_DashboardPreferenceGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

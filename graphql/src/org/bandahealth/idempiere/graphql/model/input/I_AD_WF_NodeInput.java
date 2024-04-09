@@ -151,18 +151,18 @@ public interface I_AD_WF_NodeInput extends I_AD_WF_Node {
 	ForeignEntityInput AD_WF_Block();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set AD_WF_Responsible.

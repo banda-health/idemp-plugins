@@ -21,16 +21,16 @@ public class X_AD_ImageMutation extends POMutation implements GraphQLMutationRes
 		return X_AD_ImageInput.Table_Name;
 	}
 
-	public MImage AD_ImageSave(I_AD_ImageInput entity, DataFetchingEnvironment environment) {
-		return (MImage) super.save((X_AD_ImageInput) entity, environment);
+	public MImage AD_ImageSave(I_AD_ImageInput Entity, DataFetchingEnvironment environment) {
+		return (MImage) super.save((X_AD_ImageInput) Entity, environment);
 	}
 
-	public List<MImage> AD_ImageSaveMany(List<I_AD_ImageInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ImageInput) entity).collect(Collectors.toList()),
+	public List<MImage> AD_ImageSaveMany(List<I_AD_ImageInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ImageInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MImage) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ImageDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ImageDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

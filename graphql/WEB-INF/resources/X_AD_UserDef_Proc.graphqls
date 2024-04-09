@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_UserDef_ProcGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_ProcConnection!
+	AD_UserDef_ProcGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_ProcConnection!
 }
 
 extend type Mutation {
-	AD_UserDef_ProcSave(entity: AD_UserDef_ProcInput!): AD_UserDef_Proc!
-	AD_UserDef_ProcSaveMany(entities: [AD_UserDef_ProcInput!]!): [AD_UserDef_Proc!]!
-	AD_UserDef_ProcDelete(uuids: [String!]!): Boolean!
+	AD_UserDef_ProcSave(Entity: AD_UserDef_ProcInput!): AD_UserDef_Proc!
+	AD_UserDef_ProcSaveMany(Entities: [AD_UserDef_ProcInput!]!): [AD_UserDef_Proc!]!
+	AD_UserDef_ProcDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_UserDef_ProcConnection {
-	results: [AD_UserDef_Proc!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_UserDef_Proc!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_UserDef_Proc {
@@ -29,8 +29,7 @@ type AD_UserDef_Proc {
 	AD_Role: AD_Role
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	UUID: ID!
-	AD_UserDef_Proc_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,8 +61,7 @@ input AD_UserDef_ProcInput {
 	AD_Role: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UUID: ID
-	AD_UserDef_Proc_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

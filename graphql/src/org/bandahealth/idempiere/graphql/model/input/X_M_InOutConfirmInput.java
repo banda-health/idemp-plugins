@@ -35,12 +35,12 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_InOutConfirm_UU to fetch this entity from the DB
+	 * @param UU The M_InOutConfirm_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_InOutConfirmInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_InOutConfirmInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -93,11 +93,11 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
 			}
 		} else {
 			this.setC_Invoice_ID(0);
@@ -127,11 +127,11 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ConfirmType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ConfirmType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setConfirmType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ConfirmType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ConfirmType.getUU());
 			}
 		} else {
 			this.setConfirmType(null);
@@ -161,11 +161,11 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocAction.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocAction.getUU());
 			}
 		} else {
 			this.setDocAction(null);
@@ -195,11 +195,11 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocStatus.getUU());
 			}
 		} else {
 			this.setDocStatus(null);
@@ -232,11 +232,11 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MInOut_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOut", "M_InOut_UU=?", get_TrxName())
-							.setParameters(M_InOut.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOut.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InOut_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InOut with UUID " + M_InOut.getUUID());
+						"Could not find entity in table M_InOut with UU " + M_InOut.getUU());
 			}
 		} else {
 			this.setM_InOut_ID(0);
@@ -265,20 +265,20 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_InOutConfirm_UU(UUID);
+	public void setUU(String UU) {
+		setM_InOutConfirm_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_InOutConfirm_UU();
 	}
 
@@ -295,11 +295,11 @@ public class X_M_InOutConfirmInput extends MInOutConfirm implements I_M_InOutCon
 			MInventory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Inventory", "M_Inventory_UU=?", get_TrxName())
-							.setParameters(M_Inventory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Inventory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Inventory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Inventory with UUID " + M_Inventory.getUUID());
+						"Could not find entity in table M_Inventory with UU " + M_Inventory.getUU());
 			}
 		} else {
 			this.setM_Inventory_ID(0);

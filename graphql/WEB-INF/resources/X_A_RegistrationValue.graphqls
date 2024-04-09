@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_RegistrationValueGet(page: Int, size: Int, sort: String, filter: String): A_RegistrationValueConnection!
+	A_RegistrationValueGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationValueConnection!
 }
 
 extend type Mutation {
-	A_RegistrationValueSave(entity: A_RegistrationValueInput!): A_RegistrationValue!
-	A_RegistrationValueSaveMany(entities: [A_RegistrationValueInput!]!): [A_RegistrationValue!]!
-	A_RegistrationValueDelete(uuids: [String!]!): Boolean!
+	A_RegistrationValueSave(Entity: A_RegistrationValueInput!): A_RegistrationValue!
+	A_RegistrationValueSaveMany(Entities: [A_RegistrationValueInput!]!): [A_RegistrationValue!]!
+	A_RegistrationValueDelete(UUs: [String!]!): Boolean!
 }
 
 type A_RegistrationValueConnection {
-	results: [A_RegistrationValue!]!
-	pagingInfo: PagingInfo!
+	Results: [A_RegistrationValue!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_RegistrationValue {
@@ -21,8 +21,7 @@ type A_RegistrationValue {
 	A_Registration: A_Registration!
 	# Asset Registration Attribute
 	A_RegistrationAttribute: A_RegistrationAttribute!
-	UUID: ID!
-	A_RegistrationValue_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -48,8 +47,7 @@ input A_RegistrationValueInput {
 	A_Registration: ForeignEntityInput
 	# Asset Registration Attribute
 	A_RegistrationAttribute: ForeignEntityInput
-	UUID: ID
-	A_RegistrationValue_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

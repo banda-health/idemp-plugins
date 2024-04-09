@@ -21,16 +21,16 @@ public class X_PA_DashboardContent_AccessMutation extends POMutation implements 
 		return X_PA_DashboardContent_AccessInput.Table_Name;
 	}
 
-	public MDashboardContentAccess PA_DashboardContent_AccessSave(I_PA_DashboardContent_AccessInput entity, DataFetchingEnvironment environment) {
-		return (MDashboardContentAccess) super.save((X_PA_DashboardContent_AccessInput) entity, environment);
+	public MDashboardContentAccess PA_DashboardContent_AccessSave(I_PA_DashboardContent_AccessInput Entity, DataFetchingEnvironment environment) {
+		return (MDashboardContentAccess) super.save((X_PA_DashboardContent_AccessInput) Entity, environment);
 	}
 
-	public List<MDashboardContentAccess> PA_DashboardContent_AccessSaveMany(List<I_PA_DashboardContent_AccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_DashboardContent_AccessInput) entity).collect(Collectors.toList()),
+	public List<MDashboardContentAccess> PA_DashboardContent_AccessSaveMany(List<I_PA_DashboardContent_AccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_DashboardContent_AccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDashboardContentAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_DashboardContent_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_DashboardContent_AccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

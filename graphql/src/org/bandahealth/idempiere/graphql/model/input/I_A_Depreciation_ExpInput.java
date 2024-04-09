@@ -81,18 +81,18 @@ public interface I_A_Depreciation_ExpInput extends I_A_Depreciation_Exp {
 	ForeignEntityInput A_Depreciation_Entry();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set A_Entry_Type.

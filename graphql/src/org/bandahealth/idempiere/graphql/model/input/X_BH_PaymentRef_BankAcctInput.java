@@ -31,12 +31,12 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The BH_PaymentRef_BankAcct_UU to fetch this entity from the DB
+	 * @param UU The BH_PaymentRef_BankAcct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_PaymentRef_BankAcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_PaymentRef_BankAcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
-							.setParameters(AD_Ref_List.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Ref_List_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Ref_List with UUID " + AD_Ref_List.getUUID());
+						"Could not find entity in table AD_Ref_List with UU " + AD_Ref_List.getUU());
 			}
 		} else {
 			this.setAD_Ref_List_ID(0);
@@ -125,20 +125,20 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setBH_PaymentRef_BankAcct_UU(UUID);
+	public void setUU(String UU) {
+		setBH_PaymentRef_BankAcct_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getBH_PaymentRef_BankAcct_UU();
 	}
 
@@ -158,11 +158,11 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 			MBHPaymentRef foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_PaymentRef", "BH_PaymentRef_UU=?", get_TrxName())
-							.setParameters(BH_PaymentRef.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_PaymentRef.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_PaymentRef_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table BH_PaymentRef with UUID " + BH_PaymentRef.getUUID());
+						"Could not find entity in table BH_PaymentRef with UU " + BH_PaymentRef.getUU());
 			}
 		} else {
 			this.setBH_PaymentRef_ID(0);
@@ -192,11 +192,11 @@ public class X_BH_PaymentRef_BankAcctInput extends MBHPaymentRefBankAccount impl
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
+						"Could not find entity in table C_BankAccount with UU " + C_BankAccount.getUU());
 			}
 		} else {
 			this.setC_BankAccount_ID(0);

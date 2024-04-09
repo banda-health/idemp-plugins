@@ -137,18 +137,18 @@ public interface I_PA_DashboardContentInput extends I_PA_DashboardContent {
 	I_AD_Ref_ListInput GoalDisplay();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set PA_Goal.

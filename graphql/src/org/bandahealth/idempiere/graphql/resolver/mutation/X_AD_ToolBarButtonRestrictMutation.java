@@ -21,16 +21,16 @@ public class X_AD_ToolBarButtonRestrictMutation extends POMutation implements Gr
 		return X_AD_ToolBarButtonRestrictInput.Table_Name;
 	}
 
-	public MToolBarButtonRestrict AD_ToolBarButtonRestrictSave(I_AD_ToolBarButtonRestrictInput entity, DataFetchingEnvironment environment) {
-		return (MToolBarButtonRestrict) super.save((X_AD_ToolBarButtonRestrictInput) entity, environment);
+	public MToolBarButtonRestrict AD_ToolBarButtonRestrictSave(I_AD_ToolBarButtonRestrictInput Entity, DataFetchingEnvironment environment) {
+		return (MToolBarButtonRestrict) super.save((X_AD_ToolBarButtonRestrictInput) Entity, environment);
 	}
 
-	public List<MToolBarButtonRestrict> AD_ToolBarButtonRestrictSaveMany(List<I_AD_ToolBarButtonRestrictInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ToolBarButtonRestrictInput) entity).collect(Collectors.toList()),
+	public List<MToolBarButtonRestrict> AD_ToolBarButtonRestrictSaveMany(List<I_AD_ToolBarButtonRestrictInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ToolBarButtonRestrictInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MToolBarButtonRestrict) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ToolBarButtonRestrictDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ToolBarButtonRestrictDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

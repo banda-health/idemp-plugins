@@ -17,8 +17,8 @@ public class X_M_RMALineQuery extends POQuery<MRMALine> implements GraphQLQueryR
 		return MRMALine.Table_Name;
 	}
 
-	public Connection<MRMALine> M_RMALineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRMALine> M_RMALineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

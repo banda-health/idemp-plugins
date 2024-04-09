@@ -27,12 +27,12 @@ public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_Remun
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_Remuneration_UU to fetch this entity from the DB
+	 * @param UU The C_Remuneration_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_RemunerationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_RemunerationInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_Remun
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -84,20 +84,20 @@ public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_Remun
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_Remuneration_UU(UUID);
+	public void setUU(String UU) {
+		setC_Remuneration_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_Remuneration_UU();
 	}
 
@@ -114,11 +114,11 @@ public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_Remun
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RemunerationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RemunerationType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRemunerationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + RemunerationType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + RemunerationType.getUU());
 			}
 		} else {
 			this.setRemunerationType(null);

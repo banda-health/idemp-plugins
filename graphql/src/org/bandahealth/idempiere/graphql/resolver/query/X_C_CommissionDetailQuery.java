@@ -17,8 +17,8 @@ public class X_C_CommissionDetailQuery extends POQuery<MCommissionDetail> implem
 		return MCommissionDetail.Table_Name;
 	}
 
-	public Connection<MCommissionDetail> C_CommissionDetailGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCommissionDetail> C_CommissionDetailGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

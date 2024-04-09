@@ -21,16 +21,16 @@ public class X_AD_StatusLineUsedInMutation extends POMutation implements GraphQL
 		return X_AD_StatusLineUsedInInput.Table_Name;
 	}
 
-	public MStatusLineUsedIn AD_StatusLineUsedInSave(I_AD_StatusLineUsedInInput entity, DataFetchingEnvironment environment) {
-		return (MStatusLineUsedIn) super.save((X_AD_StatusLineUsedInInput) entity, environment);
+	public MStatusLineUsedIn AD_StatusLineUsedInSave(I_AD_StatusLineUsedInInput Entity, DataFetchingEnvironment environment) {
+		return (MStatusLineUsedIn) super.save((X_AD_StatusLineUsedInInput) Entity, environment);
 	}
 
-	public List<MStatusLineUsedIn> AD_StatusLineUsedInSaveMany(List<I_AD_StatusLineUsedInInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_StatusLineUsedInInput) entity).collect(Collectors.toList()),
+	public List<MStatusLineUsedIn> AD_StatusLineUsedInSaveMany(List<I_AD_StatusLineUsedInInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_StatusLineUsedInInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MStatusLineUsedIn) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_StatusLineUsedInDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_StatusLineUsedInDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_C_SalesRegionQuery extends POQuery<MSalesRegion> implements Graph
 		return MSalesRegion.Table_Name;
 	}
 
-	public Connection<MSalesRegion> C_SalesRegionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MSalesRegion> C_SalesRegionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

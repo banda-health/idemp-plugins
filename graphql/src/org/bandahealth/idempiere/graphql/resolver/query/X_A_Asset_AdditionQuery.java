@@ -17,8 +17,8 @@ public class X_A_Asset_AdditionQuery extends POQuery<MAssetAddition> implements 
 		return MAssetAddition.Table_Name;
 	}
 
-	public Connection<MAssetAddition> A_Asset_AdditionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetAddition> A_Asset_AdditionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

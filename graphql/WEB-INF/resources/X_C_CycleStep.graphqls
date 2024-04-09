@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CycleStepGet(page: Int, size: Int, sort: String, filter: String): C_CycleStepConnection!
+	C_CycleStepGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CycleStepConnection!
 }
 
 extend type Mutation {
-	C_CycleStepSave(entity: C_CycleStepInput!): C_CycleStep!
-	C_CycleStepSaveMany(entities: [C_CycleStepInput!]!): [C_CycleStep!]!
-	C_CycleStepDelete(uuids: [String!]!): Boolean!
+	C_CycleStepSave(Entity: C_CycleStepInput!): C_CycleStep!
+	C_CycleStepSaveMany(Entities: [C_CycleStepInput!]!): [C_CycleStep!]!
+	C_CycleStepDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CycleStepConnection {
-	results: [C_CycleStep!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CycleStep!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CycleStep {
@@ -23,8 +23,7 @@ type C_CycleStep {
 	AD_Org: AD_Org!
 	# Identifier for this Project Reporting Cycle
 	C_Cycle: C_Cycle!
-	UUID: ID!
-	C_CycleStep_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input C_CycleStepInput {
 	AD_Org: ForeignEntityInput
 	# Identifier for this Project Reporting Cycle
 	C_Cycle: ForeignEntityInput
-	UUID: ID
-	C_CycleStep_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

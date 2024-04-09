@@ -17,8 +17,8 @@ public class X_M_PartTypeQuery extends POQuery<X_M_PartType> implements GraphQLQ
 		return X_M_PartType.Table_Name;
 	}
 
-	public Connection<X_M_PartType> M_PartTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_PartType> M_PartTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

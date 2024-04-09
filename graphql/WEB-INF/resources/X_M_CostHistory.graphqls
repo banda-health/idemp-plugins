@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_CostHistoryGet(page: Int, size: Int, sort: String, filter: String): M_CostHistoryConnection!
+	M_CostHistoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostHistoryConnection!
 }
 
 extend type Mutation {
-	M_CostHistorySave(entity: M_CostHistoryInput!): M_CostHistory!
-	M_CostHistorySaveMany(entities: [M_CostHistoryInput!]!): [M_CostHistory!]!
-	M_CostHistoryDelete(uuids: [String!]!): Boolean!
+	M_CostHistorySave(Entity: M_CostHistoryInput!): M_CostHistory!
+	M_CostHistorySaveMany(Entities: [M_CostHistoryInput!]!): [M_CostHistory!]!
+	M_CostHistoryDelete(UUs: [String!]!): Boolean!
 }
 
 type M_CostHistoryConnection {
-	results: [M_CostHistory!]!
-	pagingInfo: PagingInfo!
+	Results: [M_CostHistory!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_CostHistory {
@@ -33,8 +33,7 @@ type M_CostHistory {
 	M_CostDetail: M_CostDetail!
 	# Product Cost Element
 	M_CostElement: M_CostElement!
-	UUID: ID!
-	M_CostHistory_UU: String!
+	UU: ID!
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: M_CostType!
 	# Product, Service, Item
@@ -72,8 +71,7 @@ input M_CostHistoryInput {
 	M_CostDetail: ForeignEntityInput
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
-	UUID: ID
-	M_CostHistory_UU: String
+	UU: ID
 	# Type of Cost (e.g. Current, Plan, Future)
 	M_CostType: ForeignEntityInput
 	# Product, Service, Item

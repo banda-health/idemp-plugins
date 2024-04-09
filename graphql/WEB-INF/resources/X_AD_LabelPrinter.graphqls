@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_LabelPrinterGet(page: Int, size: Int, sort: String, filter: String): AD_LabelPrinterConnection!
+	AD_LabelPrinterGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LabelPrinterConnection!
 }
 
 extend type Mutation {
-	AD_LabelPrinterSave(entity: AD_LabelPrinterInput!): AD_LabelPrinter!
-	AD_LabelPrinterSaveMany(entities: [AD_LabelPrinterInput!]!): [AD_LabelPrinter!]!
-	AD_LabelPrinterDelete(uuids: [String!]!): Boolean!
+	AD_LabelPrinterSave(Entity: AD_LabelPrinterInput!): AD_LabelPrinter!
+	AD_LabelPrinterSaveMany(Entities: [AD_LabelPrinterInput!]!): [AD_LabelPrinter!]!
+	AD_LabelPrinterDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_LabelPrinterConnection {
-	results: [AD_LabelPrinter!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_LabelPrinter!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_LabelPrinter {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_LabelPrinter_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -40,8 +39,7 @@ type AD_LabelPrinter {
 }
 
 input AD_LabelPrinterInput {
-	UUID: ID
-	AD_LabelPrinter_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

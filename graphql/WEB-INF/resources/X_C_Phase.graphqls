@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_PhaseGet(page: Int, size: Int, sort: String, filter: String): C_PhaseConnection!
+	C_PhaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PhaseConnection!
 }
 
 extend type Mutation {
-	C_PhaseSave(entity: C_PhaseInput!): C_Phase!
-	C_PhaseSaveMany(entities: [C_PhaseInput!]!): [C_Phase!]!
-	C_PhaseDelete(uuids: [String!]!): Boolean!
+	C_PhaseSave(Entity: C_PhaseInput!): C_Phase!
+	C_PhaseSaveMany(Entities: [C_PhaseInput!]!): [C_Phase!]!
+	C_PhaseDelete(UUs: [String!]!): Boolean!
 }
 
 type C_PhaseConnection {
-	results: [C_Phase!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Phase!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Phase {
@@ -21,8 +21,7 @@ type C_Phase {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_Phase_UU: String
+	UU: ID!
 	# Type of the project
 	C_ProjectType: C_ProjectType!
 	# Date this record was created
@@ -52,8 +51,7 @@ type C_Phase {
 input C_PhaseInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_Phase_UU: String
+	UU: ID
 	# Type of the project
 	C_ProjectType: ForeignEntityInput
 	# Optional short description of the record

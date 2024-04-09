@@ -27,12 +27,12 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The HR_Concept_Category_UU to fetch this entity from the DB
+	 * @param UU The HR_Concept_Category_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_Concept_CategoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_HR_Concept_CategoryInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -85,11 +85,11 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(HR_Concept_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Concept_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Concept_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + HR_Concept_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + HR_Concept_A.getUU());
 			}
 		} else {
 			this.setHR_Concept_Acct(0);
@@ -118,20 +118,20 @@ public class X_HR_Concept_CategoryInput extends X_HR_Concept_Category implements
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setHR_Concept_Category_UU(UUID);
+	public void setUU(String UU) {
+		setHR_Concept_Category_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getHR_Concept_Category_UU();
 	}
 }

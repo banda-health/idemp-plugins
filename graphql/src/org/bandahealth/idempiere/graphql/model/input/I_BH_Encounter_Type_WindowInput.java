@@ -53,16 +53,16 @@ public interface I_BH_Encounter_Type_WindowInput extends I_BH_Encounter_Type_Win
 	I_AD_Ref_ListInput BH_Encounter_Type();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

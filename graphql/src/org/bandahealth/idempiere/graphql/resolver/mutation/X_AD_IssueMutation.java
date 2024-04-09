@@ -21,16 +21,16 @@ public class X_AD_IssueMutation extends POMutation implements GraphQLMutationRes
 		return X_AD_IssueInput.Table_Name;
 	}
 
-	public MIssue AD_IssueSave(I_AD_IssueInput entity, DataFetchingEnvironment environment) {
-		return (MIssue) super.save((X_AD_IssueInput) entity, environment);
+	public MIssue AD_IssueSave(I_AD_IssueInput Entity, DataFetchingEnvironment environment) {
+		return (MIssue) super.save((X_AD_IssueInput) Entity, environment);
 	}
 
-	public List<MIssue> AD_IssueSaveMany(List<I_AD_IssueInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_IssueInput) entity).collect(Collectors.toList()),
+	public List<MIssue> AD_IssueSaveMany(List<I_AD_IssueInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_IssueInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MIssue) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_IssueDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_IssueDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

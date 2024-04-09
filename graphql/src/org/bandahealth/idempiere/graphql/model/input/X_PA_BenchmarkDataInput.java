@@ -27,12 +27,12 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_BenchmarkData_UU to fetch this entity from the DB
+	 * @param UU The PA_BenchmarkData_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_BenchmarkDataInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_BenchmarkDataInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,11 +88,11 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 			X_PA_Benchmark foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Benchmark", "PA_Benchmark_UU=?", get_TrxName())
-							.setParameters(PA_Benchmark.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Benchmark.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Benchmark_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Benchmark with UUID " + PA_Benchmark.getUUID());
+						"Could not find entity in table PA_Benchmark with UU " + PA_Benchmark.getUU());
 			}
 		} else {
 			this.setPA_Benchmark_ID(0);
@@ -121,20 +121,20 @@ public class X_PA_BenchmarkDataInput extends X_PA_BenchmarkData implements I_PA_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_BenchmarkData_UU(UUID);
+	public void setUU(String UU) {
+		setPA_BenchmarkData_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_BenchmarkData_UU();
 	}
 }

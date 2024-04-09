@@ -21,16 +21,16 @@ public class X_AD_TableMutation extends POMutation implements GraphQLMutationRes
 		return X_AD_TableInput.Table_Name;
 	}
 
-	public MTable AD_TableSave(I_AD_TableInput entity, DataFetchingEnvironment environment) {
-		return (MTable) super.save((X_AD_TableInput) entity, environment);
+	public MTable AD_TableSave(I_AD_TableInput Entity, DataFetchingEnvironment environment) {
+		return (MTable) super.save((X_AD_TableInput) Entity, environment);
 	}
 
-	public List<MTable> AD_TableSaveMany(List<I_AD_TableInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_TableInput) entity).collect(Collectors.toList()),
+	public List<MTable> AD_TableSaveMany(List<I_AD_TableInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_TableInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTable) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_TableDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_TableDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

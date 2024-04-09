@@ -21,16 +21,16 @@ public class X_C_ProjectIssueMutation extends POMutation implements GraphQLMutat
 		return X_C_ProjectIssueInput.Table_Name;
 	}
 
-	public MProjectIssue C_ProjectIssueSave(I_C_ProjectIssueInput entity, DataFetchingEnvironment environment) {
-		return (MProjectIssue) super.save((X_C_ProjectIssueInput) entity, environment);
+	public MProjectIssue C_ProjectIssueSave(I_C_ProjectIssueInput Entity, DataFetchingEnvironment environment) {
+		return (MProjectIssue) super.save((X_C_ProjectIssueInput) Entity, environment);
 	}
 
-	public List<MProjectIssue> C_ProjectIssueSaveMany(List<I_C_ProjectIssueInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_ProjectIssueInput) entity).collect(Collectors.toList()),
+	public List<MProjectIssue> C_ProjectIssueSaveMany(List<I_C_ProjectIssueInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_ProjectIssueInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProjectIssue) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_ProjectIssueDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_ProjectIssueDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

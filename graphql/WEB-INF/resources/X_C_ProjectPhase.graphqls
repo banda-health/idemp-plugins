@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ProjectPhaseGet(page: Int, size: Int, sort: String, filter: String): C_ProjectPhaseConnection!
+	C_ProjectPhaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectPhaseConnection!
 }
 
 extend type Mutation {
-	C_ProjectPhaseSave(entity: C_ProjectPhaseInput!): C_ProjectPhase!
-	C_ProjectPhaseSaveMany(entities: [C_ProjectPhaseInput!]!): [C_ProjectPhase!]!
-	C_ProjectPhaseDelete(uuids: [String!]!): Boolean!
+	C_ProjectPhaseSave(Entity: C_ProjectPhaseInput!): C_ProjectPhase!
+	C_ProjectPhaseSaveMany(Entities: [C_ProjectPhaseInput!]!): [C_ProjectPhase!]!
+	C_ProjectPhaseDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ProjectPhaseConnection {
-	results: [C_ProjectPhase!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ProjectPhase!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ProjectPhase {
@@ -27,8 +27,7 @@ type C_ProjectPhase {
 	C_Phase: C_Phase
 	# Financial Project
 	C_Project: C_Project!
-	UUID: ID!
-	C_ProjectPhase_UU: String
+	UU: ID!
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal!
 	# Date this record was created
@@ -80,8 +79,7 @@ input C_ProjectPhaseInput {
 	C_Phase: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	UUID: ID
-	C_ProjectPhase_UU: String
+	UU: ID
 	# The (legal) commitment amount
 	CommittedAmt: BigDecimal
 	# Optional short description of the record

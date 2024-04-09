@@ -21,16 +21,16 @@ public class X_AD_UserDef_WinMutation extends POMutation implements GraphQLMutat
 		return X_AD_UserDef_WinInput.Table_Name;
 	}
 
-	public MUserDefWin AD_UserDef_WinSave(I_AD_UserDef_WinInput entity, DataFetchingEnvironment environment) {
-		return (MUserDefWin) super.save((X_AD_UserDef_WinInput) entity, environment);
+	public MUserDefWin AD_UserDef_WinSave(I_AD_UserDef_WinInput Entity, DataFetchingEnvironment environment) {
+		return (MUserDefWin) super.save((X_AD_UserDef_WinInput) Entity, environment);
 	}
 
-	public List<MUserDefWin> AD_UserDef_WinSaveMany(List<I_AD_UserDef_WinInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_WinInput) entity).collect(Collectors.toList()),
+	public List<MUserDefWin> AD_UserDef_WinSaveMany(List<I_AD_UserDef_WinInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserDef_WinInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserDefWin) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDef_WinDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDef_WinDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

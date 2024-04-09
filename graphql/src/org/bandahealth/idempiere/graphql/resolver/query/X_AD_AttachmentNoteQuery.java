@@ -17,8 +17,8 @@ public class X_AD_AttachmentNoteQuery extends POQuery<MAttachmentNote> implement
 		return MAttachmentNote.Table_Name;
 	}
 
-	public Connection<MAttachmentNote> AD_AttachmentNoteGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAttachmentNote> AD_AttachmentNoteGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

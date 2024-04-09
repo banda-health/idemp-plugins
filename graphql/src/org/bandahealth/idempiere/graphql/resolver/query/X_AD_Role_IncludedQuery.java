@@ -17,8 +17,8 @@ public class X_AD_Role_IncludedQuery extends POQuery<MRoleIncluded> implements G
 		return MRoleIncluded.Table_Name;
 	}
 
-	public Connection<MRoleIncluded> AD_Role_IncludedGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRoleIncluded> AD_Role_IncludedGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

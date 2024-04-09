@@ -17,8 +17,8 @@ public class X_PP_WF_Node_AssetQuery extends POQuery<X_PP_WF_Node_Asset> impleme
 		return X_PP_WF_Node_Asset.Table_Name;
 	}
 
-	public Connection<X_PP_WF_Node_Asset> PP_WF_Node_AssetGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PP_WF_Node_Asset> PP_WF_Node_AssetGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

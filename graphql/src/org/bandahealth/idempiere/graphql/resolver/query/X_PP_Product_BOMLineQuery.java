@@ -17,8 +17,8 @@ public class X_PP_Product_BOMLineQuery extends POQuery<MPPProductBOMLine> implem
 		return MPPProductBOMLine.Table_Name;
 	}
 
-	public Connection<MPPProductBOMLine> PP_Product_BOMLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPPProductBOMLine> PP_Product_BOMLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

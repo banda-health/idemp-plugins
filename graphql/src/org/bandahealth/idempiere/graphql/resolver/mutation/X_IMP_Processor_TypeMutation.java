@@ -21,16 +21,16 @@ public class X_IMP_Processor_TypeMutation extends POMutation implements GraphQLM
 		return X_IMP_Processor_TypeInput.Table_Name;
 	}
 
-	public X_IMP_Processor_Type IMP_Processor_TypeSave(I_IMP_Processor_TypeInput entity, DataFetchingEnvironment environment) {
-		return (X_IMP_Processor_Type) super.save((X_IMP_Processor_TypeInput) entity, environment);
+	public X_IMP_Processor_Type IMP_Processor_TypeSave(I_IMP_Processor_TypeInput Entity, DataFetchingEnvironment environment) {
+		return (X_IMP_Processor_Type) super.save((X_IMP_Processor_TypeInput) Entity, environment);
 	}
 
-	public List<X_IMP_Processor_Type> IMP_Processor_TypeSaveMany(List<I_IMP_Processor_TypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_IMP_Processor_TypeInput) entity).collect(Collectors.toList()),
+	public List<X_IMP_Processor_Type> IMP_Processor_TypeSaveMany(List<I_IMP_Processor_TypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_IMP_Processor_TypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_IMP_Processor_Type) entity).collect(Collectors.toList());
 	}
 
-	public boolean IMP_Processor_TypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean IMP_Processor_TypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

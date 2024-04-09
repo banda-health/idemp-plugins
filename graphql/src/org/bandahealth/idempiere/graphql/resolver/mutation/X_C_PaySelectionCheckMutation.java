@@ -21,16 +21,16 @@ public class X_C_PaySelectionCheckMutation extends POMutation implements GraphQL
 		return X_C_PaySelectionCheckInput.Table_Name;
 	}
 
-	public MPaySelectionCheck C_PaySelectionCheckSave(I_C_PaySelectionCheckInput entity, DataFetchingEnvironment environment) {
-		return (MPaySelectionCheck) super.save((X_C_PaySelectionCheckInput) entity, environment);
+	public MPaySelectionCheck C_PaySelectionCheckSave(I_C_PaySelectionCheckInput Entity, DataFetchingEnvironment environment) {
+		return (MPaySelectionCheck) super.save((X_C_PaySelectionCheckInput) Entity, environment);
 	}
 
-	public List<MPaySelectionCheck> C_PaySelectionCheckSaveMany(List<I_C_PaySelectionCheckInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_PaySelectionCheckInput) entity).collect(Collectors.toList()),
+	public List<MPaySelectionCheck> C_PaySelectionCheckSaveMany(List<I_C_PaySelectionCheckInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_PaySelectionCheckInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPaySelectionCheck) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_PaySelectionCheckDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_PaySelectionCheckDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

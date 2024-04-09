@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_PriceListGet(page: Int, size: Int, sort: String, filter: String): I_PriceListConnection!
+	I_PriceListGet(Page: Int, Size: Int, Sort: String, Filter: String): I_PriceListConnection!
 }
 
 extend type Mutation {
-	I_PriceListSave(entity: I_PriceListInput!): I_PriceList!
-	I_PriceListSaveMany(entities: [I_PriceListInput!]!): [I_PriceList!]!
-	I_PriceListDelete(uuids: [String!]!): Boolean!
+	I_PriceListSave(Entity: I_PriceListInput!): I_PriceList!
+	I_PriceListSaveMany(Entities: [I_PriceListInput!]!): [I_PriceList!]!
+	I_PriceListDelete(UUs: [String!]!): Boolean!
 }
 
 type I_PriceListConnection {
-	results: [I_PriceList!]!
-	pagingInfo: PagingInfo!
+	Results: [I_PriceList!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_PriceList {
@@ -43,8 +43,7 @@ type I_PriceList {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	UUID: ID!
-	I_PriceList_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Three letter ISO 4217 Code of the Currency
@@ -105,8 +104,7 @@ input I_PriceListInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	UUID: ID
-	I_PriceList_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Three letter ISO 4217 Code of the Currency

@@ -21,16 +21,16 @@ public class X_PA_GoalMutation extends POMutation implements GraphQLMutationReso
 		return X_PA_GoalInput.Table_Name;
 	}
 
-	public MGoal PA_GoalSave(I_PA_GoalInput entity, DataFetchingEnvironment environment) {
-		return (MGoal) super.save((X_PA_GoalInput) entity, environment);
+	public MGoal PA_GoalSave(I_PA_GoalInput Entity, DataFetchingEnvironment environment) {
+		return (MGoal) super.save((X_PA_GoalInput) Entity, environment);
 	}
 
-	public List<MGoal> PA_GoalSaveMany(List<I_PA_GoalInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_GoalInput) entity).collect(Collectors.toList()),
+	public List<MGoal> PA_GoalSaveMany(List<I_PA_GoalInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_GoalInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MGoal) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_GoalDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_GoalDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

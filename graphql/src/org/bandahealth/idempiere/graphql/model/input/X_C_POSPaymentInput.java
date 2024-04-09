@@ -35,12 +35,12 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_POSPayment_UU to fetch this entity from the DB
+	 * @param UU The C_POSPayment_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_POSPaymentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_POSPaymentInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -96,11 +96,11 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
+						"Could not find entity in table C_Order with UU " + C_Order.getUU());
 			}
 		} else {
 			this.setC_Order_ID(0);
@@ -130,11 +130,11 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
+						"Could not find entity in table C_Payment with UU " + C_Payment.getUU());
 			}
 		} else {
 			this.setC_Payment_ID(0);
@@ -163,20 +163,20 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_POSPayment_UU(UUID);
+	public void setUU(String UU) {
+		setC_POSPayment_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_POSPayment_UU();
 	}
 
@@ -193,11 +193,11 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 			X_C_POSTenderType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_POSTenderType", "C_POSTenderType_UU=?", get_TrxName())
-							.setParameters(C_POSTenderType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_POSTenderType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_POSTenderType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_POSTenderType with UUID " + C_POSTenderType.getUUID());
+						"Could not find entity in table C_POSTenderType with UU " + C_POSTenderType.getUU());
 			}
 		} else {
 			this.setC_POSTenderType_ID(0);
@@ -227,11 +227,11 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CheckStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CheckStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCheckStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CheckStatus.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CheckStatus.getUU());
 			}
 		} else {
 			this.setCheckStatus(null);
@@ -261,11 +261,11 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CreditCardType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CreditCardType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCreditCardType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CreditCardType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CreditCardType.getUU());
 			}
 		} else {
 			this.setCreditCardType(null);
@@ -295,11 +295,11 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(TenderType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TenderType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTenderType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + TenderType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + TenderType.getUU());
 			}
 		} else {
 			this.setTenderType(null);

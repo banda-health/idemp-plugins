@@ -36,12 +36,12 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_BankAccount_Acct_UU to fetch this entity from the DB
+	 * @param UU The C_BankAccount_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_BankAccount_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_BankAccount_AcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -60,11 +60,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -94,11 +94,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_Asset_A.getUU());
 			}
 		} else {
 			this.setB_Asset_Acct(0);
@@ -128,11 +128,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestExp_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestExp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_InterestExp_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_InterestExp_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_InterestExp_A.getUU());
 			}
 		} else {
 			this.setB_InterestExp_Acct(0);
@@ -162,11 +162,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InterestRev_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InterestRev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_InterestRev_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_InterestRev_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_InterestRev_A.getUU());
 			}
 		} else {
 			this.setB_InterestRev_Acct(0);
@@ -196,11 +196,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_InTransit_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_InTransit_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_InTransit_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_InTransit_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_InTransit_A.getUU());
 			}
 		} else {
 			this.setB_InTransit_Acct(0);
@@ -230,11 +230,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_PaymentSelect_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_PaymentSelect_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_PaymentSelect_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_PaymentSelect_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_PaymentSelect_A.getUU());
 			}
 		} else {
 			this.setB_PaymentSelect_Acct(0);
@@ -264,11 +264,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(B_UnallocatedCash_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_UnallocatedCash_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_UnallocatedCash_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + B_UnallocatedCash_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + B_UnallocatedCash_A.getUU());
 			}
 		} else {
 			this.setB_UnallocatedCash_Acct(0);
@@ -301,11 +301,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -323,20 +323,20 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_BankAccount_Acct_UU(UUID);
+	public void setUU(String UU) {
+		setC_BankAccount_Acct_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_BankAccount_Acct_UU();
 	}
 
@@ -356,11 +356,11 @@ public class X_C_BankAccount_AcctInput extends X_C_BankAccount_Acct implements I
 			MBankAccount_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankAccount", "C_BankAccount_UU=?", get_TrxName())
-							.setParameters(C_BankAccount.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankAccount.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BankAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BankAccount with UUID " + C_BankAccount.getUUID());
+						"Could not find entity in table C_BankAccount with UU " + C_BankAccount.getUU());
 			}
 		} else {
 			this.setC_BankAccount_ID(0);

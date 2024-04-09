@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RfQ_TopicSubscriberOnlyGet(page: Int, size: Int, sort: String, filter: String): C_RfQ_TopicSubscriberOnlyConnection!
+	C_RfQ_TopicSubscriberOnlyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicSubscriberOnlyConnection!
 }
 
 extend type Mutation {
-	C_RfQ_TopicSubscriberOnlySave(entity: C_RfQ_TopicSubscriberOnlyInput!): C_RfQ_TopicSubscriberOnly!
-	C_RfQ_TopicSubscriberOnlySaveMany(entities: [C_RfQ_TopicSubscriberOnlyInput!]!): [C_RfQ_TopicSubscriberOnly!]!
-	C_RfQ_TopicSubscriberOnlyDelete(uuids: [String!]!): Boolean!
+	C_RfQ_TopicSubscriberOnlySave(Entity: C_RfQ_TopicSubscriberOnlyInput!): C_RfQ_TopicSubscriberOnly!
+	C_RfQ_TopicSubscriberOnlySaveMany(Entities: [C_RfQ_TopicSubscriberOnlyInput!]!): [C_RfQ_TopicSubscriberOnly!]!
+	C_RfQ_TopicSubscriberOnlyDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RfQ_TopicSubscriberOnlyConnection {
-	results: [C_RfQ_TopicSubscriberOnly!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RfQ_TopicSubscriberOnly!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RfQ_TopicSubscriberOnly {
@@ -23,8 +23,7 @@ type C_RfQ_TopicSubscriberOnly {
 	AD_Org: AD_Org!
 	# Request for Quotation Topic Subscriber
 	C_RfQ_TopicSubscriber: C_RfQ_TopicSubscriber!
-	UUID: ID!
-	C_RfQ_TopicSubscriberOnly_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input C_RfQ_TopicSubscriberOnlyInput {
 	AD_Org: ForeignEntityInput
 	# Request for Quotation Topic Subscriber
 	C_RfQ_TopicSubscriber: ForeignEntityInput
-	UUID: ID
-	C_RfQ_TopicSubscriberOnly_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

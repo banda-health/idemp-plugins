@@ -29,12 +29,12 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_InvoiceSchedule_UU to fetch this entity from the DB
+	 * @param UU The C_InvoiceSchedule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_InvoiceScheduleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_InvoiceScheduleInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,20 +86,20 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_InvoiceSchedule_UU(UUID);
+	public void setUU(String UU) {
+		setC_InvoiceSchedule_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_InvoiceSchedule_UU();
 	}
 
@@ -116,11 +116,11 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(InvoiceFrequency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(InvoiceFrequency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setInvoiceFrequency(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceFrequency.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + InvoiceFrequency.getUU());
 			}
 		} else {
 			this.setInvoiceFrequency(null);
@@ -150,11 +150,11 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(InvoiceWeekDay.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(InvoiceWeekDay.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setInvoiceWeekDay(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceWeekDay.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + InvoiceWeekDay.getUU());
 			}
 		} else {
 			this.setInvoiceWeekDay(null);
@@ -184,11 +184,11 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(InvoiceWeekDayCutoff.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(InvoiceWeekDayCutoff.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setInvoiceWeekDayCutoff(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceWeekDayCutoff.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + InvoiceWeekDayCutoff.getUU());
 			}
 		} else {
 			this.setInvoiceWeekDayCutoff(null);

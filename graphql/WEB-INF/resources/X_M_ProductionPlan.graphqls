@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ProductionPlanGet(page: Int, size: Int, sort: String, filter: String): M_ProductionPlanConnection!
+	M_ProductionPlanGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductionPlanConnection!
 }
 
 extend type Mutation {
-	M_ProductionPlanSave(entity: M_ProductionPlanInput!): M_ProductionPlan!
-	M_ProductionPlanSaveMany(entities: [M_ProductionPlanInput!]!): [M_ProductionPlan!]!
-	M_ProductionPlanDelete(uuids: [String!]!): Boolean!
+	M_ProductionPlanSave(Entity: M_ProductionPlanInput!): M_ProductionPlan!
+	M_ProductionPlanSaveMany(Entities: [M_ProductionPlanInput!]!): [M_ProductionPlan!]!
+	M_ProductionPlanDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ProductionPlanConnection {
-	results: [M_ProductionPlan!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ProductionPlan!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ProductionPlan {
@@ -37,8 +37,7 @@ type M_ProductionPlan {
 	M_Product: M_Product!
 	# Plan for producing a product
 	M_Production: M_Production!
-	UUID: ID!
-	M_ProductionPlan_UU: String
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Quantity of products to produce
@@ -64,8 +63,7 @@ input M_ProductionPlanInput {
 	M_Product: ForeignEntityInput
 	# Plan for producing a product
 	M_Production: ForeignEntityInput
-	UUID: ID
-	M_ProductionPlan_UU: String
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	# Quantity of products to produce

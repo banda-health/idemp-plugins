@@ -27,12 +27,12 @@ public class X_AD_CtxHelpMsgInput extends MCtxHelpMsg implements I_AD_CtxHelpMsg
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_CtxHelpMsg_UU to fetch this entity from the DB
+	 * @param UU The AD_CtxHelpMsg_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_CtxHelpMsgInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_CtxHelpMsgInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_AD_CtxHelpMsgInput extends MCtxHelpMsg implements I_AD_CtxHelpMsg
 			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
-							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_CtxHelp.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_CtxHelp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_CtxHelp with UUID " + AD_CtxHelp.getUUID());
+						"Could not find entity in table AD_CtxHelp with UU " + AD_CtxHelp.getUU());
 			}
 		} else {
 			this.setAD_CtxHelp_ID(0);
@@ -84,20 +84,20 @@ public class X_AD_CtxHelpMsgInput extends MCtxHelpMsg implements I_AD_CtxHelpMsg
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_CtxHelpMsg_UU(UUID);
+	public void setUU(String UU) {
+		setAD_CtxHelpMsg_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_CtxHelpMsg_UU();
 	}
 
@@ -117,11 +117,11 @@ public class X_AD_CtxHelpMsgInput extends MCtxHelpMsg implements I_AD_CtxHelpMsg
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);

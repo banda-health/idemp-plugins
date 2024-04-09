@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_InOutConfirmGet(page: Int, size: Int, sort: String, filter: String): M_InOutConfirmConnection!
+	M_InOutConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutConfirmConnection!
 }
 
 extend type Mutation {
-	M_InOutConfirmSave(entity: M_InOutConfirmInput!): M_InOutConfirm!
-	M_InOutConfirmSaveMany(entities: [M_InOutConfirmInput!]!): [M_InOutConfirm!]!
-	M_InOutConfirmDelete(uuids: [String!]!): Boolean!
+	M_InOutConfirmSave(Entity: M_InOutConfirmInput!): M_InOutConfirm!
+	M_InOutConfirmSaveMany(Entities: [M_InOutConfirmInput!]!): [M_InOutConfirm!]!
+	M_InOutConfirmDelete(UUs: [String!]!): Boolean!
 }
 
 type M_InOutConfirmConnection {
-	results: [M_InOutConfirm!]!
-	pagingInfo: PagingInfo!
+	Results: [M_InOutConfirm!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_InOutConfirm {
@@ -52,8 +52,7 @@ type M_InOutConfirm {
 	IsInDispute: Boolean!
 	# Material Shipment Document
 	M_InOut: M_InOut!
-	UUID: ID!
-	M_InOutConfirm_UU: String
+	UU: ID!
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory
 	# The document has been processed
@@ -95,8 +94,7 @@ input M_InOutConfirmInput {
 	IsInDispute: Boolean
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
-	UUID: ID
-	M_InOutConfirm_UU: String
+	UU: ID
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
 	# The document has been processed

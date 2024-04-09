@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Depreciation_MethodGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_MethodConnection!
+	A_Depreciation_MethodGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_MethodConnection!
 }
 
 extend type Mutation {
-	A_Depreciation_MethodSave(entity: A_Depreciation_MethodInput!): A_Depreciation_Method!
-	A_Depreciation_MethodSaveMany(entities: [A_Depreciation_MethodInput!]!): [A_Depreciation_Method!]!
-	A_Depreciation_MethodDelete(uuids: [String!]!): Boolean!
+	A_Depreciation_MethodSave(Entity: A_Depreciation_MethodInput!): A_Depreciation_Method!
+	A_Depreciation_MethodSaveMany(Entities: [A_Depreciation_MethodInput!]!): [A_Depreciation_Method!]!
+	A_Depreciation_MethodDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Depreciation_MethodConnection {
-	results: [A_Depreciation_Method!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Depreciation_Method!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Depreciation_Method {
-	UUID: ID!
-	A_Depreciation_Method_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -44,8 +43,7 @@ type A_Depreciation_Method {
 }
 
 input A_Depreciation_MethodInput {
-	UUID: ID
-	A_Depreciation_Method_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	DepreciationType: String

@@ -21,16 +21,16 @@ public class X_HR_PayrollConceptMutation extends POMutation implements GraphQLMu
 		return X_HR_PayrollConceptInput.Table_Name;
 	}
 
-	public X_HR_PayrollConcept HR_PayrollConceptSave(I_HR_PayrollConceptInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_PayrollConcept) super.save((X_HR_PayrollConceptInput) entity, environment);
+	public X_HR_PayrollConcept HR_PayrollConceptSave(I_HR_PayrollConceptInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_PayrollConcept) super.save((X_HR_PayrollConceptInput) Entity, environment);
 	}
 
-	public List<X_HR_PayrollConcept> HR_PayrollConceptSaveMany(List<I_HR_PayrollConceptInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_PayrollConceptInput) entity).collect(Collectors.toList()),
+	public List<X_HR_PayrollConcept> HR_PayrollConceptSaveMany(List<I_HR_PayrollConceptInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_PayrollConceptInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_PayrollConcept) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_PayrollConceptDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_PayrollConceptDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

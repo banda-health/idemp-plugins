@@ -21,16 +21,16 @@ public class X_M_PromotionPreConditionMutation extends POMutation implements Gra
 		return X_M_PromotionPreConditionInput.Table_Name;
 	}
 
-	public X_M_PromotionPreCondition M_PromotionPreConditionSave(I_M_PromotionPreConditionInput entity, DataFetchingEnvironment environment) {
-		return (X_M_PromotionPreCondition) super.save((X_M_PromotionPreConditionInput) entity, environment);
+	public X_M_PromotionPreCondition M_PromotionPreConditionSave(I_M_PromotionPreConditionInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_PromotionPreCondition) super.save((X_M_PromotionPreConditionInput) Entity, environment);
 	}
 
-	public List<X_M_PromotionPreCondition> M_PromotionPreConditionSaveMany(List<I_M_PromotionPreConditionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PromotionPreConditionInput) entity).collect(Collectors.toList()),
+	public List<X_M_PromotionPreCondition> M_PromotionPreConditionSaveMany(List<I_M_PromotionPreConditionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PromotionPreConditionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_PromotionPreCondition) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PromotionPreConditionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PromotionPreConditionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

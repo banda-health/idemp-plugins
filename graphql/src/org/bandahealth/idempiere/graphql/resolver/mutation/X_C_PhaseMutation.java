@@ -21,16 +21,16 @@ public class X_C_PhaseMutation extends POMutation implements GraphQLMutationReso
 		return X_C_PhaseInput.Table_Name;
 	}
 
-	public MProjectTypePhase C_PhaseSave(I_C_PhaseInput entity, DataFetchingEnvironment environment) {
-		return (MProjectTypePhase) super.save((X_C_PhaseInput) entity, environment);
+	public MProjectTypePhase C_PhaseSave(I_C_PhaseInput Entity, DataFetchingEnvironment environment) {
+		return (MProjectTypePhase) super.save((X_C_PhaseInput) Entity, environment);
 	}
 
-	public List<MProjectTypePhase> C_PhaseSaveMany(List<I_C_PhaseInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_PhaseInput) entity).collect(Collectors.toList()),
+	public List<MProjectTypePhase> C_PhaseSaveMany(List<I_C_PhaseInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_PhaseInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProjectTypePhase) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_PhaseDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_PhaseDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

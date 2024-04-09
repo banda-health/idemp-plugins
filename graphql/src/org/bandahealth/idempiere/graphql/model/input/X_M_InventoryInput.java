@@ -50,12 +50,12 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_Inventory_UU to fetch this entity from the DB
+	 * @param UU The M_Inventory_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_InventoryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_InventoryInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -74,11 +74,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -108,11 +108,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(bh_update_reason.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(bh_update_reason.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setbh_update_reason(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + bh_update_reason.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + bh_update_reason.getUU());
 			}
 		} else {
 			this.setbh_update_reason(null);
@@ -142,11 +142,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
+						"Could not find entity in table C_Activity with UU " + C_Activity.getUU());
 			}
 		} else {
 			this.setC_Activity_ID(0);
@@ -176,11 +176,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
+						"Could not find entity in table C_Campaign with UU " + C_Campaign.getUU());
 			}
 		} else {
 			this.setC_Campaign_ID(0);
@@ -210,11 +210,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ConversionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
+						"Could not find entity in table C_ConversionType with UU " + C_ConversionType.getUU());
 			}
 		} else {
 			this.setC_ConversionType_ID(0);
@@ -244,11 +244,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -278,11 +278,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
 			this.setC_DocType_ID(0);
@@ -312,11 +312,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+						"Could not find entity in table C_Project with UU " + C_Project.getUU());
 			}
 		} else {
 			this.setC_Project_ID(0);
@@ -346,11 +346,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CostingMethod.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingMethod.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostingMethod.getUU());
 			}
 		} else {
 			this.setCostingMethod(null);
@@ -380,11 +380,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocAction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocAction.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocAction(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocAction.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocAction.getUU());
 			}
 		} else {
 			this.setDocAction(null);
@@ -414,11 +414,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DocStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DocStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDocStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DocStatus.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DocStatus.getUU());
 			}
 		} else {
 			this.setDocStatus(null);
@@ -447,20 +447,20 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_Inventory_UU(UUID);
+	public void setUU(String UU) {
+		setM_Inventory_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_Inventory_UU();
 	}
 
@@ -480,11 +480,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			X_M_PerpetualInv foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PerpetualInv", "M_PerpetualInv_UU=?", get_TrxName())
-							.setParameters(M_PerpetualInv.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PerpetualInv.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PerpetualInv_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PerpetualInv with UUID " + M_PerpetualInv.getUUID());
+						"Could not find entity in table M_PerpetualInv with UU " + M_PerpetualInv.getUU());
 			}
 		} else {
 			this.setM_PerpetualInv_ID(0);
@@ -514,11 +514,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);
@@ -559,11 +559,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MInventory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Inventory", "M_Inventory_UU=?", get_TrxName())
-							.setParameters(Reversal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Reversal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReversal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Inventory with UUID " + Reversal.getUUID());
+						"Could not find entity in table M_Inventory with UU " + Reversal.getUU());
 			}
 		} else {
 			this.setReversal_ID(0);
@@ -593,11 +593,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + User1.getUU());
 			}
 		} else {
 			this.setUser1_ID(0);
@@ -627,11 +627,11 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + User2.getUU());
 			}
 		} else {
 			this.setUser2_ID(0);

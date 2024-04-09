@@ -30,12 +30,12 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The BH_Default_DocAction_Access_UU to fetch this entity from the DB
+	 * @param UU The BH_Default_DocAction_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_Default_DocAction_AccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_Default_DocAction_AccessInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -54,11 +54,11 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,11 +88,11 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Ref_List", "AD_Ref_List_UU=?", get_TrxName())
-							.setParameters(AD_Ref_List.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Ref_List.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Ref_List_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Ref_List with UUID " + AD_Ref_List.getUUID());
+						"Could not find entity in table AD_Ref_List with UU " + AD_Ref_List.getUU());
 			}
 		} else {
 			this.setAD_Ref_List_ID(0);
@@ -121,20 +121,20 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setBH_Default_DocAction_Access_UU(UUID);
+	public void setUU(String UU) {
+		setBH_Default_DocAction_Access_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getBH_Default_DocAction_Access_UU();
 	}
 
@@ -151,11 +151,11 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
 			this.setC_DocType_ID(0);
@@ -188,11 +188,11 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DB_UserType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DB_UserType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDB_UserType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DB_UserType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DB_UserType.getUU());
 			}
 		} else {
 			this.setDB_UserType(null);

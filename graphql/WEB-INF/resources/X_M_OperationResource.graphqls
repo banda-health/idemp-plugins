@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_OperationResourceGet(page: Int, size: Int, sort: String, filter: String): M_OperationResourceConnection!
+	M_OperationResourceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_OperationResourceConnection!
 }
 
 extend type Mutation {
-	M_OperationResourceSave(entity: M_OperationResourceInput!): M_OperationResource!
-	M_OperationResourceSaveMany(entities: [M_OperationResourceInput!]!): [M_OperationResource!]!
-	M_OperationResourceDelete(uuids: [String!]!): Boolean!
+	M_OperationResourceSave(Entity: M_OperationResourceInput!): M_OperationResource!
+	M_OperationResourceSaveMany(Entities: [M_OperationResourceInput!]!): [M_OperationResource!]!
+	M_OperationResourceDelete(UUs: [String!]!): Boolean!
 }
 
 type M_OperationResourceConnection {
-	results: [M_OperationResource!]!
-	pagingInfo: PagingInfo!
+	Results: [M_OperationResource!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_OperationResource {
@@ -35,8 +35,7 @@ type M_OperationResource {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_OperationResource_UU: String
+	UU: ID!
 	# Product Manufacturing Operation
 	M_ProductOperation: M_ProductOperation!
 	# Alphanumeric identifier of the entity
@@ -66,8 +65,7 @@ input M_OperationResourceInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_OperationResource_UU: String
+	UU: ID
 	# Product Manufacturing Operation
 	M_ProductOperation: ForeignEntityInput
 	# Alphanumeric identifier of the entity

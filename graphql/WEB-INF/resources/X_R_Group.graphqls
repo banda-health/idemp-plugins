@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_GroupGet(page: Int, size: Int, sort: String, filter: String): R_GroupConnection!
+	R_GroupGet(Page: Int, Size: Int, Sort: String, Filter: String): R_GroupConnection!
 }
 
 extend type Mutation {
-	R_GroupSave(entity: R_GroupInput!): R_Group!
-	R_GroupSaveMany(entities: [R_GroupInput!]!): [R_Group!]!
-	R_GroupDelete(uuids: [String!]!): Boolean!
+	R_GroupSave(Entity: R_GroupInput!): R_Group!
+	R_GroupSaveMany(Entities: [R_GroupInput!]!): [R_Group!]!
+	R_GroupDelete(UUs: [String!]!): Boolean!
 }
 
 type R_GroupConnection {
-	results: [R_Group!]!
-	pagingInfo: PagingInfo!
+	Results: [R_Group!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_Group {
@@ -37,8 +37,7 @@ type R_Group {
 	Name: String!
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM
-	UUID: ID!
-	R_Group_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -60,6 +59,5 @@ input R_GroupInput {
 	Name: String
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
-	UUID: ID
-	R_Group_UU: String
+	UU: ID
 }

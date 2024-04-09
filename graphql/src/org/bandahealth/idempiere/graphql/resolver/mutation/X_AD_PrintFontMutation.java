@@ -21,16 +21,16 @@ public class X_AD_PrintFontMutation extends POMutation implements GraphQLMutatio
 		return X_AD_PrintFontInput.Table_Name;
 	}
 
-	public X_AD_PrintFont AD_PrintFontSave(I_AD_PrintFontInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_PrintFont) super.save((X_AD_PrintFontInput) entity, environment);
+	public X_AD_PrintFont AD_PrintFontSave(I_AD_PrintFontInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintFont) super.save((X_AD_PrintFontInput) Entity, environment);
 	}
 
-	public List<X_AD_PrintFont> AD_PrintFontSaveMany(List<I_AD_PrintFontInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintFontInput) entity).collect(Collectors.toList()),
+	public List<X_AD_PrintFont> AD_PrintFontSaveMany(List<I_AD_PrintFontInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PrintFontInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_PrintFont) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PrintFontDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PrintFontDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

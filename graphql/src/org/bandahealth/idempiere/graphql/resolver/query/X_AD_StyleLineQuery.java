@@ -17,8 +17,8 @@ public class X_AD_StyleLineQuery extends POQuery<MStyleLine> implements GraphQLQ
 		return MStyleLine.Table_Name;
 	}
 
-	public Connection<MStyleLine> AD_StyleLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MStyleLine> AD_StyleLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

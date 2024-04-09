@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_BOMAlternativeGet(page: Int, size: Int, sort: String, filter: String): M_BOMAlternativeConnection!
+	M_BOMAlternativeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_BOMAlternativeConnection!
 }
 
 extend type Mutation {
-	M_BOMAlternativeSave(entity: M_BOMAlternativeInput!): M_BOMAlternative!
-	M_BOMAlternativeSaveMany(entities: [M_BOMAlternativeInput!]!): [M_BOMAlternative!]!
-	M_BOMAlternativeDelete(uuids: [String!]!): Boolean!
+	M_BOMAlternativeSave(Entity: M_BOMAlternativeInput!): M_BOMAlternative!
+	M_BOMAlternativeSaveMany(Entities: [M_BOMAlternativeInput!]!): [M_BOMAlternative!]!
+	M_BOMAlternativeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_BOMAlternativeConnection {
-	results: [M_BOMAlternative!]!
-	pagingInfo: PagingInfo!
+	Results: [M_BOMAlternative!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_BOMAlternative {
@@ -29,8 +29,7 @@ type M_BOMAlternative {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_BOMAlternative_UU: String
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Alphanumeric identifier of the entity
@@ -48,8 +47,7 @@ input M_BOMAlternativeInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_BOMAlternative_UU: String
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity

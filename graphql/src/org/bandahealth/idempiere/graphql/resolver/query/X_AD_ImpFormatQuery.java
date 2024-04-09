@@ -17,8 +17,8 @@ public class X_AD_ImpFormatQuery extends POQuery<X_AD_ImpFormat> implements Grap
 		return X_AD_ImpFormat.Table_Name;
 	}
 
-	public Connection<X_AD_ImpFormat> AD_ImpFormatGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_ImpFormat> AD_ImpFormatGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

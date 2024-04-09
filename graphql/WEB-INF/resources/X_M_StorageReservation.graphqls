@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_StorageReservationGet(page: Int, size: Int, sort: String, filter: String): M_StorageReservationConnection!
+	M_StorageReservationGet(Page: Int, Size: Int, Sort: String, Filter: String): M_StorageReservationConnection!
 }
 
 extend type Mutation {
-	M_StorageReservationSave(entity: M_StorageReservationInput!): M_StorageReservation!
-	M_StorageReservationSaveMany(entities: [M_StorageReservationInput!]!): [M_StorageReservation!]!
-	M_StorageReservationDelete(uuids: [String!]!): Boolean!
+	M_StorageReservationSave(Entity: M_StorageReservationInput!): M_StorageReservation!
+	M_StorageReservationSaveMany(Entities: [M_StorageReservationInput!]!): [M_StorageReservation!]!
+	M_StorageReservationDelete(UUs: [String!]!): Boolean!
 }
 
 type M_StorageReservationConnection {
-	results: [M_StorageReservation!]!
-	pagingInfo: PagingInfo!
+	Results: [M_StorageReservation!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_StorageReservation {
@@ -35,8 +35,7 @@ type M_StorageReservation {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	M_StorageReservation_UU: String
+	UU: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Quantity
@@ -60,8 +59,7 @@ input M_StorageReservationInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	M_StorageReservation_UU: String
+	UU: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Quantity

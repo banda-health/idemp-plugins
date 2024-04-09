@@ -21,16 +21,16 @@ public class X_M_ChangeRequestMutation extends POMutation implements GraphQLMuta
 		return X_M_ChangeRequestInput.Table_Name;
 	}
 
-	public MChangeRequest M_ChangeRequestSave(I_M_ChangeRequestInput entity, DataFetchingEnvironment environment) {
-		return (MChangeRequest) super.save((X_M_ChangeRequestInput) entity, environment);
+	public MChangeRequest M_ChangeRequestSave(I_M_ChangeRequestInput Entity, DataFetchingEnvironment environment) {
+		return (MChangeRequest) super.save((X_M_ChangeRequestInput) Entity, environment);
 	}
 
-	public List<MChangeRequest> M_ChangeRequestSaveMany(List<I_M_ChangeRequestInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ChangeRequestInput) entity).collect(Collectors.toList()),
+	public List<MChangeRequest> M_ChangeRequestSaveMany(List<I_M_ChangeRequestInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ChangeRequestInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MChangeRequest) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ChangeRequestDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ChangeRequestDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

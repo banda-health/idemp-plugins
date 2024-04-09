@@ -17,8 +17,8 @@ public class X_AD_TaskQuery extends POQuery<MTask> implements GraphQLQueryResolv
 		return MTask.Table_Name;
 	}
 
-	public Connection<MTask> AD_TaskGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTask> AD_TaskGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

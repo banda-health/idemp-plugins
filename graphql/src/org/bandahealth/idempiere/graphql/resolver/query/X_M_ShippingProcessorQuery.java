@@ -17,8 +17,8 @@ public class X_M_ShippingProcessorQuery extends POQuery<MShippingProcessor> impl
 		return MShippingProcessor.Table_Name;
 	}
 
-	public Connection<MShippingProcessor> M_ShippingProcessorGet(int page, int pageSize, String sort, String filter,
+	public Connection<MShippingProcessor> M_ShippingProcessorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

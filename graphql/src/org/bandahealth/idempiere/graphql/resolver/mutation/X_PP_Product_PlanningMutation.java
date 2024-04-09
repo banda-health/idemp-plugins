@@ -21,16 +21,16 @@ public class X_PP_Product_PlanningMutation extends POMutation implements GraphQL
 		return X_PP_Product_PlanningInput.Table_Name;
 	}
 
-	public MPPProductPlanning PP_Product_PlanningSave(I_PP_Product_PlanningInput entity, DataFetchingEnvironment environment) {
-		return (MPPProductPlanning) super.save((X_PP_Product_PlanningInput) entity, environment);
+	public MPPProductPlanning PP_Product_PlanningSave(I_PP_Product_PlanningInput Entity, DataFetchingEnvironment environment) {
+		return (MPPProductPlanning) super.save((X_PP_Product_PlanningInput) Entity, environment);
 	}
 
-	public List<MPPProductPlanning> PP_Product_PlanningSaveMany(List<I_PP_Product_PlanningInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Product_PlanningInput) entity).collect(Collectors.toList()),
+	public List<MPPProductPlanning> PP_Product_PlanningSaveMany(List<I_PP_Product_PlanningInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Product_PlanningInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPPProductPlanning) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Product_PlanningDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Product_PlanningDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

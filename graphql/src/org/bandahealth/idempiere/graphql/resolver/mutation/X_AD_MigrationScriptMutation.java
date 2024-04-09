@@ -21,16 +21,16 @@ public class X_AD_MigrationScriptMutation extends POMutation implements GraphQLM
 		return X_AD_MigrationScriptInput.Table_Name;
 	}
 
-	public X_AD_MigrationScript AD_MigrationScriptSave(I_AD_MigrationScriptInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_MigrationScript) super.save((X_AD_MigrationScriptInput) entity, environment);
+	public X_AD_MigrationScript AD_MigrationScriptSave(I_AD_MigrationScriptInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_MigrationScript) super.save((X_AD_MigrationScriptInput) Entity, environment);
 	}
 
-	public List<X_AD_MigrationScript> AD_MigrationScriptSaveMany(List<I_AD_MigrationScriptInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_MigrationScriptInput) entity).collect(Collectors.toList()),
+	public List<X_AD_MigrationScript> AD_MigrationScriptSaveMany(List<I_AD_MigrationScriptInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_MigrationScriptInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_MigrationScript) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_MigrationScriptDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_MigrationScriptDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

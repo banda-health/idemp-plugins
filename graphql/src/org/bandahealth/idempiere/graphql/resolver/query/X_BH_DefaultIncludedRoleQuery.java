@@ -17,8 +17,8 @@ public class X_BH_DefaultIncludedRoleQuery extends POQuery<MBHDefaultIncludedRol
 		return MBHDefaultIncludedRole.Table_Name;
 	}
 
-	public Connection<MBHDefaultIncludedRole> BH_DefaultIncludedRoleGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHDefaultIncludedRole> BH_DefaultIncludedRoleGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_HR_ContractQuery extends POQuery<X_HR_Contract> implements GraphQ
 		return X_HR_Contract.Table_Name;
 	}
 
-	public Connection<X_HR_Contract> HR_ContractGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Contract> HR_ContractGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

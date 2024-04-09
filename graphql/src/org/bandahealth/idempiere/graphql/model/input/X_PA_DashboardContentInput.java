@@ -43,12 +43,12 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_DashboardContent_UU to fetch this entity from the DB
+	 * @param UU The PA_DashboardContent_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_DashboardContentInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_DashboardContentInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -64,11 +64,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MChart foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
-							.setParameters(AD_Chart.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Chart_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Chart with UUID " + AD_Chart.getUUID());
+						"Could not find entity in table AD_Chart with UU " + AD_Chart.getUU());
 			}
 		} else {
 			this.setAD_Chart_ID(0);
@@ -101,11 +101,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -135,11 +135,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+						"Could not find entity in table AD_PrintFormat with UU " + AD_PrintFormat.getUU());
 			}
 		} else {
 			this.setAD_PrintFormat_ID(0);
@@ -169,11 +169,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+						"Could not find entity in table AD_Process with UU " + AD_Process.getUU());
 			}
 		} else {
 			this.setAD_Process_ID(0);
@@ -203,11 +203,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
 			this.setAD_Role_ID(0);
@@ -237,11 +237,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MStatusLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StatusLine", "AD_StatusLine_UU=?", get_TrxName())
-							.setParameters(AD_StatusLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_StatusLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_StatusLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_StatusLine with UUID " + AD_StatusLine.getUUID());
+						"Could not find entity in table AD_StatusLine with UU " + AD_StatusLine.getUU());
 			}
 		} else {
 			this.setAD_StatusLine_ID(0);
@@ -271,11 +271,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -305,11 +305,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);
@@ -339,11 +339,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(GoalDisplay.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GoalDisplay.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGoalDisplay(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + GoalDisplay.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + GoalDisplay.getUU());
 			}
 		} else {
 			this.setGoalDisplay(null);
@@ -372,20 +372,20 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_DashboardContent_UU(UUID);
+	public void setUU(String UU) {
+		setPA_DashboardContent_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_DashboardContent_UU();
 	}
 
@@ -402,11 +402,11 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_Goal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Goal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Goal with UUID " + PA_Goal.getUUID());
+						"Could not find entity in table PA_Goal with UU " + PA_Goal.getUU());
 			}
 		} else {
 			this.setPA_Goal_ID(0);

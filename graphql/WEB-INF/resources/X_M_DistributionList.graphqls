@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_DistributionListGet(page: Int, size: Int, sort: String, filter: String): M_DistributionListConnection!
+	M_DistributionListGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionListConnection!
 }
 
 extend type Mutation {
-	M_DistributionListSave(entity: M_DistributionListInput!): M_DistributionList!
-	M_DistributionListSaveMany(entities: [M_DistributionListInput!]!): [M_DistributionList!]!
-	M_DistributionListDelete(uuids: [String!]!): Boolean!
+	M_DistributionListSave(Entity: M_DistributionListInput!): M_DistributionList!
+	M_DistributionListSaveMany(Entities: [M_DistributionListInput!]!): [M_DistributionList!]!
+	M_DistributionListDelete(UUs: [String!]!): Boolean!
 }
 
 type M_DistributionListConnection {
-	results: [M_DistributionList!]!
-	pagingInfo: PagingInfo!
+	Results: [M_DistributionList!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_DistributionList {
@@ -31,8 +31,7 @@ type M_DistributionList {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_DistributionList_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -53,8 +52,7 @@ input M_DistributionListInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_DistributionList_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

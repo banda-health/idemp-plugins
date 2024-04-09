@@ -45,12 +45,12 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The ASP_ClientException_UU to fetch this entity from the DB
+	 * @param UU The ASP_ClientException_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_ASP_ClientExceptionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_ASP_ClientExceptionInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -66,11 +66,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Field with UUID " + AD_Field.getUUID());
+						"Could not find entity in table AD_Field with UU " + AD_Field.getUU());
 			}
 		} else {
 			this.setAD_Field_ID(0);
@@ -100,11 +100,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+						"Could not find entity in table AD_Form with UU " + AD_Form.getUU());
 			}
 		} else {
 			this.setAD_Form_ID(0);
@@ -137,11 +137,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -171,11 +171,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+						"Could not find entity in table AD_Process with UU " + AD_Process.getUU());
 			}
 		} else {
 			this.setAD_Process_ID(0);
@@ -205,11 +205,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MProcessPara foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process_Para", "AD_Process_Para_UU=?", get_TrxName())
-							.setParameters(AD_Process_Para.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process_Para.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_Para_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Process_Para with UUID " + AD_Process_Para.getUUID());
+						"Could not find entity in table AD_Process_Para with UU " + AD_Process_Para.getUU());
 			}
 		} else {
 			this.setAD_Process_Para_ID(0);
@@ -239,11 +239,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(AD_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Tab with UUID " + AD_Tab.getUUID());
+						"Could not find entity in table AD_Tab with UU " + AD_Tab.getUU());
 			}
 		} else {
 			this.setAD_Tab_ID(0);
@@ -273,11 +273,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Task with UUID " + AD_Task.getUUID());
+						"Could not find entity in table AD_Task with UU " + AD_Task.getUU());
 			}
 		} else {
 			this.setAD_Task_ID(0);
@@ -307,11 +307,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			X_AD_WF_Node foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_WF_Node", "AD_WF_Node_UU=?", get_TrxName())
-							.setParameters(AD_WF_Node.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_WF_Node.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_WF_Node_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_WF_Node with UUID " + AD_WF_Node.getUUID());
+						"Could not find entity in table AD_WF_Node with UU " + AD_WF_Node.getUU());
 			}
 		} else {
 			this.setAD_WF_Node_ID(0);
@@ -341,11 +341,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);
@@ -375,11 +375,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
+						"Could not find entity in table AD_Workflow with UU " + AD_Workflow.getUU());
 			}
 		} else {
 			this.setAD_Workflow_ID(0);
@@ -408,20 +408,20 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setASP_ClientException_UU(UUID);
+	public void setUU(String UU) {
+		setASP_ClientException_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getASP_ClientException_UU();
 	}
 
@@ -438,11 +438,11 @@ public class X_ASP_ClientExceptionInput extends X_ASP_ClientException implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Status(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ASP_Status.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ASP_Status.getUU());
 			}
 		} else {
 			this.setASP_Status(null);

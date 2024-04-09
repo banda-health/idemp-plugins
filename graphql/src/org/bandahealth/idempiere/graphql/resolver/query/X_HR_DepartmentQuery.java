@@ -17,8 +17,8 @@ public class X_HR_DepartmentQuery extends POQuery<X_HR_Department> implements Gr
 		return X_HR_Department.Table_Name;
 	}
 
-	public Connection<X_HR_Department> HR_DepartmentGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Department> HR_DepartmentGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_M_SerNoCtlExcludeMutation extends POMutation implements GraphQLMu
 		return X_M_SerNoCtlExcludeInput.Table_Name;
 	}
 
-	public MSerNoCtlExclude M_SerNoCtlExcludeSave(I_M_SerNoCtlExcludeInput entity, DataFetchingEnvironment environment) {
-		return (MSerNoCtlExclude) super.save((X_M_SerNoCtlExcludeInput) entity, environment);
+	public MSerNoCtlExclude M_SerNoCtlExcludeSave(I_M_SerNoCtlExcludeInput Entity, DataFetchingEnvironment environment) {
+		return (MSerNoCtlExclude) super.save((X_M_SerNoCtlExcludeInput) Entity, environment);
 	}
 
-	public List<MSerNoCtlExclude> M_SerNoCtlExcludeSaveMany(List<I_M_SerNoCtlExcludeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_SerNoCtlExcludeInput) entity).collect(Collectors.toList()),
+	public List<MSerNoCtlExclude> M_SerNoCtlExcludeSaveMany(List<I_M_SerNoCtlExcludeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_SerNoCtlExcludeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSerNoCtlExclude) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_SerNoCtlExcludeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_SerNoCtlExcludeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

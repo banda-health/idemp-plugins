@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_Cost_CollectorGet(page: Int, size: Int, sort: String, filter: String): PP_Cost_CollectorConnection!
+	PP_Cost_CollectorGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Cost_CollectorConnection!
 }
 
 extend type Mutation {
-	PP_Cost_CollectorSave(entity: PP_Cost_CollectorInput!): PP_Cost_Collector!
-	PP_Cost_CollectorSaveMany(entities: [PP_Cost_CollectorInput!]!): [PP_Cost_Collector!]!
-	PP_Cost_CollectorDelete(uuids: [String!]!): Boolean!
+	PP_Cost_CollectorSave(Entity: PP_Cost_CollectorInput!): PP_Cost_Collector!
+	PP_Cost_CollectorSaveMany(Entities: [PP_Cost_CollectorInput!]!): [PP_Cost_Collector!]!
+	PP_Cost_CollectorDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_Cost_CollectorConnection {
-	results: [PP_Cost_Collector!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_Cost_Collector!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_Cost_Collector {
@@ -70,8 +70,7 @@ type PP_Cost_Collector {
 	MovementQty: BigDecimal!
 	# Posting status
 	Posted: Boolean!
-	UUID: ID!
-	PP_Cost_Collector_UU: String
+	UU: ID!
 	PP_Order_BOMLine: PP_Order_BOMLine
 	# Manufacturing Order
 	PP_Order: PP_Order!
@@ -149,8 +148,7 @@ input PP_Cost_CollectorInput {
 	MovementQty: BigDecimal
 	# Posting status
 	Posted: Boolean
-	UUID: ID
-	PP_Cost_Collector_UU: String
+	UU: ID
 	PP_Order_BOMLine: ForeignEntityInput
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput

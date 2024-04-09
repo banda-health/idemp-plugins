@@ -21,16 +21,16 @@ public class X_R_RequestProcessorLogMutation extends POMutation implements Graph
 		return X_R_RequestProcessorLogInput.Table_Name;
 	}
 
-	public MRequestProcessorLog R_RequestProcessorLogSave(I_R_RequestProcessorLogInput entity, DataFetchingEnvironment environment) {
-		return (MRequestProcessorLog) super.save((X_R_RequestProcessorLogInput) entity, environment);
+	public MRequestProcessorLog R_RequestProcessorLogSave(I_R_RequestProcessorLogInput Entity, DataFetchingEnvironment environment) {
+		return (MRequestProcessorLog) super.save((X_R_RequestProcessorLogInput) Entity, environment);
 	}
 
-	public List<MRequestProcessorLog> R_RequestProcessorLogSaveMany(List<I_R_RequestProcessorLogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_RequestProcessorLogInput) entity).collect(Collectors.toList()),
+	public List<MRequestProcessorLog> R_RequestProcessorLogSaveMany(List<I_R_RequestProcessorLogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_RequestProcessorLogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRequestProcessorLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_RequestProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_RequestProcessorLogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

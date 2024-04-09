@@ -17,8 +17,8 @@ public class X_AD_ReportView_ColQuery extends POQuery<X_AD_ReportView_Col> imple
 		return X_AD_ReportView_Col.Table_Name;
 	}
 
-	public Connection<X_AD_ReportView_Col> AD_ReportView_ColGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_ReportView_Col> AD_ReportView_ColGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

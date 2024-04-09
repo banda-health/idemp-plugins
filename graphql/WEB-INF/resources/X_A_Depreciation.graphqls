@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_DepreciationGet(page: Int, size: Int, sort: String, filter: String): A_DepreciationConnection!
+	A_DepreciationGet(Page: Int, Size: Int, Sort: String, Filter: String): A_DepreciationConnection!
 }
 
 extend type Mutation {
-	A_DepreciationSave(entity: A_DepreciationInput!): A_Depreciation!
-	A_DepreciationSaveMany(entities: [A_DepreciationInput!]!): [A_Depreciation!]!
-	A_DepreciationDelete(uuids: [String!]!): Boolean!
+	A_DepreciationSave(Entity: A_DepreciationInput!): A_Depreciation!
+	A_DepreciationSaveMany(Entities: [A_DepreciationInput!]!): [A_Depreciation!]!
+	A_DepreciationDelete(UUs: [String!]!): Boolean!
 }
 
 type A_DepreciationConnection {
-	results: [A_Depreciation!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Depreciation!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Depreciation {
-	UUID: ID!
-	A_Depreciation_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -44,8 +43,7 @@ type A_Depreciation {
 }
 
 input A_DepreciationInput {
-	UUID: ID
-	A_Depreciation_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	DepreciationType: String

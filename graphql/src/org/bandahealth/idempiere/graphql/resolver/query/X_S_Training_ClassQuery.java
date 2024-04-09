@@ -17,8 +17,8 @@ public class X_S_Training_ClassQuery extends POQuery<X_S_Training_Class> impleme
 		return X_S_Training_Class.Table_Name;
 	}
 
-	public Connection<X_S_Training_Class> S_Training_ClassGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_S_Training_Class> S_Training_ClassGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

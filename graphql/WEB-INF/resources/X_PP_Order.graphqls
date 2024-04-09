@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_OrderGet(page: Int, size: Int, sort: String, filter: String): PP_OrderConnection!
+	PP_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_OrderConnection!
 }
 
 extend type Mutation {
-	PP_OrderSave(entity: PP_OrderInput!): PP_Order!
-	PP_OrderSaveMany(entities: [PP_OrderInput!]!): [PP_Order!]!
-	PP_OrderDelete(uuids: [String!]!): Boolean!
+	PP_OrderSave(Entity: PP_OrderInput!): PP_Order!
+	PP_OrderSaveMany(Entities: [PP_OrderInput!]!): [PP_Order!]!
+	PP_OrderDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_OrderConnection {
-	results: [PP_Order!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_Order!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_Order {
@@ -97,8 +97,7 @@ type PP_Order {
 	Planner: AD_User
 	# Posting status
 	Posted: Boolean!
-	UUID: ID!
-	PP_Order_UU: String
+	UU: ID!
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM!
 	# Priority of a document
@@ -214,8 +213,7 @@ input PP_OrderInput {
 	Planner: ForeignEntityInput
 	# Posting status
 	Posted: Boolean
-	UUID: ID
-	PP_Order_UU: String
+	UU: ID
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
 	# Priority of a document

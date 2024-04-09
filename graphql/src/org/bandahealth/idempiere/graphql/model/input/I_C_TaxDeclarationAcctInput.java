@@ -53,18 +53,18 @@ public interface I_C_TaxDeclarationAcctInput extends I_C_TaxDeclarationAcct {
 	ForeignEntityInput C_TaxDeclaration();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set Fact_Acct.

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_OrderGet(page: Int, size: Int, sort: String, filter: String): I_OrderConnection!
+	I_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): I_OrderConnection!
 }
 
 extend type Mutation {
-	I_OrderSave(entity: I_OrderInput!): I_Order!
-	I_OrderSaveMany(entities: [I_OrderInput!]!): [I_Order!]!
-	I_OrderDelete(uuids: [String!]!): Boolean!
+	I_OrderSave(Entity: I_OrderInput!): I_Order!
+	I_OrderSaveMany(Entities: [I_OrderInput!]!): [I_Order!]!
+	I_OrderDelete(UUs: [String!]!): Boolean!
 }
 
 type I_OrderConnection {
-	results: [I_Order!]!
-	pagingInfo: PagingInfo!
+	Results: [I_Order!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_Order {
@@ -97,8 +97,7 @@ type I_Order {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	UUID: ID!
-	I_Order_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This is a Sales Transaction
@@ -223,8 +222,7 @@ input I_OrderInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	UUID: ID
-	I_Order_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a Sales Transaction

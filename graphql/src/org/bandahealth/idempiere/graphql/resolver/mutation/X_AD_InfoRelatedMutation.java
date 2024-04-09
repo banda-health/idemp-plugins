@@ -21,16 +21,16 @@ public class X_AD_InfoRelatedMutation extends POMutation implements GraphQLMutat
 		return X_AD_InfoRelatedInput.Table_Name;
 	}
 
-	public X_AD_InfoRelated AD_InfoRelatedSave(I_AD_InfoRelatedInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_InfoRelated) super.save((X_AD_InfoRelatedInput) entity, environment);
+	public X_AD_InfoRelated AD_InfoRelatedSave(I_AD_InfoRelatedInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_InfoRelated) super.save((X_AD_InfoRelatedInput) Entity, environment);
 	}
 
-	public List<X_AD_InfoRelated> AD_InfoRelatedSaveMany(List<I_AD_InfoRelatedInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_InfoRelatedInput) entity).collect(Collectors.toList()),
+	public List<X_AD_InfoRelated> AD_InfoRelatedSaveMany(List<I_AD_InfoRelatedInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_InfoRelatedInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_InfoRelated) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_InfoRelatedDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_InfoRelatedDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

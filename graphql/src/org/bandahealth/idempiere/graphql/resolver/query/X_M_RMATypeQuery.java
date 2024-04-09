@@ -17,8 +17,8 @@ public class X_M_RMATypeQuery extends POQuery<X_M_RMAType> implements GraphQLQue
 		return X_M_RMAType.Table_Name;
 	}
 
-	public Connection<X_M_RMAType> M_RMATypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_RMAType> M_RMATypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

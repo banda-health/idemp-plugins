@@ -17,8 +17,8 @@ public class X_B_BuyerFundsQuery extends POQuery<X_B_BuyerFunds> implements Grap
 		return X_B_BuyerFunds.Table_Name;
 	}
 
-	public Connection<X_B_BuyerFunds> B_BuyerFundsGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_B_BuyerFunds> B_BuyerFundsGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

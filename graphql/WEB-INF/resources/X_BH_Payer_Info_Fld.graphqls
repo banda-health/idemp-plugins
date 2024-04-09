@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_Payer_Info_FldGet(page: Int, size: Int, sort: String, filter: String): BH_Payer_Info_FldConnection!
+	BH_Payer_Info_FldGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Payer_Info_FldConnection!
 }
 
 extend type Mutation {
-	BH_Payer_Info_FldSave(entity: BH_Payer_Info_FldInput!): BH_Payer_Info_Fld!
-	BH_Payer_Info_FldSaveMany(entities: [BH_Payer_Info_FldInput!]!): [BH_Payer_Info_Fld!]!
-	BH_Payer_Info_FldDelete(uuids: [String!]!): Boolean!
+	BH_Payer_Info_FldSave(Entity: BH_Payer_Info_FldInput!): BH_Payer_Info_Fld!
+	BH_Payer_Info_FldSaveMany(Entities: [BH_Payer_Info_FldInput!]!): [BH_Payer_Info_Fld!]!
+	BH_Payer_Info_FldDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_Payer_Info_FldConnection {
-	results: [BH_Payer_Info_Fld!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_Payer_Info_Fld!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_Payer_Info_Fld {
@@ -23,8 +23,7 @@ type BH_Payer_Info_Fld {
 	AD_Org: AD_Org!
 	BH_FillFromPatient: Boolean!
 	BH_Payer: C_BPartner!
-	UUID: ID!
-	BH_Payer_Info_Fld_UU: String
+	UU: ID!
 	BH_PayerInfoFieldDataType: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -49,8 +48,7 @@ input BH_Payer_Info_FldInput {
 	AD_Org: ForeignEntityInput
 	BH_FillFromPatient: Boolean
 	BH_Payer: ForeignEntityInput
-	UUID: ID
-	BH_Payer_Info_Fld_UU: String
+	UU: ID
 	BH_PayerInfoFieldDataType: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ShipperLabelsGet(page: Int, size: Int, sort: String, filter: String): M_ShipperLabelsConnection!
+	M_ShipperLabelsGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperLabelsConnection!
 }
 
 extend type Mutation {
-	M_ShipperLabelsSave(entity: M_ShipperLabelsInput!): M_ShipperLabels!
-	M_ShipperLabelsSaveMany(entities: [M_ShipperLabelsInput!]!): [M_ShipperLabels!]!
-	M_ShipperLabelsDelete(uuids: [String!]!): Boolean!
+	M_ShipperLabelsSave(Entity: M_ShipperLabelsInput!): M_ShipperLabels!
+	M_ShipperLabelsSaveMany(Entities: [M_ShipperLabelsInput!]!): [M_ShipperLabels!]!
+	M_ShipperLabelsDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ShipperLabelsConnection {
-	results: [M_ShipperLabels!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ShipperLabels!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ShipperLabels {
@@ -32,8 +32,7 @@ type M_ShipperLabels {
 	LabelPrintMethod: AD_Ref_List
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper!
-	UUID: ID!
-	M_ShipperLabels_UU: String
+	UU: ID!
 	M_ShipperLabelsCfg: M_ShipperLabelsCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -53,8 +52,7 @@ input M_ShipperLabelsInput {
 	LabelPrintMethod: AD_Ref_ListInput
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
-	UUID: ID
-	M_ShipperLabels_UU: String
+	UU: ID
 	M_ShipperLabelsCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

@@ -21,16 +21,16 @@ public class X_T_DistributionRunDetailMutation extends POMutation implements Gra
 		return X_T_DistributionRunDetailInput.Table_Name;
 	}
 
-	public MDistributionRunDetail T_DistributionRunDetailSave(I_T_DistributionRunDetailInput entity, DataFetchingEnvironment environment) {
-		return (MDistributionRunDetail) super.save((X_T_DistributionRunDetailInput) entity, environment);
+	public MDistributionRunDetail T_DistributionRunDetailSave(I_T_DistributionRunDetailInput Entity, DataFetchingEnvironment environment) {
+		return (MDistributionRunDetail) super.save((X_T_DistributionRunDetailInput) Entity, environment);
 	}
 
-	public List<MDistributionRunDetail> T_DistributionRunDetailSaveMany(List<I_T_DistributionRunDetailInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_T_DistributionRunDetailInput) entity).collect(Collectors.toList()),
+	public List<MDistributionRunDetail> T_DistributionRunDetailSaveMany(List<I_T_DistributionRunDetailInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_T_DistributionRunDetailInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDistributionRunDetail) entity).collect(Collectors.toList());
 	}
 
-	public boolean T_DistributionRunDetailDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean T_DistributionRunDetailDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

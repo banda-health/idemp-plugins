@@ -17,8 +17,8 @@ public class X_C_ChargeQuery extends POQuery<MCharge_BH> implements GraphQLQuery
 		return MCharge_BH.Table_Name;
 	}
 
-	public Connection<MCharge_BH> C_ChargeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCharge_BH> C_ChargeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

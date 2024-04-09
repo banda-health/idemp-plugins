@@ -33,12 +33,12 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_PackageLine_UU to fetch this entity from the DB
+	 * @param UU The M_PackageLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_PackageLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_PackageLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -94,11 +94,11 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
+						"Could not find entity in table M_InOutLine with UU " + M_InOutLine.getUU());
 			}
 		} else {
 			this.setM_InOutLine_ID(0);
@@ -131,11 +131,11 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 			MPackage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Package", "M_Package_UU=?", get_TrxName())
-							.setParameters(M_Package.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Package.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Package_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Package with UUID " + M_Package.getUUID());
+						"Could not find entity in table M_Package with UU " + M_Package.getUU());
 			}
 		} else {
 			this.setM_Package_ID(0);
@@ -164,20 +164,20 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_PackageLine_UU(UUID);
+	public void setUU(String UU) {
+		setM_PackageLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_PackageLine_UU();
 	}
 
@@ -194,11 +194,11 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 			MPackageMPS foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PackageMPS", "M_PackageMPS_UU=?", get_TrxName())
-							.setParameters(M_PackageMPS.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PackageMPS.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PackageMPS_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PackageMPS with UUID " + M_PackageMPS.getUUID());
+						"Could not find entity in table M_PackageMPS with UU " + M_PackageMPS.getUU());
 			}
 		} else {
 			this.setM_PackageMPS_ID(0);
@@ -228,11 +228,11 @@ public class X_M_PackageLineInput extends MPackageLine implements I_M_PackageLin
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);

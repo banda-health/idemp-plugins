@@ -21,16 +21,16 @@ public class X_C_SubAcctMutation extends POMutation implements GraphQLMutationRe
 		return X_C_SubAcctInput.Table_Name;
 	}
 
-	public X_C_SubAcct C_SubAcctSave(I_C_SubAcctInput entity, DataFetchingEnvironment environment) {
-		return (X_C_SubAcct) super.save((X_C_SubAcctInput) entity, environment);
+	public X_C_SubAcct C_SubAcctSave(I_C_SubAcctInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_SubAcct) super.save((X_C_SubAcctInput) Entity, environment);
 	}
 
-	public List<X_C_SubAcct> C_SubAcctSaveMany(List<I_C_SubAcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_SubAcctInput) entity).collect(Collectors.toList()),
+	public List<X_C_SubAcct> C_SubAcctSaveMany(List<I_C_SubAcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_SubAcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_SubAcct) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_SubAcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_SubAcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_A_Asset_Info_OthMutation extends POMutation implements GraphQLMut
 		return X_A_Asset_Info_OthInput.Table_Name;
 	}
 
-	public X_A_Asset_Info_Oth A_Asset_Info_OthSave(I_A_Asset_Info_OthInput entity, DataFetchingEnvironment environment) {
-		return (X_A_Asset_Info_Oth) super.save((X_A_Asset_Info_OthInput) entity, environment);
+	public X_A_Asset_Info_Oth A_Asset_Info_OthSave(I_A_Asset_Info_OthInput Entity, DataFetchingEnvironment environment) {
+		return (X_A_Asset_Info_Oth) super.save((X_A_Asset_Info_OthInput) Entity, environment);
 	}
 
-	public List<X_A_Asset_Info_Oth> A_Asset_Info_OthSaveMany(List<I_A_Asset_Info_OthInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_Info_OthInput) entity).collect(Collectors.toList()),
+	public List<X_A_Asset_Info_Oth> A_Asset_Info_OthSaveMany(List<I_A_Asset_Info_OthInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_Info_OthInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_A_Asset_Info_Oth) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_Info_OthDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_Info_OthDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

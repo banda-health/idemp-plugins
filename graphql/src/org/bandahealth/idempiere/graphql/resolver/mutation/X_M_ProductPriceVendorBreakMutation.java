@@ -21,16 +21,16 @@ public class X_M_ProductPriceVendorBreakMutation extends POMutation implements G
 		return X_M_ProductPriceVendorBreakInput.Table_Name;
 	}
 
-	public X_M_ProductPriceVendorBreak M_ProductPriceVendorBreakSave(I_M_ProductPriceVendorBreakInput entity, DataFetchingEnvironment environment) {
-		return (X_M_ProductPriceVendorBreak) super.save((X_M_ProductPriceVendorBreakInput) entity, environment);
+	public X_M_ProductPriceVendorBreak M_ProductPriceVendorBreakSave(I_M_ProductPriceVendorBreakInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_ProductPriceVendorBreak) super.save((X_M_ProductPriceVendorBreakInput) Entity, environment);
 	}
 
-	public List<X_M_ProductPriceVendorBreak> M_ProductPriceVendorBreakSaveMany(List<I_M_ProductPriceVendorBreakInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ProductPriceVendorBreakInput) entity).collect(Collectors.toList()),
+	public List<X_M_ProductPriceVendorBreak> M_ProductPriceVendorBreakSaveMany(List<I_M_ProductPriceVendorBreakInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ProductPriceVendorBreakInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_ProductPriceVendorBreak) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ProductPriceVendorBreakDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ProductPriceVendorBreakDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

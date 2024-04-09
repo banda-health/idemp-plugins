@@ -33,12 +33,12 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_PromotionDistribution_UU to fetch this entity from the DB
+	 * @param UU The M_PromotionDistribution_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_PromotionDistributionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_PromotionDistributionInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DistributionSorting.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DistributionSorting.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDistributionSorting(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DistributionSorting.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DistributionSorting.getUU());
 			}
 		} else {
 			this.setDistributionSorting(null);
@@ -125,11 +125,11 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DistributionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DistributionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDistributionType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DistributionType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DistributionType.getUU());
 			}
 		} else {
 			this.setDistributionType(null);
@@ -162,11 +162,11 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 			X_M_Promotion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Promotion", "M_Promotion_UU=?", get_TrxName())
-							.setParameters(M_Promotion.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Promotion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Promotion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Promotion with UUID " + M_Promotion.getUUID());
+						"Could not find entity in table M_Promotion with UU " + M_Promotion.getUU());
 			}
 		} else {
 			this.setM_Promotion_ID(0);
@@ -195,20 +195,20 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_PromotionDistribution_UU(UUID);
+	public void setUU(String UU) {
+		setM_PromotionDistribution_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_PromotionDistribution_UU();
 	}
 
@@ -225,11 +225,11 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 			X_M_PromotionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PromotionLine", "M_PromotionLine_UU=?", get_TrxName())
-							.setParameters(M_PromotionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PromotionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PromotionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PromotionLine with UUID " + M_PromotionLine.getUUID());
+						"Could not find entity in table M_PromotionLine with UU " + M_PromotionLine.getUU());
 			}
 		} else {
 			this.setM_PromotionLine_ID(0);
@@ -259,11 +259,11 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Operation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Operation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOperation(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Operation.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + Operation.getUU());
 			}
 		} else {
 			this.setOperation(null);

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PackageMPSGet(page: Int, size: Int, sort: String, filter: String): M_PackageMPSConnection!
+	M_PackageMPSGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PackageMPSConnection!
 }
 
 extend type Mutation {
-	M_PackageMPSSave(entity: M_PackageMPSInput!): M_PackageMPS!
-	M_PackageMPSSaveMany(entities: [M_PackageMPSInput!]!): [M_PackageMPS!]!
-	M_PackageMPSDelete(uuids: [String!]!): Boolean!
+	M_PackageMPSSave(Entity: M_PackageMPSInput!): M_PackageMPS!
+	M_PackageMPSSaveMany(Entities: [M_PackageMPSInput!]!): [M_PackageMPS!]!
+	M_PackageMPSDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PackageMPSConnection {
-	results: [M_PackageMPS!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PackageMPS!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PackageMPS {
@@ -40,8 +40,7 @@ type M_PackageMPS {
 	Length: BigDecimal
 	# Shipment Package
 	M_Package: M_Package!
-	UUID: ID!
-	M_PackageMPS_UU: String
+	UU: ID!
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal
@@ -77,8 +76,7 @@ input M_PackageMPSInput {
 	Length: BigDecimal
 	# Shipment Package
 	M_Package: ForeignEntityInput
-	UUID: ID
-	M_PackageMPS_UU: String
+	UU: ID
 	MasterTrackingNo: String
 	# Price
 	Price: BigDecimal

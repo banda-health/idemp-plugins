@@ -21,16 +21,16 @@ public class X_C_OrderTaxMutation extends POMutation implements GraphQLMutationR
 		return X_C_OrderTaxInput.Table_Name;
 	}
 
-	public MOrderTax C_OrderTaxSave(I_C_OrderTaxInput entity, DataFetchingEnvironment environment) {
-		return (MOrderTax) super.save((X_C_OrderTaxInput) entity, environment);
+	public MOrderTax C_OrderTaxSave(I_C_OrderTaxInput Entity, DataFetchingEnvironment environment) {
+		return (MOrderTax) super.save((X_C_OrderTaxInput) Entity, environment);
 	}
 
-	public List<MOrderTax> C_OrderTaxSaveMany(List<I_C_OrderTaxInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_OrderTaxInput) entity).collect(Collectors.toList()),
+	public List<MOrderTax> C_OrderTaxSaveMany(List<I_C_OrderTaxInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OrderTaxInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MOrderTax) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_OrderTaxDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_OrderTaxDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

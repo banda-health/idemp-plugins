@@ -17,8 +17,8 @@ public class X_ASP_Ref_ListQuery extends POQuery<X_ASP_Ref_List> implements Grap
 		return X_ASP_Ref_List.Table_Name;
 	}
 
-	public Connection<X_ASP_Ref_List> ASP_Ref_ListGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_ASP_Ref_List> ASP_Ref_ListGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

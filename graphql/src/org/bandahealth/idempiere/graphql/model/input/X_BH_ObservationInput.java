@@ -29,12 +29,12 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The BH_Observation_UU to fetch this entity from the DB
+	 * @param UU The BH_Observation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_ObservationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_ObservationInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 			MField_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Field", "AD_Field_UU=?", get_TrxName())
-							.setParameters(AD_Field.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Field.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Field_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Field with UUID " + AD_Field.getUUID());
+						"Could not find entity in table AD_Field with UU " + AD_Field.getUU());
 			}
 		} else {
 			this.setAD_Field_ID(0);
@@ -90,11 +90,11 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -127,11 +127,11 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 			MBHEncounter foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Encounter", "BH_Encounter_UU=?", get_TrxName())
-							.setParameters(BH_Encounter.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Encounter.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Encounter_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table BH_Encounter with UUID " + BH_Encounter.getUUID());
+						"Could not find entity in table BH_Encounter with UU " + BH_Encounter.getUU());
 			}
 		} else {
 			this.setBH_Encounter_ID(0);
@@ -160,20 +160,20 @@ public class X_BH_ObservationInput extends MBHObservation implements I_BH_Observ
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setBH_Observation_UU(UUID);
+	public void setUU(String UU) {
+		setBH_Observation_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getBH_Observation_UU();
 	}
 }

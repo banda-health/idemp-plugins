@@ -21,16 +21,16 @@ public class X_M_AttributeSetMutation extends POMutation implements GraphQLMutat
 		return X_M_AttributeSetInput.Table_Name;
 	}
 
-	public MAttributeSet_BH M_AttributeSetSave(I_M_AttributeSetInput entity, DataFetchingEnvironment environment) {
-		return (MAttributeSet_BH) super.save((X_M_AttributeSetInput) entity, environment);
+	public MAttributeSet_BH M_AttributeSetSave(I_M_AttributeSetInput Entity, DataFetchingEnvironment environment) {
+		return (MAttributeSet_BH) super.save((X_M_AttributeSetInput) Entity, environment);
 	}
 
-	public List<MAttributeSet_BH> M_AttributeSetSaveMany(List<I_M_AttributeSetInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_AttributeSetInput) entity).collect(Collectors.toList()),
+	public List<MAttributeSet_BH> M_AttributeSetSaveMany(List<I_M_AttributeSetInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_AttributeSetInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAttributeSet_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_AttributeSetDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_AttributeSetDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_RV_WarehousePriceQuery extends POQuery<MWarehousePrice> implement
 		return MWarehousePrice.Table_Name;
 	}
 
-	public Connection<MWarehousePrice> RV_WarehousePriceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MWarehousePrice> RV_WarehousePriceGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

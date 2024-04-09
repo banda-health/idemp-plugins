@@ -17,8 +17,8 @@ public class X_M_Product_CategoryQuery extends POQuery<MProductCategory_BH> impl
 		return MProductCategory_BH.Table_Name;
 	}
 
-	public Connection<MProductCategory_BH> M_Product_CategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MProductCategory_BH> M_Product_CategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

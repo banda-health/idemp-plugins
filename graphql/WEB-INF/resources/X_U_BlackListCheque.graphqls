@@ -1,0 +1,47 @@
+# Generated Schema for U_BlackListCheque - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	U_BlackListChequeGet(Page: Int, Size: Int, Sort: String, Filter: String): U_BlackListChequeConnection!
+}
+
+extend type Mutation {
+	U_BlackListChequeSave(Entity: U_BlackListChequeInput!): U_BlackListCheque!
+	U_BlackListChequeSaveMany(Entities: [U_BlackListChequeInput!]!): [U_BlackListCheque!]!
+	U_BlackListChequeDelete(UUs: [String!]!): Boolean!
+}
+
+type U_BlackListChequeConnection {
+	Results: [U_BlackListCheque!]!
+	PagingInfo: PagingInfo!
+}
+
+type U_BlackListCheque {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BankName: String!
+	ChequeNo: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input U_BlackListChequeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BankName: String
+	ChequeNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+}

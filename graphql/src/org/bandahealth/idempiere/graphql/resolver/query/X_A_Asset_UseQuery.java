@@ -17,8 +17,8 @@ public class X_A_Asset_UseQuery extends POQuery<MAssetUse> implements GraphQLQue
 		return MAssetUse.Table_Name;
 	}
 
-	public Connection<MAssetUse> A_Asset_UseGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetUse> A_Asset_UseGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

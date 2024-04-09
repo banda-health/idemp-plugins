@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Package_UUID_MapGet(page: Int, size: Int, sort: String, filter: String): AD_Package_UUID_MapConnection!
+	AD_Package_UUID_MapGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_UUID_MapConnection!
 }
 
 extend type Mutation {
-	AD_Package_UUID_MapSave(entity: AD_Package_UUID_MapInput!): AD_Package_UUID_Map!
-	AD_Package_UUID_MapSaveMany(entities: [AD_Package_UUID_MapInput!]!): [AD_Package_UUID_Map!]!
-	AD_Package_UUID_MapDelete(uuids: [String!]!): Boolean!
+	AD_Package_UUID_MapSave(Entity: AD_Package_UUID_MapInput!): AD_Package_UUID_Map!
+	AD_Package_UUID_MapSaveMany(Entities: [AD_Package_UUID_MapInput!]!): [AD_Package_UUID_Map!]!
+	AD_Package_UUID_MapDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Package_UUID_MapConnection {
-	results: [AD_Package_UUID_Map!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Package_UUID_Map!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Package_UUID_Map {
@@ -21,8 +21,7 @@ type AD_Package_UUID_Map {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Package_UUID_Map_UU: String!
+	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -44,8 +43,7 @@ type AD_Package_UUID_Map {
 input AD_Package_UUID_MapInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Package_UUID_Map_UU: String
+	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# The record is active in the system

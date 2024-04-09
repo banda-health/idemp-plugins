@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ViewColumnGet(page: Int, size: Int, sort: String, filter: String): AD_ViewColumnConnection!
+	AD_ViewColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ViewColumnConnection!
 }
 
 extend type Mutation {
-	AD_ViewColumnSave(entity: AD_ViewColumnInput!): AD_ViewColumn!
-	AD_ViewColumnSaveMany(entities: [AD_ViewColumnInput!]!): [AD_ViewColumn!]!
-	AD_ViewColumnDelete(uuids: [String!]!): Boolean!
+	AD_ViewColumnSave(Entity: AD_ViewColumnInput!): AD_ViewColumn!
+	AD_ViewColumnSaveMany(Entities: [AD_ViewColumnInput!]!): [AD_ViewColumn!]!
+	AD_ViewColumnDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ViewColumnConnection {
-	results: [AD_ViewColumn!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ViewColumn!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ViewColumn {
@@ -21,8 +21,7 @@ type AD_ViewColumn {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_ViewColumn_UU: String
+	UU: ID!
 	AD_ViewComponent: AD_ViewComponent!
 	# Name of the column in the database
 	ColumnName: String!
@@ -52,8 +51,7 @@ type AD_ViewColumn {
 input AD_ViewColumnInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_ViewColumn_UU: String
+	UU: ID
 	AD_ViewComponent: ForeignEntityInput
 	# Name of the column in the database
 	ColumnName: String

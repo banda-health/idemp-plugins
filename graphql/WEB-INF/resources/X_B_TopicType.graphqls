@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	B_TopicTypeGet(page: Int, size: Int, sort: String, filter: String): B_TopicTypeConnection!
+	B_TopicTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): B_TopicTypeConnection!
 }
 
 extend type Mutation {
-	B_TopicTypeSave(entity: B_TopicTypeInput!): B_TopicType!
-	B_TopicTypeSaveMany(entities: [B_TopicTypeInput!]!): [B_TopicType!]!
-	B_TopicTypeDelete(uuids: [String!]!): Boolean!
+	B_TopicTypeSave(Entity: B_TopicTypeInput!): B_TopicType!
+	B_TopicTypeSaveMany(Entities: [B_TopicTypeInput!]!): [B_TopicType!]!
+	B_TopicTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type B_TopicTypeConnection {
-	results: [B_TopicType!]!
-	pagingInfo: PagingInfo!
+	Results: [B_TopicType!]!
+	PagingInfo: PagingInfo!
 }
 
 type B_TopicType {
@@ -22,8 +22,7 @@ type B_TopicType {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AuctionType: String!
-	UUID: ID!
-	B_TopicType_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,8 +51,7 @@ input B_TopicTypeInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AuctionType: String
-	UUID: ID
-	B_TopicType_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

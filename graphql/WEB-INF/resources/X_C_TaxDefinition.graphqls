@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaxDefinitionGet(page: Int, size: Int, sort: String, filter: String): C_TaxDefinitionConnection!
+	C_TaxDefinitionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxDefinitionConnection!
 }
 
 extend type Mutation {
-	C_TaxDefinitionSave(entity: C_TaxDefinitionInput!): C_TaxDefinition!
-	C_TaxDefinitionSaveMany(entities: [C_TaxDefinitionInput!]!): [C_TaxDefinition!]!
-	C_TaxDefinitionDelete(uuids: [String!]!): Boolean!
+	C_TaxDefinitionSave(Entity: C_TaxDefinitionInput!): C_TaxDefinition!
+	C_TaxDefinitionSaveMany(Entities: [C_TaxDefinitionInput!]!): [C_TaxDefinition!]!
+	C_TaxDefinitionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaxDefinitionConnection {
-	results: [C_TaxDefinition!]!
-	pagingInfo: PagingInfo!
+	Results: [C_TaxDefinition!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_TaxDefinition {
@@ -32,8 +32,7 @@ type C_TaxDefinition {
 	C_TaxBase: C_TaxBase
 	# Tax Category
 	C_TaxCategory: C_TaxCategory
-	UUID: ID!
-	C_TaxDefinition_UU: String
+	UU: ID!
 	C_TaxGroup: C_TaxGroup
 	C_TaxType: C_TaxType
 	# Date this record was created
@@ -84,8 +83,7 @@ input C_TaxDefinitionInput {
 	C_TaxBase: ForeignEntityInput
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput
-	UUID: ID
-	C_TaxDefinition_UU: String
+	UU: ID
 	C_TaxGroup: ForeignEntityInput
 	C_TaxType: ForeignEntityInput
 	# Optional short description of the record

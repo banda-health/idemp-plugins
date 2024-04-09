@@ -17,8 +17,8 @@ public class X_PA_SLA_CriteriaQuery extends POQuery<X_PA_SLA_Criteria> implement
 		return X_PA_SLA_Criteria.Table_Name;
 	}
 
-	public Connection<X_PA_SLA_Criteria> PA_SLA_CriteriaGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PA_SLA_Criteria> PA_SLA_CriteriaGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

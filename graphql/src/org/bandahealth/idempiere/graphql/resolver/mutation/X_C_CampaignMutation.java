@@ -21,16 +21,16 @@ public class X_C_CampaignMutation extends POMutation implements GraphQLMutationR
 		return X_C_CampaignInput.Table_Name;
 	}
 
-	public MCampaign C_CampaignSave(I_C_CampaignInput entity, DataFetchingEnvironment environment) {
-		return (MCampaign) super.save((X_C_CampaignInput) entity, environment);
+	public MCampaign C_CampaignSave(I_C_CampaignInput Entity, DataFetchingEnvironment environment) {
+		return (MCampaign) super.save((X_C_CampaignInput) Entity, environment);
 	}
 
-	public List<MCampaign> C_CampaignSaveMany(List<I_C_CampaignInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CampaignInput) entity).collect(Collectors.toList()),
+	public List<MCampaign> C_CampaignSaveMany(List<I_C_CampaignInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CampaignInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCampaign) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CampaignDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CampaignDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

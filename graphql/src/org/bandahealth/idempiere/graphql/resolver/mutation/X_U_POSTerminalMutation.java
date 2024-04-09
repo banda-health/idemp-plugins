@@ -21,16 +21,16 @@ public class X_U_POSTerminalMutation extends POMutation implements GraphQLMutati
 		return X_U_POSTerminalInput.Table_Name;
 	}
 
-	public MPOSTerminal U_POSTerminalSave(I_U_POSTerminalInput entity, DataFetchingEnvironment environment) {
-		return (MPOSTerminal) super.save((X_U_POSTerminalInput) entity, environment);
+	public MPOSTerminal U_POSTerminalSave(I_U_POSTerminalInput Entity, DataFetchingEnvironment environment) {
+		return (MPOSTerminal) super.save((X_U_POSTerminalInput) Entity, environment);
 	}
 
-	public List<MPOSTerminal> U_POSTerminalSaveMany(List<I_U_POSTerminalInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_U_POSTerminalInput) entity).collect(Collectors.toList()),
+	public List<MPOSTerminal> U_POSTerminalSaveMany(List<I_U_POSTerminalInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_U_POSTerminalInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPOSTerminal) entity).collect(Collectors.toList());
 	}
 
-	public boolean U_POSTerminalDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean U_POSTerminalDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

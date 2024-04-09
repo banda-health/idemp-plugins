@@ -21,16 +21,16 @@ public class X_A_Asset_UseMutation extends POMutation implements GraphQLMutation
 		return X_A_Asset_UseInput.Table_Name;
 	}
 
-	public MAssetUse A_Asset_UseSave(I_A_Asset_UseInput entity, DataFetchingEnvironment environment) {
-		return (MAssetUse) super.save((X_A_Asset_UseInput) entity, environment);
+	public MAssetUse A_Asset_UseSave(I_A_Asset_UseInput Entity, DataFetchingEnvironment environment) {
+		return (MAssetUse) super.save((X_A_Asset_UseInput) Entity, environment);
 	}
 
-	public List<MAssetUse> A_Asset_UseSaveMany(List<I_A_Asset_UseInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_UseInput) entity).collect(Collectors.toList()),
+	public List<MAssetUse> A_Asset_UseSaveMany(List<I_A_Asset_UseInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_UseInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAssetUse) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_UseDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_UseDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

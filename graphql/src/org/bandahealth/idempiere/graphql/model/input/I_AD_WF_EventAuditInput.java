@@ -53,18 +53,18 @@ public interface I_AD_WF_EventAuditInput extends I_AD_WF_EventAudit {
 	ForeignEntityInput AD_User();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set AD_WF_Node.

@@ -17,8 +17,8 @@ public class X_M_ProductionLineMAQuery extends POQuery<MProductionLineMA> implem
 		return MProductionLineMA.Table_Name;
 	}
 
-	public Connection<MProductionLineMA> M_ProductionLineMAGet(int page, int pageSize, String sort, String filter,
+	public Connection<MProductionLineMA> M_ProductionLineMAGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

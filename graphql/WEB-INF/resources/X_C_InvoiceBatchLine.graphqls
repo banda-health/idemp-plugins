@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_InvoiceBatchLineGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceBatchLineConnection!
+	C_InvoiceBatchLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceBatchLineConnection!
 }
 
 extend type Mutation {
-	C_InvoiceBatchLineSave(entity: C_InvoiceBatchLineInput!): C_InvoiceBatchLine!
-	C_InvoiceBatchLineSaveMany(entities: [C_InvoiceBatchLineInput!]!): [C_InvoiceBatchLine!]!
-	C_InvoiceBatchLineDelete(uuids: [String!]!): Boolean!
+	C_InvoiceBatchLineSave(Entity: C_InvoiceBatchLineInput!): C_InvoiceBatchLine!
+	C_InvoiceBatchLineSaveMany(Entities: [C_InvoiceBatchLineInput!]!): [C_InvoiceBatchLine!]!
+	C_InvoiceBatchLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_InvoiceBatchLineConnection {
-	results: [C_InvoiceBatchLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_InvoiceBatchLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_InvoiceBatchLine {
@@ -37,8 +37,7 @@ type C_InvoiceBatchLine {
 	C_Invoice: C_Invoice
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: C_InvoiceBatch!
-	UUID: ID!
-	C_InvoiceBatchLine_UU: String
+	UU: ID!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine
 	# Financial Project
@@ -104,8 +103,7 @@ input C_InvoiceBatchLineInput {
 	C_Invoice: ForeignEntityInput
 	# Expense Invoice Batch Header
 	C_InvoiceBatch: ForeignEntityInput
-	UUID: ID
-	C_InvoiceBatchLine_UU: String
+	UU: ID
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
 	# Financial Project

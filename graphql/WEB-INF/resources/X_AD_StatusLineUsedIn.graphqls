@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_StatusLineUsedInGet(page: Int, size: Int, sort: String, filter: String): AD_StatusLineUsedInConnection!
+	AD_StatusLineUsedInGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StatusLineUsedInConnection!
 }
 
 extend type Mutation {
-	AD_StatusLineUsedInSave(entity: AD_StatusLineUsedInInput!): AD_StatusLineUsedIn!
-	AD_StatusLineUsedInSaveMany(entities: [AD_StatusLineUsedInInput!]!): [AD_StatusLineUsedIn!]!
-	AD_StatusLineUsedInDelete(uuids: [String!]!): Boolean!
+	AD_StatusLineUsedInSave(Entity: AD_StatusLineUsedInInput!): AD_StatusLineUsedIn!
+	AD_StatusLineUsedInSaveMany(Entities: [AD_StatusLineUsedInInput!]!): [AD_StatusLineUsedIn!]!
+	AD_StatusLineUsedInDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_StatusLineUsedInConnection {
-	results: [AD_StatusLineUsedIn!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_StatusLineUsedIn!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_StatusLineUsedIn {
@@ -24,8 +24,7 @@ type AD_StatusLineUsedIn {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_StatusLine: AD_StatusLine!
-	UUID: ID!
-	AD_StatusLineUsedIn_UU: String
+	UU: ID!
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	# Database Table information
@@ -56,8 +55,7 @@ input AD_StatusLineUsedInInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_StatusLine: ForeignEntityInput
-	UUID: ID
-	AD_StatusLineUsedIn_UU: String
+	UU: ID
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	# Database Table information

@@ -21,16 +21,16 @@ public class X_EXP_FormatLineMutation extends POMutation implements GraphQLMutat
 		return X_EXP_FormatLineInput.Table_Name;
 	}
 
-	public MEXPFormatLine EXP_FormatLineSave(I_EXP_FormatLineInput entity, DataFetchingEnvironment environment) {
-		return (MEXPFormatLine) super.save((X_EXP_FormatLineInput) entity, environment);
+	public MEXPFormatLine EXP_FormatLineSave(I_EXP_FormatLineInput Entity, DataFetchingEnvironment environment) {
+		return (MEXPFormatLine) super.save((X_EXP_FormatLineInput) Entity, environment);
 	}
 
-	public List<MEXPFormatLine> EXP_FormatLineSaveMany(List<I_EXP_FormatLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_EXP_FormatLineInput) entity).collect(Collectors.toList()),
+	public List<MEXPFormatLine> EXP_FormatLineSaveMany(List<I_EXP_FormatLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_EXP_FormatLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MEXPFormatLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean EXP_FormatLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean EXP_FormatLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

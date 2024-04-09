@@ -21,16 +21,16 @@ public class X_BH_Default_DocAction_AccessMutation extends POMutation implements
 		return X_BH_Default_DocAction_AccessInput.Table_Name;
 	}
 
-	public MBHDefaultDocActionAccess BH_Default_DocAction_AccessSave(I_BH_Default_DocAction_AccessInput entity, DataFetchingEnvironment environment) {
-		return (MBHDefaultDocActionAccess) super.save((X_BH_Default_DocAction_AccessInput) entity, environment);
+	public MBHDefaultDocActionAccess BH_Default_DocAction_AccessSave(I_BH_Default_DocAction_AccessInput Entity, DataFetchingEnvironment environment) {
+		return (MBHDefaultDocActionAccess) super.save((X_BH_Default_DocAction_AccessInput) Entity, environment);
 	}
 
-	public List<MBHDefaultDocActionAccess> BH_Default_DocAction_AccessSaveMany(List<I_BH_Default_DocAction_AccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_Default_DocAction_AccessInput) entity).collect(Collectors.toList()),
+	public List<MBHDefaultDocActionAccess> BH_Default_DocAction_AccessSaveMany(List<I_BH_Default_DocAction_AccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_Default_DocAction_AccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHDefaultDocActionAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_Default_DocAction_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_Default_DocAction_AccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

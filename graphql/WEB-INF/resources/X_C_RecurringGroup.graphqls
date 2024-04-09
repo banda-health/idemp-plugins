@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RecurringGroupGet(page: Int, size: Int, sort: String, filter: String): C_RecurringGroupConnection!
+	C_RecurringGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RecurringGroupConnection!
 }
 
 extend type Mutation {
-	C_RecurringGroupSave(entity: C_RecurringGroupInput!): C_RecurringGroup!
-	C_RecurringGroupSaveMany(entities: [C_RecurringGroupInput!]!): [C_RecurringGroup!]!
-	C_RecurringGroupDelete(uuids: [String!]!): Boolean!
+	C_RecurringGroupSave(Entity: C_RecurringGroupInput!): C_RecurringGroup!
+	C_RecurringGroupSaveMany(Entities: [C_RecurringGroupInput!]!): [C_RecurringGroup!]!
+	C_RecurringGroupDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RecurringGroupConnection {
-	results: [C_RecurringGroup!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RecurringGroup!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RecurringGroup {
@@ -21,8 +21,7 @@ type C_RecurringGroup {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_RecurringGroup_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ type C_RecurringGroup {
 input C_RecurringGroupInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_RecurringGroup_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

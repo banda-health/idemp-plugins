@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_UserDef_TabGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_TabConnection!
+	AD_UserDef_TabGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_TabConnection!
 }
 
 extend type Mutation {
-	AD_UserDef_TabSave(entity: AD_UserDef_TabInput!): AD_UserDef_Tab!
-	AD_UserDef_TabSaveMany(entities: [AD_UserDef_TabInput!]!): [AD_UserDef_Tab!]!
-	AD_UserDef_TabDelete(uuids: [String!]!): Boolean!
+	AD_UserDef_TabSave(Entity: AD_UserDef_TabInput!): AD_UserDef_Tab!
+	AD_UserDef_TabSaveMany(Entities: [AD_UserDef_TabInput!]!): [AD_UserDef_Tab!]!
+	AD_UserDef_TabDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_UserDef_TabConnection {
-	results: [AD_UserDef_Tab!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_UserDef_Tab!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_UserDef_Tab {
@@ -25,8 +25,7 @@ type AD_UserDef_Tab {
 	AD_Process: AD_Process
 	# Tab within a Window
 	AD_Tab: AD_Tab!
-	UUID: ID!
-	AD_UserDef_Tab_UU: String
+	UU: ID!
 	AD_UserDef_Win: AD_UserDef_Win!
 	# Date this record was created
 	Created: Date!
@@ -75,8 +74,7 @@ input AD_UserDef_TabInput {
 	AD_Process: ForeignEntityInput
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
-	UUID: ID
-	AD_UserDef_Tab_UU: String
+	UU: ID
 	AD_UserDef_Win: ForeignEntityInput
 	DeleteConfirmationLogic: String
 	# Optional short description of the record

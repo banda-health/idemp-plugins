@@ -21,16 +21,16 @@ public class X_R_RequestActionMutation extends POMutation implements GraphQLMuta
 		return X_R_RequestActionInput.Table_Name;
 	}
 
-	public MRequestAction R_RequestActionSave(I_R_RequestActionInput entity, DataFetchingEnvironment environment) {
-		return (MRequestAction) super.save((X_R_RequestActionInput) entity, environment);
+	public MRequestAction R_RequestActionSave(I_R_RequestActionInput Entity, DataFetchingEnvironment environment) {
+		return (MRequestAction) super.save((X_R_RequestActionInput) Entity, environment);
 	}
 
-	public List<MRequestAction> R_RequestActionSaveMany(List<I_R_RequestActionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_RequestActionInput) entity).collect(Collectors.toList()),
+	public List<MRequestAction> R_RequestActionSaveMany(List<I_R_RequestActionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_RequestActionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRequestAction) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_RequestActionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_RequestActionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

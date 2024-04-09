@@ -21,16 +21,16 @@ public class X_C_POSPaymentMutation extends POMutation implements GraphQLMutatio
 		return X_C_POSPaymentInput.Table_Name;
 	}
 
-	public MPOSPayment C_POSPaymentSave(I_C_POSPaymentInput entity, DataFetchingEnvironment environment) {
-		return (MPOSPayment) super.save((X_C_POSPaymentInput) entity, environment);
+	public MPOSPayment C_POSPaymentSave(I_C_POSPaymentInput Entity, DataFetchingEnvironment environment) {
+		return (MPOSPayment) super.save((X_C_POSPaymentInput) Entity, environment);
 	}
 
-	public List<MPOSPayment> C_POSPaymentSaveMany(List<I_C_POSPaymentInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_POSPaymentInput) entity).collect(Collectors.toList()),
+	public List<MPOSPayment> C_POSPaymentSaveMany(List<I_C_POSPaymentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_POSPaymentInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPOSPayment) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_POSPaymentDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_POSPaymentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

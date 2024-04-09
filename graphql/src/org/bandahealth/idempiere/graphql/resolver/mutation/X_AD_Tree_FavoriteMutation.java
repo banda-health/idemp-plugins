@@ -21,16 +21,16 @@ public class X_AD_Tree_FavoriteMutation extends POMutation implements GraphQLMut
 		return X_AD_Tree_FavoriteInput.Table_Name;
 	}
 
-	public MTreeFavorite AD_Tree_FavoriteSave(I_AD_Tree_FavoriteInput entity, DataFetchingEnvironment environment) {
-		return (MTreeFavorite) super.save((X_AD_Tree_FavoriteInput) entity, environment);
+	public MTreeFavorite AD_Tree_FavoriteSave(I_AD_Tree_FavoriteInput Entity, DataFetchingEnvironment environment) {
+		return (MTreeFavorite) super.save((X_AD_Tree_FavoriteInput) Entity, environment);
 	}
 
-	public List<MTreeFavorite> AD_Tree_FavoriteSaveMany(List<I_AD_Tree_FavoriteInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Tree_FavoriteInput) entity).collect(Collectors.toList()),
+	public List<MTreeFavorite> AD_Tree_FavoriteSaveMany(List<I_AD_Tree_FavoriteInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Tree_FavoriteInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTreeFavorite) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Tree_FavoriteDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Tree_FavoriteDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

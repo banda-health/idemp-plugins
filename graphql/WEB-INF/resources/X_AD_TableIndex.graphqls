@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_TableIndexGet(page: Int, size: Int, sort: String, filter: String): AD_TableIndexConnection!
+	AD_TableIndexGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TableIndexConnection!
 }
 
 extend type Mutation {
-	AD_TableIndexSave(entity: AD_TableIndexInput!): AD_TableIndex!
-	AD_TableIndexSaveMany(entities: [AD_TableIndexInput!]!): [AD_TableIndex!]!
-	AD_TableIndexDelete(uuids: [String!]!): Boolean!
+	AD_TableIndexSave(Entity: AD_TableIndexInput!): AD_TableIndex!
+	AD_TableIndexSaveMany(Entities: [AD_TableIndexInput!]!): [AD_TableIndex!]!
+	AD_TableIndexDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_TableIndexConnection {
-	results: [AD_TableIndex!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_TableIndex!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_TableIndex {
@@ -25,8 +25,7 @@ type AD_TableIndex {
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
-	UUID: ID!
-	AD_TableIndex_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,8 +59,7 @@ input AD_TableIndexInput {
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	UUID: ID
-	AD_TableIndex_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

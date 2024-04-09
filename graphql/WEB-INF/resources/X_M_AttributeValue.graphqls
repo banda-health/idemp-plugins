@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_AttributeValueGet(page: Int, size: Int, sort: String, filter: String): M_AttributeValueConnection!
+	M_AttributeValueGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeValueConnection!
 }
 
 extend type Mutation {
-	M_AttributeValueSave(entity: M_AttributeValueInput!): M_AttributeValue!
-	M_AttributeValueSaveMany(entities: [M_AttributeValueInput!]!): [M_AttributeValue!]!
-	M_AttributeValueDelete(uuids: [String!]!): Boolean!
+	M_AttributeValueSave(Entity: M_AttributeValueInput!): M_AttributeValue!
+	M_AttributeValueSaveMany(Entities: [M_AttributeValueInput!]!): [M_AttributeValue!]!
+	M_AttributeValueDelete(UUs: [String!]!): Boolean!
 }
 
 type M_AttributeValueConnection {
-	results: [M_AttributeValue!]!
-	pagingInfo: PagingInfo!
+	Results: [M_AttributeValue!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_AttributeValue {
@@ -31,8 +31,7 @@ type M_AttributeValue {
 	IsActive: Boolean!
 	# Product Attribute
 	M_Attribute: M_Attribute!
-	UUID: ID!
-	M_AttributeValue_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -52,8 +51,7 @@ input M_AttributeValueInput {
 	IsActive: Boolean
 	# Product Attribute
 	M_Attribute: ForeignEntityInput
-	UUID: ID
-	M_AttributeValue_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

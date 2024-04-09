@@ -21,16 +21,16 @@ public class X_AD_RegistrationMutation extends POMutation implements GraphQLMuta
 		return X_AD_RegistrationInput.Table_Name;
 	}
 
-	public M_Registration AD_RegistrationSave(I_AD_RegistrationInput entity, DataFetchingEnvironment environment) {
-		return (M_Registration) super.save((X_AD_RegistrationInput) entity, environment);
+	public M_Registration AD_RegistrationSave(I_AD_RegistrationInput Entity, DataFetchingEnvironment environment) {
+		return (M_Registration) super.save((X_AD_RegistrationInput) Entity, environment);
 	}
 
-	public List<M_Registration> AD_RegistrationSaveMany(List<I_AD_RegistrationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_RegistrationInput) entity).collect(Collectors.toList()),
+	public List<M_Registration> AD_RegistrationSaveMany(List<I_AD_RegistrationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_RegistrationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (M_Registration) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_RegistrationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_RegistrationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

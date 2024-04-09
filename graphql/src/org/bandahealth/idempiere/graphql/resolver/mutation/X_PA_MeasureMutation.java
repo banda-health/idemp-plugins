@@ -21,16 +21,16 @@ public class X_PA_MeasureMutation extends POMutation implements GraphQLMutationR
 		return X_PA_MeasureInput.Table_Name;
 	}
 
-	public MMeasure PA_MeasureSave(I_PA_MeasureInput entity, DataFetchingEnvironment environment) {
-		return (MMeasure) super.save((X_PA_MeasureInput) entity, environment);
+	public MMeasure PA_MeasureSave(I_PA_MeasureInput Entity, DataFetchingEnvironment environment) {
+		return (MMeasure) super.save((X_PA_MeasureInput) Entity, environment);
 	}
 
-	public List<MMeasure> PA_MeasureSaveMany(List<I_PA_MeasureInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_MeasureInput) entity).collect(Collectors.toList()),
+	public List<MMeasure> PA_MeasureSaveMany(List<I_PA_MeasureInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_MeasureInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MMeasure) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_MeasureDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_MeasureDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

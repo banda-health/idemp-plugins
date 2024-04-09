@@ -31,12 +31,12 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The HR_PayrollConcept_UU to fetch this entity from the DB
+	 * @param UU The HR_PayrollConcept_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_PayrollConceptInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_HR_PayrollConceptInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 			MRule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Rule", "AD_Rule_UU=?", get_TrxName())
-							.setParameters(AD_Rule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Rule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Rule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Rule with UUID " + AD_Rule.getUUID());
+						"Could not find entity in table AD_Rule with UU " + AD_Rule.getUU());
 			}
 		} else {
 			this.setAD_Rule_ID(0);
@@ -123,11 +123,11 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
-							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Concept_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table HR_Concept with UUID " + HR_Concept.getUUID());
+						"Could not find entity in table HR_Concept with UU " + HR_Concept.getUU());
 			}
 		} else {
 			this.setHR_Concept_ID(0);
@@ -160,11 +160,11 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Payroll.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
+						"Could not find entity in table HR_Payroll with UU " + HR_Payroll.getUU());
 			}
 		} else {
 			this.setHR_Payroll_ID(0);
@@ -193,20 +193,20 @@ public class X_HR_PayrollConceptInput extends X_HR_PayrollConcept implements I_H
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setHR_PayrollConcept_UU(UUID);
+	public void setUU(String UU) {
+		setHR_PayrollConcept_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getHR_PayrollConcept_UU();
 	}
 }

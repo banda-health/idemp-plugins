@@ -21,16 +21,16 @@ public class X_AD_OrgMutation extends POMutation implements GraphQLMutationResol
 		return X_AD_OrgInput.Table_Name;
 	}
 
-	public MOrg AD_OrgSave(I_AD_OrgInput entity, DataFetchingEnvironment environment) {
-		return (MOrg) super.save((X_AD_OrgInput) entity, environment);
+	public MOrg AD_OrgSave(I_AD_OrgInput Entity, DataFetchingEnvironment environment) {
+		return (MOrg) super.save((X_AD_OrgInput) Entity, environment);
 	}
 
-	public List<MOrg> AD_OrgSaveMany(List<I_AD_OrgInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_OrgInput) entity).collect(Collectors.toList()),
+	public List<MOrg> AD_OrgSaveMany(List<I_AD_OrgInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_OrgInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MOrg) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_OrgDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_OrgDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

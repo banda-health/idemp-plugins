@@ -21,16 +21,16 @@ public class X_AD_PInstance_LogMutation extends POMutation implements GraphQLMut
 		return X_AD_PInstance_LogInput.Table_Name;
 	}
 
-	public X_AD_PInstance_Log AD_PInstance_LogSave(I_AD_PInstance_LogInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_PInstance_Log) super.save((X_AD_PInstance_LogInput) entity, environment);
+	public X_AD_PInstance_Log AD_PInstance_LogSave(I_AD_PInstance_LogInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_PInstance_Log) super.save((X_AD_PInstance_LogInput) Entity, environment);
 	}
 
-	public List<X_AD_PInstance_Log> AD_PInstance_LogSaveMany(List<I_AD_PInstance_LogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PInstance_LogInput) entity).collect(Collectors.toList()),
+	public List<X_AD_PInstance_Log> AD_PInstance_LogSaveMany(List<I_AD_PInstance_LogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PInstance_LogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_PInstance_Log) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PInstance_LogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PInstance_LogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

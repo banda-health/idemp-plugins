@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_RequestProcessor_RouteGet(page: Int, size: Int, sort: String, filter: String): R_RequestProcessor_RouteConnection!
+	R_RequestProcessor_RouteGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessor_RouteConnection!
 }
 
 extend type Mutation {
-	R_RequestProcessor_RouteSave(entity: R_RequestProcessor_RouteInput!): R_RequestProcessor_Route!
-	R_RequestProcessor_RouteSaveMany(entities: [R_RequestProcessor_RouteInput!]!): [R_RequestProcessor_Route!]!
-	R_RequestProcessor_RouteDelete(uuids: [String!]!): Boolean!
+	R_RequestProcessor_RouteSave(Entity: R_RequestProcessor_RouteInput!): R_RequestProcessor_Route!
+	R_RequestProcessor_RouteSaveMany(Entities: [R_RequestProcessor_RouteInput!]!): [R_RequestProcessor_Route!]!
+	R_RequestProcessor_RouteDelete(UUs: [String!]!): Boolean!
 }
 
 type R_RequestProcessor_RouteConnection {
-	results: [R_RequestProcessor_Route!]!
-	pagingInfo: PagingInfo!
+	Results: [R_RequestProcessor_Route!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_RequestProcessor_Route {
@@ -33,8 +33,7 @@ type R_RequestProcessor_Route {
 	Keyword: String
 	# Processor for Requests
 	R_RequestProcessor: R_RequestProcessor!
-	UUID: ID!
-	R_RequestProcessor_Route_UU: String
+	UU: ID!
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Method of ordering records; lowest number comes first
@@ -56,8 +55,7 @@ input R_RequestProcessor_RouteInput {
 	Keyword: String
 	# Processor for Requests
 	R_RequestProcessor: ForeignEntityInput
-	UUID: ID
-	R_RequestProcessor_Route_UU: String
+	UU: ID
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

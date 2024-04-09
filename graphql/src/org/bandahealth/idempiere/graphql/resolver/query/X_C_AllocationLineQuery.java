@@ -17,8 +17,8 @@ public class X_C_AllocationLineQuery extends POQuery<MAllocationLine> implements
 		return MAllocationLine.Table_Name;
 	}
 
-	public Connection<MAllocationLine> C_AllocationLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAllocationLine> C_AllocationLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -29,12 +29,12 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The IMP_Processor_UU to fetch this entity from the DB
+	 * @param UU The IMP_Processor_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_IMP_ProcessorInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_IMP_ProcessorInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -87,11 +87,11 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FrequencyType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FrequencyType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFrequencyType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FrequencyType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + FrequencyType.getUU());
 			}
 		} else {
 			this.setFrequencyType(null);
@@ -132,11 +132,11 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 			X_IMP_Processor_Type foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor_Type", "IMP_Processor_Type_UU=?", get_TrxName())
-							.setParameters(IMP_Processor_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IMP_Processor_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIMP_Processor_Type_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table IMP_Processor_Type with UUID " + IMP_Processor_Type.getUUID());
+						"Could not find entity in table IMP_Processor_Type with UU " + IMP_Processor_Type.getUU());
 			}
 		} else {
 			this.setIMP_Processor_Type_ID(0);
@@ -154,20 +154,20 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setIMP_Processor_UU(UUID);
+	public void setUU(String UU) {
+		setIMP_Processor_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getIMP_Processor_UU();
 	}
 }

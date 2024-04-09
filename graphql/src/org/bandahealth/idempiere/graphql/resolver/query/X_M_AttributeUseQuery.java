@@ -17,8 +17,8 @@ public class X_M_AttributeUseQuery extends POQuery<MAttributeUse> implements Gra
 		return MAttributeUse.Table_Name;
 	}
 
-	public Connection<MAttributeUse> M_AttributeUseGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAttributeUse> M_AttributeUseGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

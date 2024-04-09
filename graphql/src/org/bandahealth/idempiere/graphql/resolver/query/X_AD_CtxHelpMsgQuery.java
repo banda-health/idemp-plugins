@@ -17,8 +17,8 @@ public class X_AD_CtxHelpMsgQuery extends POQuery<MCtxHelpMsg> implements GraphQ
 		return MCtxHelpMsg.Table_Name;
 	}
 
-	public Connection<MCtxHelpMsg> AD_CtxHelpMsgGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCtxHelpMsg> AD_CtxHelpMsgGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

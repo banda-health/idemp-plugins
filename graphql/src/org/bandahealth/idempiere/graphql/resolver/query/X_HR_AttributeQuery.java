@@ -17,8 +17,8 @@ public class X_HR_AttributeQuery extends POQuery<X_HR_Attribute> implements Grap
 		return X_HR_Attribute.Table_Name;
 	}
 
-	public Connection<X_HR_Attribute> HR_AttributeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Attribute> HR_AttributeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

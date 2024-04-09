@@ -17,8 +17,8 @@ public class X_C_UOMQuery extends POQuery<MUOM> implements GraphQLQueryResolver 
 		return MUOM.Table_Name;
 	}
 
-	public Connection<MUOM> C_UOMGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUOM> C_UOMGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

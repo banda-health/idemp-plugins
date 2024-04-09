@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ProjectIssueGet(page: Int, size: Int, sort: String, filter: String): C_ProjectIssueConnection!
+	C_ProjectIssueGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectIssueConnection!
 }
 
 extend type Mutation {
-	C_ProjectIssueSave(entity: C_ProjectIssueInput!): C_ProjectIssue!
-	C_ProjectIssueSaveMany(entities: [C_ProjectIssueInput!]!): [C_ProjectIssue!]!
-	C_ProjectIssueDelete(uuids: [String!]!): Boolean!
+	C_ProjectIssueSave(Entity: C_ProjectIssueInput!): C_ProjectIssue!
+	C_ProjectIssueSaveMany(Entities: [C_ProjectIssueInput!]!): [C_ProjectIssue!]!
+	C_ProjectIssueDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ProjectIssueConnection {
-	results: [C_ProjectIssue!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ProjectIssue!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ProjectIssue {
@@ -23,8 +23,7 @@ type C_ProjectIssue {
 	AD_Org: AD_Org!
 	# Financial Project
 	C_Project: C_Project!
-	UUID: ID!
-	C_ProjectIssue_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -75,8 +74,7 @@ input C_ProjectIssueInput {
 	AD_Org: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	UUID: ID
-	C_ProjectIssue_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document

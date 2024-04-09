@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ValidCombinationGet(page: Int, size: Int, sort: String, filter: String): C_ValidCombinationConnection!
+	C_ValidCombinationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ValidCombinationConnection!
 }
 
 extend type Mutation {
-	C_ValidCombinationSave(entity: C_ValidCombinationInput!): C_ValidCombination!
-	C_ValidCombinationSaveMany(entities: [C_ValidCombinationInput!]!): [C_ValidCombination!]!
-	C_ValidCombinationDelete(uuids: [String!]!): Boolean!
+	C_ValidCombinationSave(Entity: C_ValidCombinationInput!): C_ValidCombination!
+	C_ValidCombinationSaveMany(Entities: [C_ValidCombinationInput!]!): [C_ValidCombination!]!
+	C_ValidCombinationDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ValidCombinationConnection {
-	results: [C_ValidCombination!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ValidCombination!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ValidCombination {
@@ -43,8 +43,7 @@ type C_ValidCombination {
 	C_SalesRegion: C_SalesRegion
 	# Sub account for Element Value
 	C_SubAcct: C_SubAcct
-	UUID: ID!
-	C_ValidCombination_UU: String
+	UU: ID!
 	# Unique combination of account elements
 	Combination: String
 	# Date this record was created
@@ -94,8 +93,7 @@ input C_ValidCombinationInput {
 	C_SalesRegion: ForeignEntityInput
 	# Sub account for Element Value
 	C_SubAcct: ForeignEntityInput
-	UUID: ID
-	C_ValidCombination_UU: String
+	UU: ID
 	# Unique combination of account elements
 	Combination: String
 	# Optional short description of the record

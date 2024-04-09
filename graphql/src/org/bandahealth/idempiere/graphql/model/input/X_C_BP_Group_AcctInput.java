@@ -41,12 +41,12 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_BP_Group_Acct_UU to fetch this entity from the DB
+	 * @param UU The C_BP_Group_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_BP_Group_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_BP_Group_AcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -65,11 +65,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -102,11 +102,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -124,20 +124,20 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_BP_Group_Acct_UU(UUID);
+	public void setUU(String UU) {
+		setC_BP_Group_Acct_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_BP_Group_Acct_UU();
 	}
 
@@ -157,11 +157,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
+						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
 			}
 		} else {
 			this.setC_BP_Group_ID(0);
@@ -191,11 +191,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Prepayment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + C_Prepayment_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + C_Prepayment_A.getUU());
 			}
 		} else {
 			this.setC_Prepayment_Acct(0);
@@ -225,11 +225,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Receivable_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Receivable_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + C_Receivable_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_A.getUU());
 			}
 		} else {
 			this.setC_Receivable_Acct(0);
@@ -259,11 +259,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_Receivable_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Receivable_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Receivable_Services_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + C_Receivable_Services_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + C_Receivable_Services_A.getUU());
 			}
 		} else {
 			this.setC_Receivable_Services_Acct(0);
@@ -293,11 +293,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(NotInvoicedReceipts_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(NotInvoicedReceipts_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNotInvoicedReceipts_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + NotInvoicedReceipts_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + NotInvoicedReceipts_A.getUU());
 			}
 		} else {
 			this.setNotInvoicedReceipts_Acct(0);
@@ -327,11 +327,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Exp_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PayDiscount_Exp_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPayDiscount_Exp_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PayDiscount_Exp_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Exp_A.getUU());
 			}
 		} else {
 			this.setPayDiscount_Exp_Acct(0);
@@ -361,11 +361,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PayDiscount_Rev_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PayDiscount_Rev_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPayDiscount_Rev_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PayDiscount_Rev_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PayDiscount_Rev_A.getUU());
 			}
 		} else {
 			this.setPayDiscount_Rev_Acct(0);
@@ -395,11 +395,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnEarnedRevenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnEarnedRevenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUnEarnedRevenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + UnEarnedRevenue_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + UnEarnedRevenue_A.getUU());
 			}
 		} else {
 			this.setUnEarnedRevenue_Acct(0);
@@ -429,11 +429,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Liability_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Liability_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + V_Liability_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + V_Liability_A.getUU());
 			}
 		} else {
 			this.setV_Liability_Acct(0);
@@ -463,11 +463,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Liability_Services_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Liability_Services_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Liability_Services_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + V_Liability_Services_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + V_Liability_Services_A.getUU());
 			}
 		} else {
 			this.setV_Liability_Services_Acct(0);
@@ -497,11 +497,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(V_Prepayment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(V_Prepayment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setV_Prepayment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + V_Prepayment_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + V_Prepayment_A.getUU());
 			}
 		} else {
 			this.setV_Prepayment_Acct(0);
@@ -531,11 +531,11 @@ public class X_C_BP_Group_AcctInput extends X_C_BP_Group_Acct implements I_C_BP_
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(WriteOff_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(WriteOff_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWriteOff_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + WriteOff_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + WriteOff_A.getUU());
 			}
 		} else {
 			this.setWriteOff_Acct(0);

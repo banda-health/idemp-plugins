@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_TypeGet(page: Int, size: Int, sort: String, filter: String): A_Asset_TypeConnection!
+	A_Asset_TypeGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_TypeConnection!
 }
 
 extend type Mutation {
-	A_Asset_TypeSave(entity: A_Asset_TypeInput!): A_Asset_Type!
-	A_Asset_TypeSaveMany(entities: [A_Asset_TypeInput!]!): [A_Asset_Type!]!
-	A_Asset_TypeDelete(uuids: [String!]!): Boolean!
+	A_Asset_TypeSave(Entity: A_Asset_TypeInput!): A_Asset_Type!
+	A_Asset_TypeSaveMany(Entities: [A_Asset_TypeInput!]!): [A_Asset_Type!]!
+	A_Asset_TypeDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_TypeConnection {
-	results: [A_Asset_Type!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Type!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Type {
-	UUID: ID!
-	A_Asset_Type_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -48,8 +47,7 @@ type A_Asset_Type {
 }
 
 input A_Asset_TypeInput {
-	UUID: ID
-	A_Asset_Type_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

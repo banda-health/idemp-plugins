@@ -31,12 +31,12 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The ASP_Window_UU to fetch this entity from the DB
+	 * @param UU The ASP_Window_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_ASP_WindowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_ASP_WindowInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);
@@ -129,11 +129,11 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table ASP_Level with UUID " + ASP_Level.getUUID());
+						"Could not find entity in table ASP_Level with UU " + ASP_Level.getUU());
 			}
 		} else {
 			this.setASP_Level_ID(0);
@@ -163,11 +163,11 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Status(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ASP_Status.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ASP_Status.getUU());
 			}
 		} else {
 			this.setASP_Status(null);
@@ -196,20 +196,20 @@ public class X_ASP_WindowInput extends X_ASP_Window implements I_ASP_WindowInput
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setASP_Window_UU(UUID);
+	public void setUU(String UU) {
+		setASP_Window_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getASP_Window_UU();
 	}
 }

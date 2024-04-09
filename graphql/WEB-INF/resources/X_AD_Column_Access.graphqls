@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Column_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_Column_AccessConnection!
+	AD_Column_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Column_AccessConnection!
 }
 
 extend type Mutation {
-	AD_Column_AccessSave(entity: AD_Column_AccessInput!): AD_Column_Access!
-	AD_Column_AccessSaveMany(entities: [AD_Column_AccessInput!]!): [AD_Column_Access!]!
-	AD_Column_AccessDelete(uuids: [String!]!): Boolean!
+	AD_Column_AccessSave(Entity: AD_Column_AccessInput!): AD_Column_Access!
+	AD_Column_AccessSaveMany(Entities: [AD_Column_AccessInput!]!): [AD_Column_Access!]!
+	AD_Column_AccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Column_AccessConnection {
-	results: [AD_Column_Access!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Column_Access!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Column_Access {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_Column_Access_UU: String
+	UU: ID!
 	# Column in the table
 	AD_Column: AD_Column!
 	# Organizational entity within tenant
@@ -46,8 +45,7 @@ type AD_Column_Access {
 }
 
 input AD_Column_AccessInput {
-	UUID: ID
-	AD_Column_Access_UU: String
+	UU: ID
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant

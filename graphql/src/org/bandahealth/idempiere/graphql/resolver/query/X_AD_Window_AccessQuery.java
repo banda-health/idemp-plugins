@@ -17,8 +17,8 @@ public class X_AD_Window_AccessQuery extends POQuery<MWindowAccess_BH> implement
 		return MWindowAccess_BH.Table_Name;
 	}
 
-	public Connection<MWindowAccess_BH> AD_Window_AccessGet(int page, int pageSize, String sort, String filter,
+	public Connection<MWindowAccess_BH> AD_Window_AccessGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_RetirementGet(page: Int, size: Int, sort: String, filter: String): A_Asset_RetirementConnection!
+	A_Asset_RetirementGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_RetirementConnection!
 }
 
 extend type Mutation {
-	A_Asset_RetirementSave(entity: A_Asset_RetirementInput!): A_Asset_Retirement!
-	A_Asset_RetirementSaveMany(entities: [A_Asset_RetirementInput!]!): [A_Asset_Retirement!]!
-	A_Asset_RetirementDelete(uuids: [String!]!): Boolean!
+	A_Asset_RetirementSave(Entity: A_Asset_RetirementInput!): A_Asset_Retirement!
+	A_Asset_RetirementSaveMany(Entities: [A_Asset_RetirementInput!]!): [A_Asset_Retirement!]!
+	A_Asset_RetirementDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_RetirementConnection {
-	results: [A_Asset_Retirement!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Retirement!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Retirement {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	UUID: ID!
-	A_Asset_Retirement_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -46,8 +45,7 @@ type A_Asset_Retirement {
 input A_Asset_RetirementInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	UUID: ID
-	A_Asset_Retirement_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Market value of the asset

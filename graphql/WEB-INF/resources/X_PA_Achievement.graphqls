@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_AchievementGet(page: Int, size: Int, sort: String, filter: String): PA_AchievementConnection!
+	PA_AchievementGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_AchievementConnection!
 }
 
 extend type Mutation {
-	PA_AchievementSave(entity: PA_AchievementInput!): PA_Achievement!
-	PA_AchievementSaveMany(entities: [PA_AchievementInput!]!): [PA_Achievement!]!
-	PA_AchievementDelete(uuids: [String!]!): Boolean!
+	PA_AchievementSave(Entity: PA_AchievementInput!): PA_Achievement!
+	PA_AchievementSaveMany(Entities: [PA_AchievementInput!]!): [PA_Achievement!]!
+	PA_AchievementDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_AchievementConnection {
-	results: [PA_Achievement!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_Achievement!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_Achievement {
@@ -39,8 +39,7 @@ type PA_Achievement {
 	Name: String!
 	# Optional additional user defined information
 	Note: String
-	UUID: ID!
-	PA_Achievement_UU: String
+	UU: ID!
 	# Concrete Performance Measurement
 	PA_Measure: PA_Measure!
 	# Method of ordering records; lowest number comes first
@@ -68,8 +67,7 @@ input PA_AchievementInput {
 	Name: String
 	# Optional additional user defined information
 	Note: String
-	UUID: ID
-	PA_Achievement_UU: String
+	UU: ID
 	# Concrete Performance Measurement
 	PA_Measure: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_LotCtlGet(page: Int, size: Int, sort: String, filter: String): M_LotCtlConnection!
+	M_LotCtlGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LotCtlConnection!
 }
 
 extend type Mutation {
-	M_LotCtlSave(entity: M_LotCtlInput!): M_LotCtl!
-	M_LotCtlSaveMany(entities: [M_LotCtlInput!]!): [M_LotCtl!]!
-	M_LotCtlDelete(uuids: [String!]!): Boolean!
+	M_LotCtlSave(Entity: M_LotCtlInput!): M_LotCtl!
+	M_LotCtlSaveMany(Entities: [M_LotCtlInput!]!): [M_LotCtl!]!
+	M_LotCtlDelete(UUs: [String!]!): Boolean!
 }
 
 type M_LotCtlConnection {
-	results: [M_LotCtl!]!
-	pagingInfo: PagingInfo!
+	Results: [M_LotCtl!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_LotCtl {
@@ -33,8 +33,7 @@ type M_LotCtl {
 	IncrementNo: Int!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_LotCtl_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Prefix before the sequence number
@@ -60,8 +59,7 @@ input M_LotCtlInput {
 	IncrementNo: Int
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_LotCtl_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Prefix before the sequence number

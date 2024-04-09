@@ -17,8 +17,8 @@ public class X_AD_Ref_TableQuery extends POQuery<MRefTable> implements GraphQLQu
 		return MRefTable.Table_Name;
 	}
 
-	public Connection<MRefTable> AD_Ref_TableGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRefTable> AD_Ref_TableGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

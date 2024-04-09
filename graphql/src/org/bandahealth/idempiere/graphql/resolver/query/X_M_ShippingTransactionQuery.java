@@ -17,8 +17,8 @@ public class X_M_ShippingTransactionQuery extends POQuery<MShippingTransaction> 
 		return MShippingTransaction.Table_Name;
 	}
 
-	public Connection<MShippingTransaction> M_ShippingTransactionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MShippingTransaction> M_ShippingTransactionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

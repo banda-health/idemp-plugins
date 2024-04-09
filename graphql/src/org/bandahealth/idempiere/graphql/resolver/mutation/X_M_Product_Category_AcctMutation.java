@@ -21,16 +21,16 @@ public class X_M_Product_Category_AcctMutation extends POMutation implements Gra
 		return X_M_Product_Category_AcctInput.Table_Name;
 	}
 
-	public MProductCategoryAcct M_Product_Category_AcctSave(I_M_Product_Category_AcctInput entity, DataFetchingEnvironment environment) {
-		return (MProductCategoryAcct) super.save((X_M_Product_Category_AcctInput) entity, environment);
+	public MProductCategoryAcct M_Product_Category_AcctSave(I_M_Product_Category_AcctInput Entity, DataFetchingEnvironment environment) {
+		return (MProductCategoryAcct) super.save((X_M_Product_Category_AcctInput) Entity, environment);
 	}
 
-	public List<MProductCategoryAcct> M_Product_Category_AcctSaveMany(List<I_M_Product_Category_AcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_Product_Category_AcctInput) entity).collect(Collectors.toList()),
+	public List<MProductCategoryAcct> M_Product_Category_AcctSaveMany(List<I_M_Product_Category_AcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_Product_Category_AcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProductCategoryAcct) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_Product_Category_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_Product_Category_AcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

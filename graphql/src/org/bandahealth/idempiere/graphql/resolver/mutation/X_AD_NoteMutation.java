@@ -21,16 +21,16 @@ public class X_AD_NoteMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_NoteInput.Table_Name;
 	}
 
-	public MNote AD_NoteSave(I_AD_NoteInput entity, DataFetchingEnvironment environment) {
-		return (MNote) super.save((X_AD_NoteInput) entity, environment);
+	public MNote AD_NoteSave(I_AD_NoteInput Entity, DataFetchingEnvironment environment) {
+		return (MNote) super.save((X_AD_NoteInput) Entity, environment);
 	}
 
-	public List<MNote> AD_NoteSaveMany(List<I_AD_NoteInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_NoteInput) entity).collect(Collectors.toList()),
+	public List<MNote> AD_NoteSaveMany(List<I_AD_NoteInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_NoteInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MNote) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_NoteDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_NoteDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

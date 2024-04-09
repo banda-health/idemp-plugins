@@ -21,16 +21,16 @@ public class X_PA_ReportMutation extends POMutation implements GraphQLMutationRe
 		return X_PA_ReportInput.Table_Name;
 	}
 
-	public MReport PA_ReportSave(I_PA_ReportInput entity, DataFetchingEnvironment environment) {
-		return (MReport) super.save((X_PA_ReportInput) entity, environment);
+	public MReport PA_ReportSave(I_PA_ReportInput Entity, DataFetchingEnvironment environment) {
+		return (MReport) super.save((X_PA_ReportInput) Entity, environment);
 	}
 
-	public List<MReport> PA_ReportSaveMany(List<I_PA_ReportInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_ReportInput) entity).collect(Collectors.toList()),
+	public List<MReport> PA_ReportSaveMany(List<I_PA_ReportInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_ReportInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MReport) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_ReportDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_ReportDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

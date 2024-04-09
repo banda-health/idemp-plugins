@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_AlertProcessorLogGet(page: Int, size: Int, sort: String, filter: String): AD_AlertProcessorLogConnection!
+	AD_AlertProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AlertProcessorLogConnection!
 }
 
 extend type Mutation {
-	AD_AlertProcessorLogSave(entity: AD_AlertProcessorLogInput!): AD_AlertProcessorLog!
-	AD_AlertProcessorLogSaveMany(entities: [AD_AlertProcessorLogInput!]!): [AD_AlertProcessorLog!]!
-	AD_AlertProcessorLogDelete(uuids: [String!]!): Boolean!
+	AD_AlertProcessorLogSave(Entity: AD_AlertProcessorLogInput!): AD_AlertProcessorLog!
+	AD_AlertProcessorLogSaveMany(Entities: [AD_AlertProcessorLogInput!]!): [AD_AlertProcessorLog!]!
+	AD_AlertProcessorLogDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_AlertProcessorLogConnection {
-	results: [AD_AlertProcessorLog!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_AlertProcessorLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_AlertProcessorLog {
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: AD_AlertProcessor!
-	UUID: ID!
-	AD_AlertProcessorLog_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -52,8 +51,7 @@ type AD_AlertProcessorLog {
 input AD_AlertProcessorLogInput {
 	# Alert Processor/Server Parameter
 	AD_AlertProcessor: ForeignEntityInput
-	UUID: ID
-	AD_AlertProcessorLog_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Binary Data

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_LabelPrinterFunctionGet(page: Int, size: Int, sort: String, filter: String): AD_LabelPrinterFunctionConnection!
+	AD_LabelPrinterFunctionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LabelPrinterFunctionConnection!
 }
 
 extend type Mutation {
-	AD_LabelPrinterFunctionSave(entity: AD_LabelPrinterFunctionInput!): AD_LabelPrinterFunction!
-	AD_LabelPrinterFunctionSaveMany(entities: [AD_LabelPrinterFunctionInput!]!): [AD_LabelPrinterFunction!]!
-	AD_LabelPrinterFunctionDelete(uuids: [String!]!): Boolean!
+	AD_LabelPrinterFunctionSave(Entity: AD_LabelPrinterFunctionInput!): AD_LabelPrinterFunction!
+	AD_LabelPrinterFunctionSaveMany(Entities: [AD_LabelPrinterFunctionInput!]!): [AD_LabelPrinterFunction!]!
+	AD_LabelPrinterFunctionDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_LabelPrinterFunctionConnection {
-	results: [AD_LabelPrinterFunction!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_LabelPrinterFunction!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_LabelPrinterFunction {
@@ -21,8 +21,7 @@ type AD_LabelPrinterFunction {
 	AD_Client: AD_Client!
 	# Label Printer Definition
 	AD_LabelPrinter: AD_LabelPrinter!
-	UUID: ID!
-	AD_LabelPrinterFunction_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -52,8 +51,7 @@ type AD_LabelPrinterFunction {
 input AD_LabelPrinterFunctionInput {
 	# Label Printer Definition
 	AD_LabelPrinter: ForeignEntityInput
-	UUID: ID
-	AD_LabelPrinterFunction_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

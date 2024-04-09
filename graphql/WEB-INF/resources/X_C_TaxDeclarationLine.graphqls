@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaxDeclarationLineGet(page: Int, size: Int, sort: String, filter: String): C_TaxDeclarationLineConnection!
+	C_TaxDeclarationLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxDeclarationLineConnection!
 }
 
 extend type Mutation {
-	C_TaxDeclarationLineSave(entity: C_TaxDeclarationLineInput!): C_TaxDeclarationLine!
-	C_TaxDeclarationLineSaveMany(entities: [C_TaxDeclarationLineInput!]!): [C_TaxDeclarationLine!]!
-	C_TaxDeclarationLineDelete(uuids: [String!]!): Boolean!
+	C_TaxDeclarationLineSave(Entity: C_TaxDeclarationLineInput!): C_TaxDeclarationLine!
+	C_TaxDeclarationLineSaveMany(Entities: [C_TaxDeclarationLineInput!]!): [C_TaxDeclarationLine!]!
+	C_TaxDeclarationLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaxDeclarationLineConnection {
-	results: [C_TaxDeclarationLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_TaxDeclarationLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_TaxDeclarationLine {
@@ -35,8 +35,7 @@ type C_TaxDeclarationLine {
 	C_Tax: C_Tax!
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: C_TaxDeclaration!
-	UUID: ID!
-	C_TaxDeclarationLine_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -78,8 +77,7 @@ input C_TaxDeclarationLineInput {
 	C_Tax: ForeignEntityInput
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: ForeignEntityInput
-	UUID: ID
-	C_TaxDeclarationLine_UU: String
+	UU: ID
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record

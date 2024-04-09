@@ -21,16 +21,16 @@ public class X_GL_JournalBatchMutation extends POMutation implements GraphQLMuta
 		return X_GL_JournalBatchInput.Table_Name;
 	}
 
-	public MJournalBatch GL_JournalBatchSave(I_GL_JournalBatchInput entity, DataFetchingEnvironment environment) {
-		return (MJournalBatch) super.save((X_GL_JournalBatchInput) entity, environment);
+	public MJournalBatch GL_JournalBatchSave(I_GL_JournalBatchInput Entity, DataFetchingEnvironment environment) {
+		return (MJournalBatch) super.save((X_GL_JournalBatchInput) Entity, environment);
 	}
 
-	public List<MJournalBatch> GL_JournalBatchSaveMany(List<I_GL_JournalBatchInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_GL_JournalBatchInput) entity).collect(Collectors.toList()),
+	public List<MJournalBatch> GL_JournalBatchSaveMany(List<I_GL_JournalBatchInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_JournalBatchInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MJournalBatch) entity).collect(Collectors.toList());
 	}
 
-	public boolean GL_JournalBatchDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean GL_JournalBatchDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

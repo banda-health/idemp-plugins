@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_UserDef_WinGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_WinConnection!
+	AD_UserDef_WinGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_WinConnection!
 }
 
 extend type Mutation {
-	AD_UserDef_WinSave(entity: AD_UserDef_WinInput!): AD_UserDef_Win!
-	AD_UserDef_WinSaveMany(entities: [AD_UserDef_WinInput!]!): [AD_UserDef_Win!]!
-	AD_UserDef_WinDelete(uuids: [String!]!): Boolean!
+	AD_UserDef_WinSave(Entity: AD_UserDef_WinInput!): AD_UserDef_Win!
+	AD_UserDef_WinSaveMany(Entities: [AD_UserDef_WinInput!]!): [AD_UserDef_Win!]!
+	AD_UserDef_WinDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_UserDef_WinConnection {
-	results: [AD_UserDef_Win!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_UserDef_Win!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_UserDef_Win {
@@ -27,8 +27,7 @@ type AD_UserDef_Win {
 	AD_Role: AD_Role
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	UUID: ID!
-	AD_UserDef_Win_UU: String
+	UU: ID!
 	# Data entry or display window
 	AD_Window: AD_Window!
 	# Date this record was created
@@ -64,8 +63,7 @@ input AD_UserDef_WinInput {
 	AD_Role: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UUID: ID
-	AD_UserDef_Win_UU: String
+	UU: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# Optional short description of the record

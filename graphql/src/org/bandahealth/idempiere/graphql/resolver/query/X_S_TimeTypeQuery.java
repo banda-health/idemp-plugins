@@ -17,8 +17,8 @@ public class X_S_TimeTypeQuery extends POQuery<X_S_TimeType> implements GraphQLQ
 		return X_S_TimeType.Table_Name;
 	}
 
-	public Connection<X_S_TimeType> S_TimeTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_S_TimeType> S_TimeTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

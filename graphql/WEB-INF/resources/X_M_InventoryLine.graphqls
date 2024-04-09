@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_InventoryLineGet(page: Int, size: Int, sort: String, filter: String): M_InventoryLineConnection!
+	M_InventoryLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InventoryLineConnection!
 }
 
 extend type Mutation {
-	M_InventoryLineSave(entity: M_InventoryLineInput!): M_InventoryLine!
-	M_InventoryLineSaveMany(entities: [M_InventoryLineInput!]!): [M_InventoryLine!]!
-	M_InventoryLineDelete(uuids: [String!]!): Boolean!
+	M_InventoryLineSave(Entity: M_InventoryLineInput!): M_InventoryLine!
+	M_InventoryLineSaveMany(Entities: [M_InventoryLineInput!]!): [M_InventoryLine!]!
+	M_InventoryLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_InventoryLineConnection {
-	results: [M_InventoryLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_InventoryLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_InventoryLine {
@@ -41,8 +41,7 @@ type M_InventoryLine {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Parameters for a Physical Inventory
 	M_Inventory: M_Inventory!
-	UUID: ID!
-	M_InventoryLine_UU: String
+	UU: ID!
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -89,8 +88,7 @@ input M_InventoryLineInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Parameters for a Physical Inventory
 	M_Inventory: ForeignEntityInput
-	UUID: ID
-	M_InventoryLine_UU: String
+	UU: ID
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item

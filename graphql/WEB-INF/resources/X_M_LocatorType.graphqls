@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_LocatorTypeGet(page: Int, size: Int, sort: String, filter: String): M_LocatorTypeConnection!
+	M_LocatorTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LocatorTypeConnection!
 }
 
 extend type Mutation {
-	M_LocatorTypeSave(entity: M_LocatorTypeInput!): M_LocatorType!
-	M_LocatorTypeSaveMany(entities: [M_LocatorTypeInput!]!): [M_LocatorType!]!
-	M_LocatorTypeDelete(uuids: [String!]!): Boolean!
+	M_LocatorTypeSave(Entity: M_LocatorTypeInput!): M_LocatorType!
+	M_LocatorTypeSaveMany(Entities: [M_LocatorTypeInput!]!): [M_LocatorType!]!
+	M_LocatorTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_LocatorTypeConnection {
-	results: [M_LocatorType!]!
-	pagingInfo: PagingInfo!
+	Results: [M_LocatorType!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_LocatorType {
@@ -34,8 +34,7 @@ type M_LocatorType {
 	IsAvailableForReplenishment: Boolean!
 	IsAvailableForReservation: Boolean!
 	IsAvailableForShipping: Boolean!
-	UUID: ID!
-	M_LocatorType_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -56,8 +55,7 @@ input M_LocatorTypeInput {
 	IsAvailableForReplenishment: Boolean
 	IsAvailableForReservation: Boolean
 	IsAvailableForShipping: Boolean
-	UUID: ID
-	M_LocatorType_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

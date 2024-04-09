@@ -21,16 +21,16 @@ public class X_AD_ChartMutation extends POMutation implements GraphQLMutationRes
 		return X_AD_ChartInput.Table_Name;
 	}
 
-	public MChart AD_ChartSave(I_AD_ChartInput entity, DataFetchingEnvironment environment) {
-		return (MChart) super.save((X_AD_ChartInput) entity, environment);
+	public MChart AD_ChartSave(I_AD_ChartInput Entity, DataFetchingEnvironment environment) {
+		return (MChart) super.save((X_AD_ChartInput) Entity, environment);
 	}
 
-	public List<MChart> AD_ChartSaveMany(List<I_AD_ChartInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ChartInput) entity).collect(Collectors.toList()),
+	public List<MChart> AD_ChartSaveMany(List<I_AD_ChartInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ChartInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MChart) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ChartDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ChartDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

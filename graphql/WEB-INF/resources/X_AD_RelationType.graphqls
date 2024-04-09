@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_RelationTypeGet(page: Int, size: Int, sort: String, filter: String): AD_RelationTypeConnection!
+	AD_RelationTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_RelationTypeConnection!
 }
 
 extend type Mutation {
-	AD_RelationTypeSave(entity: AD_RelationTypeInput!): AD_RelationType!
-	AD_RelationTypeSaveMany(entities: [AD_RelationTypeInput!]!): [AD_RelationType!]!
-	AD_RelationTypeDelete(uuids: [String!]!): Boolean!
+	AD_RelationTypeSave(Entity: AD_RelationTypeInput!): AD_RelationType!
+	AD_RelationTypeSaveMany(Entities: [AD_RelationTypeInput!]!): [AD_RelationType!]!
+	AD_RelationTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_RelationTypeConnection {
-	results: [AD_RelationType!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_RelationType!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_RelationType {
@@ -23,8 +23,7 @@ type AD_RelationType {
 	AD_Org: AD_Org!
 	AD_Reference_Source: AD_Reference
 	AD_Reference_Target: AD_Reference
-	UUID: ID!
-	AD_RelationType_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -56,8 +55,7 @@ input AD_RelationTypeInput {
 	AD_Org: ForeignEntityInput
 	AD_Reference_Source: ForeignEntityInput
 	AD_Reference_Target: ForeignEntityInput
-	UUID: ID
-	AD_RelationType_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

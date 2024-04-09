@@ -53,16 +53,16 @@ public interface I_M_PromotionGroupLineInput extends I_M_PromotionGroupLine {
 	ForeignEntityInput M_PromotionGroup();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

@@ -21,16 +21,16 @@ public class X_AD_UserDef_Proc_ParameterMutation extends POMutation implements G
 		return X_AD_UserDef_Proc_ParameterInput.Table_Name;
 	}
 
-	public MUserDefProcParameter AD_UserDef_Proc_ParameterSave(I_AD_UserDef_Proc_ParameterInput entity, DataFetchingEnvironment environment) {
-		return (MUserDefProcParameter) super.save((X_AD_UserDef_Proc_ParameterInput) entity, environment);
+	public MUserDefProcParameter AD_UserDef_Proc_ParameterSave(I_AD_UserDef_Proc_ParameterInput Entity, DataFetchingEnvironment environment) {
+		return (MUserDefProcParameter) super.save((X_AD_UserDef_Proc_ParameterInput) Entity, environment);
 	}
 
-	public List<MUserDefProcParameter> AD_UserDef_Proc_ParameterSaveMany(List<I_AD_UserDef_Proc_ParameterInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_Proc_ParameterInput) entity).collect(Collectors.toList()),
+	public List<MUserDefProcParameter> AD_UserDef_Proc_ParameterSaveMany(List<I_AD_UserDef_Proc_ParameterInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserDef_Proc_ParameterInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserDefProcParameter) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDef_Proc_ParameterDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDef_Proc_ParameterDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CyclePhaseGet(page: Int, size: Int, sort: String, filter: String): C_CyclePhaseConnection!
+	C_CyclePhaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CyclePhaseConnection!
 }
 
 extend type Mutation {
-	C_CyclePhaseSave(entity: C_CyclePhaseInput!): C_CyclePhase!
-	C_CyclePhaseSaveMany(entities: [C_CyclePhaseInput!]!): [C_CyclePhase!]!
-	C_CyclePhaseDelete(uuids: [String!]!): Boolean!
+	C_CyclePhaseSave(Entity: C_CyclePhaseInput!): C_CyclePhase!
+	C_CyclePhaseSaveMany(Entities: [C_CyclePhaseInput!]!): [C_CyclePhase!]!
+	C_CyclePhaseDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CyclePhaseConnection {
-	results: [C_CyclePhase!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CyclePhase!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CyclePhase {
@@ -21,8 +21,7 @@ type C_CyclePhase {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_CyclePhase_UU: String
+	UU: ID!
 	# The step for this Cycle
 	C_CycleStep: C_CycleStep!
 	# Standard Phase of the Project Type
@@ -42,8 +41,7 @@ type C_CyclePhase {
 input C_CyclePhaseInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_CyclePhase_UU: String
+	UU: ID
 	# The step for this Cycle
 	C_CycleStep: ForeignEntityInput
 	# Standard Phase of the Project Type

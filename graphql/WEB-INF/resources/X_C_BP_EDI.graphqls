@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BP_EDIGet(page: Int, size: Int, sort: String, filter: String): C_BP_EDIConnection!
+	C_BP_EDIGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_EDIConnection!
 }
 
 extend type Mutation {
-	C_BP_EDISave(entity: C_BP_EDIInput!): C_BP_EDI!
-	C_BP_EDISaveMany(entities: [C_BP_EDIInput!]!): [C_BP_EDI!]!
-	C_BP_EDIDelete(uuids: [String!]!): Boolean!
+	C_BP_EDISave(Entity: C_BP_EDIInput!): C_BP_EDI!
+	C_BP_EDISaveMany(Entities: [C_BP_EDIInput!]!): [C_BP_EDI!]!
+	C_BP_EDIDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BP_EDIConnection {
-	results: [C_BP_EDI!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BP_EDI!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BP_EDI {
@@ -23,8 +23,7 @@ type C_BP_EDI {
 	AD_Org: AD_Org!
 	# Document Sequence
 	AD_Sequence: AD_Sequence!
-	UUID: ID!
-	C_BP_EDI_UU: String
+	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Date this record was created
@@ -74,8 +73,7 @@ input C_BP_EDIInput {
 	AD_Org: ForeignEntityInput
 	# Document Sequence
 	AD_Sequence: ForeignEntityInput
-	UUID: ID
-	C_BP_EDI_UU: String
+	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# EDI Identification Number 

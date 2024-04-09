@@ -21,16 +21,16 @@ public class X_AD_FieldGroupMutation extends POMutation implements GraphQLMutati
 		return X_AD_FieldGroupInput.Table_Name;
 	}
 
-	public MFieldGroup_BH AD_FieldGroupSave(I_AD_FieldGroupInput entity, DataFetchingEnvironment environment) {
-		return (MFieldGroup_BH) super.save((X_AD_FieldGroupInput) entity, environment);
+	public MFieldGroup_BH AD_FieldGroupSave(I_AD_FieldGroupInput Entity, DataFetchingEnvironment environment) {
+		return (MFieldGroup_BH) super.save((X_AD_FieldGroupInput) Entity, environment);
 	}
 
-	public List<MFieldGroup_BH> AD_FieldGroupSaveMany(List<I_AD_FieldGroupInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_FieldGroupInput) entity).collect(Collectors.toList()),
+	public List<MFieldGroup_BH> AD_FieldGroupSaveMany(List<I_AD_FieldGroupInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_FieldGroupInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MFieldGroup_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_FieldGroupDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_FieldGroupDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_BPartnerMutation extends POMutation implements GraphQLMutationR
 		return X_C_BPartnerInput.Table_Name;
 	}
 
-	public MBPartner_BH C_BPartnerSave(I_C_BPartnerInput entity, DataFetchingEnvironment environment) {
-		return (MBPartner_BH) super.save((X_C_BPartnerInput) entity, environment);
+	public MBPartner_BH C_BPartnerSave(I_C_BPartnerInput Entity, DataFetchingEnvironment environment) {
+		return (MBPartner_BH) super.save((X_C_BPartnerInput) Entity, environment);
 	}
 
-	public List<MBPartner_BH> C_BPartnerSaveMany(List<I_C_BPartnerInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BPartnerInput) entity).collect(Collectors.toList()),
+	public List<MBPartner_BH> C_BPartnerSaveMany(List<I_C_BPartnerInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BPartnerInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBPartner_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BPartnerDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BPartnerDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

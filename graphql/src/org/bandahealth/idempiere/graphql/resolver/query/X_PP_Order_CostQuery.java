@@ -17,8 +17,8 @@ public class X_PP_Order_CostQuery extends POQuery<X_PP_Order_Cost> implements Gr
 		return X_PP_Order_Cost.Table_Name;
 	}
 
-	public Connection<X_PP_Order_Cost> PP_Order_CostGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PP_Order_Cost> PP_Order_CostGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

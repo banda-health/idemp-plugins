@@ -21,16 +21,16 @@ public class X_PP_Order_WorkflowMutation extends POMutation implements GraphQLMu
 		return X_PP_Order_WorkflowInput.Table_Name;
 	}
 
-	public X_PP_Order_Workflow PP_Order_WorkflowSave(I_PP_Order_WorkflowInput entity, DataFetchingEnvironment environment) {
-		return (X_PP_Order_Workflow) super.save((X_PP_Order_WorkflowInput) entity, environment);
+	public X_PP_Order_Workflow PP_Order_WorkflowSave(I_PP_Order_WorkflowInput Entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_Workflow) super.save((X_PP_Order_WorkflowInput) Entity, environment);
 	}
 
-	public List<X_PP_Order_Workflow> PP_Order_WorkflowSaveMany(List<I_PP_Order_WorkflowInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_WorkflowInput) entity).collect(Collectors.toList()),
+	public List<X_PP_Order_Workflow> PP_Order_WorkflowSaveMany(List<I_PP_Order_WorkflowInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Order_WorkflowInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PP_Order_Workflow) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Order_WorkflowDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Order_WorkflowDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

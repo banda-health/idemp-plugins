@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	B_OfferGet(page: Int, size: Int, sort: String, filter: String): B_OfferConnection!
+	B_OfferGet(Page: Int, Size: Int, Sort: String, Filter: String): B_OfferConnection!
 }
 
 extend type Mutation {
-	B_OfferSave(entity: B_OfferInput!): B_Offer!
-	B_OfferSaveMany(entities: [B_OfferInput!]!): [B_Offer!]!
-	B_OfferDelete(uuids: [String!]!): Boolean!
+	B_OfferSave(Entity: B_OfferInput!): B_Offer!
+	B_OfferSaveMany(Entities: [B_OfferInput!]!): [B_Offer!]!
+	B_OfferDelete(UUs: [String!]!): Boolean!
 }
 
 type B_OfferConnection {
-	results: [B_Offer!]!
-	pagingInfo: PagingInfo!
+	Results: [B_Offer!]!
+	PagingInfo: PagingInfo!
 }
 
 type B_Offer {
@@ -23,8 +23,7 @@ type B_Offer {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	UUID: ID!
-	B_Offer_UU: String
+	UU: ID!
 	# Seller Funds from Offers on Topics
 	B_SellerFunds: B_SellerFunds!
 	# Auction Topic
@@ -53,8 +52,7 @@ input B_OfferInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UUID: ID
-	B_Offer_UU: String
+	UU: ID
 	# Seller Funds from Offers on Topics
 	B_SellerFunds: ForeignEntityInput
 	# Auction Topic

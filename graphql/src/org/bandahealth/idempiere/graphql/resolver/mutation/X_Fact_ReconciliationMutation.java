@@ -21,16 +21,16 @@ public class X_Fact_ReconciliationMutation extends POMutation implements GraphQL
 		return X_Fact_ReconciliationInput.Table_Name;
 	}
 
-	public MFactReconciliation Fact_ReconciliationSave(I_Fact_ReconciliationInput entity, DataFetchingEnvironment environment) {
-		return (MFactReconciliation) super.save((X_Fact_ReconciliationInput) entity, environment);
+	public MFactReconciliation Fact_ReconciliationSave(I_Fact_ReconciliationInput Entity, DataFetchingEnvironment environment) {
+		return (MFactReconciliation) super.save((X_Fact_ReconciliationInput) Entity, environment);
 	}
 
-	public List<MFactReconciliation> Fact_ReconciliationSaveMany(List<I_Fact_ReconciliationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_Fact_ReconciliationInput) entity).collect(Collectors.toList()),
+	public List<MFactReconciliation> Fact_ReconciliationSaveMany(List<I_Fact_ReconciliationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_Fact_ReconciliationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MFactReconciliation) entity).collect(Collectors.toList());
 	}
 
-	public boolean Fact_ReconciliationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean Fact_ReconciliationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

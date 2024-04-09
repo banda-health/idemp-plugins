@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	GL_BudgetControlGet(page: Int, size: Int, sort: String, filter: String): GL_BudgetControlConnection!
+	GL_BudgetControlGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_BudgetControlConnection!
 }
 
 extend type Mutation {
-	GL_BudgetControlSave(entity: GL_BudgetControlInput!): GL_BudgetControl!
-	GL_BudgetControlSaveMany(entities: [GL_BudgetControlInput!]!): [GL_BudgetControl!]!
-	GL_BudgetControlDelete(uuids: [String!]!): Boolean!
+	GL_BudgetControlSave(Entity: GL_BudgetControlInput!): GL_BudgetControl!
+	GL_BudgetControlSaveMany(Entities: [GL_BudgetControlInput!]!): [GL_BudgetControl!]!
+	GL_BudgetControlDelete(UUs: [String!]!): Boolean!
 }
 
 type GL_BudgetControlConnection {
-	results: [GL_BudgetControl!]!
-	pagingInfo: PagingInfo!
+	Results: [GL_BudgetControl!]!
+	PagingInfo: PagingInfo!
 }
 
 type GL_BudgetControl {
@@ -35,8 +35,7 @@ type GL_BudgetControl {
 	Description: String
 	# General Ledger Budget
 	GL_Budget: GL_Budget!
-	UUID: ID!
-	GL_BudgetControl_UU: String
+	UU: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -64,8 +63,7 @@ input GL_BudgetControlInput {
 	Description: String
 	# General Ledger Budget
 	GL_Budget: ForeignEntityInput
-	UUID: ID
-	GL_BudgetControl_UU: String
+	UU: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

@@ -21,16 +21,16 @@ public class X_M_AttributeSetInstanceMutation extends POMutation implements Grap
 		return X_M_AttributeSetInstanceInput.Table_Name;
 	}
 
-	public MAttributeSetInstance_BH M_AttributeSetInstanceSave(I_M_AttributeSetInstanceInput entity, DataFetchingEnvironment environment) {
-		return (MAttributeSetInstance_BH) super.save((X_M_AttributeSetInstanceInput) entity, environment);
+	public MAttributeSetInstance_BH M_AttributeSetInstanceSave(I_M_AttributeSetInstanceInput Entity, DataFetchingEnvironment environment) {
+		return (MAttributeSetInstance_BH) super.save((X_M_AttributeSetInstanceInput) Entity, environment);
 	}
 
-	public List<MAttributeSetInstance_BH> M_AttributeSetInstanceSaveMany(List<I_M_AttributeSetInstanceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_AttributeSetInstanceInput) entity).collect(Collectors.toList()),
+	public List<MAttributeSetInstance_BH> M_AttributeSetInstanceSaveMany(List<I_M_AttributeSetInstanceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_AttributeSetInstanceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAttributeSetInstance_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_AttributeSetInstanceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_AttributeSetInstanceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

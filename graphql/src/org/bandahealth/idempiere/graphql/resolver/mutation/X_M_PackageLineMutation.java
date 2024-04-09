@@ -21,16 +21,16 @@ public class X_M_PackageLineMutation extends POMutation implements GraphQLMutati
 		return X_M_PackageLineInput.Table_Name;
 	}
 
-	public MPackageLine M_PackageLineSave(I_M_PackageLineInput entity, DataFetchingEnvironment environment) {
-		return (MPackageLine) super.save((X_M_PackageLineInput) entity, environment);
+	public MPackageLine M_PackageLineSave(I_M_PackageLineInput Entity, DataFetchingEnvironment environment) {
+		return (MPackageLine) super.save((X_M_PackageLineInput) Entity, environment);
 	}
 
-	public List<MPackageLine> M_PackageLineSaveMany(List<I_M_PackageLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PackageLineInput) entity).collect(Collectors.toList()),
+	public List<MPackageLine> M_PackageLineSaveMany(List<I_M_PackageLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PackageLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPackageLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PackageLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PackageLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

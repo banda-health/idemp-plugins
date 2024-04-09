@@ -21,16 +21,16 @@ public class X_M_ProductionLineMAMutation extends POMutation implements GraphQLM
 		return X_M_ProductionLineMAInput.Table_Name;
 	}
 
-	public MProductionLineMA M_ProductionLineMASave(I_M_ProductionLineMAInput entity, DataFetchingEnvironment environment) {
-		return (MProductionLineMA) super.save((X_M_ProductionLineMAInput) entity, environment);
+	public MProductionLineMA M_ProductionLineMASave(I_M_ProductionLineMAInput Entity, DataFetchingEnvironment environment) {
+		return (MProductionLineMA) super.save((X_M_ProductionLineMAInput) Entity, environment);
 	}
 
-	public List<MProductionLineMA> M_ProductionLineMASaveMany(List<I_M_ProductionLineMAInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ProductionLineMAInput) entity).collect(Collectors.toList()),
+	public List<MProductionLineMA> M_ProductionLineMASaveMany(List<I_M_ProductionLineMAInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ProductionLineMAInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProductionLineMA) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ProductionLineMADelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ProductionLineMADelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

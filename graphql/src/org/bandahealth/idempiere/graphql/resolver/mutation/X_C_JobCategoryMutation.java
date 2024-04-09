@@ -21,16 +21,16 @@ public class X_C_JobCategoryMutation extends POMutation implements GraphQLMutati
 		return X_C_JobCategoryInput.Table_Name;
 	}
 
-	public X_C_JobCategory C_JobCategorySave(I_C_JobCategoryInput entity, DataFetchingEnvironment environment) {
-		return (X_C_JobCategory) super.save((X_C_JobCategoryInput) entity, environment);
+	public X_C_JobCategory C_JobCategorySave(I_C_JobCategoryInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_JobCategory) super.save((X_C_JobCategoryInput) Entity, environment);
 	}
 
-	public List<X_C_JobCategory> C_JobCategorySaveMany(List<I_C_JobCategoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_JobCategoryInput) entity).collect(Collectors.toList()),
+	public List<X_C_JobCategory> C_JobCategorySaveMany(List<I_C_JobCategoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_JobCategoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_JobCategory) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_JobCategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_JobCategoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

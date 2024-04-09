@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_PaySelectionCheckGet(page: Int, size: Int, sort: String, filter: String): C_PaySelectionCheckConnection!
+	C_PaySelectionCheckGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaySelectionCheckConnection!
 }
 
 extend type Mutation {
-	C_PaySelectionCheckSave(entity: C_PaySelectionCheckInput!): C_PaySelectionCheck!
-	C_PaySelectionCheckSaveMany(entities: [C_PaySelectionCheckInput!]!): [C_PaySelectionCheck!]!
-	C_PaySelectionCheckDelete(uuids: [String!]!): Boolean!
+	C_PaySelectionCheckSave(Entity: C_PaySelectionCheckInput!): C_PaySelectionCheck!
+	C_PaySelectionCheckSaveMany(Entities: [C_PaySelectionCheckInput!]!): [C_PaySelectionCheck!]!
+	C_PaySelectionCheckDelete(UUs: [String!]!): Boolean!
 }
 
 type C_PaySelectionCheckConnection {
-	results: [C_PaySelectionCheck!]!
-	pagingInfo: PagingInfo!
+	Results: [C_PaySelectionCheck!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_PaySelectionCheck {
@@ -29,8 +29,7 @@ type C_PaySelectionCheck {
 	C_Payment: C_Payment
 	# Payment Selection
 	C_PaySelection: C_PaySelection!
-	UUID: ID!
-	C_PaySelectionCheck_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -73,8 +72,7 @@ input C_PaySelectionCheckInput {
 	C_Payment: ForeignEntityInput
 	# Payment Selection
 	C_PaySelection: ForeignEntityInput
-	UUID: ID
-	C_PaySelectionCheck_UU: String
+	UU: ID
 	# Calculated amount of discount
 	DiscountAmt: BigDecimal
 	# Document sequence number of the document

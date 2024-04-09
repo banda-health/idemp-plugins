@@ -21,16 +21,16 @@ public class X_C_PaymentTransactionMutation extends POMutation implements GraphQ
 		return X_C_PaymentTransactionInput.Table_Name;
 	}
 
-	public MPaymentTransaction C_PaymentTransactionSave(I_C_PaymentTransactionInput entity, DataFetchingEnvironment environment) {
-		return (MPaymentTransaction) super.save((X_C_PaymentTransactionInput) entity, environment);
+	public MPaymentTransaction C_PaymentTransactionSave(I_C_PaymentTransactionInput Entity, DataFetchingEnvironment environment) {
+		return (MPaymentTransaction) super.save((X_C_PaymentTransactionInput) Entity, environment);
 	}
 
-	public List<MPaymentTransaction> C_PaymentTransactionSaveMany(List<I_C_PaymentTransactionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_PaymentTransactionInput) entity).collect(Collectors.toList()),
+	public List<MPaymentTransaction> C_PaymentTransactionSaveMany(List<I_C_PaymentTransactionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_PaymentTransactionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPaymentTransaction) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_PaymentTransactionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_PaymentTransactionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

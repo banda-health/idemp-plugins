@@ -21,16 +21,16 @@ public class X_C_POSMutation extends POMutation implements GraphQLMutationResolv
 		return X_C_POSInput.Table_Name;
 	}
 
-	public MPOS C_POSSave(I_C_POSInput entity, DataFetchingEnvironment environment) {
-		return (MPOS) super.save((X_C_POSInput) entity, environment);
+	public MPOS C_POSSave(I_C_POSInput Entity, DataFetchingEnvironment environment) {
+		return (MPOS) super.save((X_C_POSInput) Entity, environment);
 	}
 
-	public List<MPOS> C_POSSaveMany(List<I_C_POSInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_POSInput) entity).collect(Collectors.toList()),
+	public List<MPOS> C_POSSaveMany(List<I_C_POSInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_POSInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPOS) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_POSDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_POSDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

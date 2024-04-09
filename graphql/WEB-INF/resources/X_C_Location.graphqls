@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_LocationGet(page: Int, size: Int, sort: String, filter: String): C_LocationConnection!
+	C_LocationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_LocationConnection!
 }
 
 extend type Mutation {
-	C_LocationSave(entity: C_LocationInput!): C_Location!
-	C_LocationSaveMany(entities: [C_LocationInput!]!): [C_Location!]!
-	C_LocationDelete(uuids: [String!]!): Boolean!
+	C_LocationSave(Entity: C_LocationInput!): C_Location!
+	C_LocationSaveMany(Entities: [C_LocationInput!]!): [C_Location!]!
+	C_LocationDelete(UUs: [String!]!): Boolean!
 }
 
 type C_LocationConnection {
-	results: [C_Location!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Location!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Location {
@@ -36,8 +36,7 @@ type C_Location {
 	C_City: C_City
 	# Country 
 	C_Country: C_Country!
-	UUID: ID!
-	C_Location_UU: String
+	UU: ID!
 	# Identifies a geographical Region
 	C_Region: C_Region
 	# Identifies a City
@@ -85,8 +84,7 @@ input C_LocationInput {
 	C_City: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	UUID: ID
-	C_Location_UU: String
+	UU: ID
 	# Identifies a geographical Region
 	C_Region: ForeignEntityInput
 	# Identifies a City

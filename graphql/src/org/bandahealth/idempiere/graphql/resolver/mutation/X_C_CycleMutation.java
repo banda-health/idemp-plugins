@@ -21,16 +21,16 @@ public class X_C_CycleMutation extends POMutation implements GraphQLMutationReso
 		return X_C_CycleInput.Table_Name;
 	}
 
-	public X_C_Cycle C_CycleSave(I_C_CycleInput entity, DataFetchingEnvironment environment) {
-		return (X_C_Cycle) super.save((X_C_CycleInput) entity, environment);
+	public X_C_Cycle C_CycleSave(I_C_CycleInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_Cycle) super.save((X_C_CycleInput) Entity, environment);
 	}
 
-	public List<X_C_Cycle> C_CycleSaveMany(List<I_C_CycleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CycleInput) entity).collect(Collectors.toList()),
+	public List<X_C_Cycle> C_CycleSaveMany(List<I_C_CycleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CycleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_Cycle) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CycleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CycleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

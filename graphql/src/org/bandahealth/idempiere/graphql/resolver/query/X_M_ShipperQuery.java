@@ -17,8 +17,8 @@ public class X_M_ShipperQuery extends POQuery<MShipper> implements GraphQLQueryR
 		return MShipper.Table_Name;
 	}
 
-	public Connection<MShipper> M_ShipperGet(int page, int pageSize, String sort, String filter,
+	public Connection<MShipper> M_ShipperGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

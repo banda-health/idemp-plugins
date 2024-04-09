@@ -35,12 +35,12 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The T_InvoiceGL_UU to fetch this entity from the DB
+	 * @param UU The T_InvoiceGL_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_T_InvoiceGLInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_T_InvoiceGLInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
+						"Could not find entity in table AD_PInstance with UU " + AD_PInstance.getUU());
 			}
 		} else {
 			this.setAD_PInstance_ID(0);
@@ -124,11 +124,11 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(APAR.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(APAR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAPAR(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + APAR.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + APAR.getUU());
 			}
 		} else {
 			this.setAPAR(null);
@@ -158,11 +158,11 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ConversionTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ConversionTypeReval_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ConversionType with UUID " + C_ConversionTypeReval.getUUID());
+						"Could not find entity in table C_ConversionType with UU " + C_ConversionTypeReval.getUU());
 			}
 		} else {
 			this.setC_ConversionTypeReval_ID(0);
@@ -192,11 +192,11 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocTypeReval.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocTypeReval_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocTypeReval.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocTypeReval.getUU());
 			}
 		} else {
 			this.setC_DocTypeReval_ID(0);
@@ -226,11 +226,11 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
 			}
 		} else {
 			this.setC_Invoice_ID(0);
@@ -259,20 +259,20 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setT_InvoiceGL_UU(UUID);
+	public void setUU(String UU) {
+		setT_InvoiceGL_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getT_InvoiceGL_UU();
 	}
 }

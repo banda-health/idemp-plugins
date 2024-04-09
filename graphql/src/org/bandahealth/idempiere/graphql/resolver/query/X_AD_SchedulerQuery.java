@@ -17,8 +17,8 @@ public class X_AD_SchedulerQuery extends POQuery<MScheduler> implements GraphQLQ
 		return MScheduler.Table_Name;
 	}
 
-	public Connection<MScheduler> AD_SchedulerGet(int page, int pageSize, String sort, String filter,
+	public Connection<MScheduler> AD_SchedulerGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

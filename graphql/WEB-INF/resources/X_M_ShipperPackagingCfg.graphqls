@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ShipperPackagingCfgGet(page: Int, size: Int, sort: String, filter: String): M_ShipperPackagingCfgConnection!
+	M_ShipperPackagingCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperPackagingCfgConnection!
 }
 
 extend type Mutation {
-	M_ShipperPackagingCfgSave(entity: M_ShipperPackagingCfgInput!): M_ShipperPackagingCfg!
-	M_ShipperPackagingCfgSaveMany(entities: [M_ShipperPackagingCfgInput!]!): [M_ShipperPackagingCfg!]!
-	M_ShipperPackagingCfgDelete(uuids: [String!]!): Boolean!
+	M_ShipperPackagingCfgSave(Entity: M_ShipperPackagingCfgInput!): M_ShipperPackagingCfg!
+	M_ShipperPackagingCfgSaveMany(Entities: [M_ShipperPackagingCfgInput!]!): [M_ShipperPackagingCfg!]!
+	M_ShipperPackagingCfgDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ShipperPackagingCfgConnection {
-	results: [M_ShipperPackagingCfg!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ShipperPackagingCfg!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ShipperPackagingCfg {
@@ -32,8 +32,7 @@ type M_ShipperPackagingCfg {
 	# Default value
 	IsDefault: Boolean!
 	M_ShipperCfg: M_ShipperCfg!
-	UUID: ID!
-	M_ShipperPackagingCfg_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -56,8 +55,7 @@ input M_ShipperPackagingCfgInput {
 	# Default value
 	IsDefault: Boolean
 	M_ShipperCfg: ForeignEntityInput
-	UUID: ID
-	M_ShipperPackagingCfg_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

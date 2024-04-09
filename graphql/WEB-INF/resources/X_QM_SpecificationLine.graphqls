@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	QM_SpecificationLineGet(page: Int, size: Int, sort: String, filter: String): QM_SpecificationLineConnection!
+	QM_SpecificationLineGet(Page: Int, Size: Int, Sort: String, Filter: String): QM_SpecificationLineConnection!
 }
 
 extend type Mutation {
-	QM_SpecificationLineSave(entity: QM_SpecificationLineInput!): QM_SpecificationLine!
-	QM_SpecificationLineSaveMany(entities: [QM_SpecificationLineInput!]!): [QM_SpecificationLine!]!
-	QM_SpecificationLineDelete(uuids: [String!]!): Boolean!
+	QM_SpecificationLineSave(Entity: QM_SpecificationLineInput!): QM_SpecificationLine!
+	QM_SpecificationLineSaveMany(Entities: [QM_SpecificationLineInput!]!): [QM_SpecificationLine!]!
+	QM_SpecificationLineDelete(UUs: [String!]!): Boolean!
 }
 
 type QM_SpecificationLineConnection {
-	results: [QM_SpecificationLine!]!
-	pagingInfo: PagingInfo!
+	Results: [QM_SpecificationLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type QM_SpecificationLine {
@@ -34,8 +34,7 @@ type QM_SpecificationLine {
 	# Compare Operation
 	Operation: AD_Ref_List!
 	QM_Specification: QM_Specification
-	UUID: ID!
-	QM_SpecificationLine_UU: String
+	UU: ID!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Date this record was updated
@@ -62,8 +61,7 @@ input QM_SpecificationLineInput {
 	# Compare Operation
 	Operation: AD_Ref_ListInput
 	QM_Specification: ForeignEntityInput
-	UUID: ID
-	QM_SpecificationLine_UU: String
+	UU: ID
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Valid from including this date (first day)

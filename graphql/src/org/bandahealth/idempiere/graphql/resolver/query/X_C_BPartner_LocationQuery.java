@@ -17,8 +17,8 @@ public class X_C_BPartner_LocationQuery extends POQuery<MBPartnerLocation> imple
 		return MBPartnerLocation.Table_Name;
 	}
 
-	public Connection<MBPartnerLocation> C_BPartner_LocationGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBPartnerLocation> C_BPartner_LocationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

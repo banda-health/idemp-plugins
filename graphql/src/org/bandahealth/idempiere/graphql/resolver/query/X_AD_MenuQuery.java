@@ -17,8 +17,8 @@ public class X_AD_MenuQuery extends POQuery<MMenu_BH> implements GraphQLQueryRes
 		return MMenu_BH.Table_Name;
 	}
 
-	public Connection<MMenu_BH> AD_MenuGet(int page, int pageSize, String sort, String filter,
+	public Connection<MMenu_BH> AD_MenuGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

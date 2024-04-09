@@ -21,16 +21,16 @@ public class X_AD_UserDef_FieldMutation extends POMutation implements GraphQLMut
 		return X_AD_UserDef_FieldInput.Table_Name;
 	}
 
-	public MUserDefField AD_UserDef_FieldSave(I_AD_UserDef_FieldInput entity, DataFetchingEnvironment environment) {
-		return (MUserDefField) super.save((X_AD_UserDef_FieldInput) entity, environment);
+	public MUserDefField AD_UserDef_FieldSave(I_AD_UserDef_FieldInput Entity, DataFetchingEnvironment environment) {
+		return (MUserDefField) super.save((X_AD_UserDef_FieldInput) Entity, environment);
 	}
 
-	public List<MUserDefField> AD_UserDef_FieldSaveMany(List<I_AD_UserDef_FieldInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_FieldInput) entity).collect(Collectors.toList()),
+	public List<MUserDefField> AD_UserDef_FieldSaveMany(List<I_AD_UserDef_FieldInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserDef_FieldInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserDefField) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDef_FieldDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDef_FieldDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

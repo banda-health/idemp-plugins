@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CommissionGet(page: Int, size: Int, sort: String, filter: String): C_CommissionConnection!
+	C_CommissionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionConnection!
 }
 
 extend type Mutation {
-	C_CommissionSave(entity: C_CommissionInput!): C_Commission!
-	C_CommissionSaveMany(entities: [C_CommissionInput!]!): [C_Commission!]!
-	C_CommissionDelete(uuids: [String!]!): Boolean!
+	C_CommissionSave(Entity: C_CommissionInput!): C_Commission!
+	C_CommissionSaveMany(Entities: [C_CommissionInput!]!): [C_Commission!]!
+	C_CommissionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CommissionConnection {
-	results: [C_Commission!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Commission!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Commission {
@@ -25,8 +25,7 @@ type C_Commission {
 	C_BPartner: C_BPartner!
 	# Additional document charges
 	C_Charge: C_Charge
-	UUID: ID!
-	C_Commission_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -65,8 +64,7 @@ input C_CommissionInput {
 	C_BPartner: ForeignEntityInput
 	# Additional document charges
 	C_Charge: ForeignEntityInput
-	UUID: ID
-	C_Commission_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Process which will generate a new document lines based on an existing document

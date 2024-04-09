@@ -17,8 +17,8 @@ public class X_C_CommissionAmtQuery extends POQuery<MCommissionAmt> implements G
 		return MCommissionAmt.Table_Name;
 	}
 
-	public Connection<MCommissionAmt> C_CommissionAmtGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCommissionAmt> C_CommissionAmtGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

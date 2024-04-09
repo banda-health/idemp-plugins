@@ -17,8 +17,8 @@ public class X_AD_Password_HistoryQuery extends POQuery<MPasswordHistory> implem
 		return MPasswordHistory.Table_Name;
 	}
 
-	public Connection<MPasswordHistory> AD_Password_HistoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPasswordHistory> AD_Password_HistoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

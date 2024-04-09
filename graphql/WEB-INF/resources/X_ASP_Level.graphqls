@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	ASP_LevelGet(page: Int, size: Int, sort: String, filter: String): ASP_LevelConnection!
+	ASP_LevelGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_LevelConnection!
 }
 
 extend type Mutation {
-	ASP_LevelSave(entity: ASP_LevelInput!): ASP_Level!
-	ASP_LevelSaveMany(entities: [ASP_LevelInput!]!): [ASP_Level!]!
-	ASP_LevelDelete(uuids: [String!]!): Boolean!
+	ASP_LevelSave(Entity: ASP_LevelInput!): ASP_Level!
+	ASP_LevelSaveMany(Entities: [ASP_LevelInput!]!): [ASP_Level!]!
+	ASP_LevelDelete(UUs: [String!]!): Boolean!
 }
 
 type ASP_LevelConnection {
-	results: [ASP_Level!]!
-	pagingInfo: PagingInfo!
+	Results: [ASP_Level!]!
+	PagingInfo: PagingInfo!
 }
 
 type ASP_Level {
@@ -21,8 +21,7 @@ type ASP_Level {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	ASP_Level_UU: String
+	UU: ID!
 	ASP_Module: ASP_Module!
 	# Date this record was created
 	Created: Date!
@@ -48,8 +47,7 @@ type ASP_Level {
 input ASP_LevelInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	ASP_Level_UU: String
+	UU: ID
 	ASP_Module: ForeignEntityInput
 	# Optional short description of the record
 	Description: String

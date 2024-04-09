@@ -33,12 +33,12 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The S_Resource_UU to fetch this entity from the DB
+	 * @param UU The S_Resource_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_S_ResourceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_S_ResourceInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -125,11 +125,11 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);
@@ -159,11 +159,11 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ManufacturingResourceType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ManufacturingResourceType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setManufacturingResourceType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ManufacturingResourceType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ManufacturingResourceType.getUU());
 			}
 		} else {
 			this.setManufacturingResourceType(null);
@@ -192,20 +192,20 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setS_Resource_UU(UUID);
+	public void setUU(String UU) {
+		setS_Resource_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getS_Resource_UU();
 	}
 
@@ -222,11 +222,11 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 			MResourceType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ResourceType", "S_ResourceType_UU=?", get_TrxName())
-							.setParameters(S_ResourceType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_ResourceType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_ResourceType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table S_ResourceType with UUID " + S_ResourceType.getUUID());
+						"Could not find entity in table S_ResourceType with UU " + S_ResourceType.getUU());
 			}
 		} else {
 			this.setS_ResourceType_ID(0);

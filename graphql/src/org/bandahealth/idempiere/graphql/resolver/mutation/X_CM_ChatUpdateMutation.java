@@ -21,16 +21,16 @@ public class X_CM_ChatUpdateMutation extends POMutation implements GraphQLMutati
 		return X_CM_ChatUpdateInput.Table_Name;
 	}
 
-	public X_CM_ChatUpdate CM_ChatUpdateSave(I_CM_ChatUpdateInput entity, DataFetchingEnvironment environment) {
-		return (X_CM_ChatUpdate) super.save((X_CM_ChatUpdateInput) entity, environment);
+	public X_CM_ChatUpdate CM_ChatUpdateSave(I_CM_ChatUpdateInput Entity, DataFetchingEnvironment environment) {
+		return (X_CM_ChatUpdate) super.save((X_CM_ChatUpdateInput) Entity, environment);
 	}
 
-	public List<X_CM_ChatUpdate> CM_ChatUpdateSaveMany(List<I_CM_ChatUpdateInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_CM_ChatUpdateInput) entity).collect(Collectors.toList()),
+	public List<X_CM_ChatUpdate> CM_ChatUpdateSaveMany(List<I_CM_ChatUpdateInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_CM_ChatUpdateInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_CM_ChatUpdate) entity).collect(Collectors.toList());
 	}
 
-	public boolean CM_ChatUpdateDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean CM_ChatUpdateDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

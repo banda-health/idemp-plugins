@@ -29,12 +29,12 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The CM_ChatUpdate_UU to fetch this entity from the DB
+	 * @param UU The CM_ChatUpdate_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_CM_ChatUpdateInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_CM_ChatUpdateInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -127,11 +127,11 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 			MChat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "CM_Chat", "CM_Chat_UU=?", get_TrxName())
-							.setParameters(CM_Chat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CM_Chat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCM_Chat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table CM_Chat with UUID " + CM_Chat.getUUID());
+						"Could not find entity in table CM_Chat with UU " + CM_Chat.getUU());
 			}
 		} else {
 			this.setCM_Chat_ID(0);
@@ -149,20 +149,20 @@ public class X_CM_ChatUpdateInput extends X_CM_ChatUpdate implements I_CM_ChatUp
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setCM_ChatUpdate_UU(UUID);
+	public void setUU(String UU) {
+		setCM_ChatUpdate_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getCM_ChatUpdate_UU();
 	}
 }

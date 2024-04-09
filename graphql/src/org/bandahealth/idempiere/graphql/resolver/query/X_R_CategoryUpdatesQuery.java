@@ -17,8 +17,8 @@ public class X_R_CategoryUpdatesQuery extends POQuery<X_R_CategoryUpdates> imple
 		return X_R_CategoryUpdates.Table_Name;
 	}
 
-	public Connection<X_R_CategoryUpdates> R_CategoryUpdatesGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_R_CategoryUpdates> R_CategoryUpdatesGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

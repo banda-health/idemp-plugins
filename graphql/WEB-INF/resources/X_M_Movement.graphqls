@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_MovementGet(page: Int, size: Int, sort: String, filter: String): M_MovementConnection!
+	M_MovementGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementConnection!
 }
 
 extend type Mutation {
-	M_MovementSave(entity: M_MovementInput!): M_Movement!
-	M_MovementSaveMany(entities: [M_MovementInput!]!): [M_Movement!]!
-	M_MovementDelete(uuids: [String!]!): Boolean!
+	M_MovementSave(Entity: M_MovementInput!): M_Movement!
+	M_MovementSaveMany(Entities: [M_MovementInput!]!): [M_Movement!]!
+	M_MovementDelete(UUs: [String!]!): Boolean!
 }
 
 type M_MovementConnection {
-	results: [M_Movement!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Movement!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Movement {
@@ -76,8 +76,7 @@ type M_Movement {
 	IsApproved: Boolean!
 	# Movement is in transit
 	IsInTransit: Boolean!
-	UUID: ID!
-	M_Movement_UU: String
+	UU: ID!
 	# Method or manner of product delivery
 	M_Shipper: M_Shipper
 	# Storage Warehouse and Service Point
@@ -165,8 +164,7 @@ input M_MovementInput {
 	IsApproved: Boolean
 	# Movement is in transit
 	IsInTransit: Boolean
-	UUID: ID
-	M_Movement_UU: String
+	UU: ID
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	# Storage Warehouse and Service Point

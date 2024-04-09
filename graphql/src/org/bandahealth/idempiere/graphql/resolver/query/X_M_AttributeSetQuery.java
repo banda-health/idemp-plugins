@@ -17,8 +17,8 @@ public class X_M_AttributeSetQuery extends POQuery<MAttributeSet_BH> implements 
 		return MAttributeSet_BH.Table_Name;
 	}
 
-	public Connection<MAttributeSet_BH> M_AttributeSetGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAttributeSet_BH> M_AttributeSetGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_S_ResourceQuery extends POQuery<MResource> implements GraphQLQuer
 		return MResource.Table_Name;
 	}
 
-	public Connection<MResource> S_ResourceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MResource> S_ResourceGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

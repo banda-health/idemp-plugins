@@ -21,16 +21,16 @@ public class X_C_OrderLandedCostMutation extends POMutation implements GraphQLMu
 		return X_C_OrderLandedCostInput.Table_Name;
 	}
 
-	public MOrderLandedCost C_OrderLandedCostSave(I_C_OrderLandedCostInput entity, DataFetchingEnvironment environment) {
-		return (MOrderLandedCost) super.save((X_C_OrderLandedCostInput) entity, environment);
+	public MOrderLandedCost C_OrderLandedCostSave(I_C_OrderLandedCostInput Entity, DataFetchingEnvironment environment) {
+		return (MOrderLandedCost) super.save((X_C_OrderLandedCostInput) Entity, environment);
 	}
 
-	public List<MOrderLandedCost> C_OrderLandedCostSaveMany(List<I_C_OrderLandedCostInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_OrderLandedCostInput) entity).collect(Collectors.toList()),
+	public List<MOrderLandedCost> C_OrderLandedCostSaveMany(List<I_C_OrderLandedCostInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OrderLandedCostInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MOrderLandedCost) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_OrderLandedCostDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_OrderLandedCostDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

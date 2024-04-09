@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RfQLineGet(page: Int, size: Int, sort: String, filter: String): C_RfQLineConnection!
+	C_RfQLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQLineConnection!
 }
 
 extend type Mutation {
-	C_RfQLineSave(entity: C_RfQLineInput!): C_RfQLine!
-	C_RfQLineSaveMany(entities: [C_RfQLineInput!]!): [C_RfQLine!]!
-	C_RfQLineDelete(uuids: [String!]!): Boolean!
+	C_RfQLineSave(Entity: C_RfQLineInput!): C_RfQLine!
+	C_RfQLineSaveMany(Entities: [C_RfQLineInput!]!): [C_RfQLine!]!
+	C_RfQLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RfQLineConnection {
-	results: [C_RfQLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RfQLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RfQLine {
@@ -23,8 +23,7 @@ type C_RfQLine {
 	AD_Org: AD_Org!
 	# Request for Quotation
 	C_RfQ: C_RfQ!
-	UUID: ID!
-	C_RfQLine_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,8 +57,7 @@ input C_RfQLineInput {
 	AD_Org: ForeignEntityInput
 	# Request for Quotation
 	C_RfQ: ForeignEntityInput
-	UUID: ID
-	C_RfQLine_UU: String
+	UU: ID
 	# Date when work is (planned to be) complete
 	DateWorkComplete: Date
 	# Date when work is (planned to be) started

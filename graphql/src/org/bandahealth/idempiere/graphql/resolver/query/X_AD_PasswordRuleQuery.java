@@ -17,8 +17,8 @@ public class X_AD_PasswordRuleQuery extends POQuery<MPasswordRule> implements Gr
 		return MPasswordRule.Table_Name;
 	}
 
-	public Connection<MPasswordRule> AD_PasswordRuleGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPasswordRule> AD_PasswordRuleGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

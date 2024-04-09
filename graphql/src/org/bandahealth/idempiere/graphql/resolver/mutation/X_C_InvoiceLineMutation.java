@@ -21,16 +21,16 @@ public class X_C_InvoiceLineMutation extends POMutation implements GraphQLMutati
 		return X_C_InvoiceLineInput.Table_Name;
 	}
 
-	public MInvoiceLine C_InvoiceLineSave(I_C_InvoiceLineInput entity, DataFetchingEnvironment environment) {
-		return (MInvoiceLine) super.save((X_C_InvoiceLineInput) entity, environment);
+	public MInvoiceLine C_InvoiceLineSave(I_C_InvoiceLineInput Entity, DataFetchingEnvironment environment) {
+		return (MInvoiceLine) super.save((X_C_InvoiceLineInput) Entity, environment);
 	}
 
-	public List<MInvoiceLine> C_InvoiceLineSaveMany(List<I_C_InvoiceLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_InvoiceLineInput) entity).collect(Collectors.toList()),
+	public List<MInvoiceLine> C_InvoiceLineSaveMany(List<I_C_InvoiceLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_InvoiceLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInvoiceLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_InvoiceLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_InvoiceLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_IssueUserGet(page: Int, size: Int, sort: String, filter: String): R_IssueUserConnection!
+	R_IssueUserGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueUserConnection!
 }
 
 extend type Mutation {
-	R_IssueUserSave(entity: R_IssueUserInput!): R_IssueUser!
-	R_IssueUserSaveMany(entities: [R_IssueUserInput!]!): [R_IssueUser!]!
-	R_IssueUserDelete(uuids: [String!]!): Boolean!
+	R_IssueUserSave(Entity: R_IssueUserInput!): R_IssueUser!
+	R_IssueUserSaveMany(Entities: [R_IssueUserInput!]!): [R_IssueUser!]!
+	R_IssueUserDelete(UUs: [String!]!): Boolean!
 }
 
 type R_IssueUserConnection {
-	results: [R_IssueUser!]!
-	pagingInfo: PagingInfo!
+	Results: [R_IssueUser!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_IssueUser {
@@ -31,8 +31,7 @@ type R_IssueUser {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	R_IssueUser_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -49,7 +48,6 @@ input R_IssueUserInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	R_IssueUser_UU: String
+	UU: ID
 	UserName: String
 }

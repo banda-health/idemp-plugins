@@ -21,16 +21,16 @@ public class X_AD_UserDef_ProcMutation extends POMutation implements GraphQLMuta
 		return X_AD_UserDef_ProcInput.Table_Name;
 	}
 
-	public MUserDefProc AD_UserDef_ProcSave(I_AD_UserDef_ProcInput entity, DataFetchingEnvironment environment) {
-		return (MUserDefProc) super.save((X_AD_UserDef_ProcInput) entity, environment);
+	public MUserDefProc AD_UserDef_ProcSave(I_AD_UserDef_ProcInput Entity, DataFetchingEnvironment environment) {
+		return (MUserDefProc) super.save((X_AD_UserDef_ProcInput) Entity, environment);
 	}
 
-	public List<MUserDefProc> AD_UserDef_ProcSaveMany(List<I_AD_UserDef_ProcInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_ProcInput) entity).collect(Collectors.toList()),
+	public List<MUserDefProc> AD_UserDef_ProcSaveMany(List<I_AD_UserDef_ProcInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserDef_ProcInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserDefProc) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDef_ProcDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDef_ProcDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

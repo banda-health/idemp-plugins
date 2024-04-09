@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ElementGet(page: Int, size: Int, sort: String, filter: String): AD_ElementConnection!
+	AD_ElementGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ElementConnection!
 }
 
 extend type Mutation {
-	AD_ElementSave(entity: AD_ElementInput!): AD_Element!
-	AD_ElementSaveMany(entities: [AD_ElementInput!]!): [AD_Element!]!
-	AD_ElementDelete(uuids: [String!]!): Boolean!
+	AD_ElementSave(Entity: AD_ElementInput!): AD_Element!
+	AD_ElementSaveMany(Entities: [AD_ElementInput!]!): [AD_Element!]!
+	AD_ElementDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ElementConnection {
-	results: [AD_Element!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Element!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Element {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_Element_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Name of the column in the database
@@ -57,8 +56,7 @@ type AD_Element {
 }
 
 input AD_ElementInput {
-	UUID: ID
-	AD_Element_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Name of the column in the database

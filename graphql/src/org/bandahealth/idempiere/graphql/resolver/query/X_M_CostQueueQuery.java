@@ -17,8 +17,8 @@ public class X_M_CostQueueQuery extends POQuery<MCostQueue> implements GraphQLQu
 		return MCostQueue.Table_Name;
 	}
 
-	public Connection<MCostQueue> M_CostQueueGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCostQueue> M_CostQueueGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

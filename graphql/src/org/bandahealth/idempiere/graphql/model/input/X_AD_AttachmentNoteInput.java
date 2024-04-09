@@ -29,12 +29,12 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_AttachmentNote_UU to fetch this entity from the DB
+	 * @param UU The AD_AttachmentNote_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_AttachmentNoteInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_AttachmentNoteInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 			MAttachment foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Attachment", "AD_Attachment_UU=?", get_TrxName())
-							.setParameters(AD_Attachment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Attachment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Attachment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Attachment with UUID " + AD_Attachment.getUUID());
+						"Could not find entity in table AD_Attachment with UU " + AD_Attachment.getUU());
 			}
 		} else {
 			this.setAD_Attachment_ID(0);
@@ -86,20 +86,20 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_AttachmentNote_UU(UUID);
+	public void setUU(String UU) {
+		setAD_AttachmentNote_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_AttachmentNote_UU();
 	}
 
@@ -119,11 +119,11 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -153,11 +153,11 @@ public class X_AD_AttachmentNoteInput extends MAttachmentNote implements I_AD_At
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);

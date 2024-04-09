@@ -32,12 +32,12 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The EXP_FormatLine_UU to fetch this entity from the DB
+	 * @param UU The EXP_FormatLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_EXP_FormatLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_EXP_FormatLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_Column.getUU());
 			}
 		} else {
 			this.setAD_Column_ID(0);
@@ -90,11 +90,11 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -124,11 +124,11 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
-							.setParameters(EXP_EmbeddedFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EXP_EmbeddedFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEXP_EmbeddedFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table EXP_Format with UUID " + EXP_EmbeddedFormat.getUUID());
+						"Could not find entity in table EXP_Format with UU " + EXP_EmbeddedFormat.getUU());
 			}
 		} else {
 			this.setEXP_EmbeddedFormat_ID(0);
@@ -161,11 +161,11 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MEXPFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "EXP_Format", "EXP_Format_UU=?", get_TrxName())
-							.setParameters(EXP_Format.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EXP_Format.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEXP_Format_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table EXP_Format with UUID " + EXP_Format.getUUID());
+						"Could not find entity in table EXP_Format with UU " + EXP_Format.getUU());
 			}
 		} else {
 			this.setEXP_Format_ID(0);
@@ -194,20 +194,20 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setEXP_FormatLine_UU(UUID);
+	public void setUU(String UU) {
+		setEXP_FormatLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getEXP_FormatLine_UU();
 	}
 
@@ -224,11 +224,11 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Type.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + Type.getUU());
 			}
 		} else {
 			this.setType(null);

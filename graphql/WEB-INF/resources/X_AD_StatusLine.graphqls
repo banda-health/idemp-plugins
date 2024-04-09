@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_StatusLineGet(page: Int, size: Int, sort: String, filter: String): AD_StatusLineConnection!
+	AD_StatusLineGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StatusLineConnection!
 }
 
 extend type Mutation {
-	AD_StatusLineSave(entity: AD_StatusLineInput!): AD_StatusLine!
-	AD_StatusLineSaveMany(entities: [AD_StatusLineInput!]!): [AD_StatusLine!]!
-	AD_StatusLineDelete(uuids: [String!]!): Boolean!
+	AD_StatusLineSave(Entity: AD_StatusLineInput!): AD_StatusLine!
+	AD_StatusLineSaveMany(Entities: [AD_StatusLineInput!]!): [AD_StatusLine!]!
+	AD_StatusLineDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_StatusLineConnection {
-	results: [AD_StatusLine!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_StatusLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_StatusLine {
@@ -23,8 +23,7 @@ type AD_StatusLine {
 	AD_Message: AD_Message!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_StatusLine_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -47,8 +46,7 @@ input AD_StatusLineInput {
 	AD_Message: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_StatusLine_UU: String
+	UU: ID
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# The record is active in the system

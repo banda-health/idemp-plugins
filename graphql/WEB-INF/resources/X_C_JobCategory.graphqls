@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_JobCategoryGet(page: Int, size: Int, sort: String, filter: String): C_JobCategoryConnection!
+	C_JobCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobCategoryConnection!
 }
 
 extend type Mutation {
-	C_JobCategorySave(entity: C_JobCategoryInput!): C_JobCategory!
-	C_JobCategorySaveMany(entities: [C_JobCategoryInput!]!): [C_JobCategory!]!
-	C_JobCategoryDelete(uuids: [String!]!): Boolean!
+	C_JobCategorySave(Entity: C_JobCategoryInput!): C_JobCategory!
+	C_JobCategorySaveMany(Entities: [C_JobCategoryInput!]!): [C_JobCategory!]!
+	C_JobCategoryDelete(UUs: [String!]!): Boolean!
 }
 
 type C_JobCategoryConnection {
-	results: [C_JobCategory!]!
-	pagingInfo: PagingInfo!
+	Results: [C_JobCategory!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_JobCategory {
@@ -21,8 +21,7 @@ type C_JobCategory {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_JobCategory_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,8 +43,7 @@ type C_JobCategory {
 input C_JobCategoryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_JobCategory_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

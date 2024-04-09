@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_WF_NodeGet(page: Int, size: Int, sort: String, filter: String): AD_WF_NodeConnection!
+	AD_WF_NodeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_NodeConnection!
 }
 
 extend type Mutation {
-	AD_WF_NodeSave(entity: AD_WF_NodeInput!): AD_WF_Node!
-	AD_WF_NodeSaveMany(entities: [AD_WF_NodeInput!]!): [AD_WF_Node!]!
-	AD_WF_NodeDelete(uuids: [String!]!): Boolean!
+	AD_WF_NodeSave(Entity: AD_WF_NodeInput!): AD_WF_Node!
+	AD_WF_NodeSaveMany(Entities: [AD_WF_NodeInput!]!): [AD_WF_Node!]!
+	AD_WF_NodeDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_WF_NodeConnection {
-	results: [AD_WF_Node!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_WF_Node!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_WF_Node {
@@ -38,8 +38,7 @@ type AD_WF_Node {
 	AD_Task: AD_Task
 	# Workflow Transaction Execution Block
 	AD_WF_Block: AD_WF_Block
-	UUID: ID!
-	AD_WF_Node_UU: String
+	UU: ID!
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: AD_WF_Responsible
 	# Data entry or display window
@@ -159,8 +158,7 @@ input AD_WF_NodeInput {
 	AD_Task: ForeignEntityInput
 	# Workflow Transaction Execution Block
 	AD_WF_Block: ForeignEntityInput
-	UUID: ID
-	AD_WF_Node_UU: String
+	UU: ID
 	# Responsible for Workflow Execution
 	AD_WF_Responsible: ForeignEntityInput
 	# Data entry or display window

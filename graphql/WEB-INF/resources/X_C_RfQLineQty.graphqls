@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RfQLineQtyGet(page: Int, size: Int, sort: String, filter: String): C_RfQLineQtyConnection!
+	C_RfQLineQtyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQLineQtyConnection!
 }
 
 extend type Mutation {
-	C_RfQLineQtySave(entity: C_RfQLineQtyInput!): C_RfQLineQty!
-	C_RfQLineQtySaveMany(entities: [C_RfQLineQtyInput!]!): [C_RfQLineQty!]!
-	C_RfQLineQtyDelete(uuids: [String!]!): Boolean!
+	C_RfQLineQtySave(Entity: C_RfQLineQtyInput!): C_RfQLineQty!
+	C_RfQLineQtySaveMany(Entities: [C_RfQLineQtyInput!]!): [C_RfQLineQty!]!
+	C_RfQLineQtyDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RfQLineQtyConnection {
-	results: [C_RfQLineQty!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RfQLineQty!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RfQLineQty {
@@ -27,8 +27,7 @@ type C_RfQLineQty {
 	BestResponseAmt: BigDecimal
 	# Request for Quotation Line
 	C_RfQLine: C_RfQLine!
-	UUID: ID!
-	C_RfQLineQty_UU: String
+	UU: ID!
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Date this record was created
@@ -64,8 +63,7 @@ input C_RfQLineQtyInput {
 	BestResponseAmt: BigDecimal
 	# Request for Quotation Line
 	C_RfQLine: ForeignEntityInput
-	UUID: ID
-	C_RfQLineQty_UU: String
+	UU: ID
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# The record is active in the system

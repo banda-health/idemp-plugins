@@ -17,8 +17,8 @@ public class X_AD_PrintColorQuery extends POQuery<X_AD_PrintColor> implements Gr
 		return X_AD_PrintColor.Table_Name;
 	}
 
-	public Connection<X_AD_PrintColor> AD_PrintColorGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_PrintColor> AD_PrintColorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

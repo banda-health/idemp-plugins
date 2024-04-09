@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_InvoiceLineGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceLineConnection!
+	C_InvoiceLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceLineConnection!
 }
 
 extend type Mutation {
-	C_InvoiceLineSave(entity: C_InvoiceLineInput!): C_InvoiceLine!
-	C_InvoiceLineSaveMany(entities: [C_InvoiceLineInput!]!): [C_InvoiceLine!]!
-	C_InvoiceLineDelete(uuids: [String!]!): Boolean!
+	C_InvoiceLineSave(Entity: C_InvoiceLineInput!): C_InvoiceLine!
+	C_InvoiceLineSaveMany(Entities: [C_InvoiceLineInput!]!): [C_InvoiceLine!]!
+	C_InvoiceLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_InvoiceLineConnection {
-	results: [C_InvoiceLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_InvoiceLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_InvoiceLine {
@@ -37,8 +37,7 @@ type C_InvoiceLine {
 	C_Charge: C_Charge
 	# Invoice Identifier
 	C_Invoice: C_Invoice!
-	UUID: ID!
-	C_InvoiceLine_UU: String
+	UU: ID!
 	# Sales Order Line
 	C_OrderLine: C_OrderLine
 	# Financial Project
@@ -129,8 +128,7 @@ input C_InvoiceLineInput {
 	C_Charge: ForeignEntityInput
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
-	UUID: ID
-	C_InvoiceLine_UU: String
+	UU: ID
 	# Sales Order Line
 	C_OrderLine: ForeignEntityInput
 	# Financial Project

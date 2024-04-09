@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_Product_BOMLineGet(page: Int, size: Int, sort: String, filter: String): PP_Product_BOMLineConnection!
+	PP_Product_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_BOMLineConnection!
 }
 
 extend type Mutation {
-	PP_Product_BOMLineSave(entity: PP_Product_BOMLineInput!): PP_Product_BOMLine!
-	PP_Product_BOMLineSaveMany(entities: [PP_Product_BOMLineInput!]!): [PP_Product_BOMLine!]!
-	PP_Product_BOMLineDelete(uuids: [String!]!): Boolean!
+	PP_Product_BOMLineSave(Entity: PP_Product_BOMLineInput!): PP_Product_BOMLine!
+	PP_Product_BOMLineSaveMany(Entities: [PP_Product_BOMLineInput!]!): [PP_Product_BOMLine!]!
+	PP_Product_BOMLineDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_Product_BOMLineConnection {
-	results: [PP_Product_BOMLine!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_Product_BOMLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_Product_BOMLine {
@@ -63,8 +63,7 @@ type PP_Product_BOMLine {
 	M_Product: M_Product!
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM!
-	UUID: ID!
-	PP_Product_BOMLine_UU: String
+	UU: ID!
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
 	# Indicate the Quantity  use in this BOM
@@ -122,8 +121,7 @@ input PP_Product_BOMLineInput {
 	M_Product: ForeignEntityInput
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
-	UUID: ID
-	PP_Product_BOMLine_UU: String
+	UU: ID
 	# Indicate the Quantity % use in this Formula
 	QtyBatch: BigDecimal
 	# Indicate the Quantity  use in this BOM

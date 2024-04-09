@@ -21,16 +21,16 @@ public class X_C_CyclePhaseMutation extends POMutation implements GraphQLMutatio
 		return X_C_CyclePhaseInput.Table_Name;
 	}
 
-	public X_C_CyclePhase C_CyclePhaseSave(I_C_CyclePhaseInput entity, DataFetchingEnvironment environment) {
-		return (X_C_CyclePhase) super.save((X_C_CyclePhaseInput) entity, environment);
+	public X_C_CyclePhase C_CyclePhaseSave(I_C_CyclePhaseInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_CyclePhase) super.save((X_C_CyclePhaseInput) Entity, environment);
 	}
 
-	public List<X_C_CyclePhase> C_CyclePhaseSaveMany(List<I_C_CyclePhaseInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CyclePhaseInput) entity).collect(Collectors.toList()),
+	public List<X_C_CyclePhase> C_CyclePhaseSaveMany(List<I_C_CyclePhaseInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CyclePhaseInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_CyclePhase) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CyclePhaseDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CyclePhaseDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

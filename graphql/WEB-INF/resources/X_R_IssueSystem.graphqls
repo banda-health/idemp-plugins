@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_IssueSystemGet(page: Int, size: Int, sort: String, filter: String): R_IssueSystemConnection!
+	R_IssueSystemGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueSystemConnection!
 }
 
 extend type Mutation {
-	R_IssueSystemSave(entity: R_IssueSystemInput!): R_IssueSystem!
-	R_IssueSystemSaveMany(entities: [R_IssueSystemInput!]!): [R_IssueSystem!]!
-	R_IssueSystemDelete(uuids: [String!]!): Boolean!
+	R_IssueSystemSave(Entity: R_IssueSystemInput!): R_IssueSystem!
+	R_IssueSystemSaveMany(Entities: [R_IssueSystemInput!]!): [R_IssueSystem!]!
+	R_IssueSystemDelete(UUs: [String!]!): Boolean!
 }
 
 type R_IssueSystemConnection {
-	results: [R_IssueSystem!]!
-	pagingInfo: PagingInfo!
+	Results: [R_IssueSystem!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_IssueSystem {
@@ -33,8 +33,7 @@ type R_IssueSystem {
 	IsActive: Boolean!
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	UUID: ID!
-	R_IssueSystem_UU: String
+	UU: ID!
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status
@@ -56,8 +55,7 @@ input R_IssueSystemInput {
 	IsActive: Boolean
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	UUID: ID
-	R_IssueSystem_UU: String
+	UU: ID
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status

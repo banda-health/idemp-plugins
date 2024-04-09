@@ -17,8 +17,8 @@ public class X_AD_UserDef_Proc_ParameterQuery extends POQuery<MUserDefProcParame
 		return MUserDefProcParameter.Table_Name;
 	}
 
-	public Connection<MUserDefProcParameter> AD_UserDef_Proc_ParameterGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUserDefProcParameter> AD_UserDef_Proc_ParameterGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

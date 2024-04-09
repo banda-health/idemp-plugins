@@ -17,8 +17,8 @@ public class X_PA_SLA_MeasureQuery extends POQuery<X_PA_SLA_Measure> implements 
 		return X_PA_SLA_Measure.Table_Name;
 	}
 
-	public Connection<X_PA_SLA_Measure> PA_SLA_MeasureGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PA_SLA_Measure> PA_SLA_MeasureGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

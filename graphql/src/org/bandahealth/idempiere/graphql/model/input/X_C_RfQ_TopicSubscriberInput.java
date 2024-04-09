@@ -33,12 +33,12 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_RfQ_TopicSubscriber_UU to fetch this entity from the DB
+	 * @param UU The C_RfQ_TopicSubscriber_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_RfQ_TopicSubscriberInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_RfQ_TopicSubscriberInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -125,11 +125,11 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -159,11 +159,11 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
+						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
 			}
 		} else {
 			this.setC_BPartner_Location_ID(0);
@@ -196,11 +196,11 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 			MRfQTopic foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQ_Topic", "C_RfQ_Topic_UU=?", get_TrxName())
-							.setParameters(C_RfQ_Topic.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RfQ_Topic.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RfQ_Topic_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_RfQ_Topic with UUID " + C_RfQ_Topic.getUUID());
+						"Could not find entity in table C_RfQ_Topic with UU " + C_RfQ_Topic.getUU());
 			}
 		} else {
 			this.setC_RfQ_Topic_ID(0);
@@ -229,20 +229,20 @@ public class X_C_RfQ_TopicSubscriberInput extends MRfQTopicSubscriber implements
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_RfQ_TopicSubscriber_UU(UUID);
+	public void setUU(String UU) {
+		setC_RfQ_TopicSubscriber_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_RfQ_TopicSubscriber_UU();
 	}
 }

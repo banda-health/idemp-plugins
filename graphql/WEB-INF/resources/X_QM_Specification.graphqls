@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	QM_SpecificationGet(page: Int, size: Int, sort: String, filter: String): QM_SpecificationConnection!
+	QM_SpecificationGet(Page: Int, Size: Int, Sort: String, Filter: String): QM_SpecificationConnection!
 }
 
 extend type Mutation {
-	QM_SpecificationSave(entity: QM_SpecificationInput!): QM_Specification!
-	QM_SpecificationSaveMany(entities: [QM_SpecificationInput!]!): [QM_Specification!]!
-	QM_SpecificationDelete(uuids: [String!]!): Boolean!
+	QM_SpecificationSave(Entity: QM_SpecificationInput!): QM_Specification!
+	QM_SpecificationSaveMany(Entities: [QM_SpecificationInput!]!): [QM_Specification!]!
+	QM_SpecificationDelete(UUs: [String!]!): Boolean!
 }
 
 type QM_SpecificationConnection {
-	results: [QM_Specification!]!
-	pagingInfo: PagingInfo!
+	Results: [QM_Specification!]!
+	PagingInfo: PagingInfo!
 }
 
 type QM_Specification {
@@ -39,8 +39,7 @@ type QM_Specification {
 	Name: String
 	# BOM & Formula
 	PP_Product_BOM: PP_Product_BOM
-	UUID: ID!
-	QM_Specification_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -70,8 +69,7 @@ input QM_SpecificationInput {
 	Name: String
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
-	UUID: ID
-	QM_Specification_UU: String
+	UU: ID
 	# Valid from including this date (first day)
 	ValidFrom: Date
 	# Valid to including this date (last day)

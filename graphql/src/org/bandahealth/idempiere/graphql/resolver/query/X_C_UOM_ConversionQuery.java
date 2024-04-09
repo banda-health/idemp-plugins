@@ -17,8 +17,8 @@ public class X_C_UOM_ConversionQuery extends POQuery<MUOMConversion> implements 
 		return MUOMConversion.Table_Name;
 	}
 
-	public Connection<MUOMConversion> C_UOM_ConversionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUOMConversion> C_UOM_ConversionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

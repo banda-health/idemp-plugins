@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_OrderTaxGet(page: Int, size: Int, sort: String, filter: String): C_OrderTaxConnection!
+	C_OrderTaxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderTaxConnection!
 }
 
 extend type Mutation {
-	C_OrderTaxSave(entity: C_OrderTaxInput!): C_OrderTax!
-	C_OrderTaxSaveMany(entities: [C_OrderTaxInput!]!): [C_OrderTax!]!
-	C_OrderTaxDelete(uuids: [String!]!): Boolean!
+	C_OrderTaxSave(Entity: C_OrderTaxInput!): C_OrderTax!
+	C_OrderTaxSaveMany(Entities: [C_OrderTaxInput!]!): [C_OrderTax!]!
+	C_OrderTaxDelete(UUs: [String!]!): Boolean!
 }
 
 type C_OrderTaxConnection {
-	results: [C_OrderTax!]!
-	pagingInfo: PagingInfo!
+	Results: [C_OrderTax!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_OrderTax {
@@ -23,8 +23,7 @@ type C_OrderTax {
 	AD_Org: AD_Org!
 	# Order
 	C_Order: C_Order!
-	UUID: ID!
-	C_OrderTax_UU: String
+	UU: ID!
 	# Tax identifier
 	C_Tax: C_Tax!
 	C_TaxProvider: C_TaxProvider
@@ -53,8 +52,7 @@ input C_OrderTaxInput {
 	AD_Org: ForeignEntityInput
 	# Order
 	C_Order: ForeignEntityInput
-	UUID: ID
-	C_OrderTax_UU: String
+	UU: ID
 	# Tax identifier
 	C_Tax: ForeignEntityInput
 	C_TaxProvider: ForeignEntityInput

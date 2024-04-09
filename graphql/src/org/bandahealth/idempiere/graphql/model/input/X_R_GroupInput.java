@@ -29,12 +29,12 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The R_Group_UU to fetch this entity from the DB
+	 * @param UU The R_Group_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_R_GroupInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_R_GroupInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -87,11 +87,11 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 			MChangeNotice foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ChangeNotice", "M_ChangeNotice_UU=?", get_TrxName())
-							.setParameters(M_ChangeNotice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ChangeNotice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ChangeNotice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_ChangeNotice with UUID " + M_ChangeNotice.getUUID());
+						"Could not find entity in table M_ChangeNotice with UU " + M_ChangeNotice.getUU());
 			}
 		} else {
 			this.setM_ChangeNotice_ID(0);
@@ -121,11 +121,11 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
-							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Product_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Product_BOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
+						"Could not find entity in table PP_Product_BOM with UU " + PP_Product_BOM.getUU());
 			}
 		} else {
 			this.setPP_Product_BOM_ID(0);
@@ -154,20 +154,20 @@ public class X_R_GroupInput extends MGroup implements I_R_GroupInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setR_Group_UU(UUID);
+	public void setUU(String UU) {
+		setR_Group_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getR_Group_UU();
 	}
 }

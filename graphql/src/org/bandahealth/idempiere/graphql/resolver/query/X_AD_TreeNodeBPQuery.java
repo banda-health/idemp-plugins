@@ -17,8 +17,8 @@ public class X_AD_TreeNodeBPQuery extends POQuery<MTree_NodeBP> implements Graph
 		return MTree_NodeBP.Table_Name;
 	}
 
-	public Connection<MTree_NodeBP> AD_TreeNodeBPGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTree_NodeBP> AD_TreeNodeBPGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

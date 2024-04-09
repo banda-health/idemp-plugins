@@ -17,8 +17,8 @@ public class X_PP_Order_BOMQuery extends POQuery<X_PP_Order_BOM> implements Grap
 		return X_PP_Order_BOM.Table_Name;
 	}
 
-	public Connection<X_PP_Order_BOM> PP_Order_BOMGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PP_Order_BOM> PP_Order_BOMGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

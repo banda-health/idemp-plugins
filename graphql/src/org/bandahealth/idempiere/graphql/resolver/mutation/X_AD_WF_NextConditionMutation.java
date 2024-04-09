@@ -21,16 +21,16 @@ public class X_AD_WF_NextConditionMutation extends POMutation implements GraphQL
 		return X_AD_WF_NextConditionInput.Table_Name;
 	}
 
-	public X_AD_WF_NextCondition AD_WF_NextConditionSave(I_AD_WF_NextConditionInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_WF_NextCondition) super.save((X_AD_WF_NextConditionInput) entity, environment);
+	public X_AD_WF_NextCondition AD_WF_NextConditionSave(I_AD_WF_NextConditionInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_NextCondition) super.save((X_AD_WF_NextConditionInput) Entity, environment);
 	}
 
-	public List<X_AD_WF_NextCondition> AD_WF_NextConditionSaveMany(List<I_AD_WF_NextConditionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_NextConditionInput) entity).collect(Collectors.toList()),
+	public List<X_AD_WF_NextCondition> AD_WF_NextConditionSaveMany(List<I_AD_WF_NextConditionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WF_NextConditionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_WF_NextCondition) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WF_NextConditionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WF_NextConditionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

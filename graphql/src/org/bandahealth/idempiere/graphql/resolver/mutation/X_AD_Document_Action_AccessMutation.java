@@ -21,16 +21,16 @@ public class X_AD_Document_Action_AccessMutation extends POMutation implements G
 		return X_AD_Document_Action_AccessInput.Table_Name;
 	}
 
-	public MDocumentActionAccess AD_Document_Action_AccessSave(I_AD_Document_Action_AccessInput entity, DataFetchingEnvironment environment) {
-		return (MDocumentActionAccess) super.save((X_AD_Document_Action_AccessInput) entity, environment);
+	public MDocumentActionAccess AD_Document_Action_AccessSave(I_AD_Document_Action_AccessInput Entity, DataFetchingEnvironment environment) {
+		return (MDocumentActionAccess) super.save((X_AD_Document_Action_AccessInput) Entity, environment);
 	}
 
-	public List<MDocumentActionAccess> AD_Document_Action_AccessSaveMany(List<I_AD_Document_Action_AccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Document_Action_AccessInput) entity).collect(Collectors.toList()),
+	public List<MDocumentActionAccess> AD_Document_Action_AccessSaveMany(List<I_AD_Document_Action_AccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Document_Action_AccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDocumentActionAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Document_Action_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Document_Action_AccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

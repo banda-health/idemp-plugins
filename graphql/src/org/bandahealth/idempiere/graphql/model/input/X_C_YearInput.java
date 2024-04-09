@@ -27,12 +27,12 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_Year_UU to fetch this entity from the DB
+	 * @param UU The C_Year_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_YearInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_YearInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,11 +88,11 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 			MCalendar foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Calendar", "C_Calendar_UU=?", get_TrxName())
-							.setParameters(C_Calendar.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Calendar.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Calendar_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Calendar with UUID " + C_Calendar.getUUID());
+						"Could not find entity in table C_Calendar with UU " + C_Calendar.getUU());
 			}
 		} else {
 			this.setC_Calendar_ID(0);
@@ -121,20 +121,20 @@ public class X_C_YearInput extends MYear implements I_C_YearInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_Year_UU(UUID);
+	public void setUU(String UU) {
+		setC_Year_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_Year_UU();
 	}
 }

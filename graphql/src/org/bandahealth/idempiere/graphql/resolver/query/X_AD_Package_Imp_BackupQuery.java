@@ -17,8 +17,8 @@ public class X_AD_Package_Imp_BackupQuery extends POQuery<X_AD_Package_Imp_Backu
 		return X_AD_Package_Imp_Backup.Table_Name;
 	}
 
-	public Connection<X_AD_Package_Imp_Backup> AD_Package_Imp_BackupGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_Package_Imp_Backup> AD_Package_Imp_BackupGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

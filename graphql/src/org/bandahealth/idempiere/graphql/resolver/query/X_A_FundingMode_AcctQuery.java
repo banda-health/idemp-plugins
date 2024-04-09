@@ -17,8 +17,8 @@ public class X_A_FundingMode_AcctQuery extends POQuery<X_A_FundingMode_Acct> imp
 		return X_A_FundingMode_Acct.Table_Name;
 	}
 
-	public Connection<X_A_FundingMode_Acct> A_FundingMode_AcctGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_FundingMode_Acct> A_FundingMode_AcctGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

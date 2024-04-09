@@ -35,12 +35,12 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_CashBook_Acct_UU to fetch this entity from the DB
+	 * @param UU The C_CashBook_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_CashBook_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_CashBook_AcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -96,11 +96,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -118,20 +118,20 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_CashBook_Acct_UU(UUID);
+	public void setUU(String UU) {
+		setC_CashBook_Acct_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_CashBook_Acct_UU();
 	}
 
@@ -151,11 +151,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MCashBook foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashBook", "C_CashBook_UU=?", get_TrxName())
-							.setParameters(C_CashBook.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashBook.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CashBook_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_CashBook with UUID " + C_CashBook.getUUID());
+						"Could not find entity in table C_CashBook with UU " + C_CashBook.getUU());
 			}
 		} else {
 			this.setC_CashBook_ID(0);
@@ -185,11 +185,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Asset_A.getUU());
 			}
 		} else {
 			this.setCB_Asset_Acct(0);
@@ -219,11 +219,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_CashTransfer_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_CashTransfer_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_CashTransfer_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_CashTransfer_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_CashTransfer_A.getUU());
 			}
 		} else {
 			this.setCB_CashTransfer_Acct(0);
@@ -253,11 +253,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Differences_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Differences_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Differences_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Differences_A.getUU());
 			}
 		} else {
 			this.setCB_Differences_Acct(0);
@@ -287,11 +287,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Expense_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Expense_A.getUU());
 			}
 		} else {
 			this.setCB_Expense_Acct(0);
@@ -321,11 +321,11 @@ public class X_C_CashBook_AcctInput extends X_C_CashBook_Acct implements I_C_Cas
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(CB_Receipt_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CB_Receipt_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCB_Receipt_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + CB_Receipt_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + CB_Receipt_A.getUU());
 			}
 		} else {
 			this.setCB_Receipt_Acct(0);

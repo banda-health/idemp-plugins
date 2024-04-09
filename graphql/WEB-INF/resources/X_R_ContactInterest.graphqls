@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_ContactInterestGet(page: Int, size: Int, sort: String, filter: String): R_ContactInterestConnection!
+	R_ContactInterestGet(Page: Int, Size: Int, Sort: String, Filter: String): R_ContactInterestConnection!
 }
 
 extend type Mutation {
-	R_ContactInterestSave(entity: R_ContactInterestInput!): R_ContactInterest!
-	R_ContactInterestSaveMany(entities: [R_ContactInterestInput!]!): [R_ContactInterest!]!
-	R_ContactInterestDelete(uuids: [String!]!): Boolean!
+	R_ContactInterestSave(Entity: R_ContactInterestInput!): R_ContactInterest!
+	R_ContactInterestSaveMany(Entities: [R_ContactInterestInput!]!): [R_ContactInterest!]!
+	R_ContactInterestDelete(UUs: [String!]!): Boolean!
 }
 
 type R_ContactInterestConnection {
-	results: [R_ContactInterest!]!
-	pagingInfo: PagingInfo!
+	Results: [R_ContactInterest!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_ContactInterest {
@@ -31,8 +31,7 @@ type R_ContactInterest {
 	IsActive: Boolean!
 	# Date the contact opted out
 	OptOutDate: Date
-	UUID: ID!
-	R_ContactInterest_UU: String
+	UU: ID!
 	# Interest Area or Topic
 	R_InterestArea: R_InterestArea!
 	# Date the contact actively subscribed
@@ -52,8 +51,7 @@ input R_ContactInterestInput {
 	IsActive: Boolean
 	# Date the contact opted out
 	OptOutDate: Date
-	UUID: ID
-	R_ContactInterest_UU: String
+	UU: ID
 	# Interest Area or Topic
 	R_InterestArea: ForeignEntityInput
 	# Date the contact actively subscribed

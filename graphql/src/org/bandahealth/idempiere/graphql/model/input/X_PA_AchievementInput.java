@@ -27,12 +27,12 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_Achievement_UU to fetch this entity from the DB
+	 * @param UU The PA_Achievement_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_AchievementInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_AchievementInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -84,20 +84,20 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_Achievement_UU(UUID);
+	public void setUU(String UU) {
+		setPA_Achievement_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_Achievement_UU();
 	}
 
@@ -117,11 +117,11 @@ public class X_PA_AchievementInput extends MAchievement implements I_PA_Achievem
 			MMeasure foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
-							.setParameters(PA_Measure.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Measure.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Measure_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Measure with UUID " + PA_Measure.getUUID());
+						"Could not find entity in table PA_Measure with UU " + PA_Measure.getUU());
 			}
 		} else {
 			this.setPA_Measure_ID(0);

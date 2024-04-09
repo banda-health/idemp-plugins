@@ -27,12 +27,12 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The HR_ListLine_UU to fetch this entity from the DB
+	 * @param UU The HR_ListLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_ListLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_HR_ListLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -84,20 +84,20 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setHR_ListLine_UU(UUID);
+	public void setUU(String UU) {
+		setHR_ListLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getHR_ListLine_UU();
 	}
 
@@ -117,11 +117,11 @@ public class X_HR_ListLineInput extends X_HR_ListLine implements I_HR_ListLineIn
 			X_HR_ListVersion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_ListVersion", "HR_ListVersion_UU=?", get_TrxName())
-							.setParameters(HR_ListVersion.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_ListVersion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_ListVersion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table HR_ListVersion with UUID " + HR_ListVersion.getUUID());
+						"Could not find entity in table HR_ListVersion with UU " + HR_ListVersion.getUU());
 			}
 		} else {
 			this.setHR_ListVersion_ID(0);

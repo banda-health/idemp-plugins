@@ -31,12 +31,12 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The ASP_Form_UU to fetch this entity from the DB
+	 * @param UU The ASP_Form_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_ASP_FormInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_ASP_FormInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+						"Could not find entity in table AD_Form with UU " + AD_Form.getUU());
 			}
 		} else {
 			this.setAD_Form_ID(0);
@@ -92,11 +92,11 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -125,20 +125,20 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setASP_Form_UU(UUID);
+	public void setUU(String UU) {
+		setASP_Form_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getASP_Form_UU();
 	}
 
@@ -158,11 +158,11 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table ASP_Level with UUID " + ASP_Level.getUUID());
+						"Could not find entity in table ASP_Level with UU " + ASP_Level.getUU());
 			}
 		} else {
 			this.setASP_Level_ID(0);
@@ -192,11 +192,11 @@ public class X_ASP_FormInput extends X_ASP_Form implements I_ASP_FormInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Status(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ASP_Status.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ASP_Status.getUU());
 			}
 		} else {
 			this.setASP_Status(null);

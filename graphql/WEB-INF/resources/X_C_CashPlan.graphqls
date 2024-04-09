@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CashPlanGet(page: Int, size: Int, sort: String, filter: String): C_CashPlanConnection!
+	C_CashPlanGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashPlanConnection!
 }
 
 extend type Mutation {
-	C_CashPlanSave(entity: C_CashPlanInput!): C_CashPlan!
-	C_CashPlanSaveMany(entities: [C_CashPlanInput!]!): [C_CashPlan!]!
-	C_CashPlanDelete(uuids: [String!]!): Boolean!
+	C_CashPlanSave(Entity: C_CashPlanInput!): C_CashPlan!
+	C_CashPlanSaveMany(Entities: [C_CashPlanInput!]!): [C_CashPlan!]!
+	C_CashPlanDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CashPlanConnection {
-	results: [C_CashPlan!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CashPlan!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CashPlan {
@@ -27,8 +27,7 @@ type C_CashPlan {
 	C_BPartner: C_BPartner
 	# Marketing Campaign
 	C_Campaign: C_Campaign
-	UUID: ID!
-	C_CashPlan_UU: String
+	UU: ID!
 	# Financial Project
 	C_Project: C_Project
 	CashFlowType: AD_Ref_List
@@ -74,8 +73,7 @@ input C_CashPlanInput {
 	C_BPartner: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
-	UUID: ID
-	C_CashPlan_UU: String
+	UU: ID
 	# Financial Project
 	C_Project: ForeignEntityInput
 	CashFlowType: AD_Ref_ListInput

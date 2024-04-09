@@ -21,16 +21,16 @@ public class X_AD_Replication_LogMutation extends POMutation implements GraphQLM
 		return X_AD_Replication_LogInput.Table_Name;
 	}
 
-	public MReplicationLog AD_Replication_LogSave(I_AD_Replication_LogInput entity, DataFetchingEnvironment environment) {
-		return (MReplicationLog) super.save((X_AD_Replication_LogInput) entity, environment);
+	public MReplicationLog AD_Replication_LogSave(I_AD_Replication_LogInput Entity, DataFetchingEnvironment environment) {
+		return (MReplicationLog) super.save((X_AD_Replication_LogInput) Entity, environment);
 	}
 
-	public List<MReplicationLog> AD_Replication_LogSaveMany(List<I_AD_Replication_LogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Replication_LogInput) entity).collect(Collectors.toList()),
+	public List<MReplicationLog> AD_Replication_LogSaveMany(List<I_AD_Replication_LogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Replication_LogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MReplicationLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Replication_LogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Replication_LogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

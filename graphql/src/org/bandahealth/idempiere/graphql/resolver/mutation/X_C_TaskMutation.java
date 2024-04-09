@@ -21,16 +21,16 @@ public class X_C_TaskMutation extends POMutation implements GraphQLMutationResol
 		return X_C_TaskInput.Table_Name;
 	}
 
-	public MProjectTypeTask C_TaskSave(I_C_TaskInput entity, DataFetchingEnvironment environment) {
-		return (MProjectTypeTask) super.save((X_C_TaskInput) entity, environment);
+	public MProjectTypeTask C_TaskSave(I_C_TaskInput Entity, DataFetchingEnvironment environment) {
+		return (MProjectTypeTask) super.save((X_C_TaskInput) Entity, environment);
 	}
 
-	public List<MProjectTypeTask> C_TaskSaveMany(List<I_C_TaskInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_TaskInput) entity).collect(Collectors.toList()),
+	public List<MProjectTypeTask> C_TaskSaveMany(List<I_C_TaskInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_TaskInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProjectTypeTask) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_TaskDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_TaskDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

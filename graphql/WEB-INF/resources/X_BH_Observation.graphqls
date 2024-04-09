@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_ObservationGet(page: Int, size: Int, sort: String, filter: String): BH_ObservationConnection!
+	BH_ObservationGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_ObservationConnection!
 }
 
 extend type Mutation {
-	BH_ObservationSave(entity: BH_ObservationInput!): BH_Observation!
-	BH_ObservationSaveMany(entities: [BH_ObservationInput!]!): [BH_Observation!]!
-	BH_ObservationDelete(uuids: [String!]!): Boolean!
+	BH_ObservationSave(Entity: BH_ObservationInput!): BH_Observation!
+	BH_ObservationSaveMany(Entities: [BH_ObservationInput!]!): [BH_Observation!]!
+	BH_ObservationDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_ObservationConnection {
-	results: [BH_Observation!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_Observation!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_Observation {
@@ -24,8 +24,7 @@ type BH_Observation {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_Encounter: BH_Encounter!
-	UUID: ID!
-	BH_Observation_UU: String
+	UU: ID!
 	# BH_Value
 	BH_Value: String!
 	# Date this record was created
@@ -46,8 +45,7 @@ input BH_ObservationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_Encounter: ForeignEntityInput
-	UUID: ID
-	BH_Observation_UU: String
+	UU: ID
 	# BH_Value
 	BH_Value: String
 	# The record is active in the system

@@ -17,8 +17,8 @@ public class X_I_InventoryQuery extends POQuery<X_I_Inventory> implements GraphQ
 		return X_I_Inventory.Table_Name;
 	}
 
-	public Connection<X_I_Inventory> I_InventoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_I_Inventory> I_InventoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_POSGet(page: Int, size: Int, sort: String, filter: String): C_POSConnection!
+	C_POSGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSConnection!
 }
 
 extend type Mutation {
-	C_POSSave(entity: C_POSInput!): C_POS!
-	C_POSSaveMany(entities: [C_POSInput!]!): [C_POS!]!
-	C_POSDelete(uuids: [String!]!): Boolean!
+	C_POSSave(Entity: C_POSInput!): C_POS!
+	C_POSSaveMany(Entities: [C_POSInput!]!): [C_POS!]!
+	C_POSDelete(UUs: [String!]!): Boolean!
 }
 
 type C_POSConnection {
-	results: [C_POS!]!
-	pagingInfo: PagingInfo!
+	Results: [C_POS!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_POS {
@@ -31,8 +31,7 @@ type C_POS {
 	C_CashBook: C_CashBook
 	# Document type or rules
 	C_DocType: C_DocType
-	UUID: ID!
-	C_POS_UU: String
+	UU: ID!
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout
 	CashDrawer: String
@@ -81,8 +80,7 @@ input C_POSInput {
 	C_CashBook: ForeignEntityInput
 	# Document type or rules
 	C_DocType: ForeignEntityInput
-	UUID: ID
-	C_POS_UU: String
+	UU: ID
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
 	CashDrawer: String

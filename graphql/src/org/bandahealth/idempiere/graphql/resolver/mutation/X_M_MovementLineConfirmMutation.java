@@ -21,16 +21,16 @@ public class X_M_MovementLineConfirmMutation extends POMutation implements Graph
 		return X_M_MovementLineConfirmInput.Table_Name;
 	}
 
-	public MMovementLineConfirm M_MovementLineConfirmSave(I_M_MovementLineConfirmInput entity, DataFetchingEnvironment environment) {
-		return (MMovementLineConfirm) super.save((X_M_MovementLineConfirmInput) entity, environment);
+	public MMovementLineConfirm M_MovementLineConfirmSave(I_M_MovementLineConfirmInput Entity, DataFetchingEnvironment environment) {
+		return (MMovementLineConfirm) super.save((X_M_MovementLineConfirmInput) Entity, environment);
 	}
 
-	public List<MMovementLineConfirm> M_MovementLineConfirmSaveMany(List<I_M_MovementLineConfirmInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_MovementLineConfirmInput) entity).collect(Collectors.toList()),
+	public List<MMovementLineConfirm> M_MovementLineConfirmSaveMany(List<I_M_MovementLineConfirmInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_MovementLineConfirmInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MMovementLineConfirm) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_MovementLineConfirmDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_MovementLineConfirmDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

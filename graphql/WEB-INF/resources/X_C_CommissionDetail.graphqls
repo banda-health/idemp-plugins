@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CommissionDetailGet(page: Int, size: Int, sort: String, filter: String): C_CommissionDetailConnection!
+	C_CommissionDetailGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionDetailConnection!
 }
 
 extend type Mutation {
-	C_CommissionDetailSave(entity: C_CommissionDetailInput!): C_CommissionDetail!
-	C_CommissionDetailSaveMany(entities: [C_CommissionDetailInput!]!): [C_CommissionDetail!]!
-	C_CommissionDetailDelete(uuids: [String!]!): Boolean!
+	C_CommissionDetailSave(Entity: C_CommissionDetailInput!): C_CommissionDetail!
+	C_CommissionDetailSaveMany(Entities: [C_CommissionDetailInput!]!): [C_CommissionDetail!]!
+	C_CommissionDetailDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CommissionDetailConnection {
-	results: [C_CommissionDetail!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CommissionDetail!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CommissionDetail {
@@ -27,8 +27,7 @@ type C_CommissionDetail {
 	AD_Org: AD_Org!
 	# Generated Commission Amount 
 	C_CommissionAmt: C_CommissionAmt!
-	UUID: ID!
-	C_CommissionDetail_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Invoice Detail Line
@@ -62,8 +61,7 @@ input C_CommissionDetailInput {
 	AD_Org: ForeignEntityInput
 	# Generated Commission Amount 
 	C_CommissionAmt: ForeignEntityInput
-	UUID: ID
-	C_CommissionDetail_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Invoice Detail Line

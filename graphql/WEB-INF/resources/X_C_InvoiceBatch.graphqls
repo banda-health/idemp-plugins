@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_InvoiceBatchGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceBatchConnection!
+	C_InvoiceBatchGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceBatchConnection!
 }
 
 extend type Mutation {
-	C_InvoiceBatchSave(entity: C_InvoiceBatchInput!): C_InvoiceBatch!
-	C_InvoiceBatchSaveMany(entities: [C_InvoiceBatchInput!]!): [C_InvoiceBatch!]!
-	C_InvoiceBatchDelete(uuids: [String!]!): Boolean!
+	C_InvoiceBatchSave(Entity: C_InvoiceBatchInput!): C_InvoiceBatch!
+	C_InvoiceBatchSaveMany(Entities: [C_InvoiceBatchInput!]!): [C_InvoiceBatch!]!
+	C_InvoiceBatchDelete(UUs: [String!]!): Boolean!
 }
 
 type C_InvoiceBatchConnection {
-	results: [C_InvoiceBatch!]!
-	pagingInfo: PagingInfo!
+	Results: [C_InvoiceBatch!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_InvoiceBatch {
@@ -25,8 +25,7 @@ type C_InvoiceBatch {
 	C_ConversionType: C_ConversionType
 	# The Currency for this record
 	C_Currency: C_Currency!
-	UUID: ID!
-	C_InvoiceBatch_UU: String
+	UU: ID!
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal!
 	# Date this record was created
@@ -63,8 +62,7 @@ input C_InvoiceBatchInput {
 	C_ConversionType: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	UUID: ID
-	C_InvoiceBatch_UU: String
+	UU: ID
 	# If not zero, the Debit amount of the document must be equal this amount
 	ControlAmt: BigDecimal
 	# Date of the Document

@@ -17,8 +17,8 @@ public class X_M_DistributionListLineQuery extends POQuery<MDistributionListLine
 		return MDistributionListLine.Table_Name;
 	}
 
-	public Connection<MDistributionListLine> M_DistributionListLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDistributionListLine> M_DistributionListLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_HR_Concept_CategoryQuery extends POQuery<X_HR_Concept_Category> i
 		return X_HR_Concept_Category.Table_Name;
 	}
 
-	public Connection<X_HR_Concept_Category> HR_Concept_CategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Concept_Category> HR_Concept_CategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

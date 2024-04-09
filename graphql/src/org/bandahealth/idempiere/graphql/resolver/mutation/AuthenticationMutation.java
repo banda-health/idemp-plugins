@@ -87,10 +87,10 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		AuthenticationResponse response = new AuthenticationResponse();
 		builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
 		Env.setContext(idempiereContext, Env.AD_USER_ID, user.getAD_User_ID());
-		response.setUser(new MUser_BH(idempiereContext, user.getAD_User_ID(), null));
+		response.setAD_User(new MUser_BH(idempiereContext, user.getAD_User_ID(), null));
 
 		// has user changed client and role?
-		if (credentials.getClientUuid() != null && credentials.getRoleUuid() != null) {
+		if (credentials.getAD_Client_UU() != null && credentials.getAD_Role_UU() != null) {
 			changeLoginProperties(credentials, builder, response, idempiereContext);
 		} else {
 			// set default properties
@@ -178,10 +178,10 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 
 			List<Object> parameters = new ArrayList<>();
 			parameters.add(user.get_ID());
-			parameters.add(credentials.getRoleUuid());
+			parameters.add(credentials.getAD_Role_UU());
 			parameters.add("Y");
 			parameters.add("Y");
-			parameters.add(credentials.getClientUuid());
+			parameters.add(credentials.getAD_Client_UU());
 
 			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
 					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
@@ -207,20 +207,20 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			if (!warehouseAccessList.isEmpty()) {
 				// fetch organization
 				MOrg organization = (MOrg) Repository.getByUuids(idempiereContext, MOrg.Table_Name, null,
-						Collections.singleton(credentials.getOrganizationUuid())).get(credentials.getOrganizationUuid());
+						Collections.singleton(credentials.getAD_Org_UU())).get(credentials.getAD_Org_UU());
 				// get available warehouses
 				List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(idempiereContext, organization.get_ID()));
 
-				MRole role = Repository.getByUuid(idempiereContext, MRole.Table_Name, null, credentials.getRoleUuid());
+				MRole role = Repository.getByUuid(idempiereContext, MRole.Table_Name, null, credentials.getAD_Role_UU());
 				Optional<MBHRoleWarehouseAccess> foundWarehouseAccess = warehouseAccessList.stream()
 						.filter((warehouseAccess) -> {
 
 							Optional<MWarehouse> foundWarehouse = warehouses.stream().filter((warehouse) -> warehouse
-									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid())).findFirst();
+									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getM_Warehouse_UU())).findFirst();
 
 							return foundWarehouse
 									.filter(mWarehouse -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() && mWarehouse
-											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid()))
+											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getM_Warehouse_UU()))
 									.isPresent();
 						}).findAny();
 				if (foundWarehouseAccess.isEmpty()) {
@@ -239,7 +239,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			changeLoginProperties(credentials, builder, response, idempiereContext);
 
 			builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
-			builder.withClaim(LoginClaims.AD_Language.name(), credentials.getLanguage());
+			builder.withClaim(LoginClaims.AD_Language.name(), credentials.getAD_Language());
 			Env.setContext(idempiereContext, Env.AD_USER_ID, user.getAD_User_ID());
 
 			try {
@@ -318,7 +318,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			securityQuestions.add(Msg.getMsg(idempiereContext, MMessage_BH.SECURITY_QUESTION_PREFIX + i));
 		}
 		AuthenticationResponse response = new AuthenticationResponse();
-		response.setUser(user);
+		response.setAD_User(user);
 		response.setSecurityQuestions(securityQuestions);
 		return response;
 	}
@@ -333,9 +333,9 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	private void changeLoginProperties(AuthenticationInput credentials, JWTCreator.Builder builder,
 			AuthenticationResponse response, Properties idempiereContext) {
 		// set client id
-		if (credentials.getClientUuid() != null) {
+		if (credentials.getAD_Client_UU() != null) {
 			MClient_BH client = new Query(idempiereContext, MClient.Table_Name, MClient.COLUMNNAME_AD_Client_UU +
-					"=?", null).setParameters(credentials.getClientUuid()).first();
+					"=?", null).setParameters(credentials.getAD_Client_UU()).first();
 			if (client != null) {
 				response.getAD_Clients().add(client);
 
@@ -345,27 +345,27 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		}
 
 		// set role
-		if (credentials.getRoleUuid() != null) {
+		if (credentials.getAD_Role_UU() != null) {
 			MRole role = new Query(idempiereContext, MRole.Table_Name, MRole.COLUMNNAME_AD_Role_UU + "=?",
-					null).setParameters(credentials.getRoleUuid()).first();
+					null).setParameters(credentials.getAD_Role_UU()).first();
 			Env.setContext(idempiereContext, Env.AD_ROLE_ID, role.getAD_Role_ID());
 			builder.withClaim(LoginClaims.AD_Role_ID.name(), role.getAD_Role_ID());
 			response.setAD_Role(role);
 		}
 
 		// check organization
-		if (credentials.getOrganizationUuid() != null) {
+		if (credentials.getAD_Org_UU() != null) {
 			MOrg organization = new Query(idempiereContext, MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?",
-					null).setParameters(credentials.getOrganizationUuid()).first();
+					null).setParameters(credentials.getAD_Org_UU()).first();
 			Env.setContext(idempiereContext, Env.AD_ORG_ID, organization.getAD_Org_ID());
 			builder.withClaim(LoginClaims.AD_Org_ID.name(), organization.getAD_Org_ID());
 		}
 
 		// check warehouse
-		if (credentials.getWarehouseUuid() != null) {
+		if (credentials.getM_Warehouse_UU() != null) {
 			MWarehouse warehouse = new Query(idempiereContext, MWarehouse.Table_Name,
 					MWarehouse.COLUMNNAME_M_Warehouse_UU + "=?", null)
-					.setParameters(credentials.getWarehouseUuid()).first();
+					.setParameters(credentials.getM_Warehouse_UU()).first();
 			Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
 			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
 		}

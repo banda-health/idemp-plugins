@@ -17,8 +17,8 @@ public class X_ASP_TabQuery extends POQuery<X_ASP_Tab> implements GraphQLQueryRe
 		return X_ASP_Tab.Table_Name;
 	}
 
-	public Connection<X_ASP_Tab> ASP_TabGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_ASP_Tab> ASP_TabGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

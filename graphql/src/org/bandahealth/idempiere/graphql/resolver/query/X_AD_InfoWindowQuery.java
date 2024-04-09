@@ -17,8 +17,8 @@ public class X_AD_InfoWindowQuery extends POQuery<MInfoWindow> implements GraphQ
 		return MInfoWindow.Table_Name;
 	}
 
-	public Connection<MInfoWindow> AD_InfoWindowGet(int page, int pageSize, String sort, String filter,
+	public Connection<MInfoWindow> AD_InfoWindowGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

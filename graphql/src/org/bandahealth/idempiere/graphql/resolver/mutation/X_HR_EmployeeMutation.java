@@ -21,16 +21,16 @@ public class X_HR_EmployeeMutation extends POMutation implements GraphQLMutation
 		return X_HR_EmployeeInput.Table_Name;
 	}
 
-	public X_HR_Employee HR_EmployeeSave(I_HR_EmployeeInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_Employee) super.save((X_HR_EmployeeInput) entity, environment);
+	public X_HR_Employee HR_EmployeeSave(I_HR_EmployeeInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_Employee) super.save((X_HR_EmployeeInput) Entity, environment);
 	}
 
-	public List<X_HR_Employee> HR_EmployeeSaveMany(List<I_HR_EmployeeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_EmployeeInput) entity).collect(Collectors.toList()),
+	public List<X_HR_Employee> HR_EmployeeSaveMany(List<I_HR_EmployeeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_EmployeeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_Employee) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_EmployeeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_EmployeeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

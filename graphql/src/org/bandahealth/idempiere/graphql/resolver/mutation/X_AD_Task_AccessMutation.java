@@ -21,16 +21,16 @@ public class X_AD_Task_AccessMutation extends POMutation implements GraphQLMutat
 		return X_AD_Task_AccessInput.Table_Name;
 	}
 
-	public MTaskAccess AD_Task_AccessSave(I_AD_Task_AccessInput entity, DataFetchingEnvironment environment) {
-		return (MTaskAccess) super.save((X_AD_Task_AccessInput) entity, environment);
+	public MTaskAccess AD_Task_AccessSave(I_AD_Task_AccessInput Entity, DataFetchingEnvironment environment) {
+		return (MTaskAccess) super.save((X_AD_Task_AccessInput) Entity, environment);
 	}
 
-	public List<MTaskAccess> AD_Task_AccessSaveMany(List<I_AD_Task_AccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Task_AccessInput) entity).collect(Collectors.toList()),
+	public List<MTaskAccess> AD_Task_AccessSaveMany(List<I_AD_Task_AccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Task_AccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTaskAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Task_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Task_AccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

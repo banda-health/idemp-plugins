@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.graphql.model;
 
 import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.compiere.model.MRole;
 import org.compiere.model.X_AD_Role;
 
 import java.util.ArrayList;
@@ -12,17 +11,17 @@ import java.util.List;
  * The authentication response returned from the methods that are for signing in.
  */
 public class AuthenticationResponse extends ChangeAccessResponse {
-	private MUser_BH user;
+	private MUser_BH AD_User;
 	private List<MClient_BH> AD_Clients = new ArrayList<>();
 	private X_AD_Role AD_Role;
 	private List<String> securityQuestions;
 
-	public MUser_BH getUser() {
-		return user;
+	public MUser_BH getAD_User() {
+		return AD_User;
 	}
 
-	public void setUser(MUser_BH user) {
-		this.user = user;
+	public void setAD_User(MUser_BH AD_User) {
+		this.AD_User = AD_User;
 	}
 
 	public List<MClient_BH> getAD_Clients() {

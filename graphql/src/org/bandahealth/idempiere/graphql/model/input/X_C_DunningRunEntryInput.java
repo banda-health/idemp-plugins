@@ -38,12 +38,12 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_DunningRunEntry_UU to fetch this entity from the DB
+	 * @param UU The C_DunningRunEntry_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_DunningRunEntryInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_DunningRunEntryInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -62,11 +62,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -96,11 +96,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -130,11 +130,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -164,11 +164,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
+						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
 			}
 		} else {
 			this.setC_BPartner_Location_ID(0);
@@ -198,11 +198,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -235,11 +235,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MDunningLevel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningLevel", "C_DunningLevel_UU=?", get_TrxName())
-							.setParameters(C_DunningLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DunningLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DunningLevel_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DunningLevel with UUID " + C_DunningLevel.getUUID());
+						"Could not find entity in table C_DunningLevel with UU " + C_DunningLevel.getUU());
 			}
 		} else {
 			this.setC_DunningLevel_ID(0);
@@ -272,11 +272,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MDunningRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningRun", "C_DunningRun_UU=?", get_TrxName())
-							.setParameters(C_DunningRun.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DunningRun.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DunningRun_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DunningRun with UUID " + C_DunningRun.getUUID());
+						"Could not find entity in table C_DunningRun with UU " + C_DunningRun.getUU());
 			}
 		} else {
 			this.setC_DunningRun_ID(0);
@@ -305,20 +305,20 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_DunningRunEntry_UU(UUID);
+	public void setUU(String UU) {
+		setC_DunningRunEntry_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_DunningRunEntry_UU();
 	}
 
@@ -335,11 +335,11 @@ public class X_C_DunningRunEntryInput extends MDunningRunEntry implements I_C_Du
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
 			}
 		} else {
 			this.setSalesRep_ID(0);

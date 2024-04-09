@@ -21,16 +21,16 @@ public class X_AD_Ref_ListMutation extends POMutation implements GraphQLMutation
 		return X_AD_Ref_ListInput.Table_Name;
 	}
 
-	public MRefList_BH AD_Ref_ListSave(I_AD_Ref_ListInput entity, DataFetchingEnvironment environment) {
-		return (MRefList_BH) super.save((X_AD_Ref_ListInput) entity, environment);
+	public MRefList_BH AD_Ref_ListSave(I_AD_Ref_ListInput Entity, DataFetchingEnvironment environment) {
+		return (MRefList_BH) super.save((X_AD_Ref_ListInput) Entity, environment);
 	}
 
-	public List<MRefList_BH> AD_Ref_ListSaveMany(List<I_AD_Ref_ListInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Ref_ListInput) entity).collect(Collectors.toList()),
+	public List<MRefList_BH> AD_Ref_ListSaveMany(List<I_AD_Ref_ListInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Ref_ListInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRefList_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Ref_ListDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Ref_ListDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

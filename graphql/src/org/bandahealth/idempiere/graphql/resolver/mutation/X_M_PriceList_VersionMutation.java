@@ -21,16 +21,16 @@ public class X_M_PriceList_VersionMutation extends POMutation implements GraphQL
 		return X_M_PriceList_VersionInput.Table_Name;
 	}
 
-	public MPriceListVersion M_PriceList_VersionSave(I_M_PriceList_VersionInput entity, DataFetchingEnvironment environment) {
-		return (MPriceListVersion) super.save((X_M_PriceList_VersionInput) entity, environment);
+	public MPriceListVersion M_PriceList_VersionSave(I_M_PriceList_VersionInput Entity, DataFetchingEnvironment environment) {
+		return (MPriceListVersion) super.save((X_M_PriceList_VersionInput) Entity, environment);
 	}
 
-	public List<MPriceListVersion> M_PriceList_VersionSaveMany(List<I_M_PriceList_VersionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PriceList_VersionInput) entity).collect(Collectors.toList()),
+	public List<MPriceListVersion> M_PriceList_VersionSaveMany(List<I_M_PriceList_VersionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PriceList_VersionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPriceListVersion) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PriceList_VersionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PriceList_VersionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

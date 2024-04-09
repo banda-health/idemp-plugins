@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PartTypeGet(page: Int, size: Int, sort: String, filter: String): M_PartTypeConnection!
+	M_PartTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PartTypeConnection!
 }
 
 extend type Mutation {
-	M_PartTypeSave(entity: M_PartTypeInput!): M_PartType!
-	M_PartTypeSaveMany(entities: [M_PartTypeInput!]!): [M_PartType!]!
-	M_PartTypeDelete(uuids: [String!]!): Boolean!
+	M_PartTypeSave(Entity: M_PartTypeInput!): M_PartType!
+	M_PartTypeSaveMany(Entities: [M_PartTypeInput!]!): [M_PartType!]!
+	M_PartTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PartTypeConnection {
-	results: [M_PartType!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PartType!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PartType {
@@ -29,8 +29,7 @@ type M_PartType {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_PartType_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -46,8 +45,7 @@ input M_PartTypeInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_PartType_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

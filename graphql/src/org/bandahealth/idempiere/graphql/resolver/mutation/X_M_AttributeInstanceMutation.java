@@ -21,16 +21,16 @@ public class X_M_AttributeInstanceMutation extends POMutation implements GraphQL
 		return X_M_AttributeInstanceInput.Table_Name;
 	}
 
-	public MAttributeInstance M_AttributeInstanceSave(I_M_AttributeInstanceInput entity, DataFetchingEnvironment environment) {
-		return (MAttributeInstance) super.save((X_M_AttributeInstanceInput) entity, environment);
+	public MAttributeInstance M_AttributeInstanceSave(I_M_AttributeInstanceInput Entity, DataFetchingEnvironment environment) {
+		return (MAttributeInstance) super.save((X_M_AttributeInstanceInput) Entity, environment);
 	}
 
-	public List<MAttributeInstance> M_AttributeInstanceSaveMany(List<I_M_AttributeInstanceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_AttributeInstanceInput) entity).collect(Collectors.toList()),
+	public List<MAttributeInstance> M_AttributeInstanceSaveMany(List<I_M_AttributeInstanceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_AttributeInstanceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAttributeInstance) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_AttributeInstanceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_AttributeInstanceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

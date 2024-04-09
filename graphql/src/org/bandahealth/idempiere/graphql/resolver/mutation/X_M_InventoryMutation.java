@@ -21,16 +21,16 @@ public class X_M_InventoryMutation extends POMutation implements GraphQLMutation
 		return X_M_InventoryInput.Table_Name;
 	}
 
-	public MInventory_BH M_InventorySave(I_M_InventoryInput entity, DataFetchingEnvironment environment) {
-		return (MInventory_BH) super.save((X_M_InventoryInput) entity, environment);
+	public MInventory_BH M_InventorySave(I_M_InventoryInput Entity, DataFetchingEnvironment environment) {
+		return (MInventory_BH) super.save((X_M_InventoryInput) Entity, environment);
 	}
 
-	public List<MInventory_BH> M_InventorySaveMany(List<I_M_InventoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_InventoryInput) entity).collect(Collectors.toList()),
+	public List<MInventory_BH> M_InventorySaveMany(List<I_M_InventoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_InventoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInventory_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_InventoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_InventoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

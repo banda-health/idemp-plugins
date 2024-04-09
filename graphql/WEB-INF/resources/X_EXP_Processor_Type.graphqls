@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	EXP_Processor_TypeGet(page: Int, size: Int, sort: String, filter: String): EXP_Processor_TypeConnection!
+	EXP_Processor_TypeGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_Processor_TypeConnection!
 }
 
 extend type Mutation {
-	EXP_Processor_TypeSave(entity: EXP_Processor_TypeInput!): EXP_Processor_Type!
-	EXP_Processor_TypeSaveMany(entities: [EXP_Processor_TypeInput!]!): [EXP_Processor_Type!]!
-	EXP_Processor_TypeDelete(uuids: [String!]!): Boolean!
+	EXP_Processor_TypeSave(Entity: EXP_Processor_TypeInput!): EXP_Processor_Type!
+	EXP_Processor_TypeSaveMany(Entities: [EXP_Processor_TypeInput!]!): [EXP_Processor_Type!]!
+	EXP_Processor_TypeDelete(UUs: [String!]!): Boolean!
 }
 
 type EXP_Processor_TypeConnection {
-	results: [EXP_Processor_Type!]!
-	pagingInfo: PagingInfo!
+	Results: [EXP_Processor_Type!]!
+	PagingInfo: PagingInfo!
 }
 
 type EXP_Processor_Type {
@@ -27,8 +27,7 @@ type EXP_Processor_Type {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	UUID: ID!
-	EXP_Processor_Type_UU: String
+	UU: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -49,8 +48,7 @@ input EXP_Processor_TypeInput {
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	UUID: ID
-	EXP_Processor_Type_UU: String
+	UU: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

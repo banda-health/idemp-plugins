@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_AlertRuleGet(page: Int, size: Int, sort: String, filter: String): AD_AlertRuleConnection!
+	AD_AlertRuleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AlertRuleConnection!
 }
 
 extend type Mutation {
-	AD_AlertRuleSave(entity: AD_AlertRuleInput!): AD_AlertRule!
-	AD_AlertRuleSaveMany(entities: [AD_AlertRuleInput!]!): [AD_AlertRule!]!
-	AD_AlertRuleDelete(uuids: [String!]!): Boolean!
+	AD_AlertRuleSave(Entity: AD_AlertRuleInput!): AD_AlertRule!
+	AD_AlertRuleSaveMany(Entities: [AD_AlertRuleInput!]!): [AD_AlertRule!]!
+	AD_AlertRuleDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_AlertRuleConnection {
-	results: [AD_AlertRule!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_AlertRule!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_AlertRule {
 	# iDempiere Alert
 	AD_Alert: AD_Alert!
-	UUID: ID!
-	AD_AlertRule_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -59,8 +58,7 @@ type AD_AlertRule {
 input AD_AlertRuleInput {
 	# iDempiere Alert
 	AD_Alert: ForeignEntityInput
-	UUID: ID
-	AD_AlertRule_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

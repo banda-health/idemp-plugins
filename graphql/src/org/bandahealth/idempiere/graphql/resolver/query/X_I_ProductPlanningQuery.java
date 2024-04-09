@@ -17,8 +17,8 @@ public class X_I_ProductPlanningQuery extends POQuery<X_I_ProductPlanning> imple
 		return X_I_ProductPlanning.Table_Name;
 	}
 
-	public Connection<X_I_ProductPlanning> I_ProductPlanningGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_I_ProductPlanning> I_ProductPlanningGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

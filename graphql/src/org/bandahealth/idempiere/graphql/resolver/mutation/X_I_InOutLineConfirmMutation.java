@@ -21,16 +21,16 @@ public class X_I_InOutLineConfirmMutation extends POMutation implements GraphQLM
 		return X_I_InOutLineConfirmInput.Table_Name;
 	}
 
-	public X_I_InOutLineConfirm I_InOutLineConfirmSave(I_I_InOutLineConfirmInput entity, DataFetchingEnvironment environment) {
-		return (X_I_InOutLineConfirm) super.save((X_I_InOutLineConfirmInput) entity, environment);
+	public X_I_InOutLineConfirm I_InOutLineConfirmSave(I_I_InOutLineConfirmInput Entity, DataFetchingEnvironment environment) {
+		return (X_I_InOutLineConfirm) super.save((X_I_InOutLineConfirmInput) Entity, environment);
 	}
 
-	public List<X_I_InOutLineConfirm> I_InOutLineConfirmSaveMany(List<I_I_InOutLineConfirmInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_I_InOutLineConfirmInput) entity).collect(Collectors.toList()),
+	public List<X_I_InOutLineConfirm> I_InOutLineConfirmSaveMany(List<I_I_InOutLineConfirmInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_I_InOutLineConfirmInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_I_InOutLineConfirm) entity).collect(Collectors.toList());
 	}
 
-	public boolean I_InOutLineConfirmDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean I_InOutLineConfirmDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

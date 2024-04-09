@@ -21,16 +21,16 @@ public class X_C_ConversionTypeMutation extends POMutation implements GraphQLMut
 		return X_C_ConversionTypeInput.Table_Name;
 	}
 
-	public MConversionType C_ConversionTypeSave(I_C_ConversionTypeInput entity, DataFetchingEnvironment environment) {
-		return (MConversionType) super.save((X_C_ConversionTypeInput) entity, environment);
+	public MConversionType C_ConversionTypeSave(I_C_ConversionTypeInput Entity, DataFetchingEnvironment environment) {
+		return (MConversionType) super.save((X_C_ConversionTypeInput) Entity, environment);
 	}
 
-	public List<MConversionType> C_ConversionTypeSaveMany(List<I_C_ConversionTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_ConversionTypeInput) entity).collect(Collectors.toList()),
+	public List<MConversionType> C_ConversionTypeSaveMany(List<I_C_ConversionTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_ConversionTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MConversionType) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_ConversionTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_ConversionTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

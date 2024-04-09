@@ -21,16 +21,16 @@ public class X_AD_ReportViewMutation extends POMutation implements GraphQLMutati
 		return X_AD_ReportViewInput.Table_Name;
 	}
 
-	public MReportView AD_ReportViewSave(I_AD_ReportViewInput entity, DataFetchingEnvironment environment) {
-		return (MReportView) super.save((X_AD_ReportViewInput) entity, environment);
+	public MReportView AD_ReportViewSave(I_AD_ReportViewInput Entity, DataFetchingEnvironment environment) {
+		return (MReportView) super.save((X_AD_ReportViewInput) Entity, environment);
 	}
 
-	public List<MReportView> AD_ReportViewSaveMany(List<I_AD_ReportViewInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ReportViewInput) entity).collect(Collectors.toList()),
+	public List<MReportView> AD_ReportViewSaveMany(List<I_AD_ReportViewInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ReportViewInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MReportView) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ReportViewDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ReportViewDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_Order_Node_AssetGet(page: Int, size: Int, sort: String, filter: String): PP_Order_Node_AssetConnection!
+	PP_Order_Node_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_Node_AssetConnection!
 }
 
 extend type Mutation {
-	PP_Order_Node_AssetSave(entity: PP_Order_Node_AssetInput!): PP_Order_Node_Asset!
-	PP_Order_Node_AssetSaveMany(entities: [PP_Order_Node_AssetInput!]!): [PP_Order_Node_Asset!]!
-	PP_Order_Node_AssetDelete(uuids: [String!]!): Boolean!
+	PP_Order_Node_AssetSave(Entity: PP_Order_Node_AssetInput!): PP_Order_Node_Asset!
+	PP_Order_Node_AssetSaveMany(Entities: [PP_Order_Node_AssetInput!]!): [PP_Order_Node_Asset!]!
+	PP_Order_Node_AssetDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_Order_Node_AssetConnection {
-	results: [PP_Order_Node_Asset!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_Order_Node_Asset!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_Order_Node_Asset {
@@ -31,8 +31,7 @@ type PP_Order_Node_Asset {
 	IsActive: Boolean!
 	# Manufacturing Order
 	PP_Order: PP_Order!
-	UUID: ID!
-	PP_Order_Node_Asset_UU: String
+	UU: ID!
 	# Workflow Node (activity), step or process
 	PP_Order_Node: PP_Order_Node!
 	PP_Order_Workflow: PP_Order_Workflow!
@@ -51,8 +50,7 @@ input PP_Order_Node_AssetInput {
 	IsActive: Boolean
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
-	UUID: ID
-	PP_Order_Node_Asset_UU: String
+	UU: ID
 	# Workflow Node (activity), step or process
 	PP_Order_Node: ForeignEntityInput
 	PP_Order_Workflow: ForeignEntityInput

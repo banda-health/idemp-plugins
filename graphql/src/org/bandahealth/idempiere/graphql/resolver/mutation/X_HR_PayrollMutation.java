@@ -21,16 +21,16 @@ public class X_HR_PayrollMutation extends POMutation implements GraphQLMutationR
 		return X_HR_PayrollInput.Table_Name;
 	}
 
-	public X_HR_Payroll HR_PayrollSave(I_HR_PayrollInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_Payroll) super.save((X_HR_PayrollInput) entity, environment);
+	public X_HR_Payroll HR_PayrollSave(I_HR_PayrollInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_Payroll) super.save((X_HR_PayrollInput) Entity, environment);
 	}
 
-	public List<X_HR_Payroll> HR_PayrollSaveMany(List<I_HR_PayrollInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_PayrollInput) entity).collect(Collectors.toList()),
+	public List<X_HR_Payroll> HR_PayrollSaveMany(List<I_HR_PayrollInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_PayrollInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_Payroll) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_PayrollDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_PayrollDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

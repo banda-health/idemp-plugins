@@ -21,16 +21,16 @@ public class X_C_BP_BankAccountMutation extends POMutation implements GraphQLMut
 		return X_C_BP_BankAccountInput.Table_Name;
 	}
 
-	public MBPBankAccount C_BP_BankAccountSave(I_C_BP_BankAccountInput entity, DataFetchingEnvironment environment) {
-		return (MBPBankAccount) super.save((X_C_BP_BankAccountInput) entity, environment);
+	public MBPBankAccount C_BP_BankAccountSave(I_C_BP_BankAccountInput Entity, DataFetchingEnvironment environment) {
+		return (MBPBankAccount) super.save((X_C_BP_BankAccountInput) Entity, environment);
 	}
 
-	public List<MBPBankAccount> C_BP_BankAccountSaveMany(List<I_C_BP_BankAccountInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BP_BankAccountInput) entity).collect(Collectors.toList()),
+	public List<MBPBankAccount> C_BP_BankAccountSaveMany(List<I_C_BP_BankAccountInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BP_BankAccountInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBPBankAccount) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BP_BankAccountDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BP_BankAccountDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

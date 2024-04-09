@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ArchiveGet(page: Int, size: Int, sort: String, filter: String): AD_ArchiveConnection!
+	AD_ArchiveGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ArchiveConnection!
 }
 
 extend type Mutation {
-	AD_ArchiveSave(entity: AD_ArchiveInput!): AD_Archive!
-	AD_ArchiveSaveMany(entities: [AD_ArchiveInput!]!): [AD_Archive!]!
-	AD_ArchiveDelete(uuids: [String!]!): Boolean!
+	AD_ArchiveSave(Entity: AD_ArchiveInput!): AD_Archive!
+	AD_ArchiveSaveMany(Entities: [AD_ArchiveInput!]!): [AD_Archive!]!
+	AD_ArchiveDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ArchiveConnection {
-	results: [AD_Archive!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Archive!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Archive {
-	UUID: ID!
-	AD_Archive_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -53,8 +52,7 @@ type AD_Archive {
 }
 
 input AD_ArchiveInput {
-	UUID: ID
-	AD_Archive_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report

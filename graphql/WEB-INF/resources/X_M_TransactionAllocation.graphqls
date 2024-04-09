@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_TransactionAllocationGet(page: Int, size: Int, sort: String, filter: String): M_TransactionAllocationConnection!
+	M_TransactionAllocationGet(Page: Int, Size: Int, Sort: String, Filter: String): M_TransactionAllocationConnection!
 }
 
 extend type Mutation {
-	M_TransactionAllocationSave(entity: M_TransactionAllocationInput!): M_TransactionAllocation!
-	M_TransactionAllocationSaveMany(entities: [M_TransactionAllocationInput!]!): [M_TransactionAllocation!]!
-	M_TransactionAllocationDelete(uuids: [String!]!): Boolean!
+	M_TransactionAllocationSave(Entity: M_TransactionAllocationInput!): M_TransactionAllocation!
+	M_TransactionAllocationSaveMany(Entities: [M_TransactionAllocationInput!]!): [M_TransactionAllocation!]!
+	M_TransactionAllocationDelete(UUs: [String!]!): Boolean!
 }
 
 type M_TransactionAllocationConnection {
-	results: [M_TransactionAllocation!]!
-	pagingInfo: PagingInfo!
+	Results: [M_TransactionAllocation!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_TransactionAllocation {
@@ -44,8 +44,7 @@ type M_TransactionAllocation {
 	# Document Line representing a production
 	M_ProductionLine: M_ProductionLine
 	M_Transaction: M_Transaction!
-	UUID: ID!
-	M_TransactionAllocation_UU: String
+	UU: ID!
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: M_InOutLine
 	# Outgoing Inventory Line
@@ -84,8 +83,7 @@ input M_TransactionAllocationInput {
 	# Document Line representing a production
 	M_ProductionLine: ForeignEntityInput
 	M_Transaction: ForeignEntityInput
-	UUID: ID
-	M_TransactionAllocation_UU: String
+	UU: ID
 	# Outgoing Shipment/Receipt
 	Out_M_InOutLine: ForeignEntityInput
 	# Outgoing Inventory Line

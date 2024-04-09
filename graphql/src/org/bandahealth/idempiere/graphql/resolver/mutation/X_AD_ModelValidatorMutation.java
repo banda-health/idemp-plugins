@@ -21,16 +21,16 @@ public class X_AD_ModelValidatorMutation extends POMutation implements GraphQLMu
 		return X_AD_ModelValidatorInput.Table_Name;
 	}
 
-	public X_AD_ModelValidator AD_ModelValidatorSave(I_AD_ModelValidatorInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_ModelValidator) super.save((X_AD_ModelValidatorInput) entity, environment);
+	public X_AD_ModelValidator AD_ModelValidatorSave(I_AD_ModelValidatorInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_ModelValidator) super.save((X_AD_ModelValidatorInput) Entity, environment);
 	}
 
-	public List<X_AD_ModelValidator> AD_ModelValidatorSaveMany(List<I_AD_ModelValidatorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ModelValidatorInput) entity).collect(Collectors.toList()),
+	public List<X_AD_ModelValidator> AD_ModelValidatorSaveMany(List<I_AD_ModelValidatorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ModelValidatorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_ModelValidator) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ModelValidatorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ModelValidatorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

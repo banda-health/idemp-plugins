@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ReplicationDocumentGet(page: Int, size: Int, sort: String, filter: String): AD_ReplicationDocumentConnection!
+	AD_ReplicationDocumentGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReplicationDocumentConnection!
 }
 
 extend type Mutation {
-	AD_ReplicationDocumentSave(entity: AD_ReplicationDocumentInput!): AD_ReplicationDocument!
-	AD_ReplicationDocumentSaveMany(entities: [AD_ReplicationDocumentInput!]!): [AD_ReplicationDocument!]!
-	AD_ReplicationDocumentDelete(uuids: [String!]!): Boolean!
+	AD_ReplicationDocumentSave(Entity: AD_ReplicationDocumentInput!): AD_ReplicationDocument!
+	AD_ReplicationDocumentSaveMany(Entities: [AD_ReplicationDocumentInput!]!): [AD_ReplicationDocument!]!
+	AD_ReplicationDocumentDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ReplicationDocumentConnection {
-	results: [AD_ReplicationDocument!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ReplicationDocument!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ReplicationDocument {
@@ -21,8 +21,7 @@ type AD_ReplicationDocument {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_ReplicationDocument_UU: String
+	UU: ID!
 	# Data Replication Strategy
 	AD_ReplicationStrategy: AD_ReplicationStrategy!
 	# Database Table information
@@ -48,8 +47,7 @@ type AD_ReplicationDocument {
 input AD_ReplicationDocumentInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_ReplicationDocument_UU: String
+	UU: ID
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
 	# Database Table information

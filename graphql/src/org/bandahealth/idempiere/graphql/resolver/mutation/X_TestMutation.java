@@ -21,16 +21,16 @@ public class X_TestMutation extends POMutation implements GraphQLMutationResolve
 		return X_TestInput.Table_Name;
 	}
 
-	public MTest TestSave(I_TestInput entity, DataFetchingEnvironment environment) {
-		return (MTest) super.save((X_TestInput) entity, environment);
+	public MTest TestSave(I_TestInput Entity, DataFetchingEnvironment environment) {
+		return (MTest) super.save((X_TestInput) Entity, environment);
 	}
 
-	public List<MTest> TestSaveMany(List<I_TestInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_TestInput) entity).collect(Collectors.toList()),
+	public List<MTest> TestSaveMany(List<I_TestInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_TestInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTest) entity).collect(Collectors.toList());
 	}
 
-	public boolean TestDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean TestDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

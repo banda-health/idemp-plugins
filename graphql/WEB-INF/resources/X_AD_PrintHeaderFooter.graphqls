@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PrintHeaderFooterGet(page: Int, size: Int, sort: String, filter: String): AD_PrintHeaderFooterConnection!
+	AD_PrintHeaderFooterGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintHeaderFooterConnection!
 }
 
 extend type Mutation {
-	AD_PrintHeaderFooterSave(entity: AD_PrintHeaderFooterInput!): AD_PrintHeaderFooter!
-	AD_PrintHeaderFooterSaveMany(entities: [AD_PrintHeaderFooterInput!]!): [AD_PrintHeaderFooter!]!
-	AD_PrintHeaderFooterDelete(uuids: [String!]!): Boolean!
+	AD_PrintHeaderFooterSave(Entity: AD_PrintHeaderFooterInput!): AD_PrintHeaderFooter!
+	AD_PrintHeaderFooterSaveMany(Entities: [AD_PrintHeaderFooterInput!]!): [AD_PrintHeaderFooter!]!
+	AD_PrintHeaderFooterDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PrintHeaderFooterConnection {
-	results: [AD_PrintHeaderFooter!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PrintHeaderFooter!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PrintHeaderFooter {
@@ -21,8 +21,7 @@ type AD_PrintHeaderFooter {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_PrintHeaderFooter_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,8 +41,7 @@ type AD_PrintHeaderFooter {
 input AD_PrintHeaderFooterInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_PrintHeaderFooter_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

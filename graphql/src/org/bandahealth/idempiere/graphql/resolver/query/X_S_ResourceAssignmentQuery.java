@@ -17,8 +17,8 @@ public class X_S_ResourceAssignmentQuery extends POQuery<MResourceAssignment> im
 		return MResourceAssignment.Table_Name;
 	}
 
-	public Connection<MResourceAssignment> S_ResourceAssignmentGet(int page, int pageSize, String sort, String filter,
+	public Connection<MResourceAssignment> S_ResourceAssignmentGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

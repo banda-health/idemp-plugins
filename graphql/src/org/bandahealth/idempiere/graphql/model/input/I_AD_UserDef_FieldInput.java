@@ -123,18 +123,18 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	ForeignEntityInput AD_Reference_Value();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set AD_UserDef_Tab.

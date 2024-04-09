@@ -21,16 +21,16 @@ public class X_M_ShipperMutation extends POMutation implements GraphQLMutationRe
 		return X_M_ShipperInput.Table_Name;
 	}
 
-	public MShipper M_ShipperSave(I_M_ShipperInput entity, DataFetchingEnvironment environment) {
-		return (MShipper) super.save((X_M_ShipperInput) entity, environment);
+	public MShipper M_ShipperSave(I_M_ShipperInput Entity, DataFetchingEnvironment environment) {
+		return (MShipper) super.save((X_M_ShipperInput) Entity, environment);
 	}
 
-	public List<MShipper> M_ShipperSaveMany(List<I_M_ShipperInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ShipperInput) entity).collect(Collectors.toList()),
+	public List<MShipper> M_ShipperSaveMany(List<I_M_ShipperInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ShipperInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MShipper) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ShipperDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ShipperDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

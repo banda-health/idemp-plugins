@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PrintLabelGet(page: Int, size: Int, sort: String, filter: String): AD_PrintLabelConnection!
+	AD_PrintLabelGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintLabelConnection!
 }
 
 extend type Mutation {
-	AD_PrintLabelSave(entity: AD_PrintLabelInput!): AD_PrintLabel!
-	AD_PrintLabelSaveMany(entities: [AD_PrintLabelInput!]!): [AD_PrintLabel!]!
-	AD_PrintLabelDelete(uuids: [String!]!): Boolean!
+	AD_PrintLabelSave(Entity: AD_PrintLabelInput!): AD_PrintLabel!
+	AD_PrintLabelSaveMany(Entities: [AD_PrintLabelInput!]!): [AD_PrintLabel!]!
+	AD_PrintLabelDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PrintLabelConnection {
-	results: [AD_PrintLabel!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PrintLabel!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PrintLabel {
@@ -23,8 +23,7 @@ type AD_PrintLabel {
 	AD_LabelPrinter: AD_LabelPrinter!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_PrintLabel_UU: String
+	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -56,8 +55,7 @@ input AD_PrintLabelInput {
 	AD_LabelPrinter: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_PrintLabel_UU: String
+	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Optional short description of the record

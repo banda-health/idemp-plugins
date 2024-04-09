@@ -29,12 +29,12 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_AttributeUse_UU to fetch this entity from the DB
+	 * @param UU The M_AttributeUse_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_AttributeUseInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_AttributeUseInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 			MAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Attribute", "M_Attribute_UU=?", get_TrxName())
-							.setParameters(M_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Attribute with UUID " + M_Attribute.getUUID());
+						"Could not find entity in table M_Attribute with UU " + M_Attribute.getUU());
 			}
 		} else {
 			this.setM_Attribute_ID(0);
@@ -127,11 +127,11 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
-							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
+						"Could not find entity in table M_AttributeSet with UU " + M_AttributeSet.getUU());
 			}
 		} else {
 			this.setM_AttributeSet_ID(0);
@@ -149,20 +149,20 @@ public class X_M_AttributeUseInput extends MAttributeUse implements I_M_Attribut
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_AttributeUse_UU(UUID);
+	public void setUU(String UU) {
+		setM_AttributeUse_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_AttributeUse_UU();
 	}
 }

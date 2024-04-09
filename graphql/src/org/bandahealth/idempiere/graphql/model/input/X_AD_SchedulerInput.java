@@ -39,12 +39,12 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Scheduler_UU to fetch this entity from the DB
+	 * @param UU The AD_Scheduler_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_SchedulerInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_SchedulerInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -63,11 +63,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -97,11 +97,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(AD_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFormat with UUID " + AD_PrintFormat.getUUID());
+						"Could not find entity in table AD_PrintFormat with UU " + AD_PrintFormat.getUU());
 			}
 		} else {
 			this.setAD_PrintFormat_ID(0);
@@ -134,11 +134,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+						"Could not find entity in table AD_Process with UU " + AD_Process.getUU());
 			}
 		} else {
 			this.setAD_Process_ID(0);
@@ -168,11 +168,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Schedule", "AD_Schedule_UU=?", get_TrxName())
-							.setParameters(AD_Schedule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Schedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Schedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Schedule with UUID " + AD_Schedule.getUUID());
+						"Could not find entity in table AD_Schedule with UU " + AD_Schedule.getUU());
 			}
 		} else {
 			this.setAD_Schedule_ID(0);
@@ -201,20 +201,20 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Scheduler_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Scheduler_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Scheduler_UU();
 	}
 
@@ -231,11 +231,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -268,11 +268,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_MailText with UUID " + R_MailText.getUUID());
+						"Could not find entity in table R_MailText with UU " + R_MailText.getUU());
 			}
 		} else {
 			this.setR_MailText_ID(0);
@@ -302,11 +302,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ReportOutputType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReportOutputType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReportOutputType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReportOutputType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ReportOutputType.getUU());
 			}
 		} else {
 			this.setReportOutputType(null);
@@ -336,11 +336,11 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+						"Could not find entity in table AD_User with UU " + Supervisor.getUU());
 			}
 		} else {
 			this.setSupervisor_ID(0);

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ProjectGet(page: Int, size: Int, sort: String, filter: String): C_ProjectConnection!
+	C_ProjectGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectConnection!
 }
 
 extend type Mutation {
-	C_ProjectSave(entity: C_ProjectInput!): C_Project!
-	C_ProjectSaveMany(entities: [C_ProjectInput!]!): [C_Project!]!
-	C_ProjectDelete(uuids: [String!]!): Boolean!
+	C_ProjectSave(Entity: C_ProjectInput!): C_Project!
+	C_ProjectSaveMany(Entities: [C_ProjectInput!]!): [C_Project!]!
+	C_ProjectDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ProjectConnection {
-	results: [C_Project!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Project!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Project {
@@ -39,8 +39,7 @@ type C_Project {
 	C_PaymentTerm: C_PaymentTerm
 	# Standard Phase of the Project Type
 	C_Phase: C_Phase
-	UUID: ID!
-	C_Project_UU: String
+	UU: ID!
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount
@@ -131,8 +130,7 @@ input C_ProjectInput {
 	C_PaymentTerm: ForeignEntityInput
 	# Standard Phase of the Project Type
 	C_Phase: ForeignEntityInput
-	UUID: ID
-	C_Project_UU: String
+	UU: ID
 	# Type of the project
 	C_ProjectType_ID: Int
 	# The (legal) commitment amount

@@ -39,12 +39,12 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The T_Replenish_UU to fetch this entity from the DB
+	 * @param UU The T_Replenish_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_T_ReplenishInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_T_ReplenishInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -63,11 +63,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -100,11 +100,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
+						"Could not find entity in table AD_PInstance with UU " + AD_PInstance.getUU());
 			}
 		} else {
 			this.setAD_PInstance_ID(0);
@@ -134,11 +134,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -168,11 +168,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
 			this.setC_DocType_ID(0);
@@ -205,11 +205,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -242,11 +242,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);
@@ -276,11 +276,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_WarehouseSource.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_WarehouseSource.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_WarehouseSource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_WarehouseSource.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_WarehouseSource.getUU());
 			}
 		} else {
 			this.setM_WarehouseSource_ID(0);
@@ -310,11 +310,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ReplenishmentCreate.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReplenishmentCreate.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReplenishmentCreate(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReplenishmentCreate.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ReplenishmentCreate.getUU());
 			}
 		} else {
 			this.setReplenishmentCreate(null);
@@ -344,11 +344,11 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ReplenishType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ReplenishType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setReplenishType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ReplenishType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ReplenishType.getUU());
 			}
 		} else {
 			this.setReplenishType(null);
@@ -366,20 +366,20 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setT_Replenish_UU(UUID);
+	public void setUU(String UU) {
+		setT_Replenish_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getT_Replenish_UU();
 	}
 }

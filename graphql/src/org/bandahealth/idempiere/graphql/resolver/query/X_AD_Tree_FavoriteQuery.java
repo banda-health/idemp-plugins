@@ -17,8 +17,8 @@ public class X_AD_Tree_FavoriteQuery extends POQuery<MTreeFavorite> implements G
 		return MTreeFavorite.Table_Name;
 	}
 
-	public Connection<MTreeFavorite> AD_Tree_FavoriteGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTreeFavorite> AD_Tree_FavoriteGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

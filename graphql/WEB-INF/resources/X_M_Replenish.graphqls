@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ReplenishGet(page: Int, size: Int, sort: String, filter: String): M_ReplenishConnection!
+	M_ReplenishGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ReplenishConnection!
 }
 
 extend type Mutation {
-	M_ReplenishSave(entity: M_ReplenishInput!): M_Replenish!
-	M_ReplenishSaveMany(entities: [M_ReplenishInput!]!): [M_Replenish!]!
-	M_ReplenishDelete(uuids: [String!]!): Boolean!
+	M_ReplenishSave(Entity: M_ReplenishInput!): M_Replenish!
+	M_ReplenishSaveMany(Entities: [M_ReplenishInput!]!): [M_Replenish!]!
+	M_ReplenishDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ReplenishConnection {
-	results: [M_Replenish!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Replenish!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Replenish {
@@ -35,8 +35,7 @@ type M_Replenish {
 	M_Locator: M_Locator
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	M_Replenish_UU: String
+	UU: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Optional Warehouse to replenish from
@@ -63,8 +62,7 @@ input M_ReplenishInput {
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	M_Replenish_UU: String
+	UU: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Optional Warehouse to replenish from

@@ -36,12 +36,12 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Role_UU to fetch this entity from the DB
+	 * @param UU The AD_Role_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_RoleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_RoleInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -60,11 +60,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -93,20 +93,20 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Role_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Role_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Role_UU();
 	}
 
@@ -123,11 +123,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Menu.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Menu.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tree_Menu_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Menu.getUUID());
+						"Could not find entity in table AD_Tree with UU " + AD_Tree_Menu.getUU());
 			}
 		} else {
 			this.setAD_Tree_Menu_ID(0);
@@ -157,11 +157,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MTree_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tree", "AD_Tree_UU=?", get_TrxName())
-							.setParameters(AD_Tree_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Tree_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Tree_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Tree with UUID " + AD_Tree_Org.getUUID());
+						"Could not find entity in table AD_Tree with UU " + AD_Tree_Org.getUU());
 			}
 		} else {
 			this.setAD_Tree_Org_ID(0);
@@ -191,11 +191,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -225,11 +225,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PreferenceType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PreferenceType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPreferenceType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PreferenceType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PreferenceType.getUU());
 			}
 		} else {
 			this.setPreferenceType(null);
@@ -259,11 +259,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RoleType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RoleType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRoleType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + RoleType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + RoleType.getUU());
 			}
 		} else {
 			this.setRoleType(null);
@@ -293,11 +293,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+						"Could not find entity in table AD_User with UU " + Supervisor.getUU());
 			}
 		} else {
 			this.setSupervisor_ID(0);
@@ -327,11 +327,11 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(UserLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UserLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUserLevel(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + UserLevel.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + UserLevel.getUU());
 			}
 		} else {
 			this.setUserLevel(null);

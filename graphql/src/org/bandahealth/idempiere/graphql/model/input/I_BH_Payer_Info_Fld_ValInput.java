@@ -39,16 +39,16 @@ public interface I_BH_Payer_Info_Fld_ValInput extends I_BH_Payer_Info_Fld_Val {
 	ForeignEntityInput BH_Payer_Info_Fld();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

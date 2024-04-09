@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	CM_ChatUpdateGet(page: Int, size: Int, sort: String, filter: String): CM_ChatUpdateConnection!
+	CM_ChatUpdateGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatUpdateConnection!
 }
 
 extend type Mutation {
-	CM_ChatUpdateSave(entity: CM_ChatUpdateInput!): CM_ChatUpdate!
-	CM_ChatUpdateSaveMany(entities: [CM_ChatUpdateInput!]!): [CM_ChatUpdate!]!
-	CM_ChatUpdateDelete(uuids: [String!]!): Boolean!
+	CM_ChatUpdateSave(Entity: CM_ChatUpdateInput!): CM_ChatUpdate!
+	CM_ChatUpdateSaveMany(Entities: [CM_ChatUpdateInput!]!): [CM_ChatUpdate!]!
+	CM_ChatUpdateDelete(UUs: [String!]!): Boolean!
 }
 
 type CM_ChatUpdateConnection {
-	results: [CM_ChatUpdate!]!
-	pagingInfo: PagingInfo!
+	Results: [CM_ChatUpdate!]!
+	PagingInfo: PagingInfo!
 }
 
 type CM_ChatUpdate {
@@ -25,8 +25,7 @@ type CM_ChatUpdate {
 	AD_User: AD_User!
 	# Chat or discussion thread
 	CM_Chat: CM_Chat!
-	UUID: ID!
-	CM_ChatUpdate_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input CM_ChatUpdateInput {
 	AD_User: ForeignEntityInput
 	# Chat or discussion thread
 	CM_Chat: ForeignEntityInput
-	UUID: ID
-	CM_ChatUpdate_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# This is a Self-Service entry or this entry can be changed via Self-Service

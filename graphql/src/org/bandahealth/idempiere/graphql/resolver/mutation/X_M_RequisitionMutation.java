@@ -21,16 +21,16 @@ public class X_M_RequisitionMutation extends POMutation implements GraphQLMutati
 		return X_M_RequisitionInput.Table_Name;
 	}
 
-	public MRequisition M_RequisitionSave(I_M_RequisitionInput entity, DataFetchingEnvironment environment) {
-		return (MRequisition) super.save((X_M_RequisitionInput) entity, environment);
+	public MRequisition M_RequisitionSave(I_M_RequisitionInput Entity, DataFetchingEnvironment environment) {
+		return (MRequisition) super.save((X_M_RequisitionInput) Entity, environment);
 	}
 
-	public List<MRequisition> M_RequisitionSaveMany(List<I_M_RequisitionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_RequisitionInput) entity).collect(Collectors.toList()),
+	public List<MRequisition> M_RequisitionSaveMany(List<I_M_RequisitionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_RequisitionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRequisition) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_RequisitionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_RequisitionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

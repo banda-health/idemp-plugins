@@ -27,12 +27,12 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_AcctProcessorLog_UU to fetch this entity from the DB
+	 * @param UU The C_AcctProcessorLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_AcctProcessorLogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_AcctProcessorLogInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,11 +88,11 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 			MAcctProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctProcessor", "C_AcctProcessor_UU=?", get_TrxName())
-							.setParameters(C_AcctProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctProcessor with UUID " + C_AcctProcessor.getUUID());
+						"Could not find entity in table C_AcctProcessor with UU " + C_AcctProcessor.getUU());
 			}
 		} else {
 			this.setC_AcctProcessor_ID(0);
@@ -121,20 +121,20 @@ public class X_C_AcctProcessorLogInput extends MAcctProcessorLog implements I_C_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_AcctProcessorLog_UU(UUID);
+	public void setUU(String UU) {
+		setC_AcctProcessorLog_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_AcctProcessorLog_UU();
 	}
 }

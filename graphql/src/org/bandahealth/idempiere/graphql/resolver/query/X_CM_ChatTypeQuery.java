@@ -17,8 +17,8 @@ public class X_CM_ChatTypeQuery extends POQuery<MChatType> implements GraphQLQue
 		return MChatType.Table_Name;
 	}
 
-	public Connection<MChatType> CM_ChatTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MChatType> CM_ChatTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

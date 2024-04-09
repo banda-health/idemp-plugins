@@ -21,16 +21,16 @@ public class X_C_RfQLineMutation extends POMutation implements GraphQLMutationRe
 		return X_C_RfQLineInput.Table_Name;
 	}
 
-	public MRfQLine C_RfQLineSave(I_C_RfQLineInput entity, DataFetchingEnvironment environment) {
-		return (MRfQLine) super.save((X_C_RfQLineInput) entity, environment);
+	public MRfQLine C_RfQLineSave(I_C_RfQLineInput Entity, DataFetchingEnvironment environment) {
+		return (MRfQLine) super.save((X_C_RfQLineInput) Entity, environment);
 	}
 
-	public List<MRfQLine> C_RfQLineSaveMany(List<I_C_RfQLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RfQLineInput) entity).collect(Collectors.toList()),
+	public List<MRfQLine> C_RfQLineSaveMany(List<I_C_RfQLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RfQLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRfQLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RfQLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RfQLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

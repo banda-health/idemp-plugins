@@ -17,8 +17,8 @@ public class X_AD_HouseKeepingQuery extends POQuery<MHouseKeeping> implements Gr
 		return MHouseKeeping.Table_Name;
 	}
 
-	public Connection<MHouseKeeping> AD_HouseKeepingGet(int page, int pageSize, String sort, String filter,
+	public Connection<MHouseKeeping> AD_HouseKeepingGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

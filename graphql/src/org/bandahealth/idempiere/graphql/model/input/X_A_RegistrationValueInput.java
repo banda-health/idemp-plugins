@@ -29,12 +29,12 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The A_RegistrationValue_UU to fetch this entity from the DB
+	 * @param UU The A_RegistrationValue_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_A_RegistrationValueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_A_RegistrationValueInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 			X_A_Registration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Registration", "A_Registration_UU=?", get_TrxName())
-							.setParameters(A_Registration.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Registration.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Registration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table A_Registration with UUID " + A_Registration.getUUID());
+						"Could not find entity in table A_Registration with UU " + A_Registration.getUU());
 			}
 		} else {
 			this.setA_Registration_ID(0);
@@ -90,11 +90,11 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 			X_A_RegistrationAttribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_RegistrationAttribute", "A_RegistrationAttribute_UU=?", get_TrxName())
-							.setParameters(A_RegistrationAttribute.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_RegistrationAttribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_RegistrationAttribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table A_RegistrationAttribute with UUID " + A_RegistrationAttribute.getUUID());
+						"Could not find entity in table A_RegistrationAttribute with UU " + A_RegistrationAttribute.getUU());
 			}
 		} else {
 			this.setA_RegistrationAttribute_ID(0);
@@ -112,20 +112,20 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setA_RegistrationValue_UU(UUID);
+	public void setUU(String UU) {
+		setA_RegistrationValue_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getA_RegistrationValue_UU();
 	}
 
@@ -145,11 +145,11 @@ public class X_A_RegistrationValueInput extends X_A_RegistrationValue implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);

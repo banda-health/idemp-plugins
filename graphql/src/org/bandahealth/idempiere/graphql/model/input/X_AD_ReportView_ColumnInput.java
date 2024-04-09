@@ -29,12 +29,12 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_ReportView_Column_UU to fetch this entity from the DB
+	 * @param UU The AD_ReportView_Column_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ReportView_ColumnInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_ReportView_ColumnInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_Column.getUU());
 			}
 		} else {
 			this.setAD_Column_ID(0);
@@ -90,11 +90,11 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -112,20 +112,20 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_ReportView_Column_UU(UUID);
+	public void setUU(String UU) {
+		setAD_ReportView_Column_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_ReportView_Column_UU();
 	}
 
@@ -145,11 +145,11 @@ public class X_AD_ReportView_ColumnInput extends X_AD_ReportView_Column implemen
 			MReportView foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReportView", "AD_ReportView_UU=?", get_TrxName())
-							.setParameters(AD_ReportView.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReportView.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReportView_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_ReportView with UUID " + AD_ReportView.getUUID());
+						"Could not find entity in table AD_ReportView with UU " + AD_ReportView.getUU());
 			}
 		} else {
 			this.setAD_ReportView_ID(0);

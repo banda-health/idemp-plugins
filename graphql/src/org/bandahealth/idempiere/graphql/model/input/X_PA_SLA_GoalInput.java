@@ -29,12 +29,12 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_SLA_Goal_UU to fetch this entity from the DB
+	 * @param UU The PA_SLA_Goal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_SLA_GoalInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_SLA_GoalInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -124,11 +124,11 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 			X_PA_SLA_Criteria foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_SLA_Criteria", "PA_SLA_Criteria_UU=?", get_TrxName())
-							.setParameters(PA_SLA_Criteria.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_SLA_Criteria.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_SLA_Criteria_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_SLA_Criteria with UUID " + PA_SLA_Criteria.getUUID());
+						"Could not find entity in table PA_SLA_Criteria with UU " + PA_SLA_Criteria.getUU());
 			}
 		} else {
 			this.setPA_SLA_Criteria_ID(0);
@@ -157,20 +157,20 @@ public class X_PA_SLA_GoalInput extends X_PA_SLA_Goal implements I_PA_SLA_GoalIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_SLA_Goal_UU(UUID);
+	public void setUU(String UU) {
+		setPA_SLA_Goal_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_SLA_Goal_UU();
 	}
 }

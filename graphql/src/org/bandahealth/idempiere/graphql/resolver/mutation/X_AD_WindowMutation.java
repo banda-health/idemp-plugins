@@ -21,16 +21,16 @@ public class X_AD_WindowMutation extends POMutation implements GraphQLMutationRe
 		return X_AD_WindowInput.Table_Name;
 	}
 
-	public MWindow AD_WindowSave(I_AD_WindowInput entity, DataFetchingEnvironment environment) {
-		return (MWindow) super.save((X_AD_WindowInput) entity, environment);
+	public MWindow AD_WindowSave(I_AD_WindowInput Entity, DataFetchingEnvironment environment) {
+		return (MWindow) super.save((X_AD_WindowInput) Entity, environment);
 	}
 
-	public List<MWindow> AD_WindowSaveMany(List<I_AD_WindowInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WindowInput) entity).collect(Collectors.toList()),
+	public List<MWindow> AD_WindowSaveMany(List<I_AD_WindowInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WindowInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MWindow) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WindowDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WindowDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

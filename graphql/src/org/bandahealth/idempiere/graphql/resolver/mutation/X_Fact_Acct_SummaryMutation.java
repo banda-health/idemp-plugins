@@ -21,16 +21,16 @@ public class X_Fact_Acct_SummaryMutation extends POMutation implements GraphQLMu
 		return X_Fact_Acct_SummaryInput.Table_Name;
 	}
 
-	public X_Fact_Acct_Summary Fact_Acct_SummarySave(I_Fact_Acct_SummaryInput entity, DataFetchingEnvironment environment) {
-		return (X_Fact_Acct_Summary) super.save((X_Fact_Acct_SummaryInput) entity, environment);
+	public X_Fact_Acct_Summary Fact_Acct_SummarySave(I_Fact_Acct_SummaryInput Entity, DataFetchingEnvironment environment) {
+		return (X_Fact_Acct_Summary) super.save((X_Fact_Acct_SummaryInput) Entity, environment);
 	}
 
-	public List<X_Fact_Acct_Summary> Fact_Acct_SummarySaveMany(List<I_Fact_Acct_SummaryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_Fact_Acct_SummaryInput) entity).collect(Collectors.toList()),
+	public List<X_Fact_Acct_Summary> Fact_Acct_SummarySaveMany(List<I_Fact_Acct_SummaryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_Fact_Acct_SummaryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_Fact_Acct_Summary) entity).collect(Collectors.toList());
 	}
 
-	public boolean Fact_Acct_SummaryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean Fact_Acct_SummaryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

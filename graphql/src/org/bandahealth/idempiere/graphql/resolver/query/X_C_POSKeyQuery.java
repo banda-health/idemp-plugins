@@ -17,8 +17,8 @@ public class X_C_POSKeyQuery extends POQuery<MPOSKey> implements GraphQLQueryRes
 		return MPOSKey.Table_Name;
 	}
 
-	public Connection<MPOSKey> C_POSKeyGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPOSKey> C_POSKeyGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

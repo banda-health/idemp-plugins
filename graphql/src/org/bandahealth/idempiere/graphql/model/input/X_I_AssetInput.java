@@ -54,12 +54,12 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The I_Asset_UU to fetch this entity from the DB
+	 * @param UU The I_Asset_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_I_AssetInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_I_AssetInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -75,11 +75,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Accumdepreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Accumdepreciation_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Accumdepreciation_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + A_Accumdepreciation_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + A_Accumdepreciation_A.getUU());
 			}
 		} else {
 			this.setA_Accumdepreciation_Acct(0);
@@ -109,11 +109,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + A_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + A_Asset_A.getUU());
 			}
 		} else {
 			this.setA_Asset_Acct(0);
@@ -154,11 +154,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MAssetGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset_Group", "A_Asset_Group_UU=?", get_TrxName())
-							.setParameters(A_Asset_Group.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table A_Asset_Group with UUID " + A_Asset_Group.getUUID());
+						"Could not find entity in table A_Asset_Group with UU " + A_Asset_Group.getUU());
 			}
 		} else {
 			this.setA_Asset_Group_ID(0);
@@ -191,11 +191,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MAsset foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Asset", "A_Asset_UU=?", get_TrxName())
-							.setParameters(A_Asset.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Asset.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Asset_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table A_Asset with UUID " + A_Asset.getUUID());
+						"Could not find entity in table A_Asset with UU " + A_Asset.getUU());
 			}
 		} else {
 			this.setA_Asset_ID(0);
@@ -225,11 +225,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Depreciation_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + A_Depreciation_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + A_Depreciation_A.getUU());
 			}
 		} else {
 			this.setA_Depreciation_Acct(0);
@@ -259,11 +259,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Depreciation_Manual_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Depreciation_Manual_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Manual_Period(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Depreciation_Manual_Period.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + A_Depreciation_Manual_Period.getUU());
 			}
 		} else {
 			this.setA_Depreciation_Manual_Period(null);
@@ -293,11 +293,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			X_A_Depreciation_Table_Header foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "A_Depreciation_Table_Header", "A_Depreciation_Table_Header_UU=?", get_TrxName())
-							.setParameters(A_Depreciation_Table_Header.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Depreciation_Table_Header.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Depreciation_Table_Header_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table A_Depreciation_Table_Header with UUID " + A_Depreciation_Table_Header.getUUID());
+						"Could not find entity in table A_Depreciation_Table_Header with UU " + A_Depreciation_Table_Header.getUU());
 			}
 		} else {
 			this.setA_Depreciation_Table_Header_ID(0);
@@ -327,11 +327,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(A_Reval_Cal_Method.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(A_Reval_Cal_Method.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setA_Reval_Cal_Method(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + A_Reval_Cal_Method.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + A_Reval_Cal_Method.getUU());
 			}
 		} else {
 			this.setA_Reval_Cal_Method(null);
@@ -361,11 +361,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -395,11 +395,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -429,11 +429,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -463,11 +463,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
+						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
 			}
 		} else {
 			this.setC_BPartner_Location_ID(0);
@@ -497,11 +497,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
+						"Could not find entity in table C_Location with UU " + C_Location.getUU());
 			}
 		} else {
 			this.setC_Location_ID(0);
@@ -530,20 +530,20 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setI_Asset_UU(UUID);
+	public void setUU(String UU) {
+		setI_Asset_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getI_Asset_UU();
 	}
 
@@ -560,11 +560,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSetInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
 			this.setM_AttributeSetInstance_ID(0);
@@ -594,11 +594,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
+						"Could not find entity in table M_Locator with UU " + M_Locator.getUU());
 			}
 		} else {
 			this.setM_Locator_ID(0);
@@ -628,11 +628,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -662,11 +662,11 @@ public class X_I_AssetInput extends X_I_Asset implements I_I_AssetInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PostingType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PostingType.getUU());
 			}
 		} else {
 			this.setPostingType(null);

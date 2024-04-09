@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Role_OrgAccessGet(page: Int, size: Int, sort: String, filter: String): AD_Role_OrgAccessConnection!
+	AD_Role_OrgAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Role_OrgAccessConnection!
 }
 
 extend type Mutation {
-	AD_Role_OrgAccessSave(entity: AD_Role_OrgAccessInput!): AD_Role_OrgAccess!
-	AD_Role_OrgAccessSaveMany(entities: [AD_Role_OrgAccessInput!]!): [AD_Role_OrgAccess!]!
-	AD_Role_OrgAccessDelete(uuids: [String!]!): Boolean!
+	AD_Role_OrgAccessSave(Entity: AD_Role_OrgAccessInput!): AD_Role_OrgAccess!
+	AD_Role_OrgAccessSaveMany(Entities: [AD_Role_OrgAccessInput!]!): [AD_Role_OrgAccess!]!
+	AD_Role_OrgAccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Role_OrgAccessConnection {
-	results: [AD_Role_OrgAccess!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Role_OrgAccess!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Role_OrgAccess {
@@ -23,8 +23,7 @@ type AD_Role_OrgAccess {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	UUID: ID!
-	AD_Role_OrgAccess_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,8 +43,7 @@ input AD_Role_OrgAccessInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	UUID: ID
-	AD_Role_OrgAccess_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Field is read only

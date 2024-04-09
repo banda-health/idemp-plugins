@@ -21,16 +21,16 @@ public class X_AD_AlertRuleMutation extends POMutation implements GraphQLMutatio
 		return X_AD_AlertRuleInput.Table_Name;
 	}
 
-	public MAlertRule AD_AlertRuleSave(I_AD_AlertRuleInput entity, DataFetchingEnvironment environment) {
-		return (MAlertRule) super.save((X_AD_AlertRuleInput) entity, environment);
+	public MAlertRule AD_AlertRuleSave(I_AD_AlertRuleInput Entity, DataFetchingEnvironment environment) {
+		return (MAlertRule) super.save((X_AD_AlertRuleInput) Entity, environment);
 	}
 
-	public List<MAlertRule> AD_AlertRuleSaveMany(List<I_AD_AlertRuleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AlertRuleInput) entity).collect(Collectors.toList()),
+	public List<MAlertRule> AD_AlertRuleSaveMany(List<I_AD_AlertRuleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AlertRuleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAlertRule) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AlertRuleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AlertRuleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

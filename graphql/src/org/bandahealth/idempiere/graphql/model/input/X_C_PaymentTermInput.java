@@ -28,12 +28,12 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_PaymentTerm_UU to fetch this entity from the DB
+	 * @param UU The C_PaymentTerm_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_PaymentTermInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_PaymentTermInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -85,20 +85,20 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_PaymentTerm_UU(UUID);
+	public void setUU(String UU) {
+		setC_PaymentTerm_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_PaymentTerm_UU();
 	}
 
@@ -115,11 +115,11 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(NetDay.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(NetDay.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNetDay(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + NetDay.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + NetDay.getUU());
 			}
 		} else {
 			this.setNetDay(null);
@@ -149,11 +149,11 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PaymentTermUsage.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PaymentTermUsage.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPaymentTermUsage(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PaymentTermUsage.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PaymentTermUsage.getUU());
 			}
 		} else {
 			this.setPaymentTermUsage(null);

@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_MigrationScriptGet(page: Int, size: Int, sort: String, filter: String): AD_MigrationScriptConnection!
+	AD_MigrationScriptGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_MigrationScriptConnection!
 }
 
 extend type Mutation {
-	AD_MigrationScriptSave(entity: AD_MigrationScriptInput!): AD_MigrationScript!
-	AD_MigrationScriptSaveMany(entities: [AD_MigrationScriptInput!]!): [AD_MigrationScript!]!
-	AD_MigrationScriptDelete(uuids: [String!]!): Boolean!
+	AD_MigrationScriptSave(Entity: AD_MigrationScriptInput!): AD_MigrationScript!
+	AD_MigrationScriptSaveMany(Entities: [AD_MigrationScriptInput!]!): [AD_MigrationScript!]!
+	AD_MigrationScriptDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_MigrationScriptConnection {
-	results: [AD_MigrationScript!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_MigrationScript!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_MigrationScript {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_MigrationScript_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -57,8 +56,7 @@ type AD_MigrationScript {
 }
 
 input AD_MigrationScriptInput {
-	UUID: ID
-	AD_MigrationScript_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

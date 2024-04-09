@@ -39,16 +39,16 @@ public interface I_BH_Product_CategoryDefaultInput extends I_BH_Product_Category
 	I_AD_Ref_ListInput BH_Product_Category_Type();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

@@ -17,8 +17,8 @@ public class X_C_JobCategoryQuery extends POQuery<X_C_JobCategory> implements Gr
 		return X_C_JobCategory.Table_Name;
 	}
 
-	public Connection<X_C_JobCategory> C_JobCategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_JobCategory> C_JobCategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

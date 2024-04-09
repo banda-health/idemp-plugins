@@ -21,16 +21,16 @@ public class X_M_RMATaxMutation extends POMutation implements GraphQLMutationRes
 		return X_M_RMATaxInput.Table_Name;
 	}
 
-	public MRMATax M_RMATaxSave(I_M_RMATaxInput entity, DataFetchingEnvironment environment) {
-		return (MRMATax) super.save((X_M_RMATaxInput) entity, environment);
+	public MRMATax M_RMATaxSave(I_M_RMATaxInput Entity, DataFetchingEnvironment environment) {
+		return (MRMATax) super.save((X_M_RMATaxInput) Entity, environment);
 	}
 
-	public List<MRMATax> M_RMATaxSaveMany(List<I_M_RMATaxInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_RMATaxInput) entity).collect(Collectors.toList()),
+	public List<MRMATax> M_RMATaxSaveMany(List<I_M_RMATaxInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_RMATaxInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRMATax) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_RMATaxDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_RMATaxDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

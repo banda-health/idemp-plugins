@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_AcctSchemaGet(page: Int, size: Int, sort: String, filter: String): C_AcctSchemaConnection!
+	C_AcctSchemaGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchemaConnection!
 }
 
 extend type Mutation {
-	C_AcctSchemaSave(entity: C_AcctSchemaInput!): C_AcctSchema!
-	C_AcctSchemaSaveMany(entities: [C_AcctSchemaInput!]!): [C_AcctSchema!]!
-	C_AcctSchemaDelete(uuids: [String!]!): Boolean!
+	C_AcctSchemaSave(Entity: C_AcctSchemaInput!): C_AcctSchema!
+	C_AcctSchemaSaveMany(Entities: [C_AcctSchemaInput!]!): [C_AcctSchema!]!
+	C_AcctSchemaDelete(UUs: [String!]!): Boolean!
 }
 
 type C_AcctSchemaConnection {
-	results: [C_AcctSchema!]!
-	pagingInfo: PagingInfo!
+	Results: [C_AcctSchema!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_AcctSchema {
@@ -23,8 +23,7 @@ type C_AcctSchema {
 	AD_Org: AD_Org!
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean!
-	UUID: ID!
-	C_AcctSchema_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Period of the Calendar
@@ -89,8 +88,7 @@ input C_AcctSchemaInput {
 	AD_Org: ForeignEntityInput
 	# If selected, the periods are automatically opened and closed
 	AutoPeriodControl: Boolean
-	UUID: ID
-	C_AcctSchema_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Period of the Calendar

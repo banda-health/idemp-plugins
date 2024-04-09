@@ -17,8 +17,8 @@ public class X_C_TaxCategoryQuery extends POQuery<MTaxCategory> implements Graph
 		return MTaxCategory.Table_Name;
 	}
 
-	public Connection<MTaxCategory> C_TaxCategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTaxCategory> C_TaxCategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

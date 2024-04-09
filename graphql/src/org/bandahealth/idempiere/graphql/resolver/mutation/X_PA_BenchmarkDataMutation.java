@@ -21,16 +21,16 @@ public class X_PA_BenchmarkDataMutation extends POMutation implements GraphQLMut
 		return X_PA_BenchmarkDataInput.Table_Name;
 	}
 
-	public X_PA_BenchmarkData PA_BenchmarkDataSave(I_PA_BenchmarkDataInput entity, DataFetchingEnvironment environment) {
-		return (X_PA_BenchmarkData) super.save((X_PA_BenchmarkDataInput) entity, environment);
+	public X_PA_BenchmarkData PA_BenchmarkDataSave(I_PA_BenchmarkDataInput Entity, DataFetchingEnvironment environment) {
+		return (X_PA_BenchmarkData) super.save((X_PA_BenchmarkDataInput) Entity, environment);
 	}
 
-	public List<X_PA_BenchmarkData> PA_BenchmarkDataSaveMany(List<I_PA_BenchmarkDataInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_BenchmarkDataInput) entity).collect(Collectors.toList()),
+	public List<X_PA_BenchmarkData> PA_BenchmarkDataSaveMany(List<I_PA_BenchmarkDataInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_BenchmarkDataInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PA_BenchmarkData) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_BenchmarkDataDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_BenchmarkDataDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

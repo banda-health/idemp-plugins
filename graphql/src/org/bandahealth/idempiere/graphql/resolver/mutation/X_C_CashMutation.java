@@ -21,16 +21,16 @@ public class X_C_CashMutation extends POMutation implements GraphQLMutationResol
 		return X_C_CashInput.Table_Name;
 	}
 
-	public MCash C_CashSave(I_C_CashInput entity, DataFetchingEnvironment environment) {
-		return (MCash) super.save((X_C_CashInput) entity, environment);
+	public MCash C_CashSave(I_C_CashInput Entity, DataFetchingEnvironment environment) {
+		return (MCash) super.save((X_C_CashInput) Entity, environment);
 	}
 
-	public List<MCash> C_CashSaveMany(List<I_C_CashInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CashInput) entity).collect(Collectors.toList()),
+	public List<MCash> C_CashSaveMany(List<I_C_CashInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CashInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCash) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CashDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CashDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

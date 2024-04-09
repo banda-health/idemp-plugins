@@ -21,16 +21,16 @@ public class X_AD_ReplicationMutation extends POMutation implements GraphQLMutat
 		return X_AD_ReplicationInput.Table_Name;
 	}
 
-	public MReplication AD_ReplicationSave(I_AD_ReplicationInput entity, DataFetchingEnvironment environment) {
-		return (MReplication) super.save((X_AD_ReplicationInput) entity, environment);
+	public MReplication AD_ReplicationSave(I_AD_ReplicationInput Entity, DataFetchingEnvironment environment) {
+		return (MReplication) super.save((X_AD_ReplicationInput) Entity, environment);
 	}
 
-	public List<MReplication> AD_ReplicationSaveMany(List<I_AD_ReplicationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ReplicationInput) entity).collect(Collectors.toList()),
+	public List<MReplication> AD_ReplicationSaveMany(List<I_AD_ReplicationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ReplicationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MReplication) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ReplicationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ReplicationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

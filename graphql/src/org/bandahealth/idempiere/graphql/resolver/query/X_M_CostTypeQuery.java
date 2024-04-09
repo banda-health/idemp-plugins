@@ -17,8 +17,8 @@ public class X_M_CostTypeQuery extends POQuery<MCostType> implements GraphQLQuer
 		return MCostType.Table_Name;
 	}
 
-	public Connection<MCostType> M_CostTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCostType> M_CostTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

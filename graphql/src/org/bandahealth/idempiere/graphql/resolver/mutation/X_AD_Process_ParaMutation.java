@@ -21,16 +21,16 @@ public class X_AD_Process_ParaMutation extends POMutation implements GraphQLMuta
 		return X_AD_Process_ParaInput.Table_Name;
 	}
 
-	public MProcessPara AD_Process_ParaSave(I_AD_Process_ParaInput entity, DataFetchingEnvironment environment) {
-		return (MProcessPara) super.save((X_AD_Process_ParaInput) entity, environment);
+	public MProcessPara AD_Process_ParaSave(I_AD_Process_ParaInput Entity, DataFetchingEnvironment environment) {
+		return (MProcessPara) super.save((X_AD_Process_ParaInput) Entity, environment);
 	}
 
-	public List<MProcessPara> AD_Process_ParaSaveMany(List<I_AD_Process_ParaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Process_ParaInput) entity).collect(Collectors.toList()),
+	public List<MProcessPara> AD_Process_ParaSaveMany(List<I_AD_Process_ParaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Process_ParaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProcessPara) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Process_ParaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Process_ParaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_C_BankAccount_ProcessorQuery extends POQuery<MBankAccountProcesso
 		return MBankAccountProcessor.Table_Name;
 	}
 
-	public Connection<MBankAccountProcessor> C_BankAccount_ProcessorGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBankAccountProcessor> C_BankAccount_ProcessorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

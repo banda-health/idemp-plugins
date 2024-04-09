@@ -41,12 +41,12 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The T_BOMLine_UU to fetch this entity from the DB
+	 * @param UU The T_BOMLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_T_BOMLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_T_BOMLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -62,11 +62,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -96,11 +96,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
+						"Could not find entity in table AD_PInstance with UU " + AD_PInstance.getUU());
 			}
 		} else {
 			this.setAD_PInstance_ID(0);
@@ -130,11 +130,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -164,11 +164,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CostingMethod.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingMethod.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostingMethod.getUU());
 			}
 		} else {
 			this.setCostingMethod(null);
@@ -198,11 +198,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MCostElement foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostElement", "M_CostElement_UU=?", get_TrxName())
-							.setParameters(M_CostElement.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostElement.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_CostElement_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_CostElement with UUID " + M_CostElement.getUUID());
+						"Could not find entity in table M_CostElement with UU " + M_CostElement.getUU());
 			}
 		} else {
 			this.setM_CostElement_ID(0);
@@ -232,11 +232,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MCostType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
-							.setParameters(M_CostType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_CostType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_CostType with UUID " + M_CostType.getUUID());
+						"Could not find entity in table M_CostType with UU " + M_CostType.getUU());
 			}
 		} else {
 			this.setM_CostType_ID(0);
@@ -266,11 +266,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -300,11 +300,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
-							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Product_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Product_BOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
+						"Could not find entity in table PP_Product_BOM with UU " + PP_Product_BOM.getUU());
 			}
 		} else {
 			this.setPP_Product_BOM_ID(0);
@@ -334,11 +334,11 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 			MPPProductBOMLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOMLine", "PP_Product_BOMLine_UU=?", get_TrxName())
-							.setParameters(PP_Product_BOMLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Product_BOMLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Product_BOMLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PP_Product_BOMLine with UUID " + PP_Product_BOMLine.getUUID());
+						"Could not find entity in table PP_Product_BOMLine with UU " + PP_Product_BOMLine.getUU());
 			}
 		} else {
 			this.setPP_Product_BOMLine_ID(0);
@@ -367,20 +367,20 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setT_BOMLine_UU(UUID);
+	public void setUU(String UU) {
+		setT_BOMLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getT_BOMLine_UU();
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_BP_WithholdingMutation extends POMutation implements GraphQLMut
 		return X_C_BP_WithholdingInput.Table_Name;
 	}
 
-	public X_C_BP_Withholding C_BP_WithholdingSave(I_C_BP_WithholdingInput entity, DataFetchingEnvironment environment) {
-		return (X_C_BP_Withholding) super.save((X_C_BP_WithholdingInput) entity, environment);
+	public X_C_BP_Withholding C_BP_WithholdingSave(I_C_BP_WithholdingInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_BP_Withholding) super.save((X_C_BP_WithholdingInput) Entity, environment);
 	}
 
-	public List<X_C_BP_Withholding> C_BP_WithholdingSaveMany(List<I_C_BP_WithholdingInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BP_WithholdingInput) entity).collect(Collectors.toList()),
+	public List<X_C_BP_Withholding> C_BP_WithholdingSaveMany(List<I_C_BP_WithholdingInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BP_WithholdingInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_BP_Withholding) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BP_WithholdingDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BP_WithholdingDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_AD_AlertProcessorLogMutation extends POMutation implements GraphQ
 		return X_AD_AlertProcessorLogInput.Table_Name;
 	}
 
-	public MAlertProcessorLog AD_AlertProcessorLogSave(I_AD_AlertProcessorLogInput entity, DataFetchingEnvironment environment) {
-		return (MAlertProcessorLog) super.save((X_AD_AlertProcessorLogInput) entity, environment);
+	public MAlertProcessorLog AD_AlertProcessorLogSave(I_AD_AlertProcessorLogInput Entity, DataFetchingEnvironment environment) {
+		return (MAlertProcessorLog) super.save((X_AD_AlertProcessorLogInput) Entity, environment);
 	}
 
-	public List<MAlertProcessorLog> AD_AlertProcessorLogSaveMany(List<I_AD_AlertProcessorLogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AlertProcessorLogInput) entity).collect(Collectors.toList()),
+	public List<MAlertProcessorLog> AD_AlertProcessorLogSaveMany(List<I_AD_AlertProcessorLogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AlertProcessorLogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAlertProcessorLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AlertProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AlertProcessorLogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

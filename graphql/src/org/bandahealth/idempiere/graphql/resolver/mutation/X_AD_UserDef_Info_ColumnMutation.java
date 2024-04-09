@@ -21,16 +21,16 @@ public class X_AD_UserDef_Info_ColumnMutation extends POMutation implements Grap
 		return X_AD_UserDef_Info_ColumnInput.Table_Name;
 	}
 
-	public MUserDefInfoColumn AD_UserDef_Info_ColumnSave(I_AD_UserDef_Info_ColumnInput entity, DataFetchingEnvironment environment) {
-		return (MUserDefInfoColumn) super.save((X_AD_UserDef_Info_ColumnInput) entity, environment);
+	public MUserDefInfoColumn AD_UserDef_Info_ColumnSave(I_AD_UserDef_Info_ColumnInput Entity, DataFetchingEnvironment environment) {
+		return (MUserDefInfoColumn) super.save((X_AD_UserDef_Info_ColumnInput) Entity, environment);
 	}
 
-	public List<MUserDefInfoColumn> AD_UserDef_Info_ColumnSaveMany(List<I_AD_UserDef_Info_ColumnInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_Info_ColumnInput) entity).collect(Collectors.toList()),
+	public List<MUserDefInfoColumn> AD_UserDef_Info_ColumnSaveMany(List<I_AD_UserDef_Info_ColumnInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserDef_Info_ColumnInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserDefInfoColumn) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDef_Info_ColumnDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDef_Info_ColumnDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

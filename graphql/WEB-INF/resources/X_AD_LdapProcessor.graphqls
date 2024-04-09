@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_LdapProcessorGet(page: Int, size: Int, sort: String, filter: String): AD_LdapProcessorConnection!
+	AD_LdapProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LdapProcessorConnection!
 }
 
 extend type Mutation {
-	AD_LdapProcessorSave(entity: AD_LdapProcessorInput!): AD_LdapProcessor!
-	AD_LdapProcessorSaveMany(entities: [AD_LdapProcessorInput!]!): [AD_LdapProcessor!]!
-	AD_LdapProcessorDelete(uuids: [String!]!): Boolean!
+	AD_LdapProcessorSave(Entity: AD_LdapProcessorInput!): AD_LdapProcessor!
+	AD_LdapProcessorSaveMany(Entities: [AD_LdapProcessorInput!]!): [AD_LdapProcessor!]!
+	AD_LdapProcessorDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_LdapProcessorConnection {
-	results: [AD_LdapProcessor!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_LdapProcessor!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_LdapProcessor {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_LdapProcessor_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -51,8 +50,7 @@ type AD_LdapProcessor {
 }
 
 input AD_LdapProcessorInput {
-	UUID: ID
-	AD_LdapProcessor_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Date the process was last run.

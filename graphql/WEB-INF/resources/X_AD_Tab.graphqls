@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_TabGet(page: Int, size: Int, sort: String, filter: String): AD_TabConnection!
+	AD_TabGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TabConnection!
 }
 
 extend type Mutation {
-	AD_TabSave(entity: AD_TabInput!): AD_Tab!
-	AD_TabSaveMany(entities: [AD_TabInput!]!): [AD_Tab!]!
-	AD_TabDelete(uuids: [String!]!): Boolean!
+	AD_TabSave(Entity: AD_TabInput!): AD_Tab!
+	AD_TabSaveMany(Entities: [AD_TabInput!]!): [AD_Tab!]!
+	AD_TabDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_TabConnection {
-	results: [AD_Tab!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Tab!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Tab {
@@ -32,8 +32,7 @@ type AD_Tab {
 	AD_Org: AD_Org!
 	# Process or Report
 	AD_Process: AD_Process
-	UUID: ID!
-	AD_Tab_UU: String
+	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Defines Tab Type
@@ -121,8 +120,7 @@ input AD_TabInput {
 	AD_Org: ForeignEntityInput
 	# Process or Report
 	AD_Process: ForeignEntityInput
-	UUID: ID
-	AD_Tab_UU: String
+	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Defines Tab Type

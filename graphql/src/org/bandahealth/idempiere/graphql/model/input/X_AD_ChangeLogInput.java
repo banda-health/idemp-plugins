@@ -34,12 +34,12 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_ChangeLog_UU to fetch this entity from the DB
+	 * @param UU The AD_ChangeLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ChangeLogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_ChangeLogInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MChangeLog foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ChangeLog", "AD_ChangeLog_UU=?", get_TrxName())
-							.setParameters(AD_ChangeLog.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ChangeLog.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ChangeLog_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_ChangeLog with UUID " + AD_ChangeLog.getUUID());
+						"Could not find entity in table AD_ChangeLog with UU " + AD_ChangeLog.getUU());
 			}
 		} else {
 			this.setAD_ChangeLog_ID(0);
@@ -80,20 +80,20 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_ChangeLog_UU(UUID);
+	public void setUU(String UU) {
+		setAD_ChangeLog_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_ChangeLog_UU();
 	}
 
@@ -113,11 +113,11 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_Column.getUU());
 			}
 		} else {
 			this.setAD_Column_ID(0);
@@ -150,11 +150,11 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -187,11 +187,11 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MSession foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Session", "AD_Session_UU=?", get_TrxName())
-							.setParameters(AD_Session.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Session.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Session_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Session with UUID " + AD_Session.getUUID());
+						"Could not find entity in table AD_Session with UU " + AD_Session.getUU());
 			}
 		} else {
 			this.setAD_Session_ID(0);
@@ -224,11 +224,11 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -261,11 +261,11 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(EventChangeLog.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EventChangeLog.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEventChangeLog(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + EventChangeLog.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + EventChangeLog.getUU());
 			}
 		} else {
 			this.setEventChangeLog(null);

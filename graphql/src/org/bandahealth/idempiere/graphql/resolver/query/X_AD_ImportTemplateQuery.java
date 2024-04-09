@@ -17,8 +17,8 @@ public class X_AD_ImportTemplateQuery extends POQuery<MImportTemplate> implement
 		return MImportTemplate.Table_Name;
 	}
 
-	public Connection<MImportTemplate> AD_ImportTemplateGet(int page, int pageSize, String sort, String filter,
+	public Connection<MImportTemplate> AD_ImportTemplateGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

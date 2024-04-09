@@ -21,16 +21,16 @@ public class X_C_LandedCostMutation extends POMutation implements GraphQLMutatio
 		return X_C_LandedCostInput.Table_Name;
 	}
 
-	public MLandedCost C_LandedCostSave(I_C_LandedCostInput entity, DataFetchingEnvironment environment) {
-		return (MLandedCost) super.save((X_C_LandedCostInput) entity, environment);
+	public MLandedCost C_LandedCostSave(I_C_LandedCostInput Entity, DataFetchingEnvironment environment) {
+		return (MLandedCost) super.save((X_C_LandedCostInput) Entity, environment);
 	}
 
-	public List<MLandedCost> C_LandedCostSaveMany(List<I_C_LandedCostInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_LandedCostInput) entity).collect(Collectors.toList()),
+	public List<MLandedCost> C_LandedCostSaveMany(List<I_C_LandedCostInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_LandedCostInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MLandedCost) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_LandedCostDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_LandedCostDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

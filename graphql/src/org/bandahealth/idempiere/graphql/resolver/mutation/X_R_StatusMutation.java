@@ -21,16 +21,16 @@ public class X_R_StatusMutation extends POMutation implements GraphQLMutationRes
 		return X_R_StatusInput.Table_Name;
 	}
 
-	public MStatus R_StatusSave(I_R_StatusInput entity, DataFetchingEnvironment environment) {
-		return (MStatus) super.save((X_R_StatusInput) entity, environment);
+	public MStatus R_StatusSave(I_R_StatusInput Entity, DataFetchingEnvironment environment) {
+		return (MStatus) super.save((X_R_StatusInput) Entity, environment);
 	}
 
-	public List<MStatus> R_StatusSaveMany(List<I_R_StatusInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_StatusInput) entity).collect(Collectors.toList()),
+	public List<MStatus> R_StatusSaveMany(List<I_R_StatusInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_StatusInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MStatus) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_StatusDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_StatusDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

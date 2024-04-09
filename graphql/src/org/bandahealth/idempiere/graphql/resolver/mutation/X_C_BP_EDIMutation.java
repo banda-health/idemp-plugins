@@ -21,16 +21,16 @@ public class X_C_BP_EDIMutation extends POMutation implements GraphQLMutationRes
 		return X_C_BP_EDIInput.Table_Name;
 	}
 
-	public X_C_BP_EDI C_BP_EDISave(I_C_BP_EDIInput entity, DataFetchingEnvironment environment) {
-		return (X_C_BP_EDI) super.save((X_C_BP_EDIInput) entity, environment);
+	public X_C_BP_EDI C_BP_EDISave(I_C_BP_EDIInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_BP_EDI) super.save((X_C_BP_EDIInput) Entity, environment);
 	}
 
-	public List<X_C_BP_EDI> C_BP_EDISaveMany(List<I_C_BP_EDIInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BP_EDIInput) entity).collect(Collectors.toList()),
+	public List<X_C_BP_EDI> C_BP_EDISaveMany(List<I_C_BP_EDIInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BP_EDIInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_BP_EDI) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BP_EDIDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BP_EDIDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

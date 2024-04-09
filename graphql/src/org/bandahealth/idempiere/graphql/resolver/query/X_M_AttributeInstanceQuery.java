@@ -17,8 +17,8 @@ public class X_M_AttributeInstanceQuery extends POQuery<MAttributeInstance> impl
 		return MAttributeInstance.Table_Name;
 	}
 
-	public Connection<MAttributeInstance> M_AttributeInstanceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAttributeInstance> M_AttributeInstanceGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

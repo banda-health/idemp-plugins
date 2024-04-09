@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PromotionGet(page: Int, size: Int, sort: String, filter: String): M_PromotionConnection!
+	M_PromotionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionConnection!
 }
 
 extend type Mutation {
-	M_PromotionSave(entity: M_PromotionInput!): M_Promotion!
-	M_PromotionSaveMany(entities: [M_PromotionInput!]!): [M_Promotion!]!
-	M_PromotionDelete(uuids: [String!]!): Boolean!
+	M_PromotionSave(Entity: M_PromotionInput!): M_Promotion!
+	M_PromotionSaveMany(Entities: [M_PromotionInput!]!): [M_Promotion!]!
+	M_PromotionDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PromotionConnection {
-	results: [M_Promotion!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Promotion!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Promotion {
@@ -31,8 +31,7 @@ type M_Promotion {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_Promotion_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Which promotion should be apply to a product
@@ -52,8 +51,7 @@ input M_PromotionInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_Promotion_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Which promotion should be apply to a product

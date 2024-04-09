@@ -21,16 +21,16 @@ public class X_M_RMALineMutation extends POMutation implements GraphQLMutationRe
 		return X_M_RMALineInput.Table_Name;
 	}
 
-	public MRMALine M_RMALineSave(I_M_RMALineInput entity, DataFetchingEnvironment environment) {
-		return (MRMALine) super.save((X_M_RMALineInput) entity, environment);
+	public MRMALine M_RMALineSave(I_M_RMALineInput Entity, DataFetchingEnvironment environment) {
+		return (MRMALine) super.save((X_M_RMALineInput) Entity, environment);
 	}
 
-	public List<MRMALine> M_RMALineSaveMany(List<I_M_RMALineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_RMALineInput) entity).collect(Collectors.toList()),
+	public List<MRMALine> M_RMALineSaveMany(List<I_M_RMALineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_RMALineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRMALine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_RMALineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_RMALineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_AD_ZoomConditionMutation extends POMutation implements GraphQLMut
 		return X_AD_ZoomConditionInput.Table_Name;
 	}
 
-	public MZoomCondition AD_ZoomConditionSave(I_AD_ZoomConditionInput entity, DataFetchingEnvironment environment) {
-		return (MZoomCondition) super.save((X_AD_ZoomConditionInput) entity, environment);
+	public MZoomCondition AD_ZoomConditionSave(I_AD_ZoomConditionInput Entity, DataFetchingEnvironment environment) {
+		return (MZoomCondition) super.save((X_AD_ZoomConditionInput) Entity, environment);
 	}
 
-	public List<MZoomCondition> AD_ZoomConditionSaveMany(List<I_AD_ZoomConditionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ZoomConditionInput) entity).collect(Collectors.toList()),
+	public List<MZoomCondition> AD_ZoomConditionSaveMany(List<I_AD_ZoomConditionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ZoomConditionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MZoomCondition) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ZoomConditionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ZoomConditionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_LdapProcessorLogGet(page: Int, size: Int, sort: String, filter: String): AD_LdapProcessorLogConnection!
+	AD_LdapProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LdapProcessorLogConnection!
 }
 
 extend type Mutation {
-	AD_LdapProcessorLogSave(entity: AD_LdapProcessorLogInput!): AD_LdapProcessorLog!
-	AD_LdapProcessorLogSaveMany(entities: [AD_LdapProcessorLogInput!]!): [AD_LdapProcessorLog!]!
-	AD_LdapProcessorLogDelete(uuids: [String!]!): Boolean!
+	AD_LdapProcessorLogSave(Entity: AD_LdapProcessorLogInput!): AD_LdapProcessorLog!
+	AD_LdapProcessorLogSaveMany(Entities: [AD_LdapProcessorLogInput!]!): [AD_LdapProcessorLog!]!
+	AD_LdapProcessorLogDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_LdapProcessorLogConnection {
-	results: [AD_LdapProcessorLog!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_LdapProcessorLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_LdapProcessorLog {
@@ -21,8 +21,7 @@ type AD_LdapProcessorLog {
 	AD_Client: AD_Client!
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: AD_LdapProcessor!
-	UUID: ID!
-	AD_LdapProcessorLog_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Binary Data
@@ -52,8 +51,7 @@ type AD_LdapProcessorLog {
 input AD_LdapProcessorLogInput {
 	# LDAP Server to authenticate and authorize external systems based on iDempiere
 	AD_LdapProcessor: ForeignEntityInput
-	UUID: ID
-	AD_LdapProcessorLog_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Binary Data

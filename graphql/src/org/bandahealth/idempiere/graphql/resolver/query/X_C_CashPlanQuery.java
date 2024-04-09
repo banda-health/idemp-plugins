@@ -17,8 +17,8 @@ public class X_C_CashPlanQuery extends POQuery<MCashPlan> implements GraphQLQuer
 		return MCashPlan.Table_Name;
 	}
 
-	public Connection<MCashPlan> C_CashPlanGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCashPlan> C_CashPlanGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

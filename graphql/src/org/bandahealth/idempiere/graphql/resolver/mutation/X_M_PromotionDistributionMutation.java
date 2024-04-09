@@ -21,16 +21,16 @@ public class X_M_PromotionDistributionMutation extends POMutation implements Gra
 		return X_M_PromotionDistributionInput.Table_Name;
 	}
 
-	public X_M_PromotionDistribution M_PromotionDistributionSave(I_M_PromotionDistributionInput entity, DataFetchingEnvironment environment) {
-		return (X_M_PromotionDistribution) super.save((X_M_PromotionDistributionInput) entity, environment);
+	public X_M_PromotionDistribution M_PromotionDistributionSave(I_M_PromotionDistributionInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_PromotionDistribution) super.save((X_M_PromotionDistributionInput) Entity, environment);
 	}
 
-	public List<X_M_PromotionDistribution> M_PromotionDistributionSaveMany(List<I_M_PromotionDistributionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PromotionDistributionInput) entity).collect(Collectors.toList()),
+	public List<X_M_PromotionDistribution> M_PromotionDistributionSaveMany(List<I_M_PromotionDistributionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PromotionDistributionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_PromotionDistribution) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PromotionDistributionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PromotionDistributionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

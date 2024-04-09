@@ -17,8 +17,8 @@ public class X_AD_Package_ImpQuery extends POQuery<X_AD_Package_Imp> implements 
 		return X_AD_Package_Imp.Table_Name;
 	}
 
-	public Connection<X_AD_Package_Imp> AD_Package_ImpGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_Package_Imp> AD_Package_ImpGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

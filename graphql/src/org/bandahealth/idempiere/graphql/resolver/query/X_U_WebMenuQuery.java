@@ -17,8 +17,8 @@ public class X_U_WebMenuQuery extends POQuery<MWebMenu> implements GraphQLQueryR
 		return MWebMenu.Table_Name;
 	}
 
-	public Connection<MWebMenu> U_WebMenuGet(int page, int pageSize, String sort, String filter,
+	public Connection<MWebMenu> U_WebMenuGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

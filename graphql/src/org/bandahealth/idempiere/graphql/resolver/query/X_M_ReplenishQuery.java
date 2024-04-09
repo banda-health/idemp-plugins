@@ -17,8 +17,8 @@ public class X_M_ReplenishQuery extends POQuery<MReplenish> implements GraphQLQu
 		return MReplenish.Table_Name;
 	}
 
-	public Connection<MReplenish> M_ReplenishGet(int page, int pageSize, String sort, String filter,
+	public Connection<MReplenish> M_ReplenishGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

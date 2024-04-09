@@ -31,12 +31,12 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Registration_UU to fetch this entity from the DB
+	 * @param UU The AD_Registration_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_RegistrationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_RegistrationInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,20 +88,20 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Registration_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Registration_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Registration_UU();
 	}
 
@@ -121,11 +121,11 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MSystem foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_System", "AD_System_UU=?", get_TrxName())
-							.setParameters(AD_System.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_System.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_System_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_System with UUID " + AD_System.getUUID());
+						"Could not find entity in table AD_System with UU " + AD_System.getUU());
 			}
 		} else {
 			this.setAD_System_ID(0);
@@ -155,11 +155,11 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -189,11 +189,11 @@ public class X_AD_RegistrationInput extends M_Registration implements I_AD_Regis
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
+						"Could not find entity in table C_Location with UU " + C_Location.getUU());
 			}
 		} else {
 			this.setC_Location_ID(0);

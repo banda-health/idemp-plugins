@@ -41,12 +41,12 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_TaxDeclarationLine_UU to fetch this entity from the DB
+	 * @param UU The C_TaxDeclarationLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_TaxDeclarationLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_TaxDeclarationLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -65,11 +65,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -102,11 +102,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MAllocationLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationLine", "C_AllocationLine_UU=?", get_TrxName())
-							.setParameters(C_AllocationLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AllocationLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AllocationLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AllocationLine with UUID " + C_AllocationLine.getUUID());
+						"Could not find entity in table C_AllocationLine with UU " + C_AllocationLine.getUU());
 			}
 		} else {
 			this.setC_AllocationLine_ID(0);
@@ -139,11 +139,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -176,11 +176,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -213,11 +213,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
 			}
 		} else {
 			this.setC_Invoice_ID(0);
@@ -250,11 +250,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
+						"Could not find entity in table C_InvoiceLine with UU " + C_InvoiceLine.getUU());
 			}
 		} else {
 			this.setC_InvoiceLine_ID(0);
@@ -287,11 +287,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MTax foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Tax", "C_Tax_UU=?", get_TrxName())
-							.setParameters(C_Tax.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Tax.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Tax_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Tax with UUID " + C_Tax.getUUID());
+						"Could not find entity in table C_Tax with UU " + C_Tax.getUU());
 			}
 		} else {
 			this.setC_Tax_ID(0);
@@ -324,11 +324,11 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 			MTaxDeclaration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxDeclaration", "C_TaxDeclaration_UU=?", get_TrxName())
-							.setParameters(C_TaxDeclaration.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxDeclaration.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxDeclaration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_TaxDeclaration with UUID " + C_TaxDeclaration.getUUID());
+						"Could not find entity in table C_TaxDeclaration with UU " + C_TaxDeclaration.getUU());
 			}
 		} else {
 			this.setC_TaxDeclaration_ID(0);
@@ -357,20 +357,20 @@ public class X_C_TaxDeclarationLineInput extends MTaxDeclarationLine implements 
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_TaxDeclarationLine_UU(UUID);
+	public void setUU(String UU) {
+		setC_TaxDeclarationLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_TaxDeclarationLine_UU();
 	}
 	/**

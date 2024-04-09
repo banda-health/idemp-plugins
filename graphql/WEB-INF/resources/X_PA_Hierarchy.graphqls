@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_HierarchyGet(page: Int, size: Int, sort: String, filter: String): PA_HierarchyConnection!
+	PA_HierarchyGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_HierarchyConnection!
 }
 
 extend type Mutation {
-	PA_HierarchySave(entity: PA_HierarchyInput!): PA_Hierarchy!
-	PA_HierarchySaveMany(entities: [PA_HierarchyInput!]!): [PA_Hierarchy!]!
-	PA_HierarchyDelete(uuids: [String!]!): Boolean!
+	PA_HierarchySave(Entity: PA_HierarchyInput!): PA_Hierarchy!
+	PA_HierarchySaveMany(Entities: [PA_HierarchyInput!]!): [PA_Hierarchy!]!
+	PA_HierarchyDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_HierarchyConnection {
-	results: [PA_Hierarchy!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_Hierarchy!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_Hierarchy {
@@ -49,8 +49,7 @@ type PA_Hierarchy {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
-	PA_Hierarchy_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -84,6 +83,5 @@ input PA_HierarchyInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
-	PA_Hierarchy_UU: String
+	UU: ID
 }

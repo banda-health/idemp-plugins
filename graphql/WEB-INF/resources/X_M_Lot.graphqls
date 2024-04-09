@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_LotGet(page: Int, size: Int, sort: String, filter: String): M_LotConnection!
+	M_LotGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LotConnection!
 }
 
 extend type Mutation {
-	M_LotSave(entity: M_LotInput!): M_Lot!
-	M_LotSaveMany(entities: [M_LotInput!]!): [M_Lot!]!
-	M_LotDelete(uuids: [String!]!): Boolean!
+	M_LotSave(Entity: M_LotInput!): M_Lot!
+	M_LotSaveMany(Entities: [M_LotInput!]!): [M_Lot!]!
+	M_LotDelete(UUs: [String!]!): Boolean!
 }
 
 type M_LotConnection {
-	results: [M_Lot!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Lot!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Lot {
@@ -35,8 +35,7 @@ type M_Lot {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_Lot_UU: String
+	UU: ID!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
 	# Product, Service, Item
@@ -62,8 +61,7 @@ input M_LotInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_Lot_UU: String
+	UU: ID
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
 	# Product, Service, Item

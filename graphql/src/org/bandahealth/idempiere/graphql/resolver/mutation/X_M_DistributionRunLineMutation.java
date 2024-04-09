@@ -21,16 +21,16 @@ public class X_M_DistributionRunLineMutation extends POMutation implements Graph
 		return X_M_DistributionRunLineInput.Table_Name;
 	}
 
-	public MDistributionRunLine M_DistributionRunLineSave(I_M_DistributionRunLineInput entity, DataFetchingEnvironment environment) {
-		return (MDistributionRunLine) super.save((X_M_DistributionRunLineInput) entity, environment);
+	public MDistributionRunLine M_DistributionRunLineSave(I_M_DistributionRunLineInput Entity, DataFetchingEnvironment environment) {
+		return (MDistributionRunLine) super.save((X_M_DistributionRunLineInput) Entity, environment);
 	}
 
-	public List<MDistributionRunLine> M_DistributionRunLineSaveMany(List<I_M_DistributionRunLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_DistributionRunLineInput) entity).collect(Collectors.toList()),
+	public List<MDistributionRunLine> M_DistributionRunLineSaveMany(List<I_M_DistributionRunLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_DistributionRunLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDistributionRunLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_DistributionRunLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_DistributionRunLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -33,12 +33,12 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The QM_Specification_UU to fetch this entity from the DB
+	 * @param UU The QM_Specification_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_QM_SpecificationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_QM_SpecificationInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			X_AD_Workflow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Workflow", "AD_Workflow_UU=?", get_TrxName())
-							.setParameters(AD_Workflow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Workflow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Workflow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Workflow with UUID " + AD_Workflow.getUUID());
+						"Could not find entity in table AD_Workflow with UU " + AD_Workflow.getUU());
 			}
 		} else {
 			this.setAD_Workflow_ID(0);
@@ -125,11 +125,11 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
-							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
+						"Could not find entity in table M_AttributeSet with UU " + M_AttributeSet.getUU());
 			}
 		} else {
 			this.setM_AttributeSet_ID(0);
@@ -159,11 +159,11 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -193,11 +193,11 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 			MPPProductBOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PP_Product_BOM", "PP_Product_BOM_UU=?", get_TrxName())
-							.setParameters(PP_Product_BOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PP_Product_BOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPP_Product_BOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PP_Product_BOM with UUID " + PP_Product_BOM.getUUID());
+						"Could not find entity in table PP_Product_BOM with UU " + PP_Product_BOM.getUU());
 			}
 		} else {
 			this.setPP_Product_BOM_ID(0);
@@ -226,20 +226,20 @@ public class X_QM_SpecificationInput extends X_QM_Specification implements I_QM_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setQM_Specification_UU(UUID);
+	public void setUU(String UU) {
+		setQM_Specification_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getQM_Specification_UU();
 	}
 }

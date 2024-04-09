@@ -53,16 +53,16 @@ public interface I_PP_WF_Node_AssetInput extends I_PP_WF_Node_Asset {
 	ForeignEntityInput AD_WF_Node();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

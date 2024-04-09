@@ -21,16 +21,16 @@ public class X_GL_JournalGeneratorMutation extends POMutation implements GraphQL
 		return X_GL_JournalGeneratorInput.Table_Name;
 	}
 
-	public MJournalGenerator GL_JournalGeneratorSave(I_GL_JournalGeneratorInput entity, DataFetchingEnvironment environment) {
-		return (MJournalGenerator) super.save((X_GL_JournalGeneratorInput) entity, environment);
+	public MJournalGenerator GL_JournalGeneratorSave(I_GL_JournalGeneratorInput Entity, DataFetchingEnvironment environment) {
+		return (MJournalGenerator) super.save((X_GL_JournalGeneratorInput) Entity, environment);
 	}
 
-	public List<MJournalGenerator> GL_JournalGeneratorSaveMany(List<I_GL_JournalGeneratorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_GL_JournalGeneratorInput) entity).collect(Collectors.toList()),
+	public List<MJournalGenerator> GL_JournalGeneratorSaveMany(List<I_GL_JournalGeneratorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_JournalGeneratorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MJournalGenerator) entity).collect(Collectors.toList());
 	}
 
-	public boolean GL_JournalGeneratorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean GL_JournalGeneratorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

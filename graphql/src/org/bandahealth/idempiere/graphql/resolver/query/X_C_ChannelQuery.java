@@ -17,8 +17,8 @@ public class X_C_ChannelQuery extends POQuery<X_C_Channel> implements GraphQLQue
 		return X_C_Channel.Table_Name;
 	}
 
-	public Connection<X_C_Channel> C_ChannelGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_Channel> C_ChannelGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

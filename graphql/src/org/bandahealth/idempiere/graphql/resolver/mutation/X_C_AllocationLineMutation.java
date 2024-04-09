@@ -21,16 +21,16 @@ public class X_C_AllocationLineMutation extends POMutation implements GraphQLMut
 		return X_C_AllocationLineInput.Table_Name;
 	}
 
-	public MAllocationLine C_AllocationLineSave(I_C_AllocationLineInput entity, DataFetchingEnvironment environment) {
-		return (MAllocationLine) super.save((X_C_AllocationLineInput) entity, environment);
+	public MAllocationLine C_AllocationLineSave(I_C_AllocationLineInput Entity, DataFetchingEnvironment environment) {
+		return (MAllocationLine) super.save((X_C_AllocationLineInput) Entity, environment);
 	}
 
-	public List<MAllocationLine> C_AllocationLineSaveMany(List<I_C_AllocationLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_AllocationLineInput) entity).collect(Collectors.toList()),
+	public List<MAllocationLine> C_AllocationLineSaveMany(List<I_C_AllocationLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_AllocationLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAllocationLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_AllocationLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_AllocationLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

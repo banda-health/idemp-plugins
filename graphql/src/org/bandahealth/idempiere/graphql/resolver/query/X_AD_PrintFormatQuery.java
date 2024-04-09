@@ -17,8 +17,8 @@ public class X_AD_PrintFormatQuery extends POQuery<X_AD_PrintFormat> implements 
 		return X_AD_PrintFormat.Table_Name;
 	}
 
-	public Connection<X_AD_PrintFormat> AD_PrintFormatGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_PrintFormat> AD_PrintFormatGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

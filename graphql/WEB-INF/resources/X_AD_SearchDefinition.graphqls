@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_SearchDefinitionGet(page: Int, size: Int, sort: String, filter: String): AD_SearchDefinitionConnection!
+	AD_SearchDefinitionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SearchDefinitionConnection!
 }
 
 extend type Mutation {
-	AD_SearchDefinitionSave(entity: AD_SearchDefinitionInput!): AD_SearchDefinition!
-	AD_SearchDefinitionSaveMany(entities: [AD_SearchDefinitionInput!]!): [AD_SearchDefinition!]!
-	AD_SearchDefinitionDelete(uuids: [String!]!): Boolean!
+	AD_SearchDefinitionSave(Entity: AD_SearchDefinitionInput!): AD_SearchDefinition!
+	AD_SearchDefinitionSaveMany(Entities: [AD_SearchDefinitionInput!]!): [AD_SearchDefinition!]!
+	AD_SearchDefinitionDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_SearchDefinitionConnection {
-	results: [AD_SearchDefinition!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_SearchDefinition!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_SearchDefinition {
@@ -23,8 +23,7 @@ type AD_SearchDefinition {
 	AD_Column: AD_Column
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_SearchDefinition_UU: String
+	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Data entry or display window
@@ -64,8 +63,7 @@ input AD_SearchDefinitionInput {
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_SearchDefinition_UU: String
+	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Data entry or display window

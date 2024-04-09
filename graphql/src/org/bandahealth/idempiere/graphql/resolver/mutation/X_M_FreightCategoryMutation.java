@@ -21,16 +21,16 @@ public class X_M_FreightCategoryMutation extends POMutation implements GraphQLMu
 		return X_M_FreightCategoryInput.Table_Name;
 	}
 
-	public MFreightCategory M_FreightCategorySave(I_M_FreightCategoryInput entity, DataFetchingEnvironment environment) {
-		return (MFreightCategory) super.save((X_M_FreightCategoryInput) entity, environment);
+	public MFreightCategory M_FreightCategorySave(I_M_FreightCategoryInput Entity, DataFetchingEnvironment environment) {
+		return (MFreightCategory) super.save((X_M_FreightCategoryInput) Entity, environment);
 	}
 
-	public List<MFreightCategory> M_FreightCategorySaveMany(List<I_M_FreightCategoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_FreightCategoryInput) entity).collect(Collectors.toList()),
+	public List<MFreightCategory> M_FreightCategorySaveMany(List<I_M_FreightCategoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_FreightCategoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MFreightCategory) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_FreightCategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_FreightCategoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

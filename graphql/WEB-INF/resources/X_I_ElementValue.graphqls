@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_ElementValueGet(page: Int, size: Int, sort: String, filter: String): I_ElementValueConnection!
+	I_ElementValueGet(Page: Int, Size: Int, Sort: String, Filter: String): I_ElementValueConnection!
 }
 
 extend type Mutation {
-	I_ElementValueSave(entity: I_ElementValueInput!): I_ElementValue!
-	I_ElementValueSaveMany(entities: [I_ElementValueInput!]!): [I_ElementValue!]!
-	I_ElementValueDelete(uuids: [String!]!): Boolean!
+	I_ElementValueSave(Entity: I_ElementValueInput!): I_ElementValue!
+	I_ElementValueSaveMany(Entities: [I_ElementValueInput!]!): [I_ElementValue!]!
+	I_ElementValueDelete(UUs: [String!]!): Boolean!
 }
 
 type I_ElementValueConnection {
-	results: [I_ElementValue!]!
-	pagingInfo: PagingInfo!
+	Results: [I_ElementValue!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_ElementValue {
@@ -41,8 +41,7 @@ type I_ElementValue {
 	Description: String
 	# Name of the Element
 	ElementName: String
-	UUID: ID!
-	I_ElementValue_UU: String
+	UU: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -97,8 +96,7 @@ input I_ElementValueInput {
 	Description: String
 	# Name of the Element
 	ElementName: String
-	UUID: ID
-	I_ElementValue_UU: String
+	UU: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

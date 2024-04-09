@@ -17,8 +17,8 @@ public class X_C_BP_ShippingAcctQuery extends POQuery<X_C_BP_ShippingAcct> imple
 		return X_C_BP_ShippingAcct.Table_Name;
 	}
 
-	public Connection<X_C_BP_ShippingAcct> C_BP_ShippingAcctGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_BP_ShippingAcct> C_BP_ShippingAcctGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	CM_ChatTypeGet(page: Int, size: Int, sort: String, filter: String): CM_ChatTypeConnection!
+	CM_ChatTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatTypeConnection!
 }
 
 extend type Mutation {
-	CM_ChatTypeSave(entity: CM_ChatTypeInput!): CM_ChatType!
-	CM_ChatTypeSaveMany(entities: [CM_ChatTypeInput!]!): [CM_ChatType!]!
-	CM_ChatTypeDelete(uuids: [String!]!): Boolean!
+	CM_ChatTypeSave(Entity: CM_ChatTypeInput!): CM_ChatType!
+	CM_ChatTypeSaveMany(Entities: [CM_ChatTypeInput!]!): [CM_ChatType!]!
+	CM_ChatTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type CM_ChatTypeConnection {
-	results: [CM_ChatType!]!
-	pagingInfo: PagingInfo!
+	Results: [CM_ChatType!]!
+	PagingInfo: PagingInfo!
 }
 
 type CM_ChatType {
@@ -23,8 +23,7 @@ type CM_ChatType {
 	AD_Org: AD_Org!
 	# Database Table information
 	AD_Table: AD_Table!
-	UUID: ID!
-	CM_ChatType_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input CM_ChatTypeInput {
 	AD_Org: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	UUID: ID
-	CM_ChatType_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

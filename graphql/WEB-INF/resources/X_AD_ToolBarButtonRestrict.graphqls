@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ToolBarButtonRestrictGet(page: Int, size: Int, sort: String, filter: String): AD_ToolBarButtonRestrictConnection!
+	AD_ToolBarButtonRestrictGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ToolBarButtonRestrictConnection!
 }
 
 extend type Mutation {
-	AD_ToolBarButtonRestrictSave(entity: AD_ToolBarButtonRestrictInput!): AD_ToolBarButtonRestrict!
-	AD_ToolBarButtonRestrictSaveMany(entities: [AD_ToolBarButtonRestrictInput!]!): [AD_ToolBarButtonRestrict!]!
-	AD_ToolBarButtonRestrictDelete(uuids: [String!]!): Boolean!
+	AD_ToolBarButtonRestrictSave(Entity: AD_ToolBarButtonRestrictInput!): AD_ToolBarButtonRestrict!
+	AD_ToolBarButtonRestrictSaveMany(Entities: [AD_ToolBarButtonRestrictInput!]!): [AD_ToolBarButtonRestrict!]!
+	AD_ToolBarButtonRestrictDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ToolBarButtonRestrictConnection {
-	results: [AD_ToolBarButtonRestrict!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ToolBarButtonRestrict!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ToolBarButtonRestrict {
@@ -30,8 +30,7 @@ type AD_ToolBarButtonRestrict {
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	AD_ToolBarButton: AD_ToolBarButton
-	UUID: ID!
-	AD_ToolBarButtonRestrict_UU: String
+	UU: ID!
 	# Data entry or display window
 	AD_Window: AD_Window
 	# Date this record was created
@@ -60,8 +59,7 @@ input AD_ToolBarButtonRestrictInput {
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	AD_ToolBarButton: ForeignEntityInput
-	UUID: ID
-	AD_ToolBarButtonRestrict_UU: String
+	UU: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# The record is active in the system

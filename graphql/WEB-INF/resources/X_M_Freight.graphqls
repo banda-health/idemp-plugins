@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_FreightGet(page: Int, size: Int, sort: String, filter: String): M_FreightConnection!
+	M_FreightGet(Page: Int, Size: Int, Sort: String, Filter: String): M_FreightConnection!
 }
 
 extend type Mutation {
-	M_FreightSave(entity: M_FreightInput!): M_Freight!
-	M_FreightSaveMany(entities: [M_FreightInput!]!): [M_Freight!]!
-	M_FreightDelete(uuids: [String!]!): Boolean!
+	M_FreightSave(Entity: M_FreightInput!): M_Freight!
+	M_FreightSaveMany(Entities: [M_FreightInput!]!): [M_Freight!]!
+	M_FreightDelete(UUs: [String!]!): Boolean!
 }
 
 type M_FreightConnection {
-	results: [M_Freight!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Freight!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Freight {
@@ -35,8 +35,7 @@ type M_Freight {
 	FreightAmt: BigDecimal!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_Freight_UU: String
+	UU: ID!
 	# Category of the Freight
 	M_FreightCategory: M_FreightCategory!
 	# Method or manner of product delivery
@@ -66,8 +65,7 @@ input M_FreightInput {
 	FreightAmt: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_Freight_UU: String
+	UU: ID
 	# Category of the Freight
 	M_FreightCategory: ForeignEntityInput
 	# Method or manner of product delivery

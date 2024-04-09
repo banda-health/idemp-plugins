@@ -21,16 +21,16 @@ public class X_C_ChannelMutation extends POMutation implements GraphQLMutationRe
 		return X_C_ChannelInput.Table_Name;
 	}
 
-	public X_C_Channel C_ChannelSave(I_C_ChannelInput entity, DataFetchingEnvironment environment) {
-		return (X_C_Channel) super.save((X_C_ChannelInput) entity, environment);
+	public X_C_Channel C_ChannelSave(I_C_ChannelInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_Channel) super.save((X_C_ChannelInput) Entity, environment);
 	}
 
-	public List<X_C_Channel> C_ChannelSaveMany(List<I_C_ChannelInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_ChannelInput) entity).collect(Collectors.toList()),
+	public List<X_C_Channel> C_ChannelSaveMany(List<I_C_ChannelInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_ChannelInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_Channel) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_ChannelDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_ChannelDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

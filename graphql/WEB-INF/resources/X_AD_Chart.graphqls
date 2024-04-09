@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ChartGet(page: Int, size: Int, sort: String, filter: String): AD_ChartConnection!
+	AD_ChartGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ChartConnection!
 }
 
 extend type Mutation {
-	AD_ChartSave(entity: AD_ChartInput!): AD_Chart!
-	AD_ChartSaveMany(entities: [AD_ChartInput!]!): [AD_Chart!]!
-	AD_ChartDelete(uuids: [String!]!): Boolean!
+	AD_ChartSave(Entity: AD_ChartInput!): AD_Chart!
+	AD_ChartSaveMany(Entities: [AD_ChartInput!]!): [AD_Chart!]!
+	AD_ChartDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ChartConnection {
-	results: [AD_Chart!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Chart!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Chart {
-	UUID: ID!
-	AD_Chart_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -59,8 +58,7 @@ type AD_Chart {
 }
 
 input AD_ChartInput {
-	UUID: ID
-	AD_Chart_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The orientation of the chart.

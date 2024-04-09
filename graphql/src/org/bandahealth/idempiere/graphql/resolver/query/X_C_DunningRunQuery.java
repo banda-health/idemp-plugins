@@ -17,8 +17,8 @@ public class X_C_DunningRunQuery extends POQuery<MDunningRun> implements GraphQL
 		return MDunningRun.Table_Name;
 	}
 
-	public Connection<MDunningRun> C_DunningRunGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDunningRun> C_DunningRunGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

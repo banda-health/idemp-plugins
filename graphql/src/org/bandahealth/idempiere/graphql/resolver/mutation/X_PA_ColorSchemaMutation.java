@@ -21,16 +21,16 @@ public class X_PA_ColorSchemaMutation extends POMutation implements GraphQLMutat
 		return X_PA_ColorSchemaInput.Table_Name;
 	}
 
-	public MColorSchema PA_ColorSchemaSave(I_PA_ColorSchemaInput entity, DataFetchingEnvironment environment) {
-		return (MColorSchema) super.save((X_PA_ColorSchemaInput) entity, environment);
+	public MColorSchema PA_ColorSchemaSave(I_PA_ColorSchemaInput Entity, DataFetchingEnvironment environment) {
+		return (MColorSchema) super.save((X_PA_ColorSchemaInput) Entity, environment);
 	}
 
-	public List<MColorSchema> PA_ColorSchemaSaveMany(List<I_PA_ColorSchemaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_ColorSchemaInput) entity).collect(Collectors.toList()),
+	public List<MColorSchema> PA_ColorSchemaSaveMany(List<I_PA_ColorSchemaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_ColorSchemaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MColorSchema) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_ColorSchemaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_ColorSchemaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_M_ProductOperationMutation extends POMutation implements GraphQLM
 		return X_M_ProductOperationInput.Table_Name;
 	}
 
-	public X_M_ProductOperation M_ProductOperationSave(I_M_ProductOperationInput entity, DataFetchingEnvironment environment) {
-		return (X_M_ProductOperation) super.save((X_M_ProductOperationInput) entity, environment);
+	public X_M_ProductOperation M_ProductOperationSave(I_M_ProductOperationInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_ProductOperation) super.save((X_M_ProductOperationInput) Entity, environment);
 	}
 
-	public List<X_M_ProductOperation> M_ProductOperationSaveMany(List<I_M_ProductOperationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ProductOperationInput) entity).collect(Collectors.toList()),
+	public List<X_M_ProductOperation> M_ProductOperationSaveMany(List<I_M_ProductOperationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ProductOperationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_ProductOperation) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ProductOperationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ProductOperationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

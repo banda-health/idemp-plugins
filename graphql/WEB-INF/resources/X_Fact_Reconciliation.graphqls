@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	Fact_ReconciliationGet(page: Int, size: Int, sort: String, filter: String): Fact_ReconciliationConnection!
+	Fact_ReconciliationGet(Page: Int, Size: Int, Sort: String, Filter: String): Fact_ReconciliationConnection!
 }
 
 extend type Mutation {
-	Fact_ReconciliationSave(entity: Fact_ReconciliationInput!): Fact_Reconciliation!
-	Fact_ReconciliationSaveMany(entities: [Fact_ReconciliationInput!]!): [Fact_Reconciliation!]!
-	Fact_ReconciliationDelete(uuids: [String!]!): Boolean!
+	Fact_ReconciliationSave(Entity: Fact_ReconciliationInput!): Fact_Reconciliation!
+	Fact_ReconciliationSaveMany(Entities: [Fact_ReconciliationInput!]!): [Fact_Reconciliation!]!
+	Fact_ReconciliationDelete(UUs: [String!]!): Boolean!
 }
 
 type Fact_ReconciliationConnection {
-	results: [Fact_Reconciliation!]!
-	pagingInfo: PagingInfo!
+	Results: [Fact_Reconciliation!]!
+	PagingInfo: PagingInfo!
 }
 
 type Fact_Reconciliation {
@@ -34,8 +34,7 @@ type Fact_Reconciliation {
 	# Accounting Date
 	DateAcct: Date
 	Fact_Acct: Fact_Acct!
-	UUID: ID!
-	Fact_Reconciliation_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# String identifying related accounting facts
@@ -50,8 +49,7 @@ input Fact_ReconciliationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	Fact_Acct: ForeignEntityInput
-	UUID: ID
-	Fact_Reconciliation_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# String identifying related accounting facts

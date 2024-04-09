@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_MenuGet(page: Int, size: Int, sort: String, filter: String): AD_MenuConnection!
+	AD_MenuGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_MenuConnection!
 }
 
 extend type Mutation {
-	AD_MenuSave(entity: AD_MenuInput!): AD_Menu!
-	AD_MenuSaveMany(entities: [AD_MenuInput!]!): [AD_Menu!]!
-	AD_MenuDelete(uuids: [String!]!): Boolean!
+	AD_MenuSave(Entity: AD_MenuInput!): AD_Menu!
+	AD_MenuSaveMany(Entities: [AD_MenuInput!]!): [AD_Menu!]!
+	AD_MenuDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_MenuConnection {
-	results: [AD_Menu!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Menu!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Menu {
@@ -25,8 +25,7 @@ type AD_Menu {
 	AD_Form: AD_Form
 	# Info and search/select Window
 	AD_InfoWindow: AD_InfoWindow
-	UUID: ID!
-	AD_Menu_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Process or Report
@@ -74,8 +73,7 @@ input AD_MenuInput {
 	AD_Form: ForeignEntityInput
 	# Info and search/select Window
 	AD_InfoWindow: ForeignEntityInput
-	UUID: ID
-	AD_Menu_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Process or Report

@@ -17,8 +17,8 @@ public class X_C_RecurringQuery extends POQuery<MRecurring> implements GraphQLQu
 		return MRecurring.Table_Name;
 	}
 
-	public Connection<MRecurring> C_RecurringGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRecurring> C_RecurringGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

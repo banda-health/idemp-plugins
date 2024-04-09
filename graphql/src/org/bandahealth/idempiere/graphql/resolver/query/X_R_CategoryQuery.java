@@ -17,8 +17,8 @@ public class X_R_CategoryQuery extends POQuery<MRequestCategory> implements Grap
 		return MRequestCategory.Table_Name;
 	}
 
-	public Connection<MRequestCategory> R_CategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRequestCategory> R_CategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

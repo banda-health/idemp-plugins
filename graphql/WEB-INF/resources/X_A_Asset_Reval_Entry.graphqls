@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_Reval_EntryGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Reval_EntryConnection!
+	A_Asset_Reval_EntryGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Reval_EntryConnection!
 }
 
 extend type Mutation {
-	A_Asset_Reval_EntrySave(entity: A_Asset_Reval_EntryInput!): A_Asset_Reval_Entry!
-	A_Asset_Reval_EntrySaveMany(entities: [A_Asset_Reval_EntryInput!]!): [A_Asset_Reval_Entry!]!
-	A_Asset_Reval_EntryDelete(uuids: [String!]!): Boolean!
+	A_Asset_Reval_EntrySave(Entity: A_Asset_Reval_EntryInput!): A_Asset_Reval_Entry!
+	A_Asset_Reval_EntrySaveMany(Entities: [A_Asset_Reval_EntryInput!]!): [A_Asset_Reval_Entry!]!
+	A_Asset_Reval_EntryDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_Reval_EntryConnection {
-	results: [A_Asset_Reval_Entry!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Reval_Entry!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Reval_Entry {
-	UUID: ID!
-	A_Asset_Reval_Entry_UU: String
+	UU: ID!
 	A_Effective_Date: Date!
 	A_Rev_Code: AD_Ref_List!
 	A_Reval_Cal_Method: AD_Ref_List!
@@ -64,8 +63,7 @@ type A_Asset_Reval_Entry {
 }
 
 input A_Asset_Reval_EntryInput {
-	UUID: ID
-	A_Asset_Reval_Entry_UU: String
+	UU: ID
 	A_Effective_Date: Date
 	A_Rev_Code: AD_Ref_ListInput
 	A_Reval_Cal_Method: AD_Ref_ListInput

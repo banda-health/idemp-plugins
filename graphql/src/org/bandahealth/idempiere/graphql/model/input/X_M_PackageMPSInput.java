@@ -30,12 +30,12 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_PackageMPS_UU to fetch this entity from the DB
+	 * @param UU The M_PackageMPS_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_PackageMPSInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_PackageMPSInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -54,11 +54,11 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,11 +88,11 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Length.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Length.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_Length_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_UOM with UUID " + C_UOM_Length.getUUID());
+						"Could not find entity in table C_UOM with UU " + C_UOM_Length.getUU());
 			}
 		} else {
 			this.setC_UOM_Length_ID(0);
@@ -122,11 +122,11 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM_Weight.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM_Weight.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_Weight_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_UOM with UUID " + C_UOM_Weight.getUUID());
+						"Could not find entity in table C_UOM with UU " + C_UOM_Weight.getUU());
 			}
 		} else {
 			this.setC_UOM_Weight_ID(0);
@@ -159,11 +159,11 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 			MPackage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Package", "M_Package_UU=?", get_TrxName())
-							.setParameters(M_Package.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Package.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Package_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Package with UUID " + M_Package.getUUID());
+						"Could not find entity in table M_Package with UU " + M_Package.getUU());
 			}
 		} else {
 			this.setM_Package_ID(0);
@@ -192,20 +192,20 @@ public class X_M_PackageMPSInput extends MPackageMPS implements I_M_PackageMPSIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_PackageMPS_UU(UUID);
+	public void setUU(String UU) {
+		setM_PackageMPS_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_PackageMPS_UU();
 	}
 }

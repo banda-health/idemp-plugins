@@ -21,16 +21,16 @@ public class X_C_PaymentAllocateMutation extends POMutation implements GraphQLMu
 		return X_C_PaymentAllocateInput.Table_Name;
 	}
 
-	public MPaymentAllocate C_PaymentAllocateSave(I_C_PaymentAllocateInput entity, DataFetchingEnvironment environment) {
-		return (MPaymentAllocate) super.save((X_C_PaymentAllocateInput) entity, environment);
+	public MPaymentAllocate C_PaymentAllocateSave(I_C_PaymentAllocateInput Entity, DataFetchingEnvironment environment) {
+		return (MPaymentAllocate) super.save((X_C_PaymentAllocateInput) Entity, environment);
 	}
 
-	public List<MPaymentAllocate> C_PaymentAllocateSaveMany(List<I_C_PaymentAllocateInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_PaymentAllocateInput) entity).collect(Collectors.toList()),
+	public List<MPaymentAllocate> C_PaymentAllocateSaveMany(List<I_C_PaymentAllocateInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_PaymentAllocateInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPaymentAllocate) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_PaymentAllocateDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_PaymentAllocateDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

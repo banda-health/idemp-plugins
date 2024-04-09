@@ -21,16 +21,16 @@ public class X_AD_ClientShareMutation extends POMutation implements GraphQLMutat
 		return X_AD_ClientShareInput.Table_Name;
 	}
 
-	public MClientShare AD_ClientShareSave(I_AD_ClientShareInput entity, DataFetchingEnvironment environment) {
-		return (MClientShare) super.save((X_AD_ClientShareInput) entity, environment);
+	public MClientShare AD_ClientShareSave(I_AD_ClientShareInput Entity, DataFetchingEnvironment environment) {
+		return (MClientShare) super.save((X_AD_ClientShareInput) Entity, environment);
 	}
 
-	public List<MClientShare> AD_ClientShareSaveMany(List<I_AD_ClientShareInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ClientShareInput) entity).collect(Collectors.toList()),
+	public List<MClientShare> AD_ClientShareSaveMany(List<I_AD_ClientShareInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ClientShareInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MClientShare) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ClientShareDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ClientShareDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

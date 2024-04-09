@@ -17,8 +17,8 @@ public class X_A_Asset_DeliveryQuery extends POQuery<MAssetDelivery> implements 
 		return MAssetDelivery.Table_Name;
 	}
 
-	public Connection<MAssetDelivery> A_Asset_DeliveryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetDelivery> A_Asset_DeliveryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

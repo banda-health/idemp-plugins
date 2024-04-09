@@ -17,8 +17,8 @@ public class X_M_DemandDetailQuery extends POQuery<X_M_DemandDetail> implements 
 		return X_M_DemandDetail.Table_Name;
 	}
 
-	public Connection<X_M_DemandDetail> M_DemandDetailGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_DemandDetail> M_DemandDetailGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

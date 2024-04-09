@@ -21,16 +21,16 @@ public class X_AD_ColorMutation extends POMutation implements GraphQLMutationRes
 		return X_AD_ColorInput.Table_Name;
 	}
 
-	public MColor AD_ColorSave(I_AD_ColorInput entity, DataFetchingEnvironment environment) {
-		return (MColor) super.save((X_AD_ColorInput) entity, environment);
+	public MColor AD_ColorSave(I_AD_ColorInput Entity, DataFetchingEnvironment environment) {
+		return (MColor) super.save((X_AD_ColorInput) Entity, environment);
 	}
 
-	public List<MColor> AD_ColorSaveMany(List<I_AD_ColorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ColorInput) entity).collect(Collectors.toList()),
+	public List<MColor> AD_ColorSaveMany(List<I_AD_ColorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ColorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MColor) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ColorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ColorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

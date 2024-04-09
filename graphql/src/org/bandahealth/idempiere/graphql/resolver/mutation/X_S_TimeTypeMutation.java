@@ -21,16 +21,16 @@ public class X_S_TimeTypeMutation extends POMutation implements GraphQLMutationR
 		return X_S_TimeTypeInput.Table_Name;
 	}
 
-	public X_S_TimeType S_TimeTypeSave(I_S_TimeTypeInput entity, DataFetchingEnvironment environment) {
-		return (X_S_TimeType) super.save((X_S_TimeTypeInput) entity, environment);
+	public X_S_TimeType S_TimeTypeSave(I_S_TimeTypeInput Entity, DataFetchingEnvironment environment) {
+		return (X_S_TimeType) super.save((X_S_TimeTypeInput) Entity, environment);
 	}
 
-	public List<X_S_TimeType> S_TimeTypeSaveMany(List<I_S_TimeTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_S_TimeTypeInput) entity).collect(Collectors.toList()),
+	public List<X_S_TimeType> S_TimeTypeSaveMany(List<I_S_TimeTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_TimeTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_S_TimeType) entity).collect(Collectors.toList());
 	}
 
-	public boolean S_TimeTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean S_TimeTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

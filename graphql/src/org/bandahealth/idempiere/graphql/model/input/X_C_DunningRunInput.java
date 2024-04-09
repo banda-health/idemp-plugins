@@ -29,12 +29,12 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_DunningRun_UU to fetch this entity from the DB
+	 * @param UU The C_DunningRun_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_DunningRunInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_DunningRunInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
-							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Dunning_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
+						"Could not find entity in table C_Dunning with UU " + C_Dunning.getUU());
 			}
 		} else {
 			this.setC_Dunning_ID(0);
@@ -127,11 +127,11 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 			MDunningLevel foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DunningLevel", "C_DunningLevel_UU=?", get_TrxName())
-							.setParameters(C_DunningLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DunningLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DunningLevel_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DunningLevel with UUID " + C_DunningLevel.getUUID());
+						"Could not find entity in table C_DunningLevel with UU " + C_DunningLevel.getUU());
 			}
 		} else {
 			this.setC_DunningLevel_ID(0);
@@ -160,20 +160,20 @@ public class X_C_DunningRunInput extends MDunningRun implements I_C_DunningRunIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_DunningRun_UU(UUID);
+	public void setUU(String UU) {
+		setC_DunningRun_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_DunningRun_UU();
 	}
 }

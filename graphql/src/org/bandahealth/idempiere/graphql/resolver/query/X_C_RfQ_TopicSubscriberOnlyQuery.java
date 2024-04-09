@@ -17,8 +17,8 @@ public class X_C_RfQ_TopicSubscriberOnlyQuery extends POQuery<MRfQTopicSubscribe
 		return MRfQTopicSubscriberOnly.Table_Name;
 	}
 
-	public Connection<MRfQTopicSubscriberOnly> C_RfQ_TopicSubscriberOnlyGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRfQTopicSubscriberOnly> C_RfQ_TopicSubscriberOnlyGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

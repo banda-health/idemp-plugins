@@ -39,18 +39,18 @@ public interface I_AD_StyleLineInput extends I_AD_StyleLine {
 	ForeignEntityInput AD_Style();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID CSS Style Line
+	 * @param UU CSS Style Line
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
 	 * @return CSS Style Line
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set AD_EntityType.

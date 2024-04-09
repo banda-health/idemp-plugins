@@ -21,16 +21,16 @@ public class X_M_ProductPriceMutation extends POMutation implements GraphQLMutat
 		return X_M_ProductPriceInput.Table_Name;
 	}
 
-	public MProductPrice_BH M_ProductPriceSave(I_M_ProductPriceInput entity, DataFetchingEnvironment environment) {
-		return (MProductPrice_BH) super.save((X_M_ProductPriceInput) entity, environment);
+	public MProductPrice_BH M_ProductPriceSave(I_M_ProductPriceInput Entity, DataFetchingEnvironment environment) {
+		return (MProductPrice_BH) super.save((X_M_ProductPriceInput) Entity, environment);
 	}
 
-	public List<MProductPrice_BH> M_ProductPriceSaveMany(List<I_M_ProductPriceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ProductPriceInput) entity).collect(Collectors.toList()),
+	public List<MProductPrice_BH> M_ProductPriceSaveMany(List<I_M_ProductPriceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ProductPriceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProductPrice_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ProductPriceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ProductPriceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

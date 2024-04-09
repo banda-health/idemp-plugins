@@ -31,12 +31,12 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_AttributeSetInstance_UU to fetch this entity from the DB
+	 * @param UU The M_AttributeSetInstance_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_AttributeSetInstanceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_AttributeSetInstanceInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(bh_update_reason.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(bh_update_reason.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setbh_update_reason(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + bh_update_reason.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + bh_update_reason.getUU());
 			}
 		} else {
 			this.setbh_update_reason(null);
@@ -123,11 +123,11 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
-							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
+						"Could not find entity in table M_AttributeSet with UU " + M_AttributeSet.getUU());
 			}
 		} else {
 			this.setM_AttributeSet_ID(0);
@@ -156,20 +156,20 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_AttributeSetInstance_UU(UUID);
+	public void setUU(String UU) {
+		setM_AttributeSetInstance_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_AttributeSetInstance_UU();
 	}
 
@@ -186,11 +186,11 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 			MLot foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Lot", "M_Lot_UU=?", get_TrxName())
-							.setParameters(M_Lot.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Lot.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Lot_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Lot with UUID " + M_Lot.getUUID());
+						"Could not find entity in table M_Lot with UU " + M_Lot.getUU());
 			}
 		} else {
 			this.setM_Lot_ID(0);

@@ -17,8 +17,8 @@ public class X_HR_Concept_AcctQuery extends POQuery<X_HR_Concept_Acct> implement
 		return X_HR_Concept_Acct.Table_Name;
 	}
 
-	public Connection<X_HR_Concept_Acct> HR_Concept_AcctGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Concept_Acct> HR_Concept_AcctGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

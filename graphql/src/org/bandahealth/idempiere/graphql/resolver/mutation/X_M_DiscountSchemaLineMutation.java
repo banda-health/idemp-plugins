@@ -21,16 +21,16 @@ public class X_M_DiscountSchemaLineMutation extends POMutation implements GraphQ
 		return X_M_DiscountSchemaLineInput.Table_Name;
 	}
 
-	public MDiscountSchemaLine M_DiscountSchemaLineSave(I_M_DiscountSchemaLineInput entity, DataFetchingEnvironment environment) {
-		return (MDiscountSchemaLine) super.save((X_M_DiscountSchemaLineInput) entity, environment);
+	public MDiscountSchemaLine M_DiscountSchemaLineSave(I_M_DiscountSchemaLineInput Entity, DataFetchingEnvironment environment) {
+		return (MDiscountSchemaLine) super.save((X_M_DiscountSchemaLineInput) Entity, environment);
 	}
 
-	public List<MDiscountSchemaLine> M_DiscountSchemaLineSaveMany(List<I_M_DiscountSchemaLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_DiscountSchemaLineInput) entity).collect(Collectors.toList()),
+	public List<MDiscountSchemaLine> M_DiscountSchemaLineSaveMany(List<I_M_DiscountSchemaLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_DiscountSchemaLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDiscountSchemaLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_DiscountSchemaLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_DiscountSchemaLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

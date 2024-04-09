@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_DunningRunEntryGet(page: Int, size: Int, sort: String, filter: String): C_DunningRunEntryConnection!
+	C_DunningRunEntryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningRunEntryConnection!
 }
 
 extend type Mutation {
-	C_DunningRunEntrySave(entity: C_DunningRunEntryInput!): C_DunningRunEntry!
-	C_DunningRunEntrySaveMany(entities: [C_DunningRunEntryInput!]!): [C_DunningRunEntry!]!
-	C_DunningRunEntryDelete(uuids: [String!]!): Boolean!
+	C_DunningRunEntrySave(Entity: C_DunningRunEntryInput!): C_DunningRunEntry!
+	C_DunningRunEntrySaveMany(Entities: [C_DunningRunEntryInput!]!): [C_DunningRunEntry!]!
+	C_DunningRunEntryDelete(UUs: [String!]!): Boolean!
 }
 
 type C_DunningRunEntryConnection {
-	results: [C_DunningRunEntry!]!
-	pagingInfo: PagingInfo!
+	Results: [C_DunningRunEntry!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_DunningRunEntry {
@@ -34,8 +34,7 @@ type C_DunningRunEntry {
 	C_DunningLevel: C_DunningLevel!
 	# Dunning Run
 	C_DunningRun: C_DunningRun!
-	UUID: ID!
-	C_DunningRunEntry_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -72,8 +71,7 @@ input C_DunningRunEntryInput {
 	C_DunningLevel: ForeignEntityInput
 	# Dunning Run
 	C_DunningRun: ForeignEntityInput
-	UUID: ID
-	C_DunningRunEntry_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Optional additional user defined information

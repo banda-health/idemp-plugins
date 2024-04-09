@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_FieldGroupGet(page: Int, size: Int, sort: String, filter: String): AD_FieldGroupConnection!
+	AD_FieldGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FieldGroupConnection!
 }
 
 extend type Mutation {
-	AD_FieldGroupSave(entity: AD_FieldGroupInput!): AD_FieldGroup!
-	AD_FieldGroupSaveMany(entities: [AD_FieldGroupInput!]!): [AD_FieldGroup!]!
-	AD_FieldGroupDelete(uuids: [String!]!): Boolean!
+	AD_FieldGroupSave(Entity: AD_FieldGroupInput!): AD_FieldGroup!
+	AD_FieldGroupSaveMany(Entities: [AD_FieldGroupInput!]!): [AD_FieldGroup!]!
+	AD_FieldGroupDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_FieldGroupConnection {
-	results: [AD_FieldGroup!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_FieldGroup!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_FieldGroup {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_FieldGroup_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# An abbreviation for a given name
@@ -45,8 +44,7 @@ type AD_FieldGroup {
 }
 
 input AD_FieldGroupInput {
-	UUID: ID
-	AD_FieldGroup_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# An abbreviation for a given name

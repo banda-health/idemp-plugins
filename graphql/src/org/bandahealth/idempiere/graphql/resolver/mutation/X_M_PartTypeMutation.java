@@ -21,16 +21,16 @@ public class X_M_PartTypeMutation extends POMutation implements GraphQLMutationR
 		return X_M_PartTypeInput.Table_Name;
 	}
 
-	public X_M_PartType M_PartTypeSave(I_M_PartTypeInput entity, DataFetchingEnvironment environment) {
-		return (X_M_PartType) super.save((X_M_PartTypeInput) entity, environment);
+	public X_M_PartType M_PartTypeSave(I_M_PartTypeInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_PartType) super.save((X_M_PartTypeInput) Entity, environment);
 	}
 
-	public List<X_M_PartType> M_PartTypeSaveMany(List<I_M_PartTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PartTypeInput) entity).collect(Collectors.toList()),
+	public List<X_M_PartType> M_PartTypeSaveMany(List<I_M_PartTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PartTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_PartType) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PartTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PartTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

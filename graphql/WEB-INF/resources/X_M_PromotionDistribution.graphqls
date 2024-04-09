@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PromotionDistributionGet(page: Int, size: Int, sort: String, filter: String): M_PromotionDistributionConnection!
+	M_PromotionDistributionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionDistributionConnection!
 }
 
 extend type Mutation {
-	M_PromotionDistributionSave(entity: M_PromotionDistributionInput!): M_PromotionDistribution!
-	M_PromotionDistributionSaveMany(entities: [M_PromotionDistributionInput!]!): [M_PromotionDistribution!]!
-	M_PromotionDistributionDelete(uuids: [String!]!): Boolean!
+	M_PromotionDistributionSave(Entity: M_PromotionDistributionInput!): M_PromotionDistribution!
+	M_PromotionDistributionSaveMany(Entities: [M_PromotionDistributionInput!]!): [M_PromotionDistribution!]!
+	M_PromotionDistributionDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PromotionDistributionConnection {
-	results: [M_PromotionDistribution!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PromotionDistribution!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PromotionDistribution {
@@ -32,8 +32,7 @@ type M_PromotionDistribution {
 	# The record is active in the system
 	IsActive: Boolean!
 	M_Promotion: M_Promotion!
-	UUID: ID!
-	M_PromotionDistribution_UU: String
+	UU: ID!
 	M_PromotionLine: M_PromotionLine!
 	# Compare Operation
 	Operation: AD_Ref_List!
@@ -57,8 +56,7 @@ input M_PromotionDistributionInput {
 	# The record is active in the system
 	IsActive: Boolean
 	M_Promotion: ForeignEntityInput
-	UUID: ID
-	M_PromotionDistribution_UU: String
+	UU: ID
 	M_PromotionLine: ForeignEntityInput
 	# Compare Operation
 	Operation: AD_Ref_ListInput

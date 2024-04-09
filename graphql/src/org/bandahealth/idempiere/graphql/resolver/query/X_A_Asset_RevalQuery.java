@@ -17,8 +17,8 @@ public class X_A_Asset_RevalQuery extends POQuery<MAssetReval> implements GraphQ
 		return MAssetReval.Table_Name;
 	}
 
-	public Connection<MAssetReval> A_Asset_RevalGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetReval> A_Asset_RevalGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

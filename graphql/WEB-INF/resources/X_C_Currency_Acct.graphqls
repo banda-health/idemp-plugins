@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_Currency_AcctGet(page: Int, size: Int, sort: String, filter: String): C_Currency_AcctConnection!
+	C_Currency_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Currency_AcctConnection!
 }
 
 extend type Mutation {
-	C_Currency_AcctSave(entity: C_Currency_AcctInput!): C_Currency_Acct!
-	C_Currency_AcctSaveMany(entities: [C_Currency_AcctInput!]!): [C_Currency_Acct!]!
-	C_Currency_AcctDelete(uuids: [String!]!): Boolean!
+	C_Currency_AcctSave(Entity: C_Currency_AcctInput!): C_Currency_Acct!
+	C_Currency_AcctSaveMany(Entities: [C_Currency_AcctInput!]!): [C_Currency_Acct!]!
+	C_Currency_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_Currency_AcctConnection {
-	results: [C_Currency_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Currency_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Currency_Acct {
@@ -23,8 +23,7 @@ type C_Currency_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UUID: ID!
-	C_Currency_Acct_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Date this record was created
@@ -44,8 +43,7 @@ input C_Currency_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UUID: ID
-	C_Currency_Acct_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# The record is active in the system

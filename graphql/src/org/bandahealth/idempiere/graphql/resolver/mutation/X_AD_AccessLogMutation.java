@@ -21,16 +21,16 @@ public class X_AD_AccessLogMutation extends POMutation implements GraphQLMutatio
 		return X_AD_AccessLogInput.Table_Name;
 	}
 
-	public MAccessLog AD_AccessLogSave(I_AD_AccessLogInput entity, DataFetchingEnvironment environment) {
-		return (MAccessLog) super.save((X_AD_AccessLogInput) entity, environment);
+	public MAccessLog AD_AccessLogSave(I_AD_AccessLogInput Entity, DataFetchingEnvironment environment) {
+		return (MAccessLog) super.save((X_AD_AccessLogInput) Entity, environment);
 	}
 
-	public List<MAccessLog> AD_AccessLogSaveMany(List<I_AD_AccessLogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AccessLogInput) entity).collect(Collectors.toList()),
+	public List<MAccessLog> AD_AccessLogSaveMany(List<I_AD_AccessLogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AccessLogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAccessLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AccessLogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AccessLogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

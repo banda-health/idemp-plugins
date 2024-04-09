@@ -34,12 +34,12 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_RelationType_UU to fetch this entity from the DB
+	 * @param UU The AD_RelationType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_RelationTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_RelationTypeInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Source.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Source.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_Source_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Source.getUUID());
+						"Could not find entity in table AD_Reference with UU " + AD_Reference_Source.getUU());
 			}
 		} else {
 			this.setAD_Reference_Source_ID(0);
@@ -126,11 +126,11 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 			MReference_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Reference", "AD_Reference_UU=?", get_TrxName())
-							.setParameters(AD_Reference_Target.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Reference_Target.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Reference_Target_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Reference with UUID " + AD_Reference_Target.getUUID());
+						"Could not find entity in table AD_Reference with UU " + AD_Reference_Target.getUU());
 			}
 		} else {
 			this.setAD_Reference_Target_ID(0);
@@ -159,20 +159,20 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_RelationType_UU(UUID);
+	public void setUU(String UU) {
+		setAD_RelationType_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_RelationType_UU();
 	}
 
@@ -189,11 +189,11 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);
@@ -223,11 +223,11 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Role_Source.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Role_Source.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRole_Source(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Role_Source.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + Role_Source.getUU());
 			}
 		} else {
 			this.setRole_Source(null);
@@ -257,11 +257,11 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Role_Target.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Role_Target.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRole_Target(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Role_Target.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + Role_Target.getUU());
 			}
 		} else {
 			this.setRole_Target(null);
@@ -291,11 +291,11 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + Type.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + Type.getUU());
 			}
 		} else {
 			this.setType(null);

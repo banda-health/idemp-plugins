@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ImpFormat_RowGet(page: Int, size: Int, sort: String, filter: String): AD_ImpFormat_RowConnection!
+	AD_ImpFormat_RowGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImpFormat_RowConnection!
 }
 
 extend type Mutation {
-	AD_ImpFormat_RowSave(entity: AD_ImpFormat_RowInput!): AD_ImpFormat_Row!
-	AD_ImpFormat_RowSaveMany(entities: [AD_ImpFormat_RowInput!]!): [AD_ImpFormat_Row!]!
-	AD_ImpFormat_RowDelete(uuids: [String!]!): Boolean!
+	AD_ImpFormat_RowSave(Entity: AD_ImpFormat_RowInput!): AD_ImpFormat_Row!
+	AD_ImpFormat_RowSaveMany(Entities: [AD_ImpFormat_RowInput!]!): [AD_ImpFormat_Row!]!
+	AD_ImpFormat_RowDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ImpFormat_RowConnection {
-	results: [AD_ImpFormat_Row!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ImpFormat_Row!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ImpFormat_Row {
@@ -22,8 +22,7 @@ type AD_ImpFormat_Row {
 	# Column in the table
 	AD_Column: AD_Column!
 	AD_ImpFormat: AD_ImpFormat!
-	UUID: ID!
-	AD_ImpFormat_Row_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Fully qualified class names and method - separated by semicolons
@@ -65,8 +64,7 @@ input AD_ImpFormat_RowInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	AD_ImpFormat: ForeignEntityInput
-	UUID: ID
-	AD_ImpFormat_Row_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Fully qualified class names and method - separated by semicolons

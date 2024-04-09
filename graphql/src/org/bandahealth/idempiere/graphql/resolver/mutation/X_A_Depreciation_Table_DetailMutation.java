@@ -21,16 +21,16 @@ public class X_A_Depreciation_Table_DetailMutation extends POMutation implements
 		return X_A_Depreciation_Table_DetailInput.Table_Name;
 	}
 
-	public X_A_Depreciation_Table_Detail A_Depreciation_Table_DetailSave(I_A_Depreciation_Table_DetailInput entity, DataFetchingEnvironment environment) {
-		return (X_A_Depreciation_Table_Detail) super.save((X_A_Depreciation_Table_DetailInput) entity, environment);
+	public X_A_Depreciation_Table_Detail A_Depreciation_Table_DetailSave(I_A_Depreciation_Table_DetailInput Entity, DataFetchingEnvironment environment) {
+		return (X_A_Depreciation_Table_Detail) super.save((X_A_Depreciation_Table_DetailInput) Entity, environment);
 	}
 
-	public List<X_A_Depreciation_Table_Detail> A_Depreciation_Table_DetailSaveMany(List<I_A_Depreciation_Table_DetailInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Depreciation_Table_DetailInput) entity).collect(Collectors.toList()),
+	public List<X_A_Depreciation_Table_Detail> A_Depreciation_Table_DetailSaveMany(List<I_A_Depreciation_Table_DetailInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Depreciation_Table_DetailInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_A_Depreciation_Table_Detail) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Depreciation_Table_DetailDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Depreciation_Table_DetailDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

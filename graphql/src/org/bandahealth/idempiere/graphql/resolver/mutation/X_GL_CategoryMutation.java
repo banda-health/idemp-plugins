@@ -21,16 +21,16 @@ public class X_GL_CategoryMutation extends POMutation implements GraphQLMutation
 		return X_GL_CategoryInput.Table_Name;
 	}
 
-	public MGLCategory GL_CategorySave(I_GL_CategoryInput entity, DataFetchingEnvironment environment) {
-		return (MGLCategory) super.save((X_GL_CategoryInput) entity, environment);
+	public MGLCategory GL_CategorySave(I_GL_CategoryInput Entity, DataFetchingEnvironment environment) {
+		return (MGLCategory) super.save((X_GL_CategoryInput) Entity, environment);
 	}
 
-	public List<MGLCategory> GL_CategorySaveMany(List<I_GL_CategoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_GL_CategoryInput) entity).collect(Collectors.toList()),
+	public List<MGLCategory> GL_CategorySaveMany(List<I_GL_CategoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_CategoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MGLCategory) entity).collect(Collectors.toList());
 	}
 
-	public boolean GL_CategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean GL_CategoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

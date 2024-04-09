@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_AcctProcessorGet(page: Int, size: Int, sort: String, filter: String): C_AcctProcessorConnection!
+	C_AcctProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctProcessorConnection!
 }
 
 extend type Mutation {
-	C_AcctProcessorSave(entity: C_AcctProcessorInput!): C_AcctProcessor!
-	C_AcctProcessorSaveMany(entities: [C_AcctProcessorInput!]!): [C_AcctProcessor!]!
-	C_AcctProcessorDelete(uuids: [String!]!): Boolean!
+	C_AcctProcessorSave(Entity: C_AcctProcessorInput!): C_AcctProcessor!
+	C_AcctProcessorSaveMany(Entities: [C_AcctProcessorInput!]!): [C_AcctProcessor!]!
+	C_AcctProcessorDelete(UUs: [String!]!): Boolean!
 }
 
 type C_AcctProcessorConnection {
-	results: [C_AcctProcessor!]!
-	pagingInfo: PagingInfo!
+	Results: [C_AcctProcessor!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_AcctProcessor {
@@ -24,8 +24,7 @@ type C_AcctProcessor {
 	AD_Schedule: AD_Schedule!
 	# Database Table information
 	AD_Table: AD_Table
-	UUID: ID!
-	C_AcctProcessor_UU: String
+	UU: ID!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema
 	# Date this record was created
@@ -59,8 +58,7 @@ input C_AcctProcessorInput {
 	AD_Schedule: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput
-	UUID: ID
-	C_AcctProcessor_UU: String
+	UU: ID
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Date the process was last run.

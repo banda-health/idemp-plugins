@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_RequestUpdateGet(page: Int, size: Int, sort: String, filter: String): R_RequestUpdateConnection!
+	R_RequestUpdateGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestUpdateConnection!
 }
 
 extend type Mutation {
-	R_RequestUpdateSave(entity: R_RequestUpdateInput!): R_RequestUpdate!
-	R_RequestUpdateSaveMany(entities: [R_RequestUpdateInput!]!): [R_RequestUpdate!]!
-	R_RequestUpdateDelete(uuids: [String!]!): Boolean!
+	R_RequestUpdateSave(Entity: R_RequestUpdateInput!): R_RequestUpdate!
+	R_RequestUpdateSaveMany(Entities: [R_RequestUpdateInput!]!): [R_RequestUpdate!]!
+	R_RequestUpdateDelete(UUs: [String!]!): Boolean!
 }
 
 type R_RequestUpdateConnection {
-	results: [R_RequestUpdate!]!
-	pagingInfo: PagingInfo!
+	Results: [R_RequestUpdate!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_RequestUpdate {
@@ -39,8 +39,7 @@ type R_RequestUpdate {
 	QtySpent: BigDecimal
 	# Request from a Business Partner or Prospect
 	R_Request: R_Request!
-	UUID: ID!
-	R_RequestUpdate_UU: String
+	UU: ID!
 	# Result of the action taken
 	Result: String
 	# Time started
@@ -68,8 +67,7 @@ input R_RequestUpdateInput {
 	QtySpent: BigDecimal
 	# Request from a Business Partner or Prospect
 	R_Request: ForeignEntityInput
-	UUID: ID
-	R_RequestUpdate_UU: String
+	UU: ID
 	# Result of the action taken
 	Result: String
 	# Time started

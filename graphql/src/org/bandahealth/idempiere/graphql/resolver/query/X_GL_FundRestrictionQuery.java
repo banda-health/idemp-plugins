@@ -17,8 +17,8 @@ public class X_GL_FundRestrictionQuery extends POQuery<X_GL_FundRestriction> imp
 		return X_GL_FundRestriction.Table_Name;
 	}
 
-	public Connection<X_GL_FundRestriction> GL_FundRestrictionGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_GL_FundRestriction> GL_FundRestrictionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

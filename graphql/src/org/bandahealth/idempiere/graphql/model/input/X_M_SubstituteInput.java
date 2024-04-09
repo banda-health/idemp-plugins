@@ -28,12 +28,12 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_Substitute_UU to fetch this entity from the DB
+	 * @param UU The M_Substitute_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_SubstituteInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_SubstituteInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -111,20 +111,20 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_Substitute_UU(UUID);
+	public void setUU(String UU) {
+		setM_Substitute_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_Substitute_UU();
 	}
 
@@ -144,11 +144,11 @@ public class X_M_SubstituteInput extends X_M_Substitute implements I_M_Substitut
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(Substitute.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Substitute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSubstitute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + Substitute.getUUID());
+						"Could not find entity in table M_Product with UU " + Substitute.getUU());
 			}
 		} else {
 			this.setSubstitute_ID(0);

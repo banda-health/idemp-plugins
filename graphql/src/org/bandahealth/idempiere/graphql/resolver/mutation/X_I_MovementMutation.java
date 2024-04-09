@@ -21,16 +21,16 @@ public class X_I_MovementMutation extends POMutation implements GraphQLMutationR
 		return X_I_MovementInput.Table_Name;
 	}
 
-	public X_I_Movement I_MovementSave(I_I_MovementInput entity, DataFetchingEnvironment environment) {
-		return (X_I_Movement) super.save((X_I_MovementInput) entity, environment);
+	public X_I_Movement I_MovementSave(I_I_MovementInput Entity, DataFetchingEnvironment environment) {
+		return (X_I_Movement) super.save((X_I_MovementInput) Entity, environment);
 	}
 
-	public List<X_I_Movement> I_MovementSaveMany(List<I_I_MovementInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_I_MovementInput) entity).collect(Collectors.toList()),
+	public List<X_I_Movement> I_MovementSaveMany(List<I_I_MovementInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_I_MovementInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_I_Movement) entity).collect(Collectors.toList());
 	}
 
-	public boolean I_MovementDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean I_MovementDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_SLA_MeasureGet(page: Int, size: Int, sort: String, filter: String): PA_SLA_MeasureConnection!
+	PA_SLA_MeasureGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_SLA_MeasureConnection!
 }
 
 extend type Mutation {
-	PA_SLA_MeasureSave(entity: PA_SLA_MeasureInput!): PA_SLA_Measure!
-	PA_SLA_MeasureSaveMany(entities: [PA_SLA_MeasureInput!]!): [PA_SLA_Measure!]!
-	PA_SLA_MeasureDelete(uuids: [String!]!): Boolean!
+	PA_SLA_MeasureSave(Entity: PA_SLA_MeasureInput!): PA_SLA_Measure!
+	PA_SLA_MeasureSaveMany(Entities: [PA_SLA_MeasureInput!]!): [PA_SLA_Measure!]!
+	PA_SLA_MeasureDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_SLA_MeasureConnection {
-	results: [PA_SLA_Measure!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_SLA_Measure!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_SLA_Measure {
@@ -37,8 +37,7 @@ type PA_SLA_Measure {
 	MeasureActual: BigDecimal!
 	# Service Level Agreement Goal
 	PA_SLA_Goal: PA_SLA_Goal!
-	UUID: ID!
-	PA_SLA_Measure_UU: String
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -63,8 +62,7 @@ input PA_SLA_MeasureInput {
 	MeasureActual: BigDecimal
 	# Service Level Agreement Goal
 	PA_SLA_Goal: ForeignEntityInput
-	UUID: ID
-	PA_SLA_Measure_UU: String
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	S_ResourceAssignmentGet(page: Int, size: Int, sort: String, filter: String): S_ResourceAssignmentConnection!
+	S_ResourceAssignmentGet(Page: Int, Size: Int, Sort: String, Filter: String): S_ResourceAssignmentConnection!
 }
 
 extend type Mutation {
-	S_ResourceAssignmentSave(entity: S_ResourceAssignmentInput!): S_ResourceAssignment!
-	S_ResourceAssignmentSaveMany(entities: [S_ResourceAssignmentInput!]!): [S_ResourceAssignment!]!
-	S_ResourceAssignmentDelete(uuids: [String!]!): Boolean!
+	S_ResourceAssignmentSave(Entity: S_ResourceAssignmentInput!): S_ResourceAssignment!
+	S_ResourceAssignmentSaveMany(Entities: [S_ResourceAssignmentInput!]!): [S_ResourceAssignment!]!
+	S_ResourceAssignmentDelete(UUs: [String!]!): Boolean!
 }
 
 type S_ResourceAssignmentConnection {
-	results: [S_ResourceAssignment!]!
-	pagingInfo: PagingInfo!
+	Results: [S_ResourceAssignment!]!
+	PagingInfo: PagingInfo!
 }
 
 type S_ResourceAssignment {
@@ -41,8 +41,7 @@ type S_ResourceAssignment {
 	Qty: BigDecimal
 	# Resource
 	S_Resource: S_Resource!
-	UUID: ID!
-	S_ResourceAssignment_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -68,6 +67,5 @@ input S_ResourceAssignmentInput {
 	Qty: BigDecimal
 	# Resource
 	S_Resource: ForeignEntityInput
-	UUID: ID
-	S_ResourceAssignment_UU: String
+	UU: ID
 }

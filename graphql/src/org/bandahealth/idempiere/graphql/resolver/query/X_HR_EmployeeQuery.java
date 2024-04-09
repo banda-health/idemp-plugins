@@ -17,8 +17,8 @@ public class X_HR_EmployeeQuery extends POQuery<X_HR_Employee> implements GraphQ
 		return X_HR_Employee.Table_Name;
 	}
 
-	public Connection<X_HR_Employee> HR_EmployeeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Employee> HR_EmployeeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

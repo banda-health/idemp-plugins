@@ -17,8 +17,8 @@ public class X_AD_Package_Imp_ProcQuery extends POQuery<X_AD_Package_Imp_Proc> i
 		return X_AD_Package_Imp_Proc.Table_Name;
 	}
 
-	public Connection<X_AD_Package_Imp_Proc> AD_Package_Imp_ProcGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_Package_Imp_Proc> AD_Package_Imp_ProcGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

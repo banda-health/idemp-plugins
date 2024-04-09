@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PackageLineGet(page: Int, size: Int, sort: String, filter: String): M_PackageLineConnection!
+	M_PackageLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PackageLineConnection!
 }
 
 extend type Mutation {
-	M_PackageLineSave(entity: M_PackageLineInput!): M_PackageLine!
-	M_PackageLineSaveMany(entities: [M_PackageLineInput!]!): [M_PackageLine!]!
-	M_PackageLineDelete(uuids: [String!]!): Boolean!
+	M_PackageLineSave(Entity: M_PackageLineInput!): M_PackageLine!
+	M_PackageLineSaveMany(Entities: [M_PackageLineInput!]!): [M_PackageLine!]!
+	M_PackageLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PackageLineConnection {
-	results: [M_PackageLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PackageLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PackageLine {
@@ -33,8 +33,7 @@ type M_PackageLine {
 	M_InOutLine: M_InOutLine!
 	# Shipment Package
 	M_Package: M_Package!
-	UUID: ID!
-	M_PackageLine_UU: String
+	UU: ID!
 	M_PackageMPS: M_PackageMPS
 	# Product, Service, Item
 	M_Product: M_Product
@@ -57,8 +56,7 @@ input M_PackageLineInput {
 	M_InOutLine: ForeignEntityInput
 	# Shipment Package
 	M_Package: ForeignEntityInput
-	UUID: ID
-	M_PackageLine_UU: String
+	UU: ID
 	M_PackageMPS: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput

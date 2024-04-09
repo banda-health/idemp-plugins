@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	T_InventoryValueGet(page: Int, size: Int, sort: String, filter: String): T_InventoryValueConnection!
+	T_InventoryValueGet(Page: Int, Size: Int, Sort: String, Filter: String): T_InventoryValueConnection!
 }
 
 extend type Mutation {
-	T_InventoryValueSave(entity: T_InventoryValueInput!): T_InventoryValue!
-	T_InventoryValueSaveMany(entities: [T_InventoryValueInput!]!): [T_InventoryValue!]!
-	T_InventoryValueDelete(uuids: [String!]!): Boolean!
+	T_InventoryValueSave(Entity: T_InventoryValueInput!): T_InventoryValue!
+	T_InventoryValueSaveMany(Entities: [T_InventoryValueInput!]!): [T_InventoryValue!]!
+	T_InventoryValueDelete(UUs: [String!]!): Boolean!
 }
 
 type T_InventoryValueConnection {
-	results: [T_InventoryValue!]!
-	pagingInfo: PagingInfo!
+	Results: [T_InventoryValue!]!
+	PagingInfo: PagingInfo!
 }
 
 type T_InventoryValue {
@@ -63,8 +63,7 @@ type T_InventoryValue {
 	PriceStdAmt: BigDecimal
 	# On Hand Quantity
 	QtyOnHand: BigDecimal
-	UUID: ID!
-	T_InventoryValue_UU: String
+	UU: ID!
 }
 
 input T_InventoryValueInput {
@@ -112,6 +111,5 @@ input T_InventoryValueInput {
 	PriceStdAmt: BigDecimal
 	# On Hand Quantity
 	QtyOnHand: BigDecimal
-	UUID: ID
-	T_InventoryValue_UU: String
+	UU: ID
 }

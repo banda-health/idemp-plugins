@@ -55,12 +55,12 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_Product_UU to fetch this entity from the DB
+	 * @param UU The M_Product_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_ProductInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_ProductInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -79,11 +79,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -113,11 +113,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MRevenueRecognition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition", "C_RevenueRecognition_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecognition.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RevenueRecognition.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RevenueRecognition_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_RevenueRecognition with UUID " + C_RevenueRecognition.getUUID());
+						"Could not find entity in table C_RevenueRecognition with UU " + C_RevenueRecognition.getUU());
 			}
 		} else {
 			this.setC_RevenueRecognition_ID(0);
@@ -147,11 +147,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			X_C_SubscriptionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SubscriptionType", "C_SubscriptionType_UU=?", get_TrxName())
-							.setParameters(C_SubscriptionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_SubscriptionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_SubscriptionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_SubscriptionType with UUID " + C_SubscriptionType.getUUID());
+						"Could not find entity in table C_SubscriptionType with UU " + C_SubscriptionType.getUU());
 			}
 		} else {
 			this.setC_SubscriptionType_ID(0);
@@ -181,11 +181,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MTaxCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_TaxCategory with UUID " + C_TaxCategory.getUUID());
+						"Could not find entity in table C_TaxCategory with UU " + C_TaxCategory.getUU());
 			}
 		} else {
 			this.setC_TaxCategory_ID(0);
@@ -215,11 +215,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
+						"Could not find entity in table C_UOM with UU " + C_UOM.getUU());
 			}
 		} else {
 			this.setC_UOM_ID(0);
@@ -260,11 +260,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MAttributeSet_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSet", "M_AttributeSet_UU=?", get_TrxName())
-							.setParameters(M_AttributeSet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSet with UUID " + M_AttributeSet.getUUID());
+						"Could not find entity in table M_AttributeSet with UU " + M_AttributeSet.getUU());
 			}
 		} else {
 			this.setM_AttributeSet_ID(0);
@@ -294,11 +294,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSetInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
 			this.setM_AttributeSetInstance_ID(0);
@@ -328,11 +328,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MFreightCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_FreightCategory", "M_FreightCategory_UU=?", get_TrxName())
-							.setParameters(M_FreightCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_FreightCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_FreightCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_FreightCategory with UUID " + M_FreightCategory.getUUID());
+						"Could not find entity in table M_FreightCategory with UU " + M_FreightCategory.getUU());
 			}
 		} else {
 			this.setM_FreightCategory_ID(0);
@@ -362,11 +362,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MLocator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Locator", "M_Locator_UU=?", get_TrxName())
-							.setParameters(M_Locator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Locator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Locator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Locator with UUID " + M_Locator.getUUID());
+						"Could not find entity in table M_Locator with UU " + M_Locator.getUU());
 			}
 		} else {
 			this.setM_Locator_ID(0);
@@ -396,11 +396,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			X_M_PartType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PartType", "M_PartType_UU=?", get_TrxName())
-							.setParameters(M_PartType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PartType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PartType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PartType with UUID " + M_PartType.getUUID());
+						"Could not find entity in table M_PartType with UU " + M_PartType.getUU());
 			}
 		} else {
 			this.setM_PartType_ID(0);
@@ -430,11 +430,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
+						"Could not find entity in table M_Product_Category with UU " + M_Product_Category.getUU());
 			}
 		} else {
 			this.setM_Product_Category_ID(0);
@@ -463,20 +463,20 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_Product_UU(UUID);
+	public void setUU(String UU) {
+		setM_Product_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_Product_UU();
 	}
 
@@ -493,11 +493,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProductType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ProductType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProductType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ProductType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ProductType.getUU());
 			}
 		} else {
 			this.setProductType(null);
@@ -527,11 +527,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_MailText with UUID " + R_MailText.getUUID());
+						"Could not find entity in table R_MailText with UU " + R_MailText.getUU());
 			}
 		} else {
 			this.setR_MailText_ID(0);
@@ -564,11 +564,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MExpenseType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_ExpenseType", "S_ExpenseType_UU=?", get_TrxName())
-							.setParameters(S_ExpenseType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_ExpenseType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_ExpenseType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table S_ExpenseType with UUID " + S_ExpenseType.getUUID());
+						"Could not find entity in table S_ExpenseType with UU " + S_ExpenseType.getUU());
 			}
 		} else {
 			this.setS_ExpenseType_ID(0);
@@ -601,11 +601,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MResource foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "S_Resource", "S_Resource_UU=?", get_TrxName())
-							.setParameters(S_Resource.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(S_Resource.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setS_Resource_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table S_Resource with UUID " + S_Resource.getUUID());
+						"Could not find entity in table S_Resource with UU " + S_Resource.getUU());
 			}
 		} else {
 			this.setS_Resource_ID(0);
@@ -635,11 +635,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
 			}
 		} else {
 			this.setSalesRep_ID(0);

@@ -17,8 +17,8 @@ public class X_R_StatusCategoryQuery extends POQuery<MStatusCategory> implements
 		return MStatusCategory.Table_Name;
 	}
 
-	public Connection<MStatusCategory> R_StatusCategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MStatusCategory> R_StatusCategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

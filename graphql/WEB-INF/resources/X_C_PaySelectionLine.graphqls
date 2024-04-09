@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_PaySelectionLineGet(page: Int, size: Int, sort: String, filter: String): C_PaySelectionLineConnection!
+	C_PaySelectionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaySelectionLineConnection!
 }
 
 extend type Mutation {
-	C_PaySelectionLineSave(entity: C_PaySelectionLineInput!): C_PaySelectionLine!
-	C_PaySelectionLineSaveMany(entities: [C_PaySelectionLineInput!]!): [C_PaySelectionLine!]!
-	C_PaySelectionLineDelete(uuids: [String!]!): Boolean!
+	C_PaySelectionLineSave(Entity: C_PaySelectionLineInput!): C_PaySelectionLine!
+	C_PaySelectionLineSaveMany(Entities: [C_PaySelectionLineInput!]!): [C_PaySelectionLine!]!
+	C_PaySelectionLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_PaySelectionLineConnection {
-	results: [C_PaySelectionLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_PaySelectionLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_PaySelectionLine {
@@ -27,8 +27,7 @@ type C_PaySelectionLine {
 	C_PaySelection: C_PaySelection!
 	# Payment Selection Check
 	C_PaySelectionCheck: C_PaySelectionCheck
-	UUID: ID!
-	C_PaySelectionLine_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -72,8 +71,7 @@ input C_PaySelectionLineInput {
 	C_PaySelection: ForeignEntityInput
 	# Payment Selection Check
 	C_PaySelectionCheck: ForeignEntityInput
-	UUID: ID
-	C_PaySelectionLine_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Difference Amount

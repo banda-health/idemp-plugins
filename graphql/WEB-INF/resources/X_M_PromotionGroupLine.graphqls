@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PromotionGroupLineGet(page: Int, size: Int, sort: String, filter: String): M_PromotionGroupLineConnection!
+	M_PromotionGroupLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionGroupLineConnection!
 }
 
 extend type Mutation {
-	M_PromotionGroupLineSave(entity: M_PromotionGroupLineInput!): M_PromotionGroupLine!
-	M_PromotionGroupLineSaveMany(entities: [M_PromotionGroupLineInput!]!): [M_PromotionGroupLine!]!
-	M_PromotionGroupLineDelete(uuids: [String!]!): Boolean!
+	M_PromotionGroupLineSave(Entity: M_PromotionGroupLineInput!): M_PromotionGroupLine!
+	M_PromotionGroupLineSaveMany(Entities: [M_PromotionGroupLineInput!]!): [M_PromotionGroupLine!]!
+	M_PromotionGroupLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PromotionGroupLineConnection {
-	results: [M_PromotionGroupLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PromotionGroupLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PromotionGroupLine {
@@ -30,8 +30,7 @@ type M_PromotionGroupLine {
 	# Product, Service, Item
 	M_Product: M_Product!
 	M_PromotionGroup: M_PromotionGroup!
-	UUID: ID!
-	M_PromotionGroupLine_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -46,6 +45,5 @@ input M_PromotionGroupLineInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	M_PromotionGroup: ForeignEntityInput
-	UUID: ID
-	M_PromotionGroupLine_UU: String
+	UU: ID
 }

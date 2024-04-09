@@ -17,8 +17,8 @@ public class X_M_DiscountSchemaQuery extends POQuery<MDiscountSchema> implements
 		return MDiscountSchema.Table_Name;
 	}
 
-	public Connection<MDiscountSchema> M_DiscountSchemaGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDiscountSchema> M_DiscountSchemaGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

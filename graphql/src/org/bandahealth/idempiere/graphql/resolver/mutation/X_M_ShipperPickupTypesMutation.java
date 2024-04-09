@@ -21,16 +21,16 @@ public class X_M_ShipperPickupTypesMutation extends POMutation implements GraphQ
 		return X_M_ShipperPickupTypesInput.Table_Name;
 	}
 
-	public MShipperPickupTypes M_ShipperPickupTypesSave(I_M_ShipperPickupTypesInput entity, DataFetchingEnvironment environment) {
-		return (MShipperPickupTypes) super.save((X_M_ShipperPickupTypesInput) entity, environment);
+	public MShipperPickupTypes M_ShipperPickupTypesSave(I_M_ShipperPickupTypesInput Entity, DataFetchingEnvironment environment) {
+		return (MShipperPickupTypes) super.save((X_M_ShipperPickupTypesInput) Entity, environment);
 	}
 
-	public List<MShipperPickupTypes> M_ShipperPickupTypesSaveMany(List<I_M_ShipperPickupTypesInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ShipperPickupTypesInput) entity).collect(Collectors.toList()),
+	public List<MShipperPickupTypes> M_ShipperPickupTypesSaveMany(List<I_M_ShipperPickupTypesInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ShipperPickupTypesInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MShipperPickupTypes) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ShipperPickupTypesDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ShipperPickupTypesDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

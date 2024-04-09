@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_DistributionListLineGet(page: Int, size: Int, sort: String, filter: String): M_DistributionListLineConnection!
+	M_DistributionListLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionListLineConnection!
 }
 
 extend type Mutation {
-	M_DistributionListLineSave(entity: M_DistributionListLineInput!): M_DistributionListLine!
-	M_DistributionListLineSaveMany(entities: [M_DistributionListLineInput!]!): [M_DistributionListLine!]!
-	M_DistributionListLineDelete(uuids: [String!]!): Boolean!
+	M_DistributionListLineSave(Entity: M_DistributionListLineInput!): M_DistributionListLine!
+	M_DistributionListLineSaveMany(Entities: [M_DistributionListLineInput!]!): [M_DistributionListLine!]!
+	M_DistributionListLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_DistributionListLineConnection {
-	results: [M_DistributionListLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_DistributionListLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_DistributionListLine {
@@ -35,8 +35,7 @@ type M_DistributionListLine {
 	IsActive: Boolean!
 	# Distribution Lists allow to distribute products to a selected list of partners
 	M_DistributionList: M_DistributionList!
-	UUID: ID!
-	M_DistributionListLine_UU: String
+	UU: ID!
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal!
 	# Relative Ratio for Distributions
@@ -60,8 +59,7 @@ input M_DistributionListLineInput {
 	IsActive: Boolean
 	# Distribution Lists allow to distribute products to a selected list of partners
 	M_DistributionList: ForeignEntityInput
-	UUID: ID
-	M_DistributionListLine_UU: String
+	UU: ID
 	# Minimum quantity for the business partner
 	MinQty: BigDecimal
 	# Relative Ratio for Distributions

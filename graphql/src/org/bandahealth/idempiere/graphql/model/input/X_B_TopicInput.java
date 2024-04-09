@@ -29,12 +29,12 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The B_Topic_UU to fetch this entity from the DB
+	 * @param UU The B_Topic_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_B_TopicInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_B_TopicInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,20 +86,20 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setB_Topic_UU(UUID);
+	public void setUU(String UU) {
+		setB_Topic_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getB_Topic_UU();
 	}
 
@@ -119,11 +119,11 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 			X_B_TopicCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_TopicCategory", "B_TopicCategory_UU=?", get_TrxName())
-							.setParameters(B_TopicCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_TopicCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_TopicCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table B_TopicCategory with UUID " + B_TopicCategory.getUUID());
+						"Could not find entity in table B_TopicCategory with UU " + B_TopicCategory.getUU());
 			}
 		} else {
 			this.setB_TopicCategory_ID(0);
@@ -156,11 +156,11 @@ public class X_B_TopicInput extends X_B_Topic implements I_B_TopicInput {
 			X_B_TopicType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "B_TopicType", "B_TopicType_UU=?", get_TrxName())
-							.setParameters(B_TopicType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(B_TopicType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setB_TopicType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table B_TopicType with UUID " + B_TopicType.getUUID());
+						"Could not find entity in table B_TopicType with UU " + B_TopicType.getUU());
 			}
 		} else {
 			this.setB_TopicType_ID(0);

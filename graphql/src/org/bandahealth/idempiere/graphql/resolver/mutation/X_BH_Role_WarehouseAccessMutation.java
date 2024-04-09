@@ -21,16 +21,16 @@ public class X_BH_Role_WarehouseAccessMutation extends POMutation implements Gra
 		return X_BH_Role_WarehouseAccessInput.Table_Name;
 	}
 
-	public MBHRoleWarehouseAccess BH_Role_WarehouseAccessSave(I_BH_Role_WarehouseAccessInput entity, DataFetchingEnvironment environment) {
-		return (MBHRoleWarehouseAccess) super.save((X_BH_Role_WarehouseAccessInput) entity, environment);
+	public MBHRoleWarehouseAccess BH_Role_WarehouseAccessSave(I_BH_Role_WarehouseAccessInput Entity, DataFetchingEnvironment environment) {
+		return (MBHRoleWarehouseAccess) super.save((X_BH_Role_WarehouseAccessInput) Entity, environment);
 	}
 
-	public List<MBHRoleWarehouseAccess> BH_Role_WarehouseAccessSaveMany(List<I_BH_Role_WarehouseAccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_Role_WarehouseAccessInput) entity).collect(Collectors.toList()),
+	public List<MBHRoleWarehouseAccess> BH_Role_WarehouseAccessSaveMany(List<I_BH_Role_WarehouseAccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_Role_WarehouseAccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHRoleWarehouseAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_Role_WarehouseAccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_Role_WarehouseAccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

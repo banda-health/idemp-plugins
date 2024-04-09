@@ -17,8 +17,8 @@ public class X_C_SubscriptionQuery extends POQuery<X_C_Subscription> implements 
 		return X_C_Subscription.Table_Name;
 	}
 
-	public Connection<X_C_Subscription> C_SubscriptionGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_Subscription> C_SubscriptionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_HR_ListLineMutation extends POMutation implements GraphQLMutation
 		return X_HR_ListLineInput.Table_Name;
 	}
 
-	public X_HR_ListLine HR_ListLineSave(I_HR_ListLineInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_ListLine) super.save((X_HR_ListLineInput) entity, environment);
+	public X_HR_ListLine HR_ListLineSave(I_HR_ListLineInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_ListLine) super.save((X_HR_ListLineInput) Entity, environment);
 	}
 
-	public List<X_HR_ListLine> HR_ListLineSaveMany(List<I_HR_ListLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_ListLineInput) entity).collect(Collectors.toList()),
+	public List<X_HR_ListLine> HR_ListLineSaveMany(List<I_HR_ListLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_ListLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_ListLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_ListLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_ListLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

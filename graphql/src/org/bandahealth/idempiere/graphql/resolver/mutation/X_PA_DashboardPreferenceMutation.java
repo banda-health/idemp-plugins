@@ -21,16 +21,16 @@ public class X_PA_DashboardPreferenceMutation extends POMutation implements Grap
 		return X_PA_DashboardPreferenceInput.Table_Name;
 	}
 
-	public MDashboardPreference PA_DashboardPreferenceSave(I_PA_DashboardPreferenceInput entity, DataFetchingEnvironment environment) {
-		return (MDashboardPreference) super.save((X_PA_DashboardPreferenceInput) entity, environment);
+	public MDashboardPreference PA_DashboardPreferenceSave(I_PA_DashboardPreferenceInput Entity, DataFetchingEnvironment environment) {
+		return (MDashboardPreference) super.save((X_PA_DashboardPreferenceInput) Entity, environment);
 	}
 
-	public List<MDashboardPreference> PA_DashboardPreferenceSaveMany(List<I_PA_DashboardPreferenceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_DashboardPreferenceInput) entity).collect(Collectors.toList()),
+	public List<MDashboardPreference> PA_DashboardPreferenceSaveMany(List<I_PA_DashboardPreferenceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_DashboardPreferenceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDashboardPreference) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_DashboardPreferenceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_DashboardPreferenceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

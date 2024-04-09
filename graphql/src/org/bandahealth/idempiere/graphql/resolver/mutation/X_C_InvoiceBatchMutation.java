@@ -21,16 +21,16 @@ public class X_C_InvoiceBatchMutation extends POMutation implements GraphQLMutat
 		return X_C_InvoiceBatchInput.Table_Name;
 	}
 
-	public MInvoiceBatch C_InvoiceBatchSave(I_C_InvoiceBatchInput entity, DataFetchingEnvironment environment) {
-		return (MInvoiceBatch) super.save((X_C_InvoiceBatchInput) entity, environment);
+	public MInvoiceBatch C_InvoiceBatchSave(I_C_InvoiceBatchInput Entity, DataFetchingEnvironment environment) {
+		return (MInvoiceBatch) super.save((X_C_InvoiceBatchInput) Entity, environment);
 	}
 
-	public List<MInvoiceBatch> C_InvoiceBatchSaveMany(List<I_C_InvoiceBatchInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_InvoiceBatchInput) entity).collect(Collectors.toList()),
+	public List<MInvoiceBatch> C_InvoiceBatchSaveMany(List<I_C_InvoiceBatchInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_InvoiceBatchInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInvoiceBatch) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_InvoiceBatchDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_InvoiceBatchDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_AD_AllUsers_VQuery extends POQuery<X_AD_AllUsers_V> implements Gr
 		return X_AD_AllUsers_V.Table_Name;
 	}
 
-	public Connection<X_AD_AllUsers_V> AD_AllUsers_VGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_AllUsers_V> AD_AllUsers_VGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

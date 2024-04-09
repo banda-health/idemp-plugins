@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CashBook_AcctGet(page: Int, size: Int, sort: String, filter: String): C_CashBook_AcctConnection!
+	C_CashBook_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashBook_AcctConnection!
 }
 
 extend type Mutation {
-	C_CashBook_AcctSave(entity: C_CashBook_AcctInput!): C_CashBook_Acct!
-	C_CashBook_AcctSaveMany(entities: [C_CashBook_AcctInput!]!): [C_CashBook_Acct!]!
-	C_CashBook_AcctDelete(uuids: [String!]!): Boolean!
+	C_CashBook_AcctSave(Entity: C_CashBook_AcctInput!): C_CashBook_Acct!
+	C_CashBook_AcctSaveMany(Entities: [C_CashBook_AcctInput!]!): [C_CashBook_Acct!]!
+	C_CashBook_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CashBook_AcctConnection {
-	results: [C_CashBook_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CashBook_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CashBook_Acct {
@@ -23,8 +23,7 @@ type C_CashBook_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UUID: ID!
-	C_CashBook_Acct_UU: String
+	UU: ID!
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
 	# Cash Book Asset Account
@@ -54,8 +53,7 @@ input C_CashBook_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UUID: ID
-	C_CashBook_Acct_UU: String
+	UU: ID
 	# Cash Book for recording petty cash transactions
 	C_CashBook: ForeignEntityInput
 	# Cash Book Asset Account

@@ -31,12 +31,12 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_RfQ_TopicSubscriberOnly_UU to fetch this entity from the DB
+	 * @param UU The C_RfQ_TopicSubscriberOnly_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_RfQ_TopicSubscriberOnlyInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_RfQ_TopicSubscriberOnlyInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 			MRfQTopicSubscriber foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RfQ_TopicSubscriber", "C_RfQ_TopicSubscriber_UU=?", get_TrxName())
-							.setParameters(C_RfQ_TopicSubscriber.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RfQ_TopicSubscriber.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RfQ_TopicSubscriber_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_RfQ_TopicSubscriber with UUID " + C_RfQ_TopicSubscriber.getUUID());
+						"Could not find entity in table C_RfQ_TopicSubscriber with UU " + C_RfQ_TopicSubscriber.getUU());
 			}
 		} else {
 			this.setC_RfQ_TopicSubscriber_ID(0);
@@ -125,20 +125,20 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_RfQ_TopicSubscriberOnly_UU(UUID);
+	public void setUU(String UU) {
+		setC_RfQ_TopicSubscriberOnly_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_RfQ_TopicSubscriberOnly_UU();
 	}
 
@@ -155,11 +155,11 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
+						"Could not find entity in table M_Product_Category with UU " + M_Product_Category.getUU());
 			}
 		} else {
 			this.setM_Product_Category_ID(0);
@@ -189,11 +189,11 @@ public class X_C_RfQ_TopicSubscriberOnlyInput extends MRfQTopicSubscriberOnly im
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);

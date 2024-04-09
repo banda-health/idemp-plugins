@@ -21,16 +21,16 @@ public class X_A_Asset_DisposedMutation extends POMutation implements GraphQLMut
 		return X_A_Asset_DisposedInput.Table_Name;
 	}
 
-	public MAssetDisposed A_Asset_DisposedSave(I_A_Asset_DisposedInput entity, DataFetchingEnvironment environment) {
-		return (MAssetDisposed) super.save((X_A_Asset_DisposedInput) entity, environment);
+	public MAssetDisposed A_Asset_DisposedSave(I_A_Asset_DisposedInput Entity, DataFetchingEnvironment environment) {
+		return (MAssetDisposed) super.save((X_A_Asset_DisposedInput) Entity, environment);
 	}
 
-	public List<MAssetDisposed> A_Asset_DisposedSaveMany(List<I_A_Asset_DisposedInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_DisposedInput) entity).collect(Collectors.toList()),
+	public List<MAssetDisposed> A_Asset_DisposedSaveMany(List<I_A_Asset_DisposedInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_DisposedInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAssetDisposed) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_DisposedDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_DisposedDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -95,18 +95,18 @@ public interface I_M_PromotionPreConditionInput extends I_M_PromotionPreConditio
 	ForeignEntityInput M_Promotion();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set M_Warehouse.

@@ -17,8 +17,8 @@ public class X_AD_ModificationQuery extends POQuery<X_AD_Modification> implement
 		return X_AD_Modification.Table_Name;
 	}
 
-	public Connection<X_AD_Modification> AD_ModificationGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_Modification> AD_ModificationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

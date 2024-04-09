@@ -17,8 +17,8 @@ public class X_C_Currency_AcctQuery extends POQuery<MCurrencyAcct> implements Gr
 		return MCurrencyAcct.Table_Name;
 	}
 
-	public Connection<MCurrencyAcct> C_Currency_AcctGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCurrencyAcct> C_Currency_AcctGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

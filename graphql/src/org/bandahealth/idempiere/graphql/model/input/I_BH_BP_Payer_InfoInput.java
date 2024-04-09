@@ -25,18 +25,18 @@ public interface I_BH_BP_Payer_InfoInput extends I_BH_BP_Payer_Info {
 	ForeignEntityInput AD_Org();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set BH_Payer.

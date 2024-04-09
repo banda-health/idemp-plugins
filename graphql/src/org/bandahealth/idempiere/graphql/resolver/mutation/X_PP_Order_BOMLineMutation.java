@@ -21,16 +21,16 @@ public class X_PP_Order_BOMLineMutation extends POMutation implements GraphQLMut
 		return X_PP_Order_BOMLineInput.Table_Name;
 	}
 
-	public X_PP_Order_BOMLine PP_Order_BOMLineSave(I_PP_Order_BOMLineInput entity, DataFetchingEnvironment environment) {
-		return (X_PP_Order_BOMLine) super.save((X_PP_Order_BOMLineInput) entity, environment);
+	public X_PP_Order_BOMLine PP_Order_BOMLineSave(I_PP_Order_BOMLineInput Entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_BOMLine) super.save((X_PP_Order_BOMLineInput) Entity, environment);
 	}
 
-	public List<X_PP_Order_BOMLine> PP_Order_BOMLineSaveMany(List<I_PP_Order_BOMLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_BOMLineInput) entity).collect(Collectors.toList()),
+	public List<X_PP_Order_BOMLine> PP_Order_BOMLineSaveMany(List<I_PP_Order_BOMLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Order_BOMLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PP_Order_BOMLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Order_BOMLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Order_BOMLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

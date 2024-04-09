@@ -129,11 +129,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
+						"Could not find entity in table AD_Language with UU " + AD_Language.getUU());
 			}
 		} else {
 			this.setAD_Language(null);
@@ -166,11 +166,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -203,11 +203,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(AD_User_C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_C_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + AD_User_C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + AD_User_C_BPartner.getUU());
 			}
 		} else {
 			this.setAD_User_C_BPartner_ID(0);
@@ -240,11 +240,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(AD_User_C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_C_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UUID " + AD_User_C_BPartner_Location.getUUID());
+						"Could not find entity in table C_BPartner_Location with UU " + AD_User_C_BPartner_Location.getUU());
 			}
 		} else {
 			this.setAD_User_C_BPartner_Location_ID(0);
@@ -288,11 +288,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User_Create.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_CreatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User_Create.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User_Create.getUU());
 			}
 		} else {
 			this.setAD_User_CreatedBy(0);
@@ -325,11 +325,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -384,11 +384,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User_Update.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_UpdatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User_Update.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User_Update.getUU());
 			}
 		} else {
 			this.setAD_User_UpdatedBy(0);
@@ -487,11 +487,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(BPartner_Parent.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BPartner_Parent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBPartner_Parent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + BPartner_Parent.getUUID());
+						"Could not find entity in table C_BPartner with UU " + BPartner_Parent.getUU());
 			}
 		} else {
 			this.setBPartner_Parent_ID(0);
@@ -524,11 +524,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
-							.setParameters(BPContactGreet.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BPContactGreet.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBPContactGreeting(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Greeting with UUID " + BPContactGreet.getUUID());
+						"Could not find entity in table C_Greeting with UU " + BPContactGreet.getUU());
 			}
 		} else {
 			this.setBPContactGreeting(0);
@@ -561,11 +561,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_C_TaxGroup foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxGroup", "C_TaxGroup_UU=?", get_TrxName())
-							.setParameters(C_BP_C_TaxGroup.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_C_TaxGroup.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_C_TaxGroup_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_TaxGroup with UUID " + C_BP_C_TaxGroup.getUUID());
+						"Could not find entity in table C_TaxGroup with UU " + C_BP_C_TaxGroup.getUU());
 			}
 		} else {
 			this.setC_BP_C_TaxGroup_ID(0);
@@ -609,11 +609,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
+						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
 			}
 		} else {
 			this.setC_BP_Group_ID(0);
@@ -668,11 +668,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Location_C_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BP_Location_C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BP_Location_C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BP_Location_C_BPartner_ID(0);
@@ -705,11 +705,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_C_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Location_C_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Location with UUID " + C_BP_Location_C_Location.getUUID());
+						"Could not find entity in table C_Location with UU " + C_BP_Location_C_Location.getUU());
 			}
 		} else {
 			this.setC_BP_Location_C_Location_ID(0);
@@ -753,11 +753,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_Create.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Location_CreatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + C_BP_Location_Create.getUUID());
+						"Could not find entity in table AD_User with UU " + C_BP_Location_Create.getUU());
 			}
 		} else {
 			this.setC_BP_Location_CreatedBy(0);
@@ -900,11 +900,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Location_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_SalesRegion with UUID " + C_BP_Location_SalesRegion.getUUID());
+						"Could not find entity in table C_SalesRegion with UU " + C_BP_Location_SalesRegion.getUU());
 			}
 		} else {
 			this.setC_BP_Location_SalesRegion_ID(0);
@@ -948,11 +948,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_BP_Location_Update.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Location_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Location_UpdatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + C_BP_Location_Update.getUUID());
+						"Could not find entity in table AD_User with UU " + C_BP_Location_Update.getUU());
 			}
 		} else {
 			this.setC_BP_Location_UpdatedBy(0);
@@ -996,11 +996,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MBPartnerLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner_Location", "C_BPartner_Location_UU=?", get_TrxName())
-							.setParameters(C_BPartner_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner_Location with UUID " + C_BPartner_Location.getUUID());
+						"Could not find entity in table C_BPartner_Location with UU " + C_BPartner_Location.getUU());
 			}
 		} else {
 			this.setC_BPartner_Location_ID(0);
@@ -1033,11 +1033,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MCity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
-							.setParameters(C_City.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_City_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_City with UUID " + C_City.getUUID());
+						"Could not find entity in table C_City with UU " + C_City.getUU());
 			}
 		} else {
 			this.setC_City_ID(0);
@@ -1081,11 +1081,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Country_C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country_C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Country_C_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Country_C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Country_C_Currency.getUU());
 			}
 		} else {
 			this.setC_Country_C_Currency_ID(0);
@@ -1129,11 +1129,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
+						"Could not find entity in table C_Country with UU " + C_Country.getUU());
 			}
 		} else {
 			this.setC_Country_ID(0);
@@ -1177,11 +1177,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MDunning foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Dunning", "C_Dunning_UU=?", get_TrxName())
-							.setParameters(C_Dunning.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Dunning.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Dunning_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Dunning with UUID " + C_Dunning.getUUID());
+						"Could not find entity in table C_Dunning with UU " + C_Dunning.getUU());
 			}
 		} else {
 			this.setC_Dunning_ID(0);
@@ -1214,11 +1214,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_C_Greeting foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Greeting", "C_Greeting_UU=?", get_TrxName())
-							.setParameters(C_Greeting.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Greeting.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Greeting_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Greeting with UUID " + C_Greeting.getUUID());
+						"Could not find entity in table C_Greeting with UU " + C_Greeting.getUU());
 			}
 		} else {
 			this.setC_Greeting_ID(0);
@@ -1251,11 +1251,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MInvoiceSchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceSchedule", "C_InvoiceSchedule_UU=?", get_TrxName())
-							.setParameters(C_InvoiceSchedule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceSchedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_InvoiceSchedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_InvoiceSchedule with UUID " + C_InvoiceSchedule.getUUID());
+						"Could not find entity in table C_InvoiceSchedule with UU " + C_InvoiceSchedule.getUU());
 			}
 		} else {
 			this.setC_InvoiceSchedule_ID(0);
@@ -1299,11 +1299,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_Location_Create.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location_Create.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_CreatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + C_Location_Create.getUUID());
+						"Could not find entity in table AD_User with UU " + C_Location_Create.getUU());
 			}
 		} else {
 			this.setC_Location_CreatedBy(0);
@@ -1336,11 +1336,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_Location.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Location with UUID " + C_Location.getUUID());
+						"Could not find entity in table C_Location with UU " + C_Location.getUU());
 			}
 		} else {
 			this.setC_Location_ID(0);
@@ -1395,11 +1395,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(C_Location_Update.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Location_Update.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Location_UpdatedBy(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + C_Location_Update.getUUID());
+						"Could not find entity in table AD_User with UU " + C_Location_Update.getUU());
 			}
 		} else {
 			this.setC_Location_UpdatedBy(0);
@@ -1432,11 +1432,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-							.setParameters(C_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_PaymentTerm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_PaymentTerm with UUID " + C_PaymentTerm.getUUID());
+						"Could not find entity in table C_PaymentTerm with UU " + C_PaymentTerm.getUU());
 			}
 		} else {
 			this.setC_PaymentTerm_ID(0);
@@ -1480,11 +1480,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
+						"Could not find entity in table C_Region with UU " + C_Region.getUU());
 			}
 		} else {
 			this.setC_Region_ID(0);
@@ -1594,11 +1594,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DeliveryRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DeliveryRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDeliveryRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DeliveryRule.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DeliveryRule.getUU());
 			}
 		} else {
 			this.setDeliveryRule(null);
@@ -1631,11 +1631,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(DeliveryViaRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(DeliveryViaRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setDeliveryViaRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + DeliveryViaRule.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + DeliveryViaRule.getUU());
 			}
 		} else {
 			this.setDeliveryViaRule(null);
@@ -1778,11 +1778,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(FreightCostRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FreightCostRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFreightCostRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + FreightCostRule.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + FreightCostRule.getUU());
 			}
 		} else {
 			this.setFreightCostRule(null);
@@ -1815,11 +1815,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			X_AD_PrintFormat foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
-							.setParameters(Invoice_PrintFormat.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Invoice_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setInvoice_PrintFormat_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFormat with UUID " + Invoice_PrintFormat.getUUID());
+						"Could not find entity in table AD_PrintFormat with UU " + Invoice_PrintFormat.getUU());
 			}
 		} else {
 			this.setInvoice_PrintFormat_ID(0);
@@ -1852,11 +1852,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(InvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(InvoiceRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setInvoiceRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + InvoiceRule.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + InvoiceRule.getUU());
 			}
 		} else {
 			this.setInvoiceRule(null);
@@ -2032,11 +2032,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(M_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_DiscountSchema with UUID " + M_DiscountSchema.getUUID());
+						"Could not find entity in table M_DiscountSchema with UU " + M_DiscountSchema.getUU());
 			}
 		} else {
 			this.setM_DiscountSchema_ID(0);
@@ -2069,11 +2069,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(M_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PriceList with UUID " + M_PriceList.getUUID());
+						"Could not find entity in table M_PriceList with UU " + M_PriceList.getUU());
 			}
 		} else {
 			this.setM_PriceList_ID(0);
@@ -2139,11 +2139,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(NotificationType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(NotificationType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNotificationType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + NotificationType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + NotificationType.getUU());
 			}
 		} else {
 			this.setNotificationType(null);
@@ -2187,11 +2187,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PaymentRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PaymentRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPaymentRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PaymentRule.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PaymentRule.getUU());
 			}
 		} else {
 			this.setPaymentRule(null);
@@ -2224,11 +2224,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PaymentRulePO.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PaymentRulePO.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPaymentRulePO(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PaymentRulePO.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PaymentRulePO.getUU());
 			}
 		} else {
 			this.setPaymentRulePO(null);
@@ -2283,11 +2283,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MDiscountSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DiscountSchema", "M_DiscountSchema_UU=?", get_TrxName())
-							.setParameters(PO_DiscountSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_DiscountSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPO_DiscountSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_DiscountSchema with UUID " + PO_DiscountSchema.getUUID());
+						"Could not find entity in table M_DiscountSchema with UU " + PO_DiscountSchema.getUU());
 			}
 		} else {
 			this.setPO_DiscountSchema_ID(0);
@@ -2320,11 +2320,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPaymentTerm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaymentTerm", "C_PaymentTerm_UU=?", get_TrxName())
-							.setParameters(PO_PaymentTerm.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_PaymentTerm.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPO_PaymentTerm_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_PaymentTerm with UUID " + PO_PaymentTerm.getUUID());
+						"Could not find entity in table C_PaymentTerm with UU " + PO_PaymentTerm.getUU());
 			}
 		} else {
 			this.setPO_PaymentTerm_ID(0);
@@ -2357,11 +2357,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MPriceList foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_PriceList", "M_PriceList_UU=?", get_TrxName())
-							.setParameters(PO_PriceList.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PO_PriceList.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPO_PriceList_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_PriceList with UUID " + PO_PriceList.getUUID());
+						"Could not find entity in table M_PriceList with UU " + PO_PriceList.getUU());
 			}
 		} else {
 			this.setPO_PriceList_ID(0);
@@ -2471,11 +2471,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
 			}
 		} else {
 			this.setSalesRep_ID(0);
@@ -2596,11 +2596,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(SOCreditStatus.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SOCreditStatus.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSOCreditStatus(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + SOCreditStatus.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + SOCreditStatus.getUU());
 			}
 		} else {
 			this.setSOCreditStatus(null);
@@ -2633,11 +2633,11 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(Supervisor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Supervisor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSupervisor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + Supervisor.getUUID());
+						"Could not find entity in table AD_User with UU " + Supervisor.getUU());
 			}
 		} else {
 			this.setSupervisor_ID(0);

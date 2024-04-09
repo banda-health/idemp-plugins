@@ -17,8 +17,8 @@ public class X_A_Asset_SplitQuery extends POQuery<X_A_Asset_Split> implements Gr
 		return X_A_Asset_Split.Table_Name;
 	}
 
-	public Connection<X_A_Asset_Split> A_Asset_SplitGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_Asset_Split> A_Asset_SplitGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

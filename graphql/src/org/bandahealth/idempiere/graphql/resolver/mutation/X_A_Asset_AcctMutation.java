@@ -21,16 +21,16 @@ public class X_A_Asset_AcctMutation extends POMutation implements GraphQLMutatio
 		return X_A_Asset_AcctInput.Table_Name;
 	}
 
-	public MAssetAcct A_Asset_AcctSave(I_A_Asset_AcctInput entity, DataFetchingEnvironment environment) {
-		return (MAssetAcct) super.save((X_A_Asset_AcctInput) entity, environment);
+	public MAssetAcct A_Asset_AcctSave(I_A_Asset_AcctInput Entity, DataFetchingEnvironment environment) {
+		return (MAssetAcct) super.save((X_A_Asset_AcctInput) Entity, environment);
 	}
 
-	public List<MAssetAcct> A_Asset_AcctSaveMany(List<I_A_Asset_AcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_AcctInput) entity).collect(Collectors.toList()),
+	public List<MAssetAcct> A_Asset_AcctSaveMany(List<I_A_Asset_AcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_AcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAssetAcct) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_AcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

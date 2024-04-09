@@ -21,16 +21,16 @@ public class X_M_StorageReservationMutation extends POMutation implements GraphQ
 		return X_M_StorageReservationInput.Table_Name;
 	}
 
-	public MStorageReservation M_StorageReservationSave(I_M_StorageReservationInput entity, DataFetchingEnvironment environment) {
-		return (MStorageReservation) super.save((X_M_StorageReservationInput) entity, environment);
+	public MStorageReservation M_StorageReservationSave(I_M_StorageReservationInput Entity, DataFetchingEnvironment environment) {
+		return (MStorageReservation) super.save((X_M_StorageReservationInput) Entity, environment);
 	}
 
-	public List<MStorageReservation> M_StorageReservationSaveMany(List<I_M_StorageReservationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_StorageReservationInput) entity).collect(Collectors.toList()),
+	public List<MStorageReservation> M_StorageReservationSaveMany(List<I_M_StorageReservationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_StorageReservationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MStorageReservation) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_StorageReservationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_StorageReservationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

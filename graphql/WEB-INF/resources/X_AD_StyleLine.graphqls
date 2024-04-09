@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_StyleLineGet(page: Int, size: Int, sort: String, filter: String): AD_StyleLineConnection!
+	AD_StyleLineGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StyleLineConnection!
 }
 
 extend type Mutation {
-	AD_StyleLineSave(entity: AD_StyleLineInput!): AD_StyleLine!
-	AD_StyleLineSaveMany(entities: [AD_StyleLineInput!]!): [AD_StyleLine!]!
-	AD_StyleLineDelete(uuids: [String!]!): Boolean!
+	AD_StyleLineSave(Entity: AD_StyleLineInput!): AD_StyleLine!
+	AD_StyleLineSaveMany(Entities: [AD_StyleLineInput!]!): [AD_StyleLine!]!
+	AD_StyleLineDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_StyleLineConnection {
-	results: [AD_StyleLine!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_StyleLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_StyleLine {
@@ -23,9 +23,7 @@ type AD_StyleLine {
 	AD_Org: AD_Org!
 	# CSS style for field and label
 	AD_Style: AD_Style!
-	UUID: ID!
-	# CSS Style Line
-	AD_StyleLine_UU: String!
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -53,9 +51,7 @@ input AD_StyleLineInput {
 	AD_Org: ForeignEntityInput
 	# CSS style for field and label
 	AD_Style: ForeignEntityInput
-	UUID: ID
-	# CSS Style Line
-	AD_StyleLine_UU: String
+	UU: ID
 	# If the Field is displayed, the result determines if the field is actually displayed
 	DisplayLogic: String
 	# Dictionary Entity Type; Determines ownership and synchronization

@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_AllClients_VGet(page: Int, size: Int, sort: String, filter: String): AD_AllClients_VConnection!
+	AD_AllClients_VGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AllClients_VConnection!
 }
 
 extend type Mutation {
-	AD_AllClients_VSave(entity: AD_AllClients_VInput!): AD_AllClients_V!
-	AD_AllClients_VSaveMany(entities: [AD_AllClients_VInput!]!): [AD_AllClients_V!]!
-	AD_AllClients_VDelete(uuids: [String!]!): Boolean!
+	AD_AllClients_VSave(Entity: AD_AllClients_VInput!): AD_AllClients_V!
+	AD_AllClients_VSaveMany(Entities: [AD_AllClients_VInput!]!): [AD_AllClients_V!]!
+	AD_AllClients_VDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_AllClients_VConnection {
-	results: [AD_AllClients_V!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_AllClients_V!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_AllClients_V {
-	UUID: ID!
-	AD_AllClients_V_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client
 	# Language for this entity
@@ -44,8 +43,7 @@ type AD_AllClients_V {
 }
 
 input AD_AllClients_VInput {
-	UUID: ID
-	AD_AllClients_V_UU: String
+	UU: ID
 	# Language for this entity
 	AD_Language: ForeignEntityInput
 	# Organizational entity within tenant

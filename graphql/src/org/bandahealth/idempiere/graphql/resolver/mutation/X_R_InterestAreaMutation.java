@@ -21,16 +21,16 @@ public class X_R_InterestAreaMutation extends POMutation implements GraphQLMutat
 		return X_R_InterestAreaInput.Table_Name;
 	}
 
-	public MInterestArea R_InterestAreaSave(I_R_InterestAreaInput entity, DataFetchingEnvironment environment) {
-		return (MInterestArea) super.save((X_R_InterestAreaInput) entity, environment);
+	public MInterestArea R_InterestAreaSave(I_R_InterestAreaInput Entity, DataFetchingEnvironment environment) {
+		return (MInterestArea) super.save((X_R_InterestAreaInput) Entity, environment);
 	}
 
-	public List<MInterestArea> R_InterestAreaSaveMany(List<I_R_InterestAreaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_InterestAreaInput) entity).collect(Collectors.toList()),
+	public List<MInterestArea> R_InterestAreaSaveMany(List<I_R_InterestAreaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_InterestAreaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInterestArea) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_InterestAreaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_InterestAreaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

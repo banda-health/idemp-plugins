@@ -21,16 +21,16 @@ public class X_C_DunningRunMutation extends POMutation implements GraphQLMutatio
 		return X_C_DunningRunInput.Table_Name;
 	}
 
-	public MDunningRun C_DunningRunSave(I_C_DunningRunInput entity, DataFetchingEnvironment environment) {
-		return (MDunningRun) super.save((X_C_DunningRunInput) entity, environment);
+	public MDunningRun C_DunningRunSave(I_C_DunningRunInput Entity, DataFetchingEnvironment environment) {
+		return (MDunningRun) super.save((X_C_DunningRunInput) Entity, environment);
 	}
 
-	public List<MDunningRun> C_DunningRunSaveMany(List<I_C_DunningRunInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_DunningRunInput) entity).collect(Collectors.toList()),
+	public List<MDunningRun> C_DunningRunSaveMany(List<I_C_DunningRunInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_DunningRunInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDunningRun) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_DunningRunDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_DunningRunDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

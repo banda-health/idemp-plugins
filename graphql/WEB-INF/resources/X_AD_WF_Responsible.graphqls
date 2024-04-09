@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_WF_ResponsibleGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ResponsibleConnection!
+	AD_WF_ResponsibleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_ResponsibleConnection!
 }
 
 extend type Mutation {
-	AD_WF_ResponsibleSave(entity: AD_WF_ResponsibleInput!): AD_WF_Responsible!
-	AD_WF_ResponsibleSaveMany(entities: [AD_WF_ResponsibleInput!]!): [AD_WF_Responsible!]!
-	AD_WF_ResponsibleDelete(uuids: [String!]!): Boolean!
+	AD_WF_ResponsibleSave(Entity: AD_WF_ResponsibleInput!): AD_WF_Responsible!
+	AD_WF_ResponsibleSaveMany(Entities: [AD_WF_ResponsibleInput!]!): [AD_WF_Responsible!]!
+	AD_WF_ResponsibleDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_WF_ResponsibleConnection {
-	results: [AD_WF_Responsible!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_WF_Responsible!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_WF_Responsible {
@@ -25,8 +25,7 @@ type AD_WF_Responsible {
 	AD_Role: AD_Role!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	UUID: ID!
-	AD_WF_Responsible_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,8 +53,7 @@ input AD_WF_ResponsibleInput {
 	AD_Role: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UUID: ID
-	AD_WF_Responsible_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

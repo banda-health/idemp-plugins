@@ -21,16 +21,16 @@ public class X_AD_RuleMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_RuleInput.Table_Name;
 	}
 
-	public MRule AD_RuleSave(I_AD_RuleInput entity, DataFetchingEnvironment environment) {
-		return (MRule) super.save((X_AD_RuleInput) entity, environment);
+	public MRule AD_RuleSave(I_AD_RuleInput Entity, DataFetchingEnvironment environment) {
+		return (MRule) super.save((X_AD_RuleInput) Entity, environment);
 	}
 
-	public List<MRule> AD_RuleSaveMany(List<I_AD_RuleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_RuleInput) entity).collect(Collectors.toList()),
+	public List<MRule> AD_RuleSaveMany(List<I_AD_RuleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_RuleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRule) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_RuleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_RuleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

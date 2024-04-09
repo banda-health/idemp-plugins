@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PrintFormatGet(page: Int, size: Int, sort: String, filter: String): AD_PrintFormatConnection!
+	AD_PrintFormatGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintFormatConnection!
 }
 
 extend type Mutation {
-	AD_PrintFormatSave(entity: AD_PrintFormatInput!): AD_PrintFormat!
-	AD_PrintFormatSaveMany(entities: [AD_PrintFormatInput!]!): [AD_PrintFormat!]!
-	AD_PrintFormatDelete(uuids: [String!]!): Boolean!
+	AD_PrintFormatSave(Entity: AD_PrintFormatInput!): AD_PrintFormat!
+	AD_PrintFormatSaveMany(Entities: [AD_PrintFormatInput!]!): [AD_PrintFormat!]!
+	AD_PrintFormatDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PrintFormatConnection {
-	results: [AD_PrintFormat!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PrintFormat!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PrintFormat {
@@ -25,8 +25,7 @@ type AD_PrintFormat {
 	AD_PrintColor: AD_PrintColor!
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont!
-	UUID: ID!
-	AD_PrintFormat_UU: String
+	UU: ID!
 	AD_PrintHeaderFooter: AD_PrintHeaderFooter
 	# Printer paper definition
 	AD_PrintPaper: AD_PrintPaper!
@@ -81,8 +80,7 @@ input AD_PrintFormatInput {
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
-	UUID: ID
-	AD_PrintFormat_UU: String
+	UU: ID
 	AD_PrintHeaderFooter: ForeignEntityInput
 	# Printer paper definition
 	AD_PrintPaper: ForeignEntityInput

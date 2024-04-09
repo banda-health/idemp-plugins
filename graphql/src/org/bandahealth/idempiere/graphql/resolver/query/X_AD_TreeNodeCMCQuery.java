@@ -17,8 +17,8 @@ public class X_AD_TreeNodeCMCQuery extends POQuery<MTree_NodeCMC> implements Gra
 		return MTree_NodeCMC.Table_Name;
 	}
 
-	public Connection<MTree_NodeCMC> AD_TreeNodeCMCGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTree_NodeCMC> AD_TreeNodeCMCGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

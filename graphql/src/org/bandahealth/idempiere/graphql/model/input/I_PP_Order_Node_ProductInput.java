@@ -67,18 +67,18 @@ public interface I_PP_Order_Node_ProductInput extends I_PP_Order_Node_Product {
 	ForeignEntityInput PP_Order_Node();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set PP_Order_Workflow.

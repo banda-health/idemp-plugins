@@ -21,16 +21,16 @@ public class X_PA_MeasureCalcMutation extends POMutation implements GraphQLMutat
 		return X_PA_MeasureCalcInput.Table_Name;
 	}
 
-	public MMeasureCalc PA_MeasureCalcSave(I_PA_MeasureCalcInput entity, DataFetchingEnvironment environment) {
-		return (MMeasureCalc) super.save((X_PA_MeasureCalcInput) entity, environment);
+	public MMeasureCalc PA_MeasureCalcSave(I_PA_MeasureCalcInput Entity, DataFetchingEnvironment environment) {
+		return (MMeasureCalc) super.save((X_PA_MeasureCalcInput) Entity, environment);
 	}
 
-	public List<MMeasureCalc> PA_MeasureCalcSaveMany(List<I_PA_MeasureCalcInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_MeasureCalcInput) entity).collect(Collectors.toList()),
+	public List<MMeasureCalc> PA_MeasureCalcSaveMany(List<I_PA_MeasureCalcInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_MeasureCalcInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MMeasureCalc) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_MeasureCalcDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_MeasureCalcDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

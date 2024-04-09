@@ -17,8 +17,8 @@ public class X_M_DemandQuery extends POQuery<X_M_Demand> implements GraphQLQuery
 		return X_M_Demand.Table_Name;
 	}
 
-	public Connection<X_M_Demand> M_DemandGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_Demand> M_DemandGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

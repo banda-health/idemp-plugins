@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_DemandDetailGet(page: Int, size: Int, sort: String, filter: String): M_DemandDetailConnection!
+	M_DemandDetailGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DemandDetailConnection!
 }
 
 extend type Mutation {
-	M_DemandDetailSave(entity: M_DemandDetailInput!): M_DemandDetail!
-	M_DemandDetailSaveMany(entities: [M_DemandDetailInput!]!): [M_DemandDetail!]!
-	M_DemandDetailDelete(uuids: [String!]!): Boolean!
+	M_DemandDetailSave(Entity: M_DemandDetailInput!): M_DemandDetail!
+	M_DemandDetailSaveMany(Entities: [M_DemandDetailInput!]!): [M_DemandDetail!]!
+	M_DemandDetailDelete(UUs: [String!]!): Boolean!
 }
 
 type M_DemandDetailConnection {
-	results: [M_DemandDetail!]!
-	pagingInfo: PagingInfo!
+	Results: [M_DemandDetail!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_DemandDetail {
@@ -29,8 +29,7 @@ type M_DemandDetail {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_DemandDetail_UU: String
+	UU: ID!
 	# Material Demand Line
 	M_DemandLine: M_DemandLine!
 	# Forecast Line
@@ -50,8 +49,7 @@ input M_DemandDetailInput {
 	C_OrderLine: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_DemandDetail_UU: String
+	UU: ID
 	# Material Demand Line
 	M_DemandLine: ForeignEntityInput
 	# Forecast Line

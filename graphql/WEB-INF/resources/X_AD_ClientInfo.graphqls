@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ClientInfoGet(page: Int, size: Int, sort: String, filter: String): AD_ClientInfoConnection!
+	AD_ClientInfoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ClientInfoConnection!
 }
 
 extend type Mutation {
-	AD_ClientInfoSave(entity: AD_ClientInfoInput!): AD_ClientInfo!
-	AD_ClientInfoSaveMany(entities: [AD_ClientInfoInput!]!): [AD_ClientInfo!]!
-	AD_ClientInfoDelete(uuids: [String!]!): Boolean!
+	AD_ClientInfoSave(Entity: AD_ClientInfoInput!): AD_ClientInfo!
+	AD_ClientInfoSaveMany(Entities: [AD_ClientInfoInput!]!): [AD_ClientInfo!]!
+	AD_ClientInfoDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ClientInfoConnection {
-	results: [AD_ClientInfo!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ClientInfo!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ClientInfo {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_ClientInfo_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_StorageProvider: AD_StorageProvider
@@ -82,8 +81,7 @@ type AD_ClientInfo {
 }
 
 input AD_ClientInfoInput {
-	UUID: ID
-	AD_ClientInfo_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_StorageProvider: ForeignEntityInput

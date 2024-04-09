@@ -21,16 +21,16 @@ public class X_EXP_ProcessorMutation extends POMutation implements GraphQLMutati
 		return X_EXP_ProcessorInput.Table_Name;
 	}
 
-	public MEXPProcessor EXP_ProcessorSave(I_EXP_ProcessorInput entity, DataFetchingEnvironment environment) {
-		return (MEXPProcessor) super.save((X_EXP_ProcessorInput) entity, environment);
+	public MEXPProcessor EXP_ProcessorSave(I_EXP_ProcessorInput Entity, DataFetchingEnvironment environment) {
+		return (MEXPProcessor) super.save((X_EXP_ProcessorInput) Entity, environment);
 	}
 
-	public List<MEXPProcessor> EXP_ProcessorSaveMany(List<I_EXP_ProcessorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_EXP_ProcessorInput) entity).collect(Collectors.toList()),
+	public List<MEXPProcessor> EXP_ProcessorSaveMany(List<I_EXP_ProcessorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_EXP_ProcessorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MEXPProcessor) entity).collect(Collectors.toList());
 	}
 
-	public boolean EXP_ProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean EXP_ProcessorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

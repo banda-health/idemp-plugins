@@ -21,16 +21,16 @@ public class X_M_LocatorTypeMutation extends POMutation implements GraphQLMutati
 		return X_M_LocatorTypeInput.Table_Name;
 	}
 
-	public MLocatorType M_LocatorTypeSave(I_M_LocatorTypeInput entity, DataFetchingEnvironment environment) {
-		return (MLocatorType) super.save((X_M_LocatorTypeInput) entity, environment);
+	public MLocatorType M_LocatorTypeSave(I_M_LocatorTypeInput Entity, DataFetchingEnvironment environment) {
+		return (MLocatorType) super.save((X_M_LocatorTypeInput) Entity, environment);
 	}
 
-	public List<MLocatorType> M_LocatorTypeSaveMany(List<I_M_LocatorTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_LocatorTypeInput) entity).collect(Collectors.toList()),
+	public List<MLocatorType> M_LocatorTypeSaveMany(List<I_M_LocatorTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_LocatorTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MLocatorType) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_LocatorTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_LocatorTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

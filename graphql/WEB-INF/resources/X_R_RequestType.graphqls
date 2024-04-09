@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_RequestTypeGet(page: Int, size: Int, sort: String, filter: String): R_RequestTypeConnection!
+	R_RequestTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestTypeConnection!
 }
 
 extend type Mutation {
-	R_RequestTypeSave(entity: R_RequestTypeInput!): R_RequestType!
-	R_RequestTypeSaveMany(entities: [R_RequestTypeInput!]!): [R_RequestType!]!
-	R_RequestTypeDelete(uuids: [String!]!): Boolean!
+	R_RequestTypeSave(Entity: R_RequestTypeInput!): R_RequestType!
+	R_RequestTypeSaveMany(Entities: [R_RequestTypeInput!]!): [R_RequestType!]!
+	R_RequestTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type R_RequestTypeConnection {
-	results: [R_RequestType!]!
-	pagingInfo: PagingInfo!
+	Results: [R_RequestType!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_RequestType {
@@ -57,8 +57,7 @@ type R_RequestType {
 	IsSelfService: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
-	R_RequestType_UU: String
+	UU: ID!
 	# Request Status Category
 	R_StatusCategory: R_StatusCategory!
 	# Date this record was updated
@@ -102,8 +101,7 @@ input R_RequestTypeInput {
 	IsSelfService: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
-	R_RequestType_UU: String
+	UU: ID
 	# Request Status Category
 	R_StatusCategory: ForeignEntityInput
 }

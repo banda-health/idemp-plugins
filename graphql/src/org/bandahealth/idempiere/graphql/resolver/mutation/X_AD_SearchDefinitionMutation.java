@@ -21,16 +21,16 @@ public class X_AD_SearchDefinitionMutation extends POMutation implements GraphQL
 		return X_AD_SearchDefinitionInput.Table_Name;
 	}
 
-	public MSearchDefinition AD_SearchDefinitionSave(I_AD_SearchDefinitionInput entity, DataFetchingEnvironment environment) {
-		return (MSearchDefinition) super.save((X_AD_SearchDefinitionInput) entity, environment);
+	public MSearchDefinition AD_SearchDefinitionSave(I_AD_SearchDefinitionInput Entity, DataFetchingEnvironment environment) {
+		return (MSearchDefinition) super.save((X_AD_SearchDefinitionInput) Entity, environment);
 	}
 
-	public List<MSearchDefinition> AD_SearchDefinitionSaveMany(List<I_AD_SearchDefinitionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_SearchDefinitionInput) entity).collect(Collectors.toList()),
+	public List<MSearchDefinition> AD_SearchDefinitionSaveMany(List<I_AD_SearchDefinitionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_SearchDefinitionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSearchDefinition) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_SearchDefinitionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_SearchDefinitionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_PP_Order_NodeNextQuery extends POQuery<X_PP_Order_NodeNext> imple
 		return X_PP_Order_NodeNext.Table_Name;
 	}
 
-	public Connection<X_PP_Order_NodeNext> PP_Order_NodeNextGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_PP_Order_NodeNext> PP_Order_NodeNextGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

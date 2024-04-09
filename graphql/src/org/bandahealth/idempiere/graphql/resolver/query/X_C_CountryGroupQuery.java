@@ -17,8 +17,8 @@ public class X_C_CountryGroupQuery extends POQuery<MCountryGroup> implements Gra
 		return MCountryGroup.Table_Name;
 	}
 
-	public Connection<MCountryGroup> C_CountryGroupGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCountryGroup> C_CountryGroupGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

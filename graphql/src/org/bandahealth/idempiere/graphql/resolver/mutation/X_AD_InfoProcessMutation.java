@@ -21,16 +21,16 @@ public class X_AD_InfoProcessMutation extends POMutation implements GraphQLMutat
 		return X_AD_InfoProcessInput.Table_Name;
 	}
 
-	public X_AD_InfoProcess AD_InfoProcessSave(I_AD_InfoProcessInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_InfoProcess) super.save((X_AD_InfoProcessInput) entity, environment);
+	public X_AD_InfoProcess AD_InfoProcessSave(I_AD_InfoProcessInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_InfoProcess) super.save((X_AD_InfoProcessInput) Entity, environment);
 	}
 
-	public List<X_AD_InfoProcess> AD_InfoProcessSaveMany(List<I_AD_InfoProcessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_InfoProcessInput) entity).collect(Collectors.toList()),
+	public List<X_AD_InfoProcess> AD_InfoProcessSaveMany(List<I_AD_InfoProcessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_InfoProcessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_InfoProcess) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_InfoProcessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_InfoProcessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

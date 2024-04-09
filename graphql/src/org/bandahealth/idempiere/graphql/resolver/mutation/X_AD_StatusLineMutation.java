@@ -21,16 +21,16 @@ public class X_AD_StatusLineMutation extends POMutation implements GraphQLMutati
 		return X_AD_StatusLineInput.Table_Name;
 	}
 
-	public MStatusLine AD_StatusLineSave(I_AD_StatusLineInput entity, DataFetchingEnvironment environment) {
-		return (MStatusLine) super.save((X_AD_StatusLineInput) entity, environment);
+	public MStatusLine AD_StatusLineSave(I_AD_StatusLineInput Entity, DataFetchingEnvironment environment) {
+		return (MStatusLine) super.save((X_AD_StatusLineInput) Entity, environment);
 	}
 
-	public List<MStatusLine> AD_StatusLineSaveMany(List<I_AD_StatusLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_StatusLineInput) entity).collect(Collectors.toList()),
+	public List<MStatusLine> AD_StatusLineSaveMany(List<I_AD_StatusLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_StatusLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MStatusLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_StatusLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_StatusLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_Conversion_RateMutation extends POMutation implements GraphQLMu
 		return X_C_Conversion_RateInput.Table_Name;
 	}
 
-	public MConversionRate C_Conversion_RateSave(I_C_Conversion_RateInput entity, DataFetchingEnvironment environment) {
-		return (MConversionRate) super.save((X_C_Conversion_RateInput) entity, environment);
+	public MConversionRate C_Conversion_RateSave(I_C_Conversion_RateInput Entity, DataFetchingEnvironment environment) {
+		return (MConversionRate) super.save((X_C_Conversion_RateInput) Entity, environment);
 	}
 
-	public List<MConversionRate> C_Conversion_RateSaveMany(List<I_C_Conversion_RateInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_Conversion_RateInput) entity).collect(Collectors.toList()),
+	public List<MConversionRate> C_Conversion_RateSaveMany(List<I_C_Conversion_RateInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_Conversion_RateInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MConversionRate) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_Conversion_RateDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_Conversion_RateDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

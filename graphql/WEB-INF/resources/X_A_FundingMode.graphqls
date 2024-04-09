@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_FundingModeGet(page: Int, size: Int, sort: String, filter: String): A_FundingModeConnection!
+	A_FundingModeGet(Page: Int, Size: Int, Sort: String, Filter: String): A_FundingModeConnection!
 }
 
 extend type Mutation {
-	A_FundingModeSave(entity: A_FundingModeInput!): A_FundingMode!
-	A_FundingModeSaveMany(entities: [A_FundingModeInput!]!): [A_FundingMode!]!
-	A_FundingModeDelete(uuids: [String!]!): Boolean!
+	A_FundingModeSave(Entity: A_FundingModeInput!): A_FundingMode!
+	A_FundingModeSaveMany(Entities: [A_FundingModeInput!]!): [A_FundingMode!]!
+	A_FundingModeDelete(UUs: [String!]!): Boolean!
 }
 
 type A_FundingModeConnection {
-	results: [A_FundingMode!]!
-	pagingInfo: PagingInfo!
+	Results: [A_FundingMode!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_FundingMode {
-	UUID: ID!
-	A_FundingMode_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -42,8 +41,7 @@ type A_FundingMode {
 }
 
 input A_FundingModeInput {
-	UUID: ID
-	A_FundingMode_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

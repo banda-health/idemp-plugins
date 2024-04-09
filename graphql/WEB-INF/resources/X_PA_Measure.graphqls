@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_MeasureGet(page: Int, size: Int, sort: String, filter: String): PA_MeasureConnection!
+	PA_MeasureGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_MeasureConnection!
 }
 
 extend type Mutation {
-	PA_MeasureSave(entity: PA_MeasureInput!): PA_Measure!
-	PA_MeasureSaveMany(entities: [PA_MeasureInput!]!): [PA_Measure!]!
-	PA_MeasureDelete(uuids: [String!]!): Boolean!
+	PA_MeasureSave(Entity: PA_MeasureInput!): PA_Measure!
+	PA_MeasureSaveMany(Entities: [PA_MeasureInput!]!): [PA_Measure!]!
+	PA_MeasureDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_MeasureConnection {
-	results: [PA_Measure!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_Measure!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_Measure {
@@ -47,8 +47,7 @@ type PA_Measure {
 	PA_Benchmark: PA_Benchmark
 	# Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	PA_Hierarchy: PA_Hierarchy
-	UUID: ID!
-	PA_Measure_UU: String
+	UU: ID!
 	# Calculation method for measuring performance
 	PA_MeasureCalc: PA_MeasureCalc
 	# Performance Ratio
@@ -86,8 +85,7 @@ input PA_MeasureInput {
 	PA_Benchmark: ForeignEntityInput
 	# Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	PA_Hierarchy: ForeignEntityInput
-	UUID: ID
-	PA_Measure_UU: String
+	UU: ID
 	# Calculation method for measuring performance
 	PA_MeasureCalc: ForeignEntityInput
 	# Performance Ratio

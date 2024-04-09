@@ -33,12 +33,12 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_BP_EDI_UU to fetch this entity from the DB
+	 * @param UU The C_BP_EDI_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_BP_EDIInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_BP_EDIInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 			MSequence_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Sequence", "AD_Sequence_UU=?", get_TrxName())
-							.setParameters(AD_Sequence.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Sequence.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Sequence_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Sequence with UUID " + AD_Sequence.getUUID());
+						"Could not find entity in table AD_Sequence with UU " + AD_Sequence.getUU());
 			}
 		} else {
 			this.setAD_Sequence_ID(0);
@@ -124,20 +124,20 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_BP_EDI_UU(UUID);
+	public void setUU(String UU) {
+		setC_BP_EDI_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_BP_EDI_UU();
 	}
 
@@ -154,11 +154,11 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -188,11 +188,11 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(EDIType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(EDIType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEDIType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + EDIType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + EDIType.getUU());
 			}
 		} else {
 			this.setEDIType(null);
@@ -222,11 +222,11 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);

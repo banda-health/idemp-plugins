@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_GoalGet(page: Int, size: Int, sort: String, filter: String): PA_GoalConnection!
+	PA_GoalGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_GoalConnection!
 }
 
 extend type Mutation {
-	PA_GoalSave(entity: PA_GoalInput!): PA_Goal!
-	PA_GoalSaveMany(entities: [PA_GoalInput!]!): [PA_Goal!]!
-	PA_GoalDelete(uuids: [String!]!): Boolean!
+	PA_GoalSave(Entity: PA_GoalInput!): PA_Goal!
+	PA_GoalSaveMany(Entities: [PA_GoalInput!]!): [PA_Goal!]!
+	PA_GoalDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_GoalConnection {
-	results: [PA_Goal!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_Goal!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_Goal {
@@ -59,8 +59,7 @@ type PA_Goal {
 	Note: String
 	# Performance Color Schema
 	PA_ColorSchema: PA_ColorSchema!
-	UUID: ID!
-	PA_Goal_UU: String
+	UU: ID!
 	# Parent Goal
 	PA_GoalParent: PA_Goal
 	# Concrete Performance Measurement
@@ -112,8 +111,7 @@ input PA_GoalInput {
 	Note: String
 	# Performance Color Schema
 	PA_ColorSchema: ForeignEntityInput
-	UUID: ID
-	PA_Goal_UU: String
+	UU: ID
 	# Parent Goal
 	PA_GoalParent: ForeignEntityInput
 	# Concrete Performance Measurement

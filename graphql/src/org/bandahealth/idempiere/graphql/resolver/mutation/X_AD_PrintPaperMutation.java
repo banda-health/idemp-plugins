@@ -21,16 +21,16 @@ public class X_AD_PrintPaperMutation extends POMutation implements GraphQLMutati
 		return X_AD_PrintPaperInput.Table_Name;
 	}
 
-	public X_AD_PrintPaper AD_PrintPaperSave(I_AD_PrintPaperInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_PrintPaper) super.save((X_AD_PrintPaperInput) entity, environment);
+	public X_AD_PrintPaper AD_PrintPaperSave(I_AD_PrintPaperInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintPaper) super.save((X_AD_PrintPaperInput) Entity, environment);
 	}
 
-	public List<X_AD_PrintPaper> AD_PrintPaperSaveMany(List<I_AD_PrintPaperInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintPaperInput) entity).collect(Collectors.toList()),
+	public List<X_AD_PrintPaper> AD_PrintPaperSaveMany(List<I_AD_PrintPaperInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PrintPaperInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_PrintPaper) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PrintPaperDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PrintPaperDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

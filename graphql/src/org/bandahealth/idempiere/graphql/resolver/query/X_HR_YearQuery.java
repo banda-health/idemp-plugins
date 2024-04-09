@@ -17,8 +17,8 @@ public class X_HR_YearQuery extends POQuery<X_HR_Year> implements GraphQLQueryRe
 		return X_HR_Year.Table_Name;
 	}
 
-	public Connection<X_HR_Year> HR_YearGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Year> HR_YearGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

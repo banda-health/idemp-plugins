@@ -45,12 +45,12 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_DocumentStatus_UU to fetch this entity from the DB
+	 * @param UU The PA_DocumentStatus_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_DocumentStatusInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_DocumentStatusInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -66,11 +66,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MForm foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Form", "AD_Form_UU=?", get_TrxName())
-							.setParameters(AD_Form.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Form.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Form_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Form with UUID " + AD_Form.getUUID());
+						"Could not find entity in table AD_Form with UU " + AD_Form.getUU());
 			}
 		} else {
 			this.setAD_Form_ID(0);
@@ -103,11 +103,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -137,11 +137,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
 			this.setAD_Role_ID(0);
@@ -171,11 +171,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -205,11 +205,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -239,11 +239,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);
@@ -273,11 +273,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+						"Could not find entity in table C_Project with UU " + C_Project.getUU());
 			}
 		} else {
 			this.setC_Project_ID(0);
@@ -307,11 +307,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);
@@ -341,11 +341,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(Name_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Name_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setName_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + Name_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + Name_PrintColor.getUU());
 			}
 		} else {
 			this.setName_PrintColor_ID(0);
@@ -375,11 +375,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Name_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Name_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setName_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFont with UUID " + Name_PrintFont.getUUID());
+						"Could not find entity in table AD_PrintFont with UU " + Name_PrintFont.getUU());
 			}
 		} else {
 			this.setName_PrintFont_ID(0);
@@ -409,11 +409,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(Number_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Number_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNumber_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + Number_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + Number_PrintColor.getUU());
 			}
 		} else {
 			this.setNumber_PrintColor_ID(0);
@@ -443,11 +443,11 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Number_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Number_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNumber_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFont with UUID " + Number_PrintFont.getUUID());
+						"Could not find entity in table AD_PrintFont with UU " + Number_PrintFont.getUU());
 			}
 		} else {
 			this.setNumber_PrintFont_ID(0);
@@ -476,20 +476,20 @@ public class X_PA_DocumentStatusInput extends MDocumentStatus implements I_PA_Do
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_DocumentStatus_UU(UUID);
+	public void setUU(String UU) {
+		setPA_DocumentStatus_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_DocumentStatus_UU();
 	}
 }

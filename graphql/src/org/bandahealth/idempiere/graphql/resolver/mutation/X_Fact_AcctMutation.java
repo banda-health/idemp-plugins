@@ -21,16 +21,16 @@ public class X_Fact_AcctMutation extends POMutation implements GraphQLMutationRe
 		return X_Fact_AcctInput.Table_Name;
 	}
 
-	public MFactAcct Fact_AcctSave(I_Fact_AcctInput entity, DataFetchingEnvironment environment) {
-		return (MFactAcct) super.save((X_Fact_AcctInput) entity, environment);
+	public MFactAcct Fact_AcctSave(I_Fact_AcctInput Entity, DataFetchingEnvironment environment) {
+		return (MFactAcct) super.save((X_Fact_AcctInput) Entity, environment);
 	}
 
-	public List<MFactAcct> Fact_AcctSaveMany(List<I_Fact_AcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_Fact_AcctInput) entity).collect(Collectors.toList()),
+	public List<MFactAcct> Fact_AcctSaveMany(List<I_Fact_AcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_Fact_AcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MFactAcct) entity).collect(Collectors.toList());
 	}
 
-	public boolean Fact_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean Fact_AcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

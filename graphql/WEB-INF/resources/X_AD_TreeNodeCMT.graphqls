@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_TreeNodeCMTGet(page: Int, size: Int, sort: String, filter: String): AD_TreeNodeCMTConnection!
+	AD_TreeNodeCMTGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeCMTConnection!
 }
 
 extend type Mutation {
-	AD_TreeNodeCMTSave(entity: AD_TreeNodeCMTInput!): AD_TreeNodeCMT!
-	AD_TreeNodeCMTSaveMany(entities: [AD_TreeNodeCMTInput!]!): [AD_TreeNodeCMT!]!
-	AD_TreeNodeCMTDelete(uuids: [String!]!): Boolean!
+	AD_TreeNodeCMTSave(Entity: AD_TreeNodeCMTInput!): AD_TreeNodeCMT!
+	AD_TreeNodeCMTSaveMany(Entities: [AD_TreeNodeCMTInput!]!): [AD_TreeNodeCMT!]!
+	AD_TreeNodeCMTDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_TreeNodeCMTConnection {
-	results: [AD_TreeNodeCMT!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_TreeNodeCMT!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_TreeNodeCMT {
@@ -23,8 +23,7 @@ type AD_TreeNodeCMT {
 	AD_Org: AD_Org!
 	# Identifies a Tree
 	AD_Tree: AD_Tree!
-	UUID: ID!
-	AD_TreeNodeCMT_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -44,8 +43,7 @@ input AD_TreeNodeCMTInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Tree
 	AD_Tree: ForeignEntityInput
-	UUID: ID
-	AD_TreeNodeCMT_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Method of ordering records; lowest number comes first

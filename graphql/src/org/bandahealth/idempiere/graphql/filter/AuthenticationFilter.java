@@ -1,29 +1,29 @@
 package org.bandahealth.idempiere.graphql.filter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
+import org.compiere.model.MSession;
+import org.compiere.model.MSystem;
+import org.compiere.util.Env;
+import org.compiere.util.Util;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.ws.rs.HttpMethod;
+import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletResponse;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.HttpHeaders;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
-import org.bandahealth.idempiere.graphql.utils.StringUtil;
-import org.compiere.model.MSystem;
-import org.compiere.util.Env;
-import org.compiere.util.Util;
-
-import com.auth0.jwt.exceptions.JWTVerificationException;
 
 /**
  * Basic Authentication on all requests
@@ -37,7 +37,7 @@ public class AuthenticationFilter implements Filter {
 	/**
 	 * These are the queries that can be used without authentication
 	 */
-	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("signIn", "changePassword");
+	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("SignIn", "ChangePassword", "AD_LanguageGet");
 	/**
 	 * These are the queries that are available in non-PROD environments
 	 */
@@ -104,8 +104,22 @@ public class AuthenticationFilter implements Filter {
 		if (authHeaderVal != null && authHeaderVal.startsWith("Bearer")) {
 			try {
 				AuthenticationUtil.validate(authHeaderVal.split(" ")[1], Env.getCtx());
+				MSession session = MSession.get(Env.getCtx());
+//				if (session.isProcessed()) {
+//					// is possible that the session was finished in a reboot instead of a logout
+//					// if there is a REST_AuthToken or a REST_RefreshToken, then the user has not logged out
+//					MAuthToken authToken = MAuthToken.get(Env.getCtx(), token);
+//					if (authToken != null || MRefreshToken.exists(token)) {
+//						DB.executeUpdateEx(
+//								"UPDATE AD_Session SET Processed='N', UpdatedBy=CreatedBy, Updated=getDate() WHERE AD_Session_ID=?",
+//								new Object[]{AD_Session_ID}, null);
+//						session.load(session.get_TrxName());
+//					} else {
+//						requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+//					}
+//				}
 				if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))
-						|| Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID))) {
+						|| Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID)) || session.isProcessed()) {
 					abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
 					return;
 				}

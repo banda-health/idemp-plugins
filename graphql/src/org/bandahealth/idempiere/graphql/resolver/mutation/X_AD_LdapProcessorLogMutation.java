@@ -21,16 +21,16 @@ public class X_AD_LdapProcessorLogMutation extends POMutation implements GraphQL
 		return X_AD_LdapProcessorLogInput.Table_Name;
 	}
 
-	public MLdapProcessorLog AD_LdapProcessorLogSave(I_AD_LdapProcessorLogInput entity, DataFetchingEnvironment environment) {
-		return (MLdapProcessorLog) super.save((X_AD_LdapProcessorLogInput) entity, environment);
+	public MLdapProcessorLog AD_LdapProcessorLogSave(I_AD_LdapProcessorLogInput Entity, DataFetchingEnvironment environment) {
+		return (MLdapProcessorLog) super.save((X_AD_LdapProcessorLogInput) Entity, environment);
 	}
 
-	public List<MLdapProcessorLog> AD_LdapProcessorLogSaveMany(List<I_AD_LdapProcessorLogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_LdapProcessorLogInput) entity).collect(Collectors.toList()),
+	public List<MLdapProcessorLog> AD_LdapProcessorLogSaveMany(List<I_AD_LdapProcessorLogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_LdapProcessorLogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MLdapProcessorLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_LdapProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_LdapProcessorLogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

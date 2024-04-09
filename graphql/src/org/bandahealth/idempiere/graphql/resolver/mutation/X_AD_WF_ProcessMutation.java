@@ -21,16 +21,16 @@ public class X_AD_WF_ProcessMutation extends POMutation implements GraphQLMutati
 		return X_AD_WF_ProcessInput.Table_Name;
 	}
 
-	public X_AD_WF_Process AD_WF_ProcessSave(I_AD_WF_ProcessInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_WF_Process) super.save((X_AD_WF_ProcessInput) entity, environment);
+	public X_AD_WF_Process AD_WF_ProcessSave(I_AD_WF_ProcessInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_Process) super.save((X_AD_WF_ProcessInput) Entity, environment);
 	}
 
-	public List<X_AD_WF_Process> AD_WF_ProcessSaveMany(List<I_AD_WF_ProcessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_ProcessInput) entity).collect(Collectors.toList()),
+	public List<X_AD_WF_Process> AD_WF_ProcessSaveMany(List<I_AD_WF_ProcessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WF_ProcessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_WF_Process) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WF_ProcessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WF_ProcessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

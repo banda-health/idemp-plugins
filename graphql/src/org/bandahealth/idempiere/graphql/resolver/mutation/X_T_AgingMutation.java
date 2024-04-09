@@ -21,16 +21,16 @@ public class X_T_AgingMutation extends POMutation implements GraphQLMutationReso
 		return X_T_AgingInput.Table_Name;
 	}
 
-	public MAging T_AgingSave(I_T_AgingInput entity, DataFetchingEnvironment environment) {
-		return (MAging) super.save((X_T_AgingInput) entity, environment);
+	public MAging T_AgingSave(I_T_AgingInput Entity, DataFetchingEnvironment environment) {
+		return (MAging) super.save((X_T_AgingInput) Entity, environment);
 	}
 
-	public List<MAging> T_AgingSaveMany(List<I_T_AgingInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_T_AgingInput) entity).collect(Collectors.toList()),
+	public List<MAging> T_AgingSaveMany(List<I_T_AgingInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_T_AgingInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAging) entity).collect(Collectors.toList());
 	}
 
-	public boolean T_AgingDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean T_AgingDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

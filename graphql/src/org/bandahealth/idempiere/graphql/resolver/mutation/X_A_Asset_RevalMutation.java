@@ -21,16 +21,16 @@ public class X_A_Asset_RevalMutation extends POMutation implements GraphQLMutati
 		return X_A_Asset_RevalInput.Table_Name;
 	}
 
-	public MAssetReval A_Asset_RevalSave(I_A_Asset_RevalInput entity, DataFetchingEnvironment environment) {
-		return (MAssetReval) super.save((X_A_Asset_RevalInput) entity, environment);
+	public MAssetReval A_Asset_RevalSave(I_A_Asset_RevalInput Entity, DataFetchingEnvironment environment) {
+		return (MAssetReval) super.save((X_A_Asset_RevalInput) Entity, environment);
 	}
 
-	public List<MAssetReval> A_Asset_RevalSaveMany(List<I_A_Asset_RevalInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_RevalInput) entity).collect(Collectors.toList()),
+	public List<MAssetReval> A_Asset_RevalSaveMany(List<I_A_Asset_RevalInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_RevalInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAssetReval) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_RevalDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_RevalDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

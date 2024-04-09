@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_SchedulerGet(page: Int, size: Int, sort: String, filter: String): AD_SchedulerConnection!
+	AD_SchedulerGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SchedulerConnection!
 }
 
 extend type Mutation {
-	AD_SchedulerSave(entity: AD_SchedulerInput!): AD_Scheduler!
-	AD_SchedulerSaveMany(entities: [AD_SchedulerInput!]!): [AD_Scheduler!]!
-	AD_SchedulerDelete(uuids: [String!]!): Boolean!
+	AD_SchedulerSave(Entity: AD_SchedulerInput!): AD_Scheduler!
+	AD_SchedulerSaveMany(Entities: [AD_SchedulerInput!]!): [AD_Scheduler!]!
+	AD_SchedulerDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_SchedulerConnection {
-	results: [AD_Scheduler!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Scheduler!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Scheduler {
@@ -26,8 +26,7 @@ type AD_Scheduler {
 	# Process or Report
 	AD_Process: AD_Process!
 	AD_Schedule: AD_Schedule!
-	UUID: ID!
-	AD_Scheduler_UU: String
+	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table
 	# Date this record was created
@@ -68,8 +67,7 @@ input AD_SchedulerInput {
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
-	UUID: ID
-	AD_Scheduler_UU: String
+	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Date the process was last run.

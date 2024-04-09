@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CalendarGet(page: Int, size: Int, sort: String, filter: String): C_CalendarConnection!
+	C_CalendarGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CalendarConnection!
 }
 
 extend type Mutation {
-	C_CalendarSave(entity: C_CalendarInput!): C_Calendar!
-	C_CalendarSaveMany(entities: [C_CalendarInput!]!): [C_Calendar!]!
-	C_CalendarDelete(uuids: [String!]!): Boolean!
+	C_CalendarSave(Entity: C_CalendarInput!): C_Calendar!
+	C_CalendarSaveMany(Entities: [C_CalendarInput!]!): [C_Calendar!]!
+	C_CalendarDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CalendarConnection {
-	results: [C_Calendar!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Calendar!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Calendar {
@@ -21,8 +21,7 @@ type C_Calendar {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_Calendar_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,8 +41,7 @@ type C_Calendar {
 input C_CalendarInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_Calendar_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

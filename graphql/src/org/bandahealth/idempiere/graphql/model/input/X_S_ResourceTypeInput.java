@@ -31,12 +31,12 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The S_ResourceType_UU to fetch this entity from the DB
+	 * @param UU The S_ResourceType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_S_ResourceTypeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_S_ResourceTypeInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 			MTaxCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_TaxCategory with UUID " + C_TaxCategory.getUUID());
+						"Could not find entity in table C_TaxCategory with UU " + C_TaxCategory.getUU());
 			}
 		} else {
 			this.setC_TaxCategory_ID(0);
@@ -123,11 +123,11 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
+						"Could not find entity in table C_UOM with UU " + C_UOM.getUU());
 			}
 		} else {
 			this.setC_UOM_ID(0);
@@ -157,11 +157,11 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
+						"Could not find entity in table M_Product_Category with UU " + M_Product_Category.getUU());
 			}
 		} else {
 			this.setM_Product_Category_ID(0);
@@ -190,20 +190,20 @@ public class X_S_ResourceTypeInput extends MResourceType implements I_S_Resource
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setS_ResourceType_UU(UUID);
+	public void setUU(String UU) {
+		setS_ResourceType_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getS_ResourceType_UU();
 	}
 }

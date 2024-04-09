@@ -21,16 +21,16 @@ public class X_M_DemandLineMutation extends POMutation implements GraphQLMutatio
 		return X_M_DemandLineInput.Table_Name;
 	}
 
-	public X_M_DemandLine M_DemandLineSave(I_M_DemandLineInput entity, DataFetchingEnvironment environment) {
-		return (X_M_DemandLine) super.save((X_M_DemandLineInput) entity, environment);
+	public X_M_DemandLine M_DemandLineSave(I_M_DemandLineInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_DemandLine) super.save((X_M_DemandLineInput) Entity, environment);
 	}
 
-	public List<X_M_DemandLine> M_DemandLineSaveMany(List<I_M_DemandLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_DemandLineInput) entity).collect(Collectors.toList()),
+	public List<X_M_DemandLine> M_DemandLineSaveMany(List<I_M_DemandLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_DemandLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_DemandLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_DemandLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_DemandLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -39,18 +39,18 @@ public interface I_BH_Role_WarehouseAccessInput extends I_BH_Role_WarehouseAcces
 	ForeignEntityInput BH_Role_WarehouseAccess();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set M_Warehouse.

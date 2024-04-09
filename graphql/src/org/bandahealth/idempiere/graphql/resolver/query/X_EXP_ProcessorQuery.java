@@ -17,8 +17,8 @@ public class X_EXP_ProcessorQuery extends POQuery<MEXPProcessor> implements Grap
 		return MEXPProcessor.Table_Name;
 	}
 
-	public Connection<MEXPProcessor> EXP_ProcessorGet(int page, int pageSize, String sort, String filter,
+	public Connection<MEXPProcessor> EXP_ProcessorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

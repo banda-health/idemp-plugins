@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ProjectLineGet(page: Int, size: Int, sort: String, filter: String): C_ProjectLineConnection!
+	C_ProjectLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectLineConnection!
 }
 
 extend type Mutation {
-	C_ProjectLineSave(entity: C_ProjectLineInput!): C_ProjectLine!
-	C_ProjectLineSaveMany(entities: [C_ProjectLineInput!]!): [C_ProjectLine!]!
-	C_ProjectLineDelete(uuids: [String!]!): Boolean!
+	C_ProjectLineSave(Entity: C_ProjectLineInput!): C_ProjectLine!
+	C_ProjectLineSaveMany(Entities: [C_ProjectLineInput!]!): [C_ProjectLine!]!
+	C_ProjectLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ProjectLineConnection {
-	results: [C_ProjectLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ProjectLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ProjectLine {
@@ -29,8 +29,7 @@ type C_ProjectLine {
 	C_Project: C_Project!
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue
-	UUID: ID!
-	C_ProjectLine_UU: String
+	UU: ID!
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase
 	# Actual Project Task in a Phase
@@ -89,8 +88,7 @@ input C_ProjectLineInput {
 	C_Project: ForeignEntityInput
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput
-	UUID: ID
-	C_ProjectLine_UU: String
+	UU: ID
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput
 	# Actual Project Task in a Phase

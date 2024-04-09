@@ -21,16 +21,16 @@ public class X_A_Asset_ClassMutation extends POMutation implements GraphQLMutati
 		return X_A_Asset_ClassInput.Table_Name;
 	}
 
-	public MAssetClass A_Asset_ClassSave(I_A_Asset_ClassInput entity, DataFetchingEnvironment environment) {
-		return (MAssetClass) super.save((X_A_Asset_ClassInput) entity, environment);
+	public MAssetClass A_Asset_ClassSave(I_A_Asset_ClassInput Entity, DataFetchingEnvironment environment) {
+		return (MAssetClass) super.save((X_A_Asset_ClassInput) Entity, environment);
 	}
 
-	public List<MAssetClass> A_Asset_ClassSaveMany(List<I_A_Asset_ClassInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_ClassInput) entity).collect(Collectors.toList()),
+	public List<MAssetClass> A_Asset_ClassSaveMany(List<I_A_Asset_ClassInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_ClassInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAssetClass) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_ClassDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_ClassDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_T_1099ExtractQuery extends POQuery<X_T_1099Extract> implements Gr
 		return X_T_1099Extract.Table_Name;
 	}
 
-	public Connection<X_T_1099Extract> T_1099ExtractGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_T_1099Extract> T_1099ExtractGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

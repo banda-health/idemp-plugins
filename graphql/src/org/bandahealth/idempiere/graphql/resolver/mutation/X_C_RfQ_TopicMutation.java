@@ -21,16 +21,16 @@ public class X_C_RfQ_TopicMutation extends POMutation implements GraphQLMutation
 		return X_C_RfQ_TopicInput.Table_Name;
 	}
 
-	public MRfQTopic C_RfQ_TopicSave(I_C_RfQ_TopicInput entity, DataFetchingEnvironment environment) {
-		return (MRfQTopic) super.save((X_C_RfQ_TopicInput) entity, environment);
+	public MRfQTopic C_RfQ_TopicSave(I_C_RfQ_TopicInput Entity, DataFetchingEnvironment environment) {
+		return (MRfQTopic) super.save((X_C_RfQ_TopicInput) Entity, environment);
 	}
 
-	public List<MRfQTopic> C_RfQ_TopicSaveMany(List<I_C_RfQ_TopicInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RfQ_TopicInput) entity).collect(Collectors.toList()),
+	public List<MRfQTopic> C_RfQ_TopicSaveMany(List<I_C_RfQ_TopicInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RfQ_TopicInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRfQTopic) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RfQ_TopicDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RfQ_TopicDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_Recurring_RunMutation extends POMutation implements GraphQLMuta
 		return X_C_Recurring_RunInput.Table_Name;
 	}
 
-	public MRecurringRun C_Recurring_RunSave(I_C_Recurring_RunInput entity, DataFetchingEnvironment environment) {
-		return (MRecurringRun) super.save((X_C_Recurring_RunInput) entity, environment);
+	public MRecurringRun C_Recurring_RunSave(I_C_Recurring_RunInput Entity, DataFetchingEnvironment environment) {
+		return (MRecurringRun) super.save((X_C_Recurring_RunInput) Entity, environment);
 	}
 
-	public List<MRecurringRun> C_Recurring_RunSaveMany(List<I_C_Recurring_RunInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_Recurring_RunInput) entity).collect(Collectors.toList()),
+	public List<MRecurringRun> C_Recurring_RunSaveMany(List<I_C_Recurring_RunInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_Recurring_RunInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRecurringRun) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_Recurring_RunDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_Recurring_RunDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

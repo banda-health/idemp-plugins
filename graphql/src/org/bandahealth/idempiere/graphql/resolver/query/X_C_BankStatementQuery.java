@@ -17,8 +17,8 @@ public class X_C_BankStatementQuery extends POQuery<MBankStatement> implements G
 		return MBankStatement.Table_Name;
 	}
 
-	public Connection<MBankStatement> C_BankStatementGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBankStatement> C_BankStatementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

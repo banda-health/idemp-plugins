@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	HR_ListLineGet(page: Int, size: Int, sort: String, filter: String): HR_ListLineConnection!
+	HR_ListLineGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListLineConnection!
 }
 
 extend type Mutation {
-	HR_ListLineSave(entity: HR_ListLineInput!): HR_ListLine!
-	HR_ListLineSaveMany(entities: [HR_ListLineInput!]!): [HR_ListLine!]!
-	HR_ListLineDelete(uuids: [String!]!): Boolean!
+	HR_ListLineSave(Entity: HR_ListLineInput!): HR_ListLine!
+	HR_ListLineSaveMany(Entities: [HR_ListLineInput!]!): [HR_ListLine!]!
+	HR_ListLineDelete(UUs: [String!]!): Boolean!
 }
 
 type HR_ListLineConnection {
-	results: [HR_ListLine!]!
-	pagingInfo: PagingInfo!
+	Results: [HR_ListLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type HR_ListLine {
@@ -33,8 +33,7 @@ type HR_ListLine {
 	Created: Date!
 	# User who created this records
 	CreatedBy: AD_User!
-	UUID: ID!
-	HR_ListLine_UU: String
+	UU: ID!
 	HR_ListVersion: HR_ListVersion
 	# The record is active in the system
 	IsActive: Boolean!
@@ -59,8 +58,7 @@ input HR_ListLineInput {
 	Col_6: BigDecimal
 	Col_7: BigDecimal
 	Col_8: BigDecimal
-	UUID: ID
-	HR_ListLine_UU: String
+	UU: ID
 	HR_ListVersion: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

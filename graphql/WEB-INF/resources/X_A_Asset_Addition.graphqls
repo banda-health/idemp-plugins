@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_AdditionGet(page: Int, size: Int, sort: String, filter: String): A_Asset_AdditionConnection!
+	A_Asset_AdditionGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_AdditionConnection!
 }
 
 extend type Mutation {
-	A_Asset_AdditionSave(entity: A_Asset_AdditionInput!): A_Asset_Addition!
-	A_Asset_AdditionSaveMany(entities: [A_Asset_AdditionInput!]!): [A_Asset_Addition!]!
-	A_Asset_AdditionDelete(uuids: [String!]!): Boolean!
+	A_Asset_AdditionSave(Entity: A_Asset_AdditionInput!): A_Asset_Addition!
+	A_Asset_AdditionSaveMany(Entities: [A_Asset_AdditionInput!]!): [A_Asset_Addition!]!
+	A_Asset_AdditionDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_AdditionConnection {
-	results: [A_Asset_Addition!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Addition!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Addition {
-	UUID: ID!
-	A_Asset_Addition_UU: String
+	UU: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_CapvsExp: AD_Ref_List!
@@ -103,8 +102,7 @@ type A_Asset_Addition {
 }
 
 input A_Asset_AdditionInput {
-	UUID: ID
-	A_Asset_Addition_UU: String
+	UU: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_CapvsExp: AD_Ref_ListInput

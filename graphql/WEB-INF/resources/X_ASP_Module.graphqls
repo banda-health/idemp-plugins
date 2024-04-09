@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	ASP_ModuleGet(page: Int, size: Int, sort: String, filter: String): ASP_ModuleConnection!
+	ASP_ModuleGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ModuleConnection!
 }
 
 extend type Mutation {
-	ASP_ModuleSave(entity: ASP_ModuleInput!): ASP_Module!
-	ASP_ModuleSaveMany(entities: [ASP_ModuleInput!]!): [ASP_Module!]!
-	ASP_ModuleDelete(uuids: [String!]!): Boolean!
+	ASP_ModuleSave(Entity: ASP_ModuleInput!): ASP_Module!
+	ASP_ModuleSaveMany(Entities: [ASP_ModuleInput!]!): [ASP_Module!]!
+	ASP_ModuleDelete(UUs: [String!]!): Boolean!
 }
 
 type ASP_ModuleConnection {
-	results: [ASP_Module!]!
-	pagingInfo: PagingInfo!
+	Results: [ASP_Module!]!
+	PagingInfo: PagingInfo!
 }
 
 type ASP_Module {
@@ -21,8 +21,7 @@ type ASP_Module {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	ASP_Module_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ type ASP_Module {
 input ASP_ModuleInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	ASP_Module_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

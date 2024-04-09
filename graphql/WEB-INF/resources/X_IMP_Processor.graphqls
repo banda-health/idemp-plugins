@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	IMP_ProcessorGet(page: Int, size: Int, sort: String, filter: String): IMP_ProcessorConnection!
+	IMP_ProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_ProcessorConnection!
 }
 
 extend type Mutation {
-	IMP_ProcessorSave(entity: IMP_ProcessorInput!): IMP_Processor!
-	IMP_ProcessorSaveMany(entities: [IMP_ProcessorInput!]!): [IMP_Processor!]!
-	IMP_ProcessorDelete(uuids: [String!]!): Boolean!
+	IMP_ProcessorSave(Entity: IMP_ProcessorInput!): IMP_Processor!
+	IMP_ProcessorSaveMany(Entities: [IMP_ProcessorInput!]!): [IMP_Processor!]!
+	IMP_ProcessorDelete(UUs: [String!]!): Boolean!
 }
 
 type IMP_ProcessorConnection {
-	results: [IMP_Processor!]!
-	pagingInfo: PagingInfo!
+	Results: [IMP_Processor!]!
+	PagingInfo: PagingInfo!
 }
 
 type IMP_Processor {
@@ -40,8 +40,7 @@ type IMP_Processor {
 	Help: String
 	Host: String
 	IMP_Processor_Type: IMP_Processor_Type!
-	UUID: ID!
-	IMP_Processor_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Number of days to keep the log entries
@@ -77,8 +76,7 @@ input IMP_ProcessorInput {
 	Help: String
 	Host: String
 	IMP_Processor_Type: ForeignEntityInput
-	UUID: ID
-	IMP_Processor_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Number of days to keep the log entries

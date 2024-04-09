@@ -21,16 +21,16 @@ public class X_ASP_LevelMutation extends POMutation implements GraphQLMutationRe
 		return X_ASP_LevelInput.Table_Name;
 	}
 
-	public X_ASP_Level ASP_LevelSave(I_ASP_LevelInput entity, DataFetchingEnvironment environment) {
-		return (X_ASP_Level) super.save((X_ASP_LevelInput) entity, environment);
+	public X_ASP_Level ASP_LevelSave(I_ASP_LevelInput Entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Level) super.save((X_ASP_LevelInput) Entity, environment);
 	}
 
-	public List<X_ASP_Level> ASP_LevelSaveMany(List<I_ASP_LevelInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_ASP_LevelInput) entity).collect(Collectors.toList()),
+	public List<X_ASP_Level> ASP_LevelSaveMany(List<I_ASP_LevelInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_ASP_LevelInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_ASP_Level) entity).collect(Collectors.toList());
 	}
 
-	public boolean ASP_LevelDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean ASP_LevelDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_TaskInstanceGet(page: Int, size: Int, sort: String, filter: String): AD_TaskInstanceConnection!
+	AD_TaskInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TaskInstanceConnection!
 }
 
 extend type Mutation {
-	AD_TaskInstanceSave(entity: AD_TaskInstanceInput!): AD_TaskInstance!
-	AD_TaskInstanceSaveMany(entities: [AD_TaskInstanceInput!]!): [AD_TaskInstance!]!
-	AD_TaskInstanceDelete(uuids: [String!]!): Boolean!
+	AD_TaskInstanceSave(Entity: AD_TaskInstanceInput!): AD_TaskInstance!
+	AD_TaskInstanceSaveMany(Entities: [AD_TaskInstanceInput!]!): [AD_TaskInstance!]!
+	AD_TaskInstanceDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_TaskInstanceConnection {
-	results: [AD_TaskInstance!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_TaskInstance!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_TaskInstance {
@@ -23,8 +23,7 @@ type AD_TaskInstance {
 	AD_Org: AD_Org!
 	# Operation System Task
 	AD_Task: AD_Task!
-	UUID: ID!
-	AD_TaskInstance_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -42,8 +41,7 @@ input AD_TaskInstanceInput {
 	AD_Org: ForeignEntityInput
 	# Operation System Task
 	AD_Task: ForeignEntityInput
-	UUID: ID
-	AD_TaskInstance_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 }

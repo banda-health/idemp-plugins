@@ -17,8 +17,8 @@ public class X_M_LocatorTypeQuery extends POQuery<MLocatorType> implements Graph
 		return MLocatorType.Table_Name;
 	}
 
-	public Connection<MLocatorType> M_LocatorTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MLocatorType> M_LocatorTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

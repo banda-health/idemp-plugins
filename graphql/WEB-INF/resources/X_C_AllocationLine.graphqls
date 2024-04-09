@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_AllocationLineGet(page: Int, size: Int, sort: String, filter: String): C_AllocationLineConnection!
+	C_AllocationLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AllocationLineConnection!
 }
 
 extend type Mutation {
-	C_AllocationLineSave(entity: C_AllocationLineInput!): C_AllocationLine!
-	C_AllocationLineSaveMany(entities: [C_AllocationLineInput!]!): [C_AllocationLine!]!
-	C_AllocationLineDelete(uuids: [String!]!): Boolean!
+	C_AllocationLineSave(Entity: C_AllocationLineInput!): C_AllocationLine!
+	C_AllocationLineSaveMany(Entities: [C_AllocationLineInput!]!): [C_AllocationLine!]!
+	C_AllocationLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_AllocationLineConnection {
-	results: [C_AllocationLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_AllocationLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_AllocationLine {
@@ -25,8 +25,7 @@ type C_AllocationLine {
 	Amount: BigDecimal!
 	# Payment allocation
 	C_AllocationHdr: C_AllocationHdr!
-	UUID: ID!
-	C_AllocationLine_UU: String
+	UU: ID!
 	# Bank Transfer
 	C_BankTransfer: C_BankTransfer
 	# Identifies a Business Partner
@@ -70,8 +69,7 @@ input C_AllocationLineInput {
 	Amount: BigDecimal
 	# Payment allocation
 	C_AllocationHdr: ForeignEntityInput
-	UUID: ID
-	C_AllocationLine_UU: String
+	UU: ID
 	# Bank Transfer
 	C_BankTransfer: ForeignEntityInput
 	# Identifies a Business Partner

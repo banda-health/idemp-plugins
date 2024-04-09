@@ -21,16 +21,16 @@ public class X_PA_RatioMutation extends POMutation implements GraphQLMutationRes
 		return X_PA_RatioInput.Table_Name;
 	}
 
-	public X_PA_Ratio PA_RatioSave(I_PA_RatioInput entity, DataFetchingEnvironment environment) {
-		return (X_PA_Ratio) super.save((X_PA_RatioInput) entity, environment);
+	public X_PA_Ratio PA_RatioSave(I_PA_RatioInput Entity, DataFetchingEnvironment environment) {
+		return (X_PA_Ratio) super.save((X_PA_RatioInput) Entity, environment);
 	}
 
-	public List<X_PA_Ratio> PA_RatioSaveMany(List<I_PA_RatioInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_RatioInput) entity).collect(Collectors.toList()),
+	public List<X_PA_Ratio> PA_RatioSaveMany(List<I_PA_RatioInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_RatioInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PA_Ratio) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_RatioDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_RatioDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

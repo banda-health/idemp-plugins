@@ -17,8 +17,8 @@ public class X_C_TaxPostalQuery extends POQuery<MTaxPostal> implements GraphQLQu
 		return MTaxPostal.Table_Name;
 	}
 
-	public Connection<MTaxPostal> C_TaxPostalGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTaxPostal> C_TaxPostalGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

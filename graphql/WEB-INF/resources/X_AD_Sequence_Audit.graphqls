@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Sequence_AuditGet(page: Int, size: Int, sort: String, filter: String): AD_Sequence_AuditConnection!
+	AD_Sequence_AuditGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Sequence_AuditConnection!
 }
 
 extend type Mutation {
-	AD_Sequence_AuditSave(entity: AD_Sequence_AuditInput!): AD_Sequence_Audit!
-	AD_Sequence_AuditSaveMany(entities: [AD_Sequence_AuditInput!]!): [AD_Sequence_Audit!]!
-	AD_Sequence_AuditDelete(uuids: [String!]!): Boolean!
+	AD_Sequence_AuditSave(Entity: AD_Sequence_AuditInput!): AD_Sequence_Audit!
+	AD_Sequence_AuditSaveMany(Entities: [AD_Sequence_AuditInput!]!): [AD_Sequence_Audit!]!
+	AD_Sequence_AuditDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Sequence_AuditConnection {
-	results: [AD_Sequence_Audit!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Sequence_Audit!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Sequence_Audit {
@@ -21,8 +21,7 @@ type AD_Sequence_Audit {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Sequence_Audit_UU: String
+	UU: ID!
 	# Document Sequence
 	AD_Sequence: AD_Sequence!
 	# Database Table information
@@ -44,8 +43,7 @@ type AD_Sequence_Audit {
 input AD_Sequence_AuditInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Sequence_Audit_UU: String
+	UU: ID
 	# Document Sequence
 	AD_Sequence: ForeignEntityInput
 	# Database Table information

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	IMP_Processor_TypeGet(page: Int, size: Int, sort: String, filter: String): IMP_Processor_TypeConnection!
+	IMP_Processor_TypeGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_Processor_TypeConnection!
 }
 
 extend type Mutation {
-	IMP_Processor_TypeSave(entity: IMP_Processor_TypeInput!): IMP_Processor_Type!
-	IMP_Processor_TypeSaveMany(entities: [IMP_Processor_TypeInput!]!): [IMP_Processor_Type!]!
-	IMP_Processor_TypeDelete(uuids: [String!]!): Boolean!
+	IMP_Processor_TypeSave(Entity: IMP_Processor_TypeInput!): IMP_Processor_Type!
+	IMP_Processor_TypeSaveMany(Entities: [IMP_Processor_TypeInput!]!): [IMP_Processor_Type!]!
+	IMP_Processor_TypeDelete(UUs: [String!]!): Boolean!
 }
 
 type IMP_Processor_TypeConnection {
-	results: [IMP_Processor_Type!]!
-	pagingInfo: PagingInfo!
+	Results: [IMP_Processor_Type!]!
+	PagingInfo: PagingInfo!
 }
 
 type IMP_Processor_Type {
@@ -29,8 +29,7 @@ type IMP_Processor_Type {
 	Description: String
 	# Comment or Hint
 	Help: String
-	UUID: ID!
-	IMP_Processor_Type_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	JavaClass: String!
@@ -51,8 +50,7 @@ input IMP_Processor_TypeInput {
 	Description: String
 	# Comment or Hint
 	Help: String
-	UUID: ID
-	IMP_Processor_Type_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	JavaClass: String

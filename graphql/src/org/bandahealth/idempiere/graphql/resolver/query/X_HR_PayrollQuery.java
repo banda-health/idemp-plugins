@@ -17,8 +17,8 @@ public class X_HR_PayrollQuery extends POQuery<X_HR_Payroll> implements GraphQLQ
 		return X_HR_Payroll.Table_Name;
 	}
 
-	public Connection<X_HR_Payroll> HR_PayrollGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Payroll> HR_PayrollGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

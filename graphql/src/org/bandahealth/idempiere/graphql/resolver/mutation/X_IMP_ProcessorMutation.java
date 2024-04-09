@@ -21,16 +21,16 @@ public class X_IMP_ProcessorMutation extends POMutation implements GraphQLMutati
 		return X_IMP_ProcessorInput.Table_Name;
 	}
 
-	public MIMPProcessor IMP_ProcessorSave(I_IMP_ProcessorInput entity, DataFetchingEnvironment environment) {
-		return (MIMPProcessor) super.save((X_IMP_ProcessorInput) entity, environment);
+	public MIMPProcessor IMP_ProcessorSave(I_IMP_ProcessorInput Entity, DataFetchingEnvironment environment) {
+		return (MIMPProcessor) super.save((X_IMP_ProcessorInput) Entity, environment);
 	}
 
-	public List<MIMPProcessor> IMP_ProcessorSaveMany(List<I_IMP_ProcessorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_IMP_ProcessorInput) entity).collect(Collectors.toList()),
+	public List<MIMPProcessor> IMP_ProcessorSaveMany(List<I_IMP_ProcessorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_IMP_ProcessorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MIMPProcessor) entity).collect(Collectors.toList());
 	}
 
-	public boolean IMP_ProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean IMP_ProcessorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

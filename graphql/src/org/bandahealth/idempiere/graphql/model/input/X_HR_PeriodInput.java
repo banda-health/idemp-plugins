@@ -33,12 +33,12 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The HR_Period_UU to fetch this entity from the DB
+	 * @param UU The HR_Period_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_PeriodInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_HR_PeriodInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+						"Could not find entity in table C_Period with UU " + C_Period.getUU());
 			}
 		} else {
 			this.setC_Period_ID(0);
@@ -125,11 +125,11 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			MYear foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Year", "C_Year_UU=?", get_TrxName())
-							.setParameters(C_Year.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Year with UUID " + C_Year.getUUID());
+						"Could not find entity in table C_Year with UU " + C_Year.getUU());
 			}
 		} else {
 			this.setC_Year_ID(0);
@@ -159,11 +159,11 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			X_HR_Payroll foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Payroll", "HR_Payroll_UU=?", get_TrxName())
-							.setParameters(HR_Payroll.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Payroll.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Payroll_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table HR_Payroll with UUID " + HR_Payroll.getUUID());
+						"Could not find entity in table HR_Payroll with UU " + HR_Payroll.getUU());
 			}
 		} else {
 			this.setHR_Payroll_ID(0);
@@ -192,20 +192,20 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setHR_Period_UU(UUID);
+	public void setUU(String UU) {
+		setHR_Period_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getHR_Period_UU();
 	}
 
@@ -225,11 +225,11 @@ public class X_HR_PeriodInput extends X_HR_Period implements I_HR_PeriodInput {
 			X_HR_Year foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Year", "HR_Year_UU=?", get_TrxName())
-							.setParameters(HR_Year.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Year.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Year_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table HR_Year with UUID " + HR_Year.getUUID());
+						"Could not find entity in table HR_Year with UU " + HR_Year.getUU());
 			}
 		} else {
 			this.setHR_Year_ID(0);

@@ -17,8 +17,8 @@ public class X_AD_Tab_CustomizationQuery extends POQuery<X_AD_Tab_Customization>
 		return X_AD_Tab_Customization.Table_Name;
 	}
 
-	public Connection<X_AD_Tab_Customization> AD_Tab_CustomizationGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_Tab_Customization> AD_Tab_CustomizationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

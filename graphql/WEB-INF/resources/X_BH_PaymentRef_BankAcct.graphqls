@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_PaymentRef_BankAcctGet(page: Int, size: Int, sort: String, filter: String): BH_PaymentRef_BankAcctConnection!
+	BH_PaymentRef_BankAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_PaymentRef_BankAcctConnection!
 }
 
 extend type Mutation {
-	BH_PaymentRef_BankAcctSave(entity: BH_PaymentRef_BankAcctInput!): BH_PaymentRef_BankAcct!
-	BH_PaymentRef_BankAcctSaveMany(entities: [BH_PaymentRef_BankAcctInput!]!): [BH_PaymentRef_BankAcct!]!
-	BH_PaymentRef_BankAcctDelete(uuids: [String!]!): Boolean!
+	BH_PaymentRef_BankAcctSave(Entity: BH_PaymentRef_BankAcctInput!): BH_PaymentRef_BankAcct!
+	BH_PaymentRef_BankAcctSaveMany(Entities: [BH_PaymentRef_BankAcctInput!]!): [BH_PaymentRef_BankAcct!]!
+	BH_PaymentRef_BankAcctDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_PaymentRef_BankAcctConnection {
-	results: [BH_PaymentRef_BankAcct!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_PaymentRef_BankAcct!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_PaymentRef_BankAcct {
@@ -23,8 +23,7 @@ type BH_PaymentRef_BankAcct {
 	AD_Org: AD_Org!
 	# Reference List based on Table
 	AD_Ref_List: AD_Ref_List
-	UUID: ID!
-	BH_PaymentRef_BankAcct_UU: String
+	UU: ID!
 	BH_PaymentRef: BH_PaymentRef!
 	# The value of the payment reference list entry
 	BH_PaymentRefList_Value: String
@@ -52,8 +51,7 @@ input BH_PaymentRef_BankAcctInput {
 	AD_Org: ForeignEntityInput
 	# Reference List based on Table
 	AD_Ref_List: ForeignEntityInput
-	UUID: ID
-	BH_PaymentRef_BankAcct_UU: String
+	UU: ID
 	BH_PaymentRef: ForeignEntityInput
 	# The value of the payment reference list entry
 	BH_PaymentRefList_Value: String

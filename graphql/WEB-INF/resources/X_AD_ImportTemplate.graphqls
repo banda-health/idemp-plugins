@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ImportTemplateGet(page: Int, size: Int, sort: String, filter: String): AD_ImportTemplateConnection!
+	AD_ImportTemplateGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImportTemplateConnection!
 }
 
 extend type Mutation {
-	AD_ImportTemplateSave(entity: AD_ImportTemplateInput!): AD_ImportTemplate!
-	AD_ImportTemplateSaveMany(entities: [AD_ImportTemplateInput!]!): [AD_ImportTemplate!]!
-	AD_ImportTemplateDelete(uuids: [String!]!): Boolean!
+	AD_ImportTemplateSave(Entity: AD_ImportTemplateInput!): AD_ImportTemplate!
+	AD_ImportTemplateSaveMany(Entities: [AD_ImportTemplateInput!]!): [AD_ImportTemplate!]!
+	AD_ImportTemplateDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ImportTemplateConnection {
-	results: [AD_ImportTemplate!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ImportTemplate!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ImportTemplate {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_ImportTemplate_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Tab within a Window
@@ -47,8 +46,7 @@ type AD_ImportTemplate {
 }
 
 input AD_ImportTemplateInput {
-	UUID: ID
-	AD_ImportTemplate_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Tab within a Window

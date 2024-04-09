@@ -21,16 +21,16 @@ public class X_A_RegistrationProductMutation extends POMutation implements Graph
 		return X_A_RegistrationProductInput.Table_Name;
 	}
 
-	public X_A_RegistrationProduct A_RegistrationProductSave(I_A_RegistrationProductInput entity, DataFetchingEnvironment environment) {
-		return (X_A_RegistrationProduct) super.save((X_A_RegistrationProductInput) entity, environment);
+	public X_A_RegistrationProduct A_RegistrationProductSave(I_A_RegistrationProductInput Entity, DataFetchingEnvironment environment) {
+		return (X_A_RegistrationProduct) super.save((X_A_RegistrationProductInput) Entity, environment);
 	}
 
-	public List<X_A_RegistrationProduct> A_RegistrationProductSaveMany(List<I_A_RegistrationProductInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_RegistrationProductInput) entity).collect(Collectors.toList()),
+	public List<X_A_RegistrationProduct> A_RegistrationProductSaveMany(List<I_A_RegistrationProductInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_RegistrationProductInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_A_RegistrationProduct) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_RegistrationProductDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_RegistrationProductDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

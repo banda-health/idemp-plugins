@@ -33,12 +33,12 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Window_UU to fetch this entity from the DB
+	 * @param UU The AD_Window_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_WindowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_WindowInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -54,11 +54,11 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Color", "AD_Color_UU=?", get_TrxName())
-							.setParameters(AD_Color.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Color.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Color_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Color with UUID " + AD_Color.getUUID());
+						"Could not find entity in table AD_Color with UU " + AD_Color.getUU());
 			}
 		} else {
 			this.setAD_Color_ID(0);
@@ -88,11 +88,11 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+						"Could not find entity in table AD_Image with UU " + AD_Image.getUU());
 			}
 		} else {
 			this.setAD_Image_ID(0);
@@ -125,11 +125,11 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -158,20 +158,20 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Window_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Window_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Window_UU();
 	}
 
@@ -188,11 +188,11 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);
@@ -222,11 +222,11 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(WindowType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(WindowType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setWindowType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + WindowType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + WindowType.getUU());
 			}
 		} else {
 			this.setWindowType(null);

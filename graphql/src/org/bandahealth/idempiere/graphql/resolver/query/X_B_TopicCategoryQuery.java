@@ -17,8 +17,8 @@ public class X_B_TopicCategoryQuery extends POQuery<X_B_TopicCategory> implement
 		return X_B_TopicCategory.Table_Name;
 	}
 
-	public Connection<X_B_TopicCategory> B_TopicCategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_B_TopicCategory> B_TopicCategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

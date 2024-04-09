@@ -31,12 +31,12 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_LdapAccess_UU to fetch this entity from the DB
+	 * @param UU The AD_LdapAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_LdapAccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_LdapAccessInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 	/**
 	 * Set Ldap Access.
@@ -51,20 +51,20 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_LdapAccess_UU(UUID);
+	public void setUU(String UU) {
+		setAD_LdapAccess_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_LdapAccess_UU();
 	}
 
@@ -84,11 +84,11 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MLdapProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_LdapProcessor", "AD_LdapProcessor_UU=?", get_TrxName())
-							.setParameters(AD_LdapProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_LdapProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_LdapProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_LdapProcessor with UUID " + AD_LdapProcessor.getUUID());
+						"Could not find entity in table AD_LdapProcessor with UU " + AD_LdapProcessor.getUU());
 			}
 		} else {
 			this.setAD_LdapProcessor_ID(0);
@@ -121,11 +121,11 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -158,11 +158,11 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -206,11 +206,11 @@ public class X_AD_LdapAccessInput extends MLdapAccess implements I_AD_LdapAccess
 			MInterestArea foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_InterestArea", "R_InterestArea_UU=?", get_TrxName())
-							.setParameters(R_InterestArea.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_InterestArea.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_InterestArea_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_InterestArea with UUID " + R_InterestArea.getUUID());
+						"Could not find entity in table R_InterestArea with UU " + R_InterestArea.getUU());
 			}
 		} else {
 			this.setR_InterestArea_ID(0);

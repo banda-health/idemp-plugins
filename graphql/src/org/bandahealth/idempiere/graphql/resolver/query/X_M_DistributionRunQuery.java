@@ -17,8 +17,8 @@ public class X_M_DistributionRunQuery extends POQuery<MDistributionRun> implemen
 		return MDistributionRun.Table_Name;
 	}
 
-	public Connection<MDistributionRun> M_DistributionRunGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDistributionRun> M_DistributionRunGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

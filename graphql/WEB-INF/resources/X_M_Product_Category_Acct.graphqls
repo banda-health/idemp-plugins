@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_Product_Category_AcctGet(page: Int, size: Int, sort: String, filter: String): M_Product_Category_AcctConnection!
+	M_Product_Category_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_Category_AcctConnection!
 }
 
 extend type Mutation {
-	M_Product_Category_AcctSave(entity: M_Product_Category_AcctInput!): M_Product_Category_Acct!
-	M_Product_Category_AcctSaveMany(entities: [M_Product_Category_AcctInput!]!): [M_Product_Category_Acct!]!
-	M_Product_Category_AcctDelete(uuids: [String!]!): Boolean!
+	M_Product_Category_AcctSave(Entity: M_Product_Category_AcctInput!): M_Product_Category_Acct!
+	M_Product_Category_AcctSaveMany(Entities: [M_Product_Category_AcctInput!]!): [M_Product_Category_Acct!]!
+	M_Product_Category_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type M_Product_Category_AcctConnection {
-	results: [M_Product_Category_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Product_Category_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Product_Category_Acct {
@@ -33,8 +33,7 @@ type M_Product_Category_Acct {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_Product_Category_Acct_UU: String
+	UU: ID!
 	# Category of a Product
 	M_Product_Category: M_Product_Category!
 	# Account for Product Asset (Inventory)
@@ -81,8 +80,7 @@ input M_Product_Category_AcctInput {
 	CostingMethod: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_Product_Category_Acct_UU: String
+	UU: ID
 	# Category of a Product
 	M_Product_Category: ForeignEntityInput
 	# Account for Product Asset (Inventory)

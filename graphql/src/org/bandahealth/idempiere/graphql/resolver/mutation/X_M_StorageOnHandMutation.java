@@ -21,16 +21,16 @@ public class X_M_StorageOnHandMutation extends POMutation implements GraphQLMuta
 		return X_M_StorageOnHandInput.Table_Name;
 	}
 
-	public MStorageOnHand M_StorageOnHandSave(I_M_StorageOnHandInput entity, DataFetchingEnvironment environment) {
-		return (MStorageOnHand) super.save((X_M_StorageOnHandInput) entity, environment);
+	public MStorageOnHand M_StorageOnHandSave(I_M_StorageOnHandInput Entity, DataFetchingEnvironment environment) {
+		return (MStorageOnHand) super.save((X_M_StorageOnHandInput) Entity, environment);
 	}
 
-	public List<MStorageOnHand> M_StorageOnHandSaveMany(List<I_M_StorageOnHandInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_StorageOnHandInput) entity).collect(Collectors.toList()),
+	public List<MStorageOnHand> M_StorageOnHandSaveMany(List<I_M_StorageOnHandInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_StorageOnHandInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MStorageOnHand) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_StorageOnHandDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_StorageOnHandDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

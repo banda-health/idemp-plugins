@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_OrgInfoGet(page: Int, size: Int, sort: String, filter: String): AD_OrgInfoConnection!
+	AD_OrgInfoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_OrgInfoConnection!
 }
 
 extend type Mutation {
-	AD_OrgInfoSave(entity: AD_OrgInfoInput!): AD_OrgInfo!
-	AD_OrgInfoSaveMany(entities: [AD_OrgInfoInput!]!): [AD_OrgInfo!]!
-	AD_OrgInfoDelete(uuids: [String!]!): Boolean!
+	AD_OrgInfoSave(Entity: AD_OrgInfoInput!): AD_OrgInfo!
+	AD_OrgInfoSaveMany(Entities: [AD_OrgInfoInput!]!): [AD_OrgInfo!]!
+	AD_OrgInfoDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_OrgInfoConnection {
-	results: [AD_OrgInfo!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_OrgInfo!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_OrgInfo {
@@ -21,8 +21,7 @@ type AD_OrgInfo {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_OrgInfo_UU: String
+	UU: ID!
 	# Organization Type
 	AD_OrgType: AD_OrgType
 	# Enter additional information for this organization
@@ -78,8 +77,7 @@ type AD_OrgInfo {
 input AD_OrgInfoInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_OrgInfo_UU: String
+	UU: ID
 	# Organization Type
 	AD_OrgType: ForeignEntityInput
 	# Enter additional information for this organization

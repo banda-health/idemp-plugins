@@ -21,16 +21,16 @@ public class X_R_RequestTypeUpdatesMutation extends POMutation implements GraphQ
 		return X_R_RequestTypeUpdatesInput.Table_Name;
 	}
 
-	public X_R_RequestTypeUpdates R_RequestTypeUpdatesSave(I_R_RequestTypeUpdatesInput entity, DataFetchingEnvironment environment) {
-		return (X_R_RequestTypeUpdates) super.save((X_R_RequestTypeUpdatesInput) entity, environment);
+	public X_R_RequestTypeUpdates R_RequestTypeUpdatesSave(I_R_RequestTypeUpdatesInput Entity, DataFetchingEnvironment environment) {
+		return (X_R_RequestTypeUpdates) super.save((X_R_RequestTypeUpdatesInput) Entity, environment);
 	}
 
-	public List<X_R_RequestTypeUpdates> R_RequestTypeUpdatesSaveMany(List<I_R_RequestTypeUpdatesInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_RequestTypeUpdatesInput) entity).collect(Collectors.toList()),
+	public List<X_R_RequestTypeUpdates> R_RequestTypeUpdatesSaveMany(List<I_R_RequestTypeUpdatesInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_RequestTypeUpdatesInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_R_RequestTypeUpdates) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_RequestTypeUpdatesDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_RequestTypeUpdatesDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

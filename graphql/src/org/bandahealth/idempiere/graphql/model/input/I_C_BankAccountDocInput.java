@@ -39,18 +39,18 @@ public interface I_C_BankAccountDocInput extends I_C_BankAccountDoc {
 	ForeignEntityInput C_BankAccount();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set Check_PrintFormat.

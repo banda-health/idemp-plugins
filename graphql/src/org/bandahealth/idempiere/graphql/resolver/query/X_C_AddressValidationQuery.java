@@ -17,8 +17,8 @@ public class X_C_AddressValidationQuery extends POQuery<MAddressValidation> impl
 		return MAddressValidation.Table_Name;
 	}
 
-	public Connection<MAddressValidation> C_AddressValidationGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAddressValidation> C_AddressValidationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

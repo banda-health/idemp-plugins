@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_GreetingGet(page: Int, size: Int, sort: String, filter: String): C_GreetingConnection!
+	C_GreetingGet(Page: Int, Size: Int, Sort: String, Filter: String): C_GreetingConnection!
 }
 
 extend type Mutation {
-	C_GreetingSave(entity: C_GreetingInput!): C_Greeting!
-	C_GreetingSaveMany(entities: [C_GreetingInput!]!): [C_Greeting!]!
-	C_GreetingDelete(uuids: [String!]!): Boolean!
+	C_GreetingSave(Entity: C_GreetingInput!): C_Greeting!
+	C_GreetingSaveMany(Entities: [C_GreetingInput!]!): [C_Greeting!]!
+	C_GreetingDelete(UUs: [String!]!): Boolean!
 }
 
 type C_GreetingConnection {
-	results: [C_Greeting!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Greeting!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Greeting {
@@ -21,8 +21,7 @@ type C_Greeting {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_Greeting_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ type C_Greeting {
 input C_GreetingInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_Greeting_UU: String
+	UU: ID
 	# For letters, e.g. "Dear {0}" or "Dear Mr. {0}" - At runtime, "{0}" is replaced by the name
 	Greeting: String
 	# The record is active in the system

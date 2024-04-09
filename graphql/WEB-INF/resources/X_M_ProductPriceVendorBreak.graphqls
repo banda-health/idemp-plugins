@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ProductPriceVendorBreakGet(page: Int, size: Int, sort: String, filter: String): M_ProductPriceVendorBreakConnection!
+	M_ProductPriceVendorBreakGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductPriceVendorBreakConnection!
 }
 
 extend type Mutation {
-	M_ProductPriceVendorBreakSave(entity: M_ProductPriceVendorBreakInput!): M_ProductPriceVendorBreak!
-	M_ProductPriceVendorBreakSaveMany(entities: [M_ProductPriceVendorBreakInput!]!): [M_ProductPriceVendorBreak!]!
-	M_ProductPriceVendorBreakDelete(uuids: [String!]!): Boolean!
+	M_ProductPriceVendorBreakSave(Entity: M_ProductPriceVendorBreakInput!): M_ProductPriceVendorBreak!
+	M_ProductPriceVendorBreakSaveMany(Entities: [M_ProductPriceVendorBreakInput!]!): [M_ProductPriceVendorBreak!]!
+	M_ProductPriceVendorBreakDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ProductPriceVendorBreakConnection {
-	results: [M_ProductPriceVendorBreak!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ProductPriceVendorBreak!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ProductPriceVendorBreak {
@@ -35,8 +35,7 @@ type M_ProductPriceVendorBreak {
 	M_PriceList_Version: M_PriceList_Version!
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	M_ProductPriceVendorBreak_UU: String
+	UU: ID!
 	# Lowest price for a product
 	PriceLimit: BigDecimal!
 	# List Price
@@ -62,8 +61,7 @@ input M_ProductPriceVendorBreakInput {
 	M_PriceList_Version: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	M_ProductPriceVendorBreak_UU: String
+	UU: ID
 	# Lowest price for a product
 	PriceLimit: BigDecimal
 	# List Price

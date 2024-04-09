@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	IMP_ProcessorParameterGet(page: Int, size: Int, sort: String, filter: String): IMP_ProcessorParameterConnection!
+	IMP_ProcessorParameterGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_ProcessorParameterConnection!
 }
 
 extend type Mutation {
-	IMP_ProcessorParameterSave(entity: IMP_ProcessorParameterInput!): IMP_ProcessorParameter!
-	IMP_ProcessorParameterSaveMany(entities: [IMP_ProcessorParameterInput!]!): [IMP_ProcessorParameter!]!
-	IMP_ProcessorParameterDelete(uuids: [String!]!): Boolean!
+	IMP_ProcessorParameterSave(Entity: IMP_ProcessorParameterInput!): IMP_ProcessorParameter!
+	IMP_ProcessorParameterSaveMany(Entities: [IMP_ProcessorParameterInput!]!): [IMP_ProcessorParameter!]!
+	IMP_ProcessorParameterDelete(UUs: [String!]!): Boolean!
 }
 
 type IMP_ProcessorParameterConnection {
-	results: [IMP_ProcessorParameter!]!
-	pagingInfo: PagingInfo!
+	Results: [IMP_ProcessorParameter!]!
+	PagingInfo: PagingInfo!
 }
 
 type IMP_ProcessorParameter {
@@ -30,8 +30,7 @@ type IMP_ProcessorParameter {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: IMP_Processor!
-	UUID: ID!
-	IMP_ProcessorParameter_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
@@ -53,8 +52,7 @@ input IMP_ProcessorParameterInput {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: ForeignEntityInput
-	UUID: ID
-	IMP_ProcessorParameter_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

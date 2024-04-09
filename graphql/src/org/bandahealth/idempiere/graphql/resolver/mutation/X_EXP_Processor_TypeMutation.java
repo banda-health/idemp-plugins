@@ -21,16 +21,16 @@ public class X_EXP_Processor_TypeMutation extends POMutation implements GraphQLM
 		return X_EXP_Processor_TypeInput.Table_Name;
 	}
 
-	public MEXPProcessorType EXP_Processor_TypeSave(I_EXP_Processor_TypeInput entity, DataFetchingEnvironment environment) {
-		return (MEXPProcessorType) super.save((X_EXP_Processor_TypeInput) entity, environment);
+	public MEXPProcessorType EXP_Processor_TypeSave(I_EXP_Processor_TypeInput Entity, DataFetchingEnvironment environment) {
+		return (MEXPProcessorType) super.save((X_EXP_Processor_TypeInput) Entity, environment);
 	}
 
-	public List<MEXPProcessorType> EXP_Processor_TypeSaveMany(List<I_EXP_Processor_TypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_EXP_Processor_TypeInput) entity).collect(Collectors.toList()),
+	public List<MEXPProcessorType> EXP_Processor_TypeSaveMany(List<I_EXP_Processor_TypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_EXP_Processor_TypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MEXPProcessorType) entity).collect(Collectors.toList());
 	}
 
-	public boolean EXP_Processor_TypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean EXP_Processor_TypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

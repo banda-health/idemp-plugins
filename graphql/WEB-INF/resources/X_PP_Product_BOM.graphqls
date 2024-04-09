@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_Product_BOMGet(page: Int, size: Int, sort: String, filter: String): PP_Product_BOMConnection!
+	PP_Product_BOMGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_BOMConnection!
 }
 
 extend type Mutation {
-	PP_Product_BOMSave(entity: PP_Product_BOMInput!): PP_Product_BOM!
-	PP_Product_BOMSaveMany(entities: [PP_Product_BOMInput!]!): [PP_Product_BOM!]!
-	PP_Product_BOMDelete(uuids: [String!]!): Boolean!
+	PP_Product_BOMSave(Entity: PP_Product_BOMInput!): PP_Product_BOM!
+	PP_Product_BOMSaveMany(Entities: [PP_Product_BOMInput!]!): [PP_Product_BOM!]!
+	PP_Product_BOMDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_Product_BOMConnection {
-	results: [PP_Product_BOM!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_Product_BOM!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_Product_BOM {
@@ -47,8 +47,7 @@ type PP_Product_BOM {
 	M_Product: M_Product!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
-	PP_Product_BOM_UU: String
+	UU: ID!
 	Processing: Boolean!
 	Revision: String
 	# Date this record was updated
@@ -88,8 +87,7 @@ input PP_Product_BOMInput {
 	M_Product: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
-	PP_Product_BOM_UU: String
+	UU: ID
 	Processing: Boolean
 	Revision: String
 	# Valid from including this date (first day)

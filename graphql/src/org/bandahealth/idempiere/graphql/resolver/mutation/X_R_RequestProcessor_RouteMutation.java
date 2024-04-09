@@ -21,16 +21,16 @@ public class X_R_RequestProcessor_RouteMutation extends POMutation implements Gr
 		return X_R_RequestProcessor_RouteInput.Table_Name;
 	}
 
-	public MRequestProcessorRoute R_RequestProcessor_RouteSave(I_R_RequestProcessor_RouteInput entity, DataFetchingEnvironment environment) {
-		return (MRequestProcessorRoute) super.save((X_R_RequestProcessor_RouteInput) entity, environment);
+	public MRequestProcessorRoute R_RequestProcessor_RouteSave(I_R_RequestProcessor_RouteInput Entity, DataFetchingEnvironment environment) {
+		return (MRequestProcessorRoute) super.save((X_R_RequestProcessor_RouteInput) Entity, environment);
 	}
 
-	public List<MRequestProcessorRoute> R_RequestProcessor_RouteSaveMany(List<I_R_RequestProcessor_RouteInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_RequestProcessor_RouteInput) entity).collect(Collectors.toList()),
+	public List<MRequestProcessorRoute> R_RequestProcessor_RouteSaveMany(List<I_R_RequestProcessor_RouteInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_RequestProcessor_RouteInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRequestProcessorRoute) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_RequestProcessor_RouteDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_RequestProcessor_RouteDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

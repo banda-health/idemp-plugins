@@ -121,9 +121,9 @@ public class GraphQLQueryResolverGenerator {
 				// Default Queries from the Schema
 				.append("\tpublic Connection<").append(tableStructureExtensions.getClassName()).append("> ")
 				.append(tableStructureExtensions.getTableName())
-				.append("Get(int page, int pageSize, String sort, String filter,\n")
+				.append("Get(int Page, int PageSize, String Sort, String Filter,\n")
 				.append("\t\t\tDataFetchingEnvironment environment) {\n")
-				.append("\t\treturn super.get(page, pageSize, sort, filter, environment);\n")
+				.append("\t\treturn super.get(Page, PageSize, Sort, Filter, environment);\n")
 				.append("\t}\n")
 				.append("}\n");
 

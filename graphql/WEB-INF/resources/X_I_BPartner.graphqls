@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_BPartnerGet(page: Int, size: Int, sort: String, filter: String): I_BPartnerConnection!
+	I_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): I_BPartnerConnection!
 }
 
 extend type Mutation {
-	I_BPartnerSave(entity: I_BPartnerInput!): I_BPartner!
-	I_BPartnerSaveMany(entities: [I_BPartnerInput!]!): [I_BPartner!]!
-	I_BPartnerDelete(uuids: [String!]!): Boolean!
+	I_BPartnerSave(Entity: I_BPartnerInput!): I_BPartner!
+	I_BPartnerSaveMany(Entities: [I_BPartnerInput!]!): [I_BPartner!]!
+	I_BPartnerDelete(UUs: [String!]!): Boolean!
 }
 
 type I_BPartnerConnection {
-	results: [I_BPartner!]!
-	pagingInfo: PagingInfo!
+	Results: [I_BPartner!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_BPartner {
@@ -67,8 +67,7 @@ type I_BPartner {
 	Fax: String
 	# Business Partner Group Key
 	GroupValue: String
-	UUID: ID!
-	I_BPartner_UU: String
+	UU: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -163,8 +162,7 @@ input I_BPartnerInput {
 	Fax: String
 	# Business Partner Group Key
 	GroupValue: String
-	UUID: ID
-	I_BPartner_UU: String
+	UU: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

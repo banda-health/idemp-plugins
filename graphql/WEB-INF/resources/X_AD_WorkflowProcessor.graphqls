@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_WorkflowProcessorGet(page: Int, size: Int, sort: String, filter: String): AD_WorkflowProcessorConnection!
+	AD_WorkflowProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WorkflowProcessorConnection!
 }
 
 extend type Mutation {
-	AD_WorkflowProcessorSave(entity: AD_WorkflowProcessorInput!): AD_WorkflowProcessor!
-	AD_WorkflowProcessorSaveMany(entities: [AD_WorkflowProcessorInput!]!): [AD_WorkflowProcessor!]!
-	AD_WorkflowProcessorDelete(uuids: [String!]!): Boolean!
+	AD_WorkflowProcessorSave(Entity: AD_WorkflowProcessorInput!): AD_WorkflowProcessor!
+	AD_WorkflowProcessorSaveMany(Entities: [AD_WorkflowProcessorInput!]!): [AD_WorkflowProcessor!]!
+	AD_WorkflowProcessorDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_WorkflowProcessorConnection {
-	results: [AD_WorkflowProcessor!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_WorkflowProcessor!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_WorkflowProcessor {
@@ -22,8 +22,7 @@ type AD_WorkflowProcessor {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_Schedule: AD_Schedule!
-	UUID: ID!
-	AD_WorkflowProcessor_UU: String
+	UU: ID!
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date this record was created
@@ -59,8 +58,7 @@ input AD_WorkflowProcessorInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Schedule: ForeignEntityInput
-	UUID: ID
-	AD_WorkflowProcessor_UU: String
+	UU: ID
 	# Send alert email when over priority
 	AlertOverPriority: Int
 	# Date the process was last run.

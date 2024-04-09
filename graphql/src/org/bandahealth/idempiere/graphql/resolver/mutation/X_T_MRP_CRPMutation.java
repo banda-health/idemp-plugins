@@ -21,16 +21,16 @@ public class X_T_MRP_CRPMutation extends POMutation implements GraphQLMutationRe
 		return X_T_MRP_CRPInput.Table_Name;
 	}
 
-	public X_T_MRP_CRP T_MRP_CRPSave(I_T_MRP_CRPInput entity, DataFetchingEnvironment environment) {
-		return (X_T_MRP_CRP) super.save((X_T_MRP_CRPInput) entity, environment);
+	public X_T_MRP_CRP T_MRP_CRPSave(I_T_MRP_CRPInput Entity, DataFetchingEnvironment environment) {
+		return (X_T_MRP_CRP) super.save((X_T_MRP_CRPInput) Entity, environment);
 	}
 
-	public List<X_T_MRP_CRP> T_MRP_CRPSaveMany(List<I_T_MRP_CRPInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_T_MRP_CRPInput) entity).collect(Collectors.toList()),
+	public List<X_T_MRP_CRP> T_MRP_CRPSaveMany(List<I_T_MRP_CRPInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_T_MRP_CRPInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_T_MRP_CRP) entity).collect(Collectors.toList());
 	}
 
-	public boolean T_MRP_CRPDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean T_MRP_CRPDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

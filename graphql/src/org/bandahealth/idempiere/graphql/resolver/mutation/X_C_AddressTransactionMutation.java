@@ -21,16 +21,16 @@ public class X_C_AddressTransactionMutation extends POMutation implements GraphQ
 		return X_C_AddressTransactionInput.Table_Name;
 	}
 
-	public MAddressTransaction C_AddressTransactionSave(I_C_AddressTransactionInput entity, DataFetchingEnvironment environment) {
-		return (MAddressTransaction) super.save((X_C_AddressTransactionInput) entity, environment);
+	public MAddressTransaction C_AddressTransactionSave(I_C_AddressTransactionInput Entity, DataFetchingEnvironment environment) {
+		return (MAddressTransaction) super.save((X_C_AddressTransactionInput) Entity, environment);
 	}
 
-	public List<MAddressTransaction> C_AddressTransactionSaveMany(List<I_C_AddressTransactionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_AddressTransactionInput) entity).collect(Collectors.toList()),
+	public List<MAddressTransaction> C_AddressTransactionSaveMany(List<I_C_AddressTransactionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_AddressTransactionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAddressTransaction) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_AddressTransactionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_AddressTransactionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

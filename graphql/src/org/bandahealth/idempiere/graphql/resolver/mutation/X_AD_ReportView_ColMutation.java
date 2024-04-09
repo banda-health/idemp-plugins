@@ -21,16 +21,16 @@ public class X_AD_ReportView_ColMutation extends POMutation implements GraphQLMu
 		return X_AD_ReportView_ColInput.Table_Name;
 	}
 
-	public X_AD_ReportView_Col AD_ReportView_ColSave(I_AD_ReportView_ColInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_ReportView_Col) super.save((X_AD_ReportView_ColInput) entity, environment);
+	public X_AD_ReportView_Col AD_ReportView_ColSave(I_AD_ReportView_ColInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_ReportView_Col) super.save((X_AD_ReportView_ColInput) Entity, environment);
 	}
 
-	public List<X_AD_ReportView_Col> AD_ReportView_ColSaveMany(List<I_AD_ReportView_ColInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ReportView_ColInput) entity).collect(Collectors.toList()),
+	public List<X_AD_ReportView_Col> AD_ReportView_ColSaveMany(List<I_AD_ReportView_ColInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ReportView_ColInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_ReportView_Col) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ReportView_ColDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ReportView_ColDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

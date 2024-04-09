@@ -21,16 +21,16 @@ public class X_HR_PeriodMutation extends POMutation implements GraphQLMutationRe
 		return X_HR_PeriodInput.Table_Name;
 	}
 
-	public X_HR_Period HR_PeriodSave(I_HR_PeriodInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_Period) super.save((X_HR_PeriodInput) entity, environment);
+	public X_HR_Period HR_PeriodSave(I_HR_PeriodInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_Period) super.save((X_HR_PeriodInput) Entity, environment);
 	}
 
-	public List<X_HR_Period> HR_PeriodSaveMany(List<I_HR_PeriodInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_PeriodInput) entity).collect(Collectors.toList()),
+	public List<X_HR_Period> HR_PeriodSaveMany(List<I_HR_PeriodInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_PeriodInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_Period) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_PeriodDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_PeriodDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_AD_Role_OrgAccessMutation extends POMutation implements GraphQLMu
 		return X_AD_Role_OrgAccessInput.Table_Name;
 	}
 
-	public MRoleOrgAccess AD_Role_OrgAccessSave(I_AD_Role_OrgAccessInput entity, DataFetchingEnvironment environment) {
-		return (MRoleOrgAccess) super.save((X_AD_Role_OrgAccessInput) entity, environment);
+	public MRoleOrgAccess AD_Role_OrgAccessSave(I_AD_Role_OrgAccessInput Entity, DataFetchingEnvironment environment) {
+		return (MRoleOrgAccess) super.save((X_AD_Role_OrgAccessInput) Entity, environment);
 	}
 
-	public List<MRoleOrgAccess> AD_Role_OrgAccessSaveMany(List<I_AD_Role_OrgAccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Role_OrgAccessInput) entity).collect(Collectors.toList()),
+	public List<MRoleOrgAccess> AD_Role_OrgAccessSaveMany(List<I_AD_Role_OrgAccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Role_OrgAccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRoleOrgAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Role_OrgAccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Role_OrgAccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

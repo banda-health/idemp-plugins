@@ -21,16 +21,16 @@ public class X_AD_WF_EventAuditMutation extends POMutation implements GraphQLMut
 		return X_AD_WF_EventAuditInput.Table_Name;
 	}
 
-	public X_AD_WF_EventAudit AD_WF_EventAuditSave(I_AD_WF_EventAuditInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_WF_EventAudit) super.save((X_AD_WF_EventAuditInput) entity, environment);
+	public X_AD_WF_EventAudit AD_WF_EventAuditSave(I_AD_WF_EventAuditInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_EventAudit) super.save((X_AD_WF_EventAuditInput) Entity, environment);
 	}
 
-	public List<X_AD_WF_EventAudit> AD_WF_EventAuditSaveMany(List<I_AD_WF_EventAuditInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_EventAuditInput) entity).collect(Collectors.toList()),
+	public List<X_AD_WF_EventAudit> AD_WF_EventAuditSaveMany(List<I_AD_WF_EventAuditInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WF_EventAuditInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_WF_EventAudit) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WF_EventAuditDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WF_EventAuditDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

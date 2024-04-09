@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaxProviderCfgGet(page: Int, size: Int, sort: String, filter: String): C_TaxProviderCfgConnection!
+	C_TaxProviderCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxProviderCfgConnection!
 }
 
 extend type Mutation {
-	C_TaxProviderCfgSave(entity: C_TaxProviderCfgInput!): C_TaxProviderCfg!
-	C_TaxProviderCfgSaveMany(entities: [C_TaxProviderCfgInput!]!): [C_TaxProviderCfg!]!
-	C_TaxProviderCfgDelete(uuids: [String!]!): Boolean!
+	C_TaxProviderCfgSave(Entity: C_TaxProviderCfgInput!): C_TaxProviderCfg!
+	C_TaxProviderCfgSaveMany(Entities: [C_TaxProviderCfgInput!]!): [C_TaxProviderCfg!]!
+	C_TaxProviderCfgDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaxProviderCfgConnection {
-	results: [C_TaxProviderCfg!]!
-	pagingInfo: PagingInfo!
+	Results: [C_TaxProviderCfg!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_TaxProviderCfg {
@@ -21,8 +21,7 @@ type C_TaxProviderCfg {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_TaxProviderCfg_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,8 +44,7 @@ type C_TaxProviderCfg {
 input C_TaxProviderCfgInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_TaxProviderCfg_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

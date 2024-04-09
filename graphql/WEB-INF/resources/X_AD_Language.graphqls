@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_LanguageGet(page: Int, size: Int, sort: String, filter: String): AD_LanguageConnection!
+	AD_LanguageGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LanguageConnection!
 }
 
 extend type Mutation {
-	AD_LanguageSave(entity: AD_LanguageInput!): AD_Language!
-	AD_LanguageSaveMany(entities: [AD_LanguageInput!]!): [AD_Language!]!
-	AD_LanguageDelete(uuids: [String!]!): Boolean!
+	AD_LanguageSave(Entity: AD_LanguageInput!): AD_Language!
+	AD_LanguageSaveMany(Entities: [AD_LanguageInput!]!): [AD_Language!]!
+	AD_LanguageDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_LanguageConnection {
-	results: [AD_Language!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Language!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Language {
@@ -21,8 +21,7 @@ type AD_Language {
 	AD_Client: AD_Client!
 	# Language for this entity
 	AD_Language: String!
-	UUID: ID!
-	AD_Language_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Printer paper definition
@@ -62,8 +61,7 @@ type AD_Language {
 input AD_LanguageInput {
 	# Language for this entity
 	AD_Language: String
-	UUID: ID
-	AD_Language_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Printer paper definition

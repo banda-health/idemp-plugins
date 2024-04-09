@@ -17,8 +17,8 @@ public class X_C_OrderLineQuery extends POQuery<MOrderLine_BH> implements GraphQ
 		return MOrderLine_BH.Table_Name;
 	}
 
-	public Connection<MOrderLine_BH> C_OrderLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MOrderLine_BH> C_OrderLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

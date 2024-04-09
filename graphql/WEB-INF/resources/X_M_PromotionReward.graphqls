@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PromotionRewardGet(page: Int, size: Int, sort: String, filter: String): M_PromotionRewardConnection!
+	M_PromotionRewardGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionRewardConnection!
 }
 
 extend type Mutation {
-	M_PromotionRewardSave(entity: M_PromotionRewardInput!): M_PromotionReward!
-	M_PromotionRewardSaveMany(entities: [M_PromotionRewardInput!]!): [M_PromotionReward!]!
-	M_PromotionRewardDelete(uuids: [String!]!): Boolean!
+	M_PromotionRewardSave(Entity: M_PromotionRewardInput!): M_PromotionReward!
+	M_PromotionRewardSaveMany(Entities: [M_PromotionRewardInput!]!): [M_PromotionReward!]!
+	M_PromotionRewardDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PromotionRewardConnection {
-	results: [M_PromotionReward!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PromotionReward!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PromotionReward {
@@ -39,8 +39,7 @@ type M_PromotionReward {
 	IsSameDistribution: Boolean!
 	M_Promotion: M_Promotion!
 	M_PromotionDistribution: M_PromotionDistribution
-	UUID: ID!
-	M_PromotionReward_UU: String
+	UU: ID!
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: M_PromotionDistribution
 	# Quantity
@@ -72,8 +71,7 @@ input M_PromotionRewardInput {
 	IsSameDistribution: Boolean
 	M_Promotion: ForeignEntityInput
 	M_PromotionDistribution: ForeignEntityInput
-	UUID: ID
-	M_PromotionReward_UU: String
+	UU: ID
 	# Get product from target distribution to apply the promotion reward
 	M_TargetDistribution: ForeignEntityInput
 	# Quantity

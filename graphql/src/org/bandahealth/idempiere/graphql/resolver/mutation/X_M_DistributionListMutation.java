@@ -21,16 +21,16 @@ public class X_M_DistributionListMutation extends POMutation implements GraphQLM
 		return X_M_DistributionListInput.Table_Name;
 	}
 
-	public MDistributionList M_DistributionListSave(I_M_DistributionListInput entity, DataFetchingEnvironment environment) {
-		return (MDistributionList) super.save((X_M_DistributionListInput) entity, environment);
+	public MDistributionList M_DistributionListSave(I_M_DistributionListInput Entity, DataFetchingEnvironment environment) {
+		return (MDistributionList) super.save((X_M_DistributionListInput) Entity, environment);
 	}
 
-	public List<MDistributionList> M_DistributionListSaveMany(List<I_M_DistributionListInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_DistributionListInput) entity).collect(Collectors.toList()),
+	public List<MDistributionList> M_DistributionListSaveMany(List<I_M_DistributionListInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_DistributionListInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDistributionList) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_DistributionListDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_DistributionListDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

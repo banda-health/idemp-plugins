@@ -21,16 +21,16 @@ public class X_AD_UserDef_TabMutation extends POMutation implements GraphQLMutat
 		return X_AD_UserDef_TabInput.Table_Name;
 	}
 
-	public MUserDefTab AD_UserDef_TabSave(I_AD_UserDef_TabInput entity, DataFetchingEnvironment environment) {
-		return (MUserDefTab) super.save((X_AD_UserDef_TabInput) entity, environment);
+	public MUserDefTab AD_UserDef_TabSave(I_AD_UserDef_TabInput Entity, DataFetchingEnvironment environment) {
+		return (MUserDefTab) super.save((X_AD_UserDef_TabInput) Entity, environment);
 	}
 
-	public List<MUserDefTab> AD_UserDef_TabSaveMany(List<I_AD_UserDef_TabInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_TabInput) entity).collect(Collectors.toList()),
+	public List<MUserDefTab> AD_UserDef_TabSaveMany(List<I_AD_UserDef_TabInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserDef_TabInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserDefTab) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDef_TabDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDef_TabDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

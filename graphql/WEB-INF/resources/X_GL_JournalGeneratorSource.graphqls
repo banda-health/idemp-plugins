@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	GL_JournalGeneratorSourceGet(page: Int, size: Int, sort: String, filter: String): GL_JournalGeneratorSourceConnection!
+	GL_JournalGeneratorSourceGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalGeneratorSourceConnection!
 }
 
 extend type Mutation {
-	GL_JournalGeneratorSourceSave(entity: GL_JournalGeneratorSourceInput!): GL_JournalGeneratorSource!
-	GL_JournalGeneratorSourceSaveMany(entities: [GL_JournalGeneratorSourceInput!]!): [GL_JournalGeneratorSource!]!
-	GL_JournalGeneratorSourceDelete(uuids: [String!]!): Boolean!
+	GL_JournalGeneratorSourceSave(Entity: GL_JournalGeneratorSourceInput!): GL_JournalGeneratorSource!
+	GL_JournalGeneratorSourceSaveMany(Entities: [GL_JournalGeneratorSourceInput!]!): [GL_JournalGeneratorSource!]!
+	GL_JournalGeneratorSourceDelete(UUs: [String!]!): Boolean!
 }
 
 type GL_JournalGeneratorSourceConnection {
-	results: [GL_JournalGeneratorSource!]!
-	pagingInfo: PagingInfo!
+	Results: [GL_JournalGeneratorSource!]!
+	PagingInfo: PagingInfo!
 }
 
 type GL_JournalGeneratorSource {
@@ -32,8 +32,7 @@ type GL_JournalGeneratorSource {
 	# General Ledger Category
 	GL_Category: GL_Category
 	GL_JournalGeneratorLine: GL_JournalGeneratorLine!
-	UUID: ID!
-	GL_JournalGeneratorSource_UU: String
+	UU: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -55,8 +54,7 @@ input GL_JournalGeneratorSourceInput {
 	# General Ledger Category
 	GL_Category: ForeignEntityInput
 	GL_JournalGeneratorLine: ForeignEntityInput
-	UUID: ID
-	GL_JournalGeneratorSource_UU: String
+	UU: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

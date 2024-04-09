@@ -21,16 +21,16 @@ public class X_PA_SLA_GoalMutation extends POMutation implements GraphQLMutation
 		return X_PA_SLA_GoalInput.Table_Name;
 	}
 
-	public X_PA_SLA_Goal PA_SLA_GoalSave(I_PA_SLA_GoalInput entity, DataFetchingEnvironment environment) {
-		return (X_PA_SLA_Goal) super.save((X_PA_SLA_GoalInput) entity, environment);
+	public X_PA_SLA_Goal PA_SLA_GoalSave(I_PA_SLA_GoalInput Entity, DataFetchingEnvironment environment) {
+		return (X_PA_SLA_Goal) super.save((X_PA_SLA_GoalInput) Entity, environment);
 	}
 
-	public List<X_PA_SLA_Goal> PA_SLA_GoalSaveMany(List<I_PA_SLA_GoalInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_SLA_GoalInput) entity).collect(Collectors.toList()),
+	public List<X_PA_SLA_Goal> PA_SLA_GoalSaveMany(List<I_PA_SLA_GoalInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_SLA_GoalInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PA_SLA_Goal) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_SLA_GoalDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_SLA_GoalDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

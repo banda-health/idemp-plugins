@@ -21,16 +21,16 @@ public class X_R_IssueStatusMutation extends POMutation implements GraphQLMutati
 		return X_R_IssueStatusInput.Table_Name;
 	}
 
-	public X_R_IssueStatus R_IssueStatusSave(I_R_IssueStatusInput entity, DataFetchingEnvironment environment) {
-		return (X_R_IssueStatus) super.save((X_R_IssueStatusInput) entity, environment);
+	public X_R_IssueStatus R_IssueStatusSave(I_R_IssueStatusInput Entity, DataFetchingEnvironment environment) {
+		return (X_R_IssueStatus) super.save((X_R_IssueStatusInput) Entity, environment);
 	}
 
-	public List<X_R_IssueStatus> R_IssueStatusSaveMany(List<I_R_IssueStatusInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_IssueStatusInput) entity).collect(Collectors.toList()),
+	public List<X_R_IssueStatus> R_IssueStatusSaveMany(List<I_R_IssueStatusInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_IssueStatusInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_R_IssueStatus) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_IssueStatusDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_IssueStatusDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

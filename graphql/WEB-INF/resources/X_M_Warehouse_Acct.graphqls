@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_Warehouse_AcctGet(page: Int, size: Int, sort: String, filter: String): M_Warehouse_AcctConnection!
+	M_Warehouse_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Warehouse_AcctConnection!
 }
 
 extend type Mutation {
-	M_Warehouse_AcctSave(entity: M_Warehouse_AcctInput!): M_Warehouse_Acct!
-	M_Warehouse_AcctSaveMany(entities: [M_Warehouse_AcctInput!]!): [M_Warehouse_Acct!]!
-	M_Warehouse_AcctDelete(uuids: [String!]!): Boolean!
+	M_Warehouse_AcctSave(Entity: M_Warehouse_AcctInput!): M_Warehouse_Acct!
+	M_Warehouse_AcctSaveMany(Entities: [M_Warehouse_AcctInput!]!): [M_Warehouse_Acct!]!
+	M_Warehouse_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type M_Warehouse_AcctConnection {
-	results: [M_Warehouse_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Warehouse_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Warehouse_Acct {
@@ -29,8 +29,7 @@ type M_Warehouse_Acct {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_Warehouse_Acct_UU: String
+	UU: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	# Date this record was updated
@@ -48,8 +47,7 @@ input M_Warehouse_AcctInput {
 	C_AcctSchema: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_Warehouse_Acct_UU: String
+	UU: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# Warehouse Differences Account

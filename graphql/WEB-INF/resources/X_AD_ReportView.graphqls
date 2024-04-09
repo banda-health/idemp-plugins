@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ReportViewGet(page: Int, size: Int, sort: String, filter: String): AD_ReportViewConnection!
+	AD_ReportViewGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReportViewConnection!
 }
 
 extend type Mutation {
-	AD_ReportViewSave(entity: AD_ReportViewInput!): AD_ReportView!
-	AD_ReportViewSaveMany(entities: [AD_ReportViewInput!]!): [AD_ReportView!]!
-	AD_ReportViewDelete(uuids: [String!]!): Boolean!
+	AD_ReportViewSave(Entity: AD_ReportViewInput!): AD_ReportView!
+	AD_ReportViewSaveMany(Entities: [AD_ReportViewInput!]!): [AD_ReportView!]!
+	AD_ReportViewDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ReportViewConnection {
-	results: [AD_ReportView!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ReportView!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ReportView {
@@ -21,8 +21,7 @@ type AD_ReportView {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_ReportView_UU: String
+	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# Date this record was created
@@ -50,8 +49,7 @@ type AD_ReportView {
 input AD_ReportViewInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_ReportView_UU: String
+	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Optional short description of the record

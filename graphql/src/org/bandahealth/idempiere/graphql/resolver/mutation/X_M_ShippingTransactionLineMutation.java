@@ -21,16 +21,16 @@ public class X_M_ShippingTransactionLineMutation extends POMutation implements G
 		return X_M_ShippingTransactionLineInput.Table_Name;
 	}
 
-	public MShippingTransactionLine M_ShippingTransactionLineSave(I_M_ShippingTransactionLineInput entity, DataFetchingEnvironment environment) {
-		return (MShippingTransactionLine) super.save((X_M_ShippingTransactionLineInput) entity, environment);
+	public MShippingTransactionLine M_ShippingTransactionLineSave(I_M_ShippingTransactionLineInput Entity, DataFetchingEnvironment environment) {
+		return (MShippingTransactionLine) super.save((X_M_ShippingTransactionLineInput) Entity, environment);
 	}
 
-	public List<MShippingTransactionLine> M_ShippingTransactionLineSaveMany(List<I_M_ShippingTransactionLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ShippingTransactionLineInput) entity).collect(Collectors.toList()),
+	public List<MShippingTransactionLine> M_ShippingTransactionLineSaveMany(List<I_M_ShippingTransactionLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ShippingTransactionLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MShippingTransactionLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ShippingTransactionLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ShippingTransactionLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

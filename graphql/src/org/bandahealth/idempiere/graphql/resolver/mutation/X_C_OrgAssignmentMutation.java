@@ -21,16 +21,16 @@ public class X_C_OrgAssignmentMutation extends POMutation implements GraphQLMuta
 		return X_C_OrgAssignmentInput.Table_Name;
 	}
 
-	public X_C_OrgAssignment C_OrgAssignmentSave(I_C_OrgAssignmentInput entity, DataFetchingEnvironment environment) {
-		return (X_C_OrgAssignment) super.save((X_C_OrgAssignmentInput) entity, environment);
+	public X_C_OrgAssignment C_OrgAssignmentSave(I_C_OrgAssignmentInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_OrgAssignment) super.save((X_C_OrgAssignmentInput) Entity, environment);
 	}
 
-	public List<X_C_OrgAssignment> C_OrgAssignmentSaveMany(List<I_C_OrgAssignmentInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_OrgAssignmentInput) entity).collect(Collectors.toList()),
+	public List<X_C_OrgAssignment> C_OrgAssignmentSaveMany(List<I_C_OrgAssignmentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OrgAssignmentInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_OrgAssignment) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_OrgAssignmentDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_OrgAssignmentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

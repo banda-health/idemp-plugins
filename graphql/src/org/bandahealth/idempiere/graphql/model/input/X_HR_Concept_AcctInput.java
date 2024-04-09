@@ -37,12 +37,12 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The HR_Concept_Acct_UU to fetch this entity from the DB
+	 * @param UU The HR_Concept_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_HR_Concept_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_HR_Concept_AcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -61,11 +61,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -95,11 +95,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -129,11 +129,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MBPGroup_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BP_Group", "C_BP_Group_UU=?", get_TrxName())
-							.setParameters(C_BP_Group.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BP_Group.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BP_Group_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BP_Group with UUID " + C_BP_Group.getUUID());
+						"Could not find entity in table C_BP_Group with UU " + C_BP_Group.getUU());
 			}
 		} else {
 			this.setC_BP_Group_ID(0);
@@ -162,20 +162,20 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setHR_Concept_Acct_UU(UUID);
+	public void setUU(String UU) {
+		setHR_Concept_Acct_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getHR_Concept_Acct_UU();
 	}
 
@@ -195,11 +195,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			X_HR_Concept foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Concept", "HR_Concept_UU=?", get_TrxName())
-							.setParameters(HR_Concept.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Concept_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table HR_Concept with UUID " + HR_Concept.getUUID());
+						"Could not find entity in table HR_Concept with UU " + HR_Concept.getUU());
 			}
 		} else {
 			this.setHR_Concept_ID(0);
@@ -229,11 +229,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(HR_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + HR_Expense_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + HR_Expense_A.getUU());
 			}
 		} else {
 			this.setHR_Expense_Acct(0);
@@ -263,11 +263,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(HR_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HR_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHR_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + HR_Revenue_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + HR_Revenue_A.getUU());
 			}
 		} else {
 			this.setHR_Revenue_Acct(0);
@@ -297,11 +297,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + User1.getUU());
 			}
 		} else {
 			this.setUser1_ID(0);
@@ -331,11 +331,11 @@ public class X_HR_Concept_AcctInput extends X_HR_Concept_Acct implements I_HR_Co
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + User2.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + User2.getUU());
 			}
 		} else {
 			this.setUser2_ID(0);

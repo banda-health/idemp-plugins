@@ -17,8 +17,8 @@ public class X_A_RegistrationQuery extends POQuery<X_A_Registration> implements 
 		return X_A_Registration.Table_Name;
 	}
 
-	public Connection<X_A_Registration> A_RegistrationGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_Registration> A_RegistrationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

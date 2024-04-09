@@ -36,12 +36,12 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_RatioElement_UU to fetch this entity from the DB
+	 * @param UU The PA_RatioElement_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_RatioElementInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_RatioElementInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + Account.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + Account.getUU());
 			}
 		} else {
 			this.setAccount_ID(0);
@@ -94,11 +94,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -128,11 +128,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MMeasureCalc foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_MeasureCalc", "PA_MeasureCalc_UU=?", get_TrxName())
-							.setParameters(PA_MeasureCalc.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_MeasureCalc.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_MeasureCalc_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_MeasureCalc with UUID " + PA_MeasureCalc.getUUID());
+						"Could not find entity in table PA_MeasureCalc with UU " + PA_MeasureCalc.getUU());
 			}
 		} else {
 			this.setPA_MeasureCalc_ID(0);
@@ -165,11 +165,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-							.setParameters(PA_Ratio.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Ratio.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Ratio_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Ratio with UUID " + PA_Ratio.getUUID());
+						"Could not find entity in table PA_Ratio with UU " + PA_Ratio.getUU());
 			}
 		} else {
 			this.setPA_Ratio_ID(0);
@@ -198,20 +198,20 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_RatioElement_UU(UUID);
+	public void setUU(String UU) {
+		setPA_RatioElement_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_RatioElement_UU();
 	}
 
@@ -228,11 +228,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			X_PA_Ratio foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Ratio", "PA_Ratio_UU=?", get_TrxName())
-							.setParameters(PA_RatioUsed.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_RatioUsed.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_RatioUsed_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Ratio with UUID " + PA_RatioUsed.getUUID());
+						"Could not find entity in table PA_Ratio with UU " + PA_RatioUsed.getUU());
 			}
 		} else {
 			this.setPA_RatioUsed_ID(0);
@@ -262,11 +262,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PostingType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PostingType.getUU());
 			}
 		} else {
 			this.setPostingType(null);
@@ -296,11 +296,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RatioElementType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RatioElementType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRatioElementType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + RatioElementType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + RatioElementType.getUU());
 			}
 		} else {
 			this.setRatioElementType(null);
@@ -330,11 +330,11 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(RatioOperand.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RatioOperand.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRatioOperand(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + RatioOperand.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + RatioOperand.getUU());
 			}
 		} else {
 			this.setRatioOperand(null);

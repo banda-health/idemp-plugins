@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_RegistrationProductGet(page: Int, size: Int, sort: String, filter: String): A_RegistrationProductConnection!
+	A_RegistrationProductGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationProductConnection!
 }
 
 extend type Mutation {
-	A_RegistrationProductSave(entity: A_RegistrationProductInput!): A_RegistrationProduct!
-	A_RegistrationProductSaveMany(entities: [A_RegistrationProductInput!]!): [A_RegistrationProduct!]!
-	A_RegistrationProductDelete(uuids: [String!]!): Boolean!
+	A_RegistrationProductSave(Entity: A_RegistrationProductInput!): A_RegistrationProduct!
+	A_RegistrationProductSaveMany(Entities: [A_RegistrationProductInput!]!): [A_RegistrationProduct!]!
+	A_RegistrationProductDelete(UUs: [String!]!): Boolean!
 }
 
 type A_RegistrationProductConnection {
-	results: [A_RegistrationProduct!]!
-	pagingInfo: PagingInfo!
+	Results: [A_RegistrationProduct!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_RegistrationProduct {
 	# Asset Registration Attribute
 	A_RegistrationAttribute: A_RegistrationAttribute!
-	UUID: ID!
-	A_RegistrationProduct_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -44,8 +43,7 @@ type A_RegistrationProduct {
 input A_RegistrationProductInput {
 	# Asset Registration Attribute
 	A_RegistrationAttribute: ForeignEntityInput
-	UUID: ID
-	A_RegistrationProduct_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

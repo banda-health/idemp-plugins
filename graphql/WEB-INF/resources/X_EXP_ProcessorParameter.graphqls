@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	EXP_ProcessorParameterGet(page: Int, size: Int, sort: String, filter: String): EXP_ProcessorParameterConnection!
+	EXP_ProcessorParameterGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_ProcessorParameterConnection!
 }
 
 extend type Mutation {
-	EXP_ProcessorParameterSave(entity: EXP_ProcessorParameterInput!): EXP_ProcessorParameter!
-	EXP_ProcessorParameterSaveMany(entities: [EXP_ProcessorParameterInput!]!): [EXP_ProcessorParameter!]!
-	EXP_ProcessorParameterDelete(uuids: [String!]!): Boolean!
+	EXP_ProcessorParameterSave(Entity: EXP_ProcessorParameterInput!): EXP_ProcessorParameter!
+	EXP_ProcessorParameterSaveMany(Entities: [EXP_ProcessorParameterInput!]!): [EXP_ProcessorParameter!]!
+	EXP_ProcessorParameterDelete(UUs: [String!]!): Boolean!
 }
 
 type EXP_ProcessorParameterConnection {
-	results: [EXP_ProcessorParameter!]!
-	pagingInfo: PagingInfo!
+	Results: [EXP_ProcessorParameter!]!
+	PagingInfo: PagingInfo!
 }
 
 type EXP_ProcessorParameter {
@@ -28,8 +28,7 @@ type EXP_ProcessorParameter {
 	# Optional short description of the record
 	Description: String
 	EXP_Processor: EXP_Processor!
-	UUID: ID!
-	EXP_ProcessorParameter_UU: String
+	UU: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -51,8 +50,7 @@ input EXP_ProcessorParameterInput {
 	# Optional short description of the record
 	Description: String
 	EXP_Processor: ForeignEntityInput
-	UUID: ID
-	EXP_ProcessorParameter_UU: String
+	UU: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

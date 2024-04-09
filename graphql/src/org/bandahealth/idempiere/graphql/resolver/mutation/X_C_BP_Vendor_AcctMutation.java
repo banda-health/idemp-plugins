@@ -21,16 +21,16 @@ public class X_C_BP_Vendor_AcctMutation extends POMutation implements GraphQLMut
 		return X_C_BP_Vendor_AcctInput.Table_Name;
 	}
 
-	public X_C_BP_Vendor_Acct C_BP_Vendor_AcctSave(I_C_BP_Vendor_AcctInput entity, DataFetchingEnvironment environment) {
-		return (X_C_BP_Vendor_Acct) super.save((X_C_BP_Vendor_AcctInput) entity, environment);
+	public X_C_BP_Vendor_Acct C_BP_Vendor_AcctSave(I_C_BP_Vendor_AcctInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_BP_Vendor_Acct) super.save((X_C_BP_Vendor_AcctInput) Entity, environment);
 	}
 
-	public List<X_C_BP_Vendor_Acct> C_BP_Vendor_AcctSaveMany(List<I_C_BP_Vendor_AcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BP_Vendor_AcctInput) entity).collect(Collectors.toList()),
+	public List<X_C_BP_Vendor_Acct> C_BP_Vendor_AcctSaveMany(List<I_C_BP_Vendor_AcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BP_Vendor_AcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_BP_Vendor_Acct) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BP_Vendor_AcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BP_Vendor_AcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

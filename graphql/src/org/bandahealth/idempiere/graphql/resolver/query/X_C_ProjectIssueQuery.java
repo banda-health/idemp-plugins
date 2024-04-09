@@ -17,8 +17,8 @@ public class X_C_ProjectIssueQuery extends POQuery<MProjectIssue> implements Gra
 		return MProjectIssue.Table_Name;
 	}
 
-	public Connection<MProjectIssue> C_ProjectIssueGet(int page, int pageSize, String sort, String filter,
+	public Connection<MProjectIssue> C_ProjectIssueGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

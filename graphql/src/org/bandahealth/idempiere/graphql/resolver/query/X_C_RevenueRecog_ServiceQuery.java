@@ -17,8 +17,8 @@ public class X_C_RevenueRecog_ServiceQuery extends POQuery<MRevenueRecogService>
 		return MRevenueRecogService.Table_Name;
 	}
 
-	public Connection<MRevenueRecogService> C_RevenueRecog_ServiceGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRevenueRecogService> C_RevenueRecog_ServiceGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_ReportGet(page: Int, size: Int, sort: String, filter: String): PA_ReportConnection!
+	PA_ReportGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_ReportConnection!
 }
 
 extend type Mutation {
-	PA_ReportSave(entity: PA_ReportInput!): PA_Report!
-	PA_ReportSaveMany(entities: [PA_ReportInput!]!): [PA_Report!]!
-	PA_ReportDelete(uuids: [String!]!): Boolean!
+	PA_ReportSave(Entity: PA_ReportInput!): PA_Report!
+	PA_ReportSaveMany(Entities: [PA_ReportInput!]!): [PA_Report!]!
+	PA_ReportDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_ReportConnection {
-	results: [PA_Report!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_Report!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_Report {
@@ -47,8 +47,7 @@ type PA_Report {
 	ListTrx: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
-	PA_Report_UU: String
+	UU: ID!
 	# Collection of Columns for Report
 	PA_ReportColumnSet: PA_ReportColumnSet!
 	# Define reporting cube for pre-calculation of summary accounting data.
@@ -86,8 +85,7 @@ input PA_ReportInput {
 	ListTrx: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
-	PA_Report_UU: String
+	UU: ID
 	# Collection of Columns for Report
 	PA_ReportColumnSet: ForeignEntityInput
 	# Define reporting cube for pre-calculation of summary accounting data.

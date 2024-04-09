@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaxDeclarationAcctGet(page: Int, size: Int, sort: String, filter: String): C_TaxDeclarationAcctConnection!
+	C_TaxDeclarationAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxDeclarationAcctConnection!
 }
 
 extend type Mutation {
-	C_TaxDeclarationAcctSave(entity: C_TaxDeclarationAcctInput!): C_TaxDeclarationAcct!
-	C_TaxDeclarationAcctSaveMany(entities: [C_TaxDeclarationAcctInput!]!): [C_TaxDeclarationAcct!]!
-	C_TaxDeclarationAcctDelete(uuids: [String!]!): Boolean!
+	C_TaxDeclarationAcctSave(Entity: C_TaxDeclarationAcctInput!): C_TaxDeclarationAcct!
+	C_TaxDeclarationAcctSaveMany(Entities: [C_TaxDeclarationAcctInput!]!): [C_TaxDeclarationAcct!]!
+	C_TaxDeclarationAcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaxDeclarationAcctConnection {
-	results: [C_TaxDeclarationAcct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_TaxDeclarationAcct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_TaxDeclarationAcct {
@@ -41,8 +41,7 @@ type C_TaxDeclarationAcct {
 	C_Tax: C_Tax
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: C_TaxDeclaration!
-	UUID: ID!
-	C_TaxDeclarationAcct_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -69,8 +68,7 @@ input C_TaxDeclarationAcctInput {
 	C_AcctSchema: ForeignEntityInput
 	# Define the declaration to the tax authorities
 	C_TaxDeclaration: ForeignEntityInput
-	UUID: ID
-	C_TaxDeclarationAcct_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	Fact_Acct: ForeignEntityInput

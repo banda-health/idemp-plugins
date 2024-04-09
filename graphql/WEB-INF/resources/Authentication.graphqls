@@ -1,7 +1,7 @@
 extend type Query {
-	changeAccess(credentials: ChangeAccessInput!): ChangeAccessResponse!
-	changePassword(credentials: AuthenticationInput!): AuthenticationResponse!
-	signIn(credentials: AuthenticationInput!): AuthenticationResponse!
+	ChangeAccess(Credentials: ChangeAccessInput!): ChangeAccessResponse!
+	ChangePassword(Credentials: AuthenticationInput!): AuthenticationResponse!
+	SignIn(Credentials: AuthenticationInput!): AuthenticationResponse!
 }
 
 #extend type Mutation {
@@ -10,35 +10,35 @@ extend type Query {
 #}
 
 type AuthenticationResponse {
-	token: String
+	Token: String
 	AD_Clients: [AD_Client!]!
-	user: AD_User
+	AD_User: AD_User
 	AD_Role: AD_Role
-	securityQuestions: [String!]
+	SecurityQuestions: [String!]
 }
 
 input AuthenticationInput {
-	username: String!
-	password: String!
-	newPassword: String
-	securityQuestion: String
-	answer: String
-	clientUuid: String
-	roleUuid: String
-	organizationUuid: String
-	warehouseUuid: String
-	language: String
+	Username: String!
+	Password: String!
+	NewPassword: String
+	SecurityQuestion: String
+	Answer: String
+	AD_Client_UU: String
+	AD_Role_UU: String
+	AD_Org_UU: String
+	M_Warehouse_UU: String
+	AD_Language: String
 }
 
 type ChangeAccessResponse {
-	token: String!
+	Token: String!
 }
 
 input ChangeAccessInput {
-	username: String!
-	clientUuid: String
-	roleUuid: String
-	organizationUuid: String
-	warehouseUuid: String
-	language: String
+	Username: String!
+	AD_Client_UU: String
+	AD_Role_UU: String
+	AD_Org_UU: String
+	M_Warehouse_UU: String
+	AD_Language: String
 }

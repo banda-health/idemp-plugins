@@ -17,8 +17,8 @@ public class X_C_TaxDeclarationQuery extends POQuery<MTaxDeclaration> implements
 		return MTaxDeclaration.Table_Name;
 	}
 
-	public Connection<MTaxDeclaration> C_TaxDeclarationGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTaxDeclaration> C_TaxDeclarationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

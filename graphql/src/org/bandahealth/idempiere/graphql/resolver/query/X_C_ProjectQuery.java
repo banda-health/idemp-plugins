@@ -17,8 +17,8 @@ public class X_C_ProjectQuery extends POQuery<MProject> implements GraphQLQueryR
 		return MProject.Table_Name;
 	}
 
-	public Connection<MProject> C_ProjectGet(int page, int pageSize, String sort, String filter,
+	public Connection<MProject> C_ProjectGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_BH_BP_General_Payer_InfoMutation extends POMutation implements Gr
 		return X_BH_BP_General_Payer_InfoInput.Table_Name;
 	}
 
-	public MBHBPGeneralPayerInfo BH_BP_General_Payer_InfoSave(I_BH_BP_General_Payer_InfoInput entity, DataFetchingEnvironment environment) {
-		return (MBHBPGeneralPayerInfo) super.save((X_BH_BP_General_Payer_InfoInput) entity, environment);
+	public MBHBPGeneralPayerInfo BH_BP_General_Payer_InfoSave(I_BH_BP_General_Payer_InfoInput Entity, DataFetchingEnvironment environment) {
+		return (MBHBPGeneralPayerInfo) super.save((X_BH_BP_General_Payer_InfoInput) Entity, environment);
 	}
 
-	public List<MBHBPGeneralPayerInfo> BH_BP_General_Payer_InfoSaveMany(List<I_BH_BP_General_Payer_InfoInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_BP_General_Payer_InfoInput) entity).collect(Collectors.toList()),
+	public List<MBHBPGeneralPayerInfo> BH_BP_General_Payer_InfoSaveMany(List<I_BH_BP_General_Payer_InfoInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_BP_General_Payer_InfoInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHBPGeneralPayerInfo) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_BP_General_Payer_InfoDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_BP_General_Payer_InfoDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

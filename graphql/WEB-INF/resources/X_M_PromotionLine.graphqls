@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PromotionLineGet(page: Int, size: Int, sort: String, filter: String): M_PromotionLineConnection!
+	M_PromotionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionLineConnection!
 }
 
 extend type Mutation {
-	M_PromotionLineSave(entity: M_PromotionLineInput!): M_PromotionLine!
-	M_PromotionLineSaveMany(entities: [M_PromotionLineInput!]!): [M_PromotionLine!]!
-	M_PromotionLineDelete(uuids: [String!]!): Boolean!
+	M_PromotionLineSave(Entity: M_PromotionLineInput!): M_PromotionLine!
+	M_PromotionLineSaveMany(Entities: [M_PromotionLineInput!]!): [M_PromotionLine!]!
+	M_PromotionLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PromotionLineConnection {
-	results: [M_PromotionLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PromotionLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PromotionLine {
@@ -31,8 +31,7 @@ type M_PromotionLine {
 	IsMandatoryPL: Boolean!
 	M_Promotion: M_Promotion!
 	M_PromotionGroup: M_PromotionGroup
-	UUID: ID!
-	M_PromotionLine_UU: String
+	UU: ID!
 	# Minimum Amount in Document Currency
 	MinimumAmt: BigDecimal
 	# Date this record was updated
@@ -50,8 +49,7 @@ input M_PromotionLineInput {
 	IsMandatoryPL: Boolean
 	M_Promotion: ForeignEntityInput
 	M_PromotionGroup: ForeignEntityInput
-	UUID: ID
-	M_PromotionLine_UU: String
+	UU: ID
 	# Minimum Amount in Document Currency
 	MinimumAmt: BigDecimal
 }

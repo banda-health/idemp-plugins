@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	GL_DistributionGet(page: Int, size: Int, sort: String, filter: String): GL_DistributionConnection!
+	GL_DistributionGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_DistributionConnection!
 }
 
 extend type Mutation {
-	GL_DistributionSave(entity: GL_DistributionInput!): GL_Distribution!
-	GL_DistributionSaveMany(entities: [GL_DistributionInput!]!): [GL_Distribution!]!
-	GL_DistributionDelete(uuids: [String!]!): Boolean!
+	GL_DistributionSave(Entity: GL_DistributionInput!): GL_Distribution!
+	GL_DistributionSaveMany(Entities: [GL_DistributionInput!]!): [GL_Distribution!]!
+	GL_DistributionDelete(UUs: [String!]!): Boolean!
 }
 
 type GL_DistributionConnection {
-	results: [GL_Distribution!]!
-	pagingInfo: PagingInfo!
+	Results: [GL_Distribution!]!
+	PagingInfo: PagingInfo!
 }
 
 type GL_Distribution {
@@ -73,8 +73,7 @@ type GL_Distribution {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	UUID: ID!
-	GL_Distribution_UU: String
+	UU: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -159,8 +158,7 @@ input GL_DistributionInput {
 	C_SalesRegion: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	UUID: ID
-	GL_Distribution_UU: String
+	UU: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

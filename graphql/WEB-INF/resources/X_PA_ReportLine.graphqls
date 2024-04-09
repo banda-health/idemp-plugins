@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_ReportLineGet(page: Int, size: Int, sort: String, filter: String): PA_ReportLineConnection!
+	PA_ReportLineGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_ReportLineConnection!
 }
 
 extend type Mutation {
-	PA_ReportLineSave(entity: PA_ReportLineInput!): PA_ReportLine!
-	PA_ReportLineSaveMany(entities: [PA_ReportLineInput!]!): [PA_ReportLine!]!
-	PA_ReportLineDelete(uuids: [String!]!): Boolean!
+	PA_ReportLineSave(Entity: PA_ReportLineInput!): PA_ReportLine!
+	PA_ReportLineSaveMany(Entities: [PA_ReportLineInput!]!): [PA_ReportLine!]!
+	PA_ReportLineDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_ReportLineConnection {
-	results: [PA_ReportLine!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_ReportLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_ReportLine {
@@ -48,8 +48,7 @@ type PA_ReportLine {
 	# Second operand for calculation
 	Oper_2: PA_ReportLine
 	OverlineStrokeType: AD_Ref_List
-	UUID: ID!
-	PA_ReportLine_UU: String
+	UU: ID!
 	PA_ReportLineSet: PA_ReportLineSet!
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_List
@@ -93,8 +92,7 @@ input PA_ReportLineInput {
 	# Second operand for calculation
 	Oper_2: ForeignEntityInput
 	OverlineStrokeType: AD_Ref_ListInput
-	UUID: ID
-	PA_ReportLine_UU: String
+	UU: ID
 	PA_ReportLineSet: ForeignEntityInput
 	# PA Amount Type for reporting
 	PAAmountType: AD_Ref_ListInput

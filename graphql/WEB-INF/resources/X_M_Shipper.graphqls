@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ShipperGet(page: Int, size: Int, sort: String, filter: String): M_ShipperConnection!
+	M_ShipperGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperConnection!
 }
 
 extend type Mutation {
-	M_ShipperSave(entity: M_ShipperInput!): M_Shipper!
-	M_ShipperSaveMany(entities: [M_ShipperInput!]!): [M_Shipper!]!
-	M_ShipperDelete(uuids: [String!]!): Boolean!
+	M_ShipperSave(Entity: M_ShipperInput!): M_Shipper!
+	M_ShipperSaveMany(Entities: [M_ShipperInput!]!): [M_Shipper!]!
+	M_ShipperDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ShipperConnection {
-	results: [M_Shipper!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Shipper!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Shipper {
@@ -31,8 +31,7 @@ type M_Shipper {
 	CreateFrom: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_Shipper_UU: String
+	UU: ID!
 	M_ShipperCfg: M_ShipperCfg
 	M_ShippingProcessor: M_ShippingProcessor
 	# Alphanumeric identifier of the entity
@@ -52,8 +51,7 @@ input M_ShipperInput {
 	CreateFrom: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_Shipper_UU: String
+	UU: ID
 	M_ShipperCfg: ForeignEntityInput
 	M_ShippingProcessor: ForeignEntityInput
 	# Alphanumeric identifier of the entity

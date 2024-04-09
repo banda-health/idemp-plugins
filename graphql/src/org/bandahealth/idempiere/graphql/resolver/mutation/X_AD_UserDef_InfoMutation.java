@@ -21,16 +21,16 @@ public class X_AD_UserDef_InfoMutation extends POMutation implements GraphQLMuta
 		return X_AD_UserDef_InfoInput.Table_Name;
 	}
 
-	public MUserDefInfo AD_UserDef_InfoSave(I_AD_UserDef_InfoInput entity, DataFetchingEnvironment environment) {
-		return (MUserDefInfo) super.save((X_AD_UserDef_InfoInput) entity, environment);
+	public MUserDefInfo AD_UserDef_InfoSave(I_AD_UserDef_InfoInput Entity, DataFetchingEnvironment environment) {
+		return (MUserDefInfo) super.save((X_AD_UserDef_InfoInput) Entity, environment);
 	}
 
-	public List<MUserDefInfo> AD_UserDef_InfoSaveMany(List<I_AD_UserDef_InfoInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserDef_InfoInput) entity).collect(Collectors.toList()),
+	public List<MUserDefInfo> AD_UserDef_InfoSaveMany(List<I_AD_UserDef_InfoInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserDef_InfoInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserDefInfo) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDef_InfoDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDef_InfoDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

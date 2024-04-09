@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_RequisitionLineGet(page: Int, size: Int, sort: String, filter: String): M_RequisitionLineConnection!
+	M_RequisitionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RequisitionLineConnection!
 }
 
 extend type Mutation {
-	M_RequisitionLineSave(entity: M_RequisitionLineInput!): M_RequisitionLine!
-	M_RequisitionLineSaveMany(entities: [M_RequisitionLineInput!]!): [M_RequisitionLine!]!
-	M_RequisitionLineDelete(uuids: [String!]!): Boolean!
+	M_RequisitionLineSave(Entity: M_RequisitionLineInput!): M_RequisitionLine!
+	M_RequisitionLineSaveMany(Entities: [M_RequisitionLineInput!]!): [M_RequisitionLine!]!
+	M_RequisitionLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_RequisitionLineConnection {
-	results: [M_RequisitionLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_RequisitionLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_RequisitionLine {
@@ -47,8 +47,7 @@ type M_RequisitionLine {
 	M_Product: M_Product
 	# Material Requisition
 	M_Requisition: M_Requisition!
-	UUID: ID!
-	M_RequisitionLine_UU: String
+	UU: ID!
 	# Actual Price 
 	PriceActual: BigDecimal!
 	# Quantity
@@ -84,8 +83,7 @@ input M_RequisitionLineInput {
 	M_Product: ForeignEntityInput
 	# Material Requisition
 	M_Requisition: ForeignEntityInput
-	UUID: ID
-	M_RequisitionLine_UU: String
+	UU: ID
 	# Actual Price 
 	PriceActual: BigDecimal
 	# Quantity

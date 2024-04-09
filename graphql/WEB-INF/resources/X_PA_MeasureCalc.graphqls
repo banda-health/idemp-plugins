@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_MeasureCalcGet(page: Int, size: Int, sort: String, filter: String): PA_MeasureCalcConnection!
+	PA_MeasureCalcGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_MeasureCalcConnection!
 }
 
 extend type Mutation {
-	PA_MeasureCalcSave(entity: PA_MeasureCalcInput!): PA_MeasureCalc!
-	PA_MeasureCalcSaveMany(entities: [PA_MeasureCalcInput!]!): [PA_MeasureCalc!]!
-	PA_MeasureCalcDelete(uuids: [String!]!): Boolean!
+	PA_MeasureCalcSave(Entity: PA_MeasureCalcInput!): PA_MeasureCalc!
+	PA_MeasureCalcSaveMany(Entities: [PA_MeasureCalcInput!]!): [PA_MeasureCalc!]!
+	PA_MeasureCalcDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_MeasureCalcConnection {
-	results: [PA_MeasureCalc!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_MeasureCalc!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_MeasureCalc {
@@ -43,8 +43,7 @@ type PA_MeasureCalc {
 	Name: String!
 	# Fully qualified Organization column (AD_Org_ID)
 	OrgColumn: String!
-	UUID: ID!
-	PA_MeasureCalc_UU: String
+	UU: ID!
 	# Fully qualified Product column (M_Product_ID)
 	ProductColumn: String
 	# SQL SELECT clause
@@ -78,8 +77,7 @@ input PA_MeasureCalcInput {
 	Name: String
 	# Fully qualified Organization column (AD_Org_ID)
 	OrgColumn: String
-	UUID: ID
-	PA_MeasureCalc_UU: String
+	UU: ID
 	# Fully qualified Product column (M_Product_ID)
 	ProductColumn: String
 	# SQL SELECT clause

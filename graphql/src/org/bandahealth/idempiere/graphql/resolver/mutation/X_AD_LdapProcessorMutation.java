@@ -21,16 +21,16 @@ public class X_AD_LdapProcessorMutation extends POMutation implements GraphQLMut
 		return X_AD_LdapProcessorInput.Table_Name;
 	}
 
-	public MLdapProcessor AD_LdapProcessorSave(I_AD_LdapProcessorInput entity, DataFetchingEnvironment environment) {
-		return (MLdapProcessor) super.save((X_AD_LdapProcessorInput) entity, environment);
+	public MLdapProcessor AD_LdapProcessorSave(I_AD_LdapProcessorInput Entity, DataFetchingEnvironment environment) {
+		return (MLdapProcessor) super.save((X_AD_LdapProcessorInput) Entity, environment);
 	}
 
-	public List<MLdapProcessor> AD_LdapProcessorSaveMany(List<I_AD_LdapProcessorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_LdapProcessorInput) entity).collect(Collectors.toList()),
+	public List<MLdapProcessor> AD_LdapProcessorSaveMany(List<I_AD_LdapProcessorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_LdapProcessorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MLdapProcessor) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_LdapProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_LdapProcessorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_MRPGet(page: Int, size: Int, sort: String, filter: String): PP_MRPConnection!
+	PP_MRPGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_MRPConnection!
 }
 
 extend type Mutation {
-	PP_MRPSave(entity: PP_MRPInput!): PP_MRP!
-	PP_MRPSaveMany(entities: [PP_MRPInput!]!): [PP_MRP!]!
-	PP_MRPDelete(uuids: [String!]!): Boolean!
+	PP_MRPSave(Entity: PP_MRPInput!): PP_MRP!
+	PP_MRPSaveMany(Entities: [PP_MRPInput!]!): [PP_MRP!]!
+	PP_MRPDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_MRPConnection {
-	results: [PP_MRP!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_MRP!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_MRP {
@@ -72,8 +72,7 @@ type PP_MRP {
 	# Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
 	OrderType: AD_Ref_List
 	Planner: AD_User
-	UUID: ID!
-	PP_MRP_UU: String
+	UU: ID!
 	PP_Order_BOMLine: PP_Order_BOMLine
 	# Manufacturing Order
 	PP_Order: PP_Order
@@ -145,8 +144,7 @@ input PP_MRPInput {
 	# Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
 	OrderType: AD_Ref_ListInput
 	Planner: ForeignEntityInput
-	UUID: ID
-	PP_MRP_UU: String
+	UU: ID
 	PP_Order_BOMLine: ForeignEntityInput
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput

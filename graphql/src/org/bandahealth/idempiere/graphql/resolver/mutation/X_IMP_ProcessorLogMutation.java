@@ -21,16 +21,16 @@ public class X_IMP_ProcessorLogMutation extends POMutation implements GraphQLMut
 		return X_IMP_ProcessorLogInput.Table_Name;
 	}
 
-	public MIMPProcessorLog IMP_ProcessorLogSave(I_IMP_ProcessorLogInput entity, DataFetchingEnvironment environment) {
-		return (MIMPProcessorLog) super.save((X_IMP_ProcessorLogInput) entity, environment);
+	public MIMPProcessorLog IMP_ProcessorLogSave(I_IMP_ProcessorLogInput Entity, DataFetchingEnvironment environment) {
+		return (MIMPProcessorLog) super.save((X_IMP_ProcessorLogInput) Entity, environment);
 	}
 
-	public List<MIMPProcessorLog> IMP_ProcessorLogSaveMany(List<I_IMP_ProcessorLogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_IMP_ProcessorLogInput) entity).collect(Collectors.toList()),
+	public List<MIMPProcessorLog> IMP_ProcessorLogSaveMany(List<I_IMP_ProcessorLogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_IMP_ProcessorLogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MIMPProcessorLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean IMP_ProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean IMP_ProcessorLogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

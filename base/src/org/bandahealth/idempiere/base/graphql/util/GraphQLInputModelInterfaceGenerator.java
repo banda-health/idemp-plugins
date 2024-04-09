@@ -240,10 +240,10 @@ public class GraphQLInputModelInterfaceGenerator {
 			return columnBuilder.toString();
 		} else if (columnName.equalsIgnoreCase(MTable.get(AD_Table_ID).getTableName() + "_UU")) {
 			columnBuilder.append("\n");
-			GraphQLUtil.generateJavaSetComment("UUID", "UUID", Description, columnBuilder);
-			columnBuilder.append("\tvoid setUUID(String UUID);\n");
-			GraphQLUtil.generateJavaGetComment("UUID", Description, columnBuilder);
-			columnBuilder.append("\tString getUUID();");
+			GraphQLUtil.generateJavaSetComment("UU", "UU", Description, columnBuilder);
+			columnBuilder.append("\tvoid setUU(String UU);\n");
+			GraphQLUtil.generateJavaGetComment("UU", Description, columnBuilder);
+			columnBuilder.append("\tString getUU();");
 			return columnBuilder.toString();
 		} else if (columnName.endsWith("_UU")) {
 			log.warning("Did not generate a field for: " + columnName);

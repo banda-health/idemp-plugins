@@ -17,8 +17,8 @@ public class X_AD_UserDef_Info_ColumnQuery extends POQuery<MUserDefInfoColumn> i
 		return MUserDefInfoColumn.Table_Name;
 	}
 
-	public Connection<MUserDefInfoColumn> AD_UserDef_Info_ColumnGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUserDefInfoColumn> AD_UserDef_Info_ColumnGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

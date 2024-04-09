@@ -21,16 +21,16 @@ public class X_AD_ProcessMutation extends POMutation implements GraphQLMutationR
 		return X_AD_ProcessInput.Table_Name;
 	}
 
-	public MProcess_BH AD_ProcessSave(I_AD_ProcessInput entity, DataFetchingEnvironment environment) {
-		return (MProcess_BH) super.save((X_AD_ProcessInput) entity, environment);
+	public MProcess_BH AD_ProcessSave(I_AD_ProcessInput Entity, DataFetchingEnvironment environment) {
+		return (MProcess_BH) super.save((X_AD_ProcessInput) Entity, environment);
 	}
 
-	public List<MProcess_BH> AD_ProcessSaveMany(List<I_AD_ProcessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ProcessInput) entity).collect(Collectors.toList()),
+	public List<MProcess_BH> AD_ProcessSaveMany(List<I_AD_ProcessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ProcessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProcess_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ProcessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ProcessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

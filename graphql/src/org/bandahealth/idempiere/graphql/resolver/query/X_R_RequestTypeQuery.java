@@ -17,8 +17,8 @@ public class X_R_RequestTypeQuery extends POQuery<MRequestType> implements Graph
 		return MRequestType.Table_Name;
 	}
 
-	public Connection<MRequestType> R_RequestTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRequestType> R_RequestTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

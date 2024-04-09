@@ -17,8 +17,8 @@ public class X_A_DepreciationQuery extends POQuery<MDepreciation> implements Gra
 		return MDepreciation.Table_Name;
 	}
 
-	public Connection<MDepreciation> A_DepreciationGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDepreciation> A_DepreciationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

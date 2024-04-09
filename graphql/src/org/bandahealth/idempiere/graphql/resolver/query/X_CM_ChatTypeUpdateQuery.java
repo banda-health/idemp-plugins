@@ -17,8 +17,8 @@ public class X_CM_ChatTypeUpdateQuery extends POQuery<X_CM_ChatTypeUpdate> imple
 		return X_CM_ChatTypeUpdate.Table_Name;
 	}
 
-	public Connection<X_CM_ChatTypeUpdate> CM_ChatTypeUpdateGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_CM_ChatTypeUpdate> CM_ChatTypeUpdateGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

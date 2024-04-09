@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ForecastLineGet(page: Int, size: Int, sort: String, filter: String): M_ForecastLineConnection!
+	M_ForecastLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ForecastLineConnection!
 }
 
 extend type Mutation {
-	M_ForecastLineSave(entity: M_ForecastLineInput!): M_ForecastLine!
-	M_ForecastLineSaveMany(entities: [M_ForecastLineInput!]!): [M_ForecastLine!]!
-	M_ForecastLineDelete(uuids: [String!]!): Boolean!
+	M_ForecastLineSave(Entity: M_ForecastLineInput!): M_ForecastLine!
+	M_ForecastLineSaveMany(Entities: [M_ForecastLineInput!]!): [M_ForecastLine!]!
+	M_ForecastLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ForecastLineConnection {
-	results: [M_ForecastLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ForecastLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ForecastLine {
@@ -33,8 +33,7 @@ type M_ForecastLine {
 	IsActive: Boolean!
 	# Material Forecast
 	M_Forecast: M_Forecast!
-	UUID: ID!
-	M_ForecastLine_UU: String
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Storage Warehouse and Service Point
@@ -62,8 +61,7 @@ input M_ForecastLineInput {
 	IsActive: Boolean
 	# Material Forecast
 	M_Forecast: ForeignEntityInput
-	UUID: ID
-	M_ForecastLine_UU: String
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Storage Warehouse and Service Point

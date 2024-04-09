@@ -21,16 +21,16 @@ public class X_RV_WarehousePriceMutation extends POMutation implements GraphQLMu
 		return X_RV_WarehousePriceInput.Table_Name;
 	}
 
-	public MWarehousePrice RV_WarehousePriceSave(I_RV_WarehousePriceInput entity, DataFetchingEnvironment environment) {
-		return (MWarehousePrice) super.save((X_RV_WarehousePriceInput) entity, environment);
+	public MWarehousePrice RV_WarehousePriceSave(I_RV_WarehousePriceInput Entity, DataFetchingEnvironment environment) {
+		return (MWarehousePrice) super.save((X_RV_WarehousePriceInput) Entity, environment);
 	}
 
-	public List<MWarehousePrice> RV_WarehousePriceSaveMany(List<I_RV_WarehousePriceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_RV_WarehousePriceInput) entity).collect(Collectors.toList()),
+	public List<MWarehousePrice> RV_WarehousePriceSaveMany(List<I_RV_WarehousePriceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_RV_WarehousePriceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MWarehousePrice) entity).collect(Collectors.toList());
 	}
 
-	public boolean RV_WarehousePriceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean RV_WarehousePriceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

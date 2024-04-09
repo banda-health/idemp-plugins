@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CityGet(page: Int, size: Int, sort: String, filter: String): C_CityConnection!
+	C_CityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CityConnection!
 }
 
 extend type Mutation {
-	C_CitySave(entity: C_CityInput!): C_City!
-	C_CitySaveMany(entities: [C_CityInput!]!): [C_City!]!
-	C_CityDelete(uuids: [String!]!): Boolean!
+	C_CitySave(Entity: C_CityInput!): C_City!
+	C_CitySaveMany(Entities: [C_CityInput!]!): [C_City!]!
+	C_CityDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CityConnection {
-	results: [C_City!]!
-	pagingInfo: PagingInfo!
+	Results: [C_City!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_City {
@@ -23,8 +23,7 @@ type C_City {
 	AD_Org: AD_Org!
 	# Phone Area Code
 	AreaCode: String
-	UUID: ID!
-	C_City_UU: String
+	UU: ID!
 	# Country 
 	C_Country: C_Country
 	# Identifies a geographical Region
@@ -54,8 +53,7 @@ input C_CityInput {
 	AD_Org: ForeignEntityInput
 	# Phone Area Code
 	AreaCode: String
-	UUID: ID
-	C_City_UU: String
+	UU: ID
 	# Country 
 	C_Country: ForeignEntityInput
 	# Identifies a geographical Region

@@ -17,8 +17,8 @@ public class X_R_ContactInterestQuery extends POQuery<MContactInterest> implemen
 		return MContactInterest.Table_Name;
 	}
 
-	public Connection<MContactInterest> R_ContactInterestGet(int page, int pageSize, String sort, String filter,
+	public Connection<MContactInterest> R_ContactInterestGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

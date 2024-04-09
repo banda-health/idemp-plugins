@@ -21,16 +21,16 @@ public class X_AD_WorkflowProcessorLogMutation extends POMutation implements Gra
 		return X_AD_WorkflowProcessorLogInput.Table_Name;
 	}
 
-	public X_AD_WorkflowProcessorLog AD_WorkflowProcessorLogSave(I_AD_WorkflowProcessorLogInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_WorkflowProcessorLog) super.save((X_AD_WorkflowProcessorLogInput) entity, environment);
+	public X_AD_WorkflowProcessorLog AD_WorkflowProcessorLogSave(I_AD_WorkflowProcessorLogInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_WorkflowProcessorLog) super.save((X_AD_WorkflowProcessorLogInput) Entity, environment);
 	}
 
-	public List<X_AD_WorkflowProcessorLog> AD_WorkflowProcessorLogSaveMany(List<I_AD_WorkflowProcessorLogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WorkflowProcessorLogInput) entity).collect(Collectors.toList()),
+	public List<X_AD_WorkflowProcessorLog> AD_WorkflowProcessorLogSaveMany(List<I_AD_WorkflowProcessorLogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WorkflowProcessorLogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_WorkflowProcessorLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WorkflowProcessorLogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WorkflowProcessorLogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

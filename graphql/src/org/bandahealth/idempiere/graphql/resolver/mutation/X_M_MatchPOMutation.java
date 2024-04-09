@@ -21,16 +21,16 @@ public class X_M_MatchPOMutation extends POMutation implements GraphQLMutationRe
 		return X_M_MatchPOInput.Table_Name;
 	}
 
-	public MMatchPO M_MatchPOSave(I_M_MatchPOInput entity, DataFetchingEnvironment environment) {
-		return (MMatchPO) super.save((X_M_MatchPOInput) entity, environment);
+	public MMatchPO M_MatchPOSave(I_M_MatchPOInput Entity, DataFetchingEnvironment environment) {
+		return (MMatchPO) super.save((X_M_MatchPOInput) Entity, environment);
 	}
 
-	public List<MMatchPO> M_MatchPOSaveMany(List<I_M_MatchPOInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_MatchPOInput) entity).collect(Collectors.toList()),
+	public List<MMatchPO> M_MatchPOSaveMany(List<I_M_MatchPOInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_MatchPOInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MMatchPO) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_MatchPODelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_MatchPODelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

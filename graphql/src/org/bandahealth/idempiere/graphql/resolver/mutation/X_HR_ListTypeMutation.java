@@ -21,16 +21,16 @@ public class X_HR_ListTypeMutation extends POMutation implements GraphQLMutation
 		return X_HR_ListTypeInput.Table_Name;
 	}
 
-	public X_HR_ListType HR_ListTypeSave(I_HR_ListTypeInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_ListType) super.save((X_HR_ListTypeInput) entity, environment);
+	public X_HR_ListType HR_ListTypeSave(I_HR_ListTypeInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_ListType) super.save((X_HR_ListTypeInput) Entity, environment);
 	}
 
-	public List<X_HR_ListType> HR_ListTypeSaveMany(List<I_HR_ListTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_ListTypeInput) entity).collect(Collectors.toList()),
+	public List<X_HR_ListType> HR_ListTypeSaveMany(List<I_HR_ListTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_ListTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_ListType) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_ListTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_ListTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

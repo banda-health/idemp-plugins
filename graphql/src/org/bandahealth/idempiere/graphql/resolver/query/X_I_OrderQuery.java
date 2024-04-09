@@ -17,8 +17,8 @@ public class X_I_OrderQuery extends POQuery<X_I_Order> implements GraphQLQueryRe
 		return X_I_Order.Table_Name;
 	}
 
-	public Connection<X_I_Order> I_OrderGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_I_Order> I_OrderGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

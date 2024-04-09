@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_IndexColumnGet(page: Int, size: Int, sort: String, filter: String): AD_IndexColumnConnection!
+	AD_IndexColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_IndexColumnConnection!
 }
 
 extend type Mutation {
-	AD_IndexColumnSave(entity: AD_IndexColumnInput!): AD_IndexColumn!
-	AD_IndexColumnSaveMany(entities: [AD_IndexColumnInput!]!): [AD_IndexColumn!]!
-	AD_IndexColumnDelete(uuids: [String!]!): Boolean!
+	AD_IndexColumnSave(Entity: AD_IndexColumnInput!): AD_IndexColumn!
+	AD_IndexColumnSaveMany(Entities: [AD_IndexColumnInput!]!): [AD_IndexColumn!]!
+	AD_IndexColumnDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_IndexColumnConnection {
-	results: [AD_IndexColumn!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_IndexColumn!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_IndexColumn {
@@ -21,8 +21,7 @@ type AD_IndexColumn {
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column
-	UUID: ID!
-	AD_IndexColumn_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	AD_TableIndex: AD_TableIndex!
@@ -47,8 +46,7 @@ type AD_IndexColumn {
 input AD_IndexColumnInput {
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	UUID: ID
-	AD_IndexColumn_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_TableIndex: ForeignEntityInput

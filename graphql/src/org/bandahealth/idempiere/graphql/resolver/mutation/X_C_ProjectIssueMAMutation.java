@@ -21,16 +21,16 @@ public class X_C_ProjectIssueMAMutation extends POMutation implements GraphQLMut
 		return X_C_ProjectIssueMAInput.Table_Name;
 	}
 
-	public X_C_ProjectIssueMA C_ProjectIssueMASave(I_C_ProjectIssueMAInput entity, DataFetchingEnvironment environment) {
-		return (X_C_ProjectIssueMA) super.save((X_C_ProjectIssueMAInput) entity, environment);
+	public X_C_ProjectIssueMA C_ProjectIssueMASave(I_C_ProjectIssueMAInput Entity, DataFetchingEnvironment environment) {
+		return (X_C_ProjectIssueMA) super.save((X_C_ProjectIssueMAInput) Entity, environment);
 	}
 
-	public List<X_C_ProjectIssueMA> C_ProjectIssueMASaveMany(List<I_C_ProjectIssueMAInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_ProjectIssueMAInput) entity).collect(Collectors.toList()),
+	public List<X_C_ProjectIssueMA> C_ProjectIssueMASaveMany(List<I_C_ProjectIssueMAInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_ProjectIssueMAInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_C_ProjectIssueMA) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_ProjectIssueMADelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_ProjectIssueMADelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

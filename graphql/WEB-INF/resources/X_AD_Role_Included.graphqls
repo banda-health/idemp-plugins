@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Role_IncludedGet(page: Int, size: Int, sort: String, filter: String): AD_Role_IncludedConnection!
+	AD_Role_IncludedGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Role_IncludedConnection!
 }
 
 extend type Mutation {
-	AD_Role_IncludedSave(entity: AD_Role_IncludedInput!): AD_Role_Included!
-	AD_Role_IncludedSaveMany(entities: [AD_Role_IncludedInput!]!): [AD_Role_Included!]!
-	AD_Role_IncludedDelete(uuids: [String!]!): Boolean!
+	AD_Role_IncludedSave(Entity: AD_Role_IncludedInput!): AD_Role_Included!
+	AD_Role_IncludedSaveMany(Entities: [AD_Role_IncludedInput!]!): [AD_Role_Included!]!
+	AD_Role_IncludedDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Role_IncludedConnection {
-	results: [AD_Role_Included!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Role_Included!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Role_Included {
@@ -23,8 +23,7 @@ type AD_Role_Included {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	UUID: ID!
-	AD_Role_Included_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -45,8 +44,7 @@ input AD_Role_IncludedInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	UUID: ID
-	AD_Role_Included_UU: String
+	UU: ID
 	Included_Role: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

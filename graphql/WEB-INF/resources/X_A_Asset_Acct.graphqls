@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_AcctGet(page: Int, size: Int, sort: String, filter: String): A_Asset_AcctConnection!
+	A_Asset_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_AcctConnection!
 }
 
 extend type Mutation {
-	A_Asset_AcctSave(entity: A_Asset_AcctInput!): A_Asset_Acct!
-	A_Asset_AcctSaveMany(entities: [A_Asset_AcctInput!]!): [A_Asset_Acct!]!
-	A_Asset_AcctDelete(uuids: [String!]!): Boolean!
+	A_Asset_AcctSave(Entity: A_Asset_AcctInput!): A_Asset_Acct!
+	A_Asset_AcctSaveMany(Entities: [A_Asset_AcctInput!]!): [A_Asset_Acct!]!
+	A_Asset_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_AcctConnection {
-	results: [A_Asset_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Acct {
 	A_Accumdepreciation_A: C_ValidCombination!
 	A_Asset_A: C_ValidCombination!
-	UUID: ID!
-	A_Asset_Acct_UU: String
+	UU: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Depreciation_A: C_ValidCombination!
@@ -74,8 +73,7 @@ type A_Asset_Acct {
 input A_Asset_AcctInput {
 	A_Accumdepreciation_A: ForeignEntityInput
 	A_Asset_A: ForeignEntityInput
-	UUID: ID
-	A_Asset_Acct_UU: String
+	UU: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Depreciation_A: ForeignEntityInput

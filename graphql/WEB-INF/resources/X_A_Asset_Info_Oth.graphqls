@@ -2,26 +2,25 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_Info_OthGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Info_OthConnection!
+	A_Asset_Info_OthGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_OthConnection!
 }
 
 extend type Mutation {
-	A_Asset_Info_OthSave(entity: A_Asset_Info_OthInput!): A_Asset_Info_Oth!
-	A_Asset_Info_OthSaveMany(entities: [A_Asset_Info_OthInput!]!): [A_Asset_Info_Oth!]!
-	A_Asset_Info_OthDelete(uuids: [String!]!): Boolean!
+	A_Asset_Info_OthSave(Entity: A_Asset_Info_OthInput!): A_Asset_Info_Oth!
+	A_Asset_Info_OthSaveMany(Entities: [A_Asset_Info_OthInput!]!): [A_Asset_Info_Oth!]!
+	A_Asset_Info_OthDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_Info_OthConnection {
-	results: [A_Asset_Info_Oth!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Info_Oth!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Info_Oth {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_Info_Oth: A_Asset_Info_Oth!
-	UUID: ID!
-	A_Asset_Info_Oth_UU: String
+	UU: ID!
 	A_User1: String
 	A_User10: String
 	A_User11: String
@@ -58,8 +57,7 @@ input A_Asset_Info_OthInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_Info_Oth: ForeignEntityInput
-	UUID: ID
-	A_Asset_Info_Oth_UU: String
+	UU: ID
 	A_User1: String
 	A_User10: String
 	A_User11: String

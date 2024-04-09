@@ -21,16 +21,16 @@ public class X_M_Product_CategoryMutation extends POMutation implements GraphQLM
 		return X_M_Product_CategoryInput.Table_Name;
 	}
 
-	public MProductCategory_BH M_Product_CategorySave(I_M_Product_CategoryInput entity, DataFetchingEnvironment environment) {
-		return (MProductCategory_BH) super.save((X_M_Product_CategoryInput) entity, environment);
+	public MProductCategory_BH M_Product_CategorySave(I_M_Product_CategoryInput Entity, DataFetchingEnvironment environment) {
+		return (MProductCategory_BH) super.save((X_M_Product_CategoryInput) Entity, environment);
 	}
 
-	public List<MProductCategory_BH> M_Product_CategorySaveMany(List<I_M_Product_CategoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_Product_CategoryInput) entity).collect(Collectors.toList()),
+	public List<MProductCategory_BH> M_Product_CategorySaveMany(List<I_M_Product_CategoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_Product_CategoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProductCategory_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_Product_CategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_Product_CategoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

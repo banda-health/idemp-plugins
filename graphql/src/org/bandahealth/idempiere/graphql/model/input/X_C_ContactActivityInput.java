@@ -32,12 +32,12 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_ContactActivity_UU to fetch this entity from the DB
+	 * @param UU The C_ContactActivity_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_ContactActivityInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_ContactActivityInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -123,20 +123,20 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_ContactActivity_UU(UUID);
+	public void setUU(String UU) {
+		setC_ContactActivity_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_ContactActivity_UU();
 	}
 
@@ -153,11 +153,11 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MOpportunity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Opportunity", "C_Opportunity_UU=?", get_TrxName())
-							.setParameters(C_Opportunity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Opportunity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Opportunity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Opportunity with UUID " + C_Opportunity.getUUID());
+						"Could not find entity in table C_Opportunity with UU " + C_Opportunity.getUU());
 			}
 		} else {
 			this.setC_Opportunity_ID(0);
@@ -190,11 +190,11 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ContactActivityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ContactActivityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setContactActivityType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ContactActivityType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ContactActivityType.getUU());
 			}
 		} else {
 			this.setContactActivityType(null);
@@ -224,11 +224,11 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(SalesRep.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(SalesRep.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setSalesRep_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + SalesRep.getUUID());
+						"Could not find entity in table AD_User with UU " + SalesRep.getUU());
 			}
 		} else {
 			this.setSalesRep_ID(0);

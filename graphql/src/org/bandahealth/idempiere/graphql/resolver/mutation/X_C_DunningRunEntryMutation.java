@@ -21,16 +21,16 @@ public class X_C_DunningRunEntryMutation extends POMutation implements GraphQLMu
 		return X_C_DunningRunEntryInput.Table_Name;
 	}
 
-	public MDunningRunEntry C_DunningRunEntrySave(I_C_DunningRunEntryInput entity, DataFetchingEnvironment environment) {
-		return (MDunningRunEntry) super.save((X_C_DunningRunEntryInput) entity, environment);
+	public MDunningRunEntry C_DunningRunEntrySave(I_C_DunningRunEntryInput Entity, DataFetchingEnvironment environment) {
+		return (MDunningRunEntry) super.save((X_C_DunningRunEntryInput) Entity, environment);
 	}
 
-	public List<MDunningRunEntry> C_DunningRunEntrySaveMany(List<I_C_DunningRunEntryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_DunningRunEntryInput) entity).collect(Collectors.toList()),
+	public List<MDunningRunEntry> C_DunningRunEntrySaveMany(List<I_C_DunningRunEntryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_DunningRunEntryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDunningRunEntry) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_DunningRunEntryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_DunningRunEntryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

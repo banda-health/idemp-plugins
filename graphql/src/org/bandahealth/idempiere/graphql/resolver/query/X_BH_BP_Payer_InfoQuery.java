@@ -17,8 +17,8 @@ public class X_BH_BP_Payer_InfoQuery extends POQuery<MBHBPPayerInfo> implements 
 		return MBHBPPayerInfo.Table_Name;
 	}
 
-	public Connection<MBHBPPayerInfo> BH_BP_Payer_InfoGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHBPPayerInfo> BH_BP_Payer_InfoGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

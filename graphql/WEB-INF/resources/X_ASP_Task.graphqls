@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	ASP_TaskGet(page: Int, size: Int, sort: String, filter: String): ASP_TaskConnection!
+	ASP_TaskGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_TaskConnection!
 }
 
 extend type Mutation {
-	ASP_TaskSave(entity: ASP_TaskInput!): ASP_Task!
-	ASP_TaskSaveMany(entities: [ASP_TaskInput!]!): [ASP_Task!]!
-	ASP_TaskDelete(uuids: [String!]!): Boolean!
+	ASP_TaskSave(Entity: ASP_TaskInput!): ASP_Task!
+	ASP_TaskSaveMany(Entities: [ASP_TaskInput!]!): [ASP_Task!]!
+	ASP_TaskDelete(UUs: [String!]!): Boolean!
 }
 
 type ASP_TaskConnection {
-	results: [ASP_Task!]!
-	pagingInfo: PagingInfo!
+	Results: [ASP_Task!]!
+	PagingInfo: PagingInfo!
 }
 
 type ASP_Task {
@@ -25,8 +25,7 @@ type ASP_Task {
 	AD_Task: AD_Task!
 	ASP_Level: ASP_Level!
 	ASP_Status: AD_Ref_List!
-	UUID: ID!
-	ASP_Task_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ input ASP_TaskInput {
 	AD_Task: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
 	ASP_Status: AD_Ref_ListInput
-	UUID: ID
-	ASP_Task_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 }

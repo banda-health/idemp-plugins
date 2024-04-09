@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_FAJournalGet(page: Int, size: Int, sort: String, filter: String): I_FAJournalConnection!
+	I_FAJournalGet(Page: Int, Size: Int, Sort: String, Filter: String): I_FAJournalConnection!
 }
 
 extend type Mutation {
-	I_FAJournalSave(entity: I_FAJournalInput!): I_FAJournal!
-	I_FAJournalSaveMany(entities: [I_FAJournalInput!]!): [I_FAJournal!]!
-	I_FAJournalDelete(uuids: [String!]!): Boolean!
+	I_FAJournalSave(Entity: I_FAJournalInput!): I_FAJournal!
+	I_FAJournalSaveMany(Entities: [I_FAJournalInput!]!): [I_FAJournal!]!
+	I_FAJournalDelete(UUs: [String!]!): Boolean!
 }
 
 type I_FAJournalConnection {
-	results: [I_FAJournal!]!
-	pagingInfo: PagingInfo!
+	Results: [I_FAJournal!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_FAJournal {
@@ -105,8 +105,7 @@ type I_FAJournal {
 	GL_JournalLine: GL_JournalLine
 	# Messages generated from import process
 	I_ErrorMsg: String
-	UUID: ID!
-	I_FAJournal_UU: String
+	UU: ID!
 	# Has this import been processed
 	I_IsImported: Boolean!
 	# The record is active in the system
@@ -233,8 +232,7 @@ input I_FAJournalInput {
 	GL_JournalLine: ForeignEntityInput
 	# Messages generated from import process
 	I_ErrorMsg: String
-	UUID: ID
-	I_FAJournal_UU: String
+	UU: ID
 	# Has this import been processed
 	I_IsImported: Boolean
 	# The record is active in the system

@@ -17,8 +17,8 @@ public class X_AD_TreeNodeQuery extends POQuery<MTree_Node> implements GraphQLQu
 		return MTree_Node.Table_Name;
 	}
 
-	public Connection<MTree_Node> AD_TreeNodeGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTree_Node> AD_TreeNodeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

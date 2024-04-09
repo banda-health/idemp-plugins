@@ -17,8 +17,8 @@ public class X_M_ForecastLineQuery extends POQuery<MForecastLine> implements Gra
 		return MForecastLine.Table_Name;
 	}
 
-	public Connection<MForecastLine> M_ForecastLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MForecastLine> M_ForecastLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

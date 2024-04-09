@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_CostTypeGet(page: Int, size: Int, sort: String, filter: String): M_CostTypeConnection!
+	M_CostTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostTypeConnection!
 }
 
 extend type Mutation {
-	M_CostTypeSave(entity: M_CostTypeInput!): M_CostType!
-	M_CostTypeSaveMany(entities: [M_CostTypeInput!]!): [M_CostType!]!
-	M_CostTypeDelete(uuids: [String!]!): Boolean!
+	M_CostTypeSave(Entity: M_CostTypeInput!): M_CostType!
+	M_CostTypeSaveMany(Entities: [M_CostTypeInput!]!): [M_CostType!]!
+	M_CostTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_CostTypeConnection {
-	results: [M_CostType!]!
-	pagingInfo: PagingInfo!
+	Results: [M_CostType!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_CostType {
@@ -31,8 +31,7 @@ type M_CostType {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_CostType_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -50,8 +49,7 @@ input M_CostTypeInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_CostType_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

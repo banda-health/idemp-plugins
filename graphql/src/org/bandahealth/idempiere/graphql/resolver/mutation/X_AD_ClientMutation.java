@@ -21,16 +21,16 @@ public class X_AD_ClientMutation extends POMutation implements GraphQLMutationRe
 		return X_AD_ClientInput.Table_Name;
 	}
 
-	public MClient_BH AD_ClientSave(I_AD_ClientInput entity, DataFetchingEnvironment environment) {
-		return (MClient_BH) super.save((X_AD_ClientInput) entity, environment);
+	public MClient_BH AD_ClientSave(I_AD_ClientInput Entity, DataFetchingEnvironment environment) {
+		return (MClient_BH) super.save((X_AD_ClientInput) Entity, environment);
 	}
 
-	public List<MClient_BH> AD_ClientSaveMany(List<I_AD_ClientInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ClientInput) entity).collect(Collectors.toList()),
+	public List<MClient_BH> AD_ClientSaveMany(List<I_AD_ClientInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ClientInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MClient_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ClientDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ClientDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

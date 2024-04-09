@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Tab_CustomizationGet(page: Int, size: Int, sort: String, filter: String): AD_Tab_CustomizationConnection!
+	AD_Tab_CustomizationGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Tab_CustomizationConnection!
 }
 
 extend type Mutation {
-	AD_Tab_CustomizationSave(entity: AD_Tab_CustomizationInput!): AD_Tab_Customization!
-	AD_Tab_CustomizationSaveMany(entities: [AD_Tab_CustomizationInput!]!): [AD_Tab_Customization!]!
-	AD_Tab_CustomizationDelete(uuids: [String!]!): Boolean!
+	AD_Tab_CustomizationSave(Entity: AD_Tab_CustomizationInput!): AD_Tab_Customization!
+	AD_Tab_CustomizationSaveMany(Entities: [AD_Tab_CustomizationInput!]!): [AD_Tab_Customization!]!
+	AD_Tab_CustomizationDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Tab_CustomizationConnection {
-	results: [AD_Tab_Customization!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Tab_Customization!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Tab_Customization {
@@ -21,8 +21,7 @@ type AD_Tab_Customization {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Tab_Customization_UU: String
+	UU: ID!
 	# Tab within a Window
 	AD_Tab: AD_Tab
 	# User within the system - Internal or Business Partner Contact
@@ -47,8 +46,7 @@ type AD_Tab_Customization {
 input AD_Tab_CustomizationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Tab_Customization_UU: String
+	UU: ID
 	# Tab within a Window
 	AD_Tab: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

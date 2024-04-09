@@ -21,16 +21,16 @@ public class X_M_InventoryLineMutation extends POMutation implements GraphQLMuta
 		return X_M_InventoryLineInput.Table_Name;
 	}
 
-	public MInventoryLine M_InventoryLineSave(I_M_InventoryLineInput entity, DataFetchingEnvironment environment) {
-		return (MInventoryLine) super.save((X_M_InventoryLineInput) entity, environment);
+	public MInventoryLine M_InventoryLineSave(I_M_InventoryLineInput Entity, DataFetchingEnvironment environment) {
+		return (MInventoryLine) super.save((X_M_InventoryLineInput) Entity, environment);
 	}
 
-	public List<MInventoryLine> M_InventoryLineSaveMany(List<I_M_InventoryLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_InventoryLineInput) entity).collect(Collectors.toList()),
+	public List<MInventoryLine> M_InventoryLineSaveMany(List<I_M_InventoryLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_InventoryLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInventoryLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_InventoryLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_InventoryLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

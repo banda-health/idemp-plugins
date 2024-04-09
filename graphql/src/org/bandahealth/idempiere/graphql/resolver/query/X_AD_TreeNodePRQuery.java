@@ -17,8 +17,8 @@ public class X_AD_TreeNodePRQuery extends POQuery<MTree_NodePR> implements Graph
 		return MTree_NodePR.Table_Name;
 	}
 
-	public Connection<MTree_NodePR> AD_TreeNodePRGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTree_NodePR> AD_TreeNodePRGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

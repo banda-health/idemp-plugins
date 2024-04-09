@@ -29,12 +29,12 @@ public class X_C_OrderPayScheduleInput extends MOrderPaySchedule implements I_C_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_OrderPaySchedule_UU to fetch this entity from the DB
+	 * @param UU The C_OrderPaySchedule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_OrderPayScheduleInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_OrderPayScheduleInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_C_OrderPayScheduleInput extends MOrderPaySchedule implements I_C_
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_C_OrderPayScheduleInput extends MOrderPaySchedule implements I_C_
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
+						"Could not find entity in table C_Order with UU " + C_Order.getUU());
 			}
 		} else {
 			this.setC_Order_ID(0);
@@ -123,20 +123,20 @@ public class X_C_OrderPayScheduleInput extends MOrderPaySchedule implements I_C_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_OrderPaySchedule_UU(UUID);
+	public void setUU(String UU) {
+		setC_OrderPaySchedule_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_OrderPaySchedule_UU();
 	}
 
@@ -156,11 +156,11 @@ public class X_C_OrderPayScheduleInput extends MOrderPaySchedule implements I_C_
 			MPaySchedule foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_PaySchedule", "C_PaySchedule_UU=?", get_TrxName())
-							.setParameters(C_PaySchedule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_PaySchedule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_PaySchedule_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_PaySchedule with UUID " + C_PaySchedule.getUUID());
+						"Could not find entity in table C_PaySchedule with UU " + C_PaySchedule.getUU());
 			}
 		} else {
 			this.setC_PaySchedule_ID(0);

@@ -11,18 +11,18 @@ import org.compiere.model.I_A_Depreciation_Table_Header;
 public interface I_A_Depreciation_Table_HeaderInput extends I_A_Depreciation_Table_Header {
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set A_Table_Rate_Type.

@@ -21,16 +21,16 @@ public class X_R_IssueKnownMutation extends POMutation implements GraphQLMutatio
 		return X_R_IssueKnownInput.Table_Name;
 	}
 
-	public X_R_IssueKnown R_IssueKnownSave(I_R_IssueKnownInput entity, DataFetchingEnvironment environment) {
-		return (X_R_IssueKnown) super.save((X_R_IssueKnownInput) entity, environment);
+	public X_R_IssueKnown R_IssueKnownSave(I_R_IssueKnownInput Entity, DataFetchingEnvironment environment) {
+		return (X_R_IssueKnown) super.save((X_R_IssueKnownInput) Entity, environment);
 	}
 
-	public List<X_R_IssueKnown> R_IssueKnownSaveMany(List<I_R_IssueKnownInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_IssueKnownInput) entity).collect(Collectors.toList()),
+	public List<X_R_IssueKnown> R_IssueKnownSaveMany(List<I_R_IssueKnownInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_IssueKnownInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_R_IssueKnown) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_IssueKnownDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_IssueKnownDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

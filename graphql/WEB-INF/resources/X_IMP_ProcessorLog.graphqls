@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	IMP_ProcessorLogGet(page: Int, size: Int, sort: String, filter: String): IMP_ProcessorLogConnection!
+	IMP_ProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_ProcessorLogConnection!
 }
 
 extend type Mutation {
-	IMP_ProcessorLogSave(entity: IMP_ProcessorLogInput!): IMP_ProcessorLog!
-	IMP_ProcessorLogSaveMany(entities: [IMP_ProcessorLogInput!]!): [IMP_ProcessorLog!]!
-	IMP_ProcessorLogDelete(uuids: [String!]!): Boolean!
+	IMP_ProcessorLogSave(Entity: IMP_ProcessorLogInput!): IMP_ProcessorLog!
+	IMP_ProcessorLogSaveMany(Entities: [IMP_ProcessorLogInput!]!): [IMP_ProcessorLog!]!
+	IMP_ProcessorLogDelete(UUs: [String!]!): Boolean!
 }
 
 type IMP_ProcessorLogConnection {
-	results: [IMP_ProcessorLog!]!
-	pagingInfo: PagingInfo!
+	Results: [IMP_ProcessorLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type IMP_ProcessorLog {
@@ -32,8 +32,7 @@ type IMP_ProcessorLog {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: IMP_Processor!
-	UUID: ID!
-	IMP_ProcessorLog_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# An Error occurred in the execution
@@ -60,8 +59,7 @@ input IMP_ProcessorLogInput {
 	# Comment or Hint
 	Help: String
 	IMP_Processor: ForeignEntityInput
-	UUID: ID
-	IMP_ProcessorLog_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# An Error occurred in the execution

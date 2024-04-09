@@ -17,8 +17,8 @@ public class X_AD_TabQuery extends POQuery<MTab> implements GraphQLQueryResolver
 		return MTab.Table_Name;
 	}
 
-	public Connection<MTab> AD_TabGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTab> AD_TabGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

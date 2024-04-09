@@ -21,16 +21,16 @@ public class X_C_InvoicePayScheduleMutation extends POMutation implements GraphQ
 		return X_C_InvoicePayScheduleInput.Table_Name;
 	}
 
-	public MInvoicePaySchedule C_InvoicePayScheduleSave(I_C_InvoicePayScheduleInput entity, DataFetchingEnvironment environment) {
-		return (MInvoicePaySchedule) super.save((X_C_InvoicePayScheduleInput) entity, environment);
+	public MInvoicePaySchedule C_InvoicePayScheduleSave(I_C_InvoicePayScheduleInput Entity, DataFetchingEnvironment environment) {
+		return (MInvoicePaySchedule) super.save((X_C_InvoicePayScheduleInput) Entity, environment);
 	}
 
-	public List<MInvoicePaySchedule> C_InvoicePayScheduleSaveMany(List<I_C_InvoicePayScheduleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_InvoicePayScheduleInput) entity).collect(Collectors.toList()),
+	public List<MInvoicePaySchedule> C_InvoicePayScheduleSaveMany(List<I_C_InvoicePayScheduleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_InvoicePayScheduleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInvoicePaySchedule) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_InvoicePayScheduleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_InvoicePayScheduleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

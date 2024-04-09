@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ProjectTaskGet(page: Int, size: Int, sort: String, filter: String): C_ProjectTaskConnection!
+	C_ProjectTaskGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectTaskConnection!
 }
 
 extend type Mutation {
-	C_ProjectTaskSave(entity: C_ProjectTaskInput!): C_ProjectTask!
-	C_ProjectTaskSaveMany(entities: [C_ProjectTaskInput!]!): [C_ProjectTask!]!
-	C_ProjectTaskDelete(uuids: [String!]!): Boolean!
+	C_ProjectTaskSave(Entity: C_ProjectTaskInput!): C_ProjectTask!
+	C_ProjectTaskSaveMany(Entities: [C_ProjectTaskInput!]!): [C_ProjectTask!]!
+	C_ProjectTaskDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ProjectTaskConnection {
-	results: [C_ProjectTask!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ProjectTask!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ProjectTask {
@@ -23,8 +23,7 @@ type C_ProjectTask {
 	AD_Org: AD_Org!
 	# Phase of a Project
 	C_ProjectPhase: C_ProjectPhase!
-	UUID: ID!
-	C_ProjectTask_UU: String
+	UU: ID!
 	# Standard Project Type Task
 	C_Task: C_Task
 	# The (legal) commitment amount
@@ -62,8 +61,7 @@ input C_ProjectTaskInput {
 	AD_Org: ForeignEntityInput
 	# Phase of a Project
 	C_ProjectPhase: ForeignEntityInput
-	UUID: ID
-	C_ProjectTask_UU: String
+	UU: ID
 	# Standard Project Type Task
 	C_Task: ForeignEntityInput
 	# The (legal) commitment amount

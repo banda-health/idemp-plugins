@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BankAccount_AcctGet(page: Int, size: Int, sort: String, filter: String): C_BankAccount_AcctConnection!
+	C_BankAccount_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccount_AcctConnection!
 }
 
 extend type Mutation {
-	C_BankAccount_AcctSave(entity: C_BankAccount_AcctInput!): C_BankAccount_Acct!
-	C_BankAccount_AcctSaveMany(entities: [C_BankAccount_AcctInput!]!): [C_BankAccount_Acct!]!
-	C_BankAccount_AcctDelete(uuids: [String!]!): Boolean!
+	C_BankAccount_AcctSave(Entity: C_BankAccount_AcctInput!): C_BankAccount_Acct!
+	C_BankAccount_AcctSaveMany(Entities: [C_BankAccount_AcctInput!]!): [C_BankAccount_Acct!]!
+	C_BankAccount_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BankAccount_AcctConnection {
-	results: [C_BankAccount_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BankAccount_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BankAccount_Acct {
@@ -35,8 +35,7 @@ type C_BankAccount_Acct {
 	B_UnallocatedCash_A: C_ValidCombination!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UUID: ID!
-	C_BankAccount_Acct_UU: String
+	UU: ID!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
 	# Date this record was created
@@ -68,8 +67,7 @@ input C_BankAccount_AcctInput {
 	B_UnallocatedCash_A: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UUID: ID
-	C_BankAccount_Acct_UU: String
+	UU: ID
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
 	# The record is active in the system

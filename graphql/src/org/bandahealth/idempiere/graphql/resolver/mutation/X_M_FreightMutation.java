@@ -21,16 +21,16 @@ public class X_M_FreightMutation extends POMutation implements GraphQLMutationRe
 		return X_M_FreightInput.Table_Name;
 	}
 
-	public MFreight M_FreightSave(I_M_FreightInput entity, DataFetchingEnvironment environment) {
-		return (MFreight) super.save((X_M_FreightInput) entity, environment);
+	public MFreight M_FreightSave(I_M_FreightInput Entity, DataFetchingEnvironment environment) {
+		return (MFreight) super.save((X_M_FreightInput) Entity, environment);
 	}
 
-	public List<MFreight> M_FreightSaveMany(List<I_M_FreightInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_FreightInput) entity).collect(Collectors.toList()),
+	public List<MFreight> M_FreightSaveMany(List<I_M_FreightInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_FreightInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MFreight) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_FreightDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_FreightDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

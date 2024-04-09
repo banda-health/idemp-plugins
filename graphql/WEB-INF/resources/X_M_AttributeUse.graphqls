@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_AttributeUseGet(page: Int, size: Int, sort: String, filter: String): M_AttributeUseConnection!
+	M_AttributeUseGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeUseConnection!
 }
 
 extend type Mutation {
-	M_AttributeUseSave(entity: M_AttributeUseInput!): M_AttributeUse!
-	M_AttributeUseSaveMany(entities: [M_AttributeUseInput!]!): [M_AttributeUse!]!
-	M_AttributeUseDelete(uuids: [String!]!): Boolean!
+	M_AttributeUseSave(Entity: M_AttributeUseInput!): M_AttributeUse!
+	M_AttributeUseSaveMany(Entities: [M_AttributeUseInput!]!): [M_AttributeUse!]!
+	M_AttributeUseDelete(UUs: [String!]!): Boolean!
 }
 
 type M_AttributeUseConnection {
-	results: [M_AttributeUse!]!
-	pagingInfo: PagingInfo!
+	Results: [M_AttributeUse!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_AttributeUse {
@@ -31,8 +31,7 @@ type M_AttributeUse {
 	M_Attribute: M_Attribute!
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet!
-	UUID: ID!
-	M_AttributeUse_UU: String
+	UU: ID!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -50,8 +49,7 @@ input M_AttributeUseInput {
 	M_Attribute: ForeignEntityInput
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
-	UUID: ID
-	M_AttributeUse_UU: String
+	UU: ID
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

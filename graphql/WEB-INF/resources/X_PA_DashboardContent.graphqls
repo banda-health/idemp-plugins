@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_DashboardContentGet(page: Int, size: Int, sort: String, filter: String): PA_DashboardContentConnection!
+	PA_DashboardContentGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardContentConnection!
 }
 
 extend type Mutation {
-	PA_DashboardContentSave(entity: PA_DashboardContentInput!): PA_DashboardContent!
-	PA_DashboardContentSaveMany(entities: [PA_DashboardContentInput!]!): [PA_DashboardContent!]!
-	PA_DashboardContentDelete(uuids: [String!]!): Boolean!
+	PA_DashboardContentSave(Entity: PA_DashboardContentInput!): PA_DashboardContent!
+	PA_DashboardContentSaveMany(Entities: [PA_DashboardContentInput!]!): [PA_DashboardContent!]!
+	PA_DashboardContentDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_DashboardContentConnection {
-	results: [PA_DashboardContent!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_DashboardContent!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_DashboardContent {
@@ -61,8 +61,7 @@ type PA_DashboardContent {
 	Line: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
-	PA_DashboardContent_UU: String
+	UU: ID!
 	# Performance Goal
 	PA_Goal: PA_Goal
 	# Comma separated process parameter list
@@ -114,8 +113,7 @@ input PA_DashboardContentInput {
 	Line: BigDecimal
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
-	PA_DashboardContent_UU: String
+	UU: ID
 	# Performance Goal
 	PA_Goal: ForeignEntityInput
 	# Comma separated process parameter list

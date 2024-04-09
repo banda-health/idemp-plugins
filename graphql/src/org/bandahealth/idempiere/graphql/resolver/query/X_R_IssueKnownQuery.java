@@ -17,8 +17,8 @@ public class X_R_IssueKnownQuery extends POQuery<X_R_IssueKnown> implements Grap
 		return X_R_IssueKnown.Table_Name;
 	}
 
-	public Connection<X_R_IssueKnown> R_IssueKnownGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_R_IssueKnown> R_IssueKnownGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

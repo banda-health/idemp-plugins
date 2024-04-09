@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CashGet(page: Int, size: Int, sort: String, filter: String): C_CashConnection!
+	C_CashGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashConnection!
 }
 
 extend type Mutation {
-	C_CashSave(entity: C_CashInput!): C_Cash!
-	C_CashSaveMany(entities: [C_CashInput!]!): [C_Cash!]!
-	C_CashDelete(uuids: [String!]!): Boolean!
+	C_CashSave(Entity: C_CashInput!): C_Cash!
+	C_CashSaveMany(Entities: [C_CashInput!]!): [C_Cash!]!
+	C_CashDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CashConnection {
-	results: [C_Cash!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Cash!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Cash {
@@ -27,8 +27,7 @@ type C_Cash {
 	C_Activity: C_Activity
 	# Marketing Campaign
 	C_Campaign: C_Campaign
-	UUID: ID!
-	C_Cash_UU: String
+	UU: ID!
 	# Cash Book for recording petty cash transactions
 	C_CashBook: C_CashBook!
 	# Financial Project
@@ -83,8 +82,7 @@ input C_CashInput {
 	C_Activity: ForeignEntityInput
 	# Marketing Campaign
 	C_Campaign: ForeignEntityInput
-	UUID: ID
-	C_Cash_UU: String
+	UU: ID
 	# Cash Book for recording petty cash transactions
 	C_CashBook: ForeignEntityInput
 	# Financial Project

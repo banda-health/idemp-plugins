@@ -21,16 +21,16 @@ public class X_C_ElementMutation extends POMutation implements GraphQLMutationRe
 		return X_C_ElementInput.Table_Name;
 	}
 
-	public MElement C_ElementSave(I_C_ElementInput entity, DataFetchingEnvironment environment) {
-		return (MElement) super.save((X_C_ElementInput) entity, environment);
+	public MElement C_ElementSave(I_C_ElementInput Entity, DataFetchingEnvironment environment) {
+		return (MElement) super.save((X_C_ElementInput) Entity, environment);
 	}
 
-	public List<MElement> C_ElementSaveMany(List<I_C_ElementInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_ElementInput) entity).collect(Collectors.toList()),
+	public List<MElement> C_ElementSaveMany(List<I_C_ElementInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_ElementInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MElement) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_ElementDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_ElementDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

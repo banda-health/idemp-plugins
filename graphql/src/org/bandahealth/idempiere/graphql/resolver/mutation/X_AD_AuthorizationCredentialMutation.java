@@ -21,16 +21,16 @@ public class X_AD_AuthorizationCredentialMutation extends POMutation implements 
 		return X_AD_AuthorizationCredentialInput.Table_Name;
 	}
 
-	public MAuthorizationCredential AD_AuthorizationCredentialSave(I_AD_AuthorizationCredentialInput entity, DataFetchingEnvironment environment) {
-		return (MAuthorizationCredential) super.save((X_AD_AuthorizationCredentialInput) entity, environment);
+	public MAuthorizationCredential AD_AuthorizationCredentialSave(I_AD_AuthorizationCredentialInput Entity, DataFetchingEnvironment environment) {
+		return (MAuthorizationCredential) super.save((X_AD_AuthorizationCredentialInput) Entity, environment);
 	}
 
-	public List<MAuthorizationCredential> AD_AuthorizationCredentialSaveMany(List<I_AD_AuthorizationCredentialInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AuthorizationCredentialInput) entity).collect(Collectors.toList()),
+	public List<MAuthorizationCredential> AD_AuthorizationCredentialSaveMany(List<I_AD_AuthorizationCredentialInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AuthorizationCredentialInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAuthorizationCredential) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AuthorizationCredentialDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AuthorizationCredentialDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

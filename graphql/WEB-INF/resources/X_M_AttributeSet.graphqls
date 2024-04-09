@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_AttributeSetGet(page: Int, size: Int, sort: String, filter: String): M_AttributeSetConnection!
+	M_AttributeSetGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeSetConnection!
 }
 
 extend type Mutation {
-	M_AttributeSetSave(entity: M_AttributeSetInput!): M_AttributeSet!
-	M_AttributeSetSaveMany(entities: [M_AttributeSetInput!]!): [M_AttributeSet!]!
-	M_AttributeSetDelete(uuids: [String!]!): Boolean!
+	M_AttributeSetSave(Entity: M_AttributeSetInput!): M_AttributeSet!
+	M_AttributeSetSaveMany(Entities: [M_AttributeSetInput!]!): [M_AttributeSet!]!
+	M_AttributeSetDelete(UUs: [String!]!): Boolean!
 }
 
 type M_AttributeSetConnection {
-	results: [M_AttributeSet!]!
-	pagingInfo: PagingInfo!
+	Results: [M_AttributeSet!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_AttributeSet {
@@ -53,8 +53,7 @@ type M_AttributeSet {
 	# Lot/Batch Start Indicator overwrite - default «
 	LotCharSOverwrite: String
 	M_AttributeSet_Type: AD_Ref_List!
-	UUID: ID!
-	M_AttributeSet_UU: String
+	UU: ID!
 	# Product Lot Control
 	M_LotCtl: M_LotCtl
 	# Product Serial Number Control
@@ -105,8 +104,7 @@ input M_AttributeSetInput {
 	# Lot/Batch Start Indicator overwrite - default «
 	LotCharSOverwrite: String
 	M_AttributeSet_Type: AD_Ref_ListInput
-	UUID: ID
-	M_AttributeSet_UU: String
+	UU: ID
 	# Product Lot Control
 	M_LotCtl: ForeignEntityInput
 	# Product Serial Number Control

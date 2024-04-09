@@ -21,16 +21,16 @@ public class X_AD_User_RolesMutation extends POMutation implements GraphQLMutati
 		return X_AD_User_RolesInput.Table_Name;
 	}
 
-	public MUserRoles AD_User_RolesSave(I_AD_User_RolesInput entity, DataFetchingEnvironment environment) {
-		return (MUserRoles) super.save((X_AD_User_RolesInput) entity, environment);
+	public MUserRoles AD_User_RolesSave(I_AD_User_RolesInput Entity, DataFetchingEnvironment environment) {
+		return (MUserRoles) super.save((X_AD_User_RolesInput) Entity, environment);
 	}
 
-	public List<MUserRoles> AD_User_RolesSaveMany(List<I_AD_User_RolesInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_User_RolesInput) entity).collect(Collectors.toList()),
+	public List<MUserRoles> AD_User_RolesSaveMany(List<I_AD_User_RolesInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_User_RolesInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserRoles) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_User_RolesDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_User_RolesDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

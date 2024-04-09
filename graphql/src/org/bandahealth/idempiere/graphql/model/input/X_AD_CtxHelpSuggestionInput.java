@@ -35,12 +35,12 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_CtxHelpSuggestion_UU to fetch this entity from the DB
+	 * @param UU The AD_CtxHelpSuggestion_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_CtxHelpSuggestionInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_CtxHelpSuggestionInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
-							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_CtxHelp.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_CtxHelp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_CtxHelp with UUID " + AD_CtxHelp.getUUID());
+						"Could not find entity in table AD_CtxHelp with UU " + AD_CtxHelp.getUU());
 			}
 		} else {
 			this.setAD_CtxHelp_ID(0);
@@ -96,11 +96,11 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 			MCtxHelpMsg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelpMsg", "AD_CtxHelpMsg_UU=?", get_TrxName())
-							.setParameters(AD_CtxHelpMsg.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_CtxHelpMsg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_CtxHelpMsg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_CtxHelpMsg with UUID " + AD_CtxHelpMsg.getUUID());
+						"Could not find entity in table AD_CtxHelpMsg with UU " + AD_CtxHelpMsg.getUU());
 			}
 		} else {
 			this.setAD_CtxHelpMsg_ID(0);
@@ -129,20 +129,20 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_CtxHelpSuggestion_UU(UUID);
+	public void setUU(String UU) {
+		setAD_CtxHelpSuggestion_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_CtxHelpSuggestion_UU();
 	}
 
@@ -162,11 +162,11 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 			MLanguage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Language", "AD_Language_UU=?", get_TrxName())
-							.setParameters(AD_Language.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Language.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Language(foreignEntity.getAD_Language());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Language with UUID " + AD_Language.getUUID());
+						"Could not find entity in table AD_Language with UU " + AD_Language.getUU());
 			}
 		} else {
 			this.setAD_Language(null);
@@ -199,11 +199,11 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -236,11 +236,11 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 			X_AD_AllUsers_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllUsers_V", "AD_AllUsers_V_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_AllUsers_V with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_AllUsers_V with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -273,11 +273,11 @@ public class X_AD_CtxHelpSuggestionInput extends MCtxHelpSuggestion implements I
 			X_AD_AllClients_V foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_AllClients_V", "AD_AllClients_V_UU=?", get_TrxName())
-							.setParameters(AD_UserClient.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_UserClient.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_UserClient_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_AllClients_V with UUID " + AD_UserClient.getUUID());
+						"Could not find entity in table AD_AllClients_V with UU " + AD_UserClient.getUU());
 			}
 		} else {
 			this.setAD_UserClient_ID(0);

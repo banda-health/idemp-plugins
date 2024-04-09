@@ -25,18 +25,18 @@ public interface I_A_Asset_Info_TaxInput extends I_A_Asset_Info_Tax {
 	ForeignEntityInput A_Asset();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set A_Finance_Meth.

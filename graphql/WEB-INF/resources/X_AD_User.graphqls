@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_UserGet(page: Int, size: Int, sort: String, filter: String): AD_UserConnection!
+	AD_UserGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserConnection!
 }
 
 extend type Mutation {
-	AD_UserSave(entity: AD_UserInput!): AD_User!
-	AD_UserSaveMany(entities: [AD_UserInput!]!): [AD_User!]!
-	AD_UserDelete(uuids: [String!]!): Boolean!
+	AD_UserSave(Entity: AD_UserInput!): AD_User!
+	AD_UserSaveMany(Entities: [AD_UserInput!]!): [AD_User!]!
+	AD_UserDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_UserConnection {
-	results: [AD_User!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_User!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_User {
@@ -23,8 +23,7 @@ type AD_User {
 	AD_Image: AD_Image
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_User_UU: String
+	UU: ID!
 	Answer: String
 	AuthenticationType: AD_Ref_List
 	BH_HasAcceptedTermsOfUse: Boolean!
@@ -142,8 +141,7 @@ input AD_UserInput {
 	AD_Image: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_User_UU: String
+	UU: ID
 	Answer: String
 	AuthenticationType: AD_Ref_ListInput
 	BH_HasAcceptedTermsOfUse: Boolean

@@ -21,16 +21,16 @@ public class X_A_Asset_DeliveryMutation extends POMutation implements GraphQLMut
 		return X_A_Asset_DeliveryInput.Table_Name;
 	}
 
-	public MAssetDelivery A_Asset_DeliverySave(I_A_Asset_DeliveryInput entity, DataFetchingEnvironment environment) {
-		return (MAssetDelivery) super.save((X_A_Asset_DeliveryInput) entity, environment);
+	public MAssetDelivery A_Asset_DeliverySave(I_A_Asset_DeliveryInput Entity, DataFetchingEnvironment environment) {
+		return (MAssetDelivery) super.save((X_A_Asset_DeliveryInput) Entity, environment);
 	}
 
-	public List<MAssetDelivery> A_Asset_DeliverySaveMany(List<I_A_Asset_DeliveryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Asset_DeliveryInput) entity).collect(Collectors.toList()),
+	public List<MAssetDelivery> A_Asset_DeliverySaveMany(List<I_A_Asset_DeliveryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Asset_DeliveryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAssetDelivery) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Asset_DeliveryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Asset_DeliveryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

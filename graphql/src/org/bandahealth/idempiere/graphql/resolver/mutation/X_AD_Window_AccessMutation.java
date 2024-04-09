@@ -21,16 +21,16 @@ public class X_AD_Window_AccessMutation extends POMutation implements GraphQLMut
 		return X_AD_Window_AccessInput.Table_Name;
 	}
 
-	public MWindowAccess_BH AD_Window_AccessSave(I_AD_Window_AccessInput entity, DataFetchingEnvironment environment) {
-		return (MWindowAccess_BH) super.save((X_AD_Window_AccessInput) entity, environment);
+	public MWindowAccess_BH AD_Window_AccessSave(I_AD_Window_AccessInput Entity, DataFetchingEnvironment environment) {
+		return (MWindowAccess_BH) super.save((X_AD_Window_AccessInput) Entity, environment);
 	}
 
-	public List<MWindowAccess_BH> AD_Window_AccessSaveMany(List<I_AD_Window_AccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Window_AccessInput) entity).collect(Collectors.toList()),
+	public List<MWindowAccess_BH> AD_Window_AccessSaveMany(List<I_AD_Window_AccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Window_AccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MWindowAccess_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Window_AccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Window_AccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

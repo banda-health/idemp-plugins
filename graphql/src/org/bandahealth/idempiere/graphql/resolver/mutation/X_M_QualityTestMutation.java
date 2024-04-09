@@ -21,16 +21,16 @@ public class X_M_QualityTestMutation extends POMutation implements GraphQLMutati
 		return X_M_QualityTestInput.Table_Name;
 	}
 
-	public MQualityTest M_QualityTestSave(I_M_QualityTestInput entity, DataFetchingEnvironment environment) {
-		return (MQualityTest) super.save((X_M_QualityTestInput) entity, environment);
+	public MQualityTest M_QualityTestSave(I_M_QualityTestInput Entity, DataFetchingEnvironment environment) {
+		return (MQualityTest) super.save((X_M_QualityTestInput) Entity, environment);
 	}
 
-	public List<MQualityTest> M_QualityTestSaveMany(List<I_M_QualityTestInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_QualityTestInput) entity).collect(Collectors.toList()),
+	public List<MQualityTest> M_QualityTestSaveMany(List<I_M_QualityTestInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_QualityTestInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MQualityTest) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_QualityTestDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_QualityTestDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

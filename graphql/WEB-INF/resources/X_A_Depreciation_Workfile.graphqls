@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Depreciation_WorkfileGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_WorkfileConnection!
+	A_Depreciation_WorkfileGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_WorkfileConnection!
 }
 
 extend type Mutation {
-	A_Depreciation_WorkfileSave(entity: A_Depreciation_WorkfileInput!): A_Depreciation_Workfile!
-	A_Depreciation_WorkfileSaveMany(entities: [A_Depreciation_WorkfileInput!]!): [A_Depreciation_Workfile!]!
-	A_Depreciation_WorkfileDelete(uuids: [String!]!): Boolean!
+	A_Depreciation_WorkfileSave(Entity: A_Depreciation_WorkfileInput!): A_Depreciation_Workfile!
+	A_Depreciation_WorkfileSaveMany(Entities: [A_Depreciation_WorkfileInput!]!): [A_Depreciation_Workfile!]!
+	A_Depreciation_WorkfileDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Depreciation_WorkfileConnection {
-	results: [A_Depreciation_Workfile!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Depreciation_Workfile!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Depreciation_Workfile {
@@ -31,8 +31,7 @@ type A_Depreciation_Workfile {
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal!
 	A_Current_Period: Int
-	UUID: ID!
-	A_Depreciation_Workfile_UU: String
+	UU: ID!
 	A_Expense_SL: BigDecimal
 	A_Expense_SL_F: BigDecimal
 	A_FundingMode: A_FundingMode
@@ -101,8 +100,7 @@ input A_Depreciation_WorkfileInput {
 	A_Calc_Accumulated_Depr: BigDecimal
 	A_Curr_Dep_Exp: BigDecimal
 	A_Current_Period: Int
-	UUID: ID
-	A_Depreciation_Workfile_UU: String
+	UU: ID
 	A_FundingMode: ForeignEntityInput
 	A_Life_Period: Int
 	A_Life_Period_F: Int

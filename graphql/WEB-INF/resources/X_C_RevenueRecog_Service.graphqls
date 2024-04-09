@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RevenueRecog_ServiceGet(page: Int, size: Int, sort: String, filter: String): C_RevenueRecog_ServiceConnection!
+	C_RevenueRecog_ServiceGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecog_ServiceConnection!
 }
 
 extend type Mutation {
-	C_RevenueRecog_ServiceSave(entity: C_RevenueRecog_ServiceInput!): C_RevenueRecog_Service!
-	C_RevenueRecog_ServiceSaveMany(entities: [C_RevenueRecog_ServiceInput!]!): [C_RevenueRecog_Service!]!
-	C_RevenueRecog_ServiceDelete(uuids: [String!]!): Boolean!
+	C_RevenueRecog_ServiceSave(Entity: C_RevenueRecog_ServiceInput!): C_RevenueRecog_Service!
+	C_RevenueRecog_ServiceSaveMany(Entities: [C_RevenueRecog_ServiceInput!]!): [C_RevenueRecog_Service!]!
+	C_RevenueRecog_ServiceDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RevenueRecog_ServiceConnection {
-	results: [C_RevenueRecog_Service!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RevenueRecog_Service!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RevenueRecog_Service {
@@ -21,8 +21,7 @@ type C_RevenueRecog_Service {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_RevenueRecog_Service_UU: String
+	UU: ID!
 	# Method for recording revenue
 	C_RevenueRecognition: C_RevenueRecognition!
 	# Date this record was created
@@ -46,8 +45,7 @@ type C_RevenueRecog_Service {
 input C_RevenueRecog_ServiceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_RevenueRecog_Service_UU: String
+	UU: ID
 	# Method for recording revenue
 	C_RevenueRecognition: ForeignEntityInput
 	# Optional short description of the record

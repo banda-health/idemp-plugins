@@ -43,12 +43,12 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_TransactionAllocation_UU to fetch this entity from the DB
+	 * @param UU The M_TransactionAllocation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_TransactionAllocationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_TransactionAllocationInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -67,11 +67,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -101,11 +101,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AllocationStrategyType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AllocationStrategyType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAllocationStrategyType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AllocationStrategyType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + AllocationStrategyType.getUU());
 			}
 		} else {
 			this.setAllocationStrategyType(null);
@@ -135,11 +135,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MAttributeSetInstance_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_AttributeSetInstance", "M_AttributeSetInstance_UU=?", get_TrxName())
-							.setParameters(M_AttributeSetInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSetInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSetInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_AttributeSetInstance with UUID " + M_AttributeSetInstance.getUUID());
+						"Could not find entity in table M_AttributeSetInstance with UU " + M_AttributeSetInstance.getUU());
 			}
 		} else {
 			this.setM_AttributeSetInstance_ID(0);
@@ -169,11 +169,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InOutLine with UUID " + M_InOutLine.getUUID());
+						"Could not find entity in table M_InOutLine with UU " + M_InOutLine.getUU());
 			}
 		} else {
 			this.setM_InOutLine_ID(0);
@@ -203,11 +203,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_InventoryLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_InventoryLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InventoryLine with UUID " + M_InventoryLine.getUUID());
+						"Could not find entity in table M_InventoryLine with UU " + M_InventoryLine.getUU());
 			}
 		} else {
 			this.setM_InventoryLine_ID(0);
@@ -237,11 +237,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -271,11 +271,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MProductionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionLine", "M_ProductionLine_UU=?", get_TrxName())
-							.setParameters(M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ProductionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ProductionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_ProductionLine with UUID " + M_ProductionLine.getUUID());
+						"Could not find entity in table M_ProductionLine with UU " + M_ProductionLine.getUU());
 			}
 		} else {
 			this.setM_ProductionLine_ID(0);
@@ -308,11 +308,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Transaction", "M_Transaction_UU=?", get_TrxName())
-							.setParameters(M_Transaction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Transaction.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Transaction_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Transaction with UUID " + M_Transaction.getUUID());
+						"Could not find entity in table M_Transaction with UU " + M_Transaction.getUU());
 			}
 		} else {
 			this.setM_Transaction_ID(0);
@@ -330,20 +330,20 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_TransactionAllocation_UU(UUID);
+	public void setUU(String UU) {
+		setM_TransactionAllocation_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_TransactionAllocation_UU();
 	}
 
@@ -360,11 +360,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInOutLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InOutLine", "M_InOutLine_UU=?", get_TrxName())
-							.setParameters(Out_M_InOutLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Out_M_InOutLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_InOutLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InOutLine with UUID " + Out_M_InOutLine.getUUID());
+						"Could not find entity in table M_InOutLine with UU " + Out_M_InOutLine.getUU());
 			}
 		} else {
 			this.setOut_M_InOutLine_ID(0);
@@ -394,11 +394,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MInventoryLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_InventoryLine", "M_InventoryLine_UU=?", get_TrxName())
-							.setParameters(Out_M_InventoryLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Out_M_InventoryLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_InventoryLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_InventoryLine with UUID " + Out_M_InventoryLine.getUUID());
+						"Could not find entity in table M_InventoryLine with UU " + Out_M_InventoryLine.getUU());
 			}
 		} else {
 			this.setOut_M_InventoryLine_ID(0);
@@ -428,11 +428,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MProductionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ProductionLine", "M_ProductionLine_UU=?", get_TrxName())
-							.setParameters(Out_M_ProductionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Out_M_ProductionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_ProductionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_ProductionLine with UUID " + Out_M_ProductionLine.getUUID());
+						"Could not find entity in table M_ProductionLine with UU " + Out_M_ProductionLine.getUU());
 			}
 		} else {
 			this.setOut_M_ProductionLine_ID(0);
@@ -462,11 +462,11 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 			MTransaction foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Transaction", "M_Transaction_UU=?", get_TrxName())
-							.setParameters(Out_M_Transaction.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Out_M_Transaction.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setOut_M_Transaction_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Transaction with UUID " + Out_M_Transaction.getUUID());
+						"Could not find entity in table M_Transaction with UU " + Out_M_Transaction.getUU());
 			}
 		} else {
 			this.setOut_M_Transaction_ID(0);

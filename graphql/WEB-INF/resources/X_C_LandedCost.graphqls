@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_LandedCostGet(page: Int, size: Int, sort: String, filter: String): C_LandedCostConnection!
+	C_LandedCostGet(Page: Int, Size: Int, Sort: String, Filter: String): C_LandedCostConnection!
 }
 
 extend type Mutation {
-	C_LandedCostSave(entity: C_LandedCostInput!): C_LandedCost!
-	C_LandedCostSaveMany(entities: [C_LandedCostInput!]!): [C_LandedCost!]!
-	C_LandedCostDelete(uuids: [String!]!): Boolean!
+	C_LandedCostSave(Entity: C_LandedCostInput!): C_LandedCost!
+	C_LandedCostSaveMany(Entities: [C_LandedCostInput!]!): [C_LandedCost!]!
+	C_LandedCostDelete(UUs: [String!]!): Boolean!
 }
 
 type C_LandedCostConnection {
-	results: [C_LandedCost!]!
-	pagingInfo: PagingInfo!
+	Results: [C_LandedCost!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_LandedCost {
@@ -23,8 +23,7 @@ type C_LandedCost {
 	AD_Org: AD_Org!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
-	UUID: ID!
-	C_LandedCost_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -53,8 +52,7 @@ input C_LandedCostInput {
 	AD_Org: ForeignEntityInput
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
-	UUID: ID
-	C_LandedCost_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Landed Cost Distribution

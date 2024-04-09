@@ -21,16 +21,16 @@ public class X_AD_ScheduleMutation extends POMutation implements GraphQLMutation
 		return X_AD_ScheduleInput.Table_Name;
 	}
 
-	public MSchedule AD_ScheduleSave(I_AD_ScheduleInput entity, DataFetchingEnvironment environment) {
-		return (MSchedule) super.save((X_AD_ScheduleInput) entity, environment);
+	public MSchedule AD_ScheduleSave(I_AD_ScheduleInput Entity, DataFetchingEnvironment environment) {
+		return (MSchedule) super.save((X_AD_ScheduleInput) Entity, environment);
 	}
 
-	public List<MSchedule> AD_ScheduleSaveMany(List<I_AD_ScheduleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ScheduleInput) entity).collect(Collectors.toList()),
+	public List<MSchedule> AD_ScheduleSaveMany(List<I_AD_ScheduleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ScheduleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSchedule) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ScheduleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ScheduleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

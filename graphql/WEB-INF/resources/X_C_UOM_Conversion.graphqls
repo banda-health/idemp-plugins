@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_UOM_ConversionGet(page: Int, size: Int, sort: String, filter: String): C_UOM_ConversionConnection!
+	C_UOM_ConversionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_UOM_ConversionConnection!
 }
 
 extend type Mutation {
-	C_UOM_ConversionSave(entity: C_UOM_ConversionInput!): C_UOM_Conversion!
-	C_UOM_ConversionSaveMany(entities: [C_UOM_ConversionInput!]!): [C_UOM_Conversion!]!
-	C_UOM_ConversionDelete(uuids: [String!]!): Boolean!
+	C_UOM_ConversionSave(Entity: C_UOM_ConversionInput!): C_UOM_Conversion!
+	C_UOM_ConversionSaveMany(Entities: [C_UOM_ConversionInput!]!): [C_UOM_Conversion!]!
+	C_UOM_ConversionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_UOM_ConversionConnection {
-	results: [C_UOM_Conversion!]!
-	pagingInfo: PagingInfo!
+	Results: [C_UOM_Conversion!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_UOM_Conversion {
@@ -21,8 +21,7 @@ type C_UOM_Conversion {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_UOM_Conversion_UU: String
+	UU: ID!
 	# Unit of Measure
 	C_UOM: C_UOM!
 	# Target or destination Unit of Measure
@@ -48,8 +47,7 @@ type C_UOM_Conversion {
 input C_UOM_ConversionInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_UOM_Conversion_UU: String
+	UU: ID
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# Target or destination Unit of Measure

@@ -21,16 +21,16 @@ public class X_I_FAJournalMutation extends POMutation implements GraphQLMutation
 		return X_I_FAJournalInput.Table_Name;
 	}
 
-	public MXIFAJournal I_FAJournalSave(I_I_FAJournalInput entity, DataFetchingEnvironment environment) {
-		return (MXIFAJournal) super.save((X_I_FAJournalInput) entity, environment);
+	public MXIFAJournal I_FAJournalSave(I_I_FAJournalInput Entity, DataFetchingEnvironment environment) {
+		return (MXIFAJournal) super.save((X_I_FAJournalInput) Entity, environment);
 	}
 
-	public List<MXIFAJournal> I_FAJournalSaveMany(List<I_I_FAJournalInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_I_FAJournalInput) entity).collect(Collectors.toList()),
+	public List<MXIFAJournal> I_FAJournalSaveMany(List<I_I_FAJournalInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_I_FAJournalInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MXIFAJournal) entity).collect(Collectors.toList());
 	}
 
-	public boolean I_FAJournalDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean I_FAJournalDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

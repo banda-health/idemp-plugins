@@ -17,8 +17,8 @@ public class X_AD_User_RolesQuery extends POQuery<MUserRoles> implements GraphQL
 		return MUserRoles.Table_Name;
 	}
 
-	public Connection<MUserRoles> AD_User_RolesGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUserRoles> AD_User_RolesGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

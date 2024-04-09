@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Tree_FavoriteGet(page: Int, size: Int, sort: String, filter: String): AD_Tree_FavoriteConnection!
+	AD_Tree_FavoriteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Tree_FavoriteConnection!
 }
 
 extend type Mutation {
-	AD_Tree_FavoriteSave(entity: AD_Tree_FavoriteInput!): AD_Tree_Favorite!
-	AD_Tree_FavoriteSaveMany(entities: [AD_Tree_FavoriteInput!]!): [AD_Tree_Favorite!]!
-	AD_Tree_FavoriteDelete(uuids: [String!]!): Boolean!
+	AD_Tree_FavoriteSave(Entity: AD_Tree_FavoriteInput!): AD_Tree_Favorite!
+	AD_Tree_FavoriteSaveMany(Entities: [AD_Tree_FavoriteInput!]!): [AD_Tree_Favorite!]!
+	AD_Tree_FavoriteDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Tree_FavoriteConnection {
-	results: [AD_Tree_Favorite!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Tree_Favorite!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Tree_Favorite {
@@ -21,8 +21,7 @@ type AD_Tree_Favorite {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Tree_Favorite_UU: String
+	UU: ID!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
 	# Date this record was created
@@ -40,8 +39,7 @@ type AD_Tree_Favorite {
 input AD_Tree_FavoriteInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Tree_Favorite_UU: String
+	UU: ID
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# The record is active in the system

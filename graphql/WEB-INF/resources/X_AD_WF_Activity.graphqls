@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_WF_ActivityGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ActivityConnection!
+	AD_WF_ActivityGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_ActivityConnection!
 }
 
 extend type Mutation {
-	AD_WF_ActivitySave(entity: AD_WF_ActivityInput!): AD_WF_Activity!
-	AD_WF_ActivitySaveMany(entities: [AD_WF_ActivityInput!]!): [AD_WF_Activity!]!
-	AD_WF_ActivityDelete(uuids: [String!]!): Boolean!
+	AD_WF_ActivitySave(Entity: AD_WF_ActivityInput!): AD_WF_Activity!
+	AD_WF_ActivitySaveMany(Entities: [AD_WF_ActivityInput!]!): [AD_WF_Activity!]!
+	AD_WF_ActivityDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_WF_ActivityConnection {
-	results: [AD_WF_Activity!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_WF_Activity!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_WF_Activity {
@@ -27,8 +27,7 @@ type AD_WF_Activity {
 	AD_Table: AD_Table!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User
-	UUID: ID!
-	AD_WF_Activity_UU: String
+	UU: ID!
 	# Workflow Node (activity), step or process
 	AD_WF_Node: AD_WF_Node!
 	# Actual Workflow Process Instance
@@ -73,8 +72,7 @@ input AD_WF_ActivityInput {
 	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UUID: ID
-	AD_WF_Activity_UU: String
+	UU: ID
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	# Actual Workflow Process Instance

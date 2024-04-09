@@ -100,22 +100,22 @@ public class GraphQLSchemaGenerator {
 
 				// Default Queries
 				.append("extend type Query {\n")
-				.append("\t").append(tableName).append("Get(page: Int, size: Int, sort: String, filter: String): ")
+				.append("\t").append(tableName).append("Get(Page: Int, Size: Int, Sort: String, Filter: String): ")
 				.append(tableName).append("Connection!\n")
 				.append("}\n\n")
 
 				// Default Mutations
 				.append("extend type Mutation {\n")
-				.append("\t").append(tableName).append("Save(entity: ").append(tableName).append("Input!): ").append(tableName)
+				.append("\t").append(tableName).append("Save(Entity: ").append(tableName).append("Input!): ").append(tableName)
 				.append("!\n")
-				.append("\t").append(tableName).append("SaveMany(entities: [").append(tableName).append("Input!]!): [")
+				.append("\t").append(tableName).append("SaveMany(Entities: [").append(tableName).append("Input!]!): [")
 				.append(tableName).append("!]!\n")
-				.append("\t").append(tableName).append("Delete(uuids: [String!]!): Boolean!\n}\n\n")
+				.append("\t").append(tableName).append("Delete(UUs: [String!]!): Boolean!\n}\n\n")
 
 				// Connection Type
 				.append("type ").append(tableName).append("Connection {\n")
-				.append("\tresults: [").append(tableName).append("!]!\n")
-				.append("\tpagingInfo: PagingInfo!\n}\n\n")
+				.append("\tResults: [").append(tableName).append("!]!\n")
+				.append("\tPagingInfo: PagingInfo!\n}\n\n")
 
 				// Regular type
 				.append("type ").append(tableName).append(" {\n")
@@ -257,8 +257,9 @@ public class GraphQLSchemaGenerator {
 			}
 			return;
 		} else if (columnName.equalsIgnoreCase(MTable.get(AD_Table_ID).getTableName() + "_UU")) {
-			generatedColumns.regularModel.append("\tUUID: ID!\n");
-			generatedColumns.inputModel.append("\tUUID: ID\n");
+			generatedColumns.regularModel.append("\tUU: ID!\n");
+			generatedColumns.inputModel.append("\tUU: ID\n");
+			return;
 		} else if (columnName.endsWith("_UU")) {
 			log.warning("Did not generate a field for: " + columnName);
 			return;

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_RMATypeGet(page: Int, size: Int, sort: String, filter: String): M_RMATypeConnection!
+	M_RMATypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RMATypeConnection!
 }
 
 extend type Mutation {
-	M_RMATypeSave(entity: M_RMATypeInput!): M_RMAType!
-	M_RMATypeSaveMany(entities: [M_RMATypeInput!]!): [M_RMAType!]!
-	M_RMATypeDelete(uuids: [String!]!): Boolean!
+	M_RMATypeSave(Entity: M_RMATypeInput!): M_RMAType!
+	M_RMATypeSaveMany(Entities: [M_RMATypeInput!]!): [M_RMAType!]!
+	M_RMATypeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_RMATypeConnection {
-	results: [M_RMAType!]!
-	pagingInfo: PagingInfo!
+	Results: [M_RMAType!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_RMAType {
@@ -31,8 +31,7 @@ type M_RMAType {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_RMAType_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -50,8 +49,7 @@ input M_RMATypeInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_RMAType_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

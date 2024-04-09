@@ -17,8 +17,8 @@ public class X_A_Asset_Info_LicQuery extends POQuery<X_A_Asset_Info_Lic> impleme
 		return X_A_Asset_Info_Lic.Table_Name;
 	}
 
-	public Connection<X_A_Asset_Info_Lic> A_Asset_Info_LicGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_Asset_Info_Lic> A_Asset_Info_LicGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_AD_Package_UUID_MapMutation extends POMutation implements GraphQL
 		return X_AD_Package_UUID_MapInput.Table_Name;
 	}
 
-	public X_AD_Package_UUID_Map AD_Package_UUID_MapSave(I_AD_Package_UUID_MapInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_Package_UUID_Map) super.save((X_AD_Package_UUID_MapInput) entity, environment);
+	public X_AD_Package_UUID_Map AD_Package_UUID_MapSave(I_AD_Package_UUID_MapInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_Package_UUID_Map) super.save((X_AD_Package_UUID_MapInput) Entity, environment);
 	}
 
-	public List<X_AD_Package_UUID_Map> AD_Package_UUID_MapSaveMany(List<I_AD_Package_UUID_MapInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Package_UUID_MapInput) entity).collect(Collectors.toList()),
+	public List<X_AD_Package_UUID_Map> AD_Package_UUID_MapSaveMany(List<I_AD_Package_UUID_MapInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Package_UUID_MapInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_Package_UUID_Map) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Package_UUID_MapDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Package_UUID_MapDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

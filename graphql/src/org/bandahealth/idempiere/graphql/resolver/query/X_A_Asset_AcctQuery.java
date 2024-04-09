@@ -17,8 +17,8 @@ public class X_A_Asset_AcctQuery extends POQuery<MAssetAcct> implements GraphQLQ
 		return MAssetAcct.Table_Name;
 	}
 
-	public Connection<MAssetAcct> A_Asset_AcctGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetAcct> A_Asset_AcctGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -40,12 +40,12 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_PrintTableFormat_UU to fetch this entity from the DB
+	 * @param UU The AD_PrintTableFormat_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_PrintTableFormatInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_PrintTableFormatInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -61,11 +61,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+						"Could not find entity in table AD_Image with UU " + AD_Image.getUU());
 			}
 		} else {
 			this.setAD_Image_ID(0);
@@ -98,11 +98,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -131,20 +131,20 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_PrintTableFormat_UU(UUID);
+	public void setUU(String UU) {
+		setAD_PrintTableFormat_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_PrintTableFormat_UU();
 	}
 
@@ -161,11 +161,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Funct_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Funct_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFunct_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFont with UUID " + Funct_PrintFont.getUUID());
+						"Could not find entity in table AD_PrintFont with UU " + Funct_PrintFont.getUU());
 			}
 		} else {
 			this.setFunct_PrintFont_ID(0);
@@ -195,11 +195,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(FunctBG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FunctBG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFunctBG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + FunctBG_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + FunctBG_PrintColor.getUU());
 			}
 		} else {
 			this.setFunctBG_PrintColor_ID(0);
@@ -229,11 +229,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(FunctFG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(FunctFG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFunctFG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + FunctFG_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + FunctFG_PrintColor.getUU());
 			}
 		} else {
 			this.setFunctFG_PrintColor_ID(0);
@@ -263,11 +263,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintFont foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintFont", "AD_PrintFont_UU=?", get_TrxName())
-							.setParameters(Hdr_PrintFont.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Hdr_PrintFont.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHdr_PrintFont_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintFont with UUID " + Hdr_PrintFont.getUUID());
+						"Could not find entity in table AD_PrintFont with UU " + Hdr_PrintFont.getUU());
 			}
 		} else {
 			this.setHdr_PrintFont_ID(0);
@@ -297,11 +297,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(HdrLine_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HdrLine_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHdrLine_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + HdrLine_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + HdrLine_PrintColor.getUU());
 			}
 		} else {
 			this.setHdrLine_PrintColor_ID(0);
@@ -331,11 +331,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(HdrStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HdrStrokeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHdrStrokeType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + HdrStrokeType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + HdrStrokeType.getUU());
 			}
 		} else {
 			this.setHdrStrokeType(null);
@@ -365,11 +365,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(HdrTextBG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HdrTextBG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHdrTextBG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + HdrTextBG_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + HdrTextBG_PrintColor.getUU());
 			}
 		} else {
 			this.setHdrTextBG_PrintColor_ID(0);
@@ -399,11 +399,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(HdrTextFG_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(HdrTextFG_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setHdrTextFG_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + HdrTextFG_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + HdrTextFG_PrintColor.getUU());
 			}
 		} else {
 			this.setHdrTextFG_PrintColor_ID(0);
@@ -433,11 +433,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			X_AD_PrintColor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintColor", "AD_PrintColor_UU=?", get_TrxName())
-							.setParameters(Line_PrintColor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Line_PrintColor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLine_PrintColor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintColor with UUID " + Line_PrintColor.getUUID());
+						"Could not find entity in table AD_PrintColor with UU " + Line_PrintColor.getUU());
 			}
 		} else {
 			this.setLine_PrintColor_ID(0);
@@ -467,11 +467,11 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(LineStrokeType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(LineStrokeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLineStrokeType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + LineStrokeType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + LineStrokeType.getUU());
 			}
 		} else {
 			this.setLineStrokeType(null);

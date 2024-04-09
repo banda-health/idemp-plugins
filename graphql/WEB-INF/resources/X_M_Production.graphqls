@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ProductionGet(page: Int, size: Int, sort: String, filter: String): M_ProductionConnection!
+	M_ProductionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductionConnection!
 }
 
 extend type Mutation {
-	M_ProductionSave(entity: M_ProductionInput!): M_Production!
-	M_ProductionSaveMany(entities: [M_ProductionInput!]!): [M_Production!]!
-	M_ProductionDelete(uuids: [String!]!): Boolean!
+	M_ProductionSave(Entity: M_ProductionInput!): M_Production!
+	M_ProductionSaveMany(Entities: [M_ProductionInput!]!): [M_Production!]!
+	M_ProductionDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ProductionConnection {
-	results: [M_Production!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Production!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Production {
@@ -65,8 +65,7 @@ type M_Production {
 	M_Locator: M_Locator
 	# Product, Service, Item
 	M_Product: M_Product
-	UUID: ID!
-	M_Production_UU: String
+	UU: ID!
 	# Date a product was moved in or out of inventory
 	MovementDate: Date!
 	# Alphanumeric identifier of the entity
@@ -137,8 +136,7 @@ input M_ProductionInput {
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	M_Production_UU: String
+	UU: ID
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Alphanumeric identifier of the entity

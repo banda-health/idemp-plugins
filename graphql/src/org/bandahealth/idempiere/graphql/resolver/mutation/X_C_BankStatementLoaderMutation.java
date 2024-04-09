@@ -21,16 +21,16 @@ public class X_C_BankStatementLoaderMutation extends POMutation implements Graph
 		return X_C_BankStatementLoaderInput.Table_Name;
 	}
 
-	public MBankStatementLoader C_BankStatementLoaderSave(I_C_BankStatementLoaderInput entity, DataFetchingEnvironment environment) {
-		return (MBankStatementLoader) super.save((X_C_BankStatementLoaderInput) entity, environment);
+	public MBankStatementLoader C_BankStatementLoaderSave(I_C_BankStatementLoaderInput Entity, DataFetchingEnvironment environment) {
+		return (MBankStatementLoader) super.save((X_C_BankStatementLoaderInput) Entity, environment);
 	}
 
-	public List<MBankStatementLoader> C_BankStatementLoaderSaveMany(List<I_C_BankStatementLoaderInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BankStatementLoaderInput) entity).collect(Collectors.toList()),
+	public List<MBankStatementLoader> C_BankStatementLoaderSaveMany(List<I_C_BankStatementLoaderInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BankStatementLoaderInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBankStatementLoader) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BankStatementLoaderDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BankStatementLoaderDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

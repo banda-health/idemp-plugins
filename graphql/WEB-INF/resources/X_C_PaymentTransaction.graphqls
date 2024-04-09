@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_PaymentTransactionGet(page: Int, size: Int, sort: String, filter: String): C_PaymentTransactionConnection!
+	C_PaymentTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentTransactionConnection!
 }
 
 extend type Mutation {
-	C_PaymentTransactionSave(entity: C_PaymentTransactionInput!): C_PaymentTransaction!
-	C_PaymentTransactionSaveMany(entities: [C_PaymentTransactionInput!]!): [C_PaymentTransaction!]!
-	C_PaymentTransactionDelete(uuids: [String!]!): Boolean!
+	C_PaymentTransactionSave(Entity: C_PaymentTransactionInput!): C_PaymentTransaction!
+	C_PaymentTransactionSaveMany(Entities: [C_PaymentTransactionInput!]!): [C_PaymentTransaction!]!
+	C_PaymentTransactionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_PaymentTransactionConnection {
-	results: [C_PaymentTransaction!]!
-	pagingInfo: PagingInfo!
+	Results: [C_PaymentTransaction!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_PaymentTransaction {
@@ -69,8 +69,7 @@ type C_PaymentTransaction {
 	C_PaymentBatch: C_PaymentBatch
 	# Payment processor for electronic payments
 	C_PaymentProcessor: C_PaymentProcessor
-	UUID: ID!
-	C_PaymentTransaction_UU: String
+	UU: ID!
 	C_POSTenderType: C_POSTenderType
 	# Financial Project
 	C_Project: C_Project
@@ -214,8 +213,7 @@ input C_PaymentTransactionInput {
 	C_PaymentBatch: ForeignEntityInput
 	# Payment processor for electronic payments
 	C_PaymentProcessor: ForeignEntityInput
-	UUID: ID
-	C_PaymentTransaction_UU: String
+	UU: ID
 	C_POSTenderType: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput

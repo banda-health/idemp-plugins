@@ -37,12 +37,12 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_RevenueRecognition_Plan_UU to fetch this entity from the DB
+	 * @param UU The C_RevenueRecognition_Plan_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_RevenueRecognition_PlanInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_RevenueRecognition_PlanInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -61,11 +61,11 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -98,11 +98,11 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -135,11 +135,11 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -172,11 +172,11 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MInvoiceLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_InvoiceLine", "C_InvoiceLine_UU=?", get_TrxName())
-							.setParameters(C_InvoiceLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_InvoiceLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_InvoiceLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_InvoiceLine with UUID " + C_InvoiceLine.getUUID());
+						"Could not find entity in table C_InvoiceLine with UU " + C_InvoiceLine.getUU());
 			}
 		} else {
 			this.setC_InvoiceLine_ID(0);
@@ -209,11 +209,11 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MRevenueRecognition foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_RevenueRecognition", "C_RevenueRecognition_UU=?", get_TrxName())
-							.setParameters(C_RevenueRecognition.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_RevenueRecognition.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_RevenueRecognition_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_RevenueRecognition with UUID " + C_RevenueRecognition.getUUID());
+						"Could not find entity in table C_RevenueRecognition with UU " + C_RevenueRecognition.getUU());
 			}
 		} else {
 			this.setC_RevenueRecognition_ID(0);
@@ -242,20 +242,20 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_RevenueRecognition_Plan_UU(UUID);
+	public void setUU(String UU) {
+		setC_RevenueRecognition_Plan_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_RevenueRecognition_Plan_UU();
 	}
 
@@ -275,11 +275,11 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_Revenue_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_Revenue_A.getUU());
 			}
 		} else {
 			this.setP_Revenue_Acct(0);
@@ -334,11 +334,11 @@ public class X_C_RevenueRecognition_PlanInput extends MRevenueRecognitionPlan im
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(UnEarnedRevenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(UnEarnedRevenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUnEarnedRevenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + UnEarnedRevenue_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + UnEarnedRevenue_A.getUU());
 			}
 		} else {
 			this.setUnEarnedRevenue_Acct(0);

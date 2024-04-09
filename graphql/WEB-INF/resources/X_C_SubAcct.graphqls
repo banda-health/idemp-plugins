@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_SubAcctGet(page: Int, size: Int, sort: String, filter: String): C_SubAcctConnection!
+	C_SubAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SubAcctConnection!
 }
 
 extend type Mutation {
-	C_SubAcctSave(entity: C_SubAcctInput!): C_SubAcct!
-	C_SubAcctSaveMany(entities: [C_SubAcctInput!]!): [C_SubAcct!]!
-	C_SubAcctDelete(uuids: [String!]!): Boolean!
+	C_SubAcctSave(Entity: C_SubAcctInput!): C_SubAcct!
+	C_SubAcctSaveMany(Entities: [C_SubAcctInput!]!): [C_SubAcct!]!
+	C_SubAcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_SubAcctConnection {
-	results: [C_SubAcct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_SubAcct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_SubAcct {
@@ -23,8 +23,7 @@ type C_SubAcct {
 	AD_Org: AD_Org!
 	# Account Element
 	C_ElementValue: C_ElementValue!
-	UUID: ID!
-	C_SubAcct_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,8 +49,7 @@ input C_SubAcctInput {
 	AD_Org: ForeignEntityInput
 	# Account Element
 	C_ElementValue: ForeignEntityInput
-	UUID: ID
-	C_SubAcct_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

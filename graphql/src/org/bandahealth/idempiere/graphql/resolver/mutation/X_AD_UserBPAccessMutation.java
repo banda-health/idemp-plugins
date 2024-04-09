@@ -21,16 +21,16 @@ public class X_AD_UserBPAccessMutation extends POMutation implements GraphQLMuta
 		return X_AD_UserBPAccessInput.Table_Name;
 	}
 
-	public MUserBPAccess AD_UserBPAccessSave(I_AD_UserBPAccessInput entity, DataFetchingEnvironment environment) {
-		return (MUserBPAccess) super.save((X_AD_UserBPAccessInput) entity, environment);
+	public MUserBPAccess AD_UserBPAccessSave(I_AD_UserBPAccessInput Entity, DataFetchingEnvironment environment) {
+		return (MUserBPAccess) super.save((X_AD_UserBPAccessInput) Entity, environment);
 	}
 
-	public List<MUserBPAccess> AD_UserBPAccessSaveMany(List<I_AD_UserBPAccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserBPAccessInput) entity).collect(Collectors.toList()),
+	public List<MUserBPAccess> AD_UserBPAccessSaveMany(List<I_AD_UserBPAccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserBPAccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserBPAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserBPAccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserBPAccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

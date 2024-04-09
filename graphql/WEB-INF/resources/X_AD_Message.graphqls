@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_MessageGet(page: Int, size: Int, sort: String, filter: String): AD_MessageConnection!
+	AD_MessageGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_MessageConnection!
 }
 
 extend type Mutation {
-	AD_MessageSave(entity: AD_MessageInput!): AD_Message!
-	AD_MessageSaveMany(entities: [AD_MessageInput!]!): [AD_Message!]!
-	AD_MessageDelete(uuids: [String!]!): Boolean!
+	AD_MessageSave(Entity: AD_MessageInput!): AD_Message!
+	AD_MessageSaveMany(Entities: [AD_MessageInput!]!): [AD_Message!]!
+	AD_MessageDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_MessageConnection {
-	results: [AD_Message!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Message!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Message {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_Message_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -46,8 +45,7 @@ type AD_Message {
 }
 
 input AD_MessageInput {
-	UUID: ID
-	AD_Message_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Dictionary Entity Type; Determines ownership and synchronization

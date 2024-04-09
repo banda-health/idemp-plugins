@@ -17,8 +17,8 @@ public class X_AD_Table_ScriptValidatorQuery extends POQuery<MTableScriptValidat
 		return MTableScriptValidator.Table_Name;
 	}
 
-	public Connection<MTableScriptValidator> AD_Table_ScriptValidatorGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTableScriptValidator> AD_Table_ScriptValidatorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

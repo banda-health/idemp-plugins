@@ -29,12 +29,12 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The ASP_ClientLevel_UU to fetch this entity from the DB
+	 * @param UU The ASP_ClientLevel_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_ASP_ClientLevelInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_ASP_ClientLevelInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,20 +86,20 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setASP_ClientLevel_UU(UUID);
+	public void setUU(String UU) {
+		setASP_ClientLevel_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getASP_ClientLevel_UU();
 	}
 
@@ -116,11 +116,11 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table ASP_Level with UUID " + ASP_Level.getUUID());
+						"Could not find entity in table ASP_Level with UU " + ASP_Level.getUU());
 			}
 		} else {
 			this.setASP_Level_ID(0);
@@ -150,11 +150,11 @@ public class X_ASP_ClientLevelInput extends X_ASP_ClientLevel implements I_ASP_C
 			X_ASP_Module foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Module", "ASP_Module_UU=?", get_TrxName())
-							.setParameters(ASP_Module.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Module.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Module_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table ASP_Module with UUID " + ASP_Module.getUUID());
+						"Could not find entity in table ASP_Module with UU " + ASP_Module.getUU());
 			}
 		} else {
 			this.setASP_Module_ID(0);

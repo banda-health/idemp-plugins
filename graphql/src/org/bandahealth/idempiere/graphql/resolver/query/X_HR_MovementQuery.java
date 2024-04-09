@@ -17,8 +17,8 @@ public class X_HR_MovementQuery extends POQuery<X_HR_Movement> implements GraphQ
 		return X_HR_Movement.Table_Name;
 	}
 
-	public Connection<X_HR_Movement> HR_MovementGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_HR_Movement> HR_MovementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

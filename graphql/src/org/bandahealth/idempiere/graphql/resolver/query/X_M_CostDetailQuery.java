@@ -17,8 +17,8 @@ public class X_M_CostDetailQuery extends POQuery<MCostDetail> implements GraphQL
 		return MCostDetail.Table_Name;
 	}
 
-	public Connection<MCostDetail> M_CostDetailGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCostDetail> M_CostDetailGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

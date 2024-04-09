@@ -2,24 +2,23 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_GroupGet(page: Int, size: Int, sort: String, filter: String): A_Asset_GroupConnection!
+	A_Asset_GroupGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_GroupConnection!
 }
 
 extend type Mutation {
-	A_Asset_GroupSave(entity: A_Asset_GroupInput!): A_Asset_Group!
-	A_Asset_GroupSaveMany(entities: [A_Asset_GroupInput!]!): [A_Asset_Group!]!
-	A_Asset_GroupDelete(uuids: [String!]!): Boolean!
+	A_Asset_GroupSave(Entity: A_Asset_GroupInput!): A_Asset_Group!
+	A_Asset_GroupSaveMany(Entities: [A_Asset_GroupInput!]!): [A_Asset_Group!]!
+	A_Asset_GroupDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_GroupConnection {
-	results: [A_Asset_Group!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Group!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Group {
 	A_Asset_Class: A_Asset_Class
-	UUID: ID!
-	A_Asset_Group_UU: String
+	UU: ID!
 	A_Asset_Type: A_Asset_Type
 	# Tenant for this installation.
 	AD_Client: AD_Client!
@@ -58,8 +57,7 @@ type A_Asset_Group {
 
 input A_Asset_GroupInput {
 	A_Asset_Class: ForeignEntityInput
-	UUID: ID
-	A_Asset_Group_UU: String
+	UU: ID
 	A_Asset_Type: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

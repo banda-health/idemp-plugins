@@ -17,8 +17,8 @@ public class X_PA_AchievementQuery extends POQuery<MAchievement> implements Grap
 		return MAchievement.Table_Name;
 	}
 
-	public Connection<MAchievement> PA_AchievementGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAchievement> PA_AchievementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

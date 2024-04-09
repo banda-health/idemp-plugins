@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_OrgTypeGet(page: Int, size: Int, sort: String, filter: String): AD_OrgTypeConnection!
+	AD_OrgTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_OrgTypeConnection!
 }
 
 extend type Mutation {
-	AD_OrgTypeSave(entity: AD_OrgTypeInput!): AD_OrgType!
-	AD_OrgTypeSaveMany(entities: [AD_OrgTypeInput!]!): [AD_OrgType!]!
-	AD_OrgTypeDelete(uuids: [String!]!): Boolean!
+	AD_OrgTypeSave(Entity: AD_OrgTypeInput!): AD_OrgType!
+	AD_OrgTypeSaveMany(Entities: [AD_OrgTypeInput!]!): [AD_OrgType!]!
+	AD_OrgTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_OrgTypeConnection {
-	results: [AD_OrgType!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_OrgType!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_OrgType {
@@ -21,8 +21,7 @@ type AD_OrgType {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_OrgType_UU: String
+	UU: ID!
 	# Color used for printing and display
 	AD_PrintColor: AD_PrintColor
 	# Date this record was created
@@ -44,8 +43,7 @@ type AD_OrgType {
 input AD_OrgTypeInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_OrgType_UU: String
+	UU: ID
 	# Color used for printing and display
 	AD_PrintColor: ForeignEntityInput
 	# Optional short description of the record

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	DD_OrderGet(page: Int, size: Int, sort: String, filter: String): DD_OrderConnection!
+	DD_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): DD_OrderConnection!
 }
 
 extend type Mutation {
-	DD_OrderSave(entity: DD_OrderInput!): DD_Order!
-	DD_OrderSaveMany(entities: [DD_OrderInput!]!): [DD_Order!]!
-	DD_OrderDelete(uuids: [String!]!): Boolean!
+	DD_OrderSave(Entity: DD_OrderInput!): DD_Order!
+	DD_OrderSaveMany(Entities: [DD_OrderInput!]!): [DD_Order!]!
+	DD_OrderDelete(UUs: [String!]!): Boolean!
 }
 
 type DD_OrderConnection {
-	results: [DD_Order!]!
-	pagingInfo: PagingInfo!
+	Results: [DD_Order!]!
+	PagingInfo: PagingInfo!
 }
 
 type DD_Order {
@@ -59,8 +59,7 @@ type DD_Order {
 	DatePromised: Date!
 	# Date a product was received
 	DateReceived: Date
-	UUID: ID!
-	DD_Order_UU: String
+	UU: ID!
 	# Defines the timing of Delivery
 	DeliveryRule: AD_Ref_List!
 	# How the order will be delivered
@@ -175,8 +174,7 @@ input DD_OrderInput {
 	DatePromised: Date
 	# Date a product was received
 	DateReceived: Date
-	UUID: ID
-	DD_Order_UU: String
+	UU: ID
 	# Defines the timing of Delivery
 	DeliveryRule: AD_Ref_ListInput
 	# How the order will be delivered

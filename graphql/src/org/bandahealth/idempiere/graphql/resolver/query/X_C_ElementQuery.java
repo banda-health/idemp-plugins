@@ -17,8 +17,8 @@ public class X_C_ElementQuery extends POQuery<MElement> implements GraphQLQueryR
 		return MElement.Table_Name;
 	}
 
-	public Connection<MElement> C_ElementGet(int page, int pageSize, String sort, String filter,
+	public Connection<MElement> C_ElementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_ASP_FieldMutation extends POMutation implements GraphQLMutationRe
 		return X_ASP_FieldInput.Table_Name;
 	}
 
-	public X_ASP_Field ASP_FieldSave(I_ASP_FieldInput entity, DataFetchingEnvironment environment) {
-		return (X_ASP_Field) super.save((X_ASP_FieldInput) entity, environment);
+	public X_ASP_Field ASP_FieldSave(I_ASP_FieldInput Entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Field) super.save((X_ASP_FieldInput) Entity, environment);
 	}
 
-	public List<X_ASP_Field> ASP_FieldSaveMany(List<I_ASP_FieldInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_ASP_FieldInput) entity).collect(Collectors.toList()),
+	public List<X_ASP_Field> ASP_FieldSaveMany(List<I_ASP_FieldInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_ASP_FieldInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_ASP_Field) entity).collect(Collectors.toList());
 	}
 
-	public boolean ASP_FieldDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean ASP_FieldDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

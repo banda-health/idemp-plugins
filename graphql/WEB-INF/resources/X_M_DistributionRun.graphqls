@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_DistributionRunGet(page: Int, size: Int, sort: String, filter: String): M_DistributionRunConnection!
+	M_DistributionRunGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionRunConnection!
 }
 
 extend type Mutation {
-	M_DistributionRunSave(entity: M_DistributionRunInput!): M_DistributionRun!
-	M_DistributionRunSaveMany(entities: [M_DistributionRunInput!]!): [M_DistributionRun!]!
-	M_DistributionRunDelete(uuids: [String!]!): Boolean!
+	M_DistributionRunSave(Entity: M_DistributionRunInput!): M_DistributionRun!
+	M_DistributionRunSaveMany(Entities: [M_DistributionRunInput!]!): [M_DistributionRun!]!
+	M_DistributionRunDelete(UUs: [String!]!): Boolean!
 }
 
 type M_DistributionRunConnection {
-	results: [M_DistributionRun!]!
-	pagingInfo: PagingInfo!
+	Results: [M_DistributionRun!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_DistributionRun {
@@ -35,8 +35,7 @@ type M_DistributionRun {
 	IsActive: Boolean!
 	# For all shipments create one Order
 	IsCreateSingleOrder: Boolean!
-	UUID: ID!
-	M_DistributionRun_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -59,8 +58,7 @@ input M_DistributionRunInput {
 	IsActive: Boolean
 	# For all shipments create one Order
 	IsCreateSingleOrder: Boolean
-	UUID: ID
-	M_DistributionRun_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

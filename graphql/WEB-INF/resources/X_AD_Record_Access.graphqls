@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Record_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_Record_AccessConnection!
+	AD_Record_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Record_AccessConnection!
 }
 
 extend type Mutation {
-	AD_Record_AccessSave(entity: AD_Record_AccessInput!): AD_Record_Access!
-	AD_Record_AccessSaveMany(entities: [AD_Record_AccessInput!]!): [AD_Record_Access!]!
-	AD_Record_AccessDelete(uuids: [String!]!): Boolean!
+	AD_Record_AccessSave(Entity: AD_Record_AccessInput!): AD_Record_Access!
+	AD_Record_AccessSaveMany(Entities: [AD_Record_AccessInput!]!): [AD_Record_Access!]!
+	AD_Record_AccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Record_AccessConnection {
-	results: [AD_Record_Access!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Record_Access!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Record_Access {
@@ -21,8 +21,7 @@ type AD_Record_Access {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Record_Access_UU: String
+	UU: ID!
 	# Responsibility Role
 	AD_Role: AD_Role!
 	# Database Table information
@@ -48,8 +47,7 @@ type AD_Record_Access {
 input AD_Record_AccessInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Record_Access_UU: String
+	UU: ID
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	# Database Table information

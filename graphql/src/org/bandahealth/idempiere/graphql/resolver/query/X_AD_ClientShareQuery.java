@@ -17,8 +17,8 @@ public class X_AD_ClientShareQuery extends POQuery<MClientShare> implements Grap
 		return MClientShare.Table_Name;
 	}
 
-	public Connection<MClientShare> AD_ClientShareGet(int page, int pageSize, String sort, String filter,
+	public Connection<MClientShare> AD_ClientShareGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_Order_BOMLineGet(page: Int, size: Int, sort: String, filter: String): PP_Order_BOMLineConnection!
+	PP_Order_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_BOMLineConnection!
 }
 
 extend type Mutation {
-	PP_Order_BOMLineSave(entity: PP_Order_BOMLineInput!): PP_Order_BOMLine!
-	PP_Order_BOMLineSaveMany(entities: [PP_Order_BOMLineInput!]!): [PP_Order_BOMLine!]!
-	PP_Order_BOMLineDelete(uuids: [String!]!): Boolean!
+	PP_Order_BOMLineSave(Entity: PP_Order_BOMLineInput!): PP_Order_BOMLine!
+	PP_Order_BOMLineSaveMany(Entities: [PP_Order_BOMLineInput!]!): [PP_Order_BOMLine!]!
+	PP_Order_BOMLineDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_Order_BOMLineConnection {
-	results: [PP_Order_BOMLine!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_Order_BOMLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_Order_BOMLine {
@@ -70,8 +70,7 @@ type PP_Order_BOMLine {
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse!
 	PP_Order_BOM: PP_Order_BOM!
-	UUID: ID!
-	PP_Order_BOMLine_UU: String
+	UU: ID!
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	# Indicate the Quantity % use in this Formula
@@ -149,8 +148,7 @@ input PP_Order_BOMLineInput {
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	PP_Order_BOM: ForeignEntityInput
-	UUID: ID
-	PP_Order_BOMLine_UU: String
+	UU: ID
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 	# Indicate the Quantity % use in this Formula

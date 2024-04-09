@@ -31,12 +31,12 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_PaymentAllocate_UU to fetch this entity from the DB
+	 * @param UU The C_PaymentAllocate_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_PaymentAllocateInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_PaymentAllocateInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,11 +86,11 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 			MAllocationLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationLine", "C_AllocationLine_UU=?", get_TrxName())
-							.setParameters(C_AllocationLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AllocationLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AllocationLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AllocationLine with UUID " + C_AllocationLine.getUUID());
+						"Could not find entity in table C_AllocationLine with UU " + C_AllocationLine.getUU());
 			}
 		} else {
 			this.setC_AllocationLine_ID(0);
@@ -120,11 +120,11 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
 			}
 		} else {
 			this.setC_Invoice_ID(0);
@@ -154,11 +154,11 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
+						"Could not find entity in table C_Payment with UU " + C_Payment.getUU());
 			}
 		} else {
 			this.setC_Payment_ID(0);
@@ -187,20 +187,20 @@ public class X_C_PaymentAllocateInput extends MPaymentAllocate implements I_C_Pa
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_PaymentAllocate_UU(UUID);
+	public void setUU(String UU) {
+		setC_PaymentAllocate_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_PaymentAllocate_UU();
 	}
 }

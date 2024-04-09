@@ -28,12 +28,12 @@ public class X_BH_BP_Payer_InfoInput extends MBHBPPayerInfo implements I_BH_BP_P
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The BH_BP_Payer_Info_UU to fetch this entity from the DB
+	 * @param UU The BH_BP_Payer_Info_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_BP_Payer_InfoInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_BP_Payer_InfoInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class X_BH_BP_Payer_InfoInput extends MBHBPPayerInfo implements I_BH_BP_P
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -85,20 +85,20 @@ public class X_BH_BP_Payer_InfoInput extends MBHBPPayerInfo implements I_BH_BP_P
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setBH_BP_Payer_Info_UU(UUID);
+	public void setUU(String UU) {
+		setBH_BP_Payer_Info_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getBH_BP_Payer_Info_UU();
 	}
 
@@ -118,11 +118,11 @@ public class X_BH_BP_Payer_InfoInput extends MBHBPPayerInfo implements I_BH_BP_P
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(BH_Payer.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Payer.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Payer_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + BH_Payer.getUUID());
+						"Could not find entity in table C_BPartner with UU " + BH_Payer.getUU());
 			}
 		} else {
 			this.setBH_Payer_ID(0);
@@ -155,11 +155,11 @@ public class X_BH_BP_Payer_InfoInput extends MBHBPPayerInfo implements I_BH_BP_P
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);

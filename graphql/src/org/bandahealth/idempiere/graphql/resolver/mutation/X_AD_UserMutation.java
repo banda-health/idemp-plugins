@@ -21,16 +21,16 @@ public class X_AD_UserMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_UserInput.Table_Name;
 	}
 
-	public MUser_BH AD_UserSave(I_AD_UserInput entity, DataFetchingEnvironment environment) {
-		return (MUser_BH) super.save((X_AD_UserInput) entity, environment);
+	public MUser_BH AD_UserSave(I_AD_UserInput Entity, DataFetchingEnvironment environment) {
+		return (MUser_BH) super.save((X_AD_UserInput) Entity, environment);
 	}
 
-	public List<MUser_BH> AD_UserSaveMany(List<I_AD_UserInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserInput) entity).collect(Collectors.toList()),
+	public List<MUser_BH> AD_UserSaveMany(List<I_AD_UserInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUser_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

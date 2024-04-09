@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ServiceLevelLineGet(page: Int, size: Int, sort: String, filter: String): C_ServiceLevelLineConnection!
+	C_ServiceLevelLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ServiceLevelLineConnection!
 }
 
 extend type Mutation {
-	C_ServiceLevelLineSave(entity: C_ServiceLevelLineInput!): C_ServiceLevelLine!
-	C_ServiceLevelLineSaveMany(entities: [C_ServiceLevelLineInput!]!): [C_ServiceLevelLine!]!
-	C_ServiceLevelLineDelete(uuids: [String!]!): Boolean!
+	C_ServiceLevelLineSave(Entity: C_ServiceLevelLineInput!): C_ServiceLevelLine!
+	C_ServiceLevelLineSaveMany(Entities: [C_ServiceLevelLineInput!]!): [C_ServiceLevelLine!]!
+	C_ServiceLevelLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ServiceLevelLineConnection {
-	results: [C_ServiceLevelLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ServiceLevelLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ServiceLevelLine {
@@ -23,8 +23,7 @@ type C_ServiceLevelLine {
 	AD_Org: AD_Org!
 	# Product Revenue Recognition Service Level 
 	C_ServiceLevel: C_ServiceLevel!
-	UUID: ID!
-	C_ServiceLevelLine_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,8 +49,7 @@ input C_ServiceLevelLineInput {
 	AD_Org: ForeignEntityInput
 	# Product Revenue Recognition Service Level 
 	C_ServiceLevel: ForeignEntityInput
-	UUID: ID
-	C_ServiceLevelLine_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

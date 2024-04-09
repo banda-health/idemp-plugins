@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	T_BOM_IndentedGet(page: Int, size: Int, sort: String, filter: String): T_BOM_IndentedConnection!
+	T_BOM_IndentedGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BOM_IndentedConnection!
 }
 
 extend type Mutation {
-	T_BOM_IndentedSave(entity: T_BOM_IndentedInput!): T_BOM_Indented!
-	T_BOM_IndentedSaveMany(entities: [T_BOM_IndentedInput!]!): [T_BOM_Indented!]!
-	T_BOM_IndentedDelete(uuids: [String!]!): Boolean!
+	T_BOM_IndentedSave(Entity: T_BOM_IndentedInput!): T_BOM_Indented!
+	T_BOM_IndentedSaveMany(Entities: [T_BOM_IndentedInput!]!): [T_BOM_Indented!]!
+	T_BOM_IndentedDelete(UUs: [String!]!): Boolean!
 }
 
 type T_BOM_IndentedConnection {
-	results: [T_BOM_Indented!]!
-	pagingInfo: PagingInfo!
+	Results: [T_BOM_Indented!]!
+	PagingInfo: PagingInfo!
 }
 
 type T_BOM_Indented {
@@ -54,8 +54,7 @@ type T_BOM_Indented {
 	Sel_Product: M_Product
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
-	UUID: ID!
-	T_BOM_Indented_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -94,6 +93,5 @@ input T_BOM_IndentedInput {
 	Sel_Product: ForeignEntityInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
-	UUID: ID
-	T_BOM_Indented_UU: String
+	UU: ID
 }

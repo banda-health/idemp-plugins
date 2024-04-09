@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_DashboardPreferenceGet(page: Int, size: Int, sort: String, filter: String): PA_DashboardPreferenceConnection!
+	PA_DashboardPreferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardPreferenceConnection!
 }
 
 extend type Mutation {
-	PA_DashboardPreferenceSave(entity: PA_DashboardPreferenceInput!): PA_DashboardPreference!
-	PA_DashboardPreferenceSaveMany(entities: [PA_DashboardPreferenceInput!]!): [PA_DashboardPreference!]!
-	PA_DashboardPreferenceDelete(uuids: [String!]!): Boolean!
+	PA_DashboardPreferenceSave(Entity: PA_DashboardPreferenceInput!): PA_DashboardPreference!
+	PA_DashboardPreferenceSaveMany(Entities: [PA_DashboardPreferenceInput!]!): [PA_DashboardPreference!]!
+	PA_DashboardPreferenceDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_DashboardPreferenceConnection {
-	results: [PA_DashboardPreference!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_DashboardPreference!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_DashboardPreference {
@@ -42,8 +42,7 @@ type PA_DashboardPreference {
 	# Unique line for this document
 	Line: BigDecimal
 	PA_DashboardContent: PA_DashboardContent!
-	UUID: ID!
-	PA_DashboardPreference_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -70,6 +69,5 @@ input PA_DashboardPreferenceInput {
 	# Unique line for this document
 	Line: BigDecimal
 	PA_DashboardContent: ForeignEntityInput
-	UUID: ID
-	PA_DashboardPreference_UU: String
+	UU: ID
 }

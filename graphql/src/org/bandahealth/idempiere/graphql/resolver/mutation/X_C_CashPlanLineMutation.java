@@ -21,16 +21,16 @@ public class X_C_CashPlanLineMutation extends POMutation implements GraphQLMutat
 		return X_C_CashPlanLineInput.Table_Name;
 	}
 
-	public MCashPlanLine C_CashPlanLineSave(I_C_CashPlanLineInput entity, DataFetchingEnvironment environment) {
-		return (MCashPlanLine) super.save((X_C_CashPlanLineInput) entity, environment);
+	public MCashPlanLine C_CashPlanLineSave(I_C_CashPlanLineInput Entity, DataFetchingEnvironment environment) {
+		return (MCashPlanLine) super.save((X_C_CashPlanLineInput) Entity, environment);
 	}
 
-	public List<MCashPlanLine> C_CashPlanLineSaveMany(List<I_C_CashPlanLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CashPlanLineInput) entity).collect(Collectors.toList()),
+	public List<MCashPlanLine> C_CashPlanLineSaveMany(List<I_C_CashPlanLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CashPlanLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCashPlanLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CashPlanLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CashPlanLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

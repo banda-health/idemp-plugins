@@ -17,8 +17,8 @@ public class X_CM_ChatUpdateQuery extends POQuery<X_CM_ChatUpdate> implements Gr
 		return X_CM_ChatUpdate.Table_Name;
 	}
 
-	public Connection<X_CM_ChatUpdate> CM_ChatUpdateGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_CM_ChatUpdate> CM_ChatUpdateGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_M_LotCtlQuery extends POQuery<MLotCtl> implements GraphQLQueryRes
 		return MLotCtl.Table_Name;
 	}
 
-	public Connection<MLotCtl> M_LotCtlGet(int page, int pageSize, String sort, String filter,
+	public Connection<MLotCtl> M_LotCtlGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

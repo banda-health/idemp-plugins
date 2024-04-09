@@ -21,16 +21,16 @@ public class X_PP_Order_NodeNextMutation extends POMutation implements GraphQLMu
 		return X_PP_Order_NodeNextInput.Table_Name;
 	}
 
-	public X_PP_Order_NodeNext PP_Order_NodeNextSave(I_PP_Order_NodeNextInput entity, DataFetchingEnvironment environment) {
-		return (X_PP_Order_NodeNext) super.save((X_PP_Order_NodeNextInput) entity, environment);
+	public X_PP_Order_NodeNext PP_Order_NodeNextSave(I_PP_Order_NodeNextInput Entity, DataFetchingEnvironment environment) {
+		return (X_PP_Order_NodeNext) super.save((X_PP_Order_NodeNextInput) Entity, environment);
 	}
 
-	public List<X_PP_Order_NodeNext> PP_Order_NodeNextSaveMany(List<I_PP_Order_NodeNextInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PP_Order_NodeNextInput) entity).collect(Collectors.toList()),
+	public List<X_PP_Order_NodeNext> PP_Order_NodeNextSaveMany(List<I_PP_Order_NodeNextInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_Order_NodeNextInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PP_Order_NodeNext) entity).collect(Collectors.toList());
 	}
 
-	public boolean PP_Order_NodeNextDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PP_Order_NodeNextDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_C_AcctSchema_ElementQuery extends POQuery<MAcctSchemaElement> imp
 		return MAcctSchemaElement.Table_Name;
 	}
 
-	public Connection<MAcctSchemaElement> C_AcctSchema_ElementGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAcctSchemaElement> C_AcctSchema_ElementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

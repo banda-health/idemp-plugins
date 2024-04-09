@@ -39,18 +39,18 @@ public interface I_DD_NetworkDistributionLineInput extends I_DD_NetworkDistribut
 	ForeignEntityInput DD_NetworkDistribution();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set M_Shipper.

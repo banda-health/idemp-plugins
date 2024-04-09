@@ -27,12 +27,12 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Language_UU to fetch this entity from the DB
+	 * @param UU The AD_Language_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_LanguageInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_LanguageInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 	/**
 	 * Set Language.
@@ -58,20 +58,20 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Language_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Language_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Language_UU();
 	}
 
@@ -91,11 +91,11 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -125,11 +125,11 @@ public class X_AD_LanguageInput extends MLanguage implements I_AD_LanguageInput 
 			X_AD_PrintPaper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PrintPaper", "AD_PrintPaper_UU=?", get_TrxName())
-							.setParameters(AD_PrintPaper.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PrintPaper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PrintPaper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PrintPaper with UUID " + AD_PrintPaper.getUUID());
+						"Could not find entity in table AD_PrintPaper with UU " + AD_PrintPaper.getUU());
 			}
 		} else {
 			this.setAD_PrintPaper_ID(0);

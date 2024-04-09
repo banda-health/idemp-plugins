@@ -81,16 +81,16 @@ public interface I_M_ShippingTransactionLineInput extends I_M_ShippingTransactio
 	ForeignEntityInput M_ShippingTransaction();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 }

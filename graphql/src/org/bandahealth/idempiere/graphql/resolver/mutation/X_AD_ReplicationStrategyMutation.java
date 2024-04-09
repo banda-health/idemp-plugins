@@ -21,16 +21,16 @@ public class X_AD_ReplicationStrategyMutation extends POMutation implements Grap
 		return X_AD_ReplicationStrategyInput.Table_Name;
 	}
 
-	public MReplicationStrategy AD_ReplicationStrategySave(I_AD_ReplicationStrategyInput entity, DataFetchingEnvironment environment) {
-		return (MReplicationStrategy) super.save((X_AD_ReplicationStrategyInput) entity, environment);
+	public MReplicationStrategy AD_ReplicationStrategySave(I_AD_ReplicationStrategyInput Entity, DataFetchingEnvironment environment) {
+		return (MReplicationStrategy) super.save((X_AD_ReplicationStrategyInput) Entity, environment);
 	}
 
-	public List<MReplicationStrategy> AD_ReplicationStrategySaveMany(List<I_AD_ReplicationStrategyInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ReplicationStrategyInput) entity).collect(Collectors.toList()),
+	public List<MReplicationStrategy> AD_ReplicationStrategySaveMany(List<I_AD_ReplicationStrategyInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ReplicationStrategyInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MReplicationStrategy) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ReplicationStrategyDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ReplicationStrategyDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

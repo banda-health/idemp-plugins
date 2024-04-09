@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_CategoryUpdatesGet(page: Int, size: Int, sort: String, filter: String): R_CategoryUpdatesConnection!
+	R_CategoryUpdatesGet(Page: Int, Size: Int, Sort: String, Filter: String): R_CategoryUpdatesConnection!
 }
 
 extend type Mutation {
-	R_CategoryUpdatesSave(entity: R_CategoryUpdatesInput!): R_CategoryUpdates!
-	R_CategoryUpdatesSaveMany(entities: [R_CategoryUpdatesInput!]!): [R_CategoryUpdates!]!
-	R_CategoryUpdatesDelete(uuids: [String!]!): Boolean!
+	R_CategoryUpdatesSave(Entity: R_CategoryUpdatesInput!): R_CategoryUpdates!
+	R_CategoryUpdatesSaveMany(Entities: [R_CategoryUpdatesInput!]!): [R_CategoryUpdates!]!
+	R_CategoryUpdatesDelete(UUs: [String!]!): Boolean!
 }
 
 type R_CategoryUpdatesConnection {
-	results: [R_CategoryUpdates!]!
-	pagingInfo: PagingInfo!
+	Results: [R_CategoryUpdates!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_CategoryUpdates {
@@ -33,8 +33,7 @@ type R_CategoryUpdates {
 	IsSelfService: Boolean!
 	# Request Category
 	R_Category: R_Category!
-	UUID: ID!
-	R_CategoryUpdates_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,6 +51,5 @@ input R_CategoryUpdatesInput {
 	IsSelfService: Boolean
 	# Request Category
 	R_Category: ForeignEntityInput
-	UUID: ID
-	R_CategoryUpdates_UU: String
+	UU: ID
 }

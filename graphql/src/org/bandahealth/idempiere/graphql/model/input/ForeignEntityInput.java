@@ -3,16 +3,16 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ForeignEntityInput {
-	@JsonProperty("UUID")
-	private String UUID;
+	@JsonProperty("UU")
+	private String UU;
 
-	@JsonProperty("UUID")
-	public String getUUID() {
-		return UUID;
+	@JsonProperty("UU")
+	public String getUU() {
+		return UU;
 	}
 
-	@JsonProperty("UUID")
-	public void setUUID(String UUID) {
-		this.UUID = UUID;
+	@JsonProperty("UU")
+	public void setUU(String UU) {
+		this.UU = UU;
 	}
 }

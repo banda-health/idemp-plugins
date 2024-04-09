@@ -17,8 +17,8 @@ public class X_PA_GoalQuery extends POQuery<MGoal> implements GraphQLQueryResolv
 		return MGoal.Table_Name;
 	}
 
-	public Connection<MGoal> PA_GoalGet(int page, int pageSize, String sort, String filter,
+	public Connection<MGoal> PA_GoalGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_AD_ArchiveMutation extends POMutation implements GraphQLMutationR
 		return X_AD_ArchiveInput.Table_Name;
 	}
 
-	public MArchive AD_ArchiveSave(I_AD_ArchiveInput entity, DataFetchingEnvironment environment) {
-		return (MArchive) super.save((X_AD_ArchiveInput) entity, environment);
+	public MArchive AD_ArchiveSave(I_AD_ArchiveInput Entity, DataFetchingEnvironment environment) {
+		return (MArchive) super.save((X_AD_ArchiveInput) Entity, environment);
 	}
 
-	public List<MArchive> AD_ArchiveSaveMany(List<I_AD_ArchiveInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ArchiveInput) entity).collect(Collectors.toList()),
+	public List<MArchive> AD_ArchiveSaveMany(List<I_AD_ArchiveInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ArchiveInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MArchive) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ArchiveDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ArchiveDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

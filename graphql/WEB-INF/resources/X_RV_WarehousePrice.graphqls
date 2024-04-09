@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	RV_WarehousePriceGet(page: Int, size: Int, sort: String, filter: String): RV_WarehousePriceConnection!
+	RV_WarehousePriceGet(Page: Int, Size: Int, Sort: String, Filter: String): RV_WarehousePriceConnection!
 }
 
 extend type Mutation {
-	RV_WarehousePriceSave(entity: RV_WarehousePriceInput!): RV_WarehousePrice!
-	RV_WarehousePriceSaveMany(entities: [RV_WarehousePriceInput!]!): [RV_WarehousePrice!]!
-	RV_WarehousePriceDelete(uuids: [String!]!): Boolean!
+	RV_WarehousePriceSave(Entity: RV_WarehousePriceInput!): RV_WarehousePrice!
+	RV_WarehousePriceSaveMany(Entities: [RV_WarehousePriceInput!]!): [RV_WarehousePrice!]!
+	RV_WarehousePriceDelete(UUs: [String!]!): Boolean!
 }
 
 type RV_WarehousePriceConnection {
-	results: [RV_WarehousePrice!]!
-	pagingInfo: PagingInfo!
+	Results: [RV_WarehousePrice!]!
+	PagingInfo: PagingInfo!
 }
 
 type RV_WarehousePrice {

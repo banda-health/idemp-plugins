@@ -21,16 +21,16 @@ public class X_BH_PaymentRefMutation extends POMutation implements GraphQLMutati
 		return X_BH_PaymentRefInput.Table_Name;
 	}
 
-	public MBHPaymentRef BH_PaymentRefSave(I_BH_PaymentRefInput entity, DataFetchingEnvironment environment) {
-		return (MBHPaymentRef) super.save((X_BH_PaymentRefInput) entity, environment);
+	public MBHPaymentRef BH_PaymentRefSave(I_BH_PaymentRefInput Entity, DataFetchingEnvironment environment) {
+		return (MBHPaymentRef) super.save((X_BH_PaymentRefInput) Entity, environment);
 	}
 
-	public List<MBHPaymentRef> BH_PaymentRefSaveMany(List<I_BH_PaymentRefInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_PaymentRefInput) entity).collect(Collectors.toList()),
+	public List<MBHPaymentRef> BH_PaymentRefSaveMany(List<I_BH_PaymentRefInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_PaymentRefInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHPaymentRef) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_PaymentRefDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_PaymentRefDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

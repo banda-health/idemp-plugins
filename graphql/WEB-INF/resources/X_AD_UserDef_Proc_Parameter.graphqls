@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_UserDef_Proc_ParameterGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_Proc_ParameterConnection!
+	AD_UserDef_Proc_ParameterGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_Proc_ParameterConnection!
 }
 
 extend type Mutation {
-	AD_UserDef_Proc_ParameterSave(entity: AD_UserDef_Proc_ParameterInput!): AD_UserDef_Proc_Parameter!
-	AD_UserDef_Proc_ParameterSaveMany(entities: [AD_UserDef_Proc_ParameterInput!]!): [AD_UserDef_Proc_Parameter!]!
-	AD_UserDef_Proc_ParameterDelete(uuids: [String!]!): Boolean!
+	AD_UserDef_Proc_ParameterSave(Entity: AD_UserDef_Proc_ParameterInput!): AD_UserDef_Proc_Parameter!
+	AD_UserDef_Proc_ParameterSaveMany(Entities: [AD_UserDef_Proc_ParameterInput!]!): [AD_UserDef_Proc_Parameter!]!
+	AD_UserDef_Proc_ParameterDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_UserDef_Proc_ParameterConnection {
-	results: [AD_UserDef_Proc_Parameter!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_UserDef_Proc_Parameter!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_UserDef_Proc_Parameter {
@@ -30,8 +30,7 @@ type AD_UserDef_Proc_Parameter {
 	AD_Reference_Value: AD_Reference
 	# Primary Key : User defined Process
 	AD_UserDef_Proc: AD_UserDef_Proc!
-	UUID: ID!
-	AD_UserDef_Proc_Parameter_UU: String
+	UU: ID!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
 	# Date this record was created
@@ -89,8 +88,7 @@ input AD_UserDef_Proc_ParameterInput {
 	AD_Reference_Value: ForeignEntityInput
 	# Primary Key : User defined Process
 	AD_UserDef_Proc: ForeignEntityInput
-	UUID: ID
-	AD_UserDef_Proc_Parameter_UU: String
+	UU: ID
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
 	# Default value hierarchy, separated by ;

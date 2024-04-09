@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_StatusGet(page: Int, size: Int, sort: String, filter: String): R_StatusConnection!
+	R_StatusGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StatusConnection!
 }
 
 extend type Mutation {
-	R_StatusSave(entity: R_StatusInput!): R_Status!
-	R_StatusSaveMany(entities: [R_StatusInput!]!): [R_Status!]!
-	R_StatusDelete(uuids: [String!]!): Boolean!
+	R_StatusSave(Entity: R_StatusInput!): R_Status!
+	R_StatusSaveMany(Entities: [R_StatusInput!]!): [R_Status!]!
+	R_StatusDelete(UUs: [String!]!): Boolean!
 }
 
 type R_StatusConnection {
-	results: [R_Status!]!
-	pagingInfo: PagingInfo!
+	Results: [R_Status!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_Status {
@@ -45,8 +45,7 @@ type R_Status {
 	Name: String!
 	# Move to next status automatically after timeout
 	Next_Status: R_Status
-	UUID: ID!
-	R_Status_UU: String
+	UU: ID!
 	# Request Status Category
 	R_StatusCategory: R_StatusCategory!
 	# Method of ordering records; lowest number comes first
@@ -86,8 +85,7 @@ input R_StatusInput {
 	Name: String
 	# Move to next status automatically after timeout
 	Next_Status: ForeignEntityInput
-	UUID: ID
-	R_Status_UU: String
+	UU: ID
 	# Request Status Category
 	R_StatusCategory: ForeignEntityInput
 	# Method of ordering records; lowest number comes first

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ProductOperationGet(page: Int, size: Int, sort: String, filter: String): M_ProductOperationConnection!
+	M_ProductOperationGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductOperationConnection!
 }
 
 extend type Mutation {
-	M_ProductOperationSave(entity: M_ProductOperationInput!): M_ProductOperation!
-	M_ProductOperationSaveMany(entities: [M_ProductOperationInput!]!): [M_ProductOperation!]!
-	M_ProductOperationDelete(uuids: [String!]!): Boolean!
+	M_ProductOperationSave(Entity: M_ProductOperationInput!): M_ProductOperation!
+	M_ProductOperationSaveMany(Entities: [M_ProductOperationInput!]!): [M_ProductOperation!]!
+	M_ProductOperationDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ProductOperationConnection {
-	results: [M_ProductOperation!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ProductOperation!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ProductOperation {
@@ -33,8 +33,7 @@ type M_ProductOperation {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	M_ProductOperation_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Setup time before starting Production
@@ -60,8 +59,7 @@ input M_ProductOperationInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	M_ProductOperation_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Setup time before starting Production

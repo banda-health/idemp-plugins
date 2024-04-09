@@ -17,8 +17,8 @@ public class X_AD_ErrorQuery extends POQuery<X_AD_Error> implements GraphQLQuery
 		return X_AD_Error.Table_Name;
 	}
 
-	public Connection<X_AD_Error> AD_ErrorGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_Error> AD_ErrorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

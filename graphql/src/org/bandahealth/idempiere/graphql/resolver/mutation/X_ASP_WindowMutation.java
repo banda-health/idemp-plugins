@@ -21,16 +21,16 @@ public class X_ASP_WindowMutation extends POMutation implements GraphQLMutationR
 		return X_ASP_WindowInput.Table_Name;
 	}
 
-	public X_ASP_Window ASP_WindowSave(I_ASP_WindowInput entity, DataFetchingEnvironment environment) {
-		return (X_ASP_Window) super.save((X_ASP_WindowInput) entity, environment);
+	public X_ASP_Window ASP_WindowSave(I_ASP_WindowInput Entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Window) super.save((X_ASP_WindowInput) Entity, environment);
 	}
 
-	public List<X_ASP_Window> ASP_WindowSaveMany(List<I_ASP_WindowInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_ASP_WindowInput) entity).collect(Collectors.toList()),
+	public List<X_ASP_Window> ASP_WindowSaveMany(List<I_ASP_WindowInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_ASP_WindowInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_ASP_Window) entity).collect(Collectors.toList());
 	}
 
-	public boolean ASP_WindowDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean ASP_WindowDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ImpFormatGet(page: Int, size: Int, sort: String, filter: String): AD_ImpFormatConnection!
+	AD_ImpFormatGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImpFormatConnection!
 }
 
 extend type Mutation {
-	AD_ImpFormatSave(entity: AD_ImpFormatInput!): AD_ImpFormat!
-	AD_ImpFormatSaveMany(entities: [AD_ImpFormatInput!]!): [AD_ImpFormat!]!
-	AD_ImpFormatDelete(uuids: [String!]!): Boolean!
+	AD_ImpFormatSave(Entity: AD_ImpFormatInput!): AD_ImpFormat!
+	AD_ImpFormatSaveMany(Entities: [AD_ImpFormatInput!]!): [AD_ImpFormat!]!
+	AD_ImpFormatDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ImpFormatConnection {
-	results: [AD_ImpFormat!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_ImpFormat!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_ImpFormat {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_ImpFormat_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Database Table information
@@ -46,8 +45,7 @@ type AD_ImpFormat {
 }
 
 input AD_ImpFormatInput {
-	UUID: ID
-	AD_ImpFormat_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Database Table information

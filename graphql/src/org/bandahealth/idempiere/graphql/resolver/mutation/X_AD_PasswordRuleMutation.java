@@ -21,16 +21,16 @@ public class X_AD_PasswordRuleMutation extends POMutation implements GraphQLMuta
 		return X_AD_PasswordRuleInput.Table_Name;
 	}
 
-	public MPasswordRule AD_PasswordRuleSave(I_AD_PasswordRuleInput entity, DataFetchingEnvironment environment) {
-		return (MPasswordRule) super.save((X_AD_PasswordRuleInput) entity, environment);
+	public MPasswordRule AD_PasswordRuleSave(I_AD_PasswordRuleInput Entity, DataFetchingEnvironment environment) {
+		return (MPasswordRule) super.save((X_AD_PasswordRuleInput) Entity, environment);
 	}
 
-	public List<MPasswordRule> AD_PasswordRuleSaveMany(List<I_AD_PasswordRuleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PasswordRuleInput) entity).collect(Collectors.toList()),
+	public List<MPasswordRule> AD_PasswordRuleSaveMany(List<I_AD_PasswordRuleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PasswordRuleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPasswordRule) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PasswordRuleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PasswordRuleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

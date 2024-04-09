@@ -21,16 +21,16 @@ public class X_AD_AttributeMutation extends POMutation implements GraphQLMutatio
 		return X_AD_AttributeInput.Table_Name;
 	}
 
-	public X_AD_Attribute AD_AttributeSave(I_AD_AttributeInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_Attribute) super.save((X_AD_AttributeInput) entity, environment);
+	public X_AD_Attribute AD_AttributeSave(I_AD_AttributeInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_Attribute) super.save((X_AD_AttributeInput) Entity, environment);
 	}
 
-	public List<X_AD_Attribute> AD_AttributeSaveMany(List<I_AD_AttributeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AttributeInput) entity).collect(Collectors.toList()),
+	public List<X_AD_Attribute> AD_AttributeSaveMany(List<I_AD_AttributeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AttributeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_Attribute) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AttributeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AttributeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

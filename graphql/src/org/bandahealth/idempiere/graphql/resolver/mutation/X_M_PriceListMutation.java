@@ -21,16 +21,16 @@ public class X_M_PriceListMutation extends POMutation implements GraphQLMutation
 		return X_M_PriceListInput.Table_Name;
 	}
 
-	public MPriceList M_PriceListSave(I_M_PriceListInput entity, DataFetchingEnvironment environment) {
-		return (MPriceList) super.save((X_M_PriceListInput) entity, environment);
+	public MPriceList M_PriceListSave(I_M_PriceListInput Entity, DataFetchingEnvironment environment) {
+		return (MPriceList) super.save((X_M_PriceListInput) Entity, environment);
 	}
 
-	public List<MPriceList> M_PriceListSaveMany(List<I_M_PriceListInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PriceListInput) entity).collect(Collectors.toList()),
+	public List<MPriceList> M_PriceListSaveMany(List<I_M_PriceListInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PriceListInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPriceList) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PriceListDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PriceListDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

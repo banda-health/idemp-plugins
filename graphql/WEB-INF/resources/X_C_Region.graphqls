@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RegionGet(page: Int, size: Int, sort: String, filter: String): C_RegionConnection!
+	C_RegionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RegionConnection!
 }
 
 extend type Mutation {
-	C_RegionSave(entity: C_RegionInput!): C_Region!
-	C_RegionSaveMany(entities: [C_RegionInput!]!): [C_Region!]!
-	C_RegionDelete(uuids: [String!]!): Boolean!
+	C_RegionSave(Entity: C_RegionInput!): C_Region!
+	C_RegionSaveMany(Entities: [C_RegionInput!]!): [C_Region!]!
+	C_RegionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RegionConnection {
-	results: [C_Region!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Region!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Region {
@@ -23,8 +23,7 @@ type C_Region {
 	AD_Org: AD_Org!
 	# Country 
 	C_Country: C_Country!
-	UUID: ID!
-	C_Region_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ input C_RegionInput {
 	AD_Org: ForeignEntityInput
 	# Country 
 	C_Country: ForeignEntityInput
-	UUID: ID
-	C_Region_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

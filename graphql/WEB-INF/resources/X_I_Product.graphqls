@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_ProductGet(page: Int, size: Int, sort: String, filter: String): I_ProductConnection!
+	I_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): I_ProductConnection!
 }
 
 extend type Mutation {
-	I_ProductSave(entity: I_ProductInput!): I_Product!
-	I_ProductSaveMany(entities: [I_ProductInput!]!): [I_Product!]!
-	I_ProductDelete(uuids: [String!]!): Boolean!
+	I_ProductSave(Entity: I_ProductInput!): I_Product!
+	I_ProductSaveMany(Entities: [I_ProductInput!]!): [I_Product!]!
+	I_ProductDelete(UUs: [String!]!): Boolean!
 }
 
 type I_ProductConnection {
-	results: [I_Product!]!
-	pagingInfo: PagingInfo!
+	Results: [I_Product!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_Product {
@@ -59,8 +59,7 @@ type I_Product {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	UUID: ID!
-	I_Product_UU: String
+	UU: ID!
 	# URL of  image
 	ImageURL: String
 	# The record is active in the system
@@ -166,8 +165,7 @@ input I_ProductInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	UUID: ID
-	I_Product_UU: String
+	UU: ID
 	# URL of  image
 	ImageURL: String
 	# The record is active in the system

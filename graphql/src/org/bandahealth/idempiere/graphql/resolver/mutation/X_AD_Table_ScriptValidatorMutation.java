@@ -21,16 +21,16 @@ public class X_AD_Table_ScriptValidatorMutation extends POMutation implements Gr
 		return X_AD_Table_ScriptValidatorInput.Table_Name;
 	}
 
-	public MTableScriptValidator AD_Table_ScriptValidatorSave(I_AD_Table_ScriptValidatorInput entity, DataFetchingEnvironment environment) {
-		return (MTableScriptValidator) super.save((X_AD_Table_ScriptValidatorInput) entity, environment);
+	public MTableScriptValidator AD_Table_ScriptValidatorSave(I_AD_Table_ScriptValidatorInput Entity, DataFetchingEnvironment environment) {
+		return (MTableScriptValidator) super.save((X_AD_Table_ScriptValidatorInput) Entity, environment);
 	}
 
-	public List<MTableScriptValidator> AD_Table_ScriptValidatorSaveMany(List<I_AD_Table_ScriptValidatorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Table_ScriptValidatorInput) entity).collect(Collectors.toList()),
+	public List<MTableScriptValidator> AD_Table_ScriptValidatorSaveMany(List<I_AD_Table_ScriptValidatorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Table_ScriptValidatorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTableScriptValidator) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Table_ScriptValidatorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Table_ScriptValidatorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

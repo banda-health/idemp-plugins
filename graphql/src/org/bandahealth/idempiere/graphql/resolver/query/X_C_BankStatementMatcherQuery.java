@@ -17,8 +17,8 @@ public class X_C_BankStatementMatcherQuery extends POQuery<MBankStatementMatcher
 		return MBankStatementMatcher.Table_Name;
 	}
 
-	public Connection<MBankStatementMatcher> C_BankStatementMatcherGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBankStatementMatcher> C_BankStatementMatcherGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

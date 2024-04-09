@@ -17,8 +17,8 @@ public class X_M_MovementLineQuery extends POQuery<MMovementLine> implements Gra
 		return MMovementLine.Table_Name;
 	}
 
-	public Connection<MMovementLine> M_MovementLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MMovementLine> M_MovementLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

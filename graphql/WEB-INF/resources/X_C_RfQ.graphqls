@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RfQGet(page: Int, size: Int, sort: String, filter: String): C_RfQConnection!
+	C_RfQGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQConnection!
 }
 
 extend type Mutation {
-	C_RfQSave(entity: C_RfQInput!): C_RfQ!
-	C_RfQSaveMany(entities: [C_RfQInput!]!): [C_RfQ!]!
-	C_RfQDelete(uuids: [String!]!): Boolean!
+	C_RfQSave(Entity: C_RfQInput!): C_RfQ!
+	C_RfQSaveMany(Entities: [C_RfQInput!]!): [C_RfQ!]!
+	C_RfQDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RfQConnection {
-	results: [C_RfQ!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RfQ!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RfQ {
@@ -33,8 +33,7 @@ type C_RfQ {
 	C_Order: C_Order
 	# Topic for Request for Quotations
 	C_RfQ_Topic: C_RfQ_Topic!
-	UUID: ID!
-	C_RfQ_UU: String
+	UU: ID!
 	CopyLines: String
 	# Date this record was created
 	Created: Date!
@@ -103,8 +102,7 @@ input C_RfQInput {
 	C_Order: ForeignEntityInput
 	# Topic for Request for Quotations
 	C_RfQ_Topic: ForeignEntityInput
-	UUID: ID
-	C_RfQ_UU: String
+	UU: ID
 	CopyLines: String
 	# Create Purchase Order
 	CreatePO: String

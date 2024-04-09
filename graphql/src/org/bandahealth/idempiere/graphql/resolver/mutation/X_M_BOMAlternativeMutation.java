@@ -21,16 +21,16 @@ public class X_M_BOMAlternativeMutation extends POMutation implements GraphQLMut
 		return X_M_BOMAlternativeInput.Table_Name;
 	}
 
-	public X_M_BOMAlternative M_BOMAlternativeSave(I_M_BOMAlternativeInput entity, DataFetchingEnvironment environment) {
-		return (X_M_BOMAlternative) super.save((X_M_BOMAlternativeInput) entity, environment);
+	public X_M_BOMAlternative M_BOMAlternativeSave(I_M_BOMAlternativeInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_BOMAlternative) super.save((X_M_BOMAlternativeInput) Entity, environment);
 	}
 
-	public List<X_M_BOMAlternative> M_BOMAlternativeSaveMany(List<I_M_BOMAlternativeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_BOMAlternativeInput) entity).collect(Collectors.toList()),
+	public List<X_M_BOMAlternative> M_BOMAlternativeSaveMany(List<I_M_BOMAlternativeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_BOMAlternativeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_BOMAlternative) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_BOMAlternativeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_BOMAlternativeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

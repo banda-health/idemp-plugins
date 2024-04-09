@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ForecastGet(page: Int, size: Int, sort: String, filter: String): M_ForecastConnection!
+	M_ForecastGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ForecastConnection!
 }
 
 extend type Mutation {
-	M_ForecastSave(entity: M_ForecastInput!): M_Forecast!
-	M_ForecastSaveMany(entities: [M_ForecastInput!]!): [M_Forecast!]!
-	M_ForecastDelete(uuids: [String!]!): Boolean!
+	M_ForecastSave(Entity: M_ForecastInput!): M_Forecast!
+	M_ForecastSaveMany(Entities: [M_ForecastInput!]!): [M_Forecast!]!
+	M_ForecastDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ForecastConnection {
-	results: [M_Forecast!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Forecast!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Forecast {
@@ -37,8 +37,7 @@ type M_Forecast {
 	IsActive: Boolean!
 	# Default value
 	IsDefault: Boolean!
-	UUID: ID!
-	M_Forecast_UU: String
+	UU: ID!
 	# Unique identifier of a Price List
 	M_PriceList: M_PriceList
 	# Alphanumeric identifier of the entity
@@ -65,8 +64,7 @@ input M_ForecastInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	UUID: ID
-	M_Forecast_UU: String
+	UU: ID
 	# Unique identifier of a Price List
 	M_PriceList: ForeignEntityInput
 	# Alphanumeric identifier of the entity

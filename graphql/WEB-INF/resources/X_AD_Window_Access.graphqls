@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Window_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_Window_AccessConnection!
+	AD_Window_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Window_AccessConnection!
 }
 
 extend type Mutation {
-	AD_Window_AccessSave(entity: AD_Window_AccessInput!): AD_Window_Access!
-	AD_Window_AccessSaveMany(entities: [AD_Window_AccessInput!]!): [AD_Window_Access!]!
-	AD_Window_AccessDelete(uuids: [String!]!): Boolean!
+	AD_Window_AccessSave(Entity: AD_Window_AccessInput!): AD_Window_Access!
+	AD_Window_AccessSaveMany(Entities: [AD_Window_AccessInput!]!): [AD_Window_Access!]!
+	AD_Window_AccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Window_AccessConnection {
-	results: [AD_Window_Access!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Window_Access!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Window_Access {
@@ -23,8 +23,7 @@ type AD_Window_Access {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role!
-	UUID: ID!
-	AD_Window_Access_UU: String
+	UU: ID!
 	# Data entry or display window
 	AD_Window: AD_Window!
 	BH_CanDeactivate: Boolean!
@@ -47,8 +46,7 @@ input AD_Window_AccessInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	UUID: ID
-	AD_Window_Access_UU: String
+	UU: ID
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	BH_CanDeactivate: Boolean

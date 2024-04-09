@@ -21,16 +21,16 @@ public class X_AD_AllUsers_VMutation extends POMutation implements GraphQLMutati
 		return X_AD_AllUsers_VInput.Table_Name;
 	}
 
-	public X_AD_AllUsers_V AD_AllUsers_VSave(I_AD_AllUsers_VInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_AllUsers_V) super.save((X_AD_AllUsers_VInput) entity, environment);
+	public X_AD_AllUsers_V AD_AllUsers_VSave(I_AD_AllUsers_VInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_AllUsers_V) super.save((X_AD_AllUsers_VInput) Entity, environment);
 	}
 
-	public List<X_AD_AllUsers_V> AD_AllUsers_VSaveMany(List<I_AD_AllUsers_VInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_AllUsers_VInput) entity).collect(Collectors.toList()),
+	public List<X_AD_AllUsers_V> AD_AllUsers_VSaveMany(List<I_AD_AllUsers_VInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_AllUsers_VInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_AllUsers_V) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_AllUsers_VDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_AllUsers_VDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

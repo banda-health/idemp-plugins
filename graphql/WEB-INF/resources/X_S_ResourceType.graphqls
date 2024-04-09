@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	S_ResourceTypeGet(page: Int, size: Int, sort: String, filter: String): S_ResourceTypeConnection!
+	S_ResourceTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): S_ResourceTypeConnection!
 }
 
 extend type Mutation {
-	S_ResourceTypeSave(entity: S_ResourceTypeInput!): S_ResourceType!
-	S_ResourceTypeSaveMany(entities: [S_ResourceTypeInput!]!): [S_ResourceType!]!
-	S_ResourceTypeDelete(uuids: [String!]!): Boolean!
+	S_ResourceTypeSave(Entity: S_ResourceTypeInput!): S_ResourceType!
+	S_ResourceTypeSaveMany(Entities: [S_ResourceTypeInput!]!): [S_ResourceType!]!
+	S_ResourceTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type S_ResourceTypeConnection {
-	results: [S_ResourceType!]!
-	pagingInfo: PagingInfo!
+	Results: [S_ResourceType!]!
+	PagingInfo: PagingInfo!
 }
 
 type S_ResourceType {
@@ -60,8 +60,7 @@ type S_ResourceType {
 	OnTuesday: Boolean!
 	# Available on Wednesdays
 	OnWednesday: Boolean!
-	UUID: ID!
-	S_ResourceType_UU: String
+	UU: ID!
 	# Time when timeslot ends
 	TimeSlotEnd: Date
 	# Time when timeslot starts
@@ -112,8 +111,7 @@ input S_ResourceTypeInput {
 	OnTuesday: Boolean
 	# Available on Wednesdays
 	OnWednesday: Boolean
-	UUID: ID
-	S_ResourceType_UU: String
+	UU: ID
 	# Time when timeslot ends
 	TimeSlotEnd: Date
 	# Time when timeslot starts

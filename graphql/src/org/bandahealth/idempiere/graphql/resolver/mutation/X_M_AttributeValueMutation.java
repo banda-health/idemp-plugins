@@ -21,16 +21,16 @@ public class X_M_AttributeValueMutation extends POMutation implements GraphQLMut
 		return X_M_AttributeValueInput.Table_Name;
 	}
 
-	public MAttributeValue M_AttributeValueSave(I_M_AttributeValueInput entity, DataFetchingEnvironment environment) {
-		return (MAttributeValue) super.save((X_M_AttributeValueInput) entity, environment);
+	public MAttributeValue M_AttributeValueSave(I_M_AttributeValueInput Entity, DataFetchingEnvironment environment) {
+		return (MAttributeValue) super.save((X_M_AttributeValueInput) Entity, environment);
 	}
 
-	public List<MAttributeValue> M_AttributeValueSaveMany(List<I_M_AttributeValueInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_AttributeValueInput) entity).collect(Collectors.toList()),
+	public List<MAttributeValue> M_AttributeValueSaveMany(List<I_M_AttributeValueInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_AttributeValueInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAttributeValue) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_AttributeValueDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_AttributeValueDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

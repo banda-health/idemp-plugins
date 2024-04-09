@@ -21,16 +21,16 @@ public class X_C_POSKeyMutation extends POMutation implements GraphQLMutationRes
 		return X_C_POSKeyInput.Table_Name;
 	}
 
-	public MPOSKey C_POSKeySave(I_C_POSKeyInput entity, DataFetchingEnvironment environment) {
-		return (MPOSKey) super.save((X_C_POSKeyInput) entity, environment);
+	public MPOSKey C_POSKeySave(I_C_POSKeyInput Entity, DataFetchingEnvironment environment) {
+		return (MPOSKey) super.save((X_C_POSKeyInput) Entity, environment);
 	}
 
-	public List<MPOSKey> C_POSKeySaveMany(List<I_C_POSKeyInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_POSKeyInput) entity).collect(Collectors.toList()),
+	public List<MPOSKey> C_POSKeySaveMany(List<I_C_POSKeyInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_POSKeyInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPOSKey) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_POSKeyDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_POSKeyDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

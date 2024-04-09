@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ChangeNoticeGet(page: Int, size: Int, sort: String, filter: String): M_ChangeNoticeConnection!
+	M_ChangeNoticeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ChangeNoticeConnection!
 }
 
 extend type Mutation {
-	M_ChangeNoticeSave(entity: M_ChangeNoticeInput!): M_ChangeNotice!
-	M_ChangeNoticeSaveMany(entities: [M_ChangeNoticeInput!]!): [M_ChangeNotice!]!
-	M_ChangeNoticeDelete(uuids: [String!]!): Boolean!
+	M_ChangeNoticeSave(Entity: M_ChangeNoticeInput!): M_ChangeNotice!
+	M_ChangeNoticeSaveMany(Entities: [M_ChangeNoticeInput!]!): [M_ChangeNotice!]!
+	M_ChangeNoticeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ChangeNoticeConnection {
-	results: [M_ChangeNotice!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ChangeNotice!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ChangeNotice {
@@ -35,8 +35,7 @@ type M_ChangeNotice {
 	IsActive: Boolean!
 	# Indicates if this document requires approval
 	IsApproved: Boolean!
-	UUID: ID!
-	M_ChangeNotice_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# The document has been processed
@@ -61,8 +60,7 @@ input M_ChangeNoticeInput {
 	IsActive: Boolean
 	# Indicates if this document requires approval
 	IsApproved: Boolean
-	UUID: ID
-	M_ChangeNotice_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The document has been processed

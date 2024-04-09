@@ -46,12 +46,12 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_Product_Category_Acct_UU to fetch this entity from the DB
+	 * @param UU The M_Product_Category_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_Product_Category_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_Product_Category_AcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -70,11 +70,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -107,11 +107,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -141,11 +141,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CostingLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingLevel(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingLevel.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostingLevel.getUU());
 			}
 		} else {
 			this.setCostingLevel(null);
@@ -175,11 +175,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CostingMethod.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingMethod.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostingMethod.getUU());
 			}
 		} else {
 			this.setCostingMethod(null);
@@ -197,20 +197,20 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_Product_Category_Acct_UU(UUID);
+	public void setUU(String UU) {
+		setM_Product_Category_Acct_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_Product_Category_Acct_UU();
 	}
 
@@ -230,11 +230,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MProductCategory_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product_Category", "M_Product_Category_UU=?", get_TrxName())
-							.setParameters(M_Product_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product_Category with UUID " + M_Product_Category.getUUID());
+						"Could not find entity in table M_Product_Category with UU " + M_Product_Category.getUU());
 			}
 		} else {
 			this.setM_Product_Category_ID(0);
@@ -264,11 +264,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_Asset_A.getUU());
 			}
 		} else {
 			this.setP_Asset_Acct(0);
@@ -298,11 +298,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_AverageCostVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_AverageCostVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_AverageCostVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_AverageCostVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_AverageCostVariance_A.getUU());
 			}
 		} else {
 			this.setP_AverageCostVariance_Acct(0);
@@ -332,11 +332,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_COGS_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_COGS_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_COGS_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_COGS_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_COGS_A.getUU());
 			}
 		} else {
 			this.setP_COGS_Acct(0);
@@ -366,11 +366,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_CostAdjustment_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_CostAdjustment_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_CostAdjustment_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_CostAdjustment_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_CostAdjustment_A.getUU());
 			}
 		} else {
 			this.setP_CostAdjustment_Acct(0);
@@ -400,11 +400,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Expense_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Expense_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Expense_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_Expense_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_Expense_A.getUU());
 			}
 		} else {
 			this.setP_Expense_Acct(0);
@@ -434,11 +434,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InventoryClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_InventoryClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_InventoryClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_InventoryClearing_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_InventoryClearing_A.getUU());
 			}
 		} else {
 			this.setP_InventoryClearing_Acct(0);
@@ -468,11 +468,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_InvoicePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_InvoicePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_InvoicePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_InvoicePriceVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_InvoicePriceVariance_A.getUU());
 			}
 		} else {
 			this.setP_InvoicePriceVariance_Acct(0);
@@ -502,11 +502,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_LandedCostClearing_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_LandedCostClearing_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_LandedCostClearing_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_LandedCostClearing_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_LandedCostClearing_A.getUU());
 			}
 		} else {
 			this.setP_LandedCostClearing_Acct(0);
@@ -536,11 +536,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_PurchasePriceVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_PurchasePriceVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_PurchasePriceVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_PurchasePriceVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_PurchasePriceVariance_A.getUU());
 			}
 		} else {
 			this.setP_PurchasePriceVariance_Acct(0);
@@ -570,11 +570,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_RateVariance_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_RateVariance_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_RateVariance_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_RateVariance_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_RateVariance_A.getUU());
 			}
 		} else {
 			this.setP_RateVariance_Acct(0);
@@ -604,11 +604,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_Revenue_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_Revenue_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_Revenue_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_Revenue_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_Revenue_A.getUU());
 			}
 		} else {
 			this.setP_Revenue_Acct(0);
@@ -638,11 +638,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountGrant_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_TradeDiscountGrant_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_TradeDiscountGrant_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_TradeDiscountGrant_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_TradeDiscountGrant_A.getUU());
 			}
 		} else {
 			this.setP_TradeDiscountGrant_Acct(0);
@@ -672,11 +672,11 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(P_TradeDiscountRec_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(P_TradeDiscountRec_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setP_TradeDiscountRec_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + P_TradeDiscountRec_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + P_TradeDiscountRec_A.getUU());
 			}
 		} else {
 			this.setP_TradeDiscountRec_Acct(0);

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_SysConfigGet(page: Int, size: Int, sort: String, filter: String): AD_SysConfigConnection!
+	AD_SysConfigGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SysConfigConnection!
 }
 
 extend type Mutation {
-	AD_SysConfigSave(entity: AD_SysConfigInput!): AD_SysConfig!
-	AD_SysConfigSaveMany(entities: [AD_SysConfigInput!]!): [AD_SysConfig!]!
-	AD_SysConfigDelete(uuids: [String!]!): Boolean!
+	AD_SysConfigSave(Entity: AD_SysConfigInput!): AD_SysConfig!
+	AD_SysConfigSaveMany(Entities: [AD_SysConfigInput!]!): [AD_SysConfig!]!
+	AD_SysConfigDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_SysConfigConnection {
-	results: [AD_SysConfig!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_SysConfig!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_SysConfig {
@@ -21,8 +21,7 @@ type AD_SysConfig {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_SysConfig_UU: String
+	UU: ID!
 	# Configuration Level for this parameter
 	ConfigurationLevel: AD_Ref_List
 	# Date this record was created
@@ -48,8 +47,7 @@ type AD_SysConfig {
 input AD_SysConfigInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_SysConfig_UU: String
+	UU: ID
 	# Configuration Level for this parameter
 	ConfigurationLevel: AD_Ref_ListInput
 	# Optional short description of the record

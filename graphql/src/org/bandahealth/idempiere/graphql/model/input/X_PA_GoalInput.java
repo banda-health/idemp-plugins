@@ -40,12 +40,12 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The PA_Goal_UU to fetch this entity from the DB
+	 * @param UU The PA_Goal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_PA_GoalInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_PA_GoalInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -64,11 +64,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -98,11 +98,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
 			this.setAD_Role_ID(0);
@@ -132,11 +132,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -166,11 +166,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ChartType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ChartType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setChartType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ChartType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ChartType.getUU());
 			}
 		} else {
 			this.setChartType(null);
@@ -233,11 +233,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MeasureDisplay.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(MeasureDisplay.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMeasureDisplay(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + MeasureDisplay.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MeasureDisplay.getUU());
 			}
 		} else {
 			this.setMeasureDisplay(null);
@@ -267,11 +267,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MeasureScope.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(MeasureScope.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMeasureScope(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + MeasureScope.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MeasureScope.getUU());
 			}
 		} else {
 			this.setMeasureScope(null);
@@ -301,11 +301,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MColorSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ColorSchema", "PA_ColorSchema_UU=?", get_TrxName())
-							.setParameters(PA_ColorSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ColorSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_ColorSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_ColorSchema with UUID " + PA_ColorSchema.getUUID());
+						"Could not find entity in table PA_ColorSchema with UU " + PA_ColorSchema.getUU());
 			}
 		} else {
 			this.setPA_ColorSchema_ID(0);
@@ -334,20 +334,20 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setPA_Goal_UU(UUID);
+	public void setUU(String UU) {
+		setPA_Goal_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getPA_Goal_UU();
 	}
 
@@ -364,11 +364,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MGoal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
-							.setParameters(PA_GoalParent.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_GoalParent.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_GoalParent_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Goal with UUID " + PA_GoalParent.getUUID());
+						"Could not find entity in table PA_Goal with UU " + PA_GoalParent.getUU());
 			}
 		} else {
 			this.setPA_GoalParent_ID(0);
@@ -398,11 +398,11 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 			MMeasure foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_Measure", "PA_Measure_UU=?", get_TrxName())
-							.setParameters(PA_Measure.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_Measure.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_Measure_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_Measure with UUID " + PA_Measure.getUUID());
+						"Could not find entity in table PA_Measure with UU " + PA_Measure.getUU());
 			}
 		} else {
 			this.setPA_Measure_ID(0);

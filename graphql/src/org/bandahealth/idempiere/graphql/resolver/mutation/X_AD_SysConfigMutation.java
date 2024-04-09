@@ -21,16 +21,16 @@ public class X_AD_SysConfigMutation extends POMutation implements GraphQLMutatio
 		return X_AD_SysConfigInput.Table_Name;
 	}
 
-	public MSysConfig_BH AD_SysConfigSave(I_AD_SysConfigInput entity, DataFetchingEnvironment environment) {
-		return (MSysConfig_BH) super.save((X_AD_SysConfigInput) entity, environment);
+	public MSysConfig_BH AD_SysConfigSave(I_AD_SysConfigInput Entity, DataFetchingEnvironment environment) {
+		return (MSysConfig_BH) super.save((X_AD_SysConfigInput) Entity, environment);
 	}
 
-	public List<MSysConfig_BH> AD_SysConfigSaveMany(List<I_AD_SysConfigInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_SysConfigInput) entity).collect(Collectors.toList()),
+	public List<MSysConfig_BH> AD_SysConfigSaveMany(List<I_AD_SysConfigInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_SysConfigInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSysConfig_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_SysConfigDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_SysConfigDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

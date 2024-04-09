@@ -21,16 +21,16 @@ public class X_C_InvoiceTaxMutation extends POMutation implements GraphQLMutatio
 		return X_C_InvoiceTaxInput.Table_Name;
 	}
 
-	public MInvoiceTax C_InvoiceTaxSave(I_C_InvoiceTaxInput entity, DataFetchingEnvironment environment) {
-		return (MInvoiceTax) super.save((X_C_InvoiceTaxInput) entity, environment);
+	public MInvoiceTax C_InvoiceTaxSave(I_C_InvoiceTaxInput Entity, DataFetchingEnvironment environment) {
+		return (MInvoiceTax) super.save((X_C_InvoiceTaxInput) Entity, environment);
 	}
 
-	public List<MInvoiceTax> C_InvoiceTaxSaveMany(List<I_C_InvoiceTaxInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_InvoiceTaxInput) entity).collect(Collectors.toList()),
+	public List<MInvoiceTax> C_InvoiceTaxSaveMany(List<I_C_InvoiceTaxInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_InvoiceTaxInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInvoiceTax) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_InvoiceTaxDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_InvoiceTaxDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

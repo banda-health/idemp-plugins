@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_CostElementGet(page: Int, size: Int, sort: String, filter: String): M_CostElementConnection!
+	M_CostElementGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostElementConnection!
 }
 
 extend type Mutation {
-	M_CostElementSave(entity: M_CostElementInput!): M_CostElement!
-	M_CostElementSaveMany(entities: [M_CostElementInput!]!): [M_CostElement!]!
-	M_CostElementDelete(uuids: [String!]!): Boolean!
+	M_CostElementSave(Entity: M_CostElementInput!): M_CostElement!
+	M_CostElementSaveMany(Entities: [M_CostElementInput!]!): [M_CostElement!]!
+	M_CostElementDelete(UUs: [String!]!): Boolean!
 }
 
 type M_CostElementConnection {
-	results: [M_CostElement!]!
-	pagingInfo: PagingInfo!
+	Results: [M_CostElement!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_CostElement {
@@ -35,8 +35,7 @@ type M_CostElement {
 	IsActive: Boolean!
 	# The value is calculated by the system
 	IsCalculated: Boolean!
-	UUID: ID!
-	M_CostElement_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -58,8 +57,7 @@ input M_CostElementInput {
 	IsActive: Boolean
 	# The value is calculated by the system
 	IsCalculated: Boolean
-	UUID: ID
-	M_CostElement_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

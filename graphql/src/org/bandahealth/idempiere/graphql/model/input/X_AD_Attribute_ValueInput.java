@@ -25,12 +25,12 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Attribute_Value_UU to fetch this entity from the DB
+	 * @param UU The AD_Attribute_Value_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Attribute_ValueInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_Attribute_ValueInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -49,11 +49,11 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 			X_AD_Attribute foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Attribute", "AD_Attribute_UU=?", get_TrxName())
-							.setParameters(AD_Attribute.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Attribute.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Attribute_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Attribute with UUID " + AD_Attribute.getUUID());
+						"Could not find entity in table AD_Attribute with UU " + AD_Attribute.getUU());
 			}
 		} else {
 			this.setAD_Attribute_ID(0);
@@ -71,20 +71,20 @@ public class X_AD_Attribute_ValueInput extends X_AD_Attribute_Value implements I
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Attribute_Value_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Attribute_Value_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Attribute_Value_UU();
 	}
 }

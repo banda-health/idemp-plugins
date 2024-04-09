@@ -21,16 +21,16 @@ public class X_C_BPartner_ProductMutation extends POMutation implements GraphQLM
 		return X_C_BPartner_ProductInput.Table_Name;
 	}
 
-	public MBPartnerProduct C_BPartner_ProductSave(I_C_BPartner_ProductInput entity, DataFetchingEnvironment environment) {
-		return (MBPartnerProduct) super.save((X_C_BPartner_ProductInput) entity, environment);
+	public MBPartnerProduct C_BPartner_ProductSave(I_C_BPartner_ProductInput Entity, DataFetchingEnvironment environment) {
+		return (MBPartnerProduct) super.save((X_C_BPartner_ProductInput) Entity, environment);
 	}
 
-	public List<MBPartnerProduct> C_BPartner_ProductSaveMany(List<I_C_BPartner_ProductInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BPartner_ProductInput) entity).collect(Collectors.toList()),
+	public List<MBPartnerProduct> C_BPartner_ProductSaveMany(List<I_C_BPartner_ProductInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BPartner_ProductInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBPartnerProduct) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BPartner_ProductDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BPartner_ProductDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

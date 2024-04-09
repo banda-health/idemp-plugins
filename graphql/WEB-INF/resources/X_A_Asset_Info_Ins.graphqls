@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_Info_InsGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Info_InsConnection!
+	A_Asset_Info_InsGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_InsConnection!
 }
 
 extend type Mutation {
-	A_Asset_Info_InsSave(entity: A_Asset_Info_InsInput!): A_Asset_Info_Ins!
-	A_Asset_Info_InsSaveMany(entities: [A_Asset_Info_InsInput!]!): [A_Asset_Info_Ins!]!
-	A_Asset_Info_InsDelete(uuids: [String!]!): Boolean!
+	A_Asset_Info_InsSave(Entity: A_Asset_Info_InsInput!): A_Asset_Info_Ins!
+	A_Asset_Info_InsSaveMany(Entities: [A_Asset_Info_InsInput!]!): [A_Asset_Info_Ins!]!
+	A_Asset_Info_InsDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_Info_InsConnection {
-	results: [A_Asset_Info_Ins!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Info_Ins!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Info_Ins {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	UUID: ID!
-	A_Asset_Info_Ins_UU: String
+	UU: ID!
 	A_Ins_Premium: BigDecimal
 	A_Ins_Value: BigDecimal
 	A_Insurance_Co: String
@@ -47,8 +46,7 @@ type A_Asset_Info_Ins {
 input A_Asset_Info_InsInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	UUID: ID
-	A_Asset_Info_Ins_UU: String
+	UU: ID
 	A_Ins_Premium: BigDecimal
 	A_Ins_Value: BigDecimal
 	A_Insurance_Co: String

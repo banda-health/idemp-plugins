@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_RecentItemGet(page: Int, size: Int, sort: String, filter: String): AD_RecentItemConnection!
+	AD_RecentItemGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_RecentItemConnection!
 }
 
 extend type Mutation {
-	AD_RecentItemSave(entity: AD_RecentItemInput!): AD_RecentItem!
-	AD_RecentItemSaveMany(entities: [AD_RecentItemInput!]!): [AD_RecentItem!]!
-	AD_RecentItemDelete(uuids: [String!]!): Boolean!
+	AD_RecentItemSave(Entity: AD_RecentItemInput!): AD_RecentItem!
+	AD_RecentItemSaveMany(Entities: [AD_RecentItemInput!]!): [AD_RecentItem!]!
+	AD_RecentItemDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_RecentItemConnection {
-	results: [AD_RecentItem!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_RecentItem!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_RecentItem {
@@ -21,8 +21,7 @@ type AD_RecentItem {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_RecentItem_UU: String
+	UU: ID!
 	# Responsibility Role
 	AD_Role: AD_Role!
 	# Tab within a Window
@@ -48,8 +47,7 @@ type AD_RecentItem {
 input AD_RecentItemInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_RecentItem_UU: String
+	UU: ID
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
 	# Tab within a Window

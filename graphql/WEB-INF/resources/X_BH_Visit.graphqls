@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_VisitGet(page: Int, size: Int, sort: String, filter: String): BH_VisitConnection!
+	BH_VisitGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_VisitConnection!
 }
 
 extend type Mutation {
-	BH_VisitSave(entity: BH_VisitInput!): BH_Visit!
-	BH_VisitSaveMany(entities: [BH_VisitInput!]!): [BH_Visit!]!
-	BH_VisitDelete(uuids: [String!]!): Boolean!
+	BH_VisitSave(Entity: BH_VisitInput!): BH_Visit!
+	BH_VisitSaveMany(Entities: [BH_VisitInput!]!): [BH_Visit!]!
+	BH_VisitDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_VisitConnection {
-	results: [BH_Visit!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_Visit!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_Visit {
@@ -29,8 +29,7 @@ type BH_Visit {
 	BH_Process_Stage: AD_Ref_List
 	bh_referral: AD_Ref_List
 	BH_ReferredFromTo: String
-	UUID: ID!
-	BH_Visit_UU: String
+	UU: ID!
 	BH_VisitDate: Date
 	BH_Voided_Reason: BH_Voided_Reason
 	# Date this record was created
@@ -62,8 +61,7 @@ input BH_VisitInput {
 	BH_Process_Stage: AD_Ref_ListInput
 	bh_referral: AD_Ref_ListInput
 	BH_ReferredFromTo: String
-	UUID: ID
-	BH_Visit_UU: String
+	UU: ID
 	BH_VisitDate: Date
 	BH_Voided_Reason: ForeignEntityInput
 	# Optional short description of the record

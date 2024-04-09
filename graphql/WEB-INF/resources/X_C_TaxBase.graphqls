@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaxBaseGet(page: Int, size: Int, sort: String, filter: String): C_TaxBaseConnection!
+	C_TaxBaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxBaseConnection!
 }
 
 extend type Mutation {
-	C_TaxBaseSave(entity: C_TaxBaseInput!): C_TaxBase!
-	C_TaxBaseSaveMany(entities: [C_TaxBaseInput!]!): [C_TaxBase!]!
-	C_TaxBaseDelete(uuids: [String!]!): Boolean!
+	C_TaxBaseSave(Entity: C_TaxBaseInput!): C_TaxBase!
+	C_TaxBaseSaveMany(Entities: [C_TaxBaseInput!]!): [C_TaxBase!]!
+	C_TaxBaseDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaxBaseConnection {
-	results: [C_TaxBase!]!
-	pagingInfo: PagingInfo!
+	Results: [C_TaxBase!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_TaxBase {
@@ -23,8 +23,7 @@ type C_TaxBase {
 	AD_Org: AD_Org!
 	# Calculation Base
 	Base: AD_Ref_List
-	UUID: ID!
-	C_TaxBase_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -52,8 +51,7 @@ input C_TaxBaseInput {
 	AD_Org: ForeignEntityInput
 	# Calculation Base
 	Base: AD_Ref_ListInput
-	UUID: ID
-	C_TaxBase_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

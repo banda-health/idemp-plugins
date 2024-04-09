@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CountryGet(page: Int, size: Int, sort: String, filter: String): C_CountryConnection!
+	C_CountryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryConnection!
 }
 
 extend type Mutation {
-	C_CountrySave(entity: C_CountryInput!): C_Country!
-	C_CountrySaveMany(entities: [C_CountryInput!]!): [C_Country!]!
-	C_CountryDelete(uuids: [String!]!): Boolean!
+	C_CountrySave(Entity: C_CountryInput!): C_Country!
+	C_CountrySaveMany(Entities: [C_CountryInput!]!): [C_Country!]!
+	C_CountryDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CountryConnection {
-	results: [C_Country!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Country!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Country {
@@ -25,8 +25,7 @@ type C_Country {
 	AD_Org: AD_Org!
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean!
-	UUID: ID!
-	C_Country_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency
 	CaptureSequence: String
@@ -100,8 +99,7 @@ input C_CountryInput {
 	AD_Org: ForeignEntityInput
 	# A flag to allow cities, currently not in the list, to be entered
 	AllowCitiesOutOfList: Boolean
-	UUID: ID
-	C_Country_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	CaptureSequence: String

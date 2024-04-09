@@ -21,16 +21,16 @@ public class X_AD_Val_RuleMutation extends POMutation implements GraphQLMutation
 		return X_AD_Val_RuleInput.Table_Name;
 	}
 
-	public MValRule AD_Val_RuleSave(I_AD_Val_RuleInput entity, DataFetchingEnvironment environment) {
-		return (MValRule) super.save((X_AD_Val_RuleInput) entity, environment);
+	public MValRule AD_Val_RuleSave(I_AD_Val_RuleInput Entity, DataFetchingEnvironment environment) {
+		return (MValRule) super.save((X_AD_Val_RuleInput) Entity, environment);
 	}
 
-	public List<MValRule> AD_Val_RuleSaveMany(List<I_AD_Val_RuleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Val_RuleInput) entity).collect(Collectors.toList()),
+	public List<MValRule> AD_Val_RuleSaveMany(List<I_AD_Val_RuleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Val_RuleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MValRule) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Val_RuleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Val_RuleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

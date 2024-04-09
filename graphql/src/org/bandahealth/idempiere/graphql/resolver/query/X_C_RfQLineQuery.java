@@ -17,8 +17,8 @@ public class X_C_RfQLineQuery extends POQuery<MRfQLine> implements GraphQLQueryR
 		return MRfQLine.Table_Name;
 	}
 
-	public Connection<MRfQLine> C_RfQLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRfQLine> C_RfQLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

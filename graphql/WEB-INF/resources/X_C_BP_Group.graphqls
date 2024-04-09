@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BP_GroupGet(page: Int, size: Int, sort: String, filter: String): C_BP_GroupConnection!
+	C_BP_GroupGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_GroupConnection!
 }
 
 extend type Mutation {
-	C_BP_GroupSave(entity: C_BP_GroupInput!): C_BP_Group!
-	C_BP_GroupSaveMany(entities: [C_BP_GroupInput!]!): [C_BP_Group!]!
-	C_BP_GroupDelete(uuids: [String!]!): Boolean!
+	C_BP_GroupSave(Entity: C_BP_GroupInput!): C_BP_Group!
+	C_BP_GroupSaveMany(Entities: [C_BP_GroupInput!]!): [C_BP_Group!]!
+	C_BP_GroupDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BP_GroupConnection {
-	results: [C_BP_Group!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BP_Group!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BP_Group {
@@ -27,8 +27,7 @@ type C_BP_Group {
 	BH_Locked: Boolean!
 	# Meant to be a sub-type of the charge type
 	BH_SubType: AD_Ref_List
-	UUID: ID!
-	C_BP_Group_UU: String
+	UU: ID!
 	# Dunning Rules for overdue invoices
 	C_Dunning: C_Dunning
 	# Date this record was created
@@ -76,8 +75,7 @@ input C_BP_GroupInput {
 	BH_Locked: Boolean
 	# Meant to be a sub-type of the charge type
 	BH_SubType: AD_Ref_ListInput
-	UUID: ID
-	C_BP_Group_UU: String
+	UU: ID
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
 	# Credit Watch - Percent of Credit Limit when OK switches to Watch

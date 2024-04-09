@@ -17,8 +17,8 @@ public class X_BH_Coded_Diagnosis_MappingQuery extends POQuery<MBHCodedDiagnosis
 		return MBHCodedDiagnosisMapping.Table_Name;
 	}
 
-	public Connection<MBHCodedDiagnosisMapping> BH_Coded_Diagnosis_MappingGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHCodedDiagnosisMapping> BH_Coded_Diagnosis_MappingGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -28,12 +28,12 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The BH_Role_WarehouseAccess_UU to fetch this entity from the DB
+	 * @param UU The BH_Role_WarehouseAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_Role_WarehouseAccessInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_Role_WarehouseAccessInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -52,11 +52,11 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 			X_AD_Role foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
-							.setParameters(AD_Role.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Role_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Role with UUID " + AD_Role.getUUID());
+						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
 			}
 		} else {
 			this.setAD_Role_ID(0);
@@ -86,11 +86,11 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 			MBHRoleWarehouseAccess foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Role_WarehouseAccess", "BH_Role_WarehouseAccess_UU=?", get_TrxName())
-							.setParameters(BH_Role_WarehouseAccess.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Role_WarehouseAccess.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Role_WarehouseAccess_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table BH_Role_WarehouseAccess with UUID " + BH_Role_WarehouseAccess.getUUID());
+						"Could not find entity in table BH_Role_WarehouseAccess with UU " + BH_Role_WarehouseAccess.getUU());
 			}
 		} else {
 			this.setBH_Role_WarehouseAccess_ID(0);
@@ -108,20 +108,20 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setBH_Role_WarehouseAccess_UU(UUID);
+	public void setUU(String UU) {
+		setBH_Role_WarehouseAccess_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getBH_Role_WarehouseAccess_UU();
 	}
 
@@ -141,11 +141,11 @@ public class X_BH_Role_WarehouseAccessInput extends MBHRoleWarehouseAccess imple
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);

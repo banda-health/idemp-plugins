@@ -17,8 +17,8 @@ public class X_A_Asset_Info_FinQuery extends POQuery<X_A_Asset_Info_Fin> impleme
 		return X_A_Asset_Info_Fin.Table_Name;
 	}
 
-	public Connection<X_A_Asset_Info_Fin> A_Asset_Info_FinGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_Asset_Info_Fin> A_Asset_Info_FinGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

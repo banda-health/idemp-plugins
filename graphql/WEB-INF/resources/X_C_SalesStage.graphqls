@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_SalesStageGet(page: Int, size: Int, sort: String, filter: String): C_SalesStageConnection!
+	C_SalesStageGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SalesStageConnection!
 }
 
 extend type Mutation {
-	C_SalesStageSave(entity: C_SalesStageInput!): C_SalesStage!
-	C_SalesStageSaveMany(entities: [C_SalesStageInput!]!): [C_SalesStage!]!
-	C_SalesStageDelete(uuids: [String!]!): Boolean!
+	C_SalesStageSave(Entity: C_SalesStageInput!): C_SalesStage!
+	C_SalesStageSaveMany(Entities: [C_SalesStageInput!]!): [C_SalesStage!]!
+	C_SalesStageDelete(UUs: [String!]!): Boolean!
 }
 
 type C_SalesStageConnection {
-	results: [C_SalesStage!]!
-	pagingInfo: PagingInfo!
+	Results: [C_SalesStage!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_SalesStage {
@@ -21,8 +21,7 @@ type C_SalesStage {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_SalesStage_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -49,8 +48,7 @@ type C_SalesStage {
 input C_SalesStageInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_SalesStage_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

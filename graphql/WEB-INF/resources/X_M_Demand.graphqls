@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_DemandGet(page: Int, size: Int, sort: String, filter: String): M_DemandConnection!
+	M_DemandGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DemandConnection!
 }
 
 extend type Mutation {
-	M_DemandSave(entity: M_DemandInput!): M_Demand!
-	M_DemandSaveMany(entities: [M_DemandInput!]!): [M_Demand!]!
-	M_DemandDelete(uuids: [String!]!): Boolean!
+	M_DemandSave(Entity: M_DemandInput!): M_Demand!
+	M_DemandSaveMany(Entities: [M_DemandInput!]!): [M_Demand!]!
+	M_DemandDelete(UUs: [String!]!): Boolean!
 }
 
 type M_DemandConnection {
-	results: [M_Demand!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Demand!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Demand {
@@ -37,8 +37,7 @@ type M_Demand {
 	IsActive: Boolean!
 	# Default value
 	IsDefault: Boolean!
-	UUID: ID!
-	M_Demand_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	Processing: Boolean!
@@ -63,8 +62,7 @@ input M_DemandInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	UUID: ID
-	M_Demand_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	Processing: Boolean

@@ -17,8 +17,8 @@ public class X_BH_ObservationQuery extends POQuery<MBHObservation> implements Gr
 		return MBHObservation.Table_Name;
 	}
 
-	public Connection<MBHObservation> BH_ObservationGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHObservation> BH_ObservationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_GL_FundRestrictionMutation extends POMutation implements GraphQLM
 		return X_GL_FundRestrictionInput.Table_Name;
 	}
 
-	public X_GL_FundRestriction GL_FundRestrictionSave(I_GL_FundRestrictionInput entity, DataFetchingEnvironment environment) {
-		return (X_GL_FundRestriction) super.save((X_GL_FundRestrictionInput) entity, environment);
+	public X_GL_FundRestriction GL_FundRestrictionSave(I_GL_FundRestrictionInput Entity, DataFetchingEnvironment environment) {
+		return (X_GL_FundRestriction) super.save((X_GL_FundRestrictionInput) Entity, environment);
 	}
 
-	public List<X_GL_FundRestriction> GL_FundRestrictionSaveMany(List<I_GL_FundRestrictionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_GL_FundRestrictionInput) entity).collect(Collectors.toList()),
+	public List<X_GL_FundRestriction> GL_FundRestrictionSaveMany(List<I_GL_FundRestrictionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_FundRestrictionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_GL_FundRestriction) entity).collect(Collectors.toList());
 	}
 
-	public boolean GL_FundRestrictionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean GL_FundRestrictionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

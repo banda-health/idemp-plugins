@@ -17,8 +17,8 @@ public class X_AD_TableQuery extends POQuery<MTable> implements GraphQLQueryReso
 		return MTable.Table_Name;
 	}
 
-	public Connection<MTable> AD_TableGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTable> AD_TableGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

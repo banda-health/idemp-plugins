@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_WF_Node_AssetGet(page: Int, size: Int, sort: String, filter: String): PP_WF_Node_AssetConnection!
+	PP_WF_Node_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_WF_Node_AssetConnection!
 }
 
 extend type Mutation {
-	PP_WF_Node_AssetSave(entity: PP_WF_Node_AssetInput!): PP_WF_Node_Asset!
-	PP_WF_Node_AssetSaveMany(entities: [PP_WF_Node_AssetInput!]!): [PP_WF_Node_Asset!]!
-	PP_WF_Node_AssetDelete(uuids: [String!]!): Boolean!
+	PP_WF_Node_AssetSave(Entity: PP_WF_Node_AssetInput!): PP_WF_Node_Asset!
+	PP_WF_Node_AssetSaveMany(Entities: [PP_WF_Node_AssetInput!]!): [PP_WF_Node_Asset!]!
+	PP_WF_Node_AssetDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_WF_Node_AssetConnection {
-	results: [PP_WF_Node_Asset!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_WF_Node_Asset!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_WF_Node_Asset {
@@ -31,8 +31,7 @@ type PP_WF_Node_Asset {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	PP_WF_Node_Asset_UU: String
+	UU: ID!
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int!
 	# Date this record was updated
@@ -50,8 +49,7 @@ input PP_WF_Node_AssetInput {
 	AD_WF_Node: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	PP_WF_Node_Asset_UU: String
+	UU: ID
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

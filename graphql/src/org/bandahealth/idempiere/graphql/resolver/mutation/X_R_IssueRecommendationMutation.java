@@ -21,16 +21,16 @@ public class X_R_IssueRecommendationMutation extends POMutation implements Graph
 		return X_R_IssueRecommendationInput.Table_Name;
 	}
 
-	public X_R_IssueRecommendation R_IssueRecommendationSave(I_R_IssueRecommendationInput entity, DataFetchingEnvironment environment) {
-		return (X_R_IssueRecommendation) super.save((X_R_IssueRecommendationInput) entity, environment);
+	public X_R_IssueRecommendation R_IssueRecommendationSave(I_R_IssueRecommendationInput Entity, DataFetchingEnvironment environment) {
+		return (X_R_IssueRecommendation) super.save((X_R_IssueRecommendationInput) Entity, environment);
 	}
 
-	public List<X_R_IssueRecommendation> R_IssueRecommendationSaveMany(List<I_R_IssueRecommendationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_IssueRecommendationInput) entity).collect(Collectors.toList()),
+	public List<X_R_IssueRecommendation> R_IssueRecommendationSaveMany(List<I_R_IssueRecommendationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_IssueRecommendationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_R_IssueRecommendation) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_IssueRecommendationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_IssueRecommendationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

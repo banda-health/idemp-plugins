@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_InvoiceScheduleGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceScheduleConnection!
+	C_InvoiceScheduleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceScheduleConnection!
 }
 
 extend type Mutation {
-	C_InvoiceScheduleSave(entity: C_InvoiceScheduleInput!): C_InvoiceSchedule!
-	C_InvoiceScheduleSaveMany(entities: [C_InvoiceScheduleInput!]!): [C_InvoiceSchedule!]!
-	C_InvoiceScheduleDelete(uuids: [String!]!): Boolean!
+	C_InvoiceScheduleSave(Entity: C_InvoiceScheduleInput!): C_InvoiceSchedule!
+	C_InvoiceScheduleSaveMany(Entities: [C_InvoiceScheduleInput!]!): [C_InvoiceSchedule!]!
+	C_InvoiceScheduleDelete(UUs: [String!]!): Boolean!
 }
 
 type C_InvoiceScheduleConnection {
-	results: [C_InvoiceSchedule!]!
-	pagingInfo: PagingInfo!
+	Results: [C_InvoiceSchedule!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_InvoiceSchedule {
@@ -23,8 +23,7 @@ type C_InvoiceSchedule {
 	AD_Org: AD_Org!
 	# Amount
 	Amt: BigDecimal!
-	UUID: ID!
-	C_InvoiceSchedule_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -62,8 +61,7 @@ input C_InvoiceScheduleInput {
 	AD_Org: ForeignEntityInput
 	# Amount
 	Amt: BigDecimal
-	UUID: ID
-	C_InvoiceSchedule_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Send invoices on even weeks

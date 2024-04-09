@@ -17,8 +17,8 @@ public class X_AD_ClientQuery extends POQuery<MClient_BH> implements GraphQLQuer
 		return MClient_BH.Table_Name;
 	}
 
-	public Connection<MClient_BH> AD_ClientGet(int page, int pageSize, String sort, String filter,
+	public Connection<MClient_BH> AD_ClientGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

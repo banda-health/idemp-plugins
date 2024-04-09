@@ -21,16 +21,16 @@ public class X_R_StandardResponseMutation extends POMutation implements GraphQLM
 		return X_R_StandardResponseInput.Table_Name;
 	}
 
-	public X_R_StandardResponse R_StandardResponseSave(I_R_StandardResponseInput entity, DataFetchingEnvironment environment) {
-		return (X_R_StandardResponse) super.save((X_R_StandardResponseInput) entity, environment);
+	public X_R_StandardResponse R_StandardResponseSave(I_R_StandardResponseInput Entity, DataFetchingEnvironment environment) {
+		return (X_R_StandardResponse) super.save((X_R_StandardResponseInput) Entity, environment);
 	}
 
-	public List<X_R_StandardResponse> R_StandardResponseSaveMany(List<I_R_StandardResponseInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_StandardResponseInput) entity).collect(Collectors.toList()),
+	public List<X_R_StandardResponse> R_StandardResponseSaveMany(List<I_R_StandardResponseInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_StandardResponseInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_R_StandardResponse) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_StandardResponseDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_StandardResponseDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

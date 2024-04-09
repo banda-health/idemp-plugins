@@ -21,16 +21,16 @@ public class X_DD_NetworkDistributionMutation extends POMutation implements Grap
 		return X_DD_NetworkDistributionInput.Table_Name;
 	}
 
-	public X_DD_NetworkDistribution DD_NetworkDistributionSave(I_DD_NetworkDistributionInput entity, DataFetchingEnvironment environment) {
-		return (X_DD_NetworkDistribution) super.save((X_DD_NetworkDistributionInput) entity, environment);
+	public X_DD_NetworkDistribution DD_NetworkDistributionSave(I_DD_NetworkDistributionInput Entity, DataFetchingEnvironment environment) {
+		return (X_DD_NetworkDistribution) super.save((X_DD_NetworkDistributionInput) Entity, environment);
 	}
 
-	public List<X_DD_NetworkDistribution> DD_NetworkDistributionSaveMany(List<I_DD_NetworkDistributionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_DD_NetworkDistributionInput) entity).collect(Collectors.toList()),
+	public List<X_DD_NetworkDistribution> DD_NetworkDistributionSaveMany(List<I_DD_NetworkDistributionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_DD_NetworkDistributionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_DD_NetworkDistribution) entity).collect(Collectors.toList());
 	}
 
-	public boolean DD_NetworkDistributionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean DD_NetworkDistributionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

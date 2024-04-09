@@ -18,7 +18,7 @@ import java.util.Set;
 
 public class MLanguageQuery extends X_AD_LanguageQuery {
 	@Override
-	public Connection<MLanguage> get(int page, int pageSize, String sort, String filter,
+	public Connection<MLanguage> AD_LanguageGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
 		ServerContext.setCurrentInstance(BandaGraphQLContext.getCtx(environment));
 		Env.setCtx(BandaGraphQLContext.getCtx(environment));

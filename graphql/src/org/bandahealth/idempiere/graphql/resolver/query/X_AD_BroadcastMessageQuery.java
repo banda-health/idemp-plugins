@@ -17,8 +17,8 @@ public class X_AD_BroadcastMessageQuery extends POQuery<X_AD_BroadcastMessage> i
 		return X_AD_BroadcastMessage.Table_Name;
 	}
 
-	public Connection<X_AD_BroadcastMessage> AD_BroadcastMessageGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_BroadcastMessage> AD_BroadcastMessageGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

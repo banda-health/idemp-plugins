@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_Conversion_RateGet(page: Int, size: Int, sort: String, filter: String): I_Conversion_RateConnection!
+	I_Conversion_RateGet(Page: Int, Size: Int, Sort: String, Filter: String): I_Conversion_RateConnection!
 }
 
 extend type Mutation {
-	I_Conversion_RateSave(entity: I_Conversion_RateInput!): I_Conversion_Rate!
-	I_Conversion_RateSaveMany(entities: [I_Conversion_RateInput!]!): [I_Conversion_Rate!]!
-	I_Conversion_RateDelete(uuids: [String!]!): Boolean!
+	I_Conversion_RateSave(Entity: I_Conversion_RateInput!): I_Conversion_Rate!
+	I_Conversion_RateSaveMany(Entities: [I_Conversion_RateInput!]!): [I_Conversion_Rate!]!
+	I_Conversion_RateDelete(UUs: [String!]!): Boolean!
 }
 
 type I_Conversion_RateConnection {
-	results: [I_Conversion_Rate!]!
-	pagingInfo: PagingInfo!
+	Results: [I_Conversion_Rate!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_Conversion_Rate {
@@ -39,8 +39,7 @@ type I_Conversion_Rate {
 	CreateReciprocalRate: Boolean!
 	# To convert Source number to Target number, the Source is divided
 	DivideRate: BigDecimal
-	UUID: ID!
-	I_Conversion_Rate_UU: String
+	UU: ID!
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed
@@ -83,8 +82,7 @@ input I_Conversion_RateInput {
 	CreateReciprocalRate: Boolean
 	# To convert Source number to Target number, the Source is divided
 	DivideRate: BigDecimal
-	UUID: ID
-	I_Conversion_Rate_UU: String
+	UU: ID
 	# Messages generated from import process
 	I_ErrorMsg: String
 	# Has this import been processed

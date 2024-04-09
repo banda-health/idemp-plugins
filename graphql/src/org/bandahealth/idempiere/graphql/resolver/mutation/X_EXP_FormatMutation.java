@@ -21,16 +21,16 @@ public class X_EXP_FormatMutation extends POMutation implements GraphQLMutationR
 		return X_EXP_FormatInput.Table_Name;
 	}
 
-	public MEXPFormat EXP_FormatSave(I_EXP_FormatInput entity, DataFetchingEnvironment environment) {
-		return (MEXPFormat) super.save((X_EXP_FormatInput) entity, environment);
+	public MEXPFormat EXP_FormatSave(I_EXP_FormatInput Entity, DataFetchingEnvironment environment) {
+		return (MEXPFormat) super.save((X_EXP_FormatInput) Entity, environment);
 	}
 
-	public List<MEXPFormat> EXP_FormatSaveMany(List<I_EXP_FormatInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_EXP_FormatInput) entity).collect(Collectors.toList()),
+	public List<MEXPFormat> EXP_FormatSaveMany(List<I_EXP_FormatInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_EXP_FormatInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MEXPFormat) entity).collect(Collectors.toList());
 	}
 
-	public boolean EXP_FormatDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean EXP_FormatDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

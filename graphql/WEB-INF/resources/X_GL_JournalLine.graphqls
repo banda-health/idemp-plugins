@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	GL_JournalLineGet(page: Int, size: Int, sort: String, filter: String): GL_JournalLineConnection!
+	GL_JournalLineGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalLineConnection!
 }
 
 extend type Mutation {
-	GL_JournalLineSave(entity: GL_JournalLineInput!): GL_JournalLine!
-	GL_JournalLineSaveMany(entities: [GL_JournalLineInput!]!): [GL_JournalLine!]!
-	GL_JournalLineDelete(uuids: [String!]!): Boolean!
+	GL_JournalLineSave(Entity: GL_JournalLineInput!): GL_JournalLine!
+	GL_JournalLineSaveMany(Entities: [GL_JournalLineInput!]!): [GL_JournalLine!]!
+	GL_JournalLineDelete(UUs: [String!]!): Boolean!
 }
 
 type GL_JournalLineConnection {
-	results: [GL_JournalLine!]!
-	pagingInfo: PagingInfo!
+	Results: [GL_JournalLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type GL_JournalLine {
@@ -75,8 +75,7 @@ type GL_JournalLine {
 	Description: String
 	# General Ledger Journal
 	GL_Journal: GL_Journal!
-	UUID: ID!
-	GL_JournalLine_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# This Line is generated
@@ -152,8 +151,7 @@ input GL_JournalLineInput {
 	Description: String
 	# General Ledger Journal
 	GL_Journal: ForeignEntityInput
-	UUID: ID
-	GL_JournalLine_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# This Line is generated

@@ -21,16 +21,16 @@ public class X_M_CommodityShipmentMutation extends POMutation implements GraphQL
 		return X_M_CommodityShipmentInput.Table_Name;
 	}
 
-	public X_M_CommodityShipment M_CommodityShipmentSave(I_M_CommodityShipmentInput entity, DataFetchingEnvironment environment) {
-		return (X_M_CommodityShipment) super.save((X_M_CommodityShipmentInput) entity, environment);
+	public X_M_CommodityShipment M_CommodityShipmentSave(I_M_CommodityShipmentInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_CommodityShipment) super.save((X_M_CommodityShipmentInput) Entity, environment);
 	}
 
-	public List<X_M_CommodityShipment> M_CommodityShipmentSaveMany(List<I_M_CommodityShipmentInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_CommodityShipmentInput) entity).collect(Collectors.toList()),
+	public List<X_M_CommodityShipment> M_CommodityShipmentSaveMany(List<I_M_CommodityShipmentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_CommodityShipmentInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_CommodityShipment) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_CommodityShipmentDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_CommodityShipmentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

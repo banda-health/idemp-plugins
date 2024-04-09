@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	S_ExpenseTypeGet(page: Int, size: Int, sort: String, filter: String): S_ExpenseTypeConnection!
+	S_ExpenseTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): S_ExpenseTypeConnection!
 }
 
 extend type Mutation {
-	S_ExpenseTypeSave(entity: S_ExpenseTypeInput!): S_ExpenseType!
-	S_ExpenseTypeSaveMany(entities: [S_ExpenseTypeInput!]!): [S_ExpenseType!]!
-	S_ExpenseTypeDelete(uuids: [String!]!): Boolean!
+	S_ExpenseTypeSave(Entity: S_ExpenseTypeInput!): S_ExpenseType!
+	S_ExpenseTypeSaveMany(Entities: [S_ExpenseTypeInput!]!): [S_ExpenseType!]!
+	S_ExpenseTypeDelete(UUs: [String!]!): Boolean!
 }
 
 type S_ExpenseTypeConnection {
-	results: [S_ExpenseType!]!
-	pagingInfo: PagingInfo!
+	Results: [S_ExpenseType!]!
+	PagingInfo: PagingInfo!
 }
 
 type S_ExpenseType {
@@ -39,8 +39,7 @@ type S_ExpenseType {
 	M_Product_Category: M_Product_Category!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
-	S_ExpenseType_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -66,8 +65,7 @@ input S_ExpenseTypeInput {
 	M_Product_Category: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
-	S_ExpenseType_UU: String
+	UU: ID
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

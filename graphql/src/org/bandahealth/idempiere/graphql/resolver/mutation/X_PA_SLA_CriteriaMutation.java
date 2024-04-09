@@ -21,16 +21,16 @@ public class X_PA_SLA_CriteriaMutation extends POMutation implements GraphQLMuta
 		return X_PA_SLA_CriteriaInput.Table_Name;
 	}
 
-	public X_PA_SLA_Criteria PA_SLA_CriteriaSave(I_PA_SLA_CriteriaInput entity, DataFetchingEnvironment environment) {
-		return (X_PA_SLA_Criteria) super.save((X_PA_SLA_CriteriaInput) entity, environment);
+	public X_PA_SLA_Criteria PA_SLA_CriteriaSave(I_PA_SLA_CriteriaInput Entity, DataFetchingEnvironment environment) {
+		return (X_PA_SLA_Criteria) super.save((X_PA_SLA_CriteriaInput) Entity, environment);
 	}
 
-	public List<X_PA_SLA_Criteria> PA_SLA_CriteriaSaveMany(List<I_PA_SLA_CriteriaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_SLA_CriteriaInput) entity).collect(Collectors.toList()),
+	public List<X_PA_SLA_Criteria> PA_SLA_CriteriaSaveMany(List<I_PA_SLA_CriteriaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_SLA_CriteriaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PA_SLA_Criteria) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_SLA_CriteriaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_SLA_CriteriaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_RevenueRecognitionGet(page: Int, size: Int, sort: String, filter: String): C_RevenueRecognitionConnection!
+	C_RevenueRecognitionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecognitionConnection!
 }
 
 extend type Mutation {
-	C_RevenueRecognitionSave(entity: C_RevenueRecognitionInput!): C_RevenueRecognition!
-	C_RevenueRecognitionSaveMany(entities: [C_RevenueRecognitionInput!]!): [C_RevenueRecognition!]!
-	C_RevenueRecognitionDelete(uuids: [String!]!): Boolean!
+	C_RevenueRecognitionSave(Entity: C_RevenueRecognitionInput!): C_RevenueRecognition!
+	C_RevenueRecognitionSaveMany(Entities: [C_RevenueRecognitionInput!]!): [C_RevenueRecognition!]!
+	C_RevenueRecognitionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_RevenueRecognitionConnection {
-	results: [C_RevenueRecognition!]!
-	pagingInfo: PagingInfo!
+	Results: [C_RevenueRecognition!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_RevenueRecognition {
@@ -21,8 +21,7 @@ type C_RevenueRecognition {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_RevenueRecognition_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ type C_RevenueRecognition {
 input C_RevenueRecognitionInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_RevenueRecognition_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Day of the period recognition occurs

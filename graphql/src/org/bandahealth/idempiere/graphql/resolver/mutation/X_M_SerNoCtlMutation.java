@@ -21,16 +21,16 @@ public class X_M_SerNoCtlMutation extends POMutation implements GraphQLMutationR
 		return X_M_SerNoCtlInput.Table_Name;
 	}
 
-	public MSerNoCtl_BH M_SerNoCtlSave(I_M_SerNoCtlInput entity, DataFetchingEnvironment environment) {
-		return (MSerNoCtl_BH) super.save((X_M_SerNoCtlInput) entity, environment);
+	public MSerNoCtl_BH M_SerNoCtlSave(I_M_SerNoCtlInput Entity, DataFetchingEnvironment environment) {
+		return (MSerNoCtl_BH) super.save((X_M_SerNoCtlInput) Entity, environment);
 	}
 
-	public List<MSerNoCtl_BH> M_SerNoCtlSaveMany(List<I_M_SerNoCtlInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_SerNoCtlInput) entity).collect(Collectors.toList()),
+	public List<MSerNoCtl_BH> M_SerNoCtlSaveMany(List<I_M_SerNoCtlInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_SerNoCtlInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSerNoCtl_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_SerNoCtlDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_SerNoCtlDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

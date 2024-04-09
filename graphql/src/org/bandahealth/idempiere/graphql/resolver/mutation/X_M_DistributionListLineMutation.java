@@ -21,16 +21,16 @@ public class X_M_DistributionListLineMutation extends POMutation implements Grap
 		return X_M_DistributionListLineInput.Table_Name;
 	}
 
-	public MDistributionListLine M_DistributionListLineSave(I_M_DistributionListLineInput entity, DataFetchingEnvironment environment) {
-		return (MDistributionListLine) super.save((X_M_DistributionListLineInput) entity, environment);
+	public MDistributionListLine M_DistributionListLineSave(I_M_DistributionListLineInput Entity, DataFetchingEnvironment environment) {
+		return (MDistributionListLine) super.save((X_M_DistributionListLineInput) Entity, environment);
 	}
 
-	public List<MDistributionListLine> M_DistributionListLineSaveMany(List<I_M_DistributionListLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_DistributionListLineInput) entity).collect(Collectors.toList()),
+	public List<MDistributionListLine> M_DistributionListLineSaveMany(List<I_M_DistributionListLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_DistributionListLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDistributionListLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_DistributionListLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_DistributionListLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

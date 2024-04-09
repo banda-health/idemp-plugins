@@ -17,8 +17,8 @@ public class X_AD_FieldSuggestionQuery extends POQuery<MFieldSuggestion> impleme
 		return MFieldSuggestion.Table_Name;
 	}
 
-	public Connection<MFieldSuggestion> AD_FieldSuggestionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MFieldSuggestion> AD_FieldSuggestionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

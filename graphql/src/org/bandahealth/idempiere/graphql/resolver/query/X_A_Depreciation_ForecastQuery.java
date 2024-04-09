@@ -17,8 +17,8 @@ public class X_A_Depreciation_ForecastQuery extends POQuery<X_A_Depreciation_For
 		return X_A_Depreciation_Forecast.Table_Name;
 	}
 
-	public Connection<X_A_Depreciation_Forecast> A_Depreciation_ForecastGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_Depreciation_Forecast> A_Depreciation_ForecastGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

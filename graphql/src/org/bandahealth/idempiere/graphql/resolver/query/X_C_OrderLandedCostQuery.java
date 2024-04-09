@@ -17,8 +17,8 @@ public class X_C_OrderLandedCostQuery extends POQuery<MOrderLandedCost> implemen
 		return MOrderLandedCost.Table_Name;
 	}
 
-	public Connection<MOrderLandedCost> C_OrderLandedCostGet(int page, int pageSize, String sort, String filter,
+	public Connection<MOrderLandedCost> C_OrderLandedCostGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_M_DiscountSchemaLineQuery extends POQuery<MDiscountSchemaLine> im
 		return MDiscountSchemaLine.Table_Name;
 	}
 
-	public Connection<MDiscountSchemaLine> M_DiscountSchemaLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDiscountSchemaLine> M_DiscountSchemaLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

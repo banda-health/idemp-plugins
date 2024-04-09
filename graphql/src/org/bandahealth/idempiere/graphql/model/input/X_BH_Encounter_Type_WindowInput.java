@@ -29,12 +29,12 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The BH_Encounter_Type_Window_UU to fetch this entity from the DB
+	 * @param UU The BH_Encounter_Type_Window_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_Encounter_Type_WindowInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_Encounter_Type_WindowInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -87,11 +87,11 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);
@@ -124,11 +124,11 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_Encounter_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Encounter_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Encounter_Type(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BH_Encounter_Type.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_Encounter_Type.getUU());
 			}
 		} else {
 			this.setBH_Encounter_Type(null);
@@ -146,20 +146,20 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setBH_Encounter_Type_Window_UU(UUID);
+	public void setUU(String UU) {
+		setBH_Encounter_Type_Window_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getBH_Encounter_Type_Window_UU();
 	}
 }

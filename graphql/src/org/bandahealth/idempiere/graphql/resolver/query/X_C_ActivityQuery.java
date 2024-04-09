@@ -17,8 +17,8 @@ public class X_C_ActivityQuery extends POQuery<MActivity> implements GraphQLQuer
 		return MActivity.Table_Name;
 	}
 
-	public Connection<MActivity> C_ActivityGet(int page, int pageSize, String sort, String filter,
+	public Connection<MActivity> C_ActivityGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_C_PeriodMutation extends POMutation implements GraphQLMutationRes
 		return X_C_PeriodInput.Table_Name;
 	}
 
-	public MPeriod C_PeriodSave(I_C_PeriodInput entity, DataFetchingEnvironment environment) {
-		return (MPeriod) super.save((X_C_PeriodInput) entity, environment);
+	public MPeriod C_PeriodSave(I_C_PeriodInput Entity, DataFetchingEnvironment environment) {
+		return (MPeriod) super.save((X_C_PeriodInput) Entity, environment);
 	}
 
-	public List<MPeriod> C_PeriodSaveMany(List<I_C_PeriodInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_PeriodInput) entity).collect(Collectors.toList()),
+	public List<MPeriod> C_PeriodSaveMany(List<I_C_PeriodInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_PeriodInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPeriod) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_PeriodDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_PeriodDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

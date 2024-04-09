@@ -21,16 +21,16 @@ public class X_A_Depreciation_ConventionMutation extends POMutation implements G
 		return X_A_Depreciation_ConventionInput.Table_Name;
 	}
 
-	public MDepreciationConvention A_Depreciation_ConventionSave(I_A_Depreciation_ConventionInput entity, DataFetchingEnvironment environment) {
-		return (MDepreciationConvention) super.save((X_A_Depreciation_ConventionInput) entity, environment);
+	public MDepreciationConvention A_Depreciation_ConventionSave(I_A_Depreciation_ConventionInput Entity, DataFetchingEnvironment environment) {
+		return (MDepreciationConvention) super.save((X_A_Depreciation_ConventionInput) Entity, environment);
 	}
 
-	public List<MDepreciationConvention> A_Depreciation_ConventionSaveMany(List<I_A_Depreciation_ConventionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Depreciation_ConventionInput) entity).collect(Collectors.toList()),
+	public List<MDepreciationConvention> A_Depreciation_ConventionSaveMany(List<I_A_Depreciation_ConventionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Depreciation_ConventionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDepreciationConvention) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Depreciation_ConventionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Depreciation_ConventionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

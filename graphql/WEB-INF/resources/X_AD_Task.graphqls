@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_TaskGet(page: Int, size: Int, sort: String, filter: String): AD_TaskConnection!
+	AD_TaskGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TaskConnection!
 }
 
 extend type Mutation {
-	AD_TaskSave(entity: AD_TaskInput!): AD_Task!
-	AD_TaskSaveMany(entities: [AD_TaskInput!]!): [AD_Task!]!
-	AD_TaskDelete(uuids: [String!]!): Boolean!
+	AD_TaskSave(Entity: AD_TaskInput!): AD_Task!
+	AD_TaskSaveMany(Entities: [AD_TaskInput!]!): [AD_Task!]!
+	AD_TaskDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_TaskConnection {
-	results: [AD_Task!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Task!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Task {
@@ -24,8 +24,7 @@ type AD_Task {
 	AD_CtxHelp: AD_CtxHelp
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Task_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,8 +53,7 @@ input AD_TaskInput {
 	AD_CtxHelp: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Task_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_DeliveryGet(page: Int, size: Int, sort: String, filter: String): A_Asset_DeliveryConnection!
+	A_Asset_DeliveryGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_DeliveryConnection!
 }
 
 extend type Mutation {
-	A_Asset_DeliverySave(entity: A_Asset_DeliveryInput!): A_Asset_Delivery!
-	A_Asset_DeliverySaveMany(entities: [A_Asset_DeliveryInput!]!): [A_Asset_Delivery!]!
-	A_Asset_DeliveryDelete(uuids: [String!]!): Boolean!
+	A_Asset_DeliverySave(Entity: A_Asset_DeliveryInput!): A_Asset_Delivery!
+	A_Asset_DeliverySaveMany(Entities: [A_Asset_DeliveryInput!]!): [A_Asset_Delivery!]!
+	A_Asset_DeliveryDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_DeliveryConnection {
-	results: [A_Asset_Delivery!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Delivery!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Delivery {
-	UUID: ID!
-	A_Asset_Delivery_UU: String
+	UU: ID!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	# Tenant for this installation.
@@ -68,8 +67,7 @@ type A_Asset_Delivery {
 }
 
 input A_Asset_DeliveryInput {
-	UUID: ID
-	A_Asset_Delivery_UU: String
+	UU: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	# Organizational entity within tenant

@@ -17,8 +17,8 @@ public class X_AD_ToolBarButtonQuery extends POQuery<MToolBarButton> implements 
 		return MToolBarButton.Table_Name;
 	}
 
-	public Connection<MToolBarButton> AD_ToolBarButtonGet(int page, int pageSize, String sort, String filter,
+	public Connection<MToolBarButton> AD_ToolBarButtonGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

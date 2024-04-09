@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_WF_ActivityResultGet(page: Int, size: Int, sort: String, filter: String): AD_WF_ActivityResultConnection!
+	AD_WF_ActivityResultGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_ActivityResultConnection!
 }
 
 extend type Mutation {
-	AD_WF_ActivityResultSave(entity: AD_WF_ActivityResultInput!): AD_WF_ActivityResult!
-	AD_WF_ActivityResultSaveMany(entities: [AD_WF_ActivityResultInput!]!): [AD_WF_ActivityResult!]!
-	AD_WF_ActivityResultDelete(uuids: [String!]!): Boolean!
+	AD_WF_ActivityResultSave(Entity: AD_WF_ActivityResultInput!): AD_WF_ActivityResult!
+	AD_WF_ActivityResultSaveMany(Entities: [AD_WF_ActivityResultInput!]!): [AD_WF_ActivityResult!]!
+	AD_WF_ActivityResultDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_WF_ActivityResultConnection {
-	results: [AD_WF_ActivityResult!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_WF_ActivityResult!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_WF_ActivityResult {
@@ -23,8 +23,7 @@ type AD_WF_ActivityResult {
 	AD_Org: AD_Org!
 	# Workflow Activity
 	AD_WF_Activity: AD_WF_Activity!
-	UUID: ID!
-	AD_WF_ActivityResult_UU: String
+	UU: ID!
 	# Name of the Attribute
 	AttributeName: String!
 	# Value of the Attribute
@@ -50,8 +49,7 @@ input AD_WF_ActivityResultInput {
 	AD_Org: ForeignEntityInput
 	# Workflow Activity
 	AD_WF_Activity: ForeignEntityInput
-	UUID: ID
-	AD_WF_ActivityResult_UU: String
+	UU: ID
 	# Name of the Attribute
 	AttributeName: String
 	# Value of the Attribute

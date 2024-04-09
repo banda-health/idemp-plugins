@@ -17,8 +17,8 @@ public class X_AD_PrintPaperQuery extends POQuery<X_AD_PrintPaper> implements Gr
 		return X_AD_PrintPaper.Table_Name;
 	}
 
-	public Connection<X_AD_PrintPaper> AD_PrintPaperGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_PrintPaper> AD_PrintPaperGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

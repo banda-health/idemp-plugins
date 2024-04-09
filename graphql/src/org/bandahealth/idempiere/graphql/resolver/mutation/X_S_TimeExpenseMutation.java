@@ -21,16 +21,16 @@ public class X_S_TimeExpenseMutation extends POMutation implements GraphQLMutati
 		return X_S_TimeExpenseInput.Table_Name;
 	}
 
-	public MTimeExpense S_TimeExpenseSave(I_S_TimeExpenseInput entity, DataFetchingEnvironment environment) {
-		return (MTimeExpense) super.save((X_S_TimeExpenseInput) entity, environment);
+	public MTimeExpense S_TimeExpenseSave(I_S_TimeExpenseInput Entity, DataFetchingEnvironment environment) {
+		return (MTimeExpense) super.save((X_S_TimeExpenseInput) Entity, environment);
 	}
 
-	public List<MTimeExpense> S_TimeExpenseSaveMany(List<I_S_TimeExpenseInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_S_TimeExpenseInput) entity).collect(Collectors.toList()),
+	public List<MTimeExpense> S_TimeExpenseSaveMany(List<I_S_TimeExpenseInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_TimeExpenseInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTimeExpense) entity).collect(Collectors.toList());
 	}
 
-	public boolean S_TimeExpenseDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean S_TimeExpenseDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PP_Order_CostGet(page: Int, size: Int, sort: String, filter: String): PP_Order_CostConnection!
+	PP_Order_CostGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_CostConnection!
 }
 
 extend type Mutation {
-	PP_Order_CostSave(entity: PP_Order_CostInput!): PP_Order_Cost!
-	PP_Order_CostSaveMany(entities: [PP_Order_CostInput!]!): [PP_Order_Cost!]!
-	PP_Order_CostDelete(uuids: [String!]!): Boolean!
+	PP_Order_CostSave(Entity: PP_Order_CostInput!): PP_Order_Cost!
+	PP_Order_CostSaveMany(Entities: [PP_Order_CostInput!]!): [PP_Order_Cost!]!
+	PP_Order_CostDelete(UUs: [String!]!): Boolean!
 }
 
 type PP_Order_CostConnection {
-	results: [PP_Order_Cost!]!
-	pagingInfo: PagingInfo!
+	Results: [PP_Order_Cost!]!
+	PagingInfo: PagingInfo!
 }
 
 type PP_Order_Cost {
@@ -53,8 +53,7 @@ type PP_Order_Cost {
 	M_CostType: M_CostType!
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	PP_Order_Cost_UU: String
+	UU: ID!
 	# Manufacturing Order
 	PP_Order: PP_Order!
 	# Date this record was updated
@@ -94,8 +93,7 @@ input PP_Order_CostInput {
 	M_CostType: ForeignEntityInput
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	PP_Order_Cost_UU: String
+	UU: ID
 	# Manufacturing Order
 	PP_Order: ForeignEntityInput
 }

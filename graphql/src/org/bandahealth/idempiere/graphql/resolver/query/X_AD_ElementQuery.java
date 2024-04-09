@@ -17,8 +17,8 @@ public class X_AD_ElementQuery extends POQuery<M_Element> implements GraphQLQuer
 		return M_Element.Table_Name;
 	}
 
-	public Connection<M_Element> AD_ElementGet(int page, int pageSize, String sort, String filter,
+	public Connection<M_Element> AD_ElementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

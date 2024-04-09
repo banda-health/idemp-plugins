@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	T_BankRegisterGet(page: Int, size: Int, sort: String, filter: String): T_BankRegisterConnection!
+	T_BankRegisterGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BankRegisterConnection!
 }
 
 extend type Mutation {
-	T_BankRegisterSave(entity: T_BankRegisterInput!): T_BankRegister!
-	T_BankRegisterSaveMany(entities: [T_BankRegisterInput!]!): [T_BankRegister!]!
-	T_BankRegisterDelete(uuids: [String!]!): Boolean!
+	T_BankRegisterSave(Entity: T_BankRegisterInput!): T_BankRegister!
+	T_BankRegisterSaveMany(Entities: [T_BankRegisterInput!]!): [T_BankRegister!]!
+	T_BankRegisterDelete(UUs: [String!]!): Boolean!
 }
 
 type T_BankRegisterConnection {
-	results: [T_BankRegister!]!
-	pagingInfo: PagingInfo!
+	Results: [T_BankRegister!]!
+	PagingInfo: PagingInfo!
 }
 
 type T_BankRegister {
@@ -39,8 +39,7 @@ type T_BankRegister {
 	DateAcct: Date
 	# Document sequence number of the document
 	DocumentNo: String
-	UUID: ID!
-	T_BankRegister_UU: String
+	UU: ID!
 }
 
 input T_BankRegisterInput {
@@ -64,6 +63,5 @@ input T_BankRegisterInput {
 	DateAcct: Date
 	# Document sequence number of the document
 	DocumentNo: String
-	UUID: ID
-	T_BankRegister_UU: String
+	UU: ID
 }

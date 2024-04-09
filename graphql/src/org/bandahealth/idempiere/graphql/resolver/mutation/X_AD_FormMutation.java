@@ -21,16 +21,16 @@ public class X_AD_FormMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_FormInput.Table_Name;
 	}
 
-	public MForm AD_FormSave(I_AD_FormInput entity, DataFetchingEnvironment environment) {
-		return (MForm) super.save((X_AD_FormInput) entity, environment);
+	public MForm AD_FormSave(I_AD_FormInput Entity, DataFetchingEnvironment environment) {
+		return (MForm) super.save((X_AD_FormInput) Entity, environment);
 	}
 
-	public List<MForm> AD_FormSaveMany(List<I_AD_FormInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_FormInput) entity).collect(Collectors.toList()),
+	public List<MForm> AD_FormSaveMany(List<I_AD_FormInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_FormInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MForm) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_FormDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_FormDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

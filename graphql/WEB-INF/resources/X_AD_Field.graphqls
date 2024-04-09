@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_FieldGet(page: Int, size: Int, sort: String, filter: String): AD_FieldConnection!
+	AD_FieldGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FieldConnection!
 }
 
 extend type Mutation {
-	AD_FieldSave(entity: AD_FieldInput!): AD_Field!
-	AD_FieldSaveMany(entities: [AD_FieldInput!]!): [AD_Field!]!
-	AD_FieldDelete(uuids: [String!]!): Boolean!
+	AD_FieldSave(Entity: AD_FieldInput!): AD_Field!
+	AD_FieldSaveMany(Entities: [AD_FieldInput!]!): [AD_Field!]!
+	AD_FieldDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_FieldConnection {
-	results: [AD_Field!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Field!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Field {
@@ -22,8 +22,7 @@ type AD_Field {
 	AD_Client: AD_Client!
 	# Column in the table
 	AD_Column: AD_Column!
-	UUID: ID!
-	AD_Field_UU: String
+	UU: ID!
 	# Logical grouping of fields
 	AD_FieldGroup: AD_FieldGroup
 	# Field CSS Style 
@@ -131,8 +130,7 @@ input AD_FieldInput {
 	AD_Chart: ForeignEntityInput
 	# Column in the table
 	AD_Column: ForeignEntityInput
-	UUID: ID
-	AD_Field_UU: String
+	UU: ID
 	# Logical grouping of fields
 	AD_FieldGroup: ForeignEntityInput
 	# Field CSS Style 

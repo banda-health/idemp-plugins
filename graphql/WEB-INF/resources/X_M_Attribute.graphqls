@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_AttributeGet(page: Int, size: Int, sort: String, filter: String): M_AttributeConnection!
+	M_AttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeConnection!
 }
 
 extend type Mutation {
-	M_AttributeSave(entity: M_AttributeInput!): M_Attribute!
-	M_AttributeSaveMany(entities: [M_AttributeInput!]!): [M_Attribute!]!
-	M_AttributeDelete(uuids: [String!]!): Boolean!
+	M_AttributeSave(Entity: M_AttributeInput!): M_Attribute!
+	M_AttributeSaveMany(Entities: [M_AttributeInput!]!): [M_Attribute!]!
+	M_AttributeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_AttributeConnection {
-	results: [M_Attribute!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Attribute!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Attribute {
@@ -43,8 +43,7 @@ type M_Attribute {
 	IsInstanceAttribute: Boolean!
 	# Data entry is required in this column
 	IsMandatory: Boolean!
-	UUID: ID!
-	M_Attribute_UU: String
+	UU: ID!
 	# Common Search Attribute 
 	M_AttributeSearch: M_AttributeSearch
 	# Alphanumeric identifier of the entity
@@ -76,8 +75,7 @@ input M_AttributeInput {
 	IsInstanceAttribute: Boolean
 	# Data entry is required in this column
 	IsMandatory: Boolean
-	UUID: ID
-	M_Attribute_UU: String
+	UU: ID
 	# Common Search Attribute 
 	M_AttributeSearch: ForeignEntityInput
 	# Alphanumeric identifier of the entity

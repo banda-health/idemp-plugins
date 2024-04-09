@@ -17,8 +17,8 @@ public class X_M_ProductQuery extends POQuery<MProduct_BH> implements GraphQLQue
 		return MProduct_BH.Table_Name;
 	}
 
-	public Connection<MProduct_BH> M_ProductGet(int page, int pageSize, String sort, String filter,
+	public Connection<MProduct_BH> M_ProductGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

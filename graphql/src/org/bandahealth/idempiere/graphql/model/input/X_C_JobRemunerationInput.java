@@ -29,12 +29,12 @@ public class X_C_JobRemunerationInput extends X_C_JobRemuneration implements I_C
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_JobRemuneration_UU to fetch this entity from the DB
+	 * @param UU The C_JobRemuneration_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_JobRemunerationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_JobRemunerationInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_C_JobRemunerationInput extends X_C_JobRemuneration implements I_C
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -90,11 +90,11 @@ public class X_C_JobRemunerationInput extends X_C_JobRemuneration implements I_C
 			X_C_Job foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Job", "C_Job_UU=?", get_TrxName())
-							.setParameters(C_Job.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Job.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Job_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Job with UUID " + C_Job.getUUID());
+						"Could not find entity in table C_Job with UU " + C_Job.getUU());
 			}
 		} else {
 			this.setC_Job_ID(0);
@@ -123,20 +123,20 @@ public class X_C_JobRemunerationInput extends X_C_JobRemuneration implements I_C
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_JobRemuneration_UU(UUID);
+	public void setUU(String UU) {
+		setC_JobRemuneration_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_JobRemuneration_UU();
 	}
 
@@ -156,11 +156,11 @@ public class X_C_JobRemunerationInput extends X_C_JobRemuneration implements I_C
 			X_C_Remuneration foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Remuneration", "C_Remuneration_UU=?", get_TrxName())
-							.setParameters(C_Remuneration.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Remuneration.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Remuneration_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Remuneration with UUID " + C_Remuneration.getUUID());
+						"Could not find entity in table C_Remuneration with UU " + C_Remuneration.getUU());
 			}
 		} else {
 			this.setC_Remuneration_ID(0);

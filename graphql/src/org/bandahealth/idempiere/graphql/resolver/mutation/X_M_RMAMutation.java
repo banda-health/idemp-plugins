@@ -21,16 +21,16 @@ public class X_M_RMAMutation extends POMutation implements GraphQLMutationResolv
 		return X_M_RMAInput.Table_Name;
 	}
 
-	public MRMA M_RMASave(I_M_RMAInput entity, DataFetchingEnvironment environment) {
-		return (MRMA) super.save((X_M_RMAInput) entity, environment);
+	public MRMA M_RMASave(I_M_RMAInput Entity, DataFetchingEnvironment environment) {
+		return (MRMA) super.save((X_M_RMAInput) Entity, environment);
 	}
 
-	public List<MRMA> M_RMASaveMany(List<I_M_RMAInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_RMAInput) entity).collect(Collectors.toList()),
+	public List<MRMA> M_RMASaveMany(List<I_M_RMAInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_RMAInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRMA) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_RMADelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_RMADelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_C_ServiceLevelLineQuery extends POQuery<X_C_ServiceLevelLine> imp
 		return X_C_ServiceLevelLine.Table_Name;
 	}
 
-	public Connection<X_C_ServiceLevelLine> C_ServiceLevelLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_ServiceLevelLine> C_ServiceLevelLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

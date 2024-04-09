@@ -17,8 +17,8 @@ public class X_A_Asset_ProductQuery extends POQuery<MAssetProduct> implements Gr
 		return MAssetProduct.Table_Name;
 	}
 
-	public Connection<MAssetProduct> A_Asset_ProductGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetProduct> A_Asset_ProductGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

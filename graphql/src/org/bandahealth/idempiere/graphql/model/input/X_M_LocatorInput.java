@@ -29,12 +29,12 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_Locator_UU to fetch this entity from the DB
+	 * @param UU The M_Locator_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_LocatorInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_LocatorInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,20 +86,20 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_Locator_UU(UUID);
+	public void setUU(String UU) {
+		setM_Locator_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_Locator_UU();
 	}
 
@@ -116,11 +116,11 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 			MLocatorType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_LocatorType", "M_LocatorType_UU=?", get_TrxName())
-							.setParameters(M_LocatorType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_LocatorType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_LocatorType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_LocatorType with UUID " + M_LocatorType.getUUID());
+						"Could not find entity in table M_LocatorType with UU " + M_LocatorType.getUU());
 			}
 		} else {
 			this.setM_LocatorType_ID(0);
@@ -153,11 +153,11 @@ public class X_M_LocatorInput extends MLocator implements I_M_LocatorInput {
 			MWarehouse_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
-							.setParameters(M_Warehouse.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Warehouse_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Warehouse with UUID " + M_Warehouse.getUUID());
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
 			}
 		} else {
 			this.setM_Warehouse_ID(0);

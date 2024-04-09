@@ -21,16 +21,16 @@ public class X_AD_TaskMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_TaskInput.Table_Name;
 	}
 
-	public MTask AD_TaskSave(I_AD_TaskInput entity, DataFetchingEnvironment environment) {
-		return (MTask) super.save((X_AD_TaskInput) entity, environment);
+	public MTask AD_TaskSave(I_AD_TaskInput Entity, DataFetchingEnvironment environment) {
+		return (MTask) super.save((X_AD_TaskInput) Entity, environment);
 	}
 
-	public List<MTask> AD_TaskSaveMany(List<I_AD_TaskInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_TaskInput) entity).collect(Collectors.toList()),
+	public List<MTask> AD_TaskSaveMany(List<I_AD_TaskInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_TaskInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTask) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_TaskDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_TaskDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

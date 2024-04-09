@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_AllocationHdrGet(page: Int, size: Int, sort: String, filter: String): C_AllocationHdrConnection!
+	C_AllocationHdrGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AllocationHdrConnection!
 }
 
 extend type Mutation {
-	C_AllocationHdrSave(entity: C_AllocationHdrInput!): C_AllocationHdr!
-	C_AllocationHdrSaveMany(entities: [C_AllocationHdrInput!]!): [C_AllocationHdr!]!
-	C_AllocationHdrDelete(uuids: [String!]!): Boolean!
+	C_AllocationHdrSave(Entity: C_AllocationHdrInput!): C_AllocationHdr!
+	C_AllocationHdrSaveMany(Entities: [C_AllocationHdrInput!]!): [C_AllocationHdr!]!
+	C_AllocationHdrDelete(UUs: [String!]!): Boolean!
 }
 
 type C_AllocationHdrConnection {
-	results: [C_AllocationHdr!]!
-	pagingInfo: PagingInfo!
+	Results: [C_AllocationHdr!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_AllocationHdr {
@@ -23,8 +23,7 @@ type C_AllocationHdr {
 	AD_Org: AD_Org!
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal!
-	UUID: ID!
-	C_AllocationHdr_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency!
 	# Document type or rules
@@ -71,8 +70,7 @@ input C_AllocationHdrInput {
 	AD_Org: ForeignEntityInput
 	# Document Approval Amount
 	ApprovalAmt: BigDecimal
-	UUID: ID
-	C_AllocationHdr_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Document type or rules

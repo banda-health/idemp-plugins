@@ -21,16 +21,16 @@ public class X_AD_ChangeLogMutation extends POMutation implements GraphQLMutatio
 		return X_AD_ChangeLogInput.Table_Name;
 	}
 
-	public MChangeLog AD_ChangeLogSave(I_AD_ChangeLogInput entity, DataFetchingEnvironment environment) {
-		return (MChangeLog) super.save((X_AD_ChangeLogInput) entity, environment);
+	public MChangeLog AD_ChangeLogSave(I_AD_ChangeLogInput Entity, DataFetchingEnvironment environment) {
+		return (MChangeLog) super.save((X_AD_ChangeLogInput) Entity, environment);
 	}
 
-	public List<MChangeLog> AD_ChangeLogSaveMany(List<I_AD_ChangeLogInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ChangeLogInput) entity).collect(Collectors.toList()),
+	public List<MChangeLog> AD_ChangeLogSaveMany(List<I_AD_ChangeLogInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ChangeLogInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MChangeLog) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ChangeLogDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ChangeLogDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

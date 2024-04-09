@@ -17,8 +17,8 @@ public class X_M_ShipperLabelsCfgQuery extends POQuery<X_M_ShipperLabelsCfg> imp
 		return X_M_ShipperLabelsCfg.Table_Name;
 	}
 
-	public Connection<X_M_ShipperLabelsCfg> M_ShipperLabelsCfgGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_ShipperLabelsCfg> M_ShipperLabelsCfgGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

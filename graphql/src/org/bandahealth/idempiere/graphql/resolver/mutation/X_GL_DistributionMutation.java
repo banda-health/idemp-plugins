@@ -21,16 +21,16 @@ public class X_GL_DistributionMutation extends POMutation implements GraphQLMuta
 		return X_GL_DistributionInput.Table_Name;
 	}
 
-	public MDistribution GL_DistributionSave(I_GL_DistributionInput entity, DataFetchingEnvironment environment) {
-		return (MDistribution) super.save((X_GL_DistributionInput) entity, environment);
+	public MDistribution GL_DistributionSave(I_GL_DistributionInput Entity, DataFetchingEnvironment environment) {
+		return (MDistribution) super.save((X_GL_DistributionInput) Entity, environment);
 	}
 
-	public List<MDistribution> GL_DistributionSaveMany(List<I_GL_DistributionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_GL_DistributionInput) entity).collect(Collectors.toList()),
+	public List<MDistribution> GL_DistributionSaveMany(List<I_GL_DistributionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_DistributionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDistribution) entity).collect(Collectors.toList());
 	}
 
-	public boolean GL_DistributionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean GL_DistributionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

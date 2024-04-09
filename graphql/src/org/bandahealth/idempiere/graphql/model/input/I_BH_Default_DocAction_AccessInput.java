@@ -39,18 +39,18 @@ public interface I_BH_Default_DocAction_AccessInput extends I_BH_Default_DocActi
 	ForeignEntityInput AD_Ref_List();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set C_DocType.

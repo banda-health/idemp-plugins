@@ -17,8 +17,8 @@ public class X_AD_LabelPrinterFunctionQuery extends POQuery<X_AD_LabelPrinterFun
 		return X_AD_LabelPrinterFunction.Table_Name;
 	}
 
-	public Connection<X_AD_LabelPrinterFunction> AD_LabelPrinterFunctionGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_LabelPrinterFunction> AD_LabelPrinterFunctionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

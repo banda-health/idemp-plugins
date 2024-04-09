@@ -123,18 +123,18 @@ public interface I_PP_Product_PlanningInput extends I_PP_Product_Planning {
 	ForeignEntityInput PP_Product_BOM();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set S_Resource.

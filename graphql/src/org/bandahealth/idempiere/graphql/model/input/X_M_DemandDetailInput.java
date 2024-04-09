@@ -33,12 +33,12 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_DemandDetail_UU to fetch this entity from the DB
+	 * @param UU The M_DemandDetail_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_DemandDetailInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_DemandDetailInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MOrderLine_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_OrderLine", "C_OrderLine_UU=?", get_TrxName())
-							.setParameters(C_OrderLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_OrderLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_OrderLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_OrderLine with UUID " + C_OrderLine.getUUID());
+						"Could not find entity in table C_OrderLine with UU " + C_OrderLine.getUU());
 			}
 		} else {
 			this.setC_OrderLine_ID(0);
@@ -124,20 +124,20 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_DemandDetail_UU(UUID);
+	public void setUU(String UU) {
+		setM_DemandDetail_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_DemandDetail_UU();
 	}
 
@@ -157,11 +157,11 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			X_M_DemandLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_DemandLine", "M_DemandLine_UU=?", get_TrxName())
-							.setParameters(M_DemandLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_DemandLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_DemandLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_DemandLine with UUID " + M_DemandLine.getUUID());
+						"Could not find entity in table M_DemandLine with UU " + M_DemandLine.getUU());
 			}
 		} else {
 			this.setM_DemandLine_ID(0);
@@ -191,11 +191,11 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MForecastLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ForecastLine", "M_ForecastLine_UU=?", get_TrxName())
-							.setParameters(M_ForecastLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ForecastLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ForecastLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_ForecastLine with UUID " + M_ForecastLine.getUUID());
+						"Could not find entity in table M_ForecastLine with UU " + M_ForecastLine.getUU());
 			}
 		} else {
 			this.setM_ForecastLine_ID(0);
@@ -225,11 +225,11 @@ public class X_M_DemandDetailInput extends X_M_DemandDetail implements I_M_Deman
 			MRequisitionLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_RequisitionLine", "M_RequisitionLine_UU=?", get_TrxName())
-							.setParameters(M_RequisitionLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_RequisitionLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_RequisitionLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_RequisitionLine with UUID " + M_RequisitionLine.getUUID());
+						"Could not find entity in table M_RequisitionLine with UU " + M_RequisitionLine.getUU());
 			}
 		} else {
 			this.setM_RequisitionLine_ID(0);

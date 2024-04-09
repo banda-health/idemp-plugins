@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	B_SellerFundsGet(page: Int, size: Int, sort: String, filter: String): B_SellerFundsConnection!
+	B_SellerFundsGet(Page: Int, Size: Int, Sort: String, Filter: String): B_SellerFundsConnection!
 }
 
 extend type Mutation {
-	B_SellerFundsSave(entity: B_SellerFundsInput!): B_SellerFunds!
-	B_SellerFundsSaveMany(entities: [B_SellerFundsInput!]!): [B_SellerFunds!]!
-	B_SellerFundsDelete(uuids: [String!]!): Boolean!
+	B_SellerFundsSave(Entity: B_SellerFundsInput!): B_SellerFunds!
+	B_SellerFundsSaveMany(Entities: [B_SellerFundsInput!]!): [B_SellerFunds!]!
+	B_SellerFundsDelete(UUs: [String!]!): Boolean!
 }
 
 type B_SellerFundsConnection {
-	results: [B_SellerFunds!]!
-	pagingInfo: PagingInfo!
+	Results: [B_SellerFunds!]!
+	PagingInfo: PagingInfo!
 }
 
 type B_SellerFunds {
@@ -23,8 +23,7 @@ type B_SellerFunds {
 	AD_Org: AD_Org!
 	# User within the system - Internal or Business Partner Contact
 	AD_User: AD_User!
-	UUID: ID!
-	B_SellerFunds_UU: String
+	UU: ID!
 	# Order
 	C_Order: C_Order
 	# Payment identifier
@@ -50,8 +49,7 @@ input B_SellerFundsInput {
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
-	UUID: ID
-	B_SellerFunds_UU: String
+	UU: ID
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier

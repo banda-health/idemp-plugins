@@ -21,16 +21,16 @@ public class X_AD_UserPreferenceMutation extends POMutation implements GraphQLMu
 		return X_AD_UserPreferenceInput.Table_Name;
 	}
 
-	public MUserPreference AD_UserPreferenceSave(I_AD_UserPreferenceInput entity, DataFetchingEnvironment environment) {
-		return (MUserPreference) super.save((X_AD_UserPreferenceInput) entity, environment);
+	public MUserPreference AD_UserPreferenceSave(I_AD_UserPreferenceInput Entity, DataFetchingEnvironment environment) {
+		return (MUserPreference) super.save((X_AD_UserPreferenceInput) Entity, environment);
 	}
 
-	public List<MUserPreference> AD_UserPreferenceSaveMany(List<I_AD_UserPreferenceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_UserPreferenceInput) entity).collect(Collectors.toList()),
+	public List<MUserPreference> AD_UserPreferenceSaveMany(List<I_AD_UserPreferenceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_UserPreferenceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUserPreference) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_UserPreferenceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_UserPreferenceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

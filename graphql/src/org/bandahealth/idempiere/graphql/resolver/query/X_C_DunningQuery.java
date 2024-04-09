@@ -17,8 +17,8 @@ public class X_C_DunningQuery extends POQuery<MDunning> implements GraphQLQueryR
 		return MDunning.Table_Name;
 	}
 
-	public Connection<MDunning> C_DunningGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDunning> C_DunningGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

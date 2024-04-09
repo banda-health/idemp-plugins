@@ -17,8 +17,8 @@ public class X_M_SerNoCtlQuery extends POQuery<MSerNoCtl_BH> implements GraphQLQ
 		return MSerNoCtl_BH.Table_Name;
 	}
 
-	public Connection<MSerNoCtl_BH> M_SerNoCtlGet(int page, int pageSize, String sort, String filter,
+	public Connection<MSerNoCtl_BH> M_SerNoCtlGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

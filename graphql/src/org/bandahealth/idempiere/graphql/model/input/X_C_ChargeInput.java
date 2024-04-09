@@ -33,12 +33,12 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_Charge_UU to fetch this entity from the DB
+	 * @param UU The C_Charge_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_ChargeInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_ChargeInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -91,11 +91,11 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_SubType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_SubType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_SubType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BH_SubType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_SubType.getUU());
 			}
 		} else {
 			this.setBH_SubType(null);
@@ -125,11 +125,11 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -158,20 +158,20 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_Charge_UU(UUID);
+	public void setUU(String UU) {
+		setC_Charge_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_Charge_UU();
 	}
 
@@ -188,11 +188,11 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MChargeType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ChargeType", "C_ChargeType_UU=?", get_TrxName())
-							.setParameters(C_ChargeType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ChargeType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ChargeType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ChargeType with UUID " + C_ChargeType.getUUID());
+						"Could not find entity in table C_ChargeType with UU " + C_ChargeType.getUU());
 			}
 		} else {
 			this.setC_ChargeType_ID(0);
@@ -222,11 +222,11 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 			MTaxCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_TaxCategory", "C_TaxCategory_UU=?", get_TrxName())
-							.setParameters(C_TaxCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_TaxCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_TaxCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_TaxCategory with UUID " + C_TaxCategory.getUUID());
+						"Could not find entity in table C_TaxCategory with UU " + C_TaxCategory.getUU());
 			}
 		} else {
 			this.setC_TaxCategory_ID(0);

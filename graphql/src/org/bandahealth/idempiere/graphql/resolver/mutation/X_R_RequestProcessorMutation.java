@@ -21,16 +21,16 @@ public class X_R_RequestProcessorMutation extends POMutation implements GraphQLM
 		return X_R_RequestProcessorInput.Table_Name;
 	}
 
-	public MRequestProcessor R_RequestProcessorSave(I_R_RequestProcessorInput entity, DataFetchingEnvironment environment) {
-		return (MRequestProcessor) super.save((X_R_RequestProcessorInput) entity, environment);
+	public MRequestProcessor R_RequestProcessorSave(I_R_RequestProcessorInput Entity, DataFetchingEnvironment environment) {
+		return (MRequestProcessor) super.save((X_R_RequestProcessorInput) Entity, environment);
 	}
 
-	public List<MRequestProcessor> R_RequestProcessorSaveMany(List<I_R_RequestProcessorInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_RequestProcessorInput) entity).collect(Collectors.toList()),
+	public List<MRequestProcessor> R_RequestProcessorSaveMany(List<I_R_RequestProcessorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_RequestProcessorInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRequestProcessor) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_RequestProcessorDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_RequestProcessorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

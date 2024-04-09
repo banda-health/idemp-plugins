@@ -21,16 +21,16 @@ public class X_A_DepreciationMutation extends POMutation implements GraphQLMutat
 		return X_A_DepreciationInput.Table_Name;
 	}
 
-	public MDepreciation A_DepreciationSave(I_A_DepreciationInput entity, DataFetchingEnvironment environment) {
-		return (MDepreciation) super.save((X_A_DepreciationInput) entity, environment);
+	public MDepreciation A_DepreciationSave(I_A_DepreciationInput Entity, DataFetchingEnvironment environment) {
+		return (MDepreciation) super.save((X_A_DepreciationInput) Entity, environment);
 	}
 
-	public List<MDepreciation> A_DepreciationSaveMany(List<I_A_DepreciationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_DepreciationInput) entity).collect(Collectors.toList()),
+	public List<MDepreciation> A_DepreciationSaveMany(List<I_A_DepreciationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_DepreciationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDepreciation) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_DepreciationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_DepreciationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

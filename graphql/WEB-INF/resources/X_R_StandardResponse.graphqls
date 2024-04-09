@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_StandardResponseGet(page: Int, size: Int, sort: String, filter: String): R_StandardResponseConnection!
+	R_StandardResponseGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StandardResponseConnection!
 }
 
 extend type Mutation {
-	R_StandardResponseSave(entity: R_StandardResponseInput!): R_StandardResponse!
-	R_StandardResponseSaveMany(entities: [R_StandardResponseInput!]!): [R_StandardResponse!]!
-	R_StandardResponseDelete(uuids: [String!]!): Boolean!
+	R_StandardResponseSave(Entity: R_StandardResponseInput!): R_StandardResponse!
+	R_StandardResponseSaveMany(Entities: [R_StandardResponseInput!]!): [R_StandardResponse!]!
+	R_StandardResponseDelete(UUs: [String!]!): Boolean!
 }
 
 type R_StandardResponseConnection {
-	results: [R_StandardResponse!]!
-	pagingInfo: PagingInfo!
+	Results: [R_StandardResponse!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_StandardResponse {
@@ -29,8 +29,7 @@ type R_StandardResponse {
 	IsActive: Boolean!
 	# Alphanumeric identifier of the entity
 	Name: String!
-	UUID: ID!
-	R_StandardResponse_UU: String
+	UU: ID!
 	# Request Response Text
 	ResponseText: String!
 	# Date this record was updated
@@ -46,8 +45,7 @@ input R_StandardResponseInput {
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	UUID: ID
-	R_StandardResponse_UU: String
+	UU: ID
 	# Request Response Text
 	ResponseText: String
 }

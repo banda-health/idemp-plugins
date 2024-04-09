@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_InOutLineConfirmGet(page: Int, size: Int, sort: String, filter: String): M_InOutLineConfirmConnection!
+	M_InOutLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutLineConfirmConnection!
 }
 
 extend type Mutation {
-	M_InOutLineConfirmSave(entity: M_InOutLineConfirmInput!): M_InOutLineConfirm!
-	M_InOutLineConfirmSaveMany(entities: [M_InOutLineConfirmInput!]!): [M_InOutLineConfirm!]!
-	M_InOutLineConfirmDelete(uuids: [String!]!): Boolean!
+	M_InOutLineConfirmSave(Entity: M_InOutLineConfirmInput!): M_InOutLineConfirm!
+	M_InOutLineConfirmSaveMany(Entities: [M_InOutLineConfirmInput!]!): [M_InOutLineConfirm!]!
+	M_InOutLineConfirmDelete(UUs: [String!]!): Boolean!
 }
 
 type M_InOutLineConfirmConnection {
-	results: [M_InOutLineConfirm!]!
-	pagingInfo: PagingInfo!
+	Results: [M_InOutLineConfirm!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_InOutLineConfirm {
@@ -41,8 +41,7 @@ type M_InOutLineConfirm {
 	M_InOutConfirm: M_InOutConfirm!
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine!
-	UUID: ID!
-	M_InOutLineConfirm_UU: String
+	UU: ID!
 	# Unique line in an Inventory document
 	M_InventoryLine: M_InventoryLine
 	# The document has been processed
@@ -76,8 +75,7 @@ input M_InOutLineConfirmInput {
 	M_InOutConfirm: ForeignEntityInput
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
-	UUID: ID
-	M_InOutLineConfirm_UU: String
+	UU: ID
 	# Unique line in an Inventory document
 	M_InventoryLine: ForeignEntityInput
 	# The document has been processed

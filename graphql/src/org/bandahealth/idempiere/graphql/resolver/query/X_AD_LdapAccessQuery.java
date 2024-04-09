@@ -17,8 +17,8 @@ public class X_AD_LdapAccessQuery extends POQuery<MLdapAccess> implements GraphQ
 		return MLdapAccess.Table_Name;
 	}
 
-	public Connection<MLdapAccess> AD_LdapAccessGet(int page, int pageSize, String sort, String filter,
+	public Connection<MLdapAccess> AD_LdapAccessGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

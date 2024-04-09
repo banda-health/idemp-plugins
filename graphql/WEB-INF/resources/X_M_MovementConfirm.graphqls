@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_MovementConfirmGet(page: Int, size: Int, sort: String, filter: String): M_MovementConfirmConnection!
+	M_MovementConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementConfirmConnection!
 }
 
 extend type Mutation {
-	M_MovementConfirmSave(entity: M_MovementConfirmInput!): M_MovementConfirm!
-	M_MovementConfirmSaveMany(entities: [M_MovementConfirmInput!]!): [M_MovementConfirm!]!
-	M_MovementConfirmDelete(uuids: [String!]!): Boolean!
+	M_MovementConfirmSave(Entity: M_MovementConfirmInput!): M_MovementConfirm!
+	M_MovementConfirmSaveMany(Entities: [M_MovementConfirmInput!]!): [M_MovementConfirm!]!
+	M_MovementConfirmDelete(UUs: [String!]!): Boolean!
 }
 
 type M_MovementConfirmConnection {
-	results: [M_MovementConfirm!]!
-	pagingInfo: PagingInfo!
+	Results: [M_MovementConfirm!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_MovementConfirm {
@@ -43,8 +43,7 @@ type M_MovementConfirm {
 	M_Inventory: M_Inventory
 	# Movement of Inventory
 	M_Movement: M_Movement!
-	UUID: ID!
-	M_MovementConfirm_UU: String
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	Processing: Boolean!
@@ -75,8 +74,7 @@ input M_MovementConfirmInput {
 	M_Inventory: ForeignEntityInput
 	# Movement of Inventory
 	M_Movement: ForeignEntityInput
-	UUID: ID
-	M_MovementConfirm_UU: String
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

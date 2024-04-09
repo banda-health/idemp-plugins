@@ -21,16 +21,16 @@ public class X_M_BP_PriceMutation extends POMutation implements GraphQLMutationR
 		return X_M_BP_PriceInput.Table_Name;
 	}
 
-	public X_M_BP_Price M_BP_PriceSave(I_M_BP_PriceInput entity, DataFetchingEnvironment environment) {
-		return (X_M_BP_Price) super.save((X_M_BP_PriceInput) entity, environment);
+	public X_M_BP_Price M_BP_PriceSave(I_M_BP_PriceInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_BP_Price) super.save((X_M_BP_PriceInput) Entity, environment);
 	}
 
-	public List<X_M_BP_Price> M_BP_PriceSaveMany(List<I_M_BP_PriceInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_BP_PriceInput) entity).collect(Collectors.toList()),
+	public List<X_M_BP_Price> M_BP_PriceSaveMany(List<I_M_BP_PriceInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_BP_PriceInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_BP_Price) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_BP_PriceDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_BP_PriceDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

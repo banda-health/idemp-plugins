@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	RV_BPartnerGet(page: Int, size: Int, sort: String, filter: String): RV_BPartnerConnection!
+	RV_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): RV_BPartnerConnection!
 }
 
 extend type Mutation {
-	RV_BPartnerSave(entity: RV_BPartnerInput!): RV_BPartner!
-	RV_BPartnerSaveMany(entities: [RV_BPartnerInput!]!): [RV_BPartner!]!
-	RV_BPartnerDelete(uuids: [String!]!): Boolean!
+	RV_BPartnerSave(Entity: RV_BPartnerInput!): RV_BPartner!
+	RV_BPartnerSaveMany(Entities: [RV_BPartnerInput!]!): [RV_BPartner!]!
+	RV_BPartnerDelete(UUs: [String!]!): Boolean!
 }
 
 type RV_BPartnerConnection {
-	results: [RV_BPartner!]!
-	pagingInfo: PagingInfo!
+	Results: [RV_BPartner!]!
+	PagingInfo: PagingInfo!
 }
 
 type RV_BPartner {

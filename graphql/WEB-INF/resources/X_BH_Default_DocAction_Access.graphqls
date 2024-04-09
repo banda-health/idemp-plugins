@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_Default_DocAction_AccessGet(page: Int, size: Int, sort: String, filter: String): BH_Default_DocAction_AccessConnection!
+	BH_Default_DocAction_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Default_DocAction_AccessConnection!
 }
 
 extend type Mutation {
-	BH_Default_DocAction_AccessSave(entity: BH_Default_DocAction_AccessInput!): BH_Default_DocAction_Access!
-	BH_Default_DocAction_AccessSaveMany(entities: [BH_Default_DocAction_AccessInput!]!): [BH_Default_DocAction_Access!]!
-	BH_Default_DocAction_AccessDelete(uuids: [String!]!): Boolean!
+	BH_Default_DocAction_AccessSave(Entity: BH_Default_DocAction_AccessInput!): BH_Default_DocAction_Access!
+	BH_Default_DocAction_AccessSaveMany(Entities: [BH_Default_DocAction_AccessInput!]!): [BH_Default_DocAction_Access!]!
+	BH_Default_DocAction_AccessDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_Default_DocAction_AccessConnection {
-	results: [BH_Default_DocAction_Access!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_Default_DocAction_Access!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_Default_DocAction_Access {
@@ -23,8 +23,7 @@ type BH_Default_DocAction_Access {
 	AD_Org: AD_Org!
 	# Reference List based on Table
 	AD_Ref_List: AD_Ref_List!
-	UUID: ID!
-	BH_Default_DocAction_Access_UU: String
+	UU: ID!
 	# Document type or rules
 	C_DocType: C_DocType!
 	# Date this record was created
@@ -46,8 +45,7 @@ input BH_Default_DocAction_AccessInput {
 	AD_Org: ForeignEntityInput
 	# Reference List based on Table
 	AD_Ref_List: ForeignEntityInput
-	UUID: ID
-	BH_Default_DocAction_Access_UU: String
+	UU: ID
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# The User Type when a new client is created

@@ -31,12 +31,12 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The GL_JournalGeneratorSource_UU to fetch this entity from the DB
+	 * @param UU The GL_JournalGeneratorSource_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_GL_JournalGeneratorSourceInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_GL_JournalGeneratorSourceInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValue.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValue.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ElementValue_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + C_ElementValue.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + C_ElementValue.getUU());
 			}
 		} else {
 			this.setC_ElementValue_ID(0);
@@ -123,11 +123,11 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_Category with UUID " + GL_Category.getUUID());
+						"Could not find entity in table GL_Category with UU " + GL_Category.getUU());
 			}
 		} else {
 			this.setGL_Category_ID(0);
@@ -160,11 +160,11 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 			MJournalGeneratorLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalGeneratorLine", "GL_JournalGeneratorLine_UU=?", get_TrxName())
-							.setParameters(GL_JournalGeneratorLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalGeneratorLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_JournalGeneratorLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_JournalGeneratorLine with UUID " + GL_JournalGeneratorLine.getUUID());
+						"Could not find entity in table GL_JournalGeneratorLine with UU " + GL_JournalGeneratorLine.getUU());
 			}
 		} else {
 			this.setGL_JournalGeneratorLine_ID(0);
@@ -193,20 +193,20 @@ public class X_GL_JournalGeneratorSourceInput extends MJournalGeneratorSource im
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setGL_JournalGeneratorSource_UU(UUID);
+	public void setUU(String UU) {
+		setGL_JournalGeneratorSource_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getGL_JournalGeneratorSource_UU();
 	}
 }

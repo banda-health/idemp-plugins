@@ -17,8 +17,8 @@ public class X_AD_RuleQuery extends POQuery<MRule> implements GraphQLQueryResolv
 		return MRule.Table_Name;
 	}
 
-	public Connection<MRule> AD_RuleGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRule> AD_RuleGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

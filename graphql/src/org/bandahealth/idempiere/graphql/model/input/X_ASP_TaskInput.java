@@ -31,12 +31,12 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The ASP_Task_UU to fetch this entity from the DB
+	 * @param UU The ASP_Task_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_ASP_TaskInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_ASP_TaskInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 			MTask foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Task", "AD_Task_UU=?", get_TrxName())
-							.setParameters(AD_Task.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Task.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Task_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Task with UUID " + AD_Task.getUUID());
+						"Could not find entity in table AD_Task with UU " + AD_Task.getUU());
 			}
 		} else {
 			this.setAD_Task_ID(0);
@@ -129,11 +129,11 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 			X_ASP_Level foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "ASP_Level", "ASP_Level_UU=?", get_TrxName())
-							.setParameters(ASP_Level.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Level.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Level_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table ASP_Level with UUID " + ASP_Level.getUUID());
+						"Could not find entity in table ASP_Level with UU " + ASP_Level.getUU());
 			}
 		} else {
 			this.setASP_Level_ID(0);
@@ -163,11 +163,11 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ASP_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ASP_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setASP_Status(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ASP_Status.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ASP_Status.getUU());
 			}
 		} else {
 			this.setASP_Status(null);
@@ -196,20 +196,20 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setASP_Task_UU(UUID);
+	public void setUU(String UU) {
+		setASP_Task_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getASP_Task_UU();
 	}
 }

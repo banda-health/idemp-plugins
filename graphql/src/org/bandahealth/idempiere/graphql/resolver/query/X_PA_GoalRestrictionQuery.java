@@ -17,8 +17,8 @@ public class X_PA_GoalRestrictionQuery extends POQuery<MGoalRestriction> impleme
 		return MGoalRestriction.Table_Name;
 	}
 
-	public Connection<MGoalRestriction> PA_GoalRestrictionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MGoalRestriction> PA_GoalRestrictionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

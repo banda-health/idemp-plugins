@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_DunningGet(page: Int, size: Int, sort: String, filter: String): C_DunningConnection!
+	C_DunningGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningConnection!
 }
 
 extend type Mutation {
-	C_DunningSave(entity: C_DunningInput!): C_Dunning!
-	C_DunningSaveMany(entities: [C_DunningInput!]!): [C_Dunning!]!
-	C_DunningDelete(uuids: [String!]!): Boolean!
+	C_DunningSave(Entity: C_DunningInput!): C_Dunning!
+	C_DunningSaveMany(Entities: [C_DunningInput!]!): [C_Dunning!]!
+	C_DunningDelete(UUs: [String!]!): Boolean!
 }
 
 type C_DunningConnection {
-	results: [C_Dunning!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Dunning!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Dunning {
@@ -21,8 +21,7 @@ type C_Dunning {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_Dunning_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -48,8 +47,7 @@ type C_Dunning {
 input C_DunningInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_Dunning_UU: String
+	UU: ID
 	# Create Dunning Letter by level sequentially
 	CreateLevelsSequentially: Boolean
 	# Optional short description of the record

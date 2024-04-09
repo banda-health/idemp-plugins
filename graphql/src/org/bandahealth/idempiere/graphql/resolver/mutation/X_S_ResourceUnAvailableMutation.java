@@ -21,16 +21,16 @@ public class X_S_ResourceUnAvailableMutation extends POMutation implements Graph
 		return X_S_ResourceUnAvailableInput.Table_Name;
 	}
 
-	public MResourceUnAvailable S_ResourceUnAvailableSave(I_S_ResourceUnAvailableInput entity, DataFetchingEnvironment environment) {
-		return (MResourceUnAvailable) super.save((X_S_ResourceUnAvailableInput) entity, environment);
+	public MResourceUnAvailable S_ResourceUnAvailableSave(I_S_ResourceUnAvailableInput Entity, DataFetchingEnvironment environment) {
+		return (MResourceUnAvailable) super.save((X_S_ResourceUnAvailableInput) Entity, environment);
 	}
 
-	public List<MResourceUnAvailable> S_ResourceUnAvailableSaveMany(List<I_S_ResourceUnAvailableInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_S_ResourceUnAvailableInput) entity).collect(Collectors.toList()),
+	public List<MResourceUnAvailable> S_ResourceUnAvailableSaveMany(List<I_S_ResourceUnAvailableInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_ResourceUnAvailableInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MResourceUnAvailable) entity).collect(Collectors.toList());
 	}
 
-	public boolean S_ResourceUnAvailableDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean S_ResourceUnAvailableDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

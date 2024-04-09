@@ -21,16 +21,16 @@ public class X_B_TopicCategoryMutation extends POMutation implements GraphQLMuta
 		return X_B_TopicCategoryInput.Table_Name;
 	}
 
-	public X_B_TopicCategory B_TopicCategorySave(I_B_TopicCategoryInput entity, DataFetchingEnvironment environment) {
-		return (X_B_TopicCategory) super.save((X_B_TopicCategoryInput) entity, environment);
+	public X_B_TopicCategory B_TopicCategorySave(I_B_TopicCategoryInput Entity, DataFetchingEnvironment environment) {
+		return (X_B_TopicCategory) super.save((X_B_TopicCategoryInput) Entity, environment);
 	}
 
-	public List<X_B_TopicCategory> B_TopicCategorySaveMany(List<I_B_TopicCategoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_B_TopicCategoryInput) entity).collect(Collectors.toList()),
+	public List<X_B_TopicCategory> B_TopicCategorySaveMany(List<I_B_TopicCategoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_B_TopicCategoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_B_TopicCategory) entity).collect(Collectors.toList());
 	}
 
-	public boolean B_TopicCategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean B_TopicCategoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_AD_UserDef_Info_RelatedQuery extends POQuery<MUserDefInfoRelated>
 		return MUserDefInfoRelated.Table_Name;
 	}
 
-	public Connection<MUserDefInfoRelated> AD_UserDef_Info_RelatedGet(int page, int pageSize, String sort, String filter,
+	public Connection<MUserDefInfoRelated> AD_UserDef_Info_RelatedGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

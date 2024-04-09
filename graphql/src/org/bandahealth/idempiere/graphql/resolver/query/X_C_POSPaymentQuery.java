@@ -17,8 +17,8 @@ public class X_C_POSPaymentQuery extends POQuery<MPOSPayment> implements GraphQL
 		return MPOSPayment.Table_Name;
 	}
 
-	public Connection<MPOSPayment> C_POSPaymentGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPOSPayment> C_POSPaymentGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_DD_NetworkDistributionQuery extends POQuery<X_DD_NetworkDistribut
 		return X_DD_NetworkDistribution.Table_Name;
 	}
 
-	public Connection<X_DD_NetworkDistribution> DD_NetworkDistributionGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_DD_NetworkDistribution> DD_NetworkDistributionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

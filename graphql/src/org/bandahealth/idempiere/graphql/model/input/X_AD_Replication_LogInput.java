@@ -29,12 +29,12 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Replication_Log_UU to fetch this entity from the DB
+	 * @param UU The AD_Replication_Log_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_Replication_LogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_Replication_LogInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -86,20 +86,20 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Replication_Log_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Replication_Log_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Replication_Log_UU();
 	}
 
@@ -119,11 +119,11 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 			MReplicationRun foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Replication_Run", "AD_Replication_Run_UU=?", get_TrxName())
-							.setParameters(AD_Replication_Run.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Replication_Run.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Replication_Run_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Replication_Run with UUID " + AD_Replication_Run.getUUID());
+						"Could not find entity in table AD_Replication_Run with UU " + AD_Replication_Run.getUU());
 			}
 		} else {
 			this.setAD_Replication_Run_ID(0);
@@ -153,11 +153,11 @@ public class X_AD_Replication_LogInput extends MReplicationLog implements I_AD_R
 			X_AD_ReplicationTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_ReplicationTable", "AD_ReplicationTable_UU=?", get_TrxName())
-							.setParameters(AD_ReplicationTable.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ReplicationTable.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ReplicationTable_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_ReplicationTable with UUID " + AD_ReplicationTable.getUUID());
+						"Could not find entity in table AD_ReplicationTable with UU " + AD_ReplicationTable.getUU());
 			}
 		} else {
 			this.setAD_ReplicationTable_ID(0);

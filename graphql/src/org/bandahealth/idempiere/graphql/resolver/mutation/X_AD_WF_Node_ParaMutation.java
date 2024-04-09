@@ -21,16 +21,16 @@ public class X_AD_WF_Node_ParaMutation extends POMutation implements GraphQLMuta
 		return X_AD_WF_Node_ParaInput.Table_Name;
 	}
 
-	public X_AD_WF_Node_Para AD_WF_Node_ParaSave(I_AD_WF_Node_ParaInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_WF_Node_Para) super.save((X_AD_WF_Node_ParaInput) entity, environment);
+	public X_AD_WF_Node_Para AD_WF_Node_ParaSave(I_AD_WF_Node_ParaInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_WF_Node_Para) super.save((X_AD_WF_Node_ParaInput) Entity, environment);
 	}
 
-	public List<X_AD_WF_Node_Para> AD_WF_Node_ParaSaveMany(List<I_AD_WF_Node_ParaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_Node_ParaInput) entity).collect(Collectors.toList()),
+	public List<X_AD_WF_Node_Para> AD_WF_Node_ParaSaveMany(List<I_AD_WF_Node_ParaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WF_Node_ParaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_WF_Node_Para) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WF_Node_ParaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WF_Node_ParaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

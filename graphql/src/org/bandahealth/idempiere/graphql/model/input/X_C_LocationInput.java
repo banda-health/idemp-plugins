@@ -33,12 +33,12 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_Location_UU to fetch this entity from the DB
+	 * @param UU The C_Location_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_LocationInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_LocationInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -94,11 +94,11 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MAddressValidation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AddressValidation", "C_AddressValidation_UU=?", get_TrxName())
-							.setParameters(C_AddressValidation.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AddressValidation.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AddressValidation_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AddressValidation with UUID " + C_AddressValidation.getUUID());
+						"Could not find entity in table C_AddressValidation with UU " + C_AddressValidation.getUU());
 			}
 		} else {
 			this.setC_AddressValidation_ID(0);
@@ -128,11 +128,11 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MCity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_City", "C_City_UU=?", get_TrxName())
-							.setParameters(C_City.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_City.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_City_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_City with UUID " + C_City.getUUID());
+						"Could not find entity in table C_City with UU " + C_City.getUU());
 			}
 		} else {
 			this.setC_City_ID(0);
@@ -162,11 +162,11 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MCountry foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Country", "C_Country_UU=?", get_TrxName())
-							.setParameters(C_Country.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Country.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Country_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Country with UUID " + C_Country.getUUID());
+						"Could not find entity in table C_Country with UU " + C_Country.getUU());
 			}
 		} else {
 			this.setC_Country_ID(0);
@@ -195,20 +195,20 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_Location_UU(UUID);
+	public void setUU(String UU) {
+		setC_Location_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_Location_UU();
 	}
 
@@ -225,11 +225,11 @@ public class X_C_LocationInput extends MLocation implements I_C_LocationInput {
 			MRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Region", "C_Region_UU=?", get_TrxName())
-							.setParameters(C_Region.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Region.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Region_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Region with UUID " + C_Region.getUUID());
+						"Could not find entity in table C_Region with UU " + C_Region.getUU());
 			}
 		} else {
 			this.setC_Region_ID(0);

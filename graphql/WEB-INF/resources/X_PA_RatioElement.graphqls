@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_RatioElementGet(page: Int, size: Int, sort: String, filter: String): PA_RatioElementConnection!
+	PA_RatioElementGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_RatioElementConnection!
 }
 
 extend type Mutation {
-	PA_RatioElementSave(entity: PA_RatioElementInput!): PA_RatioElement!
-	PA_RatioElementSaveMany(entities: [PA_RatioElementInput!]!): [PA_RatioElement!]!
-	PA_RatioElementDelete(uuids: [String!]!): Boolean!
+	PA_RatioElementSave(Entity: PA_RatioElementInput!): PA_RatioElement!
+	PA_RatioElementSaveMany(Entities: [PA_RatioElementInput!]!): [PA_RatioElement!]!
+	PA_RatioElementDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_RatioElementConnection {
-	results: [PA_RatioElement!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_RatioElement!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_RatioElement {
@@ -39,8 +39,7 @@ type PA_RatioElement {
 	PA_MeasureCalc: PA_MeasureCalc
 	# Performance Ratio
 	PA_Ratio: PA_Ratio!
-	UUID: ID!
-	PA_RatioElement_UU: String
+	UU: ID!
 	# Performance Ratio Used
 	PA_RatioUsed: PA_Ratio
 	# The type of posted amount for the transaction
@@ -74,8 +73,7 @@ input PA_RatioElementInput {
 	PA_MeasureCalc: ForeignEntityInput
 	# Performance Ratio
 	PA_Ratio: ForeignEntityInput
-	UUID: ID
-	PA_RatioElement_UU: String
+	UU: ID
 	# Performance Ratio Used
 	PA_RatioUsed: ForeignEntityInput
 	# The type of posted amount for the transaction

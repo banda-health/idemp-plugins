@@ -21,16 +21,16 @@ public class X_AD_TreeMutation extends POMutation implements GraphQLMutationReso
 		return X_AD_TreeInput.Table_Name;
 	}
 
-	public MTree_BH AD_TreeSave(I_AD_TreeInput entity, DataFetchingEnvironment environment) {
-		return (MTree_BH) super.save((X_AD_TreeInput) entity, environment);
+	public MTree_BH AD_TreeSave(I_AD_TreeInput Entity, DataFetchingEnvironment environment) {
+		return (MTree_BH) super.save((X_AD_TreeInput) Entity, environment);
 	}
 
-	public List<MTree_BH> AD_TreeSaveMany(List<I_AD_TreeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_TreeInput) entity).collect(Collectors.toList()),
+	public List<MTree_BH> AD_TreeSaveMany(List<I_AD_TreeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_TreeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTree_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_TreeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_TreeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

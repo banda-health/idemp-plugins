@@ -17,8 +17,8 @@ public class X_M_PriceListQuery extends POQuery<MPriceList> implements GraphQLQu
 		return MPriceList.Table_Name;
 	}
 
-	public Connection<MPriceList> M_PriceListGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPriceList> M_PriceListGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

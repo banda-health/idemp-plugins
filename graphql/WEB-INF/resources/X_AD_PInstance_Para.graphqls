@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PInstance_ParaGet(page: Int, size: Int, sort: String, filter: String): AD_PInstance_ParaConnection!
+	AD_PInstance_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstance_ParaConnection!
 }
 
 extend type Mutation {
-	AD_PInstance_ParaSave(entity: AD_PInstance_ParaInput!): AD_PInstance_Para!
-	AD_PInstance_ParaSaveMany(entities: [AD_PInstance_ParaInput!]!): [AD_PInstance_Para!]!
-	AD_PInstance_ParaDelete(uuids: [String!]!): Boolean!
+	AD_PInstance_ParaSave(Entity: AD_PInstance_ParaInput!): AD_PInstance_Para!
+	AD_PInstance_ParaSaveMany(Entities: [AD_PInstance_ParaInput!]!): [AD_PInstance_Para!]!
+	AD_PInstance_ParaDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PInstance_ParaConnection {
-	results: [AD_PInstance_Para!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_PInstance_Para!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_PInstance_Para {
@@ -23,8 +23,7 @@ type AD_PInstance_Para {
 	AD_Org: AD_Org
 	# Instance of the process
 	AD_PInstance: AD_PInstance!
-	UUID: ID!
-	AD_PInstance_Para_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,8 +59,7 @@ input AD_PInstance_ParaInput {
 	AD_Org: ForeignEntityInput
 	# Instance of the process
 	AD_PInstance: ForeignEntityInput
-	UUID: ID
-	AD_PInstance_Para_UU: String
+	UU: ID
 	# Information
 	Info: String
 	Info_To: String

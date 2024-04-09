@@ -21,16 +21,16 @@ public class X_GL_BudgetControlMutation extends POMutation implements GraphQLMut
 		return X_GL_BudgetControlInput.Table_Name;
 	}
 
-	public X_GL_BudgetControl GL_BudgetControlSave(I_GL_BudgetControlInput entity, DataFetchingEnvironment environment) {
-		return (X_GL_BudgetControl) super.save((X_GL_BudgetControlInput) entity, environment);
+	public X_GL_BudgetControl GL_BudgetControlSave(I_GL_BudgetControlInput Entity, DataFetchingEnvironment environment) {
+		return (X_GL_BudgetControl) super.save((X_GL_BudgetControlInput) Entity, environment);
 	}
 
-	public List<X_GL_BudgetControl> GL_BudgetControlSaveMany(List<I_GL_BudgetControlInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_GL_BudgetControlInput) entity).collect(Collectors.toList()),
+	public List<X_GL_BudgetControl> GL_BudgetControlSaveMany(List<I_GL_BudgetControlInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_BudgetControlInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_GL_BudgetControl) entity).collect(Collectors.toList());
 	}
 
-	public boolean GL_BudgetControlDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean GL_BudgetControlDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

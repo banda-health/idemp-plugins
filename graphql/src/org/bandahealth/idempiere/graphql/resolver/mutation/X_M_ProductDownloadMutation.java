@@ -21,16 +21,16 @@ public class X_M_ProductDownloadMutation extends POMutation implements GraphQLMu
 		return X_M_ProductDownloadInput.Table_Name;
 	}
 
-	public MProductDownload M_ProductDownloadSave(I_M_ProductDownloadInput entity, DataFetchingEnvironment environment) {
-		return (MProductDownload) super.save((X_M_ProductDownloadInput) entity, environment);
+	public MProductDownload M_ProductDownloadSave(I_M_ProductDownloadInput Entity, DataFetchingEnvironment environment) {
+		return (MProductDownload) super.save((X_M_ProductDownloadInput) Entity, environment);
 	}
 
-	public List<MProductDownload> M_ProductDownloadSaveMany(List<I_M_ProductDownloadInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ProductDownloadInput) entity).collect(Collectors.toList()),
+	public List<MProductDownload> M_ProductDownloadSaveMany(List<I_M_ProductDownloadInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ProductDownloadInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProductDownload) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ProductDownloadDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ProductDownloadDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

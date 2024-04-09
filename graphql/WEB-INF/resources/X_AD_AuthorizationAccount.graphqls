@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_AuthorizationAccountGet(page: Int, size: Int, sort: String, filter: String): AD_AuthorizationAccountConnection!
+	AD_AuthorizationAccountGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AuthorizationAccountConnection!
 }
 
 extend type Mutation {
-	AD_AuthorizationAccountSave(entity: AD_AuthorizationAccountInput!): AD_AuthorizationAccount!
-	AD_AuthorizationAccountSaveMany(entities: [AD_AuthorizationAccountInput!]!): [AD_AuthorizationAccount!]!
-	AD_AuthorizationAccountDelete(uuids: [String!]!): Boolean!
+	AD_AuthorizationAccountSave(Entity: AD_AuthorizationAccountInput!): AD_AuthorizationAccount!
+	AD_AuthorizationAccountSaveMany(Entities: [AD_AuthorizationAccountInput!]!): [AD_AuthorizationAccount!]!
+	AD_AuthorizationAccountDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_AuthorizationAccountConnection {
-	results: [AD_AuthorizationAccount!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_AuthorizationAccount!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_AuthorizationAccount {
 	AccessToken: String
 	AccessTokenTimestamp: Date
-	UUID: ID!
-	AD_AuthorizationAccount_UU: String
+	UU: ID!
 	AD_AuthorizationCredential: AD_AuthorizationCredential
 	AD_AuthorizationScopes: AD_Ref_List
 	# Tenant for this installation.
@@ -53,8 +52,7 @@ type AD_AuthorizationAccount {
 input AD_AuthorizationAccountInput {
 	AccessToken: String
 	AccessTokenTimestamp: Date
-	UUID: ID
-	AD_AuthorizationAccount_UU: String
+	UU: ID
 	AD_AuthorizationCredential: ForeignEntityInput
 	AD_AuthorizationScopes: AD_Ref_ListInput
 	# Organizational entity within tenant

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BankAccount_ProcessorGet(page: Int, size: Int, sort: String, filter: String): C_BankAccount_ProcessorConnection!
+	C_BankAccount_ProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccount_ProcessorConnection!
 }
 
 extend type Mutation {
-	C_BankAccount_ProcessorSave(entity: C_BankAccount_ProcessorInput!): C_BankAccount_Processor!
-	C_BankAccount_ProcessorSaveMany(entities: [C_BankAccount_ProcessorInput!]!): [C_BankAccount_Processor!]!
-	C_BankAccount_ProcessorDelete(uuids: [String!]!): Boolean!
+	C_BankAccount_ProcessorSave(Entity: C_BankAccount_ProcessorInput!): C_BankAccount_Processor!
+	C_BankAccount_ProcessorSaveMany(Entities: [C_BankAccount_ProcessorInput!]!): [C_BankAccount_Processor!]!
+	C_BankAccount_ProcessorDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BankAccount_ProcessorConnection {
-	results: [C_BankAccount_Processor!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BankAccount_Processor!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BankAccount_Processor {
@@ -43,8 +43,7 @@ type C_BankAccount_Processor {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	UUID: ID!
-	C_BankAccount_Processor_UU: String
+	UU: ID!
 	# The Currency for this record
 	C_Currency: C_Currency
 	# Payment processor for electronic payments
@@ -108,8 +107,7 @@ input C_BankAccount_ProcessorInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	UUID: ID
-	C_BankAccount_Processor_UU: String
+	UU: ID
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
 	# Payment processor for electronic payments

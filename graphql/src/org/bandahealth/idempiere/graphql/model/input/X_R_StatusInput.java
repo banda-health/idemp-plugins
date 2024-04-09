@@ -29,12 +29,12 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The R_Status_UU to fetch this entity from the DB
+	 * @param UU The R_Status_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_R_StatusInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_R_StatusInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -87,11 +87,11 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Status", "R_Status_UU=?", get_TrxName())
-							.setParameters(Next_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Next_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setNext_Status_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_Status with UUID " + Next_Status.getUUID());
+						"Could not find entity in table R_Status with UU " + Next_Status.getUU());
 			}
 		} else {
 			this.setNext_Status_ID(0);
@@ -120,20 +120,20 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setR_Status_UU(UUID);
+	public void setUU(String UU) {
+		setR_Status_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getR_Status_UU();
 	}
 
@@ -150,11 +150,11 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MStatusCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_StatusCategory", "R_StatusCategory_UU=?", get_TrxName())
-							.setParameters(R_StatusCategory.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_StatusCategory.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_StatusCategory_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_StatusCategory with UUID " + R_StatusCategory.getUUID());
+						"Could not find entity in table R_StatusCategory with UU " + R_StatusCategory.getUU());
 			}
 		} else {
 			this.setR_StatusCategory_ID(0);
@@ -184,11 +184,11 @@ public class X_R_StatusInput extends MStatus implements I_R_StatusInput {
 			MStatus foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_Status", "R_Status_UU=?", get_TrxName())
-							.setParameters(Update_Status.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Update_Status.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUpdate_Status_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_Status with UUID " + Update_Status.getUUID());
+						"Could not find entity in table R_Status with UU " + Update_Status.getUU());
 			}
 		} else {
 			this.setUpdate_Status_ID(0);

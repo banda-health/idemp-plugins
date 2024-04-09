@@ -21,16 +21,16 @@ public class X_AD_RecentItemMutation extends POMutation implements GraphQLMutati
 		return X_AD_RecentItemInput.Table_Name;
 	}
 
-	public MRecentItem AD_RecentItemSave(I_AD_RecentItemInput entity, DataFetchingEnvironment environment) {
-		return (MRecentItem) super.save((X_AD_RecentItemInput) entity, environment);
+	public MRecentItem AD_RecentItemSave(I_AD_RecentItemInput Entity, DataFetchingEnvironment environment) {
+		return (MRecentItem) super.save((X_AD_RecentItemInput) Entity, environment);
 	}
 
-	public List<MRecentItem> AD_RecentItemSaveMany(List<I_AD_RecentItemInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_RecentItemInput) entity).collect(Collectors.toList()),
+	public List<MRecentItem> AD_RecentItemSaveMany(List<I_AD_RecentItemInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_RecentItemInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRecentItem) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_RecentItemDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_RecentItemDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

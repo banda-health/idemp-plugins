@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_InvoiceGet(page: Int, size: Int, sort: String, filter: String): C_InvoiceConnection!
+	C_InvoiceGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceConnection!
 }
 
 extend type Mutation {
-	C_InvoiceSave(entity: C_InvoiceInput!): C_Invoice!
-	C_InvoiceSaveMany(entities: [C_InvoiceInput!]!): [C_Invoice!]!
-	C_InvoiceDelete(uuids: [String!]!): Boolean!
+	C_InvoiceSave(Entity: C_InvoiceInput!): C_Invoice!
+	C_InvoiceSaveMany(Entities: [C_InvoiceInput!]!): [C_Invoice!]!
+	C_InvoiceDelete(UUs: [String!]!): Boolean!
 }
 
 type C_InvoiceConnection {
-	results: [C_Invoice!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Invoice!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Invoice {
@@ -47,8 +47,7 @@ type C_Invoice {
 	# Target document type for conversing documents
 	C_DocTypeTarget: C_DocType!
 	C_DunningLevel: C_DunningLevel
-	UUID: ID!
-	C_Invoice_UU: String
+	UU: ID!
 	# Order
 	C_Order: C_Order
 	# Payment identifier
@@ -184,8 +183,7 @@ input C_InvoiceInput {
 	# Target document type for conversing documents
 	C_DocTypeTarget: ForeignEntityInput
 	C_DunningLevel: ForeignEntityInput
-	UUID: ID
-	C_Invoice_UU: String
+	UU: ID
 	# Order
 	C_Order: ForeignEntityInput
 	# Payment identifier

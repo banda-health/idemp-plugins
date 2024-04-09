@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_QualityTestResultGet(page: Int, size: Int, sort: String, filter: String): M_QualityTestResultConnection!
+	M_QualityTestResultGet(Page: Int, Size: Int, Sort: String, Filter: String): M_QualityTestResultConnection!
 }
 
 extend type Mutation {
-	M_QualityTestResultSave(entity: M_QualityTestResultInput!): M_QualityTestResult!
-	M_QualityTestResultSaveMany(entities: [M_QualityTestResultInput!]!): [M_QualityTestResult!]!
-	M_QualityTestResultDelete(uuids: [String!]!): Boolean!
+	M_QualityTestResultSave(Entity: M_QualityTestResultInput!): M_QualityTestResult!
+	M_QualityTestResultSaveMany(Entities: [M_QualityTestResultInput!]!): [M_QualityTestResult!]!
+	M_QualityTestResultDelete(UUs: [String!]!): Boolean!
 }
 
 type M_QualityTestResultConnection {
-	results: [M_QualityTestResult!]!
-	pagingInfo: PagingInfo!
+	Results: [M_QualityTestResult!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_QualityTestResult {
@@ -34,8 +34,7 @@ type M_QualityTestResult {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	M_QualityTest: M_QualityTest!
-	UUID: ID!
-	M_QualityTestResult_UU: String
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Result of the action taken
@@ -55,8 +54,7 @@ input M_QualityTestResultInput {
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	M_QualityTest: ForeignEntityInput
-	UUID: ID
-	M_QualityTestResult_UU: String
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	# Result of the action taken

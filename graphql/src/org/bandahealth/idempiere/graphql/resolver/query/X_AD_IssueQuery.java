@@ -17,8 +17,8 @@ public class X_AD_IssueQuery extends POQuery<MIssue> implements GraphQLQueryReso
 		return MIssue.Table_Name;
 	}
 
-	public Connection<MIssue> AD_IssueGet(int page, int pageSize, String sort, String filter,
+	public Connection<MIssue> AD_IssueGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

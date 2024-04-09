@@ -17,8 +17,8 @@ public class X_M_PackageQuery extends POQuery<MPackage> implements GraphQLQueryR
 		return MPackage.Table_Name;
 	}
 
-	public Connection<MPackage> M_PackageGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPackage> M_PackageGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

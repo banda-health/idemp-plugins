@@ -21,16 +21,16 @@ public class X_AD_SessionMutation extends POMutation implements GraphQLMutationR
 		return X_AD_SessionInput.Table_Name;
 	}
 
-	public MSession AD_SessionSave(I_AD_SessionInput entity, DataFetchingEnvironment environment) {
-		return (MSession) super.save((X_AD_SessionInput) entity, environment);
+	public MSession AD_SessionSave(I_AD_SessionInput Entity, DataFetchingEnvironment environment) {
+		return (MSession) super.save((X_AD_SessionInput) Entity, environment);
 	}
 
-	public List<MSession> AD_SessionSaveMany(List<I_AD_SessionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_SessionInput) entity).collect(Collectors.toList()),
+	public List<MSession> AD_SessionSaveMany(List<I_AD_SessionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_SessionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MSession) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_SessionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_SessionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

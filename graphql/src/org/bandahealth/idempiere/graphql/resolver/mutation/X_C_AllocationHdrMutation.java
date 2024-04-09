@@ -21,16 +21,16 @@ public class X_C_AllocationHdrMutation extends POMutation implements GraphQLMuta
 		return X_C_AllocationHdrInput.Table_Name;
 	}
 
-	public MAllocationHdr C_AllocationHdrSave(I_C_AllocationHdrInput entity, DataFetchingEnvironment environment) {
-		return (MAllocationHdr) super.save((X_C_AllocationHdrInput) entity, environment);
+	public MAllocationHdr C_AllocationHdrSave(I_C_AllocationHdrInput Entity, DataFetchingEnvironment environment) {
+		return (MAllocationHdr) super.save((X_C_AllocationHdrInput) Entity, environment);
 	}
 
-	public List<MAllocationHdr> C_AllocationHdrSaveMany(List<I_C_AllocationHdrInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_AllocationHdrInput) entity).collect(Collectors.toList()),
+	public List<MAllocationHdr> C_AllocationHdrSaveMany(List<I_C_AllocationHdrInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_AllocationHdrInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MAllocationHdr) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_AllocationHdrDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_AllocationHdrDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

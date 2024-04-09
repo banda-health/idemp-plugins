@@ -21,16 +21,16 @@ public class X_AD_CtxHelpMsgMutation extends POMutation implements GraphQLMutati
 		return X_AD_CtxHelpMsgInput.Table_Name;
 	}
 
-	public MCtxHelpMsg AD_CtxHelpMsgSave(I_AD_CtxHelpMsgInput entity, DataFetchingEnvironment environment) {
-		return (MCtxHelpMsg) super.save((X_AD_CtxHelpMsgInput) entity, environment);
+	public MCtxHelpMsg AD_CtxHelpMsgSave(I_AD_CtxHelpMsgInput Entity, DataFetchingEnvironment environment) {
+		return (MCtxHelpMsg) super.save((X_AD_CtxHelpMsgInput) Entity, environment);
 	}
 
-	public List<MCtxHelpMsg> AD_CtxHelpMsgSaveMany(List<I_AD_CtxHelpMsgInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_CtxHelpMsgInput) entity).collect(Collectors.toList()),
+	public List<MCtxHelpMsg> AD_CtxHelpMsgSaveMany(List<I_AD_CtxHelpMsgInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_CtxHelpMsgInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCtxHelpMsg) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_CtxHelpMsgDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_CtxHelpMsgDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

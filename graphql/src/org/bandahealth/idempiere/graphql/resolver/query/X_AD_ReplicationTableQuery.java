@@ -17,8 +17,8 @@ public class X_AD_ReplicationTableQuery extends POQuery<X_AD_ReplicationTable> i
 		return X_AD_ReplicationTable.Table_Name;
 	}
 
-	public Connection<X_AD_ReplicationTable> AD_ReplicationTableGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_ReplicationTable> AD_ReplicationTableGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

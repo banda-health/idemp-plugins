@@ -17,8 +17,8 @@ public class X_C_DepositBatchQuery extends POQuery<MDepositBatch> implements Gra
 		return MDepositBatch.Table_Name;
 	}
 
-	public Connection<MDepositBatch> C_DepositBatchGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDepositBatch> C_DepositBatchGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

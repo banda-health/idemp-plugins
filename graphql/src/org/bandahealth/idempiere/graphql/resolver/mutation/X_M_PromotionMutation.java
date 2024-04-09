@@ -21,16 +21,16 @@ public class X_M_PromotionMutation extends POMutation implements GraphQLMutation
 		return X_M_PromotionInput.Table_Name;
 	}
 
-	public X_M_Promotion M_PromotionSave(I_M_PromotionInput entity, DataFetchingEnvironment environment) {
-		return (X_M_Promotion) super.save((X_M_PromotionInput) entity, environment);
+	public X_M_Promotion M_PromotionSave(I_M_PromotionInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_Promotion) super.save((X_M_PromotionInput) Entity, environment);
 	}
 
-	public List<X_M_Promotion> M_PromotionSaveMany(List<I_M_PromotionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PromotionInput) entity).collect(Collectors.toList()),
+	public List<X_M_Promotion> M_PromotionSaveMany(List<I_M_PromotionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PromotionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_Promotion) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PromotionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PromotionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

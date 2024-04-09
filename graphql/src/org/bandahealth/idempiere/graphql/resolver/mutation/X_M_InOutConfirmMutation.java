@@ -21,16 +21,16 @@ public class X_M_InOutConfirmMutation extends POMutation implements GraphQLMutat
 		return X_M_InOutConfirmInput.Table_Name;
 	}
 
-	public MInOutConfirm M_InOutConfirmSave(I_M_InOutConfirmInput entity, DataFetchingEnvironment environment) {
-		return (MInOutConfirm) super.save((X_M_InOutConfirmInput) entity, environment);
+	public MInOutConfirm M_InOutConfirmSave(I_M_InOutConfirmInput Entity, DataFetchingEnvironment environment) {
+		return (MInOutConfirm) super.save((X_M_InOutConfirmInput) Entity, environment);
 	}
 
-	public List<MInOutConfirm> M_InOutConfirmSaveMany(List<I_M_InOutConfirmInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_InOutConfirmInput) entity).collect(Collectors.toList()),
+	public List<MInOutConfirm> M_InOutConfirmSaveMany(List<I_M_InOutConfirmInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_InOutConfirmInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInOutConfirm) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_InOutConfirmDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_InOutConfirmDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

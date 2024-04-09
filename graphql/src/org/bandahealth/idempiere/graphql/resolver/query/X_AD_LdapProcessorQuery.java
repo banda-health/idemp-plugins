@@ -17,8 +17,8 @@ public class X_AD_LdapProcessorQuery extends POQuery<MLdapProcessor> implements 
 		return MLdapProcessor.Table_Name;
 	}
 
-	public Connection<MLdapProcessor> AD_LdapProcessorGet(int page, int pageSize, String sort, String filter,
+	public Connection<MLdapProcessor> AD_LdapProcessorGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

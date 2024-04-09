@@ -21,16 +21,16 @@ public class X_AD_ClientInfoMutation extends POMutation implements GraphQLMutati
 		return X_AD_ClientInfoInput.Table_Name;
 	}
 
-	public MClientInfo AD_ClientInfoSave(I_AD_ClientInfoInput entity, DataFetchingEnvironment environment) {
-		return (MClientInfo) super.save((X_AD_ClientInfoInput) entity, environment);
+	public MClientInfo AD_ClientInfoSave(I_AD_ClientInfoInput Entity, DataFetchingEnvironment environment) {
+		return (MClientInfo) super.save((X_AD_ClientInfoInput) Entity, environment);
 	}
 
-	public List<MClientInfo> AD_ClientInfoSaveMany(List<I_AD_ClientInfoInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ClientInfoInput) entity).collect(Collectors.toList()),
+	public List<MClientInfo> AD_ClientInfoSaveMany(List<I_AD_ClientInfoInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ClientInfoInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MClientInfo) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ClientInfoDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ClientInfoDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

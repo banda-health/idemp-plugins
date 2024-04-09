@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_AttributeSearchGet(page: Int, size: Int, sort: String, filter: String): M_AttributeSearchConnection!
+	M_AttributeSearchGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeSearchConnection!
 }
 
 extend type Mutation {
-	M_AttributeSearchSave(entity: M_AttributeSearchInput!): M_AttributeSearch!
-	M_AttributeSearchSaveMany(entities: [M_AttributeSearchInput!]!): [M_AttributeSearch!]!
-	M_AttributeSearchDelete(uuids: [String!]!): Boolean!
+	M_AttributeSearchSave(Entity: M_AttributeSearchInput!): M_AttributeSearch!
+	M_AttributeSearchSaveMany(Entities: [M_AttributeSearchInput!]!): [M_AttributeSearch!]!
+	M_AttributeSearchDelete(UUs: [String!]!): Boolean!
 }
 
 type M_AttributeSearchConnection {
-	results: [M_AttributeSearch!]!
-	pagingInfo: PagingInfo!
+	Results: [M_AttributeSearch!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_AttributeSearch {
@@ -29,8 +29,7 @@ type M_AttributeSearch {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_AttributeSearch_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -46,8 +45,7 @@ input M_AttributeSearchInput {
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_AttributeSearch_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

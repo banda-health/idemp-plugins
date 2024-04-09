@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_LandedCostAllocationGet(page: Int, size: Int, sort: String, filter: String): C_LandedCostAllocationConnection!
+	C_LandedCostAllocationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_LandedCostAllocationConnection!
 }
 
 extend type Mutation {
-	C_LandedCostAllocationSave(entity: C_LandedCostAllocationInput!): C_LandedCostAllocation!
-	C_LandedCostAllocationSaveMany(entities: [C_LandedCostAllocationInput!]!): [C_LandedCostAllocation!]!
-	C_LandedCostAllocationDelete(uuids: [String!]!): Boolean!
+	C_LandedCostAllocationSave(Entity: C_LandedCostAllocationInput!): C_LandedCostAllocation!
+	C_LandedCostAllocationSaveMany(Entities: [C_LandedCostAllocationInput!]!): [C_LandedCostAllocation!]!
+	C_LandedCostAllocationDelete(UUs: [String!]!): Boolean!
 }
 
 type C_LandedCostAllocationConnection {
-	results: [C_LandedCostAllocation!]!
-	pagingInfo: PagingInfo!
+	Results: [C_LandedCostAllocation!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_LandedCostAllocation {
@@ -27,8 +27,7 @@ type C_LandedCostAllocation {
 	Base: BigDecimal!
 	# Invoice Detail Line
 	C_InvoiceLine: C_InvoiceLine!
-	UUID: ID!
-	C_LandedCostAllocation_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -58,8 +57,7 @@ input C_LandedCostAllocationInput {
 	Base: BigDecimal
 	# Invoice Detail Line
 	C_InvoiceLine: ForeignEntityInput
-	UUID: ID
-	C_LandedCostAllocation_UU: String
+	UU: ID
 	# Product Attribute Set Instance
 	M_AttributeSetInstance: ForeignEntityInput
 	# Product Cost Element

@@ -29,12 +29,12 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Image_UU to fetch this entity from the DB
+	 * @param UU The AD_Image_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_ImageInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_ImageInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 	/**
 	 * Set Image.
@@ -49,20 +49,20 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Image_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Image_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Image_UU();
 	}
 
@@ -82,11 +82,11 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -119,11 +119,11 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 			MStorageProvider foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_StorageProvider", "AD_StorageProvider_UU=?", get_TrxName())
-							.setParameters(AD_StorageProvider.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_StorageProvider.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_StorageProvider_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_StorageProvider with UUID " + AD_StorageProvider.getUUID());
+						"Could not find entity in table AD_StorageProvider with UU " + AD_StorageProvider.getUU());
 			}
 		} else {
 			this.setAD_StorageProvider_ID(0);
@@ -153,11 +153,11 @@ public class X_AD_ImageInput extends MImage implements I_AD_ImageInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);

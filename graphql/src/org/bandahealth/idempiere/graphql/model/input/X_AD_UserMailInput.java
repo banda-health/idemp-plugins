@@ -31,12 +31,12 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_UserMail_UU to fetch this entity from the DB
+	 * @param UU The AD_UserMail_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_UserMailInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_UserMailInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -125,20 +125,20 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_UserMail_UU(UUID);
+	public void setUU(String UU) {
+		setAD_UserMail_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_UserMail_UU();
 	}
 	/**
@@ -169,11 +169,11 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsDelivered.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsDelivered.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsDelivered(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsDelivered.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsDelivered.getUU());
 			}
 		} else {
 			this.setIsDelivered(null);
@@ -217,11 +217,11 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 			MMailText foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_MailText", "R_MailText_UU=?", get_TrxName())
-							.setParameters(R_MailText.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_MailText.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_MailText_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_MailText with UUID " + R_MailText.getUUID());
+						"Could not find entity in table R_MailText with UU " + R_MailText.getUU());
 			}
 		} else {
 			this.setR_MailText_ID(0);

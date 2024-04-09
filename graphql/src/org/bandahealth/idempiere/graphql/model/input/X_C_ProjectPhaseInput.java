@@ -35,12 +35,12 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_ProjectPhase_UU to fetch this entity from the DB
+	 * @param UU The C_ProjectPhase_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_ProjectPhaseInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_ProjectPhaseInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -96,11 +96,11 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
+						"Could not find entity in table C_Order with UU " + C_Order.getUU());
 			}
 		} else {
 			this.setC_Order_ID(0);
@@ -133,11 +133,11 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MProjectTypePhase foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Phase", "C_Phase_UU=?", get_TrxName())
-							.setParameters(C_Phase.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Phase.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Phase_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Phase with UUID " + C_Phase.getUUID());
+						"Could not find entity in table C_Phase with UU " + C_Phase.getUU());
 			}
 		} else {
 			this.setC_Phase_ID(0);
@@ -170,11 +170,11 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+						"Could not find entity in table C_Project with UU " + C_Project.getUU());
 			}
 		} else {
 			this.setC_Project_ID(0);
@@ -203,20 +203,20 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_ProjectPhase_UU(UUID);
+	public void setUU(String UU) {
+		setC_ProjectPhase_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_ProjectPhase_UU();
 	}
 
@@ -233,11 +233,11 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -267,11 +267,11 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(ProjInvoiceRule.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ProjInvoiceRule.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setProjInvoiceRule(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + ProjInvoiceRule.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + ProjInvoiceRule.getUU());
 			}
 		} else {
 			this.setProjInvoiceRule(null);

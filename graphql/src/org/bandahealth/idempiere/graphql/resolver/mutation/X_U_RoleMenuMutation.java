@@ -21,16 +21,16 @@ public class X_U_RoleMenuMutation extends POMutation implements GraphQLMutationR
 		return X_U_RoleMenuInput.Table_Name;
 	}
 
-	public MRoleMenu U_RoleMenuSave(I_U_RoleMenuInput entity, DataFetchingEnvironment environment) {
-		return (MRoleMenu) super.save((X_U_RoleMenuInput) entity, environment);
+	public MRoleMenu U_RoleMenuSave(I_U_RoleMenuInput Entity, DataFetchingEnvironment environment) {
+		return (MRoleMenu) super.save((X_U_RoleMenuInput) Entity, environment);
 	}
 
-	public List<MRoleMenu> U_RoleMenuSaveMany(List<I_U_RoleMenuInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_U_RoleMenuInput) entity).collect(Collectors.toList()),
+	public List<MRoleMenu> U_RoleMenuSaveMany(List<I_U_RoleMenuInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_U_RoleMenuInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRoleMenu) entity).collect(Collectors.toList());
 	}
 
-	public boolean U_RoleMenuDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean U_RoleMenuDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

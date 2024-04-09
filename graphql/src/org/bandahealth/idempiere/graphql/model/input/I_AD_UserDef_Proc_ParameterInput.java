@@ -95,18 +95,18 @@ public interface I_AD_UserDef_Proc_ParameterInput extends I_AD_UserDef_Proc_Para
 	ForeignEntityInput AD_UserDef_Proc();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set AD_Val_Rule.

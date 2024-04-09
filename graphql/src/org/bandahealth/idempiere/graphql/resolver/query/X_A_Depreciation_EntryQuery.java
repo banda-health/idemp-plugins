@@ -17,8 +17,8 @@ public class X_A_Depreciation_EntryQuery extends POQuery<MDepreciationEntry> imp
 		return MDepreciationEntry.Table_Name;
 	}
 
-	public Connection<MDepreciationEntry> A_Depreciation_EntryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDepreciationEntry> A_Depreciation_EntryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

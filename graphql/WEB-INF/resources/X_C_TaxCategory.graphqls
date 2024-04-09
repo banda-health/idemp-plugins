@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaxCategoryGet(page: Int, size: Int, sort: String, filter: String): C_TaxCategoryConnection!
+	C_TaxCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxCategoryConnection!
 }
 
 extend type Mutation {
-	C_TaxCategorySave(entity: C_TaxCategoryInput!): C_TaxCategory!
-	C_TaxCategorySaveMany(entities: [C_TaxCategoryInput!]!): [C_TaxCategory!]!
-	C_TaxCategoryDelete(uuids: [String!]!): Boolean!
+	C_TaxCategorySave(Entity: C_TaxCategoryInput!): C_TaxCategory!
+	C_TaxCategorySaveMany(Entities: [C_TaxCategoryInput!]!): [C_TaxCategory!]!
+	C_TaxCategoryDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaxCategoryConnection {
-	results: [C_TaxCategory!]!
-	pagingInfo: PagingInfo!
+	Results: [C_TaxCategory!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_TaxCategory {
@@ -21,8 +21,7 @@ type C_TaxCategory {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_TaxCategory_UU: String
+	UU: ID!
 	# Commodity code used for tax calculation
 	CommodityCode: String
 	# Date this record was created
@@ -46,8 +45,7 @@ type C_TaxCategory {
 input C_TaxCategoryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_TaxCategory_UU: String
+	UU: ID
 	# Commodity code used for tax calculation
 	CommodityCode: String
 	# Optional short description of the record

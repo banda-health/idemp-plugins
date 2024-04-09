@@ -17,8 +17,8 @@ public class X_T_ReportStatementQuery extends POQuery<X_T_ReportStatement> imple
 		return X_T_ReportStatement.Table_Name;
 	}
 
-	public Connection<X_T_ReportStatement> T_ReportStatementGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_T_ReportStatement> T_ReportStatementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

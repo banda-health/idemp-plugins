@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_RMATaxGet(page: Int, size: Int, sort: String, filter: String): M_RMATaxConnection!
+	M_RMATaxGet(Page: Int, Size: Int, Sort: String, Filter: String): M_RMATaxConnection!
 }
 
 extend type Mutation {
-	M_RMATaxSave(entity: M_RMATaxInput!): M_RMATax!
-	M_RMATaxSaveMany(entities: [M_RMATaxInput!]!): [M_RMATax!]!
-	M_RMATaxDelete(uuids: [String!]!): Boolean!
+	M_RMATaxSave(Entity: M_RMATaxInput!): M_RMATax!
+	M_RMATaxSaveMany(Entities: [M_RMATaxInput!]!): [M_RMATax!]!
+	M_RMATaxDelete(UUs: [String!]!): Boolean!
 }
 
 type M_RMATaxConnection {
-	results: [M_RMATax!]!
-	pagingInfo: PagingInfo!
+	Results: [M_RMATax!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_RMATax {
@@ -34,8 +34,7 @@ type M_RMATax {
 	IsTaxIncluded: Boolean!
 	# Return Material Authorization
 	M_RMA: M_RMA!
-	UUID: ID!
-	M_RMATax_UU: String
+	UU: ID!
 	# The document has been processed
 	Processed: Boolean!
 	# Tax Amount for a document
@@ -60,8 +59,7 @@ input M_RMATaxInput {
 	IsTaxIncluded: Boolean
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
-	UUID: ID
-	M_RMATax_UU: String
+	UU: ID
 	# The document has been processed
 	Processed: Boolean
 	# Tax Amount for a document

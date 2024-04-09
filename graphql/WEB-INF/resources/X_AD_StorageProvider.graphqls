@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_StorageProviderGet(page: Int, size: Int, sort: String, filter: String): AD_StorageProviderConnection!
+	AD_StorageProviderGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StorageProviderConnection!
 }
 
 extend type Mutation {
-	AD_StorageProviderSave(entity: AD_StorageProviderInput!): AD_StorageProvider!
-	AD_StorageProviderSaveMany(entities: [AD_StorageProviderInput!]!): [AD_StorageProvider!]!
-	AD_StorageProviderDelete(uuids: [String!]!): Boolean!
+	AD_StorageProviderSave(Entity: AD_StorageProviderInput!): AD_StorageProvider!
+	AD_StorageProviderSaveMany(Entities: [AD_StorageProviderInput!]!): [AD_StorageProvider!]!
+	AD_StorageProviderDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_StorageProviderConnection {
-	results: [AD_StorageProvider!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_StorageProvider!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_StorageProvider {
@@ -21,8 +21,7 @@ type AD_StorageProvider {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_StorageProvider_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,8 +49,7 @@ type AD_StorageProvider {
 input AD_StorageProviderInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_StorageProvider_UU: String
+	UU: ID
 	# A folder on a local or remote system to store data into
 	Folder: String
 	# The record is active in the system

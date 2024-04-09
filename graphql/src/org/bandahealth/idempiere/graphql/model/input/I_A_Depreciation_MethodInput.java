@@ -11,18 +11,18 @@ import org.compiere.model.I_A_Depreciation_Method;
 public interface I_A_Depreciation_MethodInput extends I_A_Depreciation_Method {
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set AD_Org.

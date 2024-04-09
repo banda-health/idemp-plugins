@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	B_TopicGet(page: Int, size: Int, sort: String, filter: String): B_TopicConnection!
+	B_TopicGet(Page: Int, Size: Int, Sort: String, Filter: String): B_TopicConnection!
 }
 
 extend type Mutation {
-	B_TopicSave(entity: B_TopicInput!): B_Topic!
-	B_TopicSaveMany(entities: [B_TopicInput!]!): [B_Topic!]!
-	B_TopicDelete(uuids: [String!]!): Boolean!
+	B_TopicSave(Entity: B_TopicInput!): B_Topic!
+	B_TopicSaveMany(Entities: [B_TopicInput!]!): [B_Topic!]!
+	B_TopicDelete(UUs: [String!]!): Boolean!
 }
 
 type B_TopicConnection {
-	results: [B_Topic!]!
-	pagingInfo: PagingInfo!
+	Results: [B_Topic!]!
+	PagingInfo: PagingInfo!
 }
 
 type B_Topic {
@@ -21,8 +21,7 @@ type B_Topic {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	B_Topic_UU: String
+	UU: ID!
 	# Auction Topic Category
 	B_TopicCategory: B_TopicCategory!
 	# Auction Topic Type
@@ -59,8 +58,7 @@ type B_Topic {
 input B_TopicInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	B_Topic_UU: String
+	UU: ID
 	# Auction Topic Category
 	B_TopicCategory: ForeignEntityInput
 	# Auction Topic Type

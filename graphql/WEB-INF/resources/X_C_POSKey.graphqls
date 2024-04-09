@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_POSKeyGet(page: Int, size: Int, sort: String, filter: String): C_POSKeyConnection!
+	C_POSKeyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSKeyConnection!
 }
 
 extend type Mutation {
-	C_POSKeySave(entity: C_POSKeyInput!): C_POSKey!
-	C_POSKeySaveMany(entities: [C_POSKeyInput!]!): [C_POSKey!]!
-	C_POSKeyDelete(uuids: [String!]!): Boolean!
+	C_POSKeySave(Entity: C_POSKeyInput!): C_POSKey!
+	C_POSKeySaveMany(Entities: [C_POSKeyInput!]!): [C_POSKey!]!
+	C_POSKeyDelete(UUs: [String!]!): Boolean!
 }
 
 type C_POSKeyConnection {
-	results: [C_POSKey!]!
-	pagingInfo: PagingInfo!
+	Results: [C_POSKey!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_POSKey {
@@ -27,8 +27,7 @@ type C_POSKey {
 	AD_PrintColor: AD_PrintColor
 	# Maintain Print Font
 	AD_PrintFont: AD_PrintFont
-	UUID: ID!
-	C_POSKey_UU: String
+	UU: ID!
 	# POS Function Key Layout
 	C_POSKeyLayout: C_POSKeyLayout!
 	# Date this record was created
@@ -69,8 +68,7 @@ input C_POSKeyInput {
 	AD_PrintColor: ForeignEntityInput
 	# Maintain Print Font
 	AD_PrintFont: ForeignEntityInput
-	UUID: ID
-	C_POSKey_UU: String
+	UU: ID
 	# POS Function Key Layout
 	C_POSKeyLayout: ForeignEntityInput
 	# Optional short description of the record

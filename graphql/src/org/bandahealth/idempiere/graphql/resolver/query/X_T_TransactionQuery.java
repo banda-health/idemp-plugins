@@ -17,8 +17,8 @@ public class X_T_TransactionQuery extends POQuery<X_T_Transaction> implements Gr
 		return X_T_Transaction.Table_Name;
 	}
 
-	public Connection<X_T_Transaction> T_TransactionGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_T_Transaction> T_TransactionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

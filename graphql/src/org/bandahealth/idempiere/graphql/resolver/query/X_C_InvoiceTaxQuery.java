@@ -17,8 +17,8 @@ public class X_C_InvoiceTaxQuery extends POQuery<MInvoiceTax> implements GraphQL
 		return MInvoiceTax.Table_Name;
 	}
 
-	public Connection<MInvoiceTax> C_InvoiceTaxGet(int page, int pageSize, String sort, String filter,
+	public Connection<MInvoiceTax> C_InvoiceTaxGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

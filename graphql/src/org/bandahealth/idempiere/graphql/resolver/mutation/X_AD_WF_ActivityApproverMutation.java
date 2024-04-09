@@ -21,16 +21,16 @@ public class X_AD_WF_ActivityApproverMutation extends POMutation implements Grap
 		return X_AD_WF_ActivityApproverInput.Table_Name;
 	}
 
-	public MWFActivityApprover AD_WF_ActivityApproverSave(I_AD_WF_ActivityApproverInput entity, DataFetchingEnvironment environment) {
-		return (MWFActivityApprover) super.save((X_AD_WF_ActivityApproverInput) entity, environment);
+	public MWFActivityApprover AD_WF_ActivityApproverSave(I_AD_WF_ActivityApproverInput Entity, DataFetchingEnvironment environment) {
+		return (MWFActivityApprover) super.save((X_AD_WF_ActivityApproverInput) Entity, environment);
 	}
 
-	public List<MWFActivityApprover> AD_WF_ActivityApproverSaveMany(List<I_AD_WF_ActivityApproverInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_WF_ActivityApproverInput) entity).collect(Collectors.toList()),
+	public List<MWFActivityApprover> AD_WF_ActivityApproverSaveMany(List<I_AD_WF_ActivityApproverInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_WF_ActivityApproverInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MWFActivityApprover) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_WF_ActivityApproverDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_WF_ActivityApproverDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

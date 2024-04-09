@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_MovementGet(page: Int, size: Int, sort: String, filter: String): I_MovementConnection!
+	I_MovementGet(Page: Int, Size: Int, Sort: String, Filter: String): I_MovementConnection!
 }
 
 extend type Mutation {
-	I_MovementSave(entity: I_MovementInput!): I_Movement!
-	I_MovementSaveMany(entities: [I_MovementInput!]!): [I_Movement!]!
-	I_MovementDelete(uuids: [String!]!): Boolean!
+	I_MovementSave(Entity: I_MovementInput!): I_Movement!
+	I_MovementSaveMany(Entities: [I_MovementInput!]!): [I_Movement!]!
+	I_MovementDelete(UUs: [String!]!): Boolean!
 }
 
 type I_MovementConnection {
-	results: [I_Movement!]!
-	pagingInfo: PagingInfo!
+	Results: [I_Movement!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_Movement {
@@ -53,8 +53,7 @@ type I_Movement {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean!
-	UUID: ID!
-	I_Movement_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	LocatorToValue: String
@@ -131,8 +130,7 @@ input I_MovementInput {
 	I_ErrorMsg: String
 	# Has this import been processed
 	I_IsImported: Boolean
-	UUID: ID
-	I_Movement_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	LocatorToValue: String

@@ -21,16 +21,16 @@ public class X_AD_InfoColumnMutation extends POMutation implements GraphQLMutati
 		return X_AD_InfoColumnInput.Table_Name;
 	}
 
-	public MInfoColumn AD_InfoColumnSave(I_AD_InfoColumnInput entity, DataFetchingEnvironment environment) {
-		return (MInfoColumn) super.save((X_AD_InfoColumnInput) entity, environment);
+	public MInfoColumn AD_InfoColumnSave(I_AD_InfoColumnInput Entity, DataFetchingEnvironment environment) {
+		return (MInfoColumn) super.save((X_AD_InfoColumnInput) Entity, environment);
 	}
 
-	public List<MInfoColumn> AD_InfoColumnSaveMany(List<I_AD_InfoColumnInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_InfoColumnInput) entity).collect(Collectors.toList()),
+	public List<MInfoColumn> AD_InfoColumnSaveMany(List<I_AD_InfoColumnInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_InfoColumnInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MInfoColumn) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_InfoColumnDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_InfoColumnDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	CM_ChatEntryGet(page: Int, size: Int, sort: String, filter: String): CM_ChatEntryConnection!
+	CM_ChatEntryGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatEntryConnection!
 }
 
 extend type Mutation {
-	CM_ChatEntrySave(entity: CM_ChatEntryInput!): CM_ChatEntry!
-	CM_ChatEntrySaveMany(entities: [CM_ChatEntryInput!]!): [CM_ChatEntry!]!
-	CM_ChatEntryDelete(uuids: [String!]!): Boolean!
+	CM_ChatEntrySave(Entity: CM_ChatEntryInput!): CM_ChatEntry!
+	CM_ChatEntrySaveMany(Entities: [CM_ChatEntryInput!]!): [CM_ChatEntry!]!
+	CM_ChatEntryDelete(UUs: [String!]!): Boolean!
 }
 
 type CM_ChatEntryConnection {
-	results: [CM_ChatEntry!]!
-	pagingInfo: PagingInfo!
+	Results: [CM_ChatEntry!]!
+	PagingInfo: PagingInfo!
 }
 
 type CM_ChatEntry {
@@ -29,8 +29,7 @@ type CM_ChatEntry {
 	ChatEntryType: AD_Ref_List!
 	# Chat or discussion thread
 	CM_Chat: CM_Chat!
-	UUID: ID!
-	CM_ChatEntry_UU: String
+	UU: ID!
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: CM_ChatEntry
 	# Link to direct Parent
@@ -64,8 +63,7 @@ input CM_ChatEntryInput {
 	ChatEntryType: AD_Ref_ListInput
 	# Chat or discussion thread
 	CM_Chat: ForeignEntityInput
-	UUID: ID
-	CM_ChatEntry_UU: String
+	UU: ID
 	# Link to Grand Parent (root level)
 	CM_ChatEntryGrandParent: ForeignEntityInput
 	# Link to direct Parent

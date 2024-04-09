@@ -17,8 +17,8 @@ public class X_AD_FieldQuery extends POQuery<MField_BH> implements GraphQLQueryR
 		return MField_BH.Table_Name;
 	}
 
-	public Connection<MField_BH> AD_FieldGet(int page, int pageSize, String sort, String filter,
+	public Connection<MField_BH> AD_FieldGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

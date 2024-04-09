@@ -21,16 +21,16 @@ public class X_M_LotMutation extends POMutation implements GraphQLMutationResolv
 		return X_M_LotInput.Table_Name;
 	}
 
-	public MLot M_LotSave(I_M_LotInput entity, DataFetchingEnvironment environment) {
-		return (MLot) super.save((X_M_LotInput) entity, environment);
+	public MLot M_LotSave(I_M_LotInput Entity, DataFetchingEnvironment environment) {
+		return (MLot) super.save((X_M_LotInput) Entity, environment);
 	}
 
-	public List<MLot> M_LotSaveMany(List<I_M_LotInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_LotInput) entity).collect(Collectors.toList()),
+	public List<MLot> M_LotSaveMany(List<I_M_LotInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_LotInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MLot) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_LotDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_LotDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

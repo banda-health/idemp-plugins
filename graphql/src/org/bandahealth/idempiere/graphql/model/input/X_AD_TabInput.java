@@ -47,12 +47,12 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_Tab_UU to fetch this entity from the DB
+	 * @param UU The AD_Tab_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_TabInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_TabInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -68,11 +68,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_Column.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_Column.getUU());
 			}
 		} else {
 			this.setAD_Column_ID(0);
@@ -102,11 +102,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_ColumnSortOrder.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ColumnSortOrder.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ColumnSortOrder_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_ColumnSortOrder.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_ColumnSortOrder.getUU());
 			}
 		} else {
 			this.setAD_ColumnSortOrder_ID(0);
@@ -136,11 +136,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(AD_ColumnSortYesNo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_ColumnSortYesNo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_ColumnSortYesNo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + AD_ColumnSortYesNo.getUUID());
+						"Could not find entity in table AD_Column with UU " + AD_ColumnSortYesNo.getUU());
 			}
 		} else {
 			this.setAD_ColumnSortYesNo_ID(0);
@@ -170,11 +170,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MCtxHelp foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_CtxHelp", "AD_CtxHelp_UU=?", get_TrxName())
-							.setParameters(AD_CtxHelp.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_CtxHelp.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_CtxHelp_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_CtxHelp with UUID " + AD_CtxHelp.getUUID());
+						"Could not find entity in table AD_CtxHelp with UU " + AD_CtxHelp.getUU());
 			}
 		} else {
 			this.setAD_CtxHelp_ID(0);
@@ -204,11 +204,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MImage foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Image", "AD_Image_UU=?", get_TrxName())
-							.setParameters(AD_Image.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Image.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Image_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Image with UUID " + AD_Image.getUUID());
+						"Could not find entity in table AD_Image with UU " + AD_Image.getUU());
 			}
 		} else {
 			this.setAD_Image_ID(0);
@@ -241,11 +241,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -275,11 +275,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MProcess_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
-							.setParameters(AD_Process.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Process_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Process with UUID " + AD_Process.getUUID());
+						"Could not find entity in table AD_Process with UU " + AD_Process.getUU());
 			}
 		} else {
 			this.setAD_Process_ID(0);
@@ -308,20 +308,20 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_Tab_UU(UUID);
+	public void setUU(String UU) {
+		setAD_Tab_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_Tab_UU();
 	}
 
@@ -338,11 +338,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -372,11 +372,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(AD_TabType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_TabType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_TabType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + AD_TabType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + AD_TabType.getUU());
 			}
 		} else {
 			this.setAD_TabType(null);
@@ -409,11 +409,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
-							.setParameters(AD_Window.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Window_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Window with UUID " + AD_Window.getUUID());
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
 			}
 		} else {
 			this.setAD_Window_ID(0);
@@ -443,11 +443,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);
@@ -477,11 +477,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MTab foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Tab", "AD_Tab_UU=?", get_TrxName())
-							.setParameters(Included_Tab.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Included_Tab.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIncluded_Tab_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Tab with UUID " + Included_Tab.getUUID());
+						"Could not find entity in table AD_Tab with UU " + Included_Tab.getUU());
 			}
 		} else {
 			this.setIncluded_Tab_ID(0);
@@ -511,11 +511,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(IsHighVolume.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IsHighVolume.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIsHighVolume(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + IsHighVolume.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + IsHighVolume.getUU());
 			}
 		} else {
 			this.setIsHighVolume(null);
@@ -545,11 +545,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Column", "AD_Column_UU=?", get_TrxName())
-							.setParameters(Parent_Column.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Parent_Column.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setParent_Column_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Column with UUID " + Parent_Column.getUUID());
+						"Could not find entity in table AD_Column with UU " + Parent_Column.getUU());
 			}
 		} else {
 			this.setParent_Column_ID(0);
@@ -579,11 +579,11 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(TreeDisplayedOn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TreeDisplayedOn.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTreeDisplayedOn(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + TreeDisplayedOn.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + TreeDisplayedOn.getUU());
 			}
 		} else {
 			this.setTreeDisplayedOn(null);

@@ -21,16 +21,16 @@ public class X_ASP_Process_ParaMutation extends POMutation implements GraphQLMut
 		return X_ASP_Process_ParaInput.Table_Name;
 	}
 
-	public X_ASP_Process_Para ASP_Process_ParaSave(I_ASP_Process_ParaInput entity, DataFetchingEnvironment environment) {
-		return (X_ASP_Process_Para) super.save((X_ASP_Process_ParaInput) entity, environment);
+	public X_ASP_Process_Para ASP_Process_ParaSave(I_ASP_Process_ParaInput Entity, DataFetchingEnvironment environment) {
+		return (X_ASP_Process_Para) super.save((X_ASP_Process_ParaInput) Entity, environment);
 	}
 
-	public List<X_ASP_Process_Para> ASP_Process_ParaSaveMany(List<I_ASP_Process_ParaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_ASP_Process_ParaInput) entity).collect(Collectors.toList()),
+	public List<X_ASP_Process_Para> ASP_Process_ParaSaveMany(List<I_ASP_Process_ParaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_ASP_Process_ParaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_ASP_Process_Para) entity).collect(Collectors.toList());
 	}
 
-	public boolean ASP_Process_ParaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean ASP_Process_ParaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

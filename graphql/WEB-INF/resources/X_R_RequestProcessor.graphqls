@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_RequestProcessorGet(page: Int, size: Int, sort: String, filter: String): R_RequestProcessorConnection!
+	R_RequestProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessorConnection!
 }
 
 extend type Mutation {
-	R_RequestProcessorSave(entity: R_RequestProcessorInput!): R_RequestProcessor!
-	R_RequestProcessorSaveMany(entities: [R_RequestProcessorInput!]!): [R_RequestProcessor!]!
-	R_RequestProcessorDelete(uuids: [String!]!): Boolean!
+	R_RequestProcessorSave(Entity: R_RequestProcessorInput!): R_RequestProcessor!
+	R_RequestProcessorSaveMany(Entities: [R_RequestProcessorInput!]!): [R_RequestProcessor!]!
+	R_RequestProcessorDelete(UUs: [String!]!): Boolean!
 }
 
 type R_RequestProcessorConnection {
-	results: [R_RequestProcessor!]!
-	pagingInfo: PagingInfo!
+	Results: [R_RequestProcessor!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_RequestProcessor {
@@ -45,8 +45,7 @@ type R_RequestProcessor {
 	# Escalation to superior after number of due days (0 = no)
 	OverdueAssignDays: Int!
 	Processing: Boolean!
-	UUID: ID!
-	R_RequestProcessor_UU: String
+	UU: ID!
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: R_RequestType
 	# Days between sending Reminder Emails for a due or inactive Document
@@ -82,8 +81,7 @@ input R_RequestProcessorInput {
 	# Escalation to superior after number of due days (0 = no)
 	OverdueAssignDays: Int
 	Processing: Boolean
-	UUID: ID
-	R_RequestProcessor_UU: String
+	UU: ID
 	# Type of request (e.g. Inquiry, Complaint, ..)
 	R_RequestType: ForeignEntityInput
 	# Days between sending Reminder Emails for a due or inactive Document

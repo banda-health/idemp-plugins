@@ -17,8 +17,8 @@ public class X_A_Asset_ClassQuery extends POQuery<MAssetClass> implements GraphQ
 		return MAssetClass.Table_Name;
 	}
 
-	public Connection<MAssetClass> A_Asset_ClassGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetClass> A_Asset_ClassGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

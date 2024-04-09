@@ -21,16 +21,16 @@ public class X_M_CostQueueMutation extends POMutation implements GraphQLMutation
 		return X_M_CostQueueInput.Table_Name;
 	}
 
-	public MCostQueue M_CostQueueSave(I_M_CostQueueInput entity, DataFetchingEnvironment environment) {
-		return (MCostQueue) super.save((X_M_CostQueueInput) entity, environment);
+	public MCostQueue M_CostQueueSave(I_M_CostQueueInput Entity, DataFetchingEnvironment environment) {
+		return (MCostQueue) super.save((X_M_CostQueueInput) Entity, environment);
 	}
 
-	public List<MCostQueue> M_CostQueueSaveMany(List<I_M_CostQueueInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_CostQueueInput) entity).collect(Collectors.toList()),
+	public List<MCostQueue> M_CostQueueSaveMany(List<I_M_CostQueueInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_CostQueueInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCostQueue) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_CostQueueDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_CostQueueDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

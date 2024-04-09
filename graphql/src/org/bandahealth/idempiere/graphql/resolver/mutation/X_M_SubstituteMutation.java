@@ -21,16 +21,16 @@ public class X_M_SubstituteMutation extends POMutation implements GraphQLMutatio
 		return X_M_SubstituteInput.Table_Name;
 	}
 
-	public X_M_Substitute M_SubstituteSave(I_M_SubstituteInput entity, DataFetchingEnvironment environment) {
-		return (X_M_Substitute) super.save((X_M_SubstituteInput) entity, environment);
+	public X_M_Substitute M_SubstituteSave(I_M_SubstituteInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_Substitute) super.save((X_M_SubstituteInput) Entity, environment);
 	}
 
-	public List<X_M_Substitute> M_SubstituteSaveMany(List<I_M_SubstituteInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_SubstituteInput) entity).collect(Collectors.toList()),
+	public List<X_M_Substitute> M_SubstituteSaveMany(List<I_M_SubstituteInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_SubstituteInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_Substitute) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_SubstituteDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_SubstituteDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

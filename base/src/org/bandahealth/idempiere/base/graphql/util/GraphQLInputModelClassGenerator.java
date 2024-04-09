@@ -122,7 +122,7 @@ public class GraphQLInputModelClassGenerator {
 		// Insert the required iDempiere imports
 		classesToImport.add("org.compiere.model.Query");
 		classesToImport.add(tableStructureExtensions.getClassPackageName() + "." + tableStructureExtensions.getClassName());
-		boolean hasUuidColumn = generatedColumns.toString().contains("public void setUUID(String UUID)");
+		boolean hasUuidColumn = generatedColumns.toString().contains("public void setUU(String UU)");
 		if (hasUuidColumn) {
 			classesToImport.add("com.fasterxml.jackson.annotation.JsonCreator");
 			classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
@@ -148,13 +148,13 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t/**\n\t * Standard constructor (don't forget to use @JsonCreator and @JsonProperty\n")
 					.append("\t * annotations from the super class since those aren't inherited)\n")
 					.append("\t *\n")
-					.append("\t * @param UUID The ").append(tableName).append("_UU to fetch this entity from the DB\n\t */\n")
+					.append("\t * @param UU The ").append(tableName).append("_UU to fetch this entity from the DB\n\t */\n")
 					.append("\t@JsonCreator\n")
-					.append("\tpublic ").append(className).append("(@JsonProperty(\"UUID\") String UUID) {\n");
+					.append("\tpublic ").append(className).append("(@JsonProperty(\"UU\") String UU) {\n");
 			generatedClass
-					.append("\t\tsuper(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);\n");
+					.append("\t\tsuper(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);\n");
 			generatedClass
-					.append("\t\tsetUUID(UUID);\n")
+					.append("\t\tsetUU(UU);\n")
 					.append("\t}");
 		} else {
 			generatedClass
@@ -328,14 +328,14 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t\t\tif ((foreignEntity =\n")
 					.append("\t\t\t\t\tnew Query(getCtx(), \"").append(foreignEntityTable).append("\", \"")
 					.append(foreignEntityTable).append("_UU=?\", get_TrxName())\n")
-					.append("\t\t\t\t\t\t\t.setParameters(").append(entityName).append(".getUUID())")
+					.append("\t\t\t\t\t\t\t.setParameters(").append(entityName).append(".getUU())")
 					.append(".first()) != null && foreignEntity.get_ID() >= 0) {\n")
 					.append("\t\t\t\tthis.set").append(columnName).append("(foreignEntity.").append(defaultValueMethod)
 					.append(");\n")
 					.append("\t\t\t} else {\n")
 					.append("\t\t\t\tthrow new AdempiereException(\n")
 					.append("\t\t\t\t\t\t\"Could not find entity in table ").append(foreignEntityTable)
-					.append(" with UUID \" + ").append(entityName).append(".getUUID());\n")
+					.append(" with UU \" + ").append(entityName).append(".getUU());\n")
 					.append("\t\t\t}\n")
 					.append("\t\t} else {\n")
 					.append("\t\t\tthis.set").append(columnName).append("(").append(defaultEmptyValue).append(");\n")
@@ -354,14 +354,14 @@ public class GraphQLInputModelClassGenerator {
 		} else if (columnName.equalsIgnoreCase(MTable.get(AD_Table_ID).getTableName() + "_UU")) {
 			// If this is the UUID column, we need to generate the UUID fields
 			columnBuilder.append("\n");
-			GraphQLUtil.generateJavaSetComment("UUID", "UUID", Description, columnBuilder);
+			GraphQLUtil.generateJavaSetComment("UU", "UU", Description, columnBuilder);
 			columnBuilder
-					.append("\tpublic void setUUID(String UUID) {\n")
-					.append("\t\tset").append(columnName).append("(UUID);\n")
+					.append("\tpublic void setUU(String UU) {\n")
+					.append("\t\tset").append(columnName).append("(UU);\n")
 					.append("\t}\n");
-			GraphQLUtil.generateJavaGetComment("UUID", Description, columnBuilder);
+			GraphQLUtil.generateJavaGetComment("UU", Description, columnBuilder);
 			columnBuilder
-					.append("\tpublic String getUUID() {\n")
+					.append("\tpublic String getUU() {\n")
 					.append("\t\treturn get").append(columnName).append("();\n")
 					.append("\t}");
 
@@ -409,13 +409,13 @@ public class GraphQLInputModelClassGenerator {
 					.append("\t\t\tif ((foreignEntity =\n")
 					.append("\t\t\t\t\tnew Query(getCtx(), ").append(modelForForeignEntity).append(".Table_Name, ")
 					.append(modelForForeignEntity).append(".COLUMNNAME_AD_Ref_List_UU + \"=?\", get_TrxName())\n")
-					.append("\t\t\t\t\t\t\t.setParameters(").append(columnName).append(".getUUID())")
+					.append("\t\t\t\t\t\t\t.setParameters(").append(columnName).append(".getUU())")
 					.append(".first()) != null && foreignEntity.get_ID() >= 0) {\n")
 					.append("\t\t\t\tthis.set").append(columnName).append("(foreignEntity.getValue());\n")
 					.append("\t\t\t} else {\n")
 					.append("\t\t\t\tthrow new AdempiereException(\n")
 					.append("\t\t\t\t\t\t\"Could not find entity in table \" + ").append(modelForForeignEntity)
-					.append(".Table_Name + \" with UUID \" + ").append(columnName).append(".getUUID());\n")
+					.append(".Table_Name + \" with UU \" + ").append(columnName).append(".getUU());\n")
 					.append("\t\t\t}\n")
 					.append("\t\t} else {\n")
 					.append("\t\t\tthis.set").append(columnName).append("(null);\n")

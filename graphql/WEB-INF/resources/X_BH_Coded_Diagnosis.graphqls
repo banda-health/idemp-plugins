@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_Coded_DiagnosisGet(page: Int, size: Int, sort: String, filter: String): BH_Coded_DiagnosisConnection!
+	BH_Coded_DiagnosisGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Coded_DiagnosisConnection!
 }
 
 extend type Mutation {
-	BH_Coded_DiagnosisSave(entity: BH_Coded_DiagnosisInput!): BH_Coded_Diagnosis!
-	BH_Coded_DiagnosisSaveMany(entities: [BH_Coded_DiagnosisInput!]!): [BH_Coded_Diagnosis!]!
-	BH_Coded_DiagnosisDelete(uuids: [String!]!): Boolean!
+	BH_Coded_DiagnosisSave(Entity: BH_Coded_DiagnosisInput!): BH_Coded_Diagnosis!
+	BH_Coded_DiagnosisSaveMany(Entities: [BH_Coded_DiagnosisInput!]!): [BH_Coded_Diagnosis!]!
+	BH_Coded_DiagnosisDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_Coded_DiagnosisConnection {
-	results: [BH_Coded_Diagnosis!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_Coded_Diagnosis!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_Coded_Diagnosis {
@@ -23,8 +23,7 @@ type BH_Coded_Diagnosis {
 	AD_Org: AD_Org!
 	BH_CielID: Int
 	bh_cielname: String
-	UUID: ID!
-	BH_Coded_Diagnosis_UU: String
+	UU: ID!
 	bh_concept_class: String
 	bh_icd10who: String
 	bh_moh705a_lessthan5: String
@@ -53,8 +52,7 @@ input BH_Coded_DiagnosisInput {
 	AD_Org: ForeignEntityInput
 	BH_CielID: Int
 	bh_cielname: String
-	UUID: ID
-	BH_Coded_Diagnosis_UU: String
+	UU: ID
 	bh_concept_class: String
 	bh_icd10who: String
 	bh_moh705a_lessthan5: String

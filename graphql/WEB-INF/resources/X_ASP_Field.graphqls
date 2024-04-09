@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	ASP_FieldGet(page: Int, size: Int, sort: String, filter: String): ASP_FieldConnection!
+	ASP_FieldGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_FieldConnection!
 }
 
 extend type Mutation {
-	ASP_FieldSave(entity: ASP_FieldInput!): ASP_Field!
-	ASP_FieldSaveMany(entities: [ASP_FieldInput!]!): [ASP_Field!]!
-	ASP_FieldDelete(uuids: [String!]!): Boolean!
+	ASP_FieldSave(Entity: ASP_FieldInput!): ASP_Field!
+	ASP_FieldSaveMany(Entities: [ASP_FieldInput!]!): [ASP_Field!]!
+	ASP_FieldDelete(UUs: [String!]!): Boolean!
 }
 
 type ASP_FieldConnection {
-	results: [ASP_Field!]!
-	pagingInfo: PagingInfo!
+	Results: [ASP_Field!]!
+	PagingInfo: PagingInfo!
 }
 
 type ASP_Field {
@@ -23,8 +23,7 @@ type ASP_Field {
 	AD_Field: AD_Field
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	ASP_Field_UU: String
+	UU: ID!
 	ASP_Status: AD_Ref_List!
 	ASP_Tab: ASP_Tab
 	# Date this record was created
@@ -44,8 +43,7 @@ input ASP_FieldInput {
 	AD_Field: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	ASP_Field_UU: String
+	UU: ID
 	ASP_Status: AD_Ref_ListInput
 	ASP_Tab: ForeignEntityInput
 	# The record is active in the system

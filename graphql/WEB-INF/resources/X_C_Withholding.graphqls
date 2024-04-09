@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_WithholdingGet(page: Int, size: Int, sort: String, filter: String): C_WithholdingConnection!
+	C_WithholdingGet(Page: Int, Size: Int, Sort: String, Filter: String): C_WithholdingConnection!
 }
 
 extend type Mutation {
-	C_WithholdingSave(entity: C_WithholdingInput!): C_Withholding!
-	C_WithholdingSaveMany(entities: [C_WithholdingInput!]!): [C_Withholding!]!
-	C_WithholdingDelete(uuids: [String!]!): Boolean!
+	C_WithholdingSave(Entity: C_WithholdingInput!): C_Withholding!
+	C_WithholdingSaveMany(Entities: [C_WithholdingInput!]!): [C_Withholding!]!
+	C_WithholdingDelete(UUs: [String!]!): Boolean!
 }
 
 type C_WithholdingConnection {
-	results: [C_Withholding!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Withholding!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Withholding {
@@ -25,8 +25,7 @@ type C_Withholding {
 	Benefici: C_BPartner!
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: C_PaymentTerm!
-	UUID: ID!
-	C_Withholding_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -70,8 +69,7 @@ input C_WithholdingInput {
 	Benefici: ForeignEntityInput
 	# The terms of Payment (timing, discount)
 	C_PaymentTerm: ForeignEntityInput
-	UUID: ID
-	C_Withholding_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Fix amounted amount to be levied or paid

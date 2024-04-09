@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ProjectIssueMAGet(page: Int, size: Int, sort: String, filter: String): C_ProjectIssueMAConnection!
+	C_ProjectIssueMAGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectIssueMAConnection!
 }
 
 extend type Mutation {
-	C_ProjectIssueMASave(entity: C_ProjectIssueMAInput!): C_ProjectIssueMA!
-	C_ProjectIssueMASaveMany(entities: [C_ProjectIssueMAInput!]!): [C_ProjectIssueMA!]!
-	C_ProjectIssueMADelete(uuids: [String!]!): Boolean!
+	C_ProjectIssueMASave(Entity: C_ProjectIssueMAInput!): C_ProjectIssueMA!
+	C_ProjectIssueMASaveMany(Entities: [C_ProjectIssueMAInput!]!): [C_ProjectIssueMA!]!
+	C_ProjectIssueMADelete(UUs: [String!]!): Boolean!
 }
 
 type C_ProjectIssueMAConnection {
-	results: [C_ProjectIssueMA!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ProjectIssueMA!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ProjectIssueMA {
@@ -23,8 +23,7 @@ type C_ProjectIssueMA {
 	AD_Org: AD_Org!
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: C_ProjectIssue!
-	UUID: ID!
-	C_ProjectIssueMA_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ input C_ProjectIssueMAInput {
 	AD_Org: ForeignEntityInput
 	# Project Issues (Material, Labor)
 	C_ProjectIssue: ForeignEntityInput
-	UUID: ID
-	C_ProjectIssueMA_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Product Attribute Set Instance

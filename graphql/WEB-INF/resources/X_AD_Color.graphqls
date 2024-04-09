@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_ColorGet(page: Int, size: Int, sort: String, filter: String): AD_ColorConnection!
+	AD_ColorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ColorConnection!
 }
 
 extend type Mutation {
-	AD_ColorSave(entity: AD_ColorInput!): AD_Color!
-	AD_ColorSaveMany(entities: [AD_ColorInput!]!): [AD_Color!]!
-	AD_ColorDelete(uuids: [String!]!): Boolean!
+	AD_ColorSave(Entity: AD_ColorInput!): AD_Color!
+	AD_ColorSaveMany(Entities: [AD_ColorInput!]!): [AD_Color!]!
+	AD_ColorDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_ColorConnection {
-	results: [AD_Color!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Color!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Color {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
-	UUID: ID!
-	AD_Color_UU: String
+	UU: ID!
 	# Image or Icon
 	AD_Image: AD_Image
 	# Organizational entity within tenant
@@ -70,8 +69,7 @@ type AD_Color {
 }
 
 input AD_ColorInput {
-	UUID: ID
-	AD_Color_UU: String
+	UU: ID
 	# Image or Icon
 	AD_Image: ForeignEntityInput
 	# Organizational entity within tenant

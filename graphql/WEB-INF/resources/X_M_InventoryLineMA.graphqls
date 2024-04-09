@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_InventoryLineMAGet(page: Int, size: Int, sort: String, filter: String): M_InventoryLineMAConnection!
+	M_InventoryLineMAGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InventoryLineMAConnection!
 }
 
 extend type Mutation {
-	M_InventoryLineMASave(entity: M_InventoryLineMAInput!): M_InventoryLineMA!
-	M_InventoryLineMASaveMany(entities: [M_InventoryLineMAInput!]!): [M_InventoryLineMA!]!
-	M_InventoryLineMADelete(uuids: [String!]!): Boolean!
+	M_InventoryLineMASave(Entity: M_InventoryLineMAInput!): M_InventoryLineMA!
+	M_InventoryLineMASaveMany(Entities: [M_InventoryLineMAInput!]!): [M_InventoryLineMA!]!
+	M_InventoryLineMADelete(UUs: [String!]!): Boolean!
 }
 
 type M_InventoryLineMAConnection {
-	results: [M_InventoryLineMA!]!
-	pagingInfo: PagingInfo!
+	Results: [M_InventoryLineMA!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_InventoryLineMA {
@@ -34,8 +34,7 @@ type M_InventoryLineMA {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Unique line in an Inventory document
 	M_InventoryLine: M_InventoryLine!
-	UUID: ID!
-	M_InventoryLineMA_UU: String
+	UU: ID!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
@@ -56,8 +55,7 @@ input M_InventoryLineMAInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Unique line in an Inventory document
 	M_InventoryLine: ForeignEntityInput
-	UUID: ID
-	M_InventoryLineMA_UU: String
+	UU: ID
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

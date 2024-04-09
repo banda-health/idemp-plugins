@@ -43,12 +43,12 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_AllocationLine_UU to fetch this entity from the DB
+	 * @param UU The C_AllocationLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_AllocationLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_AllocationLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -67,11 +67,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -115,11 +115,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MAllocationHdr foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AllocationHdr", "C_AllocationHdr_UU=?", get_TrxName())
-							.setParameters(C_AllocationHdr.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AllocationHdr.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AllocationHdr_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AllocationHdr with UUID " + C_AllocationHdr.getUUID());
+						"Could not find entity in table C_AllocationHdr with UU " + C_AllocationHdr.getUU());
 			}
 		} else {
 			this.setC_AllocationHdr_ID(0);
@@ -148,20 +148,20 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_AllocationLine_UU(UUID);
+	public void setUU(String UU) {
+		setC_AllocationLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_AllocationLine_UU();
 	}
 
@@ -178,11 +178,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MBankTransfer foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BankTransfer", "C_BankTransfer_UU=?", get_TrxName())
-							.setParameters(C_BankTransfer.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BankTransfer.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BankTransfer_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BankTransfer with UUID " + C_BankTransfer.getUUID());
+						"Could not find entity in table C_BankTransfer with UU " + C_BankTransfer.getUU());
 			}
 		} else {
 			this.setC_BankTransfer_ID(0);
@@ -215,11 +215,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -252,11 +252,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MCashLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_CashLine", "C_CashLine_UU=?", get_TrxName())
-							.setParameters(C_CashLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_CashLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_CashLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_CashLine with UUID " + C_CashLine.getUUID());
+						"Could not find entity in table C_CashLine with UU " + C_CashLine.getUU());
 			}
 		} else {
 			this.setC_CashLine_ID(0);
@@ -289,11 +289,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MCharge_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Charge", "C_Charge_UU=?", get_TrxName())
-							.setParameters(C_Charge.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Charge.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Charge_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Charge with UUID " + C_Charge.getUUID());
+						"Could not find entity in table C_Charge with UU " + C_Charge.getUU());
 			}
 		} else {
 			this.setC_Charge_ID(0);
@@ -326,11 +326,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MInvoice_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
-							.setParameters(C_Invoice.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Invoice_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Invoice with UUID " + C_Invoice.getUUID());
+						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
 			}
 		} else {
 			this.setC_Invoice_ID(0);
@@ -363,11 +363,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MOrder_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Order", "C_Order_UU=?", get_TrxName())
-							.setParameters(C_Order.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Order.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Order_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Order with UUID " + C_Order.getUUID());
+						"Could not find entity in table C_Order with UU " + C_Order.getUU());
 			}
 		} else {
 			this.setC_Order_ID(0);
@@ -400,11 +400,11 @@ public class X_C_AllocationLineInput extends MAllocationLine implements I_C_Allo
 			MPayment_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Payment", "C_Payment_UU=?", get_TrxName())
-							.setParameters(C_Payment.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Payment.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Payment_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Payment with UUID " + C_Payment.getUUID());
+						"Could not find entity in table C_Payment with UU " + C_Payment.getUU());
 			}
 		} else {
 			this.setC_Payment_ID(0);

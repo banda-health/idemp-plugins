@@ -21,16 +21,16 @@ public class X_AD_OrgTypeMutation extends POMutation implements GraphQLMutationR
 		return X_AD_OrgTypeInput.Table_Name;
 	}
 
-	public X_AD_OrgType AD_OrgTypeSave(I_AD_OrgTypeInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_OrgType) super.save((X_AD_OrgTypeInput) entity, environment);
+	public X_AD_OrgType AD_OrgTypeSave(I_AD_OrgTypeInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_OrgType) super.save((X_AD_OrgTypeInput) Entity, environment);
 	}
 
-	public List<X_AD_OrgType> AD_OrgTypeSaveMany(List<I_AD_OrgTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_OrgTypeInput) entity).collect(Collectors.toList()),
+	public List<X_AD_OrgType> AD_OrgTypeSaveMany(List<I_AD_OrgTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_OrgTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_OrgType) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_OrgTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_OrgTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

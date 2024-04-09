@@ -21,16 +21,16 @@ public class X_M_ProductionMutation extends POMutation implements GraphQLMutatio
 		return X_M_ProductionInput.Table_Name;
 	}
 
-	public MProduction M_ProductionSave(I_M_ProductionInput entity, DataFetchingEnvironment environment) {
-		return (MProduction) super.save((X_M_ProductionInput) entity, environment);
+	public MProduction M_ProductionSave(I_M_ProductionInput Entity, DataFetchingEnvironment environment) {
+		return (MProduction) super.save((X_M_ProductionInput) Entity, environment);
 	}
 
-	public List<MProduction> M_ProductionSaveMany(List<I_M_ProductionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_ProductionInput) entity).collect(Collectors.toList()),
+	public List<MProduction> M_ProductionSaveMany(List<I_M_ProductionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ProductionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProduction) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_ProductionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_ProductionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

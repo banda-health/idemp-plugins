@@ -21,16 +21,16 @@ public class X_C_PayScheduleMutation extends POMutation implements GraphQLMutati
 		return X_C_PayScheduleInput.Table_Name;
 	}
 
-	public MPaySchedule C_PayScheduleSave(I_C_PayScheduleInput entity, DataFetchingEnvironment environment) {
-		return (MPaySchedule) super.save((X_C_PayScheduleInput) entity, environment);
+	public MPaySchedule C_PayScheduleSave(I_C_PayScheduleInput Entity, DataFetchingEnvironment environment) {
+		return (MPaySchedule) super.save((X_C_PayScheduleInput) Entity, environment);
 	}
 
-	public List<MPaySchedule> C_PayScheduleSaveMany(List<I_C_PayScheduleInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_PayScheduleInput) entity).collect(Collectors.toList()),
+	public List<MPaySchedule> C_PayScheduleSaveMany(List<I_C_PayScheduleInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_PayScheduleInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPaySchedule) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_PayScheduleDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_PayScheduleDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

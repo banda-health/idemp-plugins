@@ -21,16 +21,16 @@ public class X_AD_ReportView_ColumnMutation extends POMutation implements GraphQ
 		return X_AD_ReportView_ColumnInput.Table_Name;
 	}
 
-	public X_AD_ReportView_Column AD_ReportView_ColumnSave(I_AD_ReportView_ColumnInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_ReportView_Column) super.save((X_AD_ReportView_ColumnInput) entity, environment);
+	public X_AD_ReportView_Column AD_ReportView_ColumnSave(I_AD_ReportView_ColumnInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_ReportView_Column) super.save((X_AD_ReportView_ColumnInput) Entity, environment);
 	}
 
-	public List<X_AD_ReportView_Column> AD_ReportView_ColumnSaveMany(List<I_AD_ReportView_ColumnInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_ReportView_ColumnInput) entity).collect(Collectors.toList()),
+	public List<X_AD_ReportView_Column> AD_ReportView_ColumnSaveMany(List<I_AD_ReportView_ColumnInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_ReportView_ColumnInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_ReportView_Column) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_ReportView_ColumnDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_ReportView_ColumnDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

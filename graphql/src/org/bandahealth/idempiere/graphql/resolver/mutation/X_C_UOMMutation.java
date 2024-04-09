@@ -21,16 +21,16 @@ public class X_C_UOMMutation extends POMutation implements GraphQLMutationResolv
 		return X_C_UOMInput.Table_Name;
 	}
 
-	public MUOM C_UOMSave(I_C_UOMInput entity, DataFetchingEnvironment environment) {
-		return (MUOM) super.save((X_C_UOMInput) entity, environment);
+	public MUOM C_UOMSave(I_C_UOMInput Entity, DataFetchingEnvironment environment) {
+		return (MUOM) super.save((X_C_UOMInput) Entity, environment);
 	}
 
-	public List<MUOM> C_UOMSaveMany(List<I_C_UOMInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_UOMInput) entity).collect(Collectors.toList()),
+	public List<MUOM> C_UOMSaveMany(List<I_C_UOMInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_UOMInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MUOM) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_UOMDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_UOMDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

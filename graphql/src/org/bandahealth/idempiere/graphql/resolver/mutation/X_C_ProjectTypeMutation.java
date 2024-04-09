@@ -21,16 +21,16 @@ public class X_C_ProjectTypeMutation extends POMutation implements GraphQLMutati
 		return X_C_ProjectTypeInput.Table_Name;
 	}
 
-	public MProjectType C_ProjectTypeSave(I_C_ProjectTypeInput entity, DataFetchingEnvironment environment) {
-		return (MProjectType) super.save((X_C_ProjectTypeInput) entity, environment);
+	public MProjectType C_ProjectTypeSave(I_C_ProjectTypeInput Entity, DataFetchingEnvironment environment) {
+		return (MProjectType) super.save((X_C_ProjectTypeInput) Entity, environment);
 	}
 
-	public List<MProjectType> C_ProjectTypeSaveMany(List<I_C_ProjectTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_ProjectTypeInput) entity).collect(Collectors.toList()),
+	public List<MProjectType> C_ProjectTypeSaveMany(List<I_C_ProjectTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_ProjectTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MProjectType) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_ProjectTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_ProjectTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

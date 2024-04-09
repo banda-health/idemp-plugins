@@ -31,12 +31,12 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_ShipperLabels_UU to fetch this entity from the DB
+	 * @param UU The M_ShipperLabels_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_ShipperLabelsInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_ShipperLabelsInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(LabelPrintMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(LabelPrintMethod.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setLabelPrintMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + LabelPrintMethod.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + LabelPrintMethod.getUU());
 			}
 		} else {
 			this.setLabelPrintMethod(null);
@@ -126,11 +126,11 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			MShipper foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Shipper", "M_Shipper_UU=?", get_TrxName())
-							.setParameters(M_Shipper.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Shipper.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Shipper_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Shipper with UUID " + M_Shipper.getUUID());
+						"Could not find entity in table M_Shipper with UU " + M_Shipper.getUU());
 			}
 		} else {
 			this.setM_Shipper_ID(0);
@@ -159,20 +159,20 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_ShipperLabels_UU(UUID);
+	public void setUU(String UU) {
+		setM_ShipperLabels_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_ShipperLabels_UU();
 	}
 
@@ -189,11 +189,11 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 			X_M_ShipperLabelsCfg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_ShipperLabelsCfg", "M_ShipperLabelsCfg_UU=?", get_TrxName())
-							.setParameters(M_ShipperLabelsCfg.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_ShipperLabelsCfg.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_ShipperLabelsCfg_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_ShipperLabelsCfg with UUID " + M_ShipperLabelsCfg.getUUID());
+						"Could not find entity in table M_ShipperLabelsCfg with UU " + M_ShipperLabelsCfg.getUU());
 			}
 		} else {
 			this.setM_ShipperLabelsCfg_ID(0);

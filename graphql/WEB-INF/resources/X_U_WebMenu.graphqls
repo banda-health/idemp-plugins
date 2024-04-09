@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	U_WebMenuGet(page: Int, size: Int, sort: String, filter: String): U_WebMenuConnection!
+	U_WebMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_WebMenuConnection!
 }
 
 extend type Mutation {
-	U_WebMenuSave(entity: U_WebMenuInput!): U_WebMenu!
-	U_WebMenuSaveMany(entities: [U_WebMenuInput!]!): [U_WebMenu!]!
-	U_WebMenuDelete(uuids: [String!]!): Boolean!
+	U_WebMenuSave(Entity: U_WebMenuInput!): U_WebMenu!
+	U_WebMenuSaveMany(Entities: [U_WebMenuInput!]!): [U_WebMenu!]!
+	U_WebMenuDelete(UUs: [String!]!): Boolean!
 }
 
 type U_WebMenuConnection {
-	results: [U_WebMenu!]!
-	pagingInfo: PagingInfo!
+	Results: [U_WebMenu!]!
+	PagingInfo: PagingInfo!
 }
 
 type U_WebMenu {
@@ -41,8 +41,7 @@ type U_WebMenu {
 	ParentMenu: U_WebMenu
 	Position: String
 	Sequence: BigDecimal
-	UUID: ID!
-	U_WebMenu_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -68,6 +67,5 @@ input U_WebMenuInput {
 	ParentMenu: ForeignEntityInput
 	Position: String
 	Sequence: BigDecimal
-	UUID: ID
-	U_WebMenu_UU: String
+	UU: ID
 }

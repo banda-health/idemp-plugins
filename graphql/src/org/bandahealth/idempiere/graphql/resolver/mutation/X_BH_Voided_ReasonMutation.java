@@ -21,16 +21,16 @@ public class X_BH_Voided_ReasonMutation extends POMutation implements GraphQLMut
 		return X_BH_Voided_ReasonInput.Table_Name;
 	}
 
-	public MBHVoidedReason BH_Voided_ReasonSave(I_BH_Voided_ReasonInput entity, DataFetchingEnvironment environment) {
-		return (MBHVoidedReason) super.save((X_BH_Voided_ReasonInput) entity, environment);
+	public MBHVoidedReason BH_Voided_ReasonSave(I_BH_Voided_ReasonInput Entity, DataFetchingEnvironment environment) {
+		return (MBHVoidedReason) super.save((X_BH_Voided_ReasonInput) Entity, environment);
 	}
 
-	public List<MBHVoidedReason> BH_Voided_ReasonSaveMany(List<I_BH_Voided_ReasonInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_Voided_ReasonInput) entity).collect(Collectors.toList()),
+	public List<MBHVoidedReason> BH_Voided_ReasonSaveMany(List<I_BH_Voided_ReasonInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_Voided_ReasonInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHVoidedReason) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_Voided_ReasonDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_Voided_ReasonDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

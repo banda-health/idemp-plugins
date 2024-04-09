@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_IssueKnownGet(page: Int, size: Int, sort: String, filter: String): R_IssueKnownConnection!
+	R_IssueKnownGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueKnownConnection!
 }
 
 extend type Mutation {
-	R_IssueKnownSave(entity: R_IssueKnownInput!): R_IssueKnown!
-	R_IssueKnownSaveMany(entities: [R_IssueKnownInput!]!): [R_IssueKnown!]!
-	R_IssueKnownDelete(uuids: [String!]!): Boolean!
+	R_IssueKnownSave(Entity: R_IssueKnownInput!): R_IssueKnown!
+	R_IssueKnownSaveMany(Entities: [R_IssueKnownInput!]!): [R_IssueKnown!]!
+	R_IssueKnownDelete(UUs: [String!]!): Boolean!
 }
 
 type R_IssueKnownConnection {
-	results: [R_IssueKnown!]!
-	pagingInfo: PagingInfo!
+	Results: [R_IssueKnown!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_IssueKnown {
@@ -38,8 +38,7 @@ type R_IssueKnown {
 	# Logger Name
 	LoggerName: String
 	Processing: Boolean!
-	UUID: ID!
-	R_IssueKnown_UU: String
+	UU: ID!
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: R_IssueRecommendation
 	# Status of an Issue
@@ -74,8 +73,7 @@ input R_IssueKnownInput {
 	# Logger Name
 	LoggerName: String
 	Processing: Boolean
-	UUID: ID
-	R_IssueKnown_UU: String
+	UU: ID
 	# Recommendations how to fix an Issue
 	R_IssueRecommendation: ForeignEntityInput
 	# Status of an Issue

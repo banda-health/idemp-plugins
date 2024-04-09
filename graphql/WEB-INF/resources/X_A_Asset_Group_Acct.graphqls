@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_Group_AcctGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Group_AcctConnection!
+	A_Asset_Group_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Group_AcctConnection!
 }
 
 extend type Mutation {
-	A_Asset_Group_AcctSave(entity: A_Asset_Group_AcctInput!): A_Asset_Group_Acct!
-	A_Asset_Group_AcctSaveMany(entities: [A_Asset_Group_AcctInput!]!): [A_Asset_Group_Acct!]!
-	A_Asset_Group_AcctDelete(uuids: [String!]!): Boolean!
+	A_Asset_Group_AcctSave(Entity: A_Asset_Group_AcctInput!): A_Asset_Group_Acct!
+	A_Asset_Group_AcctSaveMany(Entities: [A_Asset_Group_AcctInput!]!): [A_Asset_Group_Acct!]!
+	A_Asset_Group_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_Group_AcctConnection {
-	results: [A_Asset_Group_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Group_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Group_Acct {
 	A_Accumdepreciation_A: C_ValidCombination!
 	A_Asset_A: C_ValidCombination!
-	UUID: ID!
-	A_Asset_Group_Acct_UU: String
+	UU: ID!
 	# Group of Assets
 	A_Asset_Group: A_Asset_Group!
 	A_Depreciation_A: C_ValidCombination!
@@ -75,8 +74,7 @@ type A_Asset_Group_Acct {
 input A_Asset_Group_AcctInput {
 	A_Accumdepreciation_A: ForeignEntityInput
 	A_Asset_A: ForeignEntityInput
-	UUID: ID
-	A_Asset_Group_Acct_UU: String
+	UU: ID
 	# Group of Assets
 	A_Asset_Group: ForeignEntityInput
 	A_Depreciation_A: ForeignEntityInput

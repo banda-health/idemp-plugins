@@ -17,8 +17,8 @@ public class X_GL_JournalLineQuery extends POQuery<MJournalLine> implements Grap
 		return MJournalLine.Table_Name;
 	}
 
-	public Connection<MJournalLine> GL_JournalLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MJournalLine> GL_JournalLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

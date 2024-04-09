@@ -21,16 +21,16 @@ public class X_A_Depreciation_ForecastMutation extends POMutation implements Gra
 		return X_A_Depreciation_ForecastInput.Table_Name;
 	}
 
-	public X_A_Depreciation_Forecast A_Depreciation_ForecastSave(I_A_Depreciation_ForecastInput entity, DataFetchingEnvironment environment) {
-		return (X_A_Depreciation_Forecast) super.save((X_A_Depreciation_ForecastInput) entity, environment);
+	public X_A_Depreciation_Forecast A_Depreciation_ForecastSave(I_A_Depreciation_ForecastInput Entity, DataFetchingEnvironment environment) {
+		return (X_A_Depreciation_Forecast) super.save((X_A_Depreciation_ForecastInput) Entity, environment);
 	}
 
-	public List<X_A_Depreciation_Forecast> A_Depreciation_ForecastSaveMany(List<I_A_Depreciation_ForecastInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Depreciation_ForecastInput) entity).collect(Collectors.toList()),
+	public List<X_A_Depreciation_Forecast> A_Depreciation_ForecastSaveMany(List<I_A_Depreciation_ForecastInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Depreciation_ForecastInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_A_Depreciation_Forecast) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Depreciation_ForecastDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Depreciation_ForecastDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

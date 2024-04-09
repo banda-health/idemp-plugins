@@ -17,8 +17,8 @@ public class X_C_CashQuery extends POQuery<MCash> implements GraphQLQueryResolve
 		return MCash.Table_Name;
 	}
 
-	public Connection<MCash> C_CashGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCash> C_CashGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

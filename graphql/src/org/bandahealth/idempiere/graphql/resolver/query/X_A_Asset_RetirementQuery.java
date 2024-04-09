@@ -17,8 +17,8 @@ public class X_A_Asset_RetirementQuery extends POQuery<X_A_Asset_Retirement> imp
 		return X_A_Asset_Retirement.Table_Name;
 	}
 
-	public Connection<X_A_Asset_Retirement> A_Asset_RetirementGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_A_Asset_Retirement> A_Asset_RetirementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

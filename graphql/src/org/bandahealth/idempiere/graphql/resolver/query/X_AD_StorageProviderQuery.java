@@ -17,8 +17,8 @@ public class X_AD_StorageProviderQuery extends POQuery<MStorageProvider> impleme
 		return MStorageProvider.Table_Name;
 	}
 
-	public Connection<MStorageProvider> AD_StorageProviderGet(int page, int pageSize, String sort, String filter,
+	public Connection<MStorageProvider> AD_StorageProviderGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

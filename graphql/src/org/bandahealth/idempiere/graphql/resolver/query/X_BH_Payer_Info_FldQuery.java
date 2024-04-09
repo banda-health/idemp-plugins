@@ -17,8 +17,8 @@ public class X_BH_Payer_Info_FldQuery extends POQuery<MBHPayerInfoFld> implement
 		return MBHPayerInfoFld.Table_Name;
 	}
 
-	public Connection<MBHPayerInfoFld> BH_Payer_Info_FldGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHPayerInfoFld> BH_Payer_Info_FldGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

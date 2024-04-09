@@ -17,8 +17,8 @@ public class X_PA_DashboardContentQuery extends POQuery<MDashboardContent> imple
 		return MDashboardContent.Table_Name;
 	}
 
-	public Connection<MDashboardContent> PA_DashboardContentGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDashboardContent> PA_DashboardContentGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

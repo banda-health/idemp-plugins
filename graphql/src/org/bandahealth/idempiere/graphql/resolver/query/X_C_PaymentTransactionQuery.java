@@ -17,8 +17,8 @@ public class X_C_PaymentTransactionQuery extends POQuery<MPaymentTransaction> im
 		return MPaymentTransaction.Table_Name;
 	}
 
-	public Connection<MPaymentTransaction> C_PaymentTransactionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPaymentTransaction> C_PaymentTransactionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

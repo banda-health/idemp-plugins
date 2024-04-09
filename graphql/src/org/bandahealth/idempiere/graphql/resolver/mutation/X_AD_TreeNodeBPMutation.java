@@ -21,16 +21,16 @@ public class X_AD_TreeNodeBPMutation extends POMutation implements GraphQLMutati
 		return X_AD_TreeNodeBPInput.Table_Name;
 	}
 
-	public MTree_NodeBP AD_TreeNodeBPSave(I_AD_TreeNodeBPInput entity, DataFetchingEnvironment environment) {
-		return (MTree_NodeBP) super.save((X_AD_TreeNodeBPInput) entity, environment);
+	public MTree_NodeBP AD_TreeNodeBPSave(I_AD_TreeNodeBPInput Entity, DataFetchingEnvironment environment) {
+		return (MTree_NodeBP) super.save((X_AD_TreeNodeBPInput) Entity, environment);
 	}
 
-	public List<MTree_NodeBP> AD_TreeNodeBPSaveMany(List<I_AD_TreeNodeBPInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_TreeNodeBPInput) entity).collect(Collectors.toList()),
+	public List<MTree_NodeBP> AD_TreeNodeBPSaveMany(List<I_AD_TreeNodeBPInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_TreeNodeBPInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTree_NodeBP) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_TreeNodeBPDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_TreeNodeBPDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

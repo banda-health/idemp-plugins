@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	ASP_ClientExceptionGet(page: Int, size: Int, sort: String, filter: String): ASP_ClientExceptionConnection!
+	ASP_ClientExceptionGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ClientExceptionConnection!
 }
 
 extend type Mutation {
-	ASP_ClientExceptionSave(entity: ASP_ClientExceptionInput!): ASP_ClientException!
-	ASP_ClientExceptionSaveMany(entities: [ASP_ClientExceptionInput!]!): [ASP_ClientException!]!
-	ASP_ClientExceptionDelete(uuids: [String!]!): Boolean!
+	ASP_ClientExceptionSave(Entity: ASP_ClientExceptionInput!): ASP_ClientException!
+	ASP_ClientExceptionSaveMany(Entities: [ASP_ClientExceptionInput!]!): [ASP_ClientException!]!
+	ASP_ClientExceptionDelete(UUs: [String!]!): Boolean!
 }
 
 type ASP_ClientExceptionConnection {
-	results: [ASP_ClientException!]!
-	pagingInfo: PagingInfo!
+	Results: [ASP_ClientException!]!
+	PagingInfo: PagingInfo!
 }
 
 type ASP_ClientException {
@@ -38,8 +38,7 @@ type ASP_ClientException {
 	AD_Window: AD_Window
 	# Workflow or combination of tasks
 	AD_Workflow: AD_Workflow
-	UUID: ID!
-	ASP_ClientException_UU: String
+	UU: ID!
 	ASP_Status: AD_Ref_List!
 	# Date this record was created
 	Created: Date!
@@ -73,8 +72,7 @@ input ASP_ClientExceptionInput {
 	AD_Window: ForeignEntityInput
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
-	UUID: ID
-	ASP_ClientException_UU: String
+	UU: ID
 	ASP_Status: AD_Ref_ListInput
 	# The record is active in the system
 	IsActive: Boolean

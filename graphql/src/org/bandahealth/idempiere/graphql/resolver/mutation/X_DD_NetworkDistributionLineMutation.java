@@ -21,16 +21,16 @@ public class X_DD_NetworkDistributionLineMutation extends POMutation implements 
 		return X_DD_NetworkDistributionLineInput.Table_Name;
 	}
 
-	public X_DD_NetworkDistributionLine DD_NetworkDistributionLineSave(I_DD_NetworkDistributionLineInput entity, DataFetchingEnvironment environment) {
-		return (X_DD_NetworkDistributionLine) super.save((X_DD_NetworkDistributionLineInput) entity, environment);
+	public X_DD_NetworkDistributionLine DD_NetworkDistributionLineSave(I_DD_NetworkDistributionLineInput Entity, DataFetchingEnvironment environment) {
+		return (X_DD_NetworkDistributionLine) super.save((X_DD_NetworkDistributionLineInput) Entity, environment);
 	}
 
-	public List<X_DD_NetworkDistributionLine> DD_NetworkDistributionLineSaveMany(List<I_DD_NetworkDistributionLineInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_DD_NetworkDistributionLineInput) entity).collect(Collectors.toList()),
+	public List<X_DD_NetworkDistributionLine> DD_NetworkDistributionLineSaveMany(List<I_DD_NetworkDistributionLineInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_DD_NetworkDistributionLineInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_DD_NetworkDistributionLine) entity).collect(Collectors.toList());
 	}
 
-	public boolean DD_NetworkDistributionLineDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean DD_NetworkDistributionLineDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

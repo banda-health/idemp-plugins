@@ -17,8 +17,8 @@ public class X_BH_Voided_ReasonQuery extends POQuery<MBHVoidedReason> implements
 		return MBHVoidedReason.Table_Name;
 	}
 
-	public Connection<MBHVoidedReason> BH_Voided_ReasonGet(int page, int pageSize, String sort, String filter,
+	public Connection<MBHVoidedReason> BH_Voided_ReasonGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_I_ProductMutation extends POMutation implements GraphQLMutationRe
 		return X_I_ProductInput.Table_Name;
 	}
 
-	public X_I_Product I_ProductSave(I_I_ProductInput entity, DataFetchingEnvironment environment) {
-		return (X_I_Product) super.save((X_I_ProductInput) entity, environment);
+	public X_I_Product I_ProductSave(I_I_ProductInput Entity, DataFetchingEnvironment environment) {
+		return (X_I_Product) super.save((X_I_ProductInput) Entity, environment);
 	}
 
-	public List<X_I_Product> I_ProductSaveMany(List<I_I_ProductInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_I_ProductInput) entity).collect(Collectors.toList()),
+	public List<X_I_Product> I_ProductSaveMany(List<I_I_ProductInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_I_ProductInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_I_Product) entity).collect(Collectors.toList());
 	}
 
-	public boolean I_ProductDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean I_ProductDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

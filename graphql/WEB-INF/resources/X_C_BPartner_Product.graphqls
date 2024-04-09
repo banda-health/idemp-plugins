@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BPartner_ProductGet(page: Int, size: Int, sort: String, filter: String): C_BPartner_ProductConnection!
+	C_BPartner_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BPartner_ProductConnection!
 }
 
 extend type Mutation {
-	C_BPartner_ProductSave(entity: C_BPartner_ProductInput!): C_BPartner_Product!
-	C_BPartner_ProductSaveMany(entities: [C_BPartner_ProductInput!]!): [C_BPartner_Product!]!
-	C_BPartner_ProductDelete(uuids: [String!]!): Boolean!
+	C_BPartner_ProductSave(Entity: C_BPartner_ProductInput!): C_BPartner_Product!
+	C_BPartner_ProductSaveMany(Entities: [C_BPartner_ProductInput!]!): [C_BPartner_Product!]!
+	C_BPartner_ProductDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BPartner_ProductConnection {
-	results: [C_BPartner_Product!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BPartner_Product!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BPartner_Product {
@@ -23,8 +23,7 @@ type C_BPartner_Product {
 	AD_Org: AD_Org!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
-	UUID: ID!
-	C_BPartner_Product_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -60,8 +59,7 @@ input C_BPartner_ProductInput {
 	AD_Org: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	UUID: ID
-	C_BPartner_Product_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

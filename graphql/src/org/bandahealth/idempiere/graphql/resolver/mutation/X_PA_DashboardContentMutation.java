@@ -21,16 +21,16 @@ public class X_PA_DashboardContentMutation extends POMutation implements GraphQL
 		return X_PA_DashboardContentInput.Table_Name;
 	}
 
-	public MDashboardContent PA_DashboardContentSave(I_PA_DashboardContentInput entity, DataFetchingEnvironment environment) {
-		return (MDashboardContent) super.save((X_PA_DashboardContentInput) entity, environment);
+	public MDashboardContent PA_DashboardContentSave(I_PA_DashboardContentInput Entity, DataFetchingEnvironment environment) {
+		return (MDashboardContent) super.save((X_PA_DashboardContentInput) Entity, environment);
 	}
 
-	public List<MDashboardContent> PA_DashboardContentSaveMany(List<I_PA_DashboardContentInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_DashboardContentInput) entity).collect(Collectors.toList()),
+	public List<MDashboardContent> PA_DashboardContentSaveMany(List<I_PA_DashboardContentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_DashboardContentInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDashboardContent) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_DashboardContentDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_DashboardContentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

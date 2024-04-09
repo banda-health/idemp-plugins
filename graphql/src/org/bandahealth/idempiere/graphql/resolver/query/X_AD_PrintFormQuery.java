@@ -17,8 +17,8 @@ public class X_AD_PrintFormQuery extends POQuery<X_AD_PrintForm> implements Grap
 		return X_AD_PrintForm.Table_Name;
 	}
 
-	public Connection<X_AD_PrintForm> AD_PrintFormGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_PrintForm> AD_PrintFormGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

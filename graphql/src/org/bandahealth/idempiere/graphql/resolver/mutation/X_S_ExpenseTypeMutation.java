@@ -21,16 +21,16 @@ public class X_S_ExpenseTypeMutation extends POMutation implements GraphQLMutati
 		return X_S_ExpenseTypeInput.Table_Name;
 	}
 
-	public MExpenseType S_ExpenseTypeSave(I_S_ExpenseTypeInput entity, DataFetchingEnvironment environment) {
-		return (MExpenseType) super.save((X_S_ExpenseTypeInput) entity, environment);
+	public MExpenseType S_ExpenseTypeSave(I_S_ExpenseTypeInput Entity, DataFetchingEnvironment environment) {
+		return (MExpenseType) super.save((X_S_ExpenseTypeInput) Entity, environment);
 	}
 
-	public List<MExpenseType> S_ExpenseTypeSaveMany(List<I_S_ExpenseTypeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_S_ExpenseTypeInput) entity).collect(Collectors.toList()),
+	public List<MExpenseType> S_ExpenseTypeSaveMany(List<I_S_ExpenseTypeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_ExpenseTypeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MExpenseType) entity).collect(Collectors.toList());
 	}
 
-	public boolean S_ExpenseTypeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean S_ExpenseTypeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

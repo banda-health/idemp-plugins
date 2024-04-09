@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_RevalGet(page: Int, size: Int, sort: String, filter: String): A_Asset_RevalConnection!
+	A_Asset_RevalGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_RevalConnection!
 }
 
 extend type Mutation {
-	A_Asset_RevalSave(entity: A_Asset_RevalInput!): A_Asset_Reval!
-	A_Asset_RevalSaveMany(entities: [A_Asset_RevalInput!]!): [A_Asset_Reval!]!
-	A_Asset_RevalDelete(uuids: [String!]!): Boolean!
+	A_Asset_RevalSave(Entity: A_Asset_RevalInput!): A_Asset_Reval!
+	A_Asset_RevalSaveMany(Entities: [A_Asset_RevalInput!]!): [A_Asset_Reval!]!
+	A_Asset_RevalDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_RevalConnection {
-	results: [A_Asset_Reval!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Reval!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Reval {
@@ -22,8 +22,7 @@ type A_Asset_Reval {
 	A_Asset_Cost_Change: BigDecimal!
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	UUID: ID!
-	A_Asset_Reval_UU: String
+	UU: ID!
 	A_Change_Acumulated_Depr: BigDecimal!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
@@ -66,8 +65,7 @@ input A_Asset_RevalInput {
 	A_Asset_Cost_Change: BigDecimal
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	UUID: ID
-	A_Asset_Reval_UU: String
+	UU: ID
 	A_Change_Acumulated_Depr: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

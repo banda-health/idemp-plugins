@@ -21,16 +21,16 @@ public class X_M_MatchInvMutation extends POMutation implements GraphQLMutationR
 		return X_M_MatchInvInput.Table_Name;
 	}
 
-	public MMatchInv M_MatchInvSave(I_M_MatchInvInput entity, DataFetchingEnvironment environment) {
-		return (MMatchInv) super.save((X_M_MatchInvInput) entity, environment);
+	public MMatchInv M_MatchInvSave(I_M_MatchInvInput Entity, DataFetchingEnvironment environment) {
+		return (MMatchInv) super.save((X_M_MatchInvInput) Entity, environment);
 	}
 
-	public List<MMatchInv> M_MatchInvSaveMany(List<I_M_MatchInvInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_MatchInvInput) entity).collect(Collectors.toList()),
+	public List<MMatchInv> M_MatchInvSaveMany(List<I_M_MatchInvInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_MatchInvInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MMatchInv) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_MatchInvDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_MatchInvDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

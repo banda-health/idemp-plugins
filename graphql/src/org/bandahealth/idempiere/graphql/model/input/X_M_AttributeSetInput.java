@@ -32,12 +32,12 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_AttributeSet_UU to fetch this entity from the DB
+	 * @param UU The M_AttributeSet_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_AttributeSetInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_AttributeSetInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -101,11 +101,11 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(M_AttributeSet_Type.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_AttributeSet_Type.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_AttributeSet_Type(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + M_AttributeSet_Type.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + M_AttributeSet_Type.getUU());
 			}
 		} else {
 			this.setM_AttributeSet_Type(null);
@@ -123,20 +123,20 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_AttributeSet_UU(UUID);
+	public void setUU(String UU) {
+		setM_AttributeSet_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_AttributeSet_UU();
 	}
 
@@ -153,11 +153,11 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MLotCtl foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_LotCtl", "M_LotCtl_UU=?", get_TrxName())
-							.setParameters(M_LotCtl.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_LotCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_LotCtl_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_LotCtl with UUID " + M_LotCtl.getUUID());
+						"Could not find entity in table M_LotCtl with UU " + M_LotCtl.getUU());
 			}
 		} else {
 			this.setM_LotCtl_ID(0);
@@ -187,11 +187,11 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MSerNoCtl_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_SerNoCtl", "M_SerNoCtl_UU=?", get_TrxName())
-							.setParameters(M_SerNoCtl.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_SerNoCtl.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_SerNoCtl_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_SerNoCtl with UUID " + M_SerNoCtl.getUUID());
+						"Could not find entity in table M_SerNoCtl with UU " + M_SerNoCtl.getUU());
 			}
 		} else {
 			this.setM_SerNoCtl_ID(0);
@@ -221,11 +221,11 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(MandatoryType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(MandatoryType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setMandatoryType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + MandatoryType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + MandatoryType.getUU());
 			}
 		} else {
 			this.setMandatoryType(null);

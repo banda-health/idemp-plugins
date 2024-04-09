@@ -21,16 +21,16 @@ public class X_C_RevenueRecognition_PlanMutation extends POMutation implements G
 		return X_C_RevenueRecognition_PlanInput.Table_Name;
 	}
 
-	public MRevenueRecognitionPlan C_RevenueRecognition_PlanSave(I_C_RevenueRecognition_PlanInput entity, DataFetchingEnvironment environment) {
-		return (MRevenueRecognitionPlan) super.save((X_C_RevenueRecognition_PlanInput) entity, environment);
+	public MRevenueRecognitionPlan C_RevenueRecognition_PlanSave(I_C_RevenueRecognition_PlanInput Entity, DataFetchingEnvironment environment) {
+		return (MRevenueRecognitionPlan) super.save((X_C_RevenueRecognition_PlanInput) Entity, environment);
 	}
 
-	public List<MRevenueRecognitionPlan> C_RevenueRecognition_PlanSaveMany(List<I_C_RevenueRecognition_PlanInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_RevenueRecognition_PlanInput) entity).collect(Collectors.toList()),
+	public List<MRevenueRecognitionPlan> C_RevenueRecognition_PlanSaveMany(List<I_C_RevenueRecognition_PlanInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_RevenueRecognition_PlanInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MRevenueRecognitionPlan) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_RevenueRecognition_PlanDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_RevenueRecognition_PlanDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

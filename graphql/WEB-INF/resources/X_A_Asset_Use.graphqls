@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_UseGet(page: Int, size: Int, sort: String, filter: String): A_Asset_UseConnection!
+	A_Asset_UseGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_UseConnection!
 }
 
 extend type Mutation {
-	A_Asset_UseSave(entity: A_Asset_UseInput!): A_Asset_Use!
-	A_Asset_UseSaveMany(entities: [A_Asset_UseInput!]!): [A_Asset_Use!]!
-	A_Asset_UseDelete(uuids: [String!]!): Boolean!
+	A_Asset_UseSave(Entity: A_Asset_UseInput!): A_Asset_Use!
+	A_Asset_UseSaveMany(Entities: [A_Asset_UseInput!]!): [A_Asset_Use!]!
+	A_Asset_UseDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_UseConnection {
-	results: [A_Asset_Use!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Use!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Use {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	UUID: ID!
-	A_Asset_Use_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -45,8 +44,7 @@ type A_Asset_Use {
 input A_Asset_UseInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	UUID: ID
-	A_Asset_Use_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

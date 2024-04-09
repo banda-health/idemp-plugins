@@ -17,8 +17,8 @@ public class X_C_ChargeType_DocTypeQuery extends POQuery<X_C_ChargeType_DocType>
 		return X_C_ChargeType_DocType.Table_Name;
 	}
 
-	public Connection<X_C_ChargeType_DocType> C_ChargeType_DocTypeGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_C_ChargeType_DocType> C_ChargeType_DocTypeGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

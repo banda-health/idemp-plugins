@@ -17,8 +17,8 @@ public class X_T_ReconciliationQuery extends POQuery<X_T_Reconciliation> impleme
 		return X_T_Reconciliation.Table_Name;
 	}
 
-	public Connection<X_T_Reconciliation> T_ReconciliationGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_T_Reconciliation> T_ReconciliationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

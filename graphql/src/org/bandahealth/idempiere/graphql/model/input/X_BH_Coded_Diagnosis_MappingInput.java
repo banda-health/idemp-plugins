@@ -27,12 +27,12 @@ public class X_BH_Coded_Diagnosis_MappingInput extends MBHCodedDiagnosisMapping 
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The BH_Coded_Diagnosis_Mapping_UU to fetch this entity from the DB
+	 * @param UU The BH_Coded_Diagnosis_Mapping_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_BH_Coded_Diagnosis_MappingInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_BH_Coded_Diagnosis_MappingInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_BH_Coded_Diagnosis_MappingInput extends MBHCodedDiagnosisMapping 
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,11 +88,11 @@ public class X_BH_Coded_Diagnosis_MappingInput extends MBHCodedDiagnosisMapping 
 			MBHCodedDiagnosis foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "BH_Coded_Diagnosis", "BH_Coded_Diagnosis_UU=?", get_TrxName())
-							.setParameters(BH_Coded_Diagnosis.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BH_Coded_Diagnosis.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBH_Coded_Diagnosis_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table BH_Coded_Diagnosis with UUID " + BH_Coded_Diagnosis.getUUID());
+						"Could not find entity in table BH_Coded_Diagnosis with UU " + BH_Coded_Diagnosis.getUU());
 			}
 		} else {
 			this.setBH_Coded_Diagnosis_ID(0);
@@ -121,20 +121,20 @@ public class X_BH_Coded_Diagnosis_MappingInput extends MBHCodedDiagnosisMapping 
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setBH_Coded_Diagnosis_Mapping_UU(UUID);
+	public void setUU(String UU) {
+		setBH_Coded_Diagnosis_Mapping_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getBH_Coded_Diagnosis_Mapping_UU();
 	}
 }

@@ -21,16 +21,16 @@ public class X_B_TopicMutation extends POMutation implements GraphQLMutationReso
 		return X_B_TopicInput.Table_Name;
 	}
 
-	public X_B_Topic B_TopicSave(I_B_TopicInput entity, DataFetchingEnvironment environment) {
-		return (X_B_Topic) super.save((X_B_TopicInput) entity, environment);
+	public X_B_Topic B_TopicSave(I_B_TopicInput Entity, DataFetchingEnvironment environment) {
+		return (X_B_Topic) super.save((X_B_TopicInput) Entity, environment);
 	}
 
-	public List<X_B_Topic> B_TopicSaveMany(List<I_B_TopicInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_B_TopicInput) entity).collect(Collectors.toList()),
+	public List<X_B_Topic> B_TopicSaveMany(List<I_B_TopicInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_B_TopicInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_B_Topic) entity).collect(Collectors.toList());
 	}
 
-	public boolean B_TopicDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean B_TopicDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

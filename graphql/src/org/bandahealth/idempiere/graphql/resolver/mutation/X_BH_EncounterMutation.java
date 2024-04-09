@@ -21,16 +21,16 @@ public class X_BH_EncounterMutation extends POMutation implements GraphQLMutatio
 		return X_BH_EncounterInput.Table_Name;
 	}
 
-	public MBHEncounter BH_EncounterSave(I_BH_EncounterInput entity, DataFetchingEnvironment environment) {
-		return (MBHEncounter) super.save((X_BH_EncounterInput) entity, environment);
+	public MBHEncounter BH_EncounterSave(I_BH_EncounterInput Entity, DataFetchingEnvironment environment) {
+		return (MBHEncounter) super.save((X_BH_EncounterInput) Entity, environment);
 	}
 
-	public List<MBHEncounter> BH_EncounterSaveMany(List<I_BH_EncounterInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_EncounterInput) entity).collect(Collectors.toList()),
+	public List<MBHEncounter> BH_EncounterSaveMany(List<I_BH_EncounterInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_EncounterInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHEncounter) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_EncounterDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_EncounterDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

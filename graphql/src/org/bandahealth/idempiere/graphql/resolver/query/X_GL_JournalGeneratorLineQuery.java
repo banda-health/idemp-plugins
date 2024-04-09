@@ -17,8 +17,8 @@ public class X_GL_JournalGeneratorLineQuery extends POQuery<MJournalGeneratorLin
 		return MJournalGeneratorLine.Table_Name;
 	}
 
-	public Connection<MJournalGeneratorLine> GL_JournalGeneratorLineGet(int page, int pageSize, String sort, String filter,
+	public Connection<MJournalGeneratorLine> GL_JournalGeneratorLineGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_ProductGet(page: Int, size: Int, sort: String, filter: String): A_Asset_ProductConnection!
+	A_Asset_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_ProductConnection!
 }
 
 extend type Mutation {
-	A_Asset_ProductSave(entity: A_Asset_ProductInput!): A_Asset_Product!
-	A_Asset_ProductSaveMany(entities: [A_Asset_ProductInput!]!): [A_Asset_Product!]!
-	A_Asset_ProductDelete(uuids: [String!]!): Boolean!
+	A_Asset_ProductSave(Entity: A_Asset_ProductInput!): A_Asset_Product!
+	A_Asset_ProductSaveMany(Entities: [A_Asset_ProductInput!]!): [A_Asset_Product!]!
+	A_Asset_ProductDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_ProductConnection {
-	results: [A_Asset_Product!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Product!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Product {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
-	UUID: ID!
-	A_Asset_Product_UU: String
+	UU: ID!
 	A_QTY_Current: BigDecimal!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
@@ -49,8 +48,7 @@ type A_Asset_Product {
 input A_Asset_ProductInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	UUID: ID
-	A_Asset_Product_UU: String
+	UU: ID
 	A_QTY_Current: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

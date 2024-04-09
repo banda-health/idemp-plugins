@@ -21,16 +21,16 @@ public class X_AD_TableIndexMutation extends POMutation implements GraphQLMutati
 		return X_AD_TableIndexInput.Table_Name;
 	}
 
-	public MTableIndex AD_TableIndexSave(I_AD_TableIndexInput entity, DataFetchingEnvironment environment) {
-		return (MTableIndex) super.save((X_AD_TableIndexInput) entity, environment);
+	public MTableIndex AD_TableIndexSave(I_AD_TableIndexInput Entity, DataFetchingEnvironment environment) {
+		return (MTableIndex) super.save((X_AD_TableIndexInput) Entity, environment);
 	}
 
-	public List<MTableIndex> AD_TableIndexSaveMany(List<I_AD_TableIndexInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_TableIndexInput) entity).collect(Collectors.toList()),
+	public List<MTableIndex> AD_TableIndexSaveMany(List<I_AD_TableIndexInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_TableIndexInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTableIndex) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_TableIndexDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_TableIndexDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

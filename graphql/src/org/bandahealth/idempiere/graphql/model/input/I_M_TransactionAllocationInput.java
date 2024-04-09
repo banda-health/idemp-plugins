@@ -123,18 +123,18 @@ public interface I_M_TransactionAllocationInput extends I_M_TransactionAllocatio
 	ForeignEntityInput M_Transaction();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set Out_M_InOutLine.

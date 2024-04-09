@@ -21,16 +21,16 @@ public class X_AD_PrintGraphMutation extends POMutation implements GraphQLMutati
 		return X_AD_PrintGraphInput.Table_Name;
 	}
 
-	public X_AD_PrintGraph AD_PrintGraphSave(I_AD_PrintGraphInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_PrintGraph) super.save((X_AD_PrintGraphInput) entity, environment);
+	public X_AD_PrintGraph AD_PrintGraphSave(I_AD_PrintGraphInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintGraph) super.save((X_AD_PrintGraphInput) Entity, environment);
 	}
 
-	public List<X_AD_PrintGraph> AD_PrintGraphSaveMany(List<I_AD_PrintGraphInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintGraphInput) entity).collect(Collectors.toList()),
+	public List<X_AD_PrintGraph> AD_PrintGraphSaveMany(List<I_AD_PrintGraphInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PrintGraphInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_PrintGraph) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PrintGraphDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PrintGraphDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

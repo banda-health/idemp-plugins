@@ -21,16 +21,16 @@ public class X_BH_PaymentRef_BankAcctMutation extends POMutation implements Grap
 		return X_BH_PaymentRef_BankAcctInput.Table_Name;
 	}
 
-	public MBHPaymentRefBankAccount BH_PaymentRef_BankAcctSave(I_BH_PaymentRef_BankAcctInput entity, DataFetchingEnvironment environment) {
-		return (MBHPaymentRefBankAccount) super.save((X_BH_PaymentRef_BankAcctInput) entity, environment);
+	public MBHPaymentRefBankAccount BH_PaymentRef_BankAcctSave(I_BH_PaymentRef_BankAcctInput Entity, DataFetchingEnvironment environment) {
+		return (MBHPaymentRefBankAccount) super.save((X_BH_PaymentRef_BankAcctInput) Entity, environment);
 	}
 
-	public List<MBHPaymentRefBankAccount> BH_PaymentRef_BankAcctSaveMany(List<I_BH_PaymentRef_BankAcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_BH_PaymentRef_BankAcctInput) entity).collect(Collectors.toList()),
+	public List<MBHPaymentRefBankAccount> BH_PaymentRef_BankAcctSaveMany(List<I_BH_PaymentRef_BankAcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_BH_PaymentRef_BankAcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBHPaymentRefBankAccount) entity).collect(Collectors.toList());
 	}
 
-	public boolean BH_PaymentRef_BankAcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean BH_PaymentRef_BankAcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

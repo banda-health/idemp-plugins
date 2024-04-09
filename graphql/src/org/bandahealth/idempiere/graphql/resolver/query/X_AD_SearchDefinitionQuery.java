@@ -17,8 +17,8 @@ public class X_AD_SearchDefinitionQuery extends POQuery<MSearchDefinition> imple
 		return MSearchDefinition.Table_Name;
 	}
 
-	public Connection<MSearchDefinition> AD_SearchDefinitionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MSearchDefinition> AD_SearchDefinitionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

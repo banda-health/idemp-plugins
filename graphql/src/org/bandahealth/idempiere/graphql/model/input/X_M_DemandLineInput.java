@@ -31,12 +31,12 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The M_DemandLine_UU to fetch this entity from the DB
+	 * @param UU The M_DemandLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_M_DemandLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_M_DemandLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+						"Could not find entity in table C_Period with UU " + C_Period.getUU());
 			}
 		} else {
 			this.setC_Period_ID(0);
@@ -129,11 +129,11 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			X_M_Demand foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Demand", "M_Demand_UU=?", get_TrxName())
-							.setParameters(M_Demand.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Demand.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Demand_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Demand with UUID " + M_Demand.getUUID());
+						"Could not find entity in table M_Demand with UU " + M_Demand.getUU());
 			}
 		} else {
 			this.setM_Demand_ID(0);
@@ -162,20 +162,20 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setM_DemandLine_UU(UUID);
+	public void setUU(String UU) {
+		setM_DemandLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getM_DemandLine_UU();
 	}
 
@@ -195,11 +195,11 @@ public class X_M_DemandLineInput extends X_M_DemandLine implements I_M_DemandLin
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaskGet(page: Int, size: Int, sort: String, filter: String): C_TaskConnection!
+	C_TaskGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaskConnection!
 }
 
 extend type Mutation {
-	C_TaskSave(entity: C_TaskInput!): C_Task!
-	C_TaskSaveMany(entities: [C_TaskInput!]!): [C_Task!]!
-	C_TaskDelete(uuids: [String!]!): Boolean!
+	C_TaskSave(Entity: C_TaskInput!): C_Task!
+	C_TaskSaveMany(Entities: [C_TaskInput!]!): [C_Task!]!
+	C_TaskDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaskConnection {
-	results: [C_Task!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Task!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Task {
@@ -23,8 +23,7 @@ type C_Task {
 	AD_Org: AD_Org!
 	# Standard Phase of the Project Type
 	C_Phase: C_Phase!
-	UUID: ID!
-	C_Task_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -54,8 +53,7 @@ input C_TaskInput {
 	AD_Org: ForeignEntityInput
 	# Standard Phase of the Project Type
 	C_Phase: ForeignEntityInput
-	UUID: ID
-	C_Task_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

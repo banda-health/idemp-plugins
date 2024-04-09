@@ -17,8 +17,8 @@ public class X_R_RequestActionQuery extends POQuery<MRequestAction> implements G
 		return MRequestAction.Table_Name;
 	}
 
-	public Connection<MRequestAction> R_RequestActionGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRequestAction> R_RequestActionGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_MovementLineGet(page: Int, size: Int, sort: String, filter: String): M_MovementLineConnection!
+	M_MovementLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineConnection!
 }
 
 extend type Mutation {
-	M_MovementLineSave(entity: M_MovementLineInput!): M_MovementLine!
-	M_MovementLineSaveMany(entities: [M_MovementLineInput!]!): [M_MovementLine!]!
-	M_MovementLineDelete(uuids: [String!]!): Boolean!
+	M_MovementLineSave(Entity: M_MovementLineInput!): M_MovementLine!
+	M_MovementLineSaveMany(Entities: [M_MovementLineInput!]!): [M_MovementLine!]!
+	M_MovementLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_MovementLineConnection {
-	results: [M_MovementLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_MovementLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_MovementLine {
@@ -44,8 +44,7 @@ type M_MovementLine {
 	M_LocatorTo: M_Locator!
 	# Movement of Inventory
 	M_Movement: M_Movement!
-	UUID: ID!
-	M_MovementLine_UU: String
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Quantity of a product moved.
@@ -88,8 +87,7 @@ input M_MovementLineInput {
 	M_LocatorTo: ForeignEntityInput
 	# Movement of Inventory
 	M_Movement: ForeignEntityInput
-	UUID: ID
-	M_MovementLine_UU: String
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Quantity of a product moved.

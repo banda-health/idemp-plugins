@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	GL_BudgetGet(page: Int, size: Int, sort: String, filter: String): GL_BudgetConnection!
+	GL_BudgetGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_BudgetConnection!
 }
 
 extend type Mutation {
-	GL_BudgetSave(entity: GL_BudgetInput!): GL_Budget!
-	GL_BudgetSaveMany(entities: [GL_BudgetInput!]!): [GL_Budget!]!
-	GL_BudgetDelete(uuids: [String!]!): Boolean!
+	GL_BudgetSave(Entity: GL_BudgetInput!): GL_Budget!
+	GL_BudgetSaveMany(Entities: [GL_BudgetInput!]!): [GL_Budget!]!
+	GL_BudgetDelete(UUs: [String!]!): Boolean!
 }
 
 type GL_BudgetConnection {
-	results: [GL_Budget!]!
-	pagingInfo: PagingInfo!
+	Results: [GL_Budget!]!
+	PagingInfo: PagingInfo!
 }
 
 type GL_Budget {
@@ -29,8 +29,7 @@ type GL_Budget {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	UUID: ID!
-	GL_Budget_UU: String
+	UU: ID!
 	# The record is active in the system
 	IsActive: Boolean!
 	# Indicates if this is the primary budget
@@ -50,8 +49,7 @@ input GL_BudgetInput {
 	BudgetStatus: AD_Ref_ListInput
 	# Optional short description of the record
 	Description: String
-	UUID: ID
-	GL_Budget_UU: String
+	UU: ID
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this is the primary budget

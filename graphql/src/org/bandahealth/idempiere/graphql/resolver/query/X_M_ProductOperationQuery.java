@@ -17,8 +17,8 @@ public class X_M_ProductOperationQuery extends POQuery<X_M_ProductOperation> imp
 		return X_M_ProductOperation.Table_Name;
 	}
 
-	public Connection<X_M_ProductOperation> M_ProductOperationGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_M_ProductOperation> M_ProductOperationGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

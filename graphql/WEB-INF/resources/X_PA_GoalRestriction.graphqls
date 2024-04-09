@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	PA_GoalRestrictionGet(page: Int, size: Int, sort: String, filter: String): PA_GoalRestrictionConnection!
+	PA_GoalRestrictionGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_GoalRestrictionConnection!
 }
 
 extend type Mutation {
-	PA_GoalRestrictionSave(entity: PA_GoalRestrictionInput!): PA_GoalRestriction!
-	PA_GoalRestrictionSaveMany(entities: [PA_GoalRestrictionInput!]!): [PA_GoalRestriction!]!
-	PA_GoalRestrictionDelete(uuids: [String!]!): Boolean!
+	PA_GoalRestrictionSave(Entity: PA_GoalRestrictionInput!): PA_GoalRestriction!
+	PA_GoalRestrictionSaveMany(Entities: [PA_GoalRestrictionInput!]!): [PA_GoalRestriction!]!
+	PA_GoalRestrictionDelete(UUs: [String!]!): Boolean!
 }
 
 type PA_GoalRestrictionConnection {
-	results: [PA_GoalRestriction!]!
-	pagingInfo: PagingInfo!
+	Results: [PA_GoalRestriction!]!
+	PagingInfo: PagingInfo!
 }
 
 type PA_GoalRestriction {
@@ -41,8 +41,7 @@ type PA_GoalRestriction {
 	Name: String!
 	# Performance Goal
 	PA_Goal: PA_Goal!
-	UUID: ID!
-	PA_GoalRestriction_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -68,6 +67,5 @@ input PA_GoalRestrictionInput {
 	Name: String
 	# Performance Goal
 	PA_Goal: ForeignEntityInput
-	UUID: ID
-	PA_GoalRestriction_UU: String
+	UU: ID
 }

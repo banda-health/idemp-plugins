@@ -17,8 +17,8 @@ public class X_AD_ChangeLogQuery extends POQuery<MChangeLog> implements GraphQLQ
 		return MChangeLog.Table_Name;
 	}
 
-	public Connection<MChangeLog> AD_ChangeLogGet(int page, int pageSize, String sort, String filter,
+	public Connection<MChangeLog> AD_ChangeLogGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

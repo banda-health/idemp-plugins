@@ -21,16 +21,16 @@ public class X_M_PromotionRewardMutation extends POMutation implements GraphQLMu
 		return X_M_PromotionRewardInput.Table_Name;
 	}
 
-	public X_M_PromotionReward M_PromotionRewardSave(I_M_PromotionRewardInput entity, DataFetchingEnvironment environment) {
-		return (X_M_PromotionReward) super.save((X_M_PromotionRewardInput) entity, environment);
+	public X_M_PromotionReward M_PromotionRewardSave(I_M_PromotionRewardInput Entity, DataFetchingEnvironment environment) {
+		return (X_M_PromotionReward) super.save((X_M_PromotionRewardInput) Entity, environment);
 	}
 
-	public List<X_M_PromotionReward> M_PromotionRewardSaveMany(List<I_M_PromotionRewardInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_PromotionRewardInput) entity).collect(Collectors.toList()),
+	public List<X_M_PromotionReward> M_PromotionRewardSaveMany(List<I_M_PromotionRewardInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_PromotionRewardInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_M_PromotionReward) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_PromotionRewardDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_PromotionRewardDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

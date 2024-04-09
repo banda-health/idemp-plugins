@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ProductDownloadGet(page: Int, size: Int, sort: String, filter: String): M_ProductDownloadConnection!
+	M_ProductDownloadGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductDownloadConnection!
 }
 
 extend type Mutation {
-	M_ProductDownloadSave(entity: M_ProductDownloadInput!): M_ProductDownload!
-	M_ProductDownloadSaveMany(entities: [M_ProductDownloadInput!]!): [M_ProductDownload!]!
-	M_ProductDownloadDelete(uuids: [String!]!): Boolean!
+	M_ProductDownloadSave(Entity: M_ProductDownloadInput!): M_ProductDownload!
+	M_ProductDownloadSaveMany(Entities: [M_ProductDownloadInput!]!): [M_ProductDownload!]!
+	M_ProductDownloadDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ProductDownloadConnection {
-	results: [M_ProductDownload!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ProductDownload!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ProductDownload {
@@ -31,8 +31,7 @@ type M_ProductDownload {
 	IsActive: Boolean!
 	# Product, Service, Item
 	M_Product: M_Product!
-	UUID: ID!
-	M_ProductDownload_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -50,8 +49,7 @@ input M_ProductDownloadInput {
 	IsActive: Boolean
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
-	UUID: ID
-	M_ProductDownload_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 }

@@ -17,8 +17,8 @@ public class X_M_CostElementQuery extends POQuery<MCostElement> implements Graph
 		return MCostElement.Table_Name;
 	}
 
-	public Connection<MCostElement> M_CostElementGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCostElement> M_CostElementGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

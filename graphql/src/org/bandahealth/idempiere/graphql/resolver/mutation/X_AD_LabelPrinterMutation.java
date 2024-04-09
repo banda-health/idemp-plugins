@@ -21,16 +21,16 @@ public class X_AD_LabelPrinterMutation extends POMutation implements GraphQLMuta
 		return X_AD_LabelPrinterInput.Table_Name;
 	}
 
-	public X_AD_LabelPrinter AD_LabelPrinterSave(I_AD_LabelPrinterInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_LabelPrinter) super.save((X_AD_LabelPrinterInput) entity, environment);
+	public X_AD_LabelPrinter AD_LabelPrinterSave(I_AD_LabelPrinterInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_LabelPrinter) super.save((X_AD_LabelPrinterInput) Entity, environment);
 	}
 
-	public List<X_AD_LabelPrinter> AD_LabelPrinterSaveMany(List<I_AD_LabelPrinterInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_LabelPrinterInput) entity).collect(Collectors.toList()),
+	public List<X_AD_LabelPrinter> AD_LabelPrinterSaveMany(List<I_AD_LabelPrinterInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_LabelPrinterInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_LabelPrinter) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_LabelPrinterDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_LabelPrinterDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

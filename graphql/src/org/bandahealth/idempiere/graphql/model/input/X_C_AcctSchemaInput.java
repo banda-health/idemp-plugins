@@ -37,12 +37,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_AcctSchema_UU to fetch this entity from the DB
+	 * @param UU The C_AcctSchema_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_AcctSchemaInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_AcctSchemaInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -61,11 +61,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -94,20 +94,20 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_AcctSchema_UU(UUID);
+	public void setUU(String UU) {
+		setC_AcctSchema_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_AcctSchema_UU();
 	}
 
@@ -124,11 +124,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -161,11 +161,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+						"Could not find entity in table C_Period with UU " + C_Period.getUU());
 			}
 		} else {
 			this.setC_Period_ID(0);
@@ -195,11 +195,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CommitmentType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CommitmentType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCommitmentType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CommitmentType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CommitmentType.getUU());
 			}
 		} else {
 			this.setCommitmentType(null);
@@ -229,11 +229,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingLevel.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CostingLevel.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingLevel(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingLevel.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostingLevel.getUU());
 			}
 		} else {
 			this.setCostingLevel(null);
@@ -263,11 +263,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(CostingMethod.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(CostingMethod.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setCostingMethod(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + CostingMethod.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + CostingMethod.getUU());
 			}
 		} else {
 			this.setCostingMethod(null);
@@ -297,11 +297,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(GAAP.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GAAP.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGAAP(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + GAAP.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + GAAP.getUU());
 			}
 		} else {
 			this.setGAAP(null);
@@ -331,11 +331,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MCostType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_CostType", "M_CostType_UU=?", get_TrxName())
-							.setParameters(M_CostType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_CostType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_CostType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_CostType with UUID " + M_CostType.getUUID());
+						"Could not find entity in table M_CostType with UU " + M_CostType.getUU());
 			}
 		} else {
 			this.setM_CostType_ID(0);
@@ -365,11 +365,11 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(TaxCorrectionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(TaxCorrectionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setTaxCorrectionType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + TaxCorrectionType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + TaxCorrectionType.getUU());
 			}
 		} else {
 			this.setTaxCorrectionType(null);

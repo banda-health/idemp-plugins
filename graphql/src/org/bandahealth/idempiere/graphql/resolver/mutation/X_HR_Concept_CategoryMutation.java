@@ -21,16 +21,16 @@ public class X_HR_Concept_CategoryMutation extends POMutation implements GraphQL
 		return X_HR_Concept_CategoryInput.Table_Name;
 	}
 
-	public X_HR_Concept_Category HR_Concept_CategorySave(I_HR_Concept_CategoryInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_Concept_Category) super.save((X_HR_Concept_CategoryInput) entity, environment);
+	public X_HR_Concept_Category HR_Concept_CategorySave(I_HR_Concept_CategoryInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_Concept_Category) super.save((X_HR_Concept_CategoryInput) Entity, environment);
 	}
 
-	public List<X_HR_Concept_Category> HR_Concept_CategorySaveMany(List<I_HR_Concept_CategoryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_Concept_CategoryInput) entity).collect(Collectors.toList()),
+	public List<X_HR_Concept_Category> HR_Concept_CategorySaveMany(List<I_HR_Concept_CategoryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_Concept_CategoryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_Concept_Category) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_Concept_CategoryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_Concept_CategoryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

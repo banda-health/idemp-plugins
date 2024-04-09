@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BankStatementGet(page: Int, size: Int, sort: String, filter: String): C_BankStatementConnection!
+	C_BankStatementGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementConnection!
 }
 
 extend type Mutation {
-	C_BankStatementSave(entity: C_BankStatementInput!): C_BankStatement!
-	C_BankStatementSaveMany(entities: [C_BankStatementInput!]!): [C_BankStatement!]!
-	C_BankStatementDelete(uuids: [String!]!): Boolean!
+	C_BankStatementSave(Entity: C_BankStatementInput!): C_BankStatement!
+	C_BankStatementSaveMany(Entities: [C_BankStatementInput!]!): [C_BankStatement!]!
+	C_BankStatementDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BankStatementConnection {
-	results: [C_BankStatement!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BankStatement!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BankStatement {
@@ -25,8 +25,7 @@ type C_BankStatement {
 	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	UUID: ID!
-	C_BankStatement_UU: String
+	UU: ID!
 	# Document type or rules
 	C_DocType: C_DocType!
 	# Copy From Record
@@ -87,8 +86,7 @@ input C_BankStatementInput {
 	BeginningBalance: BigDecimal
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	UUID: ID
-	C_BankStatement_UU: String
+	UU: ID
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# Copy From Record

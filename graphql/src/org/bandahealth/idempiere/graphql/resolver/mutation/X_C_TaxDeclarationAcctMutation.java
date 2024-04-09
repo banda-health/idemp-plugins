@@ -21,16 +21,16 @@ public class X_C_TaxDeclarationAcctMutation extends POMutation implements GraphQ
 		return X_C_TaxDeclarationAcctInput.Table_Name;
 	}
 
-	public MTaxDeclarationAcct C_TaxDeclarationAcctSave(I_C_TaxDeclarationAcctInput entity, DataFetchingEnvironment environment) {
-		return (MTaxDeclarationAcct) super.save((X_C_TaxDeclarationAcctInput) entity, environment);
+	public MTaxDeclarationAcct C_TaxDeclarationAcctSave(I_C_TaxDeclarationAcctInput Entity, DataFetchingEnvironment environment) {
+		return (MTaxDeclarationAcct) super.save((X_C_TaxDeclarationAcctInput) Entity, environment);
 	}
 
-	public List<MTaxDeclarationAcct> C_TaxDeclarationAcctSaveMany(List<I_C_TaxDeclarationAcctInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_TaxDeclarationAcctInput) entity).collect(Collectors.toList()),
+	public List<MTaxDeclarationAcct> C_TaxDeclarationAcctSaveMany(List<I_C_TaxDeclarationAcctInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_TaxDeclarationAcctInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MTaxDeclarationAcct) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_TaxDeclarationAcctDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_TaxDeclarationAcctDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

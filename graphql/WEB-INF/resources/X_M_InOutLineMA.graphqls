@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_InOutLineMAGet(page: Int, size: Int, sort: String, filter: String): M_InOutLineMAConnection!
+	M_InOutLineMAGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutLineMAConnection!
 }
 
 extend type Mutation {
-	M_InOutLineMASave(entity: M_InOutLineMAInput!): M_InOutLineMA!
-	M_InOutLineMASaveMany(entities: [M_InOutLineMAInput!]!): [M_InOutLineMA!]!
-	M_InOutLineMADelete(uuids: [String!]!): Boolean!
+	M_InOutLineMASave(Entity: M_InOutLineMAInput!): M_InOutLineMA!
+	M_InOutLineMASaveMany(Entities: [M_InOutLineMAInput!]!): [M_InOutLineMA!]!
+	M_InOutLineMADelete(UUs: [String!]!): Boolean!
 }
 
 type M_InOutLineMAConnection {
-	results: [M_InOutLineMA!]!
-	pagingInfo: PagingInfo!
+	Results: [M_InOutLineMA!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_InOutLineMA {
@@ -34,8 +34,7 @@ type M_InOutLineMA {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine!
-	UUID: ID!
-	M_InOutLineMA_UU: String
+	UU: ID!
 	# Quantity of a product moved.
 	MovementQty: BigDecimal!
 	# Date this record was updated
@@ -56,8 +55,7 @@ input M_InOutLineMAInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
-	UUID: ID
-	M_InOutLineMA_UU: String
+	UU: ID
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 }

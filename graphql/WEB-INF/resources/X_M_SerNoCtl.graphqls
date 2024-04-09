@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_SerNoCtlGet(page: Int, size: Int, sort: String, filter: String): M_SerNoCtlConnection!
+	M_SerNoCtlGet(Page: Int, Size: Int, Sort: String, Filter: String): M_SerNoCtlConnection!
 }
 
 extend type Mutation {
-	M_SerNoCtlSave(entity: M_SerNoCtlInput!): M_SerNoCtl!
-	M_SerNoCtlSaveMany(entities: [M_SerNoCtlInput!]!): [M_SerNoCtl!]!
-	M_SerNoCtlDelete(uuids: [String!]!): Boolean!
+	M_SerNoCtlSave(Entity: M_SerNoCtlInput!): M_SerNoCtl!
+	M_SerNoCtlSaveMany(Entities: [M_SerNoCtlInput!]!): [M_SerNoCtl!]!
+	M_SerNoCtlDelete(UUs: [String!]!): Boolean!
 }
 
 type M_SerNoCtlConnection {
-	results: [M_SerNoCtl!]!
-	pagingInfo: PagingInfo!
+	Results: [M_SerNoCtl!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_SerNoCtl {
@@ -35,8 +35,7 @@ type M_SerNoCtl {
 	IncrementNo: Int!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_SerNoCtl_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Prefix before the sequence number
@@ -64,8 +63,7 @@ input M_SerNoCtlInput {
 	IncrementNo: Int
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_SerNoCtl_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Prefix before the sequence number

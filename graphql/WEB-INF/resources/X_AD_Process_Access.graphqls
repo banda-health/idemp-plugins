@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Process_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_Process_AccessConnection!
+	AD_Process_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Process_AccessConnection!
 }
 
 extend type Mutation {
-	AD_Process_AccessSave(entity: AD_Process_AccessInput!): AD_Process_Access!
-	AD_Process_AccessSaveMany(entities: [AD_Process_AccessInput!]!): [AD_Process_Access!]!
-	AD_Process_AccessDelete(uuids: [String!]!): Boolean!
+	AD_Process_AccessSave(Entity: AD_Process_AccessInput!): AD_Process_Access!
+	AD_Process_AccessSaveMany(Entities: [AD_Process_AccessInput!]!): [AD_Process_Access!]!
+	AD_Process_AccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Process_AccessConnection {
-	results: [AD_Process_Access!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Process_Access!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Process_Access {
@@ -21,8 +21,7 @@ type AD_Process_Access {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Process_Access_UU: String
+	UU: ID!
 	# Process or Report
 	AD_Process: AD_Process!
 	# Responsibility Role
@@ -44,8 +43,7 @@ type AD_Process_Access {
 input AD_Process_AccessInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Process_Access_UU: String
+	UU: ID
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	# Responsibility Role

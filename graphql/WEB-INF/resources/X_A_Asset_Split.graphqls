@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_SplitGet(page: Int, size: Int, sort: String, filter: String): A_Asset_SplitConnection!
+	A_Asset_SplitGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_SplitConnection!
 }
 
 extend type Mutation {
-	A_Asset_SplitSave(entity: A_Asset_SplitInput!): A_Asset_Split!
-	A_Asset_SplitSaveMany(entities: [A_Asset_SplitInput!]!): [A_Asset_Split!]!
-	A_Asset_SplitDelete(uuids: [String!]!): Boolean!
+	A_Asset_SplitSave(Entity: A_Asset_SplitInput!): A_Asset_Split!
+	A_Asset_SplitSaveMany(Entities: [A_Asset_SplitInput!]!): [A_Asset_Split!]!
+	A_Asset_SplitDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_SplitConnection {
-	results: [A_Asset_Split!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Split!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Split {
@@ -23,8 +23,7 @@ type A_Asset_Split {
 	# Asset used internally or by customers
 	A_Asset: A_Asset!
 	A_Asset_To: A_Asset
-	UUID: ID!
-	A_Asset_Split_UU: String
+	UU: ID!
 	A_Depreciation_Workfile_ID: Int!
 	A_Percent_Original: BigDecimal
 	A_Percent_Split: BigDecimal
@@ -64,8 +63,7 @@ input A_Asset_SplitInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	A_Asset_To: ForeignEntityInput
-	UUID: ID
-	A_Asset_Split_UU: String
+	UU: ID
 	A_Depreciation_Workfile_ID: Int
 	A_Percent_Original: BigDecimal
 	A_Percent_Split: BigDecimal

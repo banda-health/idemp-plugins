@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_FreightCategoryGet(page: Int, size: Int, sort: String, filter: String): M_FreightCategoryConnection!
+	M_FreightCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_FreightCategoryConnection!
 }
 
 extend type Mutation {
-	M_FreightCategorySave(entity: M_FreightCategoryInput!): M_FreightCategory!
-	M_FreightCategorySaveMany(entities: [M_FreightCategoryInput!]!): [M_FreightCategory!]!
-	M_FreightCategoryDelete(uuids: [String!]!): Boolean!
+	M_FreightCategorySave(Entity: M_FreightCategoryInput!): M_FreightCategory!
+	M_FreightCategorySaveMany(Entities: [M_FreightCategoryInput!]!): [M_FreightCategory!]!
+	M_FreightCategoryDelete(UUs: [String!]!): Boolean!
 }
 
 type M_FreightCategoryConnection {
-	results: [M_FreightCategory!]!
-	pagingInfo: PagingInfo!
+	Results: [M_FreightCategory!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_FreightCategory {
@@ -31,8 +31,7 @@ type M_FreightCategory {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_FreightCategory_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	# Date this record was updated
@@ -52,8 +51,7 @@ input M_FreightCategoryInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_FreightCategory_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

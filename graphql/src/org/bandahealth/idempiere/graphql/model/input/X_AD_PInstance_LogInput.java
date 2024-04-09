@@ -31,12 +31,12 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_PInstance_Log_UU to fetch this entity from the DB
+	 * @param UU The AD_PInstance_Log_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_PInstance_LogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_PInstance_LogInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
+						"Could not find entity in table AD_PInstance with UU " + AD_PInstance.getUU());
 			}
 		} else {
 			this.setAD_PInstance_ID(0);
@@ -77,20 +77,20 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_PInstance_Log_UU(UUID);
+	public void setUU(String UU) {
+		setAD_PInstance_Log_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_PInstance_Log_UU();
 	}
 
@@ -107,11 +107,11 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 			MTable foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Table", "AD_Table_UU=?", get_TrxName())
-							.setParameters(AD_Table.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Table.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Table_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Table with UUID " + AD_Table.getUUID());
+						"Could not find entity in table AD_Table with UU " + AD_Table.getUU());
 			}
 		} else {
 			this.setAD_Table_ID(0);
@@ -185,11 +185,11 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PInstanceLogType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PInstanceLogType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPInstanceLogType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PInstanceLogType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PInstanceLogType.getUU());
 			}
 		} else {
 			this.setPInstanceLogType(null);

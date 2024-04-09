@@ -17,8 +17,8 @@ public class X_M_DiscountSchemaBreakQuery extends POQuery<MDiscountSchemaBreak> 
 		return MDiscountSchemaBreak.Table_Name;
 	}
 
-	public Connection<MDiscountSchemaBreak> M_DiscountSchemaBreakGet(int page, int pageSize, String sort, String filter,
+	public Connection<MDiscountSchemaBreak> M_DiscountSchemaBreakGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

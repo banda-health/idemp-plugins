@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	I_InventoryGet(page: Int, size: Int, sort: String, filter: String): I_InventoryConnection!
+	I_InventoryGet(Page: Int, Size: Int, Sort: String, Filter: String): I_InventoryConnection!
 }
 
 extend type Mutation {
-	I_InventorySave(entity: I_InventoryInput!): I_Inventory!
-	I_InventorySaveMany(entities: [I_InventoryInput!]!): [I_Inventory!]!
-	I_InventoryDelete(uuids: [String!]!): Boolean!
+	I_InventorySave(Entity: I_InventoryInput!): I_Inventory!
+	I_InventorySaveMany(Entities: [I_InventoryInput!]!): [I_Inventory!]!
+	I_InventoryDelete(UUs: [String!]!): Boolean!
 }
 
 type I_InventoryConnection {
-	results: [I_Inventory!]!
-	pagingInfo: PagingInfo!
+	Results: [I_Inventory!]!
+	PagingInfo: PagingInfo!
 }
 
 type I_Inventory {
@@ -39,8 +39,7 @@ type I_Inventory {
 	DocTypeName: String
 	# Messages generated from import process
 	I_ErrorMsg: String
-	UUID: ID!
-	I_Inventory_UU: String
+	UU: ID!
 	# Has this import been processed
 	I_IsImported: Boolean!
 	# The record is active in the system
@@ -109,8 +108,7 @@ input I_InventoryInput {
 	DocTypeName: String
 	# Messages generated from import process
 	I_ErrorMsg: String
-	UUID: ID
-	I_Inventory_UU: String
+	UU: ID
 	# Has this import been processed
 	I_IsImported: Boolean
 	# The record is active in the system

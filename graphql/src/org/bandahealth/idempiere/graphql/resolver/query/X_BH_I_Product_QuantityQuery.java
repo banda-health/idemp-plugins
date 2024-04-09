@@ -17,8 +17,8 @@ public class X_BH_I_Product_QuantityQuery extends POQuery<X_BH_I_Product_Quantit
 		return X_BH_I_Product_Quantity.Table_Name;
 	}
 
-	public Connection<X_BH_I_Product_Quantity> BH_I_Product_QuantityGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_BH_I_Product_Quantity> BH_I_Product_QuantityGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

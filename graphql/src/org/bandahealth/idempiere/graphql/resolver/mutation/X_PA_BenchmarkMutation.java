@@ -21,16 +21,16 @@ public class X_PA_BenchmarkMutation extends POMutation implements GraphQLMutatio
 		return X_PA_BenchmarkInput.Table_Name;
 	}
 
-	public X_PA_Benchmark PA_BenchmarkSave(I_PA_BenchmarkInput entity, DataFetchingEnvironment environment) {
-		return (X_PA_Benchmark) super.save((X_PA_BenchmarkInput) entity, environment);
+	public X_PA_Benchmark PA_BenchmarkSave(I_PA_BenchmarkInput Entity, DataFetchingEnvironment environment) {
+		return (X_PA_Benchmark) super.save((X_PA_BenchmarkInput) Entity, environment);
 	}
 
-	public List<X_PA_Benchmark> PA_BenchmarkSaveMany(List<I_PA_BenchmarkInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_BenchmarkInput) entity).collect(Collectors.toList()),
+	public List<X_PA_Benchmark> PA_BenchmarkSaveMany(List<I_PA_BenchmarkInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_BenchmarkInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_PA_Benchmark) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_BenchmarkDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_BenchmarkDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

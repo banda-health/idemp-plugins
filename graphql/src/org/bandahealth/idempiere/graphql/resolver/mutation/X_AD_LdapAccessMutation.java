@@ -21,16 +21,16 @@ public class X_AD_LdapAccessMutation extends POMutation implements GraphQLMutati
 		return X_AD_LdapAccessInput.Table_Name;
 	}
 
-	public MLdapAccess AD_LdapAccessSave(I_AD_LdapAccessInput entity, DataFetchingEnvironment environment) {
-		return (MLdapAccess) super.save((X_AD_LdapAccessInput) entity, environment);
+	public MLdapAccess AD_LdapAccessSave(I_AD_LdapAccessInput Entity, DataFetchingEnvironment environment) {
+		return (MLdapAccess) super.save((X_AD_LdapAccessInput) Entity, environment);
 	}
 
-	public List<MLdapAccess> AD_LdapAccessSaveMany(List<I_AD_LdapAccessInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_LdapAccessInput) entity).collect(Collectors.toList()),
+	public List<MLdapAccess> AD_LdapAccessSaveMany(List<I_AD_LdapAccessInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_LdapAccessInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MLdapAccess) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_LdapAccessDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_LdapAccessDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

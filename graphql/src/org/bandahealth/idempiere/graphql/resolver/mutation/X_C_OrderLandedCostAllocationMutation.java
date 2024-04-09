@@ -21,16 +21,16 @@ public class X_C_OrderLandedCostAllocationMutation extends POMutation implements
 		return X_C_OrderLandedCostAllocationInput.Table_Name;
 	}
 
-	public MOrderLandedCostAllocation C_OrderLandedCostAllocationSave(I_C_OrderLandedCostAllocationInput entity, DataFetchingEnvironment environment) {
-		return (MOrderLandedCostAllocation) super.save((X_C_OrderLandedCostAllocationInput) entity, environment);
+	public MOrderLandedCostAllocation C_OrderLandedCostAllocationSave(I_C_OrderLandedCostAllocationInput Entity, DataFetchingEnvironment environment) {
+		return (MOrderLandedCostAllocation) super.save((X_C_OrderLandedCostAllocationInput) Entity, environment);
 	}
 
-	public List<MOrderLandedCostAllocation> C_OrderLandedCostAllocationSaveMany(List<I_C_OrderLandedCostAllocationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_OrderLandedCostAllocationInput) entity).collect(Collectors.toList()),
+	public List<MOrderLandedCostAllocation> C_OrderLandedCostAllocationSaveMany(List<I_C_OrderLandedCostAllocationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OrderLandedCostAllocationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MOrderLandedCostAllocation) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_OrderLandedCostAllocationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_OrderLandedCostAllocationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

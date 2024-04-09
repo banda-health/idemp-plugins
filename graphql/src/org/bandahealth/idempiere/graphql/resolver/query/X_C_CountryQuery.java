@@ -17,8 +17,8 @@ public class X_C_CountryQuery extends POQuery<MCountry> implements GraphQLQueryR
 		return MCountry.Table_Name;
 	}
 
-	public Connection<MCountry> C_CountryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MCountry> C_CountryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

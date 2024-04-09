@@ -17,8 +17,8 @@ public class X_C_OrderQuery extends POQuery<MOrder_BH> implements GraphQLQueryRe
 		return MOrder_BH.Table_Name;
 	}
 
-	public Connection<MOrder_BH> C_OrderGet(int page, int pageSize, String sort, String filter,
+	public Connection<MOrder_BH> C_OrderGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

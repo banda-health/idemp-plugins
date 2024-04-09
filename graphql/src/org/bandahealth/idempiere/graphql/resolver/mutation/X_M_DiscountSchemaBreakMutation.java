@@ -21,16 +21,16 @@ public class X_M_DiscountSchemaBreakMutation extends POMutation implements Graph
 		return X_M_DiscountSchemaBreakInput.Table_Name;
 	}
 
-	public MDiscountSchemaBreak M_DiscountSchemaBreakSave(I_M_DiscountSchemaBreakInput entity, DataFetchingEnvironment environment) {
-		return (MDiscountSchemaBreak) super.save((X_M_DiscountSchemaBreakInput) entity, environment);
+	public MDiscountSchemaBreak M_DiscountSchemaBreakSave(I_M_DiscountSchemaBreakInput Entity, DataFetchingEnvironment environment) {
+		return (MDiscountSchemaBreak) super.save((X_M_DiscountSchemaBreakInput) Entity, environment);
 	}
 
-	public List<MDiscountSchemaBreak> M_DiscountSchemaBreakSaveMany(List<I_M_DiscountSchemaBreakInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_M_DiscountSchemaBreakInput) entity).collect(Collectors.toList()),
+	public List<MDiscountSchemaBreak> M_DiscountSchemaBreakSaveMany(List<I_M_DiscountSchemaBreakInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_DiscountSchemaBreakInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDiscountSchemaBreak) entity).collect(Collectors.toList());
 	}
 
-	public boolean M_DiscountSchemaBreakDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean M_DiscountSchemaBreakDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

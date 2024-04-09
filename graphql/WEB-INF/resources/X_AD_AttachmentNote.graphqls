@@ -2,25 +2,24 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_AttachmentNoteGet(page: Int, size: Int, sort: String, filter: String): AD_AttachmentNoteConnection!
+	AD_AttachmentNoteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AttachmentNoteConnection!
 }
 
 extend type Mutation {
-	AD_AttachmentNoteSave(entity: AD_AttachmentNoteInput!): AD_AttachmentNote!
-	AD_AttachmentNoteSaveMany(entities: [AD_AttachmentNoteInput!]!): [AD_AttachmentNote!]!
-	AD_AttachmentNoteDelete(uuids: [String!]!): Boolean!
+	AD_AttachmentNoteSave(Entity: AD_AttachmentNoteInput!): AD_AttachmentNote!
+	AD_AttachmentNoteSaveMany(Entities: [AD_AttachmentNoteInput!]!): [AD_AttachmentNote!]!
+	AD_AttachmentNoteDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_AttachmentNoteConnection {
-	results: [AD_AttachmentNote!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_AttachmentNote!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_AttachmentNote {
 	# Attachment for the document
 	AD_Attachment: AD_Attachment!
-	UUID: ID!
-	AD_AttachmentNote_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -46,8 +45,7 @@ type AD_AttachmentNote {
 input AD_AttachmentNoteInput {
 	# Attachment for the document
 	AD_Attachment: ForeignEntityInput
-	UUID: ID
-	AD_AttachmentNote_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

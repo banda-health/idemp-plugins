@@ -9,6 +9,8 @@ import org.adempiere.util.ServerContext;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MClientInfo;
 import org.compiere.model.MRole;
+import org.compiere.model.MSession;
+import org.compiere.util.DB;
 import org.compiere.util.Env;
 
 import java.io.UnsupportedEncodingException;
@@ -21,13 +23,15 @@ public class AuthenticationUtil {
 
 	/**
 	 * Borrowed from
-	 * https://github.com/hengsin/idempiere-rest/blob/master/com.trekglobal.idempiere.rest.api/src/com/trekglobal/idempiere/rest/api/v1/auth/filter/RequestFilter.java#L99
+	 * https://github.com/hengsin/idempiere-rest/blob/master/com.trekglobal.idempiere.rest
+	 * .api/src/com/trekglobal/idempiere/rest/api/v1/auth/filter/RequestFilter.java#L99
 	 *
 	 * @param token
 	 * @throws IllegalArgumentException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void validate(String token, Properties context) throws IllegalArgumentException, UnsupportedEncodingException {
+	public static void validate(String token, Properties context)
+			throws IllegalArgumentException, UnsupportedEncodingException {
 		Algorithm algorithm = Algorithm.HMAC256(TokenUtils.getTokenSecret());
 		JWTVerifier verifier = JWT.require(algorithm).withIssuer(TokenUtils.getTokenIssuer()).build(); // Reusable
 		// verifier
@@ -67,10 +71,18 @@ public class AuthenticationUtil {
 		}
 
 		if (AD_Role_ID > 0) {
-			if (MRole.getDefault(context, false).isShowAcct())
+			if (MRole.getDefault(context, false).isShowAcct()) {
 				Env.setContext(context, "#ShowAcct", "Y");
-			else
+			} else {
 				Env.setContext(context, "#ShowAcct", "N");
+			}
+		}
+
+		claim = jwt.getClaim(LoginClaims.AD_Session_ID.name());
+		int AD_Session_ID = 0;
+		if (!claim.isNull()) {
+			AD_Session_ID = claim.asInt();
+			Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, AD_Session_ID);
 		}
 
 		Env.setContext(context, "#Date", new Timestamp(System.currentTimeMillis()));

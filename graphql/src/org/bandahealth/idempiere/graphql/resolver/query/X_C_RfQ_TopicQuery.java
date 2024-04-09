@@ -17,8 +17,8 @@ public class X_C_RfQ_TopicQuery extends POQuery<MRfQTopic> implements GraphQLQue
 		return MRfQTopic.Table_Name;
 	}
 
-	public Connection<MRfQTopic> C_RfQ_TopicGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRfQTopic> C_RfQ_TopicGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

@@ -33,12 +33,12 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The AD_InfoRelated_UU to fetch this entity from the DB
+	 * @param UU The AD_InfoRelated_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_AD_InfoRelatedInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_AD_InfoRelatedInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 	/**
 	 * Set Info Related.
@@ -53,20 +53,20 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setAD_InfoRelated_UU(UUID);
+	public void setUU(String UU) {
+		setAD_InfoRelated_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getAD_InfoRelated_UU();
 	}
 
@@ -83,11 +83,11 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(AD_InfoWindow.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_InfoWindow.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_InfoWindow_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_InfoWindow with UUID " + AD_InfoWindow.getUUID());
+						"Could not find entity in table AD_InfoWindow with UU " + AD_InfoWindow.getUU());
 			}
 		} else {
 			this.setAD_InfoWindow_ID(0);
@@ -120,11 +120,11 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -154,11 +154,11 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MEntityType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_EntityType", "AD_EntityType_UU=?", get_TrxName())
-							.setParameters(AD_EntityType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_EntityType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setEntityType(foreignEntity.getEntityType());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_EntityType with UUID " + AD_EntityType.getUUID());
+						"Could not find entity in table AD_EntityType with UU " + AD_EntityType.getUU());
 			}
 		} else {
 			this.setEntityType(null);
@@ -188,11 +188,11 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-							.setParameters(ParentRelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(ParentRelatedColumn.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setParentRelatedColumn_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_InfoColumn with UUID " + ParentRelatedColumn.getUUID());
+						"Could not find entity in table AD_InfoColumn with UU " + ParentRelatedColumn.getUU());
 			}
 		} else {
 			this.setParentRelatedColumn_ID(0);
@@ -222,11 +222,11 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoColumn foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoColumn", "AD_InfoColumn_UU=?", get_TrxName())
-							.setParameters(RelatedColumn.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RelatedColumn.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRelatedColumn_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_InfoColumn with UUID " + RelatedColumn.getUUID());
+						"Could not find entity in table AD_InfoColumn with UU " + RelatedColumn.getUU());
 			}
 		} else {
 			this.setRelatedColumn_ID(0);
@@ -256,11 +256,11 @@ public class X_AD_InfoRelatedInput extends X_AD_InfoRelated implements I_AD_Info
 			MInfoWindow foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_InfoWindow", "AD_InfoWindow_UU=?", get_TrxName())
-							.setParameters(RelatedInfo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(RelatedInfo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setRelatedInfo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_InfoWindow with UUID " + RelatedInfo.getUUID());
+						"Could not find entity in table AD_InfoWindow with UU " + RelatedInfo.getUU());
 			}
 		} else {
 			this.setRelatedInfo_ID(0);

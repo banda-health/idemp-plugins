@@ -17,8 +17,8 @@ public class X_CM_ChatQuery extends POQuery<MChat> implements GraphQLQueryResolv
 		return MChat.Table_Name;
 	}
 
-	public Connection<MChat> CM_ChatGet(int page, int pageSize, String sort, String filter,
+	public Connection<MChat> CM_ChatGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

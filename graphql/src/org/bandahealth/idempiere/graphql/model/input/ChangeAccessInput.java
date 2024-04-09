@@ -2,11 +2,11 @@ package org.bandahealth.idempiere.graphql.model.input;
 
 public class ChangeAccessInput {
 	private String username;
-	private String clientUuid;
-	private String roleUuid;
-	private String organizationUuid;
-	private String warehouseUuid;
-	private String language;
+	private String AD_Client_UU;
+	private String AD_Role_UU;
+	private String AD_Org_UU;
+	private String M_Warehouse_UU;
+	private String AD_Language;
 
 	public String getUsername() {
 		return username;
@@ -16,43 +16,43 @@ public class ChangeAccessInput {
 		this.username = username;
 	}
 
-	public String getClientUuid() {
-		return clientUuid;
+	public String getAD_Client_UU() {
+		return AD_Client_UU;
 	}
 
-	public void setClientUuid(String adClientId) {
-		this.clientUuid = adClientId;
+	public void setAD_Client_UU(String adClientId) {
+		this.AD_Client_UU = adClientId;
 	}
 
-	public String getRoleUuid() {
-		return roleUuid;
+	public String getAD_Role_UU() {
+		return AD_Role_UU;
 	}
 
-	public void setRoleUuid(String adRoleId) {
-		this.roleUuid = adRoleId;
+	public void setAD_Role_UU(String adRoleId) {
+		this.AD_Role_UU = adRoleId;
 	}
 
-	public String getOrganizationUuid() {
-		return organizationUuid;
+	public String getAD_Org_UU() {
+		return AD_Org_UU;
 	}
 
-	public void setOrganizationUuid(String adOrganizationId) {
-		this.organizationUuid = adOrganizationId;
+	public void setAD_Org_UU(String adOrganizationId) {
+		this.AD_Org_UU = adOrganizationId;
 	}
 
-	public String getWarehouseUuid() {
-		return warehouseUuid;
+	public String getM_Warehouse_UU() {
+		return M_Warehouse_UU;
 	}
 
-	public void setWarehouseUuid(String adWarehouseId) {
-		this.warehouseUuid = adWarehouseId;
+	public void setM_Warehouse_UU(String adWarehouseId) {
+		this.M_Warehouse_UU = adWarehouseId;
 	}
 
-	public String getLanguage() {
-		return language;
+	public String getAD_Language() {
+		return AD_Language;
 	}
 
-	public void setLanguage(String language) {
-		this.language = language;
+	public void setAD_Language(String AD_Language) {
+		this.AD_Language = AD_Language;
 	}
 }

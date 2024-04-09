@@ -17,8 +17,8 @@ public class X_C_OrderPayScheduleQuery extends POQuery<MOrderPaySchedule> implem
 		return MOrderPaySchedule.Table_Name;
 	}
 
-	public Connection<MOrderPaySchedule> C_OrderPayScheduleGet(int page, int pageSize, String sort, String filter,
+	public Connection<MOrderPaySchedule> C_OrderPayScheduleGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

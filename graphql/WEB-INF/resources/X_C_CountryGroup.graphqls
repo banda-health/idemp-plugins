@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CountryGroupGet(page: Int, size: Int, sort: String, filter: String): C_CountryGroupConnection!
+	C_CountryGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryGroupConnection!
 }
 
 extend type Mutation {
-	C_CountryGroupSave(entity: C_CountryGroupInput!): C_CountryGroup!
-	C_CountryGroupSaveMany(entities: [C_CountryGroupInput!]!): [C_CountryGroup!]!
-	C_CountryGroupDelete(uuids: [String!]!): Boolean!
+	C_CountryGroupSave(Entity: C_CountryGroupInput!): C_CountryGroup!
+	C_CountryGroupSaveMany(Entities: [C_CountryGroupInput!]!): [C_CountryGroup!]!
+	C_CountryGroupDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CountryGroupConnection {
-	results: [C_CountryGroup!]!
-	pagingInfo: PagingInfo!
+	Results: [C_CountryGroup!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_CountryGroup {
@@ -21,8 +21,7 @@ type C_CountryGroup {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_CountryGroup_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -50,8 +49,7 @@ type C_CountryGroup {
 input C_CountryGroupInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_CountryGroup_UU: String
+	UU: ID
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range

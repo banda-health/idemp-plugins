@@ -21,16 +21,16 @@ public class X_PA_ReportCubeMutation extends POMutation implements GraphQLMutati
 		return X_PA_ReportCubeInput.Table_Name;
 	}
 
-	public MReportCube PA_ReportCubeSave(I_PA_ReportCubeInput entity, DataFetchingEnvironment environment) {
-		return (MReportCube) super.save((X_PA_ReportCubeInput) entity, environment);
+	public MReportCube PA_ReportCubeSave(I_PA_ReportCubeInput Entity, DataFetchingEnvironment environment) {
+		return (MReportCube) super.save((X_PA_ReportCubeInput) Entity, environment);
 	}
 
-	public List<MReportCube> PA_ReportCubeSaveMany(List<I_PA_ReportCubeInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_ReportCubeInput) entity).collect(Collectors.toList()),
+	public List<MReportCube> PA_ReportCubeSaveMany(List<I_PA_ReportCubeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_ReportCubeInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MReportCube) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_ReportCubeDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_ReportCubeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

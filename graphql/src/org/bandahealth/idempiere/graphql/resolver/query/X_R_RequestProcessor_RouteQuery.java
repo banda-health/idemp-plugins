@@ -17,8 +17,8 @@ public class X_R_RequestProcessor_RouteQuery extends POQuery<MRequestProcessorRo
 		return MRequestProcessorRoute.Table_Name;
 	}
 
-	public Connection<MRequestProcessorRoute> R_RequestProcessor_RouteGet(int page, int pageSize, String sort, String filter,
+	public Connection<MRequestProcessorRoute> R_RequestProcessor_RouteGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

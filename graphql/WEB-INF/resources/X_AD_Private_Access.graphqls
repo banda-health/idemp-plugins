@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Private_AccessGet(page: Int, size: Int, sort: String, filter: String): AD_Private_AccessConnection!
+	AD_Private_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Private_AccessConnection!
 }
 
 extend type Mutation {
-	AD_Private_AccessSave(entity: AD_Private_AccessInput!): AD_Private_Access!
-	AD_Private_AccessSaveMany(entities: [AD_Private_AccessInput!]!): [AD_Private_Access!]!
-	AD_Private_AccessDelete(uuids: [String!]!): Boolean!
+	AD_Private_AccessSave(Entity: AD_Private_AccessInput!): AD_Private_Access!
+	AD_Private_AccessSaveMany(Entities: [AD_Private_AccessInput!]!): [AD_Private_Access!]!
+	AD_Private_AccessDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Private_AccessConnection {
-	results: [AD_Private_Access!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Private_Access!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Private_Access {
@@ -21,8 +21,7 @@ type AD_Private_Access {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Private_Access_UU: String
+	UU: ID!
 	# Database Table information
 	AD_Table: AD_Table!
 	# User within the system - Internal or Business Partner Contact
@@ -42,8 +41,7 @@ type AD_Private_Access {
 input AD_Private_AccessInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Private_Access_UU: String
+	UU: ID
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

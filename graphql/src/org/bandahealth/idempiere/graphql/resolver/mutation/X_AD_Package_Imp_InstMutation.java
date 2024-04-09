@@ -21,16 +21,16 @@ public class X_AD_Package_Imp_InstMutation extends POMutation implements GraphQL
 		return X_AD_Package_Imp_InstInput.Table_Name;
 	}
 
-	public X_AD_Package_Imp_Inst AD_Package_Imp_InstSave(I_AD_Package_Imp_InstInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_Package_Imp_Inst) super.save((X_AD_Package_Imp_InstInput) entity, environment);
+	public X_AD_Package_Imp_Inst AD_Package_Imp_InstSave(I_AD_Package_Imp_InstInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_Package_Imp_Inst) super.save((X_AD_Package_Imp_InstInput) Entity, environment);
 	}
 
-	public List<X_AD_Package_Imp_Inst> AD_Package_Imp_InstSaveMany(List<I_AD_Package_Imp_InstInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Package_Imp_InstInput) entity).collect(Collectors.toList()),
+	public List<X_AD_Package_Imp_Inst> AD_Package_Imp_InstSaveMany(List<I_AD_Package_Imp_InstInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Package_Imp_InstInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_Package_Imp_Inst) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Package_Imp_InstDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Package_Imp_InstDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

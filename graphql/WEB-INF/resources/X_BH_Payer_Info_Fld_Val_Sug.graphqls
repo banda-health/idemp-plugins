@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	BH_Payer_Info_Fld_Val_SugGet(page: Int, size: Int, sort: String, filter: String): BH_Payer_Info_Fld_Val_SugConnection!
+	BH_Payer_Info_Fld_Val_SugGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Payer_Info_Fld_Val_SugConnection!
 }
 
 extend type Mutation {
-	BH_Payer_Info_Fld_Val_SugSave(entity: BH_Payer_Info_Fld_Val_SugInput!): BH_Payer_Info_Fld_Val_Sug!
-	BH_Payer_Info_Fld_Val_SugSaveMany(entities: [BH_Payer_Info_Fld_Val_SugInput!]!): [BH_Payer_Info_Fld_Val_Sug!]!
-	BH_Payer_Info_Fld_Val_SugDelete(uuids: [String!]!): Boolean!
+	BH_Payer_Info_Fld_Val_SugSave(Entity: BH_Payer_Info_Fld_Val_SugInput!): BH_Payer_Info_Fld_Val_Sug!
+	BH_Payer_Info_Fld_Val_SugSaveMany(Entities: [BH_Payer_Info_Fld_Val_SugInput!]!): [BH_Payer_Info_Fld_Val_Sug!]!
+	BH_Payer_Info_Fld_Val_SugDelete(UUs: [String!]!): Boolean!
 }
 
 type BH_Payer_Info_Fld_Val_SugConnection {
-	results: [BH_Payer_Info_Fld_Val_Sug!]!
-	pagingInfo: PagingInfo!
+	Results: [BH_Payer_Info_Fld_Val_Sug!]!
+	PagingInfo: PagingInfo!
 }
 
 type BH_Payer_Info_Fld_Val_Sug {
@@ -22,8 +22,7 @@ type BH_Payer_Info_Fld_Val_Sug {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_Payer_Info_Fld_Sug: BH_Payer_Info_Fld_Sug!
-	UUID: ID!
-	BH_Payer_Info_Fld_Val_Sug_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ input BH_Payer_Info_Fld_Val_SugInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_Payer_Info_Fld_Sug: ForeignEntityInput
-	UUID: ID
-	BH_Payer_Info_Fld_Val_Sug_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

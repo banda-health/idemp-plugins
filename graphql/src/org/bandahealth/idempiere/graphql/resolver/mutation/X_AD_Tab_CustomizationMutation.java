@@ -21,16 +21,16 @@ public class X_AD_Tab_CustomizationMutation extends POMutation implements GraphQ
 		return X_AD_Tab_CustomizationInput.Table_Name;
 	}
 
-	public X_AD_Tab_Customization AD_Tab_CustomizationSave(I_AD_Tab_CustomizationInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_Tab_Customization) super.save((X_AD_Tab_CustomizationInput) entity, environment);
+	public X_AD_Tab_Customization AD_Tab_CustomizationSave(I_AD_Tab_CustomizationInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_Tab_Customization) super.save((X_AD_Tab_CustomizationInput) Entity, environment);
 	}
 
-	public List<X_AD_Tab_Customization> AD_Tab_CustomizationSaveMany(List<I_AD_Tab_CustomizationInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Tab_CustomizationInput) entity).collect(Collectors.toList()),
+	public List<X_AD_Tab_Customization> AD_Tab_CustomizationSaveMany(List<I_AD_Tab_CustomizationInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Tab_CustomizationInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_Tab_Customization) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Tab_CustomizationDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Tab_CustomizationDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

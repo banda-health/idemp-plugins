@@ -21,16 +21,16 @@ public class X_DD_OrderMutation extends POMutation implements GraphQLMutationRes
 		return X_DD_OrderInput.Table_Name;
 	}
 
-	public MDDOrder DD_OrderSave(I_DD_OrderInput entity, DataFetchingEnvironment environment) {
-		return (MDDOrder) super.save((X_DD_OrderInput) entity, environment);
+	public MDDOrder DD_OrderSave(I_DD_OrderInput Entity, DataFetchingEnvironment environment) {
+		return (MDDOrder) super.save((X_DD_OrderInput) Entity, environment);
 	}
 
-	public List<MDDOrder> DD_OrderSaveMany(List<I_DD_OrderInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_DD_OrderInput) entity).collect(Collectors.toList()),
+	public List<MDDOrder> DD_OrderSaveMany(List<I_DD_OrderInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_DD_OrderInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDDOrder) entity).collect(Collectors.toList());
 	}
 
-	public boolean DD_OrderDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean DD_OrderDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

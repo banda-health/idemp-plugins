@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ShippingProcessorCfgGet(page: Int, size: Int, sort: String, filter: String): M_ShippingProcessorCfgConnection!
+	M_ShippingProcessorCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShippingProcessorCfgConnection!
 }
 
 extend type Mutation {
-	M_ShippingProcessorCfgSave(entity: M_ShippingProcessorCfgInput!): M_ShippingProcessorCfg!
-	M_ShippingProcessorCfgSaveMany(entities: [M_ShippingProcessorCfgInput!]!): [M_ShippingProcessorCfg!]!
-	M_ShippingProcessorCfgDelete(uuids: [String!]!): Boolean!
+	M_ShippingProcessorCfgSave(Entity: M_ShippingProcessorCfgInput!): M_ShippingProcessorCfg!
+	M_ShippingProcessorCfgSaveMany(Entities: [M_ShippingProcessorCfgInput!]!): [M_ShippingProcessorCfg!]!
+	M_ShippingProcessorCfgDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ShippingProcessorCfgConnection {
-	results: [M_ShippingProcessorCfg!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ShippingProcessorCfg!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ShippingProcessorCfg {
@@ -33,8 +33,7 @@ type M_ShippingProcessorCfg {
 	HostPort: Int!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_ShippingProcessorCfg_UU: String
+	UU: ID!
 	# Alphanumeric identifier of the entity
 	Name: String!
 	#  Address of your proxy server
@@ -64,8 +63,7 @@ input M_ShippingProcessorCfgInput {
 	HostPort: Int
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_ShippingProcessorCfg_UU: String
+	UU: ID
 	# Alphanumeric identifier of the entity
 	Name: String
 	#  Address of your proxy server

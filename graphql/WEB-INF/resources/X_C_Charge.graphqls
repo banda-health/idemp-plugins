@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ChargeGet(page: Int, size: Int, sort: String, filter: String): C_ChargeConnection!
+	C_ChargeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ChargeConnection!
 }
 
 extend type Mutation {
-	C_ChargeSave(entity: C_ChargeInput!): C_Charge!
-	C_ChargeSaveMany(entities: [C_ChargeInput!]!): [C_Charge!]!
-	C_ChargeDelete(uuids: [String!]!): Boolean!
+	C_ChargeSave(Entity: C_ChargeInput!): C_Charge!
+	C_ChargeSaveMany(Entities: [C_ChargeInput!]!): [C_Charge!]!
+	C_ChargeDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ChargeConnection {
-	results: [C_Charge!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Charge!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Charge {
@@ -27,8 +27,7 @@ type C_Charge {
 	BH_SubType: AD_Ref_List
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner
-	UUID: ID!
-	C_Charge_UU: String
+	UU: ID!
 	C_ChargeType: C_ChargeType
 	# Tax Category
 	C_TaxCategory: C_TaxCategory!
@@ -64,8 +63,7 @@ input C_ChargeInput {
 	BH_SubType: AD_Ref_ListInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	UUID: ID
-	C_Charge_UU: String
+	UU: ID
 	C_ChargeType: ForeignEntityInput
 	# Tax Category
 	C_TaxCategory: ForeignEntityInput

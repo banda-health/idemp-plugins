@@ -70,12 +70,12 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The I_GLJournal_UU to fetch this entity from the DB
+	 * @param UU The I_GLJournal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_I_GLJournalInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_I_GLJournalInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -91,11 +91,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(Account.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Account.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAccount_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + Account.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + Account.getUU());
 			}
 		} else {
 			this.setAccount_ID(0);
@@ -125,11 +125,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -159,11 +159,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -193,11 +193,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MActivity foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Activity", "C_Activity_UU=?", get_TrxName())
-							.setParameters(C_Activity.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Activity.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Activity_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Activity with UUID " + C_Activity.getUUID());
+						"Could not find entity in table C_Activity with UU " + C_Activity.getUU());
 			}
 		} else {
 			this.setC_Activity_ID(0);
@@ -227,11 +227,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -261,11 +261,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MCampaign foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Campaign", "C_Campaign_UU=?", get_TrxName())
-							.setParameters(C_Campaign.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Campaign.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Campaign_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Campaign with UUID " + C_Campaign.getUUID());
+						"Could not find entity in table C_Campaign with UU " + C_Campaign.getUU());
 			}
 		} else {
 			this.setC_Campaign_ID(0);
@@ -295,11 +295,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MConversionType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
-							.setParameters(C_ConversionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ConversionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ConversionType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ConversionType with UUID " + C_ConversionType.getUUID());
+						"Could not find entity in table C_ConversionType with UU " + C_ConversionType.getUU());
 			}
 		} else {
 			this.setC_ConversionType_ID(0);
@@ -329,11 +329,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MCurrency_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Currency", "C_Currency_UU=?", get_TrxName())
-							.setParameters(C_Currency.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Currency.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Currency_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Currency with UUID " + C_Currency.getUUID());
+						"Could not find entity in table C_Currency with UU " + C_Currency.getUU());
 			}
 		} else {
 			this.setC_Currency_ID(0);
@@ -363,11 +363,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MDocType_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
-							.setParameters(C_DocType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_DocType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_DocType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_DocType with UUID " + C_DocType.getUUID());
+						"Could not find entity in table C_DocType with UU " + C_DocType.getUU());
 			}
 		} else {
 			this.setC_DocType_ID(0);
@@ -397,11 +397,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_LocFrom.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_LocFrom.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_LocFrom_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Location with UUID " + C_LocFrom.getUUID());
+						"Could not find entity in table C_Location with UU " + C_LocFrom.getUU());
 			}
 		} else {
 			this.setC_LocFrom_ID(0);
@@ -431,11 +431,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MLocation foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Location", "C_Location_UU=?", get_TrxName())
-							.setParameters(C_LocTo.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_LocTo.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_LocTo_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Location with UUID " + C_LocTo.getUUID());
+						"Could not find entity in table C_Location with UU " + C_LocTo.getUU());
 			}
 		} else {
 			this.setC_LocTo_ID(0);
@@ -465,11 +465,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MPeriod foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Period", "C_Period_UU=?", get_TrxName())
-							.setParameters(C_Period.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Period.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Period_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Period with UUID " + C_Period.getUUID());
+						"Could not find entity in table C_Period with UU " + C_Period.getUU());
 			}
 		} else {
 			this.setC_Period_ID(0);
@@ -499,11 +499,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+						"Could not find entity in table C_Project with UU " + C_Project.getUU());
 			}
 		} else {
 			this.setC_Project_ID(0);
@@ -533,11 +533,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MSalesRegion foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_SalesRegion", "C_SalesRegion_UU=?", get_TrxName())
-							.setParameters(C_SalesRegion.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_SalesRegion.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_SalesRegion_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_SalesRegion with UUID " + C_SalesRegion.getUUID());
+						"Could not find entity in table C_SalesRegion with UU " + C_SalesRegion.getUU());
 			}
 		} else {
 			this.setC_SalesRegion_ID(0);
@@ -567,11 +567,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MUOM foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_UOM", "C_UOM_UU=?", get_TrxName())
-							.setParameters(C_UOM.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_UOM.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_UOM_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_UOM with UUID " + C_UOM.getUUID());
+						"Could not find entity in table C_UOM with UU " + C_UOM.getUU());
 			}
 		} else {
 			this.setC_UOM_ID(0);
@@ -601,11 +601,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(C_ValidCombination.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ValidCombination.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ValidCombination_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + C_ValidCombination.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + C_ValidCombination.getUU());
 			}
 		} else {
 			this.setC_ValidCombination_ID(0);
@@ -635,11 +635,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			X_GL_Budget foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Budget", "GL_Budget_UU=?", get_TrxName())
-							.setParameters(GL_Budget.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Budget.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Budget_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_Budget with UUID " + GL_Budget.getUUID());
+						"Could not find entity in table GL_Budget with UU " + GL_Budget.getUU());
 			}
 		} else {
 			this.setGL_Budget_ID(0);
@@ -669,11 +669,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MGLCategory foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Category", "GL_Category_UU=?", get_TrxName())
-							.setParameters(GL_Category.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Category_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_Category with UUID " + GL_Category.getUUID());
+						"Could not find entity in table GL_Category with UU " + GL_Category.getUU());
 			}
 		} else {
 			this.setGL_Category_ID(0);
@@ -703,11 +703,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MJournal foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_Journal", "GL_Journal_UU=?", get_TrxName())
-							.setParameters(GL_Journal.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_Journal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_Journal_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_Journal with UUID " + GL_Journal.getUUID());
+						"Could not find entity in table GL_Journal with UU " + GL_Journal.getUU());
 			}
 		} else {
 			this.setGL_Journal_ID(0);
@@ -737,11 +737,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MJournalBatch foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalBatch", "GL_JournalBatch_UU=?", get_TrxName())
-							.setParameters(GL_JournalBatch.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalBatch.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_JournalBatch_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_JournalBatch with UUID " + GL_JournalBatch.getUUID());
+						"Could not find entity in table GL_JournalBatch with UU " + GL_JournalBatch.getUU());
 			}
 		} else {
 			this.setGL_JournalBatch_ID(0);
@@ -771,11 +771,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MJournalLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalLine", "GL_JournalLine_UU=?", get_TrxName())
-							.setParameters(GL_JournalLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_JournalLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_JournalLine with UUID " + GL_JournalLine.getUUID());
+						"Could not find entity in table GL_JournalLine with UU " + GL_JournalLine.getUU());
 			}
 		} else {
 			this.setGL_JournalLine_ID(0);
@@ -804,20 +804,20 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setI_GLJournal_UU(UUID);
+	public void setUU(String UU) {
+		setI_GLJournal_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getI_GLJournal_UU();
 	}
 
@@ -834,11 +834,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MProduct_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "M_Product", "M_Product_UU=?", get_TrxName())
-							.setParameters(M_Product.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(M_Product.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setM_Product_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table M_Product with UUID " + M_Product.getUUID());
+						"Could not find entity in table M_Product with UU " + M_Product.getUU());
 			}
 		} else {
 			this.setM_Product_ID(0);
@@ -868,11 +868,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(PostingType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PostingType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPostingType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + PostingType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + PostingType.getUU());
 			}
 		} else {
 			this.setPostingType(null);
@@ -902,11 +902,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User1.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User1.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser1_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + User1.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + User1.getUU());
 			}
 		} else {
 			this.setUser1_ID(0);
@@ -936,11 +936,11 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(User2.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(User2.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setUser2_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + User2.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + User2.getUU());
 			}
 		} else {
 			this.setUser2_ID(0);

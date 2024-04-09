@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_InOutLineGet(page: Int, size: Int, sort: String, filter: String): M_InOutLineConnection!
+	M_InOutLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutLineConnection!
 }
 
 extend type Mutation {
-	M_InOutLineSave(entity: M_InOutLineInput!): M_InOutLine!
-	M_InOutLineSaveMany(entities: [M_InOutLineInput!]!): [M_InOutLine!]!
-	M_InOutLineDelete(uuids: [String!]!): Boolean!
+	M_InOutLineSave(Entity: M_InOutLineInput!): M_InOutLine!
+	M_InOutLineSaveMany(Entities: [M_InOutLineInput!]!): [M_InOutLine!]!
+	M_InOutLineDelete(UUs: [String!]!): Boolean!
 }
 
 type M_InOutLineConnection {
-	results: [M_InOutLine!]!
-	pagingInfo: PagingInfo!
+	Results: [M_InOutLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_InOutLine {
@@ -59,8 +59,7 @@ type M_InOutLine {
 	M_AttributeSetInstance: M_AttributeSetInstance!
 	# Material Shipment Document
 	M_InOut: M_InOut!
-	UUID: ID!
-	M_InOutLine_UU: String
+	UU: ID!
 	# Warehouse Locator
 	M_Locator: M_Locator
 	# Product, Service, Item
@@ -127,8 +126,7 @@ input M_InOutLineInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
-	UUID: ID
-	M_InOutLine_UU: String
+	UU: ID
 	# Warehouse Locator
 	M_Locator: ForeignEntityInput
 	# Product, Service, Item

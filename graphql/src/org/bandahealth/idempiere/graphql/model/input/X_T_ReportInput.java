@@ -30,12 +30,12 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The T_Report_UU to fetch this entity from the DB
+	 * @param UU The T_Report_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_T_ReportInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_T_ReportInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -54,11 +54,11 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 			MPInstance foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
-							.setParameters(AD_PInstance.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_PInstance_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_PInstance with UUID " + AD_PInstance.getUUID());
+						"Could not find entity in table AD_PInstance with UU " + AD_PInstance.getUU());
 			}
 		} else {
 			this.setAD_PInstance_ID(0);
@@ -443,11 +443,11 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 			MFactAcct foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "Fact_Acct", "Fact_Acct_UU=?", get_TrxName())
-							.setParameters(Fact_Acct.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(Fact_Acct.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setFact_Acct_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table Fact_Acct with UUID " + Fact_Acct.getUUID());
+						"Could not find entity in table Fact_Acct with UU " + Fact_Acct.getUU());
 			}
 		} else {
 			this.setFact_Acct_ID(0);
@@ -502,11 +502,11 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 			MReportLine foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "PA_ReportLine", "PA_ReportLine_UU=?", get_TrxName())
-							.setParameters(PA_ReportLine.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PA_ReportLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPA_ReportLine_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table PA_ReportLine with UUID " + PA_ReportLine.getUUID());
+						"Could not find entity in table PA_ReportLine with UU " + PA_ReportLine.getUU());
 			}
 		} else {
 			this.setPA_ReportLine_ID(0);
@@ -535,20 +535,20 @@ public class X_T_ReportInput extends X_T_Report implements I_T_ReportInput {
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setT_Report_UU(UUID);
+	public void setUU(String UU) {
+		setT_Report_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getT_Report_UU();
 	}
 }

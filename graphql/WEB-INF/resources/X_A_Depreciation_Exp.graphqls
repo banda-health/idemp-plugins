@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Depreciation_ExpGet(page: Int, size: Int, sort: String, filter: String): A_Depreciation_ExpConnection!
+	A_Depreciation_ExpGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_ExpConnection!
 }
 
 extend type Mutation {
-	A_Depreciation_ExpSave(entity: A_Depreciation_ExpInput!): A_Depreciation_Exp!
-	A_Depreciation_ExpSaveMany(entities: [A_Depreciation_ExpInput!]!): [A_Depreciation_Exp!]!
-	A_Depreciation_ExpDelete(uuids: [String!]!): Boolean!
+	A_Depreciation_ExpSave(Entity: A_Depreciation_ExpInput!): A_Depreciation_Exp!
+	A_Depreciation_ExpSaveMany(Entities: [A_Depreciation_ExpInput!]!): [A_Depreciation_Exp!]!
+	A_Depreciation_ExpDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Depreciation_ExpConnection {
-	results: [A_Depreciation_Exp!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Depreciation_Exp!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Depreciation_Exp {
@@ -31,8 +31,7 @@ type A_Depreciation_Exp {
 	A_Asset_Remaining: BigDecimal
 	A_Asset_Remaining_F: BigDecimal
 	A_Depreciation_Entry: A_Depreciation_Entry
-	UUID: ID!
-	A_Depreciation_Exp_UU: String
+	UU: ID!
 	A_Entry_Type: AD_Ref_List!
 	A_Period: Int!
 	# Tenant for this installation.
@@ -90,8 +89,7 @@ input A_Depreciation_ExpInput {
 	A_Asset_Remaining: BigDecimal
 	A_Asset_Remaining_F: BigDecimal
 	A_Depreciation_Entry: ForeignEntityInput
-	UUID: ID
-	A_Depreciation_Exp_UU: String
+	UU: ID
 	A_Entry_Type: AD_Ref_ListInput
 	A_Period: Int
 	# Organizational entity within tenant

@@ -39,18 +39,18 @@ public interface I_A_Asset_Info_OthInput extends I_A_Asset_Info_Oth {
 	ForeignEntityInput A_Asset_Info_Oth();
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	void setUUID(String UUID);
+	void setUU(String UU);
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	String getUUID();
+	String getUU();
 
 	/**
 	 * Set AD_Org.

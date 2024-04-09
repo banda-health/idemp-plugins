@@ -2,26 +2,25 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_CtxHelpMsgGet(page: Int, size: Int, sort: String, filter: String): AD_CtxHelpMsgConnection!
+	AD_CtxHelpMsgGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_CtxHelpMsgConnection!
 }
 
 extend type Mutation {
-	AD_CtxHelpMsgSave(entity: AD_CtxHelpMsgInput!): AD_CtxHelpMsg!
-	AD_CtxHelpMsgSaveMany(entities: [AD_CtxHelpMsgInput!]!): [AD_CtxHelpMsg!]!
-	AD_CtxHelpMsgDelete(uuids: [String!]!): Boolean!
+	AD_CtxHelpMsgSave(Entity: AD_CtxHelpMsgInput!): AD_CtxHelpMsg!
+	AD_CtxHelpMsgSaveMany(Entities: [AD_CtxHelpMsgInput!]!): [AD_CtxHelpMsg!]!
+	AD_CtxHelpMsgDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_CtxHelpMsgConnection {
-	results: [AD_CtxHelpMsg!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_CtxHelpMsg!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_CtxHelpMsg {
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	AD_CtxHelp: AD_CtxHelp!
-	UUID: ID!
-	AD_CtxHelpMsg_UU: String
+	UU: ID!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	# Date this record was created
@@ -40,8 +39,7 @@ type AD_CtxHelpMsg {
 
 input AD_CtxHelpMsgInput {
 	AD_CtxHelp: ForeignEntityInput
-	UUID: ID
-	AD_CtxHelpMsg_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The record is active in the system

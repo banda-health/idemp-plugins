@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	T_ReplenishGet(page: Int, size: Int, sort: String, filter: String): T_ReplenishConnection!
+	T_ReplenishGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReplenishConnection!
 }
 
 extend type Mutation {
-	T_ReplenishSave(entity: T_ReplenishInput!): T_Replenish!
-	T_ReplenishSaveMany(entities: [T_ReplenishInput!]!): [T_Replenish!]!
-	T_ReplenishDelete(uuids: [String!]!): Boolean!
+	T_ReplenishSave(Entity: T_ReplenishInput!): T_Replenish!
+	T_ReplenishSaveMany(Entities: [T_ReplenishInput!]!): [T_Replenish!]!
+	T_ReplenishDelete(UUs: [String!]!): Boolean!
 }
 
 type T_ReplenishConnection {
-	results: [T_Replenish!]!
-	pagingInfo: PagingInfo!
+	Results: [T_Replenish!]!
+	PagingInfo: PagingInfo!
 }
 
 type T_Replenish {
@@ -52,8 +52,7 @@ type T_Replenish {
 	ReplenishmentCreate: AD_Ref_List
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_List!
-	UUID: ID!
-	T_Replenish_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -94,6 +93,5 @@ input T_ReplenishInput {
 	ReplenishmentCreate: AD_Ref_ListInput
 	# Method for re-ordering a product
 	ReplenishType: AD_Ref_ListInput
-	UUID: ID
-	T_Replenish_UU: String
+	UU: ID
 }

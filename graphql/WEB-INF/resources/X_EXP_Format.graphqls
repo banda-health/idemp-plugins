@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	EXP_FormatGet(page: Int, size: Int, sort: String, filter: String): EXP_FormatConnection!
+	EXP_FormatGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_FormatConnection!
 }
 
 extend type Mutation {
-	EXP_FormatSave(entity: EXP_FormatInput!): EXP_Format!
-	EXP_FormatSaveMany(entities: [EXP_FormatInput!]!): [EXP_Format!]!
-	EXP_FormatDelete(uuids: [String!]!): Boolean!
+	EXP_FormatSave(Entity: EXP_FormatInput!): EXP_Format!
+	EXP_FormatSaveMany(Entities: [EXP_FormatInput!]!): [EXP_Format!]!
+	EXP_FormatDelete(UUs: [String!]!): Boolean!
 }
 
 type EXP_FormatConnection {
-	results: [EXP_Format!]!
-	pagingInfo: PagingInfo!
+	Results: [EXP_Format!]!
+	PagingInfo: PagingInfo!
 }
 
 type EXP_Format {
@@ -29,8 +29,7 @@ type EXP_Format {
 	CreatedBy: AD_User!
 	# Optional short description of the record
 	Description: String
-	UUID: ID!
-	EXP_Format_UU: String
+	UU: ID!
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -59,8 +58,7 @@ input EXP_FormatInput {
 	AD_Table: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	UUID: ID
-	EXP_Format_UU: String
+	UU: ID
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

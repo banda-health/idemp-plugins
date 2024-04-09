@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_TaxDeclarationGet(page: Int, size: Int, sort: String, filter: String): C_TaxDeclarationConnection!
+	C_TaxDeclarationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxDeclarationConnection!
 }
 
 extend type Mutation {
-	C_TaxDeclarationSave(entity: C_TaxDeclarationInput!): C_TaxDeclaration!
-	C_TaxDeclarationSaveMany(entities: [C_TaxDeclarationInput!]!): [C_TaxDeclaration!]!
-	C_TaxDeclarationDelete(uuids: [String!]!): Boolean!
+	C_TaxDeclarationSave(Entity: C_TaxDeclarationInput!): C_TaxDeclaration!
+	C_TaxDeclarationSaveMany(Entities: [C_TaxDeclarationInput!]!): [C_TaxDeclaration!]!
+	C_TaxDeclarationDelete(UUs: [String!]!): Boolean!
 }
 
 type C_TaxDeclarationConnection {
-	results: [C_TaxDeclaration!]!
-	pagingInfo: PagingInfo!
+	Results: [C_TaxDeclaration!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_TaxDeclaration {
@@ -21,8 +21,7 @@ type C_TaxDeclaration {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	C_TaxDeclaration_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -51,8 +50,7 @@ type C_TaxDeclaration {
 input C_TaxDeclarationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	C_TaxDeclaration_UU: String
+	UU: ID
 	# Starting date for a range
 	DateFrom: Date
 	# End date of a date range

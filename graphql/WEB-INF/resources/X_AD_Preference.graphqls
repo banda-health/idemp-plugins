@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_PreferenceGet(page: Int, size: Int, sort: String, filter: String): AD_PreferenceConnection!
+	AD_PreferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PreferenceConnection!
 }
 
 extend type Mutation {
-	AD_PreferenceSave(entity: AD_PreferenceInput!): AD_Preference!
-	AD_PreferenceSaveMany(entities: [AD_PreferenceInput!]!): [AD_Preference!]!
-	AD_PreferenceDelete(uuids: [String!]!): Boolean!
+	AD_PreferenceSave(Entity: AD_PreferenceInput!): AD_Preference!
+	AD_PreferenceSaveMany(Entities: [AD_PreferenceInput!]!): [AD_Preference!]!
+	AD_PreferenceDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_PreferenceConnection {
-	results: [AD_Preference!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Preference!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Preference {
@@ -25,8 +25,7 @@ type AD_Preference {
 	AD_InfoWindow: AD_InfoWindow
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Preference_UU: String
+	UU: ID!
 	# Process or Report
 	AD_Process: AD_Process
 	# User within the system - Internal or Business Partner Contact
@@ -57,8 +56,7 @@ input AD_PreferenceInput {
 	AD_InfoWindow: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Preference_UU: String
+	UU: ID
 	# Process or Report
 	AD_Process: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

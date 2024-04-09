@@ -21,16 +21,16 @@ public class X_AD_Sequence_NoMutation extends POMutation implements GraphQLMutat
 		return X_AD_Sequence_NoInput.Table_Name;
 	}
 
-	public X_AD_Sequence_No AD_Sequence_NoSave(I_AD_Sequence_NoInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_Sequence_No) super.save((X_AD_Sequence_NoInput) entity, environment);
+	public X_AD_Sequence_No AD_Sequence_NoSave(I_AD_Sequence_NoInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_Sequence_No) super.save((X_AD_Sequence_NoInput) Entity, environment);
 	}
 
-	public List<X_AD_Sequence_No> AD_Sequence_NoSaveMany(List<I_AD_Sequence_NoInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_Sequence_NoInput) entity).collect(Collectors.toList()),
+	public List<X_AD_Sequence_No> AD_Sequence_NoSaveMany(List<I_AD_Sequence_NoInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_Sequence_NoInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_Sequence_No) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_Sequence_NoDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_Sequence_NoDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

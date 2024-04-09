@@ -17,8 +17,8 @@ public class X_AD_OrgInfoQuery extends POQuery<MOrgInfo_BH> implements GraphQLQu
 		return MOrgInfo_BH.Table_Name;
 	}
 
-	public Connection<MOrgInfo_BH> AD_OrgInfoGet(int page, int pageSize, String sort, String filter,
+	public Connection<MOrgInfo_BH> AD_OrgInfoGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

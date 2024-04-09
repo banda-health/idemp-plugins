@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_AcctSchema_DefaultGet(page: Int, size: Int, sort: String, filter: String): C_AcctSchema_DefaultConnection!
+	C_AcctSchema_DefaultGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchema_DefaultConnection!
 }
 
 extend type Mutation {
-	C_AcctSchema_DefaultSave(entity: C_AcctSchema_DefaultInput!): C_AcctSchema_Default!
-	C_AcctSchema_DefaultSaveMany(entities: [C_AcctSchema_DefaultInput!]!): [C_AcctSchema_Default!]!
-	C_AcctSchema_DefaultDelete(uuids: [String!]!): Boolean!
+	C_AcctSchema_DefaultSave(Entity: C_AcctSchema_DefaultInput!): C_AcctSchema_Default!
+	C_AcctSchema_DefaultSaveMany(Entities: [C_AcctSchema_DefaultInput!]!): [C_AcctSchema_Default!]!
+	C_AcctSchema_DefaultDelete(UUs: [String!]!): Boolean!
 }
 
 type C_AcctSchema_DefaultConnection {
-	results: [C_AcctSchema_Default!]!
-	pagingInfo: PagingInfo!
+	Results: [C_AcctSchema_Default!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_AcctSchema_Default {
@@ -33,8 +33,7 @@ type C_AcctSchema_Default {
 	B_PaymentSelect_A: C_ValidCombination!
 	# Unallocated Cash Clearing Account
 	B_UnallocatedCash_A: C_ValidCombination!
-	UUID: ID!
-	C_AcctSchema_Default_UU: String
+	UU: ID!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
 	# Account for customer prepayments
@@ -145,8 +144,7 @@ input C_AcctSchema_DefaultInput {
 	B_PaymentSelect_A: ForeignEntityInput
 	# Unallocated Cash Clearing Account
 	B_UnallocatedCash_A: ForeignEntityInput
-	UUID: ID
-	C_AcctSchema_Default_UU: String
+	UU: ID
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Account for customer prepayments

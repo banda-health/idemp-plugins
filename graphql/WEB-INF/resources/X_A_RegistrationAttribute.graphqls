@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_RegistrationAttributeGet(page: Int, size: Int, sort: String, filter: String): A_RegistrationAttributeConnection!
+	A_RegistrationAttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationAttributeConnection!
 }
 
 extend type Mutation {
-	A_RegistrationAttributeSave(entity: A_RegistrationAttributeInput!): A_RegistrationAttribute!
-	A_RegistrationAttributeSaveMany(entities: [A_RegistrationAttributeInput!]!): [A_RegistrationAttribute!]!
-	A_RegistrationAttributeDelete(uuids: [String!]!): Boolean!
+	A_RegistrationAttributeSave(Entity: A_RegistrationAttributeInput!): A_RegistrationAttribute!
+	A_RegistrationAttributeSaveMany(Entities: [A_RegistrationAttributeInput!]!): [A_RegistrationAttribute!]!
+	A_RegistrationAttributeDelete(UUs: [String!]!): Boolean!
 }
 
 type A_RegistrationAttributeConnection {
-	results: [A_RegistrationAttribute!]!
-	pagingInfo: PagingInfo!
+	Results: [A_RegistrationAttribute!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_RegistrationAttribute {
-	UUID: ID!
-	A_RegistrationAttribute_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
@@ -50,8 +49,7 @@ type A_RegistrationAttribute {
 }
 
 input A_RegistrationAttributeInput {
-	UUID: ID
-	A_RegistrationAttribute_UU: String
+	UU: ID
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# System Reference and Validation

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_PaySelectionGet(page: Int, size: Int, sort: String, filter: String): C_PaySelectionConnection!
+	C_PaySelectionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaySelectionConnection!
 }
 
 extend type Mutation {
-	C_PaySelectionSave(entity: C_PaySelectionInput!): C_PaySelection!
-	C_PaySelectionSaveMany(entities: [C_PaySelectionInput!]!): [C_PaySelection!]!
-	C_PaySelectionDelete(uuids: [String!]!): Boolean!
+	C_PaySelectionSave(Entity: C_PaySelectionInput!): C_PaySelection!
+	C_PaySelectionSaveMany(Entities: [C_PaySelectionInput!]!): [C_PaySelection!]!
+	C_PaySelectionDelete(UUs: [String!]!): Boolean!
 }
 
 type C_PaySelectionConnection {
-	results: [C_PaySelection!]!
-	pagingInfo: PagingInfo!
+	Results: [C_PaySelection!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_PaySelection {
@@ -23,8 +23,7 @@ type C_PaySelection {
 	AD_Org: AD_Org!
 	# Account at the Bank
 	C_BankAccount: C_BankAccount!
-	UUID: ID!
-	C_PaySelection_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -59,8 +58,7 @@ input C_PaySelectionInput {
 	AD_Org: ForeignEntityInput
 	# Account at the Bank
 	C_BankAccount: ForeignEntityInput
-	UUID: ID
-	C_PaySelection_UU: String
+	UU: ID
 	# Process which will generate a new document lines based on an existing document
 	CreateFrom: String
 	# Optional short description of the record

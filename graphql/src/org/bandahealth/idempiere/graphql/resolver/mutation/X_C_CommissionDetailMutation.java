@@ -21,16 +21,16 @@ public class X_C_CommissionDetailMutation extends POMutation implements GraphQLM
 		return X_C_CommissionDetailInput.Table_Name;
 	}
 
-	public MCommissionDetail C_CommissionDetailSave(I_C_CommissionDetailInput entity, DataFetchingEnvironment environment) {
-		return (MCommissionDetail) super.save((X_C_CommissionDetailInput) entity, environment);
+	public MCommissionDetail C_CommissionDetailSave(I_C_CommissionDetailInput Entity, DataFetchingEnvironment environment) {
+		return (MCommissionDetail) super.save((X_C_CommissionDetailInput) Entity, environment);
 	}
 
-	public List<MCommissionDetail> C_CommissionDetailSaveMany(List<I_C_CommissionDetailInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_CommissionDetailInput) entity).collect(Collectors.toList()),
+	public List<MCommissionDetail> C_CommissionDetailSaveMany(List<I_C_CommissionDetailInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_CommissionDetailInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MCommissionDetail) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_CommissionDetailDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_CommissionDetailDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

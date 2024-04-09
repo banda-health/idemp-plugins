@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_ElementValueGet(page: Int, size: Int, sort: String, filter: String): C_ElementValueConnection!
+	C_ElementValueGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ElementValueConnection!
 }
 
 extend type Mutation {
-	C_ElementValueSave(entity: C_ElementValueInput!): C_ElementValue!
-	C_ElementValueSaveMany(entities: [C_ElementValueInput!]!): [C_ElementValue!]!
-	C_ElementValueDelete(uuids: [String!]!): Boolean!
+	C_ElementValueSave(Entity: C_ElementValueInput!): C_ElementValue!
+	C_ElementValueSaveMany(Entities: [C_ElementValueInput!]!): [C_ElementValue!]!
+	C_ElementValueDelete(UUs: [String!]!): Boolean!
 }
 
 type C_ElementValueConnection {
-	results: [C_ElementValue!]!
-	pagingInfo: PagingInfo!
+	Results: [C_ElementValue!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_ElementValue {
@@ -32,8 +32,7 @@ type C_ElementValue {
 	C_Currency: C_Currency
 	# Accounting Element
 	C_Element: C_Element!
-	UUID: ID!
-	C_ElementValue_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -88,8 +87,7 @@ input C_ElementValueInput {
 	C_Currency: ForeignEntityInput
 	# Accounting Element
 	C_Element: ForeignEntityInput
-	UUID: ID
-	C_ElementValue_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

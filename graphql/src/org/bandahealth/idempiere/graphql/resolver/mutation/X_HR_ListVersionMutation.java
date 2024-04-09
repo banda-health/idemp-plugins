@@ -21,16 +21,16 @@ public class X_HR_ListVersionMutation extends POMutation implements GraphQLMutat
 		return X_HR_ListVersionInput.Table_Name;
 	}
 
-	public X_HR_ListVersion HR_ListVersionSave(I_HR_ListVersionInput entity, DataFetchingEnvironment environment) {
-		return (X_HR_ListVersion) super.save((X_HR_ListVersionInput) entity, environment);
+	public X_HR_ListVersion HR_ListVersionSave(I_HR_ListVersionInput Entity, DataFetchingEnvironment environment) {
+		return (X_HR_ListVersion) super.save((X_HR_ListVersionInput) Entity, environment);
 	}
 
-	public List<X_HR_ListVersion> HR_ListVersionSaveMany(List<I_HR_ListVersionInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_HR_ListVersionInput) entity).collect(Collectors.toList()),
+	public List<X_HR_ListVersion> HR_ListVersionSaveMany(List<I_HR_ListVersionInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_HR_ListVersionInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_HR_ListVersion) entity).collect(Collectors.toList());
 	}
 
-	public boolean HR_ListVersionDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean HR_ListVersionDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

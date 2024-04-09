@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_Product_CategoryGet(page: Int, size: Int, sort: String, filter: String): M_Product_CategoryConnection!
+	M_Product_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_CategoryConnection!
 }
 
 extend type Mutation {
-	M_Product_CategorySave(entity: M_Product_CategoryInput!): M_Product_Category!
-	M_Product_CategorySaveMany(entities: [M_Product_CategoryInput!]!): [M_Product_Category!]!
-	M_Product_CategoryDelete(uuids: [String!]!): Boolean!
+	M_Product_CategorySave(Entity: M_Product_CategoryInput!): M_Product_Category!
+	M_Product_CategorySaveMany(Entities: [M_Product_CategoryInput!]!): [M_Product_Category!]!
+	M_Product_CategoryDelete(UUs: [String!]!): Boolean!
 }
 
 type M_Product_CategoryConnection {
-	results: [M_Product_Category!]!
-	pagingInfo: PagingInfo!
+	Results: [M_Product_Category!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_Product_Category {
@@ -40,8 +40,7 @@ type M_Product_Category {
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean!
 	M_Product_Category_Parent: M_Product_Category
-	UUID: ID!
-	M_Product_Category_UU: String
+	UU: ID!
 	# Material Movement Policy
 	MMPolicy: AD_Ref_List!
 	# Alphanumeric identifier of the entity
@@ -74,8 +73,7 @@ input M_Product_CategoryInput {
 	# This is a Self-Service entry or this entry can be changed via Self-Service
 	IsSelfService: Boolean
 	M_Product_Category_Parent: ForeignEntityInput
-	UUID: ID
-	M_Product_Category_UU: String
+	UU: ID
 	# Material Movement Policy
 	MMPolicy: AD_Ref_ListInput
 	# Alphanumeric identifier of the entity

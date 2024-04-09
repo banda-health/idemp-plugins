@@ -21,16 +21,16 @@ public class X_PA_HierarchyMutation extends POMutation implements GraphQLMutatio
 		return X_PA_HierarchyInput.Table_Name;
 	}
 
-	public MHierarchy PA_HierarchySave(I_PA_HierarchyInput entity, DataFetchingEnvironment environment) {
-		return (MHierarchy) super.save((X_PA_HierarchyInput) entity, environment);
+	public MHierarchy PA_HierarchySave(I_PA_HierarchyInput Entity, DataFetchingEnvironment environment) {
+		return (MHierarchy) super.save((X_PA_HierarchyInput) Entity, environment);
 	}
 
-	public List<MHierarchy> PA_HierarchySaveMany(List<I_PA_HierarchyInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_PA_HierarchyInput) entity).collect(Collectors.toList()),
+	public List<MHierarchy> PA_HierarchySaveMany(List<I_PA_HierarchyInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PA_HierarchyInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MHierarchy) entity).collect(Collectors.toList());
 	}
 
-	public boolean PA_HierarchyDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean PA_HierarchyDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -21,16 +21,16 @@ public class X_R_MailTextMutation extends POMutation implements GraphQLMutationR
 		return X_R_MailTextInput.Table_Name;
 	}
 
-	public MMailText R_MailTextSave(I_R_MailTextInput entity, DataFetchingEnvironment environment) {
-		return (MMailText) super.save((X_R_MailTextInput) entity, environment);
+	public MMailText R_MailTextSave(I_R_MailTextInput Entity, DataFetchingEnvironment environment) {
+		return (MMailText) super.save((X_R_MailTextInput) Entity, environment);
 	}
 
-	public List<MMailText> R_MailTextSaveMany(List<I_R_MailTextInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_R_MailTextInput) entity).collect(Collectors.toList()),
+	public List<MMailText> R_MailTextSaveMany(List<I_R_MailTextInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_R_MailTextInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MMailText) entity).collect(Collectors.toList());
 	}
 
-	public boolean R_MailTextDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean R_MailTextDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

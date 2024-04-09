@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_DunningRunLineGet(page: Int, size: Int, sort: String, filter: String): C_DunningRunLineConnection!
+	C_DunningRunLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningRunLineConnection!
 }
 
 extend type Mutation {
-	C_DunningRunLineSave(entity: C_DunningRunLineInput!): C_DunningRunLine!
-	C_DunningRunLineSaveMany(entities: [C_DunningRunLineInput!]!): [C_DunningRunLine!]!
-	C_DunningRunLineDelete(uuids: [String!]!): Boolean!
+	C_DunningRunLineSave(Entity: C_DunningRunLineInput!): C_DunningRunLine!
+	C_DunningRunLineSaveMany(Entities: [C_DunningRunLineInput!]!): [C_DunningRunLine!]!
+	C_DunningRunLineDelete(UUs: [String!]!): Boolean!
 }
 
 type C_DunningRunLineConnection {
-	results: [C_DunningRunLine!]!
-	pagingInfo: PagingInfo!
+	Results: [C_DunningRunLine!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_DunningRunLine {
@@ -25,8 +25,7 @@ type C_DunningRunLine {
 	Amt: BigDecimal!
 	# Dunning Run Entry
 	C_DunningRunEntry: C_DunningRunEntry!
-	UUID: ID!
-	C_DunningRunLine_UU: String
+	UU: ID!
 	# Invoice Identifier
 	C_Invoice: C_Invoice
 	# Invoice Payment Schedule
@@ -70,8 +69,7 @@ input C_DunningRunLineInput {
 	Amt: BigDecimal
 	# Dunning Run Entry
 	C_DunningRunEntry: ForeignEntityInput
-	UUID: ID
-	C_DunningRunLine_UU: String
+	UU: ID
 	# Invoice Identifier
 	C_Invoice: ForeignEntityInput
 	# Invoice Payment Schedule

@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_RequestProcessorLogGet(page: Int, size: Int, sort: String, filter: String): R_RequestProcessorLogConnection!
+	R_RequestProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessorLogConnection!
 }
 
 extend type Mutation {
-	R_RequestProcessorLogSave(entity: R_RequestProcessorLogInput!): R_RequestProcessorLog!
-	R_RequestProcessorLogSaveMany(entities: [R_RequestProcessorLogInput!]!): [R_RequestProcessorLog!]!
-	R_RequestProcessorLogDelete(uuids: [String!]!): Boolean!
+	R_RequestProcessorLogSave(Entity: R_RequestProcessorLogInput!): R_RequestProcessorLog!
+	R_RequestProcessorLogSaveMany(Entities: [R_RequestProcessorLogInput!]!): [R_RequestProcessorLog!]!
+	R_RequestProcessorLogDelete(UUs: [String!]!): Boolean!
 }
 
 type R_RequestProcessorLogConnection {
-	results: [R_RequestProcessorLog!]!
-	pagingInfo: PagingInfo!
+	Results: [R_RequestProcessorLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_RequestProcessorLog {
@@ -35,8 +35,7 @@ type R_RequestProcessorLog {
 	IsError: Boolean!
 	# Processor for Requests
 	R_RequestProcessor: R_RequestProcessor!
-	UUID: ID!
-	R_RequestProcessorLog_UU: String
+	UU: ID!
 	# Reference for this record
 	Reference: String
 	# Textual summary of this request
@@ -62,8 +61,7 @@ input R_RequestProcessorLogInput {
 	IsError: Boolean
 	# Processor for Requests
 	R_RequestProcessor: ForeignEntityInput
-	UUID: ID
-	R_RequestProcessorLog_UU: String
+	UU: ID
 	# Reference for this record
 	Reference: String
 	# Textual summary of this request

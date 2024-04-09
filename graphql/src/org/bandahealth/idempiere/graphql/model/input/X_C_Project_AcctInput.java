@@ -32,12 +32,12 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The C_Project_Acct_UU to fetch this entity from the DB
+	 * @param UU The C_Project_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_C_Project_AcctInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_C_Project_AcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -93,11 +93,11 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAcctSchema foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
-							.setParameters(C_AcctSchema.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_AcctSchema_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_AcctSchema with UUID " + C_AcctSchema.getUUID());
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
 			}
 		} else {
 			this.setC_AcctSchema_ID(0);
@@ -115,20 +115,20 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setC_Project_Acct_UU(UUID);
+	public void setUU(String UU) {
+		setC_Project_Acct_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getC_Project_Acct_UU();
 	}
 
@@ -148,11 +148,11 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MProject foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_Project", "C_Project_UU=?", get_TrxName())
-							.setParameters(C_Project.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_Project.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_Project_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_Project with UUID " + C_Project.getUUID());
+						"Could not find entity in table C_Project with UU " + C_Project.getUU());
 			}
 		} else {
 			this.setC_Project_ID(0);
@@ -182,11 +182,11 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_Asset_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_Asset_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPJ_Asset_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PJ_Asset_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PJ_Asset_A.getUU());
 			}
 		} else {
 			this.setPJ_Asset_Acct(0);
@@ -216,11 +216,11 @@ public class X_C_Project_AcctInput extends X_C_Project_Acct implements I_C_Proje
 			MAccount foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
-							.setParameters(PJ_WIP_A.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(PJ_WIP_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setPJ_WIP_Acct(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ValidCombination with UUID " + PJ_WIP_A.getUUID());
+						"Could not find entity in table C_ValidCombination with UU " + PJ_WIP_A.getUU());
 			}
 		} else {
 			this.setPJ_WIP_Acct(0);

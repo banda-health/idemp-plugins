@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_Withholding_AcctGet(page: Int, size: Int, sort: String, filter: String): C_Withholding_AcctConnection!
+	C_Withholding_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Withholding_AcctConnection!
 }
 
 extend type Mutation {
-	C_Withholding_AcctSave(entity: C_Withholding_AcctInput!): C_Withholding_Acct!
-	C_Withholding_AcctSaveMany(entities: [C_Withholding_AcctInput!]!): [C_Withholding_Acct!]!
-	C_Withholding_AcctDelete(uuids: [String!]!): Boolean!
+	C_Withholding_AcctSave(Entity: C_Withholding_AcctInput!): C_Withholding_Acct!
+	C_Withholding_AcctSaveMany(Entities: [C_Withholding_AcctInput!]!): [C_Withholding_Acct!]!
+	C_Withholding_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_Withholding_AcctConnection {
-	results: [C_Withholding_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Withholding_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Withholding_Acct {
@@ -23,8 +23,7 @@ type C_Withholding_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UUID: ID!
-	C_Withholding_Acct_UU: String
+	UU: ID!
 	# Withholding type defined
 	C_Withholding: C_Withholding!
 	# Date this record was created
@@ -46,8 +45,7 @@ input C_Withholding_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UUID: ID
-	C_Withholding_Acct_UU: String
+	UU: ID
 	# Withholding type defined
 	C_Withholding: ForeignEntityInput
 	# The record is active in the system

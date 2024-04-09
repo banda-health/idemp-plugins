@@ -21,16 +21,16 @@ public class X_AD_PInstance_ParaMutation extends POMutation implements GraphQLMu
 		return X_AD_PInstance_ParaInput.Table_Name;
 	}
 
-	public MPInstancePara AD_PInstance_ParaSave(I_AD_PInstance_ParaInput entity, DataFetchingEnvironment environment) {
-		return (MPInstancePara) super.save((X_AD_PInstance_ParaInput) entity, environment);
+	public MPInstancePara AD_PInstance_ParaSave(I_AD_PInstance_ParaInput Entity, DataFetchingEnvironment environment) {
+		return (MPInstancePara) super.save((X_AD_PInstance_ParaInput) Entity, environment);
 	}
 
-	public List<MPInstancePara> AD_PInstance_ParaSaveMany(List<I_AD_PInstance_ParaInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PInstance_ParaInput) entity).collect(Collectors.toList()),
+	public List<MPInstancePara> AD_PInstance_ParaSaveMany(List<I_AD_PInstance_ParaInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PInstance_ParaInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MPInstancePara) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PInstance_ParaDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PInstance_ParaDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

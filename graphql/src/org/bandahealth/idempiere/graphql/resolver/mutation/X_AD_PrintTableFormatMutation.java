@@ -21,16 +21,16 @@ public class X_AD_PrintTableFormatMutation extends POMutation implements GraphQL
 		return X_AD_PrintTableFormatInput.Table_Name;
 	}
 
-	public X_AD_PrintTableFormat AD_PrintTableFormatSave(I_AD_PrintTableFormatInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_PrintTableFormat) super.save((X_AD_PrintTableFormatInput) entity, environment);
+	public X_AD_PrintTableFormat AD_PrintTableFormatSave(I_AD_PrintTableFormatInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintTableFormat) super.save((X_AD_PrintTableFormatInput) Entity, environment);
 	}
 
-	public List<X_AD_PrintTableFormat> AD_PrintTableFormatSaveMany(List<I_AD_PrintTableFormatInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintTableFormatInput) entity).collect(Collectors.toList()),
+	public List<X_AD_PrintTableFormat> AD_PrintTableFormatSaveMany(List<I_AD_PrintTableFormatInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PrintTableFormatInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_PrintTableFormat) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PrintTableFormatDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PrintTableFormatDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

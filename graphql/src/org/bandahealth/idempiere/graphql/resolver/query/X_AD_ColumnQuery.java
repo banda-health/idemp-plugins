@@ -17,8 +17,8 @@ public class X_AD_ColumnQuery extends POQuery<MColumn> implements GraphQLQueryRe
 		return MColumn.Table_Name;
 	}
 
-	public Connection<MColumn> AD_ColumnGet(int page, int pageSize, String sort, String filter,
+	public Connection<MColumn> AD_ColumnGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

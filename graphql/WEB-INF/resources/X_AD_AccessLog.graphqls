@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_AccessLogGet(page: Int, size: Int, sort: String, filter: String): AD_AccessLogConnection!
+	AD_AccessLogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AccessLogConnection!
 }
 
 extend type Mutation {
-	AD_AccessLogSave(entity: AD_AccessLogInput!): AD_AccessLog!
-	AD_AccessLogSaveMany(entities: [AD_AccessLogInput!]!): [AD_AccessLog!]!
-	AD_AccessLogDelete(uuids: [String!]!): Boolean!
+	AD_AccessLogSave(Entity: AD_AccessLogInput!): AD_AccessLog!
+	AD_AccessLogSaveMany(Entities: [AD_AccessLogInput!]!): [AD_AccessLog!]!
+	AD_AccessLogDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_AccessLogConnection {
-	results: [AD_AccessLog!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_AccessLog!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_AccessLog {
-	UUID: ID!
-	AD_AccessLog_UU: String
+	UU: ID!
 	# Tenant for this installation.
 	AD_Client: AD_Client!
 	# Column in the table
@@ -50,8 +49,7 @@ type AD_AccessLog {
 }
 
 input AD_AccessLogInput {
-	UUID: ID
-	AD_AccessLog_UU: String
+	UU: ID
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant

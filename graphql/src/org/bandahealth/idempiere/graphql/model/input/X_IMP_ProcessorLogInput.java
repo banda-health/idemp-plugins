@@ -27,12 +27,12 @@ public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_P
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The IMP_ProcessorLog_UU to fetch this entity from the DB
+	 * @param UU The IMP_ProcessorLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_IMP_ProcessorLogInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_IMP_ProcessorLogInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_P
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -88,11 +88,11 @@ public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_P
 			MIMPProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "IMP_Processor", "IMP_Processor_UU=?", get_TrxName())
-							.setParameters(IMP_Processor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(IMP_Processor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setIMP_Processor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table IMP_Processor with UUID " + IMP_Processor.getUUID());
+						"Could not find entity in table IMP_Processor with UU " + IMP_Processor.getUU());
 			}
 		} else {
 			this.setIMP_Processor_ID(0);
@@ -121,20 +121,20 @@ public class X_IMP_ProcessorLogInput extends MIMPProcessorLog implements I_IMP_P
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setIMP_ProcessorLog_UU(UUID);
+	public void setUU(String UU) {
+		setIMP_ProcessorLog_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getIMP_ProcessorLog_UU();
 	}
 }

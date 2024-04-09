@@ -17,8 +17,8 @@ public class X_AD_WF_ActivityQuery extends POQuery<X_AD_WF_Activity> implements 
 		return X_AD_WF_Activity.Table_Name;
 	}
 
-	public Connection<X_AD_WF_Activity> AD_WF_ActivityGet(int page, int pageSize, String sort, String filter,
+	public Connection<X_AD_WF_Activity> AD_WF_ActivityGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

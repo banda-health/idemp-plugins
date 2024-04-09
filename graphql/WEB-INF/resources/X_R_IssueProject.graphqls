@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	R_IssueProjectGet(page: Int, size: Int, sort: String, filter: String): R_IssueProjectConnection!
+	R_IssueProjectGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueProjectConnection!
 }
 
 extend type Mutation {
-	R_IssueProjectSave(entity: R_IssueProjectInput!): R_IssueProject!
-	R_IssueProjectSaveMany(entities: [R_IssueProjectInput!]!): [R_IssueProject!]!
-	R_IssueProjectDelete(uuids: [String!]!): Boolean!
+	R_IssueProjectSave(Entity: R_IssueProjectInput!): R_IssueProject!
+	R_IssueProjectSaveMany(Entities: [R_IssueProjectInput!]!): [R_IssueProject!]!
+	R_IssueProjectDelete(UUs: [String!]!): Boolean!
 }
 
 type R_IssueProjectConnection {
-	results: [R_IssueProject!]!
-	pagingInfo: PagingInfo!
+	Results: [R_IssueProject!]!
+	PagingInfo: PagingInfo!
 }
 
 type R_IssueProject {
@@ -37,8 +37,7 @@ type R_IssueProject {
 	Name: String!
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	UUID: ID!
-	R_IssueProject_UU: String
+	UU: ID!
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status
@@ -64,8 +63,7 @@ input R_IssueProjectInput {
 	Name: String
 	# Information to help profiling the system for solving support issues
 	ProfileInfo: String
-	UUID: ID
-	R_IssueProject_UU: String
+	UU: ID
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status

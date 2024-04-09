@@ -17,8 +17,8 @@ public class X_AD_WF_ActivityApproverQuery extends POQuery<MWFActivityApprover> 
 		return MWFActivityApprover.Table_Name;
 	}
 
-	public Connection<MWFActivityApprover> AD_WF_ActivityApproverGet(int page, int pageSize, String sort, String filter,
+	public Connection<MWFActivityApprover> AD_WF_ActivityApproverGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

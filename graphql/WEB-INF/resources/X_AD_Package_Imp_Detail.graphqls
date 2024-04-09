@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_Package_Imp_DetailGet(page: Int, size: Int, sort: String, filter: String): AD_Package_Imp_DetailConnection!
+	AD_Package_Imp_DetailGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_Imp_DetailConnection!
 }
 
 extend type Mutation {
-	AD_Package_Imp_DetailSave(entity: AD_Package_Imp_DetailInput!): AD_Package_Imp_Detail!
-	AD_Package_Imp_DetailSaveMany(entities: [AD_Package_Imp_DetailInput!]!): [AD_Package_Imp_Detail!]!
-	AD_Package_Imp_DetailDelete(uuids: [String!]!): Boolean!
+	AD_Package_Imp_DetailSave(Entity: AD_Package_Imp_DetailInput!): AD_Package_Imp_Detail!
+	AD_Package_Imp_DetailSaveMany(Entities: [AD_Package_Imp_DetailInput!]!): [AD_Package_Imp_Detail!]!
+	AD_Package_Imp_DetailDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_Package_Imp_DetailConnection {
-	results: [AD_Package_Imp_Detail!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_Package_Imp_Detail!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_Package_Imp_Detail {
@@ -23,8 +23,7 @@ type AD_Package_Imp_Detail {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	UUID: ID!
-	AD_Package_Imp_Detail_UU: String
+	UU: ID!
 	AD_Package_Imp: AD_Package_Imp!
 	# Database Table information
 	AD_Table: AD_Table
@@ -56,8 +55,7 @@ input AD_Package_Imp_DetailInput {
 	Action: String
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	UUID: ID
-	AD_Package_Imp_Detail_UU: String
+	UU: ID
 	AD_Package_Imp: ForeignEntityInput
 	# Database Table information
 	AD_Table: ForeignEntityInput

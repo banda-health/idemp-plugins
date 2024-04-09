@@ -2,23 +2,22 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	A_Asset_Reval_IndexGet(page: Int, size: Int, sort: String, filter: String): A_Asset_Reval_IndexConnection!
+	A_Asset_Reval_IndexGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Reval_IndexConnection!
 }
 
 extend type Mutation {
-	A_Asset_Reval_IndexSave(entity: A_Asset_Reval_IndexInput!): A_Asset_Reval_Index!
-	A_Asset_Reval_IndexSaveMany(entities: [A_Asset_Reval_IndexInput!]!): [A_Asset_Reval_Index!]!
-	A_Asset_Reval_IndexDelete(uuids: [String!]!): Boolean!
+	A_Asset_Reval_IndexSave(Entity: A_Asset_Reval_IndexInput!): A_Asset_Reval_Index!
+	A_Asset_Reval_IndexSaveMany(Entities: [A_Asset_Reval_IndexInput!]!): [A_Asset_Reval_Index!]!
+	A_Asset_Reval_IndexDelete(UUs: [String!]!): Boolean!
 }
 
 type A_Asset_Reval_IndexConnection {
-	results: [A_Asset_Reval_Index!]!
-	pagingInfo: PagingInfo!
+	Results: [A_Asset_Reval_Index!]!
+	PagingInfo: PagingInfo!
 }
 
 type A_Asset_Reval_Index {
-	UUID: ID!
-	A_Asset_Reval_Index_UU: String
+	UU: ID!
 	A_Effective_Date: Date!
 	A_Reval_Code: AD_Ref_List!
 	A_Reval_Multiplier: AD_Ref_List!
@@ -40,8 +39,7 @@ type A_Asset_Reval_Index {
 }
 
 input A_Asset_Reval_IndexInput {
-	UUID: ID
-	A_Asset_Reval_Index_UU: String
+	UU: ID
 	A_Effective_Date: Date
 	A_Reval_Code: AD_Ref_ListInput
 	A_Reval_Multiplier: AD_Ref_ListInput

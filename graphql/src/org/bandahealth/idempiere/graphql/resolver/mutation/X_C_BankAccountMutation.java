@@ -21,16 +21,16 @@ public class X_C_BankAccountMutation extends POMutation implements GraphQLMutati
 		return X_C_BankAccountInput.Table_Name;
 	}
 
-	public MBankAccount_BH C_BankAccountSave(I_C_BankAccountInput entity, DataFetchingEnvironment environment) {
-		return (MBankAccount_BH) super.save((X_C_BankAccountInput) entity, environment);
+	public MBankAccount_BH C_BankAccountSave(I_C_BankAccountInput Entity, DataFetchingEnvironment environment) {
+		return (MBankAccount_BH) super.save((X_C_BankAccountInput) Entity, environment);
 	}
 
-	public List<MBankAccount_BH> C_BankAccountSaveMany(List<I_C_BankAccountInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_C_BankAccountInput) entity).collect(Collectors.toList()),
+	public List<MBankAccount_BH> C_BankAccountSaveMany(List<I_C_BankAccountInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_BankAccountInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MBankAccount_BH) entity).collect(Collectors.toList());
 	}
 
-	public boolean C_BankAccountDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean C_BankAccountDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

@@ -17,8 +17,8 @@ public class X_C_AcctProcessorLogQuery extends POQuery<MAcctProcessorLog> implem
 		return MAcctProcessorLog.Table_Name;
 	}
 
-	public Connection<MAcctProcessorLog> C_AcctProcessorLogGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAcctProcessorLog> C_AcctProcessorLogGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

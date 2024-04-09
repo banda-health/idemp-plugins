@@ -17,8 +17,8 @@ public class X_C_PayScheduleQuery extends POQuery<MPaySchedule> implements Graph
 		return MPaySchedule.Table_Name;
 	}
 
-	public Connection<MPaySchedule> C_PayScheduleGet(int page, int pageSize, String sort, String filter,
+	public Connection<MPaySchedule> C_PayScheduleGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

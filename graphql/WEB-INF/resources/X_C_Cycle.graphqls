@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_CycleGet(page: Int, size: Int, sort: String, filter: String): C_CycleConnection!
+	C_CycleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CycleConnection!
 }
 
 extend type Mutation {
-	C_CycleSave(entity: C_CycleInput!): C_Cycle!
-	C_CycleSaveMany(entities: [C_CycleInput!]!): [C_Cycle!]!
-	C_CycleDelete(uuids: [String!]!): Boolean!
+	C_CycleSave(Entity: C_CycleInput!): C_Cycle!
+	C_CycleSaveMany(Entities: [C_CycleInput!]!): [C_Cycle!]!
+	C_CycleDelete(UUs: [String!]!): Boolean!
 }
 
 type C_CycleConnection {
-	results: [C_Cycle!]!
-	pagingInfo: PagingInfo!
+	Results: [C_Cycle!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_Cycle {
@@ -23,8 +23,7 @@ type C_Cycle {
 	AD_Org: AD_Org!
 	# The Currency for this record
 	C_Currency: C_Currency!
-	UUID: ID!
-	C_Cycle_UU: String
+	UU: ID!
 	# Date this record was created
 	Created: Date!
 	# User who created this records
@@ -46,8 +45,7 @@ input C_CycleInput {
 	AD_Org: ForeignEntityInput
 	# The Currency for this record
 	C_Currency: ForeignEntityInput
-	UUID: ID
-	C_Cycle_UU: String
+	UU: ID
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

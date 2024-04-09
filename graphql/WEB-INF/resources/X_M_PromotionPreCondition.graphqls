@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_PromotionPreConditionGet(page: Int, size: Int, sort: String, filter: String): M_PromotionPreConditionConnection!
+	M_PromotionPreConditionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionPreConditionConnection!
 }
 
 extend type Mutation {
-	M_PromotionPreConditionSave(entity: M_PromotionPreConditionInput!): M_PromotionPreCondition!
-	M_PromotionPreConditionSaveMany(entities: [M_PromotionPreConditionInput!]!): [M_PromotionPreCondition!]!
-	M_PromotionPreConditionDelete(uuids: [String!]!): Boolean!
+	M_PromotionPreConditionSave(Entity: M_PromotionPreConditionInput!): M_PromotionPreCondition!
+	M_PromotionPreConditionSaveMany(Entities: [M_PromotionPreConditionInput!]!): [M_PromotionPreCondition!]!
+	M_PromotionPreConditionDelete(UUs: [String!]!): Boolean!
 }
 
 type M_PromotionPreConditionConnection {
-	results: [M_PromotionPreCondition!]!
-	pagingInfo: PagingInfo!
+	Results: [M_PromotionPreCondition!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_PromotionPreCondition {
@@ -38,8 +38,7 @@ type M_PromotionPreCondition {
 	# Unique identifier of a Price List
 	M_PriceList: M_PriceList
 	M_Promotion: M_Promotion!
-	UUID: ID!
-	M_PromotionPreCondition_UU: String
+	UU: ID!
 	# Storage Warehouse and Service Point
 	M_Warehouse: M_Warehouse
 	# User entered promotion code at sales time
@@ -74,8 +73,7 @@ input M_PromotionPreConditionInput {
 	# Unique identifier of a Price List
 	M_PriceList: ForeignEntityInput
 	M_Promotion: ForeignEntityInput
-	UUID: ID
-	M_PromotionPreCondition_UU: String
+	UU: ID
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
 	# User entered promotion code at sales time

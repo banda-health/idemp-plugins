@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	C_BP_Customer_AcctGet(page: Int, size: Int, sort: String, filter: String): C_BP_Customer_AcctConnection!
+	C_BP_Customer_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_Customer_AcctConnection!
 }
 
 extend type Mutation {
-	C_BP_Customer_AcctSave(entity: C_BP_Customer_AcctInput!): C_BP_Customer_Acct!
-	C_BP_Customer_AcctSaveMany(entities: [C_BP_Customer_AcctInput!]!): [C_BP_Customer_Acct!]!
-	C_BP_Customer_AcctDelete(uuids: [String!]!): Boolean!
+	C_BP_Customer_AcctSave(Entity: C_BP_Customer_AcctInput!): C_BP_Customer_Acct!
+	C_BP_Customer_AcctSaveMany(Entities: [C_BP_Customer_AcctInput!]!): [C_BP_Customer_Acct!]!
+	C_BP_Customer_AcctDelete(UUs: [String!]!): Boolean!
 }
 
 type C_BP_Customer_AcctConnection {
-	results: [C_BP_Customer_Acct!]!
-	pagingInfo: PagingInfo!
+	Results: [C_BP_Customer_Acct!]!
+	PagingInfo: PagingInfo!
 }
 
 type C_BP_Customer_Acct {
@@ -23,8 +23,7 @@ type C_BP_Customer_Acct {
 	AD_Org: AD_Org!
 	# Rules for accounting
 	C_AcctSchema: C_AcctSchema!
-	UUID: ID!
-	C_BP_Customer_Acct_UU: String
+	UU: ID!
 	# Identifies a Business Partner
 	C_BPartner: C_BPartner!
 	# Account for customer prepayments
@@ -50,8 +49,7 @@ input C_BP_Customer_AcctInput {
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
-	UUID: ID
-	C_BP_Customer_Acct_UU: String
+	UU: ID
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Account for customer prepayments

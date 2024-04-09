@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_AttributeSetExcludeGet(page: Int, size: Int, sort: String, filter: String): M_AttributeSetExcludeConnection!
+	M_AttributeSetExcludeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeSetExcludeConnection!
 }
 
 extend type Mutation {
-	M_AttributeSetExcludeSave(entity: M_AttributeSetExcludeInput!): M_AttributeSetExclude!
-	M_AttributeSetExcludeSaveMany(entities: [M_AttributeSetExcludeInput!]!): [M_AttributeSetExclude!]!
-	M_AttributeSetExcludeDelete(uuids: [String!]!): Boolean!
+	M_AttributeSetExcludeSave(Entity: M_AttributeSetExcludeInput!): M_AttributeSetExclude!
+	M_AttributeSetExcludeSaveMany(Entities: [M_AttributeSetExcludeInput!]!): [M_AttributeSetExclude!]!
+	M_AttributeSetExcludeDelete(UUs: [String!]!): Boolean!
 }
 
 type M_AttributeSetExcludeConnection {
-	results: [M_AttributeSetExclude!]!
-	pagingInfo: PagingInfo!
+	Results: [M_AttributeSetExclude!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_AttributeSetExclude {
@@ -33,8 +33,7 @@ type M_AttributeSetExclude {
 	IsSOTrx: Boolean!
 	# Product Attribute Set
 	M_AttributeSet: M_AttributeSet!
-	UUID: ID!
-	M_AttributeSetExclude_UU: String
+	UU: ID!
 	# Date this record was updated
 	Updated: Date!
 	# User who updated this records
@@ -52,6 +51,5 @@ input M_AttributeSetExcludeInput {
 	IsSOTrx: Boolean
 	# Product Attribute Set
 	M_AttributeSet: ForeignEntityInput
-	UUID: ID
-	M_AttributeSetExclude_UU: String
+	UU: ID
 }

@@ -17,8 +17,8 @@ public class X_A_Asset_Group_AcctQuery extends POQuery<MAssetGroupAcct> implemen
 		return MAssetGroupAcct.Table_Name;
 	}
 
-	public Connection<MAssetGroupAcct> A_Asset_Group_AcctGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAssetGroupAcct> A_Asset_Group_AcctGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

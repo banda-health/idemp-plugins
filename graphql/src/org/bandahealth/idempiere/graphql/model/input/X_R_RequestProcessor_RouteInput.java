@@ -31,12 +31,12 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The R_RequestProcessor_Route_UU to fetch this entity from the DB
+	 * @param UU The R_RequestProcessor_Route_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_R_RequestProcessor_RouteInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_R_RequestProcessor_RouteInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -55,11 +55,11 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -89,11 +89,11 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 			MUser_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
-							.setParameters(AD_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_User_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_User with UUID " + AD_User.getUUID());
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
 			}
 		} else {
 			this.setAD_User_ID(0);
@@ -126,11 +126,11 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 			MRequestProcessor foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestProcessor", "R_RequestProcessor_UU=?", get_TrxName())
-							.setParameters(R_RequestProcessor.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestProcessor.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_RequestProcessor_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_RequestProcessor with UUID " + R_RequestProcessor.getUUID());
+						"Could not find entity in table R_RequestProcessor with UU " + R_RequestProcessor.getUU());
 			}
 		} else {
 			this.setR_RequestProcessor_ID(0);
@@ -159,20 +159,20 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setR_RequestProcessor_Route_UU(UUID);
+	public void setUU(String UU) {
+		setR_RequestProcessor_Route_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getR_RequestProcessor_Route_UU();
 	}
 
@@ -189,11 +189,11 @@ public class X_R_RequestProcessor_RouteInput extends MRequestProcessorRoute impl
 			MRequestType foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "R_RequestType", "R_RequestType_UU=?", get_TrxName())
-							.setParameters(R_RequestType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(R_RequestType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setR_RequestType_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table R_RequestType with UUID " + R_RequestType.getUUID());
+						"Could not find entity in table R_RequestType with UU " + R_RequestType.getUU());
 			}
 		} else {
 			this.setR_RequestType_ID(0);

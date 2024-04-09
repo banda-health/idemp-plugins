@@ -17,8 +17,8 @@ public class X_TestQuery extends POQuery<MTest> implements GraphQLQueryResolver 
 		return MTest.Table_Name;
 	}
 
-	public Connection<MTest> TestGet(int page, int pageSize, String sort, String filter,
+	public Connection<MTest> TestGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

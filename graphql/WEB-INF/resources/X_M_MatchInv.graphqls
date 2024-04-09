@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_MatchInvGet(page: Int, size: Int, sort: String, filter: String): M_MatchInvConnection!
+	M_MatchInvGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MatchInvConnection!
 }
 
 extend type Mutation {
-	M_MatchInvSave(entity: M_MatchInvInput!): M_MatchInv!
-	M_MatchInvSaveMany(entities: [M_MatchInvInput!]!): [M_MatchInv!]!
-	M_MatchInvDelete(uuids: [String!]!): Boolean!
+	M_MatchInvSave(Entity: M_MatchInvInput!): M_MatchInv!
+	M_MatchInvSaveMany(Entities: [M_MatchInvInput!]!): [M_MatchInv!]!
+	M_MatchInvDelete(UUs: [String!]!): Boolean!
 }
 
 type M_MatchInvConnection {
-	results: [M_MatchInv!]!
-	pagingInfo: PagingInfo!
+	Results: [M_MatchInv!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_MatchInv {
@@ -41,8 +41,7 @@ type M_MatchInv {
 	M_AttributeSetInstance: M_AttributeSetInstance
 	# Line on Shipment or Receipt document
 	M_InOutLine: M_InOutLine
-	UUID: ID!
-	M_MatchInv_UU: String
+	UU: ID!
 	# Product, Service, Item
 	M_Product: M_Product!
 	# Posting status
@@ -82,8 +81,7 @@ input M_MatchInvInput {
 	M_AttributeSetInstance: ForeignEntityInput
 	# Line on Shipment or Receipt document
 	M_InOutLine: ForeignEntityInput
-	UUID: ID
-	M_MatchInv_UU: String
+	UU: ID
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# Posting status

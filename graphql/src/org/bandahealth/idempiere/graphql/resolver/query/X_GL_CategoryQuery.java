@@ -17,8 +17,8 @@ public class X_GL_CategoryQuery extends POQuery<MGLCategory> implements GraphQLQ
 		return MGLCategory.Table_Name;
 	}
 
-	public Connection<MGLCategory> GL_CategoryGet(int page, int pageSize, String sort, String filter,
+	public Connection<MGLCategory> GL_CategoryGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

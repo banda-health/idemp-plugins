@@ -34,12 +34,12 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
 	 *
-	 * @param UUID The GL_JournalGeneratorLine_UU to fetch this entity from the DB
+	 * @param UU The GL_JournalGeneratorLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public X_GL_JournalGeneratorLineInput(@JsonProperty("UUID") String UUID) {
-		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UUID), null);
-		setUUID(UUID);
+	public X_GL_JournalGeneratorLineInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MOrg foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
-							.setParameters(AD_Org.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setAD_Org_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table AD_Org with UUID " + AD_Org.getUUID());
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
 			}
 		} else {
 			this.setAD_Org_ID(0);
@@ -92,11 +92,11 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MRefList_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BPDimensionType.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(BPDimensionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setBPDimensionType(foreignEntity.getValue());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UUID " + BPDimensionType.getUUID());
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BPDimensionType.getUU());
 			}
 		} else {
 			this.setBPDimensionType(null);
@@ -126,11 +126,11 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MBPartner_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_BPartner", "C_BPartner_UU=?", get_TrxName())
-							.setParameters(C_BPartner.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_BPartner.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_BPartner_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_BPartner with UUID " + C_BPartner.getUUID());
+						"Could not find entity in table C_BPartner with UU " + C_BPartner.getUU());
 			}
 		} else {
 			this.setC_BPartner_ID(0);
@@ -160,11 +160,11 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValueCR.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValueCR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ElementValueCR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + C_ElementValueCR.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + C_ElementValueCR.getUU());
 			}
 		} else {
 			this.setC_ElementValueCR_ID(0);
@@ -194,11 +194,11 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MElementValue foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "C_ElementValue", "C_ElementValue_UU=?", get_TrxName())
-							.setParameters(C_ElementValueDR.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(C_ElementValueDR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setC_ElementValueDR_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table C_ElementValue with UUID " + C_ElementValueDR.getUUID());
+						"Could not find entity in table C_ElementValue with UU " + C_ElementValueDR.getUU());
 			}
 		} else {
 			this.setC_ElementValueDR_ID(0);
@@ -231,11 +231,11 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 			MJournalGenerator foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "GL_JournalGenerator", "GL_JournalGenerator_UU=?", get_TrxName())
-							.setParameters(GL_JournalGenerator.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+							.setParameters(GL_JournalGenerator.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
 				this.setGL_JournalGenerator_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table GL_JournalGenerator with UUID " + GL_JournalGenerator.getUUID());
+						"Could not find entity in table GL_JournalGenerator with UU " + GL_JournalGenerator.getUU());
 			}
 		} else {
 			this.setGL_JournalGenerator_ID(0);
@@ -264,20 +264,20 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 	}
 
 	/**
-	 * Set UUID.
+	 * Set UU.
 	 *
-	 * @param UUID UUID
+	 * @param UU UU
 	 */
-	public void setUUID(String UUID) {
-		setGL_JournalGeneratorLine_UU(UUID);
+	public void setUU(String UU) {
+		setGL_JournalGeneratorLine_UU(UU);
 	}
 
 	/**
-	 * Get UUID.
+	 * Get UU.
 	 *
-	 * @return UUID
+	 * @return UU
 	 */
-	public String getUUID() {
+	public String getUU() {
 		return getGL_JournalGeneratorLine_UU();
 	}
 }

@@ -17,8 +17,8 @@ public class X_AD_AuthorizationAccountQuery extends POQuery<MAuthorizationAccoun
 		return MAuthorizationAccount.Table_Name;
 	}
 
-	public Connection<MAuthorizationAccount> AD_AuthorizationAccountGet(int page, int pageSize, String sort, String filter,
+	public Connection<MAuthorizationAccount> AD_AuthorizationAccountGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(page, pageSize, sort, filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }

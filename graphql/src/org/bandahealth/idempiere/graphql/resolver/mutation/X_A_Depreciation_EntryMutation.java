@@ -21,16 +21,16 @@ public class X_A_Depreciation_EntryMutation extends POMutation implements GraphQ
 		return X_A_Depreciation_EntryInput.Table_Name;
 	}
 
-	public MDepreciationEntry A_Depreciation_EntrySave(I_A_Depreciation_EntryInput entity, DataFetchingEnvironment environment) {
-		return (MDepreciationEntry) super.save((X_A_Depreciation_EntryInput) entity, environment);
+	public MDepreciationEntry A_Depreciation_EntrySave(I_A_Depreciation_EntryInput Entity, DataFetchingEnvironment environment) {
+		return (MDepreciationEntry) super.save((X_A_Depreciation_EntryInput) Entity, environment);
 	}
 
-	public List<MDepreciationEntry> A_Depreciation_EntrySaveMany(List<I_A_Depreciation_EntryInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_A_Depreciation_EntryInput) entity).collect(Collectors.toList()),
+	public List<MDepreciationEntry> A_Depreciation_EntrySaveMany(List<I_A_Depreciation_EntryInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_Depreciation_EntryInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (MDepreciationEntry) entity).collect(Collectors.toList());
 	}
 
-	public boolean A_Depreciation_EntryDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean A_Depreciation_EntryDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }

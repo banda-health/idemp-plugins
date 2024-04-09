@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	M_ShippingProcessorGet(page: Int, size: Int, sort: String, filter: String): M_ShippingProcessorConnection!
+	M_ShippingProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShippingProcessorConnection!
 }
 
 extend type Mutation {
-	M_ShippingProcessorSave(entity: M_ShippingProcessorInput!): M_ShippingProcessor!
-	M_ShippingProcessorSaveMany(entities: [M_ShippingProcessorInput!]!): [M_ShippingProcessor!]!
-	M_ShippingProcessorDelete(uuids: [String!]!): Boolean!
+	M_ShippingProcessorSave(Entity: M_ShippingProcessorInput!): M_ShippingProcessor!
+	M_ShippingProcessorSaveMany(Entities: [M_ShippingProcessorInput!]!): [M_ShippingProcessor!]!
+	M_ShippingProcessorDelete(UUs: [String!]!): Boolean!
 }
 
 type M_ShippingProcessorConnection {
-	results: [M_ShippingProcessor!]!
-	pagingInfo: PagingInfo!
+	Results: [M_ShippingProcessor!]!
+	PagingInfo: PagingInfo!
 }
 
 type M_ShippingProcessor {
@@ -29,8 +29,7 @@ type M_ShippingProcessor {
 	CreatedBy: AD_User!
 	# The record is active in the system
 	IsActive: Boolean!
-	UUID: ID!
-	M_ShippingProcessor_UU: String
+	UU: ID!
 	M_ShippingProcessorCfg: M_ShippingProcessorCfg!
 	# Alphanumeric identifier of the entity
 	Name: String!
@@ -49,8 +48,7 @@ input M_ShippingProcessorInput {
 	ConnectionPassword: String
 	# The record is active in the system
 	IsActive: Boolean
-	UUID: ID
-	M_ShippingProcessor_UU: String
+	UU: ID
 	M_ShippingProcessorCfg: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String

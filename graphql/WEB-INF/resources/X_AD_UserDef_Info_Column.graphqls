@@ -2,18 +2,18 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
-	AD_UserDef_Info_ColumnGet(page: Int, size: Int, sort: String, filter: String): AD_UserDef_Info_ColumnConnection!
+	AD_UserDef_Info_ColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_Info_ColumnConnection!
 }
 
 extend type Mutation {
-	AD_UserDef_Info_ColumnSave(entity: AD_UserDef_Info_ColumnInput!): AD_UserDef_Info_Column!
-	AD_UserDef_Info_ColumnSaveMany(entities: [AD_UserDef_Info_ColumnInput!]!): [AD_UserDef_Info_Column!]!
-	AD_UserDef_Info_ColumnDelete(uuids: [String!]!): Boolean!
+	AD_UserDef_Info_ColumnSave(Entity: AD_UserDef_Info_ColumnInput!): AD_UserDef_Info_Column!
+	AD_UserDef_Info_ColumnSaveMany(Entities: [AD_UserDef_Info_ColumnInput!]!): [AD_UserDef_Info_Column!]!
+	AD_UserDef_Info_ColumnDelete(UUs: [String!]!): Boolean!
 }
 
 type AD_UserDef_Info_ColumnConnection {
-	results: [AD_UserDef_Info_Column!]!
-	pagingInfo: PagingInfo!
+	Results: [AD_UserDef_Info_Column!]!
+	PagingInfo: PagingInfo!
 }
 
 type AD_UserDef_Info_Column {
@@ -29,8 +29,7 @@ type AD_UserDef_Info_Column {
 	AD_Reference: AD_Reference
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: AD_Reference
-	UUID: ID!
-	AD_UserDef_Info_Column_UU: String
+	UU: ID!
 	AD_UserDef_Info: AD_UserDef_Info!
 	# Dynamic Validation Rule
 	AD_Val_Rule: AD_Val_Rule
@@ -90,8 +89,7 @@ input AD_UserDef_Info_ColumnInput {
 	AD_Reference: ForeignEntityInput
 	# Required to specify, if data type is Table or List
 	AD_Reference_Value: ForeignEntityInput
-	UUID: ID
-	AD_UserDef_Info_Column_UU: String
+	UU: ID
 	AD_UserDef_Info: ForeignEntityInput
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput

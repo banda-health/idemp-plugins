@@ -21,16 +21,16 @@ public class X_AD_PrintHeaderFooterMutation extends POMutation implements GraphQ
 		return X_AD_PrintHeaderFooterInput.Table_Name;
 	}
 
-	public X_AD_PrintHeaderFooter AD_PrintHeaderFooterSave(I_AD_PrintHeaderFooterInput entity, DataFetchingEnvironment environment) {
-		return (X_AD_PrintHeaderFooter) super.save((X_AD_PrintHeaderFooterInput) entity, environment);
+	public X_AD_PrintHeaderFooter AD_PrintHeaderFooterSave(I_AD_PrintHeaderFooterInput Entity, DataFetchingEnvironment environment) {
+		return (X_AD_PrintHeaderFooter) super.save((X_AD_PrintHeaderFooterInput) Entity, environment);
 	}
 
-	public List<X_AD_PrintHeaderFooter> AD_PrintHeaderFooterSaveMany(List<I_AD_PrintHeaderFooterInput> entities, DataFetchingEnvironment environment) {
-		return super.saveMany(entities.stream().map(entity -> (X_AD_PrintHeaderFooterInput) entity).collect(Collectors.toList()),
+	public List<X_AD_PrintHeaderFooter> AD_PrintHeaderFooterSaveMany(List<I_AD_PrintHeaderFooterInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_AD_PrintHeaderFooterInput) entity).collect(Collectors.toList()),
 				environment).stream().map(entity -> (X_AD_PrintHeaderFooter) entity).collect(Collectors.toList());
 	}
 
-	public boolean AD_PrintHeaderFooterDelete(List<String> uuids, DataFetchingEnvironment environment) {
-		return super.delete(uuids, environment);
+	public boolean AD_PrintHeaderFooterDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
 	}
 }
