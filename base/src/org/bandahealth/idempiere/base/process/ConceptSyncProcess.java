@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
+import org.bandahealth.idempiere.base.model.MBHConceptName;
 import org.bandahealth.idempiere.base.model.OCLConcept;
 import org.bandahealth.idempiere.base.model.OCLConceptMapping;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
@@ -180,7 +181,7 @@ public class ConceptSyncProcess extends SvrProcess {
 		mConcept.setBH_Source(concept.getSource());
 		mConcept.setURL(concept.getUrl());
 		mConcept.saveEx();
-		
+
 		visitedConcepts.add(concept.getId());
 
 		final int conceptID = mConcept.getBH_Concept_ID();
@@ -208,6 +209,34 @@ public class ConceptSyncProcess extends SvrProcess {
 			foundConceptExtra.setBH_Key(extra.getKey());
 			foundConceptExtra.setBH_Value(extra.getValue());
 			foundConceptExtra.saveEx();
+		});
+
+		// get concept names
+		List<MBHConceptName> mConceptNames = new Query(getCtx(), MBHConceptName.Table_Name,
+				MBHConceptName.COLUMNNAME_BH_Concept_ID + "=?", null).setParameters(conceptID).list();
+		concept.getNames().forEach((name) -> {
+			// search name in db list
+			MBHConceptName foundConceptName = mConceptNames.stream()
+					.filter(filterConceptName -> name.getUuid().equals(filterConceptName.getBH_Concept_Name_UU()))
+					.findFirst().orElse(null);
+
+			if (foundConceptName == null) {
+				// new record
+				foundConceptName = new MBHConceptName(getCtx(), 0, null);
+				foundConceptName.setBH_Concept_Name_UU(name.getUuid());
+				foundConceptName.setBH_Concept_ID(conceptID);
+				newRecords.incrementAndGet();
+			} else {
+				updatedRecords.incrementAndGet();
+			}
+
+			foundConceptName.setBH_Concept_Locale(name.getLocale());
+			foundConceptName.setName(name.getName());
+			foundConceptName.setBH_Concept_Type(name.getType());
+			foundConceptName.setBH_Concept_Name_Type(name.getNameType());
+			foundConceptName.setBH_Concept_Locale(name.getLocale());
+			foundConceptName.setBH_Concept_Locale_Preferred(name.isLocalePreferred());
+			foundConceptName.saveEx();
 		});
 
 		// save mappings
