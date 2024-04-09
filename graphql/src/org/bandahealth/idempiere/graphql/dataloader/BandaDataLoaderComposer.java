@@ -333,6 +333,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MReplicationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MReplicationLogDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MReplicationRunDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MReplicationStrategyDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MReplicationTableDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MReportCubeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MReportViewDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MRequestActionDataLoader;
@@ -1165,6 +1166,7 @@ public class BandaDataLoaderComposer {
 				new MReplicationLogDataLoader(),
 				new MReplicationRunDataLoader(),
 				new MReplicationStrategyDataLoader(),
+				new MReplicationTableDataLoader(),
 				new MReportCubeDataLoader(),
 				new MReportViewDataLoader(),
 				new MRequestActionDataLoader(),

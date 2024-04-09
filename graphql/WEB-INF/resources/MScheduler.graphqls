@@ -1,3 +1,5 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
 extend type AD_Scheduler {
+	AD_SchedulerLogs: [AD_SchedulerLog!]
+	AD_Scheduler_ParaList: [AD_Scheduler_Para!]
+	AD_SchedulerRecipients: [AD_SchedulerRecipient!]
 }

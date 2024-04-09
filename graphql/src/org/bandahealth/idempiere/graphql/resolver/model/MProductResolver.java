@@ -7,13 +7,17 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MInOutLineDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MLotDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MProductPODataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MReplenishDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MStorageOnHandDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MStorageReservationDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.ProductCostCalculationDataLoader;
 import org.bandahealth.idempiere.graphql.model.ProductCostCalculation;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MInOutLine;
 import org.compiere.model.MLot;
+import org.compiere.model.MReplenish;
 import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MStorageReservation;
 import org.dataloader.DataLoader;
 
 import java.math.BigDecimal;
@@ -47,6 +51,13 @@ public class MProductResolver extends X_M_ProductResolver {
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MStorageOnHand>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MStorageOnHandDataLoader.DATALOADER_M_StorageOnHand_By_Product_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID()));
+	}
+
+	public CompletableFuture<List<MStorageReservation>> M_StorageReservations(MProduct_BH entity,
+			DataFetchingEnvironment environment) {
+		DataLoader<String, List<MStorageReservation>> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MStorageReservationDataLoader.DATALOADER_M_StorageReservation_BY_M_Product_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID()));
 	}
 
@@ -84,6 +95,13 @@ public class MProductResolver extends X_M_ProductResolver {
 			DataFetchingEnvironment environment) {
 		DataLoader<String, List<MProductPO_BH>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MProductPODataLoader.DATALOADER_M_Product_PO_BY_M_Product_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID()));
+	}
+
+	public CompletableFuture<List<MReplenish>> M_ReplenishList(MProduct_BH entity,
+			DataFetchingEnvironment environment) {
+		DataLoader<String, List<MReplenish>> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MReplenishDataLoader.DATALOADER_M_Replenish_BY_M_Product_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getM_Product_ID()));
 	}
 }

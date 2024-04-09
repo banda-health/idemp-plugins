@@ -1,3 +1,4 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
 extend type AD_Table {
+	AD_Columns: [AD_Column!]
+	AD_ViewComponents: [AD_ViewComponent!]
 }

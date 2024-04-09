@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MWindowResolver extends X_AD_WindowResolver {
+
 	public CompletableFuture<List<MTab>> AD_Tabs(MWindow entity, DataFetchingEnvironment environment) {
 		DataLoader<String, List<MTab>> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(MTabDataLoader.DATALOADER_AD_Tab_BY_AD_Window_ID);

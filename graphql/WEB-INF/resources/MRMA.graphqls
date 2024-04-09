@@ -1,3 +1,4 @@
-# If you want to add to this file, delete this line and uncomment the file in BandaSchemaFileComposer
 extend type M_RMA {
+	M_RMALines: [M_RMALine!]
+	M_RMATaxes: [M_RMATax!]
 }
