@@ -1,39 +1,39 @@
 {
-  "name": "graphql-test",
-  "version": "1.0.0",
-  "description": "This is where the API calls are made to test our GraphQL plugin",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "create-index": "ts-create-index . -u -x ts -o index.ts",
-    "generate": "graphql-codegen"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.23.0",
-    "@babel/preset-env": "^7.22.20",
-    "@graphql-codegen/cli": "^5.0.0",
-    "@graphql-codegen/client-preset": "^4.1.0",
-    "@types/jest": "^28.1.4",
-    "@types/lodash": "^4.14.195",
-    "@types/node": "^18.0.3",
-    "@types/pdf-parse": "^1.1.1",
-    "@types/uuid": "^8.3.4",
-    "babel-jest": "^29.7.0",
-    "jest": "^29.7.0",
-    "os-tmpdir": "^2.0.0",
-    "pactum": "^3.1.11",
-    "ts-create-index": "^3.0.10",
-    "ts-jest": "^29.1.1",
-    "ws": "^8.16.0"
-  },
-  "dependencies": {
-    "@apollo/client": "^3.8.9",
-    "graphql": "^16.8.1",
-    "lodash": "^4.17.21",
-    "node-xlsx": "^0.23.0",
-    "pdfdataextract": "^3.2.0",
-    "uuid": "^8.3.2"
-  }
+	"name": "graphql-test",
+	"version": "1.0.0",
+	"description": "This is where the API calls are made to test our GraphQL plugin",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest",
+		"create-index": "ts-create-index . -u -x ts -o index.ts",
+		"generate": "graphql-codegen"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/core": "^7.23.0",
+		"@babel/preset-env": "^7.22.20",
+		"@graphql-codegen/cli": "^5.0.0",
+		"@graphql-codegen/client-preset": "^4.1.0",
+		"@types/jest": "^28.1.4",
+		"@types/lodash": "^4.14.195",
+		"@types/node": "^18.0.3",
+		"@types/pdf-parse": "^1.1.1",
+		"@types/uuid": "^8.3.4",
+		"babel-jest": "^29.7.0",
+		"jest": "^29.7.0",
+		"os-tmpdir": "^2.0.0",
+		"pactum": "^3.1.11",
+		"ts-create-index": "^3.0.10",
+		"ts-jest": "^29.1.1",
+		"ws": "^8.16.0"
+	},
+	"dependencies": {
+		"@apollo/client": "^3.8.9",
+		"graphql": "^16.8.1",
+		"lodash": "^4.17.21",
+		"node-xlsx": "^0.23.0",
+		"pdfdataextract": "^3.2.0",
+		"uuid": "^8.3.2"
+	}
 }

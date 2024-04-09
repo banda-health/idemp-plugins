@@ -36,16 +36,16 @@ test('inactive products and services not returned from the search method', async
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
 			variables: {
-				entity: {
-					AD_Org: { UUID: valueObject.organization!.UUID },
+				Entity: {
+					AD_Org: { UU: valueObject.organization!.UU },
 					Description: valueObject.getStepMessageLong(),
 					Name: 'p2' + valueObject.getDynamicScenarioName(),
 					BH_BuyPrice: valueObject.purchaseStandardPrice ?? 1,
 					BH_SellPrice: valueObject.salesStandardPrice ?? 1,
-					C_TaxCategory: { UUID: (await getDefaultTaxCategory(valueObject)).UUID },
-					M_Product_Category: { UUID: (await getDefaultProductCategory(valueObject)).UUID },
-					C_UOM: { UUID: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UUID },
-					ProductType: { UUID: '59dcc5c9-ab37-4f5c-9987-6e2347f50093' }, // Items
+					C_TaxCategory: { UU: (await getDefaultTaxCategory(valueObject)).UU },
+					M_Product_Category: { UU: (await getDefaultProductCategory(valueObject)).UU },
+					C_UOM: { UU: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU },
+					ProductType: { UU: '59dcc5c9-ab37-4f5c-9987-6e2347f50093' }, // Items
 				},
 			},
 		})
@@ -62,14 +62,14 @@ test('inactive products and services not returned from the search method', async
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
 			variables: {
-				entity: {
-					AD_Org: { UUID: valueObject.organization!.UUID },
+				Entity: {
+					AD_Org: { UU: valueObject.organization!.UU },
 					Description: valueObject.getStepMessageLong(),
 					Name: 's1' + valueObject.getDynamicScenarioName(),
-					C_TaxCategory: { UUID: (await getDefaultTaxCategory(valueObject)).UUID },
-					M_Product_Category: { UUID: (await getDefaultProductCategory(valueObject)).UUID },
-					C_UOM: { UUID: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UUID },
-					ProductType: { UUID: '265e0369-47e4-4be9-b6d5-e344230f5588' }, // Service
+					C_TaxCategory: { UU: (await getDefaultTaxCategory(valueObject)).UU },
+					M_Product_Category: { UU: (await getDefaultProductCategory(valueObject)).UU },
+					C_UOM: { UU: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU },
+					ProductType: { UU: '265e0369-47e4-4be9-b6d5-e344230f5588' }, // Service
 				},
 			},
 		})
@@ -81,14 +81,14 @@ test('inactive products and services not returned from the search method', async
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
 			variables: {
-				entity: {
-					AD_Org: { UUID: valueObject.organization!.UUID },
+				Entity: {
+					AD_Org: { UU: valueObject.organization!.UU },
 					Description: valueObject.getStepMessageLong(),
 					Name: 's2' + valueObject.getDynamicScenarioName(),
-					C_TaxCategory: { UUID: (await getDefaultTaxCategory(valueObject)).UUID },
-					M_Product_Category: { UUID: (await getDefaultProductCategory(valueObject)).UUID },
-					C_UOM: { UUID: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UUID },
-					ProductType: { UUID: '265e0369-47e4-4be9-b6d5-e344230f5588' }, // Service
+					C_TaxCategory: { UU: (await getDefaultTaxCategory(valueObject)).UU },
+					M_Product_Category: { UU: (await getDefaultProductCategory(valueObject)).UU },
+					C_UOM: { UU: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU },
+					ProductType: { UU: '265e0369-47e4-4be9-b6d5-e344230f5588' }, // Service
 				},
 			},
 		})
@@ -99,11 +99,11 @@ test('inactive products and services not returned from the search method', async
 		await query(valueObject)({
 			query: M_ProductGetDocument,
 			variables: {
-				size: 15,
-				filter: JSON.stringify({ name: { $text: valueObject.random.toString() }, isactive: true }),
+				Size: 15,
+				Filter: JSON.stringify({ name: { $text: valueObject.random.toString() }, isactive: true }),
 			},
 		})
-	).data.M_ProductGet.results;
+	).data.M_ProductGet.Results;
 	expect(searchedResults).toHaveLength(4);
 	expect(searchedResults.find((product) => product.Name === product1.Name)).toBeTruthy();
 	expect(searchedResults.find((product) => product.Name === product2.Name)).toBeTruthy();
@@ -130,9 +130,9 @@ test('inactive products and services not returned from the search method', async
 	await mutate(valueObject)({
 		mutation: M_ProductSaveManyDocument,
 		variables: {
-			entities: [
-				{ UUID: product1.UUID, IsActive: false },
-				{ UUID: service1.UUID, IsActive: false },
+			Entities: [
+				{ UU: product1.UU, IsActive: false },
+				{ UU: service1.UU, IsActive: false },
 			],
 		},
 	});
@@ -141,11 +141,11 @@ test('inactive products and services not returned from the search method', async
 		await query(valueObject)({
 			query: M_ProductGetDocument,
 			variables: {
-				size: 15,
-				filter: JSON.stringify({ name: { $text: valueObject.random.toString() }, isactive: true }),
+				Size: 15,
+				Filter: JSON.stringify({ name: { $text: valueObject.random.toString() }, isactive: true }),
 			},
 		})
-	).data.M_ProductGet.results;
+	).data.M_ProductGet.Results;
 	expect(searchedResults).toHaveLength(2);
 	expect(searchedResults.find((product) => product.Name === product1.Name)).toBeFalsy();
 	expect(searchedResults.find((product) => product.Name === product2.Name)).toBeTruthy();
@@ -170,18 +170,18 @@ test('search on page beyond returned results resets the page', async () => {
 	await createProduct(valueObject);
 
 	expect(
-		(await query(valueObject)({ query: M_ProductGetDocument, variables: { page: 0, size: 1 } })).data.M_ProductGet
-			.pagingInfo.totalPages,
+		(await query(valueObject)({ query: M_ProductGetDocument, variables: { Page: 0, Size: 1 } })).data.M_ProductGet
+			.PagingInfo.TotalPages,
 	).toBeGreaterThan(1);
 	const specificSearchResults = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
-			variables: { page: 1, size: 1, filter: JSON.stringify({ name: product1.Name }) },
+			variables: { Page: 1, Size: 1, Filter: JSON.stringify({ name: product1.Name }) },
 		})
 	).data.M_ProductGet;
-	expect(specificSearchResults.results.length).toBe(1);
-	expect(specificSearchResults.pagingInfo.page).toBe(0);
-	expect(specificSearchResults.pagingInfo.totalPages).toBe(1);
+	expect(specificSearchResults.Results.length).toBe(1);
+	expect(specificSearchResults.PagingInfo.Page).toBe(0);
+	expect(specificSearchResults.PagingInfo.TotalPages).toBe(1);
 });
 
 test('buying price can only be updated on new items or items without completed POs', async () => {
@@ -201,7 +201,7 @@ test('buying price can only be updated on new items or items without completed P
 	valueObject.product = (
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
-			variables: { entity: { UUID: valueObject.product!.UUID, BH_BuyPrice: 110 } },
+			variables: { Entity: { UU: valueObject.product!.UU, BH_BuyPrice: 110 } },
 		})
 	).data?.M_ProductSave;
 
@@ -217,23 +217,23 @@ test('buying price can only be updated on new items or items without completed P
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product!.UUID }) },
+			variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }) },
 		})
-	).data.M_ProductGet.results[0];
+	).data.M_ProductGet.Results[0];
 	expect(valueObject.product!.HasBeenPurchased).toBeFalsy();
 	expect(valueObject.product!.LastPurchasePrice).toBe(110);
 
 	valueObject.stepName = 'Complete the PO';
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
-		variables: { uuid: valueObject.order!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 	});
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product!.UUID }) },
+			variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }) },
 		})
-	).data.M_ProductGet.results[0];
+	).data.M_ProductGet.Results[0];
 	expect(valueObject.product!.HasBeenPurchased).toBeTruthy();
 	expect(valueObject.product!.LastPurchasePrice).toBe(120);
 
@@ -241,7 +241,7 @@ test('buying price can only be updated on new items or items without completed P
 	valueObject.product = (
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
-			variables: { entity: { UUID: valueObject.product!.UUID, BH_BuyPrice: 130 } },
+			variables: { Entity: { UU: valueObject.product!.UU, BH_BuyPrice: 130 } },
 		})
 	).data?.M_ProductSave;
 
@@ -251,14 +251,14 @@ test('buying price can only be updated on new items or items without completed P
 	valueObject.stepName = 'Reactivate the PO';
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
-		variables: { uuid: valueObject.order!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.ReActivate },
 	});
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product!.UUID }) },
+			variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }) },
 		})
-	).data.M_ProductGet.results[0];
+	).data.M_ProductGet.Results[0];
 	expect(valueObject.product!.HasBeenPurchased).toBeFalsy();
 	expect(valueObject.product!.LastPurchasePrice).toBe(110);
 
@@ -266,7 +266,7 @@ test('buying price can only be updated on new items or items without completed P
 	valueObject.product = (
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
-			variables: { entity: { UUID: valueObject.product!.UUID, BH_BuyPrice: 115 } },
+			variables: { Entity: { UU: valueObject.product!.UU, BH_BuyPrice: 115 } },
 		})
 	).data?.M_ProductSave;
 	expect(valueObject.product!.HasBeenPurchased).toBeFalsy();
@@ -275,14 +275,14 @@ test('buying price can only be updated on new items or items without completed P
 	valueObject.stepName = 'Re-complete the PO';
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
-		variables: { uuid: valueObject.order!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 	});
 	valueObject.product = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product!.UUID }) },
+			variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }) },
 		})
-	).data.M_ProductGet.results[0];
+	).data.M_ProductGet.Results[0];
 	expect(valueObject.product!.HasBeenPurchased).toBeTruthy();
 	expect(valueObject.product!.LastPurchasePrice).toBe(120);
 });

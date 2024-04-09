@@ -111,16 +111,16 @@ test(`patient open balance is 0 after visit if complete payment was made`, async
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -158,9 +158,9 @@ test(`visit saved from scratch is correct`, async () => {
 	const tenderTypes = (
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
-			variables: { filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
 		})
-	).data.AD_Ref_ListGet.results;
+	).data.AD_Ref_ListGet.Results;
 	const visitUuid = randomUUID();
 	const orderUuid = randomUUID();
 	const orderLineUuid = randomUUID();
@@ -169,87 +169,87 @@ test(`visit saved from scratch is correct`, async () => {
 		mutation: Bh_VisitSaveAndProcessWithOrdersInvoicesAndPaymentsDocument,
 		variables: {
 			BH_Visit: {
-				UUID: visitUuid,
+				UU: visitUuid,
 				Description: valueObject.getStepMessageLong(),
-				Patient: { UUID: valueObject.businessPartner!.UUID },
+				Patient: { UU: valueObject.businessPartner!.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 			},
 			C_Orders: [
 				{
-					UUID: orderUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: orderUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					DateOrdered: valueObject.date?.getTime(),
-					M_Warehouse: { UUID: valueObject.warehouse!.UUID },
-					C_DocTypeTarget: { UUID: salesOrderDocumentType.UUID },
+					M_Warehouse: { UU: valueObject.warehouse!.UU },
+					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 				},
 			],
 			C_OrderLines: [
 				{
-					C_Order: { UUID: orderUuid },
-					UUID: orderLineUuid,
+					C_Order: { UU: orderUuid },
+					UU: orderLineUuid,
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
 				},
 			],
 			C_Invoices: [
 				{
-					UUID: invoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: invoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_Order: { UUID: orderUuid },
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_Order: { UU: orderUuid },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 			],
 			C_InvoiceLines: [
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
-					C_OrderLine: { UUID: orderLineUuid },
+					C_OrderLine: { UU: orderLineUuid },
 				},
 			],
 			C_Payments: [
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 60,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 40,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
-			UUID: visitUuid,
+			UU: visitUuid,
 			DocumentAction: documentAction.Complete,
 		},
 	});
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(valueObject.visit.C_Orders?.every((order) => order.DocStatus.Value === documentStatus.Completed));
 	expect(valueObject.visit.C_Invoices?.every((invoice) => invoice.DocStatus.Value === documentStatus.Completed));
@@ -259,9 +259,9 @@ test(`visit saved from scratch is correct`, async () => {
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -308,30 +308,30 @@ test(`patient open balance updated after visit if complete payment wasn't made`,
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
 			variables: {
-				size: 1,
-				filter: JSON.stringify({
+				Size: 1,
+				Filter: JSON.stringify({
 					ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
 					name: tenderTypeName.CASH,
 				}),
 			},
 		})
-	).data.AD_Ref_ListGet.results[0];
+	).data.AD_Ref_ListGet.Results[0];
 	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(50);
 });
 
@@ -378,72 +378,72 @@ test(`patient open balance reverted correctly after visit with partial payment i
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
 			variables: {
-				size: 1,
-				filter: JSON.stringify({
+				Size: 1,
+				Filter: JSON.stringify({
 					ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
 					name: tenderTypeName.CASH,
 				}),
 			},
 		})
-	).data.AD_Ref_ListGet.results[0];
+	).data.AD_Ref_ListGet.Results[0];
 	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(50);
 
 	valueObject.stepName = 'Reverse visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	const visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	const newPayment = visit.C_Payments?.find((payment) => payment.DocStatus.Value === documentStatus.Drafted)!;
 	expect(newPayment).not.toBeUndefined();
 	await mutate(valueObject)({
 		mutation: C_PaymentSaveDocument,
-		variables: { entity: { UUID: newPayment.UUID, PayAmt: 40 } },
+		variables: { Entity: { UU: newPayment.UU, PayAmt: 40 } },
 	});
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(60);
 });
 
@@ -489,9 +489,9 @@ test(`patient open balance correct with multiple payments`, async () => {
 	const tenderTypes = (
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
-			variables: { filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
 		})
-	).data.AD_Ref_ListGet.results;
+	).data.AD_Ref_ListGet.Results;
 
 	valueObject.stepName = 'Complete visit';
 	await loadCurrency(valueObject);
@@ -500,66 +500,66 @@ test(`patient open balance correct with multiple payments`, async () => {
 	await mutate(valueObject)({
 		mutation: C_PaymentSaveManyDocument,
 		variables: {
-			entities: [
+			Entities: [
 				{
 					PayAmt: 50,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UUID },
-					C_DocType: { UUID: valueObject.documentType!.UUID },
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UU },
+					C_DocType: { UU: valueObject.documentType!.UU },
+					BH_Visit: { UU: valueObject.visit!.UU },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 				{
 					PayAmt: 30,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UUID },
-					C_DocType: { UUID: valueObject.documentType!.UUID },
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UU },
+					C_DocType: { UU: valueObject.documentType!.UU },
+					BH_Visit: { UU: valueObject.visit!.UU },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
 		},
 	});
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(totalCharge - paymentTotal);
 
 	valueObject.stepName = 'Reverse visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	const newPayment = valueObject.visit.C_Payments?.find((payment) => payment.DocStatus.Value === 'DR')!;
 	expect(newPayment).not.toBeUndefined();
 	newPayment.PayAmt = 40;
@@ -569,9 +569,9 @@ test(`patient open balance correct with multiple payments`, async () => {
 	await mutate(valueObject)({
 		mutation: C_PaymentSaveManyDocument,
 		variables: {
-			entities: [
+			Entities: [
 				{
-					UUID: newPayment.UUID,
+					UU: newPayment.UU,
 					PayAmt: newPayment.PayAmt,
 				},
 			],
@@ -579,16 +579,16 @@ test(`patient open balance correct with multiple payments`, async () => {
 	});
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(totalCharge - paymentTotal);
 });
 
@@ -635,45 +635,45 @@ test('payments can be removed and added to re-opened visit', async () => {
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
 			variables: {
-				size: 1,
-				filter: JSON.stringify({
+				Size: 1,
+				Filter: JSON.stringify({
 					ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
 					name: tenderTypeName.CASH,
 				}),
 			},
 		})
-	).data.AD_Ref_ListGet.results[0];
+	).data.AD_Ref_ListGet.Results[0];
 	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
 	await createPayment(valueObject);
 
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Reverse visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit';
@@ -681,74 +681,74 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	// Delete the any drafted payments created due to visit re-activation
 	await mutate(valueObject)({
 		mutation: C_PaymentDeleteDocument,
 		variables: {
-			uuids: valueObject.visit.C_Payments?.filter((payment) => payment.DocStatus.Value === 'DR').map(
-				(payment) => payment.UUID,
+			UUs: valueObject.visit.C_Payments?.filter((payment) => payment.DocStatus.Value === 'DR').map(
+				(payment) => payment.UU,
 			)!,
 		},
 	});
 	await mutate(valueObject)({
 		mutation: C_PaymentSaveManyDocument,
 		variables: {
-			entities: [
+			Entities: [
 				{
 					PayAmt: valueObject.salesStandardPrice,
 					TenderType: {
-						UUID: (
+						UU: (
 							await query(valueObject)({
 								query: Ad_Ref_ListGetDocument,
 								variables: {
-									filter: JSON.stringify({
+									Filter: JSON.stringify({
 										ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
 										name: tenderTypeName.MOBILE_MONEY,
 									}),
 								},
 							})
-						).data.AD_Ref_ListGet.results[0].UUID,
+						).data.AD_Ref_ListGet.Results[0].UU,
 					},
-					C_DocType: { UUID: valueObject.documentType!.UUID },
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_DocType: { UU: valueObject.documentType!.UU },
+					BH_Visit: { UU: valueObject.visit!.UU },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
 		},
 	});
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Reverse visit again';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Re-completing visit again';
@@ -756,59 +756,59 @@ test('payments can be removed and added to re-opened visit', async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	// Delete the any drafted payments created due to visit re-activation
 	await mutate(valueObject)({
 		mutation: C_PaymentDeleteDocument,
 		variables: {
-			uuids: valueObject.visit.C_Payments?.filter((payment) => payment.DocStatus.Value === 'DR').map(
-				(payment) => payment.UUID,
+			UUs: valueObject.visit.C_Payments?.filter((payment) => payment.DocStatus.Value === 'DR').map(
+				(payment) => payment.UU,
 			)!,
 		},
 	});
 	await mutate(valueObject)({
 		mutation: C_PaymentSaveManyDocument,
 		variables: {
-			entities: [
+			Entities: [
 				{
 					PayAmt: valueObject.salesStandardPrice,
 					TenderType: {
-						UUID: (
+						UU: (
 							await query(valueObject)({
 								query: Ad_Ref_ListGetDocument,
 								variables: {
-									filter: JSON.stringify({
+									Filter: JSON.stringify({
 										ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
 										name: tenderTypeName.CHEQUE,
 									}),
 								},
 							})
-						).data.AD_Ref_ListGet.results[0].UUID,
+						).data.AD_Ref_ListGet.Results[0].UU,
 					},
-					C_DocType: { UUID: valueObject.documentType!.UUID },
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_DocType: { UU: valueObject.documentType!.UU },
+					BH_Visit: { UU: valueObject.visit!.UU },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
 		},
 	});
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -855,30 +855,30 @@ test('re-opened visit returns voided/reversed invoices and payments', async () =
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Reverse visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
 	});
 
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	expect(
 		valueObject.visit.C_Invoices?.some(
 			(invoice) =>
@@ -936,29 +936,29 @@ test('tender amount set correctly for payments', async () => {
 	await mutate(valueObject)({
 		mutation: C_PaymentSaveManyDocument,
 		variables: {
-			entities: [
+			Entities: [
 				{
 					PayAmt: valueObject.salesStandardPrice,
 					BH_tender_amount: valueObject.salesStandardPrice! + 500,
 					TenderType: {
-						UUID: (
+						UU: (
 							await query(valueObject)({
 								query: Ad_Ref_ListGetDocument,
 								variables: {
-									filter: JSON.stringify({
+									Filter: JSON.stringify({
 										ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
 										name: tenderTypeName.CASH,
 									}),
 								},
 							})
-						).data.AD_Ref_ListGet.results[0].UUID,
+						).data.AD_Ref_ListGet.Results[0].UU,
 					},
-					C_DocType: { UUID: valueObject.documentType!.UUID },
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_DocType: { UU: valueObject.documentType!.UU },
+					BH_Visit: { UU: valueObject.visit!.UU },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
 		},
@@ -967,23 +967,23 @@ test('tender amount set correctly for payments', async () => {
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	expect(valueObject.visit.C_Payments?.[0].PayAmt).toBe(valueObject.salesStandardPrice);
 	expect(valueObject.visit.C_Payments?.[0].BH_tender_amount).toBe(valueObject.salesStandardPrice! + 500);
 });
@@ -1032,29 +1032,29 @@ test('voiding visit returns voided/reversed invoices and payments', async () => 
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Void visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Void },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Void },
 	});
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(
 		valueObject.visit.C_Invoices?.every((invoice) => invoice.DocStatus.Value === documentStatus.Reversed),
@@ -1066,9 +1066,9 @@ test('voiding visit returns voided/reversed invoices and payments', async () => 
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -1117,16 +1117,16 @@ test(`completing a "future" visit doesn't cause problems with the payment`, asyn
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -1175,9 +1175,9 @@ test('correct patient shown when patient changed after initial switch', async ()
 	await mutate(valueObject)({
 		mutation: Bh_VisitSaveWithOrdersAndInvoicesDocument,
 		variables: {
-			BH_Visit: { UUID: valueObject.visit!.UUID, Patient: { UUID: valueObject.businessPartner!.UUID } },
-			C_Orders: [{ UUID: valueObject.order!.UUID, C_BPartner: { UUID: valueObject.businessPartner!.UUID } }],
-			C_Invoices: [{ UUID: valueObject.invoice!.UUID, C_BPartner: { UUID: valueObject.businessPartner!.UUID } }],
+			BH_Visit: { UU: valueObject.visit!.UU, Patient: { UU: valueObject.businessPartner!.UU } },
+			C_Orders: [{ UU: valueObject.order!.UU, C_BPartner: { UU: valueObject.businessPartner!.UU } }],
+			C_Invoices: [{ UU: valueObject.invoice!.UU, C_BPartner: { UU: valueObject.businessPartner!.UU } }],
 		},
 	});
 	const secondPatientName = valueObject.businessPartner!.Name;
@@ -1185,16 +1185,16 @@ test('correct patient shown when patient changed after initial switch', async ()
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	valueObject.stepName = 'Print the receipt';
 	valueObject.processUuid = '30dd7243-11c1-4584-af26-5d977d117c84';
 	valueObject.processInformationParameters = [
 		{
-			AD_Process: { UUID: valueObject.processUuid },
+			AD_Process: { UU: valueObject.processUuid },
 			ParameterName: 'billId',
-			Parameter: valueObject.visit!.UUID,
+			Parameter: valueObject.visit!.UU,
 		},
 	];
 	await runReport(valueObject);
@@ -1223,9 +1223,9 @@ test('create and complete pharmacy sales visit', async () => {
 	const pharmacySalesPatients = (
 		await query(valueObject)({
 			query: C_BPartnerGetDocument,
-			variables: { filter: JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }) },
+			variables: { Filter: JSON.stringify({ c_bp_group: { name: 'OTC Patient' } }) },
 		})
-	).data.C_BPartnerGet.results;
+	).data.C_BPartnerGet.Results;
 	expect(pharmacySalesPatients.length).toBe(1);
 	const pharmacySalesPatient = pharmacySalesPatients[0];
 
@@ -1259,15 +1259,15 @@ test('create and complete pharmacy sales visit', async () => {
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -1315,36 +1315,36 @@ test('can remove a payment from a re-opened visit', async () => {
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Reactivate visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.ReActivate },
 	});
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	valueObject.stepName = 'Remove the payments';
 	await mutate(valueObject)({
 		mutation: C_PaymentDeleteDocument,
 		variables: {
-			uuids: valueObject.visit.C_Payments?.filter((payment) => payment.DocStatus.Value === documentStatus.Drafted).map(
-				(payment) => payment.UUID,
+			UUs: valueObject.visit.C_Payments?.filter((payment) => payment.DocStatus.Value === documentStatus.Drafted).map(
+				(payment) => payment.UU,
 			)!,
 		},
 	});
@@ -1352,16 +1352,16 @@ test('can remove a payment from a re-opened visit', async () => {
 	valueObject.stepName = 'Re-complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(valueObject.salesStandardPrice);
 });
 
@@ -1412,10 +1412,10 @@ test('can delete a drafted visit', async () => {
 			await mutate(valueObject)({
 				mutation: Bh_VisitDeleteAllDocument,
 				variables: {
-					visitUuids: [valueObject.visit!.UUID],
-					orderUuids: [valueObject.order!.UUID],
-					invoiceUuids: [valueObject.invoice!.UUID],
-					paymentUuids: [valueObject.payment!.UUID],
+					BH_Visit_UUs: [valueObject.visit!.UU],
+					C_Order_UUs: [valueObject.order!.UU],
+					C_Invoice_UUs: [valueObject.invoice!.UU],
+					C_Payment_UUs: [valueObject.payment!.UU],
 				},
 			})
 		).data?.BH_VisitDelete,
@@ -1424,9 +1424,9 @@ test('can delete a drafted visit', async () => {
 		(
 			await query(valueObject)({
 				query: Bh_VisitGetDocument,
-				variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+				variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 			})
-		).data.BH_VisitGet.results[0],
+		).data.BH_VisitGet.Results[0],
 	).toBeFalsy();
 });
 
@@ -1464,7 +1464,7 @@ test(`product created and sold with more than received quantity throws an error`
 	await expect(
 		mutate(valueObject)({
 			mutation: Bh_VisitProcessDocument,
-			variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+			variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 		}),
 	).rejects.toBeTruthy();
 });
@@ -1504,7 +1504,7 @@ test(`selling more than in inventory error message is correct and is the same in
 	try {
 		await mutate(valueObject)({
 			mutation: Bh_VisitProcessDocument,
-			variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+			variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 		});
 		expect(false).toBe(true);
 		return;
@@ -1519,9 +1519,9 @@ test(`selling more than in inventory error message is correct and is the same in
 	const french = (
 		await query(valueObject)({
 			query: Ad_LanguageGetDocument,
-			variables: { filter: JSON.stringify({ printname: 'Français' }) },
+			variables: { Filter: JSON.stringify({ printname: 'Français' }) },
 		})
-	).data.AD_LanguageGet.results[0];
+	).data.AD_LanguageGet.Results[0];
 	expect(french).toBeTruthy();
 	valueObject.language = french.AD_Language;
 	await valueObject.login();
@@ -1544,7 +1544,7 @@ test(`selling more than in inventory error message is correct and is the same in
 	await expect(
 		mutate(valueObject)({
 			mutation: Bh_VisitProcessDocument,
-			variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+			variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 		}),
 	).rejects.toThrowError(negativeInventoryError);
 });
@@ -1593,27 +1593,27 @@ test('voiding visits shows data on the report correctly', async () => {
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Void visit';
-	const voidingReason = (await query(valueObject)({ query: Bh_Voided_ReasonGetDocument, variables: { size: 1 } })).data
-		.BH_Voided_ReasonGet.results[0];
+	const voidingReason = (await query(valueObject)({ query: Bh_Voided_ReasonGetDocument, variables: { Size: 1 } })).data
+		.BH_Voided_ReasonGet.Results[0];
 	await mutate(valueObject)({
 		mutation: Bh_VisitSaveAndProcessWithOrdersDocument,
 		variables: {
-			BH_Visit: { UUID: valueObject.visit!.UUID, BH_Voided_Reason: { UUID: voidingReason.UUID } },
-			C_Orders: [{ UUID: valueObject.order!.UUID, BH_Voided_Reason: { UUID: voidingReason.UUID } }],
-			UUID: valueObject.visit!.UUID,
+			BH_Visit: { UU: valueObject.visit!.UU, BH_Voided_Reason: { UU: voidingReason.UU } },
+			C_Orders: [{ UU: valueObject.order!.UU, BH_Voided_Reason: { UU: voidingReason.UU } }],
+			UU: valueObject.visit!.UU,
 			DocumentAction: documentAction.Void,
 		},
 	});
@@ -1622,8 +1622,8 @@ test('voiding visits shows data on the report correctly', async () => {
 	valueObject.processUuid = '20a623fb-e127-4c26-98d5-3604a6d100b2';
 	valueObject.reportType = ReportOutput.Xlsx;
 	valueObject.processInformationParameters = [
-		{ AD_Process: { UUID: valueObject.processUuid! }, ParameterName: 'Begin Date', Parameter: yesterday() },
-		{ AD_Process: { UUID: valueObject.processUuid! }, ParameterName: 'End Date', Parameter: tomorrow() },
+		{ AD_Process: { UU: valueObject.processUuid! }, ParameterName: 'Begin Date', Parameter: yesterday() },
+		{ AD_Process: { UU: valueObject.processUuid! }, ParameterName: 'End Date', Parameter: tomorrow() },
 	];
 	await runReport(valueObject);
 
@@ -1649,12 +1649,12 @@ test('visit can be saved with really long chief complaint', async () => {
 	const chiefComplaintEncounterTypeWindow = (
 		await query(valueObject)({
 			query: Bh_Encounter_Type_WindowGetDocument,
-			variables: { filter: JSON.stringify({ ad_window: { ad_window_uu: CHIEF_COMPLAINT_WINDOW_UUID } }) },
+			variables: { Filter: JSON.stringify({ ad_window: { ad_window_uu: CHIEF_COMPLAINT_WINDOW_UUID } }) },
 		})
-	).data.BH_Encounter_Type_WindowGet.results[0];
+	).data.BH_Encounter_Type_WindowGet.Results[0];
 	expect(chiefComplaintEncounterTypeWindow).toBeTruthy();
 	const chiefComplaintField = chiefComplaintEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields?.find(
-		(field) => field.UUID == CHIEF_COMPLAINT_FIELD_UUID,
+		(field) => field.UU == CHIEF_COMPLAINT_FIELD_UUID,
 	)!;
 	expect(chiefComplaintField).toBeTruthy();
 
@@ -1664,15 +1664,15 @@ test('visit can be saved with really long chief complaint', async () => {
 		variables: {
 			BH_Encounters: [
 				{
-					UUID: encounterUuid,
-					BH_Encounter_Type: { UUID: chiefComplaintEncounterTypeWindow.BH_Encounter_Type.UUID },
-					BH_Visit: { UUID: valueObject.visit!.UUID },
+					UU: encounterUuid,
+					BH_Encounter_Type: { UU: chiefComplaintEncounterTypeWindow.BH_Encounter_Type.UU },
+					BH_Visit: { UU: valueObject.visit!.UU },
 				},
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
-					AD_Field: { UUID: chiefComplaintField?.UUID },
+					BH_Encounter: { UU: encounterUuid },
+					AD_Field: { UU: chiefComplaintField?.UU },
 					BH_Value: longChiefComplaint,
 				},
 			],
@@ -1682,9 +1682,9 @@ test('visit can be saved with really long chief complaint', async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	expect(valueObject.visit.BH_Encounters?.[0].BH_Observations?.[0].BH_Value).toBe(longChiefComplaint);
 });
 
@@ -1702,9 +1702,9 @@ test('clinical vitals fields', async () => {
 	const clinicalVitalsEncounterTypeWindow = (
 		await query(valueObject)({
 			query: Bh_Encounter_Type_WindowGetDocument,
-			variables: { filter: JSON.stringify({ ad_window: { ad_window_uu: CLINICAL_VITALS_WINDOW_UUID } }) },
+			variables: { Filter: JSON.stringify({ ad_window: { ad_window_uu: CLINICAL_VITALS_WINDOW_UUID } }) },
 		})
-	).data.BH_Encounter_Type_WindowGet.results[0];
+	).data.BH_Encounter_Type_WindowGet.Results[0];
 	expect(clinicalVitalsEncounterTypeWindow).toBeTruthy();
 	const fields = clinicalVitalsEncounterTypeWindow.AD_Window?.AD_Tabs?.[0].AD_Fields!;
 	expect(fields?.length).toBeTruthy();
@@ -1712,8 +1712,8 @@ test('clinical vitals fields', async () => {
 	const heightValue = '200';
 	const weightValue = '100';
 
-	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { size: 1 } }))
-		.data.BH_Coded_DiagnosisGet.results[0];
+	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
+		.data.BH_Coded_DiagnosisGet.Results[0];
 	expect(codedDiagnosis).toBeTruthy();
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounterUuid = v4();
@@ -1722,28 +1722,28 @@ test('clinical vitals fields', async () => {
 		variables: {
 			BH_Encounters: [
 				{
-					UUID: encounterUuid,
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					BH_Encounter_Type: { UUID: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UUID },
+					UU: encounterUuid,
+					BH_Visit: { UU: valueObject.visit!.UU },
+					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
 				},
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
-					AD_Field: { UUID: fields.find((field) => field.UUID === HEIGHT_FIELD_UUID)!.UUID },
+					BH_Encounter: { UU: encounterUuid },
+					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: heightValue,
 				},
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
+					BH_Encounter: { UU: encounterUuid },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: uncodedDiagnosisValue,
 				},
 				{
-					BH_Encounter: { UUID: encounterUuid },
+					BH_Encounter: { UU: encounterUuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UUID: codedDiagnosis.UUID },
+					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
 				},
 			],
 		},
@@ -1752,9 +1752,9 @@ test('clinical vitals fields', async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(valueObject.visit.BH_Encounters).toHaveLength(1);
 	expect(valueObject.visit.BH_Encounters![0].BH_Observations).toHaveLength(1);
@@ -1763,25 +1763,25 @@ test('clinical vitals fields', async () => {
 	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![0].BH_Uncoded_Diagnosis).toBe(
 		uncodedDiagnosisValue,
 	);
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UUID).toBeTruthy();
-	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UUID).toBe(
-		codedDiagnosis.UUID,
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBeTruthy();
+	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![1].BH_Coded_Diagnosis!.UU).toBe(
+		codedDiagnosis.UU,
 	);
 
 	valueObject.stepName = 'Change observations and remove diagnosis';
 	await mutate(valueObject)({
 		mutation: Bh_ObservationsDeleteAndSaveManyAndEncounterDiagnosesDeleteDocument,
 		variables: {
-			BH_ObservationUuids: valueObject.visit!.BH_Encounters![0].BH_Observations!.map((observation) => observation.UUID),
+			BH_ObservationUUs: valueObject.visit!.BH_Encounters![0].BH_Observations!.map((observation) => observation.UU),
 			BH_Observations: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
-					AD_Field: { UUID: fields.find((field) => field.UUID === WEIGHT_FIELD_UUID)!.UUID },
+					BH_Encounter: { UU: encounterUuid },
+					AD_Field: { UU: fields.find((field) => field.UU === WEIGHT_FIELD_UUID)!.UU },
 					BH_Value: weightValue,
 				},
 			],
-			BH_EncounterDiagnosesUuids: valueObject.visit!.BH_Encounters![0].BH_Encounter_DiagnosisList!.map(
-				(encounterDiagnosis) => encounterDiagnosis.UUID,
+			BH_EncounterDiagnosesUUs: valueObject.visit!.BH_Encounters![0].BH_Encounter_DiagnosisList!.map(
+				(encounterDiagnosis) => encounterDiagnosis.UU,
 			),
 		},
 	});
@@ -1789,9 +1789,9 @@ test('clinical vitals fields', async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(valueObject.visit.BH_Encounters).toHaveLength(1);
 	expect(valueObject.visit.BH_Encounters![0].BH_Observations).toHaveLength(1);
@@ -1802,22 +1802,22 @@ test('clinical vitals fields', async () => {
 	await mutate(valueObject)({
 		mutation: Bh_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveManyDocument,
 		variables: {
-			BH_ObservationUuids: valueObject.visit!.BH_Encounters![0].BH_Observations!.map((observation) => observation.UUID),
+			BH_ObservationUUs: valueObject.visit!.BH_Encounters![0].BH_Observations!.map((observation) => observation.UU),
 			BH_Observations: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
-					AD_Field: { UUID: fields.find((field) => field.UUID === HEIGHT_FIELD_UUID)!.UUID },
+					BH_Encounter: { UU: encounterUuid },
+					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: heightValue,
 				},
 				{
-					BH_Encounter: { UUID: encounterUuid },
-					AD_Field: { UUID: fields.find((field) => field.UUID === WEIGHT_FIELD_UUID)!.UUID },
+					BH_Encounter: { UU: encounterUuid },
+					AD_Field: { UU: fields.find((field) => field.UU === WEIGHT_FIELD_UUID)!.UU },
 					BH_Value: weightValue,
 				},
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
+					BH_Encounter: { UU: encounterUuid },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: uncodedDiagnosisValue,
 				},
@@ -1828,9 +1828,9 @@ test('clinical vitals fields', async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(valueObject.visit.BH_Encounters).toHaveLength(1);
 	expect(valueObject.visit.BH_Encounters![0].BH_Observations).toHaveLength(2);
@@ -1881,15 +1881,15 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 	const tenderTypes = (
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
-			variables: { filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
 		})
-	).data.AD_Ref_ListGet.results;
+	).data.AD_Ref_ListGet.Results;
 	const insurerOrDonorToUse = (
 		await query(valueObject)({
 			query: C_BPartnerGetDocument,
-			variables: { filter: JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }) },
+			variables: { Filter: JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }) },
 		})
-	).data.C_BPartnerGet.results.find((businessPartner) => businessPartner.BH_Payer_Info_FldList?.length)!;
+	).data.C_BPartnerGet.Results.find((businessPartner) => businessPartner.BH_Payer_Info_FldList?.length)!;
 	expect(insurerOrDonorToUse).toBeTruthy();
 	const payerInformationFieldToUse = insurerOrDonorToUse.BH_Payer_Info_FldList!.find(
 		(payerInformationField) => payerInformationField.BH_PayerInfoFieldDataType.Value === 'T',
@@ -1901,113 +1901,113 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 		mutation: Bh_VisitSaveWithOrdersInvoicesPayerInformationAndPaymentsDocument,
 		variables: {
 			BH_Visit: {
-				UUID: visitUuid,
+				UU: visitUuid,
 				Description: valueObject.getStepMessageLong(),
-				Patient: { UUID: valueObject.businessPartner!.UUID },
+				Patient: { UU: valueObject.businessPartner!.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 			},
 			C_Orders: [
 				{
-					UUID: orderUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: orderUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					DateOrdered: valueObject.date?.getTime(),
-					M_Warehouse: { UUID: valueObject.warehouse!.UUID },
-					C_DocTypeTarget: { UUID: salesOrderDocumentType.UUID },
+					M_Warehouse: { UU: valueObject.warehouse!.UU },
+					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 				},
 			],
 			C_OrderLines: [
 				{
-					C_Order: { UUID: orderUuid },
-					UUID: orderLineUuid,
+					C_Order: { UU: orderUuid },
+					UU: orderLineUuid,
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
 				},
 			],
 			C_Invoices: [
 				{
-					UUID: invoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: invoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_Order: { UUID: orderUuid },
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_Order: { UU: orderUuid },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 				{
-					UUID: insurerInvoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: insurerInvoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: insurerOrDonorToUse.UUID },
+					C_BPartner: { UU: insurerOrDonorToUse.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 			],
 			C_InvoiceLines: [
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
-					C_OrderLine: { UUID: orderLineUuid },
+					C_OrderLine: { UU: orderLineUuid },
 				},
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_Charge: { UUID: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UUID },
+					C_Charge: { UU: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UU },
 					Qty: 1,
 					Price: -50,
 				},
 				{
-					UUID: insurerInvoiceLineUuid,
-					C_Invoice: { UUID: insurerInvoiceUuid },
+					UU: insurerInvoiceLineUuid,
+					C_Invoice: { UU: insurerInvoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_Charge: { UUID: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UUID },
+					C_Charge: { UU: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UU },
 					Qty: 1,
 					Price: 50,
 				},
 			],
 			BH_BP_Specific_Payer_InfoList: [
 				{
-					C_InvoiceLine: { UUID: insurerInvoiceLineUuid },
-					BH_Payer_Info_Fld: { UUID: payerInformationFieldToUse.UUID },
+					C_InvoiceLine: { UU: insurerInvoiceLineUuid },
+					BH_Payer_Info_Fld: { UU: payerInformationFieldToUse.UU },
 					Name: 'Some value!',
 				},
 			],
 			C_Payments: [
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 10,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 40,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
 		},
 	});
 
 	expect(
-		(await mutate(valueObject)({ mutation: Bh_VisitDeleteDocument, variables: { uuids: [visitUuid] } })).data
+		(await mutate(valueObject)({ mutation: Bh_VisitDeleteDocument, variables: { UUs: [visitUuid] } })).data
 			?.BH_VisitDelete,
 	).toBeTruthy();
 });
@@ -2047,15 +2047,15 @@ test(`visit invoice updates work`, async () => {
 	const tenderTypes = (
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
-			variables: { filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
 		})
-	).data.AD_Ref_ListGet.results;
+	).data.AD_Ref_ListGet.Results;
 	const insurerOrDonorToUse = (
 		await query(valueObject)({
 			query: C_BPartnerGetDocument,
-			variables: { filter: JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }) },
+			variables: { Filter: JSON.stringify({ c_bp_group: { bh_subtype: { $in: ['I', 'D'] } } }) },
 		})
-	).data.C_BPartnerGet.results.find((businessPartner) => businessPartner.BH_Payer_Info_FldList?.length)!;
+	).data.C_BPartnerGet.Results.find((businessPartner) => businessPartner.BH_Payer_Info_FldList?.length)!;
 	const payerInformationFieldToUse = insurerOrDonorToUse.BH_Payer_Info_FldList?.filter(
 		(payerInformationField) => payerInformationField.BH_PayerInfoFieldDataType.Value === 'T',
 	)[0]!;
@@ -2066,9 +2066,9 @@ test(`visit invoice updates work`, async () => {
 	const clinicalVitalsEncounterTypeWindow = (
 		await query(valueObject)({
 			query: Bh_Encounter_Type_WindowGetDocument,
-			variables: { filter: JSON.stringify({ ad_window: { ad_window_uu: CLINICAL_VITALS_WINDOW_UUID } }) },
+			variables: { Filter: JSON.stringify({ ad_window: { ad_window_uu: CLINICAL_VITALS_WINDOW_UUID } }) },
 		})
-	).data.BH_Encounter_Type_WindowGet.results[0];
+	).data.BH_Encounter_Type_WindowGet.Results[0];
 	expect(clinicalVitalsEncounterTypeWindow).toBeTruthy();
 	const visitUuid = randomUUID();
 	const encounterUuid = randomUUID();
@@ -2079,131 +2079,131 @@ test(`visit invoice updates work`, async () => {
 		mutation: Bh_VisitSaveWithEncountersObservationsOrdersInvoicesInsuranceAndPaymentsDocument,
 		variables: {
 			BH_Visit: {
-				UUID: visitUuid,
+				UU: visitUuid,
 				Description: valueObject.getStepMessageLong(),
-				Patient: { UUID: valueObject.businessPartner!.UUID },
+				Patient: { UU: valueObject.businessPartner!.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 			},
 			BH_Encounters: [
 				{
-					UUID: encounterUuid,
-					BH_Visit: { UUID: visitUuid },
-					BH_Encounter_Type: { UUID: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UUID },
+					UU: encounterUuid,
+					BH_Visit: { UU: visitUuid },
+					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
 				},
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
+					BH_Encounter: { UU: encounterUuid },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: 'In some pain...',
 				},
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UUID: encounterUuid },
+					BH_Encounter: { UU: encounterUuid },
 					BH_Value: '100',
 					AD_Field: {
-						UUID: clinicalVitalsEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields?.find(
-							(field) => field.UUID === HEIGHT_FIELD_UUID,
-						)?.UUID!,
+						UU: clinicalVitalsEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields?.find(
+							(field) => field.UU === HEIGHT_FIELD_UUID,
+						)?.UU!,
 					},
 				},
 			],
 			C_Orders: [
 				{
-					UUID: orderUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: orderUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					DateOrdered: valueObject.date?.getTime(),
-					M_Warehouse: { UUID: valueObject.warehouse!.UUID },
-					C_DocTypeTarget: { UUID: salesOrderDocumentType.UUID },
+					M_Warehouse: { UU: valueObject.warehouse!.UU },
+					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 				},
 			],
 			C_OrderLines: [
 				{
-					C_Order: { UUID: orderUuid },
-					UUID: orderLineUuid,
+					C_Order: { UU: orderUuid },
+					UU: orderLineUuid,
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
 				},
 			],
 			C_Invoices: [
 				{
-					UUID: invoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: invoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_Order: { UUID: orderUuid },
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_Order: { UU: orderUuid },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 				{
-					UUID: insurerInvoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: insurerInvoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: insurerOrDonorToUse.UUID },
+					C_BPartner: { UU: insurerOrDonorToUse.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 			],
 			C_InvoiceLines: [
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
-					C_OrderLine: { UUID: orderLineUuid },
+					C_OrderLine: { UU: orderLineUuid },
 				},
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_Charge: { UUID: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UUID },
+					C_Charge: { UU: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UU },
 					Qty: 1,
 					Price: -50,
 				},
 				{
-					UUID: insurerInvoiceLineUuid,
-					C_Invoice: { UUID: insurerInvoiceUuid },
+					UU: insurerInvoiceLineUuid,
+					C_Invoice: { UU: insurerInvoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_Charge: { UUID: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UUID },
+					C_Charge: { UU: insurerOrDonorToUse.C_BP_Group.AssociatedCustomerReceivablesCharge!.UU },
 					Qty: 1,
 					Price: 50,
 				},
 			],
 			BH_BP_Specific_Payer_InfoList: [
 				{
-					C_InvoiceLine: { UUID: insurerInvoiceLineUuid },
-					BH_Payer_Info_Fld: { UUID: payerInformationFieldToUse.UUID },
+					C_InvoiceLine: { UU: insurerInvoiceLineUuid },
+					BH_Payer_Info_Fld: { UU: payerInformationFieldToUse.UU },
 					Name: 'Some value!',
 				},
 			],
 			C_Payments: [
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 10,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 40,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
 		},
@@ -2211,9 +2211,9 @@ test(`visit invoice updates work`, async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(valueObject.visit.C_Invoices).toHaveLength(2);
 	expect(valueObject.visit.C_Invoices!.find((invoice) => invoice.C_InvoiceLines?.length === 2)).toBeTruthy();
@@ -2224,17 +2224,17 @@ test(`visit invoice updates work`, async () => {
 	await mutate(valueObject)({
 		mutation: Bh_VisitRemoveInsurancePayerDocument,
 		variables: {
-			C_Invoice_UUIDS: valueObject
-				.visit!.C_Invoices!.filter((invoice) => invoice.C_BPartner.UUID !== valueObject.businessPartner!.UUID)
-				.map((invoice) => invoice.UUID),
-			C_InvoiceLine_UUIDS: valueObject
-				.visit!.C_Invoices!.filter((invoice) => invoice.C_BPartner.UUID === valueObject.businessPartner!.UUID)
+			C_Invoice_UUS: valueObject
+				.visit!.C_Invoices!.filter((invoice) => invoice.C_BPartner.UU !== valueObject.businessPartner!.UU)
+				.map((invoice) => invoice.UU),
+			C_InvoiceLine_UUS: valueObject
+				.visit!.C_Invoices!.filter((invoice) => invoice.C_BPartner.UU === valueObject.businessPartner!.UU)
 				.flatMap((invoice) => invoice.C_InvoiceLines || [])
 				.filter((invoiceLine) => invoiceLine.PriceActual < 0)
-				.map((invoiceLine) => invoiceLine.UUID),
+				.map((invoiceLine) => invoiceLine.UU),
 			C_Payments: [
 				{
-					UUID: valueObject.visit!.C_Payments![0].UUID,
+					UU: valueObject.visit!.C_Payments![0].UU,
 					PayAmt: valueObject.visit!.C_Payments![0].PayAmt + 50, // Increase the cash payment by what the insurance was previously paying
 				},
 			],
@@ -2243,9 +2243,9 @@ test(`visit invoice updates work`, async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(valueObject.visit.C_Invoices).toHaveLength(1);
 	expect(valueObject.visit.C_Invoices![0].C_InvoiceLines).toHaveLength(1);
@@ -2261,15 +2261,15 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	await mutate(valueObject)({
 		mutation: C_BPartnerSaveDocument,
 		variables: {
-			entity: {
-				UUID: valueObject.businessPartner!.UUID,
+			Entity: {
+				UU: valueObject.businessPartner!.UU,
 				C_BP_Group: {
-					UUID: (
+					UU: (
 						await query(valueObject)({
 							query: C_Bp_GroupGetDocument,
-							variables: { filter: JSON.stringify({ bh_subtype: { $in: ['I'] } }) },
+							variables: { Filter: JSON.stringify({ bh_subtype: { $in: ['I'] } }) },
 						})
-					).data.C_BP_GroupGet.results[0].UUID,
+					).data.C_BP_GroupGet.Results[0].UU,
 				},
 			},
 		},
@@ -2277,9 +2277,9 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	const insurer = (
 		await query(valueObject)({
 			query: C_BPartnerGetDocument,
-			variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+			variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 		})
-	).data.C_BPartnerGet.results[0];
+	).data.C_BPartnerGet.Results[0];
 
 	valueObject.stepName = 'Create business partner';
 	valueObject.clearBusinessPartner();
@@ -2315,9 +2315,9 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	const tenderTypes = (
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
-			variables: { filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }) },
 		})
-	).data.AD_Ref_ListGet.results;
+	).data.AD_Ref_ListGet.Results;
 	const visitUuid = randomUUID();
 	const invoiceUuid = randomUUID();
 	const insurerInvoiceUuid = randomUUID();
@@ -2326,102 +2326,102 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 		mutation: Bh_VisitSaveAndProcessWithOrdersInvoicesAndPaymentsDocument,
 		variables: {
 			BH_Visit: {
-				UUID: visitUuid,
+				UU: visitUuid,
 				Description: valueObject.getStepMessageLong(),
-				Patient: { UUID: valueObject.businessPartner!.UUID },
+				Patient: { UU: valueObject.businessPartner!.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 			},
 			C_Orders: [
 				{
-					UUID: orderUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: orderUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					DateOrdered: valueObject.date?.getTime(),
-					M_Warehouse: { UUID: valueObject.warehouse!.UUID },
-					C_DocTypeTarget: { UUID: salesOrderDocumentType.UUID },
+					M_Warehouse: { UU: valueObject.warehouse!.UU },
+					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 				},
 			],
 			C_OrderLines: [
 				{
-					C_Order: { UUID: orderUuid },
-					UUID: orderLineUuid,
+					C_Order: { UU: orderUuid },
+					UU: orderLineUuid,
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
 				},
 			],
 			C_Invoices: [
 				{
-					UUID: invoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: invoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_Order: { UUID: orderUuid },
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_Order: { UU: orderUuid },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 				{
-					UUID: insurerInvoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: insurerInvoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: insurer.UUID },
+					C_BPartner: { UU: insurer.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 			],
 			C_InvoiceLines: [
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: 1,
 					Price: 100,
-					C_OrderLine: { UUID: orderLineUuid },
+					C_OrderLine: { UU: orderLineUuid },
 				},
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_Charge: { UUID: insurer.C_BP_Group.AssociatedCustomerReceivablesCharge!.UUID },
+					C_Charge: { UU: insurer.C_BP_Group.AssociatedCustomerReceivablesCharge!.UU },
 					Qty: 1,
 					Price: -50,
 				},
 				{
-					UUID: insurerInvoiceLineUuid,
-					C_Invoice: { UUID: insurerInvoiceUuid },
+					UU: insurerInvoiceLineUuid,
+					C_Invoice: { UU: insurerInvoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_Charge: { UUID: insurer.C_BP_Group.AssociatedCustomerReceivablesCharge!.UUID },
+					C_Charge: { UU: insurer.C_BP_Group.AssociatedCustomerReceivablesCharge!.UU },
 					Qty: 1,
 					Price: 50,
 				},
 			],
 			C_Payments: [
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 10,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 				{
-					BH_Visit: { UUID: visitUuid },
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					BH_Visit: { UU: visitUuid },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: 40,
-					TenderType: { UUID: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UUID },
-					C_DocType: { UUID: paymentReceiptDocumentType.UUID },
-					C_BankAccount: { UUID: valueObject.bankAccount!.UUID },
-					C_Currency: { UUID: valueObject.currency!.UUID },
+					TenderType: { UU: tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY)!.UU },
+					C_DocType: { UU: paymentReceiptDocumentType.UU },
+					C_BankAccount: { UU: valueObject.bankAccount!.UU },
+					C_Currency: { UU: valueObject.currency!.UU },
 				},
 			],
-			UUID: visitUuid,
+			UU: visitUuid,
 			DocumentAction: documentAction.Complete,
 		},
 	});
@@ -2430,92 +2430,92 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: insurer.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: insurer.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(50);
 
 	valueObject.stepName = 'Re-open visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: visitUuid, documentAction: documentAction.ReActivate },
+		variables: { UU: visitUuid, DocumentAction: documentAction.ReActivate },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: insurer.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: insurer.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Re-complete the visit as-is';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: visitUuid, documentAction: documentAction.Complete },
+		variables: { UU: visitUuid, DocumentAction: documentAction.Complete },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: insurer.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: insurer.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(50);
 
 	valueObject.stepName = 'Re-re-open visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: visitUuid, documentAction: documentAction.ReActivate },
+		variables: { UU: visitUuid, DocumentAction: documentAction.ReActivate },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: insurer.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: insurer.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Check reversed invoices and payments';
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	const draftedInvoices = valueObject.visit!.C_Invoices?.filter(
 		(invoice) =>
 			![
@@ -2539,17 +2539,17 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	await mutate(valueObject)({
 		mutation: Bh_VisitRemoveInsurancePayerDocument,
 		variables: {
-			C_Invoice_UUIDS: draftedInvoices!
-				.filter((invoice) => invoice.C_BPartner.UUID !== valueObject.businessPartner!.UUID)
-				.map((invoice) => invoice.UUID),
-			C_InvoiceLine_UUIDS: draftedInvoices
-				.filter((invoice) => invoice.C_BPartner.UUID === valueObject.businessPartner!.UUID)
+			C_Invoice_UUS: draftedInvoices!
+				.filter((invoice) => invoice.C_BPartner.UU !== valueObject.businessPartner!.UU)
+				.map((invoice) => invoice.UU),
+			C_InvoiceLine_UUS: draftedInvoices
+				.filter((invoice) => invoice.C_BPartner.UU === valueObject.businessPartner!.UU)
 				.flatMap((invoice) => invoice.C_InvoiceLines || [])
 				.filter((invoiceLine) => invoiceLine.PriceActual < 0)
-				.map((invoiceLine) => invoiceLine.UUID),
+				.map((invoiceLine) => invoiceLine.UU),
 			C_Payments: [
 				{
-					UUID: draftedPayments[0].UUID,
+					UU: draftedPayments[0].UU,
 					PayAmt: draftedPayments[0].PayAmt + 50, // Increase the cash payment by what the insurance was previously paying
 				},
 			],
@@ -2557,45 +2557,45 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	});
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: visitUuid, documentAction: documentAction.Complete },
+		variables: { UU: visitUuid, DocumentAction: documentAction.Complete },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: insurer.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: insurer.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 
 	valueObject.stepName = 'Void the visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: visitUuid, documentAction: documentAction.Void },
+		variables: { UU: visitUuid, DocumentAction: documentAction.Void },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: insurer.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: insurer.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -2634,31 +2634,31 @@ test(`visit can be saved without order and invoice lines`, async () => {
 		mutation: Bh_VisitSaveWithOrdersAndInvoicesDocument,
 		variables: {
 			BH_Visit: {
-				UUID: visitUuid,
+				UU: visitUuid,
 				Description: valueObject.getStepMessageLong(),
-				Patient: { UUID: valueObject.businessPartner!.UUID },
+				Patient: { UU: valueObject.businessPartner!.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 			},
 			C_Orders: [
 				{
-					UUID: orderUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: orderUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					DateOrdered: valueObject.date?.getTime(),
-					M_Warehouse: { UUID: valueObject.warehouse!.UUID },
-					C_DocTypeTarget: { UUID: salesOrderDocumentType.UUID },
+					M_Warehouse: { UU: valueObject.warehouse!.UU },
+					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 				},
 			],
 			C_Invoices: [
 				{
-					BH_Visit: { UUID: visitUuid },
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_Order: { UUID: orderUuid },
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_Order: { UU: orderUuid },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 			],
@@ -2667,9 +2667,9 @@ test(`visit can be saved without order and invoice lines`, async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 
 	expect(valueObject.visit).toBeTruthy();
 	expect(valueObject.visit.C_Orders).toHaveLength(1);
@@ -2707,9 +2707,9 @@ test(`document number should be returned for saved visits`, async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	expect(valueObject.visit.DocumentNo).not.toBe('');
 });
 
@@ -2748,84 +2748,84 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	const encounterTypes = (
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
-			variables: { filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.ENCOUNTER_TYPES } }) },
+			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.ENCOUNTER_TYPES } }) },
 		})
-	).data.AD_Ref_ListGet.results;
+	).data.AD_Ref_ListGet.Results;
 	const visitUuid = randomUUID();
 	const invoiceUuid = randomUUID();
 	await mutate(valueObject)({
 		mutation: Bh_VisitSaveWithEncountersOrdersAndInvoicesDocument,
 		variables: {
 			BH_Visit: {
-				UUID: visitUuid,
+				UU: visitUuid,
 				Description: valueObject.getStepMessageLong(),
-				Patient: { UUID: valueObject.businessPartner!.UUID },
+				Patient: { UU: valueObject.businessPartner!.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 			},
 			BH_Encounters: [
 				{
-					BH_Visit: { UUID: visitUuid },
-					BH_Encounter_Type: { UUID: encounterTypes.find((referenceList) => referenceList.Value === 'V')!.UUID },
+					BH_Visit: { UU: visitUuid },
+					BH_Encounter_Type: { UU: encounterTypes.find((referenceList) => referenceList.Value === 'V')!.UU },
 				},
 			],
 			C_Orders: [
 				{
-					UUID: orderUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: orderUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
 					DateOrdered: valueObject.date?.getTime(),
-					M_Warehouse: { UUID: valueObject.warehouse!.UUID },
-					C_DocTypeTarget: { UUID: salesOrderDocumentType.UUID },
+					M_Warehouse: { UU: valueObject.warehouse!.UU },
+					C_DocTypeTarget: { UU: salesOrderDocumentType.UU },
 					IsSOTrx: salesOrderDocumentType.IsSOTrx,
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 				},
 			],
 			C_OrderLines: [
 				{
-					UUID: orderLine1Uuid,
-					C_Order: { UUID: orderUuid },
+					UU: orderLine1Uuid,
+					C_Order: { UU: orderUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: product1.UUID },
+					M_Product: { UU: product1.UU },
 					Qty: 1,
 					Price: 200,
 				},
 				{
-					UUID: orderLine2Uuid,
-					C_Order: { UUID: orderUuid },
+					UU: orderLine2Uuid,
+					C_Order: { UU: orderUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: product2.UUID },
+					M_Product: { UU: product2.UU },
 					Qty: 1,
 					Price: 30000,
 				},
 			],
 			C_Invoices: [
 				{
-					UUID: invoiceUuid,
-					BH_Visit: { UUID: visitUuid },
+					UU: invoiceUuid,
+					BH_Visit: { UU: visitUuid },
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: valueObject.businessPartner!.UUID },
+					C_BPartner: { UU: valueObject.businessPartner!.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_Order: { UUID: orderUuid },
-					C_DocTypeTarget: { UUID: customerInvoiceDocumentType.UUID },
+					C_Order: { UU: orderUuid },
+					C_DocTypeTarget: { UU: customerInvoiceDocumentType.UU },
 					IsSOTrx: customerInvoiceDocumentType.IsSOTrx,
 				},
 			],
 			C_InvoiceLines: [
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: product1.UUID },
+					M_Product: { UU: product1.UU },
 					Qty: 1,
 					Price: 200,
-					C_OrderLine: { UUID: orderLine1Uuid },
+					C_OrderLine: { UU: orderLine1Uuid },
 				},
 				{
-					C_Invoice: { UUID: invoiceUuid },
+					C_Invoice: { UU: invoiceUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: product1.UUID },
+					M_Product: { UU: product1.UU },
 					Qty: 1,
 					Price: 20000,
-					C_OrderLine: { UUID: orderLine2Uuid },
+					C_OrderLine: { UU: orderLine2Uuid },
 				},
 			],
 		},
@@ -2835,17 +2835,17 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	await mutate(valueObject)({
 		mutation: C_InvoiceAndOrderLineDeleteDocument,
 		variables: {
-			C_OrderLineUUIDS: [orderLine1Uuid],
-			C_InvoiceLineUUIDS: [
+			C_OrderLineUUS: [orderLine1Uuid],
+			C_InvoiceLineUUS: [
 				valueObject.visit.C_Invoices![0].C_InvoiceLines!.find(
-					(invoiceLine) => invoiceLine.C_OrderLine?.UUID === orderLine1Uuid,
-				)?.UUID!,
+					(invoiceLine) => invoiceLine.C_OrderLine?.UU === orderLine1Uuid,
+				)?.UU!,
 			],
 		},
 	});
@@ -2853,9 +2853,9 @@ test(`can delete order & invoice lines at the same time`, async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	expect(valueObject.visit).toBeTruthy();
 	expect(valueObject.visit.C_Orders).toHaveLength(1);
 	expect(valueObject.visit.C_Orders![0].C_OrderLines).toHaveLength(1);
@@ -2877,15 +2877,15 @@ test('can delete encounters', async () => {
 	const clinicalVitalsEncounterTypeWindow = (
 		await query(valueObject)({
 			query: Bh_Encounter_Type_WindowGetDocument,
-			variables: { filter: JSON.stringify({ ad_window: { ad_window_uu: CLINICAL_VITALS_WINDOW_UUID } }) },
+			variables: { Filter: JSON.stringify({ ad_window: { ad_window_uu: CLINICAL_VITALS_WINDOW_UUID } }) },
 		})
-	).data.BH_Encounter_Type_WindowGet.results[0];
+	).data.BH_Encounter_Type_WindowGet.Results[0];
 	expect(clinicalVitalsEncounterTypeWindow).toBeTruthy();
 	const fields = clinicalVitalsEncounterTypeWindow.AD_Window.AD_Tabs?.[0].AD_Fields!;
 	expect(fields).toBeTruthy();
 
-	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { size: 1 } }))
-		.data.BH_Coded_DiagnosisGet.results[0];
+	const codedDiagnosis = (await query(valueObject)({ query: Bh_Coded_DiagnosisGetDocument, variables: { Size: 1 } }))
+		.data.BH_Coded_DiagnosisGet.Results[0];
 	const uncodedDiagnosisValue = 'Test uncoded diagnosis';
 	const encounter1Uuid = v4();
 	const encounter2Uuid = v4();
@@ -2894,48 +2894,48 @@ test('can delete encounters', async () => {
 		variables: {
 			BH_Encounters: [
 				{
-					UUID: encounter1Uuid,
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					BH_Encounter_Type: { UUID: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UUID },
+					UU: encounter1Uuid,
+					BH_Visit: { UU: valueObject.visit!.UU },
+					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
 				},
 				{
-					UUID: encounter2Uuid,
-					BH_Visit: { UUID: valueObject.visit!.UUID },
-					BH_Encounter_Type: { UUID: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UUID },
+					UU: encounter2Uuid,
+					BH_Visit: { UU: valueObject.visit!.UU },
+					BH_Encounter_Type: { UU: clinicalVitalsEncounterTypeWindow.BH_Encounter_Type.UU },
 				},
 			],
 			BH_Observations: [
 				{
-					BH_Encounter: { UUID: encounter1Uuid },
-					AD_Field: { UUID: fields.find((field) => field.UUID === HEIGHT_FIELD_UUID)!.UUID },
+					BH_Encounter: { UU: encounter1Uuid },
+					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: '200',
 				},
 				{
-					BH_Encounter: { UUID: encounter2Uuid },
-					AD_Field: { UUID: fields.find((field) => field.UUID === HEIGHT_FIELD_UUID)!.UUID },
+					BH_Encounter: { UU: encounter2Uuid },
+					AD_Field: { UU: fields.find((field) => field.UU === HEIGHT_FIELD_UUID)!.UU },
 					BH_Value: '200',
 				},
 			],
 			BH_EncounterDiagnoses: [
 				{
-					BH_Encounter: { UUID: encounter1Uuid },
+					BH_Encounter: { UU: encounter1Uuid },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: uncodedDiagnosisValue,
 				},
 				{
-					BH_Encounter: { UUID: encounter1Uuid },
+					BH_Encounter: { UU: encounter1Uuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UUID: codedDiagnosis.UUID },
+					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
 				},
 				{
-					BH_Encounter: { UUID: encounter2Uuid },
+					BH_Encounter: { UU: encounter2Uuid },
 					LineNo: 1,
 					BH_Uncoded_Diagnosis: uncodedDiagnosisValue,
 				},
 				{
-					BH_Encounter: { UUID: encounter2Uuid },
+					BH_Encounter: { UU: encounter2Uuid },
 					LineNo: 2,
-					BH_Coded_Diagnosis: { UUID: codedDiagnosis.UUID },
+					BH_Coded_Diagnosis: { UU: codedDiagnosis.UU },
 				},
 			],
 		},
@@ -2944,24 +2944,24 @@ test('can delete encounters', async () => {
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UUID }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: valueObject.visit!.UU }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	expect(valueObject.visit.BH_Encounters).toHaveLength(2);
 
 	valueObject.stepName = 'Delete encounter';
-	const encounterUuidsToDelete = valueObject.visit.BH_Encounters!.map((encounter) => encounter.UUID);
+	const encounterUuidsToDelete = valueObject.visit.BH_Encounters!.map((encounter) => encounter.UU);
 	await mutate(valueObject)({
 		mutation: Bh_EncounterDeleteDocument,
-		variables: { UUIDS: encounterUuidsToDelete },
+		variables: { UUS: encounterUuidsToDelete },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: Bh_EncounterGetDocument,
-				variables: { filter: JSON.stringify({ bh_encounter_uu: { $in: encounterUuidsToDelete } }) },
+				variables: { Filter: JSON.stringify({ bh_encounter_uu: { $in: encounterUuidsToDelete } }) },
 			})
-		).data.BH_EncounterGet.results,
+		).data.BH_EncounterGet.Results,
 	).toHaveLength(0);
 });
 
@@ -2995,16 +2995,16 @@ test('expression functions work in sorting', async () => {
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
 			variables: {
-				sort: JSON.stringify([
+				Sort: JSON.stringify([
 					['$date(bh_visitdate)', 'DESC'],
 					['bh_visitdate', 'ASC'],
 				]),
-				filter: JSON.stringify({ bh_visit_uu: { $in: [visit1.UUID, visit2.UUID, visit3.UUID] } }),
+				Filter: JSON.stringify({ bh_visit_uu: { $in: [visit1.UU, visit2.UU, visit3.UU] } }),
 			},
 		})
-	).data.BH_VisitGet.results;
+	).data.BH_VisitGet.Results;
 	expect(sortedVisits).toHaveLength(3);
-	expect(sortedVisits[0].UUID).toBe(visit3.UUID);
-	expect(sortedVisits[1].UUID).toBe(visit2.UUID);
-	expect(sortedVisits[2].UUID).toBe(visit1.UUID);
+	expect(sortedVisits[0].UU).toBe(visit3.UU);
+	expect(sortedVisits[1].UU).toBe(visit2.UU);
+	expect(sortedVisits[2].UU).toBe(visit1.UU);
 });

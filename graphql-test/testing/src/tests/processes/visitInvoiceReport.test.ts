@@ -30,23 +30,23 @@ test('visit invoice report is runnable', async () => {
 	const organizationInformation = (
 		await query(valueObject)({
 			query: Ad_OrgInfoGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_org: { ad_org_uu: valueObject.organization!.UUID } }) },
+			variables: { Size: 1, Filter: JSON.stringify({ ad_org: { ad_org_uu: valueObject.organization!.UU } }) },
 		})
-	).data.AD_OrgInfoGet.results[0];
-	const logoUuid = organizationInformation.Logo?.UUID || v4();
+	).data.AD_OrgInfoGet.Results[0];
+	const logoUuid = organizationInformation.Logo?.UU || v4();
 	await mutate(valueObject)({
 		mutation: LogoAndAd_OrgInfoSaveDocument,
 		variables: {
-			logo: {
-				UUID: logoUuid,
+			Logo: {
+				UU: logoUuid,
 				Name: 'logo.png',
 				ImageURL: 'logo.png',
 				BinaryData: readFileSync(path.join(__dirname, '../../assets/logo.png'), 'base64'),
 			},
 			AD_OrgInfo: {
-				UUID: organizationInformation.UUID,
+				UU: organizationInformation.UU,
 				Logo: {
-					UUID: logoUuid,
+					UU: logoUuid,
 				},
 			},
 		},
@@ -92,23 +92,23 @@ test('visit invoice report is runnable', async () => {
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	const process = (
 		await query(valueObject)({
 			query: Ad_ProcessGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_process_uu: reportUuid }) },
+			variables: { Size: 1, Filter: JSON.stringify({ ad_process_uu: reportUuid }) },
 		})
-	).data.AD_ProcessGet.results[0];
+	).data.AD_ProcessGet.Results[0];
 
 	valueObject.stepName = 'Run report';
-	valueObject.processUuid = process.UUID;
+	valueObject.processUuid = process.UU;
 	valueObject.processInformationParameters = [
 		{
-			AD_Process: { UUID: process.UUID },
+			AD_Process: { UU: process.UU },
 			ParameterName: process.AD_Process_ParaList![0].Name,
-			Parameter: valueObject.visit!.UUID,
+			Parameter: valueObject.visit!.UU,
 		},
 	];
 	await runReport(valueObject);
@@ -124,23 +124,23 @@ test(`uploaded PDFs dont's stop the report from running`, async () => {
 	const organizationInformation = (
 		await query(valueObject)({
 			query: Ad_OrgInfoGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_org: { ad_org_uu: valueObject.organization!.UUID } }) },
+			variables: { Size: 1, Filter: JSON.stringify({ ad_org: { ad_org_uu: valueObject.organization!.UU } }) },
 		})
-	).data.AD_OrgInfoGet.results[0];
-	const logoUuid = organizationInformation.Logo?.UUID || v4();
+	).data.AD_OrgInfoGet.Results[0];
+	const logoUuid = organizationInformation.Logo?.UU || v4();
 	await mutate(valueObject)({
 		mutation: LogoAndAd_OrgInfoSaveDocument,
 		variables: {
-			logo: {
-				UUID: logoUuid,
+			Logo: {
+				UU: logoUuid,
 				Name: 'logo.pdf',
 				ImageURL: 'logo.pdf',
 				BinaryData: readFileSync(path.join(__dirname, '../../assets/logo.pdf'), 'base64'),
 			},
 			AD_OrgInfo: {
-				UUID: organizationInformation.UUID,
+				UU: organizationInformation.UU,
 				Logo: {
-					UUID: logoUuid,
+					UU: logoUuid,
 				},
 			},
 		},
@@ -186,23 +186,23 @@ test(`uploaded PDFs dont's stop the report from running`, async () => {
 	valueObject.stepName = 'Complete visit';
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	const process = (
 		await query(valueObject)({
 			query: Ad_ProcessGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_process_uu: reportUuid }) },
+			variables: { Size: 1, Filter: JSON.stringify({ ad_process_uu: reportUuid }) },
 		})
-	).data.AD_ProcessGet.results[0];
+	).data.AD_ProcessGet.Results[0];
 
 	valueObject.stepName = 'Run report';
-	valueObject.processUuid = process.UUID;
+	valueObject.processUuid = process.UU;
 	valueObject.processInformationParameters = [
 		{
-			AD_Process: { UUID: process.UUID },
+			AD_Process: { UU: process.UU },
 			ParameterName: process.AD_Process_ParaList![0].Name,
-			Parameter: valueObject.visit!.UUID,
+			Parameter: valueObject.visit!.UU,
 		},
 	];
 	await runReport(valueObject);

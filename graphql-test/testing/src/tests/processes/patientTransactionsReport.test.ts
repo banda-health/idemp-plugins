@@ -12,9 +12,9 @@ test('report is runnable', async () => {
 	const process = (
 		await query(valueObject)({
 			query: Ad_ProcessGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_process_uu: reportUuid }) },
+			variables: { Size: 1, Filter: JSON.stringify({ ad_process_uu: reportUuid }) },
 		})
-	).data.AD_ProcessGet.results[0];
+	).data.AD_ProcessGet.Results[0];
 	const beginDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Begin Date');
 	const endDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'End Date');
 	const paymentModeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Payment Mode');
@@ -28,15 +28,15 @@ test('report is runnable', async () => {
 	expect(completedByParameter).toBeTruthy();
 
 	valueObject.stepName = 'Run report';
-	valueObject.processUuid = process.UUID;
+	valueObject.processUuid = process.UU;
 	valueObject.processInformationParameters = [
 		{
-			AD_Process: { UUID: process.UUID },
+			AD_Process: { UU: process.UU },
 			ParameterName: beginDateParameter!.Name,
 			Parameter: yesterday().toISOString(),
 		},
 		{
-			AD_Process: { UUID: process.UUID },
+			AD_Process: { UU: process.UU },
 			ParameterName: endDateParameter!.Name,
 			Parameter: tomorrow().toISOString(),
 		},

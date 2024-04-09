@@ -26,11 +26,11 @@ test('payment type updated with UUID, not value', async () => {
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
 			variables: {
-				size: 15,
-				filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }),
+				Size: 15,
+				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }),
 			},
 		})
-	).data.AD_Ref_ListGet.results.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY);
+	).data.AD_Ref_ListGet.Results.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY);
 
 	valueObject.stepName = 'Set only payment type value';
 	let updatedPayment: C_PaymentSaveMutation['C_PaymentSave'] | undefined;
@@ -39,8 +39,8 @@ test('payment type updated with UUID, not value', async () => {
 			await mutate(valueObject)({
 				mutation: C_PaymentSaveDocument,
 				variables: {
-					entity: {
-						UUID: valueObject.payment!.UUID,
+					Entity: {
+						UU: valueObject.payment!.UU,
 						TenderType: {
 							Value: mobilePaymentType?.Value,
 						},
@@ -56,16 +56,16 @@ test('payment type updated with UUID, not value', async () => {
 		await mutate(valueObject)({
 			mutation: C_PaymentSaveDocument,
 			variables: {
-				entity: {
-					UUID: valueObject.payment!.UUID,
+				Entity: {
+					UU: valueObject.payment!.UU,
 					TenderType: {
-						UUID: mobilePaymentType!.UUID,
+						UU: mobilePaymentType!.UU,
 					},
 				},
 			},
 		})
 	).data?.C_PaymentSave;
-	expect(updatedPayment?.TenderType.UUID).toBe(mobilePaymentType?.UUID);
+	expect(updatedPayment?.TenderType.UU).toBe(mobilePaymentType?.UU);
 });
 
 test('payment values are saved correctly', async () => {
@@ -84,8 +84,8 @@ test('payment values are saved correctly', async () => {
 		await mutate(valueObject)({
 			mutation: C_PaymentSaveDocument,
 			variables: {
-				entity: {
-					UUID: valueObject.payment!.UUID,
+				Entity: {
+					UU: valueObject.payment!.UU,
 					BH_tender_amount: 600,
 					PayAmt: 500,
 				},
@@ -150,15 +150,15 @@ test('filtering by payments not on a visit works', async () => {
 		mutation: Bh_VisitSaveWithPaymentsDocument,
 		variables: {
 			BH_Visit: {
-				UUID: visitUuid,
+				UU: visitUuid,
 				Description: valueObject.getDynamicStepMessage(),
-				Patient: { UUID: valueObject.businessPartner!.UUID },
+				Patient: { UU: valueObject.businessPartner!.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 			},
 			C_Payments: [
 				{
-					UUID: valueObject.payment!.UUID,
-					BH_Visit: { UUID: visitUuid },
+					UU: valueObject.payment!.UU,
+					BH_Visit: { UU: visitUuid },
 				},
 			],
 		},
@@ -168,41 +168,41 @@ test('filtering by payments not on a visit works', async () => {
 		(
 			await query(valueObject)({
 				query: C_PaymentGetDocument,
-				variables: { filter: JSON.stringify({ bh_visit_id: { $null: true }, c_payment_uu: nonVisitPayment.UUID }) },
+				variables: { Filter: JSON.stringify({ bh_visit_id: { $null: true }, c_payment_uu: nonVisitPayment.UU }) },
 			})
-		).data.C_PaymentGet.results[0],
+		).data.C_PaymentGet.Results[0],
 	).toBeTruthy();
 	expect(
 		(
 			await query(valueObject)({
 				query: C_PaymentGetDocument,
 				variables: {
-					filter: JSON.stringify({ bh_visit: { bh_visit_uu: { $null: true } }, c_payment_uu: nonVisitPayment.UUID }),
+					Filter: JSON.stringify({ bh_visit: { bh_visit_uu: { $null: true } }, c_payment_uu: nonVisitPayment.UU }),
 				},
 			})
-		).data.C_PaymentGet.results[0],
+		).data.C_PaymentGet.Results[0],
 	).toBeFalsy();
 	expect(
 		(
 			await query(valueObject)({
 				query: C_PaymentGetDocument,
 				variables: {
-					filter: JSON.stringify({ bh_visit_id: { $null: true }, c_payment_uu: valueObject.payment!.UUID }),
+					Filter: JSON.stringify({ bh_visit_id: { $null: true }, c_payment_uu: valueObject.payment!.UU }),
 				},
 			})
-		).data.C_PaymentGet.results[0],
+		).data.C_PaymentGet.Results[0],
 	).toBeFalsy();
 	expect(
 		(
 			await query(valueObject)({
 				query: C_PaymentGetDocument,
 				variables: {
-					filter: JSON.stringify({
+					Filter: JSON.stringify({
 						bh_visit: { bh_visit_uu: { $nnull: true } },
-						c_payment_uu: valueObject.payment!.UUID,
+						c_payment_uu: valueObject.payment!.UU,
 					}),
 				},
 			})
-		).data.C_PaymentGet.results[0],
+		).data.C_PaymentGet.Results[0],
 	).toBeTruthy();
 });

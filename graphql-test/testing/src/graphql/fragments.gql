@@ -1,10 +1,10 @@
 fragment AD_RoleFields on AD_Role {
-	UUID
+	UU
 	IsMasterRole
 	AD_Role_IncludedList {
-		UUID
+		UU
 		Included_Role {
-			UUID
+			UU
 		}
 	}
 	Name
@@ -14,57 +14,57 @@ fragment BH_VisitFields on BH_Visit {
 	BH_VisitDate
 	Description
 	DocumentNo
-	UUID
+	UU
 	Patient {
-		UUID
+		UU
 		Name
 	}
 	BH_Encounters {
-		UUID
+		UU
 		BH_Encounter_DiagnosisList {
-			UUID
+			UU
 			BH_Coded_Diagnosis {
-				UUID
+				UU
 			}
 			BH_Uncoded_Diagnosis
 		}
 		BH_Observations {
-			UUID
+			UU
 			BH_Value
 		}
 	}
 	C_Orders {
-		UUID
+		UU
 		DocStatus {
-			UUID
+			UU
 			Value
 		}
 		C_OrderLines {
-			UUID
+			UU
 		}
 	}
 	C_Invoices {
-		UUID
+		UU
 		DocStatus {
-			UUID
+			UU
 			Value
 		}
 		C_BPartner {
-			UUID
+			UU
 		}
 		C_InvoiceLines {
-			UUID
+			UU
 			PriceActual
 			C_OrderLine {
-				UUID
+				UU
 			}
 		}
 	}
 	C_Payments {
-		UUID
+		UU
 		BH_tender_amount
 		DocStatus {
-			UUID
+			UU
 			Value
 		}
 		PayAmt
@@ -74,32 +74,32 @@ fragment BH_VisitFields on BH_Visit {
 fragment C_BPartnerFields on C_BPartner {
 	BH_Birthday
 	bh_gender {
-		UUID
+		UU
 		Value
 	}
 	bh_occupation
 	BH_Payer_Info_FldList {
-		UUID
+		UU
 		BH_PayerInfoFieldDataType {
-			UUID
+			UU
 			Value
 		}
 	}
 	C_BP_Group {
 		Name
-		UUID
+		UU
 		AssociatedCustomerReceivablesCharge {
-			UUID
+			UU
 		}
 	}
 	C_BPartner_Locations {
-		UUID
+		UU
 		C_Location {
 			Address1
 		}
 	}
 	Description
-	UUID
+	UU
 	IsCustomer
 	IsVendor
 	LastVisitDate
@@ -113,35 +113,35 @@ fragment C_BPartnerFields on C_BPartner {
 
 fragment C_LocationFields on C_Location {
 	C_Country {
-		UUID
+		UU
 	}
 	C_Region {
-		UUID
+		UU
 		Name
 	}
-	UUID
+	UU
 }
 
 fragment C_InvoiceFields on C_Invoice {
 	C_Currency {
-		UUID
+		UU
 	}
 	DocStatus {
 		Value
 	}
 	GrandTotal
-	UUID
+	UU
 }
 
 fragment C_OrderFields on C_Order {
 	C_Currency {
-		UUID
+		UU
 	}
 	DocStatus {
 		Value
 	}
 	GrandTotal
-	UUID
+	UU
 }
 
 fragment C_PaymentFields on C_Payment {
@@ -151,25 +151,25 @@ fragment C_PaymentFields on C_Payment {
 	}
 	PayAmt
 	TenderType {
-		UUID
+		UU
 		Name
 		Value
 	}
-	UUID
+	UU
 }
 
 fragment M_InventoryFields on M_Inventory {
 	DocStatus {
 		Value
 	}
-	UUID
+	UU
 }
 
 fragment M_MovementFields on M_Movement {
 	DocStatus {
 		Value
 	}
-	UUID
+	UU
 }
 
 fragment M_ProductFields on M_Product {
@@ -178,10 +178,10 @@ fragment M_ProductFields on M_Product {
 	Description
 	HasBeenPurchased
 	LastPurchasePrice
-	UUID
+	UU
 	Name
 	M_Product_Category {
-		UUID
+		UU
 	}
 	TotalQuantity
 }

@@ -40,12 +40,12 @@ export async function loadRegionAndCountry(valueObject: ValueObject) {
 		await query(valueObject)({
 			query: C_LocationGetDocument,
 			variables: {
-				page: 0,
-				size: 0,
-				filter: JSON.stringify({ c_bpartner_location: { c_bpartner: { name: 'Standard' } } }),
+				Page: 0,
+				Size: 0,
+				Filter: JSON.stringify({ c_bpartner_location: { c_bpartner: { name: 'Standard' } } }),
 			},
 		})
-	).data.C_LocationGet.results[0];
+	).data.C_LocationGet.Results[0];
 	valueObject.region = location.C_Region;
 	valueObject.country = location.C_Country;
 }
@@ -55,8 +55,8 @@ export async function loadCurrency(valueObject: ValueObject) {
 		return;
 	}
 	valueObject.currency = (
-		await query(valueObject)({ query: C_AcctSchemaGetDocument, variables: { size: 1 } })
-	).data.C_AcctSchemaGet.results[0].C_Currency;
+		await query(valueObject)({ query: C_AcctSchemaGetDocument, variables: { Size: 1 } })
+	).data.C_AcctSchemaGet.Results[0].C_Currency;
 }
 
 export async function loadBankAccount(valueObject: ValueObject) {
@@ -90,34 +90,34 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 				mutation: C_BPartnerSaveWithLocationDocument,
 				variables: {
 					C_BPartner: {
-						UUID: businessPartnerUuid,
+						UU: businessPartnerUuid,
 						Name: valueObject.getDynamicStepMessage(),
 						Description: valueObject.getStepMessageLong(),
 						BH_Birthday: valueObject.date?.getTime(),
-						bh_gender: { UUID: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
+						bh_gender: { UU: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
 						IsCustomer: true,
 						IsVendor: true,
 					},
 					C_Location: {
-						UUID: locationUuid,
+						UU: locationUuid,
 						C_Region: valueObject.region
 							? {
-									UUID: valueObject.region.UUID,
+									UU: valueObject.region.UU,
 							  }
 							: undefined,
 						C_Country: valueObject.country
 							? {
-									UUID: valueObject.country.UUID,
+									UU: valueObject.country.UU,
 							  }
 							: undefined,
 						City: 'Test',
 					},
 					C_BPartner_Location: {
 						C_BPartner: {
-							UUID: businessPartnerUuid,
+							UU: businessPartnerUuid,
 						},
 						C_Location: {
-							UUID: locationUuid,
+							UU: locationUuid,
 						},
 						Name: valueObject.city + ' ' + valueObject.region?.Name,
 					},
@@ -127,9 +127,9 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 		valueObject.businessPartner = (
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_bpartner_uu: businessPartnerUuid }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_bpartner_uu: businessPartnerUuid }) },
 			})
-		).data.C_BPartnerGet.results[0];
+		).data.C_BPartnerGet.Results[0];
 		valueObject.businessPartnerLocation = saveResult?.C_BPartner_LocationSave;
 
 		if (!valueObject.businessPartner) {
@@ -152,15 +152,15 @@ export async function createProduct(valueObject: ValueObject) {
 			await mutate(valueObject)({
 				mutation: M_ProductSaveDocument,
 				variables: {
-					entity: {
+					Entity: {
 						BH_BuyPrice: valueObject.purchaseStandardPrice ?? 1,
 						BH_SellPrice: valueObject.salesStandardPrice ?? 1,
-						C_TaxCategory: { UUID: (await getDefaultTaxCategory(valueObject)).UUID },
-						C_UOM: { UUID: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UUID },
+						C_TaxCategory: { UU: (await getDefaultTaxCategory(valueObject)).UU },
+						C_UOM: { UU: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU },
 						Description: valueObject.getStepMessageLong(),
-						M_Product_Category: { UUID: (await getDefaultProductCategory(valueObject)).UUID },
+						M_Product_Category: { UU: (await getDefaultProductCategory(valueObject)).UU },
 						Name: valueObject.getDynamicScenarioName(),
-						ProductType: { UUID: '59dcc5c9-ab37-4f5c-9987-6e2347f50093' }, // Items
+						ProductType: { UU: '59dcc5c9-ab37-4f5c-9987-6e2347f50093' }, // Items
 					},
 				},
 			})
@@ -185,7 +185,7 @@ export async function createCharge(valueObject: ValueObject) {
 			await mutate(valueObject)({
 				mutation: C_ChargeSaveDocument,
 				variables: {
-					entity: {
+					Entity: {
 						Description: valueObject.getStepMessageLong(),
 						Name: `${valueObject.random}_${valueObject.scenarioName}`,
 					},
@@ -212,20 +212,20 @@ export async function createVisit(valueObject: ValueObject) {
 		await mutate(valueObject)({
 			mutation: Bh_VisitSaveDocument,
 			variables: {
-				entity: {
+				Entity: {
 					Description: valueObject.getStepMessageLong(),
-					Patient: { UUID: valueObject.businessPartner.UUID },
+					Patient: { UU: valueObject.businessPartner.UU },
 					BH_VisitDate: valueObject.date?.getTime(),
 				},
 			},
 		})
-	).data?.BH_VisitSave.UUID;
+	).data?.BH_VisitSave.UU;
 	valueObject.visit = (
 		await query(valueObject)({
 			query: Bh_VisitGetDocument,
-			variables: { filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
+			variables: { Filter: JSON.stringify({ bh_visit_uu: visitUuid }) },
 		})
-	).data.BH_VisitGet.results[0];
+	).data.BH_VisitGet.Results[0];
 	if (!valueObject.visit) {
 		throw new Error('Visit not created');
 	}
@@ -254,19 +254,19 @@ export async function createOrder(valueObject: ValueObject) {
 			mutation: C_OrderSaveWithOrderLinesDocument,
 			variables: {
 				C_Order: {
-					UUID: orderUuid,
+					UU: orderUuid,
 					Description: valueObject.getStepMessageLong(),
 					DateOrdered: valueObject.date?.getTime(),
-					C_BPartner: { UUID: valueObject.businessPartner.UUID },
-					M_Warehouse: { UUID: valueObject.warehouse.UUID },
+					C_BPartner: { UU: valueObject.businessPartner.UU },
+					M_Warehouse: { UU: valueObject.warehouse.UU },
 					IsSOTrx: valueObject.documentType.IsSOTrx,
-					C_DocTypeTarget: { UUID: valueObject.documentType.UUID },
-					BH_Visit: valueObject.visit ? { UUID: valueObject.visit.UUID } : undefined,
+					C_DocTypeTarget: { UU: valueObject.documentType.UU },
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
 				},
 				C_OrderLine: {
-					C_Order: { UUID: orderUuid },
+					C_Order: { UU: orderUuid },
 					Description: valueObject.getStepMessageLong(),
-					M_Product: { UUID: valueObject.product!.UUID },
+					M_Product: { UU: valueObject.product!.UU },
 					Qty: valueObject.quantity || 1,
 					Price:
 						(valueObject.documentType.IsSOTrx
@@ -274,7 +274,7 @@ export async function createOrder(valueObject: ValueObject) {
 							: valueObject.purchaseStandardPrice || valueObject.product?.BH_BuyPrice || 0) *
 						(valueObject.quantity || 1),
 					M_AttributeSetInstance: valueObject.attributeSetInstance
-						? { UUID: valueObject.attributeSetInstance.UUID }
+						? { UU: valueObject.attributeSetInstance.UU }
 						: undefined,
 				},
 			},
@@ -284,9 +284,9 @@ export async function createOrder(valueObject: ValueObject) {
 	valueObject.order = (
 		await query(valueObject)({
 			query: C_OrderGetDocument,
-			variables: { filter: JSON.stringify({ c_order_uu: orderUuid }) },
+			variables: { Filter: JSON.stringify({ c_order_uu: orderUuid }) },
 		})
-	).data.C_OrderGet.results[0];
+	).data.C_OrderGet.Results[0];
 	valueObject.orderLine = savedData?.C_OrderLineSave;
 
 	if (valueObject.documentAction) {
@@ -294,7 +294,7 @@ export async function createOrder(valueObject: ValueObject) {
 			(
 				await mutate(valueObject)({
 					mutation: C_OrderProcessDocument,
-					variables: { uuid: valueObject.order!.UUID, documentAction: valueObject.documentAction },
+					variables: { UU: valueObject.order!.UU, DocumentAction: valueObject.documentAction },
 				})
 			).data?.C_OrderProcess || undefined;
 		if (!valueObject.order) {
@@ -330,26 +330,26 @@ export async function createInvoice(valueObject: ValueObject) {
 			mutation: C_InvoiceSaveWithInvoiceLinesDocument,
 			variables: {
 				C_Invoice: {
-					UUID: invoiceUuid,
-					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					UU: invoiceUuid,
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
 					Description: valueObject.getStepMessageLong(),
-					C_BPartner: { UUID: valueObject.businessPartner.UUID },
+					C_BPartner: { UU: valueObject.businessPartner.UU },
 					DateInvoiced: valueObject.date?.getTime(),
-					C_DocTypeTarget: { UUID: valueObject.documentType.UUID },
+					C_DocTypeTarget: { UU: valueObject.documentType.UU },
 					IsSOTrx: valueObject.documentType!.IsSOTrx,
-					C_Order: valueObject.order ? { UUID: valueObject.order.UUID } : undefined,
-					BH_Visit: valueObject.visit ? { UUID: valueObject.visit.UUID } : undefined,
+					C_Order: valueObject.order ? { UU: valueObject.order.UU } : undefined,
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
 				},
 				C_InvoiceLine: {
-					C_Invoice: { UUID: invoiceUuid },
-					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					C_Invoice: { UU: invoiceUuid },
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
 					Description: valueObject.getStepMessageLong(),
-					M_Product: valueObject.product ? { UUID: valueObject.product.UUID } : undefined,
-					C_Charge: !valueObject.product && valueObject.charge ? { UUID: valueObject.charge.UUID } : undefined,
+					M_Product: valueObject.product ? { UU: valueObject.product.UU } : undefined,
+					C_Charge: !valueObject.product && valueObject.charge ? { UU: valueObject.charge.UU } : undefined,
 					Qty: valueObject.quantity || 1,
 					Price:
 						valueObject.salesStandardPrice || (valueObject.quantity || 1) * (valueObject.product?.BH_SellPrice || 0),
-					C_OrderLine: valueObject.orderLine ? { UUID: valueObject.orderLine.UUID } : undefined,
+					C_OrderLine: valueObject.orderLine ? { UU: valueObject.orderLine.UU } : undefined,
 				},
 			},
 		})
@@ -358,9 +358,9 @@ export async function createInvoice(valueObject: ValueObject) {
 	valueObject.invoice = (
 		await query(valueObject)({
 			query: C_InvoiceGetDocument,
-			variables: { filter: JSON.stringify({ c_invoice_uu: invoiceUuid }) },
+			variables: { Filter: JSON.stringify({ c_invoice_uu: invoiceUuid }) },
 		})
-	).data.C_InvoiceGet.results[0];
+	).data.C_InvoiceGet.Results[0];
 	valueObject.invoiceLine = savedData?.C_InvoiceLineSave;
 
 	if (valueObject.documentAction) {
@@ -368,7 +368,7 @@ export async function createInvoice(valueObject: ValueObject) {
 			(
 				await mutate(valueObject)({
 					mutation: C_InvoiceProcessDocument,
-					variables: { uuid: valueObject.invoice!.UUID, documentAction: valueObject.documentAction },
+					variables: { UU: valueObject.invoice!.UU, DocumentAction: valueObject.documentAction },
 				})
 			).data?.C_InvoiceProcess || undefined;
 		if (!valueObject.invoice) {
@@ -424,37 +424,36 @@ export async function createPayment(valueObject: ValueObject) {
 		await mutate(valueObject)({
 			mutation: C_PaymentSaveDocument,
 			variables: {
-				entity: {
-					AD_Org: { UUID: valueObject.organization!.UUID },
-					C_BPartner: { UUID: valueObject.businessPartner.UUID },
+				Entity: {
+					AD_Org: { UU: valueObject.organization!.UU },
+					C_BPartner: { UU: valueObject.businessPartner.UU },
 					Description: valueObject.getStepMessageLong(),
 					PayAmt: paymentTotal || 1,
 					BH_tender_amount: tenderAmount || 1,
 					TenderType: {
-						UUID: (
+						UU: (
 							valueObject.tenderType ||
 							(
 								await query(valueObject)({
 									query: Ad_Ref_ListGetDocument,
 									variables: {
-										size: 1,
-										filter: JSON.stringify({
+										Size: 1,
+										Filter: JSON.stringify({
 											ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES },
 											name: tenderTypeName.CASH,
 										}),
 									},
 								})
-							).data.AD_Ref_ListGet.results[0]
-						)?.UUID,
+							).data.AD_Ref_ListGet.Results[0]
+						)?.UU,
 					},
-					C_DocType: valueObject.documentType ? { UUID: valueObject.documentType.UUID } : undefined,
-					BH_Visit: valueObject.visit ? { UUID: valueObject.visit.UUID } : undefined,
-					C_BankAccount: { UUID: valueObject.bankAccount.UUID },
-					C_Invoice: valueObject.invoice ? { UUID: valueObject.invoice.UUID } : undefined,
-					C_Order: !valueObject.invoice && valueObject.order ? { UUID: valueObject.order.UUID } : undefined,
+					C_DocType: valueObject.documentType ? { UU: valueObject.documentType.UU } : undefined,
+					BH_Visit: valueObject.visit ? { UU: valueObject.visit.UU } : undefined,
+					C_BankAccount: { UU: valueObject.bankAccount.UU },
+					C_Invoice: valueObject.invoice ? { UU: valueObject.invoice.UU } : undefined,
+					C_Order: !valueObject.invoice && valueObject.order ? { UU: valueObject.order.UU } : undefined,
 					C_Currency: {
-						UUID:
-							valueObject.invoice?.C_Currency.UUID || valueObject.order?.C_Currency.UUID || valueObject.currency.UUID,
+						UU: valueObject.invoice?.C_Currency.UU || valueObject.order?.C_Currency.UU || valueObject.currency.UU,
 					},
 				},
 			},
@@ -466,7 +465,7 @@ export async function createPayment(valueObject: ValueObject) {
 			(
 				await mutate(valueObject)({
 					mutation: C_PaymentProcessDocument,
-					variables: { uuid: valueObject.payment!.UUID, documentAction: valueObject.documentAction },
+					variables: { UU: valueObject.payment!.UU, DocumentAction: valueObject.documentAction },
 				})
 			).data?.C_PaymentProcess || undefined;
 		if (!valueObject.payment) {
@@ -485,9 +484,9 @@ export async function getDefaultProductCategory(valueObject: ValueObject) {
 	return (
 		await query(valueObject)({
 			query: M_Product_CategoryGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ bh_product_category_type: 'P' }) },
+			variables: { Size: 1, Filter: JSON.stringify({ bh_product_category_type: 'P' }) },
 		})
-	).data.M_Product_CategoryGet.results[0];
+	).data.M_Product_CategoryGet.Results[0];
 }
 
 /**
@@ -500,9 +499,9 @@ export async function getDefaultTaxCategory(valueObject: ValueObject) {
 	return (
 		await query(valueObject)({
 			query: C_TaxCategoryGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ isdefault: true }) },
+			variables: { Size: 1, Filter: JSON.stringify({ isdefault: true }) },
 		})
-	).data.C_TaxCategoryGet.results[0];
+	).data.C_TaxCategoryGet.Results[0];
 }
 
 /**
@@ -513,7 +512,7 @@ export async function getDefaultTaxCategory(valueObject: ValueObject) {
 export async function changeWarehouse(valueObject: ValueObject) {
 	const differentWarehouse = (
 		await query(valueObject)({ query: M_WarehouseGetDocument })
-	).data.M_WarehouseGet.results.find((warehouse) => warehouse.UUID !== valueObject.warehouse?.UUID);
+	).data.M_WarehouseGet.Results.find((warehouse) => warehouse.UU !== valueObject.warehouse?.UU);
 	valueObject.warehouse = differentWarehouse || valueObject.warehouse;
 	if (!valueObject.warehouse || !differentWarehouse) {
 		throw new Error('Warehouse not switched');
@@ -617,7 +616,7 @@ export async function runReport(valueObject: ValueObject) {
 		await mutate(valueObject)({
 			mutation: Ad_ProcessRunAndExportDocument,
 			variables: {
-				UUID: valueObject.processUuid!,
+				UU: valueObject.processUuid!,
 				ProcessInfoParameterList: valueObject.processInformationParameters,
 				ReportType: valueObject.reportType,
 			},
@@ -651,9 +650,9 @@ export async function createInventory(valueObject: ValueObject) {
 		(
 			await query(valueObject)({
 				query: M_AttributeSetInstanceGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ description: '---' }) },
+				variables: { Size: 1, Filter: JSON.stringify({ description: '---' }) },
 			})
-		).data.M_AttributeSetInstanceGet.results[0];
+		).data.M_AttributeSetInstanceGet.Results[0];
 	const locatorToUse = valueObject.warehouse.M_Locators?.[0];
 	const inventoryUuid = v4();
 	const savedData = (
@@ -661,33 +660,33 @@ export async function createInventory(valueObject: ValueObject) {
 			mutation: M_InventorySaveWithInventoryLinesDocument,
 			variables: {
 				M_Inventory: {
-					UUID: inventoryUuid,
-					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					UU: inventoryUuid,
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
 					Description: valueObject.getStepMessageLong(),
-					C_DocType: { UUID: valueObject.documentType.UUID },
-					M_Warehouse: { UUID: valueObject.warehouse.UUID },
+					C_DocType: { UU: valueObject.documentType.UU },
+					M_Warehouse: { UU: valueObject.warehouse.UU },
 					MovementDate: valueObject.date?.getTime(),
 				},
 				M_InventoryLine: {
-					M_Inventory: { UUID: inventoryUuid },
-					AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
+					M_Inventory: { UU: inventoryUuid },
+					AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
 					Description: valueObject.getStepMessageLong(),
-					M_Product: valueObject.product ? { UUID: valueObject.product.UUID } : undefined,
-					M_AttributeSetInstance: { UUID: attributeSetInstanceToUse.UUID },
-					M_Locator: locatorToUse ? { UUID: locatorToUse.UUID } : undefined,
+					M_Product: valueObject.product ? { UU: valueObject.product.UU } : undefined,
+					M_AttributeSetInstance: { UU: attributeSetInstanceToUse.UU },
+					M_Locator: locatorToUse ? { UU: locatorToUse.UU } : undefined,
 					QtyCount: valueObject.quantity || 1,
 					QtyBook: (
 						await query(valueObject)({
 							query: M_StorageOnHandGetDocument,
 							variables: {
-								filter: JSON.stringify({
-									m_locator: locatorToUse ? { m_locator_uu: locatorToUse.UUID } : undefined,
-									m_product: valueObject.product ? { m_product_uu: valueObject.product.UUID } : undefined,
-									m_attributesetinstance: { m_attributesetinstance_uu: attributeSetInstanceToUse.UUID },
+								Filter: JSON.stringify({
+									m_locator: locatorToUse ? { m_locator_uu: locatorToUse.UU } : undefined,
+									m_product: valueObject.product ? { m_product_uu: valueObject.product.UU } : undefined,
+									m_attributesetinstance: { m_attributesetinstance_uu: attributeSetInstanceToUse.UU },
 								}),
 							},
 						})
-					).data.M_StorageOnHandGet.results.reduce(
+					).data.M_StorageOnHandGet.Results.reduce(
 						(runningTotal, storageOnHand) => runningTotal + storageOnHand.QtyOnHand,
 						0,
 					),
@@ -709,7 +708,7 @@ export async function createInventory(valueObject: ValueObject) {
 			(
 				await mutate(valueObject)({
 					mutation: M_InventoryProcessDocument,
-					variables: { uuid: valueObject.inventory!.UUID, documentAction: valueObject.documentAction },
+					variables: { UU: valueObject.inventory!.UU, DocumentAction: valueObject.documentAction },
 				})
 			).data?.M_InventoryProcess || undefined;
 		if (!valueObject.inventory) {
@@ -728,9 +727,9 @@ export async function getBankAccountOfOrganization(valueObject: ValueObject) {
 		await query(valueObject)({
 			query: C_BankAccountGetDocument,
 			variables: {
-				size: 1,
-				filter: JSON.stringify({ ad_org: { ad_org_uu: valueObject.organization?.UUID }, isactive: true }),
+				Size: 1,
+				Filter: JSON.stringify({ ad_org: { ad_org_uu: valueObject.organization?.UU }, isactive: true }),
 			},
 		})
-	).data.C_BankAccountGet.results[0];
+	).data.C_BankAccountGet.Results[0];
 }

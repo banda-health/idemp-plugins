@@ -12,22 +12,23 @@ import org.bandahealth.idempiere.graphql.utils.DocumentUtil;
 import org.compiere.model.PO;
 
 public class MInvoiceMutation extends X_C_InvoiceMutation {
-	public MInvoice_BH C_InvoiceProcess(String uuid, String documentAction, DataFetchingEnvironment environment) {
+
+	public MInvoice_BH C_InvoiceProcess(String UU, String DocumentAction, DataFetchingEnvironment environment) {
 		MInvoice_BH entity =
-				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MInvoice_BH.Table_Name, null, uuid);
-		return DocumentUtil.Process(entity, documentAction, entity.getC_DocTypeTarget_ID(),
+				Repository.getByUuid(BandaGraphQLContext.getCtx(environment), MInvoice_BH.Table_Name, null, UU);
+		return DocumentUtil.Process(entity, DocumentAction, entity.getC_DocTypeTarget_ID(),
 				MProcess_BH.PROCESSID_PROCESS_INVOICE);
 	}
 
 	@Override
-	public MInvoice_BH C_InvoiceSave(I_C_InvoiceInput input, DataFetchingEnvironment environment) {
+	public MInvoice_BH C_InvoiceSave(I_C_InvoiceInput Input, DataFetchingEnvironment environment) {
 		MDocType_BH documentTypeTarget;
 		if ((documentTypeTarget = Repository.getById(BandaGraphQLContext.getCtx(environment), MDocType_BH.Table_Name, null,
-				input.getC_DocTypeTarget_ID())) == null) {
+				Input.getC_DocTypeTarget_ID())) == null) {
 			throw new AdempiereException("Document Type is required");
 		}
 		// Override whatever was passed for this property based on the document type target
-		input.setIsSOTrx(documentTypeTarget.isSOTrx());
-		return super.C_InvoiceSave(input, environment);
+		Input.setIsSOTrx(documentTypeTarget.isSOTrx());
+		return super.C_InvoiceSave(Input, environment);
 	}
 }

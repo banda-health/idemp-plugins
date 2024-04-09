@@ -19,7 +19,7 @@ test('role can be created and adjusted', async () => {
 		await mutate(valueObject)({
 			mutation: Ad_RoleSaveDocument,
 			variables: {
-				entity: {
+				Entity: {
 					IsMasterRole: false,
 					IsManual: true,
 					Name: valueObject.getDynamicStepMessage(),
@@ -37,24 +37,24 @@ test('role can be created and adjusted', async () => {
 	const masterRoles = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { filter: JSON.stringify({ ismasterrole: true }) },
+			variables: { Filter: JSON.stringify({ ismasterrole: true }) },
 		})
-	).data.AD_RoleGet.results;
+	).data.AD_RoleGet.Results;
 	expect(masterRoles.length > 1).toBeTruthy();
 	await mutate(valueObject)({
 		mutation: Ad_Role_IncludedSaveManyDocument,
 		variables: {
-			entities: [
+			Entities: [
 				{
-					AD_Org: { UUID: valueObject.organization!.UUID },
-					AD_Role: { UUID: role.UUID },
-					Included_Role: { UUID: masterRoles[0].UUID },
+					AD_Org: { UU: valueObject.organization!.UU },
+					AD_Role: { UU: role.UU },
+					Included_Role: { UU: masterRoles[0].UU },
 					SeqNo: 10,
 				},
 				{
-					AD_Org: { UUID: valueObject.organization!.UUID },
-					AD_Role: { UUID: role.UUID },
-					Included_Role: { UUID: masterRoles[1].UUID },
+					AD_Org: { UU: valueObject.organization!.UU },
+					AD_Role: { UU: role.UU },
+					Included_Role: { UU: masterRoles[1].UU },
 					SeqNo: 20,
 				},
 			],
@@ -63,23 +63,23 @@ test('role can be created and adjusted', async () => {
 	role = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_role_uu: role.UUID }) },
+			variables: { Size: 1, Filter: JSON.stringify({ ad_role_uu: role.UU }) },
 		})
-	).data.AD_RoleGet.results[0]!;
+	).data.AD_RoleGet.Results[0]!;
 	expect(role).toBeTruthy();
 	expect(role.AD_Role_IncludedList).toHaveLength(2);
 
 	valueObject.stepName = 'Remove included roles';
 	await mutate(valueObject)({
 		mutation: Ad_Role_IncludedDeleteDocument,
-		variables: { uuids: role.AD_Role_IncludedList!.map((roleIncludedRecord) => roleIncludedRecord.UUID) },
+		variables: { UUs: role.AD_Role_IncludedList!.map((roleIncludedRecord) => roleIncludedRecord.UU) },
 	});
 	role = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ ad_role_uu: role.UUID }) },
+			variables: { Size: 1, Filter: JSON.stringify({ ad_role_uu: role.UU }) },
 		})
-	).data.AD_RoleGet.results[0]!;
+	).data.AD_RoleGet.Results[0]!;
 	expect(role).toBeTruthy();
 	expect(role.AD_Role_IncludedList).toBeFalsy();
 });
@@ -92,16 +92,16 @@ test('properties set correctly', async () => {
 	const masterRoles = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { filter: JSON.stringify({ ismasterrole: true }) },
+			variables: { Filter: JSON.stringify({ ismasterrole: true }) },
 		})
-	).data.AD_RoleGet.results;
+	).data.AD_RoleGet.Results;
 	expect(masterRoles.every((role) => role.IsMasterRole === true)).toBeTruthy();
 
 	valueObject.stepName = 'Create role';
 	await mutate(valueObject)({
 		mutation: Ad_RoleSaveDocument,
 		variables: {
-			entity: {
+			Entity: {
 				IsMasterRole: false,
 				Name: valueObject.getDynamicStepMessage(),
 				Description: valueObject.getStepMessageLong(),
@@ -114,9 +114,9 @@ test('properties set correctly', async () => {
 	const regularRoles = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { filter: JSON.stringify({ ismasterrole: false }) },
+			variables: { Filter: JSON.stringify({ ismasterrole: false }) },
 		})
-	).data.AD_RoleGet.results;
+	).data.AD_RoleGet.Results;
 	expect(regularRoles.every((role) => role.IsMasterRole === false)).toBeTruthy();
 });
 
@@ -128,18 +128,18 @@ test('complex role filtering works', async () => {
 	const masterRoles = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { filter: JSON.stringify({ ismasterrole: true, ad_role_uu: { $neq: roleUuid.MUST_HAVES } }) },
+			variables: { Filter: JSON.stringify({ ismasterrole: true, ad_role_uu: { $neq: roleUuid.MUST_HAVES } }) },
 		})
-	).data.AD_RoleGet.results;
+	).data.AD_RoleGet.Results;
 	expect(masterRoles.length > 2).toBeTruthy();
-	const roleUuidsWeWillUse = [masterRoles[0].UUID, masterRoles[1].UUID, roleUuid.MUST_HAVES];
+	const roleUuidsWeWillUse = [masterRoles[0].UU, masterRoles[1].UU, roleUuid.MUST_HAVES];
 	const complexFilter = {
 		$not: [
 			{
 				'ad_role_included.ad_role::included_role_id->ad_role_id.ad_role_uu': {
 					$in: masterRoles
-						.filter((masterRole) => !roleUuidsWeWillUse.includes(masterRole.UUID))
-						.map((masterRole) => masterRole.UUID),
+						.filter((masterRole) => !roleUuidsWeWillUse.includes(masterRole.UU))
+						.map((masterRole) => masterRole.UU),
 				},
 			},
 		],
@@ -150,9 +150,9 @@ test('complex role filtering works', async () => {
 	const initialRoleQueryResults = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { filter: JSON.stringify(complexFilter) },
+			variables: { Filter: JSON.stringify(complexFilter) },
 		})
-	).data.AD_RoleGet.results;
+	).data.AD_RoleGet.Results;
 	expect(
 		initialRoleQueryResults.every((role) => role.AD_Role_IncludedList?.length === roleUuidsWeWillUse.length),
 	).toBeTruthy();
@@ -163,16 +163,16 @@ test('complex role filtering works', async () => {
 		mutation: Ad_RoleWithIncludedSaveDocument,
 		variables: {
 			AD_Role: {
-				UUID: generatedRoleUuid,
+				UU: generatedRoleUuid,
 				IsMasterRole: false,
 				Name: valueObject.getDynamicStepMessage(),
 				Description: valueObject.getStepMessageLong(),
 				IsActive: true,
 			},
 			AD_Role_IncludedList: roleUuidsWeWillUse.map((roleUuidToInclude) => ({
-				AD_Org: { UUID: valueObject.organization!.UUID },
-				AD_Role: { UUID: generatedRoleUuid },
-				Included_Role: { UUID: roleUuidToInclude },
+				AD_Org: { UU: valueObject.organization!.UU },
+				AD_Role: { UU: generatedRoleUuid },
+				Included_Role: { UU: roleUuidToInclude },
 				SeqNo: 10,
 			})),
 		},
@@ -180,9 +180,9 @@ test('complex role filtering works', async () => {
 	const role = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { filter: JSON.stringify({ ad_role_uu: generatedRoleUuid }) },
+			variables: { Filter: JSON.stringify({ ad_role_uu: generatedRoleUuid }) },
 		})
-	).data.AD_RoleGet.results[0];
+	).data.AD_RoleGet.Results[0];
 	expect(role).toBeTruthy();
 	expect(role.AD_Role_IncludedList?.length).toBe(roleUuidsWeWillUse.length);
 
@@ -190,9 +190,9 @@ test('complex role filtering works', async () => {
 		(
 			await query(valueObject)({
 				query: Ad_RoleGetDocument,
-				variables: { filter: JSON.stringify(complexFilter) },
+				variables: { Filter: JSON.stringify(complexFilter) },
 			})
-		).data.AD_RoleGet.results.length,
+		).data.AD_RoleGet.Results.length,
 	).toBe(initialRoleQueryResults.length + 1);
 
 	const secondComplexFilter = {
@@ -201,8 +201,8 @@ test('complex role filtering works', async () => {
 				'ad_role_included.ad_role::included_role_id': {
 					ad_role_uu: {
 						$in: masterRoles
-							.filter((masterRole) => !roleUuidsWeWillUse.includes(masterRole.UUID))
-							.map((masterRole) => masterRole.UUID),
+							.filter((masterRole) => !roleUuidsWeWillUse.includes(masterRole.UU))
+							.map((masterRole) => masterRole.UU),
 					},
 				},
 			},
@@ -214,9 +214,9 @@ test('complex role filtering works', async () => {
 	const secondQueryResults = (
 		await query(valueObject)({
 			query: Ad_RoleGetDocument,
-			variables: { filter: JSON.stringify(secondComplexFilter) },
+			variables: { Filter: JSON.stringify(secondComplexFilter) },
 		})
-	).data.AD_RoleGet.results;
+	).data.AD_RoleGet.Results;
 	expect(
 		secondQueryResults.every((role) => role.AD_Role_IncludedList?.length === roleUuidsWeWillUse.length),
 	).toBeTruthy();

@@ -1,116 +1,116 @@
-mutation LogoAndAD_OrgInfoSave($logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInput!) {
-	AD_ImageSave(entity: $logo) {
-		UUID
+mutation LogoAndAD_OrgInfoSave($Logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInput!) {
+	AD_ImageSave(Entity: $Logo) {
+		UU
 	}
-	AD_OrgInfoSave(entity: $AD_OrgInfo) {
-		UUID
+	AD_OrgInfoSave(Entity: $AD_OrgInfo) {
+		UU
 	}
 }
 
 mutation AD_OrgInfoSave($AD_OrgInfo: AD_OrgInfoInput!) {
-	AD_OrgInfoSave(entity: $AD_OrgInfo) {
-		UUID
+	AD_OrgInfoSave(Entity: $AD_OrgInfo) {
+		UU
 	}
 }
 
-mutation AD_ProcessRun($UUID: ID!, $ProcessInfoParameterList: [ProcessInfoParameterInput!]) {
-	AD_ProcessRun(UUID: $UUID, ProcessInfoParameterList: $ProcessInfoParameterList)
+mutation AD_ProcessRun($UU: ID!, $ProcessInfoParameterList: [ProcessInfoParameterInput!]) {
+	AD_ProcessRun(UU: $UU, ProcessInfoParameterList: $ProcessInfoParameterList)
 }
 
 mutation AD_ProcessRunAndExport(
-	$UUID: ID!
+	$UU: ID!
 	$ProcessInfoParameterList: [ProcessInfoParameterInput!]
 	$ReportType: ReportOutput!
 ) {
-	AD_ProcessRunAndExport(UUID: $UUID, ProcessInfoParameterList: $ProcessInfoParameterList, ReportType: $ReportType)
+	AD_ProcessRunAndExport(UU: $UU, ProcessInfoParameterList: $ProcessInfoParameterList, ReportType: $ReportType)
 }
 
-mutation AD_Role_IncludedSaveMany($entities: [AD_Role_IncludedInput!]!) {
-	AD_Role_IncludedSaveMany(entities: $entities) {
-		UUID
+mutation AD_Role_IncludedSaveMany($Entities: [AD_Role_IncludedInput!]!) {
+	AD_Role_IncludedSaveMany(Entities: $Entities) {
+		UU
 	}
 }
 
-mutation AD_Role_IncludedDelete($uuids: [String!]!) {
-	AD_Role_IncludedDelete(uuids: $uuids)
+mutation AD_Role_IncludedDelete($UUs: [String!]!) {
+	AD_Role_IncludedDelete(UUs: $UUs)
 }
 
-mutation AD_RoleSave($entity: AD_RoleInput!) {
-	AD_RoleSave(entity: $entity) {
+mutation AD_RoleSave($Entity: AD_RoleInput!) {
+	AD_RoleSave(Entity: $Entity) {
 		...AD_RoleFields
 	}
 }
 
 mutation AD_RoleWithIncludedSave($AD_Role: AD_RoleInput!, $AD_Role_IncludedList: [AD_Role_IncludedInput!]!) {
-	AD_RoleSave(entity: $AD_Role) {
+	AD_RoleSave(Entity: $AD_Role) {
 		...AD_RoleFields
 	}
-	AD_Role_IncludedSaveMany(entities: $AD_Role_IncludedList) {
-		UUID
+	AD_Role_IncludedSaveMany(Entities: $AD_Role_IncludedList) {
+		UU
 	}
 }
 
-mutation AD_User_RolesDelete($uuids: [String!]!) {
-	AD_User_RolesDelete(uuids: $uuids)
+mutation AD_User_RolesDelete($UUs: [String!]!) {
+	AD_User_RolesDelete(UUs: $UUs)
 }
 
 mutation AD_User_RolesSaveAndDeleteMany(
 	$AD_User_Roles: [AD_User_RolesInput!]!
-	$AD_User_Role_UUIDs_To_Delete: [String!]!
+	$AD_User_Role_UUs_To_Delete: [String!]!
 ) {
-	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
-		UUID
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
 	}
-	AD_User_RolesDelete(uuids: $AD_User_Role_UUIDs_To_Delete)
+	AD_User_RolesDelete(UUs: $AD_User_Role_UUs_To_Delete)
 }
 
 mutation AD_User_RolesSaveMany($AD_User_Roles: [AD_User_RolesInput!]!) {
-	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
-		UUID
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
 	}
 }
 
 mutation AD_UserWithRoleSave($AD_User: AD_UserInput!, $AD_User_Roles: [AD_User_RolesInput!]!) {
-	AD_UserSave(entity: $AD_User) {
-		UUID
+	AD_UserSave(Entity: $AD_User) {
+		UU
 		Name
 		IsActive
 		AD_User_Roles {
-			UUID
+			UU
 		}
 	}
-	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
-		UUID
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
 	}
 }
 
 mutation AD_UserWithRoleSaveAndDelete(
 	$AD_User: AD_UserInput!
 	$AD_User_Roles: [AD_User_RolesInput!]!
-	$AD_User_RoleUUIDSToDelete: [String!]!
+	$AD_User_RoleUUSToDelete: [String!]!
 ) {
-	AD_UserSave(entity: $AD_User) {
-		UUID
+	AD_UserSave(Entity: $AD_User) {
+		UU
 	}
-	AD_User_RolesSaveMany(entities: $AD_User_Roles) {
-		UUID
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
 	}
-	AD_User_RolesDelete(uuids: $AD_User_RoleUUIDSToDelete)
+	AD_User_RolesDelete(UUs: $AD_User_RoleUUSToDelete)
 }
 
-mutation BH_EncounterDelete($UUIDS: [String!]!) {
-	BH_EncounterDelete(uuids: $UUIDS)
+mutation BH_EncounterDelete($UUS: [String!]!) {
+	BH_EncounterDelete(UUs: $UUS)
 }
 
 mutation BH_EncounterAndObservationsSaveMany(
 	$BH_Encounters: [BH_EncounterInput!]!
 	$BH_Observations: [BH_ObservationInput!]!
 ) {
-	BH_EncounterSaveMany(entities: $BH_Encounters) {
-		UUID
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
 	}
-	BH_ObservationSaveMany(entities: $BH_Observations) {
-		UUID
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
 	}
 }
 
@@ -119,106 +119,106 @@ mutation BH_EncounterObservationsAndEncounterDiagnosesSaveMany(
 	$BH_Observations: [BH_ObservationInput!]!
 	$BH_EncounterDiagnoses: [BH_Encounter_DiagnosisInput!]!
 ) {
-	BH_EncounterSaveMany(entities: $BH_Encounters) {
-		UUID
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
 	}
-	BH_ObservationSaveMany(entities: $BH_Observations) {
-		UUID
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
 	}
-	BH_Encounter_DiagnosisSaveMany(entities: $BH_EncounterDiagnoses) {
-		UUID
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
 	}
 }
 
 mutation BH_ObservationsDeleteAndSaveManyAndEncounterDiagnosesDelete(
-	$BH_ObservationUuids: [String!]!
-	$BH_EncounterDiagnosesUuids: [String!]!
+	$BH_ObservationUUs: [String!]!
+	$BH_EncounterDiagnosesUUs: [String!]!
 	$BH_Observations: [BH_ObservationInput!]!
 ) {
-	BH_ObservationDelete(uuids: $BH_ObservationUuids)
-	BH_Encounter_DiagnosisDelete(uuids: $BH_EncounterDiagnosesUuids)
-	BH_ObservationSaveMany(entities: $BH_Observations) {
-		UUID
+	BH_ObservationDelete(UUs: $BH_ObservationUUs)
+	BH_Encounter_DiagnosisDelete(UUs: $BH_EncounterDiagnosesUUs)
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
 	}
 }
 
 mutation BH_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveMany(
-	$BH_ObservationUuids: [String!]!
+	$BH_ObservationUUs: [String!]!
 	$BH_Observations: [BH_ObservationInput!]!
 	$BH_EncounterDiagnoses: [BH_Encounter_DiagnosisInput!]!
 ) {
-	BH_ObservationDelete(uuids: $BH_ObservationUuids)
-	BH_ObservationSaveMany(entities: $BH_Observations) {
-		UUID
+	BH_ObservationDelete(UUs: $BH_ObservationUUs)
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
 	}
-	BH_Encounter_DiagnosisSaveMany(entities: $BH_EncounterDiagnoses) {
-		UUID
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
 	}
 }
 
 mutation BH_VisitDeleteAll(
-	$visitUuids: [String!]!
-	$orderUuids: [String!]!
-	$invoiceUuids: [String!]!
-	$paymentUuids: [String!]!
+	$BH_Visit_UUs: [String!]!
+	$C_Order_UUs: [String!]!
+	$C_Invoice_UUs: [String!]!
+	$C_Payment_UUs: [String!]!
 ) {
-	C_PaymentDelete(uuids: $paymentUuids)
-	C_InvoiceDelete(uuids: $invoiceUuids)
-	C_OrderDelete(uuids: $orderUuids)
-	BH_VisitDelete(uuids: $visitUuids)
+	C_PaymentDelete(UUs: $C_Payment_UUs)
+	C_InvoiceDelete(UUs: $C_Invoice_UUs)
+	C_OrderDelete(UUs: $C_Order_UUs)
+	BH_VisitDelete(UUs: $BH_Visit_UUs)
 }
 
-mutation BH_VisitDelete($uuids: [String!]!) {
-	BH_VisitDelete(uuids: $uuids)
+mutation BH_VisitDelete($UUs: [String!]!) {
+	BH_VisitDelete(UUs: $UUs)
 }
 
-mutation BH_VisitProcess($uuid: String!, $documentAction: String!) {
-	BH_VisitProcess(uuid: $uuid, documentAction: $documentAction) {
-		UUID
+mutation BH_VisitProcess($UU: ID!, $DocumentAction: String!) {
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
 	}
 }
 
 mutation BH_VisitRemoveInsurancePayer(
-	$C_Invoice_UUIDS: [String!]!
-	$C_InvoiceLine_UUIDS: [String!]!
+	$C_Invoice_UUS: [String!]!
+	$C_InvoiceLine_UUS: [String!]!
 	$C_Payments: [C_PaymentInput!]!
 ) {
-	C_InvoiceDelete(uuids: $C_Invoice_UUIDS)
-	C_InvoiceLineDelete(uuids: $C_InvoiceLine_UUIDS)
-	C_PaymentSaveMany(entities: $C_Payments) {
-		UUID
+	C_InvoiceDelete(UUs: $C_Invoice_UUS)
+	C_InvoiceLineDelete(UUs: $C_InvoiceLine_UUS)
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
 	}
 }
 
-mutation BH_VisitSave($entity: BH_VisitInput!) {
-	BH_VisitSave(entity: $entity) {
-		UUID
+mutation BH_VisitSave($Entity: BH_VisitInput!) {
+	BH_VisitSave(Entity: $Entity) {
+		UU
 	}
 }
 
-mutation BH_VisitSaveAndProcess($BH_Visit: BH_VisitInput!, $UUID: String!, $DocumentAction: String!) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+mutation BH_VisitSaveAndProcess($BH_Visit: BH_VisitInput!, $UU: ID!, $DocumentAction: String!) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	BH_VisitProcess(uuid: $UUID, documentAction: $DocumentAction) {
-		UUID
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
 	}
 }
 
 mutation BH_VisitSaveAndProcessWithOrders(
 	$BH_Visit: BH_VisitInput!
 	$C_Orders: [C_OrderInput!]!
-	$UUID: String!
+	$UU: ID!
 	$DocumentAction: String!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	BH_VisitProcess(uuid: $UUID, documentAction: $DocumentAction) {
-		UUID
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
 	}
 }
 
@@ -229,29 +229,29 @@ mutation BH_VisitSaveAndProcessWithOrdersInvoicesAndPayments(
 	$C_Invoices: [C_InvoiceInput!]!
 	$C_InvoiceLines: [C_InvoiceLineInput!]!
 	$C_Payments: [C_PaymentInput!]!
-	$UUID: String!
+	$UU: ID!
 	$DocumentAction: String!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	C_OrderLineSaveMany(entities: $C_OrderLines) {
-		UUID
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
 	}
-	C_InvoiceSaveMany(entities: $C_Invoices) {
-		UUID
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
 	}
-	C_InvoiceLineSaveMany(entities: $C_InvoiceLines) {
-		UUID
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
 	}
-	C_PaymentSaveMany(entities: $C_Payments) {
-		UUID
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
 	}
-	BH_VisitProcess(uuid: $UUID, documentAction: $DocumentAction) {
-		UUID
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
 	}
 }
 
@@ -266,32 +266,32 @@ mutation BH_VisitSaveWithEncountersObservationsOrdersInvoicesAndPayments(
 	$C_InvoiceLines: [C_InvoiceLineInput!]!
 	$C_Payments: [C_PaymentInput!]!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	BH_EncounterSaveMany(entities: $BH_Encounters) {
-		UUID
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
 	}
-	BH_ObservationSaveMany(entities: $BH_Observations) {
-		UUID
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
 	}
-	BH_Encounter_DiagnosisSaveMany(entities: $BH_EncounterDiagnoses) {
-		UUID
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	C_OrderLineSaveMany(entities: $C_OrderLines) {
-		UUID
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
 	}
-	C_InvoiceSaveMany(entities: $C_Invoices) {
-		UUID
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
 	}
-	C_InvoiceLineSaveMany(entities: $C_InvoiceLines) {
-		UUID
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
 	}
-	C_PaymentSaveMany(entities: $C_Payments) {
-		UUID
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
 	}
 }
 
@@ -303,23 +303,23 @@ mutation BH_VisitSaveWithEncountersOrdersAndInvoices(
 	$C_Invoices: [C_InvoiceInput!]!
 	$C_InvoiceLines: [C_InvoiceLineInput!]!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	BH_EncounterSaveMany(entities: $BH_Encounters) {
-		UUID
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	C_OrderLineSaveMany(entities: $C_OrderLines) {
-		UUID
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
 	}
-	C_InvoiceSaveMany(entities: $C_Invoices) {
-		UUID
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
 	}
-	C_InvoiceLineSaveMany(entities: $C_InvoiceLines) {
-		UUID
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
 	}
 }
 
@@ -335,35 +335,35 @@ mutation BH_VisitSaveWithEncountersObservationsOrdersInvoicesInsuranceAndPayment
 	$BH_BP_Specific_Payer_InfoList: [BH_BP_Specific_Payer_InfoInput!]!
 	$C_Payments: [C_PaymentInput!]!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	BH_EncounterSaveMany(entities: $BH_Encounters) {
-		UUID
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
 	}
-	BH_ObservationSaveMany(entities: $BH_Observations) {
-		UUID
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
 	}
-	BH_Encounter_DiagnosisSaveMany(entities: $BH_EncounterDiagnoses) {
-		UUID
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	C_OrderLineSaveMany(entities: $C_OrderLines) {
-		UUID
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
 	}
-	C_InvoiceSaveMany(entities: $C_Invoices) {
-		UUID
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
 	}
-	C_InvoiceLineSaveMany(entities: $C_InvoiceLines) {
-		UUID
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
 	}
-	BH_BP_Specific_Payer_InfoSaveMany(entities: $BH_BP_Specific_Payer_InfoList) {
-		UUID
+	BH_BP_Specific_Payer_InfoSaveMany(Entities: $BH_BP_Specific_Payer_InfoList) {
+		UU
 	}
-	C_PaymentSaveMany(entities: $C_Payments) {
-		UUID
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
 	}
 }
 
@@ -375,23 +375,23 @@ mutation BH_VisitSaveWithOrdersInvoicesAndPayments(
 	$C_InvoiceLines: [C_InvoiceLineInput!]!
 	$C_Payments: [C_PaymentInput!]!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	C_OrderLineSaveMany(entities: $C_OrderLines) {
-		UUID
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
 	}
-	C_InvoiceSaveMany(entities: $C_Invoices) {
-		UUID
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
 	}
-	C_InvoiceLineSaveMany(entities: $C_InvoiceLines) {
-		UUID
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
 	}
-	C_PaymentSaveMany(entities: $C_Payments) {
-		UUID
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
 	}
 }
 
@@ -404,26 +404,26 @@ mutation BH_VisitSaveWithOrdersInvoicesPayerInformationAndPayments(
 	$BH_BP_Specific_Payer_InfoList: [BH_BP_Specific_Payer_InfoInput!]!
 	$C_Payments: [C_PaymentInput!]!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	C_OrderLineSaveMany(entities: $C_OrderLines) {
-		UUID
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
 	}
-	C_InvoiceSaveMany(entities: $C_Invoices) {
-		UUID
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
 	}
-	C_InvoiceLineSaveMany(entities: $C_InvoiceLines) {
-		UUID
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
 	}
-	BH_BP_Specific_Payer_InfoSaveMany(entities: $BH_BP_Specific_Payer_InfoList) {
-		UUID
+	BH_BP_Specific_Payer_InfoSaveMany(Entities: $BH_BP_Specific_Payer_InfoList) {
+		UU
 	}
-	C_PaymentSaveMany(entities: $C_Payments) {
-		UUID
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
 	}
 }
 
@@ -432,35 +432,35 @@ mutation BH_VisitSaveWithOrdersAndInvoices(
 	$C_Orders: [C_OrderInput!]!
 	$C_Invoices: [C_InvoiceInput!]!
 ) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	C_OrderSaveMany(entities: $C_Orders) {
-		UUID
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
 	}
-	C_InvoiceSaveMany(entities: $C_Invoices) {
-		UUID
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
 	}
 }
 
 mutation BH_VisitSaveWithPayments($BH_Visit: BH_VisitInput!, $C_Payments: [C_PaymentInput!]!) {
-	BH_VisitSave(entity: $BH_Visit) {
-		UUID
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
 	}
-	C_PaymentSaveMany(entities: $C_Payments) {
-		UUID
-	}
-}
-
-mutation C_BPartner_LocationSave($entity: C_BPartner_LocationInput!) {
-	C_BPartner_LocationSave(entity: $entity) {
-		UUID
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
 	}
 }
 
-mutation C_BPartnerSave($entity: C_BPartnerInput!) {
-	C_BPartnerSave(entity: $entity) {
-		UUID
+mutation C_BPartner_LocationSave($Entity: C_BPartner_LocationInput!) {
+	C_BPartner_LocationSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation C_BPartnerSave($Entity: C_BPartnerInput!) {
+	C_BPartnerSave(Entity: $Entity) {
+		UU
 	}
 }
 
@@ -469,39 +469,39 @@ mutation C_BPartnerSaveWithLocation(
 	$C_Location: C_LocationInput!
 	$C_BPartner_Location: C_BPartner_LocationInput!
 ) {
-	C_BPartnerSave(entity: $C_BPartner) {
-		UUID
+	C_BPartnerSave(Entity: $C_BPartner) {
+		UU
 	}
-	C_LocationSave(entity: $C_Location) {
-		UUID
+	C_LocationSave(Entity: $C_Location) {
+		UU
 	}
-	C_BPartner_LocationSave(entity: $C_BPartner_Location) {
-		UUID
-	}
-}
-
-mutation C_Charge_AcctSave($entity: C_Charge_AcctInput!) {
-	C_Charge_AcctSave(entity: $entity) {
-		UUID
+	C_BPartner_LocationSave(Entity: $C_BPartner_Location) {
+		UU
 	}
 }
 
-mutation C_ChargeSave($entity: C_ChargeInput!) {
-	C_ChargeSave(entity: $entity) {
+mutation C_Charge_AcctSave($Entity: C_Charge_AcctInput!) {
+	C_Charge_AcctSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation C_ChargeSave($Entity: C_ChargeInput!) {
+	C_ChargeSave(Entity: $Entity) {
 		Description
-		UUID
+		UU
 		Name
 		C_Charge_AcctList {
-			UUID
+			UU
 			C_AcctSchema {
-				UUID
+				UU
 			}
 		}
 	}
 }
 
-mutation C_LocationSave($entity: C_LocationInput!) {
-	C_LocationSave(entity: $entity) {
+mutation C_LocationSave($Entity: C_LocationInput!) {
+	C_LocationSave(Entity: $Entity) {
 		...C_LocationFields
 	}
 }
@@ -511,91 +511,91 @@ mutation C_LocationUpdateWithBPartner(
 	$C_Location: C_LocationInput!
 	$C_BPartner_Location: C_BPartner_LocationInput!
 ) {
-	C_LocationSave(entity: $C_Location) {
-		UUID
+	C_LocationSave(Entity: $C_Location) {
+		UU
 	}
-	C_BPartner_LocationSave(entity: $C_BPartner_Location) {
-		UUID
+	C_BPartner_LocationSave(Entity: $C_BPartner_Location) {
+		UU
 	}
-	C_BPartnerSave(entity: $C_BPartner) {
-		UUID
+	C_BPartnerSave(Entity: $C_BPartner) {
+		UU
 	}
 }
 
-mutation C_InvoiceAndOrderLineDelete($C_OrderLineUUIDS: [String!]!, $C_InvoiceLineUUIDS: [String!]!) {
-	C_InvoiceLineDelete(uuids: $C_InvoiceLineUUIDS)
-	C_OrderLineDelete(uuids: $C_OrderLineUUIDS)
+mutation C_InvoiceAndOrderLineDelete($C_OrderLineUUS: [String!]!, $C_InvoiceLineUUS: [String!]!) {
+	C_InvoiceLineDelete(UUs: $C_InvoiceLineUUS)
+	C_OrderLineDelete(UUs: $C_OrderLineUUS)
 }
 
-mutation C_InvoiceDelete($uuids: [String!]!) {
-	C_InvoiceDelete(uuids: $uuids)
+mutation C_InvoiceDelete($UUs: [String!]!) {
+	C_InvoiceDelete(UUs: $UUs)
 }
 
 mutation C_InvoiceSaveWithInvoiceLines($C_Invoice: C_InvoiceInput!, $C_InvoiceLine: C_InvoiceLineInput!) {
-	C_InvoiceSave(entity: $C_Invoice) {
-		UUID
+	C_InvoiceSave(Entity: $C_Invoice) {
+		UU
 	}
-	C_InvoiceLineSave(entity: $C_InvoiceLine) {
-		UUID
+	C_InvoiceLineSave(Entity: $C_InvoiceLine) {
+		UU
 	}
 }
 
-mutation C_InvoiceProcess($uuid: String!, $documentAction: String!) {
-	C_InvoiceProcess(uuid: $uuid, documentAction: $documentAction) {
+mutation C_InvoiceProcess($UU: ID!, $DocumentAction: String!) {
+	C_InvoiceProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...C_InvoiceFields
 	}
 }
 
-mutation C_OrderLineDelete($UUIDS: [String!]!) {
-	C_OrderLineDelete(uuids: $UUIDS)
+mutation C_OrderLineDelete($UUS: [String!]!) {
+	C_OrderLineDelete(UUs: $UUS)
 }
 
-mutation C_OrderLineSave($entity: C_OrderLineInput!) {
-	C_OrderLineSave(entity: $entity) {
-		UUID
+mutation C_OrderLineSave($Entity: C_OrderLineInput!) {
+	C_OrderLineSave(Entity: $Entity) {
+		UU
 	}
 }
 
-mutation C_OrderProcess($uuid: String!, $documentAction: String!) {
-	C_OrderProcess(uuid: $uuid, documentAction: $documentAction) {
+mutation C_OrderProcess($UU: ID!, $DocumentAction: String!) {
+	C_OrderProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...C_OrderFields
 	}
 }
 
-mutation C_OrderSave($entity: C_OrderInput!) {
-	C_OrderSave(entity: $entity) {
+mutation C_OrderSave($Entity: C_OrderInput!) {
+	C_OrderSave(Entity: $Entity) {
 		...C_OrderFields
 	}
 }
 
 mutation C_OrderSaveWithOrderLines($C_Order: C_OrderInput!, $C_OrderLine: C_OrderLineInput!) {
-	C_OrderSave(entity: $C_Order) {
-		UUID
+	C_OrderSave(Entity: $C_Order) {
+		UU
 	}
-	C_OrderLineSave(entity: $C_OrderLine) {
-		UUID
+	C_OrderLineSave(Entity: $C_OrderLine) {
+		UU
 	}
 }
 
-mutation C_PaymentProcess($uuid: String!, $documentAction: String!) {
-	C_PaymentProcess(uuid: $uuid, documentAction: $documentAction) {
+mutation C_PaymentProcess($UU: ID!, $DocumentAction: String!) {
+	C_PaymentProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...C_PaymentFields
 	}
 }
 
-mutation C_PaymentDelete($uuids: [String!]!) {
-	C_PaymentDelete(uuids: $uuids)
+mutation C_PaymentDelete($UUs: [String!]!) {
+	C_PaymentDelete(UUs: $UUs)
 }
 
-mutation C_PaymentSave($entity: C_PaymentInput!) {
-	C_PaymentSave(entity: $entity) {
+mutation C_PaymentSave($Entity: C_PaymentInput!) {
+	C_PaymentSave(Entity: $Entity) {
 		...C_PaymentFields
 	}
 }
 
-mutation C_PaymentSaveMany($entities: [C_PaymentInput!]!) {
-	C_PaymentSaveMany(entities: $entities) {
-		UUID
+mutation C_PaymentSaveMany($Entities: [C_PaymentInput!]!) {
+	C_PaymentSaveMany(Entities: $Entities) {
+		UU
 	}
 }
 
@@ -637,45 +637,45 @@ mutation C_ValidCombinationGetOrCreate(
 		UserElement1_UU: $UserElement1_UU
 		UserElement2_UU: $UserElement2_UU
 	) {
-		UUID
+		UU
 	}
 }
 
-mutation M_AttributeSetInstanceSave($entity: M_AttributeSetInstanceInput!) {
-	M_AttributeSetInstanceSave(entity: $entity) {
-		UUID
+mutation M_AttributeSetInstanceSave($Entity: M_AttributeSetInstanceInput!) {
+	M_AttributeSetInstanceSave(Entity: $Entity) {
+		UU
 	}
 }
 
-mutation M_InventoryProcess($uuid: String!, $documentAction: String!) {
-	M_InventoryProcess(uuid: $uuid, documentAction: $documentAction) {
+mutation M_InventoryProcess($UU: ID!, $DocumentAction: String!) {
+	M_InventoryProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...M_InventoryFields
 	}
 }
 
-mutation M_InventorySave($entity: M_InventoryInput!) {
-	M_InventorySave(entity: $entity) {
+mutation M_InventorySave($Entity: M_InventoryInput!) {
+	M_InventorySave(Entity: $Entity) {
 		...M_InventoryFields
 	}
 }
 
 mutation M_InventorySaveWithInventoryLines($M_Inventory: M_InventoryInput!, $M_InventoryLine: M_InventoryLineInput!) {
-	M_InventorySave(entity: $M_Inventory) {
+	M_InventorySave(Entity: $M_Inventory) {
 		...M_InventoryFields
 	}
-	M_InventoryLineSave(entity: $M_InventoryLine) {
-		UUID
+	M_InventoryLineSave(Entity: $M_InventoryLine) {
+		UU
 	}
 }
 
-mutation M_MovementProcess($uuid: String!, $documentAction: String!) {
-	M_MovementProcess(uuid: $uuid, documentAction: $documentAction) {
+mutation M_MovementProcess($UU: ID!, $DocumentAction: String!) {
+	M_MovementProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...M_MovementFields
 	}
 }
 
-mutation M_MovementSave($entity: M_MovementInput!) {
-	M_MovementSave(entity: $entity) {
+mutation M_MovementSave($Entity: M_MovementInput!) {
+	M_MovementSave(Entity: $Entity) {
 		...M_MovementFields
 	}
 }
@@ -683,35 +683,35 @@ mutation M_MovementSave($entity: M_MovementInput!) {
 mutation M_MovementSaveWithMovementLinesAndProcess(
 	$M_Movement: M_MovementInput!
 	$M_MovementLine: M_MovementLineInput!
-	$uuid: String!
-	$documentAction: String!
+	$UU: ID!
+	$DocumentAction: String!
 ) {
-	M_MovementSave(entity: $M_Movement) {
+	M_MovementSave(Entity: $M_Movement) {
 		...M_MovementFields
 	}
-	M_MovementLineSave(entity: $M_MovementLine) {
-		UUID
+	M_MovementLineSave(Entity: $M_MovementLine) {
+		UU
 	}
-	M_MovementProcess(uuid: $uuid, documentAction: $documentAction) {
+	M_MovementProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		...M_MovementFields
 	}
 }
 
-mutation M_ProductSave($entity: M_ProductInput!) {
-	M_ProductSave(entity: $entity) {
+mutation M_ProductSave($Entity: M_ProductInput!) {
+	M_ProductSave(Entity: $Entity) {
 		...M_ProductFields
 	}
 }
 
-mutation M_ProductSaveMany($entities: [M_ProductInput!]!) {
-	M_ProductSaveMany(entities: $entities) {
+mutation M_ProductSaveMany($Entities: [M_ProductInput!]!) {
+	M_ProductSaveMany(Entities: $Entities) {
 		BH_BuyPrice
 		BH_SellPrice
 		Description
-		UUID
+		UU
 		Name
 		M_Product_Category {
-			UUID
+			UU
 		}
 	}
 }

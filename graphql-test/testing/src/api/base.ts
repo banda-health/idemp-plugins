@@ -11,10 +11,10 @@ import { SignInQueryVariables } from '../__generated__/graphql';
 
 export const IDEMPIERE_ENDPOINT = `${process.env.IDEMPIERE_ENDPOINT || 'http://idempiere:8080'}/graphql/`;
 
-export const initialLoginData: SignInQueryVariables['credentials'] = {
-	username: process.env.IDEMPIERE_USER || 'SuperUser',
-	password: process.env.IDEMPIERE_USER_PASSWORD || 'System',
-	language: 'en_US',
+export const initialLoginData: SignInQueryVariables['Credentials'] = {
+	Username: process.env.IDEMPIERE_USER || 'SuperUser',
+	Password: process.env.IDEMPIERE_USER_PASSWORD || 'System',
+	AD_Language: 'en_US',
 } as const;
 
 const httpLink = createHttpLink({

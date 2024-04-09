@@ -26,10 +26,10 @@ test('creating an invoice with a charge', async () => {
 		(
 			await query(valueObject)({
 				query: C_InvoiceGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UU }) },
 			})
-		).data.C_InvoiceGet.results[0]?.UUID,
-	).toBe(valueObject.invoice!.UUID);
+		).data.C_InvoiceGet.Results[0]?.UU,
+	).toBe(valueObject.invoice!.UU);
 });
 
 test('invoice searching', async () => {
@@ -74,7 +74,7 @@ test('invoice searching', async () => {
 		await query(valueObject)({
 			query: C_InvoiceGetDocument,
 			variables: {
-				filter: JSON.stringify({
+				Filter: JSON.stringify({
 					$or: [
 						{ c_invoiceline: { c_charge: { name: firstCharge.Name } } },
 						{ c_invoiceline: { c_charge: { name: secondCharge.Name } } },
@@ -83,17 +83,17 @@ test('invoice searching', async () => {
 				}),
 			},
 		})
-	).data.C_InvoiceGet.results;
+	).data.C_InvoiceGet.Results;
 	expect(invoices).toHaveLength(3);
 
 	invoices = (
 		await query(valueObject)({
 			query: C_InvoiceGetDocument,
 			variables: {
-				filter: JSON.stringify({ c_bpartner: { name: firstBusinessPartner.Name } }),
+				Filter: JSON.stringify({ c_bpartner: { name: firstBusinessPartner.Name } }),
 			},
 		})
-	).data.C_InvoiceGet.results;
+	).data.C_InvoiceGet.Results;
 	expect(invoices).toHaveLength(2);
 });
 
@@ -116,15 +116,15 @@ test(`vendor invoices can be deleted when they haven't been completed`, async ()
 		(
 			await query(valueObject)({
 				query: C_InvoiceGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UU }) },
 			})
-		).data.C_InvoiceGet.results[0],
+		).data.C_InvoiceGet.Results[0],
 	).toBeTruthy();
 	expect(
 		(
 			await mutate(valueObject)({
 				mutation: C_InvoiceDeleteDocument,
-				variables: { uuids: [valueObject.invoice!.UUID] },
+				variables: { UUs: [valueObject.invoice!.UU] },
 			})
 		).data?.C_InvoiceDelete,
 	).toBeTruthy();
@@ -132,9 +132,9 @@ test(`vendor invoices can be deleted when they haven't been completed`, async ()
 		(
 			await query(valueObject)({
 				query: C_InvoiceGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UU }) },
 			})
-		).data.C_InvoiceGet.results[0],
+		).data.C_InvoiceGet.Results[0],
 	).toBeFalsy();
 });
 
@@ -159,23 +159,23 @@ test(`vendor invoices can't be deleted when they've been completed`, async () =>
 		(
 			await query(valueObject)({
 				query: C_InvoiceGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UU }) },
 			})
-		).data.C_InvoiceGet.results[0],
+		).data.C_InvoiceGet.Results[0],
 	).toBeTruthy();
 	await expect(
 		mutate(valueObject)({
 			mutation: C_InvoiceDeleteDocument,
-			variables: { uuids: [valueObject.invoice!.UUID] },
+			variables: { UUs: [valueObject.invoice!.UU] },
 		}),
 	).rejects.toBeTruthy();
 	expect(
 		(
 			await query(valueObject)({
 				query: C_InvoiceGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_invoice_uu: valueObject.invoice!.UU }) },
 			})
-		).data.C_InvoiceGet.results[0],
+		).data.C_InvoiceGet.Results[0],
 	).toBeTruthy();
 });
 
@@ -225,20 +225,20 @@ test('a payment for more than open invoice amounts causes the BP total open bala
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0]?.TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0]?.TotalOpenBalance,
 	).toBe(-90);
 	await mutate(valueObject)({
 		mutation: C_PaymentProcessDocument,
-		variables: { uuid: valueObject.payment!.UUID, documentAction: documentAction.ReverseAccrual },
+		variables: { UU: valueObject.payment!.UU, DocumentAction: documentAction.ReverseAccrual },
 	});
 	expect(
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0]?.TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0]?.TotalOpenBalance,
 	).toBe(10);
 });

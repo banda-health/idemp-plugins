@@ -8,9 +8,9 @@ test('get coded diagnosis fields', async () => {
 	const codedDiagnoses = (
 		await query(valueObject)({
 			query: Bh_Coded_DiagnosisGetDocument,
-			variables: { filter: JSON.stringify({ bh_searchterms: { $nnull: true } }) },
+			variables: { Filter: JSON.stringify({ bh_searchterms: { $nnull: true } }) },
 		})
-	).data.BH_Coded_DiagnosisGet.results;
+	).data.BH_Coded_DiagnosisGet.Results;
 
 	expect(codedDiagnoses.length).not.toBe(0);
 
@@ -27,9 +27,9 @@ test('the correct diagnoses are returned', async () => {
 	const codedDiagnoses = (
 		await query(valueObject)({
 			query: Bh_Coded_DiagnosisGetDocument,
-			variables: { filter: JSON.stringify({ name: { $text: 'anemia' } }) },
+			variables: { Filter: JSON.stringify({ name: { $text: 'anemia' } }) },
 		})
-	).data.BH_Coded_DiagnosisGet.results;
+	).data.BH_Coded_DiagnosisGet.Results;
 
 	expect(codedDiagnoses.length).not.toBe(0);
 	// This comes from the external-mocks/files/ocl/BHGO-concepts.json file

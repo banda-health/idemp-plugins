@@ -37,10 +37,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MBHVisitMutation extends X_BH_VisitMutation {
-	public MBHVisit BH_VisitProcess(String uuid, String documentAction, DataFetchingEnvironment environment)
+	public MBHVisit BH_VisitProcess(String UU, String DocumentAction, DataFetchingEnvironment environment)
 			throws SQLException {
 		if (!DocumentUtil.isDocActionValidForUser(BandaGraphQLContext.getCtx(environment),
-				MDocType_BH.DOCBASETYPE_SalesOrder, documentAction)) {
+				MDocType_BH.DOCBASETYPE_SalesOrder, DocumentAction)) {
 			return null;
 		}
 
@@ -49,7 +49,7 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 		Trx processVisitTransaction = Trx.get(Trx.createTrxName("ProcessVisit"), true);
 		try {
 			MBHVisit visit =
-					Repository.getByUuid(idempiereProperties, MBHVisit.Table_Name, processVisitTransaction.getTrxName(), uuid);
+					Repository.getByUuid(idempiereProperties, MBHVisit.Table_Name, processVisitTransaction.getTrxName(), UU);
 			List<MOrder_BH> visitsOrders =
 					Repository.getGroupsByIds(idempiereProperties, MOrder_BH.Table_Name, processVisitTransaction.getTrxName(),
 									MOrder_BH::getBH_Visit_ID, MOrder_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID()))
@@ -74,7 +74,7 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 										MPayment_BH.COLUMNNAME_BH_Visit_ID, Collections.singleton(visit.get_ID()))
 								.getOrDefault(visit.get_ID(), new ArrayList<>());
 				//
-				DocumentUtil.processDocumentOrError(MProcess_BH.PROCESSID_PROCESS_ORDERS, order, documentAction);
+				DocumentUtil.processDocumentOrError(MProcess_BH.PROCESSID_PROCESS_ORDERS, order, DocumentAction);
 
 				// Handle the invoices (if the order document type is appropriate)
 				MDocType_BH documentType = documentTypesById.containsKey(order.getC_DocTypeTarget_ID()) ?
@@ -89,9 +89,9 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 									invoice -> !invoice.isComplete() || invoice.getDocStatus().equals(MInvoice_BH.DOCSTATUS_Completed))
 							.collect(Collectors.toList());
 					// If this is a reversal, we also need to take care of the invoices
-					if (documentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
-							documentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
-							documentAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
+					if (DocumentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual) ||
+							DocumentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct) ||
+							DocumentAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
 
 						for (MInvoice_BH invoice : existingUnfinalizedInvoices) {
 							MInvoice_BH newInvoice = invoice.copy();
@@ -105,8 +105,8 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 						}
 					} else {
 						for (MInvoice_BH invoice : existingUnfinalizedInvoices) {
-							invoice.setDocAction(documentAction);
-							DocumentUtil.processDocumentOrError(MProcess_BH.PROCESSID_PROCESS_INVOICE, invoice, documentAction);
+							invoice.setDocAction(DocumentAction);
+							DocumentUtil.processDocumentOrError(MProcess_BH.PROCESSID_PROCESS_INVOICE, invoice, DocumentAction);
 						}
 					}
 				}
@@ -116,9 +116,9 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 						.collect(Collectors.toList());
 
 				// If this is a reversal, we also need to take care of the payments
-				if (documentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual)
-						|| documentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct)
-						|| documentAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
+				if (DocumentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Accrual)
+						|| DocumentAction.equalsIgnoreCase(DocAction.ACTION_Reverse_Correct)
+						|| DocumentAction.equalsIgnoreCase(DocAction.ACTION_ReActivate)) {
 
 					for (MPayment_BH payment : existingUnfinalizedPayments) {
 						MPayment_BH newPayment = payment.copy();
@@ -132,8 +132,8 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 					}
 				} else {
 					for (MPayment_BH payment : existingUnfinalizedPayments) {
-						payment.setDocAction(documentAction);
-						DocumentUtil.processDocumentOrError(MProcess_BH.PROCESSID_PROCESS_PAYMENT, payment, documentAction);
+						payment.setDocAction(DocumentAction);
+						DocumentUtil.processDocumentOrError(MProcess_BH.PROCESSID_PROCESS_PAYMENT, payment, DocumentAction);
 					}
 				}
 			}
@@ -157,10 +157,10 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 	}
 
 	@Override
-	protected boolean delete(List<String> uuids, DataFetchingEnvironment environment) {
+	public boolean BH_VisitDelete(List<String> UUs, DataFetchingEnvironment environment) {
 		Properties idempiereProperties = BandaGraphQLContext.getCtx(environment);
 		Map<String, MBHVisit> visitsByUuid =
-				Repository.getByUuids(idempiereProperties, MBHVisit.Table_Name, null, new HashSet<>(uuids));
+				Repository.getByUuids(idempiereProperties, MBHVisit.Table_Name, null, new HashSet<>(UUs));
 		Set<Integer> visitIds = visitsByUuid.values().stream().map(MBHVisit::getBH_Visit_ID).collect(Collectors.toSet());
 
 		// Get child entities
@@ -202,7 +202,7 @@ public class MBHVisitMutation extends X_BH_VisitMutation {
 								.collect(Collectors.toSet()));
 
 		boolean wereDeletesSuccessful = true;
-		for (String uuid : uuids) {
+		for (String uuid : UUs) {
 			Trx deleteVisitTransaction = Trx.get(Trx.createTrxName("DeleteVisit"), true);
 			try {
 				MBHVisit visit = visitsByUuid.get(uuid);

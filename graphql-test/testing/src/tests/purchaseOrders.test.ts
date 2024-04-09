@@ -38,9 +38,9 @@ test(`vendor open balance is 0 after purchase order completed`, async () => {
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].TotalOpenBalance,
+		).data.C_BPartnerGet.Results[0].TotalOpenBalance,
 	).toBe(0);
 });
 
@@ -55,15 +55,15 @@ test(`invalid orders can be completed`, async () => {
 	const expiringAttributeSet = (
 		await query(valueObject)({
 			query: M_AttributeSetGetDocument,
-			variables: { filter: JSON.stringify({ isguaranteedate: true }) },
+			variables: { Filter: JSON.stringify({ isguaranteedate: true }) },
 		})
-	).data.M_AttributeSetGet.results[0];
+	).data.M_AttributeSetGet.Results[0];
 	valueObject.salesStandardPrice = 100;
 	await createProduct(valueObject);
 	valueObject.product = (
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
-			variables: { entity: { UUID: valueObject.product!.UUID, M_AttributeSet: { UUID: expiringAttributeSet.UUID } } },
+			variables: { Entity: { UU: valueObject.product!.UU, M_AttributeSet: { UU: expiringAttributeSet.UU } } },
 		})
 	).data?.M_ProductSave;
 
@@ -72,9 +72,9 @@ test(`invalid orders can be completed`, async () => {
 		await mutate(valueObject)({
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
-				entity: {
+				Entity: {
 					GuaranteeDate: getDateOffset(new Date(), 365).getTime(),
-					M_AttributeSet: { UUID: expiringAttributeSet.UUID },
+					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},
 		})
@@ -95,16 +95,16 @@ test(`invalid orders can be completed`, async () => {
 	await mutate(valueObject)({
 		mutation: C_OrderLineSaveDocument,
 		variables: {
-			entity: {
-				UUID: valueObject.orderLine!.UUID,
-				M_AttributeSetInstance: { UUID: expiringAttributeSetInstance.UUID },
+			Entity: {
+				UU: valueObject.orderLine!.UU,
+				M_AttributeSetInstance: { UU: expiringAttributeSetInstance.UU },
 			},
 		},
 	});
 	const savedOrder = (
 		await mutate(valueObject)({
 			mutation: C_OrderProcessDocument,
-			variables: { uuid: valueObject.order!.UUID, documentAction: documentAction.Complete },
+			variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Complete },
 		})
 	).data?.C_OrderProcess;
 	expect(savedOrder?.DocStatus.Value).toBe(documentStatus.Completed);
@@ -129,7 +129,7 @@ test(`completed order can't be closed`, async () => {
 	await expect(
 		mutate(valueObject)({
 			mutation: C_OrderProcessDocument,
-			variables: { uuid: valueObject.order!.UUID, documentAction: documentAction.Close },
+			variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.Close },
 		}),
 	).rejects.toBeTruthy();
 });
@@ -157,9 +157,9 @@ test(`can't void an order after product has been sold`, async () => {
 		(
 			await query(valueObject)({
 				query: M_StorageOnHandGetDocument,
-				variables: { filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product?.UUID } }) },
+				variables: { Filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product?.UU } }) },
 			})
-		).data.M_StorageOnHandGet.results.reduce(
+		).data.M_StorageOnHandGet.Results.reduce(
 			(totalQuantity, storageOnHand) => storageOnHand.QtyOnHand + totalQuantity,
 			0,
 		),
@@ -181,9 +181,9 @@ test(`can't void an order after product has been sold`, async () => {
 		(
 			await query(valueObject)({
 				query: M_StorageOnHandGetDocument,
-				variables: { filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product?.UUID } }) },
+				variables: { Filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product?.UU } }) },
 			})
-		).data.M_StorageOnHandGet.results.reduce(
+		).data.M_StorageOnHandGet.Results.reduce(
 			(totalQuantity, storageOnHand) => storageOnHand.QtyOnHand + totalQuantity,
 			0,
 		),
@@ -192,16 +192,16 @@ test(`can't void an order after product has been sold`, async () => {
 	await expect(
 		mutate(valueObject)({
 			mutation: C_OrderProcessDocument,
-			variables: { uuid: purchaseOrder.UUID, documentAction: documentAction.Void },
+			variables: { UU: purchaseOrder.UU, DocumentAction: documentAction.Void },
 		}),
 	).rejects.toBeTruthy();
 	expect(
 		(
 			await query(valueObject)({
 				query: C_OrderGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ c_order_uu: purchaseOrder.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ c_order_uu: purchaseOrder.UU }) },
 			})
-		).data.C_OrderGet.results[0].DocStatus.Value,
+		).data.C_OrderGet.Results[0].DocStatus.Value,
 	).toBe(documentStatus.Completed);
 
 	// Confirm quantity didn't go negative
@@ -209,9 +209,9 @@ test(`can't void an order after product has been sold`, async () => {
 		(
 			await query(valueObject)({
 				query: M_StorageOnHandGetDocument,
-				variables: { filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product?.UUID } }) },
+				variables: { Filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product?.UU } }) },
 			})
-		).data.M_StorageOnHandGet.results.reduce(
+		).data.M_StorageOnHandGet.Results.reduce(
 			(totalQuantity, storageOnHand) => storageOnHand.QtyOnHand + totalQuantity,
 			0,
 		),
@@ -229,16 +229,16 @@ test(`changing a price on an old PO does not change last buying price for produc
 	const expiringAttributeSet = (
 		await query(valueObject)({
 			query: M_AttributeSetGetDocument,
-			variables: { filter: JSON.stringify({ isguaranteedate: true }) },
+			variables: { Filter: JSON.stringify({ isguaranteedate: true }) },
 		})
-	).data.M_AttributeSetGet.results[0];
+	).data.M_AttributeSetGet.Results[0];
 	valueObject.setSalesPrice(200);
 	valueObject.setPurchasePrice(100);
 	await createProduct(valueObject);
 	valueObject.product = (
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
-			variables: { entity: { UUID: valueObject.product!.UUID, M_AttributeSet: { UUID: expiringAttributeSet.UUID } } },
+			variables: { Entity: { UU: valueObject.product!.UU, M_AttributeSet: { UU: expiringAttributeSet.UU } } },
 		})
 	).data?.M_ProductSave;
 
@@ -247,9 +247,9 @@ test(`changing a price on an old PO does not change last buying price for produc
 		await mutate(valueObject)({
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
-				entity: {
+				Entity: {
 					GuaranteeDate: getDateOffset(new Date(), 365).getTime(),
-					M_AttributeSet: { UUID: expiringAttributeSet.UUID },
+					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},
 		})
@@ -268,9 +268,9 @@ test(`changing a price on an old PO does not change last buying price for produc
 		(
 			await query(valueObject)({
 				query: M_ProductGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product?.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product?.UU }) },
 			})
-		).data.M_ProductGet.results[0].LastPurchasePrice,
+		).data.M_ProductGet.Results[0].LastPurchasePrice,
 	).toBe(110);
 
 	valueObject.stepName = 'Create second purchase order';
@@ -285,16 +285,16 @@ test(`changing a price on an old PO does not change last buying price for produc
 		(
 			await query(valueObject)({
 				query: M_ProductGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product?.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product?.UU }) },
 			})
-		).data.M_ProductGet.results[0].LastPurchasePrice,
+		).data.M_ProductGet.Results[0].LastPurchasePrice,
 	).toBe(120);
 
 	valueObject.stepName = 'Re-open first PO';
 	firstPO = (
 		await mutate(valueObject)({
 			mutation: C_OrderProcessDocument,
-			variables: { uuid: firstPO.UUID, documentAction: documentAction.ReActivate },
+			variables: { UU: firstPO.UU, DocumentAction: documentAction.ReActivate },
 		})
 	).data!.C_OrderProcess!;
 	expect(firstPO).toBeTruthy();
@@ -303,28 +303,28 @@ test(`changing a price on an old PO does not change last buying price for produc
 		(
 			await query(valueObject)({
 				query: M_ProductGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product?.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product?.UU }) },
 			})
-		).data.M_ProductGet.results[0].LastPurchasePrice,
+		).data.M_ProductGet.Results[0].LastPurchasePrice,
 	).toBe(120);
 
 	valueObject.stepName = 'Re-complete first PO';
 	await mutate(valueObject)({
 		mutation: C_OrderLineSaveDocument,
-		variables: { entity: { UUID: valueObject.orderLine!.UUID, Price: 115 } },
+		variables: { Entity: { UU: valueObject.orderLine!.UU, Price: 115 } },
 	});
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
-		variables: { uuid: firstPO.UUID, documentAction: documentAction.Complete },
+		variables: { UU: firstPO.UU, DocumentAction: documentAction.Complete },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: M_ProductGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product?.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product?.UU }) },
 			})
-		).data.M_ProductGet.results[0].LastPurchasePrice,
+		).data.M_ProductGet.Results[0].LastPurchasePrice,
 	).toBe(120);
 });
 
@@ -339,16 +339,16 @@ test(`reactivating a PO resets the quantity correctly`, async () => {
 	const expiringAttributeSet = (
 		await query(valueObject)({
 			query: M_AttributeSetGetDocument,
-			variables: { filter: JSON.stringify({ isguaranteedate: true }) },
+			variables: { Filter: JSON.stringify({ isguaranteedate: true }) },
 		})
-	).data.M_AttributeSetGet.results[0];
+	).data.M_AttributeSetGet.Results[0];
 	valueObject.setSalesPrice(200);
 	valueObject.setPurchasePrice(100);
 	await createProduct(valueObject);
 	valueObject.product = (
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
-			variables: { entity: { UUID: valueObject.product!.UUID, M_AttributeSet: { UUID: expiringAttributeSet.UUID } } },
+			variables: { Entity: { UU: valueObject.product!.UU, M_AttributeSet: { UU: expiringAttributeSet.UU } } },
 		})
 	).data?.M_ProductSave;
 
@@ -357,9 +357,9 @@ test(`reactivating a PO resets the quantity correctly`, async () => {
 		await mutate(valueObject)({
 			mutation: M_AttributeSetInstanceSaveDocument,
 			variables: {
-				entity: {
+				Entity: {
 					GuaranteeDate: getDateOffset(new Date(), 365).getTime(),
-					M_AttributeSet: { UUID: expiringAttributeSet.UUID },
+					M_AttributeSet: { UU: expiringAttributeSet.UU },
 				},
 			},
 		})
@@ -376,24 +376,24 @@ test(`reactivating a PO resets the quantity correctly`, async () => {
 		(
 			await query(valueObject)({
 				query: M_ProductGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }) },
 			})
-		).data.M_ProductGet.results[0].TotalQuantity,
+		).data.M_ProductGet.Results[0].TotalQuantity,
 	).toBe(1);
 
 	valueObject.stepName = 'Re-open first PO';
-	
+
 	await mutate(valueObject)({
 		mutation: C_OrderProcessDocument,
-		variables: { uuid: valueObject.order!.UUID, documentAction: documentAction.ReActivate },
+		variables: { UU: valueObject.order!.UU, DocumentAction: documentAction.ReActivate },
 	});
 
 	expect(
 		(
 			await query(valueObject)({
 				query: M_ProductGetDocument,
-				variables: { size: 1, filter: JSON.stringify({ m_product_uu: valueObject.product!.UUID }) },
+				variables: { Size: 1, Filter: JSON.stringify({ m_product_uu: valueObject.product!.UU }) },
 			})
-		).data.M_ProductGet.results[0].TotalQuantity,
+		).data.M_ProductGet.Results[0].TotalQuantity,
 	).toBe(0);
 });

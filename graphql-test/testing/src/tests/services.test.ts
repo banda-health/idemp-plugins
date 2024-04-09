@@ -10,14 +10,14 @@ test('can create and fetch services', async () => {
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
 			variables: {
-				entity: {
-					AD_Org: { UUID: valueObject.organization!.UUID },
+				Entity: {
+					AD_Org: { UU: valueObject.organization!.UU },
 					Description: valueObject.getStepMessageLong(),
 					Name: valueObject.getDynamicScenarioName(),
-					C_TaxCategory: { UUID: (await getDefaultTaxCategory(valueObject)).UUID },
-					M_Product_Category: { UUID: (await getDefaultProductCategory(valueObject)).UUID },
-					C_UOM: { UUID: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UUID },
-					ProductType: { UUID: '265e0369-47e4-4be9-b6d5-e344230f5588' }, // Service
+					C_TaxCategory: { UU: (await getDefaultTaxCategory(valueObject)).UU },
+					M_Product_Category: { UU: (await getDefaultProductCategory(valueObject)).UU },
+					C_UOM: { UU: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU },
+					ProductType: { UU: '265e0369-47e4-4be9-b6d5-e344230f5588' }, // Service
 					BH_SellPrice: 200,
 				},
 			},
@@ -28,9 +28,9 @@ test('can create and fetch services', async () => {
 	const services = (
 		await query(valueObject)({
 			query: M_ProductGetDocument,
-			variables: { filter: JSON.stringify({ name: service.Name! }) },
+			variables: { Filter: JSON.stringify({ name: service.Name! }) },
 		})
-	).data.M_ProductGet.results;
+	).data.M_ProductGet.Results;
 	expect(services).toHaveLength(1);
 	expect(services[0].Name).toEqual(service.Name);
 });

@@ -18,10 +18,10 @@ test('tender type names to be correct', async () => {
 		await query(globalThis.__VALUE_OBJECT__)({
 			query: Ad_Ref_ListGetDocument,
 			variables: {
-				filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES }, isactive: true }),
+				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES }, isactive: true }),
 			},
 		})
-	).data.AD_Ref_ListGet.results;
+	).data.AD_Ref_ListGet.Results;
 
 	// Ensure these exist
 	expect(tenderTypes.find((tenderType) => tenderType.Name === tenderTypeName.CASH)).not.toBeUndefined();

@@ -5,8 +5,8 @@ test('save organization information', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
-	const organization = (await query(valueObject)({ query: Ad_OrgGetDocument, variables: { size: 1 } })).data.AD_OrgGet
-		.results[0]!;
+	const organization = (await query(valueObject)({ query: Ad_OrgGetDocument, variables: { Size: 1 } })).data.AD_OrgGet
+		.Results[0]!;
 	expect(organization).toBeTruthy();
 	expect(organization.AD_OrgInfo).toBeTruthy();
 
@@ -14,7 +14,7 @@ test('save organization information', async () => {
 		mutation: Ad_OrgInfoSaveDocument,
 		variables: {
 			AD_OrgInfo: {
-				UUID: organization.AD_OrgInfo!.UUID,
+				UU: organization.AD_OrgInfo!.UU,
 				BH_FacilityNumber: 'facility Number',
 				BH_Header: 'header',
 				ReceiptFooterMsg: 'footer message',
@@ -22,8 +22,8 @@ test('save organization information', async () => {
 		},
 	});
 
-	const savedOrganization = (await query(valueObject)({ query: Ad_OrgGetDocument, variables: { size: 1 } })).data
-		.AD_OrgGet.results[0]!;
+	const savedOrganization = (await query(valueObject)({ query: Ad_OrgGetDocument, variables: { Size: 1 } })).data
+		.AD_OrgGet.Results[0]!;
 	expect(savedOrganization).toBeTruthy();
 	expect(savedOrganization.AD_OrgInfo).toBeTruthy();
 

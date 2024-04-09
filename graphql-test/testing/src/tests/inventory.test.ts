@@ -35,8 +35,8 @@ test('inventory count can be performed', async () => {
 		(
 			await query(valueObject)({
 				query: M_StorageOnHandGetDocument,
-				variables: { filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product!.UUID } }) },
+				variables: { Filter: JSON.stringify({ m_product: { m_product_uu: valueObject.product!.UU } }) },
 			})
-		).data.M_StorageOnHandGet.results.reduce((total, storageOnHand) => total + storageOnHand.QtyOnHand, 0),
+		).data.M_StorageOnHandGet.Results.reduce((total, storageOnHand) => total + storageOnHand.QtyOnHand, 0),
 	).toBe(2);
 });

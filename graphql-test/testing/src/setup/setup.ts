@@ -8,18 +8,18 @@ const workingDirectory = join(tmpdir(), 'rest-global-setup');
 const clientName = process.env.IDEMPIERE_GRAPHQL_TEST_CLIENT || 'GraphQL Test Client';
 
 export default async function () {
-	let loginInfo: SignInQuery['signIn'] & {
-		AD_Client?: SignInQuery['signIn']['AD_Clients'][0];
-		clientUuid?: string;
-		organizationUuid?: string;
-		roleUuid?: string;
-		warehouseUuid?: string;
+	let loginInfo: SignInQuery['SignIn'] & {
+		AD_Client?: SignInQuery['SignIn']['AD_Clients'][0];
+		AD_Client_UU?: string;
+		AD_Org_UU?: string;
+		AD_Role_UU?: string;
+		M_Warehouse_UU?: string;
 	};
 	const {
-		data: { signIn: initialLoginInfo },
+		data: { SignIn: initialLoginInfo },
 	} = await graphqlClient.query({
 		query: SignInDocument,
-		variables: { credentials: initialLoginData },
+		variables: { Credentials: initialLoginData },
 	});
 	loginInfo = { ...initialLoginInfo };
 	// Find the client & org we'll use
@@ -39,27 +39,27 @@ export default async function () {
 	// Re-login with the right data as the admin by default so we can get the right session token
 	const adminRole = roles.find((role) => role.Name.endsWith('Admin'));
 	if (adminRole) {
-		const baseLoginData: SignInQueryVariables['credentials'] = {
+		const baseLoginData: SignInQueryVariables['Credentials'] = {
 			...initialLoginData,
-			clientUuid: client.UUID,
-			organizationUuid: organization.UUID,
-			roleUuid: adminRole.UUID,
-			warehouseUuid: organization.M_Warehouses?.[0].UUID,
+			AD_Client_UU: client.UU,
+			AD_Org_UU: organization.UU,
+			AD_Role_UU: adminRole.UU,
+			M_Warehouse_UU: organization.M_Warehouses?.[0].UU,
 		};
 		const {
-			data: { signIn: newLoginInfo },
+			data: { SignIn: newLoginInfo },
 		} = await graphqlClient.query({
 			query: SignInDocument,
-			variables: { credentials: baseLoginData },
+			variables: { Credentials: baseLoginData },
 		});
 		// Update the session token appropriately
-		loginInfo.token = newLoginInfo.token;
+		loginInfo.Token = newLoginInfo.Token;
 		loginInfo.AD_Clients = newLoginInfo.AD_Clients; // Ensure all data is loaded now that a client is selected
 		client = newLoginInfo.AD_Clients.find((client) => client.Name === clientName)!;
-		loginInfo.clientUuid = client.UUID;
-		loginInfo.organizationUuid = organization.UUID;
-		loginInfo.roleUuid = organization.UUID;
-		loginInfo.warehouseUuid = organization.M_Warehouses![0].UUID;
+		loginInfo.AD_Client_UU = client.UU;
+		loginInfo.AD_Org_UU = organization.UU;
+		loginInfo.AD_Role_UU = organization.UU;
+		loginInfo.M_Warehouse_UU = organization.M_Warehouses![0].UU;
 	}
 
 	// use the file system to expose the admin login information

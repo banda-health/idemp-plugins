@@ -13,7 +13,7 @@ test('can be run without any parameters', async () => {
 			await mutate(valueObject)({
 				mutation: Ad_ProcessRunDocument,
 				variables: {
-					UUID: reportUuid,
+					UU: reportUuid,
 				},
 			})
 		).data?.AD_ProcessRun,

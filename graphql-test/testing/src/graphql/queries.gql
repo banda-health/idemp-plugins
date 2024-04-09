@@ -1,17 +1,17 @@
-query AD_LanguageGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_LanguageGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query AD_LanguageGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_LanguageGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			AD_Language
 			Name
 			PrintName
-			UUID
+			UU
 		}
 	}
 }
 
-query AD_MenuGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_MenuGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query AD_MenuGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_MenuGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			ChildrenTree_NodeMMList {
 				Node {
 					Name
@@ -19,25 +19,25 @@ query AD_MenuGet($page: Int, $size: Int, $sort: String, $filter: String) {
 						Node {
 							Name
 							AD_Process {
-								UUID
+								UU
 								Name
 							}
 							AD_Window {
-								UUID
+								UU
 								Name
 							}
 						}
 						SeqNo
 					}
 					AD_Process {
-						UUID
+						UU
 						Name
 					}
 					AD_Window {
-						UUID
+						UU
 						Name
 					}
-					UUID
+					UU
 				}
 				SeqNo
 			}
@@ -45,93 +45,93 @@ query AD_MenuGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	}
 }
 
-query AD_OrgGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_OrgGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query AD_OrgGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_OrgGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 			AD_OrgInfo {
-				UUID
+				UU
 				BH_FacilityNumber
 				BH_Header
 				ReceiptFooterMsg
 			}
 			M_Warehouses {
-				UUID
+				UU
 				Name
 				BH_DefaultWarehouse
 				IsActive
 				M_Locators {
-					UUID
+					UU
 				}
 			}
 		}
 	}
 }
 
-query AD_OrgInfoGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_OrgInfoGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query AD_OrgInfoGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_OrgInfoGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			C_Location {
 				C_Country {
-					UUID
+					UU
 				}
 				C_Region {
-					UUID
+					UU
 					Name
 				}
-				UUID
+				UU
 			}
 			Logo {
-				UUID
+				UU
 			}
-			UUID
+			UU
 		}
 	}
 }
 
-query AD_ProcessGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_ProcessGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query AD_ProcessGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_ProcessGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			AD_Process_ParaList {
-				UUID
+				UU
 				Name
 			}
-			UUID
+			UU
 		}
 	}
 }
 
-query AD_Ref_ListGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_Ref_ListGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query AD_Ref_ListGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_Ref_ListGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			Name
-			UUID
+			UU
 			Value
 		}
 	}
 }
 
-query AD_RoleGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_RoleGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query AD_RoleGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_RoleGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...AD_RoleFields
 		}
 	}
 }
 
-query AD_UserGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	AD_UserGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query AD_UserGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_UserGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			AD_User_Roles {
-				UUID
+				UU
 				AD_Role {
-					UUID
+					UU
 					AD_Role_IncludedList {
-						UUID
+						UU
 						Included_Role {
-							UUID
+							UU
 						}
 					}
 				}
@@ -142,10 +142,10 @@ query AD_UserGet($page: Int, $size: Int, $sort: String, $filter: String) {
 	}
 }
 
-query BH_Coded_DiagnosisGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	BH_Coded_DiagnosisGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query BH_Coded_DiagnosisGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Coded_DiagnosisGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			bh_cielname
 			bh_icd10who
 			bh_searchterms
@@ -153,256 +153,256 @@ query BH_Coded_DiagnosisGet($page: Int, $size: Int, $sort: String, $filter: Stri
 	}
 }
 
-query BH_Encounter_Type_WindowGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	BH_Encounter_Type_WindowGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query BH_Encounter_Type_WindowGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Encounter_Type_WindowGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			AD_Window {
-				UUID
+				UU
 				AD_Tabs {
 					AD_Fields {
-						UUID
+						UU
 					}
 				}
 			}
 			BH_Encounter_Type {
-				UUID
+				UU
 			}
 		}
 	}
 }
 
-query BH_EncounterGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	BH_EncounterGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query BH_EncounterGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_EncounterGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
 
-query BH_Payer_Info_Fld_SugGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	BH_Payer_Info_Fld_SugGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query BH_Payer_Info_Fld_SugGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Payer_Info_Fld_SugGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			BH_SubType {
-				UUID
+				UU
 				Value
 			}
 			BH_PayerInfoFieldDataType {
-				UUID
+				UU
 				Value
 			}
 		}
 	}
 }
 
-query BH_VisitGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	BH_VisitGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query BH_VisitGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...BH_VisitFields
 		}
 	}
 }
 
-query BH_Voided_ReasonGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	BH_Voided_ReasonGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query BH_Voided_ReasonGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Voided_ReasonGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 		}
 	}
 }
 
-query C_AcctSchemaGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_AcctSchemaGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_AcctSchemaGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_AcctSchemaGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			C_Currency {
-				UUID
+				UU
 			}
 		}
 	}
 }
 
-query C_BankAccountGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_BankAccountGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_BankAccountGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_BankAccountGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 		}
 	}
 }
 
-query C_BP_GroupGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_BP_GroupGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_BP_GroupGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_BP_GroupGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 		}
 	}
 }
 
-query C_BPartnerGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_BPartnerGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query C_BPartnerGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_BPartnerGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...C_BPartnerFields
 		}
 	}
 }
 
-query C_Charge_AcctGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_Charge_AcctGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_Charge_AcctGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_Charge_AcctGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
 
-query C_ChargeGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_ChargeGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_ChargeGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_ChargeGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 			C_Charge_AcctList {
-				UUID
+				UU
 				Ch_Expense_A {
-					UUID
+					UU
 					Account {
-						UUID
+						UU
 						Value
 					}
 				}
 			}
 			C_ChargeType {
-				UUID
+				UU
 			}
 		}
 	}
 }
 
-query C_ChargeTypeGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_ChargeTypeGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_ChargeTypeGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_ChargeTypeGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 		}
 	}
 }
 
-query C_CurrencyGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_CurrencyGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_CurrencyGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_CurrencyGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
 
-query C_DocTypeGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_DocTypeGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_DocTypeGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_DocTypeGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			IsSOTrx
 		}
 	}
 }
 
-query C_ElementValueGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_ElementValueGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_ElementValueGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_ElementValueGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
 
-query C_InvoiceGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_InvoiceGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query C_InvoiceGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_InvoiceGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...C_InvoiceFields
 		}
 	}
 }
 
-query C_LocationGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_LocationGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query C_LocationGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_LocationGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...C_LocationFields
 		}
 	}
 }
 
-query C_OrderGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_OrderGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query C_OrderGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_OrderGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...C_OrderFields
 		}
 	}
 }
 
-query C_PaymentGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_PaymentGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query C_PaymentGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_PaymentGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...C_PaymentFields
 		}
 	}
 }
 
-query C_TaxCategoryGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	C_TaxCategoryGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query C_TaxCategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_TaxCategoryGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
 
 query C_UOMGetDefault {
 	C_UOMGetDefault {
-		UUID
+		UU
 	}
 }
 
-query ChangeAccess($credentials: ChangeAccessInput!) {
-	changeAccess(credentials: $credentials) {
-		token
+query ChangeAccess($Credentials: ChangeAccessInput!) {
+	ChangeAccess(Credentials: $Credentials) {
+		Token
 	}
 }
 
-query ChangePassword($credentials: AuthenticationInput!) {
-	changePassword(credentials: $credentials) {
-		token
-		user {
+query ChangePassword($Credentials: AuthenticationInput!) {
+	ChangePassword(Credentials: $Credentials) {
+		Token
+		AD_User {
 			IsExpired
 		}
 		AD_Clients {
-			UUID
+			UU
 			Name
 			AD_Orgs {
-				UUID
+				UU
 				Name
 				AD_Roles {
-					UUID
+					UU
 					Name
 				}
 				M_Warehouses {
-					UUID
+					UU
 					Name
 					BH_DefaultWarehouse
 					IsActive
 					M_Locators {
-						UUID
+						UU
 					}
 				}
 			}
 		}
 		AD_Role {
 			AD_Role_IncludedList {
-				UUID
+				UU
 				Included_Role {
-					UUID
+					UU
 				}
 			}
 			AD_Window_AccessList {
 				AD_Window {
-					UUID
+					UU
 				}
 				BH_CanDeactivate
 				IsReadWrite
@@ -415,103 +415,103 @@ query DocumentStatusActionMap {
 	DocumentStatusActionMap
 }
 
-query M_AttributeSetInstanceGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	M_AttributeSetInstanceGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query M_AttributeSetInstanceGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_AttributeSetInstanceGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
 
-query M_AttributeSetGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	M_AttributeSetGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query M_AttributeSetGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_AttributeSetGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 		}
 	}
 }
 
-query M_Product_CategoryGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	M_Product_CategoryGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query M_Product_CategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_Product_CategoryGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 		}
 	}
 }
 
-query M_ProductGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	M_ProductGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
+query M_ProductGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_ProductGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
 			...M_ProductFields
 		}
-		pagingInfo {
-			page
-			totalPages
+		PagingInfo {
+			Page
+			TotalPages
 		}
 	}
 }
 
-query M_StorageOnHandGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	M_StorageOnHandGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query M_StorageOnHandGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_StorageOnHandGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			QtyOnHand
 		}
 	}
 }
 
-query M_WarehouseGet($page: Int, $size: Int, $sort: String, $filter: String) {
-	M_WarehouseGet(page: $page, size: $size, sort: $sort, filter: $filter) {
-		results {
-			UUID
+query M_WarehouseGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_WarehouseGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
 			Name
 			BH_DefaultWarehouse
 			IsActive
 			M_Locators {
-				UUID
+				UU
 			}
 		}
 	}
 }
 
-query SignIn($credentials: AuthenticationInput!) {
-	signIn(credentials: $credentials) {
-		token
-		user {
+query SignIn($Credentials: AuthenticationInput!) {
+	SignIn(Credentials: $Credentials) {
+		Token
+		AD_User {
 			IsExpired
 		}
 		AD_Clients {
-			UUID
+			UU
 			Name
 			AD_Orgs {
-				UUID
+				UU
 				Name
 				AD_Roles {
-					UUID
+					UU
 					Name
 				}
 				M_Warehouses {
-					UUID
+					UU
 					Name
 					BH_DefaultWarehouse
 					IsActive
 					M_Locators {
-						UUID
+						UU
 					}
 				}
 			}
 		}
 		AD_Role {
 			AD_Role_IncludedList {
-				UUID
+				UU
 				Included_Role {
-					UUID
+					UU
 				}
 			}
 			AD_Window_AccessList {
 				AD_Window {
-					UUID
+					UU
 				}
 				BH_CanDeactivate
 				IsReadWrite

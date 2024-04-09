@@ -1,5 +1,5 @@
 extend type Mutation {
-	C_InvoiceProcess(uuid: String!, documentAction: String!): C_Invoice
+	C_InvoiceProcess(UU: ID!, DocumentAction: String!): C_Invoice
 }
 
 extend type C_Invoice {

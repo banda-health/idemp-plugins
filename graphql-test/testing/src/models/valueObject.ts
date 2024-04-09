@@ -3,15 +3,19 @@ import { RoleName } from '../types/roleName';
 import { getDateOffset } from '../utils';
 import {
 	Ad_Ref_ListGetQuery,
+	Bh_VisitGetQuery,
 	Bh_VisitSaveMutation,
 	C_AcctSchemaGetQuery,
 	C_BankAccountGetQuery,
+	C_BPartnerGetQuery,
 	C_BPartnerSaveWithLocationMutation,
 	C_ChargeSaveMutation,
 	C_DocTypeGetDocument,
 	C_DocTypeGetQuery,
+	C_InvoiceGetQuery,
 	C_InvoiceSaveWithInvoiceLinesMutation,
 	C_LocationGetQuery,
+	C_OrderGetQuery,
 	C_OrderSaveWithOrderLinesMutation,
 	C_PaymentSaveMutation,
 	M_AttributeSetInstanceSaveMutation,
@@ -26,11 +30,11 @@ import {
 import { documentAction } from './documentEngine';
 
 export class ValueObject {
-	client?: SignInQuery['signIn']['AD_Clients'][0];
-	organization?: SignInQuery['signIn']['AD_Clients'][0]['AD_Orgs'][0];
+	client?: SignInQuery['SignIn']['AD_Clients'][0];
+	organization?: SignInQuery['SignIn']['AD_Clients'][0]['AD_Orgs'][0];
 	user?: any; //User;
-	warehouse?: NonNullable<SignInQuery['signIn']['AD_Clients'][0]['AD_Orgs'][0]['M_Warehouses']>[0];
-	role?: NonNullable<SignInQuery['signIn']['AD_Clients'][0]['AD_Orgs'][0]['AD_Roles']>[0];
+	warehouse?: NonNullable<SignInQuery['SignIn']['AD_Clients'][0]['AD_Orgs'][0]['M_Warehouses']>[0];
+	role?: NonNullable<SignInQuery['SignIn']['AD_Clients'][0]['AD_Orgs'][0]['AD_Roles']>[0];
 	language?: string;
 	date?: Date;
 	dateInitial?: Date;
@@ -38,12 +42,12 @@ export class ValueObject {
 	scenarioName?: string;
 	stepName?: string;
 	isIncludeRandom: boolean = true;
-	businessPartner?: C_BPartnerSaveWithLocationMutation['C_BPartnerSave'];
+	businessPartner?: C_BPartnerGetQuery['C_BPartnerGet']['Results'][0];
 	businessPartnerLocation?: C_BPartnerSaveWithLocationMutation['C_BPartner_LocationSave'];
-	country?: C_LocationGetQuery['C_LocationGet']['results'][0]['C_Country'];
-	region?: C_LocationGetQuery['C_LocationGet']['results'][0]['C_Region'];
+	country?: C_LocationGetQuery['C_LocationGet']['Results'][0]['C_Country'];
+	region?: C_LocationGetQuery['C_LocationGet']['Results'][0]['C_Region'];
 	city?: string;
-	currency?: C_AcctSchemaGetQuery['C_AcctSchemaGet']['results'][0]['C_Currency'];
+	currency?: C_AcctSchemaGetQuery['C_AcctSchemaGet']['Results'][0]['C_Currency'];
 	contact?: any; //User;
 	// MPriceList priceListSO = null;
 	// MPriceList priceListPO = null;
@@ -56,22 +60,22 @@ export class ValueObject {
 	purchaseStandardPrice?: number;
 	purchaseListPrice?: number;
 	quantity?: number;
-	documentType?: C_DocTypeGetQuery['C_DocTypeGet']['results'][0];
+	documentType?: C_DocTypeGetQuery['C_DocTypeGet']['Results'][0];
 	documentAction?: string;
 	attributeSetInstance?: M_AttributeSetInstanceSaveMutation['M_AttributeSetInstanceSave'];
-	visit?: Bh_VisitSaveMutation['BH_VisitSave'];
-	order?: C_OrderSaveWithOrderLinesMutation['C_OrderSave'];
+	visit?: Bh_VisitGetQuery['BH_VisitGet']['Results'][0];
+	order?: C_OrderGetQuery['C_OrderGet']['Results'][0];
 	orderLine?: C_OrderSaveWithOrderLinesMutation['C_OrderLineSave'];
 	// MInOut m_inOut = null;
 	// MInOutLine m_inOutLine = null;
-	invoice?: C_InvoiceSaveWithInvoiceLinesMutation['C_InvoiceSave'];
+	invoice?: C_InvoiceGetQuery['C_InvoiceGet']['Results'][0];
 	invoiceLine?: C_InvoiceSaveWithInvoiceLinesMutation['C_InvoiceLineSave'];
 	inventory?: M_InventorySaveWithInventoryLinesMutation['M_InventorySave'];
 	inventoryLine?: M_InventorySaveWithInventoryLinesMutation['M_InventoryLineSave'];
 	payment?: C_PaymentSaveMutation['C_PaymentSave'];
-	tenderType?: Ad_Ref_ListGetQuery['AD_Ref_ListGet']['results'][0];
+	tenderType?: Ad_Ref_ListGetQuery['AD_Ref_ListGet']['Results'][0];
 	paymentAmount?: number;
-	bankAccount?: C_BankAccountGetQuery['C_BankAccountGet']['results'][0];
+	bankAccount?: C_BankAccountGetQuery['C_BankAccountGet']['Results'][0];
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
 	random: number = 0;
@@ -80,12 +84,12 @@ export class ValueObject {
 	separator = ' - ';
 	prompt = ': ';
 	get AD_Window_AccessMap():
-		| { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['signIn']['AD_Role']>['AD_Window_AccessList']>[0] }
+		| { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['SignIn']['AD_Role']>['AD_Window_AccessList']>[0] }
 		| undefined {
 		return this.loginInfo?.AD_Role?.AD_Window_AccessList?.reduce((map, windowAccess) => {
-			map[windowAccess.AD_Window.UUID] = windowAccess;
+			map[windowAccess.AD_Window.UU] = windowAccess;
 			return map;
-		}, {} as { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['signIn']['AD_Role']>['AD_Window_AccessList']>[0] });
+		}, {} as { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['SignIn']['AD_Role']>['AD_Window_AccessList']>[0] });
 	}
 
 	processUuid?: string;
@@ -96,8 +100,8 @@ export class ValueObject {
 	sessionToken?: string;
 
 	constructor(
-		private loginInfo: SignInQuery['signIn'] & {
-			AD_Client: SignInQuery['signIn']['AD_Clients'][0];
+		private loginInfo: SignInQuery['SignIn'] & {
+			AD_Client: SignInQuery['SignIn']['AD_Clients'][0];
 			organizationId?: string | null;
 			roleId?: string | null;
 			warehouseId?: string | null;
@@ -107,18 +111,18 @@ export class ValueObject {
 	}
 
 	private prepareIt(
-		loginInfo: SignInQuery['signIn'] & {
-			AD_Client: SignInQuery['signIn']['AD_Clients'][0];
+		loginInfo: SignInQuery['SignIn'] & {
+			AD_Client: SignInQuery['SignIn']['AD_Clients'][0];
 			organizationUuid?: string | null;
 			roleUuid?: string | null;
 			warehouseUuid?: string | null;
 		},
 	) {
 		this.client = loginInfo.AD_Client;
-		this.organization = this.client?.AD_Orgs.find((organization) => organization.UUID === loginInfo.organizationUuid);
-		this.role = this.organization?.AD_Roles?.find((role) => role.UUID === loginInfo.roleUuid);
-		this.warehouse = this.organization?.M_Warehouses?.find((warehouse) => warehouse.UUID === loginInfo.warehouseUuid);
-		this.sessionToken = loginInfo.token || undefined;
+		this.organization = this.client?.AD_Orgs.find((organization) => organization.UU === loginInfo.organizationUuid);
+		this.role = this.organization?.AD_Roles?.find((role) => role.UU === loginInfo.roleUuid);
+		this.warehouse = this.organization?.M_Warehouses?.find((warehouse) => warehouse.UU === loginInfo.warehouseUuid);
+		this.sessionToken = loginInfo.Token || undefined;
 
 		this.date = new Date();
 		this.dateInitial = new Date();
@@ -141,19 +145,19 @@ export class ValueObject {
 			role.Name.endsWith(roleName!),
 		);
 
-		const baseLoginData: SignInQueryVariables['credentials'] = {
+		const baseLoginData: SignInQueryVariables['Credentials'] = {
 			...initialLoginData,
-			clientUuid: this.client?.UUID,
-			organizationUuid: this.organization?.UUID,
-			roleUuid: roleToUse?.UUID,
-			warehouseUuid: this.warehouse?.UUID,
+			AD_Client_UU: this.client?.UU,
+			AD_Org_UU: this.organization?.UU,
+			AD_Role_UU: roleToUse?.UU,
+			M_Warehouse_UU: this.warehouse?.UU,
 		};
 		if (this.language) {
-			baseLoginData.language = this.language;
+			baseLoginData.AD_Language = this.language;
 		}
 		const {
-			data: { signIn: loginInfo },
-		} = await query(this)({ query: SignInDocument, variables: { credentials: baseLoginData } });
+			data: { SignIn: loginInfo },
+		} = await query(this)({ query: SignInDocument, variables: { Credentials: baseLoginData } });
 		this.prepareIt({ ...baseLoginData, ...loginInfo, AD_Client: this.client! });
 
 		return this.validate();
@@ -267,9 +271,9 @@ export class ValueObject {
 			await query(this)({
 				query: C_DocTypeGetDocument,
 				variables: {
-					page: 0,
-					size: 100,
-					filter: JSON.stringify({
+					Page: 0,
+					Size: 100,
+					Filter: JSON.stringify({
 						docbasetype: documentBaseType,
 						issotrx: isSalesTransaction,
 						isshipconfirm: isShipmentConfirm,
@@ -280,7 +284,7 @@ export class ValueObject {
 				},
 				context: { valueObject: this },
 			})
-		).data.C_DocTypeGet.results[0];
+		).data.C_DocTypeGet.Results[0];
 	}
 
 	getDynamicStepMessage() {

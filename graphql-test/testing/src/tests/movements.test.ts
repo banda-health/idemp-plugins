@@ -27,31 +27,31 @@ test('can move inventory between warehouses', async () => {
 	valueObject.stepName = 'Create movement';
 	const differentWarehouse = (
 		await query(valueObject)({ query: M_WarehouseGetDocument })
-	).data.M_WarehouseGet.results.find((warehouse) => warehouse.UUID !== valueObject.warehouse?.UUID);
+	).data.M_WarehouseGet.Results.find((warehouse) => warehouse.UU !== valueObject.warehouse?.UU);
 	await valueObject.setDocumentBaseType(documentBaseType.MaterialMovement, null, false, false, false);
 	const movementUuid = v4();
 	const { data: savedData } = await mutate(valueObject)({
 		mutation: M_MovementSaveWithMovementLinesAndProcessDocument,
 		variables: {
 			M_Movement: {
-				UUID: movementUuid,
-				AD_Org: valueObject.organization ? { UUID: valueObject.organization.UUID } : undefined,
-				BH_From_Warehouse: { UUID: valueObject.warehouse!.UUID },
-				BH_To_Warehouse: { UUID: differentWarehouse!.UUID },
+				UU: movementUuid,
+				AD_Org: valueObject.organization ? { UU: valueObject.organization.UU } : undefined,
+				BH_From_Warehouse: { UU: valueObject.warehouse!.UU },
+				BH_To_Warehouse: { UU: differentWarehouse!.UU },
 				Description: valueObject.getStepMessageLong(),
-				C_DocType: { UUID: valueObject.documentType!.UUID },
+				C_DocType: { UU: valueObject.documentType!.UU },
 				MovementDate: valueObject.date?.getTime(),
 				IsApproved: true,
 			},
 			M_MovementLine: {
-				M_Movement: { UUID: movementUuid },
+				M_Movement: { UU: movementUuid },
 				MovementQty: 75,
-				M_Product: { UUID: valueObject.product!.UUID },
-				M_Locator: { UUID: valueObject.warehouse!.M_Locators![0].UUID },
-				M_LocatorTo: { UUID: differentWarehouse!.M_Locators![0].UUID },
+				M_Product: { UU: valueObject.product!.UU },
+				M_Locator: { UU: valueObject.warehouse!.M_Locators![0].UU },
+				M_LocatorTo: { UU: differentWarehouse!.M_Locators![0].UU },
 			},
-			uuid: movementUuid,
-			documentAction: documentAction.Complete,
+			UU: movementUuid,
+			DocumentAction: documentAction.Complete,
 		},
 	});
 	expect(savedData?.M_MovementProcess?.DocStatus.Value).toBe(documentStatus.Completed);
@@ -61,25 +61,25 @@ test('can move inventory between warehouses', async () => {
 			await query(valueObject)({
 				query: M_StorageOnHandGetDocument,
 				variables: {
-					filter: JSON.stringify({
-						m_product: { m_product_uu: valueObject.product!.UUID },
-						m_locator: { m_locator_uu: valueObject.warehouse?.M_Locators?.[0]?.UUID },
+					Filter: JSON.stringify({
+						m_product: { m_product_uu: valueObject.product!.UU },
+						m_locator: { m_locator_uu: valueObject.warehouse?.M_Locators?.[0]?.UU },
 					}),
 				},
 			})
-		).data.M_StorageOnHandGet.results.reduce((total, storageOnHand) => total + storageOnHand.QtyOnHand, 0),
+		).data.M_StorageOnHandGet.Results.reduce((total, storageOnHand) => total + storageOnHand.QtyOnHand, 0),
 	).toBe(25);
 	expect(
 		(
 			await query(valueObject)({
 				query: M_StorageOnHandGetDocument,
 				variables: {
-					filter: JSON.stringify({
-						m_product: { m_product_uu: valueObject.product!.UUID },
-						m_locator: { m_locator_uu: differentWarehouse?.M_Locators?.[0]?.UUID },
+					Filter: JSON.stringify({
+						m_product: { m_product_uu: valueObject.product!.UU },
+						m_locator: { m_locator_uu: differentWarehouse?.M_Locators?.[0]?.UU },
 					}),
 				},
 			})
-		).data.M_StorageOnHandGet.results.reduce((total, storageOnHand) => total + storageOnHand.QtyOnHand, 0),
+		).data.M_StorageOnHandGet.Results.reduce((total, storageOnHand) => total + storageOnHand.QtyOnHand, 0),
 	).toBe(75);
 });

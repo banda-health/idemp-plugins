@@ -1,5 +1,5 @@
 extend type Mutation {
-	BH_VisitProcess(uuid: String!, documentAction: String!): BH_Visit
+	BH_VisitProcess(UU: ID!, DocumentAction: String!): BH_Visit
 }
 
 extend type BH_Visit {

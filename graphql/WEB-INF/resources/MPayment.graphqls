@@ -1,5 +1,5 @@
 extend type Mutation {
-	C_PaymentProcess(uuid: String!, documentAction: String): C_Payment
+	C_PaymentProcess(UU: ID!, DocumentAction: String): C_Payment
 }
 
 extend type C_Payment {

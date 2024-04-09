@@ -30,18 +30,18 @@ test('account mapping can be set up through a charge', async () => {
 		await query(valueObject)({
 			query: C_ChargeTypeGetDocument,
 			variables: {
-				size: 1,
-				filter: JSON.stringify({ isactive: true, name: 'Default Expense Category - DO NOT CHANGE' }),
+				Size: 1,
+				Filter: JSON.stringify({ isactive: true, name: 'Default Expense Category - DO NOT CHANGE' }),
 			},
 		})
-	).data.C_ChargeTypeGet.results[0];
+	).data.C_ChargeTypeGet.Results[0];
 	expect(defaultExpenseCategoryChargeType).toBeTruthy();
 	const doNotChangeAccount = (
 		await query(valueObject)({
 			query: C_ElementValueGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ value: '99999' }) },
+			variables: { Size: 1, Filter: JSON.stringify({ value: '99999' }) },
 		})
-	).data.C_ElementValueGet.results[0];
+	).data.C_ElementValueGet.Results[0];
 	expect(doNotChangeAccount).toBeTruthy();
 
 	valueObject.stepName = 'Create charge';
@@ -50,10 +50,10 @@ test('account mapping can be set up through a charge', async () => {
 		await mutate(valueObject)({
 			mutation: C_ChargeSaveDocument,
 			variables: {
-				entity: {
-					UUID: chargeUuid,
-					AD_Org: { UUID: valueObject.organization!.UUID },
-					C_ChargeType: { UUID: defaultExpenseCategoryChargeType.UUID },
+				Entity: {
+					UU: chargeUuid,
+					AD_Org: { UU: valueObject.organization!.UU },
+					C_ChargeType: { UU: defaultExpenseCategoryChargeType.UU },
 					Description: valueObject.getStepMessageLong(),
 					Name: `${valueObject.random}_${valueObject.scenarioName}`,
 				},
@@ -63,18 +63,18 @@ test('account mapping can be set up through a charge', async () => {
 	await mutate(valueObject)({
 		mutation: C_Charge_AcctSaveDocument,
 		variables: {
-			entity: {
-				UUID: savedCharge?.C_Charge_AcctList?.[0]?.UUID,
+			Entity: {
+				UU: savedCharge?.C_Charge_AcctList?.[0]?.UU,
 				Ch_Expense_A: {
-					UUID: (
+					UU: (
 						await mutate(valueObject)({
 							mutation: C_ValidCombinationGetOrCreateDocument,
 							variables: {
-								Account_UU: doNotChangeAccount.UUID,
-								C_AcctSchema_UU: savedCharge?.C_Charge_AcctList?.[0]?.C_AcctSchema.UUID,
+								Account_UU: doNotChangeAccount.UU,
+								C_AcctSchema_UU: savedCharge?.C_Charge_AcctList?.[0]?.C_AcctSchema.UU,
 							},
 						})
-					).data!.C_ValidCombinationGetOrCreate.UUID,
+					).data!.C_ValidCombinationGetOrCreate.UU,
 				},
 			},
 		},
@@ -82,12 +82,12 @@ test('account mapping can be set up through a charge', async () => {
 	const charge = (
 		await query(valueObject)({
 			query: C_ChargeGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ c_charge_uu: chargeUuid }) },
+			variables: { Size: 1, Filter: JSON.stringify({ c_charge_uu: chargeUuid }) },
 		})
-	).data.C_ChargeGet.results[0];
+	).data.C_ChargeGet.Results[0];
 
-	expect(charge.C_ChargeType?.UUID).toBe(defaultExpenseCategoryChargeType.UUID);
-	expect(charge.C_Charge_AcctList?.[0]?.Ch_Expense_A.Account.UUID).toBe(doNotChangeAccount.UUID);
+	expect(charge.C_ChargeType?.UU).toBe(defaultExpenseCategoryChargeType.UU);
+	expect(charge.C_Charge_AcctList?.[0]?.Ch_Expense_A.Account.UU).toBe(doNotChangeAccount.UU);
 });
 
 test('save charge', async () => {
@@ -97,14 +97,14 @@ test('save charge', async () => {
 	const doNotChangeAccount = (
 		await query(valueObject)({
 			query: C_ElementValueGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ value: '99999' }) },
+			variables: { Size: 1, Filter: JSON.stringify({ value: '99999' }) },
 		})
-	).data.C_ElementValueGet.results[0];
+	).data.C_ElementValueGet.Results[0];
 	expect(doNotChangeAccount).toBeTruthy();
 	expect(doNotChangeAccount).toBeTruthy();
 
-	const chargeToSave: C_ChargeSaveMutationVariables['entity'] = {
-		AD_Org: { UUID: valueObject.organization!.UUID },
+	const chargeToSave: C_ChargeSaveMutationVariables['Entity'] = {
+		AD_Org: { UU: valueObject.organization!.UU },
 		Description: valueObject.getStepMessageLong(),
 		Name: `${valueObject.random}_${valueObject.scenarioName}`,
 	};
@@ -112,25 +112,25 @@ test('save charge', async () => {
 		await mutate(valueObject)({
 			mutation: C_ChargeSaveDocument,
 			variables: {
-				entity: chargeToSave,
+				Entity: chargeToSave,
 			},
 		})
 	).data?.C_ChargeSave;
 	await mutate(valueObject)({
 		mutation: C_Charge_AcctSaveDocument,
 		variables: {
-			entity: {
-				UUID: savedCharge?.C_Charge_AcctList?.[0]?.UUID,
+			Entity: {
+				UU: savedCharge?.C_Charge_AcctList?.[0]?.UU,
 				Ch_Expense_A: {
-					UUID: (
+					UU: (
 						await mutate(valueObject)({
 							mutation: C_ValidCombinationGetOrCreateDocument,
 							variables: {
-								Account_UU: doNotChangeAccount.UUID,
-								C_AcctSchema_UU: savedCharge?.C_Charge_AcctList?.[0]?.C_AcctSchema.UUID,
+								Account_UU: doNotChangeAccount.UU,
+								C_AcctSchema_UU: savedCharge?.C_Charge_AcctList?.[0]?.C_AcctSchema.UU,
 							},
 						})
-					).data!.C_ValidCombinationGetOrCreate.UUID,
+					).data!.C_ValidCombinationGetOrCreate.UU,
 				},
 			},
 		},
@@ -141,8 +141,8 @@ test('save charge', async () => {
 	const charge = (
 		await query(valueObject)({
 			query: C_ChargeGetDocument,
-			variables: { size: 1, filter: JSON.stringify({ c_charge_uu: savedCharge?.UUID }) },
+			variables: { Size: 1, Filter: JSON.stringify({ c_charge_uu: savedCharge?.UU }) },
 		})
-	).data.C_ChargeGet.results[0];
-	expect(charge.C_Charge_AcctList?.[0]?.Ch_Expense_A.Account.UUID).toBe(doNotChangeAccount.UUID);
+	).data.C_ChargeGet.Results[0];
+	expect(charge.C_Charge_AcctList?.[0]?.Ch_Expense_A.Account.UU).toBe(doNotChangeAccount.UU);
 });

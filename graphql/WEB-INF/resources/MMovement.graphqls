@@ -1,5 +1,5 @@
 extend type Mutation {
-	M_MovementProcess(uuid: String!, documentAction: String): M_Movement
+	M_MovementProcess(UU: ID!, DocumentAction: String): M_Movement
 }
 
 extend type M_Movement {

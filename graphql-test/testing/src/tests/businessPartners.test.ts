@@ -26,24 +26,24 @@ test(`information saved correctly`, async () => {
 		mutation: C_BPartnerSaveWithLocationDocument,
 		variables: {
 			C_BPartner: {
-				UUID: businessPartnerUuid,
+				UU: businessPartnerUuid,
 				Name: businessPartnerName,
 				Description: valueObject.getStepMessageLong(),
 				BH_Birthday: valueObject.date?.getTime(),
-				bh_gender: { UUID: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
+				bh_gender: { UU: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
 				IsCustomer: true,
 				IsVendor: true,
 			},
 			C_Location: {
-				UUID: locationUuid,
+				UU: locationUuid,
 				C_Region: valueObject.region
 					? {
-							UUID: valueObject.region.UUID,
+							UU: valueObject.region.UU,
 					  }
 					: undefined,
 				C_Country: valueObject.country
 					? {
-							UUID: valueObject.country.UUID,
+							UU: valueObject.country.UU,
 					  }
 					: undefined,
 				City: 'Test',
@@ -51,10 +51,10 @@ test(`information saved correctly`, async () => {
 			},
 			C_BPartner_Location: {
 				C_BPartner: {
-					UUID: businessPartnerUuid,
+					UU: businessPartnerUuid,
 				},
 				C_Location: {
-					UUID: locationUuid,
+					UU: locationUuid,
 				},
 				Name: valueObject.city + ' ' + valueObject.region?.Name,
 			},
@@ -64,9 +64,9 @@ test(`information saved correctly`, async () => {
 	const fetchedBusinessPartner = (
 		await query(valueObject)({
 			query: C_BPartnerGetDocument,
-			variables: { page: 0, size: 1, filter: JSON.stringify({ c_bpartner_uu: businessPartnerUuid }) },
+			variables: { Page: 0, Size: 1, Filter: JSON.stringify({ c_bpartner_uu: businessPartnerUuid }) },
 		})
-	).data.C_BPartnerGet.results[0];
+	).data.C_BPartnerGet.Results[0];
 
 	expect(fetchedBusinessPartner.TotalOpenBalance).toBe(0);
 	expect(fetchedBusinessPartner.Name).toBe(businessPartnerName);
@@ -84,43 +84,43 @@ test(`get method returns the correct data`, async () => {
 		mutation: C_LocationUpdateWithBPartnerDocument,
 		variables: {
 			C_BPartner: {
-				UUID: valueObject.businessPartner!.UUID,
-				bh_gender: { UUID: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
+				UU: valueObject.businessPartner!.UU,
+				bh_gender: { UU: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
 				NationalID: '156156',
 				bh_occupation: 'Programmer',
 				NextOfKin_Name: 'Wifey',
 				NextOfKin_Contact: '155155',
 				C_BP_Group: {
-					UUID: (
+					UU: (
 						await query(valueObject)({
 							query: C_Bp_GroupGetDocument,
-							variables: { filter: JSON.stringify({ name: 'Patients - DO NOT CHANGE' }) },
+							variables: { Filter: JSON.stringify({ name: 'Patients - DO NOT CHANGE' }) },
 						})
-					).data.C_BP_GroupGet.results[0].UUID,
+					).data.C_BP_GroupGet.Results[0].UU,
 				},
 			},
 			C_Location: {
-				UUID: locationUuid,
+				UU: locationUuid,
 				C_Region: valueObject.region
 					? {
-							UUID: valueObject.region.UUID,
+							UU: valueObject.region.UU,
 					  }
 					: undefined,
 				C_Country: valueObject.country
 					? {
-							UUID: valueObject.country.UUID,
+							UU: valueObject.country.UU,
 					  }
 					: undefined,
 				City: 'Test',
 				Address1: '514 E North Ave',
 			},
 			C_BPartner_Location: {
-				UUID: valueObject.businessPartner!.C_BPartner_Locations?.[0].UUID,
+				UU: valueObject.businessPartner!.C_BPartner_Locations?.[0].UU,
 				C_BPartner: {
-					UUID: valueObject.businessPartner!.UUID,
+					UU: valueObject.businessPartner!.UU,
 				},
 				C_Location: {
-					UUID: locationUuid,
+					UU: locationUuid,
 				},
 				Name: valueObject.city + ' ' + valueObject.region?.Name,
 			},
@@ -129,9 +129,9 @@ test(`get method returns the correct data`, async () => {
 	valueObject.businessPartner = (
 		await query(valueObject)({
 			query: C_BPartnerGetDocument,
-			variables: { filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UUID }) },
+			variables: { Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
 		})
-	).data.C_BPartnerGet.results[0];
+	).data.C_BPartnerGet.Results[0];
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
@@ -162,22 +162,22 @@ test(`get method returns the correct data`, async () => {
 
 	await mutate(valueObject)({
 		mutation: Bh_VisitProcessDocument,
-		variables: { uuid: valueObject.visit!.UUID, documentAction: documentAction.Complete },
+		variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 	});
 
 	const searchedBusinessPartners = (
 		await query(valueObject)({
 			query: C_BPartnerGetDocument,
 			variables: {
-				page: 0,
-				size: 10,
-				filter: JSON.stringify({
+				Page: 0,
+				Size: 10,
+				Filter: JSON.stringify({
 					name: valueObject.businessPartner?.Name,
 					c_bp_group: { name: valueObject.businessPartner?.C_BP_Group.Name },
 				}),
 			},
 		})
-	).data.C_BPartnerGet.results;
+	).data.C_BPartnerGet.Results;
 	expect(searchedBusinessPartners).toHaveLength(1);
 
 	const specificBusinessPartner = searchedBusinessPartners[0];
@@ -196,30 +196,30 @@ test(`get method returns the correct data`, async () => {
 		await query(valueObject)({
 			query: C_LocationGetDocument,
 			variables: {
-				page: 0,
-				size: 1,
-				filter: JSON.stringify({
+				Page: 0,
+				Size: 1,
+				Filter: JSON.stringify({
 					address1,
-					c_region: valueObject.region ? { c_region_uu: valueObject.region.UUID } : undefined,
-					c_country: valueObject.country ? { c_country_uu: valueObject.country.UUID } : undefined,
+					c_region: valueObject.region ? { c_region_uu: valueObject.region.UU } : undefined,
+					c_country: valueObject.country ? { c_country_uu: valueObject.country.UU } : undefined,
 				}),
 			},
 		})
-	).data.C_LocationGet.results[0];
+	).data.C_LocationGet.Results[0];
 	if (!existingLocation) {
 		existingLocation = (
 			await mutate(valueObject)({
 				mutation: C_LocationSaveDocument,
 				variables: {
-					entity: {
+					Entity: {
 						C_Region: valueObject.region
 							? {
-									UUID: valueObject.region.UUID,
+									UU: valueObject.region.UU,
 							  }
 							: undefined,
 						C_Country: valueObject.country
 							? {
-									UUID: valueObject.country.UUID,
+									UU: valueObject.country.UU,
 							  }
 							: undefined,
 						City: 'Test',
@@ -232,9 +232,9 @@ test(`get method returns the correct data`, async () => {
 	await mutate(valueObject)({
 		mutation: C_BPartner_LocationSaveDocument,
 		variables: {
-			entity: {
-				UUID: specificBusinessPartner.C_BPartner_Locations?.[0].UUID,
-				C_Location: { UUID: existingLocation.UUID },
+			Entity: {
+				UU: specificBusinessPartner.C_BPartner_Locations?.[0].UU,
+				C_Location: { UU: existingLocation.UU },
 			},
 		},
 	});
@@ -242,8 +242,8 @@ test(`get method returns the correct data`, async () => {
 		(
 			await query(valueObject)({
 				query: C_BPartnerGetDocument,
-				variables: { filter: JSON.stringify({ c_bpartner_uu: specificBusinessPartner.UUID }) },
+				variables: { Filter: JSON.stringify({ c_bpartner_uu: specificBusinessPartner.UU }) },
 			})
-		).data.C_BPartnerGet.results[0].C_BPartner_Locations?.[0].C_Location.Address1,
+		).data.C_BPartnerGet.Results[0].C_BPartner_Locations?.[0].C_Location.Address1,
 	).toBe(address1);
 });
