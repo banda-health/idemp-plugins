@@ -1,8 +1,8 @@
 -- 1. Add bh_concept_id column in bh_encounter_diagnosis table
 -- 2. Update the new bh_concept_id column to point to bh_concept table values.
 -- 3. Drop bh_coded_diagnosis_id column 
--- 4. Drop bh_coded_diagnosis table	
--- 5. Drop bh_coded_diagnosis_mapping table
+-- 4. Drop bh_coded_diagnosis_mapping table	
+-- 5. Drop bh_coded_diagnosis table
 -- 6. Update CodedDiagnosisSyncProcess to point to ConceptSyncProcess
 
 -- Step 1:
@@ -30,69 +30,7 @@ DELETE FROM AD_Column WHERE AD_Column_UU='65218da9-6835-4cda-a2d8-f275b313b1c4';
 ALTER TABLE BH_Encounter_Diagnosis DROP COLUMN BH_Coded_Diagnosis_ID; 
 
 -- Step 4:
-DROP TABLE BH_Coded_Diagnosis;
-DELETE
-FROM
-	ad_field
-WHERE
-		ad_column_id IN (
-		SELECT
-			ad_column_id
-		FROM
-			ad_column
-		WHERE
-				ad_table_id IN (
-				SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
-			)
-	);
-DELETE
-FROM
-	ad_ref_table
-WHERE
-		ad_table_id IN (
-		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
-	);
-DELETE
-FROM
-	ad_column
-WHERE
-		ad_table_id IN (
-		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
-	);
-DELETE
-FROM
-	ad_package_exp_detail
-WHERE
-		ad_table_id IN (
-		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
-	);
-DELETE
-FROM
-	ad_package_imp_detail
-WHERE
-		ad_table_id IN (
-		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
-	);
-DELETE
-FROM
-	ad_tab
-WHERE
-		ad_table_id IN (
-		SELECT
-			ad_table_id
-		FROM
-			ad_table
-		WHERE
-			LOWER(tablename) = 'bh_coded_diagnosis'
-	);
-DELETE
-FROM
-	ad_table
-WHERE
-	LOWER(tablename) = 'bh_coded_diagnosis';
-
--- Step 5:
-DROP TABLE BH_Coded_Diagnosis_Mapping;
+DROP TABLE BH_Coded_Diagnosis_Mapping CASCADE;
 DELETE
 FROM
 	ad_field
@@ -152,6 +90,68 @@ FROM
 	ad_table
 WHERE
 	LOWER(tablename) = 'bh_coded_diagnosis_mapping';
+	
+-- Step 5	
+DROP TABLE BH_Coded_Diagnosis CASCADE;
+DELETE
+FROM
+	ad_field
+WHERE
+		ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+				ad_table_id IN (
+				SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+			)
+	);
+DELETE
+FROM
+	ad_ref_table
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_column
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_package_imp_detail
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_tab
+WHERE
+		ad_table_id IN (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_table
+WHERE
+	LOWER(tablename) = 'bh_coded_diagnosis';
 
 -- Step 6:
 UPDATE AD_Process SET classname = 'org.bandahealth.idempiere.base.process.ConceptSyncProcess' WHERE AD_Process_UU='dc0a5369-1478-46ff-aef4-8bac662132b7';
