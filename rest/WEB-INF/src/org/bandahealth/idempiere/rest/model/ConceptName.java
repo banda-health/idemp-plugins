@@ -17,6 +17,8 @@ public class ConceptName extends BaseMetadata {
 	private String type;
 	private String nameType;
 	private String externalId;
+	private String name;
+	private boolean localePreferred;
 
 	public ConceptName() {
 	}
@@ -27,7 +29,9 @@ public class ConceptName extends BaseMetadata {
 		setLocale(entity.getBH_Concept_Locale());
 		setType(entity.getBH_Concept_Type());
 		setNameType(entity.getBH_Concept_Name_Type());
-		setExternalId(entity.getBH_External_ID());
+		setExternalId(entity.getBH_ExternalID());
+		setName(entity.getName());
+		setLocalePreferred(entity.isBH_Concept_Locale_Preferred());
 	}
 
 	public int getConceptId() {
@@ -68,5 +72,21 @@ public class ConceptName extends BaseMetadata {
 
 	public void setExternalId(String externalId) {
 		this.externalId = externalId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isLocalePreferred() {
+		return localePreferred;
+	}
+
+	public void setLocalePreferred(boolean localePreferred) {
+		this.localePreferred = localePreferred;
 	}
 }
