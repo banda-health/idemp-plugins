@@ -30,12 +30,128 @@ DELETE FROM AD_Column WHERE AD_Column_UU='65218da9-6835-4cda-a2d8-f275b313b1c4';
 ALTER TABLE BH_Encounter_Diagnosis DROP COLUMN BH_Coded_Diagnosis_ID; 
 
 -- Step 4:
-DELETE FROM AD_Table WHERE AD_Table_UU='c70f99ee-42b5-4a38-af7f-9260da3bb47a';
 DROP TABLE BH_Coded_Diagnosis;
+DELETE
+FROM
+	ad_field
+WHERE
+		ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+				ad_table_id IN (
+				SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+			)
+	);
+DELETE
+FROM
+	ad_ref_table
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_column
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_package_imp_detail
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_tab
+WHERE
+		ad_table_id IN (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			LOWER(tablename) = 'bh_coded_diagnosis'
+	);
+DELETE
+FROM
+	ad_table
+WHERE
+	LOWER(tablename) = 'bh_coded_diagnosis';
 
 -- Step 5:
-DELETE FROM AD_Table WHERE AD_Table_UU='13c3386a-e158-4d48-a74e-6a765a50bc0c';
 DROP TABLE BH_Coded_Diagnosis_Mapping;
+DELETE
+FROM
+	ad_field
+WHERE
+		ad_column_id IN (
+		SELECT
+			ad_column_id
+		FROM
+			ad_column
+		WHERE
+				ad_table_id IN (
+				SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis_mapping'
+			)
+	);
+DELETE
+FROM
+	ad_ref_table
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis_mapping'
+	);
+DELETE
+FROM
+	ad_column
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis_mapping'
+	);
+DELETE
+FROM
+	ad_package_exp_detail
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis_mapping'
+	);
+DELETE
+FROM
+	ad_package_imp_detail
+WHERE
+		ad_table_id IN (
+		SELECT ad_table_id FROM ad_table WHERE LOWER(tablename) = 'bh_coded_diagnosis_mapping'
+	);
+DELETE
+FROM
+	ad_tab
+WHERE
+		ad_table_id IN (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			LOWER(tablename) = 'bh_coded_diagnosis_mapping'
+	);
+DELETE
+FROM
+	ad_table
+WHERE
+	LOWER(tablename) = 'bh_coded_diagnosis_mapping';
 
 -- Step 6:
 UPDATE AD_Process SET classname = 'org.bandahealth.idempiere.base.process.ConceptSyncProcess' WHERE AD_Process_UU='dc0a5369-1478-46ff-aef4-8bac662132b7';
