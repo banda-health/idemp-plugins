@@ -6,7 +6,9 @@ import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_UserDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Voided_ReasonDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
@@ -24,6 +26,21 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLResolver<MBHVisit> {
 
+
+
+	/**
+	 * Get BH_Clinician_User_ID.
+	 *
+	 * @return BH_Clinician_User_ID
+	 */
+	public CompletableFuture<MUser_BH> BH_Clinician_User(MBHVisit entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Clinician_User_ID() <= 0) {
+			return null;
+		}
+		DataLoader<Integer, MUser_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_UserDataLoader.DATALOADER_AD_User_BY_ID);
+		return dataLoader.load(entity.getBH_Clinician_User_ID());
+	}
 
 	public Boolean BH_NewVisit(MBHVisit entity, DataFetchingEnvironment environment) {
 		return entity.isBH_NewVisit();

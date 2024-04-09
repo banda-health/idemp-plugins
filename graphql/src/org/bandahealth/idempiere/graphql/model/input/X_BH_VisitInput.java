@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -23,6 +24,7 @@ import java.sql.ResultSet;
 public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Clinician_User;
 	private ForeignEntityInput mBH_Voided_Reason;
 	private ForeignEntityInput mPatient;
 	private I_AD_Ref_ListInput mBH_PatientType;
@@ -76,6 +78,40 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+
+	/**
+	 * Set BH_Clinician_User_ID.
+	 *
+	 * @param BH_Clinician_User BH_Clinician_User_ID
+	 */
+	@JsonProperty("BH_Clinician_User")
+	public void setBH_Clinician_UserInput(ForeignEntityInput BH_Clinician_User) {
+		this.mBH_Clinician_User = BH_Clinician_User;
+		if (BH_Clinician_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(BH_Clinician_User.getUUID()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_Clinician_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UUID " + BH_Clinician_User.getUUID());
+			}
+		} else {
+			this.setBH_Clinician_User_ID(0);
+		}
+	}
+
+	/**
+	 * Get BH_Clinician_User_ID.
+	 *
+	 * @return BH_Clinician_User_ID
+	 */
+	@JsonProperty("BH_Clinician_User")
+	public ForeignEntityInput BH_Clinician_User() {
+		return mBH_Clinician_User;
 	}
 
 	/**

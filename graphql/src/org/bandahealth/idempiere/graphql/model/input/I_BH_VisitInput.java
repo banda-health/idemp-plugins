@@ -25,6 +25,20 @@ public interface I_BH_VisitInput extends I_BH_Visit {
 	ForeignEntityInput AD_Org();
 
 	/**
+	 * Set BH_Clinician_User.
+	 *
+	 * @param BH_Clinician_User BH_Clinician_User_ID
+	 */
+	void setBH_Clinician_UserInput(ForeignEntityInput BH_Clinician_User);
+
+	/**
+	 * Get BH_Clinician_User.
+	 *
+	 * @return BH_Clinician_User_ID
+	 */
+	ForeignEntityInput BH_Clinician_User();
+
+	/**
 	 * Set BH_PatientType.
 	 *
 	 * @param BH_PatientType BH_PatientType

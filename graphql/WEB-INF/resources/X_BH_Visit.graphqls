@@ -21,6 +21,8 @@ type BH_Visit {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	# BH_Clinician_User_ID
+	BH_Clinician_User: AD_User
 	BH_NewVisit: Boolean!
 	BH_PatientType: AD_Ref_List
 	# Drop down field in visits for users to define the process stage
@@ -52,6 +54,8 @@ type BH_Visit {
 input BH_VisitInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	# BH_Clinician_User_ID
+	BH_Clinician_User: ForeignEntityInput
 	BH_NewVisit: Boolean
 	BH_PatientType: AD_Ref_ListInput
 	# Drop down field in visits for users to define the process stage

@@ -45,6 +45,15 @@ SET
 WHERE
 	ad_column_uu IN ('69734631-bd60-4d59-b3d7-6104527a00e7');
 
+-- Update the clinician user column so that it gets generated correctly
+UPDATE ad_column
+SET
+	ad_reference_id       = 18,
+	ad_reference_value_id = 110
+WHERE
+	ad_column_uu = '1aa5d014-0270-451b-a902-50862bd3338a';
+
+-- Insert the generator template stuff
 CREATE TABLE BH_GraphQLGeneratorTemplate
 (
 	AD_Client_ID                   NUMERIC(10) NOT NULL,
