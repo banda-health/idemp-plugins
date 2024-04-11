@@ -102,9 +102,9 @@ export class ValueObject {
 	constructor(
 		private loginInfo: SignInQuery['SignIn'] & {
 			AD_Client: SignInQuery['SignIn']['AD_Clients'][0];
-			organizationId?: string | null;
-			roleId?: string | null;
-			warehouseId?: string | null;
+			AD_Org_UU?: string | null;
+			AD_Role_UU?: string | null;
+			M_Warehouse_UU?: string | null;
 		},
 	) {
 		this.prepareIt(loginInfo);
@@ -113,15 +113,15 @@ export class ValueObject {
 	private prepareIt(
 		loginInfo: SignInQuery['SignIn'] & {
 			AD_Client: SignInQuery['SignIn']['AD_Clients'][0];
-			organizationUuid?: string | null;
-			roleUuid?: string | null;
-			warehouseUuid?: string | null;
+			AD_Org_UU?: string | null;
+			AD_Role_UU?: string | null;
+			M_Warehouse_UU?: string | null;
 		},
 	) {
 		this.client = loginInfo.AD_Client;
-		this.organization = this.client?.AD_Orgs.find((organization) => organization.UU === loginInfo.organizationUuid);
-		this.role = this.organization?.AD_Roles?.find((role) => role.UU === loginInfo.roleUuid);
-		this.warehouse = this.organization?.M_Warehouses?.find((warehouse) => warehouse.UU === loginInfo.warehouseUuid);
+		this.organization = this.client?.AD_Orgs.find((organization) => organization.UU === loginInfo.AD_Org_UU);
+		this.role = this.organization?.AD_Roles?.find((role) => role.UU === loginInfo.AD_Role_UU);
+		this.warehouse = this.organization?.M_Warehouses?.find((warehouse) => warehouse.UU === loginInfo.M_Warehouse_UU);
 		this.sessionToken = loginInfo.Token || undefined;
 
 		this.date = new Date();
