@@ -25,7 +25,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Task;
 	private ForeignEntityInput mASP_Level;
-	private I_AD_Ref_ListInput mASP_Status;
+	private ForeignEntityInput mASP_Status;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -156,7 +156,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	 * @param ASP_Status ASP Status
 	 */
 	@JsonProperty("ASP_Status")
-	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
+	public void setASP_StatusInput(ForeignEntityInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
 		if (ASP_Status != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -180,7 +180,7 @@ public class X_ASP_TaskInput extends X_ASP_Task implements I_ASP_TaskInput {
 	 * @return ASP Status
 	 */
 	@JsonProperty("ASP_Status")
-	public I_AD_Ref_ListInput ASP_Status() {
+	public ForeignEntityInput ASP_Status() {
 		return mASP_Status;
 	}
 	/**

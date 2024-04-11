@@ -11,7 +11,7 @@ public class MBankStatementMatcherInput extends X_C_BankStatementMatcherInput {
 	 * @param UUID The C_BankStatementMatcher_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBankStatementMatcherInput(@JsonProperty("UUID") String UUID) {
+	public MBankStatementMatcherInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

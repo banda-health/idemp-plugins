@@ -11,7 +11,7 @@ public class MCashPlanInput extends X_C_CashPlanInput {
 	 * @param UUID The C_CashPlan_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCashPlanInput(@JsonProperty("UUID") String UUID) {
+	public MCashPlanInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

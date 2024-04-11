@@ -27,7 +27,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mAD_User;
-	private I_AD_Ref_ListInput mResponsibleType;
+	private ForeignEntityInput mResponsibleType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -215,7 +215,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @param ResponsibleType Type of the Responsibility for a workflow
 	 */
 	@JsonProperty("ResponsibleType")
-	public void setResponsibleTypeInput(I_AD_Ref_ListInput ResponsibleType) {
+	public void setResponsibleTypeInput(ForeignEntityInput ResponsibleType) {
 		this.mResponsibleType = ResponsibleType;
 		if (ResponsibleType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -239,7 +239,7 @@ public class X_AD_WF_ResponsibleInput extends X_AD_WF_Responsible implements I_A
 	 * @return Type of the Responsibility for a workflow
 	 */
 	@JsonProperty("ResponsibleType")
-	public I_AD_Ref_ListInput ResponsibleType() {
+	public ForeignEntityInput ResponsibleType() {
 		return mResponsibleType;
 	}
 }

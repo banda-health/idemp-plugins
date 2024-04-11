@@ -67,7 +67,7 @@ input AD_PreferenceInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Type of preference, it can window, info window or parameter process
-	PreferenceFor: AD_Ref_ListInput
+	PreferenceFor: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

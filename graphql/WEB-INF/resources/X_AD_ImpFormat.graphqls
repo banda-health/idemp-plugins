@@ -53,7 +53,7 @@ input AD_ImpFormatInput {
 	# Optional short description of the record
 	Description: String
 	# Format of the data
-	FormatType: AD_Ref_ListInput
+	FormatType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

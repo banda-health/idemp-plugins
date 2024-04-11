@@ -27,18 +27,18 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_ConversionType;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mFrom_C_BPartner;
 	private ForeignEntityInput mFrom_C_BankAccount;
 	private ForeignEntityInput mFrom_C_Charge;
 	private ForeignEntityInput mFrom_C_Currency;
+	private ForeignEntityInput mFrom_TenderType;
 	private ForeignEntityInput mTo_C_BPartner;
 	private ForeignEntityInput mTo_C_BankAccount;
 	private ForeignEntityInput mTo_C_Charge;
 	private ForeignEntityInput mTo_C_Currency;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mFrom_TenderType;
-	private I_AD_Ref_ListInput mTo_TenderType;
+	private ForeignEntityInput mTo_TenderType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -158,7 +158,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -182,7 +182,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -192,7 +192,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -216,7 +216,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 
@@ -362,7 +362,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @param From_TenderType From Tender Type
 	 */
 	@JsonProperty("From_TenderType")
-	public void setFrom_TenderTypeInput(I_AD_Ref_ListInput From_TenderType) {
+	public void setFrom_TenderTypeInput(ForeignEntityInput From_TenderType) {
 		this.mFrom_TenderType = From_TenderType;
 		if (From_TenderType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -386,7 +386,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @return From Tender Type
 	 */
 	@JsonProperty("From_TenderType")
-	public I_AD_Ref_ListInput From_TenderType() {
+	public ForeignEntityInput From_TenderType() {
 		return mFrom_TenderType;
 	}
 
@@ -532,7 +532,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @param To_TenderType To Tender Type
 	 */
 	@JsonProperty("To_TenderType")
-	public void setTo_TenderTypeInput(I_AD_Ref_ListInput To_TenderType) {
+	public void setTo_TenderTypeInput(ForeignEntityInput To_TenderType) {
 		this.mTo_TenderType = To_TenderType;
 		if (To_TenderType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -556,7 +556,7 @@ public class X_C_BankTransferInput extends MBankTransfer implements I_C_BankTran
 	 * @return To Tender Type
 	 */
 	@JsonProperty("To_TenderType")
-	public I_AD_Ref_ListInput To_TenderType() {
+	public ForeignEntityInput To_TenderType() {
 		return mTo_TenderType;
 	}
 }

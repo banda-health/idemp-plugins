@@ -11,7 +11,7 @@ public class MStatusLineInput extends X_AD_StatusLineInput {
 	 * @param UUID The AD_StatusLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStatusLineInput(@JsonProperty("UUID") String UUID) {
+	public MStatusLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

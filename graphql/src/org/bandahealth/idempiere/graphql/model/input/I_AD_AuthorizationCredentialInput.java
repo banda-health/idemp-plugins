@@ -43,14 +43,14 @@ public interface I_AD_AuthorizationCredentialInput extends I_AD_AuthorizationCre
 	 *
 	 * @param AD_AuthorizationScopeList AD_AuthorizationScopeList
 	 */
-	void setAD_AuthorizationScopeListInput(I_AD_Ref_ListInput AD_AuthorizationScopeList);
+	void setAD_AuthorizationScopeListInput(ForeignEntityInput AD_AuthorizationScopeList);
 
 	/**
 	 * Get AD_AuthorizationScopeList.
 	 *
 	 * @return AD_AuthorizationScopeList
 	 */
-	I_AD_Ref_ListInput AD_AuthorizationScopeList();
+	ForeignEntityInput AD_AuthorizationScopeList();
 
 	/**
 	 * Set AD_Org.

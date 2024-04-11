@@ -155,28 +155,28 @@ public interface I_C_TaxInput extends I_C_Tax {
 	 *
 	 * @param SOPOType Sales Tax applies to sales situations, Purchase Tax to purchase situations
 	 */
-	void setSOPOTypeInput(I_AD_Ref_ListInput SOPOType);
+	void setSOPOTypeInput(ForeignEntityInput SOPOType);
 
 	/**
 	 * Get SOPOType.
 	 *
 	 * @return Sales Tax applies to sales situations, Purchase Tax to purchase situations
 	 */
-	I_AD_Ref_ListInput SOPOType();
+	ForeignEntityInput SOPOType();
 
 	/**
 	 * Set TaxPostingIndicator.
 	 *
 	 * @param TaxPostingIndicator Type of input tax (deductible and non deductible)
 	 */
-	void setTaxPostingIndicatorInput(I_AD_Ref_ListInput TaxPostingIndicator);
+	void setTaxPostingIndicatorInput(ForeignEntityInput TaxPostingIndicator);
 
 	/**
 	 * Get TaxPostingIndicator.
 	 *
 	 * @return Type of input tax (deductible and non deductible)
 	 */
-	I_AD_Ref_ListInput TaxPostingIndicator();
+	ForeignEntityInput TaxPostingIndicator();
 
 	/**
 	 * Set To_Region.

@@ -27,11 +27,11 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_UserDef_Win;
-	private I_AD_Ref_ListInput mIsAllowAdvancedLookup;
-	private I_AD_Ref_ListInput mIsHighVolume;
-	private I_AD_Ref_ListInput mIsLookupOnlySelection;
-	private I_AD_Ref_ListInput mIsReadOnly;
-	private I_AD_Ref_ListInput mIsSingleRow;
+	private ForeignEntityInput mIsAllowAdvancedLookup;
+	private ForeignEntityInput mIsHighVolume;
+	private ForeignEntityInput mIsLookupOnlySelection;
+	private ForeignEntityInput mIsReadOnly;
+	private ForeignEntityInput mIsSingleRow;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -225,7 +225,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @param IsAllowAdvancedLookup Allow Advanced Lookup
 	 */
 	@JsonProperty("IsAllowAdvancedLookup")
-	public void setIsAllowAdvancedLookupInput(I_AD_Ref_ListInput IsAllowAdvancedLookup) {
+	public void setIsAllowAdvancedLookupInput(ForeignEntityInput IsAllowAdvancedLookup) {
 		this.mIsAllowAdvancedLookup = IsAllowAdvancedLookup;
 		if (IsAllowAdvancedLookup != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -249,7 +249,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @return Allow Advanced Lookup
 	 */
 	@JsonProperty("IsAllowAdvancedLookup")
-	public I_AD_Ref_ListInput IsAllowAdvancedLookup() {
+	public ForeignEntityInput IsAllowAdvancedLookup() {
 		return mIsAllowAdvancedLookup;
 	}
 
@@ -259,7 +259,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @param IsHighVolume Use Search instead of Pick list
 	 */
 	@JsonProperty("IsHighVolume")
-	public void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume) {
+	public void setIsHighVolumeInput(ForeignEntityInput IsHighVolume) {
 		this.mIsHighVolume = IsHighVolume;
 		if (IsHighVolume != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -283,7 +283,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @return Use Search instead of Pick list
 	 */
 	@JsonProperty("IsHighVolume")
-	public I_AD_Ref_ListInput IsHighVolume() {
+	public ForeignEntityInput IsHighVolume() {
 		return mIsHighVolume;
 	}
 
@@ -293,7 +293,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @param IsLookupOnlySelection When defined to true Lookup panel will display only selection columns. Default to false.
 	 */
 	@JsonProperty("IsLookupOnlySelection")
-	public void setIsLookupOnlySelectionInput(I_AD_Ref_ListInput IsLookupOnlySelection) {
+	public void setIsLookupOnlySelectionInput(ForeignEntityInput IsLookupOnlySelection) {
 		this.mIsLookupOnlySelection = IsLookupOnlySelection;
 		if (IsLookupOnlySelection != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -317,7 +317,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @return When defined to true Lookup panel will display only selection columns. Default to false.
 	 */
 	@JsonProperty("IsLookupOnlySelection")
-	public I_AD_Ref_ListInput IsLookupOnlySelection() {
+	public ForeignEntityInput IsLookupOnlySelection() {
 		return mIsLookupOnlySelection;
 	}
 
@@ -327,7 +327,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @param IsReadOnly Field is read only
 	 */
 	@JsonProperty("IsReadOnly")
-	public void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly) {
+	public void setIsReadOnlyInput(ForeignEntityInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
 		if (IsReadOnly != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -351,7 +351,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @return Field is read only
 	 */
 	@JsonProperty("IsReadOnly")
-	public I_AD_Ref_ListInput IsReadOnly() {
+	public ForeignEntityInput IsReadOnly() {
 		return mIsReadOnly;
 	}
 
@@ -361,7 +361,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @param IsSingleRow Default for toggle between Single- and Multi-Row (Grid) Layout
 	 */
 	@JsonProperty("IsSingleRow")
-	public void setIsSingleRowInput(I_AD_Ref_ListInput IsSingleRow) {
+	public void setIsSingleRowInput(ForeignEntityInput IsSingleRow) {
 		this.mIsSingleRow = IsSingleRow;
 		if (IsSingleRow != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -385,7 +385,7 @@ public class X_AD_UserDef_TabInput extends MUserDefTab implements I_AD_UserDef_T
 	 * @return Default for toggle between Single- and Multi-Row (Grid) Layout
 	 */
 	@JsonProperty("IsSingleRow")
-	public I_AD_Ref_ListInput IsSingleRow() {
+	public ForeignEntityInput IsSingleRow() {
 		return mIsSingleRow;
 	}
 }

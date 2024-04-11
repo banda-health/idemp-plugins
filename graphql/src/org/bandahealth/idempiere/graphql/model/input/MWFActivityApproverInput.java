@@ -11,7 +11,7 @@ public class MWFActivityApproverInput extends X_AD_WF_ActivityApproverInput {
 	 * @param UUID The AD_WF_ActivityApprover_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MWFActivityApproverInput(@JsonProperty("UUID") String UUID) {
+	public MWFActivityApproverInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

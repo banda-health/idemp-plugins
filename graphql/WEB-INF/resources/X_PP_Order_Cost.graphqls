@@ -70,7 +70,7 @@ input PP_Order_CostInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_ListInput
+	CostingMethod: ForeignEntityInput
 	# Total Amount
 	CumulatedAmt: BigDecimal
 	CumulatedAmtPost: BigDecimal

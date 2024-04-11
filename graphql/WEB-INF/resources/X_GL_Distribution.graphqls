@@ -174,7 +174,7 @@ input GL_DistributionInput {
 	# Sum of the Percent details 
 	PercentTotal: BigDecimal
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	Processing: Boolean
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int

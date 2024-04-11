@@ -25,9 +25,9 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
 	private ForeignEntityInput mA_Asset_To;
+	private ForeignEntityInput mA_Split_Type;
 	private ForeignEntityInput mC_Period;
-	private I_AD_Ref_ListInput mA_Split_Type;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -155,7 +155,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @param A_Split_Type Split Type
 	 */
 	@JsonProperty("A_Split_Type")
-	public void setA_Split_TypeInput(I_AD_Ref_ListInput A_Split_Type) {
+	public void setA_Split_TypeInput(ForeignEntityInput A_Split_Type) {
 		this.mA_Split_Type = A_Split_Type;
 		if (A_Split_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -179,7 +179,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @return Split Type
 	 */
 	@JsonProperty("A_Split_Type")
-	public I_AD_Ref_ListInput A_Split_Type() {
+	public ForeignEntityInput A_Split_Type() {
 		return mA_Split_Type;
 	}
 
@@ -260,7 +260,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (get_ID() != 0) {
 			return;
@@ -287,7 +287,7 @@ public class X_A_Asset_SplitInput extends X_A_Asset_Split implements I_A_Asset_S
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

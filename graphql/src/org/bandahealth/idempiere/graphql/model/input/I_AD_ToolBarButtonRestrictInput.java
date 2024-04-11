@@ -15,14 +15,14 @@ public interface I_AD_ToolBarButtonRestrictInput extends I_AD_ToolBarButtonRestr
 	 *
 	 * @param Action Indicates the Action to be performed
 	 */
-	void setActionInput(I_AD_Ref_ListInput Action);
+	void setActionInput(ForeignEntityInput Action);
 
 	/**
 	 * Get Action.
 	 *
 	 * @return Indicates the Action to be performed
 	 */
-	I_AD_Ref_ListInput Action();
+	ForeignEntityInput Action();
 
 	/**
 	 * Set AD_Org.

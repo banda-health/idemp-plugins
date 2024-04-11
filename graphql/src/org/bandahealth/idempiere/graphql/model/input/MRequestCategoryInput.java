@@ -11,7 +11,7 @@ public class MRequestCategoryInput extends X_R_CategoryInput {
 	 * @param UUID The R_Category_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRequestCategoryInput(@JsonProperty("UUID") String UUID) {
+	public MRequestCategoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -25,7 +25,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_ViewComponent;
-	private I_AD_Ref_ListInput mDBDataType;
+	private ForeignEntityInput mDBDataType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -148,7 +148,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 	 * @param DBDataType Database Data Type
 	 */
 	@JsonProperty("DBDataType")
-	public void setDBDataTypeInput(I_AD_Ref_ListInput DBDataType) {
+	public void setDBDataTypeInput(ForeignEntityInput DBDataType) {
 		this.mDBDataType = DBDataType;
 		if (DBDataType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -172,7 +172,7 @@ public class X_AD_ViewColumnInput extends MViewColumn implements I_AD_ViewColumn
 	 * @return Database Data Type
 	 */
 	@JsonProperty("DBDataType")
-	public I_AD_Ref_ListInput DBDataType() {
+	public ForeignEntityInput DBDataType() {
 		return mDBDataType;
 	}
 

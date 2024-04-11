@@ -60,13 +60,13 @@ input AD_WF_NextConditionInput {
 	# Workflow Node Transition
 	AD_WF_NodeNext: ForeignEntityInput
 	# Logical operation: AND or OR
-	AndOr: AD_Ref_ListInput
+	AndOr: ForeignEntityInput
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Compare Operation
-	Operation: AD_Ref_ListInput
+	Operation: ForeignEntityInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	SQLStatement: String

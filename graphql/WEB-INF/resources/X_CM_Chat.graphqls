@@ -53,11 +53,11 @@ input CM_ChatInput {
 	# Type of discussion / chat
 	CM_ChatType: ForeignEntityInput
 	# Type of Confidentiality
-	ConfidentialType: AD_Ref_ListInput
+	ConfidentialType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Type of moderation
-	ModerationType: AD_Ref_ListInput
+	ModerationType: ForeignEntityInput
 }

@@ -23,7 +23,7 @@ public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mType;
+	private ForeignEntityInput mType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -143,7 +143,7 @@ public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public void setTypeInput(I_AD_Ref_ListInput Type) {
+	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_AD_Val_RuleInput extends MValRule implements I_AD_Val_RuleInput {
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public I_AD_Ref_ListInput Type() {
+	public ForeignEntityInput Type() {
 		return mType;
 	}
 }

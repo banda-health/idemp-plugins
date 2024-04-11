@@ -57,12 +57,12 @@ public interface I_C_PayScheduleInput extends I_C_PaySchedule {
 	 *
 	 * @param NetDay Day when payment is due net
 	 */
-	void setNetDayInput(I_AD_Ref_ListInput NetDay);
+	void setNetDayInput(ForeignEntityInput NetDay);
 
 	/**
 	 * Get NetDay.
 	 *
 	 * @return Day when payment is due net
 	 */
-	I_AD_Ref_ListInput NetDay();
+	ForeignEntityInput NetDay();
 }

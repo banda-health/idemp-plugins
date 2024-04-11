@@ -43,40 +43,40 @@ public interface I_A_Asset_TypeInput extends I_A_Asset_Type {
 	 *
 	 * @param IsDepreciable This asset CAN be depreciated
 	 */
-	void setIsDepreciableInput(I_AD_Ref_ListInput IsDepreciable);
+	void setIsDepreciableInput(ForeignEntityInput IsDepreciable);
 
 	/**
 	 * Get IsDepreciable.
 	 *
 	 * @return This asset CAN be depreciated
 	 */
-	I_AD_Ref_ListInput IsDepreciable();
+	ForeignEntityInput IsDepreciable();
 
 	/**
 	 * Set IsInPosession.
 	 *
 	 * @param IsInPosession The asset is in the possession of the organization
 	 */
-	void setIsInPosessionInput(I_AD_Ref_ListInput IsInPosession);
+	void setIsInPosessionInput(ForeignEntityInput IsInPosession);
 
 	/**
 	 * Get IsInPosession.
 	 *
 	 * @return The asset is in the possession of the organization
 	 */
-	I_AD_Ref_ListInput IsInPosession();
+	ForeignEntityInput IsInPosession();
 
 	/**
 	 * Set IsOwned.
 	 *
 	 * @param IsOwned The asset is owned by the organization
 	 */
-	void setIsOwnedInput(I_AD_Ref_ListInput IsOwned);
+	void setIsOwnedInput(ForeignEntityInput IsOwned);
 
 	/**
 	 * Get IsOwned.
 	 *
 	 * @return The asset is owned by the organization
 	 */
-	I_AD_Ref_ListInput IsOwned();
+	ForeignEntityInput IsOwned();
 }

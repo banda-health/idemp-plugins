@@ -83,14 +83,14 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param bh_gender bh_gender
 	 */
-	void setbh_genderInput(I_AD_Ref_ListInput bh_gender);
+	void setbh_genderInput(ForeignEntityInput bh_gender);
 
 	/**
 	 * Get bh_gender.
 	 *
 	 * @return bh_gender
 	 */
-	I_AD_Ref_ListInput bh_gender();
+	ForeignEntityInput bh_gender();
 
 	/**
 	 * Column name BH_IsApproximateDateOfBirth
@@ -361,42 +361,42 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
-	void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule);
+	void setDeliveryRuleInput(ForeignEntityInput DeliveryRule);
 
 	/**
 	 * Get DeliveryRule.
 	 *
 	 * @return Defines the timing of Delivery
 	 */
-	I_AD_Ref_ListInput DeliveryRule();
+	ForeignEntityInput DeliveryRule();
 
 	/**
 	 * Set DeliveryViaRule.
 	 *
 	 * @param DeliveryViaRule How the order will be delivered
 	 */
-	void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule);
+	void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule);
 
 	/**
 	 * Get DeliveryViaRule.
 	 *
 	 * @return How the order will be delivered
 	 */
-	I_AD_Ref_ListInput DeliveryViaRule();
+	ForeignEntityInput DeliveryViaRule();
 
 	/**
 	 * Set FreightCostRule.
 	 *
 	 * @param FreightCostRule Method for charging Freight
 	 */
-	void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule);
+	void setFreightCostRuleInput(ForeignEntityInput FreightCostRule);
 
 	/**
 	 * Get FreightCostRule.
 	 *
 	 * @return Method for charging Freight
 	 */
-	I_AD_Ref_ListInput FreightCostRule();
+	ForeignEntityInput FreightCostRule();
 
 	/**
 	 * Set Invoice_PrintFormat.
@@ -417,14 +417,14 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param InvoiceRule Frequency and method of invoicing 
 	 */
-	void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule);
+	void setInvoiceRuleInput(ForeignEntityInput InvoiceRule);
 
 	/**
 	 * Get InvoiceRule.
 	 *
 	 * @return Frequency and method of invoicing 
 	 */
-	I_AD_Ref_ListInput InvoiceRule();
+	ForeignEntityInput InvoiceRule();
 
 	/**
 	 * Set Logo.
@@ -530,28 +530,28 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param PaymentRule How you pay the invoice
 	 */
-	void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule);
+	void setPaymentRuleInput(ForeignEntityInput PaymentRule);
 
 	/**
 	 * Get PaymentRule.
 	 *
 	 * @return How you pay the invoice
 	 */
-	I_AD_Ref_ListInput PaymentRule();
+	ForeignEntityInput PaymentRule();
 
 	/**
 	 * Set PaymentRulePO.
 	 *
 	 * @param PaymentRulePO Purchase payment option
 	 */
-	void setPaymentRulePOInput(I_AD_Ref_ListInput PaymentRulePO);
+	void setPaymentRulePOInput(ForeignEntityInput PaymentRulePO);
 
 	/**
 	 * Get PaymentRulePO.
 	 *
 	 * @return Purchase payment option
 	 */
-	I_AD_Ref_ListInput PaymentRulePO();
+	ForeignEntityInput PaymentRulePO();
 
 	/**
 	 * Set PO_DiscountSchema.
@@ -614,12 +614,12 @@ public interface I_C_BPartnerInput extends I_C_BPartner {
 	 *
 	 * @param SOCreditStatus Business Partner Credit Status
 	 */
-	void setSOCreditStatusInput(I_AD_Ref_ListInput SOCreditStatus);
+	void setSOCreditStatusInput(ForeignEntityInput SOCreditStatus);
 
 	/**
 	 * Get SOCreditStatus.
 	 *
 	 * @return Business Partner Credit Status
 	 */
-	I_AD_Ref_ListInput SOCreditStatus();
+	ForeignEntityInput SOCreditStatus();
 }

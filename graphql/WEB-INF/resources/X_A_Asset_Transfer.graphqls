@@ -94,7 +94,7 @@ input A_Asset_TransferInput {
 	A_Asset: ForeignEntityInput
 	A_Asset_New_A: ForeignEntityInput
 	UU: ID
-	A_CapvsExp: AD_Ref_ListInput
+	A_CapvsExp: ForeignEntityInput
 	A_Depreciation_A: ForeignEntityInput
 	A_Depreciation_Acct_Str: String
 	A_Depreciation_New_A: ForeignEntityInput
@@ -122,9 +122,9 @@ input A_Asset_TransferInput {
 	# Date of the Document
 	DateDoc: Date
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -132,7 +132,7 @@ input A_Asset_TransferInput {
 	# Posting status
 	Posted: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

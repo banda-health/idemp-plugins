@@ -38,6 +38,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mAction;
 	private ForeignEntityInput mBill_Location;
 	private ForeignEntityInput mC_BP_ShippingAcct;
 	private ForeignEntityInput mC_BPartner;
@@ -47,7 +48,13 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	private ForeignEntityInput mC_Order;
 	private ForeignEntityInput mC_UOM_Length;
 	private ForeignEntityInput mC_UOM_Weight;
+	private ForeignEntityInput mDeliveryConfirmationType;
+	private ForeignEntityInput mDotHazardClassOrDivision;
+	private ForeignEntityInput mFOB;
+	private ForeignEntityInput mFreightCharges;
 	private ForeignEntityInput mHoldAddress;
+	private ForeignEntityInput mHomeDeliveryPremiumType;
+	private ForeignEntityInput mInsurance;
 	private ForeignEntityInput mM_InOut;
 	private ForeignEntityInput mM_Package;
 	private ForeignEntityInput mM_Shipper;
@@ -56,19 +63,12 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	private ForeignEntityInput mM_ShipperPickupTypes;
 	private ForeignEntityInput mM_ShippingProcessor;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mNotificationType;
+	private ForeignEntityInput mPaymentRule;
 	private ForeignEntityInput mReturnBPartner;
 	private ForeignEntityInput mReturnLocation;
 	private ForeignEntityInput mReturnUser;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mAction;
-	private I_AD_Ref_ListInput mDeliveryConfirmationType;
-	private I_AD_Ref_ListInput mDotHazardClassOrDivision;
-	private I_AD_Ref_ListInput mFOB;
-	private I_AD_Ref_ListInput mFreightCharges;
-	private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
-	private I_AD_Ref_ListInput mInsurance;
-	private I_AD_Ref_ListInput mNotificationType;
-	private I_AD_Ref_ListInput mPaymentRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -88,7 +88,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param Action Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public void setActionInput(I_AD_Ref_ListInput Action) {
+	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -112,7 +112,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public I_AD_Ref_ListInput Action() {
+	public ForeignEntityInput Action() {
 		return mAction;
 	}
 
@@ -499,7 +499,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param DeliveryConfirmationType Delivery Confirmation Type
 	 */
 	@JsonProperty("DeliveryConfirmationType")
-	public void setDeliveryConfirmationTypeInput(I_AD_Ref_ListInput DeliveryConfirmationType) {
+	public void setDeliveryConfirmationTypeInput(ForeignEntityInput DeliveryConfirmationType) {
 		this.mDeliveryConfirmationType = DeliveryConfirmationType;
 		if (DeliveryConfirmationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -523,7 +523,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Delivery Confirmation Type
 	 */
 	@JsonProperty("DeliveryConfirmationType")
-	public I_AD_Ref_ListInput DeliveryConfirmationType() {
+	public ForeignEntityInput DeliveryConfirmationType() {
 		return mDeliveryConfirmationType;
 	}
 
@@ -533,7 +533,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param DotHazardClassOrDivision Dot Hazard Class or Division
 	 */
 	@JsonProperty("DotHazardClassOrDivision")
-	public void setDotHazardClassOrDivisionInput(I_AD_Ref_ListInput DotHazardClassOrDivision) {
+	public void setDotHazardClassOrDivisionInput(ForeignEntityInput DotHazardClassOrDivision) {
 		this.mDotHazardClassOrDivision = DotHazardClassOrDivision;
 		if (DotHazardClassOrDivision != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -557,7 +557,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Dot Hazard Class or Division
 	 */
 	@JsonProperty("DotHazardClassOrDivision")
-	public I_AD_Ref_ListInput DotHazardClassOrDivision() {
+	public ForeignEntityInput DotHazardClassOrDivision() {
 		return mDotHazardClassOrDivision;
 	}
 
@@ -567,7 +567,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param FOB Freight Terms
 	 */
 	@JsonProperty("FOB")
-	public void setFOBInput(I_AD_Ref_ListInput FOB) {
+	public void setFOBInput(ForeignEntityInput FOB) {
 		this.mFOB = FOB;
 		if (get_ID() != 0) {
 			return;
@@ -594,7 +594,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Freight Terms
 	 */
 	@JsonProperty("FOB")
-	public I_AD_Ref_ListInput FOB() {
+	public ForeignEntityInput FOB() {
 		return mFOB;
 	}
 
@@ -604,7 +604,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param FreightCharges Freight Charges
 	 */
 	@JsonProperty("FreightCharges")
-	public void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges) {
+	public void setFreightChargesInput(ForeignEntityInput FreightCharges) {
 		this.mFreightCharges = FreightCharges;
 		if (get_ID() != 0) {
 			return;
@@ -631,7 +631,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Freight Charges
 	 */
 	@JsonProperty("FreightCharges")
-	public I_AD_Ref_ListInput FreightCharges() {
+	public ForeignEntityInput FreightCharges() {
 		return mFreightCharges;
 	}
 
@@ -675,7 +675,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param HomeDeliveryPremiumType Home Delivery Premium Type
 	 */
 	@JsonProperty("HomeDeliveryPremiumType")
-	public void setHomeDeliveryPremiumTypeInput(I_AD_Ref_ListInput HomeDeliveryPremiumType) {
+	public void setHomeDeliveryPremiumTypeInput(ForeignEntityInput HomeDeliveryPremiumType) {
 		this.mHomeDeliveryPremiumType = HomeDeliveryPremiumType;
 		if (HomeDeliveryPremiumType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -699,7 +699,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Home Delivery Premium Type
 	 */
 	@JsonProperty("HomeDeliveryPremiumType")
-	public I_AD_Ref_ListInput HomeDeliveryPremiumType() {
+	public ForeignEntityInput HomeDeliveryPremiumType() {
 		return mHomeDeliveryPremiumType;
 	}
 
@@ -709,7 +709,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param Insurance Insurance
 	 */
 	@JsonProperty("Insurance")
-	public void setInsuranceInput(I_AD_Ref_ListInput Insurance) {
+	public void setInsuranceInput(ForeignEntityInput Insurance) {
 		this.mInsurance = Insurance;
 		if (get_ID() != 0) {
 			return;
@@ -736,7 +736,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Insurance
 	 */
 	@JsonProperty("Insurance")
-	public I_AD_Ref_ListInput Insurance() {
+	public ForeignEntityInput Insurance() {
 		return mInsurance;
 	}
 
@@ -1053,7 +1053,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param NotificationType Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
+	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (NotificationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1077,7 +1077,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public I_AD_Ref_ListInput NotificationType() {
+	public ForeignEntityInput NotificationType() {
 		return mNotificationType;
 	}
 
@@ -1087,7 +1087,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @param PaymentRule How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (PaymentRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1111,7 +1111,7 @@ public class X_M_ShippingTransactionInput extends MShippingTransaction implement
 	 * @return How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public I_AD_Ref_ListInput PaymentRule() {
+	public ForeignEntityInput PaymentRule() {
 		return mPaymentRule;
 	}
 

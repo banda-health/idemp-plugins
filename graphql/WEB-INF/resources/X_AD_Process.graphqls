@@ -82,7 +82,7 @@ type AD_Process {
 
 input AD_ProcessInput {
 	# Access Level required
-	AccessLevel: AD_Ref_ListInput
+	AccessLevel: ForeignEntityInput
 	AD_CtxHelp: ForeignEntityInput
 	# Special Form
 	AD_Form: ForeignEntityInput
@@ -96,7 +96,7 @@ input AD_ProcessInput {
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
 	# Allow or disallow executing a process/report multiple times concurrently
-	AllowMultipleExecution: AD_Ref_ListInput
+	AllowMultipleExecution: ForeignEntityInput
 	# Java Classname
 	Classname: String
 	# Copy settings from one report and process to another.
@@ -106,7 +106,7 @@ input AD_ProcessInput {
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# Execution Type defines whether the report/process will always run in background or foreground. 
-	ExecutionType: AD_Ref_ListInput
+	ExecutionType: ForeignEntityInput
 	FileNamePattern: String
 	# Comment or Hint
 	Help: String
@@ -123,7 +123,7 @@ input AD_ProcessInput {
 	Name: String
 	# Name of the Database Procedure
 	ProcedureName: String
-	ShowHelp: AD_Ref_ListInput
+	ShowHelp: ForeignEntityInput
 	# Internal statistics how often the entity was used
 	Statistic_Count: Int
 	# Internal statistics how many seconds a process took

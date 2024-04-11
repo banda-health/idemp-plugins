@@ -11,7 +11,7 @@ public class MOrderTaxInput extends X_C_OrderTaxInput {
 	 * @param UUID The C_OrderTax_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOrderTaxInput(@JsonProperty("UUID") String UUID) {
+	public MOrderTaxInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

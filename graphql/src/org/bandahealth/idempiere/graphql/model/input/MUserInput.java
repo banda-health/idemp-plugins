@@ -11,7 +11,7 @@ public class MUserInput extends X_AD_UserInput {
 	 * @param UUID The AD_User_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserInput(@JsonProperty("UUID") String UUID) {
+	public MUserInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

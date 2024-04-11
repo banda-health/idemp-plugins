@@ -11,7 +11,7 @@ public class MRevenueRecogServiceInput extends X_C_RevenueRecog_ServiceInput {
 	 * @param UUID The C_RevenueRecog_Service_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRevenueRecogServiceInput(@JsonProperty("UUID") String UUID) {
+	public MRevenueRecogServiceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

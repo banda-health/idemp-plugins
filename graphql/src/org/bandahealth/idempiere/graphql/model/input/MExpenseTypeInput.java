@@ -11,7 +11,7 @@ public class MExpenseTypeInput extends X_S_ExpenseTypeInput {
 	 * @param UUID The S_ExpenseType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MExpenseTypeInput(@JsonProperty("UUID") String UUID) {
+	public MExpenseTypeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

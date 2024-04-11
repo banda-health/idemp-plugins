@@ -11,7 +11,7 @@ public class MWebMenuInput extends X_U_WebMenuInput {
 	 * @param UUID The U_WebMenu_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MWebMenuInput(@JsonProperty("UUID") String UUID) {
+	public MWebMenuInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

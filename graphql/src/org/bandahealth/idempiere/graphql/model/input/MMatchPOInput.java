@@ -11,7 +11,7 @@ public class MMatchPOInput extends X_M_MatchPOInput {
 	 * @param UUID The M_MatchPO_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMatchPOInput(@JsonProperty("UUID") String UUID) {
+	public MMatchPOInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

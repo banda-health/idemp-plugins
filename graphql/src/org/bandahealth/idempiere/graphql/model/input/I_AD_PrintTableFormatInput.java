@@ -127,14 +127,14 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	 *
 	 * @param HdrStrokeType Type of the Header Line Stroke
 	 */
-	void setHdrStrokeTypeInput(I_AD_Ref_ListInput HdrStrokeType);
+	void setHdrStrokeTypeInput(ForeignEntityInput HdrStrokeType);
 
 	/**
 	 * Get HdrStrokeType.
 	 *
 	 * @return Type of the Header Line Stroke
 	 */
-	I_AD_Ref_ListInput HdrStrokeType();
+	ForeignEntityInput HdrStrokeType();
 
 	/**
 	 * Set HdrTextBG_PrintColor.
@@ -183,12 +183,12 @@ public interface I_AD_PrintTableFormatInput extends I_AD_PrintTableFormat {
 	 *
 	 * @param LineStrokeType Type of the Line Stroke
 	 */
-	void setLineStrokeTypeInput(I_AD_Ref_ListInput LineStrokeType);
+	void setLineStrokeTypeInput(ForeignEntityInput LineStrokeType);
 
 	/**
 	 * Get LineStrokeType.
 	 *
 	 * @return Type of the Line Stroke
 	 */
-	I_AD_Ref_ListInput LineStrokeType();
+	ForeignEntityInput LineStrokeType();
 }

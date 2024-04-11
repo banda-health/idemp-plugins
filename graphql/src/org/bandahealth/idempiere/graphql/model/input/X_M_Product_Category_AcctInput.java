@@ -25,6 +25,8 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mCostingLevel;
+	private ForeignEntityInput mCostingMethod;
 	private ForeignEntityInput mM_Product_Category;
 	private ForeignEntityInput mP_Asset_A;
 	private ForeignEntityInput mP_AverageCostVariance_A;
@@ -39,8 +41,6 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	private ForeignEntityInput mP_Revenue_A;
 	private ForeignEntityInput mP_TradeDiscountGrant_A;
 	private ForeignEntityInput mP_TradeDiscountRec_A;
-	private I_AD_Ref_ListInput mCostingLevel;
-	private I_AD_Ref_ListInput mCostingMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -134,7 +134,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	 * @param CostingLevel The lowest level to accumulate Costing Information
 	 */
 	@JsonProperty("CostingLevel")
-	public void setCostingLevelInput(I_AD_Ref_ListInput CostingLevel) {
+	public void setCostingLevelInput(ForeignEntityInput CostingLevel) {
 		this.mCostingLevel = CostingLevel;
 		if (CostingLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -158,7 +158,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	 * @return The lowest level to accumulate Costing Information
 	 */
 	@JsonProperty("CostingLevel")
-	public I_AD_Ref_ListInput CostingLevel() {
+	public ForeignEntityInput CostingLevel() {
 		return mCostingLevel;
 	}
 
@@ -168,7 +168,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
+	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -192,7 +192,7 @@ public class X_M_Product_Category_AcctInput extends MProductCategoryAcct impleme
 	 * @return Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public I_AD_Ref_ListInput CostingMethod() {
+	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
 	}
 

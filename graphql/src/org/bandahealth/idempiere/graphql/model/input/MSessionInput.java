@@ -11,7 +11,7 @@ public class MSessionInput extends X_AD_SessionInput {
 	 * @param UUID The AD_Session_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSessionInput(@JsonProperty("UUID") String UUID) {
+	public MSessionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

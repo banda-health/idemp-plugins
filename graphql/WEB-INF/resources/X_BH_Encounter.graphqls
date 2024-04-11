@@ -39,7 +39,7 @@ type BH_Encounter {
 input BH_EncounterInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	BH_Encounter_Type: AD_Ref_ListInput
+	BH_Encounter_Type: ForeignEntityInput
 	UU: ID
 	BH_Visit: ForeignEntityInput
 	# The record is active in the system

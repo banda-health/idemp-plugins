@@ -11,7 +11,7 @@ public class MAttributeSetExcludeInput extends X_M_AttributeSetExcludeInput {
 	 * @param UUID The M_AttributeSetExclude_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAttributeSetExcludeInput(@JsonProperty("UUID") String UUID) {
+	public MAttributeSetExcludeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

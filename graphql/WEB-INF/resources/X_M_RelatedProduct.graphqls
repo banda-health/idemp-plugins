@@ -57,5 +57,5 @@ input M_RelatedProductInput {
 	Name: String
 	# Related Product
 	RelatedProduct: ForeignEntityInput
-	RelatedProductType: AD_Ref_ListInput
+	RelatedProductType: ForeignEntityInput
 }

@@ -11,7 +11,7 @@ public class MSchedulerRecipientInput extends X_AD_SchedulerRecipientInput {
 	 * @param UUID The AD_SchedulerRecipient_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSchedulerRecipientInput(@JsonProperty("UUID") String UUID) {
+	public MSchedulerRecipientInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

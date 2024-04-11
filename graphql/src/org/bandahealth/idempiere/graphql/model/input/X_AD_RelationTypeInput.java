@@ -26,9 +26,9 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Reference_Source;
 	private ForeignEntityInput mAD_Reference_Target;
-	private I_AD_Ref_ListInput mRole_Source;
-	private I_AD_Ref_ListInput mRole_Target;
-	private I_AD_Ref_ListInput mType;
+	private ForeignEntityInput mRole_Source;
+	private ForeignEntityInput mRole_Target;
+	private ForeignEntityInput mType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -216,7 +216,7 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 * @param Role_Source If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
 	@JsonProperty("Role_Source")
-	public void setRole_SourceInput(I_AD_Ref_ListInput Role_Source) {
+	public void setRole_SourceInput(ForeignEntityInput Role_Source) {
 		this.mRole_Source = Role_Source;
 		if (Role_Source != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -240,7 +240,7 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 * @return If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
 	@JsonProperty("Role_Source")
-	public I_AD_Ref_ListInput Role_Source() {
+	public ForeignEntityInput Role_Source() {
 		return mRole_Source;
 	}
 
@@ -250,7 +250,7 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 * @param Role_Target If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
 	@JsonProperty("Role_Target")
-	public void setRole_TargetInput(I_AD_Ref_ListInput Role_Target) {
+	public void setRole_TargetInput(ForeignEntityInput Role_Target) {
 		this.mRole_Target = Role_Target;
 		if (Role_Target != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -274,7 +274,7 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 * @return If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
 	@JsonProperty("Role_Target")
-	public I_AD_Ref_ListInput Role_Target() {
+	public ForeignEntityInput Role_Target() {
 		return mRole_Target;
 	}
 
@@ -284,7 +284,7 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public void setTypeInput(I_AD_Ref_ListInput Type) {
+	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -308,7 +308,7 @@ public class X_AD_RelationTypeInput extends X_AD_RelationType implements I_AD_Re
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public I_AD_Ref_ListInput Type() {
+	public ForeignEntityInput Type() {
 		return mType;
 	}
 }

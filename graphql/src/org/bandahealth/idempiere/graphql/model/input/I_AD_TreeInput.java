@@ -71,12 +71,12 @@ public interface I_AD_TreeInput extends I_AD_Tree {
 	 *
 	 * @param TreeType Element this tree is built on (i.e Product, Business Partner)
 	 */
-	void setTreeTypeInput(I_AD_Ref_ListInput TreeType);
+	void setTreeTypeInput(ForeignEntityInput TreeType);
 
 	/**
 	 * Get TreeType.
 	 *
 	 * @return Element this tree is built on (i.e Product, Business Partner)
 	 */
-	I_AD_Ref_ListInput TreeType();
+	ForeignEntityInput TreeType();
 }

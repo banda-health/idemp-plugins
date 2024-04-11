@@ -35,17 +35,17 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_UOM_Length;
 	private ForeignEntityInput mC_UOM_Weight;
+	private ForeignEntityInput mDeliveryConfirmationType;
+	private ForeignEntityInput mDotHazardClassOrDivision;
 	private ForeignEntityInput mHoldAddress;
+	private ForeignEntityInput mHomeDeliveryPremiumType;
 	private ForeignEntityInput mM_InOut;
 	private ForeignEntityInput mM_Shipper;
 	private ForeignEntityInput mM_ShipperLabels;
 	private ForeignEntityInput mM_ShipperPackaging;
 	private ForeignEntityInput mM_ShipperPickupTypes;
-	private I_AD_Ref_ListInput mDeliveryConfirmationType;
-	private I_AD_Ref_ListInput mDotHazardClassOrDivision;
-	private I_AD_Ref_ListInput mHomeDeliveryPremiumType;
-	private I_AD_Ref_ListInput mNotificationType;
-	private I_AD_Ref_ListInput mPaymentRule;
+	private ForeignEntityInput mNotificationType;
+	private ForeignEntityInput mPaymentRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -272,7 +272,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param DeliveryConfirmationType Delivery Confirmation Type
 	 */
 	@JsonProperty("DeliveryConfirmationType")
-	public void setDeliveryConfirmationTypeInput(I_AD_Ref_ListInput DeliveryConfirmationType) {
+	public void setDeliveryConfirmationTypeInput(ForeignEntityInput DeliveryConfirmationType) {
 		this.mDeliveryConfirmationType = DeliveryConfirmationType;
 		if (DeliveryConfirmationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -296,7 +296,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Delivery Confirmation Type
 	 */
 	@JsonProperty("DeliveryConfirmationType")
-	public I_AD_Ref_ListInput DeliveryConfirmationType() {
+	public ForeignEntityInput DeliveryConfirmationType() {
 		return mDeliveryConfirmationType;
 	}
 	/**
@@ -317,7 +317,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param DotHazardClassOrDivision Dot Hazard Class or Division
 	 */
 	@JsonProperty("DotHazardClassOrDivision")
-	public void setDotHazardClassOrDivisionInput(I_AD_Ref_ListInput DotHazardClassOrDivision) {
+	public void setDotHazardClassOrDivisionInput(ForeignEntityInput DotHazardClassOrDivision) {
 		this.mDotHazardClassOrDivision = DotHazardClassOrDivision;
 		if (DotHazardClassOrDivision != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -341,7 +341,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Dot Hazard Class or Division
 	 */
 	@JsonProperty("DotHazardClassOrDivision")
-	public I_AD_Ref_ListInput DotHazardClassOrDivision() {
+	public ForeignEntityInput DotHazardClassOrDivision() {
 		return mDotHazardClassOrDivision;
 	}
 
@@ -385,7 +385,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param HomeDeliveryPremiumType Home Delivery Premium Type
 	 */
 	@JsonProperty("HomeDeliveryPremiumType")
-	public void setHomeDeliveryPremiumTypeInput(I_AD_Ref_ListInput HomeDeliveryPremiumType) {
+	public void setHomeDeliveryPremiumTypeInput(ForeignEntityInput HomeDeliveryPremiumType) {
 		this.mHomeDeliveryPremiumType = HomeDeliveryPremiumType;
 		if (HomeDeliveryPremiumType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -409,7 +409,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Home Delivery Premium Type
 	 */
 	@JsonProperty("HomeDeliveryPremiumType")
-	public I_AD_Ref_ListInput HomeDeliveryPremiumType() {
+	public ForeignEntityInput HomeDeliveryPremiumType() {
 		return mHomeDeliveryPremiumType;
 	}
 
@@ -621,7 +621,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param NotificationType Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
+	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (NotificationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -645,7 +645,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public I_AD_Ref_ListInput NotificationType() {
+	public ForeignEntityInput NotificationType() {
 		return mNotificationType;
 	}
 
@@ -655,7 +655,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @param PaymentRule How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (PaymentRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -679,7 +679,7 @@ public class X_M_PackageInput extends MPackage implements I_M_PackageInput {
 	 * @return How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public I_AD_Ref_ListInput PaymentRule() {
+	public ForeignEntityInput PaymentRule() {
 		return mPaymentRule;
 	}
 }

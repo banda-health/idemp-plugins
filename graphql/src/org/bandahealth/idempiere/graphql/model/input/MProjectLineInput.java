@@ -11,7 +11,7 @@ public class MProjectLineInput extends X_C_ProjectLineInput {
 	 * @param UUID The C_ProjectLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProjectLineInput(@JsonProperty("UUID") String UUID) {
+	public MProjectLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

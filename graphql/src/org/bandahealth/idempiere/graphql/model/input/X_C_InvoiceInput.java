@@ -63,6 +63,9 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	private ForeignEntityInput mC_Payment;
 	private ForeignEntityInput mC_PaymentTerm;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
+	private ForeignEntityInput mInvoiceCollectionType;
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mM_RMA;
 	private ForeignEntityInput mRelatedInvoice;
@@ -70,9 +73,6 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	private ForeignEntityInput mSalesRep;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mInvoiceCollectionType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -818,7 +818,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -842,7 +842,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -852,7 +852,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -876,7 +876,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -908,7 +908,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @param InvoiceCollectionType Invoice Collection Status
 	 */
 	@JsonProperty("InvoiceCollectionType")
-	public void setInvoiceCollectionTypeInput(I_AD_Ref_ListInput InvoiceCollectionType) {
+	public void setInvoiceCollectionTypeInput(ForeignEntityInput InvoiceCollectionType) {
 		this.mInvoiceCollectionType = InvoiceCollectionType;
 		if (InvoiceCollectionType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -932,7 +932,7 @@ public class X_C_InvoiceInput extends MInvoice_BH implements I_C_InvoiceInput {
 	 * @return Invoice Collection Status
 	 */
 	@JsonProperty("InvoiceCollectionType")
-	public I_AD_Ref_ListInput InvoiceCollectionType() {
+	public ForeignEntityInput InvoiceCollectionType() {
 		return mInvoiceCollectionType;
 	}
 	/**

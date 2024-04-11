@@ -11,7 +11,7 @@ public class MProjectIssueInput extends X_C_ProjectIssueInput {
 	 * @param UUID The C_ProjectIssue_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProjectIssueInput(@JsonProperty("UUID") String UUID) {
+	public MProjectIssueInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

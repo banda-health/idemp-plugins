@@ -11,7 +11,7 @@ public class MRecurringInput extends X_C_RecurringInput {
 	 * @param UUID The C_Recurring_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRecurringInput(@JsonProperty("UUID") String UUID) {
+	public MRecurringInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

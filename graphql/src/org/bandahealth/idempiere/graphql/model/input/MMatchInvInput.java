@@ -11,7 +11,7 @@ public class MMatchInvInput extends X_M_MatchInvInput {
 	 * @param UUID The M_MatchInv_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMatchInvInput(@JsonProperty("UUID") String UUID) {
+	public MMatchInvInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

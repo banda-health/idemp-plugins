@@ -27,7 +27,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Image;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mWindowType;
+	private ForeignEntityInput mWindowType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -215,7 +215,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @param WindowType Type or classification of a Window
 	 */
 	@JsonProperty("WindowType")
-	public void setWindowTypeInput(I_AD_Ref_ListInput WindowType) {
+	public void setWindowTypeInput(ForeignEntityInput WindowType) {
 		this.mWindowType = WindowType;
 		if (WindowType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -239,7 +239,7 @@ public class X_AD_WindowInput extends MWindow implements I_AD_WindowInput {
 	 * @return Type or classification of a Window
 	 */
 	@JsonProperty("WindowType")
-	public I_AD_Ref_ListInput WindowType() {
+	public ForeignEntityInput WindowType() {
 		return mWindowType;
 	}
 }

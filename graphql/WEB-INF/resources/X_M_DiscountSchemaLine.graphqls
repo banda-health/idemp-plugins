@@ -122,7 +122,7 @@ input M_DiscountSchemaLineInput {
 	# Amount added to the converted/copied price before multiplying
 	Limit_AddAmt: BigDecimal
 	# Base price for calculation of the new price
-	Limit_Base: AD_Ref_ListInput
+	Limit_Base: ForeignEntityInput
 	# Discount in percent to be subtracted from base, if negative it will be added to base price
 	Limit_Discount: BigDecimal
 	# Fixed Limit Price (not calculated)
@@ -132,11 +132,11 @@ input M_DiscountSchemaLineInput {
 	# Minimum difference to original limit price; ignored if zero
 	Limit_MinAmt: BigDecimal
 	# Rounding of the final result
-	Limit_Rounding: AD_Ref_ListInput
+	Limit_Rounding: ForeignEntityInput
 	# List Price Surcharge Amount
 	List_AddAmt: BigDecimal
 	# Price used as the basis for price list calculations
-	List_Base: AD_Ref_ListInput
+	List_Base: ForeignEntityInput
 	# Discount from list price as a percentage
 	List_Discount: BigDecimal
 	# Fixes List Price (not calculated)
@@ -146,7 +146,7 @@ input M_DiscountSchemaLineInput {
 	# Minimum margin for a product
 	List_MinAmt: BigDecimal
 	# Rounding rule for final list price
-	List_Rounding: AD_Ref_ListInput
+	List_Rounding: ForeignEntityInput
 	# Schema to calculate the trade discount percentage
 	M_DiscountSchema: ForeignEntityInput
 	UU: ID
@@ -159,7 +159,7 @@ input M_DiscountSchemaLineInput {
 	# Amount added to a price as a surcharge
 	Std_AddAmt: BigDecimal
 	# Base price for calculating new standard price
-	Std_Base: AD_Ref_ListInput
+	Std_Base: ForeignEntityInput
 	# Discount percentage to subtract from base price
 	Std_Discount: BigDecimal
 	# Fixed Standard Price (not calculated)
@@ -169,7 +169,7 @@ input M_DiscountSchemaLineInput {
 	# Minimum margin allowed for a product
 	Std_MinAmt: BigDecimal
 	# Rounding rule for calculated price
-	Std_Rounding: AD_Ref_ListInput
+	Std_Rounding: ForeignEntityInput
 	# Product Category of the Business Partner
 	VendorCategory: String
 }

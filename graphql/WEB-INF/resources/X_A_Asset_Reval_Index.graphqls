@@ -41,8 +41,8 @@ type A_Asset_Reval_Index {
 input A_Asset_Reval_IndexInput {
 	UU: ID
 	A_Effective_Date: Date
-	A_Reval_Code: AD_Ref_ListInput
-	A_Reval_Multiplier: AD_Ref_ListInput
+	A_Reval_Code: ForeignEntityInput
+	A_Reval_Multiplier: ForeignEntityInput
 	A_Reval_Rate: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput

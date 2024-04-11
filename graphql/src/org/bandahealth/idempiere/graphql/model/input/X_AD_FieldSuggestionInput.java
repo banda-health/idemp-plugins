@@ -29,7 +29,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mAD_UserClient;
-	private I_AD_Ref_ListInput mFieldSuggestionTarget;
+	private ForeignEntityInput mFieldSuggestionTarget;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -263,7 +263,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	 * @param FieldSuggestionTarget Apply Suggestion To
 	 */
 	@JsonProperty("FieldSuggestionTarget")
-	public void setFieldSuggestionTargetInput(I_AD_Ref_ListInput FieldSuggestionTarget) {
+	public void setFieldSuggestionTargetInput(ForeignEntityInput FieldSuggestionTarget) {
 		this.mFieldSuggestionTarget = FieldSuggestionTarget;
 		if (FieldSuggestionTarget != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -287,7 +287,7 @@ public class X_AD_FieldSuggestionInput extends MFieldSuggestion implements I_AD_
 	 * @return Apply Suggestion To
 	 */
 	@JsonProperty("FieldSuggestionTarget")
-	public I_AD_Ref_ListInput FieldSuggestionTarget() {
+	public ForeignEntityInput FieldSuggestionTarget() {
 		return mFieldSuggestionTarget;
 	}
 }

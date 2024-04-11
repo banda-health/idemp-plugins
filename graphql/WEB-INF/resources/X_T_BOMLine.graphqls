@@ -80,7 +80,7 @@ input T_BOMLineInput {
 	# Cost information
 	Cost: BigDecimal
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_ListInput
+	CostingMethod: ForeignEntityInput
 	# Standard Costs
 	CostStandard: BigDecimal
 	# The currently used cost price

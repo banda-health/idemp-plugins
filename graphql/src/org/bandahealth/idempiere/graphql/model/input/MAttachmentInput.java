@@ -11,7 +11,7 @@ public class MAttachmentInput extends X_AD_AttachmentInput {
 	 * @param UUID The AD_Attachment_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAttachmentInput(@JsonProperty("UUID") String UUID) {
+	public MAttachmentInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MRegistrationInput extends X_A_RegistrationInput {
 	 * @param UUID The A_Registration_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRegistrationInput(@JsonProperty("UUID") String UUID) {
+	public MRegistrationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -36,8 +36,10 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mA_Asset_Action;
 	private ForeignEntityInput mA_Asset_Class;
 	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mA_Asset_Status;
 	private ForeignEntityInput mA_Asset_Type;
 	private ForeignEntityInput mA_Parent_Asset;
 	private ForeignEntityInput mC_Activity;
@@ -51,8 +53,6 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	private ForeignEntityInput mM_InOutLine;
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mA_Asset_Action;
-	private I_AD_Ref_ListInput mA_Asset_Status;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -72,7 +72,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param A_Asset_Action Asset Action
 	 */
 	@JsonProperty("A_Asset_Action")
-	public void setA_Asset_ActionInput(I_AD_Ref_ListInput A_Asset_Action) {
+	public void setA_Asset_ActionInput(ForeignEntityInput A_Asset_Action) {
 		this.mA_Asset_Action = A_Asset_Action;
 		if (A_Asset_Action != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -96,7 +96,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Asset Action
 	 */
 	@JsonProperty("A_Asset_Action")
-	public I_AD_Ref_ListInput A_Asset_Action() {
+	public ForeignEntityInput A_Asset_Action() {
 		return mA_Asset_Action;
 	}
 
@@ -196,7 +196,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @param A_Asset_Status Asset Status
 	 */
 	@JsonProperty("A_Asset_Status")
-	public void setA_Asset_StatusInput(I_AD_Ref_ListInput A_Asset_Status) {
+	public void setA_Asset_StatusInput(ForeignEntityInput A_Asset_Status) {
 		this.mA_Asset_Status = A_Asset_Status;
 		if (A_Asset_Status != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -220,7 +220,7 @@ public class X_A_AssetInput extends MAsset implements I_A_AssetInput {
 	 * @return Asset Status
 	 */
 	@JsonProperty("A_Asset_Status")
-	public I_AD_Ref_ListInput A_Asset_Status() {
+	public ForeignEntityInput A_Asset_Status() {
 		return mA_Asset_Status;
 	}
 

@@ -11,7 +11,7 @@ public class MArchiveInput extends X_AD_ArchiveInput {
 	 * @param UUID The AD_Archive_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MArchiveInput(@JsonProperty("UUID") String UUID) {
+	public MArchiveInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

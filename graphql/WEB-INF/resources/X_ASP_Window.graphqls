@@ -44,7 +44,7 @@ input ASP_WindowInput {
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
-	ASP_Status: AD_Ref_ListInput
+	ASP_Status: ForeignEntityInput
 	UU: ID
 	# The record is active in the system
 	IsActive: Boolean

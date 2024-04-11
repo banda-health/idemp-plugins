@@ -22,8 +22,8 @@ import java.sql.ResultSet;
 public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implements I_BH_DefaultIncludedRoleInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mDB_UserType;
 	private ForeignEntityInput mIncluded_Role;
-	private I_AD_Ref_ListInput mDB_UserType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -109,7 +109,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 	 * @param DB_UserType The User Type when a new client is created
 	 */
 	@JsonProperty("DB_UserType")
-	public void setDB_UserTypeInput(I_AD_Ref_ListInput DB_UserType) {
+	public void setDB_UserTypeInput(ForeignEntityInput DB_UserType) {
 		this.mDB_UserType = DB_UserType;
 		if (DB_UserType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -133,7 +133,7 @@ public class X_BH_DefaultIncludedRoleInput extends MBHDefaultIncludedRole implem
 	 * @return The User Type when a new client is created
 	 */
 	@JsonProperty("DB_UserType")
-	public I_AD_Ref_ListInput DB_UserType() {
+	public ForeignEntityInput DB_UserType() {
 		return mDB_UserType;
 	}
 

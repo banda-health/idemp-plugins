@@ -99,14 +99,14 @@ public interface I_A_Depreciation_ExpInput extends I_A_Depreciation_Exp {
 	 *
 	 * @param A_Entry_Type A_Entry_Type
 	 */
-	void setA_Entry_TypeInput(I_AD_Ref_ListInput A_Entry_Type);
+	void setA_Entry_TypeInput(ForeignEntityInput A_Entry_Type);
 
 	/**
 	 * Get A_Entry_Type.
 	 *
 	 * @return A_Entry_Type
 	 */
-	I_AD_Ref_ListInput A_Entry_Type();
+	ForeignEntityInput A_Entry_Type();
 
 	/**
 	 * Set AD_Org.
@@ -169,12 +169,12 @@ public interface I_A_Depreciation_ExpInput extends I_A_Depreciation_Exp {
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

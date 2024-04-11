@@ -43,14 +43,14 @@ public interface I_AD_AuthorizationAccountInput extends I_AD_AuthorizationAccoun
 	 *
 	 * @param AD_AuthorizationScopes AD_AuthorizationScopes
 	 */
-	void setAD_AuthorizationScopesInput(I_AD_Ref_ListInput AD_AuthorizationScopes);
+	void setAD_AuthorizationScopesInput(ForeignEntityInput AD_AuthorizationScopes);
 
 	/**
 	 * Get AD_AuthorizationScopes.
 	 *
 	 * @return AD_AuthorizationScopes
 	 */
-	I_AD_Ref_ListInput AD_AuthorizationScopes();
+	ForeignEntityInput AD_AuthorizationScopes();
 
 	/**
 	 * Set AD_Org.

@@ -29,11 +29,11 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_Period;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mGL_Category;
+	private ForeignEntityInput mPostingType;
 	private ForeignEntityInput mReversal;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -192,7 +192,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -216,7 +216,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -226,7 +226,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -250,7 +250,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -334,7 +334,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -358,7 +358,7 @@ public class X_GL_JournalBatchInput extends MJournalBatch implements I_GL_Journa
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 

@@ -62,12 +62,12 @@ public class X_I_OrderInput extends X_I_Order implements I_I_OrderInput {
 	private ForeignEntityInput mC_Region;
 	private ForeignEntityInput mC_Tax;
 	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mDeliveryRule;
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Shipper;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mDeliveryRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -770,7 +770,7 @@ public class X_I_OrderInput extends X_I_Order implements I_I_OrderInput {
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
+	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
 		if (DeliveryRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -794,7 +794,7 @@ public class X_I_OrderInput extends X_I_Order implements I_I_OrderInput {
 	 * @return Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public I_AD_Ref_ListInput DeliveryRule() {
+	public ForeignEntityInput DeliveryRule() {
 		return mDeliveryRule;
 	}
 	/**

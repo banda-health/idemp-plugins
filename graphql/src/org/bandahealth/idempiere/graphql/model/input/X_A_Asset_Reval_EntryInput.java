@@ -26,16 +26,16 @@ import java.sql.ResultSet;
 public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements I_A_Asset_Reval_EntryInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Rev_Code;
+	private ForeignEntityInput mA_Reval_Cal_Method;
+	private ForeignEntityInput mA_Reval_Effective_Date;
+	private ForeignEntityInput mA_Reval_Multiplier;
 	private ForeignEntityInput mC_AcctSchema;
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_Period;
 	private ForeignEntityInput mGL_Category;
-	private I_AD_Ref_ListInput mA_Rev_Code;
-	private I_AD_Ref_ListInput mA_Reval_Cal_Method;
-	private I_AD_Ref_ListInput mA_Reval_Effective_Date;
-	private I_AD_Ref_ListInput mA_Reval_Multiplier;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -84,7 +84,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @param A_Rev_Code Rev. Code
 	 */
 	@JsonProperty("A_Rev_Code")
-	public void setA_Rev_CodeInput(I_AD_Ref_ListInput A_Rev_Code) {
+	public void setA_Rev_CodeInput(ForeignEntityInput A_Rev_Code) {
 		this.mA_Rev_Code = A_Rev_Code;
 		if (A_Rev_Code != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -108,7 +108,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @return Rev. Code
 	 */
 	@JsonProperty("A_Rev_Code")
-	public I_AD_Ref_ListInput A_Rev_Code() {
+	public ForeignEntityInput A_Rev_Code() {
 		return mA_Rev_Code;
 	}
 
@@ -118,7 +118,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @param A_Reval_Cal_Method A_Reval_Cal_Method
 	 */
 	@JsonProperty("A_Reval_Cal_Method")
-	public void setA_Reval_Cal_MethodInput(I_AD_Ref_ListInput A_Reval_Cal_Method) {
+	public void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method) {
 		this.mA_Reval_Cal_Method = A_Reval_Cal_Method;
 		if (A_Reval_Cal_Method != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -142,7 +142,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @return A_Reval_Cal_Method
 	 */
 	@JsonProperty("A_Reval_Cal_Method")
-	public I_AD_Ref_ListInput A_Reval_Cal_Method() {
+	public ForeignEntityInput A_Reval_Cal_Method() {
 		return mA_Reval_Cal_Method;
 	}
 
@@ -152,7 +152,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @param A_Reval_Effective_Date Reval. Effective Date
 	 */
 	@JsonProperty("A_Reval_Effective_Date")
-	public void setA_Reval_Effective_DateInput(I_AD_Ref_ListInput A_Reval_Effective_Date) {
+	public void setA_Reval_Effective_DateInput(ForeignEntityInput A_Reval_Effective_Date) {
 		this.mA_Reval_Effective_Date = A_Reval_Effective_Date;
 		if (A_Reval_Effective_Date != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -176,7 +176,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @return Reval. Effective Date
 	 */
 	@JsonProperty("A_Reval_Effective_Date")
-	public I_AD_Ref_ListInput A_Reval_Effective_Date() {
+	public ForeignEntityInput A_Reval_Effective_Date() {
 		return mA_Reval_Effective_Date;
 	}
 
@@ -186,7 +186,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @param A_Reval_Multiplier Reval. Multiplier
 	 */
 	@JsonProperty("A_Reval_Multiplier")
-	public void setA_Reval_MultiplierInput(I_AD_Ref_ListInput A_Reval_Multiplier) {
+	public void setA_Reval_MultiplierInput(ForeignEntityInput A_Reval_Multiplier) {
 		this.mA_Reval_Multiplier = A_Reval_Multiplier;
 		if (A_Reval_Multiplier != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -210,7 +210,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @return Reval. Multiplier
 	 */
 	@JsonProperty("A_Reval_Multiplier")
-	public I_AD_Ref_ListInput A_Reval_Multiplier() {
+	public ForeignEntityInput A_Reval_Multiplier() {
 		return mA_Reval_Multiplier;
 	}
 
@@ -424,7 +424,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -448,7 +448,7 @@ public class X_A_Asset_Reval_EntryInput extends X_A_Asset_Reval_Entry implements
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

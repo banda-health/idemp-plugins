@@ -26,10 +26,10 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PInstance;
+	private ForeignEntityInput mAPAR;
 	private ForeignEntityInput mC_ConversionTypeReval;
 	private ForeignEntityInput mC_DocTypeReval;
 	private ForeignEntityInput mC_Invoice;
-	private I_AD_Ref_ListInput mAPAR;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -117,7 +117,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	 * @param APAR Include Receivables and/or Payables transactions
 	 */
 	@JsonProperty("APAR")
-	public void setAPARInput(I_AD_Ref_ListInput APAR) {
+	public void setAPARInput(ForeignEntityInput APAR) {
 		this.mAPAR = APAR;
 		if (APAR != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -141,7 +141,7 @@ public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLIn
 	 * @return Include Receivables and/or Payables transactions
 	 */
 	@JsonProperty("APAR")
-	public I_AD_Ref_ListInput APAR() {
+	public ForeignEntityInput APAR() {
 		return mAPAR;
 	}
 

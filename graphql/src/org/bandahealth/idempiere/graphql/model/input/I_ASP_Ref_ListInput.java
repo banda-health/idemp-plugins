@@ -85,12 +85,12 @@ public interface I_ASP_Ref_ListInput extends I_ASP_Ref_List {
 	 *
 	 * @param ASP_Status ASP_Status
 	 */
-	void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status);
+	void setASP_StatusInput(ForeignEntityInput ASP_Status);
 
 	/**
 	 * Get ASP_Status.
 	 *
 	 * @return ASP_Status
 	 */
-	I_AD_Ref_ListInput ASP_Status();
+	ForeignEntityInput ASP_Status();
 }

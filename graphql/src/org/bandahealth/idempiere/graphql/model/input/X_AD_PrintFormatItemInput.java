@@ -34,12 +34,12 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	private ForeignEntityInput mAD_PrintFormat;
 	private ForeignEntityInput mAD_PrintFormatChild;
 	private ForeignEntityInput mAD_PrintGraph;
-	private I_AD_Ref_ListInput mBarcodeType;
-	private I_AD_Ref_ListInput mFieldAlignmentType;
-	private I_AD_Ref_ListInput mLineAlignmentType;
-	private I_AD_Ref_ListInput mPrintAreaType;
-	private I_AD_Ref_ListInput mPrintFormatType;
-	private I_AD_Ref_ListInput mShapeType;
+	private ForeignEntityInput mBarcodeType;
+	private ForeignEntityInput mFieldAlignmentType;
+	private ForeignEntityInput mLineAlignmentType;
+	private ForeignEntityInput mPrintAreaType;
+	private ForeignEntityInput mPrintFormatType;
+	private ForeignEntityInput mShapeType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -366,7 +366,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @param BarcodeType Type of barcode
 	 */
 	@JsonProperty("BarcodeType")
-	public void setBarcodeTypeInput(I_AD_Ref_ListInput BarcodeType) {
+	public void setBarcodeTypeInput(ForeignEntityInput BarcodeType) {
 		this.mBarcodeType = BarcodeType;
 		if (BarcodeType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -390,7 +390,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @return Type of barcode
 	 */
 	@JsonProperty("BarcodeType")
-	public I_AD_Ref_ListInput BarcodeType() {
+	public ForeignEntityInput BarcodeType() {
 		return mBarcodeType;
 	}
 
@@ -400,7 +400,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @param FieldAlignmentType Field Text Alignment
 	 */
 	@JsonProperty("FieldAlignmentType")
-	public void setFieldAlignmentTypeInput(I_AD_Ref_ListInput FieldAlignmentType) {
+	public void setFieldAlignmentTypeInput(ForeignEntityInput FieldAlignmentType) {
 		this.mFieldAlignmentType = FieldAlignmentType;
 		if (FieldAlignmentType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -424,7 +424,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @return Field Text Alignment
 	 */
 	@JsonProperty("FieldAlignmentType")
-	public I_AD_Ref_ListInput FieldAlignmentType() {
+	public ForeignEntityInput FieldAlignmentType() {
 		return mFieldAlignmentType;
 	}
 
@@ -434,7 +434,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @param LineAlignmentType Line Alignment
 	 */
 	@JsonProperty("LineAlignmentType")
-	public void setLineAlignmentTypeInput(I_AD_Ref_ListInput LineAlignmentType) {
+	public void setLineAlignmentTypeInput(ForeignEntityInput LineAlignmentType) {
 		this.mLineAlignmentType = LineAlignmentType;
 		if (LineAlignmentType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -458,7 +458,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @return Line Alignment
 	 */
 	@JsonProperty("LineAlignmentType")
-	public I_AD_Ref_ListInput LineAlignmentType() {
+	public ForeignEntityInput LineAlignmentType() {
 		return mLineAlignmentType;
 	}
 
@@ -468,7 +468,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @param PrintAreaType Print Area
 	 */
 	@JsonProperty("PrintAreaType")
-	public void setPrintAreaTypeInput(I_AD_Ref_ListInput PrintAreaType) {
+	public void setPrintAreaTypeInput(ForeignEntityInput PrintAreaType) {
 		this.mPrintAreaType = PrintAreaType;
 		if (PrintAreaType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -492,7 +492,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @return Print Area
 	 */
 	@JsonProperty("PrintAreaType")
-	public I_AD_Ref_ListInput PrintAreaType() {
+	public ForeignEntityInput PrintAreaType() {
 		return mPrintAreaType;
 	}
 
@@ -502,7 +502,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @param PrintFormatType Print Format Type
 	 */
 	@JsonProperty("PrintFormatType")
-	public void setPrintFormatTypeInput(I_AD_Ref_ListInput PrintFormatType) {
+	public void setPrintFormatTypeInput(ForeignEntityInput PrintFormatType) {
 		this.mPrintFormatType = PrintFormatType;
 		if (PrintFormatType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -526,7 +526,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @return Print Format Type
 	 */
 	@JsonProperty("PrintFormatType")
-	public I_AD_Ref_ListInput PrintFormatType() {
+	public ForeignEntityInput PrintFormatType() {
 		return mPrintFormatType;
 	}
 
@@ -536,7 +536,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @param ShapeType Type of the shape to be painted
 	 */
 	@JsonProperty("ShapeType")
-	public void setShapeTypeInput(I_AD_Ref_ListInput ShapeType) {
+	public void setShapeTypeInput(ForeignEntityInput ShapeType) {
 		this.mShapeType = ShapeType;
 		if (ShapeType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -560,7 +560,7 @@ public class X_AD_PrintFormatItemInput extends X_AD_PrintFormatItem implements I
 	 * @return Type of the shape to be painted
 	 */
 	@JsonProperty("ShapeType")
-	public I_AD_Ref_ListInput ShapeType() {
+	public ForeignEntityInput ShapeType() {
 		return mShapeType;
 	}
 }

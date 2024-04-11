@@ -90,7 +90,7 @@ input C_AcctSchema_ElementInput {
 	# Sales coverage region
 	C_SalesRegion: ForeignEntityInput
 	# Element Type (account or user defined)
-	ElementType: AD_Ref_ListInput
+	ElementType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	IsBalanced: Boolean

@@ -30,11 +30,11 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	private ForeignEntityInput mC_DocTypeProforma;
 	private ForeignEntityInput mC_DocTypeShipment;
 	private ForeignEntityInput mDefiniteSequence;
+	private ForeignEntityInput mDocBaseType;
 	private ForeignEntityInput mDocNoSequence;
+	private ForeignEntityInput mDocSubTypeInv;
+	private ForeignEntityInput mDocSubTypeSO;
 	private ForeignEntityInput mGL_Category;
-	private I_AD_Ref_ListInput mDocBaseType;
-	private I_AD_Ref_ListInput mDocSubTypeInv;
-	private I_AD_Ref_ListInput mDocSubTypeSO;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -324,7 +324,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param DocBaseType Logical type of document
 	 */
 	@JsonProperty("DocBaseType")
-	public void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType) {
+	public void setDocBaseTypeInput(ForeignEntityInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
 		if (DocBaseType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -348,7 +348,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Logical type of document
 	 */
 	@JsonProperty("DocBaseType")
-	public I_AD_Ref_ListInput DocBaseType() {
+	public ForeignEntityInput DocBaseType() {
 		return mDocBaseType;
 	}
 
@@ -392,7 +392,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param DocSubTypeInv Inventory Sub Type
 	 */
 	@JsonProperty("DocSubTypeInv")
-	public void setDocSubTypeInvInput(I_AD_Ref_ListInput DocSubTypeInv) {
+	public void setDocSubTypeInvInput(ForeignEntityInput DocSubTypeInv) {
 		this.mDocSubTypeInv = DocSubTypeInv;
 		if (DocSubTypeInv != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -416,7 +416,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Inventory Sub Type
 	 */
 	@JsonProperty("DocSubTypeInv")
-	public I_AD_Ref_ListInput DocSubTypeInv() {
+	public ForeignEntityInput DocSubTypeInv() {
 		return mDocSubTypeInv;
 	}
 
@@ -426,7 +426,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @param DocSubTypeSO Sales Order Sub Type
 	 */
 	@JsonProperty("DocSubTypeSO")
-	public void setDocSubTypeSOInput(I_AD_Ref_ListInput DocSubTypeSO) {
+	public void setDocSubTypeSOInput(ForeignEntityInput DocSubTypeSO) {
 		this.mDocSubTypeSO = DocSubTypeSO;
 		if (DocSubTypeSO != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -450,7 +450,7 @@ public class X_C_DocTypeInput extends MDocType_BH implements I_C_DocTypeInput {
 	 * @return Sales Order Sub Type
 	 */
 	@JsonProperty("DocSubTypeSO")
-	public I_AD_Ref_ListInput DocSubTypeSO() {
+	public ForeignEntityInput DocSubTypeSO() {
 		return mDocSubTypeSO;
 	}
 

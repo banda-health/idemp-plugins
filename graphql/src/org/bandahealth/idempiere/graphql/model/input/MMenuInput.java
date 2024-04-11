@@ -11,7 +11,7 @@ public class MMenuInput extends X_AD_MenuInput {
 	 * @param UUID The AD_Menu_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMenuInput(@JsonProperty("UUID") String UUID) {
+	public MMenuInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -69,9 +69,9 @@ input S_TimeExpenseInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system

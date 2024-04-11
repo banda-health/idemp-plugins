@@ -11,7 +11,7 @@ public class MPeriodInput extends X_C_PeriodInput {
 	 * @param UUID The C_Period_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPeriodInput(@JsonProperty("UUID") String UUID) {
+	public MPeriodInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

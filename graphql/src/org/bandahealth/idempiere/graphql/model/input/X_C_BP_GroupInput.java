@@ -26,13 +26,13 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintColor;
+	private ForeignEntityInput mBH_SubType;
 	private ForeignEntityInput mC_Dunning;
 	private ForeignEntityInput mM_DiscountSchema;
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mPO_DiscountSchema;
 	private ForeignEntityInput mPO_PriceList;
-	private I_AD_Ref_ListInput mBH_SubType;
-	private I_AD_Ref_ListInput mPriorityBase;
+	private ForeignEntityInput mPriorityBase;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -123,7 +123,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param BH_SubType Meant to be a sub-type of the charge type
 	 */
 	@JsonProperty("BH_SubType")
-	public void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType) {
+	public void setBH_SubTypeInput(ForeignEntityInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
 		if (BH_SubType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -147,7 +147,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Meant to be a sub-type of the charge type
 	 */
 	@JsonProperty("BH_SubType")
-	public I_AD_Ref_ListInput BH_SubType() {
+	public ForeignEntityInput BH_SubType() {
 		return mBH_SubType;
 	}
 	/**
@@ -356,7 +356,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @param PriorityBase Base of Priority
 	 */
 	@JsonProperty("PriorityBase")
-	public void setPriorityBaseInput(I_AD_Ref_ListInput PriorityBase) {
+	public void setPriorityBaseInput(ForeignEntityInput PriorityBase) {
 		this.mPriorityBase = PriorityBase;
 		if (PriorityBase != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -380,7 +380,7 @@ public class X_C_BP_GroupInput extends MBPGroup_BH implements I_C_BP_GroupInput 
 	 * @return Base of Priority
 	 */
 	@JsonProperty("PriorityBase")
-	public I_AD_Ref_ListInput PriorityBase() {
+	public ForeignEntityInput PriorityBase() {
 		return mPriorityBase;
 	}
 }

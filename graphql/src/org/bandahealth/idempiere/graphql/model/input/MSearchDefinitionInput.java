@@ -11,7 +11,7 @@ public class MSearchDefinitionInput extends X_AD_SearchDefinitionInput {
 	 * @param UUID The AD_SearchDefinition_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSearchDefinitionInput(@JsonProperty("UUID") String UUID) {
+	public MSearchDefinitionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

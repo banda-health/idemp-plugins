@@ -11,7 +11,7 @@ public class MInterestAreaInput extends X_R_InterestAreaInput {
 	 * @param UUID The R_InterestArea_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInterestAreaInput(@JsonProperty("UUID") String UUID) {
+	public MInterestAreaInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

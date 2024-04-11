@@ -54,7 +54,7 @@ input AD_AuthorizationAccountInput {
 	AccessTokenTimestamp: Date
 	UU: ID
 	AD_AuthorizationCredential: ForeignEntityInput
-	AD_AuthorizationScopes: AD_Ref_ListInput
+	AD_AuthorizationScopes: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact

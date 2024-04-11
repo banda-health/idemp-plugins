@@ -40,19 +40,19 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	private ForeignEntityInput mA_Asset_Addition;
 	private ForeignEntityInput mA_Asset_Retirement;
 	private ForeignEntityInput mA_Depreciation_A;
+	private ForeignEntityInput mA_Depreciation_Manual_Period;
 	private ForeignEntityInput mA_Depreciation_Table_Header;
 	private ForeignEntityInput mA_Disposal_Loss_A;
 	private ForeignEntityInput mA_Disposal_Revenue_A;
 	private ForeignEntityInput mA_Parent_Asset;
+	private ForeignEntityInput mA_Reval_Cal_Method;
 	private ForeignEntityInput mC_AcctSchema;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_BPartner_Location;
 	private ForeignEntityInput mC_Location;
 	private ForeignEntityInput mC_ValidCombination;
-	private I_AD_Ref_ListInput mA_Depreciation_Manual_Period;
-	private I_AD_Ref_ListInput mA_Reval_Cal_Method;
-	private I_AD_Ref_ListInput mChangeType;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mChangeType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -314,7 +314,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Depreciation_Manual_Period A_Depreciation_Manual_Period
 	 */
 	@JsonProperty("A_Depreciation_Manual_Period")
-	public void setA_Depreciation_Manual_PeriodInput(I_AD_Ref_ListInput A_Depreciation_Manual_Period) {
+	public void setA_Depreciation_Manual_PeriodInput(ForeignEntityInput A_Depreciation_Manual_Period) {
 		this.mA_Depreciation_Manual_Period = A_Depreciation_Manual_Period;
 		if (A_Depreciation_Manual_Period != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -338,7 +338,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return A_Depreciation_Manual_Period
 	 */
 	@JsonProperty("A_Depreciation_Manual_Period")
-	public I_AD_Ref_ListInput A_Depreciation_Manual_Period() {
+	public ForeignEntityInput A_Depreciation_Manual_Period() {
 		return mA_Depreciation_Manual_Period;
 	}
 
@@ -484,7 +484,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param A_Reval_Cal_Method A_Reval_Cal_Method
 	 */
 	@JsonProperty("A_Reval_Cal_Method")
-	public void setA_Reval_Cal_MethodInput(I_AD_Ref_ListInput A_Reval_Cal_Method) {
+	public void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method) {
 		this.mA_Reval_Cal_Method = A_Reval_Cal_Method;
 		if (A_Reval_Cal_Method != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -508,7 +508,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return A_Reval_Cal_Method
 	 */
 	@JsonProperty("A_Reval_Cal_Method")
-	public I_AD_Ref_ListInput A_Reval_Cal_Method() {
+	public ForeignEntityInput A_Reval_Cal_Method() {
 		return mA_Reval_Cal_Method;
 	}
 
@@ -847,7 +847,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param ChangeType Change Type
 	 */
 	@JsonProperty("ChangeType")
-	public void setChangeTypeInput(I_AD_Ref_ListInput ChangeType) {
+	public void setChangeTypeInput(ForeignEntityInput ChangeType) {
 		this.mChangeType = ChangeType;
 		if (get_ID() != 0) {
 			return;
@@ -874,7 +874,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return Change Type
 	 */
 	@JsonProperty("ChangeType")
-	public I_AD_Ref_ListInput ChangeType() {
+	public ForeignEntityInput ChangeType() {
 		return mChangeType;
 	}
 	/**
@@ -906,7 +906,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -930,7 +930,7 @@ public class X_A_Asset_ChangeInput extends MAssetChange implements I_A_Asset_Cha
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 	/**

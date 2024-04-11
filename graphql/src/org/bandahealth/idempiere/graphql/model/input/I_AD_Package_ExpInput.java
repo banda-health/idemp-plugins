@@ -43,26 +43,26 @@ public interface I_AD_Package_ExpInput extends I_AD_Package_Exp {
 	 *
 	 * @param AD_Package_Type AD_Package_Type
 	 */
-	void setAD_Package_TypeInput(I_AD_Ref_ListInput AD_Package_Type);
+	void setAD_Package_TypeInput(ForeignEntityInput AD_Package_Type);
 
 	/**
 	 * Get AD_Package_Type.
 	 *
 	 * @return AD_Package_Type
 	 */
-	I_AD_Ref_ListInput AD_Package_Type();
+	ForeignEntityInput AD_Package_Type();
 
 	/**
 	 * Set ReleaseNo.
 	 *
 	 * @param ReleaseNo Internal Release Number
 	 */
-	void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo);
+	void setReleaseNoInput(ForeignEntityInput ReleaseNo);
 
 	/**
 	 * Get ReleaseNo.
 	 *
 	 * @return Internal Release Number
 	 */
-	I_AD_Ref_ListInput ReleaseNo();
+	ForeignEntityInput ReleaseNo();
 }

@@ -41,13 +41,13 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	private ForeignEntityInput mAD_Val_Rule;
 	private ForeignEntityInput mAD_Val_Rule_Lookup;
 	private ForeignEntityInput mIncluded_Tab;
-	private I_AD_Ref_ListInput mIsAllowCopy;
-	private I_AD_Ref_ListInput mIsAlwaysUpdateable;
-	private I_AD_Ref_ListInput mIsMandatory;
-	private I_AD_Ref_ListInput mIsSelectionColumn;
-	private I_AD_Ref_ListInput mIsToolbarButton;
-	private I_AD_Ref_ListInput mIsUpdateable;
-	private I_AD_Ref_ListInput mObscureType;
+	private ForeignEntityInput mIsAllowCopy;
+	private ForeignEntityInput mIsAlwaysUpdateable;
+	private ForeignEntityInput mIsMandatory;
+	private ForeignEntityInput mIsSelectionColumn;
+	private ForeignEntityInput mIsToolbarButton;
+	private ForeignEntityInput mIsUpdateable;
+	private ForeignEntityInput mObscureType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -544,7 +544,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @param IsAllowCopy Determine if a column must be copied when pushing the button to copy record
 	 */
 	@JsonProperty("IsAllowCopy")
-	public void setIsAllowCopyInput(I_AD_Ref_ListInput IsAllowCopy) {
+	public void setIsAllowCopyInput(ForeignEntityInput IsAllowCopy) {
 		this.mIsAllowCopy = IsAllowCopy;
 		if (IsAllowCopy != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -568,7 +568,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @return Determine if a column must be copied when pushing the button to copy record
 	 */
 	@JsonProperty("IsAllowCopy")
-	public I_AD_Ref_ListInput IsAllowCopy() {
+	public ForeignEntityInput IsAllowCopy() {
 		return mIsAllowCopy;
 	}
 
@@ -578,7 +578,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @param IsAlwaysUpdateable The column is always updateable, even if the record is not active or processed
 	 */
 	@JsonProperty("IsAlwaysUpdateable")
-	public void setIsAlwaysUpdateableInput(I_AD_Ref_ListInput IsAlwaysUpdateable) {
+	public void setIsAlwaysUpdateableInput(ForeignEntityInput IsAlwaysUpdateable) {
 		this.mIsAlwaysUpdateable = IsAlwaysUpdateable;
 		if (IsAlwaysUpdateable != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -602,7 +602,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @return The column is always updateable, even if the record is not active or processed
 	 */
 	@JsonProperty("IsAlwaysUpdateable")
-	public I_AD_Ref_ListInput IsAlwaysUpdateable() {
+	public ForeignEntityInput IsAlwaysUpdateable() {
 		return mIsAlwaysUpdateable;
 	}
 
@@ -612,7 +612,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @param IsMandatory Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory) {
+	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -636,7 +636,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @return Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public I_AD_Ref_ListInput IsMandatory() {
+	public ForeignEntityInput IsMandatory() {
 		return mIsMandatory;
 	}
 
@@ -646,7 +646,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @param IsSelectionColumn Is this column used for finding rows in windows
 	 */
 	@JsonProperty("IsSelectionColumn")
-	public void setIsSelectionColumnInput(I_AD_Ref_ListInput IsSelectionColumn) {
+	public void setIsSelectionColumnInput(ForeignEntityInput IsSelectionColumn) {
 		this.mIsSelectionColumn = IsSelectionColumn;
 		if (IsSelectionColumn != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -670,7 +670,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @return Is this column used for finding rows in windows
 	 */
 	@JsonProperty("IsSelectionColumn")
-	public I_AD_Ref_ListInput IsSelectionColumn() {
+	public ForeignEntityInput IsSelectionColumn() {
 		return mIsSelectionColumn;
 	}
 
@@ -680,7 +680,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @param IsToolbarButton Show the button on the toolbar, the window, or both
 	 */
 	@JsonProperty("IsToolbarButton")
-	public void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton) {
+	public void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton) {
 		this.mIsToolbarButton = IsToolbarButton;
 		if (IsToolbarButton != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -704,7 +704,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @return Show the button on the toolbar, the window, or both
 	 */
 	@JsonProperty("IsToolbarButton")
-	public I_AD_Ref_ListInput IsToolbarButton() {
+	public ForeignEntityInput IsToolbarButton() {
 		return mIsToolbarButton;
 	}
 
@@ -714,7 +714,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @param IsUpdateable Determines, if the field can be updated
 	 */
 	@JsonProperty("IsUpdateable")
-	public void setIsUpdateableInput(I_AD_Ref_ListInput IsUpdateable) {
+	public void setIsUpdateableInput(ForeignEntityInput IsUpdateable) {
 		this.mIsUpdateable = IsUpdateable;
 		if (IsUpdateable != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -738,7 +738,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @return Determines, if the field can be updated
 	 */
 	@JsonProperty("IsUpdateable")
-	public I_AD_Ref_ListInput IsUpdateable() {
+	public ForeignEntityInput IsUpdateable() {
 		return mIsUpdateable;
 	}
 
@@ -748,7 +748,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @param ObscureType Type of obscuring the data (limiting the display)
 	 */
 	@JsonProperty("ObscureType")
-	public void setObscureTypeInput(I_AD_Ref_ListInput ObscureType) {
+	public void setObscureTypeInput(ForeignEntityInput ObscureType) {
 		this.mObscureType = ObscureType;
 		if (ObscureType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -772,7 +772,7 @@ public class X_AD_FieldInput extends MField_BH implements I_AD_FieldInput {
 	 * @return Type of obscuring the data (limiting the display)
 	 */
 	@JsonProperty("ObscureType")
-	public I_AD_Ref_ListInput ObscureType() {
+	public ForeignEntityInput ObscureType() {
 		return mObscureType;
 	}
 }

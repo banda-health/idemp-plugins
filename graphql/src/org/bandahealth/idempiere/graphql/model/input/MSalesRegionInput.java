@@ -11,7 +11,7 @@ public class MSalesRegionInput extends X_C_SalesRegionInput {
 	 * @param UUID The C_SalesRegion_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSalesRegionInput(@JsonProperty("UUID") String UUID) {
+	public MSalesRegionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

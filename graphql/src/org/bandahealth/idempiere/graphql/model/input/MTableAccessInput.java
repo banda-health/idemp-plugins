@@ -11,7 +11,7 @@ public class MTableAccessInput extends X_AD_Table_AccessInput {
 	 * @param UUID The AD_Table_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTableAccessInput(@JsonProperty("UUID") String UUID) {
+	public MTableAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

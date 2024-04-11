@@ -11,7 +11,7 @@ public class MBHRoleWarehouseAccessInput extends X_BH_Role_WarehouseAccessInput 
 	 * @param UUID The BH_Role_WarehouseAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHRoleWarehouseAccessInput(@JsonProperty("UUID") String UUID) {
+	public MBHRoleWarehouseAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -127,14 +127,14 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	 *
 	 * @param DocBaseType Logical type of document
 	 */
-	void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType);
+	void setDocBaseTypeInput(ForeignEntityInput DocBaseType);
 
 	/**
 	 * Get DocBaseType.
 	 *
 	 * @return Logical type of document
 	 */
-	I_AD_Ref_ListInput DocBaseType();
+	ForeignEntityInput DocBaseType();
 
 	/**
 	 * Set DocNoSequence.
@@ -155,28 +155,28 @@ public interface I_C_DocTypeInput extends I_C_DocType {
 	 *
 	 * @param DocSubTypeInv Inventory Sub Type
 	 */
-	void setDocSubTypeInvInput(I_AD_Ref_ListInput DocSubTypeInv);
+	void setDocSubTypeInvInput(ForeignEntityInput DocSubTypeInv);
 
 	/**
 	 * Get DocSubTypeInv.
 	 *
 	 * @return Inventory Sub Type
 	 */
-	I_AD_Ref_ListInput DocSubTypeInv();
+	ForeignEntityInput DocSubTypeInv();
 
 	/**
 	 * Set DocSubTypeSO.
 	 *
 	 * @param DocSubTypeSO Sales Order Sub Type
 	 */
-	void setDocSubTypeSOInput(I_AD_Ref_ListInput DocSubTypeSO);
+	void setDocSubTypeSOInput(ForeignEntityInput DocSubTypeSO);
 
 	/**
 	 * Get DocSubTypeSO.
 	 *
 	 * @return Sales Order Sub Type
 	 */
-	I_AD_Ref_ListInput DocSubTypeSO();
+	ForeignEntityInput DocSubTypeSO();
 
 	/**
 	 * Set GL_Category.

@@ -43,14 +43,14 @@ public interface I_C_InvoiceLineInput extends I_C_InvoiceLine {
 	 *
 	 * @param A_CapvsExp A_CapvsExp
 	 */
-	void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp);
+	void setA_CapvsExpInput(ForeignEntityInput A_CapvsExp);
 
 	/**
 	 * Get A_CapvsExp.
 	 *
 	 * @return A_CapvsExp
 	 */
-	I_AD_Ref_ListInput A_CapvsExp();
+	ForeignEntityInput A_CapvsExp();
 
 	/**
 	 * Set AD_Org.

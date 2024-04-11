@@ -23,9 +23,9 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Period;
-	private I_AD_Ref_ListInput mDocBaseType;
-	private I_AD_Ref_ListInput mPeriodAction;
-	private I_AD_Ref_ListInput mPeriodStatus;
+	private ForeignEntityInput mDocBaseType;
+	private ForeignEntityInput mPeriodAction;
+	private ForeignEntityInput mPeriodStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -148,7 +148,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 * @param DocBaseType Logical type of document
 	 */
 	@JsonProperty("DocBaseType")
-	public void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType) {
+	public void setDocBaseTypeInput(ForeignEntityInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
 		if (get_ID() != 0) {
 			return;
@@ -175,7 +175,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 * @return Logical type of document
 	 */
 	@JsonProperty("DocBaseType")
-	public I_AD_Ref_ListInput DocBaseType() {
+	public ForeignEntityInput DocBaseType() {
 		return mDocBaseType;
 	}
 
@@ -185,7 +185,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 * @param PeriodAction Action taken for this period
 	 */
 	@JsonProperty("PeriodAction")
-	public void setPeriodActionInput(I_AD_Ref_ListInput PeriodAction) {
+	public void setPeriodActionInput(ForeignEntityInput PeriodAction) {
 		this.mPeriodAction = PeriodAction;
 		if (PeriodAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -209,7 +209,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 * @return Action taken for this period
 	 */
 	@JsonProperty("PeriodAction")
-	public I_AD_Ref_ListInput PeriodAction() {
+	public ForeignEntityInput PeriodAction() {
 		return mPeriodAction;
 	}
 
@@ -219,7 +219,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 * @param PeriodStatus Current state of this period
 	 */
 	@JsonProperty("PeriodStatus")
-	public void setPeriodStatusInput(I_AD_Ref_ListInput PeriodStatus) {
+	public void setPeriodStatusInput(ForeignEntityInput PeriodStatus) {
 		this.mPeriodStatus = PeriodStatus;
 		if (get_ID() != 0) {
 			return;
@@ -246,7 +246,7 @@ public class X_C_PeriodControlInput extends MPeriodControl implements I_C_Period
 	 * @return Current state of this period
 	 */
 	@JsonProperty("PeriodStatus")
-	public I_AD_Ref_ListInput PeriodStatus() {
+	public ForeignEntityInput PeriodStatus() {
 		return mPeriodStatus;
 	}
 }

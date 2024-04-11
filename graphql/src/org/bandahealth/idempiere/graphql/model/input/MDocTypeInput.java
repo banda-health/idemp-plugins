@@ -11,7 +11,7 @@ public class MDocTypeInput extends X_C_DocTypeInput {
 	 * @param UUID The C_DocType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDocTypeInput(@JsonProperty("UUID") String UUID) {
+	public MDocTypeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

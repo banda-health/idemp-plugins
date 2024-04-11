@@ -29,28 +29,28 @@ public interface I_A_Asset_Reval_IndexInput extends I_A_Asset_Reval_Index {
 	 *
 	 * @param A_Reval_Code A_Reval_Code
 	 */
-	void setA_Reval_CodeInput(I_AD_Ref_ListInput A_Reval_Code);
+	void setA_Reval_CodeInput(ForeignEntityInput A_Reval_Code);
 
 	/**
 	 * Get A_Reval_Code.
 	 *
 	 * @return A_Reval_Code
 	 */
-	I_AD_Ref_ListInput A_Reval_Code();
+	ForeignEntityInput A_Reval_Code();
 
 	/**
 	 * Set A_Reval_Multiplier.
 	 *
 	 * @param A_Reval_Multiplier A_Reval_Multiplier
 	 */
-	void setA_Reval_MultiplierInput(I_AD_Ref_ListInput A_Reval_Multiplier);
+	void setA_Reval_MultiplierInput(ForeignEntityInput A_Reval_Multiplier);
 
 	/**
 	 * Get A_Reval_Multiplier.
 	 *
 	 * @return A_Reval_Multiplier
 	 */
-	I_AD_Ref_ListInput A_Reval_Multiplier();
+	ForeignEntityInput A_Reval_Multiplier();
 
 	/**
 	 * Set AD_Org.

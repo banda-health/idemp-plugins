@@ -63,7 +63,7 @@ input C_POSTenderTypeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Method of Payment
-	TenderType: AD_Ref_ListInput
+	TenderType: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

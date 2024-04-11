@@ -55,5 +55,5 @@ input AD_ClientShareInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Type of sharing
-	ShareType: AD_Ref_ListInput
+	ShareType: ForeignEntityInput
 }

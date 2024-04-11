@@ -23,7 +23,7 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Window;
-	private I_AD_Ref_ListInput mBH_Encounter_Type;
+	private ForeignEntityInput mBH_Encounter_Type;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -114,7 +114,7 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	 * @param BH_Encounter_Type Encounter Type
 	 */
 	@JsonProperty("BH_Encounter_Type")
-	public void setBH_Encounter_TypeInput(I_AD_Ref_ListInput BH_Encounter_Type) {
+	public void setBH_Encounter_TypeInput(ForeignEntityInput BH_Encounter_Type) {
 		this.mBH_Encounter_Type = BH_Encounter_Type;
 		if (get_ID() != 0) {
 			return;
@@ -141,7 +141,7 @@ public class X_BH_Encounter_Type_WindowInput extends MBHEncounterTypeWindow impl
 	 * @return Encounter Type
 	 */
 	@JsonProperty("BH_Encounter_Type")
-	public I_AD_Ref_ListInput BH_Encounter_Type() {
+	public ForeignEntityInput BH_Encounter_Type() {
 		return mBH_Encounter_Type;
 	}
 

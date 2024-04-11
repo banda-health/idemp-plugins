@@ -76,9 +76,9 @@ input PA_MeasureInput {
 	# Note for manual entry
 	ManualNote: String
 	# Type of data - Status or in Time
-	MeasureDataType: AD_Ref_ListInput
+	MeasureDataType: ForeignEntityInput
 	# Determines how the actual performance is derived
-	MeasureType: AD_Ref_ListInput
+	MeasureType: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Performance Benchmark

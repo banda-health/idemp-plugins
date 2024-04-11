@@ -14,7 +14,7 @@ public class MBHVisitInput extends X_BH_VisitInput {
 	private List<MInOutInput> M_InOuts = new ArrayList<>();
 
 	@JsonCreator
-	public MBHVisitInput(@JsonProperty("UUID") String UUID) {
+	public MBHVisitInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 

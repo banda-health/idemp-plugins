@@ -104,9 +104,9 @@ input U_POSTerminalInput {
 	CardTransferBankAccount: ForeignEntityInput
 	# Cash Book on which to transfer all Card transactions
 	CardTransferCashBook: ForeignEntityInput
-	CardTransferType: AD_Ref_ListInput
+	CardTransferType: ForeignEntityInput
 	# Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
-	CashBookTransferType: AD_Ref_ListInput
+	CashBookTransferType: ForeignEntityInput
 	# Bank Account on which to transfer all Cash transactions
 	CashTransferBankAccount: ForeignEntityInput
 	# Cash Book on which to transfer all Cash transactions
@@ -117,7 +117,7 @@ input U_POSTerminalInput {
 	CheckTransferBankAccount: ForeignEntityInput
 	# Cash Book on which to transfer all Check transactions
 	CheckTransferCashBook: ForeignEntityInput
-	CheckTransferType: AD_Ref_ListInput
+	CheckTransferType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

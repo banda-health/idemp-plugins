@@ -11,7 +11,7 @@ public class MAchievementInput extends X_PA_AchievementInput {
 	 * @param UUID The PA_Achievement_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAchievementInput(@JsonProperty("UUID") String UUID) {
+	public MAchievementInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

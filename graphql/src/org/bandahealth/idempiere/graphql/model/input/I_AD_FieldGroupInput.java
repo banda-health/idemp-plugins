@@ -76,12 +76,12 @@ public interface I_AD_FieldGroupInput extends I_AD_FieldGroup {
 	 *
 	 * @param FieldGroupType FieldGroupType
 	 */
-	void setFieldGroupTypeInput(I_AD_Ref_ListInput FieldGroupType);
+	void setFieldGroupTypeInput(ForeignEntityInput FieldGroupType);
 
 	/**
 	 * Get FieldGroupType.
 	 *
 	 * @return FieldGroupType
 	 */
-	I_AD_Ref_ListInput FieldGroupType();
+	ForeignEntityInput FieldGroupType();
 }

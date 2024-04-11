@@ -24,7 +24,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mCounter_C_DocType;
-	private I_AD_Ref_ListInput mDocAction;
+	private ForeignEntityInput mDocAction;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -178,7 +178,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -202,7 +202,7 @@ public class X_C_DocTypeCounterInput extends MDocTypeCounter implements I_C_DocT
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 }

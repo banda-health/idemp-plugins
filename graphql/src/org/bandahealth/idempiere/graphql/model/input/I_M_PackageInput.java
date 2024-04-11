@@ -99,28 +99,28 @@ public interface I_M_PackageInput extends I_M_Package {
 	 *
 	 * @param DeliveryConfirmationType DeliveryConfirmationType
 	 */
-	void setDeliveryConfirmationTypeInput(I_AD_Ref_ListInput DeliveryConfirmationType);
+	void setDeliveryConfirmationTypeInput(ForeignEntityInput DeliveryConfirmationType);
 
 	/**
 	 * Get DeliveryConfirmationType.
 	 *
 	 * @return DeliveryConfirmationType
 	 */
-	I_AD_Ref_ListInput DeliveryConfirmationType();
+	ForeignEntityInput DeliveryConfirmationType();
 
 	/**
 	 * Set DotHazardClassOrDivision.
 	 *
 	 * @param DotHazardClassOrDivision DotHazardClassOrDivision
 	 */
-	void setDotHazardClassOrDivisionInput(I_AD_Ref_ListInput DotHazardClassOrDivision);
+	void setDotHazardClassOrDivisionInput(ForeignEntityInput DotHazardClassOrDivision);
 
 	/**
 	 * Get DotHazardClassOrDivision.
 	 *
 	 * @return DotHazardClassOrDivision
 	 */
-	I_AD_Ref_ListInput DotHazardClassOrDivision();
+	ForeignEntityInput DotHazardClassOrDivision();
 
 	/**
 	 * Set HoldAddress.
@@ -141,14 +141,14 @@ public interface I_M_PackageInput extends I_M_Package {
 	 *
 	 * @param HomeDeliveryPremiumType HomeDeliveryPremiumType
 	 */
-	void setHomeDeliveryPremiumTypeInput(I_AD_Ref_ListInput HomeDeliveryPremiumType);
+	void setHomeDeliveryPremiumTypeInput(ForeignEntityInput HomeDeliveryPremiumType);
 
 	/**
 	 * Get HomeDeliveryPremiumType.
 	 *
 	 * @return HomeDeliveryPremiumType
 	 */
-	I_AD_Ref_ListInput HomeDeliveryPremiumType();
+	ForeignEntityInput HomeDeliveryPremiumType();
 
 	/**
 	 * Set M_InOut.
@@ -239,26 +239,26 @@ public interface I_M_PackageInput extends I_M_Package {
 	 *
 	 * @param NotificationType Type of Notifications
 	 */
-	void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType);
+	void setNotificationTypeInput(ForeignEntityInput NotificationType);
 
 	/**
 	 * Get NotificationType.
 	 *
 	 * @return Type of Notifications
 	 */
-	I_AD_Ref_ListInput NotificationType();
+	ForeignEntityInput NotificationType();
 
 	/**
 	 * Set PaymentRule.
 	 *
 	 * @param PaymentRule How you pay the invoice
 	 */
-	void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule);
+	void setPaymentRuleInput(ForeignEntityInput PaymentRule);
 
 	/**
 	 * Get PaymentRule.
 	 *
 	 * @return How you pay the invoice
 	 */
-	I_AD_Ref_ListInput PaymentRule();
+	ForeignEntityInput PaymentRule();
 }

@@ -46,7 +46,7 @@ type AD_Table_Access {
 
 input AD_Table_AccessInput {
 	# The type of access for this rule
-	AccessTypeRule: AD_Ref_ListInput
+	AccessTypeRule: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Responsibility Role

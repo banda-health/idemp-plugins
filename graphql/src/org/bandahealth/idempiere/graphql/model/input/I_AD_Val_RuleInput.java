@@ -57,12 +57,12 @@ public interface I_AD_Val_RuleInput extends I_AD_Val_Rule {
 	 *
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
-	void setTypeInput(I_AD_Ref_ListInput Type);
+	void setTypeInput(ForeignEntityInput Type);
 
 	/**
 	 * Get Type.
 	 *
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
-	I_AD_Ref_ListInput Type();
+	ForeignEntityInput Type();
 }

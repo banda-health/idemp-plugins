@@ -106,24 +106,24 @@ input AD_UserDef_Info_ColumnInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Automatic completion for text fields
-	IsAutocomplete: AD_Ref_ListInput
+	IsAutocomplete: ForeignEntityInput
 	# Determines, if this field is displayed
-	IsDisplayed: AD_Ref_ListInput
+	IsDisplayed: ForeignEntityInput
 	# Data entry is required in this column
-	IsMandatory: AD_Ref_ListInput
+	IsMandatory: ForeignEntityInput
 	# Issues a query request after the user has made changes to the field
-	IsQueryAfterChange: AD_Ref_ListInput
+	IsQueryAfterChange: ForeignEntityInput
 	# The column is also used as a query criteria
-	IsQueryCriteria: AD_Ref_ListInput
+	IsQueryCriteria: ForeignEntityInput
 	# Field is read only
-	IsReadOnly: AD_Ref_ListInput
+	IsReadOnly: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	Placeholder: String
 	# Database function for query
 	QueryFunction: String
 	# Operator for database query
-	QueryOperator: AD_Ref_ListInput
+	QueryOperator: ForeignEntityInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Selection Column Sequence

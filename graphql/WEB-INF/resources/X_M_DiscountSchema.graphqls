@@ -57,11 +57,11 @@ input M_DiscountSchemaInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Level for accumulative calculations
-	CumulativeLevel: AD_Ref_ListInput
+	CumulativeLevel: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Type of trade discount calculation
-	DiscountType: AD_Ref_ListInput
+	DiscountType: ForeignEntityInput
 	# Flat discount percentage 
 	FlatDiscount: BigDecimal
 	# The record is active in the system

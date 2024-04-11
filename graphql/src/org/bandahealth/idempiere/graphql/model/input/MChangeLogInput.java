@@ -11,7 +11,7 @@ public class MChangeLogInput extends X_AD_ChangeLogInput {
 	 * @param UUID The AD_ChangeLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MChangeLogInput(@JsonProperty("UUID") String UUID) {
+	public MChangeLogInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

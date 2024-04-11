@@ -11,7 +11,7 @@ public class MBHObservationInput extends X_BH_ObservationInput {
 	 * @param UUID The BH_Observation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHObservationInput(@JsonProperty("UUID") String UUID) {
+	public MBHObservationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

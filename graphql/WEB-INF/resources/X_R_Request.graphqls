@@ -174,9 +174,9 @@ input R_RequestInput {
 	# Close Date
 	CloseDate: Date
 	# Type of Confidentiality
-	ConfidentialType: AD_Ref_ListInput
+	ConfidentialType: ForeignEntityInput
 	# Confidentiality of the individual entry
-	ConfidentialTypeEntry: AD_Ref_ListInput
+	ConfidentialTypeEntry: ForeignEntityInput
 	# Planned Completion Date
 	DateCompletePlan: Date
 	# Date this request was last acted on
@@ -190,7 +190,7 @@ input R_RequestInput {
 	# Document sequence number of the document
 	DocumentNo: String
 	# Status of the next action for this Request
-	DueType: AD_Ref_ListInput
+	DueType: ForeignEntityInput
 	# End of the time span
 	EndTime: Date
 	# The record is active in the system
@@ -216,11 +216,11 @@ input R_RequestInput {
 	# Return Material Authorization
 	M_RMA: ForeignEntityInput
 	# Next Action to be taken
-	NextAction: AD_Ref_ListInput
+	NextAction: ForeignEntityInput
 	# Indicates if this request is of a high, medium or low priority.
-	Priority: AD_Ref_ListInput
+	Priority: ForeignEntityInput
 	# Priority of the issue for the User
-	PriorityUser: AD_Ref_ListInput
+	PriorityUser: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# Invoiced Quantity
@@ -259,5 +259,5 @@ input R_RequestInput {
 	# Textual summary of this request
 	Summary: String
 	# Status of the Task
-	TaskStatus: AD_Ref_ListInput
+	TaskStatus: ForeignEntityInput
 }

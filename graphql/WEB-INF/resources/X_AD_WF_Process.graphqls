@@ -77,5 +77,5 @@ input AD_WF_ProcessInput {
 	# Text Message
 	TextMsg: String
 	# State of the execution of the workflow
-	WFState: AD_Ref_ListInput
+	WFState: ForeignEntityInput
 }

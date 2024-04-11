@@ -11,7 +11,7 @@ public class MPreferenceInput extends X_AD_PreferenceInput {
 	 * @param UUID The AD_Preference_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPreferenceInput(@JsonProperty("UUID") String UUID) {
+	public MPreferenceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

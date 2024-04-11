@@ -11,7 +11,7 @@ public class MFreightInput extends X_M_FreightInput {
 	 * @param UUID The M_Freight_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFreightInput(@JsonProperty("UUID") String UUID) {
+	public MFreightInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

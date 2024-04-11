@@ -23,7 +23,7 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_PaymentTerm;
-	private I_AD_Ref_ListInput mNetDay;
+	private ForeignEntityInput mNetDay;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -146,7 +146,7 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 	 * @param NetDay Day when payment is due net
 	 */
 	@JsonProperty("NetDay")
-	public void setNetDayInput(I_AD_Ref_ListInput NetDay) {
+	public void setNetDayInput(ForeignEntityInput NetDay) {
 		this.mNetDay = NetDay;
 		if (NetDay != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -170,7 +170,7 @@ public class X_C_PayScheduleInput extends MPaySchedule implements I_C_PaySchedul
 	 * @return Day when payment is due net
 	 */
 	@JsonProperty("NetDay")
-	public I_AD_Ref_ListInput NetDay() {
+	public ForeignEntityInput NetDay() {
 		return mNetDay;
 	}
 }

@@ -15,14 +15,14 @@ public interface I_AD_RuleInput extends I_AD_Rule {
 	 *
 	 * @param AccessLevel Access Level required
 	 */
-	void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel);
+	void setAccessLevelInput(ForeignEntityInput AccessLevel);
 
 	/**
 	 * Get AccessLevel.
 	 *
 	 * @return Access Level required
 	 */
-	I_AD_Ref_ListInput AccessLevel();
+	ForeignEntityInput AccessLevel();
 
 	/**
 	 * Set AD_Org.
@@ -71,26 +71,26 @@ public interface I_AD_RuleInput extends I_AD_Rule {
 	 *
 	 * @param EventType Type of Event
 	 */
-	void setEventTypeInput(I_AD_Ref_ListInput EventType);
+	void setEventTypeInput(ForeignEntityInput EventType);
 
 	/**
 	 * Get EventType.
 	 *
 	 * @return Type of Event
 	 */
-	I_AD_Ref_ListInput EventType();
+	ForeignEntityInput EventType();
 
 	/**
 	 * Set RuleType.
 	 *
 	 * @param RuleType RuleType
 	 */
-	void setRuleTypeInput(I_AD_Ref_ListInput RuleType);
+	void setRuleTypeInput(ForeignEntityInput RuleType);
 
 	/**
 	 * Get RuleType.
 	 *
 	 * @return RuleType
 	 */
-	I_AD_Ref_ListInput RuleType();
+	ForeignEntityInput RuleType();
 }

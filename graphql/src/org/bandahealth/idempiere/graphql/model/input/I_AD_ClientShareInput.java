@@ -57,12 +57,12 @@ public interface I_AD_ClientShareInput extends I_AD_ClientShare {
 	 *
 	 * @param ShareType Type of sharing
 	 */
-	void setShareTypeInput(I_AD_Ref_ListInput ShareType);
+	void setShareTypeInput(ForeignEntityInput ShareType);
 
 	/**
 	 * Get ShareType.
 	 *
 	 * @return Type of sharing
 	 */
-	I_AD_Ref_ListInput ShareType();
+	ForeignEntityInput ShareType();
 }

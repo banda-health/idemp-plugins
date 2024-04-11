@@ -53,9 +53,9 @@ input M_BOMInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Type of BOM
-	BOMType: AD_Ref_ListInput
+	BOMType: ForeignEntityInput
 	# The use of the Bill of Material
-	BOMUse: AD_Ref_ListInput
+	BOMUse: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Comment or Hint

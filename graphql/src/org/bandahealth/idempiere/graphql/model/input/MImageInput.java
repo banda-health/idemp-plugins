@@ -11,7 +11,7 @@ public class MImageInput extends X_AD_ImageInput {
 	 * @param UUID The AD_Image_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MImageInput(@JsonProperty("UUID") String UUID) {
+	public MImageInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

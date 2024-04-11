@@ -11,7 +11,7 @@ public class MSchedulerLogInput extends X_AD_SchedulerLogInput {
 	 * @param UUID The AD_SchedulerLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSchedulerLogInput(@JsonProperty("UUID") String UUID) {
+	public MSchedulerLogInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

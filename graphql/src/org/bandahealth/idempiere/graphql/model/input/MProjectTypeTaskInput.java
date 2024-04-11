@@ -11,7 +11,7 @@ public class MProjectTypeTaskInput extends X_C_TaskInput {
 	 * @param UUID The C_Task_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProjectTypeTaskInput(@JsonProperty("UUID") String UUID) {
+	public MProjectTypeTaskInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

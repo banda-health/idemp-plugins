@@ -11,7 +11,7 @@ public class MTabInput extends X_AD_TabInput {
 	 * @param UUID The AD_Tab_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTabInput(@JsonProperty("UUID") String UUID) {
+	public MTabInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

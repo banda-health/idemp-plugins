@@ -29,14 +29,14 @@ public interface I_M_InventoryInput extends I_M_Inventory {
 	 *
 	 * @param bh_update_reason bh_update_reason
 	 */
-	void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason);
+	void setbh_update_reasonInput(ForeignEntityInput bh_update_reason);
 
 	/**
 	 * Get bh_update_reason.
 	 *
 	 * @return bh_update_reason
 	 */
-	I_AD_Ref_ListInput bh_update_reason();
+	ForeignEntityInput bh_update_reason();
 
 	/**
 	 * Set C_Activity.
@@ -127,42 +127,42 @@ public interface I_M_InventoryInput extends I_M_Inventory {
 	 *
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
+	void setCostingMethodInput(ForeignEntityInput CostingMethod);
 
 	/**
 	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput CostingMethod();
+	ForeignEntityInput CostingMethod();
 
 	/**
 	 * Set DocAction.
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set UU.

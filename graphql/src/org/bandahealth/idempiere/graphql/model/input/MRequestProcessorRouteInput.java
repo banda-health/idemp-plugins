@@ -11,7 +11,7 @@ public class MRequestProcessorRouteInput extends X_R_RequestProcessor_RouteInput
 	 * @param UUID The R_RequestProcessor_Route_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRequestProcessorRouteInput(@JsonProperty("UUID") String UUID) {
+	public MRequestProcessorRouteInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

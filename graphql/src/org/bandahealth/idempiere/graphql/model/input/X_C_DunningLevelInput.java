@@ -27,7 +27,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	private ForeignEntityInput mC_Dunning;
 	private ForeignEntityInput mC_PaymentTerm;
 	private ForeignEntityInput mDunning_PrintFormat;
-	private I_AD_Ref_ListInput mInvoiceCollectionType;
+	private ForeignEntityInput mInvoiceCollectionType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -218,7 +218,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @param InvoiceCollectionType Invoice Collection Status
 	 */
 	@JsonProperty("InvoiceCollectionType")
-	public void setInvoiceCollectionTypeInput(I_AD_Ref_ListInput InvoiceCollectionType) {
+	public void setInvoiceCollectionTypeInput(ForeignEntityInput InvoiceCollectionType) {
 		this.mInvoiceCollectionType = InvoiceCollectionType;
 		if (InvoiceCollectionType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -242,7 +242,7 @@ public class X_C_DunningLevelInput extends MDunningLevel implements I_C_DunningL
 	 * @return Invoice Collection Status
 	 */
 	@JsonProperty("InvoiceCollectionType")
-	public I_AD_Ref_ListInput InvoiceCollectionType() {
+	public ForeignEntityInput InvoiceCollectionType() {
 		return mInvoiceCollectionType;
 	}
 }

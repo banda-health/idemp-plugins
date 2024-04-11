@@ -309,42 +309,42 @@ public interface I_C_InvoiceInput extends I_C_Invoice {
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set InvoiceCollectionType.
 	 *
 	 * @param InvoiceCollectionType Invoice Collection Status
 	 */
-	void setInvoiceCollectionTypeInput(I_AD_Ref_ListInput InvoiceCollectionType);
+	void setInvoiceCollectionTypeInput(ForeignEntityInput InvoiceCollectionType);
 
 	/**
 	 * Get InvoiceCollectionType.
 	 *
 	 * @return Invoice Collection Status
 	 */
-	I_AD_Ref_ListInput InvoiceCollectionType();
+	ForeignEntityInput InvoiceCollectionType();
 
 	/**
 	 * Set M_PriceList.

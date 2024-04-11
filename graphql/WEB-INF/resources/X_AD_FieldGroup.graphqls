@@ -51,7 +51,7 @@ input AD_FieldGroupInput {
 	BH_Abbreviation: String
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
-	FieldGroupType: AD_Ref_ListInput
+	FieldGroupType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Flag to set the initial state of collapsible field group.

@@ -15,14 +15,14 @@ public interface I_AD_Table_AccessInput extends I_AD_Table_Access {
 	 *
 	 * @param AccessTypeRule The type of access for this rule
 	 */
-	void setAccessTypeRuleInput(I_AD_Ref_ListInput AccessTypeRule);
+	void setAccessTypeRuleInput(ForeignEntityInput AccessTypeRule);
 
 	/**
 	 * Get AccessTypeRule.
 	 *
 	 * @return The type of access for this rule
 	 */
-	I_AD_Ref_ListInput AccessTypeRule();
+	ForeignEntityInput AccessTypeRule();
 
 	/**
 	 * Set AD_Org.

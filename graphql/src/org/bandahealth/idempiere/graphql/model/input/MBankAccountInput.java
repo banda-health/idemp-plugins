@@ -11,7 +11,7 @@ public class MBankAccountInput extends X_C_BankAccountInput {
 	 * @param UUID The C_BankAccount_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBankAccountInput(@JsonProperty("UUID") String UUID) {
+	public MBankAccountInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

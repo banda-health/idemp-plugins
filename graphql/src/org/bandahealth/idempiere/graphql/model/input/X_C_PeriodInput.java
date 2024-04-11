@@ -23,7 +23,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Year;
-	private I_AD_Ref_ListInput mPeriodType;
+	private ForeignEntityInput mPeriodType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -146,7 +146,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	 * @param PeriodType Period Type
 	 */
 	@JsonProperty("PeriodType")
-	public void setPeriodTypeInput(I_AD_Ref_ListInput PeriodType) {
+	public void setPeriodTypeInput(ForeignEntityInput PeriodType) {
 		this.mPeriodType = PeriodType;
 		if (get_ID() != 0) {
 			return;
@@ -173,7 +173,7 @@ public class X_C_PeriodInput extends MPeriod implements I_C_PeriodInput {
 	 * @return Period Type
 	 */
 	@JsonProperty("PeriodType")
-	public I_AD_Ref_ListInput PeriodType() {
+	public ForeignEntityInput PeriodType() {
 		return mPeriodType;
 	}
 }

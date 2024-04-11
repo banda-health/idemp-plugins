@@ -15,28 +15,28 @@ public interface I_I_ElementValueInput extends I_I_ElementValue {
 	 *
 	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	void setAccountSignInput(I_AD_Ref_ListInput AccountSign);
+	void setAccountSignInput(ForeignEntityInput AccountSign);
 
 	/**
 	 * Get AccountSign.
 	 *
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	I_AD_Ref_ListInput AccountSign();
+	ForeignEntityInput AccountSign();
 
 	/**
 	 * Set AccountType.
 	 *
 	 * @param AccountType Indicates the type of account
 	 */
-	void setAccountTypeInput(I_AD_Ref_ListInput AccountType);
+	void setAccountTypeInput(ForeignEntityInput AccountType);
 
 	/**
 	 * Get AccountType.
 	 *
 	 * @return Indicates the type of account
 	 */
-	I_AD_Ref_ListInput AccountType();
+	ForeignEntityInput AccountType();
 
 	/**
 	 * Set AD_Column.

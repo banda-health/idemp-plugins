@@ -81,7 +81,7 @@ input AD_WF_EventAuditInput {
 	# Elapsed Time in milli seconds
 	ElapsedTimeMS: BigDecimal
 	# Type of Event
-	EventType: AD_Ref_ListInput
+	EventType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# New field value
@@ -91,5 +91,5 @@ input AD_WF_EventAuditInput {
 	# Text Message
 	TextMsg: String
 	# State of the execution of the workflow
-	WFState: AD_Ref_ListInput
+	WFState: ForeignEntityInput
 }

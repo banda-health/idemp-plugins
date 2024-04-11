@@ -11,7 +11,7 @@ public class MCalendarInput extends X_C_CalendarInput {
 	 * @param UUID The C_Calendar_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCalendarInput(@JsonProperty("UUID") String UUID) {
+	public MCalendarInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

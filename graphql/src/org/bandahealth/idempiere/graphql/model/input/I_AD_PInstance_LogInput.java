@@ -57,12 +57,12 @@ public interface I_AD_PInstance_LogInput extends I_AD_PInstance_Log {
 	 *
 	 * @param PInstanceLogType Process Audit Log Type
 	 */
-	void setPInstanceLogTypeInput(I_AD_Ref_ListInput PInstanceLogType);
+	void setPInstanceLogTypeInput(ForeignEntityInput PInstanceLogType);
 
 	/**
 	 * Get PInstanceLogType.
 	 *
 	 * @return Process Audit Log Type
 	 */
-	I_AD_Ref_ListInput PInstanceLogType();
+	ForeignEntityInput PInstanceLogType();
 }

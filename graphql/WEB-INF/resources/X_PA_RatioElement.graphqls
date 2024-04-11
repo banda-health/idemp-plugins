@@ -77,11 +77,11 @@ input PA_RatioElementInput {
 	# Performance Ratio Used
 	PA_RatioUsed: ForeignEntityInput
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# Ratio Element Type
-	RatioElementType: AD_Ref_ListInput
+	RatioElementType: ForeignEntityInput
 	# Ratio Operand
-	RatioOperand: AD_Ref_ListInput
+	RatioOperand: ForeignEntityInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

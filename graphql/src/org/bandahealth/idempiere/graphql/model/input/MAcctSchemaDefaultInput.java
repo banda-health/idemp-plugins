@@ -11,7 +11,7 @@ public class MAcctSchemaDefaultInput extends X_C_AcctSchema_DefaultInput {
 	 * @param UUID The C_AcctSchema_Default_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAcctSchemaDefaultInput(@JsonProperty("UUID") String UUID) {
+	public MAcctSchemaDefaultInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

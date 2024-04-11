@@ -11,7 +11,7 @@ public class MDepreciationInput extends X_A_DepreciationInput {
 	 * @param UUID The A_Depreciation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDepreciationInput(@JsonProperty("UUID") String UUID) {
+	public MDepreciationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

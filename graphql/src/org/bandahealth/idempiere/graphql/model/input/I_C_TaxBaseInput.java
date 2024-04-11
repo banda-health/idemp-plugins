@@ -29,14 +29,14 @@ public interface I_C_TaxBaseInput extends I_C_TaxBase {
 	 *
 	 * @param Base Calculation Base
 	 */
-	void setBaseInput(I_AD_Ref_ListInput Base);
+	void setBaseInput(ForeignEntityInput Base);
 
 	/**
 	 * Get Base.
 	 *
 	 * @return Calculation Base
 	 */
-	I_AD_Ref_ListInput Base();
+	ForeignEntityInput Base();
 
 	/**
 	 * Set UU.

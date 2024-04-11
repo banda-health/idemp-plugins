@@ -11,7 +11,7 @@ public class MAuthorizationProviderInput extends X_AD_AuthorizationProviderInput
 	 * @param UUID The AD_AuthorizationProvider_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAuthorizationProviderInput(@JsonProperty("UUID") String UUID) {
+	public MAuthorizationProviderInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

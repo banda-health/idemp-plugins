@@ -11,7 +11,7 @@ public class MTaxDeclarationInput extends X_C_TaxDeclarationInput {
 	 * @param UUID The C_TaxDeclaration_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTaxDeclarationInput(@JsonProperty("UUID") String UUID) {
+	public MTaxDeclarationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

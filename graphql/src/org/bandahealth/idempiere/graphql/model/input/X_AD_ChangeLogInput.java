@@ -28,7 +28,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Session;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mEventChangeLog;
+	private ForeignEntityInput mEventChangeLog;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -251,7 +251,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	 * @param EventChangeLog Type of Event in Change Log
 	 */
 	@JsonProperty("EventChangeLog")
-	public void setEventChangeLogInput(I_AD_Ref_ListInput EventChangeLog) {
+	public void setEventChangeLogInput(ForeignEntityInput EventChangeLog) {
 		this.mEventChangeLog = EventChangeLog;
 		if (get_ID() != 0) {
 			return;
@@ -278,7 +278,7 @@ public class X_AD_ChangeLogInput extends MChangeLog implements I_AD_ChangeLogInp
 	 * @return Type of Event in Change Log
 	 */
 	@JsonProperty("EventChangeLog")
-	public I_AD_Ref_ListInput EventChangeLog() {
+	public ForeignEntityInput EventChangeLog() {
 		return mEventChangeLog;
 	}
 	/**

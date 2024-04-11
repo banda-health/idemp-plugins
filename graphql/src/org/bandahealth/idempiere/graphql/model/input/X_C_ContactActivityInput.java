@@ -25,8 +25,8 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mC_Opportunity;
+	private ForeignEntityInput mContactActivityType;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mContactActivityType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -180,7 +180,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	 * @param ContactActivityType Type of activity, e.g. task, email, phone call
 	 */
 	@JsonProperty("ContactActivityType")
-	public void setContactActivityTypeInput(I_AD_Ref_ListInput ContactActivityType) {
+	public void setContactActivityTypeInput(ForeignEntityInput ContactActivityType) {
 		this.mContactActivityType = ContactActivityType;
 		if (get_ID() != 0) {
 			return;
@@ -207,7 +207,7 @@ public class X_C_ContactActivityInput extends X_C_ContactActivity implements I_C
 	 * @return Type of activity, e.g. task, email, phone call
 	 */
 	@JsonProperty("ContactActivityType")
-	public I_AD_Ref_ListInput ContactActivityType() {
+	public ForeignEntityInput ContactActivityType() {
 		return mContactActivityType;
 	}
 

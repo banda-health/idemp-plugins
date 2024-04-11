@@ -11,7 +11,7 @@ public class MStatusInput extends X_R_StatusInput {
 	 * @param UUID The R_Status_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStatusInput(@JsonProperty("UUID") String UUID) {
+	public MStatusInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

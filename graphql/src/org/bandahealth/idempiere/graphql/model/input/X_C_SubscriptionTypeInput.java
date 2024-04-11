@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I_C_SubscriptionTypeInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mFrequencyType;
+	private ForeignEntityInput mFrequencyType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	 * @param FrequencyType Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
+	public void setFrequencyTypeInput(ForeignEntityInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
 		if (FrequencyType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_C_SubscriptionTypeInput extends X_C_SubscriptionType implements I
 	 * @return Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public I_AD_Ref_ListInput FrequencyType() {
+	public ForeignEntityInput FrequencyType() {
 		return mFrequencyType;
 	}
 }

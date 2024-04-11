@@ -86,7 +86,7 @@ type HR_Movement {
 
 input HR_MovementInput {
 	# Indicates the Natural Sign of the Account as a Debit or Credit
-	AccountSign: AD_Ref_ListInput
+	AccountSign: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AD_Rule: ForeignEntityInput
@@ -108,7 +108,7 @@ input HR_MovementInput {
 	C_ProjectPhase: ForeignEntityInput
 	# Actual Project Task in a Phase
 	C_ProjectTask: ForeignEntityInput
-	ColumnType: AD_Ref_ListInput
+	ColumnType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	HR_Concept_Category: ForeignEntityInput

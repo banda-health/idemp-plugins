@@ -11,7 +11,7 @@ public class MTaxCategoryInput extends X_C_TaxCategoryInput {
 	 * @param UUID The C_TaxCategory_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTaxCategoryInput(@JsonProperty("UUID") String UUID) {
+	public MTaxCategoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

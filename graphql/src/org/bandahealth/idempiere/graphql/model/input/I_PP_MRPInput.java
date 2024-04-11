@@ -99,14 +99,14 @@ public interface I_PP_MRPInput extends I_PP_MRP {
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set M_Forecast.
@@ -197,14 +197,14 @@ public interface I_PP_MRPInput extends I_PP_MRP {
 	 *
 	 * @param OrderType Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
 	 */
-	void setOrderTypeInput(I_AD_Ref_ListInput OrderType);
+	void setOrderTypeInput(ForeignEntityInput OrderType);
 
 	/**
 	 * Get OrderType.
 	 *
 	 * @return Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
 	 */
-	I_AD_Ref_ListInput OrderType();
+	ForeignEntityInput OrderType();
 
 	/**
 	 * Set Planner.
@@ -281,12 +281,12 @@ public interface I_PP_MRPInput extends I_PP_MRP {
 	 *
 	 * @param TypeMRP MRP Type determines whether a record is demand or supply
 	 */
-	void setTypeMRPInput(I_AD_Ref_ListInput TypeMRP);
+	void setTypeMRPInput(ForeignEntityInput TypeMRP);
 
 	/**
 	 * Get TypeMRP.
 	 *
 	 * @return MRP Type determines whether a record is demand or supply
 	 */
-	I_AD_Ref_ListInput TypeMRP();
+	ForeignEntityInput TypeMRP();
 }

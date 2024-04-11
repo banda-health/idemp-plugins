@@ -11,7 +11,7 @@ public class MSLACriteriaInput extends X_PA_SLA_CriteriaInput {
 	 * @param UUID The PA_SLA_Criteria_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSLACriteriaInput(@JsonProperty("UUID") String UUID) {
+	public MSLACriteriaInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

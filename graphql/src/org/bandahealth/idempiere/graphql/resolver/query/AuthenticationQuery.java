@@ -23,6 +23,7 @@ import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleOrgAccess;
+import org.compiere.model.MSession;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
@@ -372,6 +373,16 @@ public class AuthenticationQuery implements GraphQLQueryResolver {
 			Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
 			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
 		}
+
+		MSession session = MSession.get(idempiereContext);
+		if (session == null) {
+//			log.fine("No Session found");
+			session = MSession.create(idempiereContext);
+			session.setWebSession("idempiere-graphql");
+			session.saveEx();
+		}
+
+		builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
 	}
 
 	/**

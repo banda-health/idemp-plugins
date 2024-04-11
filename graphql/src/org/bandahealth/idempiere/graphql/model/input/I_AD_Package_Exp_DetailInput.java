@@ -281,40 +281,40 @@ public interface I_AD_Package_Exp_DetailInput extends I_AD_Package_Exp_Detail {
 	 *
 	 * @param DBType DBType
 	 */
-	void setDBTypeInput(I_AD_Ref_ListInput DBType);
+	void setDBTypeInput(ForeignEntityInput DBType);
 
 	/**
 	 * Get DBType.
 	 *
 	 * @return DBType
 	 */
-	I_AD_Ref_ListInput DBType();
+	ForeignEntityInput DBType();
 
 	/**
 	 * Set ReleaseNo.
 	 *
 	 * @param ReleaseNo Internal Release Number
 	 */
-	void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo);
+	void setReleaseNoInput(ForeignEntityInput ReleaseNo);
 
 	/**
 	 * Get ReleaseNo.
 	 *
 	 * @return Internal Release Number
 	 */
-	I_AD_Ref_ListInput ReleaseNo();
+	ForeignEntityInput ReleaseNo();
 
 	/**
 	 * Set Type.
 	 *
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
-	void setTypeInput(I_AD_Ref_ListInput Type);
+	void setTypeInput(ForeignEntityInput Type);
 
 	/**
 	 * Get Type.
 	 *
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
-	I_AD_Ref_ListInput Type();
+	ForeignEntityInput Type();
 }

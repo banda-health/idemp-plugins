@@ -43,12 +43,12 @@ public interface I_AD_CtxHelpInput extends I_AD_CtxHelp {
 	 *
 	 * @param CtxType Type of Context Help
 	 */
-	void setCtxTypeInput(I_AD_Ref_ListInput CtxType);
+	void setCtxTypeInput(ForeignEntityInput CtxType);
 
 	/**
 	 * Get CtxType.
 	 *
 	 * @return Type of Context Help
 	 */
-	I_AD_Ref_ListInput CtxType();
+	ForeignEntityInput CtxType();
 }

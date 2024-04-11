@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mCategoryType;
+	private ForeignEntityInput mCategoryType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -78,7 +78,7 @@ public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInpu
 	 * @param CategoryType Source of the Journal with this category
 	 */
 	@JsonProperty("CategoryType")
-	public void setCategoryTypeInput(I_AD_Ref_ListInput CategoryType) {
+	public void setCategoryTypeInput(ForeignEntityInput CategoryType) {
 		this.mCategoryType = CategoryType;
 		if (CategoryType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -102,7 +102,7 @@ public class X_GL_CategoryInput extends MGLCategory implements I_GL_CategoryInpu
 	 * @return Source of the Journal with this category
 	 */
 	@JsonProperty("CategoryType")
-	public I_AD_Ref_ListInput CategoryType() {
+	public ForeignEntityInput CategoryType() {
 		return mCategoryType;
 	}
 	/**

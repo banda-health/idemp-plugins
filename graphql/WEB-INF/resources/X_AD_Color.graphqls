@@ -83,7 +83,7 @@ input AD_ColorInput {
 	# RGB value for second color
 	Blue_1: Int
 	# Color presentation for this color
-	ColorType: AD_Ref_ListInput
+	ColorType: ForeignEntityInput
 	# RGB value 
 	Green: Int
 	# RGB value for second color
@@ -107,5 +107,5 @@ input AD_ColorInput {
 	# Distance in points to repeat gradient color - or zero
 	RepeatDistance: Int
 	# Start point of the gradient colors
-	StartPoint: AD_Ref_ListInput
+	StartPoint: ForeignEntityInput
 }

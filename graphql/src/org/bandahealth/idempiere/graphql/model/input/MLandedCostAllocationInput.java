@@ -11,7 +11,7 @@ public class MLandedCostAllocationInput extends X_C_LandedCostAllocationInput {
 	 * @param UUID The C_LandedCostAllocation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLandedCostAllocationInput(@JsonProperty("UUID") String UUID) {
+	public MLandedCostAllocationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

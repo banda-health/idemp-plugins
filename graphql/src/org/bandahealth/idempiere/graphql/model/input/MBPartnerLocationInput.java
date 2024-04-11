@@ -11,7 +11,7 @@ public class MBPartnerLocationInput extends X_C_BPartner_LocationInput {
 	 * @param UUID The C_BPartner_Location_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBPartnerLocationInput(@JsonProperty("UUID") String UUID) {
+	public MBPartnerLocationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

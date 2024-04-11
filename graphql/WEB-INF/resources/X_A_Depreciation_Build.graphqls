@@ -66,7 +66,7 @@ input A_Depreciation_BuildInput {
 	# Unique Period Number
 	PeriodNo: Int
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

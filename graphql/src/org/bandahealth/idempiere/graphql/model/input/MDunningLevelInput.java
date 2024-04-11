@@ -11,7 +11,7 @@ public class MDunningLevelInput extends X_C_DunningLevelInput {
 	 * @param UUID The C_DunningLevel_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDunningLevelInput(@JsonProperty("UUID") String UUID) {
+	public MDunningLevelInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

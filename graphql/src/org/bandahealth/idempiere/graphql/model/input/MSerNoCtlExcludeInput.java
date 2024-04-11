@@ -11,7 +11,7 @@ public class MSerNoCtlExcludeInput extends X_M_SerNoCtlExcludeInput {
 	 * @param UUID The M_SerNoCtlExclude_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSerNoCtlExcludeInput(@JsonProperty("UUID") String UUID) {
+	public MSerNoCtlExcludeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

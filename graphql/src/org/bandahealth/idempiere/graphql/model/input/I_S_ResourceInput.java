@@ -57,14 +57,14 @@ public interface I_S_ResourceInput extends I_S_Resource {
 	 *
 	 * @param ManufacturingResourceType ManufacturingResourceType
 	 */
-	void setManufacturingResourceTypeInput(I_AD_Ref_ListInput ManufacturingResourceType);
+	void setManufacturingResourceTypeInput(ForeignEntityInput ManufacturingResourceType);
 
 	/**
 	 * Get ManufacturingResourceType.
 	 *
 	 * @return ManufacturingResourceType
 	 */
-	I_AD_Ref_ListInput ManufacturingResourceType();
+	ForeignEntityInput ManufacturingResourceType();
 
 	/**
 	 * Set UU.

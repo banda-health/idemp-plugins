@@ -11,7 +11,7 @@ public class MRoleMenuInput extends X_U_RoleMenuInput {
 	 * @param UUID The U_RoleMenu_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRoleMenuInput(@JsonProperty("UUID") String UUID) {
+	public MRoleMenuInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

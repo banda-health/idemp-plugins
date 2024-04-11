@@ -73,5 +73,5 @@ input GL_JournalGeneratorInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 }

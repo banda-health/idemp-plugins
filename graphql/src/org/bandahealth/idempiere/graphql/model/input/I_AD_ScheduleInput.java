@@ -43,40 +43,40 @@ public interface I_AD_ScheduleInput extends I_AD_Schedule {
 	 *
 	 * @param FrequencyType Frequency of event
 	 */
-	void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType);
+	void setFrequencyTypeInput(ForeignEntityInput FrequencyType);
 
 	/**
 	 * Get FrequencyType.
 	 *
 	 * @return Frequency of event
 	 */
-	I_AD_Ref_ListInput FrequencyType();
+	ForeignEntityInput FrequencyType();
 
 	/**
 	 * Set ScheduleType.
 	 *
 	 * @param ScheduleType Type of schedule
 	 */
-	void setScheduleTypeInput(I_AD_Ref_ListInput ScheduleType);
+	void setScheduleTypeInput(ForeignEntityInput ScheduleType);
 
 	/**
 	 * Get ScheduleType.
 	 *
 	 * @return Type of schedule
 	 */
-	I_AD_Ref_ListInput ScheduleType();
+	ForeignEntityInput ScheduleType();
 
 	/**
 	 * Set WeekDay.
 	 *
 	 * @param WeekDay Day of the Week
 	 */
-	void setWeekDayInput(I_AD_Ref_ListInput WeekDay);
+	void setWeekDayInput(ForeignEntityInput WeekDay);
 
 	/**
 	 * Get WeekDay.
 	 *
 	 * @return Day of the Week
 	 */
-	I_AD_Ref_ListInput WeekDay();
+	ForeignEntityInput WeekDay();
 }

@@ -49,7 +49,7 @@ input M_ShipperLabelsInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	LabelPrintMethod: AD_Ref_ListInput
+	LabelPrintMethod: ForeignEntityInput
 	# Method or manner of product delivery
 	M_Shipper: ForeignEntityInput
 	UU: ID

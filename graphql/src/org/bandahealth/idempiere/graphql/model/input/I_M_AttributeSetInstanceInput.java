@@ -29,14 +29,14 @@ public interface I_M_AttributeSetInstanceInput extends I_M_AttributeSetInstance 
 	 *
 	 * @param bh_update_reason bh_update_reason
 	 */
-	void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason);
+	void setbh_update_reasonInput(ForeignEntityInput bh_update_reason);
 
 	/**
 	 * Get bh_update_reason.
 	 *
 	 * @return bh_update_reason
 	 */
-	I_AD_Ref_ListInput bh_update_reason();
+	ForeignEntityInput bh_update_reason();
 
 	/**
 	 * Set M_AttributeSet.

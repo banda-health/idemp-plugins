@@ -11,7 +11,7 @@ public class MBPGroupInput extends X_C_BP_GroupInput {
 	 * @param UUID The C_BP_Group_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBPGroupInput(@JsonProperty("UUID") String UUID) {
+	public MBPGroupInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

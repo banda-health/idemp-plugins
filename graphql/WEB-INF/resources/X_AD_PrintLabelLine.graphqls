@@ -65,7 +65,7 @@ input AD_PrintLabelLineInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Label Format Type
-	LabelFormatType: AD_Ref_ListInput
+	LabelFormatType: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The label text to be printed on a document or correspondence.

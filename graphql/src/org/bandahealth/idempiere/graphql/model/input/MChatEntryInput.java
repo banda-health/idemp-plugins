@@ -11,7 +11,7 @@ public class MChatEntryInput extends X_CM_ChatEntryInput {
 	 * @param UUID The CM_ChatEntry_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MChatEntryInput(@JsonProperty("UUID") String UUID) {
+	public MChatEntryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

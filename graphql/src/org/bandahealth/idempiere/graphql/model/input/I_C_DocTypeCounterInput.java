@@ -71,12 +71,12 @@ public interface I_C_DocTypeCounterInput extends I_C_DocTypeCounter {
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 }

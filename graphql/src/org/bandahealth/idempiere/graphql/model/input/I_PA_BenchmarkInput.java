@@ -15,14 +15,14 @@ public interface I_PA_BenchmarkInput extends I_PA_Benchmark {
 	 *
 	 * @param AccumulationType How to accumulate data on time axis
 	 */
-	void setAccumulationTypeInput(I_AD_Ref_ListInput AccumulationType);
+	void setAccumulationTypeInput(ForeignEntityInput AccumulationType);
 
 	/**
 	 * Get AccumulationType.
 	 *
 	 * @return How to accumulate data on time axis
 	 */
-	I_AD_Ref_ListInput AccumulationType();
+	ForeignEntityInput AccumulationType();
 
 	/**
 	 * Set AD_Org.

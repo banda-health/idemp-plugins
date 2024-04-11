@@ -56,7 +56,7 @@ input PA_GoalRestrictionInput {
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	# Goal Restriction Type
-	GoalRestrictionType: AD_Ref_ListInput
+	GoalRestrictionType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Category of a Product

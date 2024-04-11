@@ -70,7 +70,7 @@ input C_DepositBatchInput {
 	# Optional short description of the record
 	Description: String
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system

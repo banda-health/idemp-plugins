@@ -25,8 +25,8 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	private ForeignEntityInput mAD_Element;
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mShowInactive;
-	private I_AD_Ref_ListInput mValidationType;
+	private ForeignEntityInput mShowInactive;
+	private ForeignEntityInput mValidationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -180,7 +180,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	 * @param ShowInactive Show Inactive Records
 	 */
 	@JsonProperty("ShowInactive")
-	public void setShowInactiveInput(I_AD_Ref_ListInput ShowInactive) {
+	public void setShowInactiveInput(ForeignEntityInput ShowInactive) {
 		this.mShowInactive = ShowInactive;
 		if (ShowInactive != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -204,7 +204,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	 * @return Show Inactive Records
 	 */
 	@JsonProperty("ShowInactive")
-	public I_AD_Ref_ListInput ShowInactive() {
+	public ForeignEntityInput ShowInactive() {
 		return mShowInactive;
 	}
 
@@ -214,7 +214,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	 * @param ValidationType Different method of validating data
 	 */
 	@JsonProperty("ValidationType")
-	public void setValidationTypeInput(I_AD_Ref_ListInput ValidationType) {
+	public void setValidationTypeInput(ForeignEntityInput ValidationType) {
 		this.mValidationType = ValidationType;
 		if (ValidationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -238,7 +238,7 @@ public class X_AD_ReferenceInput extends MReference_BH implements I_AD_Reference
 	 * @return Different method of validating data
 	 */
 	@JsonProperty("ValidationType")
-	public I_AD_Ref_ListInput ValidationType() {
+	public ForeignEntityInput ValidationType() {
 		return mValidationType;
 	}
 }

@@ -62,9 +62,9 @@ input AD_ChartInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The orientation of the chart.
-	ChartOrientation: AD_Ref_ListInput
+	ChartOrientation: ForeignEntityInput
 	# Type of chart to render
-	ChartType: AD_Ref_ListInput
+	ChartType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Label for the domain axis.
@@ -84,6 +84,6 @@ input AD_ChartInput {
 	# The number of time units to include the chart result.
 	TimeScope: Int
 	# The unit of time for grouping chart data.
-	TimeUnit: AD_Ref_ListInput
+	TimeUnit: ForeignEntityInput
 	WinHeight: Int
 }

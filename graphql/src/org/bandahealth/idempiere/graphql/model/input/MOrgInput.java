@@ -11,7 +11,7 @@ public class MOrgInput extends X_AD_OrgInput {
 	 * @param UUID The AD_Org_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOrgInput(@JsonProperty("UUID") String UUID) {
+	public MOrgInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

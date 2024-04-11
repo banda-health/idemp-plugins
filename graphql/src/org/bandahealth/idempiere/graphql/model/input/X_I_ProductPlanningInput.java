@@ -39,12 +39,12 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	private ForeignEntityInput mM_ForecastLine;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mOrder_Policy;
 	private ForeignEntityInput mPP_Product_BOM;
 	private ForeignEntityInput mPP_Product_Planning;
 	private ForeignEntityInput mPlanner;
 	private ForeignEntityInput mS_Resource;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mOrder_Policy;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -371,7 +371,7 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	 * @param Order_Policy Order Policy
 	 */
 	@JsonProperty("Order_Policy")
-	public void setOrder_PolicyInput(I_AD_Ref_ListInput Order_Policy) {
+	public void setOrder_PolicyInput(ForeignEntityInput Order_Policy) {
 		this.mOrder_Policy = Order_Policy;
 		if (Order_Policy != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -395,7 +395,7 @@ public class X_I_ProductPlanningInput extends X_I_ProductPlanning implements I_I
 	 * @return Order Policy
 	 */
 	@JsonProperty("Order_Policy")
-	public I_AD_Ref_ListInput Order_Policy() {
+	public ForeignEntityInput Order_Policy() {
 		return mOrder_Policy;
 	}
 

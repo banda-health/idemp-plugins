@@ -157,7 +157,7 @@ input AD_InfoColumnInput {
 	# Database function for query
 	QueryFunction: String
 	# Operator for database query
-	QueryOperator: AD_Ref_ListInput
+	QueryOperator: ForeignEntityInput
 	# SQL SELECT clause
 	SelectClause: String
 	# Method of ordering records; lowest number comes first

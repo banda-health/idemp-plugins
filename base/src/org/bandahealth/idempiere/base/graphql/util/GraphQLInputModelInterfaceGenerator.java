@@ -255,10 +255,10 @@ public class GraphQLInputModelInterfaceGenerator {
 				clazz.equals(String.class)) {
 			columnBuilder.append("\n");
 			GraphQLUtil.generateJavaSetComment(columnName, columnName, Description, columnBuilder);
-			columnBuilder.append("\tvoid set").append(columnName).append("Input(I_AD_Ref_ListInput ").append(columnName)
+			columnBuilder.append("\tvoid set").append(columnName).append("Input(ForeignEntityInput ").append(columnName)
 					.append(");\n");
 			GraphQLUtil.generateJavaGetComment(columnName, Description, columnBuilder);
-			columnBuilder.append("\tI_AD_Ref_ListInput ").append(columnName).append("();");
+			columnBuilder.append("\tForeignEntityInput ").append(columnName).append("();");
 			return columnBuilder.toString();
 		}
 

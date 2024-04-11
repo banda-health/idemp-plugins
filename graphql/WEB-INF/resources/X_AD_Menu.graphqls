@@ -68,7 +68,7 @@ type AD_Menu {
 
 input AD_MenuInput {
 	# Indicates the Action to be performed
-	Action: AD_Ref_ListInput
+	Action: ForeignEntityInput
 	# Special Form
 	AD_Form: ForeignEntityInput
 	# Info and search/select Window

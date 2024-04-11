@@ -71,14 +71,14 @@ public interface I_C_ContactActivityInput extends I_C_ContactActivity {
 	 *
 	 * @param ContactActivityType Type of activity, e.g. task, email, phone call
 	 */
-	void setContactActivityTypeInput(I_AD_Ref_ListInput ContactActivityType);
+	void setContactActivityTypeInput(ForeignEntityInput ContactActivityType);
 
 	/**
 	 * Get ContactActivityType.
 	 *
 	 * @return Type of activity, e.g. task, email, phone call
 	 */
-	I_AD_Ref_ListInput ContactActivityType();
+	ForeignEntityInput ContactActivityType();
 
 	/**
 	 * Set SalesRep.

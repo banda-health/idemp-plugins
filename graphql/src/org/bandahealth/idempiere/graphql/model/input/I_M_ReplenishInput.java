@@ -99,12 +99,12 @@ public interface I_M_ReplenishInput extends I_M_Replenish {
 	 *
 	 * @param ReplenishType Method for re-ordering a product
 	 */
-	void setReplenishTypeInput(I_AD_Ref_ListInput ReplenishType);
+	void setReplenishTypeInput(ForeignEntityInput ReplenishType);
 
 	/**
 	 * Get ReplenishType.
 	 *
 	 * @return Method for re-ordering a product
 	 */
-	I_AD_Ref_ListInput ReplenishType();
+	ForeignEntityInput ReplenishType();
 }

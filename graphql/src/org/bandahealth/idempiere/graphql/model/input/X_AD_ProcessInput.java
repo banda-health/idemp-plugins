@@ -33,10 +33,10 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	private ForeignEntityInput mAD_PrintFormat;
 	private ForeignEntityInput mAD_ReportView;
 	private ForeignEntityInput mAD_Workflow;
-	private I_AD_Ref_ListInput mAccessLevel;
-	private I_AD_Ref_ListInput mAllowMultipleExecution;
-	private I_AD_Ref_ListInput mExecutionType;
-	private I_AD_Ref_ListInput mShowHelp;
+	private ForeignEntityInput mAccessLevel;
+	private ForeignEntityInput mAllowMultipleExecution;
+	private ForeignEntityInput mExecutionType;
+	private ForeignEntityInput mShowHelp;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -56,7 +56,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AccessLevel Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -80,7 +80,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public I_AD_Ref_ListInput AccessLevel() {
+	public ForeignEntityInput AccessLevel() {
 		return mAccessLevel;
 	}
 
@@ -326,7 +326,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param AllowMultipleExecution Allow or disallow executing a process/report multiple times concurrently
 	 */
 	@JsonProperty("AllowMultipleExecution")
-	public void setAllowMultipleExecutionInput(I_AD_Ref_ListInput AllowMultipleExecution) {
+	public void setAllowMultipleExecutionInput(ForeignEntityInput AllowMultipleExecution) {
 		this.mAllowMultipleExecution = AllowMultipleExecution;
 		if (AllowMultipleExecution != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -350,7 +350,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Allow or disallow executing a process/report multiple times concurrently
 	 */
 	@JsonProperty("AllowMultipleExecution")
-	public I_AD_Ref_ListInput AllowMultipleExecution() {
+	public ForeignEntityInput AllowMultipleExecution() {
 		return mAllowMultipleExecution;
 	}
 
@@ -394,7 +394,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param ExecutionType Execution Type defines whether the report/process will always run in background or foreground. 
 	 */
 	@JsonProperty("ExecutionType")
-	public void setExecutionTypeInput(I_AD_Ref_ListInput ExecutionType) {
+	public void setExecutionTypeInput(ForeignEntityInput ExecutionType) {
 		this.mExecutionType = ExecutionType;
 		if (ExecutionType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -418,7 +418,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Execution Type defines whether the report/process will always run in background or foreground. 
 	 */
 	@JsonProperty("ExecutionType")
-	public I_AD_Ref_ListInput ExecutionType() {
+	public ForeignEntityInput ExecutionType() {
 		return mExecutionType;
 	}
 
@@ -428,7 +428,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @param ShowHelp Show Help
 	 */
 	@JsonProperty("ShowHelp")
-	public void setShowHelpInput(I_AD_Ref_ListInput ShowHelp) {
+	public void setShowHelpInput(ForeignEntityInput ShowHelp) {
 		this.mShowHelp = ShowHelp;
 		if (ShowHelp != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -452,7 +452,7 @@ public class X_AD_ProcessInput extends MProcess_BH implements I_AD_ProcessInput 
 	 * @return Show Help
 	 */
 	@JsonProperty("ShowHelp")
-	public I_AD_Ref_ListInput ShowHelp() {
+	public ForeignEntityInput ShowHelp() {
 		return mShowHelp;
 	}
 }

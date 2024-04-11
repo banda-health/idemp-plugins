@@ -28,9 +28,9 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	private ForeignEntityInput mPA_MeasureCalc;
 	private ForeignEntityInput mPA_Ratio;
 	private ForeignEntityInput mPA_RatioUsed;
-	private I_AD_Ref_ListInput mPostingType;
-	private I_AD_Ref_ListInput mRatioElementType;
-	private I_AD_Ref_ListInput mRatioOperand;
+	private ForeignEntityInput mPostingType;
+	private ForeignEntityInput mRatioElementType;
+	private ForeignEntityInput mRatioOperand;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -255,7 +255,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -279,7 +279,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 
@@ -289,7 +289,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param RatioElementType Ratio Element Type
 	 */
 	@JsonProperty("RatioElementType")
-	public void setRatioElementTypeInput(I_AD_Ref_ListInput RatioElementType) {
+	public void setRatioElementTypeInput(ForeignEntityInput RatioElementType) {
 		this.mRatioElementType = RatioElementType;
 		if (RatioElementType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -313,7 +313,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return Ratio Element Type
 	 */
 	@JsonProperty("RatioElementType")
-	public I_AD_Ref_ListInput RatioElementType() {
+	public ForeignEntityInput RatioElementType() {
 		return mRatioElementType;
 	}
 
@@ -323,7 +323,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @param RatioOperand Ratio Operand
 	 */
 	@JsonProperty("RatioOperand")
-	public void setRatioOperandInput(I_AD_Ref_ListInput RatioOperand) {
+	public void setRatioOperandInput(ForeignEntityInput RatioOperand) {
 		this.mRatioOperand = RatioOperand;
 		if (RatioOperand != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -347,7 +347,7 @@ public class X_PA_RatioElementInput extends X_PA_RatioElement implements I_PA_Ra
 	 * @return Ratio Operand
 	 */
 	@JsonProperty("RatioOperand")
-	public I_AD_Ref_ListInput RatioOperand() {
+	public ForeignEntityInput RatioOperand() {
 		return mRatioOperand;
 	}
 }

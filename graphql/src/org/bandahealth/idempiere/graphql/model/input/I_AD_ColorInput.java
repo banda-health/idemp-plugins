@@ -57,26 +57,26 @@ public interface I_AD_ColorInput extends I_AD_Color {
 	 *
 	 * @param ColorType Color presentation for this color
 	 */
-	void setColorTypeInput(I_AD_Ref_ListInput ColorType);
+	void setColorTypeInput(ForeignEntityInput ColorType);
 
 	/**
 	 * Get ColorType.
 	 *
 	 * @return Color presentation for this color
 	 */
-	I_AD_Ref_ListInput ColorType();
+	ForeignEntityInput ColorType();
 
 	/**
 	 * Set StartPoint.
 	 *
 	 * @param StartPoint Start point of the gradient colors
 	 */
-	void setStartPointInput(I_AD_Ref_ListInput StartPoint);
+	void setStartPointInput(ForeignEntityInput StartPoint);
 
 	/**
 	 * Get StartPoint.
 	 *
 	 * @return Start point of the gradient colors
 	 */
-	I_AD_Ref_ListInput StartPoint();
+	ForeignEntityInput StartPoint();
 }

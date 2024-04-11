@@ -25,7 +25,7 @@ public class X_AD_WizardProcessInput extends X_AD_WizardProcess implements I_AD_
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mAD_WF_Node;
-	private I_AD_Ref_ListInput mWizardStatus;
+	private ForeignEntityInput mWizardStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -182,7 +182,7 @@ public class X_AD_WizardProcessInput extends X_AD_WizardProcess implements I_AD_
 	 * @param WizardStatus Wizard Status
 	 */
 	@JsonProperty("WizardStatus")
-	public void setWizardStatusInput(I_AD_Ref_ListInput WizardStatus) {
+	public void setWizardStatusInput(ForeignEntityInput WizardStatus) {
 		this.mWizardStatus = WizardStatus;
 		if (WizardStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -206,7 +206,7 @@ public class X_AD_WizardProcessInput extends X_AD_WizardProcess implements I_AD_
 	 * @return Wizard Status
 	 */
 	@JsonProperty("WizardStatus")
-	public I_AD_Ref_ListInput WizardStatus() {
+	public ForeignEntityInput WizardStatus() {
 		return mWizardStatus;
 	}
 }

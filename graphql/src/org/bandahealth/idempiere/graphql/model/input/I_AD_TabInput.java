@@ -141,14 +141,14 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	 *
 	 * @param AD_TabType Defines Tab Type
 	 */
-	void setAD_TabTypeInput(I_AD_Ref_ListInput AD_TabType);
+	void setAD_TabTypeInput(ForeignEntityInput AD_TabType);
 
 	/**
 	 * Get AD_TabType.
 	 *
 	 * @return Defines Tab Type
 	 */
-	I_AD_Ref_ListInput AD_TabType();
+	ForeignEntityInput AD_TabType();
 
 	/**
 	 * Set AD_Window.
@@ -197,14 +197,14 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	 *
 	 * @param IsHighVolume Use Search instead of Pick list
 	 */
-	void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume);
+	void setIsHighVolumeInput(ForeignEntityInput IsHighVolume);
 
 	/**
 	 * Get IsHighVolume.
 	 *
 	 * @return Use Search instead of Pick list
 	 */
-	I_AD_Ref_ListInput IsHighVolume();
+	ForeignEntityInput IsHighVolume();
 
 	/**
 	 * Set Parent_Column.
@@ -225,12 +225,12 @@ public interface I_AD_TabInput extends I_AD_Tab {
 	 *
 	 * @param TreeDisplayedOn The tree can be displayed on master tab, detail tab or both
 	 */
-	void setTreeDisplayedOnInput(I_AD_Ref_ListInput TreeDisplayedOn);
+	void setTreeDisplayedOnInput(ForeignEntityInput TreeDisplayedOn);
 
 	/**
 	 * Get TreeDisplayedOn.
 	 *
 	 * @return The tree can be displayed on master tab, detail tab or both
 	 */
-	I_AD_Ref_ListInput TreeDisplayedOn();
+	ForeignEntityInput TreeDisplayedOn();
 }

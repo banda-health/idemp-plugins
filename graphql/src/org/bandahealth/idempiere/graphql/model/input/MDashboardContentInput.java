@@ -11,7 +11,7 @@ public class MDashboardContentInput extends X_PA_DashboardContentInput {
 	 * @param UUID The PA_DashboardContent_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDashboardContentInput(@JsonProperty("UUID") String UUID) {
+	public MDashboardContentInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

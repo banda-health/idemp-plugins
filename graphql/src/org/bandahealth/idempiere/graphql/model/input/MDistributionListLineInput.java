@@ -11,7 +11,7 @@ public class MDistributionListLineInput extends X_M_DistributionListLineInput {
 	 * @param UUID The M_DistributionListLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDistributionListLineInput(@JsonProperty("UUID") String UUID) {
+	public MDistributionListLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

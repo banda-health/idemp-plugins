@@ -140,7 +140,7 @@ type AD_WF_Node {
 
 input AD_WF_NodeInput {
 	# Indicates the Action to be performed
-	Action: AD_Ref_ListInput
+	Action: ForeignEntityInput
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	AD_CtxHelp: ForeignEntityInput
@@ -176,21 +176,21 @@ input AD_WF_NodeInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# Normal Duration in Duration Unit
 	Duration: Int
 	# Change of priority when Activity is suspended waiting for user
 	DynPriorityChange: BigDecimal
 	# Change of priority when Activity is suspended waiting for user
-	DynPriorityUnit: AD_Ref_ListInput
+	DynPriorityUnit: ForeignEntityInput
 	# Electronic Mail Address
 	EMail: String
 	# Recipient of the EMail
-	EMailRecipient: AD_Ref_ListInput
+	EMailRecipient: ForeignEntityInput
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# Workflow Activity Finish Mode
-	FinishMode: AD_Ref_ListInput
+	FinishMode: ForeignEntityInput
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -202,7 +202,7 @@ input AD_WF_NodeInput {
 	IsMilestone: Boolean
 	IsSubcontracting: Boolean
 	# Semantics for multiple incoming Transitions
-	JoinElement: AD_Ref_ListInput
+	JoinElement: ForeignEntityInput
 	# Maximum Duration in Duration Unit
 	Limit: Int
 	MovingTime: Int
@@ -221,11 +221,11 @@ input AD_WF_NodeInput {
 	# Setup time before starting Production
 	SetupTime: Int
 	# Semantics for multiple outgoing Transitions
-	SplitElement: AD_Ref_ListInput
+	SplitElement: ForeignEntityInput
 	# Workflow Activity Start Mode 
-	StartMode: AD_Ref_ListInput
+	StartMode: ForeignEntityInput
 	# Mode how the sub-workflow is executed
-	SubflowExecution: AD_Ref_ListInput
+	SubflowExecution: ForeignEntityInput
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
 	UnitsCycles: BigDecimal
 	# Valid from including this date (first day)

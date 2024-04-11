@@ -11,7 +11,7 @@ public class MPrivateAccessInput extends X_AD_Private_AccessInput {
 	 * @param UUID The AD_Private_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPrivateAccessInput(@JsonProperty("UUID") String UUID) {
+	public MPrivateAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

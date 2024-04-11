@@ -11,7 +11,7 @@ public class MXIFAJournalInput extends X_I_FAJournalInput {
 	 * @param UUID The I_FAJournal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MXIFAJournalInput(@JsonProperty("UUID") String UUID) {
+	public MXIFAJournalInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

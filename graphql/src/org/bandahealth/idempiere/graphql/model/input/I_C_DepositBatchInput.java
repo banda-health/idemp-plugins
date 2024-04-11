@@ -71,12 +71,12 @@ public interface I_C_DepositBatchInput extends I_C_DepositBatch {
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 }

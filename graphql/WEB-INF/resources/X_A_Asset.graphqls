@@ -135,13 +135,13 @@ type A_Asset {
 }
 
 input A_AssetInput {
-	A_Asset_Action: AD_Ref_ListInput
+	A_Asset_Action: ForeignEntityInput
 	A_Asset_Class: ForeignEntityInput
 	A_Asset_CreateDate: Date
 	# Group of Assets
 	A_Asset_Group: ForeignEntityInput
 	A_Asset_RevalDate: Date
-	A_Asset_Status: AD_Ref_ListInput
+	A_Asset_Status: ForeignEntityInput
 	A_Asset_Type: ForeignEntityInput
 	UU: ID
 	A_AssetType: String

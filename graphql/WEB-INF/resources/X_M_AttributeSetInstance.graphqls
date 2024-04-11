@@ -52,7 +52,7 @@ type M_AttributeSetInstance {
 input M_AttributeSetInstanceInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	bh_update_reason: AD_Ref_ListInput
+	bh_update_reason: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Date when guarantee expires

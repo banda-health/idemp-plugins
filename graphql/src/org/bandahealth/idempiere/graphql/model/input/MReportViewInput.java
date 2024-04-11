@@ -11,7 +11,7 @@ public class MReportViewInput extends X_AD_ReportViewInput {
 	 * @param UUID The AD_ReportView_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MReportViewInput(@JsonProperty("UUID") String UUID) {
+	public MReportViewInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -59,7 +59,7 @@ input C_OrderLandedCostInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Landed Cost Distribution
-	LandedCostDistribution: AD_Ref_ListInput
+	LandedCostDistribution: ForeignEntityInput
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	# The document has been processed

@@ -142,7 +142,7 @@ input C_RfQInput {
 	Processing: Boolean
 	PublishRfQ: String
 	# Request for Quotation Type
-	QuoteType: AD_Ref_ListInput
+	QuoteType: ForeignEntityInput
 	RankRfQ: String
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput

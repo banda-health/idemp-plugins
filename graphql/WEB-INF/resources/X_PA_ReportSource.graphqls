@@ -99,7 +99,7 @@ input PA_ReportSourceInput {
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)
-	ElementType: AD_Ref_ListInput
+	ElementType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Include nulls in the selection of the activity

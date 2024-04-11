@@ -11,7 +11,7 @@ public class MConversionRateInput extends X_C_Conversion_RateInput {
 	 * @param UUID The C_Conversion_Rate_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MConversionRateInput(@JsonProperty("UUID") String UUID) {
+	public MConversionRateInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

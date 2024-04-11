@@ -11,7 +11,7 @@ public class MWarehouseInput extends X_M_WarehouseInput {
 	 * @param UUID The M_Warehouse_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MWarehouseInput(@JsonProperty("UUID") String UUID) {
+	public MWarehouseInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

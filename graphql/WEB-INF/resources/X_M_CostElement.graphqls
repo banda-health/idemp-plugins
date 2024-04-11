@@ -48,9 +48,9 @@ input M_CostElementInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Type of Cost Element
-	CostElementType: AD_Ref_ListInput
+	CostElementType: ForeignEntityInput
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_ListInput
+	CostingMethod: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

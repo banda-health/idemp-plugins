@@ -155,7 +155,7 @@ input I_ProductPlanningInput {
 	# Package order size in UOM (e.g. order set of 5 units)
 	Order_Pack: BigDecimal
 	Order_Period: BigDecimal
-	Order_Policy: AD_Ref_ListInput
+	Order_Policy: ForeignEntityInput
 	Order_Qty: BigDecimal
 	# Key of the Organization
 	OrgValue: String

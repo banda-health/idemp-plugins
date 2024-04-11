@@ -31,6 +31,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 
 	private ForeignEntityInput mAD_Image;
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAuthenticationType;
 	private ForeignEntityInput mBP_Location;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_BPartner_Location;
@@ -38,14 +39,13 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	private ForeignEntityInput mC_Greeting;
 	private ForeignEntityInput mC_Job;
 	private ForeignEntityInput mC_Location;
+	private ForeignEntityInput mIsMenuAutoExpand;
+	private ForeignEntityInput mLeadSource;
+	private ForeignEntityInput mLeadStatus;
+	private ForeignEntityInput mNotificationType;
 	private ForeignEntityInput mR_DefaultMailText;
 	private ForeignEntityInput mSalesRep;
 	private ForeignEntityInput mSupervisor;
-	private I_AD_Ref_ListInput mAuthenticationType;
-	private I_AD_Ref_ListInput mIsMenuAutoExpand;
-	private I_AD_Ref_ListInput mLeadSource;
-	private I_AD_Ref_ListInput mLeadStatus;
-	private I_AD_Ref_ListInput mNotificationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -165,7 +165,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param AuthenticationType Authentication Type
 	 */
 	@JsonProperty("AuthenticationType")
-	public void setAuthenticationTypeInput(I_AD_Ref_ListInput AuthenticationType) {
+	public void setAuthenticationTypeInput(ForeignEntityInput AuthenticationType) {
 		this.mAuthenticationType = AuthenticationType;
 		if (AuthenticationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -189,7 +189,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Authentication Type
 	 */
 	@JsonProperty("AuthenticationType")
-	public I_AD_Ref_ListInput AuthenticationType() {
+	public ForeignEntityInput AuthenticationType() {
 		return mAuthenticationType;
 	}
 
@@ -459,7 +459,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param IsMenuAutoExpand If ticked, the menu is automatically expanded
 	 */
 	@JsonProperty("IsMenuAutoExpand")
-	public void setIsMenuAutoExpandInput(I_AD_Ref_ListInput IsMenuAutoExpand) {
+	public void setIsMenuAutoExpandInput(ForeignEntityInput IsMenuAutoExpand) {
 		this.mIsMenuAutoExpand = IsMenuAutoExpand;
 		if (IsMenuAutoExpand != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -483,7 +483,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return If ticked, the menu is automatically expanded
 	 */
 	@JsonProperty("IsMenuAutoExpand")
-	public I_AD_Ref_ListInput IsMenuAutoExpand() {
+	public ForeignEntityInput IsMenuAutoExpand() {
 		return mIsMenuAutoExpand;
 	}
 
@@ -493,7 +493,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param LeadSource The source of this lead/opportunity
 	 */
 	@JsonProperty("LeadSource")
-	public void setLeadSourceInput(I_AD_Ref_ListInput LeadSource) {
+	public void setLeadSourceInput(ForeignEntityInput LeadSource) {
 		this.mLeadSource = LeadSource;
 		if (LeadSource != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -517,7 +517,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return The source of this lead/opportunity
 	 */
 	@JsonProperty("LeadSource")
-	public I_AD_Ref_ListInput LeadSource() {
+	public ForeignEntityInput LeadSource() {
 		return mLeadSource;
 	}
 
@@ -527,7 +527,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param LeadStatus The status of this lead/opportunity in the sales cycle
 	 */
 	@JsonProperty("LeadStatus")
-	public void setLeadStatusInput(I_AD_Ref_ListInput LeadStatus) {
+	public void setLeadStatusInput(ForeignEntityInput LeadStatus) {
 		this.mLeadStatus = LeadStatus;
 		if (LeadStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -551,7 +551,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return The status of this lead/opportunity in the sales cycle
 	 */
 	@JsonProperty("LeadStatus")
-	public I_AD_Ref_ListInput LeadStatus() {
+	public ForeignEntityInput LeadStatus() {
 		return mLeadStatus;
 	}
 
@@ -561,7 +561,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @param NotificationType Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
+	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (NotificationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -585,7 +585,7 @@ public class X_AD_UserInput extends MUser_BH implements I_AD_UserInput {
 	 * @return Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public I_AD_Ref_ListInput NotificationType() {
+	public ForeignEntityInput NotificationType() {
 		return mNotificationType;
 	}
 

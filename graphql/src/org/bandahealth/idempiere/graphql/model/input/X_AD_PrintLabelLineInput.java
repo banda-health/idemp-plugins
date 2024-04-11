@@ -27,7 +27,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	private ForeignEntityInput mAD_LabelPrinterFunction;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintLabel;
-	private I_AD_Ref_ListInput mLabelFormatType;
+	private ForeignEntityInput mLabelFormatType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -218,7 +218,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	 * @param LabelFormatType Label Format Type
 	 */
 	@JsonProperty("LabelFormatType")
-	public void setLabelFormatTypeInput(I_AD_Ref_ListInput LabelFormatType) {
+	public void setLabelFormatTypeInput(ForeignEntityInput LabelFormatType) {
 		this.mLabelFormatType = LabelFormatType;
 		if (LabelFormatType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -242,7 +242,7 @@ public class X_AD_PrintLabelLineInput extends X_AD_PrintLabelLine implements I_A
 	 * @return Label Format Type
 	 */
 	@JsonProperty("LabelFormatType")
-	public I_AD_Ref_ListInput LabelFormatType() {
+	public ForeignEntityInput LabelFormatType() {
 		return mLabelFormatType;
 	}
 }

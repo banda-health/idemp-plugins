@@ -43,14 +43,14 @@ public interface I_PP_WF_Node_ProductInput extends I_PP_WF_Node_Product {
 	 *
 	 * @param ConfigurationLevel Configuration Level for this parameter
 	 */
-	void setConfigurationLevelInput(I_AD_Ref_ListInput ConfigurationLevel);
+	void setConfigurationLevelInput(ForeignEntityInput ConfigurationLevel);
 
 	/**
 	 * Get ConfigurationLevel.
 	 *
 	 * @return Configuration Level for this parameter
 	 */
-	I_AD_Ref_ListInput ConfigurationLevel();
+	ForeignEntityInput ConfigurationLevel();
 
 	/**
 	 * Set AD_EntityType.

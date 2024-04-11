@@ -27,9 +27,9 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Val_Rule;
 	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mAccessLevel;
 	private ForeignEntityInput mPO_Window;
-	private I_AD_Ref_ListInput mAccessLevel;
-	private I_AD_Ref_ListInput mReplicationType;
+	private ForeignEntityInput mReplicationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -49,7 +49,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @param AccessLevel Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -73,7 +73,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @return Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public I_AD_Ref_ListInput AccessLevel() {
+	public ForeignEntityInput AccessLevel() {
 		return mAccessLevel;
 	}
 
@@ -296,7 +296,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @param ReplicationType Type of Data Replication
 	 */
 	@JsonProperty("ReplicationType")
-	public void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType) {
+	public void setReplicationTypeInput(ForeignEntityInput ReplicationType) {
 		this.mReplicationType = ReplicationType;
 		if (ReplicationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -320,7 +320,7 @@ public class X_AD_TableInput extends MTable implements I_AD_TableInput {
 	 * @return Type of Data Replication
 	 */
 	@JsonProperty("ReplicationType")
-	public I_AD_Ref_ListInput ReplicationType() {
+	public ForeignEntityInput ReplicationType() {
 		return mReplicationType;
 	}
 }

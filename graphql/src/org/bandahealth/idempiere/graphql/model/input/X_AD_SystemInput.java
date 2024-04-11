@@ -22,8 +22,8 @@ import java.sql.Timestamp;
 public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mReplicationType;
-	private I_AD_Ref_ListInput mSystemStatus;
+	private ForeignEntityInput mReplicationType;
+	private ForeignEntityInput mSystemStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -164,7 +164,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 * @param ReplicationType Type of Data Replication
 	 */
 	@JsonProperty("ReplicationType")
-	public void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType) {
+	public void setReplicationTypeInput(ForeignEntityInput ReplicationType) {
 		this.mReplicationType = ReplicationType;
 		if (ReplicationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -188,7 +188,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 * @return Type of Data Replication
 	 */
 	@JsonProperty("ReplicationType")
-	public I_AD_Ref_ListInput ReplicationType() {
+	public ForeignEntityInput ReplicationType() {
 		return mReplicationType;
 	}
 	/**
@@ -231,7 +231,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 * @param SystemStatus Status of the system - Support priority depends on system status
 	 */
 	@JsonProperty("SystemStatus")
-	public void setSystemStatusInput(I_AD_Ref_ListInput SystemStatus) {
+	public void setSystemStatusInput(ForeignEntityInput SystemStatus) {
 		this.mSystemStatus = SystemStatus;
 		if (SystemStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -255,7 +255,7 @@ public class X_AD_SystemInput extends MSystem implements I_AD_SystemInput {
 	 * @return Status of the system - Support priority depends on system status
 	 */
 	@JsonProperty("SystemStatus")
-	public I_AD_Ref_ListInput SystemStatus() {
+	public ForeignEntityInput SystemStatus() {
 		return mSystemStatus;
 	}
 	/**

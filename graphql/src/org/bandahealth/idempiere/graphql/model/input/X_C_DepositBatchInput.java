@@ -25,7 +25,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BankAccount;
 	private ForeignEntityInput mC_DocType;
-	private I_AD_Ref_ListInput mDocStatus;
+	private ForeignEntityInput mDocStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -179,7 +179,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -203,7 +203,7 @@ public class X_C_DepositBatchInput extends MDepositBatch implements I_C_DepositB
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 }

@@ -57,7 +57,7 @@ input AD_MessageInput {
 	# Additional tip or help for this message
 	MsgTip: String
 	# Type of message (Informational, Menu or Error)
-	MsgType: AD_Ref_ListInput
+	MsgType: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

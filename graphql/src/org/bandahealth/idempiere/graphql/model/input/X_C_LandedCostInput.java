@@ -27,11 +27,11 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_InvoiceLine;
+	private ForeignEntityInput mLandedCostDistribution;
 	private ForeignEntityInput mM_CostElement;
 	private ForeignEntityInput mM_InOut;
 	private ForeignEntityInput mM_InOutLine;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mLandedCostDistribution;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -154,7 +154,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	 * @param LandedCostDistribution Landed Cost Distribution
 	 */
 	@JsonProperty("LandedCostDistribution")
-	public void setLandedCostDistributionInput(I_AD_Ref_ListInput LandedCostDistribution) {
+	public void setLandedCostDistributionInput(ForeignEntityInput LandedCostDistribution) {
 		this.mLandedCostDistribution = LandedCostDistribution;
 		if (LandedCostDistribution != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -178,7 +178,7 @@ public class X_C_LandedCostInput extends MLandedCost implements I_C_LandedCostIn
 	 * @return Landed Cost Distribution
 	 */
 	@JsonProperty("LandedCostDistribution")
-	public I_AD_Ref_ListInput LandedCostDistribution() {
+	public ForeignEntityInput LandedCostDistribution() {
 		return mLandedCostDistribution;
 	}
 

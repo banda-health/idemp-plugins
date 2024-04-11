@@ -11,7 +11,7 @@ public class MPPProductBOMLineInput extends X_PP_Product_BOMLineInput {
 	 * @param UUID The PP_Product_BOMLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPPProductBOMLineInput(@JsonProperty("UUID") String UUID) {
+	public MPPProductBOMLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

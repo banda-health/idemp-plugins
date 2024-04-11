@@ -81,7 +81,7 @@ input C_CashLineInput {
 	# Payment identifier
 	C_Payment: ForeignEntityInput
 	# Source of Cash
-	CashType: AD_Ref_ListInput
+	CashType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Calculated amount of discount

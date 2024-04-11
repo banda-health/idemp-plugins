@@ -11,7 +11,7 @@ public class MAcctProcessorLogInput extends X_C_AcctProcessorLogInput {
 	 * @param UUID The C_AcctProcessorLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAcctProcessorLogInput(@JsonProperty("UUID") String UUID) {
+	public MAcctProcessorLogInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

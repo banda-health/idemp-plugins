@@ -43,14 +43,14 @@ public interface I_A_Asset_Info_TaxInput extends I_A_Asset_Info_Tax {
 	 *
 	 * @param A_Finance_Meth A_Finance_Meth
 	 */
-	void setA_Finance_MethInput(I_AD_Ref_ListInput A_Finance_Meth);
+	void setA_Finance_MethInput(ForeignEntityInput A_Finance_Meth);
 
 	/**
 	 * Get A_Finance_Meth.
 	 *
 	 * @return A_Finance_Meth
 	 */
-	I_AD_Ref_ListInput A_Finance_Meth();
+	ForeignEntityInput A_Finance_Meth();
 
 	/**
 	 * Set AD_Org.

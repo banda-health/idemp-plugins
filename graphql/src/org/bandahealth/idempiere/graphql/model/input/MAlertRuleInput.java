@@ -11,7 +11,7 @@ public class MAlertRuleInput extends X_AD_AlertRuleInput {
 	 * @param UUID The AD_AlertRule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAlertRuleInput(@JsonProperty("UUID") String UUID) {
+	public MAlertRuleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

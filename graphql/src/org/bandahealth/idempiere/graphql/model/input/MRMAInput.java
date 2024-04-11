@@ -11,7 +11,7 @@ public class MRMAInput extends X_M_RMAInput {
 	 * @param UUID The M_RMA_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRMAInput(@JsonProperty("UUID") String UUID) {
+	public MRMAInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

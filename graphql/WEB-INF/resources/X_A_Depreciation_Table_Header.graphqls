@@ -44,8 +44,8 @@ type A_Depreciation_Table_Header {
 input A_Depreciation_Table_HeaderInput {
 	A_Depreciation_Table_Code: String
 	UU: ID
-	A_Table_Rate_Type: AD_Ref_ListInput
-	A_Term: AD_Ref_ListInput
+	A_Table_Rate_Type: ForeignEntityInput
+	A_Term: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

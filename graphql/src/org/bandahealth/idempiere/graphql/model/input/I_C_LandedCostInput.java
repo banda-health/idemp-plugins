@@ -57,14 +57,14 @@ public interface I_C_LandedCostInput extends I_C_LandedCost {
 	 *
 	 * @param LandedCostDistribution Landed Cost Distribution
 	 */
-	void setLandedCostDistributionInput(I_AD_Ref_ListInput LandedCostDistribution);
+	void setLandedCostDistributionInput(ForeignEntityInput LandedCostDistribution);
 
 	/**
 	 * Get LandedCostDistribution.
 	 *
 	 * @return Landed Cost Distribution
 	 */
-	I_AD_Ref_ListInput LandedCostDistribution();
+	ForeignEntityInput LandedCostDistribution();
 
 	/**
 	 * Set M_CostElement.

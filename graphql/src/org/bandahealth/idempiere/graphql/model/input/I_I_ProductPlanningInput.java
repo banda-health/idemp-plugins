@@ -141,14 +141,14 @@ public interface I_I_ProductPlanningInput extends I_I_ProductPlanning {
 	 *
 	 * @param Order_Policy Order_Policy
 	 */
-	void setOrder_PolicyInput(I_AD_Ref_ListInput Order_Policy);
+	void setOrder_PolicyInput(ForeignEntityInput Order_Policy);
 
 	/**
 	 * Get Order_Policy.
 	 *
 	 * @return Order_Policy
 	 */
-	I_AD_Ref_ListInput Order_Policy();
+	ForeignEntityInput Order_Policy();
 
 	/**
 	 * Set Planner.

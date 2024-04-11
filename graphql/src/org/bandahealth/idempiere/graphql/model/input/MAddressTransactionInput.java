@@ -11,7 +11,7 @@ public class MAddressTransactionInput extends X_C_AddressTransactionInput {
 	 * @param UUID The C_AddressTransaction_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAddressTransactionInput(@JsonProperty("UUID") String UUID) {
+	public MAddressTransactionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

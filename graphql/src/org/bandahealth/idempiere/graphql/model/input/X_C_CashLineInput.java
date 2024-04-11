@@ -33,7 +33,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_Payment;
-	private I_AD_Ref_ListInput mCashType;
+	private ForeignEntityInput mCashType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -332,7 +332,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @param CashType Source of Cash
 	 */
 	@JsonProperty("CashType")
-	public void setCashTypeInput(I_AD_Ref_ListInput CashType) {
+	public void setCashTypeInput(ForeignEntityInput CashType) {
 		this.mCashType = CashType;
 		if (get_ID() != 0) {
 			return;
@@ -359,7 +359,7 @@ public class X_C_CashLineInput extends MCashLine implements I_C_CashLineInput {
 	 * @return Source of Cash
 	 */
 	@JsonProperty("CashType")
-	public I_AD_Ref_ListInput CashType() {
+	public ForeignEntityInput CashType() {
 		return mCashType;
 	}
 	/**

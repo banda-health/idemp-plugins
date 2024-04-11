@@ -43,14 +43,14 @@ public interface I_CM_ChatEntryInput extends I_CM_ChatEntry {
 	 *
 	 * @param ChatEntryType Type of Chat/Forum Entry
 	 */
-	void setChatEntryTypeInput(I_AD_Ref_ListInput ChatEntryType);
+	void setChatEntryTypeInput(ForeignEntityInput ChatEntryType);
 
 	/**
 	 * Get ChatEntryType.
 	 *
 	 * @return Type of Chat/Forum Entry
 	 */
-	I_AD_Ref_ListInput ChatEntryType();
+	ForeignEntityInput ChatEntryType();
 
 	/**
 	 * Set CM_Chat.
@@ -113,26 +113,26 @@ public interface I_CM_ChatEntryInput extends I_CM_ChatEntry {
 	 *
 	 * @param ConfidentialType Type of Confidentiality
 	 */
-	void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType);
+	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
 
 	/**
 	 * Get ConfidentialType.
 	 *
 	 * @return Type of Confidentiality
 	 */
-	I_AD_Ref_ListInput ConfidentialType();
+	ForeignEntityInput ConfidentialType();
 
 	/**
 	 * Set ModeratorStatus.
 	 *
 	 * @param ModeratorStatus Status of Moderation
 	 */
-	void setModeratorStatusInput(I_AD_Ref_ListInput ModeratorStatus);
+	void setModeratorStatusInput(ForeignEntityInput ModeratorStatus);
 
 	/**
 	 * Get ModeratorStatus.
 	 *
 	 * @return Status of Moderation
 	 */
-	I_AD_Ref_ListInput ModeratorStatus();
+	ForeignEntityInput ModeratorStatus();
 }

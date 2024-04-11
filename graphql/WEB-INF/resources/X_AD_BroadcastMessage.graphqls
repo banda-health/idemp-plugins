@@ -72,11 +72,11 @@ input AD_BroadcastMessageInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# How Many Times Message Should be Broadcasted
-	BroadcastFrequency: AD_Ref_ListInput
+	BroadcastFrequency: ForeignEntityInput
 	# Broadcast Message
 	BroadcastMessage: String
 	# Type of Broadcast
-	BroadcastType: AD_Ref_ListInput
+	BroadcastType: ForeignEntityInput
 	# Expire On
 	Expiration: Date
 	Expired: Boolean
@@ -93,7 +93,7 @@ input AD_BroadcastMessageInput {
 	# Publish Broadcast Message
 	Publish: String
 	# Target tenant
-	Target: AD_Ref_ListInput
+	Target: ForeignEntityInput
 	# Test broadcast message
 	TestMessage: String
 	# Name this entity is referred to as

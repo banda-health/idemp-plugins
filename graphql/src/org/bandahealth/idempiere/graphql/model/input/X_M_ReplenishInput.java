@@ -28,7 +28,7 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mM_WarehouseSource;
-	private I_AD_Ref_ListInput mReplenishType;
+	private ForeignEntityInput mReplenishType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -245,7 +245,7 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	 * @param ReplenishType Method for re-ordering a product
 	 */
 	@JsonProperty("ReplenishType")
-	public void setReplenishTypeInput(I_AD_Ref_ListInput ReplenishType) {
+	public void setReplenishTypeInput(ForeignEntityInput ReplenishType) {
 		this.mReplenishType = ReplenishType;
 		if (ReplenishType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -269,7 +269,7 @@ public class X_M_ReplenishInput extends MReplenish implements I_M_ReplenishInput
 	 * @return Method for re-ordering a product
 	 */
 	@JsonProperty("ReplenishType")
-	public I_AD_Ref_ListInput ReplenishType() {
+	public ForeignEntityInput ReplenishType() {
 		return mReplenishType;
 	}
 }

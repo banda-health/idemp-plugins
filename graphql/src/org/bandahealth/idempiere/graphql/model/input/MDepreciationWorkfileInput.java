@@ -11,7 +11,7 @@ public class MDepreciationWorkfileInput extends X_A_Depreciation_WorkfileInput {
 	 * @param UUID The A_Depreciation_Workfile_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDepreciationWorkfileInput(@JsonProperty("UUID") String UUID) {
+	public MDepreciationWorkfileInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

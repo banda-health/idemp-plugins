@@ -11,7 +11,7 @@ public class MCommissionRunInput extends X_C_CommissionRunInput {
 	 * @param UUID The C_CommissionRun_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCommissionRunInput(@JsonProperty("UUID") String UUID) {
+	public MCommissionRunInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

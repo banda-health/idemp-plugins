@@ -11,7 +11,7 @@ public class MDepositBatchInput extends X_C_DepositBatchInput {
 	 * @param UUID The C_DepositBatch_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDepositBatchInput(@JsonProperty("UUID") String UUID) {
+	public MDepositBatchInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

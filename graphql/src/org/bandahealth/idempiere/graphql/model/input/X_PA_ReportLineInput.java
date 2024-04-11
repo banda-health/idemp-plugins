@@ -23,17 +23,17 @@ import java.sql.ResultSet;
 public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLineInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mCalculationType;
 	private ForeignEntityInput mGL_Budget;
+	private ForeignEntityInput mLineType;
 	private ForeignEntityInput mOper_1;
 	private ForeignEntityInput mOper_2;
+	private ForeignEntityInput mOverlineStrokeType;
+	private ForeignEntityInput mPAAmountType;
+	private ForeignEntityInput mPAPeriodType;
 	private ForeignEntityInput mPA_ReportLineSet;
-	private I_AD_Ref_ListInput mCalculationType;
-	private I_AD_Ref_ListInput mLineType;
-	private I_AD_Ref_ListInput mOverlineStrokeType;
-	private I_AD_Ref_ListInput mPAAmountType;
-	private I_AD_Ref_ListInput mPAPeriodType;
-	private I_AD_Ref_ListInput mPostingType;
-	private I_AD_Ref_ListInput mUnderlineStrokeType;
+	private ForeignEntityInput mPostingType;
+	private ForeignEntityInput mUnderlineStrokeType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -90,7 +90,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @param CalculationType Calculation
 	 */
 	@JsonProperty("CalculationType")
-	public void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType) {
+	public void setCalculationTypeInput(ForeignEntityInput CalculationType) {
 		this.mCalculationType = CalculationType;
 		if (CalculationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -114,7 +114,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @return Calculation
 	 */
 	@JsonProperty("CalculationType")
-	public I_AD_Ref_ListInput CalculationType() {
+	public ForeignEntityInput CalculationType() {
 		return mCalculationType;
 	}
 
@@ -158,7 +158,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @param LineType Line Type
 	 */
 	@JsonProperty("LineType")
-	public void setLineTypeInput(I_AD_Ref_ListInput LineType) {
+	public void setLineTypeInput(ForeignEntityInput LineType) {
 		this.mLineType = LineType;
 		if (LineType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -182,7 +182,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @return Line Type
 	 */
 	@JsonProperty("LineType")
-	public I_AD_Ref_ListInput LineType() {
+	public ForeignEntityInput LineType() {
 		return mLineType;
 	}
 
@@ -260,7 +260,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @param OverlineStrokeType Overline Stroke Type
 	 */
 	@JsonProperty("OverlineStrokeType")
-	public void setOverlineStrokeTypeInput(I_AD_Ref_ListInput OverlineStrokeType) {
+	public void setOverlineStrokeTypeInput(ForeignEntityInput OverlineStrokeType) {
 		this.mOverlineStrokeType = OverlineStrokeType;
 		if (OverlineStrokeType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -284,7 +284,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @return Overline Stroke Type
 	 */
 	@JsonProperty("OverlineStrokeType")
-	public I_AD_Ref_ListInput OverlineStrokeType() {
+	public ForeignEntityInput OverlineStrokeType() {
 		return mOverlineStrokeType;
 	}
 	/**
@@ -360,7 +360,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @param PAAmountType PA Amount Type for reporting
 	 */
 	@JsonProperty("PAAmountType")
-	public void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType) {
+	public void setPAAmountTypeInput(ForeignEntityInput PAAmountType) {
 		this.mPAAmountType = PAAmountType;
 		if (PAAmountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -384,7 +384,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @return PA Amount Type for reporting
 	 */
 	@JsonProperty("PAAmountType")
-	public I_AD_Ref_ListInput PAAmountType() {
+	public ForeignEntityInput PAAmountType() {
 		return mPAAmountType;
 	}
 
@@ -394,7 +394,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @param PAPeriodType PA Period Type
 	 */
 	@JsonProperty("PAPeriodType")
-	public void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType) {
+	public void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType) {
 		this.mPAPeriodType = PAPeriodType;
 		if (PAPeriodType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -418,7 +418,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @return PA Period Type
 	 */
 	@JsonProperty("PAPeriodType")
-	public I_AD_Ref_ListInput PAPeriodType() {
+	public ForeignEntityInput PAPeriodType() {
 		return mPAPeriodType;
 	}
 
@@ -428,7 +428,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -452,7 +452,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 
@@ -462,7 +462,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @param UnderlineStrokeType Underline Stroke Type
 	 */
 	@JsonProperty("UnderlineStrokeType")
-	public void setUnderlineStrokeTypeInput(I_AD_Ref_ListInput UnderlineStrokeType) {
+	public void setUnderlineStrokeTypeInput(ForeignEntityInput UnderlineStrokeType) {
 		this.mUnderlineStrokeType = UnderlineStrokeType;
 		if (UnderlineStrokeType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -486,7 +486,7 @@ public class X_PA_ReportLineInput extends MReportLine implements I_PA_ReportLine
 	 * @return Underline Stroke Type
 	 */
 	@JsonProperty("UnderlineStrokeType")
-	public I_AD_Ref_ListInput UnderlineStrokeType() {
+	public ForeignEntityInput UnderlineStrokeType() {
 		return mUnderlineStrokeType;
 	}
 }

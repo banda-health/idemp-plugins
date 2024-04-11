@@ -11,7 +11,7 @@ public class MReplicationStrategyInput extends X_AD_ReplicationStrategyInput {
 	 * @param UUID The AD_ReplicationStrategy_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MReplicationStrategyInput(@JsonProperty("UUID") String UUID) {
+	public MReplicationStrategyInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

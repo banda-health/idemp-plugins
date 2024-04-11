@@ -43,26 +43,26 @@ public interface I_BH_Payer_Info_Fld_SugInput extends I_BH_Payer_Info_Fld_Sug {
 	 *
 	 * @param BH_PayerInfoFieldDataType BH_PayerInfoFieldDataType
 	 */
-	void setBH_PayerInfoFieldDataTypeInput(I_AD_Ref_ListInput BH_PayerInfoFieldDataType);
+	void setBH_PayerInfoFieldDataTypeInput(ForeignEntityInput BH_PayerInfoFieldDataType);
 
 	/**
 	 * Get BH_PayerInfoFieldDataType.
 	 *
 	 * @return BH_PayerInfoFieldDataType
 	 */
-	I_AD_Ref_ListInput BH_PayerInfoFieldDataType();
+	ForeignEntityInput BH_PayerInfoFieldDataType();
 
 	/**
 	 * Set BH_SubType.
 	 *
 	 * @param BH_SubType Meant to be a sub-type of the charge type
 	 */
-	void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType);
+	void setBH_SubTypeInput(ForeignEntityInput BH_SubType);
 
 	/**
 	 * Get BH_SubType.
 	 *
 	 * @return Meant to be a sub-type of the charge type
 	 */
-	I_AD_Ref_ListInput BH_SubType();
+	ForeignEntityInput BH_SubType();
 }

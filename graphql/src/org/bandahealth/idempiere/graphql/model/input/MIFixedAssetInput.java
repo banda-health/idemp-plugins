@@ -11,7 +11,7 @@ public class MIFixedAssetInput extends X_I_FixedAssetInput {
 	 * @param UUID The I_FixedAsset_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MIFixedAssetInput(@JsonProperty("UUID") String UUID) {
+	public MIFixedAssetInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

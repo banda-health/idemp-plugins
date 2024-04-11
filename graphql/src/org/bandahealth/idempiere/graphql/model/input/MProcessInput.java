@@ -11,7 +11,7 @@ public class MProcessInput extends X_AD_ProcessInput {
 	 * @param UUID The AD_Process_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProcessInput(@JsonProperty("UUID") String UUID) {
+	public MProcessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

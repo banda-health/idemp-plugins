@@ -74,9 +74,9 @@ input C_CommissionInput {
 	# Optional short description of the record
 	Description: String
 	# Basis for the calculation the commission
-	DocBasisType: AD_Ref_ListInput
+	DocBasisType: ForeignEntityInput
 	# Frequency of event
-	FrequencyType: AD_Ref_ListInput
+	FrequencyType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# List document details

@@ -71,9 +71,9 @@ input AD_ReferenceInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Show Inactive Records
-	ShowInactive: AD_Ref_ListInput
+	ShowInactive: ForeignEntityInput
 	# Different method of validating data
-	ValidationType: AD_Ref_ListInput
+	ValidationType: ForeignEntityInput
 	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
 	VFormat: String
 }

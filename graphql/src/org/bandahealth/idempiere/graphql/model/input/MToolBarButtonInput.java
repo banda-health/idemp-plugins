@@ -11,7 +11,7 @@ public class MToolBarButtonInput extends X_AD_ToolBarButtonInput {
 	 * @param UUID The AD_ToolBarButton_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MToolBarButtonInput(@JsonProperty("UUID") String UUID) {
+	public MToolBarButtonInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

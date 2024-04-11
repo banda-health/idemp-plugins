@@ -11,7 +11,7 @@ public class MPInstanceInput extends X_AD_PInstanceInput {
 	 * @param UUID The AD_PInstance_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPInstanceInput(@JsonProperty("UUID") String UUID) {
+	public MPInstanceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

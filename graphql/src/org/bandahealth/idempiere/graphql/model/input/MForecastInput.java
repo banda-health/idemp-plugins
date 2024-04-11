@@ -11,7 +11,7 @@ public class MForecastInput extends X_M_ForecastInput {
 	 * @param UUID The M_Forecast_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MForecastInput(@JsonProperty("UUID") String UUID) {
+	public MForecastInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

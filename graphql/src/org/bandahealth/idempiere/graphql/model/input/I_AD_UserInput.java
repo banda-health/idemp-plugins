@@ -59,14 +59,14 @@ public interface I_AD_UserInput extends I_AD_User {
 	 *
 	 * @param AuthenticationType AuthenticationType
 	 */
-	void setAuthenticationTypeInput(I_AD_Ref_ListInput AuthenticationType);
+	void setAuthenticationTypeInput(ForeignEntityInput AuthenticationType);
 
 	/**
 	 * Get AuthenticationType.
 	 *
 	 * @return AuthenticationType
 	 */
-	I_AD_Ref_ListInput AuthenticationType();
+	ForeignEntityInput AuthenticationType();
 
 	/**
 	 * Column name BH_HasAcceptedTermsOfUse
@@ -209,56 +209,56 @@ public interface I_AD_UserInput extends I_AD_User {
 	 *
 	 * @param IsMenuAutoExpand If ticked, the menu is automatically expanded
 	 */
-	void setIsMenuAutoExpandInput(I_AD_Ref_ListInput IsMenuAutoExpand);
+	void setIsMenuAutoExpandInput(ForeignEntityInput IsMenuAutoExpand);
 
 	/**
 	 * Get IsMenuAutoExpand.
 	 *
 	 * @return If ticked, the menu is automatically expanded
 	 */
-	I_AD_Ref_ListInput IsMenuAutoExpand();
+	ForeignEntityInput IsMenuAutoExpand();
 
 	/**
 	 * Set LeadSource.
 	 *
 	 * @param LeadSource The source of this lead/opportunity
 	 */
-	void setLeadSourceInput(I_AD_Ref_ListInput LeadSource);
+	void setLeadSourceInput(ForeignEntityInput LeadSource);
 
 	/**
 	 * Get LeadSource.
 	 *
 	 * @return The source of this lead/opportunity
 	 */
-	I_AD_Ref_ListInput LeadSource();
+	ForeignEntityInput LeadSource();
 
 	/**
 	 * Set LeadStatus.
 	 *
 	 * @param LeadStatus The status of this lead/opportunity in the sales cycle
 	 */
-	void setLeadStatusInput(I_AD_Ref_ListInput LeadStatus);
+	void setLeadStatusInput(ForeignEntityInput LeadStatus);
 
 	/**
 	 * Get LeadStatus.
 	 *
 	 * @return The status of this lead/opportunity in the sales cycle
 	 */
-	I_AD_Ref_ListInput LeadStatus();
+	ForeignEntityInput LeadStatus();
 
 	/**
 	 * Set NotificationType.
 	 *
 	 * @param NotificationType Type of Notifications
 	 */
-	void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType);
+	void setNotificationTypeInput(ForeignEntityInput NotificationType);
 
 	/**
 	 * Get NotificationType.
 	 *
 	 * @return Type of Notifications
 	 */
-	I_AD_Ref_ListInput NotificationType();
+	ForeignEntityInput NotificationType();
 
 	/**
 	 * Set R_DefaultMailText.

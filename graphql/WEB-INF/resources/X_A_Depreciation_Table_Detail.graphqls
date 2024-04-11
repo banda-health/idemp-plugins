@@ -45,7 +45,7 @@ input A_Depreciation_Table_DetailInput {
 	A_Depreciation_Table_Code: String
 	UU: ID
 	A_Period: Int
-	A_Table_Rate_Type: AD_Ref_ListInput
+	A_Table_Rate_Type: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# The record is active in the system

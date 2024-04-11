@@ -330,70 +330,70 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 *
 	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
-	void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType);
+	void setCreditCardTypeInput(ForeignEntityInput CreditCardType);
 
 	/**
 	 * Get CreditCardType.
 	 *
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
-	I_AD_Ref_ListInput CreditCardType();
+	ForeignEntityInput CreditCardType();
 
 	/**
 	 * Set DocAction.
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set R_AvsAddr.
 	 *
 	 * @param R_AvsAddr This address has been verified
 	 */
-	void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr);
+	void setR_AvsAddrInput(ForeignEntityInput R_AvsAddr);
 
 	/**
 	 * Get R_AvsAddr.
 	 *
 	 * @return This address has been verified
 	 */
-	I_AD_Ref_ListInput R_AvsAddr();
+	ForeignEntityInput R_AvsAddr();
 
 	/**
 	 * Set R_AvsZip.
 	 *
 	 * @param R_AvsZip The Zip Code has been verified
 	 */
-	void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip);
+	void setR_AvsZipInput(ForeignEntityInput R_AvsZip);
 
 	/**
 	 * Get R_AvsZip.
 	 *
 	 * @return The Zip Code has been verified
 	 */
-	I_AD_Ref_ListInput R_AvsZip();
+	ForeignEntityInput R_AvsZip();
 
 	/**
 	 * Set Ref_Payment.
@@ -428,28 +428,28 @@ public interface I_C_PaymentInput extends I_C_Payment {
 	 *
 	 * @param TenderType Method of Payment
 	 */
-	void setTenderTypeInput(I_AD_Ref_ListInput TenderType);
+	void setTenderTypeInput(ForeignEntityInput TenderType);
 
 	/**
 	 * Get TenderType.
 	 *
 	 * @return Method of Payment
 	 */
-	I_AD_Ref_ListInput TenderType();
+	ForeignEntityInput TenderType();
 
 	/**
 	 * Set TrxType.
 	 *
 	 * @param TrxType Type of credit card transaction
 	 */
-	void setTrxTypeInput(I_AD_Ref_ListInput TrxType);
+	void setTrxTypeInput(ForeignEntityInput TrxType);
 
 	/**
 	 * Get TrxType.
 	 *
 	 * @return Type of credit card transaction
 	 */
-	I_AD_Ref_ListInput TrxType();
+	ForeignEntityInput TrxType();
 
 	/**
 	 * Set User1.

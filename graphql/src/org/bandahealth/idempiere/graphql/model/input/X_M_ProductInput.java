@@ -45,11 +45,11 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_PartType;
 	private ForeignEntityInput mM_Product_Category;
+	private ForeignEntityInput mProductType;
 	private ForeignEntityInput mR_MailText;
 	private ForeignEntityInput mS_ExpenseType;
 	private ForeignEntityInput mS_Resource;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mProductType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -486,7 +486,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @param ProductType Type of product
 	 */
 	@JsonProperty("ProductType")
-	public void setProductTypeInput(I_AD_Ref_ListInput ProductType) {
+	public void setProductTypeInput(ForeignEntityInput ProductType) {
 		this.mProductType = ProductType;
 		if (ProductType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -510,7 +510,7 @@ public class X_M_ProductInput extends MProduct_BH implements I_M_ProductInput {
 	 * @return Type of product
 	 */
 	@JsonProperty("ProductType")
-	public I_AD_Ref_ListInput ProductType() {
+	public ForeignEntityInput ProductType() {
 		return mProductType;
 	}
 

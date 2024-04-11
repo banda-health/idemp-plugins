@@ -43,26 +43,26 @@ public interface I_C_PaymentTermInput extends I_C_PaymentTerm {
 	 *
 	 * @param NetDay Day when payment is due net
 	 */
-	void setNetDayInput(I_AD_Ref_ListInput NetDay);
+	void setNetDayInput(ForeignEntityInput NetDay);
 
 	/**
 	 * Get NetDay.
 	 *
 	 * @return Day when payment is due net
 	 */
-	I_AD_Ref_ListInput NetDay();
+	ForeignEntityInput NetDay();
 
 	/**
 	 * Set PaymentTermUsage.
 	 *
 	 * @param PaymentTermUsage Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
-	void setPaymentTermUsageInput(I_AD_Ref_ListInput PaymentTermUsage);
+	void setPaymentTermUsageInput(ForeignEntityInput PaymentTermUsage);
 
 	/**
 	 * Get PaymentTermUsage.
 	 *
 	 * @return Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
-	I_AD_Ref_ListInput PaymentTermUsage();
+	ForeignEntityInput PaymentTermUsage();
 }

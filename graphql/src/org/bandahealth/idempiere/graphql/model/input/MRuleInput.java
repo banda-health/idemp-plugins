@@ -11,7 +11,7 @@ public class MRuleInput extends X_AD_RuleInput {
 	 * @param UUID The AD_Rule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRuleInput(@JsonProperty("UUID") String UUID) {
+	public MRuleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

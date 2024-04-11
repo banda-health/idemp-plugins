@@ -25,11 +25,11 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mBH_Clinician_User;
+	private ForeignEntityInput mBH_PatientType;
+	private ForeignEntityInput mBH_Process_Stage;
 	private ForeignEntityInput mBH_Voided_Reason;
 	private ForeignEntityInput mPatient;
-	private I_AD_Ref_ListInput mBH_PatientType;
-	private I_AD_Ref_ListInput mBH_Process_Stage;
-	private I_AD_Ref_ListInput mbh_referral;
+	private ForeignEntityInput mbh_referral;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -120,7 +120,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 * @param BH_PatientType Patient Type
 	 */
 	@JsonProperty("BH_PatientType")
-	public void setBH_PatientTypeInput(I_AD_Ref_ListInput BH_PatientType) {
+	public void setBH_PatientTypeInput(ForeignEntityInput BH_PatientType) {
 		this.mBH_PatientType = BH_PatientType;
 		if (BH_PatientType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -144,7 +144,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 * @return Patient Type
 	 */
 	@JsonProperty("BH_PatientType")
-	public I_AD_Ref_ListInput BH_PatientType() {
+	public ForeignEntityInput BH_PatientType() {
 		return mBH_PatientType;
 	}
 
@@ -154,7 +154,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 * @param BH_Process_Stage Drop down field in visits for users to define the process stage
 	 */
 	@JsonProperty("BH_Process_Stage")
-	public void setBH_Process_StageInput(I_AD_Ref_ListInput BH_Process_Stage) {
+	public void setBH_Process_StageInput(ForeignEntityInput BH_Process_Stage) {
 		this.mBH_Process_Stage = BH_Process_Stage;
 		if (BH_Process_Stage != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -178,7 +178,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 * @return Drop down field in visits for users to define the process stage
 	 */
 	@JsonProperty("BH_Process_Stage")
-	public I_AD_Ref_ListInput BH_Process_Stage() {
+	public ForeignEntityInput BH_Process_Stage() {
 		return mBH_Process_Stage;
 	}
 
@@ -188,7 +188,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 * @param bh_referral Referral
 	 */
 	@JsonProperty("bh_referral")
-	public void setbh_referralInput(I_AD_Ref_ListInput bh_referral) {
+	public void setbh_referralInput(ForeignEntityInput bh_referral) {
 		this.mbh_referral = bh_referral;
 		if (bh_referral != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -212,7 +212,7 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	 * @return Referral
 	 */
 	@JsonProperty("bh_referral")
-	public I_AD_Ref_ListInput bh_referral() {
+	public ForeignEntityInput bh_referral() {
 		return mbh_referral;
 	}
 	/**

@@ -11,7 +11,7 @@ public class MSLAMeasureInput extends X_PA_SLA_MeasureInput {
 	 * @param UUID The PA_SLA_Measure_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSLAMeasureInput(@JsonProperty("UUID") String UUID) {
+	public MSLAMeasureInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

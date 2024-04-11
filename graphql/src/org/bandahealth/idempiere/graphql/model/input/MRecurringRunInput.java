@@ -11,7 +11,7 @@ public class MRecurringRunInput extends X_C_Recurring_RunInput {
 	 * @param UUID The C_Recurring_Run_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRecurringRunInput(@JsonProperty("UUID") String UUID) {
+	public MRecurringRunInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

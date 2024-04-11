@@ -143,7 +143,7 @@ input AD_UserInput {
 	AD_Org: ForeignEntityInput
 	UU: ID
 	Answer: String
-	AuthenticationType: AD_Ref_ListInput
+	AuthenticationType: ForeignEntityInput
 	BH_HasAcceptedTermsOfUse: Boolean
 	BH_TOS_DATE_ACCEPTED: Date
 	# Birthday or Anniversary day
@@ -196,7 +196,7 @@ input AD_UserInput {
 	IsInPayroll: Boolean
 	IsLocked: Boolean
 	# If ticked, the menu is automatically expanded
-	IsMenuAutoExpand: AD_Ref_ListInput
+	IsMenuAutoExpand: ForeignEntityInput
 	IsNoExpire: Boolean
 	IsNoPasswordReset: Boolean
 	# This contact is a sales lead
@@ -213,17 +213,17 @@ input AD_UserInput {
 	# User Name used for authorization via LDAP (directory) services
 	LDAPUser: String
 	# The source of this lead/opportunity
-	LeadSource: AD_Ref_ListInput
+	LeadSource: ForeignEntityInput
 	# Additional information on the source of this lead/opportunity
 	LeadSourceDescription: String
 	# The status of this lead/opportunity in the sales cycle
-	LeadStatus: AD_Ref_ListInput
+	LeadStatus: ForeignEntityInput
 	# Additional information on the status of this lead/opportunity
 	LeadStatusDescription: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Type of Notifications
-	NotificationType: AD_Ref_ListInput
+	NotificationType: ForeignEntityInput
 	# Password of any length (case sensitive)
 	Password: String
 	# Identifies a telephone number

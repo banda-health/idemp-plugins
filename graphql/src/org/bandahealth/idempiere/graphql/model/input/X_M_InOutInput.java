@@ -48,12 +48,22 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_Order;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mDeliveryRule;
+	private ForeignEntityInput mDeliveryViaRule;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mDropShip_BPartner;
 	private ForeignEntityInput mDropShip_Location;
 	private ForeignEntityInput mDropShip_User;
+	private ForeignEntityInput mFOB;
+	private ForeignEntityInput mFreightCharges;
+	private ForeignEntityInput mFreightCostRule;
+	private ForeignEntityInput mInsurance;
 	private ForeignEntityInput mM_RMA;
 	private ForeignEntityInput mM_Shipper;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mMovementType;
+	private ForeignEntityInput mPriorityRule;
 	private ForeignEntityInput mReturnBPartner;
 	private ForeignEntityInput mReturnLocation;
 	private ForeignEntityInput mReturnUser;
@@ -61,16 +71,6 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	private ForeignEntityInput mSalesRep;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mDeliveryRule;
-	private I_AD_Ref_ListInput mDeliveryViaRule;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mFOB;
-	private I_AD_Ref_ListInput mFreightCharges;
-	private I_AD_Ref_ListInput mFreightCostRule;
-	private I_AD_Ref_ListInput mInsurance;
-	private I_AD_Ref_ListInput mMovementType;
-	private I_AD_Ref_ListInput mPriorityRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -521,7 +521,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
+	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
 		if (DeliveryRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -545,7 +545,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public I_AD_Ref_ListInput DeliveryRule() {
+	public ForeignEntityInput DeliveryRule() {
 		return mDeliveryRule;
 	}
 
@@ -555,7 +555,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param DeliveryViaRule How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
+	public void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
 		if (DeliveryViaRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -579,7 +579,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public I_AD_Ref_ListInput DeliveryViaRule() {
+	public ForeignEntityInput DeliveryViaRule() {
 		return mDeliveryViaRule;
 	}
 
@@ -589,7 +589,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -613,7 +613,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -623,7 +623,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -647,7 +647,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -770,7 +770,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param FOB Freight Terms
 	 */
 	@JsonProperty("FOB")
-	public void setFOBInput(I_AD_Ref_ListInput FOB) {
+	public void setFOBInput(ForeignEntityInput FOB) {
 		this.mFOB = FOB;
 		if (FOB != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -794,7 +794,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Freight Terms
 	 */
 	@JsonProperty("FOB")
-	public I_AD_Ref_ListInput FOB() {
+	public ForeignEntityInput FOB() {
 		return mFOB;
 	}
 
@@ -804,7 +804,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param FreightCharges Freight Charges
 	 */
 	@JsonProperty("FreightCharges")
-	public void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges) {
+	public void setFreightChargesInput(ForeignEntityInput FreightCharges) {
 		this.mFreightCharges = FreightCharges;
 		if (FreightCharges != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -828,7 +828,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Freight Charges
 	 */
 	@JsonProperty("FreightCharges")
-	public I_AD_Ref_ListInput FreightCharges() {
+	public ForeignEntityInput FreightCharges() {
 		return mFreightCharges;
 	}
 
@@ -838,7 +838,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param FreightCostRule Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
+	public void setFreightCostRuleInput(ForeignEntityInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
 		if (FreightCostRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -862,7 +862,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public I_AD_Ref_ListInput FreightCostRule() {
+	public ForeignEntityInput FreightCostRule() {
 		return mFreightCostRule;
 	}
 
@@ -872,7 +872,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param Insurance Insurance
 	 */
 	@JsonProperty("Insurance")
-	public void setInsuranceInput(I_AD_Ref_ListInput Insurance) {
+	public void setInsuranceInput(ForeignEntityInput Insurance) {
 		this.mInsurance = Insurance;
 		if (Insurance != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -896,7 +896,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Insurance
 	 */
 	@JsonProperty("Insurance")
-	public I_AD_Ref_ListInput Insurance() {
+	public ForeignEntityInput Insurance() {
 		return mInsurance;
 	}
 	/**
@@ -1040,7 +1040,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param MovementType Method of moving the inventory
 	 */
 	@JsonProperty("MovementType")
-	public void setMovementTypeInput(I_AD_Ref_ListInput MovementType) {
+	public void setMovementTypeInput(ForeignEntityInput MovementType) {
 		this.mMovementType = MovementType;
 		if (get_ID() != 0) {
 			return;
@@ -1067,7 +1067,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Method of moving the inventory
 	 */
 	@JsonProperty("MovementType")
-	public I_AD_Ref_ListInput MovementType() {
+	public ForeignEntityInput MovementType() {
 		return mMovementType;
 	}
 	/**
@@ -1088,7 +1088,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @param PriorityRule Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule) {
+	public void setPriorityRuleInput(ForeignEntityInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
 		if (PriorityRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1112,7 +1112,7 @@ public class X_M_InOutInput extends MInOut_BH implements I_M_InOutInput {
 	 * @return Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public I_AD_Ref_ListInput PriorityRule() {
+	public ForeignEntityInput PriorityRule() {
 		return mPriorityRule;
 	}
 

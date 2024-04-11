@@ -31,8 +31,8 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	private ForeignEntityInput mAD_WF_Node;
 	private ForeignEntityInput mAD_WF_Process;
 	private ForeignEntityInput mAD_WF_Responsible;
-	private I_AD_Ref_ListInput mEventType;
-	private I_AD_Ref_ListInput mWFState;
+	private ForeignEntityInput mEventType;
+	private ForeignEntityInput mWFState;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -288,7 +288,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	 * @param EventType Type of Event
 	 */
 	@JsonProperty("EventType")
-	public void setEventTypeInput(I_AD_Ref_ListInput EventType) {
+	public void setEventTypeInput(ForeignEntityInput EventType) {
 		this.mEventType = EventType;
 		if (EventType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -312,7 +312,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	 * @return Type of Event
 	 */
 	@JsonProperty("EventType")
-	public I_AD_Ref_ListInput EventType() {
+	public ForeignEntityInput EventType() {
 		return mEventType;
 	}
 
@@ -322,7 +322,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	 * @param WFState State of the execution of the workflow
 	 */
 	@JsonProperty("WFState")
-	public void setWFStateInput(I_AD_Ref_ListInput WFState) {
+	public void setWFStateInput(ForeignEntityInput WFState) {
 		this.mWFState = WFState;
 		if (WFState != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -346,7 +346,7 @@ public class X_AD_WF_EventAuditInput extends X_AD_WF_EventAudit implements I_AD_
 	 * @return State of the execution of the workflow
 	 */
 	@JsonProperty("WFState")
-	public I_AD_Ref_ListInput WFState() {
+	public ForeignEntityInput WFState() {
 		return mWFState;
 	}
 }

@@ -11,7 +11,7 @@ public class MDistributionRunInput extends X_M_DistributionRunInput {
 	 * @param UUID The M_DistributionRun_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDistributionRunInput(@JsonProperty("UUID") String UUID) {
+	public MDistributionRunInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

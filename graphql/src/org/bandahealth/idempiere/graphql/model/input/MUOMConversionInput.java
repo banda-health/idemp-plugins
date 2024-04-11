@@ -11,7 +11,7 @@ public class MUOMConversionInput extends X_C_UOM_ConversionInput {
 	 * @param UUID The C_UOM_Conversion_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUOMConversionInput(@JsonProperty("UUID") String UUID) {
+	public MUOMConversionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

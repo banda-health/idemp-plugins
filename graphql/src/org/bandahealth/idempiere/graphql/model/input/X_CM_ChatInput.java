@@ -25,8 +25,8 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mCM_ChatType;
-	private I_AD_Ref_ListInput mConfidentialType;
-	private I_AD_Ref_ListInput mModerationType;
+	private ForeignEntityInput mConfidentialType;
+	private ForeignEntityInput mModerationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -183,7 +183,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	 * @param ConfidentialType Type of Confidentiality
 	 */
 	@JsonProperty("ConfidentialType")
-	public void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType) {
+	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
 		if (ConfidentialType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -207,7 +207,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	 * @return Type of Confidentiality
 	 */
 	@JsonProperty("ConfidentialType")
-	public I_AD_Ref_ListInput ConfidentialType() {
+	public ForeignEntityInput ConfidentialType() {
 		return mConfidentialType;
 	}
 
@@ -217,7 +217,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	 * @param ModerationType Type of moderation
 	 */
 	@JsonProperty("ModerationType")
-	public void setModerationTypeInput(I_AD_Ref_ListInput ModerationType) {
+	public void setModerationTypeInput(ForeignEntityInput ModerationType) {
 		this.mModerationType = ModerationType;
 		if (ModerationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -241,7 +241,7 @@ public class X_CM_ChatInput extends MChat implements I_CM_ChatInput {
 	 * @return Type of moderation
 	 */
 	@JsonProperty("ModerationType")
-	public I_AD_Ref_ListInput ModerationType() {
+	public ForeignEntityInput ModerationType() {
 		return mModerationType;
 	}
 }

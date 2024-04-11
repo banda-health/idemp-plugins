@@ -28,13 +28,13 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_ProjectType;
+	private ForeignEntityInput mMeasureDataType;
+	private ForeignEntityInput mMeasureType;
 	private ForeignEntityInput mPA_Benchmark;
 	private ForeignEntityInput mPA_Hierarchy;
 	private ForeignEntityInput mPA_MeasureCalc;
 	private ForeignEntityInput mPA_Ratio;
 	private ForeignEntityInput mR_RequestType;
-	private I_AD_Ref_ListInput mMeasureDataType;
-	private I_AD_Ref_ListInput mMeasureType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -125,7 +125,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param MeasureDataType Type of data - Status or in Time
 	 */
 	@JsonProperty("MeasureDataType")
-	public void setMeasureDataTypeInput(I_AD_Ref_ListInput MeasureDataType) {
+	public void setMeasureDataTypeInput(ForeignEntityInput MeasureDataType) {
 		this.mMeasureDataType = MeasureDataType;
 		if (MeasureDataType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -149,7 +149,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Type of data - Status or in Time
 	 */
 	@JsonProperty("MeasureDataType")
-	public I_AD_Ref_ListInput MeasureDataType() {
+	public ForeignEntityInput MeasureDataType() {
 		return mMeasureDataType;
 	}
 
@@ -159,7 +159,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @param MeasureType Determines how the actual performance is derived
 	 */
 	@JsonProperty("MeasureType")
-	public void setMeasureTypeInput(I_AD_Ref_ListInput MeasureType) {
+	public void setMeasureTypeInput(ForeignEntityInput MeasureType) {
 		this.mMeasureType = MeasureType;
 		if (MeasureType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -183,7 +183,7 @@ public class X_PA_MeasureInput extends MMeasure implements I_PA_MeasureInput {
 	 * @return Determines how the actual performance is derived
 	 */
 	@JsonProperty("MeasureType")
-	public I_AD_Ref_ListInput MeasureType() {
+	public ForeignEntityInput MeasureType() {
 		return mMeasureType;
 	}
 

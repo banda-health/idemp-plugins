@@ -88,7 +88,7 @@ input C_RecurringInput {
 	# Frequency of events
 	Frequency: Int
 	# Frequency of event
-	FrequencyType: AD_Ref_ListInput
+	FrequencyType: ForeignEntityInput
 	# General Ledger Journal Batch
 	GL_JournalBatch: ForeignEntityInput
 	# Comment or Hint
@@ -99,7 +99,7 @@ input C_RecurringInput {
 	Name: String
 	Processing: Boolean
 	# Type of Recurring Document
-	RecurringType: AD_Ref_ListInput
+	RecurringType: ForeignEntityInput
 	# Number of recurring runs
 	RunsMax: Int
 	# Number of recurring runs remaining

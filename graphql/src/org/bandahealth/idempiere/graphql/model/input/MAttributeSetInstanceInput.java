@@ -11,7 +11,7 @@ public class MAttributeSetInstanceInput extends X_M_AttributeSetInstanceInput {
 	 * @param UUID The M_AttributeSetInstance_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAttributeSetInstanceInput(@JsonProperty("UUID") String UUID) {
+	public MAttributeSetInstanceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

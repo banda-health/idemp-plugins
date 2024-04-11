@@ -65,10 +65,10 @@ type A_Asset_Reval_Entry {
 input A_Asset_Reval_EntryInput {
 	UU: ID
 	A_Effective_Date: Date
-	A_Rev_Code: AD_Ref_ListInput
-	A_Reval_Cal_Method: AD_Ref_ListInput
-	A_Reval_Effective_Date: AD_Ref_ListInput
-	A_Reval_Multiplier: AD_Ref_ListInput
+	A_Rev_Code: ForeignEntityInput
+	A_Reval_Cal_Method: ForeignEntityInput
+	A_Reval_Effective_Date: ForeignEntityInput
+	A_Reval_Multiplier: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Rules for accounting
@@ -92,7 +92,7 @@ input A_Asset_Reval_EntryInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

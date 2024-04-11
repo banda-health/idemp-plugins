@@ -23,7 +23,7 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
-	private I_AD_Ref_ListInput mA_Finance_Meth;
+	private ForeignEntityInput mA_Finance_Meth;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -109,7 +109,7 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 * @param A_Finance_Meth Asset Finance Method
 	 */
 	@JsonProperty("A_Finance_Meth")
-	public void setA_Finance_MethInput(I_AD_Ref_ListInput A_Finance_Meth) {
+	public void setA_Finance_MethInput(ForeignEntityInput A_Finance_Meth) {
 		this.mA_Finance_Meth = A_Finance_Meth;
 		if (A_Finance_Meth != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -133,7 +133,7 @@ public class X_A_Asset_Info_TaxInput extends X_A_Asset_Info_Tax implements I_A_A
 	 * @return Asset Finance Method
 	 */
 	@JsonProperty("A_Finance_Meth")
-	public I_AD_Ref_ListInput A_Finance_Meth() {
+	public ForeignEntityInput A_Finance_Meth() {
 		return mA_Finance_Meth;
 	}
 

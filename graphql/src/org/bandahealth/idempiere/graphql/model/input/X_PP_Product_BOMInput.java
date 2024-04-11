@@ -25,12 +25,12 @@ import java.sql.ResultSet;
 public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product_BOMInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBOMType;
+	private ForeignEntityInput mBOMUse;
 	private ForeignEntityInput mC_UOM;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_ChangeNotice;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mBOMType;
-	private I_AD_Ref_ListInput mBOMUse;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -87,7 +87,7 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	 * @param BOMType Type of BOM
 	 */
 	@JsonProperty("BOMType")
-	public void setBOMTypeInput(I_AD_Ref_ListInput BOMType) {
+	public void setBOMTypeInput(ForeignEntityInput BOMType) {
 		this.mBOMType = BOMType;
 		if (BOMType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -111,7 +111,7 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	 * @return Type of BOM
 	 */
 	@JsonProperty("BOMType")
-	public I_AD_Ref_ListInput BOMType() {
+	public ForeignEntityInput BOMType() {
 		return mBOMType;
 	}
 
@@ -121,7 +121,7 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	 * @param BOMUse The use of the Bill of Material
 	 */
 	@JsonProperty("BOMUse")
-	public void setBOMUseInput(I_AD_Ref_ListInput BOMUse) {
+	public void setBOMUseInput(ForeignEntityInput BOMUse) {
 		this.mBOMUse = BOMUse;
 		if (BOMUse != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -145,7 +145,7 @@ public class X_PP_Product_BOMInput extends MPPProductBOM implements I_PP_Product
 	 * @return The use of the Bill of Material
 	 */
 	@JsonProperty("BOMUse")
-	public I_AD_Ref_ListInput BOMUse() {
+	public ForeignEntityInput BOMUse() {
 		return mBOMUse;
 	}
 

@@ -308,7 +308,7 @@ public class GraphQLSchemaGenerator {
 				clazz.equals(String.class)) {
 			generatedColumns.regularModel.append("AD_Ref_List");
 			if (!shouldSkipInputField) {
-				generatedColumns.inputModel.append("AD_Ref_ListInput");
+				generatedColumns.inputModel.append("ForeignEntityInput");
 			}
 		} else {
 			generatedColumns.regularModel.append(dataType);

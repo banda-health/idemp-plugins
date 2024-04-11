@@ -41,9 +41,9 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	private ForeignEntityInput mC_City;
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mDocAction;
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mDocAction;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -403,7 +403,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -427,7 +427,7 @@ public class X_I_FixedAssetInput extends MIFixedAsset implements I_I_FixedAssetI
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 	/**

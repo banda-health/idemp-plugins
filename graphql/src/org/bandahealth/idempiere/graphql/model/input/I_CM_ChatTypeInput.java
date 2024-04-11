@@ -57,12 +57,12 @@ public interface I_CM_ChatTypeInput extends I_CM_ChatType {
 	 *
 	 * @param ModerationType Type of moderation
 	 */
-	void setModerationTypeInput(I_AD_Ref_ListInput ModerationType);
+	void setModerationTypeInput(ForeignEntityInput ModerationType);
 
 	/**
 	 * Get ModerationType.
 	 *
 	 * @return Type of moderation
 	 */
-	I_AD_Ref_ListInput ModerationType();
+	ForeignEntityInput ModerationType();
 }

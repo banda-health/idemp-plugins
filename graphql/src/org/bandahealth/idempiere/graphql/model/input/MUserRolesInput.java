@@ -11,7 +11,7 @@ public class MUserRolesInput extends X_AD_User_RolesInput {
 	 * @param UUID The AD_User_Roles_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserRolesInput(@JsonProperty("UUID") String UUID) {
+	public MUserRolesInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

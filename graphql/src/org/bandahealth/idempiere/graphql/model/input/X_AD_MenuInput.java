@@ -35,7 +35,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 	private ForeignEntityInput mAD_Task;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mAD_Workflow;
-	private I_AD_Ref_ListInput mAction;
+	private ForeignEntityInput mAction;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -55,7 +55,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 	 * @param Action Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public void setActionInput(I_AD_Ref_ListInput Action) {
+	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -79,7 +79,7 @@ public class X_AD_MenuInput extends MMenu_BH implements I_AD_MenuInput {
 	 * @return Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public I_AD_Ref_ListInput Action() {
+	public ForeignEntityInput Action() {
 		return mAction;
 	}
 

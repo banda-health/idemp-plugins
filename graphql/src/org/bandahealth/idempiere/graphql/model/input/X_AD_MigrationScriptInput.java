@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_AD_MigrationScriptInput extends X_AD_MigrationScript implements I_AD_MigrationScriptInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mStatus;
+	private ForeignEntityInput mStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -118,7 +118,7 @@ public class X_AD_MigrationScriptInput extends X_AD_MigrationScript implements I
 	 * @param Status Status of the currently running check
 	 */
 	@JsonProperty("Status")
-	public void setStatusInput(I_AD_Ref_ListInput Status) {
+	public void setStatusInput(ForeignEntityInput Status) {
 		this.mStatus = Status;
 		if (get_ID() != 0) {
 			return;
@@ -145,7 +145,7 @@ public class X_AD_MigrationScriptInput extends X_AD_MigrationScript implements I
 	 * @return Status of the currently running check
 	 */
 	@JsonProperty("Status")
-	public I_AD_Ref_ListInput Status() {
+	public ForeignEntityInput Status() {
 		return mStatus;
 	}
 }

@@ -384,7 +384,7 @@ public class GraphQLInputModelClassGenerator {
 			classesToImport.add(classToUseMap.getClassPackageName() + "." + classToUseMap.getClassName());
 			classesToImport.add("com.fasterxml.jackson.annotation.JsonProperty");
 			columnBuilder.append("\n");
-			String returnType = "I_AD_Ref_ListInput";
+			String returnType = "ForeignEntityInput";
 
 			// Make sure that a private property is set correctly
 			String propertyName = "m" + columnName;

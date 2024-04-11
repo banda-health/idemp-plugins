@@ -46,7 +46,7 @@ input BH_DefaultIncludedRoleInput {
 	AD_Org: ForeignEntityInput
 	UU: ID
 	# The User Type when a new client is created
-	DB_UserType: AD_Ref_ListInput
+	DB_UserType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	Included_Role: ForeignEntityInput

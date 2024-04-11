@@ -78,9 +78,9 @@ input C_ProjectIssueInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this document requires approval

@@ -141,70 +141,70 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	 *
 	 * @param CalculationType CalculationType
 	 */
-	void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType);
+	void setCalculationTypeInput(ForeignEntityInput CalculationType);
 
 	/**
 	 * Get CalculationType.
 	 *
 	 * @return CalculationType
 	 */
-	I_AD_Ref_ListInput CalculationType();
+	ForeignEntityInput CalculationType();
 
 	/**
 	 * Set ColumnType.
 	 *
 	 * @param ColumnType ColumnType
 	 */
-	void setColumnTypeInput(I_AD_Ref_ListInput ColumnType);
+	void setColumnTypeInput(ForeignEntityInput ColumnType);
 
 	/**
 	 * Get ColumnType.
 	 *
 	 * @return ColumnType
 	 */
-	I_AD_Ref_ListInput ColumnType();
+	ForeignEntityInput ColumnType();
 
 	/**
 	 * Set CurrencyType.
 	 *
 	 * @param CurrencyType CurrencyType
 	 */
-	void setCurrencyTypeInput(I_AD_Ref_ListInput CurrencyType);
+	void setCurrencyTypeInput(ForeignEntityInput CurrencyType);
 
 	/**
 	 * Get CurrencyType.
 	 *
 	 * @return CurrencyType
 	 */
-	I_AD_Ref_ListInput CurrencyType();
+	ForeignEntityInput CurrencyType();
 
 	/**
 	 * Set ElementType.
 	 *
 	 * @param ElementType Element Type (account or user defined)
 	 */
-	void setElementTypeInput(I_AD_Ref_ListInput ElementType);
+	void setElementTypeInput(ForeignEntityInput ElementType);
 
 	/**
 	 * Get ElementType.
 	 *
 	 * @return Element Type (account or user defined)
 	 */
-	I_AD_Ref_ListInput ElementType();
+	ForeignEntityInput ElementType();
 
 	/**
 	 * Set Factor.
 	 *
 	 * @param Factor Scaling factor.
 	 */
-	void setFactorInput(I_AD_Ref_ListInput Factor);
+	void setFactorInput(ForeignEntityInput Factor);
 
 	/**
 	 * Get Factor.
 	 *
 	 * @return Scaling factor.
 	 */
-	I_AD_Ref_ListInput Factor();
+	ForeignEntityInput Factor();
 
 	/**
 	 * Set GL_Budget.
@@ -295,40 +295,40 @@ public interface I_PA_ReportColumnInput extends I_PA_ReportColumn {
 	 *
 	 * @param PAAmountType PA Amount Type for reporting
 	 */
-	void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType);
+	void setPAAmountTypeInput(ForeignEntityInput PAAmountType);
 
 	/**
 	 * Get PAAmountType.
 	 *
 	 * @return PA Amount Type for reporting
 	 */
-	I_AD_Ref_ListInput PAAmountType();
+	ForeignEntityInput PAAmountType();
 
 	/**
 	 * Set PAPeriodType.
 	 *
 	 * @param PAPeriodType PA Period Type
 	 */
-	void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType);
+	void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType);
 
 	/**
 	 * Get PAPeriodType.
 	 *
 	 * @return PA Period Type
 	 */
-	I_AD_Ref_ListInput PAPeriodType();
+	ForeignEntityInput PAPeriodType();
 
 	/**
 	 * Set PostingType.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

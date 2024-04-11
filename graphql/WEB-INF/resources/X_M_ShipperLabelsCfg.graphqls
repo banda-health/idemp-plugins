@@ -56,7 +56,7 @@ input M_ShipperLabelsCfgInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	LabelPrintMethod: AD_Ref_ListInput
+	LabelPrintMethod: ForeignEntityInput
 	M_ShipperCfg: ForeignEntityInput
 	UU: ID
 	# Alphanumeric identifier of the entity

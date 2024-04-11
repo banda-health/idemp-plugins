@@ -11,7 +11,7 @@ public class MConversionTypeInput extends X_C_ConversionTypeInput {
 	 * @param UUID The C_ConversionType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MConversionTypeInput(@JsonProperty("UUID") String UUID) {
+	public MConversionTypeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -114,7 +114,7 @@ input T_TransactionInput {
 	# Quantity of a product moved.
 	MovementQty: BigDecimal
 	# Method of moving the inventory
-	MovementType: AD_Ref_ListInput
+	MovementType: ForeignEntityInput
 	# Material Shipment Document
 	Search_InOut: ForeignEntityInput
 	# Search Invoice Identifier

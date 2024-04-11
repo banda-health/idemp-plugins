@@ -11,7 +11,7 @@ public class MFieldInput extends X_AD_FieldInput {
 	 * @param UUID The AD_Field_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFieldInput(@JsonProperty("UUID") String UUID) {
+	public MFieldInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

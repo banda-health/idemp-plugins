@@ -11,7 +11,7 @@ public class MSystemInput extends X_AD_SystemInput {
 	 * @param UUID The AD_System_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSystemInput(@JsonProperty("UUID") String UUID) {
+	public MSystemInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -23,9 +23,9 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mChartOrientation;
-	private I_AD_Ref_ListInput mChartType;
-	private I_AD_Ref_ListInput mTimeUnit;
+	private ForeignEntityInput mChartOrientation;
+	private ForeignEntityInput mChartType;
+	private ForeignEntityInput mTimeUnit;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -108,7 +108,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 * @param ChartOrientation The orientation of the chart.
 	 */
 	@JsonProperty("ChartOrientation")
-	public void setChartOrientationInput(I_AD_Ref_ListInput ChartOrientation) {
+	public void setChartOrientationInput(ForeignEntityInput ChartOrientation) {
 		this.mChartOrientation = ChartOrientation;
 		if (ChartOrientation != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -132,7 +132,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 * @return The orientation of the chart.
 	 */
 	@JsonProperty("ChartOrientation")
-	public I_AD_Ref_ListInput ChartOrientation() {
+	public ForeignEntityInput ChartOrientation() {
 		return mChartOrientation;
 	}
 
@@ -142,7 +142,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 * @param ChartType Type of chart to render
 	 */
 	@JsonProperty("ChartType")
-	public void setChartTypeInput(I_AD_Ref_ListInput ChartType) {
+	public void setChartTypeInput(ForeignEntityInput ChartType) {
 		this.mChartType = ChartType;
 		if (ChartType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -166,7 +166,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 * @return Type of chart to render
 	 */
 	@JsonProperty("ChartType")
-	public I_AD_Ref_ListInput ChartType() {
+	public ForeignEntityInput ChartType() {
 		return mChartType;
 	}
 
@@ -210,7 +210,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 * @param TimeUnit The unit of time for grouping chart data.
 	 */
 	@JsonProperty("TimeUnit")
-	public void setTimeUnitInput(I_AD_Ref_ListInput TimeUnit) {
+	public void setTimeUnitInput(ForeignEntityInput TimeUnit) {
 		this.mTimeUnit = TimeUnit;
 		if (TimeUnit != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -234,7 +234,7 @@ public class X_AD_ChartInput extends MChart implements I_AD_ChartInput {
 	 * @return The unit of time for grouping chart data.
 	 */
 	@JsonProperty("TimeUnit")
-	public I_AD_Ref_ListInput TimeUnit() {
+	public ForeignEntityInput TimeUnit() {
 		return mTimeUnit;
 	}
 }

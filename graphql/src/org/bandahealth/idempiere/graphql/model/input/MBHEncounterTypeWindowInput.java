@@ -11,7 +11,7 @@ public class MBHEncounterTypeWindowInput extends X_BH_Encounter_Type_WindowInput
 	 * @param UUID The BH_Encounter_Type_Window_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHEncounterTypeWindowInput(@JsonProperty("UUID") String UUID) {
+	public MBHEncounterTypeWindowInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

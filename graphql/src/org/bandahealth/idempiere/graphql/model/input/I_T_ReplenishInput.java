@@ -113,28 +113,28 @@ public interface I_T_ReplenishInput extends I_T_Replenish {
 	 *
 	 * @param ReplenishmentCreate Create from Replenishment
 	 */
-	void setReplenishmentCreateInput(I_AD_Ref_ListInput ReplenishmentCreate);
+	void setReplenishmentCreateInput(ForeignEntityInput ReplenishmentCreate);
 
 	/**
 	 * Get ReplenishmentCreate.
 	 *
 	 * @return Create from Replenishment
 	 */
-	I_AD_Ref_ListInput ReplenishmentCreate();
+	ForeignEntityInput ReplenishmentCreate();
 
 	/**
 	 * Set ReplenishType.
 	 *
 	 * @param ReplenishType Method for re-ordering a product
 	 */
-	void setReplenishTypeInput(I_AD_Ref_ListInput ReplenishType);
+	void setReplenishTypeInput(ForeignEntityInput ReplenishType);
 
 	/**
 	 * Get ReplenishType.
 	 *
 	 * @return Method for re-ordering a product
 	 */
-	I_AD_Ref_ListInput ReplenishType();
+	ForeignEntityInput ReplenishType();
 
 	/**
 	 * Set UU.

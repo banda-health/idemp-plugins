@@ -29,14 +29,14 @@ public interface I_IMP_ProcessorInput extends I_IMP_Processor {
 	 *
 	 * @param FrequencyType Frequency of event
 	 */
-	void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType);
+	void setFrequencyTypeInput(ForeignEntityInput FrequencyType);
 
 	/**
 	 * Get FrequencyType.
 	 *
 	 * @return Frequency of event
 	 */
-	I_AD_Ref_ListInput FrequencyType();
+	ForeignEntityInput FrequencyType();
 
 	/**
 	 * Set IMP_Processor_Type.

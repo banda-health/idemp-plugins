@@ -25,7 +25,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintColor;
 	private ForeignEntityInput mAD_PrintFont;
-	private I_AD_Ref_ListInput mPOSKeyLayoutType;
+	private ForeignEntityInput mPOSKeyLayoutType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -179,7 +179,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @param POSKeyLayoutType The type of Key Layout
 	 */
 	@JsonProperty("POSKeyLayoutType")
-	public void setPOSKeyLayoutTypeInput(I_AD_Ref_ListInput POSKeyLayoutType) {
+	public void setPOSKeyLayoutTypeInput(ForeignEntityInput POSKeyLayoutType) {
 		this.mPOSKeyLayoutType = POSKeyLayoutType;
 		if (POSKeyLayoutType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -203,7 +203,7 @@ public class X_C_POSKeyLayoutInput extends MPOSKeyLayout implements I_C_POSKeyLa
 	 * @return The type of Key Layout
 	 */
 	@JsonProperty("POSKeyLayoutType")
-	public I_AD_Ref_ListInput POSKeyLayoutType() {
+	public ForeignEntityInput POSKeyLayoutType() {
 		return mPOSKeyLayoutType;
 	}
 }

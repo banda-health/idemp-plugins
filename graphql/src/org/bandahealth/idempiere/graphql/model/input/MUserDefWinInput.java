@@ -11,7 +11,7 @@ public class MUserDefWinInput extends X_AD_UserDef_WinInput {
 	 * @param UUID The AD_UserDef_Win_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserDefWinInput(@JsonProperty("UUID") String UUID) {
+	public MUserDefWinInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -69,26 +69,26 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	private ForeignEntityInput mC_Payment;
 	private ForeignEntityInput mC_PaymentTerm;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mDeliveryRule;
+	private ForeignEntityInput mDeliveryViaRule;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mDropShip_BPartner;
 	private ForeignEntityInput mDropShip_Location;
 	private ForeignEntityInput mDropShip_User;
+	private ForeignEntityInput mFreightCostRule;
+	private ForeignEntityInput mInvoiceRule;
 	private ForeignEntityInput mLink_Order;
 	private ForeignEntityInput mM_FreightCategory;
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mM_Shipper;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mPriorityRule;
 	private ForeignEntityInput mQuotationOrder;
 	private ForeignEntityInput mRef_Order;
 	private ForeignEntityInput mSalesRep;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mDeliveryRule;
-	private I_AD_Ref_ListInput mDeliveryViaRule;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mFreightCostRule;
-	private I_AD_Ref_ListInput mInvoiceRule;
-	private I_AD_Ref_ListInput mPriorityRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -959,7 +959,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
+	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
 		if (DeliveryRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -983,7 +983,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public I_AD_Ref_ListInput DeliveryRule() {
+	public ForeignEntityInput DeliveryRule() {
 		return mDeliveryRule;
 	}
 
@@ -993,7 +993,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param DeliveryViaRule How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
+	public void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
 		if (DeliveryViaRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1017,7 +1017,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public I_AD_Ref_ListInput DeliveryViaRule() {
+	public ForeignEntityInput DeliveryViaRule() {
 		return mDeliveryViaRule;
 	}
 
@@ -1027,7 +1027,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1051,7 +1051,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -1061,7 +1061,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1085,7 +1085,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -1208,7 +1208,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param FreightCostRule Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
+	public void setFreightCostRuleInput(ForeignEntityInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
 		if (FreightCostRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1232,7 +1232,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public I_AD_Ref_ListInput FreightCostRule() {
+	public ForeignEntityInput FreightCostRule() {
 		return mFreightCostRule;
 	}
 	/**
@@ -1253,7 +1253,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param InvoiceRule Frequency and method of invoicing 
 	 */
 	@JsonProperty("InvoiceRule")
-	public void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule) {
+	public void setInvoiceRuleInput(ForeignEntityInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
 		if (InvoiceRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1277,7 +1277,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Frequency and method of invoicing 
 	 */
 	@JsonProperty("InvoiceRule")
-	public I_AD_Ref_ListInput InvoiceRule() {
+	public ForeignEntityInput InvoiceRule() {
 		return mInvoiceRule;
 	}
 	/**
@@ -1537,7 +1537,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @param PriorityRule Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule) {
+	public void setPriorityRuleInput(ForeignEntityInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
 		if (PriorityRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1561,7 +1561,7 @@ public class X_C_OrderInput extends MOrder_BH implements I_C_OrderInput {
 	 * @return Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public I_AD_Ref_ListInput PriorityRule() {
+	public ForeignEntityInput PriorityRule() {
 		return mPriorityRule;
 	}
 	/**

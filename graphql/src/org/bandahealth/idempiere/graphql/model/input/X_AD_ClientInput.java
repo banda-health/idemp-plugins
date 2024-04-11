@@ -27,9 +27,9 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PasswordRule;
 	private ForeignEntityInput mAD_ReplicationStrategy;
-	private I_AD_Ref_ListInput mAuthenticationType;
-	private I_AD_Ref_ListInput mAutoArchive;
-	private I_AD_Ref_ListInput mMMPolicy;
+	private ForeignEntityInput mAuthenticationType;
+	private ForeignEntityInput mAutoArchive;
+	private ForeignEntityInput mMMPolicy;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -206,7 +206,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 * @param AuthenticationType Authentication Type
 	 */
 	@JsonProperty("AuthenticationType")
-	public void setAuthenticationTypeInput(I_AD_Ref_ListInput AuthenticationType) {
+	public void setAuthenticationTypeInput(ForeignEntityInput AuthenticationType) {
 		this.mAuthenticationType = AuthenticationType;
 		if (AuthenticationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -230,7 +230,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 * @return Authentication Type
 	 */
 	@JsonProperty("AuthenticationType")
-	public I_AD_Ref_ListInput AuthenticationType() {
+	public ForeignEntityInput AuthenticationType() {
 		return mAuthenticationType;
 	}
 
@@ -240,7 +240,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 * @param AutoArchive Enable and level of automatic Archive of documents
 	 */
 	@JsonProperty("AutoArchive")
-	public void setAutoArchiveInput(I_AD_Ref_ListInput AutoArchive) {
+	public void setAutoArchiveInput(ForeignEntityInput AutoArchive) {
 		this.mAutoArchive = AutoArchive;
 		if (AutoArchive != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -264,7 +264,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 * @return Enable and level of automatic Archive of documents
 	 */
 	@JsonProperty("AutoArchive")
-	public I_AD_Ref_ListInput AutoArchive() {
+	public ForeignEntityInput AutoArchive() {
 		return mAutoArchive;
 	}
 
@@ -274,7 +274,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 * @param MMPolicy Material Movement Policy
 	 */
 	@JsonProperty("MMPolicy")
-	public void setMMPolicyInput(I_AD_Ref_ListInput MMPolicy) {
+	public void setMMPolicyInput(ForeignEntityInput MMPolicy) {
 		this.mMMPolicy = MMPolicy;
 		if (MMPolicy != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -298,7 +298,7 @@ public class X_AD_ClientInput extends MClient_BH implements I_AD_ClientInput {
 	 * @return Material Movement Policy
 	 */
 	@JsonProperty("MMPolicy")
-	public I_AD_Ref_ListInput MMPolicy() {
+	public ForeignEntityInput MMPolicy() {
 		return mMMPolicy;
 	}
 }

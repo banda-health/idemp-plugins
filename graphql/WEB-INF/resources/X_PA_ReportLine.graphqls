@@ -69,7 +69,7 @@ type PA_ReportLine {
 input PA_ReportLineInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	CalculationType: AD_Ref_ListInput
+	CalculationType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# General Ledger Budget
@@ -82,7 +82,7 @@ input PA_ReportLineInput {
 	IsPrinted: Boolean
 	# Display values with the opposite sign
 	IsShowOppositeSign: Boolean
-	LineType: AD_Ref_ListInput
+	LineType: ForeignEntityInput
 	# Type Multiplier (Credit = -1)
 	Multiplier: BigDecimal
 	# Alphanumeric identifier of the entity
@@ -91,17 +91,17 @@ input PA_ReportLineInput {
 	Oper_1: ForeignEntityInput
 	# Second operand for calculation
 	Oper_2: ForeignEntityInput
-	OverlineStrokeType: AD_Ref_ListInput
+	OverlineStrokeType: ForeignEntityInput
 	UU: ID
 	PA_ReportLineSet: ForeignEntityInput
 	# PA Amount Type for reporting
-	PAAmountType: AD_Ref_ListInput
+	PAAmountType: ForeignEntityInput
 	# PA Period Type
-	PAPeriodType: AD_Ref_ListInput
+	PAPeriodType: ForeignEntityInput
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	RoundFactor: Int
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
-	UnderlineStrokeType: AD_Ref_ListInput
+	UnderlineStrokeType: ForeignEntityInput
 }

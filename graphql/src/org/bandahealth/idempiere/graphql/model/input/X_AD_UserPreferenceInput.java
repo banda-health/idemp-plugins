@@ -23,7 +23,7 @@ public class X_AD_UserPreferenceInput extends MUserPreference implements I_AD_Us
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
-	private I_AD_Ref_ListInput mViewFindResult;
+	private ForeignEntityInput mViewFindResult;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -146,7 +146,7 @@ public class X_AD_UserPreferenceInput extends MUserPreference implements I_AD_Us
 	 * @param ViewFindResult Does the system must switch to grid mode after the Find panel closes
 	 */
 	@JsonProperty("ViewFindResult")
-	public void setViewFindResultInput(I_AD_Ref_ListInput ViewFindResult) {
+	public void setViewFindResultInput(ForeignEntityInput ViewFindResult) {
 		this.mViewFindResult = ViewFindResult;
 		if (ViewFindResult != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -170,7 +170,7 @@ public class X_AD_UserPreferenceInput extends MUserPreference implements I_AD_Us
 	 * @return Does the system must switch to grid mode after the Find panel closes
 	 */
 	@JsonProperty("ViewFindResult")
-	public I_AD_Ref_ListInput ViewFindResult() {
+	public ForeignEntityInput ViewFindResult() {
 		return mViewFindResult;
 	}
 }

@@ -15,14 +15,14 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param A_Activation_Method A_Activation_Method
 	 */
-	void setA_Activation_MethodInput(I_AD_Ref_ListInput A_Activation_Method);
+	void setA_Activation_MethodInput(ForeignEntityInput A_Activation_Method);
 
 	/**
 	 * Get A_Activation_Method.
 	 *
 	 * @return A_Activation_Method
 	 */
-	I_AD_Ref_ListInput A_Activation_Method();
+	ForeignEntityInput A_Activation_Method();
 
 	/**
 	 * Set UU.
@@ -57,14 +57,14 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param A_Asset_Status A_Asset_Status
 	 */
-	void setA_Asset_StatusInput(I_AD_Ref_ListInput A_Asset_Status);
+	void setA_Asset_StatusInput(ForeignEntityInput A_Asset_Status);
 
 	/**
 	 * Get A_Asset_Status.
 	 *
 	 * @return A_Asset_Status
 	 */
-	I_AD_Ref_ListInput A_Asset_Status();
+	ForeignEntityInput A_Asset_Status();
 
 	/**
 	 * Set A_Asset_Trade.
@@ -85,28 +85,28 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param A_Disposed_Method A_Disposed_Method
 	 */
-	void setA_Disposed_MethodInput(I_AD_Ref_ListInput A_Disposed_Method);
+	void setA_Disposed_MethodInput(ForeignEntityInput A_Disposed_Method);
 
 	/**
 	 * Get A_Disposed_Method.
 	 *
 	 * @return A_Disposed_Method
 	 */
-	I_AD_Ref_ListInput A_Disposed_Method();
+	ForeignEntityInput A_Disposed_Method();
 
 	/**
 	 * Set A_Disposed_Reason.
 	 *
 	 * @param A_Disposed_Reason A_Disposed_Reason
 	 */
-	void setA_Disposed_ReasonInput(I_AD_Ref_ListInput A_Disposed_Reason);
+	void setA_Disposed_ReasonInput(ForeignEntityInput A_Disposed_Reason);
 
 	/**
 	 * Get A_Disposed_Reason.
 	 *
 	 * @return A_Disposed_Reason
 	 */
-	I_AD_Ref_ListInput A_Disposed_Reason();
+	ForeignEntityInput A_Disposed_Reason();
 
 	/**
 	 * Set AD_Org.
@@ -183,40 +183,40 @@ public interface I_A_Asset_DisposedInput extends I_A_Asset_Disposed {
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set PostingType.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

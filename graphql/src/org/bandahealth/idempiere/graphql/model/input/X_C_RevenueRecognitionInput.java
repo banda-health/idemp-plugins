@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements I_C_RevenueRecognitionInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mRecognitionFrequency;
+	private ForeignEntityInput mRecognitionFrequency;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 	 * @param RecognitionFrequency Recognition frequency
 	 */
 	@JsonProperty("RecognitionFrequency")
-	public void setRecognitionFrequencyInput(I_AD_Ref_ListInput RecognitionFrequency) {
+	public void setRecognitionFrequencyInput(ForeignEntityInput RecognitionFrequency) {
 		this.mRecognitionFrequency = RecognitionFrequency;
 		if (RecognitionFrequency != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_C_RevenueRecognitionInput extends MRevenueRecognition implements 
 	 * @return Recognition frequency
 	 */
 	@JsonProperty("RecognitionFrequency")
-	public I_AD_Ref_ListInput RecognitionFrequency() {
+	public ForeignEntityInput RecognitionFrequency() {
 		return mRecognitionFrequency;
 	}
 }

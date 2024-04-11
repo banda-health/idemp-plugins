@@ -11,7 +11,7 @@ public class MViewColumnInput extends X_AD_ViewColumnInput {
 	 * @param UUID The AD_ViewColumn_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MViewColumnInput(@JsonProperty("UUID") String UUID) {
+	public MViewColumnInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

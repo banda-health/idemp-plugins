@@ -11,7 +11,7 @@ public class MProductDownloadInput extends X_M_ProductDownloadInput {
 	 * @param UUID The M_ProductDownload_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProductDownloadInput(@JsonProperty("UUID") String UUID) {
+	public MProductDownloadInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

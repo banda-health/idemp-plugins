@@ -27,7 +27,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	private ForeignEntityInput mAD_Sequence;
 	private ForeignEntityInput mC_BankAccount;
 	private ForeignEntityInput mC_Currency;
-	private I_AD_Ref_ListInput mTrxType;
+	private ForeignEntityInput mTrxType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -218,7 +218,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @param TrxType Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public void setTrxTypeInput(I_AD_Ref_ListInput TrxType) {
+	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -242,7 +242,7 @@ public class X_C_PaymentProcessorInput extends MPaymentProcessor implements I_C_
 	 * @return Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public I_AD_Ref_ListInput TrxType() {
+	public ForeignEntityInput TrxType() {
 		return mTrxType;
 	}
 }

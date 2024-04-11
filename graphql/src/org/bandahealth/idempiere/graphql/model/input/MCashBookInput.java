@@ -11,7 +11,7 @@ public class MCashBookInput extends X_C_CashBookInput {
 	 * @param UUID The C_CashBook_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCashBookInput(@JsonProperty("UUID") String UUID) {
+	public MCashBookInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

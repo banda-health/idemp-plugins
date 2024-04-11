@@ -24,12 +24,12 @@ import java.sql.ResultSet;
 public class X_C_ElementValueInput extends MElementValue implements I_C_ElementValueInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAccountSign;
+	private ForeignEntityInput mAccountType;
+	private ForeignEntityInput mBPartnerType;
 	private ForeignEntityInput mC_BankAccount;
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_Element;
-	private I_AD_Ref_ListInput mAccountSign;
-	private I_AD_Ref_ListInput mAccountType;
-	private I_AD_Ref_ListInput mBPartnerType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -49,7 +49,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public void setAccountSignInput(I_AD_Ref_ListInput AccountSign) {
+	public void setAccountSignInput(ForeignEntityInput AccountSign) {
 		this.mAccountSign = AccountSign;
 		if (AccountSign != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -73,7 +73,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public I_AD_Ref_ListInput AccountSign() {
+	public ForeignEntityInput AccountSign() {
 		return mAccountSign;
 	}
 
@@ -83,7 +83,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @param AccountType Indicates the type of account
 	 */
 	@JsonProperty("AccountType")
-	public void setAccountTypeInput(I_AD_Ref_ListInput AccountType) {
+	public void setAccountTypeInput(ForeignEntityInput AccountType) {
 		this.mAccountType = AccountType;
 		if (AccountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -107,7 +107,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @return Indicates the type of account
 	 */
 	@JsonProperty("AccountType")
-	public I_AD_Ref_ListInput AccountType() {
+	public ForeignEntityInput AccountType() {
 		return mAccountType;
 	}
 
@@ -154,7 +154,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @param BPartnerType Business Partner Type
 	 */
 	@JsonProperty("BPartnerType")
-	public void setBPartnerTypeInput(I_AD_Ref_ListInput BPartnerType) {
+	public void setBPartnerTypeInput(ForeignEntityInput BPartnerType) {
 		this.mBPartnerType = BPartnerType;
 		if (BPartnerType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -178,7 +178,7 @@ public class X_C_ElementValueInput extends MElementValue implements I_C_ElementV
 	 * @return Business Partner Type
 	 */
 	@JsonProperty("BPartnerType")
-	public I_AD_Ref_ListInput BPartnerType() {
+	public ForeignEntityInput BPartnerType() {
 		return mBPartnerType;
 	}
 

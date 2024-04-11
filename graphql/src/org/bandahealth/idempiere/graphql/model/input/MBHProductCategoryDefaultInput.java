@@ -11,7 +11,7 @@ public class MBHProductCategoryDefaultInput extends X_BH_Product_CategoryDefault
 	 * @param UUID The BH_Product_CategoryDefault_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHProductCategoryDefaultInput(@JsonProperty("UUID") String UUID) {
+	public MBHProductCategoryDefaultInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

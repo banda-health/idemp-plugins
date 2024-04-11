@@ -11,7 +11,7 @@ public class MSLAGoalInput extends X_PA_SLA_GoalInput {
 	 * @param UUID The PA_SLA_Goal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSLAGoalInput(@JsonProperty("UUID") String UUID) {
+	public MSLAGoalInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

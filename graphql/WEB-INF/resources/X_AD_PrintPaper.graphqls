@@ -68,7 +68,7 @@ input AD_PrintPaperInput {
 	# Optional short description of the record
 	Description: String
 	# Units of Dimension
-	DimensionUnits: AD_Ref_ListInput
+	DimensionUnits: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Default value

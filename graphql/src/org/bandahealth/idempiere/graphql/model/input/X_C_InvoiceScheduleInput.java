@@ -21,9 +21,9 @@ import java.sql.ResultSet;
 public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_InvoiceScheduleInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mInvoiceFrequency;
-	private I_AD_Ref_ListInput mInvoiceWeekDay;
-	private I_AD_Ref_ListInput mInvoiceWeekDayCutoff;
+	private ForeignEntityInput mInvoiceFrequency;
+	private ForeignEntityInput mInvoiceWeekDay;
+	private ForeignEntityInput mInvoiceWeekDayCutoff;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -109,7 +109,7 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 * @param InvoiceFrequency How often invoices will be generated
 	 */
 	@JsonProperty("InvoiceFrequency")
-	public void setInvoiceFrequencyInput(I_AD_Ref_ListInput InvoiceFrequency) {
+	public void setInvoiceFrequencyInput(ForeignEntityInput InvoiceFrequency) {
 		this.mInvoiceFrequency = InvoiceFrequency;
 		if (InvoiceFrequency != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -133,7 +133,7 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 * @return How often invoices will be generated
 	 */
 	@JsonProperty("InvoiceFrequency")
-	public I_AD_Ref_ListInput InvoiceFrequency() {
+	public ForeignEntityInput InvoiceFrequency() {
 		return mInvoiceFrequency;
 	}
 
@@ -143,7 +143,7 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 * @param InvoiceWeekDay Day to generate invoices
 	 */
 	@JsonProperty("InvoiceWeekDay")
-	public void setInvoiceWeekDayInput(I_AD_Ref_ListInput InvoiceWeekDay) {
+	public void setInvoiceWeekDayInput(ForeignEntityInput InvoiceWeekDay) {
 		this.mInvoiceWeekDay = InvoiceWeekDay;
 		if (InvoiceWeekDay != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 * @return Day to generate invoices
 	 */
 	@JsonProperty("InvoiceWeekDay")
-	public I_AD_Ref_ListInput InvoiceWeekDay() {
+	public ForeignEntityInput InvoiceWeekDay() {
 		return mInvoiceWeekDay;
 	}
 
@@ -177,7 +177,7 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 * @param InvoiceWeekDayCutoff Last day in the week for shipments to be included
 	 */
 	@JsonProperty("InvoiceWeekDayCutoff")
-	public void setInvoiceWeekDayCutoffInput(I_AD_Ref_ListInput InvoiceWeekDayCutoff) {
+	public void setInvoiceWeekDayCutoffInput(ForeignEntityInput InvoiceWeekDayCutoff) {
 		this.mInvoiceWeekDayCutoff = InvoiceWeekDayCutoff;
 		if (InvoiceWeekDayCutoff != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -201,7 +201,7 @@ public class X_C_InvoiceScheduleInput extends MInvoiceSchedule implements I_C_In
 	 * @return Last day in the week for shipments to be included
 	 */
 	@JsonProperty("InvoiceWeekDayCutoff")
-	public I_AD_Ref_ListInput InvoiceWeekDayCutoff() {
+	public ForeignEntityInput InvoiceWeekDayCutoff() {
 		return mInvoiceWeekDayCutoff;
 	}
 }

@@ -127,96 +127,96 @@ public interface I_AD_UserDef_Info_ColumnInput extends I_AD_UserDef_Info_Column 
 	 *
 	 * @param IsAutocomplete Automatic completion for text fields
 	 */
-	void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete);
+	void setIsAutocompleteInput(ForeignEntityInput IsAutocomplete);
 
 	/**
 	 * Get IsAutocomplete.
 	 *
 	 * @return Automatic completion for text fields
 	 */
-	I_AD_Ref_ListInput IsAutocomplete();
+	ForeignEntityInput IsAutocomplete();
 
 	/**
 	 * Set IsDisplayed.
 	 *
 	 * @param IsDisplayed Determines, if this field is displayed
 	 */
-	void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed);
+	void setIsDisplayedInput(ForeignEntityInput IsDisplayed);
 
 	/**
 	 * Get IsDisplayed.
 	 *
 	 * @return Determines, if this field is displayed
 	 */
-	I_AD_Ref_ListInput IsDisplayed();
+	ForeignEntityInput IsDisplayed();
 
 	/**
 	 * Set IsMandatory.
 	 *
 	 * @param IsMandatory Data entry is required in this column
 	 */
-	void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory);
+	void setIsMandatoryInput(ForeignEntityInput IsMandatory);
 
 	/**
 	 * Get IsMandatory.
 	 *
 	 * @return Data entry is required in this column
 	 */
-	I_AD_Ref_ListInput IsMandatory();
+	ForeignEntityInput IsMandatory();
 
 	/**
 	 * Set IsQueryAfterChange.
 	 *
 	 * @param IsQueryAfterChange Issues a query request after the user has made changes to the field
 	 */
-	void setIsQueryAfterChangeInput(I_AD_Ref_ListInput IsQueryAfterChange);
+	void setIsQueryAfterChangeInput(ForeignEntityInput IsQueryAfterChange);
 
 	/**
 	 * Get IsQueryAfterChange.
 	 *
 	 * @return Issues a query request after the user has made changes to the field
 	 */
-	I_AD_Ref_ListInput IsQueryAfterChange();
+	ForeignEntityInput IsQueryAfterChange();
 
 	/**
 	 * Set IsQueryCriteria.
 	 *
 	 * @param IsQueryCriteria The column is also used as a query criteria
 	 */
-	void setIsQueryCriteriaInput(I_AD_Ref_ListInput IsQueryCriteria);
+	void setIsQueryCriteriaInput(ForeignEntityInput IsQueryCriteria);
 
 	/**
 	 * Get IsQueryCriteria.
 	 *
 	 * @return The column is also used as a query criteria
 	 */
-	I_AD_Ref_ListInput IsQueryCriteria();
+	ForeignEntityInput IsQueryCriteria();
 
 	/**
 	 * Set IsReadOnly.
 	 *
 	 * @param IsReadOnly Field is read only
 	 */
-	void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly);
+	void setIsReadOnlyInput(ForeignEntityInput IsReadOnly);
 
 	/**
 	 * Get IsReadOnly.
 	 *
 	 * @return Field is read only
 	 */
-	I_AD_Ref_ListInput IsReadOnly();
+	ForeignEntityInput IsReadOnly();
 
 	/**
 	 * Set QueryOperator.
 	 *
 	 * @param QueryOperator Operator for database query
 	 */
-	void setQueryOperatorInput(I_AD_Ref_ListInput QueryOperator);
+	void setQueryOperatorInput(ForeignEntityInput QueryOperator);
 
 	/**
 	 * Get QueryOperator.
 	 *
 	 * @return Operator for database query
 	 */
-	I_AD_Ref_ListInput QueryOperator();
+	ForeignEntityInput QueryOperator();
 }

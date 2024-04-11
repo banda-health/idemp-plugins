@@ -110,7 +110,7 @@ input A_Depreciation_WorkfileInput {
 	A_QTY_Current: BigDecimal
 	A_Salvage_Value: BigDecimal
 	# Financing Type
-	A_Tip_Finantare: AD_Ref_ListInput
+	A_Tip_Finantare: ForeignEntityInput
 	A_Valoare_Cofinantare: BigDecimal
 	A_Valoare_Tert: BigDecimal
 	# Organizational entity within tenant
@@ -128,7 +128,7 @@ input A_Depreciation_WorkfileInput {
 	# The asset will be depreciated
 	IsDepreciated: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

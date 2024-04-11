@@ -25,7 +25,7 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 	private ForeignEntityInput mAD_CtxHelp;
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mAccessLevel;
+	private ForeignEntityInput mAccessLevel;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -45,7 +45,7 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 	 * @param AccessLevel Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -69,7 +69,7 @@ public class X_AD_FormInput extends MForm implements I_AD_FormInput {
 	 * @return Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public I_AD_Ref_ListInput AccessLevel() {
+	public ForeignEntityInput AccessLevel() {
 		return mAccessLevel;
 	}
 

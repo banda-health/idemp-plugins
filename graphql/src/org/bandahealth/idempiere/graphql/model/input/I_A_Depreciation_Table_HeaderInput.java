@@ -29,28 +29,28 @@ public interface I_A_Depreciation_Table_HeaderInput extends I_A_Depreciation_Tab
 	 *
 	 * @param A_Table_Rate_Type A_Table_Rate_Type
 	 */
-	void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type);
+	void setA_Table_Rate_TypeInput(ForeignEntityInput A_Table_Rate_Type);
 
 	/**
 	 * Get A_Table_Rate_Type.
 	 *
 	 * @return A_Table_Rate_Type
 	 */
-	I_AD_Ref_ListInput A_Table_Rate_Type();
+	ForeignEntityInput A_Table_Rate_Type();
 
 	/**
 	 * Set A_Term.
 	 *
 	 * @param A_Term A_Term
 	 */
-	void setA_TermInput(I_AD_Ref_ListInput A_Term);
+	void setA_TermInput(ForeignEntityInput A_Term);
 
 	/**
 	 * Get A_Term.
 	 *
 	 * @return A_Term
 	 */
-	I_AD_Ref_ListInput A_Term();
+	ForeignEntityInput A_Term();
 
 	/**
 	 * Set AD_Org.

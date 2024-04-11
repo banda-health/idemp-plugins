@@ -35,7 +35,7 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	private ForeignEntityInput mAD_WF_Process;
 	private ForeignEntityInput mAD_WF_Responsible;
 	private ForeignEntityInput mAD_Workflow;
-	private I_AD_Ref_ListInput mWFState;
+	private ForeignEntityInput mWFState;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -362,7 +362,7 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	 * @param WFState State of the execution of the workflow
 	 */
 	@JsonProperty("WFState")
-	public void setWFStateInput(I_AD_Ref_ListInput WFState) {
+	public void setWFStateInput(ForeignEntityInput WFState) {
 		this.mWFState = WFState;
 		if (WFState != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -386,7 +386,7 @@ public class X_AD_WF_ActivityInput extends X_AD_WF_Activity implements I_AD_WF_A
 	 * @return State of the execution of the workflow
 	 */
 	@JsonProperty("WFState")
-	public I_AD_Ref_ListInput WFState() {
+	public ForeignEntityInput WFState() {
 		return mWFState;
 	}
 }

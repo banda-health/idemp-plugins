@@ -26,8 +26,8 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mManufacturingResourceType;
 	private ForeignEntityInput mS_ResourceType;
-	private I_AD_Ref_ListInput mManufacturingResourceType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -152,7 +152,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @param ManufacturingResourceType Manufacturing Resource Type
 	 */
 	@JsonProperty("ManufacturingResourceType")
-	public void setManufacturingResourceTypeInput(I_AD_Ref_ListInput ManufacturingResourceType) {
+	public void setManufacturingResourceTypeInput(ForeignEntityInput ManufacturingResourceType) {
 		this.mManufacturingResourceType = ManufacturingResourceType;
 		if (ManufacturingResourceType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -176,7 +176,7 @@ public class X_S_ResourceInput extends MResource implements I_S_ResourceInput {
 	 * @return Manufacturing Resource Type
 	 */
 	@JsonProperty("ManufacturingResourceType")
-	public I_AD_Ref_ListInput ManufacturingResourceType() {
+	public ForeignEntityInput ManufacturingResourceType() {
 		return mManufacturingResourceType;
 	}
 	/**

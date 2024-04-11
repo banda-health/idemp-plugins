@@ -23,7 +23,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Tree;
-	private I_AD_Ref_ListInput mElementType;
+	private ForeignEntityInput mElementType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -146,7 +146,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 * @param ElementType Element Type (account or user defined)
 	 */
 	@JsonProperty("ElementType")
-	public void setElementTypeInput(I_AD_Ref_ListInput ElementType) {
+	public void setElementTypeInput(ForeignEntityInput ElementType) {
 		this.mElementType = ElementType;
 		if (get_ID() != 0) {
 			return;
@@ -173,7 +173,7 @@ public class X_C_ElementInput extends MElement implements I_C_ElementInput {
 	 * @return Element Type (account or user defined)
 	 */
 	@JsonProperty("ElementType")
-	public I_AD_Ref_ListInput ElementType() {
+	public ForeignEntityInput ElementType() {
 		return mElementType;
 	}
 }

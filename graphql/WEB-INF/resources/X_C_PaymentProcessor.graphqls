@@ -147,5 +147,5 @@ input C_PaymentProcessorInput {
 	# Require 3/4 digit Credit Verification Code
 	RequireVV: Boolean
 	# Type of credit card transaction
-	TrxType: AD_Ref_ListInput
+	TrxType: ForeignEntityInput
 }

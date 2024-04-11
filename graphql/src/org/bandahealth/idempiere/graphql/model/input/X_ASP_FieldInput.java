@@ -24,8 +24,8 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 
 	private ForeignEntityInput mAD_Field;
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mASP_Status;
 	private ForeignEntityInput mASP_Tab;
-	private I_AD_Ref_ListInput mASP_Status;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -148,7 +148,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	 * @param ASP_Status ASP Status
 	 */
 	@JsonProperty("ASP_Status")
-	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
+	public void setASP_StatusInput(ForeignEntityInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
 		if (ASP_Status != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -172,7 +172,7 @@ public class X_ASP_FieldInput extends X_ASP_Field implements I_ASP_FieldInput {
 	 * @return ASP Status
 	 */
 	@JsonProperty("ASP_Status")
-	public I_AD_Ref_ListInput ASP_Status() {
+	public ForeignEntityInput ASP_Status() {
 		return mASP_Status;
 	}
 

@@ -11,7 +11,7 @@ public class MBHDefaultIncludedRoleInput extends X_BH_DefaultIncludedRoleInput {
 	 * @param UUID The BH_DefaultIncludedRole_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHDefaultIncludedRoleInput(@JsonProperty("UUID") String UUID) {
+	public MBHDefaultIncludedRoleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_Header implements I_A_Depreciation_Table_HeaderInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mA_Table_Rate_Type;
-	private I_AD_Ref_ListInput mA_Term;
+	private ForeignEntityInput mA_Table_Rate_Type;
+	private ForeignEntityInput mA_Term;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -71,7 +71,7 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	 * @param A_Table_Rate_Type Type
 	 */
 	@JsonProperty("A_Table_Rate_Type")
-	public void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type) {
+	public void setA_Table_Rate_TypeInput(ForeignEntityInput A_Table_Rate_Type) {
 		this.mA_Table_Rate_Type = A_Table_Rate_Type;
 		if (A_Table_Rate_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -95,7 +95,7 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	 * @return Type
 	 */
 	@JsonProperty("A_Table_Rate_Type")
-	public I_AD_Ref_ListInput A_Table_Rate_Type() {
+	public ForeignEntityInput A_Table_Rate_Type() {
 		return mA_Table_Rate_Type;
 	}
 
@@ -105,7 +105,7 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	 * @param A_Term Period/Yearly
 	 */
 	@JsonProperty("A_Term")
-	public void setA_TermInput(I_AD_Ref_ListInput A_Term) {
+	public void setA_TermInput(ForeignEntityInput A_Term) {
 		this.mA_Term = A_Term;
 		if (A_Term != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -129,7 +129,7 @@ public class X_A_Depreciation_Table_HeaderInput extends X_A_Depreciation_Table_H
 	 * @return Period/Yearly
 	 */
 	@JsonProperty("A_Term")
-	public I_AD_Ref_ListInput A_Term() {
+	public ForeignEntityInput A_Term() {
 		return mA_Term;
 	}
 

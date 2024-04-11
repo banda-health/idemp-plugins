@@ -148,7 +148,7 @@ type PP_Order_Node {
 
 input PP_Order_NodeInput {
 	# Indicates the Action to be performed
-	Action: AD_Ref_ListInput
+	Action: ForeignEntityInput
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Special Form
@@ -190,9 +190,9 @@ input PP_Order_NodeInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Normal Duration in Duration Unit
 	Duration: Int
 	DurationReal: Int
@@ -200,7 +200,7 @@ input PP_Order_NodeInput {
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# Workflow Activity Finish Mode
-	FinishMode: AD_Ref_ListInput
+	FinishMode: ForeignEntityInput
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
@@ -210,7 +210,7 @@ input PP_Order_NodeInput {
 	IsMilestone: Boolean
 	IsSubcontracting: Boolean
 	# Semantics for multiple incoming Transitions
-	JoinElement: AD_Ref_ListInput
+	JoinElement: ForeignEntityInput
 	# Maximum Duration in Duration Unit
 	Limit: Int
 	MovingTime: Int
@@ -239,11 +239,11 @@ input PP_Order_NodeInput {
 	SetupTimeReal: Int
 	SetupTimeRequiered: Int
 	# Semantics for multiple outgoing Transitions
-	SplitElement: AD_Ref_ListInput
+	SplitElement: ForeignEntityInput
 	# Workflow Activity Start Mode 
-	StartMode: AD_Ref_ListInput
+	StartMode: ForeignEntityInput
 	# Mode how the sub-workflow is executed
-	SubflowExecution: AD_Ref_ListInput
+	SubflowExecution: ForeignEntityInput
 	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
 	UnitsCycles: Int
 	# Valid from including this date (first day)

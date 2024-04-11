@@ -11,7 +11,7 @@ public class MUserOrgAccessInput extends X_AD_User_OrgAccessInput {
 	 * @param UUID The AD_User_OrgAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserOrgAccessInput(@JsonProperty("UUID") String UUID) {
+	public MUserOrgAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

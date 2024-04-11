@@ -127,12 +127,12 @@ public interface I_AD_PInstanceInput extends I_AD_PInstance {
 	 *
 	 * @param NotificationType Type of Notifications
 	 */
-	void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType);
+	void setNotificationTypeInput(ForeignEntityInput NotificationType);
 
 	/**
 	 * Get NotificationType.
 	 *
 	 * @return Type of Notifications
 	 */
-	I_AD_Ref_ListInput NotificationType();
+	ForeignEntityInput NotificationType();
 }

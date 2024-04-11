@@ -38,6 +38,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Rule;
+	private ForeignEntityInput mAccountSign;
 	private ForeignEntityInput mC_Activity;
 	private ForeignEntityInput mC_BP_BankAccount;
 	private ForeignEntityInput mC_BP_Group;
@@ -46,6 +47,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_ProjectPhase;
 	private ForeignEntityInput mC_ProjectTask;
+	private ForeignEntityInput mColumnType;
 	private ForeignEntityInput mHR_Concept;
 	private ForeignEntityInput mHR_Concept_Category;
 	private ForeignEntityInput mHR_Department;
@@ -54,8 +56,6 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	private ForeignEntityInput mPP_Cost_Collector;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mAccountSign;
-	private I_AD_Ref_ListInput mColumnType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -75,7 +75,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public void setAccountSignInput(I_AD_Ref_ListInput AccountSign) {
+	public void setAccountSignInput(ForeignEntityInput AccountSign) {
 		this.mAccountSign = AccountSign;
 		if (get_ID() != 0) {
 			return;
@@ -102,7 +102,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public I_AD_Ref_ListInput AccountSign() {
+	public ForeignEntityInput AccountSign() {
 		return mAccountSign;
 	}
 
@@ -461,7 +461,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	 * @param ColumnType Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public void setColumnTypeInput(I_AD_Ref_ListInput ColumnType) {
+	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
 		this.mColumnType = ColumnType;
 		if (ColumnType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -485,7 +485,7 @@ public class X_HR_MovementInput extends X_HR_Movement implements I_HR_MovementIn
 	 * @return Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public I_AD_Ref_ListInput ColumnType() {
+	public ForeignEntityInput ColumnType() {
 		return mColumnType;
 	}
 

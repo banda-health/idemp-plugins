@@ -25,7 +25,7 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	private ForeignEntityInput mAD_Column;
 	private ForeignEntityInput mAD_ImpFormat;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mDataType;
+	private ForeignEntityInput mDataType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -182,7 +182,7 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	 * @param DataType Type of data
 	 */
 	@JsonProperty("DataType")
-	public void setDataTypeInput(I_AD_Ref_ListInput DataType) {
+	public void setDataTypeInput(ForeignEntityInput DataType) {
 		this.mDataType = DataType;
 		if (DataType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -206,7 +206,7 @@ public class X_AD_ImpFormat_RowInput extends X_AD_ImpFormat_Row implements I_AD_
 	 * @return Type of data
 	 */
 	@JsonProperty("DataType")
-	public I_AD_Ref_ListInput DataType() {
+	public ForeignEntityInput DataType() {
 		return mDataType;
 	}
 }

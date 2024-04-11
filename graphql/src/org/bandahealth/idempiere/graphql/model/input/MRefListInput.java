@@ -11,7 +11,7 @@ public class MRefListInput extends X_AD_Ref_ListInput {
 	 * @param UUID The AD_Ref_List_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRefListInput(@JsonProperty("UUID") String UUID) {
+	public MRefListInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

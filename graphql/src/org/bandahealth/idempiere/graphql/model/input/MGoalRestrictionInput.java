@@ -11,7 +11,7 @@ public class MGoalRestrictionInput extends X_PA_GoalRestrictionInput {
 	 * @param UUID The PA_GoalRestriction_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MGoalRestrictionInput(@JsonProperty("UUID") String UUID) {
+	public MGoalRestrictionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

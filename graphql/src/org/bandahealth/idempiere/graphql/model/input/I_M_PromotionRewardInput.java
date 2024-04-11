@@ -43,14 +43,14 @@ public interface I_M_PromotionRewardInput extends I_M_PromotionReward {
 	 *
 	 * @param DistributionSorting Quantity distribution sorting by unit price
 	 */
-	void setDistributionSortingInput(I_AD_Ref_ListInput DistributionSorting);
+	void setDistributionSortingInput(ForeignEntityInput DistributionSorting);
 
 	/**
 	 * Get DistributionSorting.
 	 *
 	 * @return Quantity distribution sorting by unit price
 	 */
-	I_AD_Ref_ListInput DistributionSorting();
+	ForeignEntityInput DistributionSorting();
 
 	/**
 	 * Set M_Promotion.
@@ -113,12 +113,12 @@ public interface I_M_PromotionRewardInput extends I_M_PromotionReward {
 	 *
 	 * @param RewardType Type of reward which consists of percentage discount, flat discount or absolute amount
 	 */
-	void setRewardTypeInput(I_AD_Ref_ListInput RewardType);
+	void setRewardTypeInput(ForeignEntityInput RewardType);
 
 	/**
 	 * Get RewardType.
 	 *
 	 * @return Type of reward which consists of percentage discount, flat discount or absolute amount
 	 */
-	I_AD_Ref_ListInput RewardType();
+	ForeignEntityInput RewardType();
 }

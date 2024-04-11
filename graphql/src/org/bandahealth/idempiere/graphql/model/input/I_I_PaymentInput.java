@@ -127,14 +127,14 @@ public interface I_I_PaymentInput extends I_I_Payment {
 	 *
 	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
-	void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType);
+	void setCreditCardTypeInput(ForeignEntityInput CreditCardType);
 
 	/**
 	 * Get CreditCardType.
 	 *
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
-	I_AD_Ref_ListInput CreditCardType();
+	ForeignEntityInput CreditCardType();
 
 	/**
 	 * Set UU.
@@ -155,26 +155,26 @@ public interface I_I_PaymentInput extends I_I_Payment {
 	 *
 	 * @param TenderType Method of Payment
 	 */
-	void setTenderTypeInput(I_AD_Ref_ListInput TenderType);
+	void setTenderTypeInput(ForeignEntityInput TenderType);
 
 	/**
 	 * Get TenderType.
 	 *
 	 * @return Method of Payment
 	 */
-	I_AD_Ref_ListInput TenderType();
+	ForeignEntityInput TenderType();
 
 	/**
 	 * Set TrxType.
 	 *
 	 * @param TrxType Type of credit card transaction
 	 */
-	void setTrxTypeInput(I_AD_Ref_ListInput TrxType);
+	void setTrxTypeInput(ForeignEntityInput TrxType);
 
 	/**
 	 * Get TrxType.
 	 *
 	 * @return Type of credit card transaction
 	 */
-	I_AD_Ref_ListInput TrxType();
+	ForeignEntityInput TrxType();
 }

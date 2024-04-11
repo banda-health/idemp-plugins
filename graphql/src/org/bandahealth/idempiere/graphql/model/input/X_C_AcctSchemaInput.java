@@ -26,12 +26,12 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_Period;
+	private ForeignEntityInput mCommitmentType;
+	private ForeignEntityInput mCostingLevel;
+	private ForeignEntityInput mCostingMethod;
+	private ForeignEntityInput mGAAP;
 	private ForeignEntityInput mM_CostType;
-	private I_AD_Ref_ListInput mCommitmentType;
-	private I_AD_Ref_ListInput mCostingLevel;
-	private I_AD_Ref_ListInput mCostingMethod;
-	private I_AD_Ref_ListInput mGAAP;
-	private I_AD_Ref_ListInput mTaxCorrectionType;
+	private ForeignEntityInput mTaxCorrectionType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -188,7 +188,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param CommitmentType Create Commitment and/or Reservations for Budget Control
 	 */
 	@JsonProperty("CommitmentType")
-	public void setCommitmentTypeInput(I_AD_Ref_ListInput CommitmentType) {
+	public void setCommitmentTypeInput(ForeignEntityInput CommitmentType) {
 		this.mCommitmentType = CommitmentType;
 		if (CommitmentType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -212,7 +212,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return Create Commitment and/or Reservations for Budget Control
 	 */
 	@JsonProperty("CommitmentType")
-	public I_AD_Ref_ListInput CommitmentType() {
+	public ForeignEntityInput CommitmentType() {
 		return mCommitmentType;
 	}
 
@@ -222,7 +222,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param CostingLevel The lowest level to accumulate Costing Information
 	 */
 	@JsonProperty("CostingLevel")
-	public void setCostingLevelInput(I_AD_Ref_ListInput CostingLevel) {
+	public void setCostingLevelInput(ForeignEntityInput CostingLevel) {
 		this.mCostingLevel = CostingLevel;
 		if (CostingLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -246,7 +246,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return The lowest level to accumulate Costing Information
 	 */
 	@JsonProperty("CostingLevel")
-	public I_AD_Ref_ListInput CostingLevel() {
+	public ForeignEntityInput CostingLevel() {
 		return mCostingLevel;
 	}
 
@@ -256,7 +256,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
+	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -280,7 +280,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public I_AD_Ref_ListInput CostingMethod() {
+	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
 	}
 
@@ -290,7 +290,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param GAAP Generally Accepted Accounting Principles
 	 */
 	@JsonProperty("GAAP")
-	public void setGAAPInput(I_AD_Ref_ListInput GAAP) {
+	public void setGAAPInput(ForeignEntityInput GAAP) {
 		this.mGAAP = GAAP;
 		if (GAAP != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -314,7 +314,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return Generally Accepted Accounting Principles
 	 */
 	@JsonProperty("GAAP")
-	public I_AD_Ref_ListInput GAAP() {
+	public ForeignEntityInput GAAP() {
 		return mGAAP;
 	}
 
@@ -358,7 +358,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @param TaxCorrectionType Type of Tax Correction
 	 */
 	@JsonProperty("TaxCorrectionType")
-	public void setTaxCorrectionTypeInput(I_AD_Ref_ListInput TaxCorrectionType) {
+	public void setTaxCorrectionTypeInput(ForeignEntityInput TaxCorrectionType) {
 		this.mTaxCorrectionType = TaxCorrectionType;
 		if (TaxCorrectionType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -382,7 +382,7 @@ public class X_C_AcctSchemaInput extends MAcctSchema implements I_C_AcctSchemaIn
 	 * @return Type of Tax Correction
 	 */
 	@JsonProperty("TaxCorrectionType")
-	public I_AD_Ref_ListInput TaxCorrectionType() {
+	public ForeignEntityInput TaxCorrectionType() {
 		return mTaxCorrectionType;
 	}
 }

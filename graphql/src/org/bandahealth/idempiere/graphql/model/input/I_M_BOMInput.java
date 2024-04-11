@@ -29,28 +29,28 @@ public interface I_M_BOMInput extends I_M_BOM {
 	 *
 	 * @param BOMType Type of BOM
 	 */
-	void setBOMTypeInput(I_AD_Ref_ListInput BOMType);
+	void setBOMTypeInput(ForeignEntityInput BOMType);
 
 	/**
 	 * Get BOMType.
 	 *
 	 * @return Type of BOM
 	 */
-	I_AD_Ref_ListInput BOMType();
+	ForeignEntityInput BOMType();
 
 	/**
 	 * Set BOMUse.
 	 *
 	 * @param BOMUse The use of the Bill of Material
 	 */
-	void setBOMUseInput(I_AD_Ref_ListInput BOMUse);
+	void setBOMUseInput(ForeignEntityInput BOMUse);
 
 	/**
 	 * Get BOMUse.
 	 *
 	 * @return The use of the Bill of Material
 	 */
-	I_AD_Ref_ListInput BOMUse();
+	ForeignEntityInput BOMUse();
 
 	/**
 	 * Set UU.

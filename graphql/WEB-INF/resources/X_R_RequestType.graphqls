@@ -72,7 +72,7 @@ input R_RequestTypeInput {
 	# Automatic Due Date Days
 	AutoDueDateDays: Int
 	# Type of Confidentiality
-	ConfidentialType: AD_Ref_ListInput
+	ConfidentialType: ForeignEntityInput
 	# Content color of calendar dashlet
 	ContentColor: String
 	# Optional short description of the record

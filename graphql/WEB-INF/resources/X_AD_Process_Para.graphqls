@@ -112,7 +112,7 @@ input AD_Process_ParaInput {
 	# Name of the column in the database
 	ColumnName: String
 	# Options, how the date editor will be displayed.
-	DateRangeOption: AD_Ref_ListInput
+	DateRangeOption: ForeignEntityInput
 	# Default value hierarchy, separated by ;
 	DefaultValue: String
 	# Default value hierarchy, separated by ;

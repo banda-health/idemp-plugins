@@ -150,7 +150,7 @@ input I_AssetInput {
 	A_Current_Period: Int
 	A_Depreciation_A: ForeignEntityInput
 	A_Depreciation_Manual_Amount: BigDecimal
-	A_Depreciation_Manual_Period: AD_Ref_ListInput
+	A_Depreciation_Manual_Period: ForeignEntityInput
 	A_Depreciation_Table_Header: ForeignEntityInput
 	A_Depreciation_Variable_Perc: BigDecimal
 	A_Life_Period: Int
@@ -161,7 +161,7 @@ input I_AssetInput {
 	A_Prior_Year_Accumulated_Depr: BigDecimal
 	A_QTY_Current: Int
 	A_QTY_Original: Int
-	A_Reval_Cal_Method: AD_Ref_ListInput
+	A_Reval_Cal_Method: ForeignEntityInput
 	A_Salvage_Value: BigDecimal
 	A_Split_Percent: BigDecimal
 	# Organizational entity within tenant
@@ -222,7 +222,7 @@ input I_AssetInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

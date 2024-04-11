@@ -11,7 +11,7 @@ public class MTransactionInput extends X_M_TransactionInput {
 	 * @param UUID The M_Transaction_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTransactionInput(@JsonProperty("UUID") String UUID) {
+	public MTransactionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MMessageInput extends X_AD_MessageInput {
 	 * @param UUID The AD_Message_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMessageInput(@JsonProperty("UUID") String UUID) {
+	public MMessageInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

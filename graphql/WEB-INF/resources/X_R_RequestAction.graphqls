@@ -130,7 +130,7 @@ input R_RequestActionInput {
 	# Financial Project
 	C_Project: ForeignEntityInput
 	# Type of Confidentiality
-	ConfidentialType: AD_Ref_ListInput
+	ConfidentialType: ForeignEntityInput
 	# Planned Completion Date
 	DateCompletePlan: Date
 	# Date that this request should be acted on
@@ -142,11 +142,11 @@ input R_RequestActionInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# This request has been escalated
-	IsEscalated: AD_Ref_ListInput
+	IsEscalated: ForeignEntityInput
 	# Is this invoiced?
 	IsInvoiced: Boolean
 	# This is a Self-Service entry or this entry can be changed via Self-Service
-	IsSelfService: AD_Ref_ListInput
+	IsSelfService: ForeignEntityInput
 	# Material Shipment Document
 	M_InOut: ForeignEntityInput
 	# Product, Service, Item
@@ -158,9 +158,9 @@ input R_RequestActionInput {
 	# Columns with NULL value
 	NullColumns: String
 	# Indicates if this request is of a high, medium or low priority.
-	Priority: AD_Ref_ListInput
+	Priority: ForeignEntityInput
 	# Priority of the issue for the User
-	PriorityUser: AD_Ref_ListInput
+	PriorityUser: ForeignEntityInput
 	# Invoiced Quantity
 	QtyInvoiced: BigDecimal
 	# Planned Quantity
@@ -187,5 +187,5 @@ input R_RequestActionInput {
 	# Textual summary of this request
 	Summary: String
 	# Status of the Task
-	TaskStatus: AD_Ref_ListInput
+	TaskStatus: ForeignEntityInput
 }

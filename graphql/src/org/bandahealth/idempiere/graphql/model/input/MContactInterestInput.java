@@ -11,7 +11,7 @@ public class MContactInterestInput extends X_R_ContactInterestInput {
 	 * @param UUID The R_ContactInterest_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MContactInterestInput(@JsonProperty("UUID") String UUID) {
+	public MContactInterestInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

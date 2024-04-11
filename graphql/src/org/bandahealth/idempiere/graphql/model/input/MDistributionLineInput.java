@@ -11,7 +11,7 @@ public class MDistributionLineInput extends X_GL_DistributionLineInput {
 	 * @param UUID The GL_DistributionLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDistributionLineInput(@JsonProperty("UUID") String UUID) {
+	public MDistributionLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

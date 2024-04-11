@@ -50,7 +50,7 @@ input C_TaxBaseInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Calculation Base
-	Base: AD_Ref_ListInput
+	Base: ForeignEntityInput
 	UU: ID
 	# Optional short description of the record
 	Description: String

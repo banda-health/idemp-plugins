@@ -105,7 +105,7 @@ input C_ProjectPhaseInput {
 	# Actual Price 
 	PriceActual: BigDecimal
 	# Invoice Rule for the project
-	ProjInvoiceRule: AD_Ref_ListInput
+	ProjInvoiceRule: ForeignEntityInput
 	# Quantity
 	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first

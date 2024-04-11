@@ -11,7 +11,7 @@ public class MRequestProcessorInput extends X_R_RequestProcessorInput {
 	 * @param UUID The R_RequestProcessor_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRequestProcessorInput(@JsonProperty("UUID") String UUID) {
+	public MRequestProcessorInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

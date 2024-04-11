@@ -25,14 +25,14 @@ import java.sql.ResultSet;
 public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I_A_Depreciation_EntryInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Entry_Type;
 	private ForeignEntityInput mC_AcctSchema;
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_Period;
-	private I_AD_Ref_ListInput mA_Entry_Type;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -81,7 +81,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param A_Entry_Type Entry Type
 	 */
 	@JsonProperty("A_Entry_Type")
-	public void setA_Entry_TypeInput(I_AD_Ref_ListInput A_Entry_Type) {
+	public void setA_Entry_TypeInput(ForeignEntityInput A_Entry_Type) {
 		this.mA_Entry_Type = A_Entry_Type;
 		if (A_Entry_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -105,7 +105,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return Entry Type
 	 */
 	@JsonProperty("A_Entry_Type")
-	public I_AD_Ref_ListInput A_Entry_Type() {
+	public ForeignEntityInput A_Entry_Type() {
 		return mA_Entry_Type;
 	}
 
@@ -285,7 +285,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -309,7 +309,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -319,7 +319,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -343,7 +343,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -364,7 +364,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -388,7 +388,7 @@ public class X_A_Depreciation_EntryInput extends MDepreciationEntry implements I
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

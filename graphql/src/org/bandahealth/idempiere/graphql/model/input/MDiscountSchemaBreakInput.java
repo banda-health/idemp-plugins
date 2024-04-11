@@ -11,7 +11,7 @@ public class MDiscountSchemaBreakInput extends X_M_DiscountSchemaBreakInput {
 	 * @param UUID The M_DiscountSchemaBreak_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDiscountSchemaBreakInput(@JsonProperty("UUID") String UUID) {
+	public MDiscountSchemaBreakInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -71,26 +71,26 @@ public interface I_CM_ChatInput extends I_CM_Chat {
 	 *
 	 * @param ConfidentialType Type of Confidentiality
 	 */
-	void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType);
+	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
 
 	/**
 	 * Get ConfidentialType.
 	 *
 	 * @return Type of Confidentiality
 	 */
-	I_AD_Ref_ListInput ConfidentialType();
+	ForeignEntityInput ConfidentialType();
 
 	/**
 	 * Set ModerationType.
 	 *
 	 * @param ModerationType Type of moderation
 	 */
-	void setModerationTypeInput(I_AD_Ref_ListInput ModerationType);
+	void setModerationTypeInput(ForeignEntityInput ModerationType);
 
 	/**
 	 * Get ModerationType.
 	 *
 	 * @return Type of moderation
 	 */
-	I_AD_Ref_ListInput ModerationType();
+	ForeignEntityInput ModerationType();
 }

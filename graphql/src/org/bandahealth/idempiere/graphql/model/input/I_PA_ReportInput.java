@@ -71,14 +71,14 @@ public interface I_PA_ReportInput extends I_PA_Report {
 	 *
 	 * @param ExcludeAdjustmentPeriods ExcludeAdjustmentPeriods
 	 */
-	void setExcludeAdjustmentPeriodsInput(I_AD_Ref_ListInput ExcludeAdjustmentPeriods);
+	void setExcludeAdjustmentPeriodsInput(ForeignEntityInput ExcludeAdjustmentPeriods);
 
 	/**
 	 * Get ExcludeAdjustmentPeriods.
 	 *
 	 * @return ExcludeAdjustmentPeriods
 	 */
-	I_AD_Ref_ListInput ExcludeAdjustmentPeriods();
+	ForeignEntityInput ExcludeAdjustmentPeriods();
 
 	/**
 	 * Set JasperProcess.

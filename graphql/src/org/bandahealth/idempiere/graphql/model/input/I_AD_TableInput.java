@@ -15,14 +15,14 @@ public interface I_AD_TableInput extends I_AD_Table {
 	 *
 	 * @param AccessLevel Access Level required
 	 */
-	void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel);
+	void setAccessLevelInput(ForeignEntityInput AccessLevel);
 
 	/**
 	 * Get AccessLevel.
 	 *
 	 * @return Access Level required
 	 */
-	I_AD_Ref_ListInput AccessLevel();
+	ForeignEntityInput AccessLevel();
 
 	/**
 	 * Set AD_Org.
@@ -113,12 +113,12 @@ public interface I_AD_TableInput extends I_AD_Table {
 	 *
 	 * @param ReplicationType Type of Data Replication
 	 */
-	void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType);
+	void setReplicationTypeInput(ForeignEntityInput ReplicationType);
 
 	/**
 	 * Get ReplicationType.
 	 *
 	 * @return Type of Data Replication
 	 */
-	I_AD_Ref_ListInput ReplicationType();
+	ForeignEntityInput ReplicationType();
 }

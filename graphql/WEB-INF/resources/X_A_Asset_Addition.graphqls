@@ -105,11 +105,11 @@ input A_Asset_AdditionInput {
 	UU: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	A_CapvsExp: AD_Ref_ListInput
+	A_CapvsExp: ForeignEntityInput
 	A_CreateAsset: Boolean
 	A_QTY_Current: BigDecimal
 	A_Salvage_Value: BigDecimal
-	A_SourceType: AD_Ref_ListInput
+	A_SourceType: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AssetAmtEntered: BigDecimal
@@ -139,9 +139,9 @@ input A_Asset_AdditionInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# General Ledger Journal Batch
@@ -166,7 +166,7 @@ input A_Asset_AdditionInput {
 	# Posting status
 	Posted: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

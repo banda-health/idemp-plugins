@@ -27,8 +27,8 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_WF_NodeNext;
-	private I_AD_Ref_ListInput mAndOr;
-	private I_AD_Ref_ListInput mOperation;
+	private ForeignEntityInput mAndOr;
+	private ForeignEntityInput mOperation;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -185,7 +185,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @param AndOr Logical operation: AND or OR
 	 */
 	@JsonProperty("AndOr")
-	public void setAndOrInput(I_AD_Ref_ListInput AndOr) {
+	public void setAndOrInput(ForeignEntityInput AndOr) {
 		this.mAndOr = AndOr;
 		if (AndOr != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -209,7 +209,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @return Logical operation: AND or OR
 	 */
 	@JsonProperty("AndOr")
-	public I_AD_Ref_ListInput AndOr() {
+	public ForeignEntityInput AndOr() {
 		return mAndOr;
 	}
 
@@ -253,7 +253,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @param Operation Compare Operation
 	 */
 	@JsonProperty("Operation")
-	public void setOperationInput(I_AD_Ref_ListInput Operation) {
+	public void setOperationInput(ForeignEntityInput Operation) {
 		this.mOperation = Operation;
 		if (Operation != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -277,7 +277,7 @@ public class X_AD_WF_NextConditionInput extends X_AD_WF_NextCondition implements
 	 * @return Compare Operation
 	 */
 	@JsonProperty("Operation")
-	public I_AD_Ref_ListInput Operation() {
+	public ForeignEntityInput Operation() {
 		return mOperation;
 	}
 }

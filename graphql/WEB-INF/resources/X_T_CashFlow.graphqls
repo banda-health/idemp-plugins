@@ -96,8 +96,8 @@ input T_CashFlowInput {
 	C_Order: ForeignEntityInput
 	# Financial Project
 	C_Project: ForeignEntityInput
-	CashFlowSource: AD_Ref_ListInput
-	CashFlowType: AD_Ref_ListInput
+	CashFlowSource: ForeignEntityInput
+	CashFlowType: ForeignEntityInput
 	# End date of a date range
 	DateTo: Date
 	# Transaction Date

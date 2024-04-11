@@ -99,12 +99,12 @@ public interface I_C_ProjectPhaseInput extends I_C_ProjectPhase {
 	 *
 	 * @param ProjInvoiceRule Invoice Rule for the project
 	 */
-	void setProjInvoiceRuleInput(I_AD_Ref_ListInput ProjInvoiceRule);
+	void setProjInvoiceRuleInput(ForeignEntityInput ProjInvoiceRule);
 
 	/**
 	 * Get ProjInvoiceRule.
 	 *
 	 * @return Invoice Rule for the project
 	 */
-	I_AD_Ref_ListInput ProjInvoiceRule();
+	ForeignEntityInput ProjInvoiceRule();
 }

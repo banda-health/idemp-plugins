@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_BenchmarkInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mAccumulationType;
+	private ForeignEntityInput mAccumulationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -41,7 +41,7 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	 * @param AccumulationType How to accumulate data on time axis
 	 */
 	@JsonProperty("AccumulationType")
-	public void setAccumulationTypeInput(I_AD_Ref_ListInput AccumulationType) {
+	public void setAccumulationTypeInput(ForeignEntityInput AccumulationType) {
 		this.mAccumulationType = AccumulationType;
 		if (AccumulationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -65,7 +65,7 @@ public class X_PA_BenchmarkInput extends X_PA_Benchmark implements I_PA_Benchmar
 	 * @return How to accumulate data on time axis
 	 */
 	@JsonProperty("AccumulationType")
-	public I_AD_Ref_ListInput AccumulationType() {
+	public ForeignEntityInput AccumulationType() {
 		return mAccumulationType;
 	}
 

@@ -11,7 +11,7 @@ public class MWindowAccessInput extends X_AD_Window_AccessInput {
 	 * @param UUID The AD_Window_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MWindowAccessInput(@JsonProperty("UUID") String UUID) {
+	public MWindowAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

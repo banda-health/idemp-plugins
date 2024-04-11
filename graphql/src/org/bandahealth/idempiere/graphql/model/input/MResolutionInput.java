@@ -11,7 +11,7 @@ public class MResolutionInput extends X_R_ResolutionInput {
 	 * @param UUID The R_Resolution_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MResolutionInput(@JsonProperty("UUID") String UUID) {
+	public MResolutionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

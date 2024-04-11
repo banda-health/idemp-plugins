@@ -11,7 +11,7 @@ public class MUserDefInfoRelatedInput extends X_AD_UserDef_Info_RelatedInput {
 	 * @param UUID The AD_UserDef_Info_Related_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserDefInfoRelatedInput(@JsonProperty("UUID") String UUID) {
+	public MUserDefInfoRelatedInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

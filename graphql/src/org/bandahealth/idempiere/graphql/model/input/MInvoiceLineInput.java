@@ -20,7 +20,7 @@ public class MInvoiceLineInput extends X_C_InvoiceLineInput {
 	 * @param UUID The C_InvoiceLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInvoiceLineInput(@JsonProperty("UUID") String UUID,
+	public MInvoiceLineInput(@JsonProperty("UU") String UUID,
 			@JsonProperty("C_Invoice") ForeignEntityInput C_InvoiceInput,
 			@JsonProperty("C_OrderLine") ForeignEntityInput C_OrderLineInput) {
 		super(UUID);

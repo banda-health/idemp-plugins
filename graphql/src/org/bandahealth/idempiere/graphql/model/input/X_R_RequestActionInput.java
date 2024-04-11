@@ -49,10 +49,15 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	private ForeignEntityInput mC_Order;
 	private ForeignEntityInput mC_Payment;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mConfidentialType;
+	private ForeignEntityInput mIsEscalated;
+	private ForeignEntityInput mIsSelfService;
 	private ForeignEntityInput mM_InOut;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_ProductSpent;
 	private ForeignEntityInput mM_RMA;
+	private ForeignEntityInput mPriority;
+	private ForeignEntityInput mPriorityUser;
 	private ForeignEntityInput mR_Category;
 	private ForeignEntityInput mR_Group;
 	private ForeignEntityInput mR_Request;
@@ -60,12 +65,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	private ForeignEntityInput mR_Resolution;
 	private ForeignEntityInput mR_Status;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mConfidentialType;
-	private I_AD_Ref_ListInput mIsEscalated;
-	private I_AD_Ref_ListInput mIsSelfService;
-	private I_AD_Ref_ListInput mPriority;
-	private I_AD_Ref_ListInput mPriorityUser;
-	private I_AD_Ref_ListInput mTaskStatus;
+	private ForeignEntityInput mTaskStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -455,7 +455,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @param ConfidentialType Type of Confidentiality
 	 */
 	@JsonProperty("ConfidentialType")
-	public void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType) {
+	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
 		if (get_ID() != 0) {
 			return;
@@ -482,7 +482,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @return Type of Confidentiality
 	 */
 	@JsonProperty("ConfidentialType")
-	public I_AD_Ref_ListInput ConfidentialType() {
+	public ForeignEntityInput ConfidentialType() {
 		return mConfidentialType;
 	}
 	/**
@@ -503,7 +503,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @param IsEscalated This request has been escalated
 	 */
 	@JsonProperty("IsEscalated")
-	public void setIsEscalatedInput(I_AD_Ref_ListInput IsEscalated) {
+	public void setIsEscalatedInput(ForeignEntityInput IsEscalated) {
 		this.mIsEscalated = IsEscalated;
 		if (get_ID() != 0) {
 			return;
@@ -530,7 +530,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @return This request has been escalated
 	 */
 	@JsonProperty("IsEscalated")
-	public I_AD_Ref_ListInput IsEscalated() {
+	public ForeignEntityInput IsEscalated() {
 		return mIsEscalated;
 	}
 	/**
@@ -551,7 +551,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @param IsSelfService This is a Self-Service entry or this entry can be changed via Self-Service
 	 */
 	@JsonProperty("IsSelfService")
-	public void setIsSelfServiceInput(I_AD_Ref_ListInput IsSelfService) {
+	public void setIsSelfServiceInput(ForeignEntityInput IsSelfService) {
 		this.mIsSelfService = IsSelfService;
 		if (get_ID() != 0) {
 			return;
@@ -578,7 +578,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @return This is a Self-Service entry or this entry can be changed via Self-Service
 	 */
 	@JsonProperty("IsSelfService")
-	public I_AD_Ref_ListInput IsSelfService() {
+	public ForeignEntityInput IsSelfService() {
 		return mIsSelfService;
 	}
 
@@ -744,7 +744,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @param Priority Indicates if this request is of a high, medium or low priority.
 	 */
 	@JsonProperty("Priority")
-	public void setPriorityInput(I_AD_Ref_ListInput Priority) {
+	public void setPriorityInput(ForeignEntityInput Priority) {
 		this.mPriority = Priority;
 		if (get_ID() != 0) {
 			return;
@@ -771,7 +771,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @return Indicates if this request is of a high, medium or low priority.
 	 */
 	@JsonProperty("Priority")
-	public I_AD_Ref_ListInput Priority() {
+	public ForeignEntityInput Priority() {
 		return mPriority;
 	}
 
@@ -781,7 +781,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @param PriorityUser Priority of the issue for the User
 	 */
 	@JsonProperty("PriorityUser")
-	public void setPriorityUserInput(I_AD_Ref_ListInput PriorityUser) {
+	public void setPriorityUserInput(ForeignEntityInput PriorityUser) {
 		this.mPriorityUser = PriorityUser;
 		if (get_ID() != 0) {
 			return;
@@ -808,7 +808,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @return Priority of the issue for the User
 	 */
 	@JsonProperty("PriorityUser")
-	public I_AD_Ref_ListInput PriorityUser() {
+	public ForeignEntityInput PriorityUser() {
 		return mPriorityUser;
 	}
 
@@ -1117,7 +1117,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @param TaskStatus Status of the Task
 	 */
 	@JsonProperty("TaskStatus")
-	public void setTaskStatusInput(I_AD_Ref_ListInput TaskStatus) {
+	public void setTaskStatusInput(ForeignEntityInput TaskStatus) {
 		this.mTaskStatus = TaskStatus;
 		if (TaskStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1141,7 +1141,7 @@ public class X_R_RequestActionInput extends MRequestAction implements I_R_Reques
 	 * @return Status of the Task
 	 */
 	@JsonProperty("TaskStatus")
-	public I_AD_Ref_ListInput TaskStatus() {
+	public ForeignEntityInput TaskStatus() {
 		return mTaskStatus;
 	}
 }

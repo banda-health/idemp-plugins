@@ -43,12 +43,12 @@ public interface I_AD_MigrationScriptInput extends I_AD_MigrationScript {
 	 *
 	 * @param Status Status of the currently running check
 	 */
-	void setStatusInput(I_AD_Ref_ListInput Status);
+	void setStatusInput(ForeignEntityInput Status);
 
 	/**
 	 * Get Status.
 	 *
 	 * @return Status of the currently running check
 	 */
-	I_AD_Ref_ListInput Status();
+	ForeignEntityInput Status();
 }

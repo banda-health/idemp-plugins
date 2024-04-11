@@ -207,7 +207,7 @@ input I_OrderInput {
 	# Date of Order
 	DateOrdered: Date
 	# Defines the timing of Delivery
-	DeliveryRule: AD_Ref_ListInput
+	DeliveryRule: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Name of the Document Type

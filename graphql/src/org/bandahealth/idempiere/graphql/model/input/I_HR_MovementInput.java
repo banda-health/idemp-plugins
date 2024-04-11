@@ -15,14 +15,14 @@ public interface I_HR_MovementInput extends I_HR_Movement {
 	 *
 	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	void setAccountSignInput(I_AD_Ref_ListInput AccountSign);
+	void setAccountSignInput(ForeignEntityInput AccountSign);
 
 	/**
 	 * Get AccountSign.
 	 *
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	I_AD_Ref_ListInput AccountSign();
+	ForeignEntityInput AccountSign();
 
 	/**
 	 * Set AD_Org.
@@ -169,14 +169,14 @@ public interface I_HR_MovementInput extends I_HR_Movement {
 	 *
 	 * @param ColumnType ColumnType
 	 */
-	void setColumnTypeInput(I_AD_Ref_ListInput ColumnType);
+	void setColumnTypeInput(ForeignEntityInput ColumnType);
 
 	/**
 	 * Get ColumnType.
 	 *
 	 * @return ColumnType
 	 */
-	I_AD_Ref_ListInput ColumnType();
+	ForeignEntityInput ColumnType();
 
 	/**
 	 * Set HR_Concept_Category.

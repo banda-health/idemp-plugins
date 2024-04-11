@@ -11,7 +11,7 @@ public class MUserDefTabInput extends X_AD_UserDef_TabInput {
 	 * @param UUID The AD_UserDef_Tab_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserDefTabInput(@JsonProperty("UUID") String UUID) {
+	public MUserDefTabInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

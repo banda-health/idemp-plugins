@@ -57,42 +57,42 @@ public interface I_PA_GoalInput extends I_PA_Goal {
 	 *
 	 * @param ChartType Type of chart to render
 	 */
-	void setChartTypeInput(I_AD_Ref_ListInput ChartType);
+	void setChartTypeInput(ForeignEntityInput ChartType);
 
 	/**
 	 * Get ChartType.
 	 *
 	 * @return Type of chart to render
 	 */
-	I_AD_Ref_ListInput ChartType();
+	ForeignEntityInput ChartType();
 
 	/**
 	 * Set MeasureDisplay.
 	 *
 	 * @param MeasureDisplay Measure Scope initially displayed
 	 */
-	void setMeasureDisplayInput(I_AD_Ref_ListInput MeasureDisplay);
+	void setMeasureDisplayInput(ForeignEntityInput MeasureDisplay);
 
 	/**
 	 * Get MeasureDisplay.
 	 *
 	 * @return Measure Scope initially displayed
 	 */
-	I_AD_Ref_ListInput MeasureDisplay();
+	ForeignEntityInput MeasureDisplay();
 
 	/**
 	 * Set MeasureScope.
 	 *
 	 * @param MeasureScope Performance Measure Scope
 	 */
-	void setMeasureScopeInput(I_AD_Ref_ListInput MeasureScope);
+	void setMeasureScopeInput(ForeignEntityInput MeasureScope);
 
 	/**
 	 * Get MeasureScope.
 	 *
 	 * @return Performance Measure Scope
 	 */
-	I_AD_Ref_ListInput MeasureScope();
+	ForeignEntityInput MeasureScope();
 
 	/**
 	 * Set PA_ColorSchema.

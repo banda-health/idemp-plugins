@@ -11,7 +11,7 @@ public class MStorageOnHandInput extends X_M_StorageOnHandInput {
 	 * @param UUID The M_StorageOnHand_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStorageOnHandInput(@JsonProperty("UUID") String UUID) {
+	public MStorageOnHandInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

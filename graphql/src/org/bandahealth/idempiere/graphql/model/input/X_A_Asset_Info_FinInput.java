@@ -24,9 +24,9 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Due_On;
+	private ForeignEntityInput mA_Finance_Meth;
 	private ForeignEntityInput mC_BPartner;
-	private I_AD_Ref_ListInput mA_Due_On;
-	private I_AD_Ref_ListInput mA_Finance_Meth;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -112,7 +112,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @param A_Due_On Asset Due On
 	 */
 	@JsonProperty("A_Due_On")
-	public void setA_Due_OnInput(I_AD_Ref_ListInput A_Due_On) {
+	public void setA_Due_OnInput(ForeignEntityInput A_Due_On) {
 		this.mA_Due_On = A_Due_On;
 		if (A_Due_On != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -136,7 +136,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @return Asset Due On
 	 */
 	@JsonProperty("A_Due_On")
-	public I_AD_Ref_ListInput A_Due_On() {
+	public ForeignEntityInput A_Due_On() {
 		return mA_Due_On;
 	}
 
@@ -146,7 +146,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @param A_Finance_Meth Asset Finance Method
 	 */
 	@JsonProperty("A_Finance_Meth")
-	public void setA_Finance_MethInput(I_AD_Ref_ListInput A_Finance_Meth) {
+	public void setA_Finance_MethInput(ForeignEntityInput A_Finance_Meth) {
 		this.mA_Finance_Meth = A_Finance_Meth;
 		if (A_Finance_Meth != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -170,7 +170,7 @@ public class X_A_Asset_Info_FinInput extends X_A_Asset_Info_Fin implements I_A_A
 	 * @return Asset Finance Method
 	 */
 	@JsonProperty("A_Finance_Meth")
-	public I_AD_Ref_ListInput A_Finance_Meth() {
+	public ForeignEntityInput A_Finance_Meth() {
 		return mA_Finance_Meth;
 	}
 

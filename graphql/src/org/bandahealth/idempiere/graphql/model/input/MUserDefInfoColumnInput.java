@@ -11,7 +11,7 @@ public class MUserDefInfoColumnInput extends X_AD_UserDef_Info_ColumnInput {
 	 * @param UUID The AD_UserDef_Info_Column_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserDefInfoColumnInput(@JsonProperty("UUID") String UUID) {
+	public MUserDefInfoColumnInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -69,5 +69,5 @@ input AD_UserPreferenceInput {
 	# Defines if double click in a field on grid mode switch to form view
 	ToggleOnDoubleClick: Boolean
 	# Does the system must switch to grid mode after the Find panel closes
-	ViewFindResult: AD_Ref_ListInput
+	ViewFindResult: ForeignEntityInput
 }

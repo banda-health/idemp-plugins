@@ -54,14 +54,14 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	private ForeignEntityInput mC_PaymentBatch;
 	private ForeignEntityInput mC_PaymentProcessor;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mCreditCardType;
+	private ForeignEntityInput mR_AvsAddr;
+	private ForeignEntityInput mR_AvsZip;
 	private ForeignEntityInput mRef_PaymentTransaction;
+	private ForeignEntityInput mTenderType;
+	private ForeignEntityInput mTrxType;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mCreditCardType;
-	private I_AD_Ref_ListInput mR_AvsAddr;
-	private I_AD_Ref_ListInput mR_AvsZip;
-	private I_AD_Ref_ListInput mTenderType;
-	private I_AD_Ref_ListInput mTrxType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -691,7 +691,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
+	public void setCreditCardTypeInput(ForeignEntityInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		if (CreditCardType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -715,7 +715,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public I_AD_Ref_ListInput CreditCardType() {
+	public ForeignEntityInput CreditCardType() {
 		return mCreditCardType;
 	}
 	/**
@@ -747,7 +747,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @param R_AvsAddr This address has been verified
 	 */
 	@JsonProperty("R_AvsAddr")
-	public void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr) {
+	public void setR_AvsAddrInput(ForeignEntityInput R_AvsAddr) {
 		this.mR_AvsAddr = R_AvsAddr;
 		if (get_ID() != 0) {
 			return;
@@ -774,7 +774,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @return This address has been verified
 	 */
 	@JsonProperty("R_AvsAddr")
-	public I_AD_Ref_ListInput R_AvsAddr() {
+	public ForeignEntityInput R_AvsAddr() {
 		return mR_AvsAddr;
 	}
 
@@ -784,7 +784,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @param R_AvsZip The Zip Code has been verified
 	 */
 	@JsonProperty("R_AvsZip")
-	public void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip) {
+	public void setR_AvsZipInput(ForeignEntityInput R_AvsZip) {
 		this.mR_AvsZip = R_AvsZip;
 		if (get_ID() != 0) {
 			return;
@@ -811,7 +811,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @return The Zip Code has been verified
 	 */
 	@JsonProperty("R_AvsZip")
-	public I_AD_Ref_ListInput R_AvsZip() {
+	public ForeignEntityInput R_AvsZip() {
 		return mR_AvsZip;
 	}
 	/**
@@ -910,7 +910,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @param TenderType Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
+	public void setTenderTypeInput(ForeignEntityInput TenderType) {
 		this.mTenderType = TenderType;
 		if (TenderType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -934,7 +934,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @return Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public I_AD_Ref_ListInput TenderType() {
+	public ForeignEntityInput TenderType() {
 		return mTenderType;
 	}
 
@@ -944,7 +944,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @param TrxType Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public void setTrxTypeInput(I_AD_Ref_ListInput TrxType) {
+	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -968,7 +968,7 @@ public class X_C_PaymentTransactionInput extends MPaymentTransaction implements 
 	 * @return Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public I_AD_Ref_ListInput TrxType() {
+	public ForeignEntityInput TrxType() {
 		return mTrxType;
 	}
 

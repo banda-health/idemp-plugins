@@ -11,7 +11,7 @@ public class MInfoColumnInput extends X_AD_InfoColumnInput {
 	 * @param UUID The AD_InfoColumn_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInfoColumnInput(@JsonProperty("UUID") String UUID) {
+	public MInfoColumnInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -113,14 +113,14 @@ public interface I_C_RecurringInput extends I_C_Recurring {
 	 *
 	 * @param FrequencyType Frequency of event
 	 */
-	void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType);
+	void setFrequencyTypeInput(ForeignEntityInput FrequencyType);
 
 	/**
 	 * Get FrequencyType.
 	 *
 	 * @return Frequency of event
 	 */
-	I_AD_Ref_ListInput FrequencyType();
+	ForeignEntityInput FrequencyType();
 
 	/**
 	 * Set GL_JournalBatch.
@@ -141,12 +141,12 @@ public interface I_C_RecurringInput extends I_C_Recurring {
 	 *
 	 * @param RecurringType Type of Recurring Document
 	 */
-	void setRecurringTypeInput(I_AD_Ref_ListInput RecurringType);
+	void setRecurringTypeInput(ForeignEntityInput RecurringType);
 
 	/**
 	 * Get RecurringType.
 	 *
 	 * @return Type of Recurring Document
 	 */
-	I_AD_Ref_ListInput RecurringType();
+	ForeignEntityInput RecurringType();
 }

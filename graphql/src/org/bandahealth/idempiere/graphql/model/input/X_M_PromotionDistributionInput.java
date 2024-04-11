@@ -23,11 +23,11 @@ import java.sql.ResultSet;
 public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution implements I_M_PromotionDistributionInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mDistributionSorting;
+	private ForeignEntityInput mDistributionType;
 	private ForeignEntityInput mM_Promotion;
 	private ForeignEntityInput mM_PromotionLine;
-	private I_AD_Ref_ListInput mDistributionSorting;
-	private I_AD_Ref_ListInput mDistributionType;
-	private I_AD_Ref_ListInput mOperation;
+	private ForeignEntityInput mOperation;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -84,7 +84,7 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 * @param DistributionSorting Quantity distribution sorting by unit price
 	 */
 	@JsonProperty("DistributionSorting")
-	public void setDistributionSortingInput(I_AD_Ref_ListInput DistributionSorting) {
+	public void setDistributionSortingInput(ForeignEntityInput DistributionSorting) {
 		this.mDistributionSorting = DistributionSorting;
 		if (DistributionSorting != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -108,7 +108,7 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 * @return Quantity distribution sorting by unit price
 	 */
 	@JsonProperty("DistributionSorting")
-	public I_AD_Ref_ListInput DistributionSorting() {
+	public ForeignEntityInput DistributionSorting() {
 		return mDistributionSorting;
 	}
 
@@ -118,7 +118,7 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 * @param DistributionType Type of quantity distribution calculation using comparison qty and order qty as operand
 	 */
 	@JsonProperty("DistributionType")
-	public void setDistributionTypeInput(I_AD_Ref_ListInput DistributionType) {
+	public void setDistributionTypeInput(ForeignEntityInput DistributionType) {
 		this.mDistributionType = DistributionType;
 		if (DistributionType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -142,7 +142,7 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 * @return Type of quantity distribution calculation using comparison qty and order qty as operand
 	 */
 	@JsonProperty("DistributionType")
-	public I_AD_Ref_ListInput DistributionType() {
+	public ForeignEntityInput DistributionType() {
 		return mDistributionType;
 	}
 
@@ -252,7 +252,7 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 * @param Operation Compare Operation
 	 */
 	@JsonProperty("Operation")
-	public void setOperationInput(I_AD_Ref_ListInput Operation) {
+	public void setOperationInput(ForeignEntityInput Operation) {
 		this.mOperation = Operation;
 		if (Operation != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -276,7 +276,7 @@ public class X_M_PromotionDistributionInput extends X_M_PromotionDistribution im
 	 * @return Compare Operation
 	 */
 	@JsonProperty("Operation")
-	public I_AD_Ref_ListInput Operation() {
+	public ForeignEntityInput Operation() {
 		return mOperation;
 	}
 }

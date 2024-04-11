@@ -54,11 +54,11 @@ input GL_BudgetControlInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Scope of the Budget Control
-	BudgetControlScope: AD_Ref_ListInput
+	BudgetControlScope: ForeignEntityInput
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# Create Commitment and/or Reservations for Budget Control
-	CommitmentType: AD_Ref_ListInput
+	CommitmentType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# General Ledger Budget

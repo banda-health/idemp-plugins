@@ -33,7 +33,7 @@ public class X_C_CommissionLineInput extends MCommissionLine implements I_C_Comm
 	private ForeignEntityInput mC_SalesRegion;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Product_Category;
-	private I_AD_Ref_ListInput mPaymentRule;
+	private ForeignEntityInput mPaymentRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -326,7 +326,7 @@ public class X_C_CommissionLineInput extends MCommissionLine implements I_C_Comm
 	 * @param PaymentRule How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (PaymentRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -350,7 +350,7 @@ public class X_C_CommissionLineInput extends MCommissionLine implements I_C_Comm
 	 * @return How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public I_AD_Ref_ListInput PaymentRule() {
+	public ForeignEntityInput PaymentRule() {
 		return mPaymentRule;
 	}
 }

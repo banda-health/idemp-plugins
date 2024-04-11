@@ -50,7 +50,7 @@ input GL_CategoryInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Source of the Journal with this category
-	CategoryType: AD_Ref_ListInput
+	CategoryType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	UU: ID

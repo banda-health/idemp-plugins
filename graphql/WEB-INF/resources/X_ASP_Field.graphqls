@@ -44,7 +44,7 @@ input ASP_FieldInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
-	ASP_Status: AD_Ref_ListInput
+	ASP_Status: ForeignEntityInput
 	ASP_Tab: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean

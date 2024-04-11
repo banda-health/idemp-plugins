@@ -11,7 +11,7 @@ public class MEntityTypeInput extends X_AD_EntityTypeInput {
 	 * @param UUID The AD_EntityType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MEntityTypeInput(@JsonProperty("UUID") String UUID) {
+	public MEntityTypeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

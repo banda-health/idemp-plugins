@@ -175,11 +175,11 @@ input AD_RoleInput {
 	# Predefined context variables to inject when opening a menu entry or a window
 	PredefinedContextVariables: String
 	# Determines what preferences the user can set
-	PreferenceType: AD_Ref_ListInput
-	RoleType: AD_Ref_ListInput
+	PreferenceType: ForeignEntityInput
+	RoleType: ForeignEntityInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput
 	UserDiscount: BigDecimal
 	# System Tenant Organization
-	UserLevel: AD_Ref_ListInput
+	UserLevel: ForeignEntityInput
 }

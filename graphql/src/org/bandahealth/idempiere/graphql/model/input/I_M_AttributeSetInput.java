@@ -48,14 +48,14 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	 *
 	 * @param M_AttributeSet_Type M_AttributeSet_Type
 	 */
-	void setM_AttributeSet_TypeInput(I_AD_Ref_ListInput M_AttributeSet_Type);
+	void setM_AttributeSet_TypeInput(ForeignEntityInput M_AttributeSet_Type);
 
 	/**
 	 * Get M_AttributeSet_Type.
 	 *
 	 * @return M_AttributeSet_Type
 	 */
-	I_AD_Ref_ListInput M_AttributeSet_Type();
+	ForeignEntityInput M_AttributeSet_Type();
 
 	/**
 	 * Set UU.
@@ -104,12 +104,12 @@ public interface I_M_AttributeSetInput extends I_M_AttributeSet {
 	 *
 	 * @param MandatoryType The specification of a Product Attribute Instance is mandatory
 	 */
-	void setMandatoryTypeInput(I_AD_Ref_ListInput MandatoryType);
+	void setMandatoryTypeInput(ForeignEntityInput MandatoryType);
 
 	/**
 	 * Get MandatoryType.
 	 *
 	 * @return The specification of a Product Attribute Instance is mandatory
 	 */
-	I_AD_Ref_ListInput MandatoryType();
+	ForeignEntityInput MandatoryType();
 }

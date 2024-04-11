@@ -54,8 +54,8 @@ input AD_Tab_CustomizationInput {
 	Custom: String
 	# The record is active in the system
 	IsActive: Boolean
-	IsAutoHideEmptyColumn: AD_Ref_ListInput
-	IsDisplayedGrid: AD_Ref_ListInput
+	IsAutoHideEmptyColumn: ForeignEntityInput
+	IsDisplayedGrid: ForeignEntityInput
 	# Display in Quick Form
 	IsQuickForm: Boolean
 }

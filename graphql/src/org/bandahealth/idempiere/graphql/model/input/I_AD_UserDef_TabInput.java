@@ -85,68 +85,68 @@ public interface I_AD_UserDef_TabInput extends I_AD_UserDef_Tab {
 	 *
 	 * @param IsAllowAdvancedLookup IsAllowAdvancedLookup
 	 */
-	void setIsAllowAdvancedLookupInput(I_AD_Ref_ListInput IsAllowAdvancedLookup);
+	void setIsAllowAdvancedLookupInput(ForeignEntityInput IsAllowAdvancedLookup);
 
 	/**
 	 * Get IsAllowAdvancedLookup.
 	 *
 	 * @return IsAllowAdvancedLookup
 	 */
-	I_AD_Ref_ListInput IsAllowAdvancedLookup();
+	ForeignEntityInput IsAllowAdvancedLookup();
 
 	/**
 	 * Set IsHighVolume.
 	 *
 	 * @param IsHighVolume Use Search instead of Pick list
 	 */
-	void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume);
+	void setIsHighVolumeInput(ForeignEntityInput IsHighVolume);
 
 	/**
 	 * Get IsHighVolume.
 	 *
 	 * @return Use Search instead of Pick list
 	 */
-	I_AD_Ref_ListInput IsHighVolume();
+	ForeignEntityInput IsHighVolume();
 
 	/**
 	 * Set IsLookupOnlySelection.
 	 *
 	 * @param IsLookupOnlySelection When defined to true Lookup panel will display only selection columns. Default to false.
 	 */
-	void setIsLookupOnlySelectionInput(I_AD_Ref_ListInput IsLookupOnlySelection);
+	void setIsLookupOnlySelectionInput(ForeignEntityInput IsLookupOnlySelection);
 
 	/**
 	 * Get IsLookupOnlySelection.
 	 *
 	 * @return When defined to true Lookup panel will display only selection columns. Default to false.
 	 */
-	I_AD_Ref_ListInput IsLookupOnlySelection();
+	ForeignEntityInput IsLookupOnlySelection();
 
 	/**
 	 * Set IsReadOnly.
 	 *
 	 * @param IsReadOnly Field is read only
 	 */
-	void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly);
+	void setIsReadOnlyInput(ForeignEntityInput IsReadOnly);
 
 	/**
 	 * Get IsReadOnly.
 	 *
 	 * @return Field is read only
 	 */
-	I_AD_Ref_ListInput IsReadOnly();
+	ForeignEntityInput IsReadOnly();
 
 	/**
 	 * Set IsSingleRow.
 	 *
 	 * @param IsSingleRow Default for toggle between Single- and Multi-Row (Grid) Layout
 	 */
-	void setIsSingleRowInput(I_AD_Ref_ListInput IsSingleRow);
+	void setIsSingleRowInput(ForeignEntityInput IsSingleRow);
 
 	/**
 	 * Get IsSingleRow.
 	 *
 	 * @return Default for toggle between Single- and Multi-Row (Grid) Layout
 	 */
-	I_AD_Ref_ListInput IsSingleRow();
+	ForeignEntityInput IsSingleRow();
 }

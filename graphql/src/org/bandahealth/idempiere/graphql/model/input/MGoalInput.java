@@ -11,7 +11,7 @@ public class MGoalInput extends X_PA_GoalInput {
 	 * @param UUID The PA_Goal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MGoalInput(@JsonProperty("UUID") String UUID) {
+	public MGoalInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

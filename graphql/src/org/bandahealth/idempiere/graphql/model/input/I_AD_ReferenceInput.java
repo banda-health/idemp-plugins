@@ -71,26 +71,26 @@ public interface I_AD_ReferenceInput extends I_AD_Reference {
 	 *
 	 * @param ShowInactive Show Inactive Records
 	 */
-	void setShowInactiveInput(I_AD_Ref_ListInput ShowInactive);
+	void setShowInactiveInput(ForeignEntityInput ShowInactive);
 
 	/**
 	 * Get ShowInactive.
 	 *
 	 * @return Show Inactive Records
 	 */
-	I_AD_Ref_ListInput ShowInactive();
+	ForeignEntityInput ShowInactive();
 
 	/**
 	 * Set ValidationType.
 	 *
 	 * @param ValidationType Different method of validating data
 	 */
-	void setValidationTypeInput(I_AD_Ref_ListInput ValidationType);
+	void setValidationTypeInput(ForeignEntityInput ValidationType);
 
 	/**
 	 * Get ValidationType.
 	 *
 	 * @return Different method of validating data
 	 */
-	I_AD_Ref_ListInput ValidationType();
+	ForeignEntityInput ValidationType();
 }

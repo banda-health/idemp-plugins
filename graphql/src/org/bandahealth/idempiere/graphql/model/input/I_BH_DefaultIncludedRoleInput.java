@@ -43,14 +43,14 @@ public interface I_BH_DefaultIncludedRoleInput extends I_BH_DefaultIncludedRole 
 	 *
 	 * @param DB_UserType The User Type when a new client is created
 	 */
-	void setDB_UserTypeInput(I_AD_Ref_ListInput DB_UserType);
+	void setDB_UserTypeInput(ForeignEntityInput DB_UserType);
 
 	/**
 	 * Get DB_UserType.
 	 *
 	 * @return The User Type when a new client is created
 	 */
-	I_AD_Ref_ListInput DB_UserType();
+	ForeignEntityInput DB_UserType();
 
 	/**
 	 * Set Included_Role.

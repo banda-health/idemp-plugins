@@ -11,7 +11,7 @@ public class MPayScheduleInput extends X_C_PayScheduleInput {
 	 * @param UUID The C_PaySchedule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPayScheduleInput(@JsonProperty("UUID") String UUID) {
+	public MPayScheduleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

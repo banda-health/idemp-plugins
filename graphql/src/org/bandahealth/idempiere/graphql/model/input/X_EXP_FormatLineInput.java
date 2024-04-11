@@ -26,7 +26,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mEXP_EmbeddedFormat;
 	private ForeignEntityInput mEXP_Format;
-	private I_AD_Ref_ListInput mType;
+	private ForeignEntityInput mType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -217,7 +217,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public void setTypeInput(I_AD_Ref_ListInput Type) {
+	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -241,7 +241,7 @@ public class X_EXP_FormatLineInput extends MEXPFormatLine implements I_EXP_Forma
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public I_AD_Ref_ListInput Type() {
+	public ForeignEntityInput Type() {
 		return mType;
 	}
 }

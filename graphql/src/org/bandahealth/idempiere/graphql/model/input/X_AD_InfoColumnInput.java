@@ -34,7 +34,7 @@ public class X_AD_InfoColumnInput extends MInfoColumn implements I_AD_InfoColumn
 	private ForeignEntityInput mAD_Reference;
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_Val_Rule;
-	private I_AD_Ref_ListInput mQueryOperator;
+	private ForeignEntityInput mQueryOperator;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -361,7 +361,7 @@ public class X_AD_InfoColumnInput extends MInfoColumn implements I_AD_InfoColumn
 	 * @param QueryOperator Operator for database query
 	 */
 	@JsonProperty("QueryOperator")
-	public void setQueryOperatorInput(I_AD_Ref_ListInput QueryOperator) {
+	public void setQueryOperatorInput(ForeignEntityInput QueryOperator) {
 		this.mQueryOperator = QueryOperator;
 		if (QueryOperator != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -385,7 +385,7 @@ public class X_AD_InfoColumnInput extends MInfoColumn implements I_AD_InfoColumn
 	 * @return Operator for database query
 	 */
 	@JsonProperty("QueryOperator")
-	public I_AD_Ref_ListInput QueryOperator() {
+	public ForeignEntityInput QueryOperator() {
 		return mQueryOperator;
 	}
 }

@@ -201,7 +201,7 @@ input I_ProductInput {
 	Processing: Boolean
 	ProductCategory_Value: String
 	# Type of product
-	ProductType: AD_Ref_ListInput
+	ProductType: ForeignEntityInput
 	# (Included) Amount for copyright, etc.
 	RoyaltyAmt: BigDecimal
 	# Shelf depth required

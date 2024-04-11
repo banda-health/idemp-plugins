@@ -11,7 +11,7 @@ public class MFormInput extends X_AD_FormInput {
 	 * @param UUID The AD_Form_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFormInput(@JsonProperty("UUID") String UUID) {
+	public MFormInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MInvoiceBatchLineInput extends X_C_InvoiceBatchLineInput {
 	 * @param UUID The C_InvoiceBatchLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInvoiceBatchLineInput(@JsonProperty("UUID") String UUID) {
+	public MInvoiceBatchLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

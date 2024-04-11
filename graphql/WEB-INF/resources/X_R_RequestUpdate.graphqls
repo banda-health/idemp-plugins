@@ -54,7 +54,7 @@ input R_RequestUpdateInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Confidentiality of the individual entry
-	ConfidentialTypeEntry: AD_Ref_ListInput
+	ConfidentialTypeEntry: ForeignEntityInput
 	# End of the time span
 	EndTime: Date
 	# The record is active in the system

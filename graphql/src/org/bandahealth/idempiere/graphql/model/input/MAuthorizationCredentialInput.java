@@ -11,7 +11,7 @@ public class MAuthorizationCredentialInput extends X_AD_AuthorizationCredentialI
 	 * @param UUID The AD_AuthorizationCredential_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAuthorizationCredentialInput(@JsonProperty("UUID") String UUID) {
+	public MAuthorizationCredentialInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -57,14 +57,14 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	 *
 	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
 	 */
-	void setBH_Product_Category_TypeInput(I_AD_Ref_ListInput BH_Product_Category_Type);
+	void setBH_Product_Category_TypeInput(ForeignEntityInput BH_Product_Category_Type);
 
 	/**
 	 * Get BH_Product_Category_Type.
 	 *
 	 * @return Contains a character the is linked to a ref list to determine types of product categories
 	 */
-	I_AD_Ref_ListInput BH_Product_Category_Type();
+	ForeignEntityInput BH_Product_Category_Type();
 
 	/**
 	 * Set M_Product_Category_Parent.
@@ -99,12 +99,12 @@ public interface I_M_Product_CategoryInput extends I_M_Product_Category {
 	 *
 	 * @param MMPolicy Material Movement Policy
 	 */
-	void setMMPolicyInput(I_AD_Ref_ListInput MMPolicy);
+	void setMMPolicyInput(ForeignEntityInput MMPolicy);
 
 	/**
 	 * Get MMPolicy.
 	 *
 	 * @return Material Movement Policy
 	 */
-	I_AD_Ref_ListInput MMPolicy();
+	ForeignEntityInput MMPolicy();
 }

@@ -11,7 +11,7 @@ public class MNoteInput extends X_AD_NoteInput {
 	 * @param UUID The AD_Note_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MNoteInput(@JsonProperty("UUID") String UUID) {
+	public MNoteInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

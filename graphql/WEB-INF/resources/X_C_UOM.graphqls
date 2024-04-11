@@ -67,7 +67,7 @@ input C_UOMInput {
 	StdPrecision: Int
 	# Symbol for a Unit of Measure
 	UOMSymbol: String
-	UOMType: AD_Ref_ListInput
+	UOMType: ForeignEntityInput
 	# UOM EDI X12 Code
 	X12DE355: String
 }

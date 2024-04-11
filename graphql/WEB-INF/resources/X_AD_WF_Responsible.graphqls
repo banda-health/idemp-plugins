@@ -63,5 +63,5 @@ input AD_WF_ResponsibleInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Type of the Responsibility for a workflow
-	ResponsibleType: AD_Ref_ListInput
+	ResponsibleType: ForeignEntityInput
 }

@@ -35,9 +35,9 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_Payment;
-	private I_AD_Ref_ListInput mCreditCardType;
-	private I_AD_Ref_ListInput mTenderType;
-	private I_AD_Ref_ListInput mTrxType;
+	private ForeignEntityInput mCreditCardType;
+	private ForeignEntityInput mTenderType;
+	private ForeignEntityInput mTrxType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -332,7 +332,7 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
+	public void setCreditCardTypeInput(ForeignEntityInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		if (CreditCardType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -356,7 +356,7 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public I_AD_Ref_ListInput CreditCardType() {
+	public ForeignEntityInput CreditCardType() {
 		return mCreditCardType;
 	}
 	/**
@@ -395,7 +395,7 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 * @param TenderType Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
+	public void setTenderTypeInput(ForeignEntityInput TenderType) {
 		this.mTenderType = TenderType;
 		if (TenderType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -419,7 +419,7 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 * @return Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public I_AD_Ref_ListInput TenderType() {
+	public ForeignEntityInput TenderType() {
 		return mTenderType;
 	}
 
@@ -429,7 +429,7 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 * @param TrxType Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public void setTrxTypeInput(I_AD_Ref_ListInput TrxType) {
+	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -453,7 +453,7 @@ public class X_I_PaymentInput extends X_I_Payment implements I_I_PaymentInput {
 	 * @return Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public I_AD_Ref_ListInput TrxType() {
+	public ForeignEntityInput TrxType() {
 		return mTrxType;
 	}
 }

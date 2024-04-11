@@ -42,11 +42,11 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	private ForeignEntityInput mAD_Val_Rule;
 	private ForeignEntityInput mAD_Val_Rule_Lookup;
 	private ForeignEntityInput mFKConstraintMsg;
+	private ForeignEntityInput mFKConstraintType;
+	private ForeignEntityInput mIsEncrypted;
+	private ForeignEntityInput mIsToolbarButton;
 	private ForeignEntityInput mPA_DashboardContent;
-	private I_AD_Ref_ListInput mFKConstraintType;
-	private I_AD_Ref_ListInput mIsEncrypted;
-	private I_AD_Ref_ListInput mIsToolbarButton;
-	private I_AD_Ref_ListInput mPartitioningMethod;
+	private ForeignEntityInput mPartitioningMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -509,7 +509,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param FKConstraintType Constraint Type
 	 */
 	@JsonProperty("FKConstraintType")
-	public void setFKConstraintTypeInput(I_AD_Ref_ListInput FKConstraintType) {
+	public void setFKConstraintTypeInput(ForeignEntityInput FKConstraintType) {
 		this.mFKConstraintType = FKConstraintType;
 		if (FKConstraintType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -533,7 +533,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Constraint Type
 	 */
 	@JsonProperty("FKConstraintType")
-	public I_AD_Ref_ListInput FKConstraintType() {
+	public ForeignEntityInput FKConstraintType() {
 		return mFKConstraintType;
 	}
 
@@ -543,7 +543,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param IsEncrypted Display or Storage is encrypted
 	 */
 	@JsonProperty("IsEncrypted")
-	public void setIsEncryptedInput(I_AD_Ref_ListInput IsEncrypted) {
+	public void setIsEncryptedInput(ForeignEntityInput IsEncrypted) {
 		this.mIsEncrypted = IsEncrypted;
 		if (IsEncrypted != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -567,7 +567,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Display or Storage is encrypted
 	 */
 	@JsonProperty("IsEncrypted")
-	public I_AD_Ref_ListInput IsEncrypted() {
+	public ForeignEntityInput IsEncrypted() {
 		return mIsEncrypted;
 	}
 
@@ -577,7 +577,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param IsToolbarButton Show the button on the toolbar, the window, or both
 	 */
 	@JsonProperty("IsToolbarButton")
-	public void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton) {
+	public void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton) {
 		this.mIsToolbarButton = IsToolbarButton;
 		if (IsToolbarButton != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -601,7 +601,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Show the button on the toolbar, the window, or both
 	 */
 	@JsonProperty("IsToolbarButton")
-	public I_AD_Ref_ListInput IsToolbarButton() {
+	public ForeignEntityInput IsToolbarButton() {
 		return mIsToolbarButton;
 	}
 
@@ -645,7 +645,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @param PartitioningMethod Indicates how the Table is partitioned
 	 */
 	@JsonProperty("PartitioningMethod")
-	public void setPartitioningMethodInput(I_AD_Ref_ListInput PartitioningMethod) {
+	public void setPartitioningMethodInput(ForeignEntityInput PartitioningMethod) {
 		this.mPartitioningMethod = PartitioningMethod;
 		if (PartitioningMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -669,7 +669,7 @@ public class X_AD_ColumnInput extends MColumn implements I_AD_ColumnInput {
 	 * @return Indicates how the Table is partitioned
 	 */
 	@JsonProperty("PartitioningMethod")
-	public I_AD_Ref_ListInput PartitioningMethod() {
+	public ForeignEntityInput PartitioningMethod() {
 		return mPartitioningMethod;
 	}
 }

@@ -43,12 +43,12 @@ public interface I_AD_PrintPaperInput extends I_AD_PrintPaper {
 	 *
 	 * @param DimensionUnits Units of Dimension
 	 */
-	void setDimensionUnitsInput(I_AD_Ref_ListInput DimensionUnits);
+	void setDimensionUnitsInput(ForeignEntityInput DimensionUnits);
 
 	/**
 	 * Get DimensionUnits.
 	 *
 	 * @return Units of Dimension
 	 */
-	I_AD_Ref_ListInput DimensionUnits();
+	ForeignEntityInput DimensionUnits();
 }

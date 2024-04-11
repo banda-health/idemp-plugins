@@ -49,9 +49,9 @@ input AD_UserBPAccessInput {
 	AD_User: ForeignEntityInput
 	UU: ID
 	# Type of Access of the user/contact to Business Partner information and resources
-	BPAccessType: AD_Ref_ListInput
+	BPAccessType: ForeignEntityInput
 	# Logical type of document
-	DocBaseType: AD_Ref_ListInput
+	DocBaseType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Type of request (e.g. Inquiry, Complaint, ..)

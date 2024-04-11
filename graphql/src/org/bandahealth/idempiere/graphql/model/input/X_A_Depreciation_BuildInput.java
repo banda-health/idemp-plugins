@@ -26,7 +26,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	private ForeignEntityInput mA_End_Asset;
 	private ForeignEntityInput mA_Start_Asset;
 	private ForeignEntityInput mC_Period;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -211,7 +211,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -235,7 +235,7 @@ public class X_A_Depreciation_BuildInput extends MDepreciationBuild implements I
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

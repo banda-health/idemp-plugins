@@ -87,11 +87,11 @@ input C_POSPaymentInput {
 	C_POSTenderType: ForeignEntityInput
 	# Check Number
 	CheckNo: String
-	CheckStatus: AD_Ref_ListInput
+	CheckStatus: ForeignEntityInput
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType: AD_Ref_ListInput
+	CreditCardType: ForeignEntityInput
 	# Date Order was promised
 	DatePromised: Date
 	DepositGroup: String
@@ -113,7 +113,7 @@ input C_POSPaymentInput {
 	# Swift Code or BIC
 	SwiftCode: String
 	# Method of Payment
-	TenderType: AD_Ref_ListInput
+	TenderType: ForeignEntityInput
 	# Voice Authorization Code from credit card company
 	VoiceAuthCode: String
 }

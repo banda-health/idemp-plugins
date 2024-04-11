@@ -25,11 +25,11 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mDistributionSorting;
 	private ForeignEntityInput mM_Promotion;
 	private ForeignEntityInput mM_PromotionDistribution;
 	private ForeignEntityInput mM_TargetDistribution;
-	private I_AD_Ref_ListInput mDistributionSorting;
-	private I_AD_Ref_ListInput mRewardType;
+	private ForeignEntityInput mRewardType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -120,7 +120,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	 * @param DistributionSorting Quantity distribution sorting by unit price
 	 */
 	@JsonProperty("DistributionSorting")
-	public void setDistributionSortingInput(I_AD_Ref_ListInput DistributionSorting) {
+	public void setDistributionSortingInput(ForeignEntityInput DistributionSorting) {
 		this.mDistributionSorting = DistributionSorting;
 		if (DistributionSorting != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -144,7 +144,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	 * @return Quantity distribution sorting by unit price
 	 */
 	@JsonProperty("DistributionSorting")
-	public I_AD_Ref_ListInput DistributionSorting() {
+	public ForeignEntityInput DistributionSorting() {
 		return mDistributionSorting;
 	}
 
@@ -288,7 +288,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	 * @param RewardType Type of reward which consists of percentage discount, flat discount or absolute amount
 	 */
 	@JsonProperty("RewardType")
-	public void setRewardTypeInput(I_AD_Ref_ListInput RewardType) {
+	public void setRewardTypeInput(ForeignEntityInput RewardType) {
 		this.mRewardType = RewardType;
 		if (RewardType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -312,7 +312,7 @@ public class X_M_PromotionRewardInput extends X_M_PromotionReward implements I_M
 	 * @return Type of reward which consists of percentage discount, flat discount or absolute amount
 	 */
 	@JsonProperty("RewardType")
-	public I_AD_Ref_ListInput RewardType() {
+	public ForeignEntityInput RewardType() {
 		return mRewardType;
 	}
 }

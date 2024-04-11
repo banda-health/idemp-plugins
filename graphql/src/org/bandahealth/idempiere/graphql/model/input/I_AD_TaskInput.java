@@ -15,14 +15,14 @@ public interface I_AD_TaskInput extends I_AD_Task {
 	 *
 	 * @param AccessLevel Access Level required
 	 */
-	void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel);
+	void setAccessLevelInput(ForeignEntityInput AccessLevel);
 
 	/**
 	 * Get AccessLevel.
 	 *
 	 * @return Access Level required
 	 */
-	I_AD_Ref_ListInput AccessLevel();
+	ForeignEntityInput AccessLevel();
 
 	/**
 	 * Set AD_CtxHelp.

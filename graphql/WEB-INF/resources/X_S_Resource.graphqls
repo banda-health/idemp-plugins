@@ -74,7 +74,7 @@ input S_ResourceInput {
 	IsManufacturingResource: Boolean
 	# Storage Warehouse and Service Point
 	M_Warehouse: ForeignEntityInput
-	ManufacturingResourceType: AD_Ref_ListInput
+	ManufacturingResourceType: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	PercentUtilization: BigDecimal

@@ -66,7 +66,7 @@ input AD_ScheduleInput {
 	# Frequency of events
 	Frequency: Int
 	# Frequency of event
-	FrequencyType: AD_Ref_ListInput
+	FrequencyType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Do not include processing time for the DateNextRun calculation
@@ -79,7 +79,7 @@ input AD_ScheduleInput {
 	Name: String
 	RunOnlyOnIP: String
 	# Type of schedule
-	ScheduleType: AD_Ref_ListInput
+	ScheduleType: ForeignEntityInput
 	# Day of the Week
-	WeekDay: AD_Ref_ListInput
+	WeekDay: ForeignEntityInput
 }

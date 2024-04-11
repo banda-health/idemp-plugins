@@ -11,7 +11,7 @@ public class MClientInfoInput extends X_AD_ClientInfoInput {
 	 * @param UUID The AD_ClientInfo_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MClientInfoInput(@JsonProperty("UUID") String UUID) {
+	public MClientInfoInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

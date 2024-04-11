@@ -11,7 +11,7 @@ public class MSysConfigInput extends X_AD_SysConfigInput {
 	 * @param UUID The AD_SysConfig_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSysConfigInput(@JsonProperty("UUID") String UUID) {
+	public MSysConfigInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

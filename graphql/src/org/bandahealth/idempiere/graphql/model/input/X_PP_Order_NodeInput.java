@@ -47,19 +47,19 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	private ForeignEntityInput mAD_WF_Responsible;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mAD_Workflow;
+	private ForeignEntityInput mAction;
 	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
+	private ForeignEntityInput mFinishMode;
+	private ForeignEntityInput mJoinElement;
 	private ForeignEntityInput mPP_Order;
 	private ForeignEntityInput mPP_Order_Workflow;
 	private ForeignEntityInput mS_Resource;
+	private ForeignEntityInput mSplitElement;
+	private ForeignEntityInput mStartMode;
+	private ForeignEntityInput mSubflowExecution;
 	private ForeignEntityInput mWorkflow;
-	private I_AD_Ref_ListInput mAction;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mFinishMode;
-	private I_AD_Ref_ListInput mJoinElement;
-	private I_AD_Ref_ListInput mSplitElement;
-	private I_AD_Ref_ListInput mStartMode;
-	private I_AD_Ref_ListInput mSubflowExecution;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -79,7 +79,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param Action Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public void setActionInput(I_AD_Ref_ListInput Action) {
+	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -103,7 +103,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public I_AD_Ref_ListInput Action() {
+	public ForeignEntityInput Action() {
 		return mAction;
 	}
 
@@ -521,7 +521,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -545,7 +545,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -555,7 +555,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -579,7 +579,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 
@@ -623,7 +623,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param FinishMode Workflow Activity Finish Mode
 	 */
 	@JsonProperty("FinishMode")
-	public void setFinishModeInput(I_AD_Ref_ListInput FinishMode) {
+	public void setFinishModeInput(ForeignEntityInput FinishMode) {
 		this.mFinishMode = FinishMode;
 		if (FinishMode != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -647,7 +647,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return Workflow Activity Finish Mode
 	 */
 	@JsonProperty("FinishMode")
-	public I_AD_Ref_ListInput FinishMode() {
+	public ForeignEntityInput FinishMode() {
 		return mFinishMode;
 	}
 
@@ -657,7 +657,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param JoinElement Semantics for multiple incoming Transitions
 	 */
 	@JsonProperty("JoinElement")
-	public void setJoinElementInput(I_AD_Ref_ListInput JoinElement) {
+	public void setJoinElementInput(ForeignEntityInput JoinElement) {
 		this.mJoinElement = JoinElement;
 		if (JoinElement != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -681,7 +681,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return Semantics for multiple incoming Transitions
 	 */
 	@JsonProperty("JoinElement")
-	public I_AD_Ref_ListInput JoinElement() {
+	public ForeignEntityInput JoinElement() {
 		return mJoinElement;
 	}
 
@@ -828,7 +828,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param SplitElement Semantics for multiple outgoing Transitions
 	 */
 	@JsonProperty("SplitElement")
-	public void setSplitElementInput(I_AD_Ref_ListInput SplitElement) {
+	public void setSplitElementInput(ForeignEntityInput SplitElement) {
 		this.mSplitElement = SplitElement;
 		if (SplitElement != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -852,7 +852,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return Semantics for multiple outgoing Transitions
 	 */
 	@JsonProperty("SplitElement")
-	public I_AD_Ref_ListInput SplitElement() {
+	public ForeignEntityInput SplitElement() {
 		return mSplitElement;
 	}
 
@@ -862,7 +862,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param StartMode Workflow Activity Start Mode 
 	 */
 	@JsonProperty("StartMode")
-	public void setStartModeInput(I_AD_Ref_ListInput StartMode) {
+	public void setStartModeInput(ForeignEntityInput StartMode) {
 		this.mStartMode = StartMode;
 		if (StartMode != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -886,7 +886,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return Workflow Activity Start Mode 
 	 */
 	@JsonProperty("StartMode")
-	public I_AD_Ref_ListInput StartMode() {
+	public ForeignEntityInput StartMode() {
 		return mStartMode;
 	}
 
@@ -896,7 +896,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @param SubflowExecution Mode how the sub-workflow is executed
 	 */
 	@JsonProperty("SubflowExecution")
-	public void setSubflowExecutionInput(I_AD_Ref_ListInput SubflowExecution) {
+	public void setSubflowExecutionInput(ForeignEntityInput SubflowExecution) {
 		this.mSubflowExecution = SubflowExecution;
 		if (SubflowExecution != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -920,7 +920,7 @@ public class X_PP_Order_NodeInput extends X_PP_Order_Node implements I_PP_Order_
 	 * @return Mode how the sub-workflow is executed
 	 */
 	@JsonProperty("SubflowExecution")
-	public I_AD_Ref_ListInput SubflowExecution() {
+	public ForeignEntityInput SubflowExecution() {
 		return mSubflowExecution;
 	}
 

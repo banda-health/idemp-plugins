@@ -76,7 +76,7 @@ input C_CashPlanInput {
 	UU: ID
 	# Financial Project
 	C_Project: ForeignEntityInput
-	CashFlowType: AD_Ref_ListInput
+	CashFlowType: ForeignEntityInput
 	# Copy From Record
 	CopyFrom: String
 	# Date of the Document

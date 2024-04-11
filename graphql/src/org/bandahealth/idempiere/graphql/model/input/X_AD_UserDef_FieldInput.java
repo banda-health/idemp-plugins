@@ -39,16 +39,16 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	private ForeignEntityInput mAD_UserDef_Tab;
 	private ForeignEntityInput mAD_Val_Rule;
 	private ForeignEntityInput mAD_Val_Rule_Lookup;
+	private ForeignEntityInput mIsAlwaysUpdateable;
+	private ForeignEntityInput mIsAutocomplete;
+	private ForeignEntityInput mIsDisplayed;
+	private ForeignEntityInput mIsDisplayedGrid;
+	private ForeignEntityInput mIsMandatory;
+	private ForeignEntityInput mIsReadOnly;
+	private ForeignEntityInput mIsSameLine;
+	private ForeignEntityInput mIsToolbarButton;
+	private ForeignEntityInput mIsUpdateable;
 	private ForeignEntityInput mPA_DashboardContent;
-	private I_AD_Ref_ListInput mIsAlwaysUpdateable;
-	private I_AD_Ref_ListInput mIsAutocomplete;
-	private I_AD_Ref_ListInput mIsDisplayed;
-	private I_AD_Ref_ListInput mIsDisplayedGrid;
-	private I_AD_Ref_ListInput mIsMandatory;
-	private I_AD_Ref_ListInput mIsReadOnly;
-	private I_AD_Ref_ListInput mIsSameLine;
-	private I_AD_Ref_ListInput mIsToolbarButton;
-	private I_AD_Ref_ListInput mIsUpdateable;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -477,7 +477,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsAlwaysUpdateable The column is always updateable, even if the record is not active or processed
 	 */
 	@JsonProperty("IsAlwaysUpdateable")
-	public void setIsAlwaysUpdateableInput(I_AD_Ref_ListInput IsAlwaysUpdateable) {
+	public void setIsAlwaysUpdateableInput(ForeignEntityInput IsAlwaysUpdateable) {
 		this.mIsAlwaysUpdateable = IsAlwaysUpdateable;
 		if (IsAlwaysUpdateable != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -501,7 +501,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return The column is always updateable, even if the record is not active or processed
 	 */
 	@JsonProperty("IsAlwaysUpdateable")
-	public I_AD_Ref_ListInput IsAlwaysUpdateable() {
+	public ForeignEntityInput IsAlwaysUpdateable() {
 		return mIsAlwaysUpdateable;
 	}
 
@@ -511,7 +511,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsAutocomplete Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
-	public void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete) {
+	public void setIsAutocompleteInput(ForeignEntityInput IsAutocomplete) {
 		this.mIsAutocomplete = IsAutocomplete;
 		if (IsAutocomplete != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -535,7 +535,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
-	public I_AD_Ref_ListInput IsAutocomplete() {
+	public ForeignEntityInput IsAutocomplete() {
 		return mIsAutocomplete;
 	}
 
@@ -545,7 +545,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsDisplayed Determines, if this field is displayed
 	 */
 	@JsonProperty("IsDisplayed")
-	public void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed) {
+	public void setIsDisplayedInput(ForeignEntityInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
 		if (IsDisplayed != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -569,7 +569,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Determines, if this field is displayed
 	 */
 	@JsonProperty("IsDisplayed")
-	public I_AD_Ref_ListInput IsDisplayed() {
+	public ForeignEntityInput IsDisplayed() {
 		return mIsDisplayed;
 	}
 
@@ -579,7 +579,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsDisplayedGrid Show in Grid
 	 */
 	@JsonProperty("IsDisplayedGrid")
-	public void setIsDisplayedGridInput(I_AD_Ref_ListInput IsDisplayedGrid) {
+	public void setIsDisplayedGridInput(ForeignEntityInput IsDisplayedGrid) {
 		this.mIsDisplayedGrid = IsDisplayedGrid;
 		if (IsDisplayedGrid != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -603,7 +603,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Show in Grid
 	 */
 	@JsonProperty("IsDisplayedGrid")
-	public I_AD_Ref_ListInput IsDisplayedGrid() {
+	public ForeignEntityInput IsDisplayedGrid() {
 		return mIsDisplayedGrid;
 	}
 
@@ -613,7 +613,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsMandatory Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory) {
+	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -637,7 +637,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public I_AD_Ref_ListInput IsMandatory() {
+	public ForeignEntityInput IsMandatory() {
 		return mIsMandatory;
 	}
 
@@ -647,7 +647,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsReadOnly Field is read only
 	 */
 	@JsonProperty("IsReadOnly")
-	public void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly) {
+	public void setIsReadOnlyInput(ForeignEntityInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
 		if (IsReadOnly != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -671,7 +671,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Field is read only
 	 */
 	@JsonProperty("IsReadOnly")
-	public I_AD_Ref_ListInput IsReadOnly() {
+	public ForeignEntityInput IsReadOnly() {
 		return mIsReadOnly;
 	}
 
@@ -681,7 +681,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsSameLine Displayed on same line as previous field
 	 */
 	@JsonProperty("IsSameLine")
-	public void setIsSameLineInput(I_AD_Ref_ListInput IsSameLine) {
+	public void setIsSameLineInput(ForeignEntityInput IsSameLine) {
 		this.mIsSameLine = IsSameLine;
 		if (IsSameLine != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -705,7 +705,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Displayed on same line as previous field
 	 */
 	@JsonProperty("IsSameLine")
-	public I_AD_Ref_ListInput IsSameLine() {
+	public ForeignEntityInput IsSameLine() {
 		return mIsSameLine;
 	}
 
@@ -715,7 +715,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsToolbarButton Show the button on the toolbar, the window, or both
 	 */
 	@JsonProperty("IsToolbarButton")
-	public void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton) {
+	public void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton) {
 		this.mIsToolbarButton = IsToolbarButton;
 		if (IsToolbarButton != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -739,7 +739,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Show the button on the toolbar, the window, or both
 	 */
 	@JsonProperty("IsToolbarButton")
-	public I_AD_Ref_ListInput IsToolbarButton() {
+	public ForeignEntityInput IsToolbarButton() {
 		return mIsToolbarButton;
 	}
 
@@ -749,7 +749,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @param IsUpdateable Determines, if the field can be updated
 	 */
 	@JsonProperty("IsUpdateable")
-	public void setIsUpdateableInput(I_AD_Ref_ListInput IsUpdateable) {
+	public void setIsUpdateableInput(ForeignEntityInput IsUpdateable) {
 		this.mIsUpdateable = IsUpdateable;
 		if (IsUpdateable != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -773,7 +773,7 @@ public class X_AD_UserDef_FieldInput extends MUserDefField implements I_AD_UserD
 	 * @return Determines, if the field can be updated
 	 */
 	@JsonProperty("IsUpdateable")
-	public I_AD_Ref_ListInput IsUpdateable() {
+	public ForeignEntityInput IsUpdateable() {
 		return mIsUpdateable;
 	}
 

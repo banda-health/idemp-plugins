@@ -69,5 +69,5 @@ input M_ReplenishInput {
 	M_WarehouseSource: ForeignEntityInput
 	QtyBatchSize: BigDecimal
 	# Method for re-ordering a product
-	ReplenishType: AD_Ref_ListInput
+	ReplenishType: ForeignEntityInput
 }

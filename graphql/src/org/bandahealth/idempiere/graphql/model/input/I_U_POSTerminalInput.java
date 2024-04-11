@@ -113,28 +113,28 @@ public interface I_U_POSTerminalInput extends I_U_POSTerminal {
 	 *
 	 * @param CardTransferType CardTransferType
 	 */
-	void setCardTransferTypeInput(I_AD_Ref_ListInput CardTransferType);
+	void setCardTransferTypeInput(ForeignEntityInput CardTransferType);
 
 	/**
 	 * Get CardTransferType.
 	 *
 	 * @return CardTransferType
 	 */
-	I_AD_Ref_ListInput CardTransferType();
+	ForeignEntityInput CardTransferType();
 
 	/**
 	 * Set CashBookTransferType.
 	 *
 	 * @param CashBookTransferType Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
 	 */
-	void setCashBookTransferTypeInput(I_AD_Ref_ListInput CashBookTransferType);
+	void setCashBookTransferTypeInput(ForeignEntityInput CashBookTransferType);
 
 	/**
 	 * Get CashBookTransferType.
 	 *
 	 * @return Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
 	 */
-	I_AD_Ref_ListInput CashBookTransferType();
+	ForeignEntityInput CashBookTransferType();
 
 	/**
 	 * Set CashTransferBankAccount.
@@ -211,14 +211,14 @@ public interface I_U_POSTerminalInput extends I_U_POSTerminal {
 	 *
 	 * @param CheckTransferType CheckTransferType
 	 */
-	void setCheckTransferTypeInput(I_AD_Ref_ListInput CheckTransferType);
+	void setCheckTransferTypeInput(ForeignEntityInput CheckTransferType);
 
 	/**
 	 * Get CheckTransferType.
 	 *
 	 * @return CheckTransferType
 	 */
-	I_AD_Ref_ListInput CheckTransferType();
+	ForeignEntityInput CheckTransferType();
 
 	/**
 	 * Set M_Warehouse.

@@ -25,9 +25,9 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mAD_User;
-	private I_AD_Ref_ListInput mBroadcastFrequency;
-	private I_AD_Ref_ListInput mBroadcastType;
-	private I_AD_Ref_ListInput mTarget;
+	private ForeignEntityInput mBroadcastFrequency;
+	private ForeignEntityInput mBroadcastType;
+	private ForeignEntityInput mTarget;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -181,7 +181,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 * @param BroadcastFrequency How Many Times Message Should be Broadcasted
 	 */
 	@JsonProperty("BroadcastFrequency")
-	public void setBroadcastFrequencyInput(I_AD_Ref_ListInput BroadcastFrequency) {
+	public void setBroadcastFrequencyInput(ForeignEntityInput BroadcastFrequency) {
 		this.mBroadcastFrequency = BroadcastFrequency;
 		if (BroadcastFrequency != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -205,7 +205,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 * @return How Many Times Message Should be Broadcasted
 	 */
 	@JsonProperty("BroadcastFrequency")
-	public I_AD_Ref_ListInput BroadcastFrequency() {
+	public ForeignEntityInput BroadcastFrequency() {
 		return mBroadcastFrequency;
 	}
 
@@ -215,7 +215,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 * @param BroadcastType Type of Broadcast
 	 */
 	@JsonProperty("BroadcastType")
-	public void setBroadcastTypeInput(I_AD_Ref_ListInput BroadcastType) {
+	public void setBroadcastTypeInput(ForeignEntityInput BroadcastType) {
 		this.mBroadcastType = BroadcastType;
 		if (BroadcastType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -239,7 +239,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 * @return Type of Broadcast
 	 */
 	@JsonProperty("BroadcastType")
-	public I_AD_Ref_ListInput BroadcastType() {
+	public ForeignEntityInput BroadcastType() {
 		return mBroadcastType;
 	}
 
@@ -249,7 +249,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 * @param Target Target tenant
 	 */
 	@JsonProperty("Target")
-	public void setTargetInput(I_AD_Ref_ListInput Target) {
+	public void setTargetInput(ForeignEntityInput Target) {
 		this.mTarget = Target;
 		if (Target != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -273,7 +273,7 @@ public class X_AD_BroadcastMessageInput extends X_AD_BroadcastMessage implements
 	 * @return Target tenant
 	 */
 	@JsonProperty("Target")
-	public I_AD_Ref_ListInput Target() {
+	public ForeignEntityInput Target() {
 		return mTarget;
 	}
 }

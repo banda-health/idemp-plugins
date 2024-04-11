@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTermInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mNetDay;
-	private I_AD_Ref_ListInput mPaymentTermUsage;
+	private ForeignEntityInput mNetDay;
+	private ForeignEntityInput mPaymentTermUsage;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -108,7 +108,7 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	 * @param NetDay Day when payment is due net
 	 */
 	@JsonProperty("NetDay")
-	public void setNetDayInput(I_AD_Ref_ListInput NetDay) {
+	public void setNetDayInput(ForeignEntityInput NetDay) {
 		this.mNetDay = NetDay;
 		if (NetDay != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -132,7 +132,7 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	 * @return Day when payment is due net
 	 */
 	@JsonProperty("NetDay")
-	public I_AD_Ref_ListInput NetDay() {
+	public ForeignEntityInput NetDay() {
 		return mNetDay;
 	}
 
@@ -142,7 +142,7 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	 * @param PaymentTermUsage Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
 	@JsonProperty("PaymentTermUsage")
-	public void setPaymentTermUsageInput(I_AD_Ref_ListInput PaymentTermUsage) {
+	public void setPaymentTermUsageInput(ForeignEntityInput PaymentTermUsage) {
 		this.mPaymentTermUsage = PaymentTermUsage;
 		if (PaymentTermUsage != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -166,7 +166,7 @@ public class X_C_PaymentTermInput extends MPaymentTerm implements I_C_PaymentTer
 	 * @return Payment term usage indicates if this payment term is used for sales, purchases or both.
 	 */
 	@JsonProperty("PaymentTermUsage")
-	public I_AD_Ref_ListInput PaymentTermUsage() {
+	public ForeignEntityInput PaymentTermUsage() {
 		return mPaymentTermUsage;
 	}
 }

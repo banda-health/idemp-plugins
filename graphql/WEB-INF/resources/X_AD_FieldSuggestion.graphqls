@@ -80,7 +80,7 @@ input AD_FieldSuggestionInput {
 	CompareSuggestion: String
 	# Optional short description of the record
 	Description: String
-	FieldSuggestionTarget: AD_Ref_ListInput
+	FieldSuggestionTarget: ForeignEntityInput
 	# Comment or Hint
 	Help: String
 	# The record is active in the system

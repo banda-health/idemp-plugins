@@ -11,7 +11,7 @@ public class MValRuleInput extends X_AD_Val_RuleInput {
 	 * @param UUID The AD_Val_Rule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MValRuleInput(@JsonProperty("UUID") String UUID) {
+	public MValRuleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

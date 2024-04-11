@@ -35,13 +35,13 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	private ForeignEntityInput mAD_Image;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
+	private ForeignEntityInput mAD_TabType;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mIncluded_Tab;
+	private ForeignEntityInput mIsHighVolume;
 	private ForeignEntityInput mParent_Column;
-	private I_AD_Ref_ListInput mAD_TabType;
-	private I_AD_Ref_ListInput mIsHighVolume;
-	private I_AD_Ref_ListInput mTreeDisplayedOn;
+	private ForeignEntityInput mTreeDisplayedOn;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -365,7 +365,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 * @param AD_TabType Defines Tab Type
 	 */
 	@JsonProperty("AD_TabType")
-	public void setAD_TabTypeInput(I_AD_Ref_ListInput AD_TabType) {
+	public void setAD_TabTypeInput(ForeignEntityInput AD_TabType) {
 		this.mAD_TabType = AD_TabType;
 		if (AD_TabType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -389,7 +389,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 * @return Defines Tab Type
 	 */
 	@JsonProperty("AD_TabType")
-	public I_AD_Ref_ListInput AD_TabType() {
+	public ForeignEntityInput AD_TabType() {
 		return mAD_TabType;
 	}
 
@@ -504,7 +504,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 * @param IsHighVolume Use Search instead of Pick list
 	 */
 	@JsonProperty("IsHighVolume")
-	public void setIsHighVolumeInput(I_AD_Ref_ListInput IsHighVolume) {
+	public void setIsHighVolumeInput(ForeignEntityInput IsHighVolume) {
 		this.mIsHighVolume = IsHighVolume;
 		if (IsHighVolume != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -528,7 +528,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 * @return Use Search instead of Pick list
 	 */
 	@JsonProperty("IsHighVolume")
-	public I_AD_Ref_ListInput IsHighVolume() {
+	public ForeignEntityInput IsHighVolume() {
 		return mIsHighVolume;
 	}
 
@@ -572,7 +572,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 * @param TreeDisplayedOn The tree can be displayed on master tab, detail tab or both
 	 */
 	@JsonProperty("TreeDisplayedOn")
-	public void setTreeDisplayedOnInput(I_AD_Ref_ListInput TreeDisplayedOn) {
+	public void setTreeDisplayedOnInput(ForeignEntityInput TreeDisplayedOn) {
 		this.mTreeDisplayedOn = TreeDisplayedOn;
 		if (TreeDisplayedOn != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -596,7 +596,7 @@ public class X_AD_TabInput extends MTab implements I_AD_TabInput {
 	 * @return The tree can be displayed on master tab, detail tab or both
 	 */
 	@JsonProperty("TreeDisplayedOn")
-	public I_AD_Ref_ListInput TreeDisplayedOn() {
+	public ForeignEntityInput TreeDisplayedOn() {
 		return mTreeDisplayedOn;
 	}
 }

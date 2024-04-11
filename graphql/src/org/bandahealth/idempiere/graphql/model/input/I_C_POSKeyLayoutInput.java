@@ -71,12 +71,12 @@ public interface I_C_POSKeyLayoutInput extends I_C_POSKeyLayout {
 	 *
 	 * @param POSKeyLayoutType The type of Key Layout
 	 */
-	void setPOSKeyLayoutTypeInput(I_AD_Ref_ListInput POSKeyLayoutType);
+	void setPOSKeyLayoutTypeInput(ForeignEntityInput POSKeyLayoutType);
 
 	/**
 	 * Get POSKeyLayoutType.
 	 *
 	 * @return The type of Key Layout
 	 */
-	I_AD_Ref_ListInput POSKeyLayoutType();
+	ForeignEntityInput POSKeyLayoutType();
 }

@@ -11,7 +11,7 @@ public class MAddressValidationInput extends X_C_AddressValidationInput {
 	 * @param UUID The C_AddressValidation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAddressValidationInput(@JsonProperty("UUID") String UUID) {
+	public MAddressValidationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

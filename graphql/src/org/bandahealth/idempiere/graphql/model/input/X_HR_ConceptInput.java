@@ -27,13 +27,13 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Reference;
+	private ForeignEntityInput mAccountSign;
+	private ForeignEntityInput mColumnType;
 	private ForeignEntityInput mHR_Concept_Category;
 	private ForeignEntityInput mHR_Department;
 	private ForeignEntityInput mHR_Job;
 	private ForeignEntityInput mHR_Payroll;
-	private I_AD_Ref_ListInput mAccountSign;
-	private I_AD_Ref_ListInput mColumnType;
-	private I_AD_Ref_ListInput mType;
+	private ForeignEntityInput mType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -53,7 +53,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public void setAccountSignInput(I_AD_Ref_ListInput AccountSign) {
+	public void setAccountSignInput(ForeignEntityInput AccountSign) {
 		this.mAccountSign = AccountSign;
 		if (AccountSign != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -77,7 +77,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public I_AD_Ref_ListInput AccountSign() {
+	public ForeignEntityInput AccountSign() {
 		return mAccountSign;
 	}
 
@@ -158,7 +158,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 * @param ColumnType Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public void setColumnTypeInput(I_AD_Ref_ListInput ColumnType) {
+	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
 		this.mColumnType = ColumnType;
 		if (ColumnType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -182,7 +182,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 * @return Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public I_AD_Ref_ListInput ColumnType() {
+	public ForeignEntityInput ColumnType() {
 		return mColumnType;
 	}
 
@@ -357,7 +357,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public void setTypeInput(I_AD_Ref_ListInput Type) {
+	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -381,7 +381,7 @@ public class X_HR_ConceptInput extends X_HR_Concept implements I_HR_ConceptInput
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public I_AD_Ref_ListInput Type() {
+	public ForeignEntityInput Type() {
 		return mType;
 	}
 }

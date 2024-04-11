@@ -25,9 +25,9 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PrintColor;
 	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mBH_Product_Category_Type;
+	private ForeignEntityInput mMMPolicy;
 	private ForeignEntityInput mM_Product_Category_Parent;
-	private I_AD_Ref_ListInput mBH_Product_Category_Type;
-	private I_AD_Ref_ListInput mMMPolicy;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -152,7 +152,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
 	 */
 	@JsonProperty("BH_Product_Category_Type")
-	public void setBH_Product_Category_TypeInput(I_AD_Ref_ListInput BH_Product_Category_Type) {
+	public void setBH_Product_Category_TypeInput(ForeignEntityInput BH_Product_Category_Type) {
 		this.mBH_Product_Category_Type = BH_Product_Category_Type;
 		if (BH_Product_Category_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -176,7 +176,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @return Contains a character the is linked to a ref list to determine types of product categories
 	 */
 	@JsonProperty("BH_Product_Category_Type")
-	public I_AD_Ref_ListInput BH_Product_Category_Type() {
+	public ForeignEntityInput BH_Product_Category_Type() {
 		return mBH_Product_Category_Type;
 	}
 	/**
@@ -249,7 +249,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @param MMPolicy Material Movement Policy
 	 */
 	@JsonProperty("MMPolicy")
-	public void setMMPolicyInput(I_AD_Ref_ListInput MMPolicy) {
+	public void setMMPolicyInput(ForeignEntityInput MMPolicy) {
 		this.mMMPolicy = MMPolicy;
 		if (MMPolicy != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -273,7 +273,7 @@ public class X_M_Product_CategoryInput extends MProductCategory_BH implements I_
 	 * @return Material Movement Policy
 	 */
 	@JsonProperty("MMPolicy")
-	public I_AD_Ref_ListInput MMPolicy() {
+	public ForeignEntityInput MMPolicy() {
 		return mMMPolicy;
 	}
 }

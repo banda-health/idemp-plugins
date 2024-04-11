@@ -113,12 +113,12 @@ public interface I_AD_PreferenceInput extends I_AD_Preference {
 	 *
 	 * @param PreferenceFor Type of preference, it can window, info window or parameter process
 	 */
-	void setPreferenceForInput(I_AD_Ref_ListInput PreferenceFor);
+	void setPreferenceForInput(ForeignEntityInput PreferenceFor);
 
 	/**
 	 * Get PreferenceFor.
 	 *
 	 * @return Type of preference, it can window, info window or parameter process
 	 */
-	I_AD_Ref_ListInput PreferenceFor();
+	ForeignEntityInput PreferenceFor();
 }

@@ -11,7 +11,7 @@ public class MChangeNoticeInput extends X_M_ChangeNoticeInput {
 	 * @param UUID The M_ChangeNotice_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MChangeNoticeInput(@JsonProperty("UUID") String UUID) {
+	public MChangeNoticeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

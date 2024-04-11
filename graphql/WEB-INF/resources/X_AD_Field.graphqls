@@ -175,9 +175,9 @@ input AD_FieldInput {
 	IsActive: Boolean
 	IsAdvancedField: Boolean
 	# Determine if a column must be copied when pushing the button to copy record
-	IsAllowCopy: AD_Ref_ListInput
+	IsAllowCopy: ForeignEntityInput
 	# The column is always updateable, even if the record is not active or processed
-	IsAlwaysUpdateable: AD_Ref_ListInput
+	IsAlwaysUpdateable: ForeignEntityInput
 	# Information maintained in System Element table
 	IsCentrallyMaintained: Boolean
 	IsDefaultFocus: Boolean
@@ -191,7 +191,7 @@ input AD_FieldInput {
 	# Field without Column - Only label is displayed
 	IsHeading: Boolean
 	# Data entry is required in this column
-	IsMandatory: AD_Ref_ListInput
+	IsMandatory: ForeignEntityInput
 	IsQuickEntry: Boolean
 	# Display in Quick Form
 	IsQuickForm: Boolean
@@ -200,18 +200,18 @@ input AD_FieldInput {
 	# Displayed on same line as previous field
 	IsSameLine: Boolean
 	# Is this column used for finding rows in windows
-	IsSelectionColumn: AD_Ref_ListInput
+	IsSelectionColumn: ForeignEntityInput
 	# Show the button on the toolbar, the window, or both
-	IsToolbarButton: AD_Ref_ListInput
+	IsToolbarButton: ForeignEntityInput
 	# Determines, if the field can be updated
-	IsUpdateable: AD_Ref_ListInput
+	IsUpdateable: ForeignEntityInput
 	MandatoryLogic: String
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Number of lines for a field
 	NumLines: Int
 	# Type of obscuring the data (limiting the display)
-	ObscureType: AD_Ref_ListInput
+	ObscureType: ForeignEntityInput
 	Placeholder: String
 	# Logic to determine if field is read only (applies only when field is read-write)
 	ReadOnlyLogic: String

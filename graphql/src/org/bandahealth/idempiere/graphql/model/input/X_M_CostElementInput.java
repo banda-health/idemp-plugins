@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class X_M_CostElementInput extends MCostElement implements I_M_CostElementInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mCostElementType;
-	private I_AD_Ref_ListInput mCostingMethod;
+	private ForeignEntityInput mCostElementType;
+	private ForeignEntityInput mCostingMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -79,7 +79,7 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	 * @param CostElementType Type of Cost Element
 	 */
 	@JsonProperty("CostElementType")
-	public void setCostElementTypeInput(I_AD_Ref_ListInput CostElementType) {
+	public void setCostElementTypeInput(ForeignEntityInput CostElementType) {
 		this.mCostElementType = CostElementType;
 		if (CostElementType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -103,7 +103,7 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	 * @return Type of Cost Element
 	 */
 	@JsonProperty("CostElementType")
-	public I_AD_Ref_ListInput CostElementType() {
+	public ForeignEntityInput CostElementType() {
 		return mCostElementType;
 	}
 
@@ -113,7 +113,7 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
+	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -137,7 +137,7 @@ public class X_M_CostElementInput extends MCostElement implements I_M_CostElemen
 	 * @return Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public I_AD_Ref_ListInput CostingMethod() {
+	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
 	}
 	/**

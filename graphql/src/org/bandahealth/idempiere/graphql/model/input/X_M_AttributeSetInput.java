@@ -23,10 +23,10 @@ import java.sql.ResultSet;
 public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_AttributeSetInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mM_AttributeSet_Type;
 	private ForeignEntityInput mM_LotCtl;
 	private ForeignEntityInput mM_SerNoCtl;
-	private I_AD_Ref_ListInput mM_AttributeSet_Type;
-	private I_AD_Ref_ListInput mMandatoryType;
+	private ForeignEntityInput mMandatoryType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -94,7 +94,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @param M_AttributeSet_Type Attribute Set Type
 	 */
 	@JsonProperty("M_AttributeSet_Type")
-	public void setM_AttributeSet_TypeInput(I_AD_Ref_ListInput M_AttributeSet_Type) {
+	public void setM_AttributeSet_TypeInput(ForeignEntityInput M_AttributeSet_Type) {
 		this.mM_AttributeSet_Type = M_AttributeSet_Type;
 		if (M_AttributeSet_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -118,7 +118,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @return Attribute Set Type
 	 */
 	@JsonProperty("M_AttributeSet_Type")
-	public I_AD_Ref_ListInput M_AttributeSet_Type() {
+	public ForeignEntityInput M_AttributeSet_Type() {
 		return mM_AttributeSet_Type;
 	}
 
@@ -214,7 +214,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @param MandatoryType The specification of a Product Attribute Instance is mandatory
 	 */
 	@JsonProperty("MandatoryType")
-	public void setMandatoryTypeInput(I_AD_Ref_ListInput MandatoryType) {
+	public void setMandatoryTypeInput(ForeignEntityInput MandatoryType) {
 		this.mMandatoryType = MandatoryType;
 		if (MandatoryType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -238,7 +238,7 @@ public class X_M_AttributeSetInput extends MAttributeSet_BH implements I_M_Attri
 	 * @return The specification of a Product Attribute Instance is mandatory
 	 */
 	@JsonProperty("MandatoryType")
-	public I_AD_Ref_ListInput MandatoryType() {
+	public ForeignEntityInput MandatoryType() {
 		return mMandatoryType;
 	}
 }

@@ -11,7 +11,7 @@ public class MTree_NodeCMCInput extends X_AD_TreeNodeCMCInput {
 	 * @param UUID The AD_TreeNodeCMC_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTree_NodeCMCInput(@JsonProperty("UUID") String UUID) {
+	public MTree_NodeCMCInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

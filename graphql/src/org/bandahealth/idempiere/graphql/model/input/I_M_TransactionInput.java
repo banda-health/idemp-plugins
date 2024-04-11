@@ -155,14 +155,14 @@ public interface I_M_TransactionInput extends I_M_Transaction {
 	 *
 	 * @param MovementType Method of moving the inventory
 	 */
-	void setMovementTypeInput(I_AD_Ref_ListInput MovementType);
+	void setMovementTypeInput(ForeignEntityInput MovementType);
 
 	/**
 	 * Get MovementType.
 	 *
 	 * @return Method of moving the inventory
 	 */
-	I_AD_Ref_ListInput MovementType();
+	ForeignEntityInput MovementType();
 
 	/**
 	 * Set PP_Cost_Collector.

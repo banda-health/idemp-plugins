@@ -40,14 +40,14 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_DocTypeTarget;
 	private ForeignEntityInput mC_PaySelection;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mHR_Department;
 	private ForeignEntityInput mHR_Employee;
 	private ForeignEntityInput mHR_Job;
 	private ForeignEntityInput mHR_Payroll;
 	private ForeignEntityInput mHR_Period;
 	private ForeignEntityInput mReversal;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -356,7 +356,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -380,7 +380,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -390,7 +390,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -414,7 +414,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**

@@ -74,9 +74,9 @@ input A_Asset_RevalInput {
 	# Date of the Document
 	DateDoc: Date
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# The record is active in the system
@@ -84,7 +84,7 @@ input A_Asset_RevalInput {
 	# Posting status
 	Posted: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

@@ -45,17 +45,17 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	private ForeignEntityInput mC_OrderLine;
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mPP_Product_BOM;
 	private ForeignEntityInput mPlanner;
+	private ForeignEntityInput mPriorityRule;
 	private ForeignEntityInput mS_Resource;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mPriorityRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -437,7 +437,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -461,7 +461,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -471,7 +471,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -495,7 +495,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 
@@ -713,7 +713,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @param PriorityRule Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule) {
+	public void setPriorityRuleInput(ForeignEntityInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
 		if (PriorityRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -737,7 +737,7 @@ public class X_PP_OrderInput extends X_PP_Order implements I_PP_OrderInput {
 	 * @return Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public I_AD_Ref_ListInput PriorityRule() {
+	public ForeignEntityInput PriorityRule() {
 		return mPriorityRule;
 	}
 	/**

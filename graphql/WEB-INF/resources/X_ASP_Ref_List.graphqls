@@ -49,7 +49,7 @@ input ASP_Ref_ListInput {
 	AD_Reference: ForeignEntityInput
 	ASP_Level: ForeignEntityInput
 	UU: ID
-	ASP_Status: AD_Ref_ListInput
+	ASP_Status: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 }

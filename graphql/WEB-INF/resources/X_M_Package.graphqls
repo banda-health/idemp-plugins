@@ -141,12 +141,12 @@ input M_PackageInput {
 	DateReceived: Date
 	# EMail Delivery confirmation
 	DeliveryConfirmation: Boolean
-	DeliveryConfirmationType: AD_Ref_ListInput
+	DeliveryConfirmationType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Document sequence number of the document
 	DocumentNo: String
-	DotHazardClassOrDivision: AD_Ref_ListInput
+	DotHazardClassOrDivision: ForeignEntityInput
 	DryIceWeight: BigDecimal
 	DutiesShipperAccount: String
 	HandlingCharge: BigDecimal
@@ -154,7 +154,7 @@ input M_PackageInput {
 	HoldAddress: ForeignEntityInput
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
-	HomeDeliveryPremiumType: AD_Ref_ListInput
+	HomeDeliveryPremiumType: ForeignEntityInput
 	InsuredAmount: BigDecimal
 	IsAccessible: Boolean
 	# The record is active in the system
@@ -185,11 +185,11 @@ input M_PackageInput {
 	M_ShipperPickupTypes: ForeignEntityInput
 	NotificationMessage: String
 	# Type of Notifications
-	NotificationType: AD_Ref_ListInput
+	NotificationType: ForeignEntityInput
 	# This payment can be processed online
 	OProcessing: String
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule: ForeignEntityInput
 	# Price
 	Price: BigDecimal
 	# Actual Price 

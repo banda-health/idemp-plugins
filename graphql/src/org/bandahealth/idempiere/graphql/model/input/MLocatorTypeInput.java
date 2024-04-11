@@ -11,7 +11,7 @@ public class MLocatorTypeInput extends X_M_LocatorTypeInput {
 	 * @param UUID The M_LocatorType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLocatorTypeInput(@JsonProperty("UUID") String UUID) {
+	public MLocatorTypeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

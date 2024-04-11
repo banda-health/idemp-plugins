@@ -53,7 +53,7 @@ input PP_WF_Node_ProductInput {
 	# Workflow Node (activity), step or process
 	AD_WF_Node: ForeignEntityInput
 	# Configuration Level for this parameter
-	ConfigurationLevel: AD_Ref_ListInput
+	ConfigurationLevel: ForeignEntityInput
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# The record is active in the system

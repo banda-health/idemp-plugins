@@ -46,7 +46,7 @@ input GL_BudgetInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Indicates the current status of this budget
-	BudgetStatus: AD_Ref_ListInput
+	BudgetStatus: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	UU: ID

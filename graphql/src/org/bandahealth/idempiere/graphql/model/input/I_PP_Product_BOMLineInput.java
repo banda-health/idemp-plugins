@@ -43,28 +43,28 @@ public interface I_PP_Product_BOMLineInput extends I_PP_Product_BOMLine {
 	 *
 	 * @param ComponentType Component Type for a Bill of Material or Formula
 	 */
-	void setComponentTypeInput(I_AD_Ref_ListInput ComponentType);
+	void setComponentTypeInput(ForeignEntityInput ComponentType);
 
 	/**
 	 * Get ComponentType.
 	 *
 	 * @return Component Type for a Bill of Material or Formula
 	 */
-	I_AD_Ref_ListInput ComponentType();
+	ForeignEntityInput ComponentType();
 
 	/**
 	 * Set IssueMethod.
 	 *
 	 * @param IssueMethod There are two methods for issue the components to Manufacturing Order
 	 */
-	void setIssueMethodInput(I_AD_Ref_ListInput IssueMethod);
+	void setIssueMethodInput(ForeignEntityInput IssueMethod);
 
 	/**
 	 * Get IssueMethod.
 	 *
 	 * @return There are two methods for issue the components to Manufacturing Order
 	 */
-	I_AD_Ref_ListInput IssueMethod();
+	ForeignEntityInput IssueMethod();
 
 	/**
 	 * Set M_AttributeSetInstance.

@@ -118,15 +118,15 @@ input PP_Cost_CollectorInput {
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# Transaction Type for Manufacturing Management
-	CostCollectorType: AD_Ref_ListInput
+	CostCollectorType: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	DurationReal: BigDecimal

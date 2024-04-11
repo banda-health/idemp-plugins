@@ -24,7 +24,7 @@ public class X_M_RelatedProductInput extends X_M_RelatedProduct implements I_M_R
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mRelatedProduct;
-	private I_AD_Ref_ListInput mRelatedProductType;
+	private ForeignEntityInput mRelatedProductType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -173,7 +173,7 @@ public class X_M_RelatedProductInput extends X_M_RelatedProduct implements I_M_R
 	 * @param RelatedProductType Related Product Type
 	 */
 	@JsonProperty("RelatedProductType")
-	public void setRelatedProductTypeInput(I_AD_Ref_ListInput RelatedProductType) {
+	public void setRelatedProductTypeInput(ForeignEntityInput RelatedProductType) {
 		this.mRelatedProductType = RelatedProductType;
 		if (get_ID() != 0) {
 			return;
@@ -200,7 +200,7 @@ public class X_M_RelatedProductInput extends X_M_RelatedProduct implements I_M_R
 	 * @return Related Product Type
 	 */
 	@JsonProperty("RelatedProductType")
-	public I_AD_Ref_ListInput RelatedProductType() {
+	public ForeignEntityInput RelatedProductType() {
 		return mRelatedProductType;
 	}
 }

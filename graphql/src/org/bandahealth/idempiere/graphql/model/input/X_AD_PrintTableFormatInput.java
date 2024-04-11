@@ -29,12 +29,12 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	private ForeignEntityInput mFunctFG_PrintColor;
 	private ForeignEntityInput mFunct_PrintFont;
 	private ForeignEntityInput mHdrLine_PrintColor;
+	private ForeignEntityInput mHdrStrokeType;
 	private ForeignEntityInput mHdrTextBG_PrintColor;
 	private ForeignEntityInput mHdrTextFG_PrintColor;
 	private ForeignEntityInput mHdr_PrintFont;
+	private ForeignEntityInput mLineStrokeType;
 	private ForeignEntityInput mLine_PrintColor;
-	private I_AD_Ref_ListInput mHdrStrokeType;
-	private I_AD_Ref_ListInput mLineStrokeType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -324,7 +324,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param HdrStrokeType Type of the Header Line Stroke
 	 */
 	@JsonProperty("HdrStrokeType")
-	public void setHdrStrokeTypeInput(I_AD_Ref_ListInput HdrStrokeType) {
+	public void setHdrStrokeTypeInput(ForeignEntityInput HdrStrokeType) {
 		this.mHdrStrokeType = HdrStrokeType;
 		if (HdrStrokeType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -348,7 +348,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Type of the Header Line Stroke
 	 */
 	@JsonProperty("HdrStrokeType")
-	public I_AD_Ref_ListInput HdrStrokeType() {
+	public ForeignEntityInput HdrStrokeType() {
 		return mHdrStrokeType;
 	}
 
@@ -460,7 +460,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @param LineStrokeType Type of the Line Stroke
 	 */
 	@JsonProperty("LineStrokeType")
-	public void setLineStrokeTypeInput(I_AD_Ref_ListInput LineStrokeType) {
+	public void setLineStrokeTypeInput(ForeignEntityInput LineStrokeType) {
 		this.mLineStrokeType = LineStrokeType;
 		if (LineStrokeType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -484,7 +484,7 @@ public class X_AD_PrintTableFormatInput extends X_AD_PrintTableFormat implements
 	 * @return Type of the Line Stroke
 	 */
 	@JsonProperty("LineStrokeType")
-	public I_AD_Ref_ListInput LineStrokeType() {
+	public ForeignEntityInput LineStrokeType() {
 		return mLineStrokeType;
 	}
 }

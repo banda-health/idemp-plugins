@@ -57,12 +57,12 @@ public interface I_AD_MessageInput extends I_AD_Message {
 	 *
 	 * @param MsgType Type of message (Informational, Menu or Error)
 	 */
-	void setMsgTypeInput(I_AD_Ref_ListInput MsgType);
+	void setMsgTypeInput(ForeignEntityInput MsgType);
 
 	/**
 	 * Get MsgType.
 	 *
 	 * @return Type of message (Informational, Menu or Error)
 	 */
-	I_AD_Ref_ListInput MsgType();
+	ForeignEntityInput MsgType();
 }

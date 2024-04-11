@@ -11,7 +11,7 @@ public class MTree_NodePRInput extends X_AD_TreeNodePRInput {
 	 * @param UUID The AD_TreeNodePR_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTree_NodePRInput(@JsonProperty("UUID") String UUID) {
+	public MTree_NodePRInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

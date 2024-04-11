@@ -11,7 +11,7 @@ public class MFactReconciliationInput extends X_Fact_ReconciliationInput {
 	 * @param UUID The Fact_Reconciliation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFactReconciliationInput(@JsonProperty("UUID") String UUID) {
+	public MFactReconciliationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

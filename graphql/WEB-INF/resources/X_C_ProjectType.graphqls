@@ -55,5 +55,5 @@ input C_ProjectTypeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Project Category
-	ProjectCategory: AD_Ref_ListInput
+	ProjectCategory: ForeignEntityInput
 }

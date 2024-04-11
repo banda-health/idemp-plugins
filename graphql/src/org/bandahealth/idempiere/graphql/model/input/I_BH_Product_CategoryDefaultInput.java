@@ -29,14 +29,14 @@ public interface I_BH_Product_CategoryDefaultInput extends I_BH_Product_Category
 	 *
 	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
 	 */
-	void setBH_Product_Category_TypeInput(I_AD_Ref_ListInput BH_Product_Category_Type);
+	void setBH_Product_Category_TypeInput(ForeignEntityInput BH_Product_Category_Type);
 
 	/**
 	 * Get BH_Product_Category_Type.
 	 *
 	 * @return Contains a character the is linked to a ref list to determine types of product categories
 	 */
-	I_AD_Ref_ListInput BH_Product_Category_Type();
+	ForeignEntityInput BH_Product_Category_Type();
 
 	/**
 	 * Set UU.

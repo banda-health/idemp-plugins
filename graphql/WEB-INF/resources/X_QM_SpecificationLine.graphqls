@@ -53,13 +53,13 @@ input QM_SpecificationLineInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Logical operation: AND or OR
-	AndOr: AD_Ref_ListInput
+	AndOr: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Product Attribute
 	M_Attribute: ForeignEntityInput
 	# Compare Operation
-	Operation: AD_Ref_ListInput
+	Operation: ForeignEntityInput
 	QM_Specification: ForeignEntityInput
 	UU: ID
 	# Method of ordering records; lowest number comes first

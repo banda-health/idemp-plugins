@@ -47,7 +47,7 @@ input AD_Table_ScriptValidatorInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	UU: ID
-	EventModelValidator: AD_Ref_ListInput
+	EventModelValidator: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Method of ordering records; lowest number comes first

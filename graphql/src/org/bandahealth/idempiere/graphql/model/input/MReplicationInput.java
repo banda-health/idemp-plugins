@@ -11,7 +11,7 @@ public class MReplicationInput extends X_AD_ReplicationInput {
 	 * @param UUID The AD_Replication_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MReplicationInput(@JsonProperty("UUID") String UUID) {
+	public MReplicationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -85,28 +85,28 @@ public interface I_AD_RoleInput extends I_AD_Role {
 	 *
 	 * @param PreferenceType Determines what preferences the user can set
 	 */
-	void setPreferenceTypeInput(I_AD_Ref_ListInput PreferenceType);
+	void setPreferenceTypeInput(ForeignEntityInput PreferenceType);
 
 	/**
 	 * Get PreferenceType.
 	 *
 	 * @return Determines what preferences the user can set
 	 */
-	I_AD_Ref_ListInput PreferenceType();
+	ForeignEntityInput PreferenceType();
 
 	/**
 	 * Set RoleType.
 	 *
 	 * @param RoleType RoleType
 	 */
-	void setRoleTypeInput(I_AD_Ref_ListInput RoleType);
+	void setRoleTypeInput(ForeignEntityInput RoleType);
 
 	/**
 	 * Get RoleType.
 	 *
 	 * @return RoleType
 	 */
-	I_AD_Ref_ListInput RoleType();
+	ForeignEntityInput RoleType();
 
 	/**
 	 * Set Supervisor.
@@ -127,12 +127,12 @@ public interface I_AD_RoleInput extends I_AD_Role {
 	 *
 	 * @param UserLevel System Tenant Organization
 	 */
-	void setUserLevelInput(I_AD_Ref_ListInput UserLevel);
+	void setUserLevelInput(ForeignEntityInput UserLevel);
 
 	/**
 	 * Get UserLevel.
 	 *
 	 * @return System Tenant Organization
 	 */
-	I_AD_Ref_ListInput UserLevel();
+	ForeignEntityInput UserLevel();
 }

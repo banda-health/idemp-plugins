@@ -82,7 +82,7 @@ input PA_GoalInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# Type of chart to render
-	ChartType: AD_Ref_ListInput
+	ChartType: ForeignEntityInput
 	# Starting date for a range
 	DateFrom: Date
 	# Date the process was last run.
@@ -100,9 +100,9 @@ input PA_GoalInput {
 	# Actual value that has been measured.
 	MeasureActual: BigDecimal
 	# Measure Scope initially displayed
-	MeasureDisplay: AD_Ref_ListInput
+	MeasureDisplay: ForeignEntityInput
 	# Performance Measure Scope
-	MeasureScope: AD_Ref_ListInput
+	MeasureScope: ForeignEntityInput
 	# Target value for measure
 	MeasureTarget: BigDecimal
 	# Alphanumeric identifier of the entity

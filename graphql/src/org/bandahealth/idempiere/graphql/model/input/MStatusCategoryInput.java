@@ -11,7 +11,7 @@ public class MStatusCategoryInput extends X_R_StatusCategoryInput {
 	 * @param UUID The R_StatusCategory_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStatusCategoryInput(@JsonProperty("UUID") String UUID) {
+	public MStatusCategoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

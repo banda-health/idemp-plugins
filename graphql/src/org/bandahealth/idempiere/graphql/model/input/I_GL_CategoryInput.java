@@ -29,14 +29,14 @@ public interface I_GL_CategoryInput extends I_GL_Category {
 	 *
 	 * @param CategoryType Source of the Journal with this category
 	 */
-	void setCategoryTypeInput(I_AD_Ref_ListInput CategoryType);
+	void setCategoryTypeInput(ForeignEntityInput CategoryType);
 
 	/**
 	 * Get CategoryType.
 	 *
 	 * @return Source of the Journal with this category
 	 */
-	I_AD_Ref_ListInput CategoryType();
+	ForeignEntityInput CategoryType();
 
 	/**
 	 * Set UU.

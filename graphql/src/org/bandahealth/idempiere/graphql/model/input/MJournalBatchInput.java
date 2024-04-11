@@ -11,7 +11,7 @@ public class MJournalBatchInput extends X_GL_JournalBatchInput {
 	 * @param UUID The GL_JournalBatch_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MJournalBatchInput(@JsonProperty("UUID") String UUID) {
+	public MJournalBatchInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -67,5 +67,5 @@ input C_POSKeyLayoutInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# The type of Key Layout
-	POSKeyLayoutType: AD_Ref_ListInput
+	POSKeyLayoutType: ForeignEntityInput
 }

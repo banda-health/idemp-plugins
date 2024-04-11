@@ -43,6 +43,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
 	private ForeignEntityInput mA_Asset_Group;
+	private ForeignEntityInput mA_CapvsExp;
 	private ForeignEntityInput mC_1099Box;
 	private ForeignEntityInput mC_Activity;
 	private ForeignEntityInput mC_Campaign;
@@ -61,7 +62,6 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	private ForeignEntityInput mS_ResourceAssignment;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mA_CapvsExp;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -149,7 +149,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 * @param A_CapvsExp Capital/Expense
 	 */
 	@JsonProperty("A_CapvsExp")
-	public void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp) {
+	public void setA_CapvsExpInput(ForeignEntityInput A_CapvsExp) {
 		this.mA_CapvsExp = A_CapvsExp;
 		if (A_CapvsExp != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -173,7 +173,7 @@ public class X_C_InvoiceLineInput extends MInvoiceLine implements I_C_InvoiceLin
 	 * @return Capital/Expense
 	 */
 	@JsonProperty("A_CapvsExp")
-	public I_AD_Ref_ListInput A_CapvsExp() {
+	public ForeignEntityInput A_CapvsExp() {
 		return mA_CapvsExp;
 	}
 

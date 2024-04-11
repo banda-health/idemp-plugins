@@ -11,7 +11,7 @@ public class MShippingProcessorInput extends X_M_ShippingProcessorInput {
 	 * @param UUID The M_ShippingProcessor_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MShippingProcessorInput(@JsonProperty("UUID") String UUID) {
+	public MShippingProcessorInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

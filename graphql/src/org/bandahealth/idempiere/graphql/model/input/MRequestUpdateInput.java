@@ -11,7 +11,7 @@ public class MRequestUpdateInput extends X_R_RequestUpdateInput {
 	 * @param UUID The R_RequestUpdate_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRequestUpdateInput(@JsonProperty("UUID") String UUID) {
+	public MRequestUpdateInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

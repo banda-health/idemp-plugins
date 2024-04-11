@@ -11,7 +11,7 @@ public class M_ElementInput extends X_AD_ElementInput {
 	 * @param UUID The AD_Element_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public M_ElementInput(@JsonProperty("UUID") String UUID) {
+	public M_ElementInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -29,56 +29,56 @@ public interface I_A_Asset_Reval_EntryInput extends I_A_Asset_Reval_Entry {
 	 *
 	 * @param A_Rev_Code A_Rev_Code
 	 */
-	void setA_Rev_CodeInput(I_AD_Ref_ListInput A_Rev_Code);
+	void setA_Rev_CodeInput(ForeignEntityInput A_Rev_Code);
 
 	/**
 	 * Get A_Rev_Code.
 	 *
 	 * @return A_Rev_Code
 	 */
-	I_AD_Ref_ListInput A_Rev_Code();
+	ForeignEntityInput A_Rev_Code();
 
 	/**
 	 * Set A_Reval_Cal_Method.
 	 *
 	 * @param A_Reval_Cal_Method A_Reval_Cal_Method
 	 */
-	void setA_Reval_Cal_MethodInput(I_AD_Ref_ListInput A_Reval_Cal_Method);
+	void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method);
 
 	/**
 	 * Get A_Reval_Cal_Method.
 	 *
 	 * @return A_Reval_Cal_Method
 	 */
-	I_AD_Ref_ListInput A_Reval_Cal_Method();
+	ForeignEntityInput A_Reval_Cal_Method();
 
 	/**
 	 * Set A_Reval_Effective_Date.
 	 *
 	 * @param A_Reval_Effective_Date A_Reval_Effective_Date
 	 */
-	void setA_Reval_Effective_DateInput(I_AD_Ref_ListInput A_Reval_Effective_Date);
+	void setA_Reval_Effective_DateInput(ForeignEntityInput A_Reval_Effective_Date);
 
 	/**
 	 * Get A_Reval_Effective_Date.
 	 *
 	 * @return A_Reval_Effective_Date
 	 */
-	I_AD_Ref_ListInput A_Reval_Effective_Date();
+	ForeignEntityInput A_Reval_Effective_Date();
 
 	/**
 	 * Set A_Reval_Multiplier.
 	 *
 	 * @param A_Reval_Multiplier A_Reval_Multiplier
 	 */
-	void setA_Reval_MultiplierInput(I_AD_Ref_ListInput A_Reval_Multiplier);
+	void setA_Reval_MultiplierInput(ForeignEntityInput A_Reval_Multiplier);
 
 	/**
 	 * Get A_Reval_Multiplier.
 	 *
 	 * @return A_Reval_Multiplier
 	 */
-	I_AD_Ref_ListInput A_Reval_Multiplier();
+	ForeignEntityInput A_Reval_Multiplier();
 
 	/**
 	 * Set AD_Org.
@@ -169,12 +169,12 @@ public interface I_A_Asset_Reval_EntryInput extends I_A_Asset_Reval_Entry {
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

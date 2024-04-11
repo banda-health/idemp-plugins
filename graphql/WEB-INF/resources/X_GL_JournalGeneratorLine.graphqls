@@ -58,7 +58,7 @@ input GL_JournalGeneratorLineInput {
 	# Multiplier Amount for generating commissions
 	AmtMultiplier: BigDecimal
 	BPColumn: String
-	BPDimensionType: AD_Ref_ListInput
+	BPDimensionType: ForeignEntityInput
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
 	C_ElementValueCR: ForeignEntityInput

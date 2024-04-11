@@ -65,7 +65,7 @@ input C_BankAccountInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Bank Account Type
-	BankAccountType: AD_Ref_ListInput
+	BankAccountType: ForeignEntityInput
 	# Basic Bank Account Number
 	BBAN: String
 	# Bank

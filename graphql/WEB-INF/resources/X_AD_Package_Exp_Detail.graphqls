@@ -126,7 +126,7 @@ input AD_Package_Exp_DetailInput {
 	AD_Window: ForeignEntityInput
 	# Workflow or combination of tasks
 	AD_Workflow: ForeignEntityInput
-	DBType: AD_Ref_ListInput
+	DBType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	Destination_Directory: String
@@ -145,9 +145,9 @@ input AD_Package_Exp_DetailInput {
 	Processed: Boolean
 	Processing: Boolean
 	# Internal Release Number
-	ReleaseNo: AD_Ref_ListInput
+	ReleaseNo: ForeignEntityInput
 	SQLStatement: String
 	Target_Directory: String
 	# Type of Validation (SQL, Java Script, Java Language)
-	Type: AD_Ref_ListInput
+	Type: ForeignEntityInput
 }

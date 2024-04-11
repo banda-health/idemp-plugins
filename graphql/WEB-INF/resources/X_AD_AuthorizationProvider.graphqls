@@ -46,7 +46,7 @@ type AD_AuthorizationProvider {
 
 input AD_AuthorizationProviderInput {
 	UU: ID
-	AD_AuthorizationType: AD_Ref_ListInput
+	AD_AuthorizationType: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	AuthorizationEndpoint: String

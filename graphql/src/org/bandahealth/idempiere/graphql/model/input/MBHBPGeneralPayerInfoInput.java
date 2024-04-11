@@ -11,7 +11,7 @@ public class MBHBPGeneralPayerInfoInput extends X_BH_BP_General_Payer_InfoInput 
 	 * @param UUID The BH_BP_General_Payer_Info_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHBPGeneralPayerInfoInput(@JsonProperty("UUID") String UUID) {
+	public MBHBPGeneralPayerInfoInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -71,14 +71,14 @@ public interface I_AD_WF_NextConditionInput extends I_AD_WF_NextCondition {
 	 *
 	 * @param AndOr Logical operation: AND or OR
 	 */
-	void setAndOrInput(I_AD_Ref_ListInput AndOr);
+	void setAndOrInput(ForeignEntityInput AndOr);
 
 	/**
 	 * Get AndOr.
 	 *
 	 * @return Logical operation: AND or OR
 	 */
-	I_AD_Ref_ListInput AndOr();
+	ForeignEntityInput AndOr();
 
 	/**
 	 * Set AD_EntityType.
@@ -99,12 +99,12 @@ public interface I_AD_WF_NextConditionInput extends I_AD_WF_NextCondition {
 	 *
 	 * @param Operation Compare Operation
 	 */
-	void setOperationInput(I_AD_Ref_ListInput Operation);
+	void setOperationInput(ForeignEntityInput Operation);
 
 	/**
 	 * Get Operation.
 	 *
 	 * @return Compare Operation
 	 */
-	I_AD_Ref_ListInput Operation();
+	ForeignEntityInput Operation();
 }

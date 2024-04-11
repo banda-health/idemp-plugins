@@ -74,7 +74,7 @@ input AD_ImpFormat_RowInput {
 	# Format String in Java Notation, e.g. ddMMyy
 	DataFormat: String
 	# Type of data
-	DataType: AD_Ref_ListInput
+	DataType: ForeignEntityInput
 	# Decimal Point in the data file - if any
 	DecimalPoint: String
 	# Divide number by 100 to get correct amount

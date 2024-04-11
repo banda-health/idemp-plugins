@@ -11,7 +11,7 @@ public class MMovementInput extends X_M_MovementInput {
 	 * @param UUID The M_Movement_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMovementInput(@JsonProperty("UUID") String UUID) {
+	public MMovementInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

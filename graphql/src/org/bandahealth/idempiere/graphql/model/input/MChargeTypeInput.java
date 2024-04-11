@@ -11,7 +11,7 @@ public class MChargeTypeInput extends X_C_ChargeTypeInput {
 	 * @param UUID The C_ChargeType_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MChargeTypeInput(@JsonProperty("UUID") String UUID) {
+	public MChargeTypeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

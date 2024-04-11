@@ -11,7 +11,7 @@ public class MBHDefaultDocActionAccessInput extends X_BH_Default_DocAction_Acces
 	 * @param UUID The BH_Default_DocAction_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHDefaultDocActionAccessInput(@JsonProperty("UUID") String UUID) {
+	public MBHDefaultDocActionAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

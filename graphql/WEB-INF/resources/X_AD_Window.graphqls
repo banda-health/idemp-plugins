@@ -91,7 +91,7 @@ input AD_WindowInput {
 	# The result determines the title to be displayed for this window
 	TitleLogic: String
 	# Type or classification of a Window
-	WindowType: AD_Ref_ListInput
+	WindowType: ForeignEntityInput
 	WinHeight: Int
 	WinWidth: Int
 }

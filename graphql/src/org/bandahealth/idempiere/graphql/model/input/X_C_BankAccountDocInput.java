@@ -25,7 +25,7 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BankAccount;
 	private ForeignEntityInput mCheck_PrintFormat;
-	private I_AD_Ref_ListInput mPaymentRule;
+	private ForeignEntityInput mPaymentRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -182,7 +182,7 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	 * @param PaymentRule How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (PaymentRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -206,7 +206,7 @@ public class X_C_BankAccountDocInput extends X_C_BankAccountDoc implements I_C_B
 	 * @return How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public I_AD_Ref_ListInput PaymentRule() {
+	public ForeignEntityInput PaymentRule() {
 		return mPaymentRule;
 	}
 }

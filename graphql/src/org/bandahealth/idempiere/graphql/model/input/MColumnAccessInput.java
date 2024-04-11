@@ -11,7 +11,7 @@ public class MColumnAccessInput extends X_AD_Column_AccessInput {
 	 * @param UUID The AD_Column_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MColumnAccessInput(@JsonProperty("UUID") String UUID) {
+	public MColumnAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -56,10 +56,10 @@ input BH_VisitInput {
 	# BH_Clinician_User_ID
 	BH_Clinician_User: ForeignEntityInput
 	BH_NewVisit: Boolean
-	BH_PatientType: AD_Ref_ListInput
+	BH_PatientType: ForeignEntityInput
 	# Drop down field in visits for users to define the process stage
-	BH_Process_Stage: AD_Ref_ListInput
-	bh_referral: AD_Ref_ListInput
+	BH_Process_Stage: ForeignEntityInput
+	bh_referral: ForeignEntityInput
 	BH_ReferredFromTo: String
 	UU: ID
 	BH_VisitDate: Date

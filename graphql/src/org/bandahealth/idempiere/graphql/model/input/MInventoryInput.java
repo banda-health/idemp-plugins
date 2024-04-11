@@ -11,7 +11,7 @@ public class MInventoryInput extends X_M_InventoryInput {
 	 * @param UUID The M_Inventory_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInventoryInput(@JsonProperty("UUID") String UUID) {
+	public MInventoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MRecordAccessInput extends X_AD_Record_AccessInput {
 	 * @param UUID The AD_Record_Access_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRecordAccessInput(@JsonProperty("UUID") String UUID) {
+	public MRecordAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

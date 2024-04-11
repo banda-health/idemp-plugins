@@ -11,7 +11,7 @@ public class MTestInput extends X_TestInput {
 	 * @param UUID The Test_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTestInput(@JsonProperty("UUID") String UUID) {
+	public MTestInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

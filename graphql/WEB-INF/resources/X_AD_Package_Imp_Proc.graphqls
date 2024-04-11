@@ -56,7 +56,7 @@ input AD_Package_Imp_ProcInput {
 	# Fully qualified package source file name
 	AD_Package_Source: String
 	# Type of package source - file, ftp, webservice etc
-	AD_Package_Source_Type: AD_Ref_ListInput
+	AD_Package_Source_Type: ForeignEntityInput
 	DateProcessed: Date
 	# The record is active in the system
 	IsActive: Boolean

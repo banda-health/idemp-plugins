@@ -11,7 +11,7 @@ public class MRecentItemInput extends X_AD_RecentItemInput {
 	 * @param UUID The AD_RecentItem_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRecentItemInput(@JsonProperty("UUID") String UUID) {
+	public MRecentItemInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

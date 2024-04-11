@@ -43,28 +43,28 @@ public interface I_M_Product_Category_AcctInput extends I_M_Product_Category_Acc
 	 *
 	 * @param CostingLevel The lowest level to accumulate Costing Information
 	 */
-	void setCostingLevelInput(I_AD_Ref_ListInput CostingLevel);
+	void setCostingLevelInput(ForeignEntityInput CostingLevel);
 
 	/**
 	 * Get CostingLevel.
 	 *
 	 * @return The lowest level to accumulate Costing Information
 	 */
-	I_AD_Ref_ListInput CostingLevel();
+	ForeignEntityInput CostingLevel();
 
 	/**
 	 * Set CostingMethod.
 	 *
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
+	void setCostingMethodInput(ForeignEntityInput CostingMethod);
 
 	/**
 	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput CostingMethod();
+	ForeignEntityInput CostingMethod();
 
 	/**
 	 * Set UU.

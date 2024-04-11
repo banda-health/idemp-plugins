@@ -111,11 +111,11 @@ input C_TaxInput {
 	# This tax rate requires the Business Partner to be tax exempt
 	RequiresTaxCertificate: Boolean
 	# Sales Tax applies to sales situations, Purchase Tax to purchase situations
-	SOPOType: AD_Ref_ListInput
+	SOPOType: ForeignEntityInput
 	# Short form for Tax to be printed on documents
 	TaxIndicator: String
 	# Type of input tax (deductible and non deductible)
-	TaxPostingIndicator: AD_Ref_ListInput
+	TaxPostingIndicator: ForeignEntityInput
 	# Receiving Region
 	To_Region: ForeignEntityInput
 	# Valid from including this date (first day)

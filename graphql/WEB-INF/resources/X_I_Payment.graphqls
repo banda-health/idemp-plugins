@@ -211,7 +211,7 @@ input I_PaymentInput {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType: AD_Ref_ListInput
+	CreditCardType: ForeignEntityInput
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Accounting Date
@@ -279,9 +279,9 @@ input I_PaymentInput {
 	# Tax Amount for a document
 	TaxAmt: BigDecimal
 	# Method of Payment
-	TenderType: AD_Ref_ListInput
+	TenderType: ForeignEntityInput
 	# Type of credit card transaction
-	TrxType: AD_Ref_ListInput
+	TrxType: ForeignEntityInput
 	# Voice Authorization Code from credit card company
 	VoiceAuthCode: String
 	# Amount to write-off

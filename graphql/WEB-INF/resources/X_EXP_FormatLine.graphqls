@@ -79,7 +79,7 @@ input EXP_FormatLineInput {
 	Name: String
 	Position: Int
 	# Type of Validation (SQL, Java Script, Java Language)
-	Type: AD_Ref_ListInput
+	Type: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

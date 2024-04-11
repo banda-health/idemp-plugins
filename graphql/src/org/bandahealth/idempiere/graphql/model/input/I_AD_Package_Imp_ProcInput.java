@@ -43,12 +43,12 @@ public interface I_AD_Package_Imp_ProcInput extends I_AD_Package_Imp_Proc {
 	 *
 	 * @param AD_Package_Source_Type Type of package source - file, ftp, webservice etc
 	 */
-	void setAD_Package_Source_TypeInput(I_AD_Ref_ListInput AD_Package_Source_Type);
+	void setAD_Package_Source_TypeInput(ForeignEntityInput AD_Package_Source_Type);
 
 	/**
 	 * Get AD_Package_Source_Type.
 	 *
 	 * @return Type of package source - file, ftp, webservice etc
 	 */
-	I_AD_Ref_ListInput AD_Package_Source_Type();
+	ForeignEntityInput AD_Package_Source_Type();
 }

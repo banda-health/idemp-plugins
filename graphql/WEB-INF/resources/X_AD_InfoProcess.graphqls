@@ -69,7 +69,7 @@ input AD_InfoProcessInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Layout type of info process
-	LayoutType: AD_Ref_ListInput
+	LayoutType: ForeignEntityInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

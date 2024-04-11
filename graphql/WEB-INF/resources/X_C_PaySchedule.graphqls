@@ -67,7 +67,7 @@ input C_PayScheduleInput {
 	# Element is valid
 	IsValid: Boolean
 	# Day when payment is due net
-	NetDay: AD_Ref_ListInput
+	NetDay: ForeignEntityInput
 	# Net Days in which payment is due
 	NetDays: Int
 	# Percent of the entire amount

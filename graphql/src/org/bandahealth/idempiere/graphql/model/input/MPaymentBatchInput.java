@@ -11,7 +11,7 @@ public class MPaymentBatchInput extends X_C_PaymentBatchInput {
 	 * @param UUID The C_PaymentBatch_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPaymentBatchInput(@JsonProperty("UUID") String UUID) {
+	public MPaymentBatchInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

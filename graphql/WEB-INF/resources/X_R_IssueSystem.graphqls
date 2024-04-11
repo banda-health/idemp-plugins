@@ -59,5 +59,5 @@ input R_IssueSystemInput {
 	# Information to help profiling the system for solving support issues
 	StatisticsInfo: String
 	# Status of the system - Support priority depends on system status
-	SystemStatus: AD_Ref_ListInput
+	SystemStatus: ForeignEntityInput
 }

@@ -29,7 +29,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	private ForeignEntityInput mAD_InfoWindow;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
-	private I_AD_Ref_ListInput mLayoutType;
+	private ForeignEntityInput mLayoutType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -254,7 +254,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	 * @param LayoutType Layout type of info process
 	 */
 	@JsonProperty("LayoutType")
-	public void setLayoutTypeInput(I_AD_Ref_ListInput LayoutType) {
+	public void setLayoutTypeInput(ForeignEntityInput LayoutType) {
 		this.mLayoutType = LayoutType;
 		if (LayoutType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -278,7 +278,7 @@ public class X_AD_InfoProcessInput extends X_AD_InfoProcess implements I_AD_Info
 	 * @return Layout type of info process
 	 */
 	@JsonProperty("LayoutType")
-	public I_AD_Ref_ListInput LayoutType() {
+	public ForeignEntityInput LayoutType() {
 		return mLayoutType;
 	}
 }

@@ -114,7 +114,7 @@ input C_InvoiceLineInput {
 	A_Asset_Group: ForeignEntityInput
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	A_CapvsExp: AD_Ref_ListInput
+	A_CapvsExp: ForeignEntityInput
 	A_CreateAsset: Boolean
 	A_Processed: Boolean
 	# Organizational entity within tenant

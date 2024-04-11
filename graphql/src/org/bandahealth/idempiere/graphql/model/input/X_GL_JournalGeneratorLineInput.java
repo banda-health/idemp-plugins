@@ -24,11 +24,11 @@ import java.sql.ResultSet;
 public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implements I_GL_JournalGeneratorLineInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBPDimensionType;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_ElementValueCR;
 	private ForeignEntityInput mC_ElementValueDR;
 	private ForeignEntityInput mGL_JournalGenerator;
-	private I_AD_Ref_ListInput mBPDimensionType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -85,7 +85,7 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 	 * @param BPDimensionType Type of BP Dimension
 	 */
 	@JsonProperty("BPDimensionType")
-	public void setBPDimensionTypeInput(I_AD_Ref_ListInput BPDimensionType) {
+	public void setBPDimensionTypeInput(ForeignEntityInput BPDimensionType) {
 		this.mBPDimensionType = BPDimensionType;
 		if (BPDimensionType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -109,7 +109,7 @@ public class X_GL_JournalGeneratorLineInput extends MJournalGeneratorLine implem
 	 * @return Type of BP Dimension
 	 */
 	@JsonProperty("BPDimensionType")
-	public I_AD_Ref_ListInput BPDimensionType() {
+	public ForeignEntityInput BPDimensionType() {
 		return mBPDimensionType;
 	}
 

@@ -31,6 +31,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	private ForeignEntityInput mA_Asset;
 	private ForeignEntityInput mA_Asset_A;
 	private ForeignEntityInput mA_Asset_New_A;
+	private ForeignEntityInput mA_CapvsExp;
 	private ForeignEntityInput mA_Depreciation_A;
 	private ForeignEntityInput mA_Depreciation_New_A;
 	private ForeignEntityInput mA_Disposal_Loss_A;
@@ -39,10 +40,9 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	private ForeignEntityInput mA_Disposal_Revenue_New_A;
 	private ForeignEntityInput mC_AcctSchema;
 	private ForeignEntityInput mC_Period;
-	private I_AD_Ref_ListInput mA_CapvsExp;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -292,7 +292,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @param A_CapvsExp Capital/Expense
 	 */
 	@JsonProperty("A_CapvsExp")
-	public void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp) {
+	public void setA_CapvsExpInput(ForeignEntityInput A_CapvsExp) {
 		this.mA_CapvsExp = A_CapvsExp;
 		if (A_CapvsExp != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -316,7 +316,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @return Capital/Expense
 	 */
 	@JsonProperty("A_CapvsExp")
-	public I_AD_Ref_ListInput A_CapvsExp() {
+	public ForeignEntityInput A_CapvsExp() {
 		return mA_CapvsExp;
 	}
 
@@ -713,7 +713,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -737,7 +737,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -747,7 +747,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -771,7 +771,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -792,7 +792,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -816,7 +816,7 @@ public class X_A_Asset_TransferInput extends MAssetTransfer implements I_A_Asset
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

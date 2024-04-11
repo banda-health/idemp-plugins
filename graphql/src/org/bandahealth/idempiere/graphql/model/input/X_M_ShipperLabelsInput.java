@@ -23,9 +23,9 @@ import java.sql.ResultSet;
 public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_ShipperLabelsInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mLabelPrintMethod;
 	private ForeignEntityInput mM_Shipper;
 	private ForeignEntityInput mM_ShipperLabelsCfg;
-	private I_AD_Ref_ListInput mLabelPrintMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -82,7 +82,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	 * @param LabelPrintMethod Label Print Method
 	 */
 	@JsonProperty("LabelPrintMethod")
-	public void setLabelPrintMethodInput(I_AD_Ref_ListInput LabelPrintMethod) {
+	public void setLabelPrintMethodInput(ForeignEntityInput LabelPrintMethod) {
 		this.mLabelPrintMethod = LabelPrintMethod;
 		if (LabelPrintMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -106,7 +106,7 @@ public class X_M_ShipperLabelsInput extends MShipperLabels implements I_M_Shippe
 	 * @return Label Print Method
 	 */
 	@JsonProperty("LabelPrintMethod")
-	public I_AD_Ref_ListInput LabelPrintMethod() {
+	public ForeignEntityInput LabelPrintMethod() {
 		return mLabelPrintMethod;
 	}
 

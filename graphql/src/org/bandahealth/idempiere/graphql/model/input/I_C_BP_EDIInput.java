@@ -71,14 +71,14 @@ public interface I_C_BP_EDIInput extends I_C_BP_EDI {
 	 *
 	 * @param EDIType EDIType
 	 */
-	void setEDITypeInput(I_AD_Ref_ListInput EDIType);
+	void setEDITypeInput(ForeignEntityInput EDIType);
 
 	/**
 	 * Get EDIType.
 	 *
 	 * @return EDIType
 	 */
-	I_AD_Ref_ListInput EDIType();
+	ForeignEntityInput EDIType();
 
 	/**
 	 * Set M_Warehouse.

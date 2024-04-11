@@ -57,14 +57,14 @@ public interface I_T_BOMLineInput extends I_T_BOMLine {
 	 *
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
+	void setCostingMethodInput(ForeignEntityInput CostingMethod);
 
 	/**
 	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput CostingMethod();
+	ForeignEntityInput CostingMethod();
 
 	/**
 	 * Set M_CostElement.

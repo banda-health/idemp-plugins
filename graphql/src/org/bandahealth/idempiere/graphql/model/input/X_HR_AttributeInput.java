@@ -31,13 +31,13 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Rule;
 	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mColumnType;
 	private ForeignEntityInput mHR_Attribute_A;
 	private ForeignEntityInput mHR_Concept;
 	private ForeignEntityInput mHR_Department;
 	private ForeignEntityInput mHR_Employee;
 	private ForeignEntityInput mHR_Job;
 	private ForeignEntityInput mHR_Payroll;
-	private I_AD_Ref_ListInput mColumnType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -162,7 +162,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	 * @param ColumnType Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public void setColumnTypeInput(I_AD_Ref_ListInput ColumnType) {
+	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
 		this.mColumnType = ColumnType;
 		if (ColumnType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -186,7 +186,7 @@ public class X_HR_AttributeInput extends X_HR_Attribute implements I_HR_Attribut
 	 * @return Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public I_AD_Ref_ListInput ColumnType() {
+	public ForeignEntityInput ColumnType() {
 		return mColumnType;
 	}
 

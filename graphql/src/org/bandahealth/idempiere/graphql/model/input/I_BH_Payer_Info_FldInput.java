@@ -57,12 +57,12 @@ public interface I_BH_Payer_Info_FldInput extends I_BH_Payer_Info_Fld {
 	 *
 	 * @param BH_PayerInfoFieldDataType BH_PayerInfoFieldDataType
 	 */
-	void setBH_PayerInfoFieldDataTypeInput(I_AD_Ref_ListInput BH_PayerInfoFieldDataType);
+	void setBH_PayerInfoFieldDataTypeInput(ForeignEntityInput BH_PayerInfoFieldDataType);
 
 	/**
 	 * Get BH_PayerInfoFieldDataType.
 	 *
 	 * @return BH_PayerInfoFieldDataType
 	 */
-	I_AD_Ref_ListInput BH_PayerInfoFieldDataType();
+	ForeignEntityInput BH_PayerInfoFieldDataType();
 }

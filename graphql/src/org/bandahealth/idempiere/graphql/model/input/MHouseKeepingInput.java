@@ -11,7 +11,7 @@ public class MHouseKeepingInput extends X_AD_HouseKeepingInput {
 	 * @param UUID The AD_HouseKeeping_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MHouseKeepingInput(@JsonProperty("UUID") String UUID) {
+	public MHouseKeepingInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

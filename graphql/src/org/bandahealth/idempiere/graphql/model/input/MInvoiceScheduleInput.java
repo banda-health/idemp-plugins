@@ -11,7 +11,7 @@ public class MInvoiceScheduleInput extends X_C_InvoiceScheduleInput {
 	 * @param UUID The C_InvoiceSchedule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInvoiceScheduleInput(@JsonProperty("UUID") String UUID) {
+	public MInvoiceScheduleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

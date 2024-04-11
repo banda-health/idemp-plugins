@@ -197,42 +197,42 @@ public interface I_C_ProjectInput extends I_C_Project {
 	 *
 	 * @param ProjectCategory Project Category
 	 */
-	void setProjectCategoryInput(I_AD_Ref_ListInput ProjectCategory);
+	void setProjectCategoryInput(ForeignEntityInput ProjectCategory);
 
 	/**
 	 * Get ProjectCategory.
 	 *
 	 * @return Project Category
 	 */
-	I_AD_Ref_ListInput ProjectCategory();
+	ForeignEntityInput ProjectCategory();
 
 	/**
 	 * Set ProjectLineLevel.
 	 *
 	 * @param ProjectLineLevel Project Line Level
 	 */
-	void setProjectLineLevelInput(I_AD_Ref_ListInput ProjectLineLevel);
+	void setProjectLineLevelInput(ForeignEntityInput ProjectLineLevel);
 
 	/**
 	 * Get ProjectLineLevel.
 	 *
 	 * @return Project Line Level
 	 */
-	I_AD_Ref_ListInput ProjectLineLevel();
+	ForeignEntityInput ProjectLineLevel();
 
 	/**
 	 * Set ProjInvoiceRule.
 	 *
 	 * @param ProjInvoiceRule Invoice Rule for the project
 	 */
-	void setProjInvoiceRuleInput(I_AD_Ref_ListInput ProjInvoiceRule);
+	void setProjInvoiceRuleInput(ForeignEntityInput ProjInvoiceRule);
 
 	/**
 	 * Get ProjInvoiceRule.
 	 *
 	 * @return Invoice Rule for the project
 	 */
-	I_AD_Ref_ListInput ProjInvoiceRule();
+	ForeignEntityInput ProjInvoiceRule();
 
 	/**
 	 * Set SalesRep.

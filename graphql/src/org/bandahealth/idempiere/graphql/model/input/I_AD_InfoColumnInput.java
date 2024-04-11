@@ -141,12 +141,12 @@ public interface I_AD_InfoColumnInput extends I_AD_InfoColumn {
 	 *
 	 * @param QueryOperator Operator for database query
 	 */
-	void setQueryOperatorInput(I_AD_Ref_ListInput QueryOperator);
+	void setQueryOperatorInput(ForeignEntityInput QueryOperator);
 
 	/**
 	 * Get QueryOperator.
 	 *
 	 * @return Operator for database query
 	 */
-	I_AD_Ref_ListInput QueryOperator();
+	ForeignEntityInput QueryOperator();
 }

@@ -49,7 +49,7 @@ input AD_SysConfigInput {
 	AD_Org: ForeignEntityInput
 	UU: ID
 	# Configuration Level for this parameter
-	ConfigurationLevel: AD_Ref_ListInput
+	ConfigurationLevel: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

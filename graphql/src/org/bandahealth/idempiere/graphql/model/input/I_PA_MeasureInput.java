@@ -43,28 +43,28 @@ public interface I_PA_MeasureInput extends I_PA_Measure {
 	 *
 	 * @param MeasureDataType Type of data - Status or in Time
 	 */
-	void setMeasureDataTypeInput(I_AD_Ref_ListInput MeasureDataType);
+	void setMeasureDataTypeInput(ForeignEntityInput MeasureDataType);
 
 	/**
 	 * Get MeasureDataType.
 	 *
 	 * @return Type of data - Status or in Time
 	 */
-	I_AD_Ref_ListInput MeasureDataType();
+	ForeignEntityInput MeasureDataType();
 
 	/**
 	 * Set MeasureType.
 	 *
 	 * @param MeasureType Determines how the actual performance is derived
 	 */
-	void setMeasureTypeInput(I_AD_Ref_ListInput MeasureType);
+	void setMeasureTypeInput(ForeignEntityInput MeasureType);
 
 	/**
 	 * Get MeasureType.
 	 *
 	 * @return Determines how the actual performance is derived
 	 */
-	I_AD_Ref_ListInput MeasureType();
+	ForeignEntityInput MeasureType();
 
 	/**
 	 * Set PA_Benchmark.

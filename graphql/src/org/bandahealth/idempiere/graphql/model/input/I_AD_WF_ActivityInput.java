@@ -141,12 +141,12 @@ public interface I_AD_WF_ActivityInput extends I_AD_WF_Activity {
 	 *
 	 * @param WFState State of the execution of the workflow
 	 */
-	void setWFStateInput(I_AD_Ref_ListInput WFState);
+	void setWFStateInput(ForeignEntityInput WFState);
 
 	/**
 	 * Get WFState.
 	 *
 	 * @return State of the execution of the workflow
 	 */
-	I_AD_Ref_ListInput WFState();
+	ForeignEntityInput WFState();
 }

@@ -11,7 +11,7 @@ public class MLanguageInput extends X_AD_LanguageInput {
 	 * @param UUID The AD_Language_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLanguageInput(@JsonProperty("UUID") String UUID) {
+	public MLanguageInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

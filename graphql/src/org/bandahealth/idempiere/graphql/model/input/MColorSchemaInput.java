@@ -11,7 +11,7 @@ public class MColorSchemaInput extends X_PA_ColorSchemaInput {
 	 * @param UUID The PA_ColorSchema_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MColorSchemaInput(@JsonProperty("UUID") String UUID) {
+	public MColorSchemaInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

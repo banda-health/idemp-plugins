@@ -71,40 +71,40 @@ public interface I_AD_BroadcastMessageInput extends I_AD_BroadcastMessage {
 	 *
 	 * @param BroadcastFrequency How Many Times Message Should be Broadcasted
 	 */
-	void setBroadcastFrequencyInput(I_AD_Ref_ListInput BroadcastFrequency);
+	void setBroadcastFrequencyInput(ForeignEntityInput BroadcastFrequency);
 
 	/**
 	 * Get BroadcastFrequency.
 	 *
 	 * @return How Many Times Message Should be Broadcasted
 	 */
-	I_AD_Ref_ListInput BroadcastFrequency();
+	ForeignEntityInput BroadcastFrequency();
 
 	/**
 	 * Set BroadcastType.
 	 *
 	 * @param BroadcastType Type of Broadcast
 	 */
-	void setBroadcastTypeInput(I_AD_Ref_ListInput BroadcastType);
+	void setBroadcastTypeInput(ForeignEntityInput BroadcastType);
 
 	/**
 	 * Get BroadcastType.
 	 *
 	 * @return Type of Broadcast
 	 */
-	I_AD_Ref_ListInput BroadcastType();
+	ForeignEntityInput BroadcastType();
 
 	/**
 	 * Set Target.
 	 *
 	 * @param Target Target tenant
 	 */
-	void setTargetInput(I_AD_Ref_ListInput Target);
+	void setTargetInput(ForeignEntityInput Target);
 
 	/**
 	 * Get Target.
 	 *
 	 * @return Target tenant
 	 */
-	I_AD_Ref_ListInput Target();
+	ForeignEntityInput Target();
 }

@@ -11,7 +11,7 @@ public class MLdapAccessInput extends X_AD_LdapAccessInput {
 	 * @param UUID The AD_LdapAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLdapAccessInput(@JsonProperty("UUID") String UUID) {
+	public MLdapAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

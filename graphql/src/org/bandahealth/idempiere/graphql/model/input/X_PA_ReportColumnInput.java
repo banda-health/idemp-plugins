@@ -40,19 +40,19 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	private ForeignEntityInput mC_Location;
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_SalesRegion;
+	private ForeignEntityInput mCalculationType;
+	private ForeignEntityInput mColumnType;
+	private ForeignEntityInput mCurrencyType;
+	private ForeignEntityInput mElementType;
+	private ForeignEntityInput mFactor;
 	private ForeignEntityInput mGL_Budget;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mOper_1;
 	private ForeignEntityInput mOper_2;
+	private ForeignEntityInput mPAAmountType;
+	private ForeignEntityInput mPAPeriodType;
 	private ForeignEntityInput mPA_ReportColumnSet;
-	private I_AD_Ref_ListInput mCalculationType;
-	private I_AD_Ref_ListInput mColumnType;
-	private I_AD_Ref_ListInput mCurrencyType;
-	private I_AD_Ref_ListInput mElementType;
-	private I_AD_Ref_ListInput mFactor;
-	private I_AD_Ref_ListInput mPAAmountType;
-	private I_AD_Ref_ListInput mPAPeriodType;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -381,7 +381,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param CalculationType Calculation
 	 */
 	@JsonProperty("CalculationType")
-	public void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType) {
+	public void setCalculationTypeInput(ForeignEntityInput CalculationType) {
 		this.mCalculationType = CalculationType;
 		if (CalculationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -405,7 +405,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return Calculation
 	 */
 	@JsonProperty("CalculationType")
-	public I_AD_Ref_ListInput CalculationType() {
+	public ForeignEntityInput CalculationType() {
 		return mCalculationType;
 	}
 
@@ -415,7 +415,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param ColumnType Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public void setColumnTypeInput(I_AD_Ref_ListInput ColumnType) {
+	public void setColumnTypeInput(ForeignEntityInput ColumnType) {
 		this.mColumnType = ColumnType;
 		if (ColumnType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -439,7 +439,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return Column Type
 	 */
 	@JsonProperty("ColumnType")
-	public I_AD_Ref_ListInput ColumnType() {
+	public ForeignEntityInput ColumnType() {
 		return mColumnType;
 	}
 
@@ -449,7 +449,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param CurrencyType Currency Type
 	 */
 	@JsonProperty("CurrencyType")
-	public void setCurrencyTypeInput(I_AD_Ref_ListInput CurrencyType) {
+	public void setCurrencyTypeInput(ForeignEntityInput CurrencyType) {
 		this.mCurrencyType = CurrencyType;
 		if (CurrencyType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -473,7 +473,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return Currency Type
 	 */
 	@JsonProperty("CurrencyType")
-	public I_AD_Ref_ListInput CurrencyType() {
+	public ForeignEntityInput CurrencyType() {
 		return mCurrencyType;
 	}
 
@@ -483,7 +483,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param ElementType Element Type (account or user defined)
 	 */
 	@JsonProperty("ElementType")
-	public void setElementTypeInput(I_AD_Ref_ListInput ElementType) {
+	public void setElementTypeInput(ForeignEntityInput ElementType) {
 		this.mElementType = ElementType;
 		if (ElementType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -507,7 +507,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return Element Type (account or user defined)
 	 */
 	@JsonProperty("ElementType")
-	public I_AD_Ref_ListInput ElementType() {
+	public ForeignEntityInput ElementType() {
 		return mElementType;
 	}
 
@@ -517,7 +517,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param Factor Scaling factor.
 	 */
 	@JsonProperty("Factor")
-	public void setFactorInput(I_AD_Ref_ListInput Factor) {
+	public void setFactorInput(ForeignEntityInput Factor) {
 		this.mFactor = Factor;
 		if (Factor != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -541,7 +541,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return Scaling factor.
 	 */
 	@JsonProperty("Factor")
-	public I_AD_Ref_ListInput Factor() {
+	public ForeignEntityInput Factor() {
 		return mFactor;
 	}
 
@@ -753,7 +753,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param PAAmountType PA Amount Type for reporting
 	 */
 	@JsonProperty("PAAmountType")
-	public void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType) {
+	public void setPAAmountTypeInput(ForeignEntityInput PAAmountType) {
 		this.mPAAmountType = PAAmountType;
 		if (PAAmountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -777,7 +777,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return PA Amount Type for reporting
 	 */
 	@JsonProperty("PAAmountType")
-	public I_AD_Ref_ListInput PAAmountType() {
+	public ForeignEntityInput PAAmountType() {
 		return mPAAmountType;
 	}
 
@@ -787,7 +787,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param PAPeriodType PA Period Type
 	 */
 	@JsonProperty("PAPeriodType")
-	public void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType) {
+	public void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType) {
 		this.mPAPeriodType = PAPeriodType;
 		if (PAPeriodType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -811,7 +811,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return PA Period Type
 	 */
 	@JsonProperty("PAPeriodType")
-	public I_AD_Ref_ListInput PAPeriodType() {
+	public ForeignEntityInput PAPeriodType() {
 		return mPAPeriodType;
 	}
 
@@ -821,7 +821,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -845,7 +845,7 @@ public class X_PA_ReportColumnInput extends MReportColumn implements I_PA_Report
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

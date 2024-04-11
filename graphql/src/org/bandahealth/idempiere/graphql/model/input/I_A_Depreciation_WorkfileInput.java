@@ -57,14 +57,14 @@ public interface I_A_Depreciation_WorkfileInput extends I_A_Depreciation_Workfil
 	 *
 	 * @param A_Tip_Finantare Financing Type
 	 */
-	void setA_Tip_FinantareInput(I_AD_Ref_ListInput A_Tip_Finantare);
+	void setA_Tip_FinantareInput(ForeignEntityInput A_Tip_Finantare);
 
 	/**
 	 * Get A_Tip_Finantare.
 	 *
 	 * @return Financing Type
 	 */
-	I_AD_Ref_ListInput A_Tip_Finantare();
+	ForeignEntityInput A_Tip_Finantare();
 
 	/**
 	 * Set AD_Org.
@@ -99,12 +99,12 @@ public interface I_A_Depreciation_WorkfileInput extends I_A_Depreciation_Workfil
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

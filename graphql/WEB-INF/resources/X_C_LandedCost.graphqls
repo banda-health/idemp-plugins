@@ -56,7 +56,7 @@ input C_LandedCostInput {
 	# Optional short description of the record
 	Description: String
 	# Landed Cost Distribution
-	LandedCostDistribution: AD_Ref_ListInput
+	LandedCostDistribution: ForeignEntityInput
 	# Product Cost Element
 	M_CostElement: ForeignEntityInput
 	# Material Shipment Document

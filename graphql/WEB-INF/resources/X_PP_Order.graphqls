@@ -180,9 +180,9 @@ input PP_OrderInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	FloatAfter: BigDecimal
@@ -217,7 +217,7 @@ input PP_OrderInput {
 	# BOM & Formula
 	PP_Product_BOM: ForeignEntityInput
 	# Priority of a document
-	PriorityRule: AD_Ref_ListInput
+	PriorityRule: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

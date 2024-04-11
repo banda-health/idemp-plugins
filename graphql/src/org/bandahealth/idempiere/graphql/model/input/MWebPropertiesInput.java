@@ -11,7 +11,7 @@ public class MWebPropertiesInput extends X_U_Web_PropertiesInput {
 	 * @param UUID The U_Web_Properties_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MWebPropertiesInput(@JsonProperty("UUID") String UUID) {
+	public MWebPropertiesInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

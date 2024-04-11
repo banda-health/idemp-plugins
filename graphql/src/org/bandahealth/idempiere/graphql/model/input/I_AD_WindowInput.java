@@ -85,12 +85,12 @@ public interface I_AD_WindowInput extends I_AD_Window {
 	 *
 	 * @param WindowType Type or classification of a Window
 	 */
-	void setWindowTypeInput(I_AD_Ref_ListInput WindowType);
+	void setWindowTypeInput(ForeignEntityInput WindowType);
 
 	/**
 	 * Get WindowType.
 	 *
 	 * @return Type or classification of a Window
 	 */
-	I_AD_Ref_ListInput WindowType();
+	ForeignEntityInput WindowType();
 }

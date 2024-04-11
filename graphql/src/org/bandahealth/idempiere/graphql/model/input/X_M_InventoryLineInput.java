@@ -28,12 +28,12 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Charge;
+	private ForeignEntityInput mInventoryType;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_Inventory;
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mReversalLine;
-	private I_AD_Ref_ListInput mInventoryType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -135,7 +135,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	 * @param InventoryType Type of inventory difference
 	 */
 	@JsonProperty("InventoryType")
-	public void setInventoryTypeInput(I_AD_Ref_ListInput InventoryType) {
+	public void setInventoryTypeInput(ForeignEntityInput InventoryType) {
 		this.mInventoryType = InventoryType;
 		if (InventoryType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -159,7 +159,7 @@ public class X_M_InventoryLineInput extends MInventoryLine implements I_M_Invent
 	 * @return Type of inventory difference
 	 */
 	@JsonProperty("InventoryType")
-	public I_AD_Ref_ListInput InventoryType() {
+	public ForeignEntityInput InventoryType() {
 		return mInventoryType;
 	}
 

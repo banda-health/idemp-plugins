@@ -11,7 +11,7 @@ public class MActivityInput extends X_C_ActivityInput {
 	 * @param UUID The C_Activity_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MActivityInput(@JsonProperty("UUID") String UUID) {
+	public MActivityInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

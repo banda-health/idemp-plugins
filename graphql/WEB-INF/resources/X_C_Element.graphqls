@@ -57,7 +57,7 @@ input C_ElementInput {
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)
-	ElementType: AD_Ref_ListInput
+	ElementType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# All transactions within an element value must balance (e.g. cost centers)

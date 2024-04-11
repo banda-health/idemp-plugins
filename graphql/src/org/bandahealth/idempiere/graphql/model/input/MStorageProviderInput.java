@@ -11,7 +11,7 @@ public class MStorageProviderInput extends X_AD_StorageProviderInput {
 	 * @param UUID The AD_StorageProvider_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStorageProviderInput(@JsonProperty("UUID") String UUID) {
+	public MStorageProviderInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

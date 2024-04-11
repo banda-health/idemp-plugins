@@ -81,7 +81,7 @@ input AD_UserDef_InfoInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Show the dashlet in the dashboard
-	IsShowInDashboard: AD_Ref_ListInput
+	IsShowInDashboard: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Purchase Order Window

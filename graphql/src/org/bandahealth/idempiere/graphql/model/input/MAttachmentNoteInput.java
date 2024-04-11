@@ -11,7 +11,7 @@ public class MAttachmentNoteInput extends X_AD_AttachmentNoteInput {
 	 * @param UUID The AD_AttachmentNote_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAttachmentNoteInput(@JsonProperty("UUID") String UUID) {
+	public MAttachmentNoteInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

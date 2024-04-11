@@ -56,7 +56,7 @@ input AD_StorageProviderInput {
 	IsActive: Boolean
 	# Default value
 	IsDefault: Boolean
-	Method: AD_Ref_ListInput
+	Method: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Password of any length (case sensitive)

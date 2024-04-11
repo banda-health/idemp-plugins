@@ -13,7 +13,7 @@ public class MOrderInput extends X_C_OrderInput {
 	 * @param UUID The C_Order_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOrderInput(@JsonProperty("UUID") String UUID) {
+	public MOrderInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 

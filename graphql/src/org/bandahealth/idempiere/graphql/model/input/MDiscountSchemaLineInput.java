@@ -11,7 +11,7 @@ public class MDiscountSchemaLineInput extends X_M_DiscountSchemaLineInput {
 	 * @param UUID The M_DiscountSchemaLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDiscountSchemaLineInput(@JsonProperty("UUID") String UUID) {
+	public MDiscountSchemaLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

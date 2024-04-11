@@ -57,14 +57,14 @@ public interface I_HR_AttributeInput extends I_HR_Attribute {
 	 *
 	 * @param ColumnType ColumnType
 	 */
-	void setColumnTypeInput(I_AD_Ref_ListInput ColumnType);
+	void setColumnTypeInput(ForeignEntityInput ColumnType);
 
 	/**
 	 * Get ColumnType.
 	 *
 	 * @return ColumnType
 	 */
-	I_AD_Ref_ListInput ColumnType();
+	ForeignEntityInput ColumnType();
 
 	/**
 	 * Set HR_Attribute_A.

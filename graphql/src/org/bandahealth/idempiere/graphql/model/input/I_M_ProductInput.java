@@ -338,14 +338,14 @@ public interface I_M_ProductInput extends I_M_Product {
 	 *
 	 * @param ProductType Type of product
 	 */
-	void setProductTypeInput(I_AD_Ref_ListInput ProductType);
+	void setProductTypeInput(ForeignEntityInput ProductType);
 
 	/**
 	 * Get ProductType.
 	 *
 	 * @return Type of product
 	 */
-	I_AD_Ref_ListInput ProductType();
+	ForeignEntityInput ProductType();
 
 	/**
 	 * Set R_MailText.

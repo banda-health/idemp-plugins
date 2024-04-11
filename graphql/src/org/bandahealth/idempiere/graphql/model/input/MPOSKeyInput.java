@@ -11,7 +11,7 @@ public class MPOSKeyInput extends X_C_POSKeyInput {
 	 * @param UUID The C_POSKey_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPOSKeyInput(@JsonProperty("UUID") String UUID) {
+	public MPOSKeyInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

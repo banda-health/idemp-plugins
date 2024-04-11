@@ -11,7 +11,7 @@ public class MBHBPSpecificPayerInfoInput extends X_BH_BP_Specific_Payer_InfoInpu
 	 * @param UUID The BH_BP_Specific_Payer_Info_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHBPSpecificPayerInfoInput(@JsonProperty("UUID") String UUID) {
+	public MBHBPSpecificPayerInfoInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -26,19 +26,19 @@ import java.sql.ResultSet;
 public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset_DisposedInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mA_Activation_Method;
 	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mA_Asset_Status;
 	private ForeignEntityInput mA_Asset_Trade;
+	private ForeignEntityInput mA_Disposed_Method;
+	private ForeignEntityInput mA_Disposed_Reason;
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_InvoiceLine;
 	private ForeignEntityInput mC_Period;
-	private I_AD_Ref_ListInput mA_Activation_Method;
-	private I_AD_Ref_ListInput mA_Asset_Status;
-	private I_AD_Ref_ListInput mA_Disposed_Method;
-	private I_AD_Ref_ListInput mA_Disposed_Reason;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -58,7 +58,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param A_Activation_Method Activation Method
 	 */
 	@JsonProperty("A_Activation_Method")
-	public void setA_Activation_MethodInput(I_AD_Ref_ListInput A_Activation_Method) {
+	public void setA_Activation_MethodInput(ForeignEntityInput A_Activation_Method) {
 		this.mA_Activation_Method = A_Activation_Method;
 		if (A_Activation_Method != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -82,7 +82,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Activation Method
 	 */
 	@JsonProperty("A_Activation_Method")
-	public I_AD_Ref_ListInput A_Activation_Method() {
+	public ForeignEntityInput A_Activation_Method() {
 		return mA_Activation_Method;
 	}
 	/**
@@ -155,7 +155,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param A_Asset_Status Asset Status
 	 */
 	@JsonProperty("A_Asset_Status")
-	public void setA_Asset_StatusInput(I_AD_Ref_ListInput A_Asset_Status) {
+	public void setA_Asset_StatusInput(ForeignEntityInput A_Asset_Status) {
 		this.mA_Asset_Status = A_Asset_Status;
 		if (A_Asset_Status != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -179,7 +179,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Asset Status
 	 */
 	@JsonProperty("A_Asset_Status")
-	public I_AD_Ref_ListInput A_Asset_Status() {
+	public ForeignEntityInput A_Asset_Status() {
 		return mA_Asset_Status;
 	}
 
@@ -223,7 +223,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param A_Disposed_Method Disposed Method
 	 */
 	@JsonProperty("A_Disposed_Method")
-	public void setA_Disposed_MethodInput(I_AD_Ref_ListInput A_Disposed_Method) {
+	public void setA_Disposed_MethodInput(ForeignEntityInput A_Disposed_Method) {
 		this.mA_Disposed_Method = A_Disposed_Method;
 		if (A_Disposed_Method != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -247,7 +247,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Disposed Method
 	 */
 	@JsonProperty("A_Disposed_Method")
-	public I_AD_Ref_ListInput A_Disposed_Method() {
+	public ForeignEntityInput A_Disposed_Method() {
 		return mA_Disposed_Method;
 	}
 
@@ -257,7 +257,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param A_Disposed_Reason Disposed Reason
 	 */
 	@JsonProperty("A_Disposed_Reason")
-	public void setA_Disposed_ReasonInput(I_AD_Ref_ListInput A_Disposed_Reason) {
+	public void setA_Disposed_ReasonInput(ForeignEntityInput A_Disposed_Reason) {
 		this.mA_Disposed_Reason = A_Disposed_Reason;
 		if (A_Disposed_Reason != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -281,7 +281,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return Disposed Reason
 	 */
 	@JsonProperty("A_Disposed_Reason")
-	public I_AD_Ref_ListInput A_Disposed_Reason() {
+	public ForeignEntityInput A_Disposed_Reason() {
 		return mA_Disposed_Reason;
 	}
 
@@ -461,7 +461,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -485,7 +485,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -495,7 +495,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -519,7 +519,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -551,7 +551,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -575,7 +575,7 @@ public class X_A_Asset_DisposedInput extends MAssetDisposed implements I_A_Asset
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

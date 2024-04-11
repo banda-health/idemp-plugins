@@ -20,8 +20,8 @@ import java.sql.ResultSet;
  */
 public class X_AD_AuthorizationProviderInput extends MAuthorizationProvider implements I_AD_AuthorizationProviderInput {
 
+	private ForeignEntityInput mAD_AuthorizationType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mAD_AuthorizationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -70,7 +70,7 @@ public class X_AD_AuthorizationProviderInput extends MAuthorizationProvider impl
 	 * @param AD_AuthorizationType Authorization Type
 	 */
 	@JsonProperty("AD_AuthorizationType")
-	public void setAD_AuthorizationTypeInput(I_AD_Ref_ListInput AD_AuthorizationType) {
+	public void setAD_AuthorizationTypeInput(ForeignEntityInput AD_AuthorizationType) {
 		this.mAD_AuthorizationType = AD_AuthorizationType;
 		if (AD_AuthorizationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -94,7 +94,7 @@ public class X_AD_AuthorizationProviderInput extends MAuthorizationProvider impl
 	 * @return Authorization Type
 	 */
 	@JsonProperty("AD_AuthorizationType")
-	public I_AD_Ref_ListInput AD_AuthorizationType() {
+	public ForeignEntityInput AD_AuthorizationType() {
 		return mAD_AuthorizationType;
 	}
 

@@ -113,14 +113,14 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	 *
 	 * @param A_Depreciation_Manual_Period A_Depreciation_Manual_Period
 	 */
-	void setA_Depreciation_Manual_PeriodInput(I_AD_Ref_ListInput A_Depreciation_Manual_Period);
+	void setA_Depreciation_Manual_PeriodInput(ForeignEntityInput A_Depreciation_Manual_Period);
 
 	/**
 	 * Get A_Depreciation_Manual_Period.
 	 *
 	 * @return A_Depreciation_Manual_Period
 	 */
-	I_AD_Ref_ListInput A_Depreciation_Manual_Period();
+	ForeignEntityInput A_Depreciation_Manual_Period();
 
 	/**
 	 * Set A_Depreciation_Table_Header.
@@ -183,14 +183,14 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	 *
 	 * @param A_Reval_Cal_Method A_Reval_Cal_Method
 	 */
-	void setA_Reval_Cal_MethodInput(I_AD_Ref_ListInput A_Reval_Cal_Method);
+	void setA_Reval_Cal_MethodInput(ForeignEntityInput A_Reval_Cal_Method);
 
 	/**
 	 * Get A_Reval_Cal_Method.
 	 *
 	 * @return A_Reval_Cal_Method
 	 */
-	I_AD_Ref_ListInput A_Reval_Cal_Method();
+	ForeignEntityInput A_Reval_Cal_Method();
 
 	/**
 	 * Set AD_Org.
@@ -295,26 +295,26 @@ public interface I_A_Asset_ChangeInput extends I_A_Asset_Change {
 	 *
 	 * @param ChangeType ChangeType
 	 */
-	void setChangeTypeInput(I_AD_Ref_ListInput ChangeType);
+	void setChangeTypeInput(ForeignEntityInput ChangeType);
 
 	/**
 	 * Get ChangeType.
 	 *
 	 * @return ChangeType
 	 */
-	I_AD_Ref_ListInput ChangeType();
+	ForeignEntityInput ChangeType();
 
 	/**
 	 * Set PostingType.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

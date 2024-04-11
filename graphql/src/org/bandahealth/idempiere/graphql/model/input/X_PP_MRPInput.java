@@ -41,19 +41,19 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	private ForeignEntityInput mC_OrderLine;
 	private ForeignEntityInput mDD_Order;
 	private ForeignEntityInput mDD_OrderLine;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mM_Forecast;
 	private ForeignEntityInput mM_ForecastLine;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Requisition;
 	private ForeignEntityInput mM_RequisitionLine;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mOrderType;
 	private ForeignEntityInput mPP_Order;
 	private ForeignEntityInput mPP_Order_BOMLine;
 	private ForeignEntityInput mPlanner;
 	private ForeignEntityInput mS_Resource;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mOrderType;
-	private I_AD_Ref_ListInput mTypeMRP;
+	private ForeignEntityInput mTypeMRP;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -280,7 +280,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -304,7 +304,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 
@@ -518,7 +518,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 * @param OrderType Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
 	 */
 	@JsonProperty("OrderType")
-	public void setOrderTypeInput(I_AD_Ref_ListInput OrderType) {
+	public void setOrderTypeInput(ForeignEntityInput OrderType) {
 		this.mOrderType = OrderType;
 		if (OrderType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -542,7 +542,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 * @return Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
 	 */
 	@JsonProperty("OrderType")
-	public I_AD_Ref_ListInput OrderType() {
+	public ForeignEntityInput OrderType() {
 		return mOrderType;
 	}
 
@@ -717,7 +717,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 * @param TypeMRP MRP Type determines whether a record is demand or supply
 	 */
 	@JsonProperty("TypeMRP")
-	public void setTypeMRPInput(I_AD_Ref_ListInput TypeMRP) {
+	public void setTypeMRPInput(ForeignEntityInput TypeMRP) {
 		this.mTypeMRP = TypeMRP;
 		if (TypeMRP != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -741,7 +741,7 @@ public class X_PP_MRPInput extends X_PP_MRP implements I_PP_MRPInput {
 	 * @return MRP Type determines whether a record is demand or supply
 	 */
 	@JsonProperty("TypeMRP")
-	public I_AD_Ref_ListInput TypeMRP() {
+	public ForeignEntityInput TypeMRP() {
 		return mTypeMRP;
 	}
 }

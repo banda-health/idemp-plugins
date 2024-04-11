@@ -43,12 +43,12 @@ public interface I_C_RevenueRecognitionInput extends I_C_RevenueRecognition {
 	 *
 	 * @param RecognitionFrequency RecognitionFrequency
 	 */
-	void setRecognitionFrequencyInput(I_AD_Ref_ListInput RecognitionFrequency);
+	void setRecognitionFrequencyInput(ForeignEntityInput RecognitionFrequency);
 
 	/**
 	 * Get RecognitionFrequency.
 	 *
 	 * @return RecognitionFrequency
 	 */
-	I_AD_Ref_ListInput RecognitionFrequency();
+	ForeignEntityInput RecognitionFrequency();
 }

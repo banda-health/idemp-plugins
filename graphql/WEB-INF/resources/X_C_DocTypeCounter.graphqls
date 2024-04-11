@@ -60,7 +60,7 @@ input C_DocTypeCounterInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Create Counter Document

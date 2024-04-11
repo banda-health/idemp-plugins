@@ -141,82 +141,82 @@ public interface I_AD_PrintFormatItemInput extends I_AD_PrintFormatItem {
 	 *
 	 * @param BarcodeType Type of barcode
 	 */
-	void setBarcodeTypeInput(I_AD_Ref_ListInput BarcodeType);
+	void setBarcodeTypeInput(ForeignEntityInput BarcodeType);
 
 	/**
 	 * Get BarcodeType.
 	 *
 	 * @return Type of barcode
 	 */
-	I_AD_Ref_ListInput BarcodeType();
+	ForeignEntityInput BarcodeType();
 
 	/**
 	 * Set FieldAlignmentType.
 	 *
 	 * @param FieldAlignmentType Field Text Alignment
 	 */
-	void setFieldAlignmentTypeInput(I_AD_Ref_ListInput FieldAlignmentType);
+	void setFieldAlignmentTypeInput(ForeignEntityInput FieldAlignmentType);
 
 	/**
 	 * Get FieldAlignmentType.
 	 *
 	 * @return Field Text Alignment
 	 */
-	I_AD_Ref_ListInput FieldAlignmentType();
+	ForeignEntityInput FieldAlignmentType();
 
 	/**
 	 * Set LineAlignmentType.
 	 *
 	 * @param LineAlignmentType Line Alignment
 	 */
-	void setLineAlignmentTypeInput(I_AD_Ref_ListInput LineAlignmentType);
+	void setLineAlignmentTypeInput(ForeignEntityInput LineAlignmentType);
 
 	/**
 	 * Get LineAlignmentType.
 	 *
 	 * @return Line Alignment
 	 */
-	I_AD_Ref_ListInput LineAlignmentType();
+	ForeignEntityInput LineAlignmentType();
 
 	/**
 	 * Set PrintAreaType.
 	 *
 	 * @param PrintAreaType Print Area
 	 */
-	void setPrintAreaTypeInput(I_AD_Ref_ListInput PrintAreaType);
+	void setPrintAreaTypeInput(ForeignEntityInput PrintAreaType);
 
 	/**
 	 * Get PrintAreaType.
 	 *
 	 * @return Print Area
 	 */
-	I_AD_Ref_ListInput PrintAreaType();
+	ForeignEntityInput PrintAreaType();
 
 	/**
 	 * Set PrintFormatType.
 	 *
 	 * @param PrintFormatType Print Format Type
 	 */
-	void setPrintFormatTypeInput(I_AD_Ref_ListInput PrintFormatType);
+	void setPrintFormatTypeInput(ForeignEntityInput PrintFormatType);
 
 	/**
 	 * Get PrintFormatType.
 	 *
 	 * @return Print Format Type
 	 */
-	I_AD_Ref_ListInput PrintFormatType();
+	ForeignEntityInput PrintFormatType();
 
 	/**
 	 * Set ShapeType.
 	 *
 	 * @param ShapeType Type of the shape to be painted
 	 */
-	void setShapeTypeInput(I_AD_Ref_ListInput ShapeType);
+	void setShapeTypeInput(ForeignEntityInput ShapeType);
 
 	/**
 	 * Get ShapeType.
 	 *
 	 * @return Type of the shape to be painted
 	 */
-	I_AD_Ref_ListInput ShapeType();
+	ForeignEntityInput ShapeType();
 }

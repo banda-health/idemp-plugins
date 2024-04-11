@@ -11,7 +11,7 @@ public class MFieldGroupInput extends X_AD_FieldGroupInput {
 	 * @param UUID The AD_FieldGroup_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFieldGroupInput(@JsonProperty("UUID") String UUID) {
+	public MFieldGroupInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

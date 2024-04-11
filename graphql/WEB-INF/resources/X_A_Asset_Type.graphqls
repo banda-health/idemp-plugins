@@ -55,11 +55,11 @@ input A_Asset_TypeInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# This asset CAN be depreciated
-	IsDepreciable: AD_Ref_ListInput
+	IsDepreciable: ForeignEntityInput
 	# The asset is in the possession of the organization
-	IsInPosession: AD_Ref_ListInput
+	IsInPosession: ForeignEntityInput
 	# The asset is owned by the organization
-	IsOwned: AD_Ref_ListInput
+	IsOwned: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Search key for the record in the format required - must be unique

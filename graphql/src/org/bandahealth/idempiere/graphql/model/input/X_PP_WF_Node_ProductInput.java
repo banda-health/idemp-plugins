@@ -26,8 +26,8 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_WF_Node;
+	private ForeignEntityInput mConfigurationLevel;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mConfigurationLevel;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -118,7 +118,7 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	 * @param ConfigurationLevel Configuration Level for this parameter
 	 */
 	@JsonProperty("ConfigurationLevel")
-	public void setConfigurationLevelInput(I_AD_Ref_ListInput ConfigurationLevel) {
+	public void setConfigurationLevelInput(ForeignEntityInput ConfigurationLevel) {
 		this.mConfigurationLevel = ConfigurationLevel;
 		if (ConfigurationLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -142,7 +142,7 @@ public class X_PP_WF_Node_ProductInput extends X_PP_WF_Node_Product implements I
 	 * @return Configuration Level for this parameter
 	 */
 	@JsonProperty("ConfigurationLevel")
-	public I_AD_Ref_ListInput ConfigurationLevel() {
+	public ForeignEntityInput ConfigurationLevel() {
 		return mConfigurationLevel;
 	}
 

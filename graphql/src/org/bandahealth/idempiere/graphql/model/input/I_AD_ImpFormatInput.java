@@ -57,12 +57,12 @@ public interface I_AD_ImpFormatInput extends I_AD_ImpFormat {
 	 *
 	 * @param FormatType Format of the data
 	 */
-	void setFormatTypeInput(I_AD_Ref_ListInput FormatType);
+	void setFormatTypeInput(ForeignEntityInput FormatType);
 
 	/**
 	 * Get FormatType.
 	 *
 	 * @return Format of the data
 	 */
-	I_AD_Ref_ListInput FormatType();
+	ForeignEntityInput FormatType();
 }

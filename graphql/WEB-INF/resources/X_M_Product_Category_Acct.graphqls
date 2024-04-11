@@ -75,9 +75,9 @@ input M_Product_Category_AcctInput {
 	# Rules for accounting
 	C_AcctSchema: ForeignEntityInput
 	# The lowest level to accumulate Costing Information
-	CostingLevel: AD_Ref_ListInput
+	CostingLevel: ForeignEntityInput
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_ListInput
+	CostingMethod: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	UU: ID

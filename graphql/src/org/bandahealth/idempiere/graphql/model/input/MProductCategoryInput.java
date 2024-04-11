@@ -11,7 +11,7 @@ public class MProductCategoryInput extends X_M_Product_CategoryInput {
 	 * @param UUID The M_Product_Category_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProductCategoryInput(@JsonProperty("UUID") String UUID) {
+	public MProductCategoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

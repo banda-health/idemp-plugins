@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_AD_Package_Imp_ProcInput extends X_AD_Package_Imp_Proc implements I_AD_Package_Imp_ProcInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mAD_Package_Source_Type;
+	private ForeignEntityInput mAD_Package_Source_Type;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_AD_Package_Imp_ProcInput extends X_AD_Package_Imp_Proc implements
 	 * @param AD_Package_Source_Type Type of package source - file, ftp, webservice etc
 	 */
 	@JsonProperty("AD_Package_Source_Type")
-	public void setAD_Package_Source_TypeInput(I_AD_Ref_ListInput AD_Package_Source_Type) {
+	public void setAD_Package_Source_TypeInput(ForeignEntityInput AD_Package_Source_Type) {
 		this.mAD_Package_Source_Type = AD_Package_Source_Type;
 		if (AD_Package_Source_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_AD_Package_Imp_ProcInput extends X_AD_Package_Imp_Proc implements
 	 * @return Type of package source - file, ftp, webservice etc
 	 */
 	@JsonProperty("AD_Package_Source_Type")
-	public I_AD_Ref_ListInput AD_Package_Source_Type() {
+	public ForeignEntityInput AD_Package_Source_Type() {
 		return mAD_Package_Source_Type;
 	}
 }

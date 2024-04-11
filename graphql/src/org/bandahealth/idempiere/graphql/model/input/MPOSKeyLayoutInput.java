@@ -11,7 +11,7 @@ public class MPOSKeyLayoutInput extends X_C_POSKeyLayoutInput {
 	 * @param UUID The C_POSKeyLayout_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPOSKeyLayoutInput(@JsonProperty("UUID") String UUID) {
+	public MPOSKeyLayoutInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

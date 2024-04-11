@@ -24,10 +24,10 @@ import java.sql.ResultSet;
 public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_SubType;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_ChargeType;
 	private ForeignEntityInput mC_TaxCategory;
-	private I_AD_Ref_ListInput mBH_SubType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -84,7 +84,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @param BH_SubType Meant to be a sub-type of the charge type
 	 */
 	@JsonProperty("BH_SubType")
-	public void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType) {
+	public void setBH_SubTypeInput(ForeignEntityInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
 		if (BH_SubType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -108,7 +108,7 @@ public class X_C_ChargeInput extends MCharge_BH implements I_C_ChargeInput {
 	 * @return Meant to be a sub-type of the charge type
 	 */
 	@JsonProperty("BH_SubType")
-	public I_AD_Ref_ListInput BH_SubType() {
+	public ForeignEntityInput BH_SubType() {
 		return mBH_SubType;
 	}
 

@@ -11,7 +11,7 @@ public class MUserBPAccessInput extends X_AD_UserBPAccessInput {
 	 * @param UUID The AD_UserBPAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserBPAccessInput(@JsonProperty("UUID") String UUID) {
+	public MUserBPAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

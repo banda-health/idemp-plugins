@@ -25,7 +25,7 @@ public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mParent_Column;
-	private I_AD_Ref_ListInput mTreeType;
+	private ForeignEntityInput mTreeType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -182,7 +182,7 @@ public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 	 * @param TreeType Element this tree is built on (i.e Product, Business Partner)
 	 */
 	@JsonProperty("TreeType")
-	public void setTreeTypeInput(I_AD_Ref_ListInput TreeType) {
+	public void setTreeTypeInput(ForeignEntityInput TreeType) {
 		this.mTreeType = TreeType;
 		if (get_ID() != 0) {
 			return;
@@ -209,7 +209,7 @@ public class X_AD_TreeInput extends MTree_BH implements I_AD_TreeInput {
 	 * @return Element this tree is built on (i.e Product, Business Partner)
 	 */
 	@JsonProperty("TreeType")
-	public I_AD_Ref_ListInput TreeType() {
+	public ForeignEntityInput TreeType() {
 		return mTreeType;
 	}
 }

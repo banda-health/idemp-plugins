@@ -32,8 +32,8 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_UserDef_Proc;
 	private ForeignEntityInput mAD_Val_Rule;
-	private I_AD_Ref_ListInput mIsDisplayed;
-	private I_AD_Ref_ListInput mIsMandatory;
+	private ForeignEntityInput mIsDisplayed;
+	private ForeignEntityInput mIsMandatory;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -326,7 +326,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	 * @param IsDisplayed Determines, if this field is displayed
 	 */
 	@JsonProperty("IsDisplayed")
-	public void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed) {
+	public void setIsDisplayedInput(ForeignEntityInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
 		if (IsDisplayed != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -350,7 +350,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	 * @return Determines, if this field is displayed
 	 */
 	@JsonProperty("IsDisplayed")
-	public I_AD_Ref_ListInput IsDisplayed() {
+	public ForeignEntityInput IsDisplayed() {
 		return mIsDisplayed;
 	}
 
@@ -360,7 +360,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	 * @param IsMandatory Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory) {
+	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -384,7 +384,7 @@ public class X_AD_UserDef_Proc_ParameterInput extends MUserDefProcParameter impl
 	 * @return Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public I_AD_Ref_ListInput IsMandatory() {
+	public ForeignEntityInput IsMandatory() {
 		return mIsMandatory;
 	}
 }

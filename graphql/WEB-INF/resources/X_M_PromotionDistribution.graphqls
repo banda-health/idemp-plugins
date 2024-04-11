@@ -50,16 +50,16 @@ input M_PromotionDistributionInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Quantity distribution sorting by unit price
-	DistributionSorting: AD_Ref_ListInput
+	DistributionSorting: ForeignEntityInput
 	# Type of quantity distribution calculation using comparison qty and order qty as operand
-	DistributionType: AD_Ref_ListInput
+	DistributionType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	M_Promotion: ForeignEntityInput
 	UU: ID
 	M_PromotionLine: ForeignEntityInput
 	# Compare Operation
-	Operation: AD_Ref_ListInput
+	Operation: ForeignEntityInput
 	# Quantity
 	Qty: BigDecimal
 	# Method of ordering records; lowest number comes first

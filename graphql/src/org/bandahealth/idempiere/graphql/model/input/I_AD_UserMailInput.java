@@ -57,14 +57,14 @@ public interface I_AD_UserMailInput extends I_AD_UserMail {
 	 *
 	 * @param IsDelivered IsDelivered
 	 */
-	void setIsDeliveredInput(I_AD_Ref_ListInput IsDelivered);
+	void setIsDeliveredInput(ForeignEntityInput IsDelivered);
 
 	/**
 	 * Get IsDelivered.
 	 *
 	 * @return IsDelivered
 	 */
-	I_AD_Ref_ListInput IsDelivered();
+	ForeignEntityInput IsDelivered();
 
 	/**
 	 * Set R_MailText.

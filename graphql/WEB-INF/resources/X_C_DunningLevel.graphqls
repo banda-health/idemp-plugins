@@ -97,7 +97,7 @@ input C_DunningLevelInput {
 	# Percentage interest to charge on overdue invoices
 	InterestPercent: BigDecimal
 	# Invoice Collection Status
-	InvoiceCollectionType: AD_Ref_ListInput
+	InvoiceCollectionType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Set the business partner to credit stop

@@ -11,7 +11,7 @@ public class MCityInput extends X_C_CityInput {
 	 * @param UUID The C_City_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCityInput(@JsonProperty("UUID") String UUID) {
+	public MCityInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

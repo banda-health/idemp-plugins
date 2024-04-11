@@ -25,7 +25,7 @@ public class X_AD_Table_AccessInput extends MTableAccess implements I_AD_Table_A
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mAccessTypeRule;
+	private ForeignEntityInput mAccessTypeRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -45,7 +45,7 @@ public class X_AD_Table_AccessInput extends MTableAccess implements I_AD_Table_A
 	 * @param AccessTypeRule The type of access for this rule
 	 */
 	@JsonProperty("AccessTypeRule")
-	public void setAccessTypeRuleInput(I_AD_Ref_ListInput AccessTypeRule) {
+	public void setAccessTypeRuleInput(ForeignEntityInput AccessTypeRule) {
 		this.mAccessTypeRule = AccessTypeRule;
 		if (get_ID() != 0) {
 			return;
@@ -72,7 +72,7 @@ public class X_AD_Table_AccessInput extends MTableAccess implements I_AD_Table_A
 	 * @return The type of access for this rule
 	 */
 	@JsonProperty("AccessTypeRule")
-	public I_AD_Ref_ListInput AccessTypeRule() {
+	public ForeignEntityInput AccessTypeRule() {
 		return mAccessTypeRule;
 	}
 

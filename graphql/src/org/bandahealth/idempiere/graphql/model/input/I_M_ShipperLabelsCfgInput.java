@@ -29,14 +29,14 @@ public interface I_M_ShipperLabelsCfgInput extends I_M_ShipperLabelsCfg {
 	 *
 	 * @param LabelPrintMethod LabelPrintMethod
 	 */
-	void setLabelPrintMethodInput(I_AD_Ref_ListInput LabelPrintMethod);
+	void setLabelPrintMethodInput(ForeignEntityInput LabelPrintMethod);
 
 	/**
 	 * Get LabelPrintMethod.
 	 *
 	 * @return LabelPrintMethod
 	 */
-	I_AD_Ref_ListInput LabelPrintMethod();
+	ForeignEntityInput LabelPrintMethod();
 
 	/**
 	 * Set M_ShipperCfg.

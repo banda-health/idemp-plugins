@@ -42,7 +42,7 @@ input BH_Encounter_Type_WindowInput {
 	AD_Org: ForeignEntityInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
-	BH_Encounter_Type: AD_Ref_ListInput
+	BH_Encounter_Type: ForeignEntityInput
 	UU: ID
 	# The record is active in the system
 	IsActive: Boolean

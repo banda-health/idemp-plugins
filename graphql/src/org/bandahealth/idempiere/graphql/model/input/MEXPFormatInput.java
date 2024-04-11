@@ -11,7 +11,7 @@ public class MEXPFormatInput extends X_EXP_FormatInput {
 	 * @param UUID The EXP_Format_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MEXPFormatInput(@JsonProperty("UUID") String UUID) {
+	public MEXPFormatInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -53,10 +53,10 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	private ForeignEntityInput mM_Production;
 	private ForeignEntityInput mM_ProductionLine;
 	private ForeignEntityInput mM_Transaction;
+	private ForeignEntityInput mMovementType;
 	private ForeignEntityInput mSearch_InOut;
 	private ForeignEntityInput mSearch_Invoice;
 	private ForeignEntityInput mSearch_Order;
-	private I_AD_Ref_ListInput mMovementType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -623,7 +623,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	 * @param MovementType Method of moving the inventory
 	 */
 	@JsonProperty("MovementType")
-	public void setMovementTypeInput(I_AD_Ref_ListInput MovementType) {
+	public void setMovementTypeInput(ForeignEntityInput MovementType) {
 		this.mMovementType = MovementType;
 		if (MovementType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -647,7 +647,7 @@ public class X_T_TransactionInput extends X_T_Transaction implements I_T_Transac
 	 * @return Method of moving the inventory
 	 */
 	@JsonProperty("MovementType")
-	public I_AD_Ref_ListInput MovementType() {
+	public ForeignEntityInput MovementType() {
 		return mMovementType;
 	}
 

@@ -11,7 +11,7 @@ public class MOrderPayScheduleInput extends X_C_OrderPayScheduleInput {
 	 * @param UUID The C_OrderPaySchedule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOrderPayScheduleInput(@JsonProperty("UUID") String UUID) {
+	public MOrderPayScheduleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

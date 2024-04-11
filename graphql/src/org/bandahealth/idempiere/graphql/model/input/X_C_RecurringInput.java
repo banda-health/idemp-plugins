@@ -33,9 +33,9 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	private ForeignEntityInput mC_Payment;
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_RecurringGroup;
+	private ForeignEntityInput mFrequencyType;
 	private ForeignEntityInput mGL_JournalBatch;
-	private I_AD_Ref_ListInput mFrequencyType;
-	private I_AD_Ref_ListInput mRecurringType;
+	private ForeignEntityInput mRecurringType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -302,7 +302,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	 * @param FrequencyType Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
+	public void setFrequencyTypeInput(ForeignEntityInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
 		if (FrequencyType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -326,7 +326,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	 * @return Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public I_AD_Ref_ListInput FrequencyType() {
+	public ForeignEntityInput FrequencyType() {
 		return mFrequencyType;
 	}
 
@@ -370,7 +370,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	 * @param RecurringType Type of Recurring Document
 	 */
 	@JsonProperty("RecurringType")
-	public void setRecurringTypeInput(I_AD_Ref_ListInput RecurringType) {
+	public void setRecurringTypeInput(ForeignEntityInput RecurringType) {
 		this.mRecurringType = RecurringType;
 		if (RecurringType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -394,7 +394,7 @@ public class X_C_RecurringInput extends MRecurring implements I_C_RecurringInput
 	 * @return Type of Recurring Document
 	 */
 	@JsonProperty("RecurringType")
-	public I_AD_Ref_ListInput RecurringType() {
+	public ForeignEntityInput RecurringType() {
 		return mRecurringType;
 	}
 	/**

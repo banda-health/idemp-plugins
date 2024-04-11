@@ -11,7 +11,7 @@ public class MPaymentInput extends X_C_PaymentInput {
 	 * @param UUID The C_Payment_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPaymentInput(@JsonProperty("UUID") String UUID) {
+	public MPaymentInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -79,9 +79,9 @@ type I_ElementValue {
 
 input I_ElementValueInput {
 	# Indicates the Natural Sign of the Account as a Debit or Credit
-	AccountSign: AD_Ref_ListInput
+	AccountSign: ForeignEntityInput
 	# Indicates the type of account
-	AccountType: AD_Ref_ListInput
+	AccountType: ForeignEntityInput
 	# Column in the table
 	AD_Column: ForeignEntityInput
 	# Organizational entity within tenant

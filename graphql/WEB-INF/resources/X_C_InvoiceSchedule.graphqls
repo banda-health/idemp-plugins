@@ -71,11 +71,11 @@ input C_InvoiceScheduleInput {
 	# Last day for including shipments
 	InvoiceDayCutoff: Int
 	# How often invoices will be generated
-	InvoiceFrequency: AD_Ref_ListInput
+	InvoiceFrequency: ForeignEntityInput
 	# Day to generate invoices
-	InvoiceWeekDay: AD_Ref_ListInput
+	InvoiceWeekDay: ForeignEntityInput
 	# Last day in the week for shipments to be included
-	InvoiceWeekDayCutoff: AD_Ref_ListInput
+	InvoiceWeekDayCutoff: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Send invoices only if the amount exceeds the limit

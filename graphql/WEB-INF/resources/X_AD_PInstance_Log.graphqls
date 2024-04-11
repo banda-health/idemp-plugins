@@ -45,5 +45,5 @@ input AD_PInstance_LogInput {
 	# Process Parameter
 	P_Number: BigDecimal
 	# Process Audit Log Type
-	PInstanceLogType: AD_Ref_ListInput
+	PInstanceLogType: ForeignEntityInput
 }

@@ -127,26 +127,26 @@ public interface I_AD_UserDef_Proc_ParameterInput extends I_AD_UserDef_Proc_Para
 	 *
 	 * @param IsDisplayed Determines, if this field is displayed
 	 */
-	void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed);
+	void setIsDisplayedInput(ForeignEntityInput IsDisplayed);
 
 	/**
 	 * Get IsDisplayed.
 	 *
 	 * @return Determines, if this field is displayed
 	 */
-	I_AD_Ref_ListInput IsDisplayed();
+	ForeignEntityInput IsDisplayed();
 
 	/**
 	 * Set IsMandatory.
 	 *
 	 * @param IsMandatory Data entry is required in this column
 	 */
-	void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory);
+	void setIsMandatoryInput(ForeignEntityInput IsMandatory);
 
 	/**
 	 * Get IsMandatory.
 	 *
 	 * @return Data entry is required in this column
 	 */
-	I_AD_Ref_ListInput IsMandatory();
+	ForeignEntityInput IsMandatory();
 }

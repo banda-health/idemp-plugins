@@ -11,7 +11,7 @@ public class MInOutInput extends X_M_InOutInput {
 	 * @param UUID The M_InOut_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInOutInput(@JsonProperty("UUID") String UUID) {
+	public MInOutInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

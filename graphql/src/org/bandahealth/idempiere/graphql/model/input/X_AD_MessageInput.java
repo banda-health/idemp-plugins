@@ -23,7 +23,7 @@ public class X_AD_MessageInput extends MMessage_BH implements I_AD_MessageInput 
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mMsgType;
+	private ForeignEntityInput mMsgType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -143,7 +143,7 @@ public class X_AD_MessageInput extends MMessage_BH implements I_AD_MessageInput 
 	 * @param MsgType Type of message (Informational, Menu or Error)
 	 */
 	@JsonProperty("MsgType")
-	public void setMsgTypeInput(I_AD_Ref_ListInput MsgType) {
+	public void setMsgTypeInput(ForeignEntityInput MsgType) {
 		this.mMsgType = MsgType;
 		if (MsgType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_AD_MessageInput extends MMessage_BH implements I_AD_MessageInput 
 	 * @return Type of message (Informational, Menu or Error)
 	 */
 	@JsonProperty("MsgType")
-	public I_AD_Ref_ListInput MsgType() {
+	public ForeignEntityInput MsgType() {
 		return mMsgType;
 	}
 }

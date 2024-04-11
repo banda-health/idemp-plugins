@@ -25,7 +25,7 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 
 	private ForeignEntityInput mAD_PInstance;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mPInstanceLogType;
+	private ForeignEntityInput mPInstanceLogType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -178,7 +178,7 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 * @param PInstanceLogType Process Audit Log Type
 	 */
 	@JsonProperty("PInstanceLogType")
-	public void setPInstanceLogTypeInput(I_AD_Ref_ListInput PInstanceLogType) {
+	public void setPInstanceLogTypeInput(ForeignEntityInput PInstanceLogType) {
 		this.mPInstanceLogType = PInstanceLogType;
 		if (PInstanceLogType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -202,7 +202,7 @@ public class X_AD_PInstance_LogInput extends X_AD_PInstance_Log implements I_AD_
 	 * @return Process Audit Log Type
 	 */
 	@JsonProperty("PInstanceLogType")
-	public I_AD_Ref_ListInput PInstanceLogType() {
+	public ForeignEntityInput PInstanceLogType() {
 		return mPInstanceLogType;
 	}
 }

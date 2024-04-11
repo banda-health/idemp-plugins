@@ -27,12 +27,12 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_UOM;
+	private ForeignEntityInput mComponentType;
+	private ForeignEntityInput mIssueMethod;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_ChangeNotice;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mPP_Product_BOM;
-	private I_AD_Ref_ListInput mComponentType;
-	private I_AD_Ref_ListInput mIssueMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -123,7 +123,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	 * @param ComponentType Component Type for a Bill of Material or Formula
 	 */
 	@JsonProperty("ComponentType")
-	public void setComponentTypeInput(I_AD_Ref_ListInput ComponentType) {
+	public void setComponentTypeInput(ForeignEntityInput ComponentType) {
 		this.mComponentType = ComponentType;
 		if (ComponentType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -147,7 +147,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	 * @return Component Type for a Bill of Material or Formula
 	 */
 	@JsonProperty("ComponentType")
-	public I_AD_Ref_ListInput ComponentType() {
+	public ForeignEntityInput ComponentType() {
 		return mComponentType;
 	}
 
@@ -157,7 +157,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	 * @param IssueMethod There are two methods for issue the components to Manufacturing Order
 	 */
 	@JsonProperty("IssueMethod")
-	public void setIssueMethodInput(I_AD_Ref_ListInput IssueMethod) {
+	public void setIssueMethodInput(ForeignEntityInput IssueMethod) {
 		this.mIssueMethod = IssueMethod;
 		if (IssueMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -181,7 +181,7 @@ public class X_PP_Product_BOMLineInput extends MPPProductBOMLine implements I_PP
 	 * @return There are two methods for issue the components to Manufacturing Order
 	 */
 	@JsonProperty("IssueMethod")
-	public I_AD_Ref_ListInput IssueMethod() {
+	public ForeignEntityInput IssueMethod() {
 		return mIssueMethod;
 	}
 

@@ -99,14 +99,14 @@ public interface I_C_CashPlanInput extends I_C_CashPlan {
 	 *
 	 * @param CashFlowType CashFlowType
 	 */
-	void setCashFlowTypeInput(I_AD_Ref_ListInput CashFlowType);
+	void setCashFlowTypeInput(ForeignEntityInput CashFlowType);
 
 	/**
 	 * Get CashFlowType.
 	 *
 	 * @return CashFlowType
 	 */
-	I_AD_Ref_ListInput CashFlowType();
+	ForeignEntityInput CashFlowType();
 
 	/**
 	 * Set User1.

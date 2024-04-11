@@ -23,10 +23,10 @@ import java.sql.ResultSet;
 public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_BudgetControlInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBudgetControlScope;
 	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mCommitmentType;
 	private ForeignEntityInput mGL_Budget;
-	private I_AD_Ref_ListInput mBudgetControlScope;
-	private I_AD_Ref_ListInput mCommitmentType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -80,7 +80,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	 * @param BudgetControlScope Scope of the Budget Control
 	 */
 	@JsonProperty("BudgetControlScope")
-	public void setBudgetControlScopeInput(I_AD_Ref_ListInput BudgetControlScope) {
+	public void setBudgetControlScopeInput(ForeignEntityInput BudgetControlScope) {
 		this.mBudgetControlScope = BudgetControlScope;
 		if (BudgetControlScope != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -104,7 +104,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	 * @return Scope of the Budget Control
 	 */
 	@JsonProperty("BudgetControlScope")
-	public I_AD_Ref_ListInput BudgetControlScope() {
+	public ForeignEntityInput BudgetControlScope() {
 		return mBudgetControlScope;
 	}
 
@@ -148,7 +148,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	 * @param CommitmentType Create Commitment and/or Reservations for Budget Control
 	 */
 	@JsonProperty("CommitmentType")
-	public void setCommitmentTypeInput(I_AD_Ref_ListInput CommitmentType) {
+	public void setCommitmentTypeInput(ForeignEntityInput CommitmentType) {
 		this.mCommitmentType = CommitmentType;
 		if (CommitmentType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -172,7 +172,7 @@ public class X_GL_BudgetControlInput extends X_GL_BudgetControl implements I_GL_
 	 * @return Create Commitment and/or Reservations for Budget Control
 	 */
 	@JsonProperty("CommitmentType")
-	public I_AD_Ref_ListInput CommitmentType() {
+	public ForeignEntityInput CommitmentType() {
 		return mCommitmentType;
 	}
 

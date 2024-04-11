@@ -11,7 +11,7 @@ public class MProductionInput extends X_M_ProductionInput {
 	 * @param UUID The M_Production_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProductionInput(@JsonProperty("UUID") String UUID) {
+	public MProductionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -155,42 +155,42 @@ public interface I_R_RequestActionInput extends I_R_RequestAction {
 	 *
 	 * @param ConfidentialType Type of Confidentiality
 	 */
-	void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType);
+	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
 
 	/**
 	 * Get ConfidentialType.
 	 *
 	 * @return Type of Confidentiality
 	 */
-	I_AD_Ref_ListInput ConfidentialType();
+	ForeignEntityInput ConfidentialType();
 
 	/**
 	 * Set IsEscalated.
 	 *
 	 * @param IsEscalated This request has been escalated
 	 */
-	void setIsEscalatedInput(I_AD_Ref_ListInput IsEscalated);
+	void setIsEscalatedInput(ForeignEntityInput IsEscalated);
 
 	/**
 	 * Get IsEscalated.
 	 *
 	 * @return This request has been escalated
 	 */
-	I_AD_Ref_ListInput IsEscalated();
+	ForeignEntityInput IsEscalated();
 
 	/**
 	 * Set IsSelfService.
 	 *
 	 * @param IsSelfService This is a Self-Service entry or this entry can be changed via Self-Service
 	 */
-	void setIsSelfServiceInput(I_AD_Ref_ListInput IsSelfService);
+	void setIsSelfServiceInput(ForeignEntityInput IsSelfService);
 
 	/**
 	 * Get IsSelfService.
 	 *
 	 * @return This is a Self-Service entry or this entry can be changed via Self-Service
 	 */
-	I_AD_Ref_ListInput IsSelfService();
+	ForeignEntityInput IsSelfService();
 
 	/**
 	 * Set M_InOut.
@@ -253,28 +253,28 @@ public interface I_R_RequestActionInput extends I_R_RequestAction {
 	 *
 	 * @param Priority Indicates if this request is of a high, medium or low priority.
 	 */
-	void setPriorityInput(I_AD_Ref_ListInput Priority);
+	void setPriorityInput(ForeignEntityInput Priority);
 
 	/**
 	 * Get Priority.
 	 *
 	 * @return Indicates if this request is of a high, medium or low priority.
 	 */
-	I_AD_Ref_ListInput Priority();
+	ForeignEntityInput Priority();
 
 	/**
 	 * Set PriorityUser.
 	 *
 	 * @param PriorityUser Priority of the issue for the User
 	 */
-	void setPriorityUserInput(I_AD_Ref_ListInput PriorityUser);
+	void setPriorityUserInput(ForeignEntityInput PriorityUser);
 
 	/**
 	 * Get PriorityUser.
 	 *
 	 * @return Priority of the issue for the User
 	 */
-	I_AD_Ref_ListInput PriorityUser();
+	ForeignEntityInput PriorityUser();
 
 	/**
 	 * Set R_Category.
@@ -393,12 +393,12 @@ public interface I_R_RequestActionInput extends I_R_RequestAction {
 	 *
 	 * @param TaskStatus Status of the Task
 	 */
-	void setTaskStatusInput(I_AD_Ref_ListInput TaskStatus);
+	void setTaskStatusInput(ForeignEntityInput TaskStatus);
 
 	/**
 	 * Get TaskStatus.
 	 *
 	 * @return Status of the Task
 	 */
-	I_AD_Ref_ListInput TaskStatus();
+	ForeignEntityInput TaskStatus();
 }

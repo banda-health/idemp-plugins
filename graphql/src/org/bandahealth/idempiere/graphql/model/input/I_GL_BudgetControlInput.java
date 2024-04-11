@@ -29,14 +29,14 @@ public interface I_GL_BudgetControlInput extends I_GL_BudgetControl {
 	 *
 	 * @param BudgetControlScope Scope of the Budget Control
 	 */
-	void setBudgetControlScopeInput(I_AD_Ref_ListInput BudgetControlScope);
+	void setBudgetControlScopeInput(ForeignEntityInput BudgetControlScope);
 
 	/**
 	 * Get BudgetControlScope.
 	 *
 	 * @return Scope of the Budget Control
 	 */
-	I_AD_Ref_ListInput BudgetControlScope();
+	ForeignEntityInput BudgetControlScope();
 
 	/**
 	 * Set C_AcctSchema.
@@ -57,14 +57,14 @@ public interface I_GL_BudgetControlInput extends I_GL_BudgetControl {
 	 *
 	 * @param CommitmentType Create Commitment and/or Reservations for Budget Control
 	 */
-	void setCommitmentTypeInput(I_AD_Ref_ListInput CommitmentType);
+	void setCommitmentTypeInput(ForeignEntityInput CommitmentType);
 
 	/**
 	 * Get CommitmentType.
 	 *
 	 * @return Create Commitment and/or Reservations for Budget Control
 	 */
-	I_AD_Ref_ListInput CommitmentType();
+	ForeignEntityInput CommitmentType();
 
 	/**
 	 * Set GL_Budget.

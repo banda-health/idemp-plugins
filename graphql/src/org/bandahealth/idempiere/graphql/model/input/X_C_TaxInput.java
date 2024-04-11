@@ -35,9 +35,9 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	private ForeignEntityInput mC_TaxCategory;
 	private ForeignEntityInput mC_TaxProvider;
 	private ForeignEntityInput mParent_Tax;
+	private ForeignEntityInput mSOPOType;
+	private ForeignEntityInput mTaxPostingIndicator;
 	private ForeignEntityInput mTo_Region;
-	private I_AD_Ref_ListInput mSOPOType;
-	private I_AD_Ref_ListInput mTaxPostingIndicator;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -395,7 +395,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param SOPOType Sales Tax applies to sales situations, Purchase Tax to purchase situations
 	 */
 	@JsonProperty("SOPOType")
-	public void setSOPOTypeInput(I_AD_Ref_ListInput SOPOType) {
+	public void setSOPOTypeInput(ForeignEntityInput SOPOType) {
 		this.mSOPOType = SOPOType;
 		if (SOPOType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -419,7 +419,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Sales Tax applies to sales situations, Purchase Tax to purchase situations
 	 */
 	@JsonProperty("SOPOType")
-	public I_AD_Ref_ListInput SOPOType() {
+	public ForeignEntityInput SOPOType() {
 		return mSOPOType;
 	}
 
@@ -429,7 +429,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @param TaxPostingIndicator Type of input tax (deductible and non deductible)
 	 */
 	@JsonProperty("TaxPostingIndicator")
-	public void setTaxPostingIndicatorInput(I_AD_Ref_ListInput TaxPostingIndicator) {
+	public void setTaxPostingIndicatorInput(ForeignEntityInput TaxPostingIndicator) {
 		this.mTaxPostingIndicator = TaxPostingIndicator;
 		if (TaxPostingIndicator != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -453,7 +453,7 @@ public class X_C_TaxInput extends MTax implements I_C_TaxInput {
 	 * @return Type of input tax (deductible and non deductible)
 	 */
 	@JsonProperty("TaxPostingIndicator")
-	public I_AD_Ref_ListInput TaxPostingIndicator() {
+	public ForeignEntityInput TaxPostingIndicator() {
 		return mTaxPostingIndicator;
 	}
 

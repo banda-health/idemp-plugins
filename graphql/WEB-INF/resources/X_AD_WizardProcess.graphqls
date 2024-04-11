@@ -53,5 +53,5 @@ input AD_WizardProcessInput {
 	IsActive: Boolean
 	# Optional additional user defined information
 	Note: String
-	WizardStatus: AD_Ref_ListInput
+	WizardStatus: ForeignEntityInput
 }

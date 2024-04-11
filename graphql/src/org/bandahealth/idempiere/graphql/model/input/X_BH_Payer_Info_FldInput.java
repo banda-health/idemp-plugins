@@ -23,7 +23,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mBH_Payer;
-	private I_AD_Ref_ListInput mBH_PayerInfoFieldDataType;
+	private ForeignEntityInput mBH_PayerInfoFieldDataType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -146,7 +146,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 	 * @param BH_PayerInfoFieldDataType Payer Info Field Data Type
 	 */
 	@JsonProperty("BH_PayerInfoFieldDataType")
-	public void setBH_PayerInfoFieldDataTypeInput(I_AD_Ref_ListInput BH_PayerInfoFieldDataType) {
+	public void setBH_PayerInfoFieldDataTypeInput(ForeignEntityInput BH_PayerInfoFieldDataType) {
 		this.mBH_PayerInfoFieldDataType = BH_PayerInfoFieldDataType;
 		if (BH_PayerInfoFieldDataType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -170,7 +170,7 @@ public class X_BH_Payer_Info_FldInput extends MBHPayerInfoFld implements I_BH_Pa
 	 * @return Payer Info Field Data Type
 	 */
 	@JsonProperty("BH_PayerInfoFieldDataType")
-	public I_AD_Ref_ListInput BH_PayerInfoFieldDataType() {
+	public ForeignEntityInput BH_PayerInfoFieldDataType() {
 		return mBH_PayerInfoFieldDataType;
 	}
 }

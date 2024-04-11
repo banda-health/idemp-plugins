@@ -113,14 +113,14 @@ public interface I_AD_UserDef_InfoInput extends I_AD_UserDef_Info {
 	 *
 	 * @param IsShowInDashboard Show the dashlet in the dashboard
 	 */
-	void setIsShowInDashboardInput(I_AD_Ref_ListInput IsShowInDashboard);
+	void setIsShowInDashboardInput(ForeignEntityInput IsShowInDashboard);
 
 	/**
 	 * Get IsShowInDashboard.
 	 *
 	 * @return Show the dashlet in the dashboard
 	 */
-	I_AD_Ref_ListInput IsShowInDashboard();
+	ForeignEntityInput IsShowInDashboard();
 
 	/**
 	 * Set PO_Window.

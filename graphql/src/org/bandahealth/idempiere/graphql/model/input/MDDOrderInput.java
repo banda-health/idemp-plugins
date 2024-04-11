@@ -11,7 +11,7 @@ public class MDDOrderInput extends X_DD_OrderInput {
 	 * @param UUID The DD_Order_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDDOrderInput(@JsonProperty("UUID") String UUID) {
+	public MDDOrderInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -127,42 +127,42 @@ public interface I_PP_Cost_CollectorInput extends I_PP_Cost_Collector {
 	 *
 	 * @param CostCollectorType Transaction Type for Manufacturing Management
 	 */
-	void setCostCollectorTypeInput(I_AD_Ref_ListInput CostCollectorType);
+	void setCostCollectorTypeInput(ForeignEntityInput CostCollectorType);
 
 	/**
 	 * Get CostCollectorType.
 	 *
 	 * @return Transaction Type for Manufacturing Management
 	 */
-	I_AD_Ref_ListInput CostCollectorType();
+	ForeignEntityInput CostCollectorType();
 
 	/**
 	 * Set DocAction.
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set M_AttributeSetInstance.

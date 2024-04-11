@@ -161,7 +161,7 @@ input Fact_AcctInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# Quantity
 	Qty: BigDecimal
 	# User defined list element #1

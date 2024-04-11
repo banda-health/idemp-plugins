@@ -71,7 +71,7 @@ input PA_ReportInput {
 	C_Calendar: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	ExcludeAdjustmentPeriods: AD_Ref_ListInput
+	ExcludeAdjustmentPeriods: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# The Jasper Process used by the print engine if any process defined

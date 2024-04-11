@@ -50,12 +50,12 @@ input C_PeriodControlInput {
 	C_Period: ForeignEntityInput
 	UU: ID
 	# Logical type of document
-	DocBaseType: AD_Ref_ListInput
+	DocBaseType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Action taken for this period
-	PeriodAction: AD_Ref_ListInput
+	PeriodAction: ForeignEntityInput
 	# Current state of this period
-	PeriodStatus: AD_Ref_ListInput
+	PeriodStatus: ForeignEntityInput
 	Processing: Boolean
 }

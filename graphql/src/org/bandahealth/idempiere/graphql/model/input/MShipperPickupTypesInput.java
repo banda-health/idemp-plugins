@@ -11,7 +11,7 @@ public class MShipperPickupTypesInput extends X_M_ShipperPickupTypesInput {
 	 * @param UUID The M_ShipperPickupTypes_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MShipperPickupTypesInput(@JsonProperty("UUID") String UUID) {
+	public MShipperPickupTypesInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

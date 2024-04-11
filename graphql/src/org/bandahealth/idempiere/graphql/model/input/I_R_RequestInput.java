@@ -197,42 +197,42 @@ public interface I_R_RequestInput extends I_R_Request {
 	 *
 	 * @param ConfidentialType Type of Confidentiality
 	 */
-	void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType);
+	void setConfidentialTypeInput(ForeignEntityInput ConfidentialType);
 
 	/**
 	 * Get ConfidentialType.
 	 *
 	 * @return Type of Confidentiality
 	 */
-	I_AD_Ref_ListInput ConfidentialType();
+	ForeignEntityInput ConfidentialType();
 
 	/**
 	 * Set ConfidentialTypeEntry.
 	 *
 	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
 	 */
-	void setConfidentialTypeEntryInput(I_AD_Ref_ListInput ConfidentialTypeEntry);
+	void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry);
 
 	/**
 	 * Get ConfidentialTypeEntry.
 	 *
 	 * @return Confidentiality of the individual entry
 	 */
-	I_AD_Ref_ListInput ConfidentialTypeEntry();
+	ForeignEntityInput ConfidentialTypeEntry();
 
 	/**
 	 * Set DueType.
 	 *
 	 * @param DueType Status of the next action for this Request
 	 */
-	void setDueTypeInput(I_AD_Ref_ListInput DueType);
+	void setDueTypeInput(ForeignEntityInput DueType);
 
 	/**
 	 * Get DueType.
 	 *
 	 * @return Status of the next action for this Request
 	 */
-	I_AD_Ref_ListInput DueType();
+	ForeignEntityInput DueType();
 
 	/**
 	 * Set M_ChangeRequest.
@@ -323,42 +323,42 @@ public interface I_R_RequestInput extends I_R_Request {
 	 *
 	 * @param NextAction Next Action to be taken
 	 */
-	void setNextActionInput(I_AD_Ref_ListInput NextAction);
+	void setNextActionInput(ForeignEntityInput NextAction);
 
 	/**
 	 * Get NextAction.
 	 *
 	 * @return Next Action to be taken
 	 */
-	I_AD_Ref_ListInput NextAction();
+	ForeignEntityInput NextAction();
 
 	/**
 	 * Set Priority.
 	 *
 	 * @param Priority Indicates if this request is of a high, medium or low priority.
 	 */
-	void setPriorityInput(I_AD_Ref_ListInput Priority);
+	void setPriorityInput(ForeignEntityInput Priority);
 
 	/**
 	 * Get Priority.
 	 *
 	 * @return Indicates if this request is of a high, medium or low priority.
 	 */
-	I_AD_Ref_ListInput Priority();
+	ForeignEntityInput Priority();
 
 	/**
 	 * Set PriorityUser.
 	 *
 	 * @param PriorityUser Priority of the issue for the User
 	 */
-	void setPriorityUserInput(I_AD_Ref_ListInput PriorityUser);
+	void setPriorityUserInput(ForeignEntityInput PriorityUser);
 
 	/**
 	 * Get PriorityUser.
 	 *
 	 * @return Priority of the issue for the User
 	 */
-	I_AD_Ref_ListInput PriorityUser();
+	ForeignEntityInput PriorityUser();
 
 	/**
 	 * Set R_Category.
@@ -505,12 +505,12 @@ public interface I_R_RequestInput extends I_R_Request {
 	 *
 	 * @param TaskStatus Status of the Task
 	 */
-	void setTaskStatusInput(I_AD_Ref_ListInput TaskStatus);
+	void setTaskStatusInput(ForeignEntityInput TaskStatus);
 
 	/**
 	 * Get TaskStatus.
 	 *
 	 * @return Status of the Task
 	 */
-	I_AD_Ref_ListInput TaskStatus();
+	ForeignEntityInput TaskStatus();
 }

@@ -23,7 +23,7 @@ public class X_AD_FieldGroupInput extends MFieldGroup_BH implements I_AD_FieldGr
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mFieldGroupType;
+	private ForeignEntityInput mFieldGroupType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -143,7 +143,7 @@ public class X_AD_FieldGroupInput extends MFieldGroup_BH implements I_AD_FieldGr
 	 * @param FieldGroupType Field Group Type
 	 */
 	@JsonProperty("FieldGroupType")
-	public void setFieldGroupTypeInput(I_AD_Ref_ListInput FieldGroupType) {
+	public void setFieldGroupTypeInput(ForeignEntityInput FieldGroupType) {
 		this.mFieldGroupType = FieldGroupType;
 		if (FieldGroupType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_AD_FieldGroupInput extends MFieldGroup_BH implements I_AD_FieldGr
 	 * @return Field Group Type
 	 */
 	@JsonProperty("FieldGroupType")
-	public I_AD_Ref_ListInput FieldGroupType() {
+	public ForeignEntityInput FieldGroupType() {
 		return mFieldGroupType;
 	}
 }

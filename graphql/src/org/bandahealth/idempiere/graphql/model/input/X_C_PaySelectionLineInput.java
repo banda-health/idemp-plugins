@@ -28,7 +28,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_PaySelection;
 	private ForeignEntityInput mC_PaySelectionCheck;
-	private I_AD_Ref_ListInput mPaymentRule;
+	private ForeignEntityInput mPaymentRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -252,7 +252,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	 * @param PaymentRule How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (PaymentRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -276,7 +276,7 @@ public class X_C_PaySelectionLineInput extends MPaySelectionLine implements I_C_
 	 * @return How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public I_AD_Ref_ListInput PaymentRule() {
+	public ForeignEntityInput PaymentRule() {
 		return mPaymentRule;
 	}
 	/**

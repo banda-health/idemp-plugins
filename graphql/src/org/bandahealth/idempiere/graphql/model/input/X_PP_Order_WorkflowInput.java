@@ -36,14 +36,14 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	private ForeignEntityInput mAD_WF_Responsible;
 	private ForeignEntityInput mAD_Workflow;
 	private ForeignEntityInput mAD_WorkflowProcessor;
+	private ForeignEntityInput mAccessLevel;
+	private ForeignEntityInput mDurationUnit;
 	private ForeignEntityInput mPP_Order;
 	private ForeignEntityInput mPP_Order_Node;
+	private ForeignEntityInput mProcessType;
+	private ForeignEntityInput mPublishStatus;
 	private ForeignEntityInput mS_Resource;
-	private I_AD_Ref_ListInput mAccessLevel;
-	private I_AD_Ref_ListInput mDurationUnit;
-	private I_AD_Ref_ListInput mProcessType;
-	private I_AD_Ref_ListInput mPublishStatus;
-	private I_AD_Ref_ListInput mWorkflowType;
+	private ForeignEntityInput mWorkflowType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -63,7 +63,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @param AccessLevel Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -87,7 +87,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @return Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public I_AD_Ref_ListInput AccessLevel() {
+	public ForeignEntityInput AccessLevel() {
 		return mAccessLevel;
 	}
 
@@ -301,7 +301,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @param DurationUnit Unit of Duration
 	 */
 	@JsonProperty("DurationUnit")
-	public void setDurationUnitInput(I_AD_Ref_ListInput DurationUnit) {
+	public void setDurationUnitInput(ForeignEntityInput DurationUnit) {
 		this.mDurationUnit = DurationUnit;
 		if (DurationUnit != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -325,7 +325,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @return Unit of Duration
 	 */
 	@JsonProperty("DurationUnit")
-	public I_AD_Ref_ListInput DurationUnit() {
+	public ForeignEntityInput DurationUnit() {
 		return mDurationUnit;
 	}
 
@@ -469,7 +469,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @param ProcessType Process Type
 	 */
 	@JsonProperty("ProcessType")
-	public void setProcessTypeInput(I_AD_Ref_ListInput ProcessType) {
+	public void setProcessTypeInput(ForeignEntityInput ProcessType) {
 		this.mProcessType = ProcessType;
 		if (ProcessType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -493,7 +493,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @return Process Type
 	 */
 	@JsonProperty("ProcessType")
-	public I_AD_Ref_ListInput ProcessType() {
+	public ForeignEntityInput ProcessType() {
 		return mProcessType;
 	}
 
@@ -503,7 +503,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @param PublishStatus Status of Publication
 	 */
 	@JsonProperty("PublishStatus")
-	public void setPublishStatusInput(I_AD_Ref_ListInput PublishStatus) {
+	public void setPublishStatusInput(ForeignEntityInput PublishStatus) {
 		this.mPublishStatus = PublishStatus;
 		if (PublishStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -527,7 +527,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @return Status of Publication
 	 */
 	@JsonProperty("PublishStatus")
-	public I_AD_Ref_ListInput PublishStatus() {
+	public ForeignEntityInput PublishStatus() {
 		return mPublishStatus;
 	}
 
@@ -571,7 +571,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @param WorkflowType Type of Workflow
 	 */
 	@JsonProperty("WorkflowType")
-	public void setWorkflowTypeInput(I_AD_Ref_ListInput WorkflowType) {
+	public void setWorkflowTypeInput(ForeignEntityInput WorkflowType) {
 		this.mWorkflowType = WorkflowType;
 		if (WorkflowType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -595,7 +595,7 @@ public class X_PP_Order_WorkflowInput extends X_PP_Order_Workflow implements I_P
 	 * @return Type of Workflow
 	 */
 	@JsonProperty("WorkflowType")
-	public I_AD_Ref_ListInput WorkflowType() {
+	public ForeignEntityInput WorkflowType() {
 		return mWorkflowType;
 	}
 }

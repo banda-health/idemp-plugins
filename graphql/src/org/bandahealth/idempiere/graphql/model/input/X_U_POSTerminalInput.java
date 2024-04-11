@@ -32,19 +32,19 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	private ForeignEntityInput mC_TemplateBPartner;
 	private ForeignEntityInput mCardTransferBankAccount;
 	private ForeignEntityInput mCardTransferCashBook;
+	private ForeignEntityInput mCardTransferType;
 	private ForeignEntityInput mCard_BankAccount;
+	private ForeignEntityInput mCashBookTransferType;
 	private ForeignEntityInput mCashTransferBankAccount;
 	private ForeignEntityInput mCashTransferCashBook;
 	private ForeignEntityInput mCheckTransferBankAccount;
 	private ForeignEntityInput mCheckTransferCashBook;
+	private ForeignEntityInput mCheckTransferType;
 	private ForeignEntityInput mCheck_BankAccount;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mPO_PriceList;
 	private ForeignEntityInput mSO_PriceList;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mCardTransferType;
-	private I_AD_Ref_ListInput mCashBookTransferType;
-	private I_AD_Ref_ListInput mCheckTransferType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -305,7 +305,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 * @param CardTransferType Card Transfer Type
 	 */
 	@JsonProperty("CardTransferType")
-	public void setCardTransferTypeInput(I_AD_Ref_ListInput CardTransferType) {
+	public void setCardTransferTypeInput(ForeignEntityInput CardTransferType) {
 		this.mCardTransferType = CardTransferType;
 		if (CardTransferType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -329,7 +329,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 * @return Card Transfer Type
 	 */
 	@JsonProperty("CardTransferType")
-	public I_AD_Ref_ListInput CardTransferType() {
+	public ForeignEntityInput CardTransferType() {
 		return mCardTransferType;
 	}
 
@@ -339,7 +339,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 * @param CashBookTransferType Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
 	 */
 	@JsonProperty("CashBookTransferType")
-	public void setCashBookTransferTypeInput(I_AD_Ref_ListInput CashBookTransferType) {
+	public void setCashBookTransferTypeInput(ForeignEntityInput CashBookTransferType) {
 		this.mCashBookTransferType = CashBookTransferType;
 		if (CashBookTransferType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -363,7 +363,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 * @return Where the money in the cash book should be transfered to. Either a Bank Account or another Cash Book
 	 */
 	@JsonProperty("CashBookTransferType")
-	public I_AD_Ref_ListInput CashBookTransferType() {
+	public ForeignEntityInput CashBookTransferType() {
 		return mCashBookTransferType;
 	}
 
@@ -543,7 +543,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 * @param CheckTransferType Check Transfer Type
 	 */
 	@JsonProperty("CheckTransferType")
-	public void setCheckTransferTypeInput(I_AD_Ref_ListInput CheckTransferType) {
+	public void setCheckTransferTypeInput(ForeignEntityInput CheckTransferType) {
 		this.mCheckTransferType = CheckTransferType;
 		if (CheckTransferType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -567,7 +567,7 @@ public class X_U_POSTerminalInput extends MPOSTerminal implements I_U_POSTermina
 	 * @return Check Transfer Type
 	 */
 	@JsonProperty("CheckTransferType")
-	public I_AD_Ref_ListInput CheckTransferType() {
+	public ForeignEntityInput CheckTransferType() {
 		return mCheckTransferType;
 	}
 

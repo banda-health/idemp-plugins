@@ -99,12 +99,12 @@ public interface I_AD_ChangeLogInput extends I_AD_ChangeLog {
 	 *
 	 * @param EventChangeLog Type of Event in Change Log
 	 */
-	void setEventChangeLogInput(I_AD_Ref_ListInput EventChangeLog);
+	void setEventChangeLogInput(ForeignEntityInput EventChangeLog);
 
 	/**
 	 * Get EventChangeLog.
 	 *
 	 * @return Type of Event in Change Log
 	 */
-	I_AD_Ref_ListInput EventChangeLog();
+	ForeignEntityInput EventChangeLog();
 }

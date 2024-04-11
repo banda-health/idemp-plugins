@@ -15,14 +15,14 @@ public interface I_A_AssetInput extends I_A_Asset {
 	 *
 	 * @param A_Asset_Action A_Asset_Action
 	 */
-	void setA_Asset_ActionInput(I_AD_Ref_ListInput A_Asset_Action);
+	void setA_Asset_ActionInput(ForeignEntityInput A_Asset_Action);
 
 	/**
 	 * Get A_Asset_Action.
 	 *
 	 * @return A_Asset_Action
 	 */
-	I_AD_Ref_ListInput A_Asset_Action();
+	ForeignEntityInput A_Asset_Action();
 
 	/**
 	 * Set A_Asset_Class.
@@ -57,14 +57,14 @@ public interface I_A_AssetInput extends I_A_Asset {
 	 *
 	 * @param A_Asset_Status A_Asset_Status
 	 */
-	void setA_Asset_StatusInput(I_AD_Ref_ListInput A_Asset_Status);
+	void setA_Asset_StatusInput(ForeignEntityInput A_Asset_Status);
 
 	/**
 	 * Get A_Asset_Status.
 	 *
 	 * @return A_Asset_Status
 	 */
-	I_AD_Ref_ListInput A_Asset_Status();
+	ForeignEntityInput A_Asset_Status();
 
 	/**
 	 * Set A_Asset_Type.

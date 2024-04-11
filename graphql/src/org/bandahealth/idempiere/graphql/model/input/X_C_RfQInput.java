@@ -33,8 +33,8 @@ public class X_C_RfQInput extends MRfQ implements I_C_RfQInput {
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_Order;
 	private ForeignEntityInput mC_RfQ_Topic;
+	private ForeignEntityInput mQuoteType;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mQuoteType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -324,7 +324,7 @@ public class X_C_RfQInput extends MRfQ implements I_C_RfQInput {
 	 * @param QuoteType Request for Quotation Type
 	 */
 	@JsonProperty("QuoteType")
-	public void setQuoteTypeInput(I_AD_Ref_ListInput QuoteType) {
+	public void setQuoteTypeInput(ForeignEntityInput QuoteType) {
 		this.mQuoteType = QuoteType;
 		if (QuoteType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -348,7 +348,7 @@ public class X_C_RfQInput extends MRfQ implements I_C_RfQInput {
 	 * @return Request for Quotation Type
 	 */
 	@JsonProperty("QuoteType")
-	public I_AD_Ref_ListInput QuoteType() {
+	public ForeignEntityInput QuoteType() {
 		return mQuoteType;
 	}
 

@@ -11,7 +11,7 @@ public class MRevenueRecognitionPlanInput extends X_C_RevenueRecognition_PlanInp
 	 * @param UUID The C_RevenueRecognition_Plan_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRevenueRecognitionPlanInput(@JsonProperty("UUID") String UUID) {
+	public MRevenueRecognitionPlanInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MAcctSchemaGLInput extends X_C_AcctSchema_GLInput {
 	 * @param UUID The C_AcctSchema_GL_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAcctSchemaGLInput(@JsonProperty("UUID") String UUID) {
+	public MAcctSchemaGLInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

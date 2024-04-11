@@ -43,28 +43,28 @@ public interface I_A_Asset_Info_FinInput extends I_A_Asset_Info_Fin {
 	 *
 	 * @param A_Due_On A_Due_On
 	 */
-	void setA_Due_OnInput(I_AD_Ref_ListInput A_Due_On);
+	void setA_Due_OnInput(ForeignEntityInput A_Due_On);
 
 	/**
 	 * Get A_Due_On.
 	 *
 	 * @return A_Due_On
 	 */
-	I_AD_Ref_ListInput A_Due_On();
+	ForeignEntityInput A_Due_On();
 
 	/**
 	 * Set A_Finance_Meth.
 	 *
 	 * @param A_Finance_Meth A_Finance_Meth
 	 */
-	void setA_Finance_MethInput(I_AD_Ref_ListInput A_Finance_Meth);
+	void setA_Finance_MethInput(ForeignEntityInput A_Finance_Meth);
 
 	/**
 	 * Get A_Finance_Meth.
 	 *
 	 * @return A_Finance_Meth
 	 */
-	I_AD_Ref_ListInput A_Finance_Meth();
+	ForeignEntityInput A_Finance_Meth();
 
 	/**
 	 * Set AD_Org.

@@ -29,14 +29,14 @@ public interface I_GL_BudgetInput extends I_GL_Budget {
 	 *
 	 * @param BudgetStatus Indicates the current status of this budget
 	 */
-	void setBudgetStatusInput(I_AD_Ref_ListInput BudgetStatus);
+	void setBudgetStatusInput(ForeignEntityInput BudgetStatus);
 
 	/**
 	 * Get BudgetStatus.
 	 *
 	 * @return Indicates the current status of this budget
 	 */
-	I_AD_Ref_ListInput BudgetStatus();
+	ForeignEntityInput BudgetStatus();
 
 	/**
 	 * Set UU.

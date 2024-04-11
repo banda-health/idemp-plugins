@@ -15,14 +15,14 @@ public interface I_HR_ConceptInput extends I_HR_Concept {
 	 *
 	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	void setAccountSignInput(I_AD_Ref_ListInput AccountSign);
+	void setAccountSignInput(ForeignEntityInput AccountSign);
 
 	/**
 	 * Get AccountSign.
 	 *
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
-	I_AD_Ref_ListInput AccountSign();
+	ForeignEntityInput AccountSign();
 
 	/**
 	 * Set AD_Org.
@@ -57,14 +57,14 @@ public interface I_HR_ConceptInput extends I_HR_Concept {
 	 *
 	 * @param ColumnType ColumnType
 	 */
-	void setColumnTypeInput(I_AD_Ref_ListInput ColumnType);
+	void setColumnTypeInput(ForeignEntityInput ColumnType);
 
 	/**
 	 * Get ColumnType.
 	 *
 	 * @return ColumnType
 	 */
-	I_AD_Ref_ListInput ColumnType();
+	ForeignEntityInput ColumnType();
 
 	/**
 	 * Set HR_Concept_Category.
@@ -141,12 +141,12 @@ public interface I_HR_ConceptInput extends I_HR_Concept {
 	 *
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
-	void setTypeInput(I_AD_Ref_ListInput Type);
+	void setTypeInput(ForeignEntityInput Type);
 
 	/**
 	 * Get Type.
 	 *
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
-	I_AD_Ref_ListInput Type();
+	ForeignEntityInput Type();
 }

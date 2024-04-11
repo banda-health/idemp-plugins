@@ -34,7 +34,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	private ForeignEntityInput mAD_Reference;
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_Val_Rule;
-	private I_AD_Ref_ListInput mDateRangeOption;
+	private ForeignEntityInput mDateRangeOption;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -327,7 +327,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @param DateRangeOption Options, how the date editor will be displayed.
 	 */
 	@JsonProperty("DateRangeOption")
-	public void setDateRangeOptionInput(I_AD_Ref_ListInput DateRangeOption) {
+	public void setDateRangeOptionInput(ForeignEntityInput DateRangeOption) {
 		this.mDateRangeOption = DateRangeOption;
 		if (DateRangeOption != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -351,7 +351,7 @@ public class X_AD_Process_ParaInput extends MProcessPara implements I_AD_Process
 	 * @return Options, how the date editor will be displayed.
 	 */
 	@JsonProperty("DateRangeOption")
-	public I_AD_Ref_ListInput DateRangeOption() {
+	public ForeignEntityInput DateRangeOption() {
 		return mDateRangeOption;
 	}
 

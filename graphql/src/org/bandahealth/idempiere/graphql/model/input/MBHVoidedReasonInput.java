@@ -11,7 +11,7 @@ public class MBHVoidedReasonInput extends X_BH_Voided_ReasonInput {
 	 * @param UUID The BH_Voided_Reason_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHVoidedReasonInput(@JsonProperty("UUID") String UUID) {
+	public MBHVoidedReasonInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -172,7 +172,7 @@ input AD_ColumnInput {
 	FieldLength: Int
 	FKConstraintMsg: ForeignEntityInput
 	FKConstraintName: String
-	FKConstraintType: AD_Ref_ListInput
+	FKConstraintType: ForeignEntityInput
 	# The pattern used to format a number or date.
 	FormatPattern: String
 	# Comment or Hint
@@ -188,7 +188,7 @@ input AD_ColumnInput {
 	# Automatic completion for text fields
 	IsAutocomplete: Boolean
 	# Display or Storage is encrypted
-	IsEncrypted: AD_Ref_ListInput
+	IsEncrypted: ForeignEntityInput
 	# Text has HTML tags
 	IsHtml: Boolean
 	# This column is part of the record identifier
@@ -208,7 +208,7 @@ input AD_ColumnInput {
 	# Change database table definition when changing dictionary definition
 	IsSyncDatabase: String
 	# Show the button on the toolbar, the window, or both
-	IsToolbarButton: AD_Ref_ListInput
+	IsToolbarButton: ForeignEntityInput
 	# This column is translated
 	IsTranslated: Boolean
 	# Determines, if the field can be updated
@@ -218,7 +218,7 @@ input AD_ColumnInput {
 	Name: String
 	PA_DashboardContent: ForeignEntityInput
 	# Indicates how the Table is partitioned
-	PartitioningMethod: AD_Ref_ListInput
+	PartitioningMethod: ForeignEntityInput
 	Placeholder: String
 	# Indicates the interval used in a range partitioning
 	RangePartitionInterval: String

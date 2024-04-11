@@ -62,9 +62,9 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	private ForeignEntityInput mGL_JournalBatch;
 	private ForeignEntityInput mGL_JournalLine;
 	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPostingType;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -861,7 +861,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -885,7 +885,7 @@ public class X_I_GLJournalInput extends X_I_GLJournal implements I_I_GLJournalIn
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 

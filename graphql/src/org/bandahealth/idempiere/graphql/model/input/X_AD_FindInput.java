@@ -23,8 +23,8 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 
 	private ForeignEntityInput mAD_Column;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mAndOr;
-	private I_AD_Ref_ListInput mOperation;
+	private ForeignEntityInput mAndOr;
+	private ForeignEntityInput mOperation;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -144,7 +144,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 	 * @param AndOr Logical operation: AND or OR
 	 */
 	@JsonProperty("AndOr")
-	public void setAndOrInput(I_AD_Ref_ListInput AndOr) {
+	public void setAndOrInput(ForeignEntityInput AndOr) {
 		this.mAndOr = AndOr;
 		if (AndOr != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -168,7 +168,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 	 * @return Logical operation: AND or OR
 	 */
 	@JsonProperty("AndOr")
-	public I_AD_Ref_ListInput AndOr() {
+	public ForeignEntityInput AndOr() {
 		return mAndOr;
 	}
 
@@ -178,7 +178,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 	 * @param Operation Compare Operation
 	 */
 	@JsonProperty("Operation")
-	public void setOperationInput(I_AD_Ref_ListInput Operation) {
+	public void setOperationInput(ForeignEntityInput Operation) {
 		this.mOperation = Operation;
 		if (Operation != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -202,7 +202,7 @@ public class X_AD_FindInput extends X_AD_Find implements I_AD_FindInput {
 	 * @return Compare Operation
 	 */
 	@JsonProperty("Operation")
-	public I_AD_Ref_ListInput Operation() {
+	public ForeignEntityInput Operation() {
 		return mOperation;
 	}
 }

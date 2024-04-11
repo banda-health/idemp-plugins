@@ -114,11 +114,11 @@ input C_PaymentTermInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Day when payment is due net
-	NetDay: AD_Ref_ListInput
+	NetDay: ForeignEntityInput
 	# Net Days in which payment is due
 	NetDays: Int
 	# Payment term usage indicates if this payment term is used for sales, purchases or both.
-	PaymentTermUsage: AD_Ref_ListInput
+	PaymentTermUsage: ForeignEntityInput
 	Processing: Boolean
 	# Search key for the record in the format required - must be unique
 	Value: String

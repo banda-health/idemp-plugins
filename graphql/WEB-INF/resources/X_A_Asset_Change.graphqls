@@ -139,7 +139,7 @@ input A_Asset_ChangeInput {
 	A_Asset_RevalDate: Date
 	A_Depreciation_A: ForeignEntityInput
 	A_Depreciation_Manual_Amount: BigDecimal
-	A_Depreciation_Manual_Period: AD_Ref_ListInput
+	A_Depreciation_Manual_Period: ForeignEntityInput
 	A_Depreciation_Table_Header: ForeignEntityInput
 	A_Depreciation_Variable_Perc: BigDecimal
 	A_Disposal_Loss_A: ForeignEntityInput
@@ -153,7 +153,7 @@ input A_Asset_ChangeInput {
 	A_Reval_Accumdep_Offset_Prior: Int
 	A_Reval_Adep_Offset_Cur_Acct: Int
 	A_Reval_Adep_Offset_Prior_Acct: Int
-	A_Reval_Cal_Method: AD_Ref_ListInput
+	A_Reval_Cal_Method: ForeignEntityInput
 	A_Reval_Cost_Offset: Int
 	A_Reval_Cost_Offset_Acct: Int
 	A_Reval_Cost_Offset_Prior: Int
@@ -190,7 +190,7 @@ input A_Asset_ChangeInput {
 	C_ValidCombination: ForeignEntityInput
 	ChangeAmt: BigDecimal
 	ChangeDate: Date
-	ChangeType: AD_Ref_ListInput
+	ChangeType: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date
 	# The record is active in the system
@@ -210,7 +210,7 @@ input A_Asset_ChangeInput {
 	# Lot number (alphanumeric)
 	Lot: String
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# Product Serial Number 
 	SerNo: String
 	TextDetails: String

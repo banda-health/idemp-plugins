@@ -25,7 +25,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process_Para;
 	private ForeignEntityInput mASP_Process;
-	private I_AD_Ref_ListInput mASP_Status;
+	private ForeignEntityInput mASP_Status;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -185,7 +185,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	 * @param ASP_Status ASP Status
 	 */
 	@JsonProperty("ASP_Status")
-	public void setASP_StatusInput(I_AD_Ref_ListInput ASP_Status) {
+	public void setASP_StatusInput(ForeignEntityInput ASP_Status) {
 		this.mASP_Status = ASP_Status;
 		if (ASP_Status != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -209,7 +209,7 @@ public class X_ASP_Process_ParaInput extends X_ASP_Process_Para implements I_ASP
 	 * @return ASP Status
 	 */
 	@JsonProperty("ASP_Status")
-	public I_AD_Ref_ListInput ASP_Status() {
+	public ForeignEntityInput ASP_Status() {
 		return mASP_Status;
 	}
 }

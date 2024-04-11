@@ -42,6 +42,9 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_ProjectPhase;
 	private ForeignEntityInput mC_ProjectTask;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
+	private ForeignEntityInput mIsCreated;
 	private ForeignEntityInput mM_InOutLine;
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_Product;
@@ -49,9 +52,6 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	private ForeignEntityInput mReversal;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mIsCreated;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -389,7 +389,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -413,7 +413,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -423,7 +423,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -447,7 +447,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -468,7 +468,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 * @param IsCreated Records created
 	 */
 	@JsonProperty("IsCreated")
-	public void setIsCreatedInput(I_AD_Ref_ListInput IsCreated) {
+	public void setIsCreatedInput(ForeignEntityInput IsCreated) {
 		this.mIsCreated = IsCreated;
 		if (IsCreated != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -492,7 +492,7 @@ public class X_M_ProductionInput extends MProduction implements I_M_ProductionIn
 	 * @return Records created
 	 */
 	@JsonProperty("IsCreated")
-	public I_AD_Ref_ListInput IsCreated() {
+	public ForeignEntityInput IsCreated() {
 		return mIsCreated;
 	}
 

@@ -24,8 +24,8 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mIsDelivered;
 	private ForeignEntityInput mR_MailText;
-	private I_AD_Ref_ListInput mIsDelivered;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -159,7 +159,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	 * @param IsDelivered Delivered
 	 */
 	@JsonProperty("IsDelivered")
-	public void setIsDeliveredInput(I_AD_Ref_ListInput IsDelivered) {
+	public void setIsDeliveredInput(ForeignEntityInput IsDelivered) {
 		this.mIsDelivered = IsDelivered;
 		if (get_ID() != 0) {
 			return;
@@ -186,7 +186,7 @@ public class X_AD_UserMailInput extends MUserMail implements I_AD_UserMailInput 
 	 * @return Delivered
 	 */
 	@JsonProperty("IsDelivered")
-	public I_AD_Ref_ListInput IsDelivered() {
+	public ForeignEntityInput IsDelivered() {
 		return mIsDelivered;
 	}
 	/**

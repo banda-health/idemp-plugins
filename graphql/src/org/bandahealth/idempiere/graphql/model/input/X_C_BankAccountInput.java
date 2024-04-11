@@ -23,9 +23,9 @@ import java.sql.ResultSet;
 public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAccountInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBankAccountType;
 	private ForeignEntityInput mC_Bank;
 	private ForeignEntityInput mC_Currency;
-	private I_AD_Ref_ListInput mBankAccountType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -82,7 +82,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	 * @param BankAccountType Bank Account Type
 	 */
 	@JsonProperty("BankAccountType")
-	public void setBankAccountTypeInput(I_AD_Ref_ListInput BankAccountType) {
+	public void setBankAccountTypeInput(ForeignEntityInput BankAccountType) {
 		this.mBankAccountType = BankAccountType;
 		if (BankAccountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -106,7 +106,7 @@ public class X_C_BankAccountInput extends MBankAccount_BH implements I_C_BankAcc
 	 * @return Bank Account Type
 	 */
 	@JsonProperty("BankAccountType")
-	public I_AD_Ref_ListInput BankAccountType() {
+	public ForeignEntityInput BankAccountType() {
 		return mBankAccountType;
 	}
 

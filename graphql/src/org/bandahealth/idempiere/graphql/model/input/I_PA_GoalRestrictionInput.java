@@ -57,14 +57,14 @@ public interface I_PA_GoalRestrictionInput extends I_PA_GoalRestriction {
 	 *
 	 * @param GoalRestrictionType Goal Restriction Type
 	 */
-	void setGoalRestrictionTypeInput(I_AD_Ref_ListInput GoalRestrictionType);
+	void setGoalRestrictionTypeInput(ForeignEntityInput GoalRestrictionType);
 
 	/**
 	 * Get GoalRestrictionType.
 	 *
 	 * @return Goal Restriction Type
 	 */
-	I_AD_Ref_ListInput GoalRestrictionType();
+	ForeignEntityInput GoalRestrictionType();
 
 	/**
 	 * Set M_Product_Category.

@@ -11,7 +11,7 @@ public class MBHPayerInfoFldValSugInput extends X_BH_Payer_Info_Fld_Val_SugInput
 	 * @param UUID The BH_Payer_Info_Fld_Val_Sug_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHPayerInfoFldValSugInput(@JsonProperty("UUID") String UUID) {
+	public MBHPayerInfoFldValSugInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

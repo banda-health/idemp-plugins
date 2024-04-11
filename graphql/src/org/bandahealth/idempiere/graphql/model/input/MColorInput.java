@@ -11,7 +11,7 @@ public class MColorInput extends X_AD_ColorInput {
 	 * @param UUID The AD_Color_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MColorInput(@JsonProperty("UUID") String UUID) {
+	public MColorInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

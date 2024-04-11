@@ -23,9 +23,9 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mAccessLevel;
-	private I_AD_Ref_ListInput mEventType;
-	private I_AD_Ref_ListInput mRuleType;
+	private ForeignEntityInput mAccessLevel;
+	private ForeignEntityInput mEventType;
+	private ForeignEntityInput mRuleType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -45,7 +45,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @param AccessLevel Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel) {
+	public void setAccessLevelInput(ForeignEntityInput AccessLevel) {
 		this.mAccessLevel = AccessLevel;
 		if (AccessLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -69,7 +69,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @return Access Level required
 	 */
 	@JsonProperty("AccessLevel")
-	public I_AD_Ref_ListInput AccessLevel() {
+	public ForeignEntityInput AccessLevel() {
 		return mAccessLevel;
 	}
 
@@ -179,7 +179,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @param EventType Type of Event
 	 */
 	@JsonProperty("EventType")
-	public void setEventTypeInput(I_AD_Ref_ListInput EventType) {
+	public void setEventTypeInput(ForeignEntityInput EventType) {
 		this.mEventType = EventType;
 		if (EventType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -203,7 +203,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @return Type of Event
 	 */
 	@JsonProperty("EventType")
-	public I_AD_Ref_ListInput EventType() {
+	public ForeignEntityInput EventType() {
 		return mEventType;
 	}
 
@@ -213,7 +213,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @param RuleType Rule Type
 	 */
 	@JsonProperty("RuleType")
-	public void setRuleTypeInput(I_AD_Ref_ListInput RuleType) {
+	public void setRuleTypeInput(ForeignEntityInput RuleType) {
 		this.mRuleType = RuleType;
 		if (RuleType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -237,7 +237,7 @@ public class X_AD_RuleInput extends MRule implements I_AD_RuleInput {
 	 * @return Rule Type
 	 */
 	@JsonProperty("RuleType")
-	public I_AD_Ref_ListInput RuleType() {
+	public ForeignEntityInput RuleType() {
 		return mRuleType;
 	}
 }

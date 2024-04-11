@@ -71,12 +71,12 @@ public interface I_AD_Table_ScriptValidatorInput extends I_AD_Table_ScriptValida
 	 *
 	 * @param EventModelValidator EventModelValidator
 	 */
-	void setEventModelValidatorInput(I_AD_Ref_ListInput EventModelValidator);
+	void setEventModelValidatorInput(ForeignEntityInput EventModelValidator);
 
 	/**
 	 * Get EventModelValidator.
 	 *
 	 * @return EventModelValidator
 	 */
-	I_AD_Ref_ListInput EventModelValidator();
+	ForeignEntityInput EventModelValidator();
 }

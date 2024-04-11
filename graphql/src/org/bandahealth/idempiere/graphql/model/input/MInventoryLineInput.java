@@ -11,7 +11,7 @@ public class MInventoryLineInput extends X_M_InventoryLineInput {
 	 * @param UUID The M_InventoryLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInventoryLineInput(@JsonProperty("UUID") String UUID) {
+	public MInventoryLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

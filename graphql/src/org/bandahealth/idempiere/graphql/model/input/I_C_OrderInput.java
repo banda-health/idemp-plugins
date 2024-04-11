@@ -365,56 +365,56 @@ public interface I_C_OrderInput extends I_C_Order {
 	 *
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
-	void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule);
+	void setDeliveryRuleInput(ForeignEntityInput DeliveryRule);
 
 	/**
 	 * Get DeliveryRule.
 	 *
 	 * @return Defines the timing of Delivery
 	 */
-	I_AD_Ref_ListInput DeliveryRule();
+	ForeignEntityInput DeliveryRule();
 
 	/**
 	 * Set DeliveryViaRule.
 	 *
 	 * @param DeliveryViaRule How the order will be delivered
 	 */
-	void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule);
+	void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule);
 
 	/**
 	 * Get DeliveryViaRule.
 	 *
 	 * @return How the order will be delivered
 	 */
-	I_AD_Ref_ListInput DeliveryViaRule();
+	ForeignEntityInput DeliveryViaRule();
 
 	/**
 	 * Set DocAction.
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set DropShip_BPartner.
@@ -463,28 +463,28 @@ public interface I_C_OrderInput extends I_C_Order {
 	 *
 	 * @param FreightCostRule Method for charging Freight
 	 */
-	void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule);
+	void setFreightCostRuleInput(ForeignEntityInput FreightCostRule);
 
 	/**
 	 * Get FreightCostRule.
 	 *
 	 * @return Method for charging Freight
 	 */
-	I_AD_Ref_ListInput FreightCostRule();
+	ForeignEntityInput FreightCostRule();
 
 	/**
 	 * Set InvoiceRule.
 	 *
 	 * @param InvoiceRule Frequency and method of invoicing 
 	 */
-	void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule);
+	void setInvoiceRuleInput(ForeignEntityInput InvoiceRule);
 
 	/**
 	 * Get InvoiceRule.
 	 *
 	 * @return Frequency and method of invoicing 
 	 */
-	I_AD_Ref_ListInput InvoiceRule();
+	ForeignEntityInput InvoiceRule();
 
 	/**
 	 * Set Link_Order.
@@ -561,14 +561,14 @@ public interface I_C_OrderInput extends I_C_Order {
 	 *
 	 * @param PriorityRule Priority of a document
 	 */
-	void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule);
+	void setPriorityRuleInput(ForeignEntityInput PriorityRule);
 
 	/**
 	 * Get PriorityRule.
 	 *
 	 * @return Priority of a document
 	 */
-	I_AD_Ref_ListInput PriorityRule();
+	ForeignEntityInput PriorityRule();
 
 	/**
 	 * Set QuotationOrder.

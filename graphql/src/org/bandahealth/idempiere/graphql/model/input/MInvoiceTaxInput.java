@@ -11,7 +11,7 @@ public class MInvoiceTaxInput extends X_C_InvoiceTaxInput {
 	 * @param UUID The C_InvoiceTax_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInvoiceTaxInput(@JsonProperty("UUID") String UUID) {
+	public MInvoiceTaxInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

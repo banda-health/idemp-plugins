@@ -11,7 +11,7 @@ public class MDashboardPreferenceInput extends X_PA_DashboardPreferenceInput {
 	 * @param UUID The PA_DashboardPreference_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDashboardPreferenceInput(@JsonProperty("UUID") String UUID) {
+	public MDashboardPreferenceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

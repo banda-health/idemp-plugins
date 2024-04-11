@@ -11,7 +11,7 @@ public class MRMATaxInput extends X_M_RMATaxInput {
 	 * @param UUID The M_RMATax_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRMATaxInput(@JsonProperty("UUID") String UUID) {
+	public MRMATaxInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

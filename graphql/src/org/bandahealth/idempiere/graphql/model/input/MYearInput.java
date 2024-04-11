@@ -11,7 +11,7 @@ public class MYearInput extends X_C_YearInput {
 	 * @param UUID The C_Year_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MYearInput(@JsonProperty("UUID") String UUID) {
+	public MYearInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

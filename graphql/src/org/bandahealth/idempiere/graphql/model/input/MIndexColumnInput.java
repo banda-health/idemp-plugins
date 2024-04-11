@@ -11,7 +11,7 @@ public class MIndexColumnInput extends X_AD_IndexColumnInput {
 	 * @param UUID The AD_IndexColumn_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MIndexColumnInput(@JsonProperty("UUID") String UUID) {
+	public MIndexColumnInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

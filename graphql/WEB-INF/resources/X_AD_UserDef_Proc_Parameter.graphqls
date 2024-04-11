@@ -104,9 +104,9 @@ input AD_UserDef_Proc_ParameterInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Determines, if this field is displayed
-	IsDisplayed: AD_Ref_ListInput
+	IsDisplayed: ForeignEntityInput
 	# Data entry is required in this column
-	IsMandatory: AD_Ref_ListInput
+	IsMandatory: ForeignEntityInput
 	# The parameter is a range of values
 	IsRange: Boolean
 	MandatoryLogic: String

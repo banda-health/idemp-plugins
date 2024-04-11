@@ -29,12 +29,12 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mChartType;
+	private ForeignEntityInput mMeasureDisplay;
+	private ForeignEntityInput mMeasureScope;
 	private ForeignEntityInput mPA_ColorSchema;
 	private ForeignEntityInput mPA_GoalParent;
 	private ForeignEntityInput mPA_Measure;
-	private I_AD_Ref_ListInput mChartType;
-	private I_AD_Ref_ListInput mMeasureDisplay;
-	private I_AD_Ref_ListInput mMeasureScope;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -159,7 +159,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param ChartType Type of chart to render
 	 */
 	@JsonProperty("ChartType")
-	public void setChartTypeInput(I_AD_Ref_ListInput ChartType) {
+	public void setChartTypeInput(ForeignEntityInput ChartType) {
 		this.mChartType = ChartType;
 		if (ChartType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -183,7 +183,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Type of chart to render
 	 */
 	@JsonProperty("ChartType")
-	public I_AD_Ref_ListInput ChartType() {
+	public ForeignEntityInput ChartType() {
 		return mChartType;
 	}
 	/**
@@ -226,7 +226,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param MeasureDisplay Measure Scope initially displayed
 	 */
 	@JsonProperty("MeasureDisplay")
-	public void setMeasureDisplayInput(I_AD_Ref_ListInput MeasureDisplay) {
+	public void setMeasureDisplayInput(ForeignEntityInput MeasureDisplay) {
 		this.mMeasureDisplay = MeasureDisplay;
 		if (MeasureDisplay != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -250,7 +250,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Measure Scope initially displayed
 	 */
 	@JsonProperty("MeasureDisplay")
-	public I_AD_Ref_ListInput MeasureDisplay() {
+	public ForeignEntityInput MeasureDisplay() {
 		return mMeasureDisplay;
 	}
 
@@ -260,7 +260,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @param MeasureScope Performance Measure Scope
 	 */
 	@JsonProperty("MeasureScope")
-	public void setMeasureScopeInput(I_AD_Ref_ListInput MeasureScope) {
+	public void setMeasureScopeInput(ForeignEntityInput MeasureScope) {
 		this.mMeasureScope = MeasureScope;
 		if (MeasureScope != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -284,7 +284,7 @@ public class X_PA_GoalInput extends MGoal implements I_PA_GoalInput {
 	 * @return Performance Measure Scope
 	 */
 	@JsonProperty("MeasureScope")
-	public I_AD_Ref_ListInput MeasureScope() {
+	public ForeignEntityInput MeasureScope() {
 		return mMeasureScope;
 	}
 

@@ -11,7 +11,7 @@ public class MReplenishInput extends X_M_ReplenishInput {
 	 * @param UUID The M_Replenish_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MReplenishInput(@JsonProperty("UUID") String UUID) {
+	public MReplenishInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

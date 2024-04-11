@@ -24,7 +24,7 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Ref_List;
 	private ForeignEntityInput mC_DocType;
-	private I_AD_Ref_ListInput mDB_UserType;
+	private ForeignEntityInput mDB_UserType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -178,7 +178,7 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	 * @param DB_UserType The User Type when a new client is created
 	 */
 	@JsonProperty("DB_UserType")
-	public void setDB_UserTypeInput(I_AD_Ref_ListInput DB_UserType) {
+	public void setDB_UserTypeInput(ForeignEntityInput DB_UserType) {
 		this.mDB_UserType = DB_UserType;
 		if (get_ID() != 0) {
 			return;
@@ -205,7 +205,7 @@ public class X_BH_Default_DocAction_AccessInput extends MBHDefaultDocActionAcces
 	 * @return The User Type when a new client is created
 	 */
 	@JsonProperty("DB_UserType")
-	public I_AD_Ref_ListInput DB_UserType() {
+	public ForeignEntityInput DB_UserType() {
 		return mDB_UserType;
 	}
 }

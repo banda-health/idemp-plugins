@@ -140,22 +140,22 @@ input AD_UserDef_FieldInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# The column is always updateable, even if the record is not active or processed
-	IsAlwaysUpdateable: AD_Ref_ListInput
+	IsAlwaysUpdateable: ForeignEntityInput
 	# Automatic completion for text fields
-	IsAutocomplete: AD_Ref_ListInput
+	IsAutocomplete: ForeignEntityInput
 	# Determines, if this field is displayed
-	IsDisplayed: AD_Ref_ListInput
-	IsDisplayedGrid: AD_Ref_ListInput
+	IsDisplayed: ForeignEntityInput
+	IsDisplayedGrid: ForeignEntityInput
 	# Data entry is required in this column
-	IsMandatory: AD_Ref_ListInput
+	IsMandatory: ForeignEntityInput
 	# Field is read only
-	IsReadOnly: AD_Ref_ListInput
+	IsReadOnly: ForeignEntityInput
 	# Displayed on same line as previous field
-	IsSameLine: AD_Ref_ListInput
+	IsSameLine: ForeignEntityInput
 	# Show the button on the toolbar, the window, or both
-	IsToolbarButton: AD_Ref_ListInput
+	IsToolbarButton: ForeignEntityInput
 	# Determines, if the field can be updated
-	IsUpdateable: AD_Ref_ListInput
+	IsUpdateable: ForeignEntityInput
 	MandatoryLogic: String
 	# Alphanumeric identifier of the entity
 	Name: String

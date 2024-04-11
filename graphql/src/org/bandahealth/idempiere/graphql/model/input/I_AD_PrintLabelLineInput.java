@@ -85,12 +85,12 @@ public interface I_AD_PrintLabelLineInput extends I_AD_PrintLabelLine {
 	 *
 	 * @param LabelFormatType Label Format Type
 	 */
-	void setLabelFormatTypeInput(I_AD_Ref_ListInput LabelFormatType);
+	void setLabelFormatTypeInput(ForeignEntityInput LabelFormatType);
 
 	/**
 	 * Get LabelFormatType.
 	 *
 	 * @return Label Format Type
 	 */
-	I_AD_Ref_ListInput LabelFormatType();
+	ForeignEntityInput LabelFormatType();
 }

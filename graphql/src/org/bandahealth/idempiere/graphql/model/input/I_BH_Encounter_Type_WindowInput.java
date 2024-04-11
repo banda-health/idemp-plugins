@@ -43,14 +43,14 @@ public interface I_BH_Encounter_Type_WindowInput extends I_BH_Encounter_Type_Win
 	 *
 	 * @param BH_Encounter_Type BH_Encounter_Type
 	 */
-	void setBH_Encounter_TypeInput(I_AD_Ref_ListInput BH_Encounter_Type);
+	void setBH_Encounter_TypeInput(ForeignEntityInput BH_Encounter_Type);
 
 	/**
 	 * Get BH_Encounter_Type.
 	 *
 	 * @return BH_Encounter_Type
 	 */
-	I_AD_Ref_ListInput BH_Encounter_Type();
+	ForeignEntityInput BH_Encounter_Type();
 
 	/**
 	 * Set UU.

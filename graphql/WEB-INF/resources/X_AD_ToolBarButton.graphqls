@@ -68,7 +68,7 @@ type AD_ToolBarButton {
 
 input AD_ToolBarButtonInput {
 	# Indicates the Action to be performed
-	Action: AD_Ref_ListInput
+	Action: ForeignEntityInput
 	# The service component name that implements the interface for toolbar actions
 	ActionClassName: String
 	# Action name on the toolbar

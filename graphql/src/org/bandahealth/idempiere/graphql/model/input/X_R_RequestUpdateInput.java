@@ -23,9 +23,9 @@ import java.sql.ResultSet;
 public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_RequestUpdateInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mConfidentialTypeEntry;
 	private ForeignEntityInput mM_ProductSpent;
 	private ForeignEntityInput mR_Request;
-	private I_AD_Ref_ListInput mConfidentialTypeEntry;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -82,7 +82,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
 	 */
 	@JsonProperty("ConfidentialTypeEntry")
-	public void setConfidentialTypeEntryInput(I_AD_Ref_ListInput ConfidentialTypeEntry) {
+	public void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry) {
 		this.mConfidentialTypeEntry = ConfidentialTypeEntry;
 		if (ConfidentialTypeEntry != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -106,7 +106,7 @@ public class X_R_RequestUpdateInput extends MRequestUpdate implements I_R_Reques
 	 * @return Confidentiality of the individual entry
 	 */
 	@JsonProperty("ConfidentialTypeEntry")
-	public I_AD_Ref_ListInput ConfidentialTypeEntry() {
+	public ForeignEntityInput ConfidentialTypeEntry() {
 		return mConfidentialTypeEntry;
 	}
 

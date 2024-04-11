@@ -44,7 +44,7 @@ type PA_Benchmark {
 
 input PA_BenchmarkInput {
 	# How to accumulate data on time axis
-	AccumulationType: AD_Ref_ListInput
+	AccumulationType: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Optional short description of the record

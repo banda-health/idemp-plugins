@@ -15,14 +15,14 @@ public interface I_AD_ProcessInput extends I_AD_Process {
 	 *
 	 * @param AccessLevel Access Level required
 	 */
-	void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel);
+	void setAccessLevelInput(ForeignEntityInput AccessLevel);
 
 	/**
 	 * Get AccessLevel.
 	 *
 	 * @return Access Level required
 	 */
-	I_AD_Ref_ListInput AccessLevel();
+	ForeignEntityInput AccessLevel();
 
 	/**
 	 * Set AD_CtxHelp.
@@ -127,14 +127,14 @@ public interface I_AD_ProcessInput extends I_AD_Process {
 	 *
 	 * @param AllowMultipleExecution Allow or disallow executing a process/report multiple times concurrently
 	 */
-	void setAllowMultipleExecutionInput(I_AD_Ref_ListInput AllowMultipleExecution);
+	void setAllowMultipleExecutionInput(ForeignEntityInput AllowMultipleExecution);
 
 	/**
 	 * Get AllowMultipleExecution.
 	 *
 	 * @return Allow or disallow executing a process/report multiple times concurrently
 	 */
-	I_AD_Ref_ListInput AllowMultipleExecution();
+	ForeignEntityInput AllowMultipleExecution();
 
 	/**
 	 * Set AD_EntityType.
@@ -155,26 +155,26 @@ public interface I_AD_ProcessInput extends I_AD_Process {
 	 *
 	 * @param ExecutionType Execution Type defines whether the report/process will always run in background or foreground. 
 	 */
-	void setExecutionTypeInput(I_AD_Ref_ListInput ExecutionType);
+	void setExecutionTypeInput(ForeignEntityInput ExecutionType);
 
 	/**
 	 * Get ExecutionType.
 	 *
 	 * @return Execution Type defines whether the report/process will always run in background or foreground. 
 	 */
-	I_AD_Ref_ListInput ExecutionType();
+	ForeignEntityInput ExecutionType();
 
 	/**
 	 * Set ShowHelp.
 	 *
 	 * @param ShowHelp ShowHelp
 	 */
-	void setShowHelpInput(I_AD_Ref_ListInput ShowHelp);
+	void setShowHelpInput(ForeignEntityInput ShowHelp);
 
 	/**
 	 * Get ShowHelp.
 	 *
 	 * @return ShowHelp
 	 */
-	I_AD_Ref_ListInput ShowHelp();
+	ForeignEntityInput ShowHelp();
 }

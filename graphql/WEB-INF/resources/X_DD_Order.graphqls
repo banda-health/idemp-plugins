@@ -176,21 +176,21 @@ input DD_OrderInput {
 	DateReceived: Date
 	UU: ID
 	# Defines the timing of Delivery
-	DeliveryRule: AD_Ref_ListInput
+	DeliveryRule: ForeignEntityInput
 	# How the order will be delivered
-	DeliveryViaRule: AD_Ref_ListInput
+	DeliveryViaRule: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# Freight Amount 
 	FreightAmt: BigDecimal
 	# Method for charging Freight
-	FreightCostRule: AD_Ref_ListInput
+	FreightCostRule: ForeignEntityInput
 	# Generate To
 	GenerateTo: String
 	# The record is active in the system
@@ -222,7 +222,7 @@ input DD_OrderInput {
 	# Posting status
 	Posted: Boolean
 	# Priority of a document
-	PriorityRule: AD_Ref_ListInput
+	PriorityRule: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

@@ -57,14 +57,14 @@ public interface I_AD_ViewColumnInput extends I_AD_ViewColumn {
 	 *
 	 * @param DBDataType DBDataType
 	 */
-	void setDBDataTypeInput(I_AD_Ref_ListInput DBDataType);
+	void setDBDataTypeInput(ForeignEntityInput DBDataType);
 
 	/**
 	 * Get DBDataType.
 	 *
 	 * @return DBDataType
 	 */
-	I_AD_Ref_ListInput DBDataType();
+	ForeignEntityInput DBDataType();
 
 	/**
 	 * Set AD_EntityType.

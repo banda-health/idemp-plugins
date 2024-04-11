@@ -58,16 +58,16 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	private ForeignEntityInput mC_SubAcct;
 	private ForeignEntityInput mC_UOM;
 	private ForeignEntityInput mC_ValidCombination;
+	private ForeignEntityInput mCurrencyRateType;
 	private ForeignEntityInput mGL_Budget;
 	private ForeignEntityInput mGL_Category;
 	private ForeignEntityInput mGL_Journal;
 	private ForeignEntityInput mGL_JournalBatch;
 	private ForeignEntityInput mGL_JournalLine;
 	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPostingType;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mCurrencyRateType;
-	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -665,7 +665,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	 * @param CurrencyRateType Currency Rate Type
 	 */
 	@JsonProperty("CurrencyRateType")
-	public void setCurrencyRateTypeInput(I_AD_Ref_ListInput CurrencyRateType) {
+	public void setCurrencyRateTypeInput(ForeignEntityInput CurrencyRateType) {
 		this.mCurrencyRateType = CurrencyRateType;
 		if (CurrencyRateType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -689,7 +689,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	 * @return Currency Rate Type
 	 */
 	@JsonProperty("CurrencyRateType")
-	public I_AD_Ref_ListInput CurrencyRateType() {
+	public ForeignEntityInput CurrencyRateType() {
 		return mCurrencyRateType;
 	}
 
@@ -932,7 +932,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -956,7 +956,7 @@ public class X_I_FAJournalInput extends MXIFAJournal implements I_I_FAJournalInp
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 

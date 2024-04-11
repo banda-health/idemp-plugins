@@ -61,7 +61,7 @@ input C_ContactActivityInput {
 	# Comments or additional information
 	Comments: String
 	# Type of activity, e.g. task, email, phone call
-	ContactActivityType: AD_Ref_ListInput
+	ContactActivityType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Last effective date (inclusive)

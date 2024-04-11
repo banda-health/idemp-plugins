@@ -11,7 +11,7 @@ public class MLdapProcessorLogInput extends X_AD_LdapProcessorLogInput {
 	 * @param UUID The AD_LdapProcessorLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLdapProcessorLogInput(@JsonProperty("UUID") String UUID) {
+	public MLdapProcessorLogInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

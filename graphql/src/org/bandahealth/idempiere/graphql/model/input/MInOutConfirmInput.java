@@ -11,7 +11,7 @@ public class MInOutConfirmInput extends X_M_InOutConfirmInput {
 	 * @param UUID The M_InOutConfirm_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MInOutConfirmInput(@JsonProperty("UUID") String UUID) {
+	public MInOutConfirmInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

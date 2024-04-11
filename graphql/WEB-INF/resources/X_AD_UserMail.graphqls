@@ -62,7 +62,7 @@ input AD_UserMailInput {
 	EMailFrom: String
 	# The record is active in the system
 	IsActive: Boolean
-	IsDelivered: AD_Ref_ListInput
+	IsDelivered: ForeignEntityInput
 	# Text used for Mail message
 	MailText: String
 	# EMail Message ID

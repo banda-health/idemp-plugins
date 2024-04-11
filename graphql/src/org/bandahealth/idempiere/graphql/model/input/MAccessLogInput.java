@@ -11,7 +11,7 @@ public class MAccessLogInput extends X_AD_AccessLogInput {
 	 * @param UUID The AD_AccessLog_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAccessLogInput(@JsonProperty("UUID") String UUID) {
+	public MAccessLogInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

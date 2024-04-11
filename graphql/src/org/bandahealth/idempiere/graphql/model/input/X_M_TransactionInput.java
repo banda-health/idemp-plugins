@@ -40,8 +40,8 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	private ForeignEntityInput mM_MovementLine;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_ProductionLine;
+	private ForeignEntityInput mMovementType;
 	private ForeignEntityInput mPP_Cost_Collector;
-	private I_AD_Ref_ListInput mMovementType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -445,7 +445,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	 * @param MovementType Method of moving the inventory
 	 */
 	@JsonProperty("MovementType")
-	public void setMovementTypeInput(I_AD_Ref_ListInput MovementType) {
+	public void setMovementTypeInput(ForeignEntityInput MovementType) {
 		this.mMovementType = MovementType;
 		if (get_ID() != 0) {
 			return;
@@ -472,7 +472,7 @@ public class X_M_TransactionInput extends MTransaction implements I_M_Transactio
 	 * @return Method of moving the inventory
 	 */
 	@JsonProperty("MovementType")
-	public I_AD_Ref_ListInput MovementType() {
+	public ForeignEntityInput MovementType() {
 		return mMovementType;
 	}
 

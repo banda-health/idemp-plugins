@@ -82,7 +82,7 @@ type AD_Table {
 
 input AD_TableInput {
 	# Access Level required
-	AccessLevel: AD_Ref_ListInput
+	AccessLevel: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
@@ -129,7 +129,7 @@ input AD_TableInput {
 	PO_Window: ForeignEntityInput
 	Processing: Boolean
 	# Type of Data Replication
-	ReplicationType: AD_Ref_ListInput
+	ReplicationType: ForeignEntityInput
 	# Name of the table in the database
 	TableName: String
 }

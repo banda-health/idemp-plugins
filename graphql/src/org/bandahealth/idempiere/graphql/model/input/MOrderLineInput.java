@@ -19,7 +19,7 @@ public class MOrderLineInput extends X_C_OrderLineInput {
 	 * @param UUID The C_OrderLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOrderLineInput(@JsonProperty("UUID") String UUID,
+	public MOrderLineInput(@JsonProperty("UU") String UUID,
 			@JsonProperty("C_Order") ForeignEntityInput C_OrderInput) {
 		super(UUID);
 		setC_OrderInput(C_OrderInput);

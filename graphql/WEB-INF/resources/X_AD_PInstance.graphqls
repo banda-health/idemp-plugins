@@ -82,7 +82,7 @@ input AD_PInstanceInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Type of Notifications
-	NotificationType: AD_Ref_ListInput
+	NotificationType: ForeignEntityInput
 	ReportType: String
 	# Result of the action taken
 	Result: Int

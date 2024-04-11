@@ -73,7 +73,7 @@ input C_RemunerationInput {
 	# Hourly Overtime Cost
 	OvertimeCost: BigDecimal
 	# Type of Remuneration
-	RemunerationType: AD_Ref_ListInput
+	RemunerationType: ForeignEntityInput
 	# Standard Work Hours based on Remuneration Type
 	StandardHours: Int
 }

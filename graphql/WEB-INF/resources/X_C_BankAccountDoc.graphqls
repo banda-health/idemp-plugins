@@ -63,5 +63,5 @@ input C_BankAccountDocInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule: ForeignEntityInput
 }

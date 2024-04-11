@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_C_TaxBaseInput extends X_C_TaxBase implements I_C_TaxBaseInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mBase;
+	private ForeignEntityInput mBase;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -78,7 +78,7 @@ public class X_C_TaxBaseInput extends X_C_TaxBase implements I_C_TaxBaseInput {
 	 * @param Base Calculation Base
 	 */
 	@JsonProperty("Base")
-	public void setBaseInput(I_AD_Ref_ListInput Base) {
+	public void setBaseInput(ForeignEntityInput Base) {
 		this.mBase = Base;
 		if (Base != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -102,7 +102,7 @@ public class X_C_TaxBaseInput extends X_C_TaxBase implements I_C_TaxBaseInput {
 	 * @return Calculation Base
 	 */
 	@JsonProperty("Base")
-	public I_AD_Ref_ListInput Base() {
+	public ForeignEntityInput Base() {
 		return mBase;
 	}
 	/**

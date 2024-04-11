@@ -127,12 +127,12 @@ public interface I_I_ProductInput extends I_I_Product {
 	 *
 	 * @param ProductType Type of product
 	 */
-	void setProductTypeInput(I_AD_Ref_ListInput ProductType);
+	void setProductTypeInput(ForeignEntityInput ProductType);
 
 	/**
 	 * Get ProductType.
 	 *
 	 * @return Type of product
 	 */
-	I_AD_Ref_ListInput ProductType();
+	ForeignEntityInput ProductType();
 }

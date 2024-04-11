@@ -11,7 +11,7 @@ public class MCtxHelpInput extends X_AD_CtxHelpInput {
 	 * @param UUID The AD_CtxHelp_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCtxHelpInput(@JsonProperty("UUID") String UUID) {
+	public MCtxHelpInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

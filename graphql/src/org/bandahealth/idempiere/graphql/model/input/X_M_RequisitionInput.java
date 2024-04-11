@@ -27,11 +27,11 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mC_DocType;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mM_PriceList;
 	private ForeignEntityInput mM_Warehouse;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mPriorityRule;
+	private ForeignEntityInput mPriorityRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -156,7 +156,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -180,7 +180,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -190,7 +190,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -214,7 +214,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**
@@ -343,7 +343,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	 * @param PriorityRule Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule) {
+	public void setPriorityRuleInput(ForeignEntityInput PriorityRule) {
 		this.mPriorityRule = PriorityRule;
 		if (PriorityRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -367,7 +367,7 @@ public class X_M_RequisitionInput extends MRequisition implements I_M_Requisitio
 	 * @return Priority of a document
 	 */
 	@JsonProperty("PriorityRule")
-	public I_AD_Ref_ListInput PriorityRule() {
+	public ForeignEntityInput PriorityRule() {
 		return mPriorityRule;
 	}
 }

@@ -191,7 +191,7 @@ input C_BPartnerInput {
 	BH_Birthday: Date
 	# Electronic Mail Address
 	BH_EMail: String
-	bh_gender: AD_Ref_ListInput
+	bh_gender: ForeignEntityInput
 	BH_IsApproximateDateOfBirth: Boolean
 	# Local Patient ID
 	BH_Local_PatientID: String
@@ -219,9 +219,9 @@ input C_BPartnerInput {
 	CustomerProfileID: String
 	Default1099Box: ForeignEntityInput
 	# Defines the timing of Delivery
-	DeliveryRule: AD_Ref_ListInput
+	DeliveryRule: ForeignEntityInput
 	# How the order will be delivered
-	DeliveryViaRule: AD_Ref_ListInput
+	DeliveryViaRule: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Number of copies to be printed
@@ -234,11 +234,11 @@ input C_BPartnerInput {
 	# Flat discount percentage 
 	FlatDiscount: BigDecimal
 	# Method for charging Freight
-	FreightCostRule: AD_Ref_ListInput
+	FreightCostRule: ForeignEntityInput
 	# Print Format for printing Invoices
 	Invoice_PrintFormat: ForeignEntityInput
 	# Frequency and method of invoicing 
-	InvoiceRule: AD_Ref_ListInput
+	InvoiceRule: ForeignEntityInput
 	Is1099Vendor: Boolean
 	# The record is active in the system
 	IsActive: Boolean
@@ -281,9 +281,9 @@ input C_BPartnerInput {
 	# Number of employees
 	NumberEmployees: Int
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule: ForeignEntityInput
 	# Purchase payment option
-	PaymentRulePO: AD_Ref_ListInput
+	PaymentRulePO: ForeignEntityInput
 	# Schema to calculate the purchase trade discount percentage
 	PO_DiscountSchema: ForeignEntityInput
 	# Payment rules for a purchase order
@@ -315,7 +315,7 @@ input C_BPartnerInput {
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
-	SOCreditStatus: AD_Ref_ListInput
+	SOCreditStatus: ForeignEntityInput
 	# Tax Identification
 	TaxID: String
 	# Total Open Balance Amount in primary Accounting Currency

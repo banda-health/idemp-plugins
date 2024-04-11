@@ -71,7 +71,7 @@ input IMP_ProcessorInput {
 	# Frequency of events
 	Frequency: Int
 	# Frequency of event
-	FrequencyType: AD_Ref_ListInput
+	FrequencyType: ForeignEntityInput
 	# Comment or Hint
 	Help: String
 	Host: String

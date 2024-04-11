@@ -26,14 +26,14 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_ElementValue;
+	private ForeignEntityInput mCalculationType;
+	private ForeignEntityInput mLineType;
+	private ForeignEntityInput mPAAmountType;
+	private ForeignEntityInput mPAPeriodType;
 	private ForeignEntityInput mPA_ReportLine;
 	private ForeignEntityInput mPA_ReportLineSet;
 	private ForeignEntityInput mPA_ReportSource;
-	private I_AD_Ref_ListInput mCalculationType;
-	private I_AD_Ref_ListInput mLineType;
-	private I_AD_Ref_ListInput mPAAmountType;
-	private I_AD_Ref_ListInput mPAPeriodType;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -124,7 +124,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @param CalculationType Calculation
 	 */
 	@JsonProperty("CalculationType")
-	public void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType) {
+	public void setCalculationTypeInput(ForeignEntityInput CalculationType) {
 		this.mCalculationType = CalculationType;
 		if (CalculationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -148,7 +148,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @return Calculation
 	 */
 	@JsonProperty("CalculationType")
-	public I_AD_Ref_ListInput CalculationType() {
+	public ForeignEntityInput CalculationType() {
 		return mCalculationType;
 	}
 	/**
@@ -187,7 +187,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @param LineType Line Type
 	 */
 	@JsonProperty("LineType")
-	public void setLineTypeInput(I_AD_Ref_ListInput LineType) {
+	public void setLineTypeInput(ForeignEntityInput LineType) {
 		this.mLineType = LineType;
 		if (LineType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -211,7 +211,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @return Line Type
 	 */
 	@JsonProperty("LineType")
-	public I_AD_Ref_ListInput LineType() {
+	public ForeignEntityInput LineType() {
 		return mLineType;
 	}
 
@@ -323,7 +323,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @param PAAmountType PA Amount Type for reporting
 	 */
 	@JsonProperty("PAAmountType")
-	public void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType) {
+	public void setPAAmountTypeInput(ForeignEntityInput PAAmountType) {
 		this.mPAAmountType = PAAmountType;
 		if (PAAmountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -347,7 +347,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @return PA Amount Type for reporting
 	 */
 	@JsonProperty("PAAmountType")
-	public I_AD_Ref_ListInput PAAmountType() {
+	public ForeignEntityInput PAAmountType() {
 		return mPAAmountType;
 	}
 
@@ -357,7 +357,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @param PAPeriodType PA Period Type
 	 */
 	@JsonProperty("PAPeriodType")
-	public void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType) {
+	public void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType) {
 		this.mPAPeriodType = PAPeriodType;
 		if (PAPeriodType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -381,7 +381,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @return PA Period Type
 	 */
 	@JsonProperty("PAPeriodType")
-	public I_AD_Ref_ListInput PAPeriodType() {
+	public ForeignEntityInput PAPeriodType() {
 		return mPAPeriodType;
 	}
 
@@ -391,7 +391,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -415,7 +415,7 @@ public class X_I_ReportLineInput extends X_I_ReportLine implements I_I_ReportLin
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

@@ -32,8 +32,8 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	private ForeignEntityInput mAD_Schedule;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mR_MailText;
+	private ForeignEntityInput mReportOutputType;
 	private ForeignEntityInput mSupervisor;
-	private I_AD_Ref_ListInput mReportOutputType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -295,7 +295,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	 * @param ReportOutputType Report Output Type
 	 */
 	@JsonProperty("ReportOutputType")
-	public void setReportOutputTypeInput(I_AD_Ref_ListInput ReportOutputType) {
+	public void setReportOutputTypeInput(ForeignEntityInput ReportOutputType) {
 		this.mReportOutputType = ReportOutputType;
 		if (ReportOutputType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -319,7 +319,7 @@ public class X_AD_SchedulerInput extends MScheduler implements I_AD_SchedulerInp
 	 * @return Report Output Type
 	 */
 	@JsonProperty("ReportOutputType")
-	public I_AD_Ref_ListInput ReportOutputType() {
+	public ForeignEntityInput ReportOutputType() {
 		return mReportOutputType;
 	}
 

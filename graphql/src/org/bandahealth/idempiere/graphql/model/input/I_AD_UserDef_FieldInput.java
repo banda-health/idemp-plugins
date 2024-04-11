@@ -183,126 +183,126 @@ public interface I_AD_UserDef_FieldInput extends I_AD_UserDef_Field {
 	 *
 	 * @param IsAlwaysUpdateable The column is always updateable, even if the record is not active or processed
 	 */
-	void setIsAlwaysUpdateableInput(I_AD_Ref_ListInput IsAlwaysUpdateable);
+	void setIsAlwaysUpdateableInput(ForeignEntityInput IsAlwaysUpdateable);
 
 	/**
 	 * Get IsAlwaysUpdateable.
 	 *
 	 * @return The column is always updateable, even if the record is not active or processed
 	 */
-	I_AD_Ref_ListInput IsAlwaysUpdateable();
+	ForeignEntityInput IsAlwaysUpdateable();
 
 	/**
 	 * Set IsAutocomplete.
 	 *
 	 * @param IsAutocomplete Automatic completion for text fields
 	 */
-	void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete);
+	void setIsAutocompleteInput(ForeignEntityInput IsAutocomplete);
 
 	/**
 	 * Get IsAutocomplete.
 	 *
 	 * @return Automatic completion for text fields
 	 */
-	I_AD_Ref_ListInput IsAutocomplete();
+	ForeignEntityInput IsAutocomplete();
 
 	/**
 	 * Set IsDisplayed.
 	 *
 	 * @param IsDisplayed Determines, if this field is displayed
 	 */
-	void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed);
+	void setIsDisplayedInput(ForeignEntityInput IsDisplayed);
 
 	/**
 	 * Get IsDisplayed.
 	 *
 	 * @return Determines, if this field is displayed
 	 */
-	I_AD_Ref_ListInput IsDisplayed();
+	ForeignEntityInput IsDisplayed();
 
 	/**
 	 * Set IsDisplayedGrid.
 	 *
 	 * @param IsDisplayedGrid IsDisplayedGrid
 	 */
-	void setIsDisplayedGridInput(I_AD_Ref_ListInput IsDisplayedGrid);
+	void setIsDisplayedGridInput(ForeignEntityInput IsDisplayedGrid);
 
 	/**
 	 * Get IsDisplayedGrid.
 	 *
 	 * @return IsDisplayedGrid
 	 */
-	I_AD_Ref_ListInput IsDisplayedGrid();
+	ForeignEntityInput IsDisplayedGrid();
 
 	/**
 	 * Set IsMandatory.
 	 *
 	 * @param IsMandatory Data entry is required in this column
 	 */
-	void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory);
+	void setIsMandatoryInput(ForeignEntityInput IsMandatory);
 
 	/**
 	 * Get IsMandatory.
 	 *
 	 * @return Data entry is required in this column
 	 */
-	I_AD_Ref_ListInput IsMandatory();
+	ForeignEntityInput IsMandatory();
 
 	/**
 	 * Set IsReadOnly.
 	 *
 	 * @param IsReadOnly Field is read only
 	 */
-	void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly);
+	void setIsReadOnlyInput(ForeignEntityInput IsReadOnly);
 
 	/**
 	 * Get IsReadOnly.
 	 *
 	 * @return Field is read only
 	 */
-	I_AD_Ref_ListInput IsReadOnly();
+	ForeignEntityInput IsReadOnly();
 
 	/**
 	 * Set IsSameLine.
 	 *
 	 * @param IsSameLine Displayed on same line as previous field
 	 */
-	void setIsSameLineInput(I_AD_Ref_ListInput IsSameLine);
+	void setIsSameLineInput(ForeignEntityInput IsSameLine);
 
 	/**
 	 * Get IsSameLine.
 	 *
 	 * @return Displayed on same line as previous field
 	 */
-	I_AD_Ref_ListInput IsSameLine();
+	ForeignEntityInput IsSameLine();
 
 	/**
 	 * Set IsToolbarButton.
 	 *
 	 * @param IsToolbarButton Show the button on the toolbar, the window, or both
 	 */
-	void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton);
+	void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton);
 
 	/**
 	 * Get IsToolbarButton.
 	 *
 	 * @return Show the button on the toolbar, the window, or both
 	 */
-	I_AD_Ref_ListInput IsToolbarButton();
+	ForeignEntityInput IsToolbarButton();
 
 	/**
 	 * Set IsUpdateable.
 	 *
 	 * @param IsUpdateable Determines, if the field can be updated
 	 */
-	void setIsUpdateableInput(I_AD_Ref_ListInput IsUpdateable);
+	void setIsUpdateableInput(ForeignEntityInput IsUpdateable);
 
 	/**
 	 * Get IsUpdateable.
 	 *
 	 * @return Determines, if the field can be updated
 	 */
-	I_AD_Ref_ListInput IsUpdateable();
+	ForeignEntityInput IsUpdateable();
 
 	/**
 	 * Set PA_DashboardContent.

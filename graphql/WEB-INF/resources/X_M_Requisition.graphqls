@@ -83,9 +83,9 @@ input M_RequisitionInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# Comment or Hint
@@ -102,7 +102,7 @@ input M_RequisitionInput {
 	# Posting status
 	Posted: Boolean
 	# Priority of a document
-	PriorityRule: AD_Ref_ListInput
+	PriorityRule: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

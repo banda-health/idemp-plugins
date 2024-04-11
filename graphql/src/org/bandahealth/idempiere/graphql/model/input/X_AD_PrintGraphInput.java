@@ -30,7 +30,7 @@ public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintG
 	private ForeignEntityInput mData4_PrintFormatItem;
 	private ForeignEntityInput mData_PrintFormatItem;
 	private ForeignEntityInput mDescription_PrintFormatItem;
-	private I_AD_Ref_ListInput mGraphType;
+	private ForeignEntityInput mGraphType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -354,7 +354,7 @@ public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintG
 	 * @param GraphType Type of graph to be painted
 	 */
 	@JsonProperty("GraphType")
-	public void setGraphTypeInput(I_AD_Ref_ListInput GraphType) {
+	public void setGraphTypeInput(ForeignEntityInput GraphType) {
 		this.mGraphType = GraphType;
 		if (GraphType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -378,7 +378,7 @@ public class X_AD_PrintGraphInput extends X_AD_PrintGraph implements I_AD_PrintG
 	 * @return Type of graph to be painted
 	 */
 	@JsonProperty("GraphType")
-	public I_AD_Ref_ListInput GraphType() {
+	public ForeignEntityInput GraphType() {
 		return mGraphType;
 	}
 }

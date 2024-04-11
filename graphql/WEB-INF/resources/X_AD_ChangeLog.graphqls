@@ -71,7 +71,7 @@ input AD_ChangeLogInput {
 	# Optional short description of the record
 	Description: String
 	# Type of Event in Change Log
-	EventChangeLog: AD_Ref_ListInput
+	EventChangeLog: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# The change is a customization of the data dictionary and can be applied after Migration

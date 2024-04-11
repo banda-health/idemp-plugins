@@ -11,7 +11,7 @@ public class MImportTemplateInput extends X_AD_ImportTemplateInput {
 	 * @param UUID The AD_ImportTemplate_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MImportTemplateInput(@JsonProperty("UUID") String UUID) {
+	public MImportTemplateInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

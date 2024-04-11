@@ -32,8 +32,8 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mM_WarehouseSource;
-	private I_AD_Ref_ListInput mReplenishType;
-	private I_AD_Ref_ListInput mReplenishmentCreate;
+	private ForeignEntityInput mReplenishType;
+	private ForeignEntityInput mReplenishmentCreate;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -303,7 +303,7 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	 * @param ReplenishmentCreate Create from Replenishment
 	 */
 	@JsonProperty("ReplenishmentCreate")
-	public void setReplenishmentCreateInput(I_AD_Ref_ListInput ReplenishmentCreate) {
+	public void setReplenishmentCreateInput(ForeignEntityInput ReplenishmentCreate) {
 		this.mReplenishmentCreate = ReplenishmentCreate;
 		if (ReplenishmentCreate != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -327,7 +327,7 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	 * @return Create from Replenishment
 	 */
 	@JsonProperty("ReplenishmentCreate")
-	public I_AD_Ref_ListInput ReplenishmentCreate() {
+	public ForeignEntityInput ReplenishmentCreate() {
 		return mReplenishmentCreate;
 	}
 
@@ -337,7 +337,7 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	 * @param ReplenishType Method for re-ordering a product
 	 */
 	@JsonProperty("ReplenishType")
-	public void setReplenishTypeInput(I_AD_Ref_ListInput ReplenishType) {
+	public void setReplenishTypeInput(ForeignEntityInput ReplenishType) {
 		this.mReplenishType = ReplenishType;
 		if (ReplenishType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -361,7 +361,7 @@ public class X_T_ReplenishInput extends X_T_Replenish implements I_T_ReplenishIn
 	 * @return Method for re-ordering a product
 	 */
 	@JsonProperty("ReplenishType")
-	public I_AD_Ref_ListInput ReplenishType() {
+	public ForeignEntityInput ReplenishType() {
 		return mReplenishType;
 	}
 

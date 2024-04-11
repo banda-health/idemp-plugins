@@ -11,7 +11,7 @@ public class MPOSTerminalInput extends X_U_POSTerminalInput {
 	 * @param UUID The U_POSTerminal_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPOSTerminalInput(@JsonProperty("UUID") String UUID) {
+	public MPOSTerminalInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

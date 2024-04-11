@@ -11,7 +11,7 @@ public class MLotCtlInput extends X_M_LotCtlInput {
 	 * @param UUID The M_LotCtl_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLotCtlInput(@JsonProperty("UUID") String UUID) {
+	public MLotCtlInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

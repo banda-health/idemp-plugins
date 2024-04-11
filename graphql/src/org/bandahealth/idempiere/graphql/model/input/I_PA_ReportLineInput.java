@@ -29,14 +29,14 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param CalculationType CalculationType
 	 */
-	void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType);
+	void setCalculationTypeInput(ForeignEntityInput CalculationType);
 
 	/**
 	 * Get CalculationType.
 	 *
 	 * @return CalculationType
 	 */
-	I_AD_Ref_ListInput CalculationType();
+	ForeignEntityInput CalculationType();
 
 	/**
 	 * Set GL_Budget.
@@ -57,14 +57,14 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param LineType LineType
 	 */
-	void setLineTypeInput(I_AD_Ref_ListInput LineType);
+	void setLineTypeInput(ForeignEntityInput LineType);
 
 	/**
 	 * Get LineType.
 	 *
 	 * @return LineType
 	 */
-	I_AD_Ref_ListInput LineType();
+	ForeignEntityInput LineType();
 
 	/**
 	 * Set Oper_1.
@@ -99,14 +99,14 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param OverlineStrokeType OverlineStrokeType
 	 */
-	void setOverlineStrokeTypeInput(I_AD_Ref_ListInput OverlineStrokeType);
+	void setOverlineStrokeTypeInput(ForeignEntityInput OverlineStrokeType);
 
 	/**
 	 * Get OverlineStrokeType.
 	 *
 	 * @return OverlineStrokeType
 	 */
-	I_AD_Ref_ListInput OverlineStrokeType();
+	ForeignEntityInput OverlineStrokeType();
 
 	/**
 	 * Set UU.
@@ -141,54 +141,54 @@ public interface I_PA_ReportLineInput extends I_PA_ReportLine {
 	 *
 	 * @param PAAmountType PA Amount Type for reporting
 	 */
-	void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType);
+	void setPAAmountTypeInput(ForeignEntityInput PAAmountType);
 
 	/**
 	 * Get PAAmountType.
 	 *
 	 * @return PA Amount Type for reporting
 	 */
-	I_AD_Ref_ListInput PAAmountType();
+	ForeignEntityInput PAAmountType();
 
 	/**
 	 * Set PAPeriodType.
 	 *
 	 * @param PAPeriodType PA Period Type
 	 */
-	void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType);
+	void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType);
 
 	/**
 	 * Get PAPeriodType.
 	 *
 	 * @return PA Period Type
 	 */
-	I_AD_Ref_ListInput PAPeriodType();
+	ForeignEntityInput PAPeriodType();
 
 	/**
 	 * Set PostingType.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 
 	/**
 	 * Set UnderlineStrokeType.
 	 *
 	 * @param UnderlineStrokeType UnderlineStrokeType
 	 */
-	void setUnderlineStrokeTypeInput(I_AD_Ref_ListInput UnderlineStrokeType);
+	void setUnderlineStrokeTypeInput(ForeignEntityInput UnderlineStrokeType);
 
 	/**
 	 * Get UnderlineStrokeType.
 	 *
 	 * @return UnderlineStrokeType
 	 */
-	I_AD_Ref_ListInput UnderlineStrokeType();
+	ForeignEntityInput UnderlineStrokeType();
 }

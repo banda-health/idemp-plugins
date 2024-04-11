@@ -11,7 +11,7 @@ public class MResourceAssignmentInput extends X_S_ResourceAssignmentInput {
 	 * @param UUID The S_ResourceAssignment_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MResourceAssignmentInput(@JsonProperty("UUID") String UUID) {
+	public MResourceAssignmentInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

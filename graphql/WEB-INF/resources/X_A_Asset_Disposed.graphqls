@@ -84,17 +84,17 @@ type A_Asset_Disposed {
 input A_Asset_DisposedInput {
 	A_Accumulated_Depr: BigDecimal
 	A_Accumulated_Depr_Delta: BigDecimal
-	A_Activation_Method: AD_Ref_ListInput
+	A_Activation_Method: ForeignEntityInput
 	A_Asset_Cost: BigDecimal
 	UU: ID
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
-	A_Asset_Status: AD_Ref_ListInput
+	A_Asset_Status: ForeignEntityInput
 	A_Asset_Trade: ForeignEntityInput
 	A_Disposal_Amt: BigDecimal
 	A_Disposed_Date: Date
-	A_Disposed_Method: AD_Ref_ListInput
-	A_Disposed_Reason: AD_Ref_ListInput
+	A_Disposed_Method: ForeignEntityInput
+	A_Disposed_Reason: ForeignEntityInput
 	A_Proceeds: BigDecimal
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
@@ -113,9 +113,9 @@ input A_Asset_DisposedInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	Expense: BigDecimal
@@ -128,7 +128,7 @@ input A_Asset_DisposedInput {
 	# Posting status
 	Posted: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

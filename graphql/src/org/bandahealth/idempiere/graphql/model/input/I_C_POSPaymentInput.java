@@ -85,40 +85,40 @@ public interface I_C_POSPaymentInput extends I_C_POSPayment {
 	 *
 	 * @param CheckStatus CheckStatus
 	 */
-	void setCheckStatusInput(I_AD_Ref_ListInput CheckStatus);
+	void setCheckStatusInput(ForeignEntityInput CheckStatus);
 
 	/**
 	 * Get CheckStatus.
 	 *
 	 * @return CheckStatus
 	 */
-	I_AD_Ref_ListInput CheckStatus();
+	ForeignEntityInput CheckStatus();
 
 	/**
 	 * Set CreditCardType.
 	 *
 	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
-	void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType);
+	void setCreditCardTypeInput(ForeignEntityInput CreditCardType);
 
 	/**
 	 * Get CreditCardType.
 	 *
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
-	I_AD_Ref_ListInput CreditCardType();
+	ForeignEntityInput CreditCardType();
 
 	/**
 	 * Set TenderType.
 	 *
 	 * @param TenderType Method of Payment
 	 */
-	void setTenderTypeInput(I_AD_Ref_ListInput TenderType);
+	void setTenderTypeInput(ForeignEntityInput TenderType);
 
 	/**
 	 * Get TenderType.
 	 *
 	 * @return Method of Payment
 	 */
-	I_AD_Ref_ListInput TenderType();
+	ForeignEntityInput TenderType();
 }

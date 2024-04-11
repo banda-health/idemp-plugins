@@ -65,7 +65,7 @@ input M_TransactionAllocationInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Allocation Strategy
-	AllocationStrategyType: AD_Ref_ListInput
+	AllocationStrategyType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if the payment has been allocated

@@ -79,7 +79,7 @@ input M_InventoryLineInput {
 	# Optional short description of the record
 	Description: String
 	# Type of inventory difference
-	InventoryType: AD_Ref_ListInput
+	InventoryType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Unique line for this document

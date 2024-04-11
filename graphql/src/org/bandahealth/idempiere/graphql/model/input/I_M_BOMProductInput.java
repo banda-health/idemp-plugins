@@ -29,14 +29,14 @@ public interface I_M_BOMProductInput extends I_M_BOMProduct {
 	 *
 	 * @param BOMProductType BOM Product Type
 	 */
-	void setBOMProductTypeInput(I_AD_Ref_ListInput BOMProductType);
+	void setBOMProductTypeInput(ForeignEntityInput BOMProductType);
 
 	/**
 	 * Get BOMProductType.
 	 *
 	 * @return BOM Product Type
 	 */
-	I_AD_Ref_ListInput BOMProductType();
+	ForeignEntityInput BOMProductType();
 
 	/**
 	 * Set M_AttributeSetInstance.

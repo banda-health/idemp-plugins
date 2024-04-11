@@ -99,12 +99,12 @@ public interface I_C_PaySelectionCheckInput extends I_C_PaySelectionCheck {
 	 *
 	 * @param PaymentRule How you pay the invoice
 	 */
-	void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule);
+	void setPaymentRuleInput(ForeignEntityInput PaymentRule);
 
 	/**
 	 * Get PaymentRule.
 	 *
 	 * @return How you pay the invoice
 	 */
-	I_AD_Ref_ListInput PaymentRule();
+	ForeignEntityInput PaymentRule();
 }

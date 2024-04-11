@@ -74,7 +74,7 @@ input C_BP_GroupInput {
 	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
 	BH_Locked: Boolean
 	# Meant to be a sub-type of the charge type
-	BH_SubType: AD_Ref_ListInput
+	BH_SubType: ForeignEntityInput
 	UU: ID
 	# Dunning Rules for overdue invoices
 	C_Dunning: ForeignEntityInput
@@ -101,7 +101,7 @@ input C_BP_GroupInput {
 	# PO-Invoice Match Price Tolerance in percent of the purchase price
 	PriceMatchTolerance: BigDecimal
 	# Base of Priority
-	PriorityBase: AD_Ref_ListInput
+	PriorityBase: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 }

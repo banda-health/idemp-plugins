@@ -43,14 +43,14 @@ public interface I_T_InvoiceGLInput extends I_T_InvoiceGL {
 	 *
 	 * @param APAR Include Receivables and/or Payables transactions
 	 */
-	void setAPARInput(I_AD_Ref_ListInput APAR);
+	void setAPARInput(ForeignEntityInput APAR);
 
 	/**
 	 * Get APAR.
 	 *
 	 * @return Include Receivables and/or Payables transactions
 	 */
-	I_AD_Ref_ListInput APAR();
+	ForeignEntityInput APAR();
 
 	/**
 	 * Set C_ConversionTypeReval.

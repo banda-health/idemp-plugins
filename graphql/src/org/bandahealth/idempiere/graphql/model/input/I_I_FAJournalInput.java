@@ -253,14 +253,14 @@ public interface I_I_FAJournalInput extends I_I_FAJournal {
 	 *
 	 * @param CurrencyRateType CurrencyRateType
 	 */
-	void setCurrencyRateTypeInput(I_AD_Ref_ListInput CurrencyRateType);
+	void setCurrencyRateTypeInput(ForeignEntityInput CurrencyRateType);
 
 	/**
 	 * Get CurrencyRateType.
 	 *
 	 * @return CurrencyRateType
 	 */
-	I_AD_Ref_ListInput CurrencyRateType();
+	ForeignEntityInput CurrencyRateType();
 
 	/**
 	 * Set GL_Budget.
@@ -365,14 +365,14 @@ public interface I_I_FAJournalInput extends I_I_FAJournal {
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 
 	/**
 	 * Set User1.

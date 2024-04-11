@@ -57,12 +57,12 @@ public interface I_AD_UserPreferenceInput extends I_AD_UserPreference {
 	 *
 	 * @param ViewFindResult Does the system must switch to grid mode after the Find panel closes
 	 */
-	void setViewFindResultInput(I_AD_Ref_ListInput ViewFindResult);
+	void setViewFindResultInput(ForeignEntityInput ViewFindResult);
 
 	/**
 	 * Get ViewFindResult.
 	 *
 	 * @return Does the system must switch to grid mode after the Find panel closes
 	 */
-	I_AD_Ref_ListInput ViewFindResult();
+	ForeignEntityInput ViewFindResult();
 }

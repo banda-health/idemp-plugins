@@ -34,15 +34,15 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mA_Asset;
+	private ForeignEntityInput mIsReproducible;
+	private ForeignEntityInput mIsVanillaSystem;
+	private ForeignEntityInput mIssueSource;
 	private ForeignEntityInput mR_IssueKnown;
 	private ForeignEntityInput mR_IssueProject;
 	private ForeignEntityInput mR_IssueSystem;
 	private ForeignEntityInput mR_IssueUser;
 	private ForeignEntityInput mR_Request;
-	private I_AD_Ref_ListInput mIsReproducible;
-	private I_AD_Ref_ListInput mIsVanillaSystem;
-	private I_AD_Ref_ListInput mIssueSource;
-	private I_AD_Ref_ListInput mSystemStatus;
+	private ForeignEntityInput mSystemStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -289,7 +289,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @param IsReproducible Problem can re reproduced in Gardenworld
 	 */
 	@JsonProperty("IsReproducible")
-	public void setIsReproducibleInput(I_AD_Ref_ListInput IsReproducible) {
+	public void setIsReproducibleInput(ForeignEntityInput IsReproducible) {
 		this.mIsReproducible = IsReproducible;
 		if (IsReproducible != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -313,7 +313,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @return Problem can re reproduced in Gardenworld
 	 */
 	@JsonProperty("IsReproducible")
-	public I_AD_Ref_ListInput IsReproducible() {
+	public ForeignEntityInput IsReproducible() {
 		return mIsReproducible;
 	}
 
@@ -323,7 +323,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @param IssueSource Issue Source
 	 */
 	@JsonProperty("IssueSource")
-	public void setIssueSourceInput(I_AD_Ref_ListInput IssueSource) {
+	public void setIssueSourceInput(ForeignEntityInput IssueSource) {
 		this.mIssueSource = IssueSource;
 		if (IssueSource != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -347,7 +347,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @return Issue Source
 	 */
 	@JsonProperty("IssueSource")
-	public I_AD_Ref_ListInput IssueSource() {
+	public ForeignEntityInput IssueSource() {
 		return mIssueSource;
 	}
 
@@ -357,7 +357,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @param IsVanillaSystem The system was NOT compiled from Source - i.e. standard distribution
 	 */
 	@JsonProperty("IsVanillaSystem")
-	public void setIsVanillaSystemInput(I_AD_Ref_ListInput IsVanillaSystem) {
+	public void setIsVanillaSystemInput(ForeignEntityInput IsVanillaSystem) {
 		this.mIsVanillaSystem = IsVanillaSystem;
 		if (IsVanillaSystem != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -381,7 +381,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @return The system was NOT compiled from Source - i.e. standard distribution
 	 */
 	@JsonProperty("IsVanillaSystem")
-	public I_AD_Ref_ListInput IsVanillaSystem() {
+	public ForeignEntityInput IsVanillaSystem() {
 		return mIsVanillaSystem;
 	}
 	/**
@@ -707,7 +707,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @param SystemStatus Status of the system - Support priority depends on system status
 	 */
 	@JsonProperty("SystemStatus")
-	public void setSystemStatusInput(I_AD_Ref_ListInput SystemStatus) {
+	public void setSystemStatusInput(ForeignEntityInput SystemStatus) {
 		this.mSystemStatus = SystemStatus;
 		if (SystemStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -731,7 +731,7 @@ public class X_AD_IssueInput extends MIssue implements I_AD_IssueInput {
 	 * @return Status of the system - Support priority depends on system status
 	 */
 	@JsonProperty("SystemStatus")
-	public I_AD_Ref_ListInput SystemStatus() {
+	public ForeignEntityInput SystemStatus() {
 		return mSystemStatus;
 	}
 	/**

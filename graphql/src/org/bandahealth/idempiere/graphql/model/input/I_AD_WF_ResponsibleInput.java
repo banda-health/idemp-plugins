@@ -85,12 +85,12 @@ public interface I_AD_WF_ResponsibleInput extends I_AD_WF_Responsible {
 	 *
 	 * @param ResponsibleType Type of the Responsibility for a workflow
 	 */
-	void setResponsibleTypeInput(I_AD_Ref_ListInput ResponsibleType);
+	void setResponsibleTypeInput(ForeignEntityInput ResponsibleType);
 
 	/**
 	 * Get ResponsibleType.
 	 *
 	 * @return Type of the Responsibility for a workflow
 	 */
-	I_AD_Ref_ListInput ResponsibleType();
+	ForeignEntityInput ResponsibleType();
 }

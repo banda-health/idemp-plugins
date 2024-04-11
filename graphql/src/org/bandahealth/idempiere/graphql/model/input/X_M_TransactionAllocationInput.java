@@ -27,6 +27,7 @@ import java.sql.ResultSet;
 public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation implements I_M_TransactionAllocationInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAllocationStrategyType;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_InOutLine;
 	private ForeignEntityInput mM_InventoryLine;
@@ -37,7 +38,6 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	private ForeignEntityInput mOut_M_InventoryLine;
 	private ForeignEntityInput mOut_M_ProductionLine;
 	private ForeignEntityInput mOut_M_Transaction;
-	private I_AD_Ref_ListInput mAllocationStrategyType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -94,7 +94,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	 * @param AllocationStrategyType Allocation Strategy
 	 */
 	@JsonProperty("AllocationStrategyType")
-	public void setAllocationStrategyTypeInput(I_AD_Ref_ListInput AllocationStrategyType) {
+	public void setAllocationStrategyTypeInput(ForeignEntityInput AllocationStrategyType) {
 		this.mAllocationStrategyType = AllocationStrategyType;
 		if (AllocationStrategyType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -118,7 +118,7 @@ public class X_M_TransactionAllocationInput extends X_M_TransactionAllocation im
 	 * @return Allocation Strategy
 	 */
 	@JsonProperty("AllocationStrategyType")
-	public I_AD_Ref_ListInput AllocationStrategyType() {
+	public ForeignEntityInput AllocationStrategyType() {
 		return mAllocationStrategyType;
 	}
 

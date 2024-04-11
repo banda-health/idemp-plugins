@@ -99,14 +99,14 @@ public interface I_A_Asset_TransferInput extends I_A_Asset_Transfer {
 	 *
 	 * @param A_CapvsExp A_CapvsExp
 	 */
-	void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp);
+	void setA_CapvsExpInput(ForeignEntityInput A_CapvsExp);
 
 	/**
 	 * Get A_CapvsExp.
 	 *
 	 * @return A_CapvsExp
 	 */
-	I_AD_Ref_ListInput A_CapvsExp();
+	ForeignEntityInput A_CapvsExp();
 
 	/**
 	 * Set A_Depreciation_A.
@@ -239,40 +239,40 @@ public interface I_A_Asset_TransferInput extends I_A_Asset_Transfer {
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set PostingType.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

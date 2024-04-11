@@ -43,40 +43,40 @@ public interface I_C_InvoiceScheduleInput extends I_C_InvoiceSchedule {
 	 *
 	 * @param InvoiceFrequency How often invoices will be generated
 	 */
-	void setInvoiceFrequencyInput(I_AD_Ref_ListInput InvoiceFrequency);
+	void setInvoiceFrequencyInput(ForeignEntityInput InvoiceFrequency);
 
 	/**
 	 * Get InvoiceFrequency.
 	 *
 	 * @return How often invoices will be generated
 	 */
-	I_AD_Ref_ListInput InvoiceFrequency();
+	ForeignEntityInput InvoiceFrequency();
 
 	/**
 	 * Set InvoiceWeekDay.
 	 *
 	 * @param InvoiceWeekDay Day to generate invoices
 	 */
-	void setInvoiceWeekDayInput(I_AD_Ref_ListInput InvoiceWeekDay);
+	void setInvoiceWeekDayInput(ForeignEntityInput InvoiceWeekDay);
 
 	/**
 	 * Get InvoiceWeekDay.
 	 *
 	 * @return Day to generate invoices
 	 */
-	I_AD_Ref_ListInput InvoiceWeekDay();
+	ForeignEntityInput InvoiceWeekDay();
 
 	/**
 	 * Set InvoiceWeekDayCutoff.
 	 *
 	 * @param InvoiceWeekDayCutoff Last day in the week for shipments to be included
 	 */
-	void setInvoiceWeekDayCutoffInput(I_AD_Ref_ListInput InvoiceWeekDayCutoff);
+	void setInvoiceWeekDayCutoffInput(ForeignEntityInput InvoiceWeekDayCutoff);
 
 	/**
 	 * Get InvoiceWeekDayCutoff.
 	 *
 	 * @return Last day in the week for shipments to be included
 	 */
-	I_AD_Ref_ListInput InvoiceWeekDayCutoff();
+	ForeignEntityInput InvoiceWeekDayCutoff();
 }

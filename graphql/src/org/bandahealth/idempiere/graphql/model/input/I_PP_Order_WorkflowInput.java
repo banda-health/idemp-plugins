@@ -15,14 +15,14 @@ public interface I_PP_Order_WorkflowInput extends I_PP_Order_Workflow {
 	 *
 	 * @param AccessLevel Access Level required
 	 */
-	void setAccessLevelInput(I_AD_Ref_ListInput AccessLevel);
+	void setAccessLevelInput(ForeignEntityInput AccessLevel);
 
 	/**
 	 * Get AccessLevel.
 	 *
 	 * @return Access Level required
 	 */
-	I_AD_Ref_ListInput AccessLevel();
+	ForeignEntityInput AccessLevel();
 
 	/**
 	 * Set AD_Org.
@@ -113,14 +113,14 @@ public interface I_PP_Order_WorkflowInput extends I_PP_Order_Workflow {
 	 *
 	 * @param DurationUnit Unit of Duration
 	 */
-	void setDurationUnitInput(I_AD_Ref_ListInput DurationUnit);
+	void setDurationUnitInput(ForeignEntityInput DurationUnit);
 
 	/**
 	 * Get DurationUnit.
 	 *
 	 * @return Unit of Duration
 	 */
-	I_AD_Ref_ListInput DurationUnit();
+	ForeignEntityInput DurationUnit();
 
 	/**
 	 * Set AD_EntityType.
@@ -183,28 +183,28 @@ public interface I_PP_Order_WorkflowInput extends I_PP_Order_Workflow {
 	 *
 	 * @param ProcessType ProcessType
 	 */
-	void setProcessTypeInput(I_AD_Ref_ListInput ProcessType);
+	void setProcessTypeInput(ForeignEntityInput ProcessType);
 
 	/**
 	 * Get ProcessType.
 	 *
 	 * @return ProcessType
 	 */
-	I_AD_Ref_ListInput ProcessType();
+	ForeignEntityInput ProcessType();
 
 	/**
 	 * Set PublishStatus.
 	 *
 	 * @param PublishStatus Status of Publication
 	 */
-	void setPublishStatusInput(I_AD_Ref_ListInput PublishStatus);
+	void setPublishStatusInput(ForeignEntityInput PublishStatus);
 
 	/**
 	 * Get PublishStatus.
 	 *
 	 * @return Status of Publication
 	 */
-	I_AD_Ref_ListInput PublishStatus();
+	ForeignEntityInput PublishStatus();
 
 	/**
 	 * Set S_Resource.
@@ -225,12 +225,12 @@ public interface I_PP_Order_WorkflowInput extends I_PP_Order_Workflow {
 	 *
 	 * @param WorkflowType Type of Workflow
 	 */
-	void setWorkflowTypeInput(I_AD_Ref_ListInput WorkflowType);
+	void setWorkflowTypeInput(ForeignEntityInput WorkflowType);
 
 	/**
 	 * Get WorkflowType.
 	 *
 	 * @return Type of Workflow
 	 */
-	I_AD_Ref_ListInput WorkflowType();
+	ForeignEntityInput WorkflowType();
 }

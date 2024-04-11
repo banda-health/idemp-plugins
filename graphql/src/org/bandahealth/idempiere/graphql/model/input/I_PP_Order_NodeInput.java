@@ -15,14 +15,14 @@ public interface I_PP_Order_NodeInput extends I_PP_Order_Node {
 	 *
 	 * @param Action Indicates the Action to be performed
 	 */
-	void setActionInput(I_AD_Ref_ListInput Action);
+	void setActionInput(ForeignEntityInput Action);
 
 	/**
 	 * Get Action.
 	 *
 	 * @return Indicates the Action to be performed
 	 */
-	I_AD_Ref_ListInput Action();
+	ForeignEntityInput Action();
 
 	/**
 	 * Set AD_Column.
@@ -197,28 +197,28 @@ public interface I_PP_Order_NodeInput extends I_PP_Order_Node {
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set AD_EntityType.
@@ -239,28 +239,28 @@ public interface I_PP_Order_NodeInput extends I_PP_Order_Node {
 	 *
 	 * @param FinishMode Workflow Activity Finish Mode
 	 */
-	void setFinishModeInput(I_AD_Ref_ListInput FinishMode);
+	void setFinishModeInput(ForeignEntityInput FinishMode);
 
 	/**
 	 * Get FinishMode.
 	 *
 	 * @return Workflow Activity Finish Mode
 	 */
-	I_AD_Ref_ListInput FinishMode();
+	ForeignEntityInput FinishMode();
 
 	/**
 	 * Set JoinElement.
 	 *
 	 * @param JoinElement Semantics for multiple incoming Transitions
 	 */
-	void setJoinElementInput(I_AD_Ref_ListInput JoinElement);
+	void setJoinElementInput(ForeignEntityInput JoinElement);
 
 	/**
 	 * Get JoinElement.
 	 *
 	 * @return Semantics for multiple incoming Transitions
 	 */
-	I_AD_Ref_ListInput JoinElement();
+	ForeignEntityInput JoinElement();
 
 	/**
 	 * Set PP_Order.
@@ -323,42 +323,42 @@ public interface I_PP_Order_NodeInput extends I_PP_Order_Node {
 	 *
 	 * @param SplitElement Semantics for multiple outgoing Transitions
 	 */
-	void setSplitElementInput(I_AD_Ref_ListInput SplitElement);
+	void setSplitElementInput(ForeignEntityInput SplitElement);
 
 	/**
 	 * Get SplitElement.
 	 *
 	 * @return Semantics for multiple outgoing Transitions
 	 */
-	I_AD_Ref_ListInput SplitElement();
+	ForeignEntityInput SplitElement();
 
 	/**
 	 * Set StartMode.
 	 *
 	 * @param StartMode Workflow Activity Start Mode 
 	 */
-	void setStartModeInput(I_AD_Ref_ListInput StartMode);
+	void setStartModeInput(ForeignEntityInput StartMode);
 
 	/**
 	 * Get StartMode.
 	 *
 	 * @return Workflow Activity Start Mode 
 	 */
-	I_AD_Ref_ListInput StartMode();
+	ForeignEntityInput StartMode();
 
 	/**
 	 * Set SubflowExecution.
 	 *
 	 * @param SubflowExecution Mode how the sub-workflow is executed
 	 */
-	void setSubflowExecutionInput(I_AD_Ref_ListInput SubflowExecution);
+	void setSubflowExecutionInput(ForeignEntityInput SubflowExecution);
 
 	/**
 	 * Get SubflowExecution.
 	 *
 	 * @return Mode how the sub-workflow is executed
 	 */
-	I_AD_Ref_ListInput SubflowExecution();
+	ForeignEntityInput SubflowExecution();
 
 	/**
 	 * Set Workflow.

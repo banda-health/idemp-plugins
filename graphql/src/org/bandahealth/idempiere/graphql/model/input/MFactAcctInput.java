@@ -11,7 +11,7 @@ public class MFactAcctInput extends X_Fact_AcctInput {
 	 * @param UUID The Fact_Acct_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFactAcctInput(@JsonProperty("UUID") String UUID) {
+	public MFactAcctInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

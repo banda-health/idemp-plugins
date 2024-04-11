@@ -71,12 +71,12 @@ public interface I_AD_WizardProcessInput extends I_AD_WizardProcess {
 	 *
 	 * @param WizardStatus WizardStatus
 	 */
-	void setWizardStatusInput(I_AD_Ref_ListInput WizardStatus);
+	void setWizardStatusInput(ForeignEntityInput WizardStatus);
 
 	/**
 	 * Get WizardStatus.
 	 *
 	 * @return WizardStatus
 	 */
-	I_AD_Ref_ListInput WizardStatus();
+	ForeignEntityInput WizardStatus();
 }

@@ -43,12 +43,12 @@ public interface I_C_POSTenderTypeInput extends I_C_POSTenderType {
 	 *
 	 * @param TenderType Method of Payment
 	 */
-	void setTenderTypeInput(I_AD_Ref_ListInput TenderType);
+	void setTenderTypeInput(ForeignEntityInput TenderType);
 
 	/**
 	 * Get TenderType.
 	 *
 	 * @return Method of Payment
 	 */
-	I_AD_Ref_ListInput TenderType();
+	ForeignEntityInput TenderType();
 }

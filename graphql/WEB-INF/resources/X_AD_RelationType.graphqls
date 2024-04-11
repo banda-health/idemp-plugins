@@ -67,9 +67,9 @@ input AD_RelationTypeInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# If set, this role will be used as label for the zoom destination instead of the destinations's window name
-	Role_Source: AD_Ref_ListInput
+	Role_Source: ForeignEntityInput
 	# If set, this role will be used as label for the zoom destination instead of the destinations's window name
-	Role_Target: AD_Ref_ListInput
+	Role_Target: ForeignEntityInput
 	# Type of Validation (SQL, Java Script, Java Language)
-	Type: AD_Ref_ListInput
+	Type: ForeignEntityInput
 }

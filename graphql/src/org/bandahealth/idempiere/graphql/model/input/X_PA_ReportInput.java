@@ -31,11 +31,11 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	private ForeignEntityInput mAD_PrintFormat;
 	private ForeignEntityInput mC_AcctSchema;
 	private ForeignEntityInput mC_Calendar;
+	private ForeignEntityInput mExcludeAdjustmentPeriods;
 	private ForeignEntityInput mJasperProcess;
 	private ForeignEntityInput mPA_ReportColumnSet;
 	private ForeignEntityInput mPA_ReportCube;
 	private ForeignEntityInput mPA_ReportLineSet;
-	private I_AD_Ref_ListInput mExcludeAdjustmentPeriods;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -194,7 +194,7 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	 * @param ExcludeAdjustmentPeriods Exclude Adjustment Periods
 	 */
 	@JsonProperty("ExcludeAdjustmentPeriods")
-	public void setExcludeAdjustmentPeriodsInput(I_AD_Ref_ListInput ExcludeAdjustmentPeriods) {
+	public void setExcludeAdjustmentPeriodsInput(ForeignEntityInput ExcludeAdjustmentPeriods) {
 		this.mExcludeAdjustmentPeriods = ExcludeAdjustmentPeriods;
 		if (ExcludeAdjustmentPeriods != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -218,7 +218,7 @@ public class X_PA_ReportInput extends MReport implements I_PA_ReportInput {
 	 * @return Exclude Adjustment Periods
 	 */
 	@JsonProperty("ExcludeAdjustmentPeriods")
-	public I_AD_Ref_ListInput ExcludeAdjustmentPeriods() {
+	public ForeignEntityInput ExcludeAdjustmentPeriods() {
 		return mExcludeAdjustmentPeriods;
 	}
 

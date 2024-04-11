@@ -70,7 +70,7 @@ input HR_AttributeInput {
 	Amount: BigDecimal
 	# Identifies a Business Partner
 	C_BPartner: ForeignEntityInput
-	ColumnType: AD_Ref_ListInput
+	ColumnType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	HR_Attribute_A: ForeignEntityInput

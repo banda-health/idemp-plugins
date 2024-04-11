@@ -11,7 +11,7 @@ public class MGLCategoryInput extends X_GL_CategoryInput {
 	 * @param UUID The GL_Category_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MGLCategoryInput(@JsonProperty("UUID") String UUID) {
+	public MGLCategoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

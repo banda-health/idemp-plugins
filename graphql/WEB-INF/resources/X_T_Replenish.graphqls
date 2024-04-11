@@ -90,8 +90,8 @@ input T_ReplenishInput {
 	QtyReserved: BigDecimal
 	QtyToOrder: BigDecimal
 	# Create from Replenishment
-	ReplenishmentCreate: AD_Ref_ListInput
+	ReplenishmentCreate: ForeignEntityInput
 	# Method for re-ordering a product
-	ReplenishType: AD_Ref_ListInput
+	ReplenishType: ForeignEntityInput
 	UU: ID
 }

@@ -52,12 +52,12 @@ input AD_FindInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Logical operation: AND or OR
-	AndOr: AD_Ref_ListInput
+	AndOr: ForeignEntityInput
 	Find_ID: BigDecimal
 	# The record is active in the system
 	IsActive: Boolean
 	# Compare Operation
-	Operation: AD_Ref_ListInput
+	Operation: ForeignEntityInput
 	# Search key for the record in the format required - must be unique
 	Value: String
 	# Value To

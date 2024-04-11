@@ -29,14 +29,14 @@ public interface I_AD_AuthorizationProviderInput extends I_AD_AuthorizationProvi
 	 *
 	 * @param AD_AuthorizationType AD_AuthorizationType
 	 */
-	void setAD_AuthorizationTypeInput(I_AD_Ref_ListInput AD_AuthorizationType);
+	void setAD_AuthorizationTypeInput(ForeignEntityInput AD_AuthorizationType);
 
 	/**
 	 * Get AD_AuthorizationType.
 	 *
 	 * @return AD_AuthorizationType
 	 */
-	I_AD_Ref_ListInput AD_AuthorizationType();
+	ForeignEntityInput AD_AuthorizationType();
 
 	/**
 	 * Set AD_Org.

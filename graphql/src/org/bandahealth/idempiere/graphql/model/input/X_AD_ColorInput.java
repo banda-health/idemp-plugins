@@ -23,8 +23,8 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 
 	private ForeignEntityInput mAD_Image;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mColorType;
-	private I_AD_Ref_ListInput mStartPoint;
+	private ForeignEntityInput mColorType;
+	private ForeignEntityInput mStartPoint;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -144,7 +144,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @param ColorType Color presentation for this color
 	 */
 	@JsonProperty("ColorType")
-	public void setColorTypeInput(I_AD_Ref_ListInput ColorType) {
+	public void setColorTypeInput(ForeignEntityInput ColorType) {
 		this.mColorType = ColorType;
 		if (ColorType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -168,7 +168,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @return Color presentation for this color
 	 */
 	@JsonProperty("ColorType")
-	public I_AD_Ref_ListInput ColorType() {
+	public ForeignEntityInput ColorType() {
 		return mColorType;
 	}
 
@@ -178,7 +178,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @param StartPoint Start point of the gradient colors
 	 */
 	@JsonProperty("StartPoint")
-	public void setStartPointInput(I_AD_Ref_ListInput StartPoint) {
+	public void setStartPointInput(ForeignEntityInput StartPoint) {
 		this.mStartPoint = StartPoint;
 		if (StartPoint != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -202,7 +202,7 @@ public class X_AD_ColorInput extends MColor implements I_AD_ColorInput {
 	 * @return Start point of the gradient colors
 	 */
 	@JsonProperty("StartPoint")
-	public I_AD_Ref_ListInput StartPoint() {
+	public ForeignEntityInput StartPoint() {
 		return mStartPoint;
 	}
 }

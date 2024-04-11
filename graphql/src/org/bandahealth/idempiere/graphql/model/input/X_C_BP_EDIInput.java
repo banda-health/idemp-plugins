@@ -26,8 +26,8 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Sequence;
 	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mEDIType;
 	private ForeignEntityInput mM_Warehouse;
-	private I_AD_Ref_ListInput mEDIType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -181,7 +181,7 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	 * @param EDIType EDI Type
 	 */
 	@JsonProperty("EDIType")
-	public void setEDITypeInput(I_AD_Ref_ListInput EDIType) {
+	public void setEDITypeInput(ForeignEntityInput EDIType) {
 		this.mEDIType = EDIType;
 		if (EDIType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -205,7 +205,7 @@ public class X_C_BP_EDIInput extends X_C_BP_EDI implements I_C_BP_EDIInput {
 	 * @return EDI Type
 	 */
 	@JsonProperty("EDIType")
-	public I_AD_Ref_ListInput EDIType() {
+	public ForeignEntityInput EDIType() {
 		return mEDIType;
 	}
 

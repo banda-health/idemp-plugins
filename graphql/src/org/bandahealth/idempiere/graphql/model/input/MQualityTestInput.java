@@ -11,7 +11,7 @@ public class MQualityTestInput extends X_M_QualityTestInput {
 	 * @param UUID The M_QualityTest_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MQualityTestInput(@JsonProperty("UUID") String UUID) {
+	public MQualityTestInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

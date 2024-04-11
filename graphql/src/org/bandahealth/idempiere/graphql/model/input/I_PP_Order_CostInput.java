@@ -57,14 +57,14 @@ public interface I_PP_Order_CostInput extends I_PP_Order_Cost {
 	 *
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
+	void setCostingMethodInput(ForeignEntityInput CostingMethod);
 
 	/**
 	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput CostingMethod();
+	ForeignEntityInput CostingMethod();
 
 	/**
 	 * Set M_AttributeSetInstance.

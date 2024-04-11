@@ -15,14 +15,14 @@ public interface I_M_ShippingTransactionInput extends I_M_ShippingTransaction {
 	 *
 	 * @param Action Indicates the Action to be performed
 	 */
-	void setActionInput(I_AD_Ref_ListInput Action);
+	void setActionInput(ForeignEntityInput Action);
 
 	/**
 	 * Get Action.
 	 *
 	 * @return Indicates the Action to be performed
 	 */
-	I_AD_Ref_ListInput Action();
+	ForeignEntityInput Action();
 
 	/**
 	 * Set AD_Org.
@@ -183,56 +183,56 @@ public interface I_M_ShippingTransactionInput extends I_M_ShippingTransaction {
 	 *
 	 * @param DeliveryConfirmationType DeliveryConfirmationType
 	 */
-	void setDeliveryConfirmationTypeInput(I_AD_Ref_ListInput DeliveryConfirmationType);
+	void setDeliveryConfirmationTypeInput(ForeignEntityInput DeliveryConfirmationType);
 
 	/**
 	 * Get DeliveryConfirmationType.
 	 *
 	 * @return DeliveryConfirmationType
 	 */
-	I_AD_Ref_ListInput DeliveryConfirmationType();
+	ForeignEntityInput DeliveryConfirmationType();
 
 	/**
 	 * Set DotHazardClassOrDivision.
 	 *
 	 * @param DotHazardClassOrDivision DotHazardClassOrDivision
 	 */
-	void setDotHazardClassOrDivisionInput(I_AD_Ref_ListInput DotHazardClassOrDivision);
+	void setDotHazardClassOrDivisionInput(ForeignEntityInput DotHazardClassOrDivision);
 
 	/**
 	 * Get DotHazardClassOrDivision.
 	 *
 	 * @return DotHazardClassOrDivision
 	 */
-	I_AD_Ref_ListInput DotHazardClassOrDivision();
+	ForeignEntityInput DotHazardClassOrDivision();
 
 	/**
 	 * Set FOB.
 	 *
 	 * @param FOB FOB
 	 */
-	void setFOBInput(I_AD_Ref_ListInput FOB);
+	void setFOBInput(ForeignEntityInput FOB);
 
 	/**
 	 * Get FOB.
 	 *
 	 * @return FOB
 	 */
-	I_AD_Ref_ListInput FOB();
+	ForeignEntityInput FOB();
 
 	/**
 	 * Set FreightCharges.
 	 *
 	 * @param FreightCharges FreightCharges
 	 */
-	void setFreightChargesInput(I_AD_Ref_ListInput FreightCharges);
+	void setFreightChargesInput(ForeignEntityInput FreightCharges);
 
 	/**
 	 * Get FreightCharges.
 	 *
 	 * @return FreightCharges
 	 */
-	I_AD_Ref_ListInput FreightCharges();
+	ForeignEntityInput FreightCharges();
 
 	/**
 	 * Set HoldAddress.
@@ -253,28 +253,28 @@ public interface I_M_ShippingTransactionInput extends I_M_ShippingTransaction {
 	 *
 	 * @param HomeDeliveryPremiumType HomeDeliveryPremiumType
 	 */
-	void setHomeDeliveryPremiumTypeInput(I_AD_Ref_ListInput HomeDeliveryPremiumType);
+	void setHomeDeliveryPremiumTypeInput(ForeignEntityInput HomeDeliveryPremiumType);
 
 	/**
 	 * Get HomeDeliveryPremiumType.
 	 *
 	 * @return HomeDeliveryPremiumType
 	 */
-	I_AD_Ref_ListInput HomeDeliveryPremiumType();
+	ForeignEntityInput HomeDeliveryPremiumType();
 
 	/**
 	 * Set Insurance.
 	 *
 	 * @param Insurance Insurance
 	 */
-	void setInsuranceInput(I_AD_Ref_ListInput Insurance);
+	void setInsuranceInput(ForeignEntityInput Insurance);
 
 	/**
 	 * Get Insurance.
 	 *
 	 * @return Insurance
 	 */
-	I_AD_Ref_ListInput Insurance();
+	ForeignEntityInput Insurance();
 
 	/**
 	 * Set M_InOut.
@@ -407,28 +407,28 @@ public interface I_M_ShippingTransactionInput extends I_M_ShippingTransaction {
 	 *
 	 * @param NotificationType Type of Notifications
 	 */
-	void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType);
+	void setNotificationTypeInput(ForeignEntityInput NotificationType);
 
 	/**
 	 * Get NotificationType.
 	 *
 	 * @return Type of Notifications
 	 */
-	I_AD_Ref_ListInput NotificationType();
+	ForeignEntityInput NotificationType();
 
 	/**
 	 * Set PaymentRule.
 	 *
 	 * @param PaymentRule How you pay the invoice
 	 */
-	void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule);
+	void setPaymentRuleInput(ForeignEntityInput PaymentRule);
 
 	/**
 	 * Get PaymentRule.
 	 *
 	 * @return How you pay the invoice
 	 */
-	I_AD_Ref_ListInput PaymentRule();
+	ForeignEntityInput PaymentRule();
 
 	/**
 	 * Set ReturnBPartner.

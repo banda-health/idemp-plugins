@@ -55,9 +55,9 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	private ForeignEntityInput mAD_Val_Rule;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mAD_Workflow;
-	private I_AD_Ref_ListInput mDBType;
-	private I_AD_Ref_ListInput mReleaseNo;
-	private I_AD_Ref_ListInput mType;
+	private ForeignEntityInput mDBType;
+	private ForeignEntityInput mReleaseNo;
+	private ForeignEntityInput mType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -713,7 +713,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	 * @param DBType DB Type
 	 */
 	@JsonProperty("DBType")
-	public void setDBTypeInput(I_AD_Ref_ListInput DBType) {
+	public void setDBTypeInput(ForeignEntityInput DBType) {
 		this.mDBType = DBType;
 		if (DBType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -737,7 +737,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	 * @return DB Type
 	 */
 	@JsonProperty("DBType")
-	public I_AD_Ref_ListInput DBType() {
+	public ForeignEntityInput DBType() {
 		return mDBType;
 	}
 
@@ -747,7 +747,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	 * @param ReleaseNo Internal Release Number
 	 */
 	@JsonProperty("ReleaseNo")
-	public void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo) {
+	public void setReleaseNoInput(ForeignEntityInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
 		if (ReleaseNo != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -771,7 +771,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	 * @return Internal Release Number
 	 */
 	@JsonProperty("ReleaseNo")
-	public I_AD_Ref_ListInput ReleaseNo() {
+	public ForeignEntityInput ReleaseNo() {
 		return mReleaseNo;
 	}
 
@@ -781,7 +781,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public void setTypeInput(I_AD_Ref_ListInput Type) {
+	public void setTypeInput(ForeignEntityInput Type) {
 		this.mType = Type;
 		if (Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -805,7 +805,7 @@ public class X_AD_Package_Exp_DetailInput extends MPackageExpDetail implements I
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
 	@JsonProperty("Type")
-	public I_AD_Ref_ListInput Type() {
+	public ForeignEntityInput Type() {
 		return mType;
 	}
 }

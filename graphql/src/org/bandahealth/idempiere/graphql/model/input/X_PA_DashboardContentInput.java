@@ -36,8 +36,8 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	private ForeignEntityInput mAD_StatusLine;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mGoalDisplay;
 	private ForeignEntityInput mPA_Goal;
-	private I_AD_Ref_ListInput mGoalDisplay;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -332,7 +332,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @param GoalDisplay Type of goal display on dashboard
 	 */
 	@JsonProperty("GoalDisplay")
-	public void setGoalDisplayInput(I_AD_Ref_ListInput GoalDisplay) {
+	public void setGoalDisplayInput(ForeignEntityInput GoalDisplay) {
 		this.mGoalDisplay = GoalDisplay;
 		if (GoalDisplay != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -356,7 +356,7 @@ public class X_PA_DashboardContentInput extends MDashboardContent implements I_P
 	 * @return Type of goal display on dashboard
 	 */
 	@JsonProperty("GoalDisplay")
-	public I_AD_Ref_ListInput GoalDisplay() {
+	public ForeignEntityInput GoalDisplay() {
 		return mGoalDisplay;
 	}
 	/**

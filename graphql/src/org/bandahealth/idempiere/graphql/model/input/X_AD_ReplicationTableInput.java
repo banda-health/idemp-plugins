@@ -27,7 +27,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_ReplicationStrategy;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mReplicationType;
+	private ForeignEntityInput mReplicationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -221,7 +221,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	 * @param ReplicationType Type of Data Replication
 	 */
 	@JsonProperty("ReplicationType")
-	public void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType) {
+	public void setReplicationTypeInput(ForeignEntityInput ReplicationType) {
 		this.mReplicationType = ReplicationType;
 		if (ReplicationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -245,7 +245,7 @@ public class X_AD_ReplicationTableInput extends X_AD_ReplicationTable implements
 	 * @return Type of Data Replication
 	 */
 	@JsonProperty("ReplicationType")
-	public I_AD_Ref_ListInput ReplicationType() {
+	public ForeignEntityInput ReplicationType() {
 		return mReplicationType;
 	}
 }

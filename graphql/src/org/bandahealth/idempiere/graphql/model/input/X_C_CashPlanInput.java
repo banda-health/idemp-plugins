@@ -31,9 +31,9 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Campaign;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mCashFlowType;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mCashFlowType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -252,7 +252,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @param CashFlowType Cash Flow Type
 	 */
 	@JsonProperty("CashFlowType")
-	public void setCashFlowTypeInput(I_AD_Ref_ListInput CashFlowType) {
+	public void setCashFlowTypeInput(ForeignEntityInput CashFlowType) {
 		this.mCashFlowType = CashFlowType;
 		if (CashFlowType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -276,7 +276,7 @@ public class X_C_CashPlanInput extends MCashPlan implements I_C_CashPlanInput {
 	 * @return Cash Flow Type
 	 */
 	@JsonProperty("CashFlowType")
-	public I_AD_Ref_ListInput CashFlowType() {
+	public ForeignEntityInput CashFlowType() {
 		return mCashFlowType;
 	}
 	/**

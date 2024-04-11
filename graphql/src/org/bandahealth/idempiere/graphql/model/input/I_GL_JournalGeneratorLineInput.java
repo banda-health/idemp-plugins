@@ -29,14 +29,14 @@ public interface I_GL_JournalGeneratorLineInput extends I_GL_JournalGeneratorLin
 	 *
 	 * @param BPDimensionType BPDimensionType
 	 */
-	void setBPDimensionTypeInput(I_AD_Ref_ListInput BPDimensionType);
+	void setBPDimensionTypeInput(ForeignEntityInput BPDimensionType);
 
 	/**
 	 * Get BPDimensionType.
 	 *
 	 * @return BPDimensionType
 	 */
-	I_AD_Ref_ListInput BPDimensionType();
+	ForeignEntityInput BPDimensionType();
 
 	/**
 	 * Set C_BPartner.

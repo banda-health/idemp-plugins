@@ -99,12 +99,12 @@ public interface I_AD_InfoProcessInput extends I_AD_InfoProcess {
 	 *
 	 * @param LayoutType Layout type of info process
 	 */
-	void setLayoutTypeInput(I_AD_Ref_ListInput LayoutType);
+	void setLayoutTypeInput(ForeignEntityInput LayoutType);
 
 	/**
 	 * Get LayoutType.
 	 *
 	 * @return Layout type of info process
 	 */
-	I_AD_Ref_ListInput LayoutType();
+	ForeignEntityInput LayoutType();
 }

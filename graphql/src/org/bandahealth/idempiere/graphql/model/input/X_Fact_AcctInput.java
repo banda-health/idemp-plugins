@@ -65,9 +65,9 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	private ForeignEntityInput mGL_Category;
 	private ForeignEntityInput mM_Locator;
 	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPostingType;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -990,7 +990,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (get_ID() != 0) {
 			return;
@@ -1017,7 +1017,7 @@ public class X_Fact_AcctInput extends MFactAcct implements I_Fact_AcctInput {
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 	/**

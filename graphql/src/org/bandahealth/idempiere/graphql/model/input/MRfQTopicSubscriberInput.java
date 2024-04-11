@@ -11,7 +11,7 @@ public class MRfQTopicSubscriberInput extends X_C_RfQ_TopicSubscriberInput {
 	 * @param UUID The C_RfQ_TopicSubscriber_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRfQTopicSubscriberInput(@JsonProperty("UUID") String UUID) {
+	public MRfQTopicSubscriberInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

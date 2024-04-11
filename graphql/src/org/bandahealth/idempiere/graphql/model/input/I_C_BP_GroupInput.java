@@ -62,14 +62,14 @@ public interface I_C_BP_GroupInput extends I_C_BP_Group {
 	 *
 	 * @param BH_SubType Meant to be a sub-type of the charge type
 	 */
-	void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType);
+	void setBH_SubTypeInput(ForeignEntityInput BH_SubType);
 
 	/**
 	 * Get BH_SubType.
 	 *
 	 * @return Meant to be a sub-type of the charge type
 	 */
-	I_AD_Ref_ListInput BH_SubType();
+	ForeignEntityInput BH_SubType();
 
 	/**
 	 * Set UU.
@@ -160,12 +160,12 @@ public interface I_C_BP_GroupInput extends I_C_BP_Group {
 	 *
 	 * @param PriorityBase Base of Priority
 	 */
-	void setPriorityBaseInput(I_AD_Ref_ListInput PriorityBase);
+	void setPriorityBaseInput(ForeignEntityInput PriorityBase);
 
 	/**
 	 * Get PriorityBase.
 	 *
 	 * @return Base of Priority
 	 */
-	I_AD_Ref_ListInput PriorityBase();
+	ForeignEntityInput PriorityBase();
 }

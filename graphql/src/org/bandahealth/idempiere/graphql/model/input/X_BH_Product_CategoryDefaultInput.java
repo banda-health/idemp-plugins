@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault implements I_BH_Product_CategoryDefaultInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mBH_Product_Category_Type;
+	private ForeignEntityInput mBH_Product_Category_Type;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -78,7 +78,7 @@ public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault
 	 * @param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
 	 */
 	@JsonProperty("BH_Product_Category_Type")
-	public void setBH_Product_Category_TypeInput(I_AD_Ref_ListInput BH_Product_Category_Type) {
+	public void setBH_Product_Category_TypeInput(ForeignEntityInput BH_Product_Category_Type) {
 		this.mBH_Product_Category_Type = BH_Product_Category_Type;
 		if (BH_Product_Category_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -102,7 +102,7 @@ public class X_BH_Product_CategoryDefaultInput extends MBHProductCategoryDefault
 	 * @return Contains a character the is linked to a ref list to determine types of product categories
 	 */
 	@JsonProperty("BH_Product_Category_Type")
-	public I_AD_Ref_ListInput BH_Product_Category_Type() {
+	public ForeignEntityInput BH_Product_Category_Type() {
 		return mBH_Product_Category_Type;
 	}
 	/**

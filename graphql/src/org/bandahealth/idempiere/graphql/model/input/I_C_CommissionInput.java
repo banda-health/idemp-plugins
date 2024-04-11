@@ -85,28 +85,28 @@ public interface I_C_CommissionInput extends I_C_Commission {
 	 *
 	 * @param DocBasisType Basis for the calculation the commission
 	 */
-	void setDocBasisTypeInput(I_AD_Ref_ListInput DocBasisType);
+	void setDocBasisTypeInput(ForeignEntityInput DocBasisType);
 
 	/**
 	 * Get DocBasisType.
 	 *
 	 * @return Basis for the calculation the commission
 	 */
-	I_AD_Ref_ListInput DocBasisType();
+	ForeignEntityInput DocBasisType();
 
 	/**
 	 * Set FrequencyType.
 	 *
 	 * @param FrequencyType Frequency of event
 	 */
-	void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType);
+	void setFrequencyTypeInput(ForeignEntityInput FrequencyType);
 
 	/**
 	 * Get FrequencyType.
 	 *
 	 * @return Frequency of event
 	 */
-	I_AD_Ref_ListInput FrequencyType();
+	ForeignEntityInput FrequencyType();
 
 	/**
 	 * Set M_Product.

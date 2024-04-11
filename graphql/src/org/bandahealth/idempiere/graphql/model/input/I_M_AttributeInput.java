@@ -71,14 +71,14 @@ public interface I_M_AttributeInput extends I_M_Attribute {
 	 *
 	 * @param AttributeValueType Type of Attribute Value
 	 */
-	void setAttributeValueTypeInput(I_AD_Ref_ListInput AttributeValueType);
+	void setAttributeValueTypeInput(ForeignEntityInput AttributeValueType);
 
 	/**
 	 * Get AttributeValueType.
 	 *
 	 * @return Type of Attribute Value
 	 */
-	I_AD_Ref_ListInput AttributeValueType();
+	ForeignEntityInput AttributeValueType();
 
 	/**
 	 * Set UU.

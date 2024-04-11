@@ -67,22 +67,22 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	private ForeignEntityInput mC_Location_Update;
 	private ForeignEntityInput mC_PaymentTerm;
 	private ForeignEntityInput mC_Region;
+	private ForeignEntityInput mDeliveryRule;
+	private ForeignEntityInput mDeliveryViaRule;
+	private ForeignEntityInput mFreightCostRule;
+	private ForeignEntityInput mInvoiceRule;
 	private ForeignEntityInput mInvoice_PrintFormat;
 	private ForeignEntityInput mM_DiscountSchema;
 	private ForeignEntityInput mM_PriceList;
+	private ForeignEntityInput mNotificationType;
 	private ForeignEntityInput mPO_DiscountSchema;
 	private ForeignEntityInput mPO_PaymentTerm;
 	private ForeignEntityInput mPO_PriceList;
+	private ForeignEntityInput mPaymentRule;
+	private ForeignEntityInput mPaymentRulePO;
+	private ForeignEntityInput mSOCreditStatus;
 	private ForeignEntityInput mSalesRep;
 	private ForeignEntityInput mSupervisor;
-	private I_AD_Ref_ListInput mDeliveryRule;
-	private I_AD_Ref_ListInput mDeliveryViaRule;
-	private I_AD_Ref_ListInput mFreightCostRule;
-	private I_AD_Ref_ListInput mInvoiceRule;
-	private I_AD_Ref_ListInput mNotificationType;
-	private I_AD_Ref_ListInput mPaymentRule;
-	private I_AD_Ref_ListInput mPaymentRulePO;
-	private I_AD_Ref_ListInput mSOCreditStatus;
 
 	/**
 	 * Standard constructor
@@ -1584,7 +1584,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
+	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
 		if (get_ID() != 0) {
 			return;
@@ -1611,7 +1611,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public I_AD_Ref_ListInput DeliveryRule() {
+	public ForeignEntityInput DeliveryRule() {
 		return mDeliveryRule;
 	}
 
@@ -1621,7 +1621,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param DeliveryViaRule How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
+	public void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
 		if (get_ID() != 0) {
 			return;
@@ -1648,7 +1648,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public I_AD_Ref_ListInput DeliveryViaRule() {
+	public ForeignEntityInput DeliveryViaRule() {
 		return mDeliveryViaRule;
 	}
 	/**
@@ -1768,7 +1768,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param FreightCostRule Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
+	public void setFreightCostRuleInput(ForeignEntityInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
 		if (get_ID() != 0) {
 			return;
@@ -1795,7 +1795,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public I_AD_Ref_ListInput FreightCostRule() {
+	public ForeignEntityInput FreightCostRule() {
 		return mFreightCostRule;
 	}
 
@@ -1842,7 +1842,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param InvoiceRule Frequency and method of invoicing 
 	 */
 	@JsonProperty("InvoiceRule")
-	public void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule) {
+	public void setInvoiceRuleInput(ForeignEntityInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
 		if (get_ID() != 0) {
 			return;
@@ -1869,7 +1869,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return Frequency and method of invoicing 
 	 */
 	@JsonProperty("InvoiceRule")
-	public I_AD_Ref_ListInput InvoiceRule() {
+	public ForeignEntityInput InvoiceRule() {
 		return mInvoiceRule;
 	}
 	/**
@@ -2129,7 +2129,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param NotificationType Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
+	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (get_ID() != 0) {
 			return;
@@ -2156,7 +2156,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public I_AD_Ref_ListInput NotificationType() {
+	public ForeignEntityInput NotificationType() {
 		return mNotificationType;
 	}
 	/**
@@ -2177,7 +2177,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param PaymentRule How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (get_ID() != 0) {
 			return;
@@ -2204,7 +2204,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public I_AD_Ref_ListInput PaymentRule() {
+	public ForeignEntityInput PaymentRule() {
 		return mPaymentRule;
 	}
 
@@ -2214,7 +2214,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param PaymentRulePO Purchase payment option
 	 */
 	@JsonProperty("PaymentRulePO")
-	public void setPaymentRulePOInput(I_AD_Ref_ListInput PaymentRulePO) {
+	public void setPaymentRulePOInput(ForeignEntityInput PaymentRulePO) {
 		this.mPaymentRulePO = PaymentRulePO;
 		if (get_ID() != 0) {
 			return;
@@ -2241,7 +2241,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return Purchase payment option
 	 */
 	@JsonProperty("PaymentRulePO")
-	public I_AD_Ref_ListInput PaymentRulePO() {
+	public ForeignEntityInput PaymentRulePO() {
 		return mPaymentRulePO;
 	}
 	/**
@@ -2586,7 +2586,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @param SOCreditStatus Business Partner Credit Status
 	 */
 	@JsonProperty("SOCreditStatus")
-	public void setSOCreditStatusInput(I_AD_Ref_ListInput SOCreditStatus) {
+	public void setSOCreditStatusInput(ForeignEntityInput SOCreditStatus) {
 		this.mSOCreditStatus = SOCreditStatus;
 		if (get_ID() != 0) {
 			return;
@@ -2613,7 +2613,7 @@ public class X_RV_BPartnerInput extends MBPartnerInfo implements I_RV_BPartnerIn
 	 * @return Business Partner Credit Status
 	 */
 	@JsonProperty("SOCreditStatus")
-	public I_AD_Ref_ListInput SOCreditStatus() {
+	public ForeignEntityInput SOCreditStatus() {
 		return mSOCreditStatus;
 	}
 

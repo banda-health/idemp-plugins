@@ -11,7 +11,7 @@ public class MShipperInput extends X_M_ShipperInput {
 	 * @param UUID The M_Shipper_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MShipperInput(@JsonProperty("UUID") String UUID) {
+	public MShipperInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

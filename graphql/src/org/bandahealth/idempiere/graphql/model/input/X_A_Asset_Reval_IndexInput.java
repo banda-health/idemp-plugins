@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements I_A_Asset_Reval_IndexInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mA_Reval_Code;
-	private I_AD_Ref_ListInput mA_Reval_Multiplier;
+	private ForeignEntityInput mA_Reval_Code;
+	private ForeignEntityInput mA_Reval_Multiplier;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -71,7 +71,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 * @param A_Reval_Code Reval. Code
 	 */
 	@JsonProperty("A_Reval_Code")
-	public void setA_Reval_CodeInput(I_AD_Ref_ListInput A_Reval_Code) {
+	public void setA_Reval_CodeInput(ForeignEntityInput A_Reval_Code) {
 		this.mA_Reval_Code = A_Reval_Code;
 		if (A_Reval_Code != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -95,7 +95,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 * @return Reval. Code
 	 */
 	@JsonProperty("A_Reval_Code")
-	public I_AD_Ref_ListInput A_Reval_Code() {
+	public ForeignEntityInput A_Reval_Code() {
 		return mA_Reval_Code;
 	}
 
@@ -105,7 +105,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 * @param A_Reval_Multiplier Reval. Multiplier
 	 */
 	@JsonProperty("A_Reval_Multiplier")
-	public void setA_Reval_MultiplierInput(I_AD_Ref_ListInput A_Reval_Multiplier) {
+	public void setA_Reval_MultiplierInput(ForeignEntityInput A_Reval_Multiplier) {
 		this.mA_Reval_Multiplier = A_Reval_Multiplier;
 		if (A_Reval_Multiplier != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -129,7 +129,7 @@ public class X_A_Asset_Reval_IndexInput extends X_A_Asset_Reval_Index implements
 	 * @return Reval. Multiplier
 	 */
 	@JsonProperty("A_Reval_Multiplier")
-	public I_AD_Ref_ListInput A_Reval_Multiplier() {
+	public ForeignEntityInput A_Reval_Multiplier() {
 		return mA_Reval_Multiplier;
 	}
 

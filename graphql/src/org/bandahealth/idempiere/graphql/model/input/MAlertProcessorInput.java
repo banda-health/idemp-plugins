@@ -11,7 +11,7 @@ public class MAlertProcessorInput extends X_AD_AlertProcessorInput {
 	 * @param UUID The AD_AlertProcessor_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAlertProcessorInput(@JsonProperty("UUID") String UUID) {
+	public MAlertProcessorInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

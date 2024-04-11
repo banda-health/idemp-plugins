@@ -29,9 +29,9 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Charge;
 	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mDocBasisType;
+	private ForeignEntityInput mFrequencyType;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mDocBasisType;
-	private I_AD_Ref_ListInput mFrequencyType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -230,7 +230,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	 * @param DocBasisType Basis for the calculation the commission
 	 */
 	@JsonProperty("DocBasisType")
-	public void setDocBasisTypeInput(I_AD_Ref_ListInput DocBasisType) {
+	public void setDocBasisTypeInput(ForeignEntityInput DocBasisType) {
 		this.mDocBasisType = DocBasisType;
 		if (DocBasisType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -254,7 +254,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	 * @return Basis for the calculation the commission
 	 */
 	@JsonProperty("DocBasisType")
-	public I_AD_Ref_ListInput DocBasisType() {
+	public ForeignEntityInput DocBasisType() {
 		return mDocBasisType;
 	}
 
@@ -264,7 +264,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	 * @param FrequencyType Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
+	public void setFrequencyTypeInput(ForeignEntityInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
 		if (FrequencyType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -288,7 +288,7 @@ public class X_C_CommissionInput extends MCommission implements I_C_CommissionIn
 	 * @return Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public I_AD_Ref_ListInput FrequencyType() {
+	public ForeignEntityInput FrequencyType() {
 		return mFrequencyType;
 	}
 

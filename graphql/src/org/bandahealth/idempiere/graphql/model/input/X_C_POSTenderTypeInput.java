@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_C_POSTenderTypeInput extends X_C_POSTenderType implements I_C_POSTenderTypeInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mTenderType;
+	private ForeignEntityInput mTenderType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_C_POSTenderTypeInput extends X_C_POSTenderType implements I_C_POS
 	 * @param TenderType Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
+	public void setTenderTypeInput(ForeignEntityInput TenderType) {
 		this.mTenderType = TenderType;
 		if (TenderType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_C_POSTenderTypeInput extends X_C_POSTenderType implements I_C_POS
 	 * @return Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public I_AD_Ref_ListInput TenderType() {
+	public ForeignEntityInput TenderType() {
 		return mTenderType;
 	}
 }

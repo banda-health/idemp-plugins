@@ -74,7 +74,7 @@ input I_ReportLineInput {
 	AD_Org: ForeignEntityInput
 	# Account Element
 	C_ElementValue: ForeignEntityInput
-	CalculationType: AD_Ref_ListInput
+	CalculationType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Key of the element
@@ -90,7 +90,7 @@ input I_ReportLineInput {
 	IsPrinted: Boolean
 	# This is a summary entity
 	IsSummary: Boolean
-	LineType: AD_Ref_ListInput
+	LineType: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	PA_ReportLine: ForeignEntityInput
@@ -98,11 +98,11 @@ input I_ReportLineInput {
 	# Restriction of what will be shown in Report Line
 	PA_ReportSource: ForeignEntityInput
 	# PA Amount Type for reporting
-	PAAmountType: AD_Ref_ListInput
+	PAAmountType: ForeignEntityInput
 	# PA Period Type
-	PAPeriodType: AD_Ref_ListInput
+	PAPeriodType: ForeignEntityInput
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

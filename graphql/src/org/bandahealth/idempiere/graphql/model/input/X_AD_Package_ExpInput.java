@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_ExpInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mAD_Package_Type;
-	private I_AD_Ref_ListInput mReleaseNo;
+	private ForeignEntityInput mAD_Package_Type;
+	private ForeignEntityInput mReleaseNo;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -105,7 +105,7 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	 * @param AD_Package_Type Package Type
 	 */
 	@JsonProperty("AD_Package_Type")
-	public void setAD_Package_TypeInput(I_AD_Ref_ListInput AD_Package_Type) {
+	public void setAD_Package_TypeInput(ForeignEntityInput AD_Package_Type) {
 		this.mAD_Package_Type = AD_Package_Type;
 		if (AD_Package_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -129,7 +129,7 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	 * @return Package Type
 	 */
 	@JsonProperty("AD_Package_Type")
-	public I_AD_Ref_ListInput AD_Package_Type() {
+	public ForeignEntityInput AD_Package_Type() {
 		return mAD_Package_Type;
 	}
 
@@ -139,7 +139,7 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	 * @param ReleaseNo Internal Release Number
 	 */
 	@JsonProperty("ReleaseNo")
-	public void setReleaseNoInput(I_AD_Ref_ListInput ReleaseNo) {
+	public void setReleaseNoInput(ForeignEntityInput ReleaseNo) {
 		this.mReleaseNo = ReleaseNo;
 		if (ReleaseNo != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -163,7 +163,7 @@ public class X_AD_Package_ExpInput extends MPackageExp implements I_AD_Package_E
 	 * @return Internal Release Number
 	 */
 	@JsonProperty("ReleaseNo")
-	public I_AD_Ref_ListInput ReleaseNo() {
+	public ForeignEntityInput ReleaseNo() {
 		return mReleaseNo;
 	}
 }

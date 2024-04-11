@@ -173,13 +173,13 @@ input AD_PrintFormatItemInput {
 	# Arc Diameter for rounded Rectangles
 	ArcDiameter: Int
 	# Type of barcode
-	BarcodeType: AD_Ref_ListInput
+	BarcodeType: ForeignEntityInput
 	# Print this column below the column index entered
 	BelowColumn: Int
 	# If the Field is displayed, the result determines if the field is actually displayed
 	DisplayLogic: String
 	# Field Text Alignment
-	FieldAlignmentType: AD_Ref_ListInput
+	FieldAlignmentType: ForeignEntityInput
 	# The pattern used to format a number or date.
 	FormatPattern: String
 	# The image to be printed is attached to the record
@@ -241,7 +241,7 @@ input AD_PrintFormatItemInput {
 	# Calculate Variance
 	IsVarianceCalc: Boolean
 	# Line Alignment
-	LineAlignmentType: AD_Ref_ListInput
+	LineAlignmentType: ForeignEntityInput
 	# Width of the lines
 	LineWidth: Int
 	# Maximum Height in 1/72 if an inch - 0 = no restriction
@@ -251,9 +251,9 @@ input AD_PrintFormatItemInput {
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Print Area
-	PrintAreaType: AD_Ref_ListInput
+	PrintAreaType: ForeignEntityInput
 	# Print Format Type
-	PrintFormatType: AD_Ref_ListInput
+	PrintFormatType: ForeignEntityInput
 	# The label text to be printed on a document or correspondence.
 	PrintName: String
 	# The label text to be printed on a document or correspondence after the field
@@ -265,7 +265,7 @@ input AD_PrintFormatItemInput {
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 	# Type of the shape to be painted
-	ShapeType: AD_Ref_ListInput
+	ShapeType: ForeignEntityInput
 	# Determines in what order the records are displayed
 	SortNo: Int
 	# Absolute X (horizontal) position in 1/72 of an inch

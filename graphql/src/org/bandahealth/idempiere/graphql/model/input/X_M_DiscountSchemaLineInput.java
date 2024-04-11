@@ -28,15 +28,15 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_ConversionType;
+	private ForeignEntityInput mLimit_Base;
+	private ForeignEntityInput mLimit_Rounding;
+	private ForeignEntityInput mList_Base;
+	private ForeignEntityInput mList_Rounding;
 	private ForeignEntityInput mM_DiscountSchema;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Product_Category;
-	private I_AD_Ref_ListInput mLimit_Base;
-	private I_AD_Ref_ListInput mLimit_Rounding;
-	private I_AD_Ref_ListInput mList_Base;
-	private I_AD_Ref_ListInput mList_Rounding;
-	private I_AD_Ref_ListInput mStd_Base;
-	private I_AD_Ref_ListInput mStd_Rounding;
+	private ForeignEntityInput mStd_Base;
+	private ForeignEntityInput mStd_Rounding;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -161,7 +161,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @param Limit_Base Base price for calculation of the new price
 	 */
 	@JsonProperty("Limit_Base")
-	public void setLimit_BaseInput(I_AD_Ref_ListInput Limit_Base) {
+	public void setLimit_BaseInput(ForeignEntityInput Limit_Base) {
 		this.mLimit_Base = Limit_Base;
 		if (Limit_Base != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -185,7 +185,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @return Base price for calculation of the new price
 	 */
 	@JsonProperty("Limit_Base")
-	public I_AD_Ref_ListInput Limit_Base() {
+	public ForeignEntityInput Limit_Base() {
 		return mLimit_Base;
 	}
 
@@ -195,7 +195,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @param Limit_Rounding Rounding of the final result
 	 */
 	@JsonProperty("Limit_Rounding")
-	public void setLimit_RoundingInput(I_AD_Ref_ListInput Limit_Rounding) {
+	public void setLimit_RoundingInput(ForeignEntityInput Limit_Rounding) {
 		this.mLimit_Rounding = Limit_Rounding;
 		if (Limit_Rounding != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -219,7 +219,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @return Rounding of the final result
 	 */
 	@JsonProperty("Limit_Rounding")
-	public I_AD_Ref_ListInput Limit_Rounding() {
+	public ForeignEntityInput Limit_Rounding() {
 		return mLimit_Rounding;
 	}
 
@@ -229,7 +229,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @param List_Base Price used as the basis for price list calculations
 	 */
 	@JsonProperty("List_Base")
-	public void setList_BaseInput(I_AD_Ref_ListInput List_Base) {
+	public void setList_BaseInput(ForeignEntityInput List_Base) {
 		this.mList_Base = List_Base;
 		if (List_Base != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -253,7 +253,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @return Price used as the basis for price list calculations
 	 */
 	@JsonProperty("List_Base")
-	public I_AD_Ref_ListInput List_Base() {
+	public ForeignEntityInput List_Base() {
 		return mList_Base;
 	}
 
@@ -263,7 +263,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @param List_Rounding Rounding rule for final list price
 	 */
 	@JsonProperty("List_Rounding")
-	public void setList_RoundingInput(I_AD_Ref_ListInput List_Rounding) {
+	public void setList_RoundingInput(ForeignEntityInput List_Rounding) {
 		this.mList_Rounding = List_Rounding;
 		if (List_Rounding != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -287,7 +287,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @return Rounding rule for final list price
 	 */
 	@JsonProperty("List_Rounding")
-	public I_AD_Ref_ListInput List_Rounding() {
+	public ForeignEntityInput List_Rounding() {
 		return mList_Rounding;
 	}
 
@@ -431,7 +431,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @param Std_Base Base price for calculating new standard price
 	 */
 	@JsonProperty("Std_Base")
-	public void setStd_BaseInput(I_AD_Ref_ListInput Std_Base) {
+	public void setStd_BaseInput(ForeignEntityInput Std_Base) {
 		this.mStd_Base = Std_Base;
 		if (Std_Base != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -455,7 +455,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @return Base price for calculating new standard price
 	 */
 	@JsonProperty("Std_Base")
-	public I_AD_Ref_ListInput Std_Base() {
+	public ForeignEntityInput Std_Base() {
 		return mStd_Base;
 	}
 
@@ -465,7 +465,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @param Std_Rounding Rounding rule for calculated price
 	 */
 	@JsonProperty("Std_Rounding")
-	public void setStd_RoundingInput(I_AD_Ref_ListInput Std_Rounding) {
+	public void setStd_RoundingInput(ForeignEntityInput Std_Rounding) {
 		this.mStd_Rounding = Std_Rounding;
 		if (Std_Rounding != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -489,7 +489,7 @@ public class X_M_DiscountSchemaLineInput extends MDiscountSchemaLine implements 
 	 * @return Rounding rule for calculated price
 	 */
 	@JsonProperty("Std_Rounding")
-	public I_AD_Ref_ListInput Std_Rounding() {
+	public ForeignEntityInput Std_Rounding() {
 		return mStd_Rounding;
 	}
 }

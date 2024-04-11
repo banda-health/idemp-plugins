@@ -11,7 +11,7 @@ public class MMeasureCalcInput extends X_PA_MeasureCalcInput {
 	 * @param UUID The PA_MeasureCalc_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMeasureCalcInput(@JsonProperty("UUID") String UUID) {
+	public MMeasureCalcInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

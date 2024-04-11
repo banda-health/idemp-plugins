@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_RemunerationInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mRemunerationType;
+	private ForeignEntityInput mRemunerationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_Remun
 	 * @param RemunerationType Type of Remuneration
 	 */
 	@JsonProperty("RemunerationType")
-	public void setRemunerationTypeInput(I_AD_Ref_ListInput RemunerationType) {
+	public void setRemunerationTypeInput(ForeignEntityInput RemunerationType) {
 		this.mRemunerationType = RemunerationType;
 		if (RemunerationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_C_RemunerationInput extends X_C_Remuneration implements I_C_Remun
 	 * @return Type of Remuneration
 	 */
 	@JsonProperty("RemunerationType")
-	public I_AD_Ref_ListInput RemunerationType() {
+	public ForeignEntityInput RemunerationType() {
 		return mRemunerationType;
 	}
 }

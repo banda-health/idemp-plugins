@@ -11,7 +11,7 @@ public class MResourceUnAvailableInput extends X_S_ResourceUnAvailableInput {
 	 * @param UUID The S_ResourceUnAvailable_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MResourceUnAvailableInput(@JsonProperty("UUID") String UUID) {
+	public MResourceUnAvailableInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -71,26 +71,26 @@ public interface I_AD_Tab_CustomizationInput extends I_AD_Tab_Customization {
 	 *
 	 * @param IsAutoHideEmptyColumn IsAutoHideEmptyColumn
 	 */
-	void setIsAutoHideEmptyColumnInput(I_AD_Ref_ListInput IsAutoHideEmptyColumn);
+	void setIsAutoHideEmptyColumnInput(ForeignEntityInput IsAutoHideEmptyColumn);
 
 	/**
 	 * Get IsAutoHideEmptyColumn.
 	 *
 	 * @return IsAutoHideEmptyColumn
 	 */
-	I_AD_Ref_ListInput IsAutoHideEmptyColumn();
+	ForeignEntityInput IsAutoHideEmptyColumn();
 
 	/**
 	 * Set IsDisplayedGrid.
 	 *
 	 * @param IsDisplayedGrid IsDisplayedGrid
 	 */
-	void setIsDisplayedGridInput(I_AD_Ref_ListInput IsDisplayedGrid);
+	void setIsDisplayedGridInput(ForeignEntityInput IsDisplayedGrid);
 
 	/**
 	 * Get IsDisplayedGrid.
 	 *
 	 * @return IsDisplayedGrid
 	 */
-	I_AD_Ref_ListInput IsDisplayedGrid();
+	ForeignEntityInput IsDisplayedGrid();
 }

@@ -94,7 +94,7 @@ input PA_DashboardContentInput {
 	# Optional short description of the record
 	Description: String
 	# Type of goal display on dashboard
-	GoalDisplay: AD_Ref_ListInput
+	GoalDisplay: ForeignEntityInput
 	HTML: String
 	# The record is active in the system
 	IsActive: Boolean

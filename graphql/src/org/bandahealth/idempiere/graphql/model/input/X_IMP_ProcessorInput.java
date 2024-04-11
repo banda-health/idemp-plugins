@@ -22,8 +22,8 @@ import java.sql.ResultSet;
 public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_ProcessorInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mFrequencyType;
 	private ForeignEntityInput mIMP_Processor_Type;
-	private I_AD_Ref_ListInput mFrequencyType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -80,7 +80,7 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 	 * @param FrequencyType Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
+	public void setFrequencyTypeInput(ForeignEntityInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
 		if (FrequencyType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -104,7 +104,7 @@ public class X_IMP_ProcessorInput extends MIMPProcessor implements I_IMP_Process
 	 * @return Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public I_AD_Ref_ListInput FrequencyType() {
+	public ForeignEntityInput FrequencyType() {
 		return mFrequencyType;
 	}
 	/**

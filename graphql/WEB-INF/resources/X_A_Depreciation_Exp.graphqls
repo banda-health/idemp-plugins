@@ -90,7 +90,7 @@ input A_Depreciation_ExpInput {
 	A_Asset_Remaining_F: BigDecimal
 	A_Depreciation_Entry: ForeignEntityInput
 	UU: ID
-	A_Entry_Type: AD_Ref_ListInput
+	A_Entry_Type: ForeignEntityInput
 	A_Period: Int
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
@@ -113,7 +113,7 @@ input A_Depreciation_ExpInput {
 	# The asset will be depreciated
 	IsDepreciated: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

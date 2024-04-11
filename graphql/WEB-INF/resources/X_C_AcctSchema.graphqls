@@ -94,15 +94,15 @@ input C_AcctSchemaInput {
 	# Period of the Calendar
 	C_Period: ForeignEntityInput
 	# Create Commitment and/or Reservations for Budget Control
-	CommitmentType: AD_Ref_ListInput
+	CommitmentType: ForeignEntityInput
 	# The lowest level to accumulate Costing Information
-	CostingLevel: AD_Ref_ListInput
+	CostingLevel: ForeignEntityInput
 	# Indicates how Costs will be calculated
-	CostingMethod: AD_Ref_ListInput
+	CostingMethod: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Generally Accepted Accounting Principles
-	GAAP: AD_Ref_ListInput
+	GAAP: ForeignEntityInput
 	# Ability to select (partial) account combinations by an Alias
 	HasAlias: Boolean
 	# Combination of account elements are checked
@@ -137,5 +137,5 @@ input C_AcctSchemaInput {
 	# Element Separator
 	Separator: String
 	# Type of Tax Correction
-	TaxCorrectionType: AD_Ref_ListInput
+	TaxCorrectionType: ForeignEntityInput
 }

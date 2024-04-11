@@ -11,7 +11,7 @@ public class MPOSInput extends X_C_POSInput {
 	 * @param UUID The C_POS_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPOSInput(@JsonProperty("UUID") String UUID) {
+	public MPOSInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MPackageLineInput extends X_M_PackageLineInput {
 	 * @param UUID The M_PackageLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPackageLineInput(@JsonProperty("UUID") String UUID) {
+	public MPackageLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

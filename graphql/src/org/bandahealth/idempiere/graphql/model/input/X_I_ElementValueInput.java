@@ -25,11 +25,11 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 
 	private ForeignEntityInput mAD_Column;
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAccountSign;
+	private ForeignEntityInput mAccountType;
 	private ForeignEntityInput mC_Element;
 	private ForeignEntityInput mC_ElementValue;
 	private ForeignEntityInput mParentElementValue;
-	private I_AD_Ref_ListInput mAccountSign;
-	private I_AD_Ref_ListInput mAccountType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -49,7 +49,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	 * @param AccountSign Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public void setAccountSignInput(I_AD_Ref_ListInput AccountSign) {
+	public void setAccountSignInput(ForeignEntityInput AccountSign) {
 		this.mAccountSign = AccountSign;
 		if (AccountSign != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -73,7 +73,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	 * @return Indicates the Natural Sign of the Account as a Debit or Credit
 	 */
 	@JsonProperty("AccountSign")
-	public I_AD_Ref_ListInput AccountSign() {
+	public ForeignEntityInput AccountSign() {
 		return mAccountSign;
 	}
 
@@ -83,7 +83,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	 * @param AccountType Indicates the type of account
 	 */
 	@JsonProperty("AccountType")
-	public void setAccountTypeInput(I_AD_Ref_ListInput AccountType) {
+	public void setAccountTypeInput(ForeignEntityInput AccountType) {
 		this.mAccountType = AccountType;
 		if (AccountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -107,7 +107,7 @@ public class X_I_ElementValueInput extends X_I_ElementValue implements I_I_Eleme
 	 * @return Indicates the type of account
 	 */
 	@JsonProperty("AccountType")
-	public I_AD_Ref_ListInput AccountType() {
+	public ForeignEntityInput AccountType() {
 		return mAccountType;
 	}
 

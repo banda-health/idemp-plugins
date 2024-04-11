@@ -11,7 +11,7 @@ public class MFieldSuggestionInput extends X_AD_FieldSuggestionInput {
 	 * @param UUID The AD_FieldSuggestion_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MFieldSuggestionInput(@JsonProperty("UUID") String UUID) {
+	public MFieldSuggestionInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

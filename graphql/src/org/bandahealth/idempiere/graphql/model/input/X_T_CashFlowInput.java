@@ -44,9 +44,9 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_Order;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mCashFlowSource;
+	private ForeignEntityInput mCashFlowType;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mCashFlowSource;
-	private I_AD_Ref_ListInput mCashFlowType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -480,7 +480,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	 * @param CashFlowSource Cash Flow Source
 	 */
 	@JsonProperty("CashFlowSource")
-	public void setCashFlowSourceInput(I_AD_Ref_ListInput CashFlowSource) {
+	public void setCashFlowSourceInput(ForeignEntityInput CashFlowSource) {
 		this.mCashFlowSource = CashFlowSource;
 		if (CashFlowSource != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -504,7 +504,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	 * @return Cash Flow Source
 	 */
 	@JsonProperty("CashFlowSource")
-	public I_AD_Ref_ListInput CashFlowSource() {
+	public ForeignEntityInput CashFlowSource() {
 		return mCashFlowSource;
 	}
 
@@ -514,7 +514,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	 * @param CashFlowType Cash Flow Type
 	 */
 	@JsonProperty("CashFlowType")
-	public void setCashFlowTypeInput(I_AD_Ref_ListInput CashFlowType) {
+	public void setCashFlowTypeInput(ForeignEntityInput CashFlowType) {
 		this.mCashFlowType = CashFlowType;
 		if (CashFlowType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -538,7 +538,7 @@ public class X_T_CashFlowInput extends X_T_CashFlow implements I_T_CashFlowInput
 	 * @return Cash Flow Type
 	 */
 	@JsonProperty("CashFlowType")
-	public I_AD_Ref_ListInput CashFlowType() {
+	public ForeignEntityInput CashFlowType() {
 		return mCashFlowType;
 	}
 

@@ -21,9 +21,9 @@ import java.sql.ResultSet;
 public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mIsDepreciable;
-	private I_AD_Ref_ListInput mIsInPosession;
-	private I_AD_Ref_ListInput mIsOwned;
+	private ForeignEntityInput mIsDepreciable;
+	private ForeignEntityInput mIsInPosession;
+	private ForeignEntityInput mIsOwned;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -109,7 +109,7 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	 * @param IsDepreciable This asset CAN be depreciated
 	 */
 	@JsonProperty("IsDepreciable")
-	public void setIsDepreciableInput(I_AD_Ref_ListInput IsDepreciable) {
+	public void setIsDepreciableInput(ForeignEntityInput IsDepreciable) {
 		this.mIsDepreciable = IsDepreciable;
 		if (IsDepreciable != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -133,7 +133,7 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	 * @return This asset CAN be depreciated
 	 */
 	@JsonProperty("IsDepreciable")
-	public I_AD_Ref_ListInput IsDepreciable() {
+	public ForeignEntityInput IsDepreciable() {
 		return mIsDepreciable;
 	}
 
@@ -143,7 +143,7 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	 * @param IsInPosession The asset is in the possession of the organization
 	 */
 	@JsonProperty("IsInPosession")
-	public void setIsInPosessionInput(I_AD_Ref_ListInput IsInPosession) {
+	public void setIsInPosessionInput(ForeignEntityInput IsInPosession) {
 		this.mIsInPosession = IsInPosession;
 		if (IsInPosession != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	 * @return The asset is in the possession of the organization
 	 */
 	@JsonProperty("IsInPosession")
-	public I_AD_Ref_ListInput IsInPosession() {
+	public ForeignEntityInput IsInPosession() {
 		return mIsInPosession;
 	}
 
@@ -177,7 +177,7 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	 * @param IsOwned The asset is owned by the organization
 	 */
 	@JsonProperty("IsOwned")
-	public void setIsOwnedInput(I_AD_Ref_ListInput IsOwned) {
+	public void setIsOwnedInput(ForeignEntityInput IsOwned) {
 		this.mIsOwned = IsOwned;
 		if (IsOwned != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -201,7 +201,7 @@ public class X_A_Asset_TypeInput extends MAssetType implements I_A_Asset_TypeInp
 	 * @return The asset is owned by the organization
 	 */
 	@JsonProperty("IsOwned")
-	public I_AD_Ref_ListInput IsOwned() {
+	public ForeignEntityInput IsOwned() {
 		return mIsOwned;
 	}
 }

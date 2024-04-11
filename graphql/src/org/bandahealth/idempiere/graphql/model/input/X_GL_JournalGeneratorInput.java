@@ -30,7 +30,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	private ForeignEntityInput mC_ElementValueAdjustCR;
 	private ForeignEntityInput mC_ElementValueAdjustDR;
 	private ForeignEntityInput mGL_Category;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -286,7 +286,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -310,7 +310,7 @@ public class X_GL_JournalGeneratorInput extends MJournalGenerator implements I_G
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

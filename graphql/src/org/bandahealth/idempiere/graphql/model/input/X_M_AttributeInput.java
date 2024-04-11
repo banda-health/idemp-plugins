@@ -27,8 +27,8 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	private ForeignEntityInput mAD_Reference;
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_Val_Rule;
+	private ForeignEntityInput mAttributeValueType;
 	private ForeignEntityInput mM_AttributeSearch;
-	private I_AD_Ref_ListInput mAttributeValueType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -187,7 +187,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	 * @param AttributeValueType Type of Attribute Value
 	 */
 	@JsonProperty("AttributeValueType")
-	public void setAttributeValueTypeInput(I_AD_Ref_ListInput AttributeValueType) {
+	public void setAttributeValueTypeInput(ForeignEntityInput AttributeValueType) {
 		this.mAttributeValueType = AttributeValueType;
 		if (AttributeValueType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -211,7 +211,7 @@ public class X_M_AttributeInput extends MAttribute implements I_M_AttributeInput
 	 * @return Type of Attribute Value
 	 */
 	@JsonProperty("AttributeValueType")
-	public I_AD_Ref_ListInput AttributeValueType() {
+	public ForeignEntityInput AttributeValueType() {
 		return mAttributeValueType;
 	}
 	/**

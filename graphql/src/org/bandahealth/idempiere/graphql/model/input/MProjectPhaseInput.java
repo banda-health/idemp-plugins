@@ -11,7 +11,7 @@ public class MProjectPhaseInput extends X_C_ProjectPhaseInput {
 	 * @param UUID The C_ProjectPhase_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProjectPhaseInput(@JsonProperty("UUID") String UUID) {
+	public MProjectPhaseInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

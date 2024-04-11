@@ -69,7 +69,7 @@ input A_Asset_SplitInput {
 	A_Percent_Split: BigDecimal
 	A_QTY_Current: BigDecimal
 	A_QTY_Split: BigDecimal
-	A_Split_Type: AD_Ref_ListInput
+	A_Split_Type: ForeignEntityInput
 	A_Transfer_Balance_IS: Boolean
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
@@ -80,7 +80,7 @@ input A_Asset_SplitInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

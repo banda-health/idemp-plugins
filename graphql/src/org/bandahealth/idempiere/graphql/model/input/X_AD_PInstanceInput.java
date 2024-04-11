@@ -33,7 +33,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	private ForeignEntityInput mAD_Session;
 	private ForeignEntityInput mAD_Table;
 	private ForeignEntityInput mAD_User;
-	private I_AD_Ref_ListInput mNotificationType;
+	private ForeignEntityInput mNotificationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -329,7 +329,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	 * @param NotificationType Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public void setNotificationTypeInput(I_AD_Ref_ListInput NotificationType) {
+	public void setNotificationTypeInput(ForeignEntityInput NotificationType) {
 		this.mNotificationType = NotificationType;
 		if (NotificationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -353,7 +353,7 @@ public class X_AD_PInstanceInput extends MPInstance implements I_AD_PInstanceInp
 	 * @return Type of Notifications
 	 */
 	@JsonProperty("NotificationType")
-	public I_AD_Ref_ListInput NotificationType() {
+	public ForeignEntityInput NotificationType() {
 		return mNotificationType;
 	}
 }

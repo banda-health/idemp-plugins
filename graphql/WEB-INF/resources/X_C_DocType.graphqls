@@ -113,13 +113,13 @@ input C_DocTypeInput {
 	# Optional short description of the record
 	Description: String
 	# Logical type of document
-	DocBaseType: AD_Ref_ListInput
+	DocBaseType: ForeignEntityInput
 	# Document sequence determines the numbering of documents
 	DocNoSequence: ForeignEntityInput
 	# Inventory Sub Type
-	DocSubTypeInv: AD_Ref_ListInput
+	DocSubTypeInv: ForeignEntityInput
 	# Sales Order Sub Type
-	DocSubTypeSO: AD_Ref_ListInput
+	DocSubTypeSO: ForeignEntityInput
 	# Number of copies to be printed
 	DocumentCopies: Int
 	# Additional information for a Document

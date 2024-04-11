@@ -11,7 +11,7 @@ public class MCostInput extends X_M_CostInput {
 	 * @param UUID The M_Cost_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCostInput(@JsonProperty("UUID") String UUID) {
+	public MCostInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

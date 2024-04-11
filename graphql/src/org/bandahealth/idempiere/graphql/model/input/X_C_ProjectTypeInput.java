@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTypeInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mProjectCategory;
+	private ForeignEntityInput mProjectCategory;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTyp
 	 * @param ProjectCategory Project Category
 	 */
 	@JsonProperty("ProjectCategory")
-	public void setProjectCategoryInput(I_AD_Ref_ListInput ProjectCategory) {
+	public void setProjectCategoryInput(ForeignEntityInput ProjectCategory) {
 		this.mProjectCategory = ProjectCategory;
 		if (get_ID() != 0) {
 			return;
@@ -134,7 +134,7 @@ public class X_C_ProjectTypeInput extends MProjectType implements I_C_ProjectTyp
 	 * @return Project Category
 	 */
 	@JsonProperty("ProjectCategory")
-	public I_AD_Ref_ListInput ProjectCategory() {
+	public ForeignEntityInput ProjectCategory() {
 		return mProjectCategory;
 	}
 }

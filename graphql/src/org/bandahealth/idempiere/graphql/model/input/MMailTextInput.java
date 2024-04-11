@@ -11,7 +11,7 @@ public class MMailTextInput extends X_R_MailTextInput {
 	 * @param UUID The R_MailText_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMailTextInput(@JsonProperty("UUID") String UUID) {
+	public MMailTextInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

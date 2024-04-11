@@ -181,11 +181,11 @@ input C_ProjectInput {
 	# Total Project Balance
 	ProjectBalanceAmt: BigDecimal
 	# Project Category
-	ProjectCategory: AD_Ref_ListInput
+	ProjectCategory: ForeignEntityInput
 	# Project Line Level
-	ProjectLineLevel: AD_Ref_ListInput
+	ProjectLineLevel: ForeignEntityInput
 	# Invoice Rule for the project
-	ProjInvoiceRule: AD_Ref_ListInput
+	ProjInvoiceRule: ForeignEntityInput
 	# Sales Representative or Company Agent
 	SalesRep: ForeignEntityInput
 	# Search key for the record in the format required - must be unique

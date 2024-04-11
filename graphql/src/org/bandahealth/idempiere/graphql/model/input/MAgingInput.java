@@ -11,7 +11,7 @@ public class MAgingInput extends X_T_AgingInput {
 	 * @param UUID The T_Aging_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAgingInput(@JsonProperty("UUID") String UUID) {
+	public MAgingInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

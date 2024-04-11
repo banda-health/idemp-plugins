@@ -43,12 +43,12 @@ public interface I_C_UOMInput extends I_C_UOM {
 	 *
 	 * @param UOMType UOMType
 	 */
-	void setUOMTypeInput(I_AD_Ref_ListInput UOMType);
+	void setUOMTypeInput(ForeignEntityInput UOMType);
 
 	/**
 	 * Get UOMType.
 	 *
 	 * @return UOMType
 	 */
-	I_AD_Ref_ListInput UOMType();
+	ForeignEntityInput UOMType();
 }

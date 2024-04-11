@@ -29,14 +29,14 @@ public interface I_C_BankAccountInput extends I_C_BankAccount {
 	 *
 	 * @param BankAccountType Bank Account Type
 	 */
-	void setBankAccountTypeInput(I_AD_Ref_ListInput BankAccountType);
+	void setBankAccountTypeInput(ForeignEntityInput BankAccountType);
 
 	/**
 	 * Get BankAccountType.
 	 *
 	 * @return Bank Account Type
 	 */
-	I_AD_Ref_ListInput BankAccountType();
+	ForeignEntityInput BankAccountType();
 
 	/**
 	 * Set C_Bank.

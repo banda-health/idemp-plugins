@@ -11,7 +11,7 @@ public class MSequenceInput extends X_AD_SequenceInput {
 	 * @param UUID The AD_Sequence_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSequenceInput(@JsonProperty("UUID") String UUID) {
+	public MSequenceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

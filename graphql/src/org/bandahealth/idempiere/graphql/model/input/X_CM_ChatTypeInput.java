@@ -23,7 +23,7 @@ public class X_CM_ChatTypeInput extends MChatType implements I_CM_ChatTypeInput 
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mModerationType;
+	private ForeignEntityInput mModerationType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -143,7 +143,7 @@ public class X_CM_ChatTypeInput extends MChatType implements I_CM_ChatTypeInput 
 	 * @param ModerationType Type of moderation
 	 */
 	@JsonProperty("ModerationType")
-	public void setModerationTypeInput(I_AD_Ref_ListInput ModerationType) {
+	public void setModerationTypeInput(ForeignEntityInput ModerationType) {
 		this.mModerationType = ModerationType;
 		if (ModerationType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_CM_ChatTypeInput extends MChatType implements I_CM_ChatTypeInput 
 	 * @return Type of moderation
 	 */
 	@JsonProperty("ModerationType")
-	public I_AD_Ref_ListInput ModerationType() {
+	public ForeignEntityInput ModerationType() {
 		return mModerationType;
 	}
 }

@@ -45,7 +45,7 @@ input AD_CtxHelpInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Type of Context Help
-	CtxType: AD_Ref_ListInput
+	CtxType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

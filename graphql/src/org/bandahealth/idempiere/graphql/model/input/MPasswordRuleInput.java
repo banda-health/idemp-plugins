@@ -11,7 +11,7 @@ public class MPasswordRuleInput extends X_AD_PasswordRuleInput {
 	 * @param UUID The AD_PasswordRule_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPasswordRuleInput(@JsonProperty("UUID") String UUID) {
+	public MPasswordRuleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

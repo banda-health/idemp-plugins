@@ -11,7 +11,7 @@ public class MAccountInput extends X_C_ValidCombinationInput {
 	 * @param UUID The C_ValidCombination_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAccountInput(@JsonProperty("UUID") String UUID) {
+	public MAccountInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

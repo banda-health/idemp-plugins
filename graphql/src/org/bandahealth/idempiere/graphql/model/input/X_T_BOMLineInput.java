@@ -30,12 +30,12 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_PInstance;
 	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mCostingMethod;
 	private ForeignEntityInput mM_CostElement;
 	private ForeignEntityInput mM_CostType;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mPP_Product_BOM;
 	private ForeignEntityInput mPP_Product_BOMLine;
-	private I_AD_Ref_ListInput mCostingMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -157,7 +157,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
+	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -181,7 +181,7 @@ public class X_T_BOMLineInput extends X_T_BOMLine implements I_T_BOMLineInput {
 	 * @return Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public I_AD_Ref_ListInput CostingMethod() {
+	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
 	}
 

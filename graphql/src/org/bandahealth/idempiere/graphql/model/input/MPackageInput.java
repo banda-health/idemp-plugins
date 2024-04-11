@@ -11,7 +11,7 @@ public class MPackageInput extends X_M_PackageInput {
 	 * @param UUID The M_Package_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPackageInput(@JsonProperty("UUID") String UUID) {
+	public MPackageInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

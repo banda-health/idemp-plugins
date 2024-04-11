@@ -62,7 +62,7 @@ input M_PromotionRewardInput {
 	# Additional document charges
 	C_Charge: ForeignEntityInput
 	# Quantity distribution sorting by unit price
-	DistributionSorting: AD_Ref_ListInput
+	DistributionSorting: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# This reward is for all distribution
@@ -77,7 +77,7 @@ input M_PromotionRewardInput {
 	# Quantity
 	Qty: BigDecimal
 	# Type of reward which consists of percentage discount, flat discount or absolute amount
-	RewardType: AD_Ref_ListInput
+	RewardType: ForeignEntityInput
 	# Method of ordering records; lowest number comes first
 	SeqNo: Int
 }

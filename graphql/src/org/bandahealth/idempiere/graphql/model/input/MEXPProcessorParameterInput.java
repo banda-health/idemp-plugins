@@ -11,7 +11,7 @@ public class MEXPProcessorParameterInput extends X_EXP_ProcessorParameterInput {
 	 * @param UUID The EXP_ProcessorParameter_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MEXPProcessorParameterInput(@JsonProperty("UUID") String UUID) {
+	public MEXPProcessorParameterInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

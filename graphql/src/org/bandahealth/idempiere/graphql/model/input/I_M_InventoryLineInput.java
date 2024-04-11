@@ -43,14 +43,14 @@ public interface I_M_InventoryLineInput extends I_M_InventoryLine {
 	 *
 	 * @param InventoryType Type of inventory difference
 	 */
-	void setInventoryTypeInput(I_AD_Ref_ListInput InventoryType);
+	void setInventoryTypeInput(ForeignEntityInput InventoryType);
 
 	/**
 	 * Get InventoryType.
 	 *
 	 * @return Type of inventory difference
 	 */
-	I_AD_Ref_ListInput InventoryType();
+	ForeignEntityInput InventoryType();
 
 	/**
 	 * Set M_AttributeSetInstance.

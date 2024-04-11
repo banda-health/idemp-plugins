@@ -144,7 +144,7 @@ type M_ShippingTransaction {
 
 input M_ShippingTransactionInput {
 	# Indicates the Action to be performed
-	Action: AD_Ref_ListInput
+	Action: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# User within the system - Internal or Business Partner Contact
@@ -174,23 +174,23 @@ input M_ShippingTransactionInput {
 	DateReceived: Date
 	# EMail Delivery confirmation
 	DeliveryConfirmation: Boolean
-	DeliveryConfirmationType: AD_Ref_ListInput
+	DeliveryConfirmationType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
-	DotHazardClassOrDivision: AD_Ref_ListInput
+	DotHazardClassOrDivision: ForeignEntityInput
 	DryIceWeight: BigDecimal
 	DutiesShipperAccount: String
-	FOB: AD_Ref_ListInput
+	FOB: ForeignEntityInput
 	# Freight Amount 
 	FreightAmt: BigDecimal
-	FreightCharges: AD_Ref_ListInput
+	FreightCharges: ForeignEntityInput
 	HandlingCharge: BigDecimal
 	Height: BigDecimal
 	HoldAddress: ForeignEntityInput
 	HomeDeliveryPremiumDate: Date
 	HomeDeliveryPremiumPhone: String
-	HomeDeliveryPremiumType: AD_Ref_ListInput
-	Insurance: AD_Ref_ListInput
+	HomeDeliveryPremiumType: ForeignEntityInput
+	Insurance: ForeignEntityInput
 	InsuredAmount: BigDecimal
 	IsAccessible: Boolean
 	# The record is active in the system
@@ -227,9 +227,9 @@ input M_ShippingTransactionInput {
 	M_Warehouse: ForeignEntityInput
 	NotificationMessage: String
 	# Type of Notifications
-	NotificationType: AD_Ref_ListInput
+	NotificationType: ForeignEntityInput
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule: ForeignEntityInput
 	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
 	POReference: String
 	# Price

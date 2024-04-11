@@ -43,28 +43,28 @@ public interface I_AD_ChartInput extends I_AD_Chart {
 	 *
 	 * @param ChartOrientation The orientation of the chart.
 	 */
-	void setChartOrientationInput(I_AD_Ref_ListInput ChartOrientation);
+	void setChartOrientationInput(ForeignEntityInput ChartOrientation);
 
 	/**
 	 * Get ChartOrientation.
 	 *
 	 * @return The orientation of the chart.
 	 */
-	I_AD_Ref_ListInput ChartOrientation();
+	ForeignEntityInput ChartOrientation();
 
 	/**
 	 * Set ChartType.
 	 *
 	 * @param ChartType Type of chart to render
 	 */
-	void setChartTypeInput(I_AD_Ref_ListInput ChartType);
+	void setChartTypeInput(ForeignEntityInput ChartType);
 
 	/**
 	 * Get ChartType.
 	 *
 	 * @return Type of chart to render
 	 */
-	I_AD_Ref_ListInput ChartType();
+	ForeignEntityInput ChartType();
 
 	/**
 	 * Set AD_EntityType.
@@ -85,12 +85,12 @@ public interface I_AD_ChartInput extends I_AD_Chart {
 	 *
 	 * @param TimeUnit The unit of time for grouping chart data.
 	 */
-	void setTimeUnitInput(I_AD_Ref_ListInput TimeUnit);
+	void setTimeUnitInput(ForeignEntityInput TimeUnit);
 
 	/**
 	 * Get TimeUnit.
 	 *
 	 * @return The unit of time for grouping chart data.
 	 */
-	I_AD_Ref_ListInput TimeUnit();
+	ForeignEntityInput TimeUnit();
 }

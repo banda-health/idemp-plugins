@@ -141,12 +141,12 @@ public interface I_AD_PrintGraphInput extends I_AD_PrintGraph {
 	 *
 	 * @param GraphType Type of graph to be painted
 	 */
-	void setGraphTypeInput(I_AD_Ref_ListInput GraphType);
+	void setGraphTypeInput(ForeignEntityInput GraphType);
 
 	/**
 	 * Get GraphType.
 	 *
 	 * @return Type of graph to be painted
 	 */
-	I_AD_Ref_ListInput GraphType();
+	ForeignEntityInput GraphType();
 }

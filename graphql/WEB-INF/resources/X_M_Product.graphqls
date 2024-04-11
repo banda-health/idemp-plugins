@@ -267,7 +267,7 @@ input M_ProductInput {
 	Name: String
 	Processing: Boolean
 	# Type of product
-	ProductType: AD_Ref_ListInput
+	ProductType: ForeignEntityInput
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
 	# Expense report type

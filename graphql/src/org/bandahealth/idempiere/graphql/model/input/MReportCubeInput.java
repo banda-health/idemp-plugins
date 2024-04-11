@@ -11,7 +11,7 @@ public class MReportCubeInput extends X_PA_ReportCubeInput {
 	 * @param UUID The PA_ReportCube_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MReportCubeInput(@JsonProperty("UUID") String UUID) {
+	public MReportCubeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MProductPOInput extends X_M_Product_POInput {
 	 * @param UUID The M_Product_PO_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MProductPOInput(@JsonProperty("UUID") String UUID) {
+	public MProductPOInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

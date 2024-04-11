@@ -57,40 +57,40 @@ public interface I_C_PeriodControlInput extends I_C_PeriodControl {
 	 *
 	 * @param DocBaseType Logical type of document
 	 */
-	void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType);
+	void setDocBaseTypeInput(ForeignEntityInput DocBaseType);
 
 	/**
 	 * Get DocBaseType.
 	 *
 	 * @return Logical type of document
 	 */
-	I_AD_Ref_ListInput DocBaseType();
+	ForeignEntityInput DocBaseType();
 
 	/**
 	 * Set PeriodAction.
 	 *
 	 * @param PeriodAction Action taken for this period
 	 */
-	void setPeriodActionInput(I_AD_Ref_ListInput PeriodAction);
+	void setPeriodActionInput(ForeignEntityInput PeriodAction);
 
 	/**
 	 * Get PeriodAction.
 	 *
 	 * @return Action taken for this period
 	 */
-	I_AD_Ref_ListInput PeriodAction();
+	ForeignEntityInput PeriodAction();
 
 	/**
 	 * Set PeriodStatus.
 	 *
 	 * @param PeriodStatus Current state of this period
 	 */
-	void setPeriodStatusInput(I_AD_Ref_ListInput PeriodStatus);
+	void setPeriodStatusInput(ForeignEntityInput PeriodStatus);
 
 	/**
 	 * Get PeriodStatus.
 	 *
 	 * @return Current state of this period
 	 */
-	I_AD_Ref_ListInput PeriodStatus();
+	ForeignEntityInput PeriodStatus();
 }

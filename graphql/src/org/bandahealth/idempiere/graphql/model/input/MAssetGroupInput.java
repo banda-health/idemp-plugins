@@ -11,7 +11,7 @@ public class MAssetGroupInput extends X_A_Asset_GroupInput {
 	 * @param UUID The A_Asset_Group_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAssetGroupInput(@JsonProperty("UUID") String UUID) {
+	public MAssetGroupInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

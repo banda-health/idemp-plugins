@@ -55,7 +55,7 @@ type AD_Form {
 
 input AD_FormInput {
 	# Access Level required
-	AccessLevel: AD_Ref_ListInput
+	AccessLevel: ForeignEntityInput
 	AD_CtxHelp: ForeignEntityInput
 	UU: ID
 	# Organizational entity within tenant

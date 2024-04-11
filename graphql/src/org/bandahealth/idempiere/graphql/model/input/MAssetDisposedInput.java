@@ -11,7 +11,7 @@ public class MAssetDisposedInput extends X_A_Asset_DisposedInput {
 	 * @param UUID The A_Asset_Disposed_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAssetDisposedInput(@JsonProperty("UUID") String UUID) {
+	public MAssetDisposedInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

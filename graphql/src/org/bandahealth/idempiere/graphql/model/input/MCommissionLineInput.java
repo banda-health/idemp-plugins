@@ -11,7 +11,7 @@ public class MCommissionLineInput extends X_C_CommissionLineInput {
 	 * @param UUID The C_CommissionLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCommissionLineInput(@JsonProperty("UUID") String UUID) {
+	public MCommissionLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

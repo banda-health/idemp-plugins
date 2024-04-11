@@ -62,7 +62,7 @@ input C_PeriodInput {
 	# Unique Period Number
 	PeriodNo: Int
 	# Period Type
-	PeriodType: AD_Ref_ListInput
+	PeriodType: ForeignEntityInput
 	Processing: Boolean
 	# First effective day (inclusive)
 	StartDate: Date

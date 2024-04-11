@@ -199,15 +199,15 @@ input M_InOutInput {
 	# Date a product was received
 	DateReceived: Date
 	# Defines the timing of Delivery
-	DeliveryRule: AD_Ref_ListInput
+	DeliveryRule: ForeignEntityInput
 	# How the order will be delivered
-	DeliveryViaRule: AD_Ref_ListInput
+	DeliveryViaRule: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# Business Partner to ship to
@@ -216,15 +216,15 @@ input M_InOutInput {
 	DropShip_Location: ForeignEntityInput
 	# Business Partner Contact for drop shipment
 	DropShip_User: ForeignEntityInput
-	FOB: AD_Ref_ListInput
+	FOB: ForeignEntityInput
 	# Freight Amount 
 	FreightAmt: BigDecimal
-	FreightCharges: AD_Ref_ListInput
+	FreightCharges: ForeignEntityInput
 	# Method for charging Freight
-	FreightCostRule: AD_Ref_ListInput
+	FreightCostRule: ForeignEntityInput
 	# Generate To
 	GenerateTo: String
-	Insurance: AD_Ref_ListInput
+	Insurance: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	IsAlternateReturnAddress: Boolean
@@ -250,7 +250,7 @@ input M_InOutInput {
 	# Date a product was moved in or out of inventory
 	MovementDate: Date
 	# Method of moving the inventory
-	MovementType: AD_Ref_ListInput
+	MovementType: ForeignEntityInput
 	# Number of packages shipped
 	NoPackages: Int
 	# Date/Time when picked for Shipment
@@ -260,7 +260,7 @@ input M_InOutInput {
 	# Posting status
 	Posted: Boolean
 	# Priority of a document
-	PriorityRule: AD_Ref_ListInput
+	PriorityRule: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# The date+time (expressed in decimal format) when the document has been processed

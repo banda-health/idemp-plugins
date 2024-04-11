@@ -80,9 +80,9 @@ input C_BankTransferInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	From_Amt: BigDecimal
@@ -91,7 +91,7 @@ input C_BankTransferInput {
 	From_C_BPartner: ForeignEntityInput
 	From_C_Charge: ForeignEntityInput
 	From_C_Currency: ForeignEntityInput
-	From_TenderType: AD_Ref_ListInput
+	From_TenderType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Override Currency Conversion Rate
@@ -109,5 +109,5 @@ input C_BankTransferInput {
 	To_C_BPartner: ForeignEntityInput
 	To_C_Charge: ForeignEntityInput
 	To_C_Currency: ForeignEntityInput
-	To_TenderType: AD_Ref_ListInput
+	To_TenderType: ForeignEntityInput
 }

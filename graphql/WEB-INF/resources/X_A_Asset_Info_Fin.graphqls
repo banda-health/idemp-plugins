@@ -56,9 +56,9 @@ input A_Asset_Info_FinInput {
 	A_Asset: ForeignEntityInput
 	UU: ID
 	A_Contract_Date: Date
-	A_Due_On: AD_Ref_ListInput
+	A_Due_On: ForeignEntityInput
 	A_Expired_Date: Date
-	A_Finance_Meth: AD_Ref_ListInput
+	A_Finance_Meth: ForeignEntityInput
 	A_Monthly_Payment: BigDecimal
 	A_Purchase_Option: Boolean
 	A_Purchase_Option_Credit: Int

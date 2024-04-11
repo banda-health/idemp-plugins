@@ -80,7 +80,7 @@ input C_BP_EDIInput {
 	CustomerNo: String
 	# Optional short description of the record
 	Description: String
-	EDIType: AD_Ref_ListInput
+	EDIType: ForeignEntityInput
 	# Email address to send error messages to
 	EMail_Error_To: String
 	# Full EMail address used to send requests - e.g. edi@organization.com

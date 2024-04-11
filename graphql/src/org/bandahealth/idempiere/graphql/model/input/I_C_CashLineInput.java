@@ -127,12 +127,12 @@ public interface I_C_CashLineInput extends I_C_CashLine {
 	 *
 	 * @param CashType Source of Cash
 	 */
-	void setCashTypeInput(I_AD_Ref_ListInput CashType);
+	void setCashTypeInput(ForeignEntityInput CashType);
 
 	/**
 	 * Get CashType.
 	 *
 	 * @return Source of Cash
 	 */
-	I_AD_Ref_ListInput CashType();
+	ForeignEntityInput CashType();
 }

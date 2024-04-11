@@ -11,7 +11,7 @@ public class MPasswordHistoryInput extends X_AD_Password_HistoryInput {
 	 * @param UUID The AD_Password_History_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPasswordHistoryInput(@JsonProperty("UUID") String UUID) {
+	public MPasswordHistoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

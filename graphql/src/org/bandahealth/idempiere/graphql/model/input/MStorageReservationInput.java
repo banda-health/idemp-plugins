@@ -11,7 +11,7 @@ public class MStorageReservationInput extends X_M_StorageReservationInput {
 	 * @param UUID The M_StorageReservation_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStorageReservationInput(@JsonProperty("UUID") String UUID) {
+	public MStorageReservationInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

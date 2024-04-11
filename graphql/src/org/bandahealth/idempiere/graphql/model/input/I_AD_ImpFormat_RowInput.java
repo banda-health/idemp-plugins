@@ -71,12 +71,12 @@ public interface I_AD_ImpFormat_RowInput extends I_AD_ImpFormat_Row {
 	 *
 	 * @param DataType Type of data
 	 */
-	void setDataTypeInput(I_AD_Ref_ListInput DataType);
+	void setDataTypeInput(ForeignEntityInput DataType);
 
 	/**
 	 * Get DataType.
 	 *
 	 * @return Type of data
 	 */
-	I_AD_Ref_ListInput DataType();
+	ForeignEntityInput DataType();
 }

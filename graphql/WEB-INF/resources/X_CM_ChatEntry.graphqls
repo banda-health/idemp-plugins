@@ -60,7 +60,7 @@ input CM_ChatEntryInput {
 	# Long Character Field
 	CharacterData: String
 	# Type of Chat/Forum Entry
-	ChatEntryType: AD_Ref_ListInput
+	ChatEntryType: ForeignEntityInput
 	# Chat or discussion thread
 	CM_Chat: ForeignEntityInput
 	UU: ID
@@ -69,11 +69,11 @@ input CM_ChatEntryInput {
 	# Link to direct Parent
 	CM_ChatEntryParent: ForeignEntityInput
 	# Type of Confidentiality
-	ConfidentialType: AD_Ref_ListInput
+	ConfidentialType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Status of Moderation
-	ModeratorStatus: AD_Ref_ListInput
+	ModeratorStatus: ForeignEntityInput
 	# Email Message Subject
 	Subject: String
 }

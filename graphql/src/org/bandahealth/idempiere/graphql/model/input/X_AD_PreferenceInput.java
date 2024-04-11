@@ -31,7 +31,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mAD_Window;
-	private I_AD_Ref_ListInput mPreferenceFor;
+	private ForeignEntityInput mPreferenceFor;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -287,7 +287,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	 * @param PreferenceFor Type of preference, it can window, info window or parameter process
 	 */
 	@JsonProperty("PreferenceFor")
-	public void setPreferenceForInput(I_AD_Ref_ListInput PreferenceFor) {
+	public void setPreferenceForInput(ForeignEntityInput PreferenceFor) {
 		this.mPreferenceFor = PreferenceFor;
 		if (PreferenceFor != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -311,7 +311,7 @@ public class X_AD_PreferenceInput extends MPreference implements I_AD_Preference
 	 * @return Type of preference, it can window, info window or parameter process
 	 */
 	@JsonProperty("PreferenceFor")
-	public I_AD_Ref_ListInput PreferenceFor() {
+	public ForeignEntityInput PreferenceFor() {
 		return mPreferenceFor;
 	}
 }

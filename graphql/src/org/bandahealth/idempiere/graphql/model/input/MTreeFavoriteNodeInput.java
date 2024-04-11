@@ -11,7 +11,7 @@ public class MTreeFavoriteNodeInput extends X_AD_Tree_Favorite_NodeInput {
 	 * @param UUID The AD_Tree_Favorite_Node_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTreeFavoriteNodeInput(@JsonProperty("UUID") String UUID) {
+	public MTreeFavoriteNodeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

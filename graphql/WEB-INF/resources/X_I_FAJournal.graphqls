@@ -213,7 +213,7 @@ input I_FAJournalInput {
 	ConversionTypeValue: String
 	# Currency Conversion Rate
 	CurrencyRate: BigDecimal
-	CurrencyRateType: AD_Ref_ListInput
+	CurrencyRateType: ForeignEntityInput
 	# Accounting Date
 	DateAcct: Date
 	# Optional short description of the record
@@ -252,7 +252,7 @@ input I_FAJournalInput {
 	# Key of the Organization
 	OrgValue: String
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	Processing: Boolean

@@ -235,7 +235,7 @@ input I_BankStatementInput {
 	# Amount of a transaction
 	TrxAmt: BigDecimal
 	# Type of credit card transaction
-	TrxType: AD_Ref_ListInput
+	TrxType: ForeignEntityInput
 	# Date when money is available
 	ValutaDate: Date
 }

@@ -29,7 +29,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	private ForeignEntityInput mC_Phase;
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mProjInvoiceRule;
+	private ForeignEntityInput mProjInvoiceRule;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -260,7 +260,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	 * @param ProjInvoiceRule Invoice Rule for the project
 	 */
 	@JsonProperty("ProjInvoiceRule")
-	public void setProjInvoiceRuleInput(I_AD_Ref_ListInput ProjInvoiceRule) {
+	public void setProjInvoiceRuleInput(ForeignEntityInput ProjInvoiceRule) {
 		this.mProjInvoiceRule = ProjInvoiceRule;
 		if (ProjInvoiceRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -284,7 +284,7 @@ public class X_C_ProjectPhaseInput extends MProjectPhase implements I_C_ProjectP
 	 * @return Invoice Rule for the project
 	 */
 	@JsonProperty("ProjInvoiceRule")
-	public I_AD_Ref_ListInput ProjInvoiceRule() {
+	public ForeignEntityInput ProjInvoiceRule() {
 		return mProjInvoiceRule;
 	}
 }

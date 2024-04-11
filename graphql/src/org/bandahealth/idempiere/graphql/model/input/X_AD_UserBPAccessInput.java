@@ -24,9 +24,9 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mBPAccessType;
+	private ForeignEntityInput mDocBaseType;
 	private ForeignEntityInput mR_RequestType;
-	private I_AD_Ref_ListInput mBPAccessType;
-	private I_AD_Ref_ListInput mDocBaseType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -146,7 +146,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	 * @param BPAccessType Type of Access of the user/contact to Business Partner information and resources
 	 */
 	@JsonProperty("BPAccessType")
-	public void setBPAccessTypeInput(I_AD_Ref_ListInput BPAccessType) {
+	public void setBPAccessTypeInput(ForeignEntityInput BPAccessType) {
 		this.mBPAccessType = BPAccessType;
 		if (BPAccessType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -170,7 +170,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	 * @return Type of Access of the user/contact to Business Partner information and resources
 	 */
 	@JsonProperty("BPAccessType")
-	public I_AD_Ref_ListInput BPAccessType() {
+	public ForeignEntityInput BPAccessType() {
 		return mBPAccessType;
 	}
 
@@ -180,7 +180,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	 * @param DocBaseType Logical type of document
 	 */
 	@JsonProperty("DocBaseType")
-	public void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType) {
+	public void setDocBaseTypeInput(ForeignEntityInput DocBaseType) {
 		this.mDocBaseType = DocBaseType;
 		if (DocBaseType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -204,7 +204,7 @@ public class X_AD_UserBPAccessInput extends MUserBPAccess implements I_AD_UserBP
 	 * @return Logical type of document
 	 */
 	@JsonProperty("DocBaseType")
-	public I_AD_Ref_ListInput DocBaseType() {
+	public ForeignEntityInput DocBaseType() {
 		return mDocBaseType;
 	}
 

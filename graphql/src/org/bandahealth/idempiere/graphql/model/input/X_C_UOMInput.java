@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mUOMType;
+	private ForeignEntityInput mUOMType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 	 * @param UOMType UOM Type
 	 */
 	@JsonProperty("UOMType")
-	public void setUOMTypeInput(I_AD_Ref_ListInput UOMType) {
+	public void setUOMTypeInput(ForeignEntityInput UOMType) {
 		this.mUOMType = UOMType;
 		if (UOMType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_C_UOMInput extends MUOM implements I_C_UOMInput {
 	 * @return UOM Type
 	 */
 	@JsonProperty("UOMType")
-	public I_AD_Ref_ListInput UOMType() {
+	public ForeignEntityInput UOMType() {
 		return mUOMType;
 	}
 }

@@ -11,7 +11,7 @@ public class MBHPaymentRefInput extends X_BH_PaymentRefInput {
 	 * @param UUID The BH_PaymentRef_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHPaymentRefInput(@JsonProperty("UUID") String UUID) {
+	public MBHPaymentRefInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

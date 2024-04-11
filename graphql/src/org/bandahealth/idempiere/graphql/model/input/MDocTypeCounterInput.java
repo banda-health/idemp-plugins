@@ -11,7 +11,7 @@ public class MDocTypeCounterInput extends X_C_DocTypeCounterInput {
 	 * @param UUID The C_DocTypeCounter_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDocTypeCounterInput(@JsonProperty("UUID") String UUID) {
+	public MDocTypeCounterInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

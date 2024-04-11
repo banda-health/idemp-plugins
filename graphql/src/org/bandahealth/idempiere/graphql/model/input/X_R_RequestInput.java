@@ -57,12 +57,18 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	private ForeignEntityInput mC_Order;
 	private ForeignEntityInput mC_Payment;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mConfidentialType;
+	private ForeignEntityInput mConfidentialTypeEntry;
+	private ForeignEntityInput mDueType;
 	private ForeignEntityInput mM_ChangeRequest;
 	private ForeignEntityInput mM_FixChangeNotice;
 	private ForeignEntityInput mM_InOut;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_ProductSpent;
 	private ForeignEntityInput mM_RMA;
+	private ForeignEntityInput mNextAction;
+	private ForeignEntityInput mPriority;
+	private ForeignEntityInput mPriorityUser;
 	private ForeignEntityInput mR_Category;
 	private ForeignEntityInput mR_Group;
 	private ForeignEntityInput mR_MailText;
@@ -72,13 +78,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	private ForeignEntityInput mR_StandardResponse;
 	private ForeignEntityInput mR_Status;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mConfidentialType;
-	private I_AD_Ref_ListInput mConfidentialTypeEntry;
-	private I_AD_Ref_ListInput mDueType;
-	private I_AD_Ref_ListInput mNextAction;
-	private I_AD_Ref_ListInput mPriority;
-	private I_AD_Ref_ListInput mPriorityUser;
-	private I_AD_Ref_ListInput mTaskStatus;
+	private ForeignEntityInput mTaskStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -549,7 +549,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @param ConfidentialType Type of Confidentiality
 	 */
 	@JsonProperty("ConfidentialType")
-	public void setConfidentialTypeInput(I_AD_Ref_ListInput ConfidentialType) {
+	public void setConfidentialTypeInput(ForeignEntityInput ConfidentialType) {
 		this.mConfidentialType = ConfidentialType;
 		if (ConfidentialType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -573,7 +573,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @return Type of Confidentiality
 	 */
 	@JsonProperty("ConfidentialType")
-	public I_AD_Ref_ListInput ConfidentialType() {
+	public ForeignEntityInput ConfidentialType() {
 		return mConfidentialType;
 	}
 
@@ -583,7 +583,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
 	 */
 	@JsonProperty("ConfidentialTypeEntry")
-	public void setConfidentialTypeEntryInput(I_AD_Ref_ListInput ConfidentialTypeEntry) {
+	public void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry) {
 		this.mConfidentialTypeEntry = ConfidentialTypeEntry;
 		if (ConfidentialTypeEntry != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -607,7 +607,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @return Confidentiality of the individual entry
 	 */
 	@JsonProperty("ConfidentialTypeEntry")
-	public I_AD_Ref_ListInput ConfidentialTypeEntry() {
+	public ForeignEntityInput ConfidentialTypeEntry() {
 		return mConfidentialTypeEntry;
 	}
 	/**
@@ -628,7 +628,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @param DueType Status of the next action for this Request
 	 */
 	@JsonProperty("DueType")
-	public void setDueTypeInput(I_AD_Ref_ListInput DueType) {
+	public void setDueTypeInput(ForeignEntityInput DueType) {
 		this.mDueType = DueType;
 		if (DueType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -652,7 +652,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @return Status of the next action for this Request
 	 */
 	@JsonProperty("DueType")
-	public I_AD_Ref_ListInput DueType() {
+	public ForeignEntityInput DueType() {
 		return mDueType;
 	}
 	/**
@@ -877,7 +877,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @param NextAction Next Action to be taken
 	 */
 	@JsonProperty("NextAction")
-	public void setNextActionInput(I_AD_Ref_ListInput NextAction) {
+	public void setNextActionInput(ForeignEntityInput NextAction) {
 		this.mNextAction = NextAction;
 		if (NextAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -901,7 +901,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @return Next Action to be taken
 	 */
 	@JsonProperty("NextAction")
-	public I_AD_Ref_ListInput NextAction() {
+	public ForeignEntityInput NextAction() {
 		return mNextAction;
 	}
 
@@ -911,7 +911,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @param Priority Indicates if this request is of a high, medium or low priority.
 	 */
 	@JsonProperty("Priority")
-	public void setPriorityInput(I_AD_Ref_ListInput Priority) {
+	public void setPriorityInput(ForeignEntityInput Priority) {
 		this.mPriority = Priority;
 		if (Priority != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -935,7 +935,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @return Indicates if this request is of a high, medium or low priority.
 	 */
 	@JsonProperty("Priority")
-	public I_AD_Ref_ListInput Priority() {
+	public ForeignEntityInput Priority() {
 		return mPriority;
 	}
 
@@ -945,7 +945,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @param PriorityUser Priority of the issue for the User
 	 */
 	@JsonProperty("PriorityUser")
-	public void setPriorityUserInput(I_AD_Ref_ListInput PriorityUser) {
+	public void setPriorityUserInput(ForeignEntityInput PriorityUser) {
 		this.mPriorityUser = PriorityUser;
 		if (PriorityUser != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -969,7 +969,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @return Priority of the issue for the User
 	 */
 	@JsonProperty("PriorityUser")
-	public I_AD_Ref_ListInput PriorityUser() {
+	public ForeignEntityInput PriorityUser() {
 		return mPriorityUser;
 	}
 
@@ -1314,7 +1314,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @param TaskStatus Status of the Task
 	 */
 	@JsonProperty("TaskStatus")
-	public void setTaskStatusInput(I_AD_Ref_ListInput TaskStatus) {
+	public void setTaskStatusInput(ForeignEntityInput TaskStatus) {
 		this.mTaskStatus = TaskStatus;
 		if (TaskStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -1338,7 +1338,7 @@ public class X_R_RequestInput extends MRequest implements I_R_RequestInput {
 	 * @return Status of the Task
 	 */
 	@JsonProperty("TaskStatus")
-	public I_AD_Ref_ListInput TaskStatus() {
+	public ForeignEntityInput TaskStatus() {
 		return mTaskStatus;
 	}
 }

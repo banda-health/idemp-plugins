@@ -43,28 +43,28 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 *
 	 * @param A_CapvsExp A_CapvsExp
 	 */
-	void setA_CapvsExpInput(I_AD_Ref_ListInput A_CapvsExp);
+	void setA_CapvsExpInput(ForeignEntityInput A_CapvsExp);
 
 	/**
 	 * Get A_CapvsExp.
 	 *
 	 * @return A_CapvsExp
 	 */
-	I_AD_Ref_ListInput A_CapvsExp();
+	ForeignEntityInput A_CapvsExp();
 
 	/**
 	 * Set A_SourceType.
 	 *
 	 * @param A_SourceType A_SourceType
 	 */
-	void setA_SourceTypeInput(I_AD_Ref_ListInput A_SourceType);
+	void setA_SourceTypeInput(ForeignEntityInput A_SourceType);
 
 	/**
 	 * Get A_SourceType.
 	 *
 	 * @return A_SourceType
 	 */
-	I_AD_Ref_ListInput A_SourceType();
+	ForeignEntityInput A_SourceType();
 
 	/**
 	 * Set AD_Org.
@@ -183,28 +183,28 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set GL_JournalBatch.
@@ -309,12 +309,12 @@ public interface I_A_Asset_AdditionInput extends I_A_Asset_Addition {
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

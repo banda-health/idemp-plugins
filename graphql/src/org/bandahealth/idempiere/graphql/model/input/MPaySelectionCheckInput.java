@@ -11,7 +11,7 @@ public class MPaySelectionCheckInput extends X_C_PaySelectionCheckInput {
 	 * @param UUID The C_PaySelectionCheck_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPaySelectionCheckInput(@JsonProperty("UUID") String UUID) {
+	public MPaySelectionCheckInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

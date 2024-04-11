@@ -29,14 +29,14 @@ public interface I_M_TransactionAllocationInput extends I_M_TransactionAllocatio
 	 *
 	 * @param AllocationStrategyType Allocation Strategy
 	 */
-	void setAllocationStrategyTypeInput(I_AD_Ref_ListInput AllocationStrategyType);
+	void setAllocationStrategyTypeInput(ForeignEntityInput AllocationStrategyType);
 
 	/**
 	 * Get AllocationStrategyType.
 	 *
 	 * @return Allocation Strategy
 	 */
-	I_AD_Ref_ListInput AllocationStrategyType();
+	ForeignEntityInput AllocationStrategyType();
 
 	/**
 	 * Set M_AttributeSetInstance.

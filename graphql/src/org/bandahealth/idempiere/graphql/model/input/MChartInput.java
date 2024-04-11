@@ -11,7 +11,7 @@ public class MChartInput extends X_AD_ChartInput {
 	 * @param UUID The AD_Chart_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MChartInput(@JsonProperty("UUID") String UUID) {
+	public MChartInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

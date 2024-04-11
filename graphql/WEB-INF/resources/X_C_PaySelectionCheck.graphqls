@@ -87,7 +87,7 @@ input C_PaySelectionCheckInput {
 	# Amount being paid
 	PayAmt: BigDecimal
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule: ForeignEntityInput
 	# The document has been processed
 	Processed: Boolean
 	# Quantity

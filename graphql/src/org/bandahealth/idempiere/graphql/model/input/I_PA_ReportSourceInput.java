@@ -127,14 +127,14 @@ public interface I_PA_ReportSourceInput extends I_PA_ReportSource {
 	 *
 	 * @param ElementType Element Type (account or user defined)
 	 */
-	void setElementTypeInput(I_AD_Ref_ListInput ElementType);
+	void setElementTypeInput(ForeignEntityInput ElementType);
 
 	/**
 	 * Get ElementType.
 	 *
 	 * @return Element Type (account or user defined)
 	 */
-	I_AD_Ref_ListInput ElementType();
+	ForeignEntityInput ElementType();
 
 	/**
 	 * Set M_Product.

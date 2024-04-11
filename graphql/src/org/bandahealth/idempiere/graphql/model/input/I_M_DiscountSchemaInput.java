@@ -29,28 +29,28 @@ public interface I_M_DiscountSchemaInput extends I_M_DiscountSchema {
 	 *
 	 * @param CumulativeLevel Level for accumulative calculations
 	 */
-	void setCumulativeLevelInput(I_AD_Ref_ListInput CumulativeLevel);
+	void setCumulativeLevelInput(ForeignEntityInput CumulativeLevel);
 
 	/**
 	 * Get CumulativeLevel.
 	 *
 	 * @return Level for accumulative calculations
 	 */
-	I_AD_Ref_ListInput CumulativeLevel();
+	ForeignEntityInput CumulativeLevel();
 
 	/**
 	 * Set DiscountType.
 	 *
 	 * @param DiscountType Type of trade discount calculation
 	 */
-	void setDiscountTypeInput(I_AD_Ref_ListInput DiscountType);
+	void setDiscountTypeInput(ForeignEntityInput DiscountType);
 
 	/**
 	 * Get DiscountType.
 	 *
 	 * @return Type of trade discount calculation
 	 */
-	I_AD_Ref_ListInput DiscountType();
+	ForeignEntityInput DiscountType();
 
 	/**
 	 * Set UU.

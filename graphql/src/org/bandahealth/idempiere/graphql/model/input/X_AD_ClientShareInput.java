@@ -23,7 +23,7 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mShareType;
+	private ForeignEntityInput mShareType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -143,7 +143,7 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 	 * @param ShareType Type of sharing
 	 */
 	@JsonProperty("ShareType")
-	public void setShareTypeInput(I_AD_Ref_ListInput ShareType) {
+	public void setShareTypeInput(ForeignEntityInput ShareType) {
 		this.mShareType = ShareType;
 		if (ShareType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_AD_ClientShareInput extends MClientShare implements I_AD_ClientSh
 	 * @return Type of sharing
 	 */
 	@JsonProperty("ShareType")
-	public I_AD_Ref_ListInput ShareType() {
+	public ForeignEntityInput ShareType() {
 		return mShareType;
 	}
 }

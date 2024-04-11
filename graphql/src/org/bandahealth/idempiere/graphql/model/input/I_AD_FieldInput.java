@@ -230,96 +230,96 @@ public interface I_AD_FieldInput extends I_AD_Field {
 	 *
 	 * @param IsAllowCopy Determine if a column must be copied when pushing the button to copy record
 	 */
-	void setIsAllowCopyInput(I_AD_Ref_ListInput IsAllowCopy);
+	void setIsAllowCopyInput(ForeignEntityInput IsAllowCopy);
 
 	/**
 	 * Get IsAllowCopy.
 	 *
 	 * @return Determine if a column must be copied when pushing the button to copy record
 	 */
-	I_AD_Ref_ListInput IsAllowCopy();
+	ForeignEntityInput IsAllowCopy();
 
 	/**
 	 * Set IsAlwaysUpdateable.
 	 *
 	 * @param IsAlwaysUpdateable The column is always updateable, even if the record is not active or processed
 	 */
-	void setIsAlwaysUpdateableInput(I_AD_Ref_ListInput IsAlwaysUpdateable);
+	void setIsAlwaysUpdateableInput(ForeignEntityInput IsAlwaysUpdateable);
 
 	/**
 	 * Get IsAlwaysUpdateable.
 	 *
 	 * @return The column is always updateable, even if the record is not active or processed
 	 */
-	I_AD_Ref_ListInput IsAlwaysUpdateable();
+	ForeignEntityInput IsAlwaysUpdateable();
 
 	/**
 	 * Set IsMandatory.
 	 *
 	 * @param IsMandatory Data entry is required in this column
 	 */
-	void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory);
+	void setIsMandatoryInput(ForeignEntityInput IsMandatory);
 
 	/**
 	 * Get IsMandatory.
 	 *
 	 * @return Data entry is required in this column
 	 */
-	I_AD_Ref_ListInput IsMandatory();
+	ForeignEntityInput IsMandatory();
 
 	/**
 	 * Set IsSelectionColumn.
 	 *
 	 * @param IsSelectionColumn Is this column used for finding rows in windows
 	 */
-	void setIsSelectionColumnInput(I_AD_Ref_ListInput IsSelectionColumn);
+	void setIsSelectionColumnInput(ForeignEntityInput IsSelectionColumn);
 
 	/**
 	 * Get IsSelectionColumn.
 	 *
 	 * @return Is this column used for finding rows in windows
 	 */
-	I_AD_Ref_ListInput IsSelectionColumn();
+	ForeignEntityInput IsSelectionColumn();
 
 	/**
 	 * Set IsToolbarButton.
 	 *
 	 * @param IsToolbarButton Show the button on the toolbar, the window, or both
 	 */
-	void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton);
+	void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton);
 
 	/**
 	 * Get IsToolbarButton.
 	 *
 	 * @return Show the button on the toolbar, the window, or both
 	 */
-	I_AD_Ref_ListInput IsToolbarButton();
+	ForeignEntityInput IsToolbarButton();
 
 	/**
 	 * Set IsUpdateable.
 	 *
 	 * @param IsUpdateable Determines, if the field can be updated
 	 */
-	void setIsUpdateableInput(I_AD_Ref_ListInput IsUpdateable);
+	void setIsUpdateableInput(ForeignEntityInput IsUpdateable);
 
 	/**
 	 * Get IsUpdateable.
 	 *
 	 * @return Determines, if the field can be updated
 	 */
-	I_AD_Ref_ListInput IsUpdateable();
+	ForeignEntityInput IsUpdateable();
 
 	/**
 	 * Set ObscureType.
 	 *
 	 * @param ObscureType Type of obscuring the data (limiting the display)
 	 */
-	void setObscureTypeInput(I_AD_Ref_ListInput ObscureType);
+	void setObscureTypeInput(ForeignEntityInput ObscureType);
 
 	/**
 	 * Get ObscureType.
 	 *
 	 * @return Type of obscuring the data (limiting the display)
 	 */
-	I_AD_Ref_ListInput ObscureType();
+	ForeignEntityInput ObscureType();
 }

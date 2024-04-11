@@ -113,9 +113,9 @@ input C_BP_BankAccountInput {
 	# User within the system - Internal or Business Partner Contact
 	AD_User: ForeignEntityInput
 	# Bank Account Type
-	BankAccountType: AD_Ref_ListInput
+	BankAccountType: ForeignEntityInput
 	# Business Partner Bank Account usage
-	BPBankAcctUse: AD_Ref_ListInput
+	BPBankAcctUse: ForeignEntityInput
 	# Bank
 	C_Bank: ForeignEntityInput
 	UU: ID
@@ -130,7 +130,7 @@ input C_BP_BankAccountInput {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType: AD_Ref_ListInput
+	CreditCardType: ForeignEntityInput
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	CustomerPaymentProfileID: String
@@ -141,9 +141,9 @@ input C_BP_BankAccountInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# This address has been verified
-	R_AvsAddr: AD_Ref_ListInput
+	R_AvsAddr: ForeignEntityInput
 	# The Zip Code has been verified
-	R_AvsZip: AD_Ref_ListInput
+	R_AvsZip: ForeignEntityInput
 	# Bank Routing Number
 	RoutingNo: String
 }

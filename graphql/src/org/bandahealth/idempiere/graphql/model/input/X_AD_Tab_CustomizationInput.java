@@ -25,8 +25,8 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Tab;
 	private ForeignEntityInput mAD_User;
-	private I_AD_Ref_ListInput mIsAutoHideEmptyColumn;
-	private I_AD_Ref_ListInput mIsDisplayedGrid;
+	private ForeignEntityInput mIsAutoHideEmptyColumn;
+	private ForeignEntityInput mIsDisplayedGrid;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -180,7 +180,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	 * @param IsAutoHideEmptyColumn Auto Hide Empty Column
 	 */
 	@JsonProperty("IsAutoHideEmptyColumn")
-	public void setIsAutoHideEmptyColumnInput(I_AD_Ref_ListInput IsAutoHideEmptyColumn) {
+	public void setIsAutoHideEmptyColumnInput(ForeignEntityInput IsAutoHideEmptyColumn) {
 		this.mIsAutoHideEmptyColumn = IsAutoHideEmptyColumn;
 		if (IsAutoHideEmptyColumn != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -204,7 +204,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	 * @return Auto Hide Empty Column
 	 */
 	@JsonProperty("IsAutoHideEmptyColumn")
-	public I_AD_Ref_ListInput IsAutoHideEmptyColumn() {
+	public ForeignEntityInput IsAutoHideEmptyColumn() {
 		return mIsAutoHideEmptyColumn;
 	}
 
@@ -214,7 +214,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	 * @param IsDisplayedGrid Show in Grid
 	 */
 	@JsonProperty("IsDisplayedGrid")
-	public void setIsDisplayedGridInput(I_AD_Ref_ListInput IsDisplayedGrid) {
+	public void setIsDisplayedGridInput(ForeignEntityInput IsDisplayedGrid) {
 		this.mIsDisplayedGrid = IsDisplayedGrid;
 		if (IsDisplayedGrid != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -238,7 +238,7 @@ public class X_AD_Tab_CustomizationInput extends X_AD_Tab_Customization implemen
 	 * @return Show in Grid
 	 */
 	@JsonProperty("IsDisplayedGrid")
-	public I_AD_Ref_ListInput IsDisplayedGrid() {
+	public ForeignEntityInput IsDisplayedGrid() {
 		return mIsDisplayedGrid;
 	}
 }

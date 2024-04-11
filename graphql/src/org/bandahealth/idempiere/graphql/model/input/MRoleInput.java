@@ -11,7 +11,7 @@ public class MRoleInput extends X_AD_RoleInput {
 	 * @param UUID The AD_Role_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRoleInput(@JsonProperty("UUID") String UUID) {
+	public MRoleInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

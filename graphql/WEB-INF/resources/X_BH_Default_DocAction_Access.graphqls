@@ -49,7 +49,7 @@ input BH_Default_DocAction_AccessInput {
 	# Document type or rules
 	C_DocType: ForeignEntityInput
 	# The User Type when a new client is created
-	DB_UserType: AD_Ref_ListInput
+	DB_UserType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 }

@@ -11,7 +11,7 @@ public class MTaskInput extends X_AD_TaskInput {
 	 * @param UUID The AD_Task_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTaskInput(@JsonProperty("UUID") String UUID) {
+	public MTaskInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

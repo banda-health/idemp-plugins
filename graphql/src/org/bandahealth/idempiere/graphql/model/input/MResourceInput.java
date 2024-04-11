@@ -11,7 +11,7 @@ public class MResourceInput extends X_S_ResourceInput {
 	 * @param UUID The S_Resource_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MResourceInput(@JsonProperty("UUID") String UUID) {
+	public MResourceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

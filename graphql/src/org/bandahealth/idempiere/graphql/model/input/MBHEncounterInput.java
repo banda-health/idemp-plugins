@@ -11,7 +11,7 @@ public class MBHEncounterInput extends X_BH_EncounterInput {
 	 * @param UUID The BH_Encounter_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBHEncounterInput(@JsonProperty("UUID") String UUID) {
+	public MBHEncounterInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

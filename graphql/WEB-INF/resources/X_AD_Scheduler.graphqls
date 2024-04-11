@@ -85,7 +85,7 @@ input AD_SchedulerInput {
 	Processing: Boolean
 	# Text templates for mailings
 	R_MailText: ForeignEntityInput
-	ReportOutputType: AD_Ref_ListInput
+	ReportOutputType: ForeignEntityInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput
 }

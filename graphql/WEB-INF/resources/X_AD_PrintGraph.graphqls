@@ -75,7 +75,7 @@ input AD_PrintGraphInput {
 	# Description Column for Pie/Line/Bar Charts
 	Description_PrintFormatItem: ForeignEntityInput
 	# Type of graph to be painted
-	GraphType: AD_Ref_ListInput
+	GraphType: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity

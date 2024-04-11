@@ -43,6 +43,10 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	private ForeignEntityInput mC_PaymentTerm;
 	private ForeignEntityInput mC_TaxGroup;
 	private ForeignEntityInput mDefault1099Box;
+	private ForeignEntityInput mDeliveryRule;
+	private ForeignEntityInput mDeliveryViaRule;
+	private ForeignEntityInput mFreightCostRule;
+	private ForeignEntityInput mInvoiceRule;
 	private ForeignEntityInput mInvoice_PrintFormat;
 	private ForeignEntityInput mLogo;
 	private ForeignEntityInput mM_DiscountSchema;
@@ -50,15 +54,11 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	private ForeignEntityInput mPO_DiscountSchema;
 	private ForeignEntityInput mPO_PaymentTerm;
 	private ForeignEntityInput mPO_PriceList;
+	private ForeignEntityInput mPaymentRule;
+	private ForeignEntityInput mPaymentRulePO;
+	private ForeignEntityInput mSOCreditStatus;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mDeliveryRule;
-	private I_AD_Ref_ListInput mDeliveryViaRule;
-	private I_AD_Ref_ListInput mFreightCostRule;
-	private I_AD_Ref_ListInput mInvoiceRule;
-	private I_AD_Ref_ListInput mPaymentRule;
-	private I_AD_Ref_ListInput mPaymentRulePO;
-	private I_AD_Ref_ListInput mSOCreditStatus;
-	private I_AD_Ref_ListInput mbh_gender;
+	private ForeignEntityInput mbh_gender;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -149,7 +149,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param bh_gender Gender
 	 */
 	@JsonProperty("bh_gender")
-	public void setbh_genderInput(I_AD_Ref_ListInput bh_gender) {
+	public void setbh_genderInput(ForeignEntityInput bh_gender) {
 		this.mbh_gender = bh_gender;
 		if (bh_gender != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -173,7 +173,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Gender
 	 */
 	@JsonProperty("bh_gender")
-	public I_AD_Ref_ListInput bh_gender() {
+	public ForeignEntityInput bh_gender() {
 		return mbh_gender;
 	}
 
@@ -450,7 +450,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule) {
+	public void setDeliveryRuleInput(ForeignEntityInput DeliveryRule) {
 		this.mDeliveryRule = DeliveryRule;
 		if (DeliveryRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -474,7 +474,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Defines the timing of Delivery
 	 */
 	@JsonProperty("DeliveryRule")
-	public I_AD_Ref_ListInput DeliveryRule() {
+	public ForeignEntityInput DeliveryRule() {
 		return mDeliveryRule;
 	}
 
@@ -484,7 +484,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param DeliveryViaRule How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public void setDeliveryViaRuleInput(I_AD_Ref_ListInput DeliveryViaRule) {
+	public void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule) {
 		this.mDeliveryViaRule = DeliveryViaRule;
 		if (DeliveryViaRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -508,7 +508,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return How the order will be delivered
 	 */
 	@JsonProperty("DeliveryViaRule")
-	public I_AD_Ref_ListInput DeliveryViaRule() {
+	public ForeignEntityInput DeliveryViaRule() {
 		return mDeliveryViaRule;
 	}
 
@@ -518,7 +518,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param FreightCostRule Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public void setFreightCostRuleInput(I_AD_Ref_ListInput FreightCostRule) {
+	public void setFreightCostRuleInput(ForeignEntityInput FreightCostRule) {
 		this.mFreightCostRule = FreightCostRule;
 		if (FreightCostRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -542,7 +542,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Method for charging Freight
 	 */
 	@JsonProperty("FreightCostRule")
-	public I_AD_Ref_ListInput FreightCostRule() {
+	public ForeignEntityInput FreightCostRule() {
 		return mFreightCostRule;
 	}
 
@@ -586,7 +586,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param InvoiceRule Frequency and method of invoicing 
 	 */
 	@JsonProperty("InvoiceRule")
-	public void setInvoiceRuleInput(I_AD_Ref_ListInput InvoiceRule) {
+	public void setInvoiceRuleInput(ForeignEntityInput InvoiceRule) {
 		this.mInvoiceRule = InvoiceRule;
 		if (InvoiceRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -610,7 +610,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Frequency and method of invoicing 
 	 */
 	@JsonProperty("InvoiceRule")
-	public I_AD_Ref_ListInput InvoiceRule() {
+	public ForeignEntityInput InvoiceRule() {
 		return mInvoiceRule;
 	}
 
@@ -722,7 +722,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param PaymentRule How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule) {
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
 		this.mPaymentRule = PaymentRule;
 		if (PaymentRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -746,7 +746,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return How you pay the invoice
 	 */
 	@JsonProperty("PaymentRule")
-	public I_AD_Ref_ListInput PaymentRule() {
+	public ForeignEntityInput PaymentRule() {
 		return mPaymentRule;
 	}
 
@@ -756,7 +756,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param PaymentRulePO Purchase payment option
 	 */
 	@JsonProperty("PaymentRulePO")
-	public void setPaymentRulePOInput(I_AD_Ref_ListInput PaymentRulePO) {
+	public void setPaymentRulePOInput(ForeignEntityInput PaymentRulePO) {
 		this.mPaymentRulePO = PaymentRulePO;
 		if (PaymentRulePO != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -780,7 +780,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Purchase payment option
 	 */
 	@JsonProperty("PaymentRulePO")
-	public I_AD_Ref_ListInput PaymentRulePO() {
+	public ForeignEntityInput PaymentRulePO() {
 		return mPaymentRulePO;
 	}
 
@@ -937,7 +937,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @param SOCreditStatus Business Partner Credit Status
 	 */
 	@JsonProperty("SOCreditStatus")
-	public void setSOCreditStatusInput(I_AD_Ref_ListInput SOCreditStatus) {
+	public void setSOCreditStatusInput(ForeignEntityInput SOCreditStatus) {
 		this.mSOCreditStatus = SOCreditStatus;
 		if (SOCreditStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -961,7 +961,7 @@ public class X_C_BPartnerInput extends MBPartner_BH implements I_C_BPartnerInput
 	 * @return Business Partner Credit Status
 	 */
 	@JsonProperty("SOCreditStatus")
-	public I_AD_Ref_ListInput SOCreditStatus() {
+	public ForeignEntityInput SOCreditStatus() {
 		return mSOCreditStatus;
 	}
 }

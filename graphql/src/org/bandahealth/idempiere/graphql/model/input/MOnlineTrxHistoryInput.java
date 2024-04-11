@@ -11,7 +11,7 @@ public class MOnlineTrxHistoryInput extends X_C_OnlineTrxHistoryInput {
 	 * @param UUID The C_OnlineTrxHistory_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MOnlineTrxHistoryInput(@JsonProperty("UUID") String UUID) {
+	public MOnlineTrxHistoryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

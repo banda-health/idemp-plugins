@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_DiscountSchemaInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mCumulativeLevel;
-	private I_AD_Ref_ListInput mDiscountType;
+	private ForeignEntityInput mCumulativeLevel;
+	private ForeignEntityInput mDiscountType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -79,7 +79,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	 * @param CumulativeLevel Level for accumulative calculations
 	 */
 	@JsonProperty("CumulativeLevel")
-	public void setCumulativeLevelInput(I_AD_Ref_ListInput CumulativeLevel) {
+	public void setCumulativeLevelInput(ForeignEntityInput CumulativeLevel) {
 		this.mCumulativeLevel = CumulativeLevel;
 		if (CumulativeLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -103,7 +103,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	 * @return Level for accumulative calculations
 	 */
 	@JsonProperty("CumulativeLevel")
-	public I_AD_Ref_ListInput CumulativeLevel() {
+	public ForeignEntityInput CumulativeLevel() {
 		return mCumulativeLevel;
 	}
 
@@ -113,7 +113,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	 * @param DiscountType Type of trade discount calculation
 	 */
 	@JsonProperty("DiscountType")
-	public void setDiscountTypeInput(I_AD_Ref_ListInput DiscountType) {
+	public void setDiscountTypeInput(ForeignEntityInput DiscountType) {
 		this.mDiscountType = DiscountType;
 		if (DiscountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -137,7 +137,7 @@ public class X_M_DiscountSchemaInput extends MDiscountSchema implements I_M_Disc
 	 * @return Type of trade discount calculation
 	 */
 	@JsonProperty("DiscountType")
-	public I_AD_Ref_ListInput DiscountType() {
+	public ForeignEntityInput DiscountType() {
 		return mDiscountType;
 	}
 	/**

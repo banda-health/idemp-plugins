@@ -141,28 +141,28 @@ public interface I_PP_OrderInput extends I_PP_Order {
 	 *
 	 * @param DocAction The targeted status of the document
 	 */
-	void setDocActionInput(I_AD_Ref_ListInput DocAction);
+	void setDocActionInput(ForeignEntityInput DocAction);
 
 	/**
 	 * Get DocAction.
 	 *
 	 * @return The targeted status of the document
 	 */
-	I_AD_Ref_ListInput DocAction();
+	ForeignEntityInput DocAction();
 
 	/**
 	 * Set DocStatus.
 	 *
 	 * @param DocStatus The current status of the document
 	 */
-	void setDocStatusInput(I_AD_Ref_ListInput DocStatus);
+	void setDocStatusInput(ForeignEntityInput DocStatus);
 
 	/**
 	 * Get DocStatus.
 	 *
 	 * @return The current status of the document
 	 */
-	I_AD_Ref_ListInput DocStatus();
+	ForeignEntityInput DocStatus();
 
 	/**
 	 * Set M_AttributeSetInstance.
@@ -253,14 +253,14 @@ public interface I_PP_OrderInput extends I_PP_Order {
 	 *
 	 * @param PriorityRule Priority of a document
 	 */
-	void setPriorityRuleInput(I_AD_Ref_ListInput PriorityRule);
+	void setPriorityRuleInput(ForeignEntityInput PriorityRule);
 
 	/**
 	 * Get PriorityRule.
 	 *
 	 * @return Priority of a document
 	 */
-	I_AD_Ref_ListInput PriorityRule();
+	ForeignEntityInput PriorityRule();
 
 	/**
 	 * Set S_Resource.

@@ -11,7 +11,7 @@ public class MStyleLineInput extends X_AD_StyleLineInput {
 	 * @param UUID The AD_StyleLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MStyleLineInput(@JsonProperty("UUID") String UUID) {
+	public MStyleLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

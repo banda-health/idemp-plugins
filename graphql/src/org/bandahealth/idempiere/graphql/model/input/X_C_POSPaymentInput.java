@@ -27,9 +27,9 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	private ForeignEntityInput mC_Order;
 	private ForeignEntityInput mC_POSTenderType;
 	private ForeignEntityInput mC_Payment;
-	private I_AD_Ref_ListInput mCheckStatus;
-	private I_AD_Ref_ListInput mCreditCardType;
-	private I_AD_Ref_ListInput mTenderType;
+	private ForeignEntityInput mCheckStatus;
+	private ForeignEntityInput mCreditCardType;
+	private ForeignEntityInput mTenderType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -220,7 +220,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 * @param CheckStatus Check Status
 	 */
 	@JsonProperty("CheckStatus")
-	public void setCheckStatusInput(I_AD_Ref_ListInput CheckStatus) {
+	public void setCheckStatusInput(ForeignEntityInput CheckStatus) {
 		this.mCheckStatus = CheckStatus;
 		if (CheckStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -244,7 +244,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 * @return Check Status
 	 */
 	@JsonProperty("CheckStatus")
-	public I_AD_Ref_ListInput CheckStatus() {
+	public ForeignEntityInput CheckStatus() {
 		return mCheckStatus;
 	}
 
@@ -254,7 +254,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
+	public void setCreditCardTypeInput(ForeignEntityInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		if (CreditCardType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -278,7 +278,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public I_AD_Ref_ListInput CreditCardType() {
+	public ForeignEntityInput CreditCardType() {
 		return mCreditCardType;
 	}
 
@@ -288,7 +288,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 * @param TenderType Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public void setTenderTypeInput(I_AD_Ref_ListInput TenderType) {
+	public void setTenderTypeInput(ForeignEntityInput TenderType) {
 		this.mTenderType = TenderType;
 		if (TenderType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -312,7 +312,7 @@ public class X_C_POSPaymentInput extends MPOSPayment implements I_C_POSPaymentIn
 	 * @return Method of Payment
 	 */
 	@JsonProperty("TenderType")
-	public I_AD_Ref_ListInput TenderType() {
+	public ForeignEntityInput TenderType() {
 		return mTenderType;
 	}
 }

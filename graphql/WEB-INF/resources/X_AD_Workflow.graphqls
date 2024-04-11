@@ -109,7 +109,7 @@ type AD_Workflow {
 
 input AD_WorkflowInput {
 	# Access Level required
-	AccessLevel: AD_Ref_ListInput
+	AccessLevel: ForeignEntityInput
 	AD_CtxHelp: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
@@ -135,7 +135,7 @@ input AD_WorkflowInput {
 	# Normal Duration in Duration Unit
 	Duration: Int
 	# Unit of Duration
-	DurationUnit: AD_Ref_ListInput
+	DurationUnit: ForeignEntityInput
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# Comment or Hint
@@ -157,9 +157,9 @@ input AD_WorkflowInput {
 	OverlapUnits: BigDecimal
 	# Indicates if this request is of a high, medium or low priority.
 	Priority: Int
-	ProcessType: AD_Ref_ListInput
+	ProcessType: ForeignEntityInput
 	# Status of Publication
-	PublishStatus: AD_Ref_ListInput
+	PublishStatus: ForeignEntityInput
 	QtyBatchSize: BigDecimal
 	# Queue time is the time a job waits at a work center before begin handled.
 	QueuingTime: Int
@@ -181,7 +181,7 @@ input AD_WorkflowInput {
 	# Workflow Simulation Waiting time
 	WaitingTime: Int
 	# Type of Workflow
-	WorkflowType: AD_Ref_ListInput
+	WorkflowType: ForeignEntityInput
 	# Workflow Simulation Execution Time
 	WorkingTime: Int
 	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent

@@ -85,40 +85,40 @@ public interface I_AD_ClientInput extends I_AD_Client {
 	 *
 	 * @param AuthenticationType AuthenticationType
 	 */
-	void setAuthenticationTypeInput(I_AD_Ref_ListInput AuthenticationType);
+	void setAuthenticationTypeInput(ForeignEntityInput AuthenticationType);
 
 	/**
 	 * Get AuthenticationType.
 	 *
 	 * @return AuthenticationType
 	 */
-	I_AD_Ref_ListInput AuthenticationType();
+	ForeignEntityInput AuthenticationType();
 
 	/**
 	 * Set AutoArchive.
 	 *
 	 * @param AutoArchive Enable and level of automatic Archive of documents
 	 */
-	void setAutoArchiveInput(I_AD_Ref_ListInput AutoArchive);
+	void setAutoArchiveInput(ForeignEntityInput AutoArchive);
 
 	/**
 	 * Get AutoArchive.
 	 *
 	 * @return Enable and level of automatic Archive of documents
 	 */
-	I_AD_Ref_ListInput AutoArchive();
+	ForeignEntityInput AutoArchive();
 
 	/**
 	 * Set MMPolicy.
 	 *
 	 * @param MMPolicy Material Movement Policy
 	 */
-	void setMMPolicyInput(I_AD_Ref_ListInput MMPolicy);
+	void setMMPolicyInput(ForeignEntityInput MMPolicy);
 
 	/**
 	 * Get MMPolicy.
 	 *
 	 * @return Material Movement Policy
 	 */
-	I_AD_Ref_ListInput MMPolicy();
+	ForeignEntityInput MMPolicy();
 }

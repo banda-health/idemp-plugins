@@ -127,14 +127,14 @@ public interface I_AD_Process_ParaInput extends I_AD_Process_Para {
 	 *
 	 * @param DateRangeOption Options, how the date editor will be displayed.
 	 */
-	void setDateRangeOptionInput(I_AD_Ref_ListInput DateRangeOption);
+	void setDateRangeOptionInput(ForeignEntityInput DateRangeOption);
 
 	/**
 	 * Get DateRangeOption.
 	 *
 	 * @return Options, how the date editor will be displayed.
 	 */
-	I_AD_Ref_ListInput DateRangeOption();
+	ForeignEntityInput DateRangeOption();
 
 	/**
 	 * Set AD_EntityType.

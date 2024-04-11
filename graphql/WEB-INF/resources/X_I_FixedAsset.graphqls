@@ -153,7 +153,7 @@ input I_FixedAssetInput {
 	# Optional short description of the record
 	Description: String
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# Messages generated from import process
 	I_ErrorMsg: String
 	UU: ID

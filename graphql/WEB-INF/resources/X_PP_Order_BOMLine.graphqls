@@ -112,7 +112,7 @@ input PP_Order_BOMLineInput {
 	# Unit of Measure
 	C_UOM: ForeignEntityInput
 	# Component Type for a Bill of Material or Formula
-	ComponentType: AD_Ref_ListInput
+	ComponentType: ForeignEntityInput
 	# Cost allocation percent in case of a co-product.
 	CostAllocationPerc: BigDecimal
 	# Date when the product was delivered
@@ -132,7 +132,7 @@ input PP_Order_BOMLineInput {
 	# Indicate that this component is based in % Quantity
 	IsQtyPercentage: Boolean
 	# There are two methods for issue the components to Manufacturing Order
-	IssueMethod: AD_Ref_ListInput
+	IssueMethod: ForeignEntityInput
 	# Optional Lead Time offset before starting production
 	LeadTimeOffset: Int
 	# Unique line for this document

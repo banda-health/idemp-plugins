@@ -27,9 +27,9 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
 	private ForeignEntityInput mA_FundingMode;
+	private ForeignEntityInput mA_Tip_Finantare;
 	private ForeignEntityInput mC_AcctSchema;
-	private I_AD_Ref_ListInput mA_Tip_Finantare;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -171,7 +171,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @param A_Tip_Finantare Financing Type
 	 */
 	@JsonProperty("A_Tip_Finantare")
-	public void setA_Tip_FinantareInput(I_AD_Ref_ListInput A_Tip_Finantare) {
+	public void setA_Tip_FinantareInput(ForeignEntityInput A_Tip_Finantare) {
 		this.mA_Tip_Finantare = A_Tip_Finantare;
 		if (A_Tip_Finantare != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -195,7 +195,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @return Financing Type
 	 */
 	@JsonProperty("A_Tip_Finantare")
-	public I_AD_Ref_ListInput A_Tip_Finantare() {
+	public ForeignEntityInput A_Tip_Finantare() {
 		return mA_Tip_Finantare;
 	}
 
@@ -276,7 +276,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -300,7 +300,7 @@ public class X_A_Depreciation_WorkfileInput extends MDepreciationWorkfile implem
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

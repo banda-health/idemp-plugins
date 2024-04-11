@@ -11,7 +11,7 @@ public class MAssetRevalInput extends X_A_Asset_RevalInput {
 	 * @param UUID The A_Asset_Reval_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAssetRevalInput(@JsonProperty("UUID") String UUID) {
+	public MAssetRevalInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -11,7 +11,7 @@ public class MPackageExpDetailInput extends X_AD_Package_Exp_DetailInput {
 	 * @param UUID The AD_Package_Exp_Detail_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPackageExpDetailInput(@JsonProperty("UUID") String UUID) {
+	public MPackageExpDetailInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_Detail implements I_A_Depreciation_Table_DetailInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mA_Table_Rate_Type;
+	private ForeignEntityInput mA_Table_Rate_Type;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -81,7 +81,7 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 	 * @param A_Table_Rate_Type Type
 	 */
 	@JsonProperty("A_Table_Rate_Type")
-	public void setA_Table_Rate_TypeInput(I_AD_Ref_ListInput A_Table_Rate_Type) {
+	public void setA_Table_Rate_TypeInput(ForeignEntityInput A_Table_Rate_Type) {
 		this.mA_Table_Rate_Type = A_Table_Rate_Type;
 		if (get_ID() != 0) {
 			return;
@@ -108,7 +108,7 @@ public class X_A_Depreciation_Table_DetailInput extends X_A_Depreciation_Table_D
 	 * @return Type
 	 */
 	@JsonProperty("A_Table_Rate_Type")
-	public I_AD_Ref_ListInput A_Table_Rate_Type() {
+	public ForeignEntityInput A_Table_Rate_Type() {
 		return mA_Table_Rate_Type;
 	}
 

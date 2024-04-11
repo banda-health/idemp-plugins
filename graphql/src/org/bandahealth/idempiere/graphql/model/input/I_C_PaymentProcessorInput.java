@@ -85,12 +85,12 @@ public interface I_C_PaymentProcessorInput extends I_C_PaymentProcessor {
 	 *
 	 * @param TrxType Type of credit card transaction
 	 */
-	void setTrxTypeInput(I_AD_Ref_ListInput TrxType);
+	void setTrxTypeInput(ForeignEntityInput TrxType);
 
 	/**
 	 * Get TrxType.
 	 *
 	 * @return Type of credit card transaction
 	 */
-	I_AD_Ref_ListInput TrxType();
+	ForeignEntityInput TrxType();
 }

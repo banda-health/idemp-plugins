@@ -84,7 +84,7 @@ input T_InvoiceGLInput {
 	# Source Balance Amount
 	AmtSourceBalance: BigDecimal
 	# Include Receivables and/or Payables transactions
-	APAR: AD_Ref_ListInput
+	APAR: ForeignEntityInput
 	# Revaluation Currency Conversion Type
 	C_ConversionTypeReval: ForeignEntityInput
 	# Document Type for Revaluation Journal

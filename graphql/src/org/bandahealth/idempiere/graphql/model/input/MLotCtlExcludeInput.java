@@ -11,7 +11,7 @@ public class MLotCtlExcludeInput extends X_M_LotCtlExcludeInput {
 	 * @param UUID The M_LotCtlExclude_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MLotCtlExcludeInput(@JsonProperty("UUID") String UUID) {
+	public MLotCtlExcludeInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

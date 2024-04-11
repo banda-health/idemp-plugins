@@ -85,40 +85,40 @@ public interface I_AD_RelationTypeInput extends I_AD_RelationType {
 	 *
 	 * @param Role_Source If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
-	void setRole_SourceInput(I_AD_Ref_ListInput Role_Source);
+	void setRole_SourceInput(ForeignEntityInput Role_Source);
 
 	/**
 	 * Get Role_Source.
 	 *
 	 * @return If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
-	I_AD_Ref_ListInput Role_Source();
+	ForeignEntityInput Role_Source();
 
 	/**
 	 * Set Role_Target.
 	 *
 	 * @param Role_Target If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
-	void setRole_TargetInput(I_AD_Ref_ListInput Role_Target);
+	void setRole_TargetInput(ForeignEntityInput Role_Target);
 
 	/**
 	 * Get Role_Target.
 	 *
 	 * @return If set, this role will be used as label for the zoom destination instead of the destinations's window name
 	 */
-	I_AD_Ref_ListInput Role_Target();
+	ForeignEntityInput Role_Target();
 
 	/**
 	 * Set Type.
 	 *
 	 * @param Type Type of Validation (SQL, Java Script, Java Language)
 	 */
-	void setTypeInput(I_AD_Ref_ListInput Type);
+	void setTypeInput(ForeignEntityInput Type);
 
 	/**
 	 * Get Type.
 	 *
 	 * @return Type of Validation (SQL, Java Script, Java Language)
 	 */
-	I_AD_Ref_ListInput Type();
+	ForeignEntityInput Type();
 }

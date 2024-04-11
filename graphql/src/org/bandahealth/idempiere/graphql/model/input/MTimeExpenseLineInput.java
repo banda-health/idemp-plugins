@@ -11,7 +11,7 @@ public class MTimeExpenseLineInput extends X_S_TimeExpenseLineInput {
 	 * @param UUID The S_TimeExpenseLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTimeExpenseLineInput(@JsonProperty("UUID") String UUID) {
+	public MTimeExpenseLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

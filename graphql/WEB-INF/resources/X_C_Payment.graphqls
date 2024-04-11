@@ -284,7 +284,7 @@ input C_PaymentInput {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType: AD_Ref_ListInput
+	CreditCardType: ForeignEntityInput
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	# Currency Conversion Rate
@@ -301,9 +301,9 @@ input C_PaymentInput {
 	# Calculated amount of discount
 	DiscountAmt: BigDecimal
 	# The targeted status of the document
-	DocAction: AD_Ref_ListInput
+	DocAction: ForeignEntityInput
 	# The current status of the document
-	DocStatus: AD_Ref_ListInput
+	DocStatus: ForeignEntityInput
 	# Document sequence number of the document
 	DocumentNo: String
 	# International Bank Account Number
@@ -355,9 +355,9 @@ input C_PaymentInput {
 	# Authorization Code Delayed Capture returned
 	R_AuthCode_DC: String
 	# This address has been verified
-	R_AvsAddr: AD_Ref_ListInput
+	R_AvsAddr: ForeignEntityInput
 	# The Zip Code has been verified
-	R_AvsZip: AD_Ref_ListInput
+	R_AvsZip: ForeignEntityInput
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean
 	# Response info
@@ -383,9 +383,9 @@ input C_PaymentInput {
 	# Tax Amount for a document
 	TaxAmt: BigDecimal
 	# Method of Payment
-	TenderType: AD_Ref_ListInput
+	TenderType: ForeignEntityInput
 	# Type of credit card transaction
-	TrxType: AD_Ref_ListInput
+	TrxType: ForeignEntityInput
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

@@ -295,14 +295,14 @@ public interface I_I_OrderInput extends I_I_Order {
 	 *
 	 * @param DeliveryRule Defines the timing of Delivery
 	 */
-	void setDeliveryRuleInput(I_AD_Ref_ListInput DeliveryRule);
+	void setDeliveryRuleInput(ForeignEntityInput DeliveryRule);
 
 	/**
 	 * Get DeliveryRule.
 	 *
 	 * @return Defines the timing of Delivery
 	 */
-	I_AD_Ref_ListInput DeliveryRule();
+	ForeignEntityInput DeliveryRule();
 
 	/**
 	 * Set UU.

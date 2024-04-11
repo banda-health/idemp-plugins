@@ -99,12 +99,12 @@ public interface I_AD_FieldSuggestionInput extends I_AD_FieldSuggestion {
 	 *
 	 * @param FieldSuggestionTarget FieldSuggestionTarget
 	 */
-	void setFieldSuggestionTargetInput(I_AD_Ref_ListInput FieldSuggestionTarget);
+	void setFieldSuggestionTargetInput(ForeignEntityInput FieldSuggestionTarget);
 
 	/**
 	 * Get FieldSuggestionTarget.
 	 *
 	 * @return FieldSuggestionTarget
 	 */
-	I_AD_Ref_ListInput FieldSuggestionTarget();
+	ForeignEntityInput FieldSuggestionTarget();
 }

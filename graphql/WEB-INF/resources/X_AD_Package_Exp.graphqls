@@ -59,7 +59,7 @@ input AD_Package_ExpInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
-	AD_Package_Type: AD_Ref_ListInput
+	AD_Package_Type: ForeignEntityInput
 	# Starting date for a range
 	DateFrom: Date
 	# Optional short description of the record
@@ -78,7 +78,7 @@ input AD_Package_ExpInput {
 	Processed: Boolean
 	Processing: Boolean
 	# Internal Release Number
-	ReleaseNo: AD_Ref_ListInput
+	ReleaseNo: ForeignEntityInput
 	UserName: String
 	# Version of the table definition
 	Version: String

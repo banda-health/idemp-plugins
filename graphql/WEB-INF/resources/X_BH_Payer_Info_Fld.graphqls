@@ -49,7 +49,7 @@ input BH_Payer_Info_FldInput {
 	BH_FillFromPatient: Boolean
 	BH_Payer: ForeignEntityInput
 	UU: ID
-	BH_PayerInfoFieldDataType: AD_Ref_ListInput
+	BH_PayerInfoFieldDataType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# The record is active in the system

@@ -46,7 +46,7 @@ input BH_Product_CategoryDefaultInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	# Contains a character the is linked to a ref list to determine types of product categories
-	BH_Product_Category_Type: AD_Ref_ListInput
+	BH_Product_Category_Type: ForeignEntityInput
 	UU: ID
 	# Optional short description of the record
 	Description: String

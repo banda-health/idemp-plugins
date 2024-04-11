@@ -87,9 +87,9 @@ input AD_ClientInput {
 	AD_PasswordRule: ForeignEntityInput
 	# Data Replication Strategy
 	AD_ReplicationStrategy: ForeignEntityInput
-	AuthenticationType: AD_Ref_ListInput
+	AuthenticationType: ForeignEntityInput
 	# Enable and level of automatic Archive of documents
-	AutoArchive: AD_Ref_ListInput
+	AutoArchive: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Directory for documents from the application server
@@ -111,7 +111,7 @@ input AD_ClientInput {
 	IsUseBetaFunctions: Boolean
 	LoginPrefix: String
 	# Material Movement Policy
-	MMPolicy: AD_Ref_ListInput
+	MMPolicy: ForeignEntityInput
 	# List of data model validation classes separated by ;
 	ModelValidationClasses: String
 	# Alphanumeric identifier of the entity

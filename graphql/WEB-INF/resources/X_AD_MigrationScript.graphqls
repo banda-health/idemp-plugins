@@ -79,7 +79,7 @@ input AD_MigrationScriptInput {
 	Script: Binary
 	ScriptRoll: String
 	# Status of the currently running check
-	Status: AD_Ref_ListInput
+	Status: ForeignEntityInput
 	# Full URL address - e.g. http://www.idempiere.org
 	URL: String
 }

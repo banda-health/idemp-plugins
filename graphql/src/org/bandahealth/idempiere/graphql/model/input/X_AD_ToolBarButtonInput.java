@@ -27,7 +27,7 @@ public class X_AD_ToolBarButtonInput extends MToolBarButton implements I_AD_Tool
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Process;
 	private ForeignEntityInput mAD_Tab;
-	private I_AD_Ref_ListInput mAction;
+	private ForeignEntityInput mAction;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -47,7 +47,7 @@ public class X_AD_ToolBarButtonInput extends MToolBarButton implements I_AD_Tool
 	 * @param Action Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public void setActionInput(I_AD_Ref_ListInput Action) {
+	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -71,7 +71,7 @@ public class X_AD_ToolBarButtonInput extends MToolBarButton implements I_AD_Tool
 	 * @return Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public I_AD_Ref_ListInput Action() {
+	public ForeignEntityInput Action() {
 		return mAction;
 	}
 

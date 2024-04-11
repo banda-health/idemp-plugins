@@ -11,7 +11,7 @@ public class MCampaignInput extends X_C_CampaignInput {
 	 * @param UUID The C_Campaign_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCampaignInput(@JsonProperty("UUID") String UUID) {
+	public MCampaignInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

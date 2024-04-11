@@ -11,7 +11,7 @@ public class MGroupInput extends X_R_GroupInput {
 	 * @param UUID The R_Group_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MGroupInput(@JsonProperty("UUID") String UUID) {
+	public MGroupInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -23,9 +23,9 @@ import java.sql.ResultSet;
 public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implements I_AD_AuthorizationAccountInput {
 
 	private ForeignEntityInput mAD_AuthorizationCredential;
+	private ForeignEntityInput mAD_AuthorizationScopes;
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
-	private I_AD_Ref_ListInput mAD_AuthorizationScopes;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -111,7 +111,7 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 	 * @param AD_AuthorizationScopes Authorization Scopes
 	 */
 	@JsonProperty("AD_AuthorizationScopes")
-	public void setAD_AuthorizationScopesInput(I_AD_Ref_ListInput AD_AuthorizationScopes) {
+	public void setAD_AuthorizationScopesInput(ForeignEntityInput AD_AuthorizationScopes) {
 		this.mAD_AuthorizationScopes = AD_AuthorizationScopes;
 		if (AD_AuthorizationScopes != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -135,7 +135,7 @@ public class X_AD_AuthorizationAccountInput extends MAuthorizationAccount implem
 	 * @return Authorization Scopes
 	 */
 	@JsonProperty("AD_AuthorizationScopes")
-	public I_AD_Ref_ListInput AD_AuthorizationScopes() {
+	public ForeignEntityInput AD_AuthorizationScopes() {
 		return mAD_AuthorizationScopes;
 	}
 

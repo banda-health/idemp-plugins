@@ -27,10 +27,10 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	private ForeignEntityInput mAD_Tree_Menu;
 	private ForeignEntityInput mAD_Tree_Org;
 	private ForeignEntityInput mC_Currency;
+	private ForeignEntityInput mPreferenceType;
+	private ForeignEntityInput mRoleType;
 	private ForeignEntityInput mSupervisor;
-	private I_AD_Ref_ListInput mPreferenceType;
-	private I_AD_Ref_ListInput mRoleType;
-	private I_AD_Ref_ListInput mUserLevel;
+	private ForeignEntityInput mUserLevel;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -218,7 +218,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param PreferenceType Determines what preferences the user can set
 	 */
 	@JsonProperty("PreferenceType")
-	public void setPreferenceTypeInput(I_AD_Ref_ListInput PreferenceType) {
+	public void setPreferenceTypeInput(ForeignEntityInput PreferenceType) {
 		this.mPreferenceType = PreferenceType;
 		if (PreferenceType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -242,7 +242,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return Determines what preferences the user can set
 	 */
 	@JsonProperty("PreferenceType")
-	public I_AD_Ref_ListInput PreferenceType() {
+	public ForeignEntityInput PreferenceType() {
 		return mPreferenceType;
 	}
 
@@ -252,7 +252,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param RoleType Role Type
 	 */
 	@JsonProperty("RoleType")
-	public void setRoleTypeInput(I_AD_Ref_ListInput RoleType) {
+	public void setRoleTypeInput(ForeignEntityInput RoleType) {
 		this.mRoleType = RoleType;
 		if (RoleType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -276,7 +276,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return Role Type
 	 */
 	@JsonProperty("RoleType")
-	public I_AD_Ref_ListInput RoleType() {
+	public ForeignEntityInput RoleType() {
 		return mRoleType;
 	}
 
@@ -320,7 +320,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @param UserLevel System Tenant Organization
 	 */
 	@JsonProperty("UserLevel")
-	public void setUserLevelInput(I_AD_Ref_ListInput UserLevel) {
+	public void setUserLevelInput(ForeignEntityInput UserLevel) {
 		this.mUserLevel = UserLevel;
 		if (UserLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -344,7 +344,7 @@ public class X_AD_RoleInput extends X_AD_Role implements I_AD_RoleInput {
 	 * @return System Tenant Organization
 	 */
 	@JsonProperty("UserLevel")
-	public I_AD_Ref_ListInput UserLevel() {
+	public ForeignEntityInput UserLevel() {
 		return mUserLevel;
 	}
 }

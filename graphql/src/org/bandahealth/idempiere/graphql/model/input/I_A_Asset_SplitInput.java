@@ -57,14 +57,14 @@ public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 	 *
 	 * @param A_Split_Type A_Split_Type
 	 */
-	void setA_Split_TypeInput(I_AD_Ref_ListInput A_Split_Type);
+	void setA_Split_TypeInput(ForeignEntityInput A_Split_Type);
 
 	/**
 	 * Get A_Split_Type.
 	 *
 	 * @return A_Split_Type
 	 */
-	I_AD_Ref_ListInput A_Split_Type();
+	ForeignEntityInput A_Split_Type();
 
 	/**
 	 * Set AD_Org.
@@ -99,12 +99,12 @@ public interface I_A_Asset_SplitInput extends I_A_Asset_Split {
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

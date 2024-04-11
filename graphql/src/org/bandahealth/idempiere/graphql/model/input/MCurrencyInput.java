@@ -11,7 +11,7 @@ public class MCurrencyInput extends X_C_CurrencyInput {
 	 * @param UUID The C_Currency_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCurrencyInput(@JsonProperty("UUID") String UUID) {
+	public MCurrencyInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

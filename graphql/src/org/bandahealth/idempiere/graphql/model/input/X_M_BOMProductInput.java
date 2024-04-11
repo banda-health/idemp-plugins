@@ -27,13 +27,13 @@ import java.sql.ResultSet;
 public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBOMProductType;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_BOM;
 	private ForeignEntityInput mM_BOMAlternative;
 	private ForeignEntityInput mM_ChangeNotice;
 	private ForeignEntityInput mM_ProductBOM;
 	private ForeignEntityInput mM_ProductOperation;
-	private I_AD_Ref_ListInput mBOMProductType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -90,7 +90,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	 * @param BOMProductType BOM Product Type
 	 */
 	@JsonProperty("BOMProductType")
-	public void setBOMProductTypeInput(I_AD_Ref_ListInput BOMProductType) {
+	public void setBOMProductTypeInput(ForeignEntityInput BOMProductType) {
 		this.mBOMProductType = BOMProductType;
 		if (BOMProductType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -114,7 +114,7 @@ public class X_M_BOMProductInput extends MBOMProduct implements I_M_BOMProductIn
 	 * @return BOM Product Type
 	 */
 	@JsonProperty("BOMProductType")
-	public I_AD_Ref_ListInput BOMProductType() {
+	public ForeignEntityInput BOMProductType() {
 		return mBOMProductType;
 	}
 

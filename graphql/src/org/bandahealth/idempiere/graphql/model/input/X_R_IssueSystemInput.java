@@ -23,7 +23,7 @@ public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSy
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mA_Asset;
-	private I_AD_Ref_ListInput mSystemStatus;
+	private ForeignEntityInput mSystemStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -176,7 +176,7 @@ public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSy
 	 * @param SystemStatus Status of the system - Support priority depends on system status
 	 */
 	@JsonProperty("SystemStatus")
-	public void setSystemStatusInput(I_AD_Ref_ListInput SystemStatus) {
+	public void setSystemStatusInput(ForeignEntityInput SystemStatus) {
 		this.mSystemStatus = SystemStatus;
 		if (SystemStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -200,7 +200,7 @@ public class X_R_IssueSystemInput extends X_R_IssueSystem implements I_R_IssueSy
 	 * @return Status of the system - Support priority depends on system status
 	 */
 	@JsonProperty("SystemStatus")
-	public I_AD_Ref_ListInput SystemStatus() {
+	public ForeignEntityInput SystemStatus() {
 		return mSystemStatus;
 	}
 }

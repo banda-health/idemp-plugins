@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_AD_CtxHelpInput extends MCtxHelp implements I_AD_CtxHelpInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mCtxType;
+	private ForeignEntityInput mCtxType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_AD_CtxHelpInput extends MCtxHelp implements I_AD_CtxHelpInput {
 	 * @param CtxType Type of Context Help
 	 */
 	@JsonProperty("CtxType")
-	public void setCtxTypeInput(I_AD_Ref_ListInput CtxType) {
+	public void setCtxTypeInput(ForeignEntityInput CtxType) {
 		this.mCtxType = CtxType;
 		if (CtxType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_AD_CtxHelpInput extends MCtxHelp implements I_AD_CtxHelpInput {
 	 * @return Type of Context Help
 	 */
 	@JsonProperty("CtxType")
-	public I_AD_Ref_ListInput CtxType() {
+	public ForeignEntityInput CtxType() {
 		return mCtxType;
 	}
 }

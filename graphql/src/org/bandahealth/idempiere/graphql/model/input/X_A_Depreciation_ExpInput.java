@@ -32,11 +32,11 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	private ForeignEntityInput mA_Asset_Addition;
 	private ForeignEntityInput mA_Asset_Disposed;
 	private ForeignEntityInput mA_Depreciation_Entry;
+	private ForeignEntityInput mA_Entry_Type;
 	private ForeignEntityInput mCR_Account;
 	private ForeignEntityInput mC_AcctSchema;
 	private ForeignEntityInput mDR_Account;
-	private I_AD_Ref_ListInput mA_Entry_Type;
-	private I_AD_Ref_ListInput mPostingType;
+	private ForeignEntityInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -255,7 +255,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param A_Entry_Type Entry Type
 	 */
 	@JsonProperty("A_Entry_Type")
-	public void setA_Entry_TypeInput(I_AD_Ref_ListInput A_Entry_Type) {
+	public void setA_Entry_TypeInput(ForeignEntityInput A_Entry_Type) {
 		this.mA_Entry_Type = A_Entry_Type;
 		if (A_Entry_Type != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -279,7 +279,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return Entry Type
 	 */
 	@JsonProperty("A_Entry_Type")
-	public I_AD_Ref_ListInput A_Entry_Type() {
+	public ForeignEntityInput A_Entry_Type() {
 		return mA_Entry_Type;
 	}
 	/**
@@ -439,7 +439,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -463,7 +463,7 @@ public class X_A_Depreciation_ExpInput extends MDepreciationExp implements I_A_D
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 }

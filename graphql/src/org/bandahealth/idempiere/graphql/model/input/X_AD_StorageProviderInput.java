@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_AD_StorageProviderInput extends MStorageProvider implements I_AD_StorageProviderInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mMethod;
+	private ForeignEntityInput mMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_AD_StorageProviderInput extends MStorageProvider implements I_AD_
 	 * @param Method Method
 	 */
 	@JsonProperty("Method")
-	public void setMethodInput(I_AD_Ref_ListInput Method) {
+	public void setMethodInput(ForeignEntityInput Method) {
 		this.mMethod = Method;
 		if (Method != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_AD_StorageProviderInput extends MStorageProvider implements I_AD_
 	 * @return Method
 	 */
 	@JsonProperty("Method")
-	public I_AD_Ref_ListInput Method() {
+	public ForeignEntityInput Method() {
 		return mMethod;
 	}
 }

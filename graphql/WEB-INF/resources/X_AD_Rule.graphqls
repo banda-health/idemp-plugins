@@ -53,7 +53,7 @@ type AD_Rule {
 
 input AD_RuleInput {
 	# Access Level required
-	AccessLevel: AD_Ref_ListInput
+	AccessLevel: ForeignEntityInput
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	UU: ID
@@ -62,14 +62,14 @@ input AD_RuleInput {
 	# Dictionary Entity Type; Determines ownership and synchronization
 	AD_EntityType: ForeignEntityInput
 	# Type of Event
-	EventType: AD_Ref_ListInput
+	EventType: ForeignEntityInput
 	# Comment or Hint
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
 	# Alphanumeric identifier of the entity
 	Name: String
-	RuleType: AD_Ref_ListInput
+	RuleType: ForeignEntityInput
 	# Dynamic Java Language Script to calculate result
 	Script: String
 	# Search key for the record in the format required - must be unique

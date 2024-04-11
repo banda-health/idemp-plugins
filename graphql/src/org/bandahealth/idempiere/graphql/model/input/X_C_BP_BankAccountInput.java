@@ -26,14 +26,14 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mBPBankAcctUse;
+	private ForeignEntityInput mBankAccountType;
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Bank;
 	private ForeignEntityInput mC_PaymentProcessor;
-	private I_AD_Ref_ListInput mBPBankAcctUse;
-	private I_AD_Ref_ListInput mBankAccountType;
-	private I_AD_Ref_ListInput mCreditCardType;
-	private I_AD_Ref_ListInput mR_AvsAddr;
-	private I_AD_Ref_ListInput mR_AvsZip;
+	private ForeignEntityInput mCreditCardType;
+	private ForeignEntityInput mR_AvsAddr;
+	private ForeignEntityInput mR_AvsZip;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -124,7 +124,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param BankAccountType Bank Account Type
 	 */
 	@JsonProperty("BankAccountType")
-	public void setBankAccountTypeInput(I_AD_Ref_ListInput BankAccountType) {
+	public void setBankAccountTypeInput(ForeignEntityInput BankAccountType) {
 		this.mBankAccountType = BankAccountType;
 		if (BankAccountType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -148,7 +148,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return Bank Account Type
 	 */
 	@JsonProperty("BankAccountType")
-	public I_AD_Ref_ListInput BankAccountType() {
+	public ForeignEntityInput BankAccountType() {
 		return mBankAccountType;
 	}
 
@@ -158,7 +158,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param BPBankAcctUse Business Partner Bank Account usage
 	 */
 	@JsonProperty("BPBankAcctUse")
-	public void setBPBankAcctUseInput(I_AD_Ref_ListInput BPBankAcctUse) {
+	public void setBPBankAcctUseInput(ForeignEntityInput BPBankAcctUse) {
 		this.mBPBankAcctUse = BPBankAcctUse;
 		if (BPBankAcctUse != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -182,7 +182,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return Business Partner Bank Account usage
 	 */
 	@JsonProperty("BPBankAcctUse")
-	public I_AD_Ref_ListInput BPBankAcctUse() {
+	public ForeignEntityInput BPBankAcctUse() {
 		return mBPBankAcctUse;
 	}
 
@@ -326,7 +326,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param CreditCardType Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public void setCreditCardTypeInput(I_AD_Ref_ListInput CreditCardType) {
+	public void setCreditCardTypeInput(ForeignEntityInput CreditCardType) {
 		this.mCreditCardType = CreditCardType;
 		if (CreditCardType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -350,7 +350,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return Credit Card (Visa, MC, AmEx)
 	 */
 	@JsonProperty("CreditCardType")
-	public I_AD_Ref_ListInput CreditCardType() {
+	public ForeignEntityInput CreditCardType() {
 		return mCreditCardType;
 	}
 
@@ -360,7 +360,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param R_AvsAddr This address has been verified
 	 */
 	@JsonProperty("R_AvsAddr")
-	public void setR_AvsAddrInput(I_AD_Ref_ListInput R_AvsAddr) {
+	public void setR_AvsAddrInput(ForeignEntityInput R_AvsAddr) {
 		this.mR_AvsAddr = R_AvsAddr;
 		if (get_ID() != 0) {
 			return;
@@ -387,7 +387,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return This address has been verified
 	 */
 	@JsonProperty("R_AvsAddr")
-	public I_AD_Ref_ListInput R_AvsAddr() {
+	public ForeignEntityInput R_AvsAddr() {
 		return mR_AvsAddr;
 	}
 
@@ -397,7 +397,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @param R_AvsZip The Zip Code has been verified
 	 */
 	@JsonProperty("R_AvsZip")
-	public void setR_AvsZipInput(I_AD_Ref_ListInput R_AvsZip) {
+	public void setR_AvsZipInput(ForeignEntityInput R_AvsZip) {
 		this.mR_AvsZip = R_AvsZip;
 		if (get_ID() != 0) {
 			return;
@@ -424,7 +424,7 @@ public class X_C_BP_BankAccountInput extends MBPBankAccount implements I_C_BP_Ba
 	 * @return The Zip Code has been verified
 	 */
 	@JsonProperty("R_AvsZip")
-	public I_AD_Ref_ListInput R_AvsZip() {
+	public ForeignEntityInput R_AvsZip() {
 		return mR_AvsZip;
 	}
 }

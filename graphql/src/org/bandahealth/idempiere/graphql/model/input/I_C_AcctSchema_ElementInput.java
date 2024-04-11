@@ -183,14 +183,14 @@ public interface I_C_AcctSchema_ElementInput extends I_C_AcctSchema_Element {
 	 *
 	 * @param ElementType Element Type (account or user defined)
 	 */
-	void setElementTypeInput(I_AD_Ref_ListInput ElementType);
+	void setElementTypeInput(ForeignEntityInput ElementType);
 
 	/**
 	 * Get ElementType.
 	 *
 	 * @return Element Type (account or user defined)
 	 */
-	I_AD_Ref_ListInput ElementType();
+	ForeignEntityInput ElementType();
 
 	/**
 	 * Set M_Product.

@@ -85,12 +85,12 @@ public interface I_C_DunningLevelInput extends I_C_DunningLevel {
 	 *
 	 * @param InvoiceCollectionType Invoice Collection Status
 	 */
-	void setInvoiceCollectionTypeInput(I_AD_Ref_ListInput InvoiceCollectionType);
+	void setInvoiceCollectionTypeInput(ForeignEntityInput InvoiceCollectionType);
 
 	/**
 	 * Get InvoiceCollectionType.
 	 *
 	 * @return Invoice Collection Status
 	 */
-	I_AD_Ref_ListInput InvoiceCollectionType();
+	ForeignEntityInput InvoiceCollectionType();
 }

@@ -155,12 +155,12 @@ public interface I_I_BankStatementInput extends I_I_BankStatement {
 	 *
 	 * @param TrxType Type of credit card transaction
 	 */
-	void setTrxTypeInput(I_AD_Ref_ListInput TrxType);
+	void setTrxTypeInput(ForeignEntityInput TrxType);
 
 	/**
 	 * Get TrxType.
 	 *
 	 * @return Type of credit card transaction
 	 */
-	I_AD_Ref_ListInput TrxType();
+	ForeignEntityInput TrxType();
 }

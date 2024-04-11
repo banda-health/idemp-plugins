@@ -57,28 +57,28 @@ public interface I_AD_UserBPAccessInput extends I_AD_UserBPAccess {
 	 *
 	 * @param BPAccessType Type of Access of the user/contact to Business Partner information and resources
 	 */
-	void setBPAccessTypeInput(I_AD_Ref_ListInput BPAccessType);
+	void setBPAccessTypeInput(ForeignEntityInput BPAccessType);
 
 	/**
 	 * Get BPAccessType.
 	 *
 	 * @return Type of Access of the user/contact to Business Partner information and resources
 	 */
-	I_AD_Ref_ListInput BPAccessType();
+	ForeignEntityInput BPAccessType();
 
 	/**
 	 * Set DocBaseType.
 	 *
 	 * @param DocBaseType Logical type of document
 	 */
-	void setDocBaseTypeInput(I_AD_Ref_ListInput DocBaseType);
+	void setDocBaseTypeInput(ForeignEntityInput DocBaseType);
 
 	/**
 	 * Get DocBaseType.
 	 *
 	 * @return Logical type of document
 	 */
-	I_AD_Ref_ListInput DocBaseType();
+	ForeignEntityInput DocBaseType();
 
 	/**
 	 * Set R_RequestType.

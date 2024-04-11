@@ -11,7 +11,7 @@ public class MReplicationLogInput extends X_AD_Replication_LogInput {
 	 * @param UUID The AD_Replication_Log_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MReplicationLogInput(@JsonProperty("UUID") String UUID) {
+	public MReplicationLogInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

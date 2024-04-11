@@ -25,7 +25,7 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Rule;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mEventModelValidator;
+	private ForeignEntityInput mEventModelValidator;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -182,7 +182,7 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	 * @param EventModelValidator Event Model Validator
 	 */
 	@JsonProperty("EventModelValidator")
-	public void setEventModelValidatorInput(I_AD_Ref_ListInput EventModelValidator) {
+	public void setEventModelValidatorInput(ForeignEntityInput EventModelValidator) {
 		this.mEventModelValidator = EventModelValidator;
 		if (EventModelValidator != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -206,7 +206,7 @@ public class X_AD_Table_ScriptValidatorInput extends MTableScriptValidator imple
 	 * @return Event Model Validator
 	 */
 	@JsonProperty("EventModelValidator")
-	public I_AD_Ref_ListInput EventModelValidator() {
+	public ForeignEntityInput EventModelValidator() {
 		return mEventModelValidator;
 	}
 }

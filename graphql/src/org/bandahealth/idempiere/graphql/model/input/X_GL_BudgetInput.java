@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mBudgetStatus;
+	private ForeignEntityInput mBudgetStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -78,7 +78,7 @@ public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 	 * @param BudgetStatus Indicates the current status of this budget
 	 */
 	@JsonProperty("BudgetStatus")
-	public void setBudgetStatusInput(I_AD_Ref_ListInput BudgetStatus) {
+	public void setBudgetStatusInput(ForeignEntityInput BudgetStatus) {
 		this.mBudgetStatus = BudgetStatus;
 		if (BudgetStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -102,7 +102,7 @@ public class X_GL_BudgetInput extends X_GL_Budget implements I_GL_BudgetInput {
 	 * @return Indicates the current status of this budget
 	 */
 	@JsonProperty("BudgetStatus")
-	public I_AD_Ref_ListInput BudgetStatus() {
+	public ForeignEntityInput BudgetStatus() {
 		return mBudgetStatus;
 	}
 	/**

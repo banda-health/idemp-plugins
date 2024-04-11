@@ -25,7 +25,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mM_AttributeSet;
 	private ForeignEntityInput mM_Lot;
-	private I_AD_Ref_ListInput mbh_update_reason;
+	private ForeignEntityInput mbh_update_reason;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -82,7 +82,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @param bh_update_reason bh_update_reason
 	 */
 	@JsonProperty("bh_update_reason")
-	public void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason) {
+	public void setbh_update_reasonInput(ForeignEntityInput bh_update_reason) {
 		this.mbh_update_reason = bh_update_reason;
 		if (bh_update_reason != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -106,7 +106,7 @@ public class X_M_AttributeSetInstanceInput extends MAttributeSetInstance_BH impl
 	 * @return bh_update_reason
 	 */
 	@JsonProperty("bh_update_reason")
-	public I_AD_Ref_ListInput bh_update_reason() {
+	public ForeignEntityInput bh_update_reason() {
 		return mbh_update_reason;
 	}
 

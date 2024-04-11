@@ -31,8 +31,8 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	private ForeignEntityInput mAD_Role;
 	private ForeignEntityInput mAD_User;
 	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mIsShowInDashboard;
 	private ForeignEntityInput mPO_Window;
-	private I_AD_Ref_ListInput mIsShowInDashboard;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -291,7 +291,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	 * @param IsShowInDashboard Show the dashlet in the dashboard
 	 */
 	@JsonProperty("IsShowInDashboard")
-	public void setIsShowInDashboardInput(I_AD_Ref_ListInput IsShowInDashboard) {
+	public void setIsShowInDashboardInput(ForeignEntityInput IsShowInDashboard) {
 		this.mIsShowInDashboard = IsShowInDashboard;
 		if (IsShowInDashboard != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -315,7 +315,7 @@ public class X_AD_UserDef_InfoInput extends MUserDefInfo implements I_AD_UserDef
 	 * @return Show the dashlet in the dashboard
 	 */
 	@JsonProperty("IsShowInDashboard")
-	public I_AD_Ref_ListInput IsShowInDashboard() {
+	public ForeignEntityInput IsShowInDashboard() {
 		return mIsShowInDashboard;
 	}
 

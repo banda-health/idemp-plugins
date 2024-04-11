@@ -11,7 +11,7 @@ public class MCountryInput extends X_C_CountryInput {
 	 * @param UUID The C_Country_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MCountryInput(@JsonProperty("UUID") String UUID) {
+	public MCountryInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

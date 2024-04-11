@@ -226,7 +226,7 @@ input C_PaymentTransactionInput {
 	# Credit Card Number 
 	CreditCardNumber: String
 	# Credit Card (Visa, MC, AmEx)
-	CreditCardType: AD_Ref_ListInput
+	CreditCardType: ForeignEntityInput
 	# Credit Card Verification code on credit card
 	CreditCardVV: String
 	CustomerAddressID: String
@@ -264,9 +264,9 @@ input C_PaymentTransactionInput {
 	# Authorization Code returned
 	R_AuthCode: String
 	# This address has been verified
-	R_AvsAddr: AD_Ref_ListInput
+	R_AvsAddr: ForeignEntityInput
 	# The Zip Code has been verified
-	R_AvsZip: AD_Ref_ListInput
+	R_AvsZip: ForeignEntityInput
 	# Credit Card Verification Code Match
 	R_CVV2Match: Boolean
 	# Response info
@@ -286,9 +286,9 @@ input C_PaymentTransactionInput {
 	# Tax Amount for a document
 	TaxAmt: BigDecimal
 	# Method of Payment
-	TenderType: AD_Ref_ListInput
+	TenderType: ForeignEntityInput
 	# Type of credit card transaction
-	TrxType: AD_Ref_ListInput
+	TrxType: ForeignEntityInput
 	# User defined list element #1
 	User1: ForeignEntityInput
 	# User defined list element #2

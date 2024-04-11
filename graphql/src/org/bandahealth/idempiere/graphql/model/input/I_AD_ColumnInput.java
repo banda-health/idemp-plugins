@@ -197,42 +197,42 @@ public interface I_AD_ColumnInput extends I_AD_Column {
 	 *
 	 * @param FKConstraintType FKConstraintType
 	 */
-	void setFKConstraintTypeInput(I_AD_Ref_ListInput FKConstraintType);
+	void setFKConstraintTypeInput(ForeignEntityInput FKConstraintType);
 
 	/**
 	 * Get FKConstraintType.
 	 *
 	 * @return FKConstraintType
 	 */
-	I_AD_Ref_ListInput FKConstraintType();
+	ForeignEntityInput FKConstraintType();
 
 	/**
 	 * Set IsEncrypted.
 	 *
 	 * @param IsEncrypted Display or Storage is encrypted
 	 */
-	void setIsEncryptedInput(I_AD_Ref_ListInput IsEncrypted);
+	void setIsEncryptedInput(ForeignEntityInput IsEncrypted);
 
 	/**
 	 * Get IsEncrypted.
 	 *
 	 * @return Display or Storage is encrypted
 	 */
-	I_AD_Ref_ListInput IsEncrypted();
+	ForeignEntityInput IsEncrypted();
 
 	/**
 	 * Set IsToolbarButton.
 	 *
 	 * @param IsToolbarButton Show the button on the toolbar, the window, or both
 	 */
-	void setIsToolbarButtonInput(I_AD_Ref_ListInput IsToolbarButton);
+	void setIsToolbarButtonInput(ForeignEntityInput IsToolbarButton);
 
 	/**
 	 * Get IsToolbarButton.
 	 *
 	 * @return Show the button on the toolbar, the window, or both
 	 */
-	I_AD_Ref_ListInput IsToolbarButton();
+	ForeignEntityInput IsToolbarButton();
 
 	/**
 	 * Set PA_DashboardContent.
@@ -253,12 +253,12 @@ public interface I_AD_ColumnInput extends I_AD_Column {
 	 *
 	 * @param PartitioningMethod Indicates how the Table is partitioned
 	 */
-	void setPartitioningMethodInput(I_AD_Ref_ListInput PartitioningMethod);
+	void setPartitioningMethodInput(ForeignEntityInput PartitioningMethod);
 
 	/**
 	 * Get PartitioningMethod.
 	 *
 	 * @return Indicates how the Table is partitioned
 	 */
-	I_AD_Ref_ListInput PartitioningMethod();
+	ForeignEntityInput PartitioningMethod();
 }

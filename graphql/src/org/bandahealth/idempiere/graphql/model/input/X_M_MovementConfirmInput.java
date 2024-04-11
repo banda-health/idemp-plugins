@@ -23,10 +23,10 @@ import java.sql.ResultSet;
 public class X_M_MovementConfirmInput extends MMovementConfirm implements I_M_MovementConfirmInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mM_Inventory;
 	private ForeignEntityInput mM_Movement;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -83,7 +83,7 @@ public class X_M_MovementConfirmInput extends MMovementConfirm implements I_M_Mo
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -107,7 +107,7 @@ public class X_M_MovementConfirmInput extends MMovementConfirm implements I_M_Mo
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -117,7 +117,7 @@ public class X_M_MovementConfirmInput extends MMovementConfirm implements I_M_Mo
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -141,7 +141,7 @@ public class X_M_MovementConfirmInput extends MMovementConfirm implements I_M_Mo
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 

@@ -11,7 +11,7 @@ public class MAttributeSetInput extends X_M_AttributeSetInput {
 	 * @param UUID The M_AttributeSet_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAttributeSetInput(@JsonProperty("UUID") String UUID) {
+	public MAttributeSetInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

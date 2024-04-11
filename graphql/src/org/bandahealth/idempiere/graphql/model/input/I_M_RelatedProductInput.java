@@ -71,12 +71,12 @@ public interface I_M_RelatedProductInput extends I_M_RelatedProduct {
 	 *
 	 * @param RelatedProductType RelatedProductType
 	 */
-	void setRelatedProductTypeInput(I_AD_Ref_ListInput RelatedProductType);
+	void setRelatedProductTypeInput(ForeignEntityInput RelatedProductType);
 
 	/**
 	 * Get RelatedProductType.
 	 *
 	 * @return RelatedProductType
 	 */
-	I_AD_Ref_ListInput RelatedProductType();
+	ForeignEntityInput RelatedProductType();
 }

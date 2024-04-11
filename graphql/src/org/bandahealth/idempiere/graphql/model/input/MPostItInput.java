@@ -11,7 +11,7 @@ public class MPostItInput extends X_AD_PostItInput {
 	 * @param UUID The AD_PostIt_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPostItInput(@JsonProperty("UUID") String UUID) {
+	public MPostItInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

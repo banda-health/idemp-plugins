@@ -23,7 +23,7 @@ public class X_AD_SysConfigInput extends MSysConfig_BH implements I_AD_SysConfig
 
 	private ForeignEntityInput mAD_EntityType;
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mConfigurationLevel;
+	private ForeignEntityInput mConfigurationLevel;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -109,7 +109,7 @@ public class X_AD_SysConfigInput extends MSysConfig_BH implements I_AD_SysConfig
 	 * @param ConfigurationLevel Configuration Level for this parameter
 	 */
 	@JsonProperty("ConfigurationLevel")
-	public void setConfigurationLevelInput(I_AD_Ref_ListInput ConfigurationLevel) {
+	public void setConfigurationLevelInput(ForeignEntityInput ConfigurationLevel) {
 		this.mConfigurationLevel = ConfigurationLevel;
 		if (ConfigurationLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -133,7 +133,7 @@ public class X_AD_SysConfigInput extends MSysConfig_BH implements I_AD_SysConfig
 	 * @return Configuration Level for this parameter
 	 */
 	@JsonProperty("ConfigurationLevel")
-	public I_AD_Ref_ListInput ConfigurationLevel() {
+	public ForeignEntityInput ConfigurationLevel() {
 		return mConfigurationLevel;
 	}
 

@@ -42,9 +42,9 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_SalesRegion;
 	private ForeignEntityInput mM_Product;
+	private ForeignEntityInput mPostingType;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mPostingType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -507,7 +507,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 	 * @param PostingType The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public void setPostingTypeInput(I_AD_Ref_ListInput PostingType) {
+	public void setPostingTypeInput(ForeignEntityInput PostingType) {
 		this.mPostingType = PostingType;
 		if (PostingType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -531,7 +531,7 @@ public class X_GL_DistributionInput extends MDistribution implements I_GL_Distri
 	 * @return The type of posted amount for the transaction
 	 */
 	@JsonProperty("PostingType")
-	public I_AD_Ref_ListInput PostingType() {
+	public ForeignEntityInput PostingType() {
 		return mPostingType;
 	}
 

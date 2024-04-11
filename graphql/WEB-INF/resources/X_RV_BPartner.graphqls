@@ -354,9 +354,9 @@ input RV_BPartnerInput {
 	# Country Name
 	CountryName: String
 	# Defines the timing of Delivery
-	DeliveryRule: AD_Ref_ListInput
+	DeliveryRule: ForeignEntityInput
 	# How the order will be delivered
-	DeliveryViaRule: AD_Ref_ListInput
+	DeliveryViaRule: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Number of copies to be printed
@@ -378,11 +378,11 @@ input RV_BPartnerInput {
 	# Flat discount percentage 
 	FlatDiscount: BigDecimal
 	# Method for charging Freight
-	FreightCostRule: AD_Ref_ListInput
+	FreightCostRule: ForeignEntityInput
 	# Print Format for printing Invoices
 	Invoice_PrintFormat: ForeignEntityInput
 	# Frequency and method of invoicing 
-	InvoiceRule: AD_Ref_ListInput
+	InvoiceRule: ForeignEntityInput
 	# The record is active in the system
 	IsActive: Boolean
 	# Indicates if this Business Partner is a Customer
@@ -421,13 +421,13 @@ input RV_BPartnerInput {
 	# Additional Name
 	Name2: String
 	# Type of Notifications
-	NotificationType: AD_Ref_ListInput
+	NotificationType: ForeignEntityInput
 	# Number of employees
 	NumberEmployees: Int
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule: ForeignEntityInput
 	# Purchase payment option
-	PaymentRulePO: AD_Ref_ListInput
+	PaymentRulePO: ForeignEntityInput
 	# Identifies a telephone number
 	Phone: String
 	# Identifies an alternate telephone number.
@@ -471,7 +471,7 @@ input RV_BPartnerInput {
 	# Description to be used on orders
 	SO_Description: String
 	# Business Partner Credit Status
-	SOCreditStatus: AD_Ref_ListInput
+	SOCreditStatus: ForeignEntityInput
 	# Supervisor for this user/organization - used for escalation and approval
 	Supervisor: ForeignEntityInput
 	# Tax Identification

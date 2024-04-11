@@ -113,14 +113,14 @@ public interface I_AD_SchedulerInput extends I_AD_Scheduler {
 	 *
 	 * @param ReportOutputType ReportOutputType
 	 */
-	void setReportOutputTypeInput(I_AD_Ref_ListInput ReportOutputType);
+	void setReportOutputTypeInput(ForeignEntityInput ReportOutputType);
 
 	/**
 	 * Get ReportOutputType.
 	 *
 	 * @return ReportOutputType
 	 */
-	I_AD_Ref_ListInput ReportOutputType();
+	ForeignEntityInput ReportOutputType();
 
 	/**
 	 * Set Supervisor.

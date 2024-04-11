@@ -36,15 +36,15 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_DocType;
 	private ForeignEntityInput mC_Project;
+	private ForeignEntityInput mCostingMethod;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDocStatus;
 	private ForeignEntityInput mM_PerpetualInv;
 	private ForeignEntityInput mM_Warehouse;
 	private ForeignEntityInput mReversal;
 	private ForeignEntityInput mUser1;
 	private ForeignEntityInput mUser2;
-	private I_AD_Ref_ListInput mCostingMethod;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDocStatus;
-	private I_AD_Ref_ListInput mbh_update_reason;
+	private ForeignEntityInput mbh_update_reason;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -101,7 +101,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @param bh_update_reason bh_update_reason
 	 */
 	@JsonProperty("bh_update_reason")
-	public void setbh_update_reasonInput(I_AD_Ref_ListInput bh_update_reason) {
+	public void setbh_update_reasonInput(ForeignEntityInput bh_update_reason) {
 		this.mbh_update_reason = bh_update_reason;
 		if (bh_update_reason != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -125,7 +125,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @return bh_update_reason
 	 */
 	@JsonProperty("bh_update_reason")
-	public I_AD_Ref_ListInput bh_update_reason() {
+	public ForeignEntityInput bh_update_reason() {
 		return mbh_update_reason;
 	}
 
@@ -339,7 +339,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
+	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (CostingMethod != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -363,7 +363,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @return Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public I_AD_Ref_ListInput CostingMethod() {
+	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
 	}
 
@@ -373,7 +373,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -397,7 +397,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -407,7 +407,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @param DocStatus The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public void setDocStatusInput(I_AD_Ref_ListInput DocStatus) {
+	public void setDocStatusInput(ForeignEntityInput DocStatus) {
 		this.mDocStatus = DocStatus;
 		if (DocStatus != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -431,7 +431,7 @@ public class X_M_InventoryInput extends MInventory_BH implements I_M_InventoryIn
 	 * @return The current status of the document
 	 */
 	@JsonProperty("DocStatus")
-	public I_AD_Ref_ListInput DocStatus() {
+	public ForeignEntityInput DocStatus() {
 		return mDocStatus;
 	}
 	/**

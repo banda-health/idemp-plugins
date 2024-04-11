@@ -21,9 +21,9 @@ import java.sql.ResultSet;
 public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mFrequencyType;
-	private I_AD_Ref_ListInput mScheduleType;
-	private I_AD_Ref_ListInput mWeekDay;
+	private ForeignEntityInput mFrequencyType;
+	private ForeignEntityInput mScheduleType;
+	private ForeignEntityInput mWeekDay;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -106,7 +106,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	 * @param FrequencyType Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public void setFrequencyTypeInput(I_AD_Ref_ListInput FrequencyType) {
+	public void setFrequencyTypeInput(ForeignEntityInput FrequencyType) {
 		this.mFrequencyType = FrequencyType;
 		if (FrequencyType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -130,7 +130,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	 * @return Frequency of event
 	 */
 	@JsonProperty("FrequencyType")
-	public I_AD_Ref_ListInput FrequencyType() {
+	public ForeignEntityInput FrequencyType() {
 		return mFrequencyType;
 	}
 
@@ -140,7 +140,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	 * @param ScheduleType Type of schedule
 	 */
 	@JsonProperty("ScheduleType")
-	public void setScheduleTypeInput(I_AD_Ref_ListInput ScheduleType) {
+	public void setScheduleTypeInput(ForeignEntityInput ScheduleType) {
 		this.mScheduleType = ScheduleType;
 		if (ScheduleType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -164,7 +164,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	 * @return Type of schedule
 	 */
 	@JsonProperty("ScheduleType")
-	public I_AD_Ref_ListInput ScheduleType() {
+	public ForeignEntityInput ScheduleType() {
 		return mScheduleType;
 	}
 
@@ -174,7 +174,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	 * @param WeekDay Day of the Week
 	 */
 	@JsonProperty("WeekDay")
-	public void setWeekDayInput(I_AD_Ref_ListInput WeekDay) {
+	public void setWeekDayInput(ForeignEntityInput WeekDay) {
 		this.mWeekDay = WeekDay;
 		if (WeekDay != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -198,7 +198,7 @@ public class X_AD_ScheduleInput extends MSchedule implements I_AD_ScheduleInput 
 	 * @return Day of the Week
 	 */
 	@JsonProperty("WeekDay")
-	public I_AD_Ref_ListInput WeekDay() {
+	public ForeignEntityInput WeekDay() {
 		return mWeekDay;
 	}
 }

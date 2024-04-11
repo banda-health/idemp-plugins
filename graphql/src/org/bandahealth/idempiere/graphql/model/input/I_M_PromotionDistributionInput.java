@@ -29,28 +29,28 @@ public interface I_M_PromotionDistributionInput extends I_M_PromotionDistributio
 	 *
 	 * @param DistributionSorting Quantity distribution sorting by unit price
 	 */
-	void setDistributionSortingInput(I_AD_Ref_ListInput DistributionSorting);
+	void setDistributionSortingInput(ForeignEntityInput DistributionSorting);
 
 	/**
 	 * Get DistributionSorting.
 	 *
 	 * @return Quantity distribution sorting by unit price
 	 */
-	I_AD_Ref_ListInput DistributionSorting();
+	ForeignEntityInput DistributionSorting();
 
 	/**
 	 * Set DistributionType.
 	 *
 	 * @param DistributionType Type of quantity distribution calculation using comparison qty and order qty as operand
 	 */
-	void setDistributionTypeInput(I_AD_Ref_ListInput DistributionType);
+	void setDistributionTypeInput(ForeignEntityInput DistributionType);
 
 	/**
 	 * Get DistributionType.
 	 *
 	 * @return Type of quantity distribution calculation using comparison qty and order qty as operand
 	 */
-	I_AD_Ref_ListInput DistributionType();
+	ForeignEntityInput DistributionType();
 
 	/**
 	 * Set M_Promotion.
@@ -99,12 +99,12 @@ public interface I_M_PromotionDistributionInput extends I_M_PromotionDistributio
 	 *
 	 * @param Operation Compare Operation
 	 */
-	void setOperationInput(I_AD_Ref_ListInput Operation);
+	void setOperationInput(ForeignEntityInput Operation);
 
 	/**
 	 * Get Operation.
 	 *
 	 * @return Compare Operation
 	 */
-	I_AD_Ref_ListInput Operation();
+	ForeignEntityInput Operation();
 }

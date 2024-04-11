@@ -11,7 +11,7 @@ public class MReferenceInput extends X_AD_ReferenceInput {
 	 * @param UUID The AD_Reference_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MReferenceInput(@JsonProperty("UUID") String UUID) {
+	public MReferenceInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -43,14 +43,14 @@ public interface I_I_ReportLineInput extends I_I_ReportLine {
 	 *
 	 * @param CalculationType CalculationType
 	 */
-	void setCalculationTypeInput(I_AD_Ref_ListInput CalculationType);
+	void setCalculationTypeInput(ForeignEntityInput CalculationType);
 
 	/**
 	 * Get CalculationType.
 	 *
 	 * @return CalculationType
 	 */
-	I_AD_Ref_ListInput CalculationType();
+	ForeignEntityInput CalculationType();
 
 	/**
 	 * Set UU.
@@ -71,14 +71,14 @@ public interface I_I_ReportLineInput extends I_I_ReportLine {
 	 *
 	 * @param LineType LineType
 	 */
-	void setLineTypeInput(I_AD_Ref_ListInput LineType);
+	void setLineTypeInput(ForeignEntityInput LineType);
 
 	/**
 	 * Get LineType.
 	 *
 	 * @return LineType
 	 */
-	I_AD_Ref_ListInput LineType();
+	ForeignEntityInput LineType();
 
 	/**
 	 * Set PA_ReportLine.
@@ -127,40 +127,40 @@ public interface I_I_ReportLineInput extends I_I_ReportLine {
 	 *
 	 * @param PAAmountType PA Amount Type for reporting
 	 */
-	void setPAAmountTypeInput(I_AD_Ref_ListInput PAAmountType);
+	void setPAAmountTypeInput(ForeignEntityInput PAAmountType);
 
 	/**
 	 * Get PAAmountType.
 	 *
 	 * @return PA Amount Type for reporting
 	 */
-	I_AD_Ref_ListInput PAAmountType();
+	ForeignEntityInput PAAmountType();
 
 	/**
 	 * Set PAPeriodType.
 	 *
 	 * @param PAPeriodType PA Period Type
 	 */
-	void setPAPeriodTypeInput(I_AD_Ref_ListInput PAPeriodType);
+	void setPAPeriodTypeInput(ForeignEntityInput PAPeriodType);
 
 	/**
 	 * Get PAPeriodType.
 	 *
 	 * @return PA Period Type
 	 */
-	I_AD_Ref_ListInput PAPeriodType();
+	ForeignEntityInput PAPeriodType();
 
 	/**
 	 * Set PostingType.
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 }

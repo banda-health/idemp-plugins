@@ -23,7 +23,7 @@ public class X_AD_ImpFormatInput extends X_AD_ImpFormat implements I_AD_ImpForma
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Table;
-	private I_AD_Ref_ListInput mFormatType;
+	private ForeignEntityInput mFormatType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -143,7 +143,7 @@ public class X_AD_ImpFormatInput extends X_AD_ImpFormat implements I_AD_ImpForma
 	 * @param FormatType Format of the data
 	 */
 	@JsonProperty("FormatType")
-	public void setFormatTypeInput(I_AD_Ref_ListInput FormatType) {
+	public void setFormatTypeInput(ForeignEntityInput FormatType) {
 		this.mFormatType = FormatType;
 		if (FormatType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -167,7 +167,7 @@ public class X_AD_ImpFormatInput extends X_AD_ImpFormat implements I_AD_ImpForma
 	 * @return Format of the data
 	 */
 	@JsonProperty("FormatType")
-	public I_AD_Ref_ListInput FormatType() {
+	public ForeignEntityInput FormatType() {
 		return mFormatType;
 	}
 }

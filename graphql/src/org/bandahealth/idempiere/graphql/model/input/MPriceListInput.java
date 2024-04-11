@@ -11,7 +11,7 @@ public class MPriceListInput extends X_M_PriceListInput {
 	 * @param UUID The M_PriceList_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MPriceListInput(@JsonProperty("UUID") String UUID) {
+	public MPriceListInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

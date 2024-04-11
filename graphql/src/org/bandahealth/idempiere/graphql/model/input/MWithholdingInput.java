@@ -11,7 +11,7 @@ public class MWithholdingInput extends X_C_WithholdingInput {
 	 * @param UUID The C_Withholding_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MWithholdingInput(@JsonProperty("UUID") String UUID) {
+	public MWithholdingInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

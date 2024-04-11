@@ -11,7 +11,7 @@ public class MAllocationHdrInput extends X_C_AllocationHdrInput {
 	 * @param UUID The C_AllocationHdr_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAllocationHdrInput(@JsonProperty("UUID") String UUID) {
+	public MAllocationHdrInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

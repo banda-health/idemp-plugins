@@ -127,14 +127,14 @@ public interface I_PA_DashboardContentInput extends I_PA_DashboardContent {
 	 *
 	 * @param GoalDisplay Type of goal display on dashboard
 	 */
-	void setGoalDisplayInput(I_AD_Ref_ListInput GoalDisplay);
+	void setGoalDisplayInput(ForeignEntityInput GoalDisplay);
 
 	/**
 	 * Get GoalDisplay.
 	 *
 	 * @return Type of goal display on dashboard
 	 */
-	I_AD_Ref_ListInput GoalDisplay();
+	ForeignEntityInput GoalDisplay();
 
 	/**
 	 * Set UU.

@@ -183,28 +183,28 @@ public interface I_T_CashFlowInput extends I_T_CashFlow {
 	 *
 	 * @param CashFlowSource CashFlowSource
 	 */
-	void setCashFlowSourceInput(I_AD_Ref_ListInput CashFlowSource);
+	void setCashFlowSourceInput(ForeignEntityInput CashFlowSource);
 
 	/**
 	 * Get CashFlowSource.
 	 *
 	 * @return CashFlowSource
 	 */
-	I_AD_Ref_ListInput CashFlowSource();
+	ForeignEntityInput CashFlowSource();
 
 	/**
 	 * Set CashFlowType.
 	 *
 	 * @param CashFlowType CashFlowType
 	 */
-	void setCashFlowTypeInput(I_AD_Ref_ListInput CashFlowType);
+	void setCashFlowTypeInput(ForeignEntityInput CashFlowType);
 
 	/**
 	 * Get CashFlowType.
 	 *
 	 * @return CashFlowType
 	 */
-	I_AD_Ref_ListInput CashFlowType();
+	ForeignEntityInput CashFlowType();
 
 	/**
 	 * Set M_Product.

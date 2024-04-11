@@ -85,12 +85,12 @@ public interface I_HR_PayrollInput extends I_HR_Payroll {
 	 *
 	 * @param PaymentRule How you pay the invoice
 	 */
-	void setPaymentRuleInput(I_AD_Ref_ListInput PaymentRule);
+	void setPaymentRuleInput(ForeignEntityInput PaymentRule);
 
 	/**
 	 * Get PaymentRule.
 	 *
 	 * @return How you pay the invoice
 	 */
-	I_AD_Ref_ListInput PaymentRule();
+	ForeignEntityInput PaymentRule();
 }

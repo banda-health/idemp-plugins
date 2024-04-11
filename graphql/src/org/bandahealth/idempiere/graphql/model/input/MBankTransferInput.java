@@ -11,7 +11,7 @@ public class MBankTransferInput extends X_C_BankTransferInput {
 	 * @param UUID The C_BankTransfer_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBankTransferInput(@JsonProperty("UUID") String UUID) {
+	public MBankTransferInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

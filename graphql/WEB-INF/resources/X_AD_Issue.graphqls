@@ -137,13 +137,13 @@ input AD_IssueInput {
 	# The record is active in the system
 	IsActive: Boolean
 	# Problem can re reproduced in Gardenworld
-	IsReproducible: AD_Ref_ListInput
+	IsReproducible: ForeignEntityInput
 	# Issue Source
-	IssueSource: AD_Ref_ListInput
+	IssueSource: ForeignEntityInput
 	# Issue Summary
 	IssueSummary: String
 	# The system was NOT compiled from Source - i.e. standard distribution
-	IsVanillaSystem: AD_Ref_ListInput
+	IsVanillaSystem: ForeignEntityInput
 	# Java Version Info
 	JavaInfo: String
 	# Line No
@@ -196,7 +196,7 @@ input AD_IssueInput {
 	# EMail address to send support information and updates to
 	SupportEMail: String
 	# Status of the system - Support priority depends on system status
-	SystemStatus: AD_Ref_ListInput
+	SystemStatus: ForeignEntityInput
 	UserName: String
 	# Version of the table definition
 	Version: String

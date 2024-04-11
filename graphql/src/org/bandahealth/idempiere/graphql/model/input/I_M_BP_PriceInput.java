@@ -85,12 +85,12 @@ public interface I_M_BP_PriceInput extends I_M_BP_Price {
 	 *
 	 * @param PriceOverrideType Type of price override, fixed price or discount off list
 	 */
-	void setPriceOverrideTypeInput(I_AD_Ref_ListInput PriceOverrideType);
+	void setPriceOverrideTypeInput(ForeignEntityInput PriceOverrideType);
 
 	/**
 	 * Get PriceOverrideType.
 	 *
 	 * @return Type of price override, fixed price or discount off list
 	 */
-	I_AD_Ref_ListInput PriceOverrideType();
+	ForeignEntityInput PriceOverrideType();
 }

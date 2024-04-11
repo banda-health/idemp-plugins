@@ -37,7 +37,7 @@ public class X_I_BankStatementInput extends X_I_BankStatement implements I_I_Ban
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mC_Invoice;
 	private ForeignEntityInput mC_Payment;
-	private I_AD_Ref_ListInput mTrxType;
+	private ForeignEntityInput mTrxType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -395,7 +395,7 @@ public class X_I_BankStatementInput extends X_I_BankStatement implements I_I_Ban
 	 * @param TrxType Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public void setTrxTypeInput(I_AD_Ref_ListInput TrxType) {
+	public void setTrxTypeInput(ForeignEntityInput TrxType) {
 		this.mTrxType = TrxType;
 		if (TrxType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -419,7 +419,7 @@ public class X_I_BankStatementInput extends X_I_BankStatement implements I_I_Ban
 	 * @return Type of credit card transaction
 	 */
 	@JsonProperty("TrxType")
-	public I_AD_Ref_ListInput TrxType() {
+	public ForeignEntityInput TrxType() {
 		return mTrxType;
 	}
 }

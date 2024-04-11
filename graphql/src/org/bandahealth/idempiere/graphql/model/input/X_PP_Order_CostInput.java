@@ -31,12 +31,12 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Workflow;
 	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mCostingMethod;
 	private ForeignEntityInput mM_AttributeSetInstance;
 	private ForeignEntityInput mM_CostElement;
 	private ForeignEntityInput mM_CostType;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mPP_Order;
-	private I_AD_Ref_ListInput mCostingMethod;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -158,7 +158,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod) {
+	public void setCostingMethodInput(ForeignEntityInput CostingMethod) {
 		this.mCostingMethod = CostingMethod;
 		if (get_ID() != 0) {
 			return;
@@ -185,7 +185,7 @@ public class X_PP_Order_CostInput extends X_PP_Order_Cost implements I_PP_Order_
 	 * @return Indicates how Costs will be calculated
 	 */
 	@JsonProperty("CostingMethod")
-	public I_AD_Ref_ListInput CostingMethod() {
+	public ForeignEntityInput CostingMethod() {
 		return mCostingMethod;
 	}
 	/**

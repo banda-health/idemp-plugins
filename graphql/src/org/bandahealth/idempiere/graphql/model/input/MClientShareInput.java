@@ -11,7 +11,7 @@ public class MClientShareInput extends X_AD_ClientShareInput {
 	 * @param UUID The AD_ClientShare_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MClientShareInput(@JsonProperty("UUID") String UUID) {
+	public MClientShareInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

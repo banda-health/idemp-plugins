@@ -28,7 +28,7 @@ public class X_M_BP_PriceInput extends X_M_BP_Price implements I_M_BP_PriceInput
 	private ForeignEntityInput mC_BPartner;
 	private ForeignEntityInput mC_Currency;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mPriceOverrideType;
+	private ForeignEntityInput mPriceOverrideType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -233,7 +233,7 @@ public class X_M_BP_PriceInput extends X_M_BP_Price implements I_M_BP_PriceInput
 	 * @param PriceOverrideType Type of price override, fixed price or discount off list
 	 */
 	@JsonProperty("PriceOverrideType")
-	public void setPriceOverrideTypeInput(I_AD_Ref_ListInput PriceOverrideType) {
+	public void setPriceOverrideTypeInput(ForeignEntityInput PriceOverrideType) {
 		this.mPriceOverrideType = PriceOverrideType;
 		if (PriceOverrideType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -257,7 +257,7 @@ public class X_M_BP_PriceInput extends X_M_BP_Price implements I_M_BP_PriceInput
 	 * @return Type of price override, fixed price or discount off list
 	 */
 	@JsonProperty("PriceOverrideType")
-	public I_AD_Ref_ListInput PriceOverrideType() {
+	public ForeignEntityInput PriceOverrideType() {
 		return mPriceOverrideType;
 	}
 }

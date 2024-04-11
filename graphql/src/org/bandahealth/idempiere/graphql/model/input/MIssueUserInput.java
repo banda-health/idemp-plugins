@@ -11,7 +11,7 @@ public class MIssueUserInput extends X_R_IssueUserInput {
 	 * @param UUID The R_IssueUser_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MIssueUserInput(@JsonProperty("UUID") String UUID) {
+	public MIssueUserInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

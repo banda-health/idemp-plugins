@@ -29,28 +29,28 @@ public interface I_M_CostElementInput extends I_M_CostElement {
 	 *
 	 * @param CostElementType Type of Cost Element
 	 */
-	void setCostElementTypeInput(I_AD_Ref_ListInput CostElementType);
+	void setCostElementTypeInput(ForeignEntityInput CostElementType);
 
 	/**
 	 * Get CostElementType.
 	 *
 	 * @return Type of Cost Element
 	 */
-	I_AD_Ref_ListInput CostElementType();
+	ForeignEntityInput CostElementType();
 
 	/**
 	 * Set CostingMethod.
 	 *
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
+	void setCostingMethodInput(ForeignEntityInput CostingMethod);
 
 	/**
 	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput CostingMethod();
+	ForeignEntityInput CostingMethod();
 
 	/**
 	 * Set UU.

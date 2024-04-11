@@ -28,10 +28,10 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_BP_Group;
 	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mGoalRestrictionType;
 	private ForeignEntityInput mM_Product;
 	private ForeignEntityInput mM_Product_Category;
 	private ForeignEntityInput mPA_Goal;
-	private I_AD_Ref_ListInput mGoalRestrictionType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -156,7 +156,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @param GoalRestrictionType Goal Restriction Type
 	 */
 	@JsonProperty("GoalRestrictionType")
-	public void setGoalRestrictionTypeInput(I_AD_Ref_ListInput GoalRestrictionType) {
+	public void setGoalRestrictionTypeInput(ForeignEntityInput GoalRestrictionType) {
 		this.mGoalRestrictionType = GoalRestrictionType;
 		if (GoalRestrictionType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -180,7 +180,7 @@ public class X_PA_GoalRestrictionInput extends MGoalRestriction implements I_PA_
 	 * @return Goal Restriction Type
 	 */
 	@JsonProperty("GoalRestrictionType")
-	public I_AD_Ref_ListInput GoalRestrictionType() {
+	public ForeignEntityInput GoalRestrictionType() {
 		return mGoalRestrictionType;
 	}
 

@@ -71,56 +71,56 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 *
 	 * @param CommitmentType Create Commitment and/or Reservations for Budget Control
 	 */
-	void setCommitmentTypeInput(I_AD_Ref_ListInput CommitmentType);
+	void setCommitmentTypeInput(ForeignEntityInput CommitmentType);
 
 	/**
 	 * Get CommitmentType.
 	 *
 	 * @return Create Commitment and/or Reservations for Budget Control
 	 */
-	I_AD_Ref_ListInput CommitmentType();
+	ForeignEntityInput CommitmentType();
 
 	/**
 	 * Set CostingLevel.
 	 *
 	 * @param CostingLevel The lowest level to accumulate Costing Information
 	 */
-	void setCostingLevelInput(I_AD_Ref_ListInput CostingLevel);
+	void setCostingLevelInput(ForeignEntityInput CostingLevel);
 
 	/**
 	 * Get CostingLevel.
 	 *
 	 * @return The lowest level to accumulate Costing Information
 	 */
-	I_AD_Ref_ListInput CostingLevel();
+	ForeignEntityInput CostingLevel();
 
 	/**
 	 * Set CostingMethod.
 	 *
 	 * @param CostingMethod Indicates how Costs will be calculated
 	 */
-	void setCostingMethodInput(I_AD_Ref_ListInput CostingMethod);
+	void setCostingMethodInput(ForeignEntityInput CostingMethod);
 
 	/**
 	 * Get CostingMethod.
 	 *
 	 * @return Indicates how Costs will be calculated
 	 */
-	I_AD_Ref_ListInput CostingMethod();
+	ForeignEntityInput CostingMethod();
 
 	/**
 	 * Set GAAP.
 	 *
 	 * @param GAAP Generally Accepted Accounting Principles
 	 */
-	void setGAAPInput(I_AD_Ref_ListInput GAAP);
+	void setGAAPInput(ForeignEntityInput GAAP);
 
 	/**
 	 * Get GAAP.
 	 *
 	 * @return Generally Accepted Accounting Principles
 	 */
-	I_AD_Ref_ListInput GAAP();
+	ForeignEntityInput GAAP();
 
 	/**
 	 * Set M_CostType.
@@ -141,12 +141,12 @@ public interface I_C_AcctSchemaInput extends I_C_AcctSchema {
 	 *
 	 * @param TaxCorrectionType Type of Tax Correction
 	 */
-	void setTaxCorrectionTypeInput(I_AD_Ref_ListInput TaxCorrectionType);
+	void setTaxCorrectionTypeInput(ForeignEntityInput TaxCorrectionType);
 
 	/**
 	 * Get TaxCorrectionType.
 	 *
 	 * @return Type of Tax Correction
 	 */
-	I_AD_Ref_ListInput TaxCorrectionType();
+	ForeignEntityInput TaxCorrectionType();
 }

@@ -29,14 +29,14 @@ public interface I_R_RequestUpdateInput extends I_R_RequestUpdate {
 	 *
 	 * @param ConfidentialTypeEntry Confidentiality of the individual entry
 	 */
-	void setConfidentialTypeEntryInput(I_AD_Ref_ListInput ConfidentialTypeEntry);
+	void setConfidentialTypeEntryInput(ForeignEntityInput ConfidentialTypeEntry);
 
 	/**
 	 * Get ConfidentialTypeEntry.
 	 *
 	 * @return Confidentiality of the individual entry
 	 */
-	I_AD_Ref_ListInput ConfidentialTypeEntry();
+	ForeignEntityInput ConfidentialTypeEntry();
 
 	/**
 	 * Set M_ProductSpent.

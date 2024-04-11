@@ -29,14 +29,14 @@ public interface I_QM_SpecificationLineInput extends I_QM_SpecificationLine {
 	 *
 	 * @param AndOr Logical operation: AND or OR
 	 */
-	void setAndOrInput(I_AD_Ref_ListInput AndOr);
+	void setAndOrInput(ForeignEntityInput AndOr);
 
 	/**
 	 * Get AndOr.
 	 *
 	 * @return Logical operation: AND or OR
 	 */
-	I_AD_Ref_ListInput AndOr();
+	ForeignEntityInput AndOr();
 
 	/**
 	 * Set M_Attribute.
@@ -57,14 +57,14 @@ public interface I_QM_SpecificationLineInput extends I_QM_SpecificationLine {
 	 *
 	 * @param Operation Compare Operation
 	 */
-	void setOperationInput(I_AD_Ref_ListInput Operation);
+	void setOperationInput(ForeignEntityInput Operation);
 
 	/**
 	 * Get Operation.
 	 *
 	 * @return Compare Operation
 	 */
-	I_AD_Ref_ListInput Operation();
+	ForeignEntityInput Operation();
 
 	/**
 	 * Set QM_Specification.

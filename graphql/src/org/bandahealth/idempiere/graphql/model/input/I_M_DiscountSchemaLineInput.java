@@ -57,56 +57,56 @@ public interface I_M_DiscountSchemaLineInput extends I_M_DiscountSchemaLine {
 	 *
 	 * @param Limit_Base Base price for calculation of the new price
 	 */
-	void setLimit_BaseInput(I_AD_Ref_ListInput Limit_Base);
+	void setLimit_BaseInput(ForeignEntityInput Limit_Base);
 
 	/**
 	 * Get Limit_Base.
 	 *
 	 * @return Base price for calculation of the new price
 	 */
-	I_AD_Ref_ListInput Limit_Base();
+	ForeignEntityInput Limit_Base();
 
 	/**
 	 * Set Limit_Rounding.
 	 *
 	 * @param Limit_Rounding Rounding of the final result
 	 */
-	void setLimit_RoundingInput(I_AD_Ref_ListInput Limit_Rounding);
+	void setLimit_RoundingInput(ForeignEntityInput Limit_Rounding);
 
 	/**
 	 * Get Limit_Rounding.
 	 *
 	 * @return Rounding of the final result
 	 */
-	I_AD_Ref_ListInput Limit_Rounding();
+	ForeignEntityInput Limit_Rounding();
 
 	/**
 	 * Set List_Base.
 	 *
 	 * @param List_Base Price used as the basis for price list calculations
 	 */
-	void setList_BaseInput(I_AD_Ref_ListInput List_Base);
+	void setList_BaseInput(ForeignEntityInput List_Base);
 
 	/**
 	 * Get List_Base.
 	 *
 	 * @return Price used as the basis for price list calculations
 	 */
-	I_AD_Ref_ListInput List_Base();
+	ForeignEntityInput List_Base();
 
 	/**
 	 * Set List_Rounding.
 	 *
 	 * @param List_Rounding Rounding rule for final list price
 	 */
-	void setList_RoundingInput(I_AD_Ref_ListInput List_Rounding);
+	void setList_RoundingInput(ForeignEntityInput List_Rounding);
 
 	/**
 	 * Get List_Rounding.
 	 *
 	 * @return Rounding rule for final list price
 	 */
-	I_AD_Ref_ListInput List_Rounding();
+	ForeignEntityInput List_Rounding();
 
 	/**
 	 * Set M_DiscountSchema.
@@ -169,26 +169,26 @@ public interface I_M_DiscountSchemaLineInput extends I_M_DiscountSchemaLine {
 	 *
 	 * @param Std_Base Base price for calculating new standard price
 	 */
-	void setStd_BaseInput(I_AD_Ref_ListInput Std_Base);
+	void setStd_BaseInput(ForeignEntityInput Std_Base);
 
 	/**
 	 * Get Std_Base.
 	 *
 	 * @return Base price for calculating new standard price
 	 */
-	I_AD_Ref_ListInput Std_Base();
+	ForeignEntityInput Std_Base();
 
 	/**
 	 * Set Std_Rounding.
 	 *
 	 * @param Std_Rounding Rounding rule for calculated price
 	 */
-	void setStd_RoundingInput(I_AD_Ref_ListInput Std_Rounding);
+	void setStd_RoundingInput(ForeignEntityInput Std_Rounding);
 
 	/**
 	 * Get Std_Rounding.
 	 *
 	 * @return Rounding rule for calculated price
 	 */
-	I_AD_Ref_ListInput Std_Rounding();
+	ForeignEntityInput Std_Rounding();
 }

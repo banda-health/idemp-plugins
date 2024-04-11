@@ -85,12 +85,12 @@ public interface I_C_ProjectTaskInput extends I_C_ProjectTask {
 	 *
 	 * @param ProjInvoiceRule Invoice Rule for the project
 	 */
-	void setProjInvoiceRuleInput(I_AD_Ref_ListInput ProjInvoiceRule);
+	void setProjInvoiceRuleInput(ForeignEntityInput ProjInvoiceRule);
 
 	/**
 	 * Get ProjInvoiceRule.
 	 *
 	 * @return Invoice Rule for the project
 	 */
-	I_AD_Ref_ListInput ProjInvoiceRule();
+	ForeignEntityInput ProjInvoiceRule();
 }

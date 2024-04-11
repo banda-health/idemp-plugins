@@ -11,7 +11,7 @@ public class MRoleOrgAccessInput extends X_AD_Role_OrgAccessInput {
 	 * @param UUID The AD_Role_OrgAccess_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRoleOrgAccessInput(@JsonProperty("UUID") String UUID) {
+	public MRoleOrgAccessInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

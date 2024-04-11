@@ -11,7 +11,7 @@ public class MShippingTransactionLineInput extends X_M_ShippingTransactionLineIn
 	 * @param UUID The M_ShippingTransactionLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MShippingTransactionLineInput(@JsonProperty("UUID") String UUID) {
+	public MShippingTransactionLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

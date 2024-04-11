@@ -95,7 +95,7 @@ input C_CommissionLineInput {
 	# Product, Service, Item
 	M_Product: ForeignEntityInput
 	# How you pay the invoice
-	PaymentRule: AD_Ref_ListInput
+	PaymentRule: ForeignEntityInput
 	# Value to multiply quantities by for generating commissions.
 	QtyMultiplier: BigDecimal
 	# Quantity to subtract when generating commissions

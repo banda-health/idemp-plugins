@@ -57,7 +57,7 @@ input AD_ViewColumnInput {
 	ColumnName: String
 	# Virtual Column (r/o)
 	ColumnSQL: String
-	DBDataType: AD_Ref_ListInput
+	DBDataType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Dictionary Entity Type; Determines ownership and synchronization

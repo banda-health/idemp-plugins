@@ -21,8 +21,8 @@ import java.sql.ResultSet;
 public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements I_BH_Payer_Info_Fld_SugInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mBH_PayerInfoFieldDataType;
-	private I_AD_Ref_ListInput mBH_SubType;
+	private ForeignEntityInput mBH_PayerInfoFieldDataType;
+	private ForeignEntityInput mBH_SubType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -108,7 +108,7 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	 * @param BH_PayerInfoFieldDataType Payer Info Field Data Type
 	 */
 	@JsonProperty("BH_PayerInfoFieldDataType")
-	public void setBH_PayerInfoFieldDataTypeInput(I_AD_Ref_ListInput BH_PayerInfoFieldDataType) {
+	public void setBH_PayerInfoFieldDataTypeInput(ForeignEntityInput BH_PayerInfoFieldDataType) {
 		this.mBH_PayerInfoFieldDataType = BH_PayerInfoFieldDataType;
 		if (BH_PayerInfoFieldDataType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -132,7 +132,7 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	 * @return Payer Info Field Data Type
 	 */
 	@JsonProperty("BH_PayerInfoFieldDataType")
-	public I_AD_Ref_ListInput BH_PayerInfoFieldDataType() {
+	public ForeignEntityInput BH_PayerInfoFieldDataType() {
 		return mBH_PayerInfoFieldDataType;
 	}
 
@@ -142,7 +142,7 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	 * @param BH_SubType Meant to be a sub-type of the charge type
 	 */
 	@JsonProperty("BH_SubType")
-	public void setBH_SubTypeInput(I_AD_Ref_ListInput BH_SubType) {
+	public void setBH_SubTypeInput(ForeignEntityInput BH_SubType) {
 		this.mBH_SubType = BH_SubType;
 		if (BH_SubType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -166,7 +166,7 @@ public class X_BH_Payer_Info_Fld_SugInput extends MBHPayerInfoFldSug implements 
 	 * @return Meant to be a sub-type of the charge type
 	 */
 	@JsonProperty("BH_SubType")
-	public I_AD_Ref_ListInput BH_SubType() {
+	public ForeignEntityInput BH_SubType() {
 		return mBH_SubType;
 	}
 }

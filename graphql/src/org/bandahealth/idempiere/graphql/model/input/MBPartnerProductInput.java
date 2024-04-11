@@ -11,7 +11,7 @@ public class MBPartnerProductInput extends X_C_BPartner_ProductInput {
 	 * @param UUID The C_BPartner_Product_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MBPartnerProductInput(@JsonProperty("UUID") String UUID) {
+	public MBPartnerProductInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -57,12 +57,12 @@ public interface I_C_PeriodInput extends I_C_Period {
 	 *
 	 * @param PeriodType Period Type
 	 */
-	void setPeriodTypeInput(I_AD_Ref_ListInput PeriodType);
+	void setPeriodTypeInput(ForeignEntityInput PeriodType);
 
 	/**
 	 * Get PeriodType.
 	 *
 	 * @return Period Type
 	 */
-	I_AD_Ref_ListInput PeriodType();
+	ForeignEntityInput PeriodType();
 }

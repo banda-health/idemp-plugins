@@ -99,40 +99,40 @@ public interface I_PA_RatioElementInput extends I_PA_RatioElement {
 	 *
 	 * @param PostingType The type of posted amount for the transaction
 	 */
-	void setPostingTypeInput(I_AD_Ref_ListInput PostingType);
+	void setPostingTypeInput(ForeignEntityInput PostingType);
 
 	/**
 	 * Get PostingType.
 	 *
 	 * @return The type of posted amount for the transaction
 	 */
-	I_AD_Ref_ListInput PostingType();
+	ForeignEntityInput PostingType();
 
 	/**
 	 * Set RatioElementType.
 	 *
 	 * @param RatioElementType Ratio Element Type
 	 */
-	void setRatioElementTypeInput(I_AD_Ref_ListInput RatioElementType);
+	void setRatioElementTypeInput(ForeignEntityInput RatioElementType);
 
 	/**
 	 * Get RatioElementType.
 	 *
 	 * @return Ratio Element Type
 	 */
-	I_AD_Ref_ListInput RatioElementType();
+	ForeignEntityInput RatioElementType();
 
 	/**
 	 * Set RatioOperand.
 	 *
 	 * @param RatioOperand Ratio Operand
 	 */
-	void setRatioOperandInput(I_AD_Ref_ListInput RatioOperand);
+	void setRatioOperandInput(ForeignEntityInput RatioOperand);
 
 	/**
 	 * Get RatioOperand.
 	 *
 	 * @return Ratio Operand
 	 */
-	I_AD_Ref_ListInput RatioOperand();
+	ForeignEntityInput RatioOperand();
 }

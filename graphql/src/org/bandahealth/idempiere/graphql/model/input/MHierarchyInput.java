@@ -11,7 +11,7 @@ public class MHierarchyInput extends X_PA_HierarchyInput {
 	 * @param UUID The PA_Hierarchy_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MHierarchyInput(@JsonProperty("UUID") String UUID) {
+	public MHierarchyInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

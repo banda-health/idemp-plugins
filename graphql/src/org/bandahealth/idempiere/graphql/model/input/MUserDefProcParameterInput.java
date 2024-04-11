@@ -11,7 +11,7 @@ public class MUserDefProcParameterInput extends X_AD_UserDef_Proc_ParameterInput
 	 * @param UUID The AD_UserDef_Proc_Parameter_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MUserDefProcParameterInput(@JsonProperty("UUID") String UUID) {
+	public MUserDefProcParameterInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

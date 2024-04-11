@@ -85,12 +85,12 @@ public interface I_AD_ReplicationDocumentInput extends I_AD_ReplicationDocument 
 	 *
 	 * @param ReplicationType Type of Data Replication
 	 */
-	void setReplicationTypeInput(I_AD_Ref_ListInput ReplicationType);
+	void setReplicationTypeInput(ForeignEntityInput ReplicationType);
 
 	/**
 	 * Get ReplicationType.
 	 *
 	 * @return Type of Data Replication
 	 */
-	I_AD_Ref_ListInput ReplicationType();
+	ForeignEntityInput ReplicationType();
 }

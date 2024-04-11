@@ -124,7 +124,7 @@ input AD_TabInput {
 	# Database Table information
 	AD_Table: ForeignEntityInput
 	# Defines Tab Type
-	AD_TabType: AD_Ref_ListInput
+	AD_TabType: ForeignEntityInput
 	# Data entry or display window
 	AD_Window: ForeignEntityInput
 	# Warning displayed when saving
@@ -150,7 +150,7 @@ input AD_TabInput {
 	IsAdvancedTab: Boolean
 	IsAllowAdvancedLookup: Boolean
 	# Use Search instead of Pick list
-	IsHighVolume: AD_Ref_ListInput
+	IsHighVolume: ForeignEntityInput
 	# This Tab contains accounting information
 	IsInfoTab: Boolean
 	# The user can insert a new Record
@@ -181,7 +181,7 @@ input AD_TabInput {
 	# Hierarchical Tab Level (0 = top)
 	TabLevel: Int
 	# The tree can be displayed on master tab, detail tab or both
-	TreeDisplayedOn: AD_Ref_ListInput
+	TreeDisplayedOn: ForeignEntityInput
 	# Fully qualified SQL WHERE clause
 	WhereClause: String
 }

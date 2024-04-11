@@ -121,7 +121,7 @@ input AD_PrintTableFormatInput {
 	# Width of the Header Line Stroke
 	HdrStroke: BigDecimal
 	# Type of the Header Line Stroke
-	HdrStrokeType: AD_Ref_ListInput
+	HdrStrokeType: ForeignEntityInput
 	# Background color of header row
 	HdrTextBG_PrintColor: ForeignEntityInput
 	# Foreground color if the table header row
@@ -157,7 +157,7 @@ input AD_PrintTableFormatInput {
 	# Width of the Line Stroke
 	LineStroke: BigDecimal
 	# Type of the Line Stroke
-	LineStrokeType: AD_Ref_ListInput
+	LineStrokeType: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 }

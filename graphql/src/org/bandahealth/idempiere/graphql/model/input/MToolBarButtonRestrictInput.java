@@ -11,7 +11,7 @@ public class MToolBarButtonRestrictInput extends X_AD_ToolBarButtonRestrictInput
 	 * @param UUID The AD_ToolBarButtonRestrict_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MToolBarButtonRestrictInput(@JsonProperty("UUID") String UUID) {
+	public MToolBarButtonRestrictInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

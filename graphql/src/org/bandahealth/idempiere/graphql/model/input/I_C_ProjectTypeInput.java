@@ -43,12 +43,12 @@ public interface I_C_ProjectTypeInput extends I_C_ProjectType {
 	 *
 	 * @param ProjectCategory Project Category
 	 */
-	void setProjectCategoryInput(I_AD_Ref_ListInput ProjectCategory);
+	void setProjectCategoryInput(ForeignEntityInput ProjectCategory);
 
 	/**
 	 * Get ProjectCategory.
 	 *
 	 * @return Project Category
 	 */
-	I_AD_Ref_ListInput ProjectCategory();
+	ForeignEntityInput ProjectCategory();
 }

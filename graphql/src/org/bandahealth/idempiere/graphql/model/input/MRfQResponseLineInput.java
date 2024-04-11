@@ -11,7 +11,7 @@ public class MRfQResponseLineInput extends X_C_RfQResponseLineInput {
 	 * @param UUID The C_RfQResponseLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRfQResponseLineInput(@JsonProperty("UUID") String UUID) {
+	public MRfQResponseLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -48,19 +48,19 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	private ForeignEntityInput mAD_WF_Responsible;
 	private ForeignEntityInput mAD_Window;
 	private ForeignEntityInput mAD_Workflow;
+	private ForeignEntityInput mAction;
 	private ForeignEntityInput mC_BPartner;
+	private ForeignEntityInput mDocAction;
+	private ForeignEntityInput mDynPriorityUnit;
+	private ForeignEntityInput mEMailRecipient;
+	private ForeignEntityInput mFinishMode;
+	private ForeignEntityInput mJoinElement;
 	private ForeignEntityInput mR_MailText;
 	private ForeignEntityInput mS_Resource;
+	private ForeignEntityInput mSplitElement;
+	private ForeignEntityInput mStartMode;
+	private ForeignEntityInput mSubflowExecution;
 	private ForeignEntityInput mWorkflow;
-	private I_AD_Ref_ListInput mAction;
-	private I_AD_Ref_ListInput mDocAction;
-	private I_AD_Ref_ListInput mDynPriorityUnit;
-	private I_AD_Ref_ListInput mEMailRecipient;
-	private I_AD_Ref_ListInput mFinishMode;
-	private I_AD_Ref_ListInput mJoinElement;
-	private I_AD_Ref_ListInput mSplitElement;
-	private I_AD_Ref_ListInput mStartMode;
-	private I_AD_Ref_ListInput mSubflowExecution;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -80,7 +80,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param Action Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public void setActionInput(I_AD_Ref_ListInput Action) {
+	public void setActionInput(ForeignEntityInput Action) {
 		this.mAction = Action;
 		if (Action != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -104,7 +104,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Indicates the Action to be performed
 	 */
 	@JsonProperty("Action")
-	public I_AD_Ref_ListInput Action() {
+	public ForeignEntityInput Action() {
 		return mAction;
 	}
 
@@ -591,7 +591,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param DocAction The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public void setDocActionInput(I_AD_Ref_ListInput DocAction) {
+	public void setDocActionInput(ForeignEntityInput DocAction) {
 		this.mDocAction = DocAction;
 		if (DocAction != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -615,7 +615,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return The targeted status of the document
 	 */
 	@JsonProperty("DocAction")
-	public I_AD_Ref_ListInput DocAction() {
+	public ForeignEntityInput DocAction() {
 		return mDocAction;
 	}
 
@@ -625,7 +625,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param DynPriorityUnit Change of priority when Activity is suspended waiting for user
 	 */
 	@JsonProperty("DynPriorityUnit")
-	public void setDynPriorityUnitInput(I_AD_Ref_ListInput DynPriorityUnit) {
+	public void setDynPriorityUnitInput(ForeignEntityInput DynPriorityUnit) {
 		this.mDynPriorityUnit = DynPriorityUnit;
 		if (DynPriorityUnit != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -649,7 +649,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Change of priority when Activity is suspended waiting for user
 	 */
 	@JsonProperty("DynPriorityUnit")
-	public I_AD_Ref_ListInput DynPriorityUnit() {
+	public ForeignEntityInput DynPriorityUnit() {
 		return mDynPriorityUnit;
 	}
 
@@ -659,7 +659,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param EMailRecipient Recipient of the EMail
 	 */
 	@JsonProperty("EMailRecipient")
-	public void setEMailRecipientInput(I_AD_Ref_ListInput EMailRecipient) {
+	public void setEMailRecipientInput(ForeignEntityInput EMailRecipient) {
 		this.mEMailRecipient = EMailRecipient;
 		if (EMailRecipient != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -683,7 +683,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Recipient of the EMail
 	 */
 	@JsonProperty("EMailRecipient")
-	public I_AD_Ref_ListInput EMailRecipient() {
+	public ForeignEntityInput EMailRecipient() {
 		return mEMailRecipient;
 	}
 
@@ -727,7 +727,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param FinishMode Workflow Activity Finish Mode
 	 */
 	@JsonProperty("FinishMode")
-	public void setFinishModeInput(I_AD_Ref_ListInput FinishMode) {
+	public void setFinishModeInput(ForeignEntityInput FinishMode) {
 		this.mFinishMode = FinishMode;
 		if (FinishMode != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -751,7 +751,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Workflow Activity Finish Mode
 	 */
 	@JsonProperty("FinishMode")
-	public I_AD_Ref_ListInput FinishMode() {
+	public ForeignEntityInput FinishMode() {
 		return mFinishMode;
 	}
 
@@ -761,7 +761,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param JoinElement Semantics for multiple incoming Transitions
 	 */
 	@JsonProperty("JoinElement")
-	public void setJoinElementInput(I_AD_Ref_ListInput JoinElement) {
+	public void setJoinElementInput(ForeignEntityInput JoinElement) {
 		this.mJoinElement = JoinElement;
 		if (JoinElement != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -785,7 +785,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Semantics for multiple incoming Transitions
 	 */
 	@JsonProperty("JoinElement")
-	public I_AD_Ref_ListInput JoinElement() {
+	public ForeignEntityInput JoinElement() {
 		return mJoinElement;
 	}
 
@@ -863,7 +863,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param SplitElement Semantics for multiple outgoing Transitions
 	 */
 	@JsonProperty("SplitElement")
-	public void setSplitElementInput(I_AD_Ref_ListInput SplitElement) {
+	public void setSplitElementInput(ForeignEntityInput SplitElement) {
 		this.mSplitElement = SplitElement;
 		if (SplitElement != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -887,7 +887,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Semantics for multiple outgoing Transitions
 	 */
 	@JsonProperty("SplitElement")
-	public I_AD_Ref_ListInput SplitElement() {
+	public ForeignEntityInput SplitElement() {
 		return mSplitElement;
 	}
 
@@ -897,7 +897,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param StartMode Workflow Activity Start Mode 
 	 */
 	@JsonProperty("StartMode")
-	public void setStartModeInput(I_AD_Ref_ListInput StartMode) {
+	public void setStartModeInput(ForeignEntityInput StartMode) {
 		this.mStartMode = StartMode;
 		if (StartMode != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -921,7 +921,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Workflow Activity Start Mode 
 	 */
 	@JsonProperty("StartMode")
-	public I_AD_Ref_ListInput StartMode() {
+	public ForeignEntityInput StartMode() {
 		return mStartMode;
 	}
 
@@ -931,7 +931,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @param SubflowExecution Mode how the sub-workflow is executed
 	 */
 	@JsonProperty("SubflowExecution")
-	public void setSubflowExecutionInput(I_AD_Ref_ListInput SubflowExecution) {
+	public void setSubflowExecutionInput(ForeignEntityInput SubflowExecution) {
 		this.mSubflowExecution = SubflowExecution;
 		if (SubflowExecution != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -955,7 +955,7 @@ public class X_AD_WF_NodeInput extends X_AD_WF_Node implements I_AD_WF_NodeInput
 	 * @return Mode how the sub-workflow is executed
 	 */
 	@JsonProperty("SubflowExecution")
-	public I_AD_Ref_ListInput SubflowExecution() {
+	public ForeignEntityInput SubflowExecution() {
 		return mSubflowExecution;
 	}
 

@@ -24,8 +24,8 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Order;
+	private ForeignEntityInput mLandedCostDistribution;
 	private ForeignEntityInput mM_CostElement;
-	private I_AD_Ref_ListInput mLandedCostDistribution;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -148,7 +148,7 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 	 * @param LandedCostDistribution Landed Cost Distribution
 	 */
 	@JsonProperty("LandedCostDistribution")
-	public void setLandedCostDistributionInput(I_AD_Ref_ListInput LandedCostDistribution) {
+	public void setLandedCostDistributionInput(ForeignEntityInput LandedCostDistribution) {
 		this.mLandedCostDistribution = LandedCostDistribution;
 		if (LandedCostDistribution != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -172,7 +172,7 @@ public class X_C_OrderLandedCostInput extends MOrderLandedCost implements I_C_Or
 	 * @return Landed Cost Distribution
 	 */
 	@JsonProperty("LandedCostDistribution")
-	public I_AD_Ref_ListInput LandedCostDistribution() {
+	public ForeignEntityInput LandedCostDistribution() {
 		return mLandedCostDistribution;
 	}
 

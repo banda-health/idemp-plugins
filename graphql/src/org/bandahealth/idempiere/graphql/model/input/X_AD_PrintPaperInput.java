@@ -21,7 +21,7 @@ import java.sql.ResultSet;
 public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintPaperInput {
 
 	private ForeignEntityInput mAD_Org;
-	private I_AD_Ref_ListInput mDimensionUnits;
+	private ForeignEntityInput mDimensionUnits;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -107,7 +107,7 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	 * @param DimensionUnits Units of Dimension
 	 */
 	@JsonProperty("DimensionUnits")
-	public void setDimensionUnitsInput(I_AD_Ref_ListInput DimensionUnits) {
+	public void setDimensionUnitsInput(ForeignEntityInput DimensionUnits) {
 		this.mDimensionUnits = DimensionUnits;
 		if (DimensionUnits != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -131,7 +131,7 @@ public class X_AD_PrintPaperInput extends X_AD_PrintPaper implements I_AD_PrintP
 	 * @return Units of Dimension
 	 */
 	@JsonProperty("DimensionUnits")
-	public I_AD_Ref_ListInput DimensionUnits() {
+	public ForeignEntityInput DimensionUnits() {
 		return mDimensionUnits;
 	}
 }

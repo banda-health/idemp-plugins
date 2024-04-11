@@ -43,12 +43,12 @@ public interface I_AD_StorageProviderInput extends I_AD_StorageProvider {
 	 *
 	 * @param Method Method
 	 */
-	void setMethodInput(I_AD_Ref_ListInput Method);
+	void setMethodInput(ForeignEntityInput Method);
 
 	/**
 	 * Get Method.
 	 *
 	 * @return Method
 	 */
-	I_AD_Ref_ListInput Method();
+	ForeignEntityInput Method();
 }

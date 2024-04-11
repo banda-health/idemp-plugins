@@ -139,15 +139,15 @@ input PA_ReportColumnInput {
 	C_Project: ForeignEntityInput
 	# Sales coverage region
 	C_SalesRegion: ForeignEntityInput
-	CalculationType: AD_Ref_ListInput
-	ColumnType: AD_Ref_ListInput
-	CurrencyType: AD_Ref_ListInput
+	CalculationType: ForeignEntityInput
+	ColumnType: ForeignEntityInput
+	CurrencyType: ForeignEntityInput
 	# Optional short description of the record
 	Description: String
 	# Element Type (account or user defined)
-	ElementType: AD_Ref_ListInput
+	ElementType: ForeignEntityInput
 	# Scaling factor.
-	Factor: AD_Ref_ListInput
+	Factor: ForeignEntityInput
 	# The pattern used to format a number or date.
 	FormatPattern: String
 	# General Ledger Budget
@@ -200,11 +200,11 @@ input PA_ReportColumnInput {
 	# Collection of Columns for Report
 	PA_ReportColumnSet: ForeignEntityInput
 	# PA Amount Type for reporting
-	PAAmountType: AD_Ref_ListInput
+	PAAmountType: ForeignEntityInput
 	# PA Period Type
-	PAPeriodType: AD_Ref_ListInput
+	PAPeriodType: ForeignEntityInput
 	# The type of posted amount for the transaction
-	PostingType: AD_Ref_ListInput
+	PostingType: ForeignEntityInput
 	# Period offset (0 is current)
 	RelativePeriod: BigDecimal
 	# Period offset (0 is current)

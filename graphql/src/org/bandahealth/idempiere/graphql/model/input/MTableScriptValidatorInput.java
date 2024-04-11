@@ -11,7 +11,7 @@ public class MTableScriptValidatorInput extends X_AD_Table_ScriptValidatorInput 
 	 * @param UUID The AD_Table_ScriptValidator_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MTableScriptValidatorInput(@JsonProperty("UUID") String UUID) {
+	public MTableScriptValidatorInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

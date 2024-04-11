@@ -11,7 +11,7 @@ public class MSerNoCtlInput extends X_M_SerNoCtlInput {
 	 * @param UUID The M_SerNoCtl_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MSerNoCtlInput(@JsonProperty("UUID") String UUID) {
+	public MSerNoCtlInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

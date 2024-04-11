@@ -11,7 +11,7 @@ public class MAllocationLineInput extends X_C_AllocationLineInput {
 	 * @param UUID The C_AllocationLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MAllocationLineInput(@JsonProperty("UUID") String UUID) {
+	public MAllocationLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

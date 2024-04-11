@@ -64,7 +64,7 @@ input M_AttributeInput {
 	# Dynamic Validation Rule
 	AD_Val_Rule: ForeignEntityInput
 	# Type of Attribute Value
-	AttributeValueType: AD_Ref_ListInput
+	AttributeValueType: ForeignEntityInput
 	# Date format used in the input format
 	DateFormat: String
 	# Optional short description of the record

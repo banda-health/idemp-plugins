@@ -85,17 +85,17 @@ input AD_UserDef_TabInput {
 	Help: String
 	# The record is active in the system
 	IsActive: Boolean
-	IsAllowAdvancedLookup: AD_Ref_ListInput
+	IsAllowAdvancedLookup: ForeignEntityInput
 	# Use Search instead of Pick list
-	IsHighVolume: AD_Ref_ListInput
+	IsHighVolume: ForeignEntityInput
 	# When defined to true Lookup panel will display only selection columns. Default to false.
-	IsLookupOnlySelection: AD_Ref_ListInput
+	IsLookupOnlySelection: ForeignEntityInput
 	# This applies to Multi-Row view only
 	IsMultiRowOnly: Boolean
 	# Field is read only
-	IsReadOnly: AD_Ref_ListInput
+	IsReadOnly: ForeignEntityInput
 	# Default for toggle between Single- and Multi-Row (Grid) Layout
-	IsSingleRow: AD_Ref_ListInput
+	IsSingleRow: ForeignEntityInput
 	# Alphanumeric identifier of the entity
 	Name: String
 	# Fully qualified ORDER BY clause

@@ -43,10 +43,10 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	private ForeignEntityInput mC_Phase;
 	private ForeignEntityInput mM_PriceList_Version;
 	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mProjInvoiceRule;
+	private ForeignEntityInput mProjectCategory;
+	private ForeignEntityInput mProjectLineLevel;
 	private ForeignEntityInput mSalesRep;
-	private I_AD_Ref_ListInput mProjInvoiceRule;
-	private I_AD_Ref_ListInput mProjectCategory;
-	private I_AD_Ref_ListInput mProjectLineLevel;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -528,7 +528,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param ProjectCategory Project Category
 	 */
 	@JsonProperty("ProjectCategory")
-	public void setProjectCategoryInput(I_AD_Ref_ListInput ProjectCategory) {
+	public void setProjectCategoryInput(ForeignEntityInput ProjectCategory) {
 		this.mProjectCategory = ProjectCategory;
 		if (ProjectCategory != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -552,7 +552,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Project Category
 	 */
 	@JsonProperty("ProjectCategory")
-	public I_AD_Ref_ListInput ProjectCategory() {
+	public ForeignEntityInput ProjectCategory() {
 		return mProjectCategory;
 	}
 
@@ -562,7 +562,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param ProjectLineLevel Project Line Level
 	 */
 	@JsonProperty("ProjectLineLevel")
-	public void setProjectLineLevelInput(I_AD_Ref_ListInput ProjectLineLevel) {
+	public void setProjectLineLevelInput(ForeignEntityInput ProjectLineLevel) {
 		this.mProjectLineLevel = ProjectLineLevel;
 		if (ProjectLineLevel != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -586,7 +586,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Project Line Level
 	 */
 	@JsonProperty("ProjectLineLevel")
-	public I_AD_Ref_ListInput ProjectLineLevel() {
+	public ForeignEntityInput ProjectLineLevel() {
 		return mProjectLineLevel;
 	}
 
@@ -596,7 +596,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @param ProjInvoiceRule Invoice Rule for the project
 	 */
 	@JsonProperty("ProjInvoiceRule")
-	public void setProjInvoiceRuleInput(I_AD_Ref_ListInput ProjInvoiceRule) {
+	public void setProjInvoiceRuleInput(ForeignEntityInput ProjInvoiceRule) {
 		this.mProjInvoiceRule = ProjInvoiceRule;
 		if (ProjInvoiceRule != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -620,7 +620,7 @@ public class X_C_ProjectInput extends MProject implements I_C_ProjectInput {
 	 * @return Invoice Rule for the project
 	 */
 	@JsonProperty("ProjInvoiceRule")
-	public I_AD_Ref_ListInput ProjInvoiceRule() {
+	public ForeignEntityInput ProjInvoiceRule() {
 		return mProjInvoiceRule;
 	}
 

@@ -11,7 +11,7 @@ public class MDocumentStatusInput extends X_PA_DocumentStatusInput {
 	 * @param UUID The PA_DocumentStatus_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDocumentStatusInput(@JsonProperty("UUID") String UUID) {
+	public MDocumentStatusInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

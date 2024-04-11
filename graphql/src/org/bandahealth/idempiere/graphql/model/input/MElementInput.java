@@ -11,7 +11,7 @@ public class MElementInput extends X_C_ElementInput {
 	 * @param UUID The C_Element_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MElementInput(@JsonProperty("UUID") String UUID) {
+	public MElementInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

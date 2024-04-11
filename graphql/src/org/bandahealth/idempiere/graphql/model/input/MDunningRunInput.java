@@ -11,7 +11,7 @@ public class MDunningRunInput extends X_C_DunningRunInput {
 	 * @param UUID The C_DunningRun_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MDunningRunInput(@JsonProperty("UUID") String UUID) {
+	public MDunningRunInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

@@ -48,7 +48,7 @@ input A_Asset_Info_TaxInput {
 	# Asset used internally or by customers
 	A_Asset: ForeignEntityInput
 	UU: ID
-	A_Finance_Meth: AD_Ref_ListInput
+	A_Finance_Meth: ForeignEntityInput
 	A_Investment_CR: Int
 	A_New_Used: Boolean
 	# State of the Credit Card or Account holder

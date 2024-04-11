@@ -11,7 +11,7 @@ public class MRfQResponseInput extends X_C_RfQResponseInput {
 	 * @param UUID The C_RfQResponse_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRfQResponseInput(@JsonProperty("UUID") String UUID) {
+	public MRfQResponseInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

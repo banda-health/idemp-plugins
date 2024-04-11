@@ -11,7 +11,7 @@ public class MJournalGeneratorInput extends X_GL_JournalGeneratorInput {
 	 * @param UUID The GL_JournalGenerator_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MJournalGeneratorInput(@JsonProperty("UUID") String UUID) {
+	public MJournalGeneratorInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

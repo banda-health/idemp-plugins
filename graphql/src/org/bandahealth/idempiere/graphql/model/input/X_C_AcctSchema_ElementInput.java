@@ -42,8 +42,8 @@ public class X_C_AcctSchema_ElementInput extends MAcctSchemaElement implements I
 	private ForeignEntityInput mC_Location;
 	private ForeignEntityInput mC_Project;
 	private ForeignEntityInput mC_SalesRegion;
+	private ForeignEntityInput mElementType;
 	private ForeignEntityInput mM_Product;
-	private I_AD_Ref_ListInput mElementType;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -472,7 +472,7 @@ public class X_C_AcctSchema_ElementInput extends MAcctSchemaElement implements I
 	 * @param ElementType Element Type (account or user defined)
 	 */
 	@JsonProperty("ElementType")
-	public void setElementTypeInput(I_AD_Ref_ListInput ElementType) {
+	public void setElementTypeInput(ForeignEntityInput ElementType) {
 		this.mElementType = ElementType;
 		if (ElementType != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -496,7 +496,7 @@ public class X_C_AcctSchema_ElementInput extends MAcctSchemaElement implements I
 	 * @return Element Type (account or user defined)
 	 */
 	@JsonProperty("ElementType")
-	public I_AD_Ref_ListInput ElementType() {
+	public ForeignEntityInput ElementType() {
 		return mElementType;
 	}
 

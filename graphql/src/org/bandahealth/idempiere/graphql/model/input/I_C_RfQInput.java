@@ -127,14 +127,14 @@ public interface I_C_RfQInput extends I_C_RfQ {
 	 *
 	 * @param QuoteType Request for Quotation Type
 	 */
-	void setQuoteTypeInput(I_AD_Ref_ListInput QuoteType);
+	void setQuoteTypeInput(ForeignEntityInput QuoteType);
 
 	/**
 	 * Get QuoteType.
 	 *
 	 * @return Request for Quotation Type
 	 */
-	I_AD_Ref_ListInput QuoteType();
+	ForeignEntityInput QuoteType();
 
 	/**
 	 * Set SalesRep.

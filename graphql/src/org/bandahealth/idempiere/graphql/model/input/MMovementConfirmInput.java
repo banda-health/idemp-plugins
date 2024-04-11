@@ -11,7 +11,7 @@ public class MMovementConfirmInput extends X_M_MovementConfirmInput {
 	 * @param UUID The M_MovementConfirm_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MMovementConfirmInput(@JsonProperty("UUID") String UUID) {
+	public MMovementConfirmInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

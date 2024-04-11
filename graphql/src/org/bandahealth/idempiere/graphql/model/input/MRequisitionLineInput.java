@@ -11,7 +11,7 @@ public class MRequisitionLineInput extends X_M_RequisitionLineInput {
 	 * @param UUID The M_RequisitionLine_UU to fetch this entity from the DB
 	 */
 	@JsonCreator
-	public MRequisitionLineInput(@JsonProperty("UUID") String UUID) {
+	public MRequisitionLineInput(@JsonProperty("UU") String UUID) {
 		super(UUID);
 	}
 }

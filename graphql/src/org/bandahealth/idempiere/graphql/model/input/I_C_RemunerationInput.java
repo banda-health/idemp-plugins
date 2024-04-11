@@ -43,12 +43,12 @@ public interface I_C_RemunerationInput extends I_C_Remuneration {
 	 *
 	 * @param RemunerationType Type of Remuneration
 	 */
-	void setRemunerationTypeInput(I_AD_Ref_ListInput RemunerationType);
+	void setRemunerationTypeInput(ForeignEntityInput RemunerationType);
 
 	/**
 	 * Get RemunerationType.
 	 *
 	 * @return Type of Remuneration
 	 */
-	I_AD_Ref_ListInput RemunerationType();
+	ForeignEntityInput RemunerationType();
 }

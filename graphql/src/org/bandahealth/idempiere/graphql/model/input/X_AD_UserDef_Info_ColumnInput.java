@@ -32,13 +32,13 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	private ForeignEntityInput mAD_Reference_Value;
 	private ForeignEntityInput mAD_UserDef_Info;
 	private ForeignEntityInput mAD_Val_Rule;
-	private I_AD_Ref_ListInput mIsAutocomplete;
-	private I_AD_Ref_ListInput mIsDisplayed;
-	private I_AD_Ref_ListInput mIsMandatory;
-	private I_AD_Ref_ListInput mIsQueryAfterChange;
-	private I_AD_Ref_ListInput mIsQueryCriteria;
-	private I_AD_Ref_ListInput mIsReadOnly;
-	private I_AD_Ref_ListInput mQueryOperator;
+	private ForeignEntityInput mIsAutocomplete;
+	private ForeignEntityInput mIsDisplayed;
+	private ForeignEntityInput mIsMandatory;
+	private ForeignEntityInput mIsQueryAfterChange;
+	private ForeignEntityInput mIsQueryCriteria;
+	private ForeignEntityInput mIsReadOnly;
+	private ForeignEntityInput mQueryOperator;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -334,7 +334,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @param IsAutocomplete Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
-	public void setIsAutocompleteInput(I_AD_Ref_ListInput IsAutocomplete) {
+	public void setIsAutocompleteInput(ForeignEntityInput IsAutocomplete) {
 		this.mIsAutocomplete = IsAutocomplete;
 		if (IsAutocomplete != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -358,7 +358,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @return Automatic completion for text fields
 	 */
 	@JsonProperty("IsAutocomplete")
-	public I_AD_Ref_ListInput IsAutocomplete() {
+	public ForeignEntityInput IsAutocomplete() {
 		return mIsAutocomplete;
 	}
 
@@ -368,7 +368,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @param IsDisplayed Determines, if this field is displayed
 	 */
 	@JsonProperty("IsDisplayed")
-	public void setIsDisplayedInput(I_AD_Ref_ListInput IsDisplayed) {
+	public void setIsDisplayedInput(ForeignEntityInput IsDisplayed) {
 		this.mIsDisplayed = IsDisplayed;
 		if (IsDisplayed != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -392,7 +392,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @return Determines, if this field is displayed
 	 */
 	@JsonProperty("IsDisplayed")
-	public I_AD_Ref_ListInput IsDisplayed() {
+	public ForeignEntityInput IsDisplayed() {
 		return mIsDisplayed;
 	}
 
@@ -402,7 +402,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @param IsMandatory Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public void setIsMandatoryInput(I_AD_Ref_ListInput IsMandatory) {
+	public void setIsMandatoryInput(ForeignEntityInput IsMandatory) {
 		this.mIsMandatory = IsMandatory;
 		if (IsMandatory != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -426,7 +426,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @return Data entry is required in this column
 	 */
 	@JsonProperty("IsMandatory")
-	public I_AD_Ref_ListInput IsMandatory() {
+	public ForeignEntityInput IsMandatory() {
 		return mIsMandatory;
 	}
 
@@ -436,7 +436,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @param IsQueryAfterChange Issues a query request after the user has made changes to the field
 	 */
 	@JsonProperty("IsQueryAfterChange")
-	public void setIsQueryAfterChangeInput(I_AD_Ref_ListInput IsQueryAfterChange) {
+	public void setIsQueryAfterChangeInput(ForeignEntityInput IsQueryAfterChange) {
 		this.mIsQueryAfterChange = IsQueryAfterChange;
 		if (IsQueryAfterChange != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -460,7 +460,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @return Issues a query request after the user has made changes to the field
 	 */
 	@JsonProperty("IsQueryAfterChange")
-	public I_AD_Ref_ListInput IsQueryAfterChange() {
+	public ForeignEntityInput IsQueryAfterChange() {
 		return mIsQueryAfterChange;
 	}
 
@@ -470,7 +470,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @param IsQueryCriteria The column is also used as a query criteria
 	 */
 	@JsonProperty("IsQueryCriteria")
-	public void setIsQueryCriteriaInput(I_AD_Ref_ListInput IsQueryCriteria) {
+	public void setIsQueryCriteriaInput(ForeignEntityInput IsQueryCriteria) {
 		this.mIsQueryCriteria = IsQueryCriteria;
 		if (IsQueryCriteria != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -494,7 +494,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @return The column is also used as a query criteria
 	 */
 	@JsonProperty("IsQueryCriteria")
-	public I_AD_Ref_ListInput IsQueryCriteria() {
+	public ForeignEntityInput IsQueryCriteria() {
 		return mIsQueryCriteria;
 	}
 
@@ -504,7 +504,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @param IsReadOnly Field is read only
 	 */
 	@JsonProperty("IsReadOnly")
-	public void setIsReadOnlyInput(I_AD_Ref_ListInput IsReadOnly) {
+	public void setIsReadOnlyInput(ForeignEntityInput IsReadOnly) {
 		this.mIsReadOnly = IsReadOnly;
 		if (IsReadOnly != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -528,7 +528,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @return Field is read only
 	 */
 	@JsonProperty("IsReadOnly")
-	public I_AD_Ref_ListInput IsReadOnly() {
+	public ForeignEntityInput IsReadOnly() {
 		return mIsReadOnly;
 	}
 
@@ -538,7 +538,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @param QueryOperator Operator for database query
 	 */
 	@JsonProperty("QueryOperator")
-	public void setQueryOperatorInput(I_AD_Ref_ListInput QueryOperator) {
+	public void setQueryOperatorInput(ForeignEntityInput QueryOperator) {
 		this.mQueryOperator = QueryOperator;
 		if (QueryOperator != null) {
 			// Since an entity was passed, make sure it's in the DB
@@ -562,7 +562,7 @@ public class X_AD_UserDef_Info_ColumnInput extends MUserDefInfoColumn implements
 	 * @return Operator for database query
 	 */
 	@JsonProperty("QueryOperator")
-	public I_AD_Ref_ListInput QueryOperator() {
+	public ForeignEntityInput QueryOperator() {
 		return mQueryOperator;
 	}
 }
