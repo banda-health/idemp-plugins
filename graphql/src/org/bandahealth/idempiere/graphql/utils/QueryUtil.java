@@ -36,7 +36,7 @@ public class QueryUtil {
 	 * @return Whether the total count, in some for or fashion, was requested
 	 */
 	public static boolean isTotalCountRequested(DataFetchingEnvironment environment) {
-		return environment.getSelectionSet().contains("pagingInfo");
+		return environment.getSelectionSet().contains("PagingInfo");
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class QueryUtil {
 	 * @return Whether the results were requested
 	 */
 	public static boolean areResultsRequested(DataFetchingEnvironment environment) {
-		return environment.getSelectionSet().contains("results");
+		return environment.getSelectionSet().contains("Results");
 	}
 
 	/**

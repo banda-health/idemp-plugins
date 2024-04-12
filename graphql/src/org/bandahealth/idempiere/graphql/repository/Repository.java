@@ -27,7 +27,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Repository {
-	private static ThreadLocal<Boolean> isApplyAccessFilterNeeded = ThreadLocal.withInitial(() -> Boolean.TRUE);
+	private static final ThreadLocal<Boolean> isApplyAccessFilterNeeded = ThreadLocal.withInitial(() -> Boolean.TRUE);
 
 	public static void setApplyAccessFilterNotNeeded() {
 		isApplyAccessFilterNeeded.set(Boolean.FALSE);
@@ -116,7 +116,7 @@ public class Repository {
 				// If there are no results, the page is greater than 0, and the total count is NULL (meaning we didn't have
 				// this information before making the original query, we need to see if there are any results to return
 				// on the first page
-				if (results.size() == 0 && pagingInfo.getPage() > 0 && pagingInfo.getTotalCount() == null) {
+				if (results.isEmpty() && pagingInfo.getPage() > 0 && pagingInfo.getTotalCount() == null) {
 					// Try the query again
 					pagingInfo.setPage(0);
 					query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());

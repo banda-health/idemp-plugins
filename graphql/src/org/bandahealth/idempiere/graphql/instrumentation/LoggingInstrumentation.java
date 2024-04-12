@@ -8,6 +8,8 @@ import graphql.execution.instrumentation.parameters.InstrumentationExecutionPara
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.util.CLogger;
 
+import java.util.stream.Collectors;
+
 /**
  * This is a custom logging implementation that captures pertinent information about a GraphQL query and can log it
  * or do whatever else is needed. To see a bigger example, look here:
@@ -22,8 +24,12 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 		return new SimpleInstrumentationContext<>() {
 			@Override
 			public void onCompleted(ExecutionResult result, Throwable t) {
-				logger.info(StringUtil.stripNewLines(parameters.getQuery()) + " execution time (ms): " +
-						(System.currentTimeMillis() - startMillis));
+				String logMessage = StringUtil.stripNewLines(parameters.getQuery());
+				if (!parameters.getVariables().isEmpty() && !parameters.getQuery().contains("AuthenticationInput")) {
+					logMessage += ", variables: " + parameters.getVariables().entrySet().stream()
+							.map((entry) -> entry.getKey() + ": " + entry.getValue().toString()).collect(Collectors.joining(", "));
+				}
+				logger.info(logMessage + ", execution time (ms): " + (System.currentTimeMillis() - startMillis));
 			}
 		};
 	}
