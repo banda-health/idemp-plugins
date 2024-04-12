@@ -12,9 +12,13 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
+import org.bandahealth.idempiere.base.model.MBHConceptName;
+import org.bandahealth.idempiere.base.model.MBHClientConcept;
 import org.bandahealth.idempiere.rest.model.Concept;
 import org.bandahealth.idempiere.rest.model.ConceptExtra;
 import org.bandahealth.idempiere.rest.model.ConceptMapping;
+import org.bandahealth.idempiere.rest.model.ConceptName;
+import org.bandahealth.idempiere.rest.model.ClientConcept;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -23,6 +27,8 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 	private final ConceptMappingDBService conceptMappingDBService = new ConceptMappingDBService();
 	private final ConceptExtraDBService conceptExtraDBService = new ConceptExtraDBService();
+	private final ConceptNameDBService conceptNameDBService = new ConceptNameDBService();
+	private final ClientConceptDBService clientConceptDBService = new ClientConceptDBService();
 
 	@Override
 	public Concept saveEntity(Concept entity) {
@@ -50,6 +56,13 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		if (entity.getToConceptMappings() != null && !entity.getToConceptMappings().isEmpty()) {
 			for (ConceptMapping conceptMapping : entity.getToConceptMappings()) {
 				conceptMappingDBService.saveEntity(conceptMapping);
+			}
+		}
+		
+		// save client concepts
+		if (entity.getClientConcepts() != null && !entity.getClientConcepts().isEmpty()) {
+			for (ClientConcept clientConcept : entity.getClientConcepts()) {
+				clientConceptDBService.saveEntity(clientConcept);
 			}
 		}
 
@@ -107,6 +120,22 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(ConceptExtra::getConceptId));
 
+		// get concept names
+		Map<Integer, List<ConceptName>> conceptNameByConceptId = conceptNameDBService
+				.transformData(conceptNameDBService
+						.getGroupsByIds(MBHConceptName::getBH_Concept_ID, MBHConceptName.COLUMNNAME_BH_Concept_ID,
+								dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()))
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
+				.stream().collect(Collectors.groupingBy(ConceptName::getConceptId));
+
+		// get client concepts
+		Map<Integer, List<ClientConcept>> clientConceptByConceptId = clientConceptDBService
+				.transformData(clientConceptDBService
+						.getGroupsByIds(MBHClientConcept::getBH_Concept_ID, MBHClientConcept.COLUMNNAME_BH_Concept_ID,
+								dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()))
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
+				.stream().collect(Collectors.groupingBy(ClientConcept::getConceptId));
+
 		// get parent concept mappings
 		List<Object> parameters = new ArrayList<>();
 		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
@@ -154,6 +183,14 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 			if (conceptExtraByConceptId.containsKey(result.getId())) {
 				result.setConceptExtras(conceptExtraByConceptId.get(result.getId()));
+			}
+			
+			if (conceptNameByConceptId.containsKey(result.getId())) {
+				result.setConceptNames(conceptNameByConceptId.get(result.getId()));
+			}
+			
+			if (clientConceptByConceptId.containsKey(result.getId())) {
+				result.setClientConcepts(clientConceptByConceptId.get(result.getId()));
 			}
 
 			if (parentConceptMappings.containsKey(result.getOclId())) {
