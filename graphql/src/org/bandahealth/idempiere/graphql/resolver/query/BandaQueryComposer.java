@@ -14,7 +14,6 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 	 */
 	public static void addAll(SchemaParserBuilder builder) {
 		builder.resolvers(
-				new AuthenticationQuery(),
 				new M_ElementQuery(),
 				new M_RegistrationQuery(),
 				new MAccessLogQuery(),

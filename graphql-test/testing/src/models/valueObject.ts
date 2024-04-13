@@ -1,13 +1,19 @@
-import { initialLoginData, query } from '../api';
+import { mutate, query } from '../api';
+import { LoginInfo } from '../types/global';
 import { RoleName } from '../types/roleName';
 import { getDateOffset } from '../utils';
 import {
 	Ad_Ref_ListGetQuery,
+	Ad_RoleGetDocument,
+	Ad_RoleGetWindowAccessDocument,
 	Bh_VisitGetQuery,
-	Bh_VisitSaveMutation,
+	ChangeAccessDocument,
+	ChangeAccessMutationVariables,
 	C_AcctSchemaGetQuery,
 	C_BankAccountGetQuery,
 	C_BPartnerGetQuery,
+	C_BPartnerSaveWithLocationAndContactMutation,
+	C_BPartnerSaveWithLocationAndContactMutationVariables,
 	C_BPartnerSaveWithLocationMutation,
 	C_ChargeSaveMutation,
 	C_DocTypeGetDocument,
@@ -20,21 +26,19 @@ import {
 	C_PaymentSaveMutation,
 	M_AttributeSetInstanceSaveMutation,
 	M_InventorySaveWithInventoryLinesMutation,
+	M_PriceListSaveMutation,
 	M_ProductSaveMutation,
 	ProcessInfoParameterInput,
 	ReportOutput,
-	SignInDocument,
-	SignInQuery,
-	SignInQueryVariables,
 } from '../__generated__/graphql';
 import { documentAction } from './documentEngine';
 
 export class ValueObject {
-	client?: SignInQuery['SignIn']['AD_Clients'][0];
-	organization?: SignInQuery['SignIn']['AD_Clients'][0]['AD_Orgs'][0];
-	user?: any; //User;
-	warehouse?: NonNullable<SignInQuery['SignIn']['AD_Clients'][0]['AD_Orgs'][0]['M_Warehouses']>[0];
-	role?: NonNullable<SignInQuery['SignIn']['AD_Clients'][0]['AD_Orgs'][0]['AD_Roles']>[0];
+	client?: LoginInfo['AD_Clients'][0];
+	organization?: LoginInfo['AD_Clients'][0]['AD_Orgs'][0];
+	user?: C_BPartnerSaveWithLocationAndContactMutation['AD_UserSave'];
+	warehouse?: NonNullable<LoginInfo['AD_Clients'][0]['AD_Orgs'][0]['M_Warehouses']>[0];
+	role?: NonNullable<LoginInfo['AD_Clients'][0]['AD_Orgs'][0]['AD_Roles']>[0];
 	language?: string;
 	date?: Date;
 	dateInitial?: Date;
@@ -49,8 +53,8 @@ export class ValueObject {
 	city?: string;
 	currency?: C_AcctSchemaGetQuery['C_AcctSchemaGet']['Results'][0]['C_Currency'];
 	contact?: any; //User;
-	// MPriceList priceListSO = null;
-	// MPriceList priceListPO = null;
+	salesPriceList?: M_PriceListSaveMutation['M_PriceListSave'];
+	purchasePriceList?: M_PriceListSaveMutation['M_PriceListSave'];
 	product?: M_ProductSaveMutation['M_ProductSave'];
 	charge?: C_ChargeSaveMutation['C_ChargeSave'];
 	salesLimitPrice?: number;
@@ -84,12 +88,12 @@ export class ValueObject {
 	separator = ' - ';
 	prompt = ': ';
 	get AD_Window_AccessMap():
-		| { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['SignIn']['AD_Role']>['AD_Window_AccessList']>[0] }
+		| { [windowUuid: string]: NonNullable<NonNullable<LoginInfo['AD_Role']>['AD_Window_AccessList']>[0] }
 		| undefined {
 		return this.loginInfo?.AD_Role?.AD_Window_AccessList?.reduce((map, windowAccess) => {
 			map[windowAccess.AD_Window.UU] = windowAccess;
 			return map;
-		}, {} as { [windowUuid: string]: NonNullable<NonNullable<SignInQuery['SignIn']['AD_Role']>['AD_Window_AccessList']>[0] });
+		}, {} as { [windowUuid: string]: NonNullable<NonNullable<LoginInfo['AD_Role']>['AD_Window_AccessList']>[0] });
 	}
 
 	processUuid?: string;
@@ -99,30 +103,16 @@ export class ValueObject {
 
 	sessionToken?: string;
 
-	constructor(
-		private loginInfo: SignInQuery['SignIn'] & {
-			AD_Client: SignInQuery['SignIn']['AD_Clients'][0];
-			AD_Org_UU?: string | null;
-			AD_Role_UU?: string | null;
-			M_Warehouse_UU?: string | null;
-		},
-	) {
+	constructor(private loginInfo: LoginInfo) {
 		this.prepareIt(loginInfo);
 	}
 
-	private prepareIt(
-		loginInfo: SignInQuery['SignIn'] & {
-			AD_Client: SignInQuery['SignIn']['AD_Clients'][0];
-			AD_Org_UU?: string | null;
-			AD_Role_UU?: string | null;
-			M_Warehouse_UU?: string | null;
-		},
-	) {
-		this.client = loginInfo.AD_Client;
+	private prepareIt(loginInfo: LoginInfo) {
+		this.client = loginInfo.AD_Clients.find((client) => client.UU === loginInfo.AD_Client_UU);
 		this.organization = this.client?.AD_Orgs.find((organization) => organization.UU === loginInfo.AD_Org_UU);
-		this.role = this.organization?.AD_Roles?.find((role) => role.UU === loginInfo.AD_Role_UU);
+		this.role = loginInfo.AD_Role || this.organization?.AD_Roles?.find((role) => role.UU === loginInfo.AD_Role_UU);
 		this.warehouse = this.organization?.M_Warehouses?.find((warehouse) => warehouse.UU === loginInfo.M_Warehouse_UU);
-		this.sessionToken = loginInfo.Token || undefined;
+		this.sessionToken = loginInfo.token || undefined;
 
 		this.date = new Date();
 		this.dateInitial = new Date();
@@ -132,9 +122,14 @@ export class ValueObject {
 
 		this.documentAction = documentAction.Complete;
 		this.quantity = this.quantity || 1;
+		this.salesPriceList = loginInfo.SalesPriceList;
+		this.purchasePriceList = loginInfo.PurchasePriceList;
 		this.setPurchasePrice(1);
 		this.setSalesPrice(1);
 		this.loginInfo = { ...loginInfo, AD_Client: this.client! };
+		this.country = loginInfo.C_Country;
+		this.region = loginInfo.C_Region;
+		this.currency = loginInfo.C_Currency;
 	}
 
 	async login(roleName?: RoleName) {
@@ -145,20 +140,27 @@ export class ValueObject {
 			role.Name.endsWith(roleName!),
 		);
 
-		const baseLoginData: SignInQueryVariables['Credentials'] = {
-			...initialLoginData,
-			AD_Client_UU: this.client?.UU,
-			AD_Org_UU: this.organization?.UU,
-			AD_Role_UU: roleToUse?.UU,
-			M_Warehouse_UU: this.warehouse?.UU,
+		const baseLoginData: ChangeAccessMutationVariables['Access'] = {
+			AD_Client_UU: this.client?.UU!,
+			AD_Org_UU: this.organization?.UU!,
+			AD_Role_UU: roleToUse?.UU!,
+			M_Warehouse_UU: this.warehouse?.UU!,
 		};
-		if (this.language) {
-			baseLoginData.AD_Language = this.language;
+		const { data } = await mutate(this)({ mutation: ChangeAccessDocument, variables: { Access: baseLoginData } });
+		if (!data?.ChangeAccess.Token) {
+			throw Error('could not change access');
 		}
-		const {
-			data: { SignIn: loginInfo },
-		} = await query(this)({ query: SignInDocument, variables: { Credentials: baseLoginData } });
-		this.prepareIt({ ...baseLoginData, ...loginInfo, AD_Client: this.client! });
+		this.prepareIt({
+			...this.loginInfo,
+			AD_Role: (
+				await query(this)({
+					query: Ad_RoleGetWindowAccessDocument,
+					variables: { Filter: JSON.stringify({ ad_role_uu: roleToUse?.UU }) },
+				})
+			).data.AD_RoleGet.Results[0],
+			token: data.ChangeAccess.Token,
+			AD_Role_UU: roleToUse?.UU,
+		});
 
 		return this.validate();
 	}

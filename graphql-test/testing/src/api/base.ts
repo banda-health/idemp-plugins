@@ -1,17 +1,10 @@
-import {
-	ApolloClient,
-	ApolloLink,
-	createHttpLink,
-	defaultDataIdFromObject,
-	from,
-	InMemoryCache,
-} from '@apollo/client/core';
+import { ApolloClient, ApolloLink, createHttpLink, from, InMemoryCache } from '@apollo/client/core';
 import { ValueObject } from '../models';
-import { SignInQueryVariables } from '../__generated__/graphql';
+import { SignInMutationVariables } from '../__generated__/graphql';
 
 export const IDEMPIERE_ENDPOINT = `${process.env.IDEMPIERE_ENDPOINT || 'http://idempiere:8080'}/graphql/`;
 
-export const initialLoginData: SignInQueryVariables['Credentials'] = {
+export const initialLoginData: SignInMutationVariables['Credentials'] = {
 	Username: process.env.IDEMPIERE_USER || 'SuperUser',
 	Password: process.env.IDEMPIERE_USER_PASSWORD || 'System',
 	AD_Language: 'en_US',

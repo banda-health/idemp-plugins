@@ -37,13 +37,13 @@ mutation AD_Role_IncludedDelete($UUs: [String!]!) {
 
 mutation AD_RoleSave($Entity: AD_RoleInput!) {
 	AD_RoleSave(Entity: $Entity) {
-		...AD_RoleFields
+		UU
 	}
 }
 
 mutation AD_RoleWithIncludedSave($AD_Role: AD_RoleInput!, $AD_Role_IncludedList: [AD_Role_IncludedInput!]!) {
 	AD_RoleSave(Entity: $AD_Role) {
-		...AD_RoleFields
+		UU
 	}
 	AD_Role_IncludedSaveMany(Entities: $AD_Role_IncludedList) {
 		UU
@@ -480,6 +480,26 @@ mutation C_BPartnerSaveWithLocation(
 	}
 }
 
+mutation C_BPartnerSaveWithLocationAndContact(
+	$C_BPartner: C_BPartnerInput!
+	$C_Location: C_LocationInput!
+	$C_BPartner_Location: C_BPartner_LocationInput!
+	$AD_User: AD_UserInput!
+) {
+	C_BPartnerSave(Entity: $C_BPartner) {
+		UU
+	}
+	C_LocationSave(Entity: $C_Location) {
+		UU
+	}
+	C_BPartner_LocationSave(Entity: $C_BPartner_Location) {
+		UU
+	}
+	AD_UserSave(Entity: $AD_User) {
+		UU
+	}
+}
+
 mutation C_Charge_AcctSave($Entity: C_Charge_AcctInput!) {
 	C_Charge_AcctSave(Entity: $Entity) {
 		UU
@@ -641,6 +661,16 @@ mutation C_ValidCombinationGetOrCreate(
 	}
 }
 
+mutation ChangeAccess($Access: ChangeAccessInput!) {
+	ChangeAccess(Access: $Access) {
+		Token
+	}
+}
+
+mutation ChangePassword($PasswordInfo: ChangePasswordInput!) {
+	ChangePassword(PasswordInfo: $PasswordInfo)
+}
+
 mutation M_AttributeSetInstanceSave($Entity: M_AttributeSetInstanceInput!) {
 	M_AttributeSetInstanceSave(Entity: $Entity) {
 		UU
@@ -697,6 +727,24 @@ mutation M_MovementSaveWithMovementLinesAndProcess(
 	}
 }
 
+mutation M_PriceList_VersionSave($Entity: M_PriceList_VersionInput!) {
+	M_PriceList_VersionSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation M_PriceListSave($Entity: M_PriceListInput!) {
+	M_PriceListSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation M_ProductPriceSaveMany($Entities: [M_ProductPriceInput!]!) {
+	M_ProductPriceSaveMany(Entities: $Entities) {
+		UU
+	}
+}
+
 mutation M_ProductSave($Entity: M_ProductInput!) {
 	M_ProductSave(Entity: $Entity) {
 		...M_ProductFields
@@ -712,6 +760,15 @@ mutation M_ProductSaveMany($Entities: [M_ProductInput!]!) {
 		Name
 		M_Product_Category {
 			UU
+		}
+	}
+}
+
+mutation SignIn($Credentials: AuthenticationInput!) {
+	SignIn(Credentials: $Credentials) {
+		Token
+		AD_User {
+			IsExpired
 		}
 	}
 }

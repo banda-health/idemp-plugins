@@ -363,7 +363,11 @@ public class FilterUtil {
 				Object filterValue = comparisonMap.get(comparison);
 				// If this is a date, go ahead and convert the value to be as such
 				if (dbColumnIsDateType) {
-					filterValue = DateUtil.getTimestamp(filterValue.toString());
+					if (filterValue instanceof Long) {
+						filterValue = new Timestamp((Long) filterValue);
+					} else {
+						filterValue = DateUtil.getTimestamp(filterValue.toString());
+					}
 				}
 				List<?> listOperatorValues;
 				String parameterClause;

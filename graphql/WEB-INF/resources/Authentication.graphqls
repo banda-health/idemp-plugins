@@ -1,33 +1,19 @@
-extend type Query {
-	ChangeAccess(Credentials: ChangeAccessInput!): ChangeAccessResponse!
-	ChangePassword(Credentials: AuthenticationInput!): AuthenticationResponse!
+extend type Mutation {
+	ChangeAccess(Access: ChangeAccessInput!): ChangeAccessResponse!
+	ChangePassword(PasswordInfo: ChangePasswordInput!): Boolean!
 	SignIn(Credentials: AuthenticationInput!): AuthenticationResponse!
 }
 
-#extend type Mutation {
-#	changePassword(credentials: AuthenticationData!): AuthenticationResponse!
-#	signIn(credentials: AuthenticationData!): AuthenticationResponse!
-#}
-
 type AuthenticationResponse {
 	Token: String
-	AD_Clients: [AD_Client!]!
 	AD_User: AD_User
-	AD_Role: AD_Role
 	SecurityQuestions: [String!]
 }
 
 input AuthenticationInput {
 	Username: String!
 	Password: String!
-	NewPassword: String
-	SecurityQuestion: String
-	Answer: String
-	AD_Client_UU: String
-	AD_Role_UU: String
-	AD_Org_UU: String
-	M_Warehouse_UU: String
-	AD_Language: String
+	AD_Language: String!
 }
 
 type ChangeAccessResponse {
@@ -35,10 +21,16 @@ type ChangeAccessResponse {
 }
 
 input ChangeAccessInput {
+	AD_Client_UU: String!
+	AD_Role_UU: String!
+	AD_Org_UU: String!
+	M_Warehouse_UU: String!
+}
+
+input ChangePasswordInput {
 	Username: String!
-	AD_Client_UU: String
-	AD_Role_UU: String
-	AD_Org_UU: String
-	M_Warehouse_UU: String
-	AD_Language: String
+	Password: String!
+	NewPassword: String!
+	SecurityQuestion: String
+	Answer: String
 }

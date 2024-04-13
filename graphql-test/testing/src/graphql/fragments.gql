@@ -103,10 +103,16 @@ fragment C_BPartnerFields on C_BPartner {
 	IsCustomer
 	IsVendor
 	LastVisitDate
+	M_PriceList {
+		UU
+	}
 	Name
 	NationalID
 	NextOfKin_Contact
 	NextOfKin_Name
+	PO_PriceList {
+		UU
+	}
 	TotalOpenBalance
 	TotalVisits
 }

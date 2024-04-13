@@ -26,10 +26,10 @@ package org.bandahealth.idempiere.graphql.utils;
  * - Heng Sin Low                                                      *
  **********************************************************************/
 
-import java.sql.Timestamp;
-
 import org.adempiere.base.Service;
 import org.compiere.util.TimeUtil;
+
+import java.sql.Timestamp;
 
 /**
  * @author hengsin
@@ -58,6 +58,8 @@ public class TokenUtils {
 	}
 
 	/**
+	 * Expires after 8 hours
+	 *
 	 * @return token expire time stamp
 	 */
 	public static Timestamp getTokeExpiresAt() {

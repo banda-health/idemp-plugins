@@ -37,7 +37,12 @@ public class AuthenticationFilter implements Filter {
 	/**
 	 * These are the queries that can be used without authentication
 	 */
-	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("SignIn", "ChangePassword", "AD_LanguageGet");
+	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("SignIn", "AD_LanguageGet");
+	/**
+	 * These are the queries that can be used without full authentication
+	 */
+	private final List<String> ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES =
+			List.of("ChangeAccess", "ChangePassword", "AD_ClientGet");
 	/**
 	 * These are the queries that are available in non-PROD environments
 	 */
@@ -104,7 +109,18 @@ public class AuthenticationFilter implements Filter {
 		if (authHeaderVal != null && authHeaderVal.startsWith("Bearer")) {
 			try {
 				AuthenticationUtil.validate(authHeaderVal.split(" ")[1], Env.getCtx());
-				MSession session = MSession.get(Env.getCtx());
+				if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))) {
+					return;
+				}
+				boolean areUsingPartiallyAuthenticatedQuery = false;
+				for (String allowableUnauthenticatedQuery : ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES) {
+					if (requestQuery.contains(allowableUnauthenticatedQuery + "(")) {
+						areUsingPartiallyAuthenticatedQuery = true;
+						break;
+					}
+				}
+				if (!areUsingPartiallyAuthenticatedQuery) {
+					MSession session = MSession.get(Env.getCtx());
 //				if (session.isProcessed()) {
 //					// is possible that the session was finished in a reboot instead of a logout
 //					// if there is a REST_AuthToken or a REST_RefreshToken, then the user has not logged out
@@ -118,10 +134,10 @@ public class AuthenticationFilter implements Filter {
 //						requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 //					}
 //				}
-				if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))
-						|| Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID)) || session.isProcessed()) {
-					abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
-					return;
+					if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID)) || session.isProcessed()) {
+						abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
+						return;
+					}
 				}
 			} catch (JWTVerificationException ex) {
 				abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);

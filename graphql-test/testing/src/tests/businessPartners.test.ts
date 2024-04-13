@@ -1,7 +1,7 @@
 import { v4 } from 'uuid';
 import { mutate, query } from '../api';
 import { documentAction, documentBaseType, documentSubTypeSalesOrder } from '../models';
-import { createBusinessPartner, createOrder, createProduct, createVisit, loadRegionAndCountry } from '../utils';
+import { createBusinessPartner, createOrder, createProduct, createVisit } from '../utils';
 import {
 	Bh_VisitProcessDocument,
 	C_BPartnerGetDocument,
@@ -16,7 +16,6 @@ import {
 test(`information saved correctly`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
-	await loadRegionAndCountry(valueObject);
 
 	valueObject.stepName = 'Create business partner';
 	const businessPartnerUuid = v4();

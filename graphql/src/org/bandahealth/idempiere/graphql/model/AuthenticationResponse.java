@@ -1,10 +1,7 @@
 package org.bandahealth.idempiere.graphql.model;
 
-import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
-import org.compiere.model.X_AD_Role;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,8 +9,6 @@ import java.util.List;
  */
 public class AuthenticationResponse extends ChangeAccessResponse {
 	private MUser_BH AD_User;
-	private List<MClient_BH> AD_Clients = new ArrayList<>();
-	private X_AD_Role AD_Role;
 	private List<String> securityQuestions;
 
 	public MUser_BH getAD_User() {
@@ -22,22 +17,6 @@ public class AuthenticationResponse extends ChangeAccessResponse {
 
 	public void setAD_User(MUser_BH AD_User) {
 		this.AD_User = AD_User;
-	}
-
-	public List<MClient_BH> getAD_Clients() {
-		return AD_Clients;
-	}
-
-	public void setAD_Clients(List<MClient_BH> AD_Clients) {
-		this.AD_Clients = AD_Clients;
-	}
-
-	public X_AD_Role getAD_Role() {
-		return AD_Role;
-	}
-
-	public void setAD_Role(X_AD_Role AD_Role) {
-		this.AD_Role = AD_Role;
 	}
 
 	public List<String> getSecurityQuestions() {

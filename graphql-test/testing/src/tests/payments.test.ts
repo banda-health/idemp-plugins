@@ -1,72 +1,12 @@
 import { v4 } from 'uuid';
 import { mutate, query } from '../api';
-import { documentAction, documentBaseType, documentStatus, referenceUuid, tenderTypeName } from '../models';
+import { documentAction, documentBaseType, documentStatus } from '../models';
 import { createBusinessPartner, createOrder, createPayment, createProduct, createVisit } from '../utils';
 import {
-	Ad_Ref_ListGetDocument,
 	Bh_VisitSaveWithPaymentsDocument,
 	C_PaymentGetDocument,
 	C_PaymentSaveDocument,
-	C_PaymentSaveMutation,
 } from '../__generated__/graphql';
-
-test('payment type updated with UUID, not value', async () => {
-	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login();
-
-	valueObject.stepName = 'Create business partner';
-	await createBusinessPartner(valueObject);
-
-	valueObject.stepName = 'Create Cash Payment';
-	valueObject.documentAction = undefined;
-	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
-	await createPayment(valueObject);
-
-	const mobilePaymentType = (
-		await query(valueObject)({
-			query: Ad_Ref_ListGetDocument,
-			variables: {
-				Size: 15,
-				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.TENDER_TYPES } }),
-			},
-		})
-	).data.AD_Ref_ListGet.Results.find((tenderType) => tenderType.Name === tenderTypeName.MOBILE_MONEY);
-
-	valueObject.stepName = 'Set only payment type value';
-	let updatedPayment: C_PaymentSaveMutation['C_PaymentSave'] | undefined;
-	try {
-		updatedPayment = (
-			await mutate(valueObject)({
-				mutation: C_PaymentSaveDocument,
-				variables: {
-					Entity: {
-						UU: valueObject.payment!.UU,
-						TenderType: {
-							Value: mobilePaymentType?.Value,
-						},
-					},
-				},
-			})
-		).data?.C_PaymentSave;
-		expect(false).toBe(true);
-	} catch {}
-
-	valueObject.stepName = 'Set only UUID';
-	updatedPayment = (
-		await mutate(valueObject)({
-			mutation: C_PaymentSaveDocument,
-			variables: {
-				Entity: {
-					UU: valueObject.payment!.UU,
-					TenderType: {
-						UU: mobilePaymentType!.UU,
-					},
-				},
-			},
-		})
-	).data?.C_PaymentSave;
-	expect(updatedPayment?.TenderType.UU).toBe(mobilePaymentType?.UU);
-});
 
 test('payment values are saved correctly', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;

@@ -32,20 +32,15 @@ test('inactive products and services not returned from the search method', async
 	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create product 2';
+	valueObject.product = undefined;
+	await createProduct(valueObject);
 	valueObject.product = (
 		await mutate(valueObject)({
 			mutation: M_ProductSaveDocument,
 			variables: {
 				Entity: {
-					AD_Org: { UU: valueObject.organization!.UU },
-					Description: valueObject.getStepMessageLong(),
-					Name: 'p2' + valueObject.getDynamicScenarioName(),
-					BH_BuyPrice: valueObject.purchaseStandardPrice ?? 1,
-					BH_SellPrice: valueObject.salesStandardPrice ?? 1,
-					C_TaxCategory: { UU: (await getDefaultTaxCategory(valueObject)).UU },
-					M_Product_Category: { UU: (await getDefaultProductCategory(valueObject)).UU },
-					C_UOM: { UU: (await query(valueObject)({ query: C_UomGetDefaultDocument })).data.C_UOMGetDefault.UU },
-					ProductType: { UU: '59dcc5c9-ab37-4f5c-9987-6e2347f50093' }, // Items
+					UU: valueObject.product!.UU,
+					Name: 'p2' + valueObject.product!.Name,
 				},
 			},
 		})

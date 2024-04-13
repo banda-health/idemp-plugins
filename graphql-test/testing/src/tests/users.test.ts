@@ -1,7 +1,8 @@
 import { v4 } from 'uuid';
-import { mutate, query } from '../api';
+import { initialLoginData, mutate, query } from '../api';
 import { createBusinessPartner } from '../utils';
 import {
+	Ad_ClientGetDocument,
 	Ad_RoleGetDocument,
 	Ad_RoleWithIncludedSaveDocument,
 	Ad_UserGetDocument,
@@ -405,21 +406,21 @@ test('user can login with created role', async () => {
 	const loginData = (
 		await query(valueObject)({
 			query: SignInDocument,
-			variables: { Credentials: { Username: user.Name, Password: '123' } },
+			variables: { Credentials: { ...initialLoginData, Username: user.Name, Password: '123' } },
 		})
 	).data.SignIn;
 	expect(loginData.Token).toBeFalsy();
 	expect(loginData.AD_User?.IsExpired).toBeTruthy();
-	expect(loginData.AD_Clients).toHaveLength(0);
 
 	const newLoginData = (
 		await query(valueObject)({
 			query: ChangePasswordDocument,
-			variables: { Credentials: { Username: user.Name, Password: '123', NewPassword: '1234' } },
+			variables: { PasswordInfo: { Username: user.Name, Password: '123', NewPassword: '1234' } },
 		})
 	).data.ChangePassword;
-	expect(newLoginData.AD_Clients.length).toBeTruthy();
-	expect(newLoginData.AD_Clients[0].AD_Orgs.length).toBeTruthy();
-	expect(newLoginData.AD_Clients[0].AD_Orgs[0].AD_Roles?.length).toBeTruthy();
-	expect(newLoginData.AD_Clients[0].AD_Orgs[0].M_Warehouses?.length).toBeTruthy();
+	const clients = (await query(valueObject)({ query: Ad_ClientGetDocument })).data.AD_ClientGet.Results;
+	expect(clients.length).toBeTruthy();
+	expect(clients[0].AD_Orgs.length).toBeTruthy();
+	expect(clients[0].AD_Orgs[0].AD_Roles?.length).toBeTruthy();
+	expect(clients[0].AD_Orgs[0].M_Warehouses?.length).toBeTruthy();
 });

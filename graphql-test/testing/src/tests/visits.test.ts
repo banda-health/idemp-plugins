@@ -19,7 +19,6 @@ import {
 	createProduct,
 	createVisit,
 	loadBankAccount,
-	loadCurrency,
 	runReport,
 	tomorrow,
 	yesterday,
@@ -141,7 +140,6 @@ test(`visit saved from scratch is correct`, async () => {
 	await createOrder(valueObject);
 
 	valueObject.stepName = 'Create and complete visit';
-	await loadCurrency(valueObject);
 	await loadBankAccount(valueObject);
 	await valueObject.setDocumentBaseType(
 		documentBaseType.SalesOrder,
@@ -494,7 +492,6 @@ test(`patient open balance correct with multiple payments`, async () => {
 	).data.AD_Ref_ListGet.Results;
 
 	valueObject.stepName = 'Complete visit';
-	await loadCurrency(valueObject);
 	await loadBankAccount(valueObject);
 	let paymentTotal = 80; // Make this match the total below
 	await mutate(valueObject)({
@@ -931,7 +928,6 @@ test('tender amount set correctly for payments', async () => {
 
 	valueObject.stepName = 'Create payment';
 	await valueObject.setDocumentBaseType(documentBaseType.ARReceipt, null, true, false, false);
-	await loadCurrency(valueObject);
 	await loadBankAccount(valueObject);
 	await mutate(valueObject)({
 		mutation: C_PaymentSaveManyDocument,
@@ -1895,7 +1891,6 @@ test(`visit with non-patient payment information can be deleted`, async () => {
 		(payerInformationField) => payerInformationField.BH_PayerInfoFieldDataType.Value === 'T',
 	)!;
 	expect(payerInformationFieldToUse).toBeTruthy();
-	await loadCurrency(valueObject);
 	await loadBankAccount(valueObject);
 	await mutate(valueObject)({
 		mutation: Bh_VisitSaveWithOrdersInvoicesPayerInformationAndPaymentsDocument,
@@ -2060,7 +2055,6 @@ test(`visit invoice updates work`, async () => {
 		(payerInformationField) => payerInformationField.BH_PayerInfoFieldDataType.Value === 'T',
 	)[0]!;
 	expect(payerInformationFieldToUse).toBeTruthy();
-	await loadCurrency(valueObject);
 	await loadBankAccount(valueObject);
 
 	const clinicalVitalsEncounterTypeWindow = (
@@ -2310,7 +2304,6 @@ test(`open balances are correct after re-openings and voiding`, async () => {
 	const orderLineUuid = randomUUID();
 
 	valueObject.stepName = 'Create visit';
-	await loadCurrency(valueObject);
 	await loadBankAccount(valueObject);
 	const tenderTypes = (
 		await query(valueObject)({

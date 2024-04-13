@@ -9,6 +9,7 @@ import {
 	C_AcctSchemaGetDocument,
 	C_BankAccountGetDocument,
 	C_BPartnerGetDocument,
+	C_BPartnerSaveWithLocationAndContactDocument,
 	C_BPartnerSaveWithLocationDocument,
 	C_ChargeSaveDocument,
 	C_InvoiceGetDocument,
@@ -23,41 +24,21 @@ import {
 	C_TaxCategoryGetDocument,
 	C_UomGetDefaultDocument,
 	M_AttributeSetInstanceGetDocument,
+	M_DiscountSchemaGetDocument,
+	M_DiscountSchemaGetQuery,
 	M_InventoryProcessDocument,
 	M_InventorySaveWithInventoryLinesDocument,
+	M_PriceListGetDocument,
+	M_PriceListSaveDocument,
+	M_PriceList_VersionGetDocument,
+	M_PriceList_VersionSaveDocument,
+	M_ProductPriceSaveManyDocument,
 	M_ProductSaveDocument,
 	M_Product_CategoryGetDocument,
 	M_StorageOnHandGetDocument,
 	M_WarehouseGetDocument,
 	ReportOutput,
 } from '../__generated__/graphql';
-
-export async function loadRegionAndCountry(valueObject: ValueObject) {
-	if (valueObject.country && valueObject.region) {
-		return;
-	}
-	const location = (
-		await query(valueObject)({
-			query: C_LocationGetDocument,
-			variables: {
-				Page: 0,
-				Size: 0,
-				Filter: JSON.stringify({ c_bpartner_location: { c_bpartner: { name: 'Standard' } } }),
-			},
-		})
-	).data.C_LocationGet.Results[0];
-	valueObject.region = location.C_Region;
-	valueObject.country = location.C_Country;
-}
-
-export async function loadCurrency(valueObject: ValueObject) {
-	if (valueObject.currency) {
-		return;
-	}
-	valueObject.currency = (
-		await query(valueObject)({ query: C_AcctSchemaGetDocument, variables: { Size: 1 } })
-	).data.C_AcctSchemaGet.Results[0].C_Currency;
-}
 
 export async function loadBankAccount(valueObject: ValueObject) {
 	if (valueObject.bankAccount) {
@@ -81,13 +62,13 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 	valueObject.validate();
 
 	if (!valueObject.businessPartner) {
-		await loadRegionAndCountry(valueObject);
-
 		const businessPartnerUuid = v4();
 		const locationUuid = v4();
+		const salesPriceListUuid = valueObject.salesPriceList?.UU || v4();
+		const purchasePriceListUuid = valueObject.purchasePriceList?.UU || v4();
 		const saveResult = (
 			await mutate(valueObject)({
-				mutation: C_BPartnerSaveWithLocationDocument,
+				mutation: C_BPartnerSaveWithLocationAndContactDocument,
 				variables: {
 					C_BPartner: {
 						UU: businessPartnerUuid,
@@ -97,6 +78,42 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 						bh_gender: { UU: '73c2b736-830b-430e-bc43-571c6372ba22' }, // male
 						IsCustomer: true,
 						IsVendor: true,
+						M_PriceList: {
+							UU:
+								valueObject.salesPriceList?.UU ||
+								(
+									await mutate(valueObject)({
+										mutation: M_PriceListSaveDocument,
+										variables: {
+											Entity: {
+												UU: salesPriceListUuid,
+												Name: 'SO_During' + valueObject.stepName + valueObject.random,
+												Description: valueObject.getStepMessageLong(),
+												IsSOPriceList: true,
+												C_Currency: { UU: valueObject.currency?.UU! },
+											},
+										},
+									})
+								).data?.M_PriceListSave.UU!,
+						},
+						PO_PriceList: {
+							UU:
+								valueObject.purchasePriceList?.UU ||
+								(
+									await mutate(valueObject)({
+										mutation: M_PriceListSaveDocument,
+										variables: {
+											Entity: {
+												UU: purchasePriceListUuid,
+												Name: 'PO_During' + valueObject.stepName + valueObject.random,
+												Description: valueObject.getStepMessageLong(),
+												IsSOPriceList: false,
+												C_Currency: { UU: valueObject.currency?.UU! },
+											},
+										},
+									})
+								).data?.M_PriceListSave.UU!,
+						},
 					},
 					C_Location: {
 						UU: locationUuid,
@@ -121,6 +138,12 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 						},
 						Name: valueObject.city + ' ' + valueObject.region?.Name,
 					},
+					AD_User: {
+						C_BPartner: { UU: businessPartnerUuid },
+						Name: valueObject.getDynamicStepMessage(),
+						NotificationType: { UU: 'ca78475e-7191-402b-9d15-7244e87620f1' }, // NOTIFICATIONTYPE_None
+						Description: valueObject.getStepMessageLong(),
+					},
 				},
 			})
 		).data;
@@ -131,6 +154,9 @@ export async function createBusinessPartner(valueObject: ValueObject) {
 			})
 		).data.C_BPartnerGet.Results[0];
 		valueObject.businessPartnerLocation = saveResult?.C_BPartner_LocationSave;
+		valueObject.user = saveResult?.AD_UserSave;
+		valueObject.salesPriceList = { UU: salesPriceListUuid };
+		valueObject.purchasePriceList = { UU: purchasePriceListUuid };
 
 		if (!valueObject.businessPartner) {
 			throw new Error('Business partner not created');
@@ -167,6 +193,109 @@ export async function createProduct(valueObject: ValueObject) {
 		).data?.M_ProductSave;
 		if (!valueObject.product) {
 			throw new Error('Product not created');
+		}
+
+		if (valueObject.businessPartner) {
+			// create PO and SO price list entries
+			const priceListDate = new Date();
+			priceListDate.setFullYear(priceListDate.getFullYear() - 1);
+
+			let salesPriceListVersion = (
+				await query(valueObject)({
+					query: M_PriceList_VersionGetDocument,
+					variables: {
+						Filter: JSON.stringify({
+							m_pricelist: { m_pricelist_uu: valueObject.businessPartner.M_PriceList?.UU! },
+							validfrom: { $lte: priceListDate.getTime() },
+						}),
+					},
+				})
+			).data.M_PriceList_VersionGet.Results[0];
+			if (!salesPriceListVersion) {
+				// get bogus price list schema - required field
+				const schema = (
+					await query(valueObject)({
+						query: M_DiscountSchemaGetDocument,
+						variables: { Filter: JSON.stringify({ discounttype: 'P' }) },
+					})
+				).data.M_DiscountSchemaGet.Results[0];
+				//
+				const uuid = v4();
+				await mutate(valueObject)({
+					mutation: M_PriceList_VersionSaveDocument,
+					variables: {
+						Entity: {
+							UU: uuid,
+							Name: priceListDate + '; IsSOTrx=Y; ' + Math.floor(Math.random() * 1000000),
+							Description: 'Create sales price list version',
+							M_PriceList: { UU: valueObject.businessPartner.M_PriceList?.UU! },
+							ValidFrom: priceListDate.getTime(),
+							M_DiscountSchema: { UU: schema.UU },
+						},
+					},
+				});
+				salesPriceListVersion = { UU: uuid };
+			}
+
+			let purchasePriceListVersion = (
+				await query(valueObject)({
+					query: M_PriceList_VersionGetDocument,
+					variables: {
+						Filter: JSON.stringify({
+							m_pricelist: { m_pricelist_uu: valueObject.businessPartner.PO_PriceList?.UU! },
+							validfrom: { $lte: priceListDate.getTime() },
+						}),
+					},
+				})
+			).data.M_PriceList_VersionGet.Results[0];
+			if (!purchasePriceListVersion) {
+				// get bogus price list schema - required field
+				const schema = (
+					await query(valueObject)({
+						query: M_DiscountSchemaGetDocument,
+						variables: { Filter: JSON.stringify({ discounttype: 'P' }) },
+					})
+				).data.M_DiscountSchemaGet.Results[0];
+				//
+				const uuid = v4();
+				await mutate(valueObject)({
+					mutation: M_PriceList_VersionSaveDocument,
+					variables: {
+						Entity: {
+							UU: uuid,
+							Name: priceListDate + '; IsSOTrx=Y; ' + Math.floor(Math.random() * 1000000),
+							Description: 'Create sales price list version',
+							M_PriceList: { UU: valueObject.businessPartner.M_PriceList?.UU! },
+							ValidFrom: priceListDate.getTime(),
+							M_DiscountSchema: { UU: schema.UU },
+						},
+					},
+				});
+				purchasePriceListVersion = { UU: uuid };
+			}
+
+			// Now set the product prices
+			await mutate(valueObject)({
+				mutation: M_ProductPriceSaveManyDocument,
+				variables: {
+					Entities: [
+						{
+							M_PriceList_Version: { UU: purchasePriceListVersion.UU },
+							M_Product: { UU: valueObject.product.UU },
+							PriceLimit: valueObject.purchaseLimitPrice,
+							PriceStd: valueObject.purchaseStandardPrice,
+							PriceList: valueObject.purchaseListPrice,
+						},
+						{
+							M_PriceList_Version: { UU: salesPriceListVersion.UU },
+							M_Product: { UU: valueObject.product.UU },
+							PriceLimit: valueObject.salesLimitPrice,
+							PriceStd: valueObject.salesStandardPrice,
+							PriceList: valueObject.salesListPrice,
+						},
+					],
+				},
+			});
 		}
 	}
 }
@@ -388,7 +517,6 @@ export async function createPayment(valueObject: ValueObject) {
 	if (!valueObject.businessPartner) {
 		throw new Error('Business Partner is Null');
 	}
-	await loadCurrency(valueObject);
 	if (!valueObject.currency) {
 		throw new Error('No Currency');
 	}

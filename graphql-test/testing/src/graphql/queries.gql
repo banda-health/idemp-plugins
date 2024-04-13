@@ -1,3 +1,29 @@
+query AD_ClientGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_ClientGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+			AD_Orgs {
+				UU
+				Name
+				AD_Roles {
+					UU
+					Name
+				}
+				M_Warehouses {
+					UU
+					Name
+					BH_DefaultWarehouse
+					IsActive
+					M_Locators {
+						UU
+					}
+				}
+			}
+		}
+	}
+}
+
 query AD_LanguageGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	AD_LanguageGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -116,6 +142,60 @@ query AD_RoleGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	AD_RoleGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			...AD_RoleFields
+		}
+	}
+}
+
+query AD_RoleGetWindowAccess($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_RoleGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...AD_RoleFields
+			AD_Window_AccessList {
+				AD_Window {
+					UU
+				}
+				BH_CanDeactivate
+				IsReadWrite
+			}
+		}
+	}
+}
+
+query AD_RoleLocationPriceListsCurrencyGet(
+	$AD_RoleFilter: String
+	$C_LocationFilter: String
+	$M_PriceListFilter: String
+) {
+	AD_RoleGet(Filter: $AD_RoleFilter) {
+		Results {
+			...AD_RoleFields
+			AD_Window_AccessList {
+				AD_Window {
+					UU
+				}
+				BH_CanDeactivate
+				IsReadWrite
+			}
+		}
+	}
+	C_LocationGet(Filter: $C_LocationFilter) {
+		Results {
+			...C_LocationFields
+		}
+	}
+	M_PriceListGet(Filter: $M_PriceListFilter) {
+		Results {
+			UU
+			Created
+			IsSOPriceList
+		}
+	}
+	C_AcctSchemaGet {
+		Results {
+			UU
+			C_Currency {
+				UU
+			}
 		}
 	}
 }
@@ -360,57 +440,6 @@ query C_UOMGetDefault {
 	}
 }
 
-query ChangeAccess($Credentials: ChangeAccessInput!) {
-	ChangeAccess(Credentials: $Credentials) {
-		Token
-	}
-}
-
-query ChangePassword($Credentials: AuthenticationInput!) {
-	ChangePassword(Credentials: $Credentials) {
-		Token
-		AD_User {
-			IsExpired
-		}
-		AD_Clients {
-			UU
-			Name
-			AD_Orgs {
-				UU
-				Name
-				AD_Roles {
-					UU
-					Name
-				}
-				M_Warehouses {
-					UU
-					Name
-					BH_DefaultWarehouse
-					IsActive
-					M_Locators {
-						UU
-					}
-				}
-			}
-		}
-		AD_Role {
-			AD_Role_IncludedList {
-				UU
-				Included_Role {
-					UU
-				}
-			}
-			AD_Window_AccessList {
-				AD_Window {
-					UU
-				}
-				BH_CanDeactivate
-				IsReadWrite
-			}
-		}
-	}
-}
-
 query DocumentStatusActionMap {
 	DocumentStatusActionMap
 }
@@ -425,6 +454,33 @@ query M_AttributeSetInstanceGet($Page: Int, $Size: Int, $Sort: String, $Filter: 
 
 query M_AttributeSetGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	M_AttributeSetGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query M_DiscountSchemaGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_DiscountSchemaGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query M_PriceList_VersionGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_PriceList_VersionGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+		PagingInfo {
+			TotalCount
+		}
+	}
+}
+
+query M_PriceListGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_PriceListGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
 		}
@@ -470,51 +526,6 @@ query M_WarehouseGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 			IsActive
 			M_Locators {
 				UU
-			}
-		}
-	}
-}
-
-query SignIn($Credentials: AuthenticationInput!) {
-	SignIn(Credentials: $Credentials) {
-		Token
-		AD_User {
-			IsExpired
-		}
-		AD_Clients {
-			UU
-			Name
-			AD_Orgs {
-				UU
-				Name
-				AD_Roles {
-					UU
-					Name
-				}
-				M_Warehouses {
-					UU
-					Name
-					BH_DefaultWarehouse
-					IsActive
-					M_Locators {
-						UU
-					}
-				}
-			}
-		}
-		AD_Role {
-			AD_Role_IncludedList {
-				UU
-				Included_Role {
-					UU
-				}
-			}
-			AD_Window_AccessList {
-				AD_Window {
-					UU
-				}
-				BH_CanDeactivate
-				IsReadWrite
 			}
 		}
 	}

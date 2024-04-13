@@ -10,6 +10,7 @@ import org.bandahealth.idempiere.graphql.utils.FilterUtil;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.bandahealth.idempiere.graphql.utils.SortUtil;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -189,9 +190,13 @@ public class Repository {
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = tableName + "." + columnToSearch;
 		}
+		String whereClause = null;
+		if (!StringUtil.isNullOrEmpty(whereCondition)) {
+			whereClause = columnToSearch + " IN (" + whereCondition + ")";
+		}
 		setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
-		List<T> models = getQuery(idempiereContext, tableName, transactionName, true, false,
-				columnToSearch + " IN (" + whereCondition + ")", parameters).list();
+		List<T> models =
+				getQuery(idempiereContext, tableName, transactionName, true, false, whereClause, parameters).list();
 		return models.stream().collect(Collectors.groupingBy(groupingFunction));
 	}
 

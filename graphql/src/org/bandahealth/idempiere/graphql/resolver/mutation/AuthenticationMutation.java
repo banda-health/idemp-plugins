@@ -8,22 +8,23 @@ import graphql.schema.DataFetchingEnvironment;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MBHRoleWarehouseAccess;
-import org.bandahealth.idempiere.base.model.MClient_BH;
 import org.bandahealth.idempiere.base.model.MMessage_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.AuthenticationResponse;
+import org.bandahealth.idempiere.graphql.model.ChangeAccessResponse;
 import org.bandahealth.idempiere.graphql.model.input.AuthenticationInput;
+import org.bandahealth.idempiere.graphql.model.input.ChangeAccessInput;
+import org.bandahealth.idempiere.graphql.model.input.ChangePasswordInput;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.LoginClaims;
 import org.bandahealth.idempiere.graphql.utils.TokenUtils;
 import org.compiere.model.MClient;
 import org.compiere.model.MOrg;
 import org.compiere.model.MRole;
-import org.compiere.model.MRoleOrgAccess;
+import org.compiere.model.MSession;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
-import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
@@ -37,12 +38,8 @@ import org.compiere.util.Util;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
  * Handle all mutations relating to authentication
@@ -56,8 +53,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	 * @param environment The environment associated with all calls, containing context.
 	 * @return An appropriate response containing a JWT token and user information.
 	 */
-	public AuthenticationResponse signIn(AuthenticationInput credentials, DataFetchingEnvironment environment) {
-//		return authenticationRepository.signIn(credentials, BandaGraphQLContext.getCtx(environment));
+	public AuthenticationResponse SignIn(AuthenticationInput credentials, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		Login login = new Login(idempiereContext);
 		// retrieve list of clients the user has access to.
@@ -81,21 +77,13 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 
 		JWTCreator.Builder builder = JWT.create().withSubject(credentials.getUsername());
 		Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
-		// expires after 60 minutes
 		builder.withIssuer(TokenUtils.getTokenIssuer()).withExpiresAt(expiresAt);
 
 		AuthenticationResponse response = new AuthenticationResponse();
 		builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
+		builder.withClaim(LoginClaims.AD_Language.name(), credentials.getAD_Language());
 		Env.setContext(idempiereContext, Env.AD_USER_ID, user.getAD_User_ID());
 		response.setAD_User(new MUser_BH(idempiereContext, user.getAD_User_ID(), null));
-
-		// has user changed client and role?
-		if (credentials.getAD_Client_UU() != null && credentials.getAD_Role_UU() != null) {
-			changeLoginProperties(credentials, builder, response, idempiereContext);
-		} else {
-			// set default properties
-			setDefaultLoginProperties(clients, user, builder, response, idempiereContext);
-		}
 
 		try {
 			// generate session token
@@ -109,145 +97,133 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	/**
 	 * The method that allows a user to change their password.
 	 *
-	 * @param credentials The login and change-password information passed in by a user.
-	 * @param environment The environment associated with all calls, containing context.
+	 * @param changePasswordInput The login and change-password information passed in by a user.
+	 * @param environment         The environment associated with all calls, containing context.
 	 * @return An appropriate response containing a JWT token and user information.
 	 */
-	public AuthenticationResponse changePassword(AuthenticationInput credentials, DataFetchingEnvironment environment) {
+	public Boolean ChangePassword(ChangePasswordInput changePasswordInput, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		Login login = new Login(idempiereContext);
 
-		if (Util.isEmpty(credentials.getUsername())) {
+		if (Util.isEmpty(changePasswordInput.getUsername())) {
 			throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.USERNAME_REQUIRED));
 		}
-		if (Util.isEmpty(credentials.getPassword())) {
-			throw new IllegalArgumentException(
-					org.compiere.util.Msg.getMsg(idempiereContext, MMessage_BH.OLD_PASSWORD_MANDATORY));
+		if (Util.isEmpty(changePasswordInput.getPassword())) {
+			throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.OLD_PASSWORD_MANDATORY));
 		}
 
 		// retrieve list of clients the user has access to.
-		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
+		KeyNamePair[] clients = login.getClients(changePasswordInput.getUsername(), changePasswordInput.getPassword());
 		// If we're here and they don't have access to clients, it means the
 		// username/password combo incorrect
 		if (clients == null || clients.length == 0) {
 			throw new AdempiereException(Msg.getMsg(idempiereContext, MMessage_BH.WRONG_CREDENTIALS));
 		}
 
-		/**
-		 * Copied from ChangePasswordPanel > validateChangePassword
-		 */
-		if (Util.isEmpty(credentials.getNewPassword())) {
+		// Copied from ChangePasswordPanel > validateChangePassword
+		if (Util.isEmpty(changePasswordInput.getNewPassword())) {
 			throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MANDATORY));
 		}
 
-		if (org.compiere.model.MSysConfig.getBooleanValue(MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
-			if (credentials.getPassword().equals(credentials.getNewPassword())) {
+		if (MSysConfig.getBooleanValue(MSysConfig.CHANGE_PASSWORD_MUST_DIFFER, true)) {
+			if (changePasswordInput.getPassword().equals(changePasswordInput.getNewPassword())) {
 				throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MUST_DIFFER));
 			}
 		}
-		MUser user = MUser.get(idempiereContext, credentials.getUsername(), credentials.getPassword());
+		MUser user = MUser.get(idempiereContext, changePasswordInput.getUsername(), changePasswordInput.getPassword());
 		if (user == null) {
 			throw new AdempiereException("Unauthorized");
 		}
 
-		updateUsersPassword(credentials, clients, idempiereContext);
-		return this.signIn(credentials, environment);
+		updateUsersPassword(changePasswordInput, clients, idempiereContext);
+		return true;
 	}
 
 	/**
 	 * JWT tokens are immutable. We have to generate a new token
-	 *
-	 * @param credentials
-	 * @return
 	 */
-	public AuthenticationResponse changeAccess(AuthenticationInput credentials, DataFetchingEnvironment environment) {
+	public ChangeAccessResponse ChangeAccess(ChangeAccessInput changeAccessInput, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		try {
 			MUser user = MUser.get(idempiereContext, Env.getAD_User_ID(idempiereContext));
 			if (user == null) {
 				throw new AdempiereException("Unauthorized");
 			}
+			MOrg organization = new MOrg(idempiereContext, changeAccessInput.getAD_Org_UU(), null);
+			if (organization.get_ID() == 0) {
+				throw new AdempiereException("Unauthorized");
+			}
+			MClient client = MClient.get(organization.getAD_Client_ID());
+			if (!client.getAD_Client_UU().equals(changeAccessInput.getAD_Client_UU())) {
+				throw new AdempiereException("Unauthorized");
+			}
+			Env.setContext(idempiereContext, Env.AD_CLIENT_ID, client.getAD_Client_ID());
+			Repository.setCopyOfPropertiesForNestedThreadUsage(idempiereContext);
 
 			// check access permissions
-			// client, role & org
-			String whereClause = MUserRoles.Table_Name + "." + MUserRoles.COLUMNNAME_AD_User_ID + " =? AND "
-					+ MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_UU + " =? AND " + MUser.Table_Name + "."
-					+ MUser.COLUMNNAME_IsActive + "=? AND " + MClient.Table_Name + "." + MClient.COLUMNNAME_IsActive
-					+ " =? AND " + MClient.Table_Name + "." + MClient.COLUMNNAME_AD_Client_UU + " =? AND "
-					+ MRoleOrgAccess.Table_Name + "." + MRoleOrgAccess.COLUMNNAME_AD_Org_ID + " IS NOT NULL";
-
-			List<Object> parameters = new ArrayList<>();
-			parameters.add(user.get_ID());
-			parameters.add(credentials.getAD_Role_UU());
-			parameters.add("Y");
-			parameters.add("Y");
-			parameters.add(credentials.getAD_Client_UU());
-
-			String joinClause = "INNER JOIN " + MUser.Table_Name + " ON " + MUserRoles.Table_Name + "."
-					+ MUserRoles.COLUMNNAME_AD_User_ID + "=" + MUser.Table_Name + "." + MUser.COLUMNNAME_AD_User_ID;
-			joinClause += " INNER JOIN " + MRole.Table_Name + " ON " + MUserRoles.Table_Name + "."
-					+ MUserRoles.COLUMNNAME_AD_Role_ID + " = " + MRole.Table_Name + "." + MRole.COLUMNNAME_AD_Role_ID;
-			joinClause += " INNER JOIN " + MClient.Table_Name + " ON " + MUserRoles.Table_Name + "."
-					+ MUserRoles.COLUMNNAME_AD_Client_ID + " = " + MClient.Table_Name + "."
-					+ MClient.COLUMNNAME_AD_Client_ID;
-			joinClause += " INNER JOIN " + MRoleOrgAccess.Table_Name + " ON " + MRoleOrgAccess.Table_Name + "."
-					+ MRoleOrgAccess.COLUMNNAME_AD_Role_ID + " = " + MUserRoles.Table_Name + "."
-					+ MUserRoles.COLUMNNAME_AD_Role_ID;
-
-			PO.setCrossTenantSafe();
-			MUserRoles userRoles = new Query(idempiereContext, MUserRoles.Table_Name, whereClause, null)
-					.addJoinClause(joinClause).setParameters(parameters).first();
-			if (userRoles == null) {
+			List<MRole> roles = Arrays.asList(user.getRoles(organization.get_ID()));
+			MRole role;
+			if (roles.isEmpty() || (role = roles.stream()
+					.filter(availableRole -> availableRole.getAD_Role_UU().equals(changeAccessInput.getAD_Role_UU())).findFirst()
+					.orElse(null)) == null) {
 				throw new AdempiereException("Unauthorized");
 			}
 
 			// check warehouse access
-			List<MBHRoleWarehouseAccess> warehouseAccessList = new Query(idempiereContext,
-					MBHRoleWarehouseAccess.Table_Name, null, null).list();
-			if (!warehouseAccessList.isEmpty()) {
-				// fetch organization
-				MOrg organization = (MOrg) Repository.getByUuids(idempiereContext, MOrg.Table_Name, null,
-						Collections.singleton(credentials.getAD_Org_UU())).get(credentials.getAD_Org_UU());
-				// get available warehouses
-				List<MWarehouse> warehouses = Arrays.asList(MWarehouse.getForOrg(idempiereContext, organization.get_ID()));
-
-				MRole role = Repository.getByUuid(idempiereContext, MRole.Table_Name, null, credentials.getAD_Role_UU());
-				Optional<MBHRoleWarehouseAccess> foundWarehouseAccess = warehouseAccessList.stream()
-						.filter((warehouseAccess) -> {
-
-							Optional<MWarehouse> foundWarehouse = warehouses.stream().filter((warehouse) -> warehouse
-									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getM_Warehouse_UU())).findFirst();
-
-							return foundWarehouse
-									.filter(mWarehouse -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() && mWarehouse
-											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getM_Warehouse_UU()))
-									.isPresent();
-						}).findAny();
-				if (foundWarehouseAccess.isEmpty()) {
-					throw new AdempiereException("Unauthorized");
-				}
+			List<MBHRoleWarehouseAccess> warehouseAccessList =
+					new Query(idempiereContext, MBHRoleWarehouseAccess.Table_Name, null, null).list();
+			MWarehouse warehouse = Arrays.stream(MWarehouse.getForOrg(idempiereContext, organization.get_ID())).filter(
+							organizationWarehouse -> organizationWarehouse.getM_Warehouse_UU()
+									.equals(changeAccessInput.getM_Warehouse_UU()))
+					.findFirst().orElse(null);
+			// If we didn't find a warehouse, or the user doesn't have access to it, unauthorized
+			if (warehouse == null || (!warehouseAccessList.isEmpty() && warehouseAccessList.stream().noneMatch(
+					warehouseAccess -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() &&
+							warehouse.get_ID() == warehouseAccess.getM_Warehouse_ID()))) {
+				throw new AdempiereException("Unauthorized");
 			}
 			PO.clearCrossTenantSafe();
 
-			JWTCreator.Builder builder = JWT.create().withSubject(credentials.getUsername());
+			JWTCreator.Builder builder = JWT.create().withSubject(user.getName());
 			Timestamp expiresAt = TokenUtils.getTokeExpiresAt();
 			// expires after 60 minutes
 			builder.withIssuer(TokenUtils.getTokenIssuer()).withExpiresAt(expiresAt);
 
 			AuthenticationResponse response = new AuthenticationResponse();
 
-			changeLoginProperties(credentials, builder, response, idempiereContext);
+			// set client id
+			Env.setContext(idempiereContext, Env.AD_CLIENT_ID, client.getAD_Client_ID());
+			builder.withClaim(LoginClaims.AD_Client_ID.name(), client.getAD_Client_ID());
 
+			// set role
+			Env.setContext(idempiereContext, Env.AD_ROLE_ID, role.getAD_Role_ID());
+			builder.withClaim(LoginClaims.AD_Role_ID.name(), role.getAD_Role_ID());
+
+			// set organization
+			Env.setContext(idempiereContext, Env.AD_ORG_ID, organization.getAD_Org_ID());
+			builder.withClaim(LoginClaims.AD_Org_ID.name(), organization.getAD_Org_ID());
+
+			// set warehouse
+			Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
+			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
+
+			// set session
+			MSession session = MSession.get(idempiereContext);
+			if (session == null) {
+				session = MSession.create(idempiereContext);
+				session.setWebSession("idempiere-graphql");
+				session.saveEx();
+			}
+			builder.withClaim(LoginClaims.AD_Session_ID.name(), session.getAD_Session_ID());
+
+			// suer user and language
 			builder.withClaim(LoginClaims.AD_User_ID.name(), user.getAD_User_ID());
-			builder.withClaim(LoginClaims.AD_Language.name(), credentials.getAD_Language());
+			builder.withClaim(LoginClaims.AD_Language.name(), Env.getAD_Language(idempiereContext));
 			Env.setContext(idempiereContext, Env.AD_USER_ID, user.getAD_User_ID());
 
 			try {
 				// generate session token
 				response.setToken(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret())));
-//				// record read-write and deactivate privileges on each window for this role
-//				response.setWindowAccessLevel(RoleUtil.accessLevelsForRole());
-//				response.setIncludedRoleUuids(RoleUtil.fetchIncludedRoleUuids());
 				return response;
 			} catch (Exception e) {
 				throw new AdempiereException("Bad request");
@@ -262,10 +238,10 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	 * Handle everything related to updating a user's password. Largely copied from
 	 * ChangePasswordPanel > validateChangePassword
 	 *
-	 * @param credentials
+	 * @param changePasswordInput
 	 * @param clients
 	 */
-	private void updateUsersPassword(AuthenticationInput credentials, KeyNamePair[] clients,
+	private void updateUsersPassword(ChangePasswordInput changePasswordInput, KeyNamePair[] clients,
 			Properties idempiereContext) {
 		Trx trx = null;
 		try {
@@ -276,13 +252,14 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			for (KeyNamePair client : clients) {
 				int clientId = client.getKey();
 				Env.setContext(idempiereContext, Env.AD_CLIENT_ID, clientId);
-				MUser clientUser = MUser.get(idempiereContext, credentials.getUsername(), credentials.getPassword());
+				MUser clientUser =
+						MUser.get(idempiereContext, changePasswordInput.getUsername(), changePasswordInput.getPassword());
 				if (clientUser == null) {
 					trx.rollback();
 					throw new AdempiereException("Could not find user");
 				}
 
-				clientUser.setPassword(credentials.getNewPassword()); // will be hashed
+				clientUser.setPassword(changePasswordInput.getNewPassword()); // will be hashed
 				// and validate
 				// on saveEx
 				clientUser.setIsExpired(false);
@@ -302,7 +279,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 				trx.close();
 		}
 		// The user's password has been updated, so update the credentials object, too
-		credentials.setPassword(credentials.getNewPassword());
+		changePasswordInput.setPassword(changePasswordInput.getNewPassword());
 	}
 
 	/**
@@ -321,105 +298,5 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		response.setAD_User(user);
 		response.setSecurityQuestions(securityQuestions);
 		return response;
-	}
-
-	/**
-	 * This function will be called when a user has changed login credentials i.e
-	 * client, role, warehouse, organization
-	 *
-	 * @param credentials
-	 * @param builder
-	 */
-	private void changeLoginProperties(AuthenticationInput credentials, JWTCreator.Builder builder,
-			AuthenticationResponse response, Properties idempiereContext) {
-		// set client id
-		if (credentials.getAD_Client_UU() != null) {
-			MClient_BH client = new Query(idempiereContext, MClient.Table_Name, MClient.COLUMNNAME_AD_Client_UU +
-					"=?", null).setParameters(credentials.getAD_Client_UU()).first();
-			if (client != null) {
-				response.getAD_Clients().add(client);
-
-				Env.setContext(idempiereContext, Env.AD_CLIENT_ID, client.getAD_Client_ID());
-				builder.withClaim(LoginClaims.AD_Client_ID.name(), client.getAD_Client_ID());
-			}
-		}
-
-		// set role
-		if (credentials.getAD_Role_UU() != null) {
-			MRole role = new Query(idempiereContext, MRole.Table_Name, MRole.COLUMNNAME_AD_Role_UU + "=?",
-					null).setParameters(credentials.getAD_Role_UU()).first();
-			Env.setContext(idempiereContext, Env.AD_ROLE_ID, role.getAD_Role_ID());
-			builder.withClaim(LoginClaims.AD_Role_ID.name(), role.getAD_Role_ID());
-			response.setAD_Role(role);
-		}
-
-		// check organization
-		if (credentials.getAD_Org_UU() != null) {
-			MOrg organization = new Query(idempiereContext, MOrg.Table_Name, MOrg.COLUMNNAME_AD_Org_UU + "=?",
-					null).setParameters(credentials.getAD_Org_UU()).first();
-			Env.setContext(idempiereContext, Env.AD_ORG_ID, organization.getAD_Org_ID());
-			builder.withClaim(LoginClaims.AD_Org_ID.name(), organization.getAD_Org_ID());
-		}
-
-		// check warehouse
-		if (credentials.getM_Warehouse_UU() != null) {
-			MWarehouse warehouse = new Query(idempiereContext, MWarehouse.Table_Name,
-					MWarehouse.COLUMNNAME_M_Warehouse_UU + "=?", null)
-					.setParameters(credentials.getM_Warehouse_UU()).first();
-			Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
-			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
-		}
-	}
-
-	/**
-	 * Set default properties
-	 *
-	 * @param clients
-	 * @param user
-	 * @param builder
-	 * @param response
-	 */
-	private void setDefaultLoginProperties(KeyNamePair[] clients, MUser user, JWTCreator.Builder builder,
-			AuthenticationResponse response, Properties idempiereContext) {
-		// parse all clients that the user has access to.
-		PO.setCrossTenantSafe();
-		Repository.setApplyAccessFilterNotNeeded();
-		Map<Integer, MClient_BH> clientsById = Repository.getByIds(idempiereContext, MClient_BH.Table_Name, null,
-				Arrays.stream(clients).map(KeyNamePair::getKey).collect(Collectors.toSet()));
-
-		response.setAD_Clients(new ArrayList<>(clientsById.values()));
-
-		// set default client
-		if (clients.length == 1) {
-			Env.setContext(idempiereContext, Env.AD_CLIENT_ID, clients[0].getKey());
-			builder.withClaim(LoginClaims.AD_Client_ID.name(), clients[0].getKey());
-
-			MOrg[] organizations =
-					MOrg.getOfClient(new org.compiere.model.MClient(idempiereContext, clients[0].getKey(), null));
-
-			// set default org
-			if (organizations.length == 1) {
-				Env.setContext(idempiereContext, Env.AD_ORG_ID, organizations[0].getAD_Org_ID());
-				builder.withClaim(LoginClaims.AD_Org_ID.name(), organizations[0].getAD_Org_ID());
-
-				// check roles
-				MRole[] roles = user.getRoles(organizations[0].getAD_Org_ID());
-				if (roles.length == 1) {
-					MRole role = roles[0];
-					Env.setContext(idempiereContext, Env.AD_ROLE_ID, role.getAD_Role_ID());
-					builder.withClaim(LoginClaims.AD_Role_ID.name(), role.getAD_Role_ID());
-					response.setAD_Role(role);
-				}
-
-				MWarehouse[] warehouses = MWarehouse.getForOrg(idempiereContext, organizations[0].getAD_Org_ID());
-				// set default warehouse
-				if (warehouses.length == 1) {
-					Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouses[0].get_ID());
-					builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouses[0].get_ID());
-				}
-			}
-		}
-		Repository.clearApplyAccessFilterNotNeeded();
-		PO.clearCrossTenantSafe();
 	}
 }

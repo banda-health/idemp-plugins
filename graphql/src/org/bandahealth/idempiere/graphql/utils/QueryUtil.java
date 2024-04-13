@@ -24,6 +24,9 @@ public class QueryUtil {
 	 * @return A where clause with the number of question marks, comma-delimited, for the number of parameters
 	 */
 	public static <T> String getWhereClauseAndSetParametersForSet(Set<T> items, List<Object> parameters) {
+		if (items.isEmpty()) {
+			return "";
+		}
 		String parameterList = "?,".repeat(items.size());
 		parameters.addAll(items);
 		return parameterList.substring(0, parameterList.length() - 1);

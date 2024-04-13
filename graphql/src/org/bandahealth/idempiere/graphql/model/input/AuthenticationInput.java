@@ -1,10 +1,17 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-public class AuthenticationInput extends ChangeAccessInput {
+public class AuthenticationInput {
+	private String username;
 	private String password;
-	private String newPassword;
-	private String securityQuestion;
-	private String answer;
+	private String AD_Language;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public String getPassword() {
 		return password;
@@ -14,27 +21,11 @@ public class AuthenticationInput extends ChangeAccessInput {
 		this.password = password;
 	}
 
-	public String getNewPassword() {
-		return newPassword;
+	public String getAD_Language() {
+		return AD_Language;
 	}
 
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-
-	public String getSecurityQuestion() {
-		return securityQuestion;
-	}
-
-	public void setSecurityQuestion(String securityQuestion) {
-		this.securityQuestion = securityQuestion;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setAD_Language(String AD_Language) {
+		this.AD_Language = AD_Language;
 	}
 }

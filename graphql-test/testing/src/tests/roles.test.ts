@@ -15,7 +15,7 @@ test('role can be created and adjusted', async () => {
 	await valueObject.login();
 
 	valueObject.stepName = 'Create role';
-	let role = (
+	const roleUuid = (
 		await mutate(valueObject)({
 			mutation: Ad_RoleSaveDocument,
 			variables: {
@@ -28,7 +28,13 @@ test('role can be created and adjusted', async () => {
 				},
 			},
 		})
-	).data!.AD_RoleSave!;
+	).data?.AD_RoleSave.UU;
+	let role = (
+		await query(valueObject)({
+			query: Ad_RoleGetDocument,
+			variables: { Filter: JSON.stringify({ ad_role_uu: roleUuid }) },
+		})
+	).data.AD_RoleGet.Results[0];
 	expect(role).toBeTruthy();
 	expect(role.AD_Role_IncludedList).toBeFalsy();
 	expect(role.IsMasterRole).toBe(false);
