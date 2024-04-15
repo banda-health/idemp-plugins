@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Encounter_Diagnosis
  *  @author iDempiere (generated) 
- *  @version Release 8.2
+ *  @version Release 11
  */
 @SuppressWarnings("all")
 public interface I_BH_Encounter_Diagnosis 
@@ -46,8 +46,8 @@ public interface I_BH_Encounter_Diagnosis
     /** Column name AD_Client_ID */
     public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
 
-	/** Get Client.
-	  * Client/Tenant for this installation.
+	/** Get Tenant.
+	  * Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
 
@@ -55,25 +55,25 @@ public interface I_BH_Encounter_Diagnosis
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
 	/** Set Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
 	/** Get Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Coded_Diagnosis_ID */
-    public static final String COLUMNNAME_BH_Coded_Diagnosis_ID = "BH_Coded_Diagnosis_ID";
+    /** Column name BH_Concept_ID */
+    public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
 
-	/** Set Coded Diagnosis	  */
-	public void setBH_Coded_Diagnosis_ID (int BH_Coded_Diagnosis_ID);
+	/** Set Concept	  */
+	public void setBH_Concept_ID (int BH_Concept_ID);
 
-	/** Get Coded Diagnosis	  */
-	public int getBH_Coded_Diagnosis_ID();
+	/** Get Concept	  */
+	public int getBH_Concept_ID();
 
-	public I_BH_Coded_Diagnosis getBH_Coded_Diagnosis() throws RuntimeException;
+	public I_BH_Concept getBH_Concept() throws RuntimeException;
 
     /** Column name BH_Encounter_Diagnosis_ID */
     public static final String COLUMNNAME_BH_Encounter_Diagnosis_ID = "BH_Encounter_Diagnosis_ID";
