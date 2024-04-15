@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.model.input;
 
-public class AuthenticationInput {
+public class AuthenticationInput extends ChangeAccessInput {
 	private String username;
 	private String password;
 	private String AD_Language;

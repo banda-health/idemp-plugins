@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * The authentication response returned from the methods that are for signing in.
  */
-public class AuthenticationResponse extends ChangeAccessResponse {
+public class AuthenticationResponse {
 	private MUser_BH AD_User;
 	private List<String> securityQuestions;
 

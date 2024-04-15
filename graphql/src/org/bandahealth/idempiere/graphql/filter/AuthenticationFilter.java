@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.filter;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bandahealth.idempiere.graphql.model.AuthenticationCookie;
 import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MSession;
@@ -15,6 +16,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.core.HttpHeaders;
@@ -103,23 +105,23 @@ public class AuthenticationFilter implements Filter {
 			}
 		}
 
-		String authHeaderVal = bandaRequest.getHeader(HttpHeaders.AUTHORIZATION);
+		Cookie authenticationCookie = AuthenticationCookie.getAuthenticationCookie(bandaRequest);
 
-		// consume JWT i.e. execute signature validation
-		if (authHeaderVal != null && authHeaderVal.startsWith("Bearer")) {
+		// consume JWT from cookie i.e. execute signature validation
+		if (authenticationCookie != null) {
 			try {
-				AuthenticationUtil.validate(authHeaderVal.split(" ")[1], Env.getCtx());
+				AuthenticationUtil.validate(authenticationCookie.getValue(), Env.getCtx());
 				if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))) {
 					return;
 				}
-				boolean areUsingPartiallyAuthenticatedQuery = false;
+				boolean doesRequestContainQueryAllowableWhenPartiallyAuthenticated = false;
 				for (String allowableUnauthenticatedQuery : ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES) {
-					if (requestQuery.contains(allowableUnauthenticatedQuery + "(")) {
-						areUsingPartiallyAuthenticatedQuery = true;
+					if (requestQuery.contains(allowableUnauthenticatedQuery)) {
+						doesRequestContainQueryAllowableWhenPartiallyAuthenticated = true;
 						break;
 					}
 				}
-				if (!areUsingPartiallyAuthenticatedQuery) {
+				if (!doesRequestContainQueryAllowableWhenPartiallyAuthenticated) {
 					MSession session = MSession.get(Env.getCtx());
 //				if (session.isProcessed()) {
 //					// is possible that the session was finished in a reboot instead of a logout

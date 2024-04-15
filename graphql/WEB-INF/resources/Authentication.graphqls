@@ -1,11 +1,10 @@
 extend type Mutation {
-	ChangeAccess(Access: ChangeAccessInput!): ChangeAccessResponse!
+	ChangeAccess(Access: ChangeAccessInput!): Boolean
 	ChangePassword(PasswordInfo: ChangePasswordInput!): Boolean!
 	SignIn(Credentials: AuthenticationInput!): AuthenticationResponse!
 }
 
 type AuthenticationResponse {
-	Token: String
 	AD_User: AD_User
 	SecurityQuestions: [String!]
 }
@@ -14,10 +13,10 @@ input AuthenticationInput {
 	Username: String!
 	Password: String!
 	AD_Language: String!
-}
-
-type ChangeAccessResponse {
-	Token: String!
+	AD_Client_UU: String
+	AD_Role_UU: String
+	AD_Org_UU: String
+	M_Warehouse_UU: String
 }
 
 input ChangeAccessInput {

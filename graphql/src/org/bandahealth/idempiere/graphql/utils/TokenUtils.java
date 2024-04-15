@@ -36,6 +36,8 @@ import java.sql.Timestamp;
  */
 public class TokenUtils {
 
+	public static final String GRAPHQL_ENVIRONMENT_SECRET_KEY = "GRAPHQL_ENVIRONMENT_SECRET";
+
 	private TokenUtils() {
 	}
 
@@ -46,6 +48,10 @@ public class TokenUtils {
 		ITokenSecretProvider provider = Service.locator().locate(ITokenSecretProvider.class).getService();
 		if (provider != null) {
 			return provider.getSecret();
+		}
+		// If the user has defined a secret in their environment, get it
+		if (System.getenv(GRAPHQL_ENVIRONMENT_SECRET_KEY) != null) {
+			return System.getenv(GRAPHQL_ENVIRONMENT_SECRET_KEY);
 		}
 		return DefaultTokenSecretProvider.instance.getSecret();
 	}
