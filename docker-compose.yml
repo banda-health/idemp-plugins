@@ -5,6 +5,7 @@ services:
       - postgres
     volumes:
       - ./testing:${INSTALLATION_HOME}
+      - ./idempiere-logs:/opt/idempiere/log
     environment:
       - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
       - DB_HOST=${POSTGRES_HOST}
@@ -39,6 +40,8 @@ services:
         condition: service_healthy
       external-mocks:
         condition: service_started
+    volumes:
+      - ./db-output:/app/output
     environment:
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_REST_TEST_CLIENT=${IDEMPIERE_REST_TEST_CLIENT}
