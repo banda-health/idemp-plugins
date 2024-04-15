@@ -26,6 +26,8 @@ public class Concept extends BaseMetadata {
 	private List<ConceptMapping> toConceptMappings = new ArrayList<>();
 	private List<ConceptExtra> conceptExtras = new ArrayList<>();
 	private List<Concept> fromConceptMappings = new ArrayList<>();
+	private List<ConceptName> conceptNames = new ArrayList<>();
+	private List<ClientConcept> clientConcepts = new ArrayList<>();
 	
 	public Concept() {
 	}
@@ -156,5 +158,21 @@ public class Concept extends BaseMetadata {
 
 	public void setFromConceptMappings(List<Concept> fromConceptMappings) {
 		this.fromConceptMappings = fromConceptMappings;
+	}
+	
+	public List<ConceptName> getConceptNames() {
+		return conceptNames;
+	}
+	
+	public void setConceptNames(List<ConceptName> conceptNames) {
+		this.conceptNames = conceptNames;
+	}
+
+	public List<ClientConcept> getClientConcepts() {
+		return clientConcepts;
+	}
+	
+	public void setClientConcepts(List<ClientConcept> clientConcepts) {
+		this.clientConcepts = clientConcepts;
 	}
 }
