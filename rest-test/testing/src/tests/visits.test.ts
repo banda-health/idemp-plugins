@@ -2652,7 +2652,7 @@ test('lab diagnostic fields', async () => {
 				lineNo: 1,
 				concept: { uuid: concepts[0]?.uuid },
 				value: CONCEPT_RESULT_1,
-				status: 'c',
+				status: 'C',
 			} as EncounterDiagnostic,
 		],
 	};
