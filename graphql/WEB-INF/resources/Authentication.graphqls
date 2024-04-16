@@ -2,6 +2,7 @@ extend type Mutation {
 	ChangeAccess(Access: ChangeAccessInput!): Boolean
 	ChangePassword(PasswordInfo: ChangePasswordInput!): Boolean!
 	SignIn(Credentials: AuthenticationInput!): AuthenticationResponse!
+	Logout: Boolean!
 }
 
 type AuthenticationResponse {

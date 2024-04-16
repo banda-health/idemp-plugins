@@ -402,6 +402,9 @@ test('user can login with created role', async () => {
 		})
 	).data.AD_UserGet.Results[0];
 
+	valueObject.stepName = 'Log out';
+	await valueObject.logout();
+
 	valueObject.stepName = 'Log in as user';
 	const loginData = (
 		await query(valueObject)({
@@ -409,16 +412,15 @@ test('user can login with created role', async () => {
 			variables: { Credentials: { ...initialLoginData, Username: user.Name, Password: '123' } },
 		})
 	).data.SignIn;
-	expect(loginData.Token).toBeFalsy();
+	expect(valueObject.sessionToken).toBeFalsy();
 	expect(loginData.AD_User?.IsExpired).toBeTruthy();
 
-	const newLoginData = (
-		await query(valueObject)({
-			query: ChangePasswordDocument,
-			variables: { PasswordInfo: { Username: user.Name, Password: '123', NewPassword: '1234' } },
-		})
-	).data.ChangePassword;
+	await mutate(valueObject)({
+		mutation: ChangePasswordDocument,
+		variables: { PasswordInfo: { Username: user.Name, Password: '123', NewPassword: '1234' } },
+	});
 	const clients = (await query(valueObject)({ query: Ad_ClientGetDocument })).data.AD_ClientGet.Results;
+	expect(valueObject.sessionToken).toBeTruthy();
 	expect(clients.length).toBeTruthy();
 	expect(clients[0].AD_Orgs.length).toBeTruthy();
 	expect(clients[0].AD_Orgs[0].AD_Roles?.length).toBeTruthy();

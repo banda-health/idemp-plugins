@@ -15,7 +15,7 @@ import {
 	M_PriceListSaveMutation,
 	M_PriceList_VersionGetDocument,
 	M_PriceList_VersionSaveDocument,
-	SignInDocument,
+	SignInDocument
 } from '../__generated__/graphql';
 
 const workingDirectory = join(tmpdir(), 'rest-global-setup');
@@ -153,21 +153,22 @@ async function createDefaultPriceLists(
 					M_DiscountSchema: { UU: schema.UU },
 				},
 			},
-			context,
 		});
 	}
 }
 
 export default async function () {
 	let loginInfo: LoginInfo = {} as LoginInfo;
-	const { data } = await graphqlClient.mutate({
+	const valueObject = { sessionToken: undefined };
+	await graphqlClient.mutate({
 		mutation: SignInDocument,
 		variables: { Credentials: initialLoginData },
+		context: { valueObject },
 	});
-	if (!data?.SignIn.Token) {
+	if (!valueObject.sessionToken) {
 		throw new Error('no token generated');
 	}
-	loginInfo.token = data?.SignIn.Token;
+	loginInfo.token = valueObject.sessionToken;
 	const {
 		data: {
 			AD_ClientGet: { Results: clients },
@@ -208,10 +209,10 @@ export default async function () {
 		const { data } = await graphqlClient.query({
 			query: ChangeAccessDocument,
 			variables: { Access: baseLoginData },
-			context: { valueObject: { sessionToken: loginInfo.token } },
+			context: { valueObject },
 		});
 		// Update the session token appropriately
-		loginInfo.token = data.ChangeAccess.Token;
+		loginInfo.token = valueObject.sessionToken;
 
 		// Get some initial data
 		const { data: initialData } = await graphqlClient.query({
@@ -221,7 +222,7 @@ export default async function () {
 				C_LocationFilter: JSON.stringify({ c_bpartner_location: { c_bpartner: { name: 'Standard' } } }),
 				M_PriceListFilter: JSON.stringify({ isdefault: true }),
 			},
-			context: { valueObject: { sessionToken: loginInfo.token } },
+			context: { valueObject },
 		});
 		loginInfo.AD_Role = initialData.AD_RoleGet.Results[0];
 		loginInfo.C_Region = initialData.C_LocationGet.Results[0].C_Region;

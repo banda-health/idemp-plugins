@@ -19,7 +19,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,12 +38,12 @@ public class AuthenticationFilter implements Filter {
 	/**
 	 * These are the queries that can be used without authentication
 	 */
-	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("SignIn", "AD_LanguageGet");
+	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("SignIn", "ChangePassword", "AD_LanguageGet");
 	/**
 	 * These are the queries that can be used without full authentication
 	 */
 	private final List<String> ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES =
-			List.of("ChangeAccess", "ChangePassword", "AD_ClientGet");
+			List.of("ChangeAccess", "AD_ClientGet");
 	/**
 	 * These are the queries that are available in non-PROD environments
 	 */

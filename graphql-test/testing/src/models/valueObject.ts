@@ -4,7 +4,6 @@ import { RoleName } from '../types/roleName';
 import { getDateOffset } from '../utils';
 import {
 	Ad_Ref_ListGetQuery,
-	Ad_RoleGetDocument,
 	Ad_RoleGetWindowAccessDocument,
 	Bh_VisitGetQuery,
 	ChangeAccessDocument,
@@ -13,7 +12,6 @@ import {
 	C_BankAccountGetQuery,
 	C_BPartnerGetQuery,
 	C_BPartnerSaveWithLocationAndContactMutation,
-	C_BPartnerSaveWithLocationAndContactMutationVariables,
 	C_BPartnerSaveWithLocationMutation,
 	C_ChargeSaveMutation,
 	C_DocTypeGetDocument,
@@ -24,6 +22,7 @@ import {
 	C_OrderGetQuery,
 	C_OrderSaveWithOrderLinesMutation,
 	C_PaymentSaveMutation,
+	LogoutDocument,
 	M_AttributeSetInstanceSaveMutation,
 	M_InventorySaveWithInventoryLinesMutation,
 	M_PriceListSaveMutation,
@@ -146,8 +145,8 @@ export class ValueObject {
 			AD_Role_UU: roleToUse?.UU!,
 			M_Warehouse_UU: this.warehouse?.UU!,
 		};
-		const { data } = await mutate(this)({ mutation: ChangeAccessDocument, variables: { Access: baseLoginData } });
-		if (!data?.ChangeAccess.Token) {
+		await mutate(this)({ mutation: ChangeAccessDocument, variables: { Access: baseLoginData } });
+		if (!this.sessionToken) {
 			throw Error('could not change access');
 		}
 		this.prepareIt({
@@ -158,18 +157,19 @@ export class ValueObject {
 					variables: { Filter: JSON.stringify({ ad_role_uu: roleToUse?.UU }) },
 				})
 			).data.AD_RoleGet.Results[0],
-			token: data.ChangeAccess.Token,
+			token: this.sessionToken,
 			AD_Role_UU: roleToUse?.UU,
 		});
 
 		return this.validate();
 	}
 
-	logout() {
+	async logout() {
 		this.client = undefined;
 		this.organization = undefined;
 		this.role = undefined;
 		this.warehouse = undefined;
+		await mutate(this)({ mutation: LogoutDocument });
 		this.sessionToken = undefined;
 	}
 
@@ -284,7 +284,6 @@ export class ValueObject {
 						docsubtypeinv: documentSalesSubType?.inventory ? documentSalesSubType.inventory : { $null: true },
 					}),
 				},
-				context: { valueObject: this },
 			})
 		).data.C_DocTypeGet.Results[0];
 	}

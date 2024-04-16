@@ -1,12 +1,3 @@
-mutation LogoAndAD_OrgInfoSave($Logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInput!) {
-	AD_ImageSave(Entity: $Logo) {
-		UU
-	}
-	AD_OrgInfoSave(Entity: $AD_OrgInfo) {
-		UU
-	}
-}
-
 mutation AD_OrgInfoSave($AD_OrgInfo: AD_OrgInfoInput!) {
 	AD_OrgInfoSave(Entity: $AD_OrgInfo) {
 		UU
@@ -662,13 +653,24 @@ mutation C_ValidCombinationGetOrCreate(
 }
 
 mutation ChangeAccess($Access: ChangeAccessInput!) {
-	ChangeAccess(Access: $Access) {
-		Token
-	}
+	ChangeAccess(Access: $Access)
 }
 
 mutation ChangePassword($PasswordInfo: ChangePasswordInput!) {
 	ChangePassword(PasswordInfo: $PasswordInfo)
+}
+
+mutation LogoAndAD_OrgInfoSave($Logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInput!) {
+	AD_ImageSave(Entity: $Logo) {
+		UU
+	}
+	AD_OrgInfoSave(Entity: $AD_OrgInfo) {
+		UU
+	}
+}
+
+mutation Logout {
+	Logout
 }
 
 mutation M_AttributeSetInstanceSave($Entity: M_AttributeSetInstanceInput!) {
@@ -766,7 +768,6 @@ mutation M_ProductSaveMany($Entities: [M_ProductInput!]!) {
 
 mutation SignIn($Credentials: AuthenticationInput!) {
 	SignIn(Credentials: $Credentials) {
-		Token
 		AD_User {
 			IsExpired
 		}

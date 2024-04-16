@@ -30,6 +30,7 @@ import org.compiere.model.MUser;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.KeyNamePair;
 import org.compiere.util.Login;
@@ -37,6 +38,7 @@ import org.compiere.util.Msg;
 import org.compiere.util.Trx;
 import org.compiere.util.Util;
 
+import javax.servlet.http.Cookie;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +49,8 @@ import java.util.Properties;
  * Handle all mutations relating to authentication
  */
 public class AuthenticationMutation implements GraphQLMutationResolver {
+
+	private static final CLogger log = CLogger.getCLogger(AuthenticationMutation.class);
 
 	/**
 	 * The sign-in method to authentication a user
@@ -134,6 +138,11 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		}
 
 		updateUsersPassword(changePasswordInput, clients, idempiereContext);
+		JWTCreator.Builder builder = JWT.create();
+		handleAccessChange(null, user, builder, idempiereContext);
+		// generate session cookie
+		((GraphQLServletContext) environment.getContext()).getHttpServletResponse()
+				.addCookie(new AuthenticationCookie(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret()))));
 		return true;
 	}
 
@@ -166,6 +175,25 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	}
 
 	/**
+	 * Logs the current user out and ends the session
+	 *
+	 * @param environment The data fetching environment
+	 * @return Whether the logout was successful
+	 */
+	public Boolean Logout(DataFetchingEnvironment environment) {
+		try {
+			MSession.get(BandaGraphQLContext.getCtx(environment)).logout();
+		} catch (Exception e) {
+			log.warning("Could not log session out with ID : " +
+					MSession.get(BandaGraphQLContext.getCtx(environment)).getAD_Session_ID());
+		}
+		Cookie authenticationCookieToClear = new AuthenticationCookie("");
+		authenticationCookieToClear.setMaxAge(0);
+		((GraphQLServletContext) environment.getContext()).getHttpServletResponse().addCookie(authenticationCookieToClear);
+		return true;
+	}
+
+	/**
 	 * Handle setting up the token correctly based on the requested access
 	 *
 	 * @param changeAccessInput The desired access information
@@ -195,7 +223,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		Env.setContext(idempiereContext, Env.AD_USER_ID, user.getAD_User_ID());
 
 		// If there isn't an organization, we can't do anything, so just return
-		if (StringUtil.isNullOrEmpty(changeAccessInput.getAD_Org_UU())) {
+		if (changeAccessInput == null || StringUtil.isNullOrEmpty(changeAccessInput.getAD_Org_UU())) {
 			return;
 		}
 		MOrg organization = new MOrg(idempiereContext, changeAccessInput.getAD_Org_UU(), null);

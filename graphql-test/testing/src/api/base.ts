@@ -14,14 +14,25 @@ const httpLink = createHttpLink({
 	uri: IDEMPIERE_ENDPOINT,
 });
 
+// Since cookies aren't handled in Node, we need to handle them ourselves
 const authLink = new ApolloLink((operation, forward) => {
-	const token = (operation.getContext() as { valueObject?: ValueObject }).valueObject?.sessionToken || '';
-	operation.setContext({
-		headers: {
-			authorization: token ? `Bearer ${token}` : '',
-		},
+	const { valueObject } = operation.getContext() as { valueObject?: ValueObject };
+	// If a session cookies is present, set it appropriately
+	if (valueObject?.sessionToken) {
+		operation.setContext(({ headers = {} }) => ({
+			headers: {
+				...headers,
+				Cookie: valueObject.sessionToken,
+			},
+		}));
+	}
+	return forward(operation).map((response) => {
+		// If this was a login/change access request, we'll get a cookie back - set it
+		if (valueObject && operation.getContext().response.headers.getSetCookie()[0]) {
+			valueObject.sessionToken = operation.getContext().response.headers.getSetCookie()[0];
+		}
+		return response;
 	});
-	return forward(operation);
 });
 
 export const graphqlClient = new ApolloClient({

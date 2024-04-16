@@ -25,11 +25,10 @@ test('error returned if wrong username/password', async () => {
 test('change access call works', async () => {
 	// Get a list of ALL the clients we have access to, but then log in normally
 	const valueObject = globalThis.__VALUE_OBJECT__;
-	const { data } = await mutate(valueObject)({
+	await mutate(valueObject)({
 		mutation: SignInDocument,
 		variables: { Credentials: initialLoginData },
 	});
-	valueObject.sessionToken = data?.SignIn.Token!;
 	const clients = (await query(valueObject)({ query: Ad_ClientGetDocument })).data.AD_ClientGet.Results;
 	await valueObject.login();
 
@@ -43,7 +42,8 @@ test('change access call works', async () => {
 	expect(roleUser).toBeTruthy();
 
 	// Try to switch access to the new role
-	const { data: accessData } = await mutate(valueObject)({
+	const originalCookie = valueObject.sessionToken;
+	await mutate(valueObject)({
 		mutation: ChangeAccessDocument,
 		variables: {
 			Access: {
@@ -53,11 +53,8 @@ test('change access call works', async () => {
 				AD_Role_UU: roleUser!.UU,
 			},
 		},
-		context: {
-			valueObject,
-		},
 	});
 
 	//Expect the token to change
-	expect(accessData?.ChangeAccess.Token).not.toBe(valueObject.sessionToken);
+	expect(valueObject.sessionToken).not.toBe(originalCookie);
 });
