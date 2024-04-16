@@ -6,7 +6,6 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,8 +19,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductRestService extends BaseRestService<Product, MProduct_BH, ProductDBService> {
 
-	@Autowired
-	private ProductDBService dbService;
+	private final ProductDBService dbService = new ProductDBService();
 
 	@GET
 	@Path(IRestConfigs.SEARCH_ITEMS_PATH)

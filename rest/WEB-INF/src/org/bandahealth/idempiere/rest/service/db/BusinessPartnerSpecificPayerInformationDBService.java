@@ -6,14 +6,10 @@ import org.bandahealth.idempiere.rest.model.BusinessPartnerSpecificPayerInformat
 import org.bandahealth.idempiere.rest.utils.ModelUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class BusinessPartnerSpecificPayerInformationDBService
 		extends BaseDBService<BusinessPartnerSpecificPayerInformation, MBHBPSpecificPayerInfo> {
-	@Autowired
-	private PayerInformationFieldDBService payerInformationFieldDBService;
+	private final PayerInformationFieldDBService payerInformationFieldDBService = new PayerInformationFieldDBService();
 
 	@Override
 	public BusinessPartnerSpecificPayerInformation saveEntity(BusinessPartnerSpecificPayerInformation entity) {

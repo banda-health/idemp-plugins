@@ -234,7 +234,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15" rowSpan="1">
-							<textField isStretchWithOverflow="true" pattern="dd MMM yyyy" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" pattern="dd MMM yyyy" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="80" height="15" uuid="5787820a-0aaf-40bf-bd59-0afac03294e6"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle">
@@ -360,7 +360,7 @@ WHERE
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="table 1_TD" height="15">
-							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 								<reportElement x="0" y="0" width="120" height="15" uuid="02a6ca44-9b6e-49e7-9769-f1d44e565d82"/>
 								<box leftPadding="2"/>
 								<textElement verticalAlignment="Middle"/>

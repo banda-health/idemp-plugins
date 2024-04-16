@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.bandahealth.idempiere</groupId>
 		<artifactId>org.bandahealth.idempiere</artifactId>
-		<version>7.1.0-SNAPSHOT</version>
+		<version>11.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>com.chuboe.test.populate</artifactId>
 	<packaging>eclipse-plugin</packaging>
@@ -113,4 +113,3 @@
 		</plugins>
 	</build>
 </project>
-

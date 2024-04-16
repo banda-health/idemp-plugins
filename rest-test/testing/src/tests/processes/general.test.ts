@@ -49,7 +49,7 @@ test('report names are correct', async () => {
 	expect(reportMenuList.find((menu) => menu.name === 'MoH705B Out Patient Over 5yr Summary')).toBeTruthy();
 	expect(reportMenuList.find((menu) => menu.name === 'MoH717 New and Revisit Patient Count')).toBeTruthy();
 	expect(reportMenuList.find((menu) => menu.name === 'MoH705A Out Patient Under 5yr Summary')).toBeTruthy();
-	expect(reportMenuList.find((menu) => menu.name === 'Patient Visits and Referrals')).toBeTruthy();
+	expect(reportMenuList.find((menu) => menu.name === 'Patient Visits and Referrals')).not.toBeTruthy();
 	expect(reportMenuList.find((menu) => menu.name === 'Patient Transactions')).toBeTruthy();
 	expect(reportMenuList.find((menu) => menu.name === 'Value of Opening and Closing Stock ')).toBeTruthy();
 	expect(reportMenuList.find((menu) => menu.name === 'Donor Fund Report')).toBeTruthy();

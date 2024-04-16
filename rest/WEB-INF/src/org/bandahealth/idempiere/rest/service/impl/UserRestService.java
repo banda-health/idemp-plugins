@@ -6,7 +6,6 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.User;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.UserDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -20,8 +19,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserRestService extends BaseRestService<User, MUser_BH, UserDBService> {
 
-	@Autowired
-	private UserDBService dbService;
+	private final UserDBService dbService = new UserDBService();
 
 	@GET
 	@Path(IRestConfigs.CLINICIANS_PATH)

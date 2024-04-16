@@ -1,16 +1,12 @@
 package org.bandahealth.idempiere.rest.service.impl;
 
 import org.bandahealth.idempiere.base.model.MBHVisit;
-import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Visit;
-import org.bandahealth.idempiere.rest.model.VoidedReason;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.VisitDBService;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,8 +28,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class VisitRestService extends BaseRestService<Visit, MBHVisit, VisitDBService> {
 
-	@Autowired
-	private VisitDBService dbService;
+	private final VisitDBService dbService = new VisitDBService();
 
 	@GET
 	@Path(IRestConfigs.VISIT_QUEUE_PATH)

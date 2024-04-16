@@ -70,8 +70,8 @@ public class ProductModelEvent extends AbstractEventHandler {
 		char isSellingPrice = isSoPrice ? 'Y' : 'N';
 		// get existing (default) sales price-list
 		priceList = QueryUtil.getQueryByOrgAndClient(clientId, orgId, context, MPriceList.Table_Name,
-						"isdefault='Y'" + " and issopricelist='" + isSellingPrice + "'", null).setOnlyActiveRecords(true)
-				.setOrderBy("ORDER BY " + MPriceList.COLUMNNAME_Created).first();
+						"isdefault='Y'" + " and issopricelist='" + isSellingPrice + "'", product.get_TrxName())
+				.setOnlyActiveRecords(true).setOrderBy("ORDER BY " + MPriceList.COLUMNNAME_Created).first();
 
 		if (priceList != null) {
 			int mProductId = product.getM_Product_ID();
@@ -84,7 +84,7 @@ public class ProductModelEvent extends AbstractEventHandler {
 				throw new AdempiereException("PriceList version not found. Please set in Idempiere!");
 			}
 
-			productPrice = MProductPrice.get(Env.getCtx(), plVersion.get_ID(), mProductId, null);
+			productPrice = MProductPrice.get(product.getCtx(), plVersion.get_ID(), mProductId, product.get_TrxName());
 
 			BigDecimal price = isSellingPrice == 'Y' ? product.getBH_SellPrice() : product.getBH_BuyPrice();
 			if (productPrice != null) {

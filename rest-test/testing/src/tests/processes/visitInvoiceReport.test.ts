@@ -73,12 +73,20 @@ test('visit invoice report is runnable', async () => {
 	const process = (
 		await processApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ ad_process_uu: reportUuid }))
 	).results[0];
+	const showInsuranceInfoParameter = process.parameters.find((parameter) => parameter.name === 'ShowInsuranceInfo')!;
+	const visitUuidParameter = process.parameters.find((parameter) => parameter.name === 'BH_Visit_UU')!;
+
+	expect(showInsuranceInfoParameter).toBeTruthy();
+	expect(visitUuidParameter).toBeTruthy();
 
 	valueObject.stepName = 'Run report';
 	valueObject.processUuid = process.uuid;
 	valueObject.processInformationParameters = [
-		{ processParameterUuid: process.parameters[0].uuid, parameter: valueObject.visit!.uuid } as ProcessInfoParameter,
-		{ processParameterUuid: process.parameters[1].uuid, parameter: false } as ProcessInfoParameter,
+		{
+			processParameterUuid: visitUuidParameter.uuid,
+			parameter: valueObject.visit!.uuid,
+		} as ProcessInfoParameter,
+		{ processParameterUuid: showInsuranceInfoParameter.uuid, parameter: false } as ProcessInfoParameter,
 	];
 	await runReport(valueObject);
 
@@ -142,12 +150,20 @@ test(`uploaded PDFs dont's stop the report from running`, async () => {
 	const process = (
 		await processApi.get(valueObject, undefined, undefined, undefined, JSON.stringify({ ad_process_uu: reportUuid }))
 	).results[0];
+	const showInsuranceInfoParameter = process.parameters.find((parameter) => parameter.name === 'ShowInsuranceInfo')!;
+	const visitUuidParameter = process.parameters.find((parameter) => parameter.name === 'BH_Visit_UU')!;
+
+	expect(showInsuranceInfoParameter).toBeTruthy();
+	expect(visitUuidParameter).toBeTruthy();
 
 	valueObject.stepName = 'Run report';
 	valueObject.processUuid = process.uuid;
 	valueObject.processInformationParameters = [
-		{ processParameterUuid: process.parameters[0].uuid, parameter: valueObject.visit!.uuid } as ProcessInfoParameter,
-		{ processParameterUuid: process.parameters[1].uuid, parameter: false } as ProcessInfoParameter,
+		{
+			processParameterUuid: visitUuidParameter.uuid,
+			parameter: valueObject.visit!.uuid,
+		} as ProcessInfoParameter,
+		{ processParameterUuid: showInsuranceInfoParameter.uuid, parameter: false } as ProcessInfoParameter,
 	];
 	await runReport(valueObject);
 

@@ -294,6 +294,7 @@ public class ImportProductsProcess extends SvrProcess {
 					.append(" AND M_Product_ID IS NULL")
 					.append(clientCheck);
 			DB.executeUpdate(sql.toString(), get_TrxName());
+			commitEx();
 			addLog(0, null, BigDecimal.ONE, "@Errors@");
 			return getProcessInfo().getLogInfo();
 		}

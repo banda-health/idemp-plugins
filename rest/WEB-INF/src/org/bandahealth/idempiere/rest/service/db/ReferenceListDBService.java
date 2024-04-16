@@ -28,7 +28,6 @@ import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.eevolution.model.I_DD_Order;
 import org.eevolution.model.I_HR_Payroll;
-import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-@Component
 public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefList> {
 	private final CLogger log = CLogger.getCLogger(BaseDBService.class);
 	private final Map<String, Integer> documentBaseTypeToTableId =
@@ -123,14 +121,14 @@ public class ReferenceListDBService extends BaseDBService<ReferenceList, MRefLis
 		parameters.add(MClient_BH.CLIENTID_SYSTEM);
 		parameters.add(0);
 
-//		PO.setCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		PO.setCrossTenantSafe();
 
 		// Get the doc types for this user
 		List<MDocType> usedDocumentTypes = new Query(Env.getCtx(), MDocType.Table_Name,
 				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?) AND " + MDocType_BH.COLUMNNAME_C_DocType_ID + ">?",
 				null).setParameters(parameters).list();
 
-//		PO.clearCrossTenantSafe(); // <- uncomment for iDempiere-8.2+
+		PO.clearCrossTenantSafe();
 
 		// Now get the available document actions for these document types
 		Map<Integer, List<Integer>> documentActionAccess = getDocumentActionAccess(

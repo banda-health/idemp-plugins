@@ -4,9 +4,7 @@ import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.BaseMetadata;
 import org.compiere.model.MAccount;
 import org.compiere.util.Env;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ValidCombinationDBService extends BaseDBService<BaseMetadata, MAccount> {
 	@Override
 	public BaseMetadata saveEntity(BaseMetadata entity) {

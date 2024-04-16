@@ -9,7 +9,6 @@ import org.compiere.model.MRefList;
 import org.compiere.model.PO;
 import org.compiere.process.DocAction;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,8 +24,7 @@ public abstract class DocumentDBService<T extends BaseMetadata, S extends PO & D
 	public final static String DOCUMENTNAME_PHYSICAL_INVENTORY = "Physical Inventory";
 	public final static String DOCUMENTNAME_CUSTOMER_INVOICE = "AR Invoice";
 	public final static String DOCUMENTNAME_VENDOR_INVOICE = "AP Invoice";
-	@Autowired
-	protected ReferenceListDBService referenceListDBService;
+	protected final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
 
 	abstract int getDocumentProcessId();
 

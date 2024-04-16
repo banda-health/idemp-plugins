@@ -382,13 +382,13 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 
 			// set pagination params
 			query = query.setPage(pagingInfo.getPageSize(), pagingInfo.getPage());
-			//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-			//	PO.setCrossTenantSafe();
-			//}
+			if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+				PO.setCrossTenantSafe();
+			}
 			List<S> entities = getTranslations(query.list());
-			//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-			//	PO.clearCrossTenantSafe();
-			//}
+			if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+				PO.clearCrossTenantSafe();
+			}
 
 			List<T> results = new ArrayList<>();
 			if (entities != null) {
@@ -512,14 +512,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		if (!QueryUtil.doesTableAliasExistOnColumn(columnToSearch)) {
 			columnToSearch = getModelInstance().get_TableName() + "." + columnToSearch;
 		}
-		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-		//	PO.setCrossTenantSafe();
-		//}
+		if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			PO.setCrossTenantSafe();
+		}
 		List<S> models =
 				getBaseQuery(entityConfiguration, columnToSearch + " IN (" + whereCondition + ")", parameters).list();
-		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-		//	PO.clearCrossTenantSafe();
-		//}
+		if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			PO.clearCrossTenantSafe();
+		}
 		Map<Integer, List<S>> groupedValues =
 				getTranslations(models).stream().collect(Collectors.groupingBy(groupingFunction));
 		return ids.stream().collect(Collectors.toMap(id -> id, id -> groupedValues.getOrDefault(id, new ArrayList<>())));
@@ -549,14 +549,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(ids, parameters);
 		String tableName = getModelInstance().get_TableName();
-		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-		//	PO.setCrossTenantSafe();
-		//}
+		if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			PO.setCrossTenantSafe();
+		}
 		List<S> models = getBaseQuery(entityConfiguration, tableName + "." + tableName + "_ID IN (" + whereCondition + ")",
 				parameters).list();
-		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-		//	PO.clearCrossTenantSafe();
-		//}
+		if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			PO.clearCrossTenantSafe();
+		}
 		return getTranslations(models).stream().collect(Collectors.toMap(S::get_ID, model -> model));
 	}
 
@@ -584,14 +584,14 @@ public abstract class BaseDBService<T extends BaseMetadata, S extends PO> {
 		List<Object> parameters = new ArrayList<>();
 		String whereCondition = QueryUtil.getWhereClauseAndSetParametersForSet(uuids, parameters);
 		String tableName = getModelInstance().get_TableName();
-		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-		//	PO.setCrossTenantSafe();
-		//}
+		if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			PO.setCrossTenantSafe();
+		}
 		List<S> models = getBaseQuery(entityConfiguration, tableName + "." + tableName + "_UU IN (" + whereCondition + ")",
 				parameters).list();
-		//if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
-		//	PO.clearCrossTenantSafe();
-		//}
+		if (!entityConfiguration.isShouldUseContextClientId() || entityConfiguration.isShouldFetchFromSystemClient()) {
+			PO.clearCrossTenantSafe();
+		}
 		return getTranslations(models).stream().collect(
 				Collectors.toMap(model -> model.get_Value(model.get_ColumnIndex(model.getUUIDColumnName())).toString(),
 						model -> model));

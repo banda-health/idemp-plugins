@@ -67,7 +67,9 @@ public class CleanExpiredStockProcess extends SvrProcess {
 						MDocType.getDocType(MDocType.DOCBASETYPE_MaterialMovement),
 						null, null, null)});
 
-		ServerProcessCtl.process(processInfo, Trx.get(get_TrxName(), false));
+		ServerProcessCtl.process(processInfo, Trx.get(get_TrxName(), true));
+		// The above call clears the transaction connection, so re-initialize it
+		Trx.get(get_TrxName(), true);
 
 		return processInfo.getSummary();
 	}

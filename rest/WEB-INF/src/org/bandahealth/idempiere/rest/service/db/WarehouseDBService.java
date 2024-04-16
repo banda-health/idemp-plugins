@@ -6,15 +6,12 @@ import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.compiere.model.MLocator;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse_BH> {
 	private LocatorDBService locatorDBService;
 
@@ -22,7 +19,6 @@ public class WarehouseDBService extends BaseDBService<Warehouse, MWarehouse_BH> 
 		return locatorDBService;
 	}
 
-	@Autowired
 	public void setLocatorDBService(LocatorDBService locatorDBService) {
 		this.locatorDBService = locatorDBService;
 	}

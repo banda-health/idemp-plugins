@@ -12,8 +12,6 @@ import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MLocator;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,16 +22,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Component
 public class InventoryLineDBService extends BaseDBService<InventoryLine, MInventoryLine_BH> {
-	@Autowired
-	private ProductDBService productDBService;
-	@Autowired
-	private LocatorDBService locatorDBService;
-	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService;
-	@Autowired
-	private StorageOnHandDBService storageOnHandDBService;
+	private final ProductDBService productDBService = new ProductDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
+	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
 
 	@Override
 	public InventoryLine saveEntity(InventoryLine entity) {
@@ -73,8 +65,9 @@ public class InventoryLineDBService extends BaseDBService<InventoryLine, MInvent
 		inventoryLine.setM_Inventory_ID(entity.getInventoryId());
 
 		// Set the qty book based on the product, attribute set, and locator
-		inventoryLine.setQtyBook(storageOnHandDBService.getQuantityOnHand(inventoryLine.getM_Product_ID(),
-				inventoryLine.getM_AttributeSetInstance_ID(), inventoryLine.getM_Locator_ID()));
+		inventoryLine.setQtyBook(productDBService.getStorageOnHandDBService()
+				.getQuantityOnHand(inventoryLine.getM_Product_ID(), inventoryLine.getM_AttributeSetInstance_ID(),
+						inventoryLine.getM_Locator_ID()));
 
 		inventoryLine.saveEx();
 

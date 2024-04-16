@@ -4,7 +4,6 @@ import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.rest.model.Inventory;
 import org.bandahealth.idempiere.rest.service.DocumentRestService;
 import org.bandahealth.idempiere.rest.service.db.InventoryDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -17,8 +16,7 @@ import static org.bandahealth.idempiere.rest.IRestConfigs.AUTHENTICATION_PATH;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class InventoryRestService extends DocumentRestService<Inventory, MInventory_BH, InventoryDBService> {
-	@Autowired
-	private InventoryDBService dbService;
+	private final InventoryDBService dbService = new InventoryDBService();
 
 	@Override
 	protected InventoryDBService getDBService() {
