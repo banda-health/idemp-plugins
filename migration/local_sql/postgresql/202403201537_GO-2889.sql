@@ -538,6 +538,18 @@ WHERE
 	);
 DELETE
 FROM
+	ad_package_exp_detail
+WHERE
+	ad_table_id = (
+		SELECT
+			ad_table_id
+		FROM
+			ad_table
+		WHERE
+			tablename ILIKE 'bh_uibutton_trl'
+	);
+DELETE
+FROM
 	ad_table
 WHERE
 	tablename ILIKE 'bh_uibutton_trl';
