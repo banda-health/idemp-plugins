@@ -4,6 +4,7 @@ import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
+import org.bandahealth.idempiere.rest.service.db.LocatorDBService;
 import org.bandahealth.idempiere.rest.service.db.WarehouseDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,11 +17,10 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class WarehouseRestService extends BaseRestService<Warehouse, MWarehouse_BH, WarehouseDBService> {
-	@Autowired
-	private WarehouseDBService dbService;
+	private final LocatorDBService locatorDBService = new LocatorDBService();
 
 	@Override
 	protected WarehouseDBService getDBService() {
-		return dbService;
+		return locatorDBService.getWarehouseDBService();
 	}
 }

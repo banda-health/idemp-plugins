@@ -1,11 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
@@ -18,23 +12,20 @@ import org.bandahealth.idempiere.rest.model.Transaction;
 import org.bandahealth.idempiere.rest.model.User;
 import org.compiere.model.MTransaction;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class TransactionDBService extends BaseDBService<Transaction, MTransaction> {
-	@Autowired
-	private InOutLineDBService inOutLineDBService;
-	@Autowired
-	private InventoryLineDBService inventoryLineDBService;
-	@Autowired
-	private MovementLineDBService movementLineDBService;
-	@Autowired
-	private UserDBService userDBService;
-	@Autowired
-	private AttributeSetInstanceDBService attributeInstanceDBService;
-	@Autowired
-	private LocatorDBService locatorDBService;
+	private final InOutLineDBService inOutLineDBService = new InOutLineDBService();
+	private final InventoryLineDBService inventoryLineDBService = new InventoryLineDBService();
+	private final MovementLineDBService movementLineDBService = new MovementLineDBService();
+	private final UserDBService userDBService = new UserDBService();
+	private final AttributeSetInstanceDBService attributeInstanceDBService = new AttributeSetInstanceDBService();
+	private final LocatorDBService locatorDBService = new LocatorDBService();
 
 	@Override
 	public Transaction saveEntity(Transaction entity) {
@@ -98,7 +89,7 @@ public class TransactionDBService extends BaseDBService<Transaction, MTransactio
 
 		// Get locators
 		Map<Integer, Locator> locatorsById = locatorDBService.transformData(new ArrayList<>(locatorDBService
-				.getByIds(dbModels.stream().map(MTransaction::getM_Locator_ID).collect(Collectors.toSet())).values()))
+						.getByIds(dbModels.stream().map(MTransaction::getM_Locator_ID).collect(Collectors.toSet())).values()))
 				.stream().collect(Collectors.toMap(Locator::getId, line -> line));
 
 		return dbModels.stream().map(mTransaction -> {

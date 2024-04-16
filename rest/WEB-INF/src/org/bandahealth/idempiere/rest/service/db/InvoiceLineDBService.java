@@ -15,8 +15,6 @@ import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,21 +27,15 @@ import java.util.stream.Collectors;
 /**
  * InvoiceLine (product/service/charge) db service
  */
-@Component
 public class InvoiceLineDBService extends BaseDBService<InvoiceLine, MInvoiceLine> {
 
-	@Autowired
-	private ProductDBService productDBService;
-	@Autowired
-	private AccountDBService accountDBService;
-	@Autowired
-	private ChargeDBService chargeDBService;
-	@Autowired
-	private OrderLineDBService orderLineDBService;
-	@Autowired
-	private BusinessPartnerSpecificPayerInformationDBService businessPartnerSpecificPayerInformationDBService;
-	@Autowired
-	private PayerInformationFieldDBService payerInformationFieldDBService;
+	private final ProductDBService productDBService = new ProductDBService();
+	private final AccountDBService accountDBService = new AccountDBService();
+	private final ChargeDBService chargeDBService = new ChargeDBService();
+	private final OrderLineDBService orderLineDBService = new OrderLineDBService();
+	private final BusinessPartnerSpecificPayerInformationDBService businessPartnerSpecificPayerInformationDBService =
+			new BusinessPartnerSpecificPayerInformationDBService();
+	private final PayerInformationFieldDBService payerInformationFieldDBService = new PayerInformationFieldDBService();
 
 	@Override
 	public InvoiceLine saveEntity(InvoiceLine entity) {

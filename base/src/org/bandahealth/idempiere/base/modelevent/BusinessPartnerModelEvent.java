@@ -16,11 +16,14 @@ import org.compiere.util.Env;
 import org.osgi.service.event.Event;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BusinessPartnerModelEvent extends AbstractEventHandler {
 
 	private CLogger log = CLogger.getCLogger(BusinessPartnerModelEvent.class);
+	private final Set<String> businessPartnerUuidsWeAreUpdating = new HashSet<>();
 
 	@Override
 	protected void initialize() {
@@ -38,13 +41,21 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		} else {
 			return;
 		}
+		if (businessPartnerUuidsWeAreUpdating.contains(businessPartner.getC_BPartner_UU())) {
+			return;
+		}
 
-		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			beforeSaveRequest(businessPartner);
-		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
-			afterSaveRequest(businessPartner);
-		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
-			afterChangeRequest(businessPartner);
+		businessPartnerUuidsWeAreUpdating.add(businessPartner.getC_BPartner_UU());
+		try {
+			if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
+				beforeSaveRequest(businessPartner);
+			} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
+				afterSaveRequest(businessPartner);
+			} else if (event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
+				afterChangeRequest(businessPartner);
+			}
+		} finally {
+			businessPartnerUuidsWeAreUpdating.remove(businessPartner.getC_BPartner_UU());
 		}
 	}
 

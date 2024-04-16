@@ -34,6 +34,7 @@ import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
 import org.compiere.model.MYear;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.model.X_AD_Document_Action_Access;
 import org.compiere.model.X_C_BP_Group_Acct;
@@ -326,11 +327,11 @@ public class MBandaSetup {
 	 * for the client
 	 */
 	private Map<Integer, MChargeType_BH> addDefaultChargeTypes() {
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MChargeType_BH> defaultChargeTypes = new Query(context, MChargeType_BH.Table_Name,
 				MChargeType_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<Integer, MChargeType_BH> defaultChargeTypeMap = new HashMap<>();
 		for (MChargeType_BH defaultChargeType : defaultChargeTypes) {
@@ -368,11 +369,11 @@ public class MBandaSetup {
 			return false;
 		}
 		// Get all active, default charges from the default client
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MCharge_BH> defaultCharges = new Query(context, MCharge_BH.Table_Name,
 				MCharge_BH.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		for (MCharge_BH defaultCharge : defaultCharges) {
 			// Create a new charge for new client based on this default charge
@@ -392,7 +393,7 @@ public class MBandaSetup {
 			}
 
 			// Get the account associated with this charge
-			// PO.setCrossTenantSafe();
+			 PO.setCrossTenantSafe();
 			X_C_Charge_Acct defaultChargeChargeAccount =
 					new Query(this.context, X_C_Charge_Acct.Table_Name, X_C_Charge_Acct.COLUMNNAME_C_Charge_ID + "=?",
 							this.getTransactionName()).setParameters(defaultCharge.getC_Charge_ID()).first();
@@ -401,7 +402,7 @@ public class MBandaSetup {
 			MAccount chargeExpenseAccount = getOrCreateValidCombination(
 					elementValuesMap.get(defaultChargeChargeAccount.getCh_Expense_A().getAccount_ID())
 							.getValue());
-			// PO.clearCrossTenantSafe();
+			 PO.clearCrossTenantSafe();
 
 			if (chargeExpenseAccount == null) {
 				String errorMessage = "Default Charge Valid Combination NOT inserted";
@@ -443,11 +444,11 @@ public class MBandaSetup {
 	private boolean addPayerInformationFields(Map<Integer, Integer> clientPayerIdsByDefaultPayerId) {
 		Map<Integer, MBHPayerInfoFldVal> infoValues = getDefaultPayerInfoFieldValuesMap();
 
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBHPayerInfoFld> defaultPayerInfoFieldList = new Query(context, MBHPayerInfoFld.Table_Name,
 				MBHPayerInfoFld.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		for (MBHPayerInfoFld defaultPayerInfoField : defaultPayerInfoFieldList) {
 			MBHPayerInfoFld payerInfoField = new MBHPayerInfoFld(context, 0, getTransactionName());
@@ -693,9 +694,7 @@ public class MBandaSetup {
 		// We need to get a map of the default doc action exclusion IDs (which are for
 		// System) and map them to the ones
 		// assigned to this client
-		// PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so
-		// enable that // <- uncomment for
-		// iDempiere-8.2+
+		PO.setCrossTenantSafe(); // we need to do a cross-tenant query here, so enable that
 		List<MDocType> docTypesForSystemAndClient = new Query(context, MDocType.Table_Name,
 				MDocType.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_SYSTEM, getAD_Client_ID()).list();
@@ -706,8 +705,7 @@ public class MBandaSetup {
 								.filter(docType -> docType.getAD_Client_ID() != 0
 										&& docType.getName().equals(systemDocType.getName()))
 								.findFirst().map(MDocType::getC_DocType_ID).orElse(0)));
-		// PO.clearCrossTenantSafe(); // disable what was done previously // <-
-		// uncomment for iDempiere-8.2+
+		PO.clearCrossTenantSafe(); // disable what was done previously
 
 		// Get all access for the roles we'll configure
 		List<X_AD_Document_Action_Access> currentAccessForRolesToConfigure = new Query(this.context,
@@ -1098,11 +1096,11 @@ public class MBandaSetup {
 	 * @return map of accounts
 	 */
 	private Map<Integer, MElementValue> getAllElementValues() {
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MElementValue> accountElementsForTwoClients = new Query(context, MElementValue.Table_Name,
 				MElementValue.COLUMNNAME_AD_Client_ID + " IN (?,?)", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID()).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		Map<String, MElementValue> newClientAccountElementIdsByValue = accountElementsForTwoClients.stream()
 				.filter(elementValue -> elementValue.getAD_Client_ID() == getAD_Client_ID())
@@ -1121,11 +1119,11 @@ public class MBandaSetup {
 	 * @return a map of the info values
 	 */
 	private Map<Integer, MBHPayerInfoFldVal> getDefaultPayerInfoFieldValuesMap() {
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBHPayerInfoFldVal> infoValuesList = new Query(context, MBHPayerInfoFldVal.Table_Name,
 				MBHPayerInfoFldVal.COLUMNNAME_AD_Client_ID + "=?", getTransactionName())
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 		return infoValuesList.stream()
 				.collect(Collectors.toMap(MBHPayerInfoFldVal::getBH_Payer_Info_Fld_Val_ID, Function.identity()));
 	}
@@ -1134,11 +1132,11 @@ public class MBandaSetup {
 	 * Custom warehouse configuration
 	 */
 	public boolean updateWarehouseLocatorSetUp() {
-//		PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		MWarehouse_BH configurationClientWarehouse =
 				new Query(this.context, MWarehouse_BH.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
 						getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG).first();
-//		PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		// get the default warehouse and locator->rename and set to locator as default
 		MWarehouse_BH warehouse = new Query(this.context, MWarehouse.Table_Name,
@@ -1285,7 +1283,7 @@ public class MBandaSetup {
 
 	public boolean createProductAttributeSets() {
 		// Get all active, attribute sets from the default configuration client
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MAttributeSet_BH> attributeSets = new Query(context, MAttributeSet.Table_Name,
 				MAttributeSet.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setOnlyActiveRecords(true)
 				.setParameters(MClient_BH.CLIENTID_CONFIG).list();
@@ -1296,7 +1294,7 @@ public class MBandaSetup {
 		List<X_M_AttributeSetExclude> attributeSetExclusions = new Query(context, X_M_AttributeSetExclude.Table_Name,
 				X_M_AttributeSetExclude.COLUMNNAME_M_AttributeSet_ID + " IN (" + whereClauseParameterList + ")",
 				getTransactionName()).setParameters(parameters).setOnlyActiveRecords(true).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		if (attributeSets.isEmpty()) {
 			String errorMessage = "Default AttributeSets NOT found";
@@ -1391,13 +1389,13 @@ public class MBandaSetup {
 			return false;
 		}
 
-		// PO.setCrossTenantSafe();
-		MClient configurationClient = MClient_BH.get(Env.getCtx(), MClient_BH.CLIENTID_CONFIG);
+		PO.setCrossTenantSafe();
+		MClient configurationClient = MClient_BH.get(MClient_BH.CLIENTID_CONFIG);
 		List<MBPartner_BH> defaultBusinessPartners = new Query(this.context, MBPartner_BH.Table_Name,
 				MBPartner_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPartner_BH.COLUMNNAME_Name + " NOT LIKE ? || ' %' AND " +
 						MBPartner_BH.COLUMNNAME_Name + "!=?", getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG,
 				configurationClient.getName(), DEFAULT_IDEMPIERE_ENTITY_NAME).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 
 		I_C_Location clientLocation = MOrgInfo_BH.get(Env.getCtx(), getAD_Org_ID()).getC_Location();
 
@@ -1445,12 +1443,12 @@ public class MBandaSetup {
 	 */
 	private Map<Integer, MBPGroup_BH> addDefaultBusinessPartnerGroups() {
 		Map<Integer, MBPGroup_BH> clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId = new HashMap<>();
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBPGroup_BH> defaultBusinessPartnerGroups = new Query(this.context, MBPGroup_BH.Table_Name,
 				MBPGroup_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MBPGroup_BH.COLUMNNAME_Name + " !=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, DEFAULT_IDEMPIERE_ENTITY_NAME)
 				.list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 		defaultBusinessPartnerGroups.forEach((defaultBusinessPartnerGroup) -> {
 			MBPGroup_BH clientBusinessPartnerGroup = new MBPGroup_BH(context, 0, getTransactionName());
 			MBPGroup.copyValues(defaultBusinessPartnerGroup, clientBusinessPartnerGroup);
@@ -1466,18 +1464,18 @@ public class MBandaSetup {
 		});
 
 		// Add a mapping for the standard BP Group
-		// PO.setCrossTenantSafe();
+		PO.setCrossTenantSafe();
 		List<MBPGroup_BH> defaultThenClientStandardBusinessPartnerGroups = new Query(this.context, MBPGroup_BH.Table_Name,
 				MBPGroup_BH.COLUMNNAME_AD_Client_ID + " IN (?,?) AND " + MBPGroup_BH.COLUMNNAME_Name + "=?",
 				getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG, getAD_Client_ID(),
 				DEFAULT_IDEMPIERE_ENTITY_NAME).setOrderBy(MClient_BH.COLUMNNAME_AD_Client_ID).list();
-		// PO.clearCrossTenantSafe();
+		PO.clearCrossTenantSafe();
 		clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId.put(
 				defaultThenClientStandardBusinessPartnerGroups.get(0).getC_BP_Group_ID(),
 				defaultThenClientStandardBusinessPartnerGroups.get(1));
 
 		// While the accounting is automatically created for the new BP Groups, some accounts may need to be updated
-		// PO.setCrossTenantSafe();
+		 PO.setCrossTenantSafe();
 
 		List<Object> parameters = new ArrayList<>();
 		String businessPartnerGroupIdWhereClause =
@@ -1631,7 +1629,7 @@ public class MBandaSetup {
 			clientBusinessPartnerGroupAccount.saveEx();
 		}
 
-		// PO.clearCrossTenantSafe();
+		 PO.clearCrossTenantSafe();
 
 		return clientBusinessPartnerGroupByDefaultBusinessPartnerGroupId;
 	}

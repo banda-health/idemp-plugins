@@ -4,9 +4,9 @@
     <parent>
         <groupId>org.bandahealth.idempiere</groupId>
         <artifactId>org.bandahealth.idempiere</artifactId>
-        <version>7.1.0-SNAPSHOT</version>
+        <version>11.0.0-SNAPSHOT</version>
     </parent>
-    <version>7.1.0-SNAPSHOT</version>
+    <version>11.0.0-SNAPSHOT</version>
     <artifactId>org.bandahealth.idempiere.reports</artifactId>
     <packaging>pom</packaging>
 
@@ -15,18 +15,14 @@
             <id>jaspersoft-third-party</id>
             <url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
         </pluginRepository>
-        <pluginRepository>
-            <id>jasperreports</id>
-            <url>http://jaspersoft.artifactoryonline.com/jaspersoft/jr-ce-releases</url>
-        </pluginRepository>
     </pluginRepositories>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>com.alexnederlof</groupId>
+                <groupId>com.pro-crafting.tools</groupId>
                 <artifactId>jasperreports-plugin</artifactId>
-                <version>2.5</version> <!-- This downloads JasperSoft version 6.8.0, which we currently use -->
+                <version>3.2.0</version> <!-- This downloads JasperSoft version 6.17.0, which we currently use -->
                 <executions>
                     <execution>
                         <phase>process-sources</phase>
@@ -48,7 +44,7 @@
                     <dependency>
                         <groupId>net.sf.jasperreports</groupId>
                         <artifactId>jasperreports-functions</artifactId>
-                        <version>6.8.0</version>
+                        <version>6.17.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -60,6 +56,9 @@
                     <filesets>
                         <fileset>
                             <directory>${idempiere.home.dir}/reports</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.basedir}/target</directory>
                         </fileset>
                     </filesets>
                 </configuration>
@@ -77,6 +76,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <overwrite>true</overwrite>
                             <outputDirectory>${project.parent.basedir}/testing/reports</outputDirectory>
                             <resources>
                                 <resource>
@@ -92,6 +92,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <overwrite>true</overwrite>
                             <outputDirectory>${idempiere.home.dir}/reports</outputDirectory>
                             <resources>
                                 <resource>

@@ -6,8 +6,6 @@ import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,12 +15,10 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-@Component
 public class RoleDBService extends BaseDBService<Role, MRole> {
-	@Autowired
-	private IncludedRoleDBService includedRoleDBService;
-	@Autowired
-	private RoleOrganizationAccessDBService roleOrganizationAccessDBService;
+	private final IncludedRoleDBService includedRoleDBService = new IncludedRoleDBService();
+	private final RoleOrganizationAccessDBService roleOrganizationAccessDBService =
+			new RoleOrganizationAccessDBService();
 
 	@Override
 	public Role saveEntity(Role entity) {

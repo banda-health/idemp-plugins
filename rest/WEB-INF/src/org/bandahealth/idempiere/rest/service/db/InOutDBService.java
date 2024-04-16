@@ -1,23 +1,19 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.InOut;
 import org.bandahealth.idempiere.rest.model.Order;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class InOutDBService extends BaseDBService<InOut, MInOut_BH> {
-	@Autowired
-	private OrderDBService orderDBService;
+	private final OrderDBService orderDBService = new OrderDBService();
 
 	@Override
 	public InOut saveEntity(InOut entity) {

@@ -11,8 +11,6 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,15 +24,10 @@ import java.util.stream.Collectors;
  *
  * @author andrew
  */
-@Component
 public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> {
 
-	@Autowired
-	private ChargeDBService chargeDBService;
-	@Autowired
-	private ProductDBService productDBService;
-	@Autowired
-	private StorageOnHandDBService storageOnHandDBService;
+	private final ChargeDBService chargeDBService = new ChargeDBService();
+	private final ProductDBService productDBService = new ProductDBService();
 
 	@Override
 	public OrderLine saveEntity(OrderLine entity) {
@@ -129,8 +122,8 @@ public class OrderLineDBService extends BaseDBService<OrderLine, MOrderLine_BH> 
 								instance.getC_Order_ID(), new Product(product.getName(), product.getM_Product_UU(), product),
 								instance.getPriceActual(), instance.getQtyOrdered(), instance.getLineNetAmt(),
 								instance.getBH_Instructions(), instance);
-				orderLine.getProduct()
-						.setTotalQuantity(storageOnHandDBService.getQuantityOnHand(instance.getM_Product_ID(), false));
+				orderLine.getProduct().setTotalQuantity(
+						productDBService.getStorageOnHandDBService().getQuantityOnHand(instance.getM_Product_ID(), false));
 				return orderLine;
 			} else if (instance.getC_Charge_ID() > 0) {
 				return new OrderLine(instance);

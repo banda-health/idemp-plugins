@@ -5,7 +5,6 @@ import org.bandahealth.idempiere.rest.IRestConfigs;
 import org.bandahealth.idempiere.rest.model.ProductCategory;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.ProductCategoryDBService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Path;
@@ -21,8 +20,7 @@ import javax.ws.rs.core.MediaType;
 public class ProductCategoryRestService
 		extends BaseRestService<ProductCategory, MProductCategory_BH, ProductCategoryDBService> {
 
-	@Autowired
-	private ProductCategoryDBService dbService;
+	private final ProductCategoryDBService dbService = new ProductCategoryDBService();
 
 	@Override
 	protected ProductCategoryDBService getDBService() {

@@ -6,7 +6,7 @@ import org.bandahealth.idempiere.rest.model.BaseListResponse;
 import org.bandahealth.idempiere.rest.model.Menu;
 import org.bandahealth.idempiere.rest.service.BaseRestService;
 import org.bandahealth.idempiere.rest.service.db.MenuDBService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.bandahealth.idempiere.rest.service.db.ProcessDBService;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -24,12 +24,11 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class MenuRestService extends BaseRestService<Menu, MMenu_BH, MenuDBService> {
 
-	@Autowired
-	private MenuDBService dbService;
+	private final ProcessDBService processDBService = new ProcessDBService();
 
 	@Override
 	protected MenuDBService getDBService() {
-		return dbService;
+		return processDBService.getMenuDBService();
 	}
 
 	@GET
@@ -38,6 +37,6 @@ public class MenuRestService extends BaseRestService<Menu, MMenu_BH, MenuDBServi
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_PAGE) int page, @QueryParam(IRestConfigs.QUERY_PARAMETER_SIZE) int size,
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_SORTING) String sortJson,
 			@QueryParam(IRestConfigs.QUERY_PARAMETER_FILTER) String filterJson) {
-		return dbService.getAll(rootId, getPagingInfo(page, size), sortJson, filterJson);
+		return getDBService().getAll(rootId, getPagingInfo(page, size), sortJson, filterJson);
 	}
 }

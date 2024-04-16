@@ -12,8 +12,6 @@ import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.MStorageOnHand;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 import java.math.BigDecimal;
@@ -27,18 +25,18 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Component
 public class StorageOnHandDBService extends BaseDBService<StorageOnHand, MStorageOnHand> {
 
 	private static final String EXPIRE_WHERE_CLAUSE = MAttributeSetInstance_BH.Table_Name + "."
 			+ MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " IS NULL OR " + MAttributeSetInstance_BH.Table_Name
 			+ "." + MAttributeSetInstance_BH.COLUMNNAME_GuaranteeDate + " >= now()::date";
-	@Autowired
 	private ProductDBService productDBService;
-	@Autowired
-	private LocatorDBService locatorDBService;
-	@Autowired
-	private AttributeSetInstanceDBService attributeSetInstanceDBService;
+	private final LocatorDBService locatorDBService = new LocatorDBService();
+	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
+
+	public void setProductDBService(ProductDBService productDBService) {
+		this.productDBService = productDBService;
+	}
 
 	@Override
 	public Map<String, String> getDynamicJoins() {

@@ -1,16 +1,10 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.bandahealth.idempiere.rest.model.BaseEntity;
 import org.bandahealth.idempiere.rest.model.EntityMetadata;
 import org.bandahealth.idempiere.rest.model.NHIFRelationship;
 import org.bandahealth.idempiere.rest.model.NHIFType;
 import org.bandahealth.idempiere.rest.model.PatientType;
-import org.bandahealth.idempiere.rest.model.PaymentType;
 import org.bandahealth.idempiere.rest.model.ProcessStage;
 import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.model.Referral;
@@ -26,14 +20,17 @@ import org.compiere.model.Query;
 import org.compiere.util.CLogger;
 import org.compiere.util.Env;
 import org.compiere.util.Language;
-import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Retrieve All Metadata data i.e entity types (e.g nhif,patient,payment types)
  *
  * @author andrew
  */
-@Component
 public class EntityMetadataDBService {
 
 	public final static String PATIENT_TYPE = "BH_PatientType";
