@@ -13,9 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClientConceptDBService extends BaseDBService<ClientConcept, MBHClientConcept> {
 
-	@Autowired
-	private ConceptDBService conceptDBService;
-
 	@Override
 	protected ClientConcept createInstanceWithDefaultFields(MBHClientConcept instance) {
 		return createInstanceWithAllFields(instance);
@@ -39,16 +36,17 @@ public class ClientConceptDBService extends BaseDBService<ClientConcept, MBHClie
 			clientConcept.setBH_Client_Concept_UU(entity.getUuid());
 		}
 
-		// get concept
-		if (entity.getConcept() != null) {
-			MBHConcept concept = conceptDBService.getEntityByUuidFromDB(entity.getConcept().getUuid());
-			clientConcept.setBH_Concept_ID(concept.get_ID());
+		// ensure link to concept
+		if (entity.getConceptId() > 0) {
+			clientConcept.setBH_Concept_ID(entity.getConceptId());
+		} else {
+			throw new AdempiereException("Concept missing!");
 		}
-
+		clientConcept.setName(entity.getName());
+		
 		clientConcept.saveEx();
 
-		return transformData(Collections.singletonList(getEntityByUuidFromDB(clientConcept.getUUIDColumnName())))
-				.get(0);
+		return createInstanceWithAllFields(clientConcept);
 	}
 
 	@Override

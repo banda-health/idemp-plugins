@@ -33,40 +33,16 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 	@Override
 	public Concept saveEntity(Concept entity) {
 		MBHConcept concept = getEntityByUuidFromDB(entity.getUuid());
-		if (concept == null) {
-			concept = new MBHConcept(Env.getCtx(), 0, null);
-			concept.setBH_Concept_UU(entity.getUuid());
-		}
-
-		concept.setIsActive(entity.getIsActive());
-		concept.setBH_Data_Type(entity.getDataType());
-		concept.setbh_concept_class(entity.getConceptClass());
-		concept.setBH_Concept_Type(entity.getConceptType());
-		concept.setBH_Display_Locale(entity.getDisplayLocale());
-		concept.setBH_Display_Name(entity.getDisplayName());
-		concept.setBH_ExternalID(entity.getExternalId());
-		concept.setBH_OclID(entity.getOclId());
-		concept.setBH_Owner(entity.getOwner());
-		concept.setBH_Source(entity.getSource());
-		concept.setURL(entity.getUrl());
-
-		concept.saveEx();
-
-		// save mappings
-		if (entity.getToConceptMappings() != null && !entity.getToConceptMappings().isEmpty()) {
-			for (ConceptMapping conceptMapping : entity.getToConceptMappings()) {
-				conceptMappingDBService.saveEntity(conceptMapping);
-			}
-		}
 		
 		// save client concepts
 		if (entity.getClientConcepts() != null && !entity.getClientConcepts().isEmpty()) {
 			for (ClientConcept clientConcept : entity.getClientConcepts()) {
+				clientConcept.setConceptId(concept.get_ID());
 				clientConceptDBService.saveEntity(clientConcept);
 			}
 		}
-
-		return transformData(Collections.singletonList(getEntityByUuidFromDB(concept.getUUIDColumnName()))).get(0);
+		
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(entity.getUuid()))).get(0);
 	}
 
 	@Override
