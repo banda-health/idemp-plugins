@@ -35,12 +35,16 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		MBHConcept concept = getEntityByUuidFromDB(entity.getUuid());
 		
 		// save client concepts
+		int conceptId = concept.get_ID();
 		if (entity.getClientConcepts() != null && !entity.getClientConcepts().isEmpty()) {
 			for (ClientConcept clientConcept : entity.getClientConcepts()) {
-				clientConcept.setConceptId(concept.get_ID());
+				clientConcept.setConceptId(conceptId);
 				clientConceptDBService.saveEntity(clientConcept);
 			}
 		}
+		
+		// delete old client concepts
+		clientConceptDBService.deleteClientConceptsNotInList(conceptId, entity.getClientConcepts());
 		
 		return transformData(Collections.singletonList(getEntityByUuidFromDB(entity.getUuid()))).get(0);
 	}

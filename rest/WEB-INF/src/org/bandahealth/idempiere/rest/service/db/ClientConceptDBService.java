@@ -1,11 +1,15 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHClientConcept;
 import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.rest.model.ClientConcept;
+import org.bandahealth.idempiere.rest.model.Observation;
+import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +17,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClientConceptDBService extends BaseDBService<ClientConcept, MBHClientConcept> {
 
+	public void deleteClientConceptsNotInList(int conceptId, List<ClientConcept> clientConcepts) {
+		// get existing client concepts
+		List<MBHClientConcept> mClientConcepts = new Query(Env.getCtx(), MBHClientConcept.Table_Name,
+				MBHClientConcept.COLUMNNAME_BH_Concept_ID + " =?", null).setParameters(conceptId).setClient_ID()
+				.list();
+
+		mClientConcepts.stream()
+				.filter(existingClientConcept -> clientConcepts.stream().noneMatch(
+						newClientConcept -> newClientConcept.getUuid().equals(existingClientConcept.getBH_Client_Concept_UU())))
+				.forEach(entity -> deleteEntity(entity.getBH_Client_Concept_UU()));
+	}
+	
 	@Override
 	protected ClientConcept createInstanceWithDefaultFields(MBHClientConcept instance) {
 		return createInstanceWithAllFields(instance);
