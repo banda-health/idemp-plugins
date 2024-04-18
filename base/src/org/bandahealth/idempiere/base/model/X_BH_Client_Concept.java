@@ -31,7 +31,7 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240412L;
+	private static final long serialVersionUID = 20240418L;
 
     /** Standard Constructor */
     public X_BH_Client_Concept (Properties ctx, int BH_Client_Concept_ID, String trxName)

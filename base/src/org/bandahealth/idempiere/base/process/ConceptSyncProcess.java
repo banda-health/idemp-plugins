@@ -123,15 +123,6 @@ public class ConceptSyncProcess extends SvrProcess {
 			});
 		});
 
-		// Update all client IDs to be for the system client in case it wasn't run for
-		// as the system client
-		DB.executeUpdate("UPDATE " + MBHConcept.Table_Name + " SET ad_client_id = 0 WHERE ad_client_id != 0",
-				get_TrxName());
-		DB.executeUpdate("UPDATE " + MBHConceptMapping.Table_Name + " SET ad_client_id = 0 WHERE ad_client_id != 0",
-				get_TrxName());
-		DB.executeUpdate("UPDATE " + MBHConceptExtra.Table_Name + " SET ad_client_id = 0 WHERE ad_client_id != 0",
-				get_TrxName());
-
 		String successMessage = "SUCCESSFULLY created " + newRecords.get() + ", updated " + updatedRecords.get()
 				+ " records in " + (System.currentTimeMillis() - start) / 1000 + " secs";
 
