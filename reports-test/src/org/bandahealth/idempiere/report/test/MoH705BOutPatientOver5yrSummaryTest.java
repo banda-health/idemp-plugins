@@ -4,7 +4,8 @@ import com.chuboe.test.populate.ChuBoeCreateEntity;
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
-import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
@@ -54,19 +55,29 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		String diagnosisAfterDiagnosisToSearchForOnReport = "Snakebites";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
-		MBHCodedDiagnosis codedDiagnosis = null;
+		MBHConcept codedDiagnosis = null;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 			codedDiagnosis =
-					new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name, MBHCodedDiagnosis.COLUMNNAME_bh_cielname +
+					new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_Display_Name +
 							"=?", valueObject.getTransactionName()).setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create the burns coded diagnosis");
-				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-				codedDiagnosis.setbh_cielname(diagnosisToSearchFor);
+				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
 			}
-			codedDiagnosis.setbh_moh705b_greaterthan5("Burns");
 			codedDiagnosis.saveEx();
+
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
+					.setParameters("Burns", codedDiagnosis.getBH_Concept_ID()).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key("MOH-705B-GREATERTHAN5");
+				extra.setBH_Value("Burns");
+				extra.saveEx();
+			}
+
 			commitEx();
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
@@ -122,9 +133,10 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -154,7 +166,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -194,19 +206,29 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		String diagnosisAfterDiagnosisToSearchForOnReport = "Snakebites";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
-		MBHCodedDiagnosis codedDiagnosis = null;
+		MBHConcept codedDiagnosis = null;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
 			codedDiagnosis =
-					new Query(valueObject.getContext(), MBHCodedDiagnosis.Table_Name, MBHCodedDiagnosis.COLUMNNAME_bh_cielname +
+					new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_Display_Name +
 							"=?", valueObject.getTransactionName()).setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create the burns coded diagnosis");
-				codedDiagnosis = new MBHCodedDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
-				codedDiagnosis.setbh_cielname(diagnosisToSearchFor);
+				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
 			}
-			codedDiagnosis.setbh_moh705b_greaterthan5("Burns");
 			codedDiagnosis.saveEx();
+
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
+					.setParameters("Burns", codedDiagnosis.getBH_Concept_ID()).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key("MOH-705B-GREATERTHAN5");
+				extra.setBH_Value("Burns");
+				extra.saveEx();
+			}
+
 			commitEx();
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
@@ -260,9 +282,10 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis =
+				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -292,7 +315,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
@@ -328,7 +351,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		encounter.saveEx();
 		encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
-		encounterDiagnosis.setBH_Coded_Diagnosis_ID(codedDiagnosis.get_ID());
+		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
 		encounterDiagnosis.saveEx();
 
