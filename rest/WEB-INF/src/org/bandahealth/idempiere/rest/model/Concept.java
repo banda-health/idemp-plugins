@@ -35,7 +35,7 @@ public class Concept extends BaseMetadata {
 	public Concept(MBHConcept entity) {
 		super(entity);
 		setUuid(entity.getBH_Concept_UU());
-		setConceptClass(entity.getbh_concept_class());
+		setConceptClass(entity.getBH_Concept_Class());
 		setConceptType(entity.getBH_Concept_Type());
 		setDisplayLocale(entity.getBH_Display_Locale());
 		setDisplayName(entity.getBH_Display_Name());
