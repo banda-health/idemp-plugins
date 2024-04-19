@@ -31,7 +31,7 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240418L;
+	private static final long serialVersionUID = 20240419L;
 
     /** Standard Constructor */
     public X_BH_Concept (Properties ctx, int BH_Concept_ID, String trxName)
@@ -101,19 +101,19 @@ public class X_BH_Concept extends PO implements I_BH_Concept, I_Persistent
       return sb.toString();
     }
 
-	/** Set bh_concept_class.
-		@param bh_concept_class bh_concept_class
+	/** Set BH_Concept_Class.
+		@param BH_Concept_Class BH_Concept_Class
 	*/
-	public void setbh_concept_class (String bh_concept_class)
+	public void setBH_Concept_Class (String BH_Concept_Class)
 	{
-		set_Value (COLUMNNAME_bh_concept_class, bh_concept_class);
+		set_Value (COLUMNNAME_BH_Concept_Class, BH_Concept_Class);
 	}
 
-	/** Get bh_concept_class.
-		@return bh_concept_class	  */
-	public String getbh_concept_class()
+	/** Get BH_Concept_Class.
+		@return BH_Concept_Class	  */
+	public String getBH_Concept_Class()
 	{
-		return (String)get_Value(COLUMNNAME_bh_concept_class);
+		return (String)get_Value(COLUMNNAME_BH_Concept_Class);
 	}
 
 	/** Set Concept.

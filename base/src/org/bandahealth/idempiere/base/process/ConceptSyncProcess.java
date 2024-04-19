@@ -162,7 +162,7 @@ public class ConceptSyncProcess extends SvrProcess {
 
 		mConcept.setIsActive(!concept.isRetired());
 		mConcept.setBH_Data_Type(concept.getDatatype());
-		mConcept.setbh_concept_class(concept.getConceptClass());
+		mConcept.setBH_Concept_Class(concept.getConceptClass());
 		mConcept.setBH_Concept_Type(concept.getType());
 		mConcept.setBH_Display_Locale(concept.getDisplayLocale());
 		mConcept.setBH_Display_Name(concept.getDisplayName());
