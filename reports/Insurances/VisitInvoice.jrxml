@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InsuranceInvoice" pageWidth="595" pageHeight="842" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dockerIdempiere"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="iDempiere UAT PostgreSQL 5552"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="515"/>
@@ -1217,6 +1217,7 @@ FROM
 			</staticText>
 		</band>
 		<band height="124" splitType="Prevent">
+			<printWhenExpression><![CDATA[$P{ShowInsuranceInfo}]]></printWhenExpression>
 			<staticText>
 				<reportElement x="176" y="0" width="200" height="17" uuid="fc90ab68-cadc-4d69-8142-2501281577db"/>
 				<textElement>
@@ -1234,26 +1235,20 @@ FROM
 		</band>
 		<band height="62" splitType="Prevent">
 			<line>
-				<reportElement x="275" y="33" width="180" height="1" uuid="336bed01-c04b-40e6-9d7e-461603774c3a">
+				<reportElement x="275" y="33" width="140" height="1" uuid="336bed01-c04b-40e6-9d7e-461603774c3a">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="275" y="38" width="180" height="18" uuid="94093777-008b-48a0-8277-0254dd0b7b15">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-				</reportElement>
+				<reportElement x="275" y="38" width="140" height="18" uuid="94093777-008b-48a0-8277-0254dd0b7b15"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Patient/Guardian Signature"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="5" y="38" width="180" height="18" uuid="10429e3d-c52a-400d-a68e-a58a10fca6bc">
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-				</reportElement>
+				<reportElement x="5" y="38" width="179" height="18" uuid="10429e3d-c52a-400d-a68e-a58a10fca6bc"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
