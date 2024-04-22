@@ -73,6 +73,7 @@ export class ValueObject {
 	payment?: Payment;
 	tenderType?: PaymentType;
 	paymentAmount?: number;
+	paymentRule?: string;
 	// private MBankAccount m_bankAcct = null;
 	// MBankStatement m_bs = null;
 	// MBankStatementLine m_bsLine = null;
