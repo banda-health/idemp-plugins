@@ -5,6 +5,8 @@ test('correct menu names are returned', async () => {
 	await globalThis.__VALUE_OBJECT__.login();
 	const menus = (await menuApi.get(globalThis.__VALUE_OBJECT__)).results;
 
+	expect(menus).toBe(2);
+
 	let menu: Menu | undefined;
 
 	menu = menus.find((menu) => menu.name === 'Dashboard');

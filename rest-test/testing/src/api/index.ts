@@ -10,7 +10,6 @@ export * from './businessPartners';
 export * from './chargeTypes';
 export * from './charges';
 export * from './clientConcept';
-export * from './codedDiagnosis';
 export * from './concept';
 export * from './documentTypes';
 export * from './documents';
