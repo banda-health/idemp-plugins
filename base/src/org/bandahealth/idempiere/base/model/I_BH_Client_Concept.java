@@ -18,36 +18,36 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import org.compiere.model.MTable;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
-/** Generated Interface for BH_Coded_Diagnosis_Mapping
+/** Generated Interface for BH_Client_Concept
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 11
  */
 @SuppressWarnings("all")
-public interface I_BH_CodedDiagnosisMapping 
+public interface I_BH_Client_Concept 
 {
 
-    /** TableName=BH_Coded_Diagnosis */
-    public static final String Table_Name = "BH_Coded_Diagnosis_Mapping";
+    /** TableName=BH_Client_Concept */
+    public static final String Table_Name = "BH_Client_Concept";
 
+    /** AD_Table_ID=1000059 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
 
-    /** AccessLevel = 4 - System 
+    /** AccessLevel = 3 - Client - Org 
      */
-    BigDecimal accessLevel = BigDecimal.valueOf(4);
+    BigDecimal accessLevel = BigDecimal.valueOf(3);
 
     /** Load Meta Data */
 
     /** Column name AD_Client_ID */
     public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
 
-	/** Get Client.
-	  * Client/Tenant for this installation.
+	/** Get Tenant.
+	  * Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
 
@@ -55,32 +55,52 @@ public interface I_BH_CodedDiagnosisMapping
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
 	/** Set Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
 	/** Get Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name BH_Coded_Diagnosis_Mapping_ID */
-    public static final String COLUMNNAME_BH_Coded_Diagnosis_Mapping_ID = "BH_Coded_Diagnosis_Mapping_ID";
+    /** Column name BH_Client_Concept_ID */
+    public static final String COLUMNNAME_BH_Client_Concept_ID = "BH_Client_Concept_ID";
 
-	/** Set BH_CodedDiagnosis_Mapping	  */
-	public void setBH_CodedDiagnosisMapping_ID (int BH_CodedDiagnosisMapping_ID);
+	/** Set Client Concept	  */
+	public void setBH_Client_Concept_ID (int BH_Client_Concept_ID);
 
-	/** Get BH_CodedDiagnosis_Mapping	  */
-	public int getBH_CodedDiagnosisMapping_ID();
+	/** Get Client Concept	  */
+	public int getBH_Client_Concept_ID();
 
-    /** Column name BH_CodedDiagnosis_Mapping_UU */
-    public static final String COLUMNNAME_BH_Coded_Diagnosis_Mapping_UU = "BH_Coded_Diagnosis_Mapping_UU";
+    /** Column name BH_Client_Concept_UU */
+    public static final String COLUMNNAME_BH_Client_Concept_UU = "BH_Client_Concept_UU";
 
-	/** Set BH_CodedDiagnosis_Mapping_UU	  */
-	public void setBH_CodedDiagnosisMapping_UU (String BH_CodedDiagnosis_Mapping_UU);
+	/** Set BH_Client_Concept_UU	  */
+	public void setBH_Client_Concept_UU (String BH_Client_Concept_UU);
 
-	/** Get BH_CodedDiagnosis_Mapping_UU	  */
-	public String getBH_CodedDiagnosisMapping_UU();
+	/** Get BH_Client_Concept_UU	  */
+	public String getBH_Client_Concept_UU();
+
+    /** Column name BH_Client_Mapping_ID */
+    public static final String COLUMNNAME_BH_Client_Mapping_ID = "BH_Client_Mapping_ID";
+
+	/** Set Client Mapping ID	  */
+	public void setBH_Client_Mapping_ID (int BH_Client_Mapping_ID);
+
+	/** Get Client Mapping ID	  */
+	public int getBH_Client_Mapping_ID();
+
+    /** Column name BH_Concept_ID */
+    public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
+
+	/** Set Concept	  */
+	public void setBH_Concept_ID (int BH_Concept_ID);
+
+	/** Get Concept	  */
+	public int getBH_Concept_ID();
+
+	public I_BH_Concept getBH_Concept() throws RuntimeException;
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";
@@ -111,6 +131,19 @@ public interface I_BH_CodedDiagnosisMapping
 	  */
 	public boolean isActive();
 
+    /** Column name Name */
+    public static final String COLUMNNAME_Name = "Name";
+
+	/** Set Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public void setName (String Name);
+
+	/** Get Name.
+	  * Alphanumeric identifier of the entity
+	  */
+	public String getName();
+
     /** Column name Updated */
     public static final String COLUMNNAME_Updated = "Updated";
 
@@ -126,51 +159,4 @@ public interface I_BH_CodedDiagnosisMapping
 	  * User who updated this records
 	  */
 	public int getUpdatedBy();
-
-	/** Column name BH_Coded_Diagnosis_ID */
-    public static final String COLUMNNAME_BH_Coded_Diagnosis_ID = "BH_Coded_Diagnosis_ID";
-
-	/** Set BH_CodedDiagnosis	  */
-	public void setBH_CodedDiagnosis_ID (int BH_CodedDiagnosis_ID);
-
-	/** Get BH_CodedDiagnosis	  */
-	public int getBH_CodedDiagnosis_ID();
-
-    public static final String COLUMNNAME_BH_Source = "BH_Source";
-
-	public void setBH_Source (String BH_Source);
-
-	public String getBH_Source();
-	
-	public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
-
-	public void setBH_ExternalID (String BH_ExternalID);
-
-	public String getBH_ExternalID();
-	
-	public static final String COLUMNNAME_BH_MapType = "BH_Map_Type";
-
-	public void setBH_MapType (String BH_MapType);
-
-	public String getBH_MapType();
-	
-	public static final String COLUMNNAME_BH_Owner = "BH_Owner";
-
-	public void setBH_Owner (String BH_Owner);
-
-	public String getBH_Owner();
-	
-	public static final String COLUMNNAME_BH_ConceptCode = "BH_Concept_Code";
-
-	public void setBH_ConceptCode (String BH_ConceptCode);
-
-	public String getBH_ConceptCode();
-	
-	public static final String COLUMNNAME_BH_ConceptNameResolved = "BH_Concept_Name_Resolved";
-
-	public void setBH_ConceptNameResolved (String BH_ConceptNameResolved);
-
-	public String getBH_ConceptNameResolved();
-
-	
 }

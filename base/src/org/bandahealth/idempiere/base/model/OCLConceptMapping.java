@@ -1,10 +1,15 @@
 package org.bandahealth.idempiere.base.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+
 import org.bandahealth.idempiere.base.utils.JsonUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class OCLCodedDiagnosisMapping {
+public class OCLConceptMapping {
 
 	private String externalId;
 	private boolean retired;
@@ -40,7 +45,6 @@ public class OCLCodedDiagnosisMapping {
 	private String toSourceVersion;
 	private String fromConceptNameResolved;
 	private String toConceptNameResolved;
-	private Object extras;
 	private String type;
 	private String createdOn;
 	private String updatedOn;
@@ -48,11 +52,12 @@ public class OCLCodedDiagnosisMapping {
 	private String updatedBy;
 	private String internalReferenceId;
 	private boolean publicCanView;
+	private List<OCLConceptExtra> extras = new ArrayList<>();
 
-	public OCLCodedDiagnosisMapping() {
+	public OCLConceptMapping() {
 	}
 
-	public OCLCodedDiagnosisMapping(JsonNode node) {
+	public OCLConceptMapping(JsonNode node) {
 		setExternalId(JsonUtils.getValue(node.get("external_id")));
 		setRetired(JsonUtils.getBoolValue(node.get("retired")));
 		setMapType(JsonUtils.getValue(node.get("map_type")));
@@ -86,7 +91,6 @@ public class OCLCodedDiagnosisMapping {
 		setToSourceVersion(JsonUtils.getValue(node.get("to_source_version")));
 		setFromConceptNameResolved(JsonUtils.getValue(node.get("from_concept_name_resolved")));
 		setToConceptNameResolved(JsonUtils.getValue(node.get("to_concept_name_resolved")));
-		setExtras(JsonUtils.getValue(node.get("extras")));
 		setType(JsonUtils.getValue(node.get("type")));
 		setCreatedOn(JsonUtils.getValue(node.get("created_on")));
 		setUpdatedOn(JsonUtils.getValue(node.get("updated_on")));
@@ -94,6 +98,14 @@ public class OCLCodedDiagnosisMapping {
 		setUpdatedBy(JsonUtils.getValue(node.get("updated_by")));
 		setInternalReferenceId(JsonUtils.getValue(node.get("internal_reference_id")));
 		setPublicCanView(JsonUtils.getBoolValue(node.get("public_can_view")));
+		
+		if (node.get("extras") != null) {
+			Iterator<Entry<String, JsonNode>> iterator = node.get("extras").fields();
+			while (iterator.hasNext()) {
+				Entry<String, JsonNode> entry = iterator.next();
+				extras.add(new OCLConceptExtra(entry.getKey(), entry.getValue().asText()));
+			}
+		}
 	}
 
 	public String getExternalId() {
@@ -368,14 +380,6 @@ public class OCLCodedDiagnosisMapping {
 		this.toConceptNameResolved = toConceptNameResolved;
 	}
 
-	public Object getExtras() {
-		return extras;
-	}
-
-	public void setExtras(Object extras) {
-		this.extras = extras;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -430,5 +434,13 @@ public class OCLCodedDiagnosisMapping {
 
 	public void setPublicCanView(boolean publicCaniew) {
 		this.publicCanView = publicCaniew;
+	}
+	
+	public List<OCLConceptExtra> getExtras() {
+		return extras;
+	}
+
+	public void setExtras(List<OCLConceptExtra> extras) {
+		this.extras = extras;
 	}
 }
