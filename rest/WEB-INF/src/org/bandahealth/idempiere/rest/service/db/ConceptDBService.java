@@ -12,9 +12,13 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHConcept;
 import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.base.model.MBHConceptMapping;
+import org.bandahealth.idempiere.base.model.MBHConceptName;
+import org.bandahealth.idempiere.base.model.MBHClientConcept;
 import org.bandahealth.idempiere.rest.model.Concept;
 import org.bandahealth.idempiere.rest.model.ConceptExtra;
 import org.bandahealth.idempiere.rest.model.ConceptMapping;
+import org.bandahealth.idempiere.rest.model.ConceptName;
+import org.bandahealth.idempiere.rest.model.ClientConcept;
 import org.bandahealth.idempiere.rest.utils.QueryUtil;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -23,33 +27,19 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 	private final ConceptMappingDBService conceptMappingDBService = new ConceptMappingDBService();
 	private final ConceptExtraDBService conceptExtraDBService = new ConceptExtraDBService();
+	private final ConceptNameDBService conceptNameDBService = new ConceptNameDBService();
+	private final ClientConceptDBService clientConceptDBService = new ClientConceptDBService();
 
 	@Override
 	public Concept saveEntity(Concept entity) {
 		MBHConcept concept = getEntityByUuidFromDB(entity.getUuid());
-		if (concept == null) {
-			concept = new MBHConcept(Env.getCtx(), 0, null);
-			concept.setBH_Concept_UU(entity.getUuid());
-		}
-
-		concept.setIsActive(entity.getIsActive());
-		concept.setBH_Data_Type(entity.getDataType());
-		concept.setbh_concept_class(entity.getConceptClass());
-		concept.setBH_Concept_Type(entity.getConceptType());
-		concept.setBH_Display_Locale(entity.getDisplayLocale());
-		concept.setBH_Display_Name(entity.getDisplayName());
-		concept.setBH_ExternalID(entity.getExternalId());
-		concept.setBH_OclID(entity.getOclId());
-		concept.setBH_Owner(entity.getOwner());
-		concept.setBH_Source(entity.getSource());
-		concept.setURL(entity.getUrl());
-
-		concept.saveEx();
-
-		// save mappings
-		if (entity.getToConceptMappings() != null && !entity.getToConceptMappings().isEmpty()) {
-			for (ConceptMapping conceptMapping : entity.getToConceptMappings()) {
-				conceptMappingDBService.saveEntity(conceptMapping);
+		
+		// save client concepts
+		int conceptId = concept.get_ID();
+		if (entity.getClientConcepts() != null && !entity.getClientConcepts().isEmpty()) {
+			for (ClientConcept clientConcept : entity.getClientConcepts()) {
+				clientConcept.setConceptId(conceptId);
+				clientConceptDBService.saveEntity(clientConcept);
 			}
 		}
 
@@ -60,7 +50,10 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 			}
 		}
 		
-		return transformData(Collections.singletonList(getEntityByUuidFromDB(concept.getUUIDColumnName()))).get(0);
+		// delete old client concepts
+		clientConceptDBService.deleteClientConceptsNotInList(conceptId, entity.getClientConcepts());
+		
+		return transformData(Collections.singletonList(getEntityByUuidFromDB(entity.getUuid()))).get(0);
 	}
 
 	@Override
@@ -114,6 +107,22 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(ConceptExtra::getConceptId));
 
+		// get concept names
+		Map<Integer, List<ConceptName>> conceptNameByConceptId = conceptNameDBService
+				.transformData(conceptNameDBService
+						.getGroupsByIds(MBHConceptName::getBH_Concept_ID, MBHConceptName.COLUMNNAME_BH_Concept_ID,
+								dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()))
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
+				.stream().collect(Collectors.groupingBy(ConceptName::getConceptId));
+
+		// get client concepts
+		Map<Integer, List<ClientConcept>> clientConceptByConceptId = clientConceptDBService
+				.transformData(clientConceptDBService
+						.getGroupsByIds(MBHClientConcept::getBH_Concept_ID, MBHClientConcept.COLUMNNAME_BH_Concept_ID,
+								dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()))
+						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
+				.stream().collect(Collectors.groupingBy(ClientConcept::getConceptId));
+
 		// get parent concept mappings
 		List<Object> parameters = new ArrayList<>();
 		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
@@ -122,7 +131,7 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		String whereClause = MBHConceptMapping.COLUMNNAME_BH_To_Concept_Code + " IN ( SELECT "
 				+ MBHConcept.COLUMNNAME_BH_OclID + " FROM " + MBHConcept.Table_Name + " WHERE "
 				+ MBHConcept.COLUMNNAME_BH_Concept_ID + " IN (" + inClause + ") AND "
-				+ MBHConcept.COLUMNNAME_bh_concept_class + " = ?)";
+				+ MBHConcept.COLUMNNAME_BH_Concept_Class + " = ?)";
 
 		parameters.add(MBHConcept.TEST_CONCEPT_CLASS);
 
@@ -161,6 +170,14 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 
 			if (conceptExtraByConceptId.containsKey(result.getId())) {
 				result.setConceptExtras(conceptExtraByConceptId.get(result.getId()));
+			}
+			
+			if (conceptNameByConceptId.containsKey(result.getId())) {
+				result.setConceptNames(conceptNameByConceptId.get(result.getId()));
+			}
+			
+			if (clientConceptByConceptId.containsKey(result.getId())) {
+				result.setClientConcepts(clientConceptByConceptId.get(result.getId()));
 			}
 
 			if (parentConceptMappings.containsKey(result.getOclId())) {

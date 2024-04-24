@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Concept
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 11
  */
 @SuppressWarnings("all")
 public interface I_BH_Concept 
@@ -46,8 +46,8 @@ public interface I_BH_Concept
     /** Column name AD_Client_ID */
     public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
 
-	/** Get Client.
-	  * Client/Tenant for this installation.
+	/** Get Tenant.
+	  * Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
 
@@ -55,23 +55,23 @@ public interface I_BH_Concept
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
 	/** Set Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
 	/** Get Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
 
-    /** Column name bh_concept_class */
-    public static final String COLUMNNAME_bh_concept_class = "bh_concept_class";
+    /** Column name BH_Concept_Class */
+    public static final String COLUMNNAME_BH_Concept_Class = "BH_Concept_Class";
 
-	/** Set bh_concept_class	  */
-	public void setbh_concept_class (String bh_concept_class);
+	/** Set BH_Concept_Class	  */
+	public void setBH_Concept_Class (String BH_Concept_Class);
 
-	/** Get bh_concept_class	  */
-	public String getbh_concept_class();
+	/** Get BH_Concept_Class	  */
+	public String getBH_Concept_Class();
 
     /** Column name BH_Concept_ID */
     public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";

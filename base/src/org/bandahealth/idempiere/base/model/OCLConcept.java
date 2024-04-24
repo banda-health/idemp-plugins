@@ -35,6 +35,7 @@ public class OCLConcept {
 	private String type;
 	private List<OCLConceptMapping> mappings = new ArrayList<OCLConceptMapping>();
 	private List<OCLConceptExtra> extras = new ArrayList<>();
+	private List<OCLConceptName> names = new ArrayList<>();
 
 	public OCLConcept() {
 	}
@@ -59,7 +60,7 @@ public class OCLConcept {
 		setVersionCreatedOn(JsonUtils.getValue(node.get("version_created_on")));
 		setLatestVersion(JsonUtils.getBoolValue(node.get("is_latest_version")));
 		setType(JsonUtils.getValue(node.get("type")));
-		
+
 		if (node.get("mappings") != null) {
 			StreamSupport.stream(node.get("mappings").spliterator(), false).forEach(mapping -> {
 				addMapping(new OCLConceptMapping(mapping));
@@ -72,6 +73,12 @@ public class OCLConcept {
 				Entry<String, JsonNode> entry = iterator.next();
 				extras.add(new OCLConceptExtra(entry.getKey(), entry.getValue().asText()));
 			}
+		}
+
+		if (node.get("names") != null) {
+			StreamSupport.stream(node.get("names").spliterator(), false).forEach(name -> {
+				addName(new OCLConceptName(name));
+			});
 		}
 	}
 
@@ -249,5 +256,21 @@ public class OCLConcept {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<OCLConceptName> getNames() {
+		return names;
+	}
+
+	public void setNames(List<OCLConceptName> names) {
+		this.names = names;
+	}
+
+	private void addName(OCLConceptName name) {
+		if (this.names == null) {
+			this.names = new ArrayList<OCLConceptName>();
+		}
+
+		this.names.add(name);
 	}
 }

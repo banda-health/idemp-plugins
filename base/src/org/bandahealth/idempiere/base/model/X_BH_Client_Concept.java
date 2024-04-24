@@ -22,21 +22,52 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for BH_Client_Concept
- *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
-public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Client_Concept")
+public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240227L;
+	private static final long serialVersionUID = 20240418L;
 
     /** Standard Constructor */
     public X_BH_Client_Concept (Properties ctx, int BH_Client_Concept_ID, String trxName)
     {
       super (ctx, BH_Client_Concept_ID, trxName);
       /** if (BH_Client_Concept_ID == 0)
+        {
+			setBH_Concept_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Client_Concept (Properties ctx, int BH_Client_Concept_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Client_Concept_ID, trxName, virtualColumns);
+      /** if (BH_Client_Concept_ID == 0)
+        {
+			setBH_Concept_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Client_Concept (Properties ctx, String BH_Client_Concept_UU, String trxName)
+    {
+      super (ctx, BH_Client_Concept_UU, trxName);
+      /** if (BH_Client_Concept_UU == null)
+        {
+			setBH_Concept_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Client_Concept (Properties ctx, String BH_Client_Concept_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Client_Concept_UU, trxName, virtualColumns);
+      /** if (BH_Client_Concept_UU == null)
         {
 			setBH_Concept_ID (0);
         } */
@@ -49,7 +80,7 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 3 - Client - Org
       */
     protected int get_AccessLevel()
     {
@@ -66,23 +97,24 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
     public String toString()
     {
       StringBuilder sb = new StringBuilder ("X_BH_Client_Concept[")
-        .append(get_ID()).append("]");
+        .append(get_ID()).append(",Name=").append(getName()).append("]");
       return sb.toString();
     }
 
 	/** Set Client Concept.
-		@param BH_Client_Concept_ID Client Concept	  */
+		@param BH_Client_Concept_ID Client Concept
+	*/
 	public void setBH_Client_Concept_ID (int BH_Client_Concept_ID)
 	{
-		if (BH_Client_Concept_ID < 1) 
+		if (BH_Client_Concept_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Client_Concept_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Client_Concept_ID, Integer.valueOf(BH_Client_Concept_ID));
 	}
 
 	/** Get Client Concept.
 		@return Client Concept	  */
-	public int getBH_Client_Concept_ID () 
+	public int getBH_Client_Concept_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Client_Concept_ID);
 		if (ii == null)
@@ -91,7 +123,8 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	}
 
 	/** Set BH_Client_Concept_UU.
-		@param BH_Client_Concept_UU BH_Client_Concept_UU	  */
+		@param BH_Client_Concept_UU BH_Client_Concept_UU
+	*/
 	public void setBH_Client_Concept_UU (String BH_Client_Concept_UU)
 	{
 		set_ValueNoCheck (COLUMNNAME_BH_Client_Concept_UU, BH_Client_Concept_UU);
@@ -99,24 +132,25 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 
 	/** Get BH_Client_Concept_UU.
 		@return BH_Client_Concept_UU	  */
-	public String getBH_Client_Concept_UU () 
+	public String getBH_Client_Concept_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Client_Concept_UU);
 	}
 
 	/** Set Client Mapping ID.
-		@param BH_Client_Mapping_ID Client Mapping ID	  */
+		@param BH_Client_Mapping_ID Client Mapping ID
+	*/
 	public void setBH_Client_Mapping_ID (int BH_Client_Mapping_ID)
 	{
-		if (BH_Client_Mapping_ID < 1) 
+		if (BH_Client_Mapping_ID < 1)
 			set_Value (COLUMNNAME_BH_Client_Mapping_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_BH_Client_Mapping_ID, Integer.valueOf(BH_Client_Mapping_ID));
 	}
 
 	/** Get Client Mapping ID.
 		@return Client Mapping ID	  */
-	public int getBH_Client_Mapping_ID () 
+	public int getBH_Client_Mapping_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Client_Mapping_ID);
 		if (ii == null)
@@ -125,27 +159,45 @@ public class X_BH_Client_Concept extends PO implements I_BH_Client_Concept, I_Pe
 	}
 
 	public I_BH_Concept getBH_Concept() throws RuntimeException
-    {
-		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_Name)
-			.getPO(getBH_Concept_ID(), get_TrxName());	}
+	{
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getBH_Concept_ID(), get_TrxName());
+	}
 
 	/** Set Concept.
-		@param BH_Concept_ID Concept	  */
+		@param BH_Concept_ID Concept
+	*/
 	public void setBH_Concept_ID (int BH_Concept_ID)
 	{
-		if (BH_Concept_ID < 1) 
+		if (BH_Concept_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
 	}
 
 	/** Get Concept.
 		@return Concept	  */
-	public int getBH_Concept_ID () 
+	public int getBH_Concept_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	/** Set Name.
+		@param Name Alphanumeric identifier of the entity
+	*/
+	public void setName (String Name)
+	{
+		set_Value (COLUMNNAME_Name, Name);
+	}
+
+	/** Get Name.
+		@return Alphanumeric identifier of the entity
+	  */
+	public String getName()
+	{
+		return (String)get_Value(COLUMNNAME_Name);
 	}
 }

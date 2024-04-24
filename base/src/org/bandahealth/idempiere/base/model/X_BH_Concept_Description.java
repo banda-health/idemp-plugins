@@ -22,21 +22,52 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for BH_Concept_Description
- *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
-public class X_BH_Concept_Description extends PO implements I_BH_Concept_Description, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Concept_Description")
+public class X_BH_Concept_Description extends PO implements I_BH_Concept_Description, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240229L;
+	private static final long serialVersionUID = 20240418L;
 
     /** Standard Constructor */
     public X_BH_Concept_Description (Properties ctx, int BH_Concept_Description_ID, String trxName)
     {
       super (ctx, BH_Concept_Description_ID, trxName);
       /** if (BH_Concept_Description_ID == 0)
+        {
+			setBH_Concept_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Concept_Description (Properties ctx, int BH_Concept_Description_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Concept_Description_ID, trxName, virtualColumns);
+      /** if (BH_Concept_Description_ID == 0)
+        {
+			setBH_Concept_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Concept_Description (Properties ctx, String BH_Concept_Description_UU, String trxName)
+    {
+      super (ctx, BH_Concept_Description_UU, trxName);
+      /** if (BH_Concept_Description_UU == null)
+        {
+			setBH_Concept_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Concept_Description (Properties ctx, String BH_Concept_Description_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Concept_Description_UU, trxName, virtualColumns);
+      /** if (BH_Concept_Description_UU == null)
         {
 			setBH_Concept_ID (0);
         } */
@@ -49,7 +80,7 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 3 - Client - Org
       */
     protected int get_AccessLevel()
     {
@@ -71,18 +102,19 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
     }
 
 	/** Set Concept Description.
-		@param BH_Concept_Description_ID Concept Description	  */
+		@param BH_Concept_Description_ID Concept Description
+	*/
 	public void setBH_Concept_Description_ID (int BH_Concept_Description_ID)
 	{
-		if (BH_Concept_Description_ID < 1) 
+		if (BH_Concept_Description_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Concept_Description_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Concept_Description_ID, Integer.valueOf(BH_Concept_Description_ID));
 	}
 
 	/** Get Concept Description.
 		@return Concept Description	  */
-	public int getBH_Concept_Description_ID () 
+	public int getBH_Concept_Description_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_Description_ID);
 		if (ii == null)
@@ -91,7 +123,8 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	}
 
 	/** Set Concept Description Type.
-		@param BH_Concept_Description_Type Concept Description Type	  */
+		@param BH_Concept_Description_Type Concept Description Type
+	*/
 	public void setBH_Concept_Description_Type (String BH_Concept_Description_Type)
 	{
 		set_Value (COLUMNNAME_BH_Concept_Description_Type, BH_Concept_Description_Type);
@@ -99,13 +132,14 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 
 	/** Get Concept Description Type.
 		@return Concept Description Type	  */
-	public String getBH_Concept_Description_Type () 
+	public String getBH_Concept_Description_Type()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Concept_Description_Type);
 	}
 
 	/** Set BH_Concept_Description_UU.
-		@param BH_Concept_Description_UU BH_Concept_Description_UU	  */
+		@param BH_Concept_Description_UU BH_Concept_Description_UU
+	*/
 	public void setBH_Concept_Description_UU (String BH_Concept_Description_UU)
 	{
 		set_ValueNoCheck (COLUMNNAME_BH_Concept_Description_UU, BH_Concept_Description_UU);
@@ -113,29 +147,31 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 
 	/** Get BH_Concept_Description_UU.
 		@return BH_Concept_Description_UU	  */
-	public String getBH_Concept_Description_UU () 
+	public String getBH_Concept_Description_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Concept_Description_UU);
 	}
 
 	public I_BH_Concept getBH_Concept() throws RuntimeException
-    {
-		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_Name)
-			.getPO(getBH_Concept_ID(), get_TrxName());	}
+	{
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getBH_Concept_ID(), get_TrxName());
+	}
 
 	/** Set Concept.
-		@param BH_Concept_ID Concept	  */
+		@param BH_Concept_ID Concept
+	*/
 	public void setBH_Concept_ID (int BH_Concept_ID)
 	{
-		if (BH_Concept_ID < 1) 
+		if (BH_Concept_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
 	}
 
 	/** Get Concept.
 		@return Concept	  */
-	public int getBH_Concept_ID () 
+	public int getBH_Concept_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
 		if (ii == null)
@@ -144,7 +180,8 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	}
 
 	/** Set Concept Locale.
-		@param BH_Concept_Locale Concept Locale	  */
+		@param BH_Concept_Locale Concept Locale
+	*/
 	public void setBH_Concept_Locale (String BH_Concept_Locale)
 	{
 		set_Value (COLUMNNAME_BH_Concept_Locale, BH_Concept_Locale);
@@ -152,13 +189,14 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 
 	/** Get Concept Locale.
 		@return Concept Locale	  */
-	public String getBH_Concept_Locale () 
+	public String getBH_Concept_Locale()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Concept_Locale);
 	}
 
 	/** Set Concept Type.
-		@param BH_Concept_Type Concept Type	  */
+		@param BH_Concept_Type Concept Type
+	*/
 	public void setBH_Concept_Type (String BH_Concept_Type)
 	{
 		set_Value (COLUMNNAME_BH_Concept_Type, BH_Concept_Type);
@@ -166,32 +204,30 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 
 	/** Get Concept Type.
 		@return Concept Type	  */
-	public String getBH_Concept_Type () 
+	public String getBH_Concept_Type()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Concept_Type);
 	}
 
 	/** Set BH_ExternalID.
-		@param BH_ExternalID 
-		BH_ExternalID
-	  */
+		@param BH_ExternalID BH_External_ID
+	*/
 	public void setBH_ExternalID (String BH_ExternalID)
 	{
 		set_Value (COLUMNNAME_BH_ExternalID, BH_ExternalID);
 	}
 
 	/** Get BH_ExternalID.
-		@return BH_ExternalID
+		@return BH_External_ID
 	  */
-	public String getBH_ExternalID () 
+	public String getBH_ExternalID()
 	{
 		return (String)get_Value(COLUMNNAME_BH_ExternalID);
 	}
 
 	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
+		@param Name Alphanumeric identifier of the entity
+	*/
 	public void setName (String Name)
 	{
 		set_Value (COLUMNNAME_Name, Name);
@@ -200,7 +236,7 @@ public class X_BH_Concept_Description extends PO implements I_BH_Concept_Descrip
 	/** Get Name.
 		@return Alphanumeric identifier of the entity
 	  */
-	public String getName () 
+	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}

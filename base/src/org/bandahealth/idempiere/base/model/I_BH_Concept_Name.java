@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Concept_Name
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 11
  */
 @SuppressWarnings("all")
 public interface I_BH_Concept_Name 
@@ -46,8 +46,8 @@ public interface I_BH_Concept_Name
     /** Column name AD_Client_ID */
     public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
 
-	/** Get Client.
-	  * Client/Tenant for this installation.
+	/** Get Tenant.
+	  * Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
 
@@ -55,12 +55,12 @@ public interface I_BH_Concept_Name
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
 	/** Set Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
 	/** Get Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
 
@@ -83,6 +83,15 @@ public interface I_BH_Concept_Name
 
 	/** Get Concept Locale	  */
 	public String getBH_Concept_Locale();
+
+    /** Column name BH_Concept_Locale_Preferred */
+    public static final String COLUMNNAME_BH_Concept_Locale_Preferred = "BH_Concept_Locale_Preferred";
+
+	/** Set Locale Preferred	  */
+	public void setBH_Concept_Locale_Preferred (boolean BH_Concept_Locale_Preferred);
+
+	/** Get Locale Preferred	  */
+	public boolean isBH_Concept_Locale_Preferred();
 
     /** Column name BH_Concept_Name_ID */
     public static final String COLUMNNAME_BH_Concept_Name_ID = "BH_Concept_Name_ID";
@@ -120,18 +129,18 @@ public interface I_BH_Concept_Name
 	/** Get Concept Type	  */
 	public String getBH_Concept_Type();
 
-    /** Column name BH_External_ID */
-    public static final String COLUMNNAME_BH_External_ID = "BH_External_ID";
+    /** Column name BH_ExternalID */
+    public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
 
-	/** Set BH_External_ID.
+	/** Set BH_ExternalID.
 	  * BH_External_ID
 	  */
-	public void setBH_External_ID (String BH_External_ID);
+	public void setBH_ExternalID (String BH_ExternalID);
 
-	/** Get BH_External_ID.
+	/** Get BH_ExternalID.
 	  * BH_External_ID
 	  */
-	public String getBH_External_ID();
+	public String getBH_ExternalID();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

@@ -16,6 +16,7 @@ public class ClientConcept extends BaseMetadata {
 	private Concept concept;
 	@JsonIgnore
 	private int conceptId;
+	private String name;
 
 	public ClientConcept() {
 	}
@@ -25,6 +26,7 @@ public class ClientConcept extends BaseMetadata {
 
 		setClientMappingId(entity.getBH_Client_Mapping_ID());
 		setConceptId(entity.getBH_Concept_ID());
+		setName(entity.getName());
 	}
 
 	public Client getMappingClient() {
@@ -57,5 +59,13 @@ public class ClientConcept extends BaseMetadata {
 
 	public void setConceptId(int conceptId) {
 		this.conceptId = conceptId;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 }
