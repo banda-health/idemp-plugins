@@ -77,9 +77,9 @@ SELECT
 	DATE_PART('year', AGE(bp.bh_birthday)) AS age,
 	bp.bh_gender                           AS gender,
 	bp.bh_phone                            AS phonenumber,
-	primary_cd.displayName                 AS primary_coded_diagnosis,
+	primary_cd.bh_display_name             AS primary_coded_diagnosis,
 	pd.bh_uncoded_diagnosis                AS primary_uncoded_diagnosis,
-	secondary_cd.displayName               AS secondary_coded_diagnosis,
+	secondary_cd.bh_display_name           AS secondary_coded_diagnosis,
 	sd.bh_uncoded_diagnosis                AS secondary_uncoded_diagnosis
 FROM
 	bh_visit v
@@ -89,9 +89,9 @@ FROM
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
 		LEFT JOIN visit_diagnoses sd
 		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
-		LEFT JOIN bh_coded_diagnosis primary_cd
+		LEFT JOIN bh_concept primary_cd
 		ON primary_cd.bh_concept_id = pd.bh_concept_id
-		LEFT JOIN bh_coded_diagnosis secondary_cd
+		LEFT JOIN bh_concept secondary_cd
 		ON secondary_cd.bh_concept_id = sd.bh_concept_id
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}

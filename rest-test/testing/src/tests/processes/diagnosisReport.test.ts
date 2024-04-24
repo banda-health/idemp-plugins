@@ -14,7 +14,7 @@ test('diagnosis report is runnable', async () => {
 	).results[0];
 	const beginDateParameter = process.parameters.find((parameter) => parameter.name === 'Begin Date');
 	const endDateParameter = process.parameters.find((parameter) => parameter.name === 'End Date');
-	const codedDiagnosisParameter = process.parameters.find((parameter) => parameter.name === 'Coded Diagnosis');
+	const codedDiagnosisParameter = process.parameters.find((parameter) => parameter.name === 'Concept');
 	const uncodedDiagnosisParameter = process.parameters.find((parameter) => parameter.name === 'Uncoded Diagnosis');
 
 	expect(beginDateParameter).toBeTruthy();

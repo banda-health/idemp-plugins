@@ -85,7 +85,7 @@
 	),
 	referral_count AS (
 		SELECT DISTINCT
-			bh_moh705b_greaterthan5,
+			c.bh_moh705b_greaterthan5,
 			rl.value                    AS referral,
 			c.calendar,
 			COALESCE(c.noofreferral, 0) AS noofreferral

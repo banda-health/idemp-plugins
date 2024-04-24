@@ -33,7 +33,7 @@ FROM
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
 		LEFT JOIN bh_concept cd
 		ON cd.bh_concept_id = pd.bh_concept_id
-		LEFT JOIN bh_concept_exta ce
+		LEFT JOIN bh_concept_extra ce
 		ON cd.bh_concept_id = ce.bh_concept_id
 		RIGHT JOIN ad_org o
 			ON v.ad_client_id = o.ad_client_id
@@ -42,7 +42,7 @@ FROM
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	v.bh_visitdate, o.name, ce.bh_key]]>
+	v.bh_visitdate, o.name, ce.bh_value]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date"/>
 	<field name="name" class="java.lang.String"/>

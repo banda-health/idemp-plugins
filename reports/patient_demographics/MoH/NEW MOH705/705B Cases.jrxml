@@ -254,7 +254,7 @@ FROM
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY
-	v.bh_visitdate, o.name, ce.bh_key]]>
+	v.bh_visitdate, o.name, ce.bh_value]]>
 	</queryString>
 	<field name="calendar" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="calendar"/>

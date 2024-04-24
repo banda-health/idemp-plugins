@@ -82,7 +82,7 @@
 	),
 	attendance_count AS (
 		SELECT DISTINCT
-			bh_moh705a_lessthan5,
+			c.bh_moh705a_lessthan5,
 			b.value                       AS attendance,
 			c.calendar,
 			COALESCE(c.noofattendance, 0) AS noofattendance
@@ -118,7 +118,7 @@
 	)
 SELECT
 	dali.calendar,
-	bh_moh705a_lessthan5,
+	dc.bh_moh705a_lessthan5,
 	CASE
 		WHEN dl.Attendance = 'Y' THEN 'NO. OF FIRST ATTENDANCES'
 		ELSE 'RE-ATTENDANCES'

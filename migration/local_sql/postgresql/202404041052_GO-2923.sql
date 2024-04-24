@@ -4,6 +4,7 @@
 -- 4. Drop bh_coded_diagnosis_mapping table	
 -- 5. Drop bh_coded_diagnosis table
 -- 6. Update CodedDiagnosisSyncProcess to point to ConceptSyncProcess
+-- 7. Update reports
 
 -- Step 1:
 ALTER TABLE BH_Encounter_Diagnosis ADD COLUMN BH_Concept_ID NUMERIC(10) DEFAULT NULL;
@@ -155,6 +156,9 @@ WHERE
 
 -- Step 6:
 UPDATE AD_Process SET classname = 'org.bandahealth.idempiere.base.process.ConceptSyncProcess' WHERE AD_Process_UU='dc0a5369-1478-46ff-aef4-8bac662132b7';
+
+-- Step 7:
+UPDATE AD_Process_Para SET name = 'Concept', columnname = 'BH_Concept_UU' WHERE AD_Process_Para_UU = '250d4efb-e958-4ef6-95cf-4d23b10f0972';
 
 SELECT
 	register_migration_script('202404041052_GO-2923.sql')
