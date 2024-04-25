@@ -93,6 +93,9 @@ WHERE
 	LOWER(tablename) = 'bh_coded_diagnosis_mapping';
 	
 -- Step 5	
+-- update coded diagnoses tab to point to bh_concept table
+UPDATE  AD_Tab SET AD_Table_ID = (SELECT AD_Table_ID FROM AD_Table WHERE AD_Table_UU = '2dcec3ca-58e7-4f5e-86b9-90465b99a581') WHERE AD_Tab_UU = 'd25b4199-f9f8-482a-b4a7-cdc7a628bf10';
+
 DROP TABLE BH_Coded_Diagnosis CASCADE;
 DELETE
 FROM
@@ -141,9 +144,6 @@ FROM
 	ad_table
 WHERE
 	LOWER(tablename) = 'bh_coded_diagnosis';
-
--- update coded diagnoses tab to point to bh_concept table
-UPDATE  AD_Tab SET AD_Table_ID = (SELECT AD_Table_ID FROM AD_Table WHERE AD_Table_uu = '2dcec3ca-58e7-4f5e-86b9-90465b99a581') WHERE AD_Tab_UU = 'd25b4199-f9f8-482a-b4a7-cdc7a628bf10';	
 
 -- Step 6:
 UPDATE AD_Process SET classname = 'org.bandahealth.idempiere.base.process.ConceptSyncProcess' WHERE AD_Process_UU='dc0a5369-1478-46ff-aef4-8bac662132b7';
