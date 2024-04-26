@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryVO {
 	private static final String reportUuid = "c9f91d23-48ea-4990-af5d-f3e7f0db77de";
-	private static final String MOH705ALESSTHAN5 = "MOH-705B-LESSTHAN5";
+	private static final String MOH705ALESSTHAN5 = "MOH-705A-LESSTHAN5";
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
