@@ -186,7 +186,7 @@
 						JOIN bh_concept c
 						ON pd.bh_concept_id = c.bh_concept_id
 						JOIN bh_concept_extra ce
-						ON c.bh_concept_id = ce.bh_concept_id
+						ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705A-LESSTHAN5'
 						JOIN date_limitter dl
 						ON dl.calendar = CAST(bh_visitdate AS date)
 						JOIN c_bpartner bp
@@ -195,7 +195,6 @@
 					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) < 5
 					AND v.bh_patienttype != 'Im'
-					AND ce.bh_key = 'MOH-705A-LESSTHAN5'
 				GROUP BY bh_value, CAST(bh_visitdate AS date)
 			)
 	)
@@ -327,13 +326,12 @@ FROM
 		LEFT JOIN bh_concept c
 		ON c.bh_concept_id = pd.bh_concept_id
 		LEFT JOIN bh_concept_extra ce
-		ON c.bh_concept_id = ce.bh_concept_id
+		ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705A-LESSTHAN5'
 		RIGHT JOIN ad_org o
 		ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND ce.bh_key = 'MOH-705A-LESSTHAN5'
 GROUP BY
 	v.bh_visitdate, o.name, ce.bh_value]]>
 	</queryString>

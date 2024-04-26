@@ -34,11 +34,10 @@ FROM
 		LEFT JOIN bh_concept cd
 		ON cd.bh_concept_id = pd.bh_concept_id
 		LEFT JOIN bh_concept_extra ce
-		ON cd.bh_concept_id = ce.bh_concept_id
+		ON cd.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
 		RIGHT JOIN ad_org o
 			ON v.ad_client_id = o.ad_client_id
 		AND o.isactive = 'Y'
-		AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
 GROUP BY

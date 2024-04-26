@@ -101,7 +101,7 @@
 						JOIN bh_concept c
 						ON pd.bh_concept_id = c.bh_concept_id
 						JOIN bh_concept_extra ce
-						ON c.bh_concept_id = ce.bh_concept_id
+						ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
 						JOIN date_limitter dl
 						ON dl.calendar = CAST(bh_visitdate AS date)
 						JOIN c_bpartner bp
@@ -109,7 +109,6 @@
 				WHERE
 					bp.bh_birthday IS NOT NULL
 					AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
-					AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
 				GROUP BY bh_newvisit, ce.bh_value, CAST(bh_visitdate AS date)
 			) c
 					ON rl.value = bh_newvisit
@@ -173,13 +172,12 @@ FROM
 		LEFT JOIN bh_concept c
 		ON c.bh_concept_id = pd.bh_concept_id
 		LEFT JOIN bh_concept_extra ce
-		ON c.bh_concept_id = ce.bh_concept_id
+		ON c.bh_concept_id = ce.bh_concept_id AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
 		RIGHT JOIN ad_org client
 			ON v.ad_client_id = client.ad_client_id
 		AND client.isactive = 'Y'
 WHERE
 	v.ad_client_id = $P{AD_CLIENT_ID}
-	AND ce.bh_key = 'MOH-705B-GREATERTHAN5'
 	AND ce.bh_value IS NOT NULL
 GROUP BY
 	v.bh_visitdate, client.name, ce.bh_value]]>

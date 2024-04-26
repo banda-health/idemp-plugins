@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryVO {
 	private static final String reportUuid = "c9f91d23-48ea-4990-af5d-f3e7f0db77de";
+	private static final String MOH705ALESSTHAN5 = "MOH-705B-LESSTHAN5";
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
@@ -70,12 +71,15 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			codedDiagnosis.saveEx();
 
 			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
-					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
-					.setParameters("Burns", codedDiagnosis.getBH_Concept_ID()).first();
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
 			if (extra == null) {
 				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
-				extra.setBH_Key("MOH-705A-LESSTHAN5");
-				extra.setBH_Value("Burns");
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
 				extra.saveEx();
 			}
 
@@ -217,12 +221,15 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 
 			codedDiagnosis.saveEx();
 			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
-					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
-					.setParameters("Burns", codedDiagnosis.getBH_Concept_ID()).first();
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
 			if (extra == null) {
 				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
-				extra.setBH_Key("MOH-705A-LESSTHAN5");
-				extra.setBH_Value("Asthma");
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
 				extra.saveEx();
 			}
 			commitEx();
@@ -363,12 +370,15 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			}
 			codedDiagnosis.saveEx();
 			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
-					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
-					.setParameters("Burns", codedDiagnosis.getBH_Concept_ID()).first();
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
 			if (extra == null) {
 				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
-				extra.setBH_Key("MOH-705A-LESSTHAN5");
-				extra.setBH_Value("Asthma");
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
 				extra.saveEx();
 			}
 			commitEx();

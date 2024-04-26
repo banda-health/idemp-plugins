@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO {
 	private static final String reportUuid = "432eeb61-1a87-4880-bded-91927139341c";
+	private static final String MOH705BGREATERTHAN5 = "MOH-705B-GREATERTHAN5";
 
 	@IPopulateAnnotation.CanRunBeforeClass
 	public void prepareIt() throws Exception {
@@ -58,9 +59,9 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		MBHConcept codedDiagnosis = null;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
-			codedDiagnosis =
-					new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_Display_Name +
-							"=?", valueObject.getTransactionName()).setParameters(diagnosisToSearchFor).first();
+			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -69,12 +70,15 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 			codedDiagnosis.saveEx();
 
 			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
-					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
-					.setParameters("Burns", codedDiagnosis.getBH_Concept_ID()).first();
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705BGREATERTHAN5).first();
 			if (extra == null) {
 				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
-				extra.setBH_Key("MOH-705B-GREATERTHAN5");
-				extra.setBH_Value("Burns");
+				extra.setBH_Key(MOH705BGREATERTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
 				extra.saveEx();
 			}
 
@@ -89,14 +93,13 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		valueObject.setProcessTableId(0);
 		Timestamp startOfMonth = TimestampUtils.startOfMonth();
 		Timestamp endOfMonth = TimestampUtils.endOfMonth();
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
-				new ProcessInfoParameter("End Date", endOfMonth, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		List<String> diagnosisData =
-				getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor, diagnosisAfterDiagnosisToSearchForOnReport);
+		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+				diagnosisAfterDiagnosisToSearchForOnReport);
 		int numberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
 
 		Calendar calendar = GregorianCalendar.getInstance();
@@ -133,8 +136,8 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis =
-				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
@@ -182,15 +185,14 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		valueObject.setProcessUuid(reportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
-				new ProcessInfoParameter("End Date", endOfMonth, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		diagnosisData =
-				getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor, diagnosisAfterDiagnosisToSearchForOnReport);
+		diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+				diagnosisAfterDiagnosisToSearchForOnReport);
 		int newNumberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
 
 		assertThat("Number of diagnoses correctly counted", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
@@ -209,9 +211,9 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		MBHConcept codedDiagnosis = null;
 		try {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
-			codedDiagnosis =
-					new Query(valueObject.getContext(), MBHConcept.Table_Name, MBHConcept.COLUMNNAME_BH_Display_Name +
-							"=?", valueObject.getTransactionName()).setParameters(diagnosisToSearchFor).first();
+			codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
 				valueObject.setStepName("Create the burns coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
@@ -220,12 +222,15 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 			codedDiagnosis.saveEx();
 
 			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
-					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=?", valueObject.getTransactionName())
-					.setParameters("Burns", codedDiagnosis.getBH_Concept_ID()).first();
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisToSearchFor, codedDiagnosis.getBH_Concept_ID(), MOH705BGREATERTHAN5).first();
 			if (extra == null) {
 				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
-				extra.setBH_Key("MOH-705B-GREATERTHAN5");
-				extra.setBH_Value("Burns");
+				extra.setBH_Key(MOH705BGREATERTHAN5);
+				extra.setBH_Value(diagnosisToSearchFor);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
 				extra.saveEx();
 			}
 
@@ -240,14 +245,13 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		valueObject.setProcessTableId(0);
 		Timestamp startOfMonth = TimestampUtils.startOfMonth();
 		Timestamp endOfMonth = TimestampUtils.endOfMonth();
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
-				new ProcessInfoParameter("End Date", endOfMonth, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 		String reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		List<String> diagnosisData =
-				getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor, diagnosisAfterDiagnosisToSearchForOnReport);
+		List<String> diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+				diagnosisAfterDiagnosisToSearchForOnReport);
 		int numberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
 
 		Calendar calendar = GregorianCalendar.getInstance();
@@ -282,8 +286,8 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
 		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
 		encounter.saveEx();
-		MBHEncounterDiagnosis encounterDiagnosis =
-				new MBHEncounterDiagnosis(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MBHEncounterDiagnosis encounterDiagnosis = new MBHEncounterDiagnosis(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
 		encounterDiagnosis.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
 		encounterDiagnosis.setBH_Concept_ID(codedDiagnosis.get_ID());
 		encounterDiagnosis.setLineNo(10);
@@ -367,15 +371,14 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 		valueObject.setProcessUuid(reportUuid);
 		valueObject.setProcessRecordId(0);
 		valueObject.setProcessTableId(0);
-		valueObject.setProcessInformationParameters(Arrays.asList(
-				new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
-				new ProcessInfoParameter("End Date", endOfMonth, null, null, null)
-		));
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", startOfMonth, null, null, null),
+						new ProcessInfoParameter("End Date", endOfMonth, null, null, null)));
 		ChuBoeCreateEntity.runReport(valueObject);
 
 		reportContent = PDFUtils.readPdfContent(valueObject.getReport(), true);
-		diagnosisData =
-				getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor, diagnosisAfterDiagnosisToSearchForOnReport);
+		diagnosisData = getDataBetweenDiagnoses(reportContent, diagnosisToSearchFor,
+				diagnosisAfterDiagnosisToSearchForOnReport);
 		int newNumberOfDiagnoses = getDiagnosesCountForDate(startOfMonth, TimestampUtils.today(), diagnosisData);
 
 		assertThat("Number of diagnoses correctly counted", newNumberOfDiagnoses, is(numberOfDiagnoses + 1));
