@@ -142,9 +142,9 @@ public interface I_BH_CodedDiagnosisMapping
 
 	public String getBH_Source();
 	
-	public static final String COLUMNNAME_BH_ExternalId = "BH_External_ID";
+	public static final String COLUMNNAME_BH_ExternalID = "BH_ExternalID";
 
-	public void setBH_ExternalID (String BH_External_ID);
+	public void setBH_ExternalID (String BH_ExternalID);
 
 	public String getBH_ExternalID();
 	
