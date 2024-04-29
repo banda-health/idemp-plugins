@@ -1,0 +1,79 @@
+# Generated Schema for C_TaxDeclarationAcct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_TaxDeclarationAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxDeclarationAcctConnection!
+}
+
+extend type Mutation {
+	C_TaxDeclarationAcctSave(Entity: C_TaxDeclarationAcctInput!): C_TaxDeclarationAcct!
+	C_TaxDeclarationAcctSaveMany(Entities: [C_TaxDeclarationAcctInput!]!): [C_TaxDeclarationAcct!]!
+	C_TaxDeclarationAcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_TaxDeclarationAcctConnection {
+	Results: [C_TaxDeclarationAcct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_TaxDeclarationAcct {
+	# Account used
+	Account: C_ElementValue
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Accounted Credit Amount
+	AmtAcctCr: BigDecimal
+	# Accounted Debit Amount
+	AmtAcctDr: BigDecimal
+	# Source Credit Amount
+	AmtSourceCr: BigDecimal
+	# Source Debit Amount
+	AmtSourceDr: BigDecimal
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Tax identifier
+	C_Tax: C_Tax
+	# Define the declaration to the tax authorities
+	C_TaxDeclaration: C_TaxDeclaration!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: Fact_Acct!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_TaxDeclarationAcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Define the declaration to the tax authorities
+	C_TaxDeclaration: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+}

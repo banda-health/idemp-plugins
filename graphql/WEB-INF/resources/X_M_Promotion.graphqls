@@ -1,0 +1,59 @@
+# Generated Schema for M_Promotion - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PromotionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionConnection!
+}
+
+extend type Mutation {
+	M_PromotionSave(Entity: M_PromotionInput!): M_Promotion!
+	M_PromotionSaveMany(Entities: [M_PromotionInput!]!): [M_Promotion!]!
+	M_PromotionDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PromotionConnection {
+	Results: [M_Promotion!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Promotion {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Which promotion should be apply to a product
+	PromotionPriority: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PromotionInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Which promotion should be apply to a product
+	PromotionPriority: Int
+}

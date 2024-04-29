@@ -8,6 +8,18 @@ public class MBHPayerInfoFld extends X_BH_Payer_Info_Fld {
 		super(ctx, BH_Payer_Info_Fld_ID, trxName);
 	}
 
+	public MBHPayerInfoFld(Properties ctx, int BH_Payer_Info_Fld_ID, String trxName, String... virtualColumns) {
+		super(ctx, BH_Payer_Info_Fld_ID, trxName, virtualColumns);
+	}
+
+	public MBHPayerInfoFld(Properties ctx, String BH_Payer_Info_Fld_UU, String trxName) {
+		super(ctx, BH_Payer_Info_Fld_UU, trxName);
+	}
+
+	public MBHPayerInfoFld(Properties ctx, String BH_Payer_Info_Fld_UU, String trxName, String... virtualColumns) {
+		super(ctx, BH_Payer_Info_Fld_UU, trxName, virtualColumns);
+	}
+
 	public MBHPayerInfoFld(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}

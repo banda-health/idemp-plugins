@@ -1,0 +1,71 @@
+# Generated Schema for C_AcctProcessorLog - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_AcctProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctProcessorLogConnection!
+}
+
+extend type Mutation {
+	C_AcctProcessorLogSave(Entity: C_AcctProcessorLogInput!): C_AcctProcessorLog!
+	C_AcctProcessorLogSaveMany(Entities: [C_AcctProcessorLogInput!]!): [C_AcctProcessorLog!]!
+	C_AcctProcessorLogDelete(UUs: [String!]!): Boolean!
+}
+
+type C_AcctProcessorLogConnection {
+	Results: [C_AcctProcessorLog!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_AcctProcessorLog {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Binary Data
+	BinaryData: Binary
+	# Accounting Processor/Server Parameters
+	C_AcctProcessor: C_AcctProcessor!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# An Error occurred in the execution
+	IsError: Boolean!
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_AcctProcessorLogInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Binary Data
+	BinaryData: Binary
+	# Accounting Processor/Server Parameters
+	C_AcctProcessor: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# An Error occurred in the execution
+	IsError: Boolean
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+}

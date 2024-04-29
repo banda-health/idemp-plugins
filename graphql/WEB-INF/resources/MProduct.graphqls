@@ -1,0 +1,12 @@
+extend type M_Product {
+	HasBeenPurchased: Boolean!
+	LastPurchaseDate: Date
+	LastPurchasePrice: BigDecimal
+	M_InOutLines: [M_InOutLine!]
+	M_Lots: [M_Lot!]
+	M_Product_POList: [M_Product_PO!]
+	M_ReplenishList: [M_Replenish!]
+	M_StorageOnHandList: [M_StorageOnHand!]
+	M_StorageReservations: [M_StorageReservation!]
+	TotalQuantity: BigDecimal!
+}

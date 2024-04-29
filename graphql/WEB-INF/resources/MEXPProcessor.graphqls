@@ -1,0 +1,3 @@
+extend type EXP_Processor {
+	EXP_ProcessorParameters: [EXP_ProcessorParameter!]
+}

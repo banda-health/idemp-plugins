@@ -1,0 +1,59 @@
+# Generated Schema for S_ResourceUnAvailable - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	S_ResourceUnAvailableGet(Page: Int, Size: Int, Sort: String, Filter: String): S_ResourceUnAvailableConnection!
+}
+
+extend type Mutation {
+	S_ResourceUnAvailableSave(Entity: S_ResourceUnAvailableInput!): S_ResourceUnAvailable!
+	S_ResourceUnAvailableSaveMany(Entities: [S_ResourceUnAvailableInput!]!): [S_ResourceUnAvailable!]!
+	S_ResourceUnAvailableDelete(UUs: [String!]!): Boolean!
+}
+
+type S_ResourceUnAvailableConnection {
+	Results: [S_ResourceUnAvailable!]!
+	PagingInfo: PagingInfo!
+}
+
+type S_ResourceUnAvailable {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Starting date for a range
+	DateFrom: Date!
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Resource
+	S_Resource: S_Resource!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input S_ResourceUnAvailableInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Resource
+	S_Resource: ForeignEntityInput
+	UU: ID
+}

@@ -1,0 +1,195 @@
+# Generated Schema for M_Movement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_MovementGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementConnection!
+}
+
+extend type Mutation {
+	M_MovementSave(Entity: M_MovementInput!): M_Movement!
+	M_MovementSaveMany(Entities: [M_MovementInput!]!): [M_Movement!]!
+	M_MovementDelete(UUs: [String!]!): Boolean!
+}
+
+type M_MovementConnection {
+	Results: [M_Movement!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Movement {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Document Approval Amount
+	ApprovalAmt: BigDecimal
+	# BH_From_Warehouse_ID
+	BH_From_Warehouse: M_Warehouse
+	# BH_To_Warehouse_ID
+	BH_To_Warehouse: M_Warehouse
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Additional document charges
+	C_Charge: C_Charge
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Financial Project
+	C_Project: C_Project
+	# Charge Amount
+	ChargeAmt: BigDecimal
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Date a product was received
+	DateReceived: Date
+	DD_Order: DD_Order
+	# Defines the timing of Delivery
+	DeliveryRule: AD_Ref_List
+	# How the order will be delivered
+	DeliveryViaRule: AD_Ref_List
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Freight Amount 
+	FreightAmt: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Movement is in transit
+	IsInTransit: Boolean!
+	UU: ID!
+	# Method or manner of product delivery
+	M_Shipper: M_Shipper
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# To Storage Warehouse and Service Point
+	M_WarehouseTo: M_Warehouse
+	# Date a product was moved in or out of inventory
+	MovementDate: Date!
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Posting status
+	Posted: Boolean!
+	# Priority of a document
+	PriorityRule: AD_Ref_List
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# ID of document reversal
+	Reversal: M_Movement
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input M_MovementInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Document Approval Amount
+	ApprovalAmt: BigDecimal
+	# BH_From_Warehouse_ID
+	BH_From_Warehouse: ForeignEntityInput
+	# BH_To_Warehouse_ID
+	BH_To_Warehouse: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Date a product was received
+	DateReceived: Date
+	DD_Order: ForeignEntityInput
+	# Defines the timing of Delivery
+	DeliveryRule: ForeignEntityInput
+	# How the order will be delivered
+	DeliveryViaRule: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# Freight Amount 
+	FreightAmt: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Movement is in transit
+	IsInTransit: Boolean
+	UU: ID
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# To Storage Warehouse and Service Point
+	M_WarehouseTo: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Posting status
+	Posted: Boolean
+	# Priority of a document
+	PriorityRule: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

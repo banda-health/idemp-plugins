@@ -1,0 +1,83 @@
+# Generated Schema for C_RfQLineQty - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RfQLineQtyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQLineQtyConnection!
+}
+
+extend type Mutation {
+	C_RfQLineQtySave(Entity: C_RfQLineQtyInput!): C_RfQLineQty!
+	C_RfQLineQtySaveMany(Entities: [C_RfQLineQtyInput!]!): [C_RfQLineQty!]!
+	C_RfQLineQtyDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RfQLineQtyConnection {
+	Results: [C_RfQLineQty!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_RfQLineQty {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Price to compare responses to
+	BenchmarkPrice: BigDecimal!
+	# Best Response Amount
+	BestResponseAmt: BigDecimal
+	# Request for Quotation Line
+	C_RfQLine: C_RfQLine!
+	UU: ID!
+	# Unit of Measure
+	C_UOM: C_UOM!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This quantity is used in the Offer to the Customer
+	IsOfferQty: Boolean!
+	# This quantity is used in the Purchase Order to the Supplier
+	IsPurchaseQty: Boolean!
+	# The quantity is used when generating RfQ Responses
+	IsRfQQty: Boolean!
+	# Margin for a product as a percentage
+	Margin: BigDecimal
+	# Amount of the Offer
+	OfferAmt: BigDecimal
+	# Quantity
+	Qty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQLineQtyInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Price to compare responses to
+	BenchmarkPrice: BigDecimal
+	# Best Response Amount
+	BestResponseAmt: BigDecimal
+	# Request for Quotation Line
+	C_RfQLine: ForeignEntityInput
+	UU: ID
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This quantity is used in the Offer to the Customer
+	IsOfferQty: Boolean
+	# This quantity is used in the Purchase Order to the Supplier
+	IsPurchaseQty: Boolean
+	# The quantity is used when generating RfQ Responses
+	IsRfQQty: Boolean
+	# Margin for a product as a percentage
+	Margin: BigDecimal
+	# Amount of the Offer
+	OfferAmt: BigDecimal
+	# Quantity
+	Qty: BigDecimal
+}

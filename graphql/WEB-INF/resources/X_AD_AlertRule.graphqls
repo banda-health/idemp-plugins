@@ -1,0 +1,85 @@
+# Generated Schema for AD_AlertRule - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_AlertRuleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AlertRuleConnection!
+}
+
+extend type Mutation {
+	AD_AlertRuleSave(Entity: AD_AlertRuleInput!): AD_AlertRule!
+	AD_AlertRuleSaveMany(Entities: [AD_AlertRuleInput!]!): [AD_AlertRule!]!
+	AD_AlertRuleDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_AlertRuleConnection {
+	Results: [AD_AlertRule!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_AlertRule {
+	# iDempiere Alert
+	AD_Alert: AD_Alert!
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	ErrorMsg: String
+	# SQL FROM clause
+	FromClause: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Other SQL Clause
+	OtherClause: String
+	# Process SQL after executing the query
+	PostProcessing: String
+	# Process SQL before executing the query
+	PreProcessing: String
+	# SQL SELECT clause
+	SelectClause: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input AD_AlertRuleInput {
+	# iDempiere Alert
+	AD_Alert: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	ErrorMsg: String
+	# SQL FROM clause
+	FromClause: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Other SQL Clause
+	OtherClause: String
+	# Process SQL after executing the query
+	PostProcessing: String
+	# Process SQL before executing the query
+	PreProcessing: String
+	# SQL SELECT clause
+	SelectClause: String
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

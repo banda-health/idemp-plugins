@@ -1,0 +1,69 @@
+# Generated Schema for HR_Concept_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_Concept_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_Concept_AcctConnection!
+}
+
+extend type Mutation {
+	HR_Concept_AcctSave(Entity: HR_Concept_AcctInput!): HR_Concept_Acct!
+	HR_Concept_AcctSaveMany(Entities: [HR_Concept_AcctInput!]!): [HR_Concept_Acct!]!
+	HR_Concept_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_Concept_AcctConnection {
+	Results: [HR_Concept_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Concept_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	UU: ID!
+	HR_Concept: HR_Concept!
+	HR_Expense_A: C_ValidCombination!
+	HR_Revenue_A: C_ValidCombination!
+	# The record is active in the system
+	IsActive: Boolean!
+	# All transactions within an element value must balance (e.g. cost centers)
+	IsBalancing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ValidCombination
+}
+
+input HR_Concept_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	UU: ID
+	HR_Concept: ForeignEntityInput
+	HR_Expense_A: ForeignEntityInput
+	HR_Revenue_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# All transactions within an element value must balance (e.g. cost centers)
+	IsBalancing: Boolean
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

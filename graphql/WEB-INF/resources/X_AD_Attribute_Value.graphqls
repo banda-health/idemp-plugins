@@ -1,0 +1,33 @@
+# Generated Schema for AD_Attribute_Value - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Attribute_ValueGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Attribute_ValueConnection!
+}
+
+extend type Mutation {
+	AD_Attribute_ValueSave(Entity: AD_Attribute_ValueInput!): AD_Attribute_Value!
+	AD_Attribute_ValueSaveMany(Entities: [AD_Attribute_ValueInput!]!): [AD_Attribute_Value!]!
+	AD_Attribute_ValueDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Attribute_ValueConnection {
+	Results: [AD_Attribute_Value!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Attribute_Value {
+	AD_Attribute: AD_Attribute!
+	UU: ID!
+	V_Date: Date
+	V_Number: String
+	V_String: String
+}
+
+input AD_Attribute_ValueInput {
+	AD_Attribute: ForeignEntityInput
+	UU: ID
+	V_Date: Date
+	V_Number: String
+	V_String: String
+}

@@ -1,0 +1,61 @@
+# Generated Schema for AD_IndexColumn - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_IndexColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_IndexColumnConnection!
+}
+
+extend type Mutation {
+	AD_IndexColumnSave(Entity: AD_IndexColumnInput!): AD_IndexColumn!
+	AD_IndexColumnSaveMany(Entities: [AD_IndexColumnInput!]!): [AD_IndexColumn!]!
+	AD_IndexColumnDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_IndexColumnConnection {
+	Results: [AD_IndexColumn!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_IndexColumn {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_TableIndex: AD_TableIndex!
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_IndexColumnInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_TableIndex: ForeignEntityInput
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

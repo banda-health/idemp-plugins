@@ -1,0 +1,63 @@
+# Generated Schema for C_Job - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_JobGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobConnection!
+}
+
+extend type Mutation {
+	C_JobSave(Entity: C_JobInput!): C_Job!
+	C_JobSaveMany(Entities: [C_JobInput!]!): [C_Job!]!
+	C_JobDelete(UUs: [String!]!): Boolean!
+}
+
+type C_JobConnection {
+	Results: [C_Job!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Job {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Job Position Category
+	C_JobCategory: C_JobCategory!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_JobInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Job Position Category
+	C_JobCategory: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

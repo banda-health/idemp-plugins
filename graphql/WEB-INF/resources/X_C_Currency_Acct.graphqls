@@ -1,0 +1,51 @@
+# Generated Schema for C_Currency_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_Currency_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Currency_AcctConnection!
+}
+
+extend type Mutation {
+	C_Currency_AcctSave(Entity: C_Currency_AcctInput!): C_Currency_Acct!
+	C_Currency_AcctSaveMany(Entities: [C_Currency_AcctInput!]!): [C_Currency_Acct!]!
+	C_Currency_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_Currency_AcctConnection {
+	Results: [C_Currency_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Currency_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_Currency_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	UU: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

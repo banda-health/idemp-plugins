@@ -1,0 +1,73 @@
+# Generated Schema for C_UOM - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_UOMGet(Page: Int, Size: Int, Sort: String, Filter: String): C_UOMConnection!
+}
+
+extend type Mutation {
+	C_UOMSave(Entity: C_UOMInput!): C_UOM!
+	C_UOMSaveMany(Entities: [C_UOMInput!]!): [C_UOM!]!
+	C_UOMDelete(UUs: [String!]!): Boolean!
+}
+
+type C_UOMConnection {
+	Results: [C_UOM!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_UOM {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Rounding used costing calculations
+	CostingPrecision: Int!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Rule for rounding  calculated amounts
+	StdPrecision: Int!
+	# Symbol for a Unit of Measure
+	UOMSymbol: String
+	UOMType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# UOM EDI X12 Code
+	X12DE355: String!
+}
+
+input C_UOMInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Rounding used costing calculations
+	CostingPrecision: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Rule for rounding  calculated amounts
+	StdPrecision: Int
+	# Symbol for a Unit of Measure
+	UOMSymbol: String
+	UOMType: ForeignEntityInput
+	# UOM EDI X12 Code
+	X12DE355: String
+}

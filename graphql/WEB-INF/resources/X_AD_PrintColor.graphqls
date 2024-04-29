@@ -1,0 +1,55 @@
+# Generated Schema for AD_PrintColor - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PrintColorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintColorConnection!
+}
+
+extend type Mutation {
+	AD_PrintColorSave(Entity: AD_PrintColorInput!): AD_PrintColor!
+	AD_PrintColorSaveMany(Entities: [AD_PrintColorInput!]!): [AD_PrintColor!]!
+	AD_PrintColorDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PrintColorConnection {
+	Results: [AD_PrintColor!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PrintColor {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Validation Code
+	Code: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PrintColorInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Validation Code
+	Code: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

@@ -1,0 +1,57 @@
+# Generated Schema for BH_DefaultIncludedRole - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_DefaultIncludedRoleGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_DefaultIncludedRoleConnection!
+}
+
+extend type Mutation {
+	BH_DefaultIncludedRoleSave(Entity: BH_DefaultIncludedRoleInput!): BH_DefaultIncludedRole!
+	BH_DefaultIncludedRoleSaveMany(Entities: [BH_DefaultIncludedRoleInput!]!): [BH_DefaultIncludedRole!]!
+	BH_DefaultIncludedRoleDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_DefaultIncludedRoleConnection {
+	Results: [BH_DefaultIncludedRole!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_DefaultIncludedRole {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The User Type when a new client is created
+	DB_UserType: AD_Ref_List
+	# Optional short description of the record
+	Description: String
+	Included_Role: AD_Role
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_DefaultIncludedRoleInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# The User Type when a new client is created
+	DB_UserType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	Included_Role: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

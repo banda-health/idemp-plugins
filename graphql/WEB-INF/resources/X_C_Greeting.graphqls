@@ -1,0 +1,59 @@
+# Generated Schema for C_Greeting - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_GreetingGet(Page: Int, Size: Int, Sort: String, Filter: String): C_GreetingConnection!
+}
+
+extend type Mutation {
+	C_GreetingSave(Entity: C_GreetingInput!): C_Greeting!
+	C_GreetingSaveMany(Entities: [C_GreetingInput!]!): [C_Greeting!]!
+	C_GreetingDelete(UUs: [String!]!): Boolean!
+}
+
+type C_GreetingConnection {
+	Results: [C_Greeting!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Greeting {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# For letters, e.g. "Dear {0}" or "Dear Mr. {0}" - At runtime, "{0}" is replaced by the name
+	Greeting: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Print only the first name in greetings
+	IsFirstNameOnly: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_GreetingInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# For letters, e.g. "Dear {0}" or "Dear Mr. {0}" - At runtime, "{0}" is replaced by the name
+	Greeting: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Print only the first name in greetings
+	IsFirstNameOnly: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

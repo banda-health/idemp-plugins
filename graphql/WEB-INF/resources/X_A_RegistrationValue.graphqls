@@ -1,0 +1,59 @@
+# Generated Schema for A_RegistrationValue - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_RegistrationValueGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationValueConnection!
+}
+
+extend type Mutation {
+	A_RegistrationValueSave(Entity: A_RegistrationValueInput!): A_RegistrationValue!
+	A_RegistrationValueSaveMany(Entities: [A_RegistrationValueInput!]!): [A_RegistrationValue!]!
+	A_RegistrationValueDelete(UUs: [String!]!): Boolean!
+}
+
+type A_RegistrationValueConnection {
+	Results: [A_RegistrationValue!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_RegistrationValue {
+	# User Asset Registration
+	A_Registration: A_Registration!
+	# Asset Registration Attribute
+	A_RegistrationAttribute: A_RegistrationAttribute!
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_RegistrationValueInput {
+	# User Asset Registration
+	A_Registration: ForeignEntityInput
+	# Asset Registration Attribute
+	A_RegistrationAttribute: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

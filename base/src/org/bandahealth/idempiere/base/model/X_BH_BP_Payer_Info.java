@@ -23,21 +23,58 @@ import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_BP_Payer_Info
- *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
-public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_BP_Payer_Info")
+public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230815L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_BP_Payer_Info (Properties ctx, int BH_BP_Payer_Info_ID, String trxName)
     {
       super (ctx, BH_BP_Payer_Info_ID, trxName);
       /** if (BH_BP_Payer_Info_ID == 0)
+        {
+			setBH_BP_Payer_Info_ID (0);
+			setBH_Payer_ID (0);
+			setC_BPartner_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_BP_Payer_Info (Properties ctx, int BH_BP_Payer_Info_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_BP_Payer_Info_ID, trxName, virtualColumns);
+      /** if (BH_BP_Payer_Info_ID == 0)
+        {
+			setBH_BP_Payer_Info_ID (0);
+			setBH_Payer_ID (0);
+			setC_BPartner_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_BP_Payer_Info (Properties ctx, String BH_BP_Payer_Info_UU, String trxName)
+    {
+      super (ctx, BH_BP_Payer_Info_UU, trxName);
+      /** if (BH_BP_Payer_Info_UU == null)
+        {
+			setBH_BP_Payer_Info_ID (0);
+			setBH_Payer_ID (0);
+			setC_BPartner_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_BP_Payer_Info (Properties ctx, String BH_BP_Payer_Info_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_BP_Payer_Info_UU, trxName, virtualColumns);
+      /** if (BH_BP_Payer_Info_UU == null)
         {
 			setBH_BP_Payer_Info_ID (0);
 			setBH_Payer_ID (0);
@@ -52,7 +89,7 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 3 - Client - Org
       */
     protected int get_AccessLevel()
     {
@@ -74,18 +111,19 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
     }
 
 	/** Set Business Partner Payer Information.
-		@param BH_BP_Payer_Info_ID Business Partner Payer Information	  */
+		@param BH_BP_Payer_Info_ID Business Partner Payer Information
+	*/
 	public void setBH_BP_Payer_Info_ID (int BH_BP_Payer_Info_ID)
 	{
-		if (BH_BP_Payer_Info_ID < 1) 
+		if (BH_BP_Payer_Info_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_BP_Payer_Info_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_BP_Payer_Info_ID, Integer.valueOf(BH_BP_Payer_Info_ID));
 	}
 
 	/** Get Business Partner Payer Information.
 		@return Business Partner Payer Information	  */
-	public int getBH_BP_Payer_Info_ID () 
+	public int getBH_BP_Payer_Info_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_BP_Payer_Info_ID);
 		if (ii == null)
@@ -94,7 +132,8 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
 	}
 
 	/** Set BH_BP_Payer_Info_UU.
-		@param BH_BP_Payer_Info_UU BH_BP_Payer_Info_UU	  */
+		@param BH_BP_Payer_Info_UU BH_BP_Payer_Info_UU
+	*/
 	public void setBH_BP_Payer_Info_UU (String BH_BP_Payer_Info_UU)
 	{
 		set_Value (COLUMNNAME_BH_BP_Payer_Info_UU, BH_BP_Payer_Info_UU);
@@ -102,29 +141,31 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
 
 	/** Get BH_BP_Payer_Info_UU.
 		@return BH_BP_Payer_Info_UU	  */
-	public String getBH_BP_Payer_Info_UU () 
+	public String getBH_BP_Payer_Info_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_BP_Payer_Info_UU);
 	}
 
 	public org.compiere.model.I_C_BPartner getBH_Payer() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-			.getPO(getBH_Payer_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_ID)
+			.getPO(getBH_Payer_ID(), get_TrxName());
+	}
 
 	/** Set Payer ID.
-		@param BH_Payer_ID Payer ID	  */
+		@param BH_Payer_ID Payer ID
+	*/
 	public void setBH_Payer_ID (int BH_Payer_ID)
 	{
-		if (BH_Payer_ID < 1) 
+		if (BH_Payer_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Payer_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Payer_ID, Integer.valueOf(BH_Payer_ID));
 	}
 
 	/** Get Payer ID.
 		@return Payer ID	  */
-	public int getBH_Payer_ID () 
+	public int getBH_Payer_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_ID);
 		if (ii == null)
@@ -133,26 +174,26 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
 	}
 
 	public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-			.getPO(getC_BPartner_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_C_BPartner)MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_ID)
+			.getPO(getC_BPartner_ID(), get_TrxName());
+	}
 
-	/** Set Business Partner .
-		@param C_BPartner_ID 
-		Identifies a Business Partner
-	  */
+	/** Set Business Partner.
+		@param C_BPartner_ID Identifies a Business Partner
+	*/
 	public void setC_BPartner_ID (int C_BPartner_ID)
 	{
-		if (C_BPartner_ID < 1) 
+		if (C_BPartner_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_C_BPartner_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
 	}
 
-	/** Get Business Partner .
+	/** Get Business Partner.
 		@return Identifies a Business Partner
 	  */
-	public int getC_BPartner_ID () 
+	public int getC_BPartner_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_C_BPartner_ID);
 		if (ii == null)
@@ -161,9 +202,8 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
 	}
 
 	/** Set Description.
-		@param Description 
-		Optional short description of the record
-	  */
+		@param Description Optional short description of the record
+	*/
 	public void setDescription (String Description)
 	{
 		set_Value (COLUMNNAME_Description, Description);
@@ -172,15 +212,14 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
 	/** Get Description.
 		@return Optional short description of the record
 	  */
-	public String getDescription () 
+	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
 	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
+		@param Name Alphanumeric identifier of the entity
+	*/
 	public void setName (String Name)
 	{
 		set_Value (COLUMNNAME_Name, Name);
@@ -189,7 +228,7 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
 	/** Get Name.
 		@return Alphanumeric identifier of the entity
 	  */
-	public String getName () 
+	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
@@ -197,7 +236,7 @@ public class X_BH_BP_Payer_Info extends PO implements I_BH_BP_Payer_Info, I_Pers
     /** Get Record ID/ColumnName
         @return ID/ColumnName pair
       */
-    public KeyNamePair getKeyNamePair() 
+    public KeyNamePair getKeyNamePair()
     {
         return new KeyNamePair(get_ID(), getName());
     }

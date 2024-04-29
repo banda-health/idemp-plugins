@@ -1,0 +1,110 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_AD_FieldSuggestion;
+
+/**
+ * Generated Interface for AD_FieldSuggestion - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public interface I_AD_FieldSuggestionInput extends I_AD_FieldSuggestion {
+
+	/**
+	 * Set AD_Field.
+	 *
+	 * @param AD_Field Field on a database table
+	 */
+	void setAD_FieldInput(ForeignEntityInput AD_Field);
+
+	/**
+	 * Get AD_Field.
+	 *
+	 * @return Field on a database table
+	 */
+	ForeignEntityInput AD_Field();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
+	 * Set AD_Language.
+	 *
+	 * @param AD_Language Language for this entity
+	 */
+	void setAD_LanguageInput(ForeignEntityInput AD_Language);
+
+	/**
+	 * Get AD_Language.
+	 *
+	 * @return Language for this entity
+	 */
+	ForeignEntityInput AD_Language();
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set AD_User.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	void setAD_UserInput(ForeignEntityInput AD_User);
+
+	/**
+	 * Get AD_User.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	ForeignEntityInput AD_User();
+
+	/**
+	 * Set AD_UserClient.
+	 *
+	 * @param AD_UserClient AD_UserClient
+	 */
+	void setAD_UserClientInput(ForeignEntityInput AD_UserClient);
+
+	/**
+	 * Get AD_UserClient.
+	 *
+	 * @return AD_UserClient
+	 */
+	ForeignEntityInput AD_UserClient();
+
+	/**
+	 * Set FieldSuggestionTarget.
+	 *
+	 * @param FieldSuggestionTarget FieldSuggestionTarget
+	 */
+	void setFieldSuggestionTargetInput(ForeignEntityInput FieldSuggestionTarget);
+
+	/**
+	 * Get FieldSuggestionTarget.
+	 *
+	 * @return FieldSuggestionTarget
+	 */
+	ForeignEntityInput FieldSuggestionTarget();
+}

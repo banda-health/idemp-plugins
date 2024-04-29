@@ -12,13 +12,13 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
 import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.report.test.utils.NumberUtils;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.X_M_AttributeSetExclude;
 import org.compiere.process.DocAction;
 import org.compiere.process.DocumentEngine;
@@ -454,7 +454,7 @@ public class InventoryQuantityReportTest extends ChuBoePopulateFactoryVO {
 		attributeSetExclusion.setM_AttributeSet_ID(attributeSet.get_ID());
 		attributeSetExclusion.setAD_Org_ID(valueObject.getOrg().getAD_Org_ID());
 		attributeSetExclusion.setIsSOTrx(true);
-		attributeSetExclusion.setAD_Table_ID(MInventoryLine_BH.Table_ID);
+		attributeSetExclusion.setAD_Table_ID(MInventoryLine.Table_ID);
 		attributeSetExclusion.saveEx();
 		commitEx();
 

@@ -1,0 +1,57 @@
+# Generated Schema for BH_Payer_Info_Fld_Val - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Payer_Info_Fld_ValGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Payer_Info_Fld_ValConnection!
+}
+
+extend type Mutation {
+	BH_Payer_Info_Fld_ValSave(Entity: BH_Payer_Info_Fld_ValInput!): BH_Payer_Info_Fld_Val!
+	BH_Payer_Info_Fld_ValSaveMany(Entities: [BH_Payer_Info_Fld_ValInput!]!): [BH_Payer_Info_Fld_Val!]!
+	BH_Payer_Info_Fld_ValDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Payer_Info_Fld_ValConnection {
+	Results: [BH_Payer_Info_Fld_Val!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Payer_Info_Fld_Val {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Payer_Info_Fld: BH_Payer_Info_Fld!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Payer_Info_Fld_ValInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Payer_Info_Fld: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+}

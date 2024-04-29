@@ -1,0 +1,73 @@
+# Generated Schema for M_ShipperCfg - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_ShipperCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperCfgConnection!
+}
+
+extend type Mutation {
+	M_ShipperCfgSave(Entity: M_ShipperCfgInput!): M_ShipperCfg!
+	M_ShipperCfgSaveMany(Entities: [M_ShipperCfgInput!]!): [M_ShipperCfg!]!
+	M_ShipperCfgDelete(UUs: [String!]!): Boolean!
+}
+
+type M_ShipperCfgConnection {
+	Results: [M_ShipperCfg!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_ShipperCfg {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsInternational: Boolean!
+	# Can be accessed online 
+	IsOnline: Boolean!
+	IsResidential: Boolean!
+	IsSaturdayDelivery: Boolean!
+	UU: ID!
+	M_ShippingProcessorCfg: M_ShippingProcessorCfg
+	# Alphanumeric identifier of the entity
+	Name: String!
+	ShippingServiceCode: String
+	# URL of the shipper to track shipments
+	TrackingURL: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ShipperCfgInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsInternational: Boolean
+	# Can be accessed online 
+	IsOnline: Boolean
+	IsResidential: Boolean
+	IsSaturdayDelivery: Boolean
+	UU: ID
+	M_ShippingProcessorCfg: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	ShippingServiceCode: String
+	# URL of the shipper to track shipments
+	TrackingURL: String
+}

@@ -22,15 +22,16 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter_Type_Window
- *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
-public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Type_Window, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Encounter_Type_Window")
+public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Type_Window, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230901L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Type_Window (Properties ctx, int BH_Encounter_Type_Window_ID, String trxName)
@@ -38,6 +39,41 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
       super (ctx, BH_Encounter_Type_Window_ID, trxName);
       /** if (BH_Encounter_Type_Window_ID == 0)
         {
+			setAD_Window_ID (0);
+			setBH_Encounter_Type (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Encounter_Type_Window (Properties ctx, int BH_Encounter_Type_Window_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Encounter_Type_Window_ID, trxName, virtualColumns);
+      /** if (BH_Encounter_Type_Window_ID == 0)
+        {
+			setAD_Window_ID (0);
+			setBH_Encounter_Type (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Encounter_Type_Window (Properties ctx, String BH_Encounter_Type_Window_UU, String trxName)
+    {
+      super (ctx, BH_Encounter_Type_Window_UU, trxName);
+      /** if (BH_Encounter_Type_Window_UU == null)
+        {
+			setAD_Window_ID (0);
+			setBH_Encounter_Type (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Encounter_Type_Window (Properties ctx, String BH_Encounter_Type_Window_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Encounter_Type_Window_UU, trxName, virtualColumns);
+      /** if (BH_Encounter_Type_Window_UU == null)
+        {
+			setAD_Window_ID (0);
+			setBH_Encounter_Type (null);
         } */
     }
 
@@ -48,7 +84,7 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
     }
 
     /** AccessLevel
-      * @return 4 - System 
+      * @return 4 - System
       */
     protected int get_AccessLevel()
     {
@@ -65,31 +101,31 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
     public String toString()
     {
       StringBuilder sb = new StringBuilder ("X_BH_Encounter_Type_Window[")
-        .append(get_ID()).append("]");
+        .append(get_UUID()).append("]");
       return sb.toString();
     }
 
 	public org.compiere.model.I_AD_Window getAD_Window() throws RuntimeException
-    {
-		return (org.compiere.model.I_AD_Window)MTable.get(getCtx(), org.compiere.model.I_AD_Window.Table_Name)
-			.getPO(getAD_Window_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_AD_Window)MTable.get(getCtx(), org.compiere.model.I_AD_Window.Table_ID)
+			.getPO(getAD_Window_ID(), get_TrxName());
+	}
 
 	/** Set Window.
-		@param AD_Window_ID 
-		Data entry or display window
-	  */
+		@param AD_Window_ID Data entry or display window
+	*/
 	public void setAD_Window_ID (int AD_Window_ID)
 	{
-		if (AD_Window_ID < 1) 
+		if (AD_Window_ID < 1)
 			set_Value (COLUMNNAME_AD_Window_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_AD_Window_ID, Integer.valueOf(AD_Window_ID));
 	}
 
 	/** Get Window.
 		@return Data entry or display window
 	  */
-	public int getAD_Window_ID () 
+	public int getAD_Window_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Window_ID);
 		if (ii == null)
@@ -97,16 +133,19 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
 		return ii.intValue();
 	}
 
-	/** Immunizations = I */
-	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
-	/** Capture Vitals = V */
-	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
-	/** Diagnosis = m */
-	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
+	/** Chief Complaint = C */
+	public static final String BH_ENCOUNTER_TYPE_ChiefComplaint = "C";
 	/** Clinical Details = D */
 	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "D";
+	/** Immunizations = I */
+	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
+	/** Diagnosis = m */
+	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
+	/** Capture Vitals = V */
+	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
 	/** Set Encounter Type.
-		@param BH_Encounter_Type Encounter Type	  */
+		@param BH_Encounter_Type Encounter Type
+	*/
 	public void setBH_Encounter_Type (String BH_Encounter_Type)
 	{
 
@@ -115,13 +154,14 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
 
 	/** Get Encounter Type.
 		@return Encounter Type	  */
-	public String getBH_Encounter_Type () 
+	public String getBH_Encounter_Type()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Encounter_Type);
 	}
 
 	/** Set BH_Encounter_Type_Window_UU.
-		@param BH_Encounter_Type_Window_UU BH_Encounter_Type_Window_UU	  */
+		@param BH_Encounter_Type_Window_UU BH_Encounter_Type_Window_UU
+	*/
 	public void setBH_Encounter_Type_Window_UU (String BH_Encounter_Type_Window_UU)
 	{
 		set_Value (COLUMNNAME_BH_Encounter_Type_Window_UU, BH_Encounter_Type_Window_UU);
@@ -129,7 +169,7 @@ public class X_BH_Encounter_Type_Window extends PO implements I_BH_Encounter_Typ
 
 	/** Get BH_Encounter_Type_Window_UU.
 		@return BH_Encounter_Type_Window_UU	  */
-	public String getBH_Encounter_Type_Window_UU () 
+	public String getBH_Encounter_Type_Window_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Encounter_Type_Window_UU);
 	}

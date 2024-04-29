@@ -1,0 +1,51 @@
+# Generated Schema for BH_Role_WarehouseAccess - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Role_WarehouseAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Role_WarehouseAccessConnection!
+}
+
+extend type Mutation {
+	BH_Role_WarehouseAccessSave(Entity: BH_Role_WarehouseAccessInput!): BH_Role_WarehouseAccess!
+	BH_Role_WarehouseAccessSaveMany(Entities: [BH_Role_WarehouseAccessInput!]!): [BH_Role_WarehouseAccess!]!
+	BH_Role_WarehouseAccessDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Role_WarehouseAccessConnection {
+	Results: [BH_Role_WarehouseAccess!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Role_WarehouseAccess {
+	# Responsibility Role
+	AD_Role: AD_Role
+	BH_Role_WarehouseAccess: BH_Role_WarehouseAccess!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Role_WarehouseAccessInput {
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	BH_Role_WarehouseAccess: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+}

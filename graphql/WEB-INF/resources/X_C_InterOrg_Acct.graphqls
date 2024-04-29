@@ -1,0 +1,55 @@
+# Generated Schema for C_InterOrg_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_InterOrg_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InterOrg_AcctConnection!
+}
+
+extend type Mutation {
+	C_InterOrg_AcctSave(Entity: C_InterOrg_AcctInput!): C_InterOrg_Acct!
+	C_InterOrg_AcctSaveMany(Entities: [C_InterOrg_AcctInput!]!): [C_InterOrg_Acct!]!
+	C_InterOrg_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_InterOrg_AcctConnection {
+	Results: [C_InterOrg_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_InterOrg_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Intercompany Due From / Receivables Account
+	IntercompanyDueFrom_A: C_ValidCombination!
+	# Intercompany Due To / Payable Account
+	IntercompanyDueTo_A: C_ValidCombination!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_InterOrg_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	UU: ID
+	# Intercompany Due From / Receivables Account
+	IntercompanyDueFrom_A: ForeignEntityInput
+	# Intercompany Due To / Payable Account
+	IntercompanyDueTo_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

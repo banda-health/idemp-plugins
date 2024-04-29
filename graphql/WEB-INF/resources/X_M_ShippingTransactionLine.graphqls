@@ -1,0 +1,87 @@
+# Generated Schema for M_ShippingTransactionLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_ShippingTransactionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShippingTransactionLineConnection!
+}
+
+extend type Mutation {
+	M_ShippingTransactionLineSave(Entity: M_ShippingTransactionLineInput!): M_ShippingTransactionLine!
+	M_ShippingTransactionLineSaveMany(Entities: [M_ShippingTransactionLineInput!]!): [M_ShippingTransactionLine!]!
+	M_ShippingTransactionLineDelete(UUs: [String!]!): Boolean!
+}
+
+type M_ShippingTransactionLineConnection {
+	Results: [M_ShippingTransactionLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_ShippingTransactionLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Standard Unit of Measure for Length
+	C_UOM_Length: C_UOM
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: C_UOM
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	Height: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	Length: BigDecimal
+	M_PackageMPS: M_PackageMPS
+	M_ShippingTransaction: M_ShippingTransaction!
+	UU: ID!
+	MasterTrackingNo: String
+	# Price
+	Price: BigDecimal
+	# The document has been processed
+	Processed: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Number to track the shipment
+	TrackingNo: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Weight of a product
+	Weight: BigDecimal
+	Width: BigDecimal
+}
+
+input M_ShippingTransactionLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Standard Unit of Measure for Length
+	C_UOM_Length: ForeignEntityInput
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	Height: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	Length: BigDecimal
+	M_PackageMPS: ForeignEntityInput
+	M_ShippingTransaction: ForeignEntityInput
+	UU: ID
+	MasterTrackingNo: String
+	# Price
+	Price: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Number to track the shipment
+	TrackingNo: String
+	# Weight of a product
+	Weight: BigDecimal
+	Width: BigDecimal
+}

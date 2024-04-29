@@ -20,7 +20,15 @@ test('save user', async () => {
 	).results[0];
 	expect(createdUser).toBeTruthy();
 
-	const availableRoles = (await roleApi.get(valueObject)).results;
+	const availableRoles = (
+		await roleApi.get(
+			valueObject,
+			undefined,
+			undefined,
+			undefined,
+			JSON.stringify({ ad_role_uu: { $neq: roleUuid.SYSTEM_ADMIN } }),
+		)
+	).results;
 	const role = availableRoles.filter(
 		(availableRole) => !createdUser.roles.map((role) => role.uuid).includes(availableRole.uuid),
 	)[0];
@@ -51,7 +59,7 @@ test('new user can be created directly without business partner', async () => {
 	const userToCreate: Partial<User> = {
 		name: valueObject.getDynamicStepMessage(),
 		isActive: true,
-		roles: [cashierRole]
+		roles: [cashierRole],
 	};
 	const createdUser = await userApi.save(valueObject, userToCreate as User);
 

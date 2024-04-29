@@ -1,0 +1,67 @@
+# Generated Schema for AD_Package_Imp_Backup - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Package_Imp_BackupGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_Imp_BackupConnection!
+}
+
+extend type Mutation {
+	AD_Package_Imp_BackupSave(Entity: AD_Package_Imp_BackupInput!): AD_Package_Imp_Backup!
+	AD_Package_Imp_BackupSaveMany(Entities: [AD_Package_Imp_BackupInput!]!): [AD_Package_Imp_Backup!]!
+	AD_Package_Imp_BackupDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Package_Imp_BackupConnection {
+	Results: [AD_Package_Imp_Backup!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Package_Imp_Backup {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	AD_Package_Imp_Bck_Dir: String
+	AD_Package_Imp_Detail: AD_Package_Imp_Detail!
+	AD_Package_Imp: AD_Package_Imp!
+	AD_Package_Imp_Org_Dir: String
+	# System Reference and Validation
+	AD_Reference: AD_Reference
+	# Database Table information
+	AD_Table: AD_Table
+	ColValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	Uninstall: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Package_Imp_BackupInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	AD_Package_Imp_Bck_Dir: String
+	AD_Package_Imp_Detail: ForeignEntityInput
+	AD_Package_Imp: ForeignEntityInput
+	AD_Package_Imp_Org_Dir: String
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	ColValue: String
+	# The record is active in the system
+	IsActive: Boolean
+	Uninstall: Boolean
+}

@@ -17,8 +17,16 @@ public class MOrder_BH extends MOrder {
 	 */
 	public static final String COLUMNNAME_BH_Voided_Reason_ID = "BH_Voided_Reason_ID";
 
+	public MOrder_BH(Properties ctx, String C_Order_UU, String trxName) {
+		super(ctx, C_Order_UU, trxName);
+	}
+
 	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName) {
 		super(ctx, C_Order_ID, trxName);
+	}
+
+	public MOrder_BH(Properties ctx, int C_Order_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_Order_ID, trxName, virtualColumns);
 	}
 
 	public MOrder_BH(MProject project, boolean IsSOTrx, String DocSubTypeSO) {

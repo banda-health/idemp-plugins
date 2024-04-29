@@ -1,0 +1,3 @@
+extend type C_RfQLine {
+	C_RfQLineQtyList: [C_RfQLineQty!]
+}

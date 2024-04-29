@@ -1,0 +1,141 @@
+# Generated Schema for A_Asset_Transfer - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_TransferGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_TransferConnection!
+}
+
+extend type Mutation {
+	A_Asset_TransferSave(Entity: A_Asset_TransferInput!): A_Asset_Transfer!
+	A_Asset_TransferSaveMany(Entities: [A_Asset_TransferInput!]!): [A_Asset_Transfer!]!
+	A_Asset_TransferDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_TransferConnection {
+	Results: [A_Asset_Transfer!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Transfer {
+	A_Accumdepreciation_A: C_ValidCombination
+	A_Accumdepreciation_Acct_Str: String
+	A_Accumdepreciation_New_A: C_ValidCombination!
+	A_Accumulated_Depr_F: BigDecimal
+	A_Asset_A: C_ValidCombination
+	A_Asset_Acct_Str: String
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	A_Asset_New_A: C_ValidCombination!
+	UU: ID!
+	A_CapvsExp: AD_Ref_List!
+	A_Depreciation_A: C_ValidCombination
+	A_Depreciation_Acct_Str: String
+	A_Depreciation_New_A: C_ValidCombination!
+	A_Disposal_Loss: Int
+	A_Disposal_Loss_A: C_ValidCombination
+	A_Disposal_Loss_New_A: C_ValidCombination!
+	A_Disposal_Loss_Str: String
+	A_Disposal_Revenue: Int
+	A_Disposal_Revenue_A: C_ValidCombination
+	A_Disposal_Revenue_New_A: C_ValidCombination!
+	A_Disposal_Revenue_Str: String
+	A_Period_End: Int!
+	A_Period_Start: Int!
+	A_Split_Percent: BigDecimal!
+	A_Transfer_Balance: Boolean!
+	A_Transfer_Balance_IS: Boolean!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Period of the Calendar
+	C_Period: C_Period
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Date of the Document
+	DateDoc: Date
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Posting status
+	Posted: Boolean!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_TransferInput {
+	A_Accumdepreciation_A: ForeignEntityInput
+	A_Accumdepreciation_Acct_Str: String
+	A_Accumdepreciation_New_A: ForeignEntityInput
+	A_Accumulated_Depr_F: BigDecimal
+	A_Asset_A: ForeignEntityInput
+	A_Asset_Acct_Str: String
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_Asset_New_A: ForeignEntityInput
+	UU: ID
+	A_CapvsExp: ForeignEntityInput
+	A_Depreciation_A: ForeignEntityInput
+	A_Depreciation_Acct_Str: String
+	A_Depreciation_New_A: ForeignEntityInput
+	A_Disposal_Loss: Int
+	A_Disposal_Loss_A: ForeignEntityInput
+	A_Disposal_Loss_New_A: ForeignEntityInput
+	A_Disposal_Loss_Str: String
+	A_Disposal_Revenue: Int
+	A_Disposal_Revenue_A: ForeignEntityInput
+	A_Disposal_Revenue_New_A: ForeignEntityInput
+	A_Disposal_Revenue_Str: String
+	A_Period_End: Int
+	A_Period_Start: Int
+	A_Split_Percent: BigDecimal
+	A_Transfer_Balance: Boolean
+	A_Transfer_Balance_IS: Boolean
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Date of the Document
+	DateDoc: Date
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Posting status
+	Posted: Boolean
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+}

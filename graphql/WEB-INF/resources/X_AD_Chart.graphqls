@@ -1,0 +1,89 @@
+# Generated Schema for AD_Chart - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ChartGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ChartConnection!
+}
+
+extend type Mutation {
+	AD_ChartSave(Entity: AD_ChartInput!): AD_Chart!
+	AD_ChartSaveMany(Entities: [AD_ChartInput!]!): [AD_Chart!]!
+	AD_ChartDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ChartConnection {
+	Results: [AD_Chart!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Chart {
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# The orientation of the chart.
+	ChartOrientation: AD_Ref_List!
+	# Type of chart to render
+	ChartType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Label for the domain axis.
+	DomainLabel: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Display chart legend
+	IsDisplayLegend: Boolean!
+	# The domain data for the chart is organised by time.
+	IsTimeSeries: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Label for the range axis.
+	RangeLabel: String
+	# The number of time units to include the chart result.
+	TimeScope: Int
+	# The unit of time for grouping chart data.
+	TimeUnit: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	WinHeight: Int
+}
+
+input AD_ChartInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The orientation of the chart.
+	ChartOrientation: ForeignEntityInput
+	# Type of chart to render
+	ChartType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Label for the domain axis.
+	DomainLabel: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Display chart legend
+	IsDisplayLegend: Boolean
+	# The domain data for the chart is organised by time.
+	IsTimeSeries: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Label for the range axis.
+	RangeLabel: String
+	# The number of time units to include the chart result.
+	TimeScope: Int
+	# The unit of time for grouping chart data.
+	TimeUnit: ForeignEntityInput
+	WinHeight: Int
+}

@@ -1,0 +1,135 @@
+# Generated Schema for AD_Table - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_TableGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TableConnection!
+}
+
+extend type Mutation {
+	AD_TableSave(Entity: AD_TableInput!): AD_Table!
+	AD_TableSaveMany(Entities: [AD_TableInput!]!): [AD_Table!]!
+	AD_TableDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_TableConnection {
+	Results: [AD_Table!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Table {
+	# Access Level required
+	AccessLevel: AD_Ref_List!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Data entry or display window
+	AD_Window: AD_Window
+	CopyColumnsFromTable: String
+	CopyComponentsFromView: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which create or update table partitions based on the table and column records
+	CreatePartition: String
+	CreateWindowFromTable: String
+	DatabaseViewDrop: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# Import Table Columns from Database
+	ImportTable: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	# Maintain a log of changes
+	IsChangeLog: Boolean!
+	# Indicates if records can be deleted from the database
+	IsDeleteable: Boolean!
+	# Use Search instead of Pick list
+	IsHighVolume: Boolean!
+	# This is a partitioned table
+	IsPartition: Boolean!
+	# If security is enabled, user access to data can be restricted via Roles
+	IsSecurityEnabled: Boolean!
+	# This parameter enables the table to be displayed in Drill Assistant - Table tab
+	IsShowInDrillOptions: Boolean!
+	# This is a view
+	IsView: Boolean!
+	LoadSeq: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Purchase Order Window
+	PO_Window: AD_Window
+	Processing: Boolean!
+	# Type of Data Replication
+	ReplicationType: AD_Ref_List!
+	# Name of the table in the database
+	TableName: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_TableInput {
+	# Access Level required
+	AccessLevel: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	CopyColumnsFromTable: String
+	CopyComponentsFromView: String
+	# Process which create or update table partitions based on the table and column records
+	CreatePartition: String
+	CreateWindowFromTable: String
+	DatabaseViewDrop: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# Import Table Columns from Database
+	ImportTable: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	# Maintain a log of changes
+	IsChangeLog: Boolean
+	# Indicates if records can be deleted from the database
+	IsDeleteable: Boolean
+	# Use Search instead of Pick list
+	IsHighVolume: Boolean
+	# This is a partitioned table
+	IsPartition: Boolean
+	# If security is enabled, user access to data can be restricted via Roles
+	IsSecurityEnabled: Boolean
+	# This parameter enables the table to be displayed in Drill Assistant - Table tab
+	IsShowInDrillOptions: Boolean
+	# This is a view
+	IsView: Boolean
+	LoadSeq: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Purchase Order Window
+	PO_Window: ForeignEntityInput
+	Processing: Boolean
+	# Type of Data Replication
+	ReplicationType: ForeignEntityInput
+	# Name of the table in the database
+	TableName: String
+}

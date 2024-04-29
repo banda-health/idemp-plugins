@@ -1,0 +1,6 @@
+extend type Mutation {
+	C_ValidCombinationGetOrCreate(AD_Org_UU: String, C_AcctSchema_UU: String, Account_UU: String, C_SubAcct_UU: String, M_Product_UU: String, C_BPartner_UU: String, AD_OrgTrx_UU: String, C_LocFrom_UU: String, C_LocTo_UU: String, C_SalesRegion_UU: String, C_Project_UU: String, C_Campaign_UU: String, C_Activity_UU: String, User1_UU: String, User2_UU: String, UserElement1_UU: String, UserElement2_UU: String): C_ValidCombination!
+}
+
+#extend type C_ValidCombination {
+#}

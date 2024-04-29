@@ -1,0 +1,55 @@
+# Generated Schema for M_Warehouse_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_Warehouse_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Warehouse_AcctConnection!
+}
+
+extend type Mutation {
+	M_Warehouse_AcctSave(Entity: M_Warehouse_AcctInput!): M_Warehouse_Acct!
+	M_Warehouse_AcctSaveMany(Entities: [M_Warehouse_AcctInput!]!): [M_Warehouse_Acct!]!
+	M_Warehouse_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type M_Warehouse_AcctConnection {
+	Results: [M_Warehouse_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Warehouse_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Warehouse Differences Account
+	W_Differences_A: C_ValidCombination!
+}
+
+input M_Warehouse_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Warehouse Differences Account
+	W_Differences_A: ForeignEntityInput
+}

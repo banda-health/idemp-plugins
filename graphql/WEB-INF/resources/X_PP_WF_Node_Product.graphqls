@@ -1,0 +1,69 @@
+# Generated Schema for PP_WF_Node_Product - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	PP_WF_Node_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_WF_Node_ProductConnection!
+}
+
+extend type Mutation {
+	PP_WF_Node_ProductSave(Entity: PP_WF_Node_ProductInput!): PP_WF_Node_Product!
+	PP_WF_Node_ProductSaveMany(Entities: [PP_WF_Node_ProductInput!]!): [PP_WF_Node_Product!]!
+	PP_WF_Node_ProductDelete(UUs: [String!]!): Boolean!
+}
+
+type PP_WF_Node_ProductConnection {
+	Results: [PP_WF_Node_Product!]!
+	PagingInfo: PagingInfo!
+}
+
+type PP_WF_Node_Product {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	# Configuration Level for this parameter
+	ConfigurationLevel: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsSubcontracting: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	UU: ID!
+	# Quantity
+	Qty: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PP_WF_Node_ProductInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Configuration Level for this parameter
+	ConfigurationLevel: ForeignEntityInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsSubcontracting: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	UU: ID
+	# Quantity
+	Qty: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

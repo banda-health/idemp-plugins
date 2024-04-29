@@ -1,0 +1,4 @@
+extend type AD_Table {
+	AD_Columns: [AD_Column!]
+	AD_ViewComponents: [AD_ViewComponent!]
+}

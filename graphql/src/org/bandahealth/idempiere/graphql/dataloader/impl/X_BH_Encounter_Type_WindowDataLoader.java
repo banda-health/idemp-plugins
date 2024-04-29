@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
+
+/**
+ * Data Loader for BH_Encounter_Type_Window - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_BH_Encounter_Type_WindowDataLoader extends PODataLoader<MBHEncounterTypeWindow> {
+	public static String DATALOADER_BH_Encounter_Type_Window_BY_ID = "BH_Encounter_Type_WindowByIdDataLoader";
+	public static String DATALOADER_BH_Encounter_Type_Window_BY_UUID = "BH_Encounter_Type_WindowByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MBHEncounterTypeWindow.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return DATALOADER_BH_Encounter_Type_Window_BY_ID;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return DATALOADER_BH_Encounter_Type_Window_BY_UUID;
+	}
+}

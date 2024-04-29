@@ -1,0 +1,65 @@
+# Generated Schema for AD_Find - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_FindGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FindConnection!
+}
+
+extend type Mutation {
+	AD_FindSave(Entity: AD_FindInput!): AD_Find!
+	AD_FindSaveMany(Entities: [AD_FindInput!]!): [AD_Find!]!
+	AD_FindDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_FindConnection {
+	Results: [AD_Find!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Find {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Logical operation: AND or OR
+	AndOr: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	Find_ID: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Compare Operation
+	Operation: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# Value To
+	Value2: String
+}
+
+input AD_FindInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Logical operation: AND or OR
+	AndOr: ForeignEntityInput
+	Find_ID: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Compare Operation
+	Operation: ForeignEntityInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Value To
+	Value2: String
+}

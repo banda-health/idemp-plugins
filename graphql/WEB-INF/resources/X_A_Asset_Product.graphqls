@@ -1,0 +1,65 @@
+# Generated Schema for A_Asset_Product - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_ProductGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_ProductConnection!
+}
+
+extend type Mutation {
+	A_Asset_ProductSave(Entity: A_Asset_ProductInput!): A_Asset_Product!
+	A_Asset_ProductSaveMany(Entities: [A_Asset_ProductInput!]!): [A_Asset_Product!]!
+	A_Asset_ProductDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_ProductConnection {
+	Results: [A_Asset_Product!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Product {
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	UU: ID!
+	A_QTY_Current: BigDecimal!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Warehouse Locator
+	M_Locator: M_Locator
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_ProductInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	UU: ID
+	A_QTY_Current: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+}

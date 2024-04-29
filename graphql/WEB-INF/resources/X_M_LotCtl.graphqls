@@ -1,0 +1,71 @@
+# Generated Schema for M_LotCtl - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_LotCtlGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LotCtlConnection!
+}
+
+extend type Mutation {
+	M_LotCtlSave(Entity: M_LotCtlInput!): M_LotCtl!
+	M_LotCtlSaveMany(Entities: [M_LotCtlInput!]!): [M_LotCtl!]!
+	M_LotCtlDelete(UUs: [String!]!): Boolean!
+}
+
+type M_LotCtlConnection {
+	Results: [M_LotCtl!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_LotCtl {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The next number to be used
+	CurrentNext: Int!
+	# Optional short description of the record
+	Description: String
+	# The number to increment the last document number by
+	IncrementNo: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Prefix before the sequence number
+	Prefix: String
+	# Starting number/position
+	StartNo: Int!
+	# Suffix after the number
+	Suffix: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_LotCtlInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The next number to be used
+	CurrentNext: Int
+	# Optional short description of the record
+	Description: String
+	# The number to increment the last document number by
+	IncrementNo: Int
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Prefix before the sequence number
+	Prefix: String
+	# Starting number/position
+	StartNo: Int
+	# Suffix after the number
+	Suffix: String
+}

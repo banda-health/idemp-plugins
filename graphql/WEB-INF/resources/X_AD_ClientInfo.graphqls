@@ -1,0 +1,135 @@
+# Generated Schema for AD_ClientInfo - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ClientInfoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ClientInfoConnection!
+}
+
+extend type Mutation {
+	AD_ClientInfoSave(Entity: AD_ClientInfoInput!): AD_ClientInfo!
+	AD_ClientInfoSaveMany(Entities: [AD_ClientInfoInput!]!): [AD_ClientInfo!]!
+	AD_ClientInfoDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ClientInfoConnection {
+	Results: [AD_ClientInfo!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ClientInfo {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_StorageProvider: AD_StorageProvider
+	# Trees are used for (financial) reporting
+	AD_Tree_Activity: AD_Tree
+	# Trees are used for (financial) reporting
+	AD_Tree_BPartner: AD_Tree
+	# Trees are used for (financial) reporting
+	AD_Tree_Campaign: AD_Tree
+	# Tree of the menu
+	AD_Tree_Menu: AD_Tree
+	# Trees are used for (financial) reporting and security access (via role)
+	AD_Tree_Org: AD_Tree
+	# Trees are used for (financial) reporting
+	AD_Tree_Product: AD_Tree
+	# Trees are used for (financial) reporting
+	AD_Tree_Project: AD_Tree
+	# Trees are used for (financial) reporting
+	AD_Tree_SalesRegion: AD_Tree
+	# Primary rules for accounting
+	C_AcctSchema1: C_AcctSchema
+	# Business Partner used for creating new Business Partners on the fly
+	C_BPartnerCashTrx: C_BPartner
+	# Accounting Calendar Name
+	C_Calendar: C_Calendar
+	C_ChargeFreight: C_Charge
+	# Standard Unit of Measure for Length
+	C_UOM_Length: C_UOM
+	# Standard Unit of Measure for Time
+	C_UOM_Time: C_UOM
+	# Standard Unit of Measure for Volume
+	C_UOM_Volume: C_UOM
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: C_UOM
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	FY_StartDate: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	IsConfirmOnDocClose: Boolean!
+	IsConfirmOnDocVoid: Boolean!
+	# Payment Discount calculation does not include Taxes and Charges
+	IsDiscountLineAmt: Boolean!
+	# Number of days to keep the log entries
+	KeepLogDays: Int
+	Logo: AD_Image
+	M_ProductFreight: M_Product
+	StorageArchive: AD_StorageProvider
+	# Storage provider for Image
+	StorageImage: AD_StorageProvider
+	# Time zone name
+	TimeZone: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ClientInfoInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_StorageProvider: ForeignEntityInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Activity: ForeignEntityInput
+	# Trees are used for (financial) reporting
+	AD_Tree_BPartner: ForeignEntityInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Campaign: ForeignEntityInput
+	# Tree of the menu
+	AD_Tree_Menu: ForeignEntityInput
+	# Trees are used for (financial) reporting and security access (via role)
+	AD_Tree_Org: ForeignEntityInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Product: ForeignEntityInput
+	# Trees are used for (financial) reporting
+	AD_Tree_Project: ForeignEntityInput
+	# Trees are used for (financial) reporting
+	AD_Tree_SalesRegion: ForeignEntityInput
+	# Primary rules for accounting
+	C_AcctSchema1: ForeignEntityInput
+	# Business Partner used for creating new Business Partners on the fly
+	C_BPartnerCashTrx: ForeignEntityInput
+	# Accounting Calendar Name
+	C_Calendar: ForeignEntityInput
+	C_ChargeFreight: ForeignEntityInput
+	# Standard Unit of Measure for Length
+	C_UOM_Length: ForeignEntityInput
+	# Standard Unit of Measure for Time
+	C_UOM_Time: ForeignEntityInput
+	# Standard Unit of Measure for Volume
+	C_UOM_Volume: ForeignEntityInput
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: ForeignEntityInput
+	FY_StartDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	IsConfirmOnDocClose: Boolean
+	IsConfirmOnDocVoid: Boolean
+	# Payment Discount calculation does not include Taxes and Charges
+	IsDiscountLineAmt: Boolean
+	# Number of days to keep the log entries
+	KeepLogDays: Int
+	Logo: ForeignEntityInput
+	M_ProductFreight: ForeignEntityInput
+	StorageArchive: ForeignEntityInput
+	# Storage provider for Image
+	StorageImage: ForeignEntityInput
+	# Time zone name
+	TimeZone: String
+}

@@ -1,0 +1,278 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MInvoice_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MConversionType;
+import org.compiere.model.MOrg;
+import org.compiere.model.MPInstance;
+import org.compiere.model.Query;
+import org.compiere.model.X_T_InvoiceGL;
+import org.compiere.util.Env;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for T_InvoiceGL - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_T_InvoiceGLInput extends X_T_InvoiceGL implements I_T_InvoiceGLInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PInstance;
+	private ForeignEntityInput mAPAR;
+	private ForeignEntityInput mC_ConversionTypeReval;
+	private ForeignEntityInput mC_DocTypeReval;
+	private ForeignEntityInput mC_Invoice;
+
+	/**
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UU The T_InvoiceGL_UU to fetch this entity from the DB
+	 */
+	@JsonCreator
+	public X_T_InvoiceGLInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
+			}
+		} else {
+			this.setAD_Org_ID(0);
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Process Instance.
+	 *
+	 * @param AD_PInstance Instance of the process
+	 */
+	@JsonProperty("AD_PInstance")
+	public void setAD_PInstanceInput(ForeignEntityInput AD_PInstance) {
+		this.mAD_PInstance = AD_PInstance;
+		if (AD_PInstance != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MPInstance foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PInstance", "AD_PInstance_UU=?", get_TrxName())
+							.setParameters(AD_PInstance.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_PInstance_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PInstance with UU " + AD_PInstance.getUU());
+			}
+		} else {
+			this.setAD_PInstance_ID(0);
+		}
+	}
+
+	/**
+	 * Get Process Instance.
+	 *
+	 * @return Instance of the process
+	 */
+	@JsonProperty("AD_PInstance")
+	public ForeignEntityInput AD_PInstance() {
+		return mAD_PInstance;
+	}
+
+	/**
+	 * Set AP - AR.
+	 *
+	 * @param APAR Include Receivables and/or Payables transactions
+	 */
+	@JsonProperty("APAR")
+	public void setAPARInput(ForeignEntityInput APAR) {
+		this.mAPAR = APAR;
+		if (APAR != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(APAR.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAPAR(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + APAR.getUU());
+			}
+		} else {
+			this.setAPAR(null);
+		}
+	}
+
+	/**
+	 * Get AP - AR.
+	 *
+	 * @return Include Receivables and/or Payables transactions
+	 */
+	@JsonProperty("APAR")
+	public ForeignEntityInput APAR() {
+		return mAPAR;
+	}
+
+	/**
+	 * Set Revaluation Conversion Type.
+	 *
+	 * @param C_ConversionTypeReval Revaluation Currency Conversion Type
+	 */
+	@JsonProperty("C_ConversionTypeReval")
+	public void setC_ConversionTypeRevalInput(ForeignEntityInput C_ConversionTypeReval) {
+		this.mC_ConversionTypeReval = C_ConversionTypeReval;
+		if (C_ConversionTypeReval != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MConversionType foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ConversionType", "C_ConversionType_UU=?", get_TrxName())
+							.setParameters(C_ConversionTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_ConversionTypeReval_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ConversionType with UU " + C_ConversionTypeReval.getUU());
+			}
+		} else {
+			this.setC_ConversionTypeReval_ID(0);
+		}
+	}
+
+	/**
+	 * Get Revaluation Conversion Type.
+	 *
+	 * @return Revaluation Currency Conversion Type
+	 */
+	@JsonProperty("C_ConversionTypeReval")
+	public ForeignEntityInput C_ConversionTypeReval() {
+		return mC_ConversionTypeReval;
+	}
+
+	/**
+	 * Set Revaluation Document Type.
+	 *
+	 * @param C_DocTypeReval Document Type for Revaluation Journal
+	 */
+	@JsonProperty("C_DocTypeReval")
+	public void setC_DocTypeRevalInput(ForeignEntityInput C_DocTypeReval) {
+		this.mC_DocTypeReval = C_DocTypeReval;
+		if (C_DocTypeReval != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MDocType_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_DocType", "C_DocType_UU=?", get_TrxName())
+							.setParameters(C_DocTypeReval.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_DocTypeReval_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_DocType with UU " + C_DocTypeReval.getUU());
+			}
+		} else {
+			this.setC_DocTypeReval_ID(0);
+		}
+	}
+
+	/**
+	 * Get Revaluation Document Type.
+	 *
+	 * @return Document Type for Revaluation Journal
+	 */
+	@JsonProperty("C_DocTypeReval")
+	public ForeignEntityInput C_DocTypeReval() {
+		return mC_DocTypeReval;
+	}
+
+	/**
+	 * Set Invoice.
+	 *
+	 * @param C_Invoice Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public void setC_InvoiceInput(ForeignEntityInput C_Invoice) {
+		this.mC_Invoice = C_Invoice;
+		if (C_Invoice != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MInvoice_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_Invoice", "C_Invoice_UU=?", get_TrxName())
+							.setParameters(C_Invoice.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_Invoice_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_Invoice with UU " + C_Invoice.getUU());
+			}
+		} else {
+			this.setC_Invoice_ID(0);
+		}
+	}
+
+	/**
+	 * Get Invoice.
+	 *
+	 * @return Invoice Identifier
+	 */
+	@JsonProperty("C_Invoice")
+	public ForeignEntityInput C_Invoice() {
+		return mC_Invoice;
+	}
+	/**
+	 * Set Accounting Fact.
+	 *
+	 * @param Fact_Acct_ID Accounting Fact
+	 */
+
+	public void setFact_Acct_ID(int Fact_Acct_ID) {
+		if (get_ID() == 0) {
+			super.setFact_Acct_ID(Fact_Acct_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setT_InvoiceGL_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getT_InvoiceGL_UU();
+	}
+}

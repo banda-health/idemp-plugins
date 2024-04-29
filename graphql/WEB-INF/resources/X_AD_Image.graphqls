@@ -1,0 +1,65 @@
+# Generated Schema for AD_Image - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ImageGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImageConnection!
+}
+
+extend type Mutation {
+	AD_ImageSave(Entity: AD_ImageInput!): AD_Image!
+	AD_ImageSaveMany(Entities: [AD_ImageInput!]!): [AD_Image!]!
+	AD_ImageDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ImageConnection {
+	Results: [AD_Image!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Image {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_StorageProvider: AD_StorageProvider
+	# Binary Data
+	BinaryData: Binary
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ImageInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_StorageProvider: ForeignEntityInput
+	# Binary Data
+	BinaryData: Binary
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

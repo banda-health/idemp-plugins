@@ -1,0 +1,97 @@
+# Generated Schema for C_PaySelectionCheck - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_PaySelectionCheckGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaySelectionCheckConnection!
+}
+
+extend type Mutation {
+	C_PaySelectionCheckSave(Entity: C_PaySelectionCheckInput!): C_PaySelectionCheck!
+	C_PaySelectionCheckSaveMany(Entities: [C_PaySelectionCheckInput!]!): [C_PaySelectionCheck!]!
+	C_PaySelectionCheckDelete(UUs: [String!]!): Boolean!
+}
+
+type C_PaySelectionCheckConnection {
+	Results: [C_PaySelectionCheck!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_PaySelectionCheck {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: C_BP_BankAccount
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Payment identifier
+	C_Payment: C_Payment
+	# Payment Selection
+	C_PaySelection: C_PaySelection!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal!
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsGeneratedDraft: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# This is a sales transaction (receipt)
+	IsReceipt: Boolean!
+	# Amount being paid
+	PayAmt: BigDecimal!
+	# How you pay the invoice
+	PaymentRule: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	# Quantity
+	Qty: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Amount to write-off
+	WriteOffAmt: BigDecimal!
+}
+
+input C_PaySelectionCheckInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Bank Account of the Business Partner
+	C_BP_BankAccount: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Payment Selection
+	C_PaySelection: ForeignEntityInput
+	UU: ID
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsGeneratedDraft: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# This is a sales transaction (receipt)
+	IsReceipt: Boolean
+	# Amount being paid
+	PayAmt: BigDecimal
+	# How you pay the invoice
+	PaymentRule: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# Quantity
+	Qty: Int
+	# Amount to write-off
+	WriteOffAmt: BigDecimal
+}

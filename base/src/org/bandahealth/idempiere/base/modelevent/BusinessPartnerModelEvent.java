@@ -44,15 +44,16 @@ public class BusinessPartnerModelEvent extends AbstractEventHandler {
 		if (businessPartnerUuidsWeAreUpdating.contains(businessPartner.getC_BPartner_UU())) {
 			return;
 		}
+		if (businessPartner.getClass().toString().contains("graphql.model")) {
+			return;
+		}
 
 		businessPartnerUuidsWeAreUpdating.add(businessPartner.getC_BPartner_UU());
 		try {
-			if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-				beforeSaveRequest(businessPartner);
-			} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
-				afterSaveRequest(businessPartner);
-			} else if (event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
-				afterChangeRequest(businessPartner);
+			switch (event.getTopic()) {
+				case IEventTopics.PO_BEFORE_NEW -> beforeSaveRequest(businessPartner);
+				case IEventTopics.PO_AFTER_NEW -> afterSaveRequest(businessPartner);
+				case IEventTopics.PO_AFTER_CHANGE -> afterChangeRequest(businessPartner);
 			}
 		} finally {
 			businessPartnerUuidsWeAreUpdating.remove(businessPartner.getC_BPartner_UU());

@@ -1,0 +1,131 @@
+# Generated Schema for AD_UserDef_Info_Column - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_UserDef_Info_ColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_Info_ColumnConnection!
+}
+
+extend type Mutation {
+	AD_UserDef_Info_ColumnSave(Entity: AD_UserDef_Info_ColumnInput!): AD_UserDef_Info_Column!
+	AD_UserDef_Info_ColumnSaveMany(Entities: [AD_UserDef_Info_ColumnInput!]!): [AD_UserDef_Info_Column!]!
+	AD_UserDef_Info_ColumnDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_UserDef_Info_ColumnConnection {
+	Results: [AD_UserDef_Info_Column!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_UserDef_Info_Column {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Field CSS Style 
+	AD_FieldStyle: AD_Style
+	# Info Window Column
+	AD_InfoColumn: AD_InfoColumn!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	UU: ID!
+	AD_UserDef_Info: AD_UserDef_Info!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Comment or Hint
+	Help: String
+	# Input field validation query
+	InputFieldValidation: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Automatic completion for text fields
+	IsAutocomplete: AD_Ref_List
+	# Determines, if this field is displayed
+	IsDisplayed: AD_Ref_List
+	# Data entry is required in this column
+	IsMandatory: AD_Ref_List
+	# Issues a query request after the user has made changes to the field
+	IsQueryAfterChange: AD_Ref_List
+	# The column is also used as a query criteria
+	IsQueryCriteria: AD_Ref_List
+	# Field is read only
+	IsReadOnly: AD_Ref_List
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	# Database function for query
+	QueryFunction: String
+	# Operator for database query
+	QueryOperator: AD_Ref_List
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_UserDef_Info_ColumnInput {
+	# Field CSS Style 
+	AD_FieldStyle: ForeignEntityInput
+	# Info Window Column
+	AD_InfoColumn: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	UU: ID
+	AD_UserDef_Info: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Comment or Hint
+	Help: String
+	# Input field validation query
+	InputFieldValidation: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Automatic completion for text fields
+	IsAutocomplete: ForeignEntityInput
+	# Determines, if this field is displayed
+	IsDisplayed: ForeignEntityInput
+	# Data entry is required in this column
+	IsMandatory: ForeignEntityInput
+	# Issues a query request after the user has made changes to the field
+	IsQueryAfterChange: ForeignEntityInput
+	# The column is also used as a query criteria
+	IsQueryCriteria: ForeignEntityInput
+	# Field is read only
+	IsReadOnly: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	# Database function for query
+	QueryFunction: String
+	# Operator for database query
+	QueryOperator: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+}

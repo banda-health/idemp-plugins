@@ -1,0 +1,63 @@
+# Generated Schema for B_Seller - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	B_SellerGet(Page: Int, Size: Int, Sort: String, Filter: String): B_SellerConnection!
+}
+
+extend type Mutation {
+	B_SellerSave(Entity: B_SellerInput!): B_Seller!
+	B_SellerSaveMany(Entities: [B_SellerInput!]!): [B_Seller!]!
+	B_SellerDelete(UUs: [String!]!): Boolean!
+}
+
+type B_SellerConnection {
+	Results: [B_Seller!]!
+	PagingInfo: PagingInfo!
+}
+
+type B_Seller {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Internal Organization
+	IsInternal: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid to including this date (last day)
+	ValidTo: Date!
+}
+
+input B_SellerInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Internal Organization
+	IsInternal: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

@@ -1,0 +1,3 @@
+extend type C_RfQ {
+	C_RfQLines: [C_RfQLine!]
+}

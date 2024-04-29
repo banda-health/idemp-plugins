@@ -1,0 +1,67 @@
+# Generated Schema for HR_Year - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_YearGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_YearConnection!
+}
+
+extend type Mutation {
+	HR_YearSave(Entity: HR_YearInput!): HR_Year!
+	HR_YearSaveMany(Entities: [HR_YearInput!]!): [HR_Year!]!
+	HR_YearDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_YearConnection {
+	Results: [HR_Year!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Year {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Calendar Year
+	C_Year: C_Year!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	HR_Payroll: HR_Payroll!
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Net Days in which payment is due
+	NetDays: Int!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Quantity
+	Qty: Int!
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_YearInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Calendar Year
+	C_Year: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Net Days in which payment is due
+	NetDays: Int
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Quantity
+	Qty: Int
+	# First effective day (inclusive)
+	StartDate: Date
+}

@@ -1,0 +1,187 @@
+# Generated Schema for AD_Tab - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_TabGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TabConnection!
+}
+
+extend type Mutation {
+	AD_TabSave(Entity: AD_TabInput!): AD_Tab!
+	AD_TabSaveMany(Entities: [AD_TabInput!]!): [AD_Tab!]!
+	AD_TabDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_TabConnection {
+	Results: [AD_Tab!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Tab {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Column determining the order
+	AD_ColumnSortOrder: AD_Column
+	# Column determining if a Table Column is included in Ordering
+	AD_ColumnSortYesNo: AD_Column
+	AD_CtxHelp: AD_CtxHelp
+	# Image or Icon
+	AD_Image: AD_Image
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	UU: ID!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Defines Tab Type
+	AD_TabType: AD_Ref_List
+	# Data entry or display window
+	AD_Window: AD_Window!
+	# Warning displayed when saving
+	CommitWarning: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DeleteConfirmationLogic: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Window has Tree Graph
+	HasTree: Boolean!
+	# Comment or Hint
+	Help: String
+	# Create Fields from Table Columns
+	ImportFields: String
+	# Included Tab in this Tab (Master Detail)
+	Included_Tab: AD_Tab
+	# The record is active in the system
+	IsActive: Boolean!
+	# This Tab contains advanced Functionality
+	IsAdvancedTab: Boolean!
+	IsAllowAdvancedLookup: Boolean!
+	# Use Search instead of Pick list
+	IsHighVolume: AD_Ref_List
+	# This Tab contains accounting information
+	IsInfoTab: Boolean!
+	# The user can insert a new Record
+	IsInsertRecord: Boolean!
+	# When defined to true Lookup panel will display only selection columns. Default to false.
+	IsLookupOnlySelection: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# Default for toggle between Single- and Multi-Row (Grid) Layout
+	IsSingleRow: Boolean!
+	# The Tab determines the Order
+	IsSortTab: Boolean!
+	# This Tab contains translation information
+	IsTranslationTab: Boolean!
+	# If defined, you cannot query more records as defined - the query criteria needs to be changed to query less records
+	MaxQueryRecords: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# The link column on the parent tab.
+	Parent_Column: AD_Column
+	Processing: Boolean!
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Hierarchical Tab Level (0 = top)
+	TabLevel: Int!
+	# The tree can be displayed on master tab, detail tab or both
+	TreeDisplayedOn: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input AD_TabInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Column determining the order
+	AD_ColumnSortOrder: ForeignEntityInput
+	# Column determining if a Table Column is included in Ordering
+	AD_ColumnSortYesNo: ForeignEntityInput
+	AD_CtxHelp: ForeignEntityInput
+	# Image or Icon
+	AD_Image: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	UU: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Defines Tab Type
+	AD_TabType: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Warning displayed when saving
+	CommitWarning: String
+	DeleteConfirmationLogic: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Window has Tree Graph
+	HasTree: Boolean
+	# Comment or Hint
+	Help: String
+	# Create Fields from Table Columns
+	ImportFields: String
+	# Included Tab in this Tab (Master Detail)
+	Included_Tab: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This Tab contains advanced Functionality
+	IsAdvancedTab: Boolean
+	IsAllowAdvancedLookup: Boolean
+	# Use Search instead of Pick list
+	IsHighVolume: ForeignEntityInput
+	# This Tab contains accounting information
+	IsInfoTab: Boolean
+	# The user can insert a new Record
+	IsInsertRecord: Boolean
+	# When defined to true Lookup panel will display only selection columns. Default to false.
+	IsLookupOnlySelection: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+	# Default for toggle between Single- and Multi-Row (Grid) Layout
+	IsSingleRow: Boolean
+	# The Tab determines the Order
+	IsSortTab: Boolean
+	# This Tab contains translation information
+	IsTranslationTab: Boolean
+	# If defined, you cannot query more records as defined - the query criteria needs to be changed to query less records
+	MaxQueryRecords: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# The link column on the parent tab.
+	Parent_Column: ForeignEntityInput
+	Processing: Boolean
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Hierarchical Tab Level (0 = top)
+	TabLevel: Int
+	# The tree can be displayed on master tab, detail tab or both
+	TreeDisplayedOn: ForeignEntityInput
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
