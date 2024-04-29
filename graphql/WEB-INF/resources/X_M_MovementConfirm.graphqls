@@ -1,0 +1,81 @@
+# Generated Schema for M_MovementConfirm - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_MovementConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementConfirmConnection!
+}
+
+extend type Mutation {
+	M_MovementConfirmSave(Entity: M_MovementConfirmInput!): M_MovementConfirm!
+	M_MovementConfirmSaveMany(Entities: [M_MovementConfirmInput!]!): [M_MovementConfirm!]!
+	M_MovementConfirmDelete(UUs: [String!]!): Boolean!
+}
+
+type M_MovementConfirmConnection {
+	Results: [M_MovementConfirm!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_MovementConfirm {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Document Approval Amount
+	ApprovalAmt: BigDecimal
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Parameters for a Physical Inventory
+	M_Inventory: M_Inventory
+	# Movement of Inventory
+	M_Movement: M_Movement!
+	UU: ID!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_MovementConfirmInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Document Approval Amount
+	ApprovalAmt: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Parameters for a Physical Inventory
+	M_Inventory: ForeignEntityInput
+	# Movement of Inventory
+	M_Movement: ForeignEntityInput
+	UU: ID
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+}

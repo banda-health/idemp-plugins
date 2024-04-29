@@ -1,0 +1,55 @@
+# Generated Schema for C_TaxPostal - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_TaxPostalGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxPostalConnection!
+}
+
+extend type Mutation {
+	C_TaxPostalSave(Entity: C_TaxPostalInput!): C_TaxPostal!
+	C_TaxPostalSaveMany(Entities: [C_TaxPostalInput!]!): [C_TaxPostal!]!
+	C_TaxPostalDelete(UUs: [String!]!): Boolean!
+}
+
+type C_TaxPostalConnection {
+	Results: [C_TaxPostal!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_TaxPostal {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Tax identifier
+	C_Tax: C_Tax!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Postal code
+	Postal: String!
+	# Postal code to
+	Postal_To: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_TaxPostalInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Postal code
+	Postal: String
+	# Postal code to
+	Postal_To: String
+}

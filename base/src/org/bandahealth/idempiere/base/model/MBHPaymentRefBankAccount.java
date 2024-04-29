@@ -7,8 +7,22 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MBHPaymentRefBankAccount extends X_BH_PaymentRef_BankAcct {
-	public MBHPaymentRefBankAccount(Properties ctx, int BH_PaymentRef_ID, String trxName) {
-		super(ctx, BH_PaymentRef_ID, trxName);
+	public MBHPaymentRefBankAccount(Properties ctx, int BH_PaymentRef_BankAcct_ID, String trxName) {
+		super(ctx, BH_PaymentRef_BankAcct_ID, trxName);
+	}
+
+	public MBHPaymentRefBankAccount(Properties ctx, int BH_PaymentRef_BankAcct_ID, String trxName,
+			String... virtualColumns) {
+		super(ctx, BH_PaymentRef_BankAcct_ID, trxName, virtualColumns);
+	}
+
+	public MBHPaymentRefBankAccount(Properties ctx, String BH_PaymentRef_BankAcct_UU, String trxName) {
+		super(ctx, BH_PaymentRef_BankAcct_UU, trxName);
+	}
+
+	public MBHPaymentRefBankAccount(Properties ctx, String BH_PaymentRef_BankAcct_UU, String trxName,
+			String... virtualColumns) {
+		super(ctx, BH_PaymentRef_BankAcct_UU, trxName, virtualColumns);
 	}
 
 	public MBHPaymentRefBankAccount(Properties ctx, ResultSet rs, String trxName) {

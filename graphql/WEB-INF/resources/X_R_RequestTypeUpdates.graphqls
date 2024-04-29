@@ -1,0 +1,55 @@
+# Generated Schema for R_RequestTypeUpdates - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_RequestTypeUpdatesGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestTypeUpdatesConnection!
+}
+
+extend type Mutation {
+	R_RequestTypeUpdatesSave(Entity: R_RequestTypeUpdatesInput!): R_RequestTypeUpdates!
+	R_RequestTypeUpdatesSaveMany(Entities: [R_RequestTypeUpdatesInput!]!): [R_RequestTypeUpdates!]!
+	R_RequestTypeUpdatesDelete(UUs: [String!]!): Boolean!
+}
+
+type R_RequestTypeUpdatesConnection {
+	Results: [R_RequestTypeUpdates!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_RequestTypeUpdates {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Type of request (e.g. Inquiry, Complaint, ..)
+	R_RequestType: R_RequestType!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_RequestTypeUpdatesInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	# Type of request (e.g. Inquiry, Complaint, ..)
+	R_RequestType: ForeignEntityInput
+	UU: ID
+}

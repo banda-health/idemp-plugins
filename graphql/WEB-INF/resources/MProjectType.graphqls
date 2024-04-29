@@ -1,0 +1,3 @@
+extend type C_ProjectType {
+	C_Phases: [C_Phase!]
+}

@@ -297,7 +297,7 @@ public class IncomeTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Change payment");
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.getPayment().setPayAmt(new BigDecimal(8000));
-		valueObject.getPayment().setBH_TenderAmount(new BigDecimal(8000));
+		valueObject.getPayment().setBH_tender_amount(new BigDecimal(8000));
 		valueObject.getPayment().saveEx();
 		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was re-completed");

@@ -1,0 +1,75 @@
+# Generated Schema for C_PaymentAllocate - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_PaymentAllocateGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentAllocateConnection!
+}
+
+extend type Mutation {
+	C_PaymentAllocateSave(Entity: C_PaymentAllocateInput!): C_PaymentAllocate!
+	C_PaymentAllocateSaveMany(Entities: [C_PaymentAllocateInput!]!): [C_PaymentAllocate!]!
+	C_PaymentAllocateDelete(UUs: [String!]!): Boolean!
+}
+
+type C_PaymentAllocateConnection {
+	Results: [C_PaymentAllocate!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_PaymentAllocate {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount in a defined currency
+	Amount: BigDecimal!
+	# Allocation Line
+	C_AllocationLine: C_AllocationLine
+	# Invoice Identifier
+	C_Invoice: C_Invoice!
+	# Payment identifier
+	C_Payment: C_Payment!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal!
+	InvoiceAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: BigDecimal!
+	# Remaining Amount
+	RemainingAmt: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Amount to write-off
+	WriteOffAmt: BigDecimal!
+}
+
+input C_PaymentAllocateInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# Allocation Line
+	C_AllocationLine: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	UU: ID
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal
+	InvoiceAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: BigDecimal
+	# Amount to write-off
+	WriteOffAmt: BigDecimal
+}

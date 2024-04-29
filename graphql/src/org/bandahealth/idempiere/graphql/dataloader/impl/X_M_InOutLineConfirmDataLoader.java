@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.compiere.model.MInOutLineConfirm;
+
+/**
+ * Data Loader for M_InOutLineConfirm - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_M_InOutLineConfirmDataLoader extends PODataLoader<MInOutLineConfirm> {
+	public static String DATALOADER_M_InOutLineConfirm_BY_ID = "M_InOutLineConfirmByIdDataLoader";
+	public static String DATALOADER_M_InOutLineConfirm_BY_UUID = "M_InOutLineConfirmByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return MInOutLineConfirm.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return DATALOADER_M_InOutLineConfirm_BY_ID;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return DATALOADER_M_InOutLineConfirm_BY_UUID;
+	}
+}

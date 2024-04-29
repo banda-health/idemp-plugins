@@ -1,0 +1,3 @@
+extend type C_RfQ_TopicSubscriber {
+	C_RfQ_TopicSubscriberOnlyList: [C_RfQ_TopicSubscriberOnly!]
+}

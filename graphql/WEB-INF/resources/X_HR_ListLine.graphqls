@@ -1,0 +1,69 @@
+# Generated Schema for HR_ListLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_ListLineGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListLineConnection!
+}
+
+extend type Mutation {
+	HR_ListLineSave(Entity: HR_ListLineInput!): HR_ListLine!
+	HR_ListLineSaveMany(Entities: [HR_ListLineInput!]!): [HR_ListLine!]!
+	HR_ListLineDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_ListLineConnection {
+	Results: [HR_ListLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_ListLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	Col_1: BigDecimal
+	Col_2: BigDecimal
+	Col_3: BigDecimal
+	Col_4: BigDecimal
+	Col_5: BigDecimal
+	Col_6: BigDecimal
+	Col_7: BigDecimal
+	Col_8: BigDecimal
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	UU: ID!
+	HR_ListVersion: HR_ListVersion
+	# The record is active in the system
+	IsActive: Boolean!
+	MaxValue: BigDecimal!
+	MinValue: BigDecimal!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_ListLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	Col_1: BigDecimal
+	Col_2: BigDecimal
+	Col_3: BigDecimal
+	Col_4: BigDecimal
+	Col_5: BigDecimal
+	Col_6: BigDecimal
+	Col_7: BigDecimal
+	Col_8: BigDecimal
+	UU: ID
+	HR_ListVersion: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	MaxValue: BigDecimal
+	MinValue: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String
+}

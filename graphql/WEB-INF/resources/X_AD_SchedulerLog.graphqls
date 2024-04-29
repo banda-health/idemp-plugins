@@ -1,0 +1,71 @@
+# Generated Schema for AD_SchedulerLog - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_SchedulerLogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SchedulerLogConnection!
+}
+
+extend type Mutation {
+	AD_SchedulerLogSave(Entity: AD_SchedulerLogInput!): AD_SchedulerLog!
+	AD_SchedulerLogSaveMany(Entities: [AD_SchedulerLogInput!]!): [AD_SchedulerLog!]!
+	AD_SchedulerLogDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_SchedulerLogConnection {
+	Results: [AD_SchedulerLog!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_SchedulerLog {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Schedule Processes
+	AD_Scheduler: AD_Scheduler!
+	UU: ID!
+	# Binary Data
+	BinaryData: Binary
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# An Error occurred in the execution
+	IsError: Boolean!
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_SchedulerLogInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Schedule Processes
+	AD_Scheduler: ForeignEntityInput
+	UU: ID
+	# Binary Data
+	BinaryData: Binary
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# An Error occurred in the execution
+	IsError: Boolean
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+}

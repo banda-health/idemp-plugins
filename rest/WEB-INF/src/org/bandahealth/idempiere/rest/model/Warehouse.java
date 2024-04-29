@@ -30,7 +30,7 @@ public class Warehouse extends BaseEntity {
 	public Warehouse(MWarehouse_BH entity) {
 		super(entity, entity.getName(), entity.getDescription(), entity.getValue());
 
-		setDefaultWarehouse(entity.isBH_IsDefaultWarehouse());
+		setDefaultWarehouse(entity.isBH_DefaultWarehouse());
 	}
 
 	public boolean isDefaultWarehouse() {

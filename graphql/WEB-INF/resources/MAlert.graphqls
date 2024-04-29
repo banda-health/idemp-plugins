@@ -1,0 +1,4 @@
+extend type AD_Alert {
+	AD_AlertRules: [AD_AlertRule!]
+	AD_AlertRecipients: [AD_AlertRecipient!]
+}

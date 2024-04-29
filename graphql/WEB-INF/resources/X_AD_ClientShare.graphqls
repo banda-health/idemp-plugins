@@ -1,0 +1,59 @@
+# Generated Schema for AD_ClientShare - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ClientShareGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ClientShareConnection!
+}
+
+extend type Mutation {
+	AD_ClientShareSave(Entity: AD_ClientShareInput!): AD_ClientShare!
+	AD_ClientShareSaveMany(Entities: [AD_ClientShareInput!]!): [AD_ClientShare!]!
+	AD_ClientShareDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ClientShareConnection {
+	Results: [AD_ClientShare!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ClientShare {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Type of sharing
+	ShareType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ClientShareInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of sharing
+	ShareType: ForeignEntityInput
+}

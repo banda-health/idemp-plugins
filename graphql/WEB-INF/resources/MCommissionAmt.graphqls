@@ -1,0 +1,3 @@
+extend type C_CommissionAmt {
+	C_CommissionDetails: [C_CommissionDetail!]
+}

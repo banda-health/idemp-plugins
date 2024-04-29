@@ -1,0 +1,71 @@
+# Generated Schema for A_RegistrationAttribute - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_RegistrationAttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): A_RegistrationAttributeConnection!
+}
+
+extend type Mutation {
+	A_RegistrationAttributeSave(Entity: A_RegistrationAttributeInput!): A_RegistrationAttribute!
+	A_RegistrationAttributeSaveMany(Entities: [A_RegistrationAttributeInput!]!): [A_RegistrationAttribute!]!
+	A_RegistrationAttributeDelete(UUs: [String!]!): Boolean!
+}
+
+type A_RegistrationAttributeConnection {
+	Results: [A_RegistrationAttribute!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_RegistrationAttribute {
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	# Name of the column in the database
+	ColumnName: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_RegistrationAttributeInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

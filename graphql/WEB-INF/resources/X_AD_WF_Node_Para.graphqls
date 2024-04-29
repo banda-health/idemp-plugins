@@ -1,0 +1,65 @@
+# Generated Schema for AD_WF_Node_Para - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_Node_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_Node_ParaConnection!
+}
+
+extend type Mutation {
+	AD_WF_Node_ParaSave(Entity: AD_WF_Node_ParaInput!): AD_WF_Node_Para!
+	AD_WF_Node_ParaSaveMany(Entities: [AD_WF_Node_ParaInput!]!): [AD_WF_Node_Para!]!
+	AD_WF_Node_ParaDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_Node_ParaConnection {
+	Results: [AD_WF_Node_Para!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_Node_Para {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_Process_Para: AD_Process_Para
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	UU: ID!
+	# Name of the Attribute
+	AttributeName: String
+	# Value of the Attribute
+	AttributeValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_WF_Node_ParaInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_Process_Para: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	UU: ID
+	# Name of the Attribute
+	AttributeName: String
+	# Value of the Attribute
+	AttributeValue: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

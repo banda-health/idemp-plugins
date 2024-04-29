@@ -1,0 +1,99 @@
+# Generated Schema for C_CashLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CashLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashLineConnection!
+}
+
+extend type Mutation {
+	C_CashLineSave(Entity: C_CashLineInput!): C_CashLine!
+	C_CashLineSaveMany(Entities: [C_CashLineInput!]!): [C_CashLine!]!
+	C_CashLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CashLineConnection {
+	Results: [C_CashLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CashLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount in a defined currency
+	Amount: BigDecimal!
+	# Account at the Bank
+	C_BankAccount: C_BankAccount
+	# Cash Journal
+	C_Cash: C_Cash!
+	UU: ID!
+	# Additional document charges
+	C_Charge: C_Charge
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Payment identifier
+	C_Payment: C_Payment
+	# Source of Cash
+	CashType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# This Line is generated
+	IsGenerated: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# The document has been processed
+	Processed: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Amount to write-off
+	WriteOffAmt: BigDecimal
+}
+
+input C_CashLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	# Cash Journal
+	C_Cash: ForeignEntityInput
+	UU: ID
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Source of Cash
+	CashType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# This Line is generated
+	IsGenerated: Boolean
+	# Unique line for this document
+	Line: Int
+	# The document has been processed
+	Processed: Boolean
+	# Amount to write-off
+	WriteOffAmt: BigDecimal
+}

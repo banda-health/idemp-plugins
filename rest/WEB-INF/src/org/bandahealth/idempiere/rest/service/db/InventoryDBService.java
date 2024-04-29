@@ -2,7 +2,6 @@ package org.bandahealth.idempiere.rest.service.db;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
@@ -17,6 +16,7 @@ import org.bandahealth.idempiere.rest.model.ReferenceList;
 import org.bandahealth.idempiere.rest.model.Warehouse;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
 import org.compiere.model.MDocType;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MRefList;
 import org.compiere.util.Env;
@@ -111,17 +111,17 @@ public class InventoryDBService extends DocumentDBService<Inventory, MInventory_
 						.collect(Collectors.toMap(MRefList::getValue, updateReason -> updateReason));
 
 		// Now batch child information
-		Map<Integer, List<MInventoryLine_BH>> inventoryLinesByInventoryId =
-				inventoryLineDBService.getGroupsByIds(MInventoryLine_BH::getM_Inventory_ID,
-						MInventoryLine_BH.COLUMNNAME_M_Inventory_ID, inventoryIds);
+		Map<Integer, List<MInventoryLine>> inventoryLinesByInventoryId =
+				inventoryLineDBService.getGroupsByIds(MInventoryLine::getM_Inventory_ID,
+						MInventoryLine.COLUMNNAME_M_Inventory_ID, inventoryIds);
 
 		// Get the inventory line ids to batch
 		Set<Integer> productIds = inventoryLinesByInventoryId.values().stream().flatMap(Collection::stream)
-				.map(MInventoryLine_BH::getM_Product_ID).collect(Collectors.toSet());
+				.map(MInventoryLine::getM_Product_ID).collect(Collectors.toSet());
 		Set<Integer> locatorIds = inventoryLinesByInventoryId.values().stream().flatMap(Collection::stream)
-				.map(MInventoryLine_BH::getM_Locator_ID).collect(Collectors.toSet());
+				.map(MInventoryLine::getM_Locator_ID).collect(Collectors.toSet());
 		Set<Integer> attributeSetInstanceIds = inventoryLinesByInventoryId.values().stream().flatMap(Collection::stream)
-				.map(MInventoryLine_BH::getM_AttributeSetInstance_ID).collect(Collectors.toSet());
+				.map(MInventoryLine::getM_AttributeSetInstance_ID).collect(Collectors.toSet());
 
 		// Get the inventory line batch models
 		Map<Integer, MProduct_BH> productsById =

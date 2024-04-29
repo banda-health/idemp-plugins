@@ -1,0 +1,71 @@
+# Generated Schema for AD_WF_NodeNext - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_NodeNextGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_NodeNextConnection!
+}
+
+extend type Mutation {
+	AD_WF_NodeNextSave(Entity: AD_WF_NodeNextInput!): AD_WF_NodeNext!
+	AD_WF_NodeNextSaveMany(Entities: [AD_WF_NodeNextInput!]!): [AD_WF_NodeNext!]!
+	AD_WF_NodeNextDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_NodeNextConnection {
+	Results: [AD_WF_NodeNext!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_NodeNext {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Next Node in workflow
+	AD_WF_Next: AD_WF_Node!
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Standard Manual User Approval Workflow
+	IsStdUserWorkflow: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Code resulting in TRUE of FALSE
+	TransitionCode: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_WF_NodeNextInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Next Node in workflow
+	AD_WF_Next: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Standard Manual User Approval Workflow
+	IsStdUserWorkflow: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Code resulting in TRUE of FALSE
+	TransitionCode: String
+}

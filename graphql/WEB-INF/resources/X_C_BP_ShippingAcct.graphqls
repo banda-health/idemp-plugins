@@ -1,0 +1,59 @@
+# Generated Schema for C_BP_ShippingAcct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BP_ShippingAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_ShippingAcctConnection!
+}
+
+extend type Mutation {
+	C_BP_ShippingAcctSave(Entity: C_BP_ShippingAcctInput!): C_BP_ShippingAcct!
+	C_BP_ShippingAcctSaveMany(Entities: [C_BP_ShippingAcctInput!]!): [C_BP_ShippingAcct!]!
+	C_BP_ShippingAcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BP_ShippingAcctConnection {
+	Results: [C_BP_ShippingAcct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BP_ShippingAcct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DutiesShipperAccount: String
+	# The record is active in the system
+	IsActive: Boolean!
+	M_ShippingProcessor: M_ShippingProcessor
+	ShipperAccount: String
+	ShipperMeter: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BP_ShippingAcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	DutiesShipperAccount: String
+	# The record is active in the system
+	IsActive: Boolean
+	M_ShippingProcessor: ForeignEntityInput
+	ShipperAccount: String
+	ShipperMeter: String
+}

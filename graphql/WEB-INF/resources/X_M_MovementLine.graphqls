@@ -1,0 +1,103 @@
+# Generated Schema for M_MovementLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_MovementLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineConnection!
+}
+
+extend type Mutation {
+	M_MovementLineSave(Entity: M_MovementLineInput!): M_MovementLine!
+	M_MovementLineSaveMany(Entities: [M_MovementLineInput!]!): [M_MovementLine!]!
+	M_MovementLineDelete(UUs: [String!]!): Boolean!
+}
+
+type M_MovementLineConnection {
+	Results: [M_MovementLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_MovementLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DD_OrderLine: DD_OrderLine
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance
+	# Target Product Attribute Set Instance
+	M_AttributeSetInstanceTo: M_AttributeSetInstance
+	# Warehouse Locator
+	M_Locator: M_Locator!
+	# Location inventory is moved to
+	M_LocatorTo: M_Locator!
+	# Movement of Inventory
+	M_Movement: M_Movement!
+	UU: ID!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Quantity of a product moved.
+	MovementQty: BigDecimal!
+	# The document has been processed
+	Processed: Boolean!
+	# Use to keep the reversal line ID for reversing costing purpose
+	ReversalLine: M_MovementLine
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+	# Target Movement Quantity
+	TargetQty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input M_MovementLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
+	DD_OrderLine: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Target Product Attribute Set Instance
+	M_AttributeSetInstanceTo: ForeignEntityInput
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Location inventory is moved to
+	M_LocatorTo: ForeignEntityInput
+	# Movement of Inventory
+	M_Movement: ForeignEntityInput
+	UU: ID
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Quantity of a product moved.
+	MovementQty: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	# Use to keep the reversal line ID for reversing costing purpose
+	ReversalLine: ForeignEntityInput
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+	# Target Movement Quantity
+	TargetQty: BigDecimal
+}

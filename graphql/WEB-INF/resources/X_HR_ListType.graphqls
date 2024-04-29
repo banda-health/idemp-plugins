@@ -1,0 +1,55 @@
+# Generated Schema for HR_ListType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_ListTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListTypeConnection!
+}
+
+extend type Mutation {
+	HR_ListTypeSave(Entity: HR_ListTypeInput!): HR_ListType!
+	HR_ListTypeSaveMany(Entities: [HR_ListTypeInput!]!): [HR_ListType!]!
+	HR_ListTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_ListTypeConnection {
+	Results: [HR_ListType!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_ListType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input HR_ListTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

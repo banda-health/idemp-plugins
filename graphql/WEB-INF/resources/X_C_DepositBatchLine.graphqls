@@ -1,0 +1,63 @@
+# Generated Schema for C_DepositBatchLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_DepositBatchLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DepositBatchLineConnection!
+}
+
+extend type Mutation {
+	C_DepositBatchLineSave(Entity: C_DepositBatchLineInput!): C_DepositBatchLine!
+	C_DepositBatchLineSaveMany(Entities: [C_DepositBatchLineInput!]!): [C_DepositBatchLine!]!
+	C_DepositBatchLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_DepositBatchLineConnection {
+	Results: [C_DepositBatchLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_DepositBatchLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	C_DepositBatch: C_DepositBatch!
+	UU: ID!
+	# Payment identifier
+	C_Payment: C_Payment!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Amount being paid
+	PayAmt: BigDecimal!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_DepositBatchLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	C_DepositBatch: ForeignEntityInput
+	UU: ID
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Amount being paid
+	PayAmt: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+}

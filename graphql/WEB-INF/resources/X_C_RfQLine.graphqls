@@ -1,0 +1,79 @@
+# Generated Schema for C_RfQLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RfQLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQLineConnection!
+}
+
+extend type Mutation {
+	C_RfQLineSave(Entity: C_RfQLineInput!): C_RfQLine!
+	C_RfQLineSaveMany(Entities: [C_RfQLineInput!]!): [C_RfQLine!]!
+	C_RfQLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RfQLineConnection {
+	Results: [C_RfQLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_RfQLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Request for Quotation
+	C_RfQ: C_RfQ!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Request for Quotation
+	C_RfQ: ForeignEntityInput
+	UU: ID
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+}

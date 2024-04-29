@@ -1,0 +1,103 @@
+# Generated Schema for C_Opportunity - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_OpportunityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OpportunityConnection!
+}
+
+extend type Mutation {
+	C_OpportunitySave(Entity: C_OpportunityInput!): C_Opportunity!
+	C_OpportunitySaveMany(Entities: [C_OpportunityInput!]!): [C_Opportunity!]!
+	C_OpportunityDelete(UUs: [String!]!): Boolean!
+}
+
+type C_OpportunityConnection {
+	Results: [C_Opportunity!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Opportunity {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# The Currency for this record
+	C_Currency: C_Currency!
+	UU: ID!
+	# Order
+	C_Order: C_Order
+	# Stages of the sales process
+	C_SalesStage: C_SalesStage!
+	# Close Date
+	CloseDate: Date
+	# Comments or additional information
+	Comments: String
+	# Cost information
+	Cost: BigDecimal
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Expected Close Date
+	ExpectedCloseDate: Date!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The estimated value of this opportunity.
+	OpportunityAmt: BigDecimal!
+	Probability: BigDecimal!
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# The amount adjusted by the probability.
+	WeightedAmt: BigDecimal
+}
+
+input C_OpportunityInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	UU: ID
+	# Order
+	C_Order: ForeignEntityInput
+	# Stages of the sales process
+	C_SalesStage: ForeignEntityInput
+	# Close Date
+	CloseDate: Date
+	# Comments or additional information
+	Comments: String
+	# Cost information
+	Cost: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Expected Close Date
+	ExpectedCloseDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# The estimated value of this opportunity.
+	OpportunityAmt: BigDecimal
+	Probability: BigDecimal
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+}

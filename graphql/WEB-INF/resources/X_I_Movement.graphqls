@@ -1,0 +1,173 @@
+# Generated Schema for I_Movement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	I_MovementGet(Page: Int, Size: Int, Sort: String, Filter: String): I_MovementConnection!
+}
+
+extend type Mutation {
+	I_MovementSave(Entity: I_MovementInput!): I_Movement!
+	I_MovementSaveMany(Entities: [I_MovementInput!]!): [I_Movement!]!
+	I_MovementDelete(UUs: [String!]!): Boolean!
+}
+
+type I_MovementConnection {
+	Results: [I_Movement!]!
+	PagingInfo: PagingInfo!
+}
+
+type I_Movement {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Key of the Business Partner
+	BPartnerValue: String
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Document type or rules
+	C_DocType: C_DocType
+	# Financial Project
+	C_Project: C_Project
+	# Text key of the Campaign
+	CampaignValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Defines the timing of Delivery
+	DeliveryRule: String
+	# How the order will be delivered
+	DeliveryViaRule: String
+	# Name of the Document Type
+	DocTypeName: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Method for charging Freight
+	FreightCostRule: String
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean!
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	LocatorToValue: String
+	# Key of the Warehouse Locator
+	LocatorValue: String
+	# Warehouse Locator
+	M_Locator: M_Locator
+	# Location inventory is moved to
+	M_LocatorTo: M_Locator
+	# Movement of Inventory
+	M_Movement: M_Movement
+	# Inventory Move document Line
+	M_MovementLine: M_MovementLine
+	# Product, Service, Item
+	M_Product: M_Product
+	# Method or manner of product delivery
+	M_Shipper: M_Shipper
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Quantity of a product moved.
+	MovementQty: BigDecimal
+	# Key of the Transaction Organization
+	OrgTrxValue: String
+	# Key of the Organization
+	OrgValue: String
+	# Priority of a document
+	PriorityRule: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Key of the Product
+	ProductValue: String
+	# Key of the Project
+	ProjectValue: String
+	ShipperName: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1_ID: String
+	# User defined list element #2
+	User2_ID: String
+}
+
+input I_MovementInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Key of the Business Partner
+	BPartnerValue: String
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Text key of the Campaign
+	CampaignValue: String
+	# Defines the timing of Delivery
+	DeliveryRule: String
+	# How the order will be delivered
+	DeliveryViaRule: String
+	# Name of the Document Type
+	DocTypeName: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Method for charging Freight
+	FreightCostRule: String
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	LocatorToValue: String
+	# Key of the Warehouse Locator
+	LocatorValue: String
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Location inventory is moved to
+	M_LocatorTo: ForeignEntityInput
+	# Movement of Inventory
+	M_Movement: ForeignEntityInput
+	# Inventory Move document Line
+	M_MovementLine: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Quantity of a product moved.
+	MovementQty: BigDecimal
+	# Key of the Transaction Organization
+	OrgTrxValue: String
+	# Key of the Organization
+	OrgValue: String
+	# Priority of a document
+	PriorityRule: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Key of the Product
+	ProductValue: String
+	# Key of the Project
+	ProjectValue: String
+	ShipperName: String
+	# User defined list element #1
+	User1_ID: String
+	# User defined list element #2
+	User2_ID: String
+}

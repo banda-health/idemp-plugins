@@ -1,0 +1,95 @@
+# Generated Schema for AD_ImpFormat_Row - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ImpFormat_RowGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ImpFormat_RowConnection!
+}
+
+extend type Mutation {
+	AD_ImpFormat_RowSave(Entity: AD_ImpFormat_RowInput!): AD_ImpFormat_Row!
+	AD_ImpFormat_RowSaveMany(Entities: [AD_ImpFormat_RowInput!]!): [AD_ImpFormat_Row!]!
+	AD_ImpFormat_RowDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ImpFormat_RowConnection {
+	Results: [AD_ImpFormat_Row!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ImpFormat_Row {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column!
+	AD_ImpFormat: AD_ImpFormat!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Fully qualified class names and method - separated by semicolons
+	Callout: String
+	# Constant value
+	ConstantValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Format String in Java Notation, e.g. ddMMyy
+	DataFormat: String
+	# Type of data
+	DataType: AD_Ref_List!
+	# Decimal Point in the data file - if any
+	DecimalPoint: String!
+	# Divide number by 100 to get correct amount
+	DivideBy100: Boolean!
+	EndNo: Int
+	# This prefix will be added in front of import string if they are not empty
+	ImportPrefix: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Dynamic Java Language Script to calculate result
+	Script: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Starting number/position
+	StartNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ImpFormat_RowInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	AD_ImpFormat: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Fully qualified class names and method - separated by semicolons
+	Callout: String
+	# Constant value
+	ConstantValue: String
+	# Format String in Java Notation, e.g. ddMMyy
+	DataFormat: String
+	# Type of data
+	DataType: ForeignEntityInput
+	# Decimal Point in the data file - if any
+	DecimalPoint: String
+	# Divide number by 100 to get correct amount
+	DivideBy100: Boolean
+	EndNo: Int
+	# This prefix will be added in front of import string if they are not empty
+	ImportPrefix: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Dynamic Java Language Script to calculate result
+	Script: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Starting number/position
+	StartNo: Int
+}

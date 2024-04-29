@@ -1,0 +1,141 @@
+# Generated Schema for C_AcctSchema - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_AcctSchemaGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchemaConnection!
+}
+
+extend type Mutation {
+	C_AcctSchemaSave(Entity: C_AcctSchemaInput!): C_AcctSchema!
+	C_AcctSchemaSaveMany(Entities: [C_AcctSchemaInput!]!): [C_AcctSchema!]!
+	C_AcctSchemaDelete(UUs: [String!]!): Boolean!
+}
+
+type C_AcctSchemaConnection {
+	Results: [C_AcctSchema!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_AcctSchema {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# If selected, the periods are automatically opened and closed
+	AutoPeriodControl: Boolean!
+	UU: ID!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Period of the Calendar
+	C_Period: C_Period
+	# Create Commitment and/or Reservations for Budget Control
+	CommitmentType: AD_Ref_List!
+	# The lowest level to accumulate Costing Information
+	CostingLevel: AD_Ref_List!
+	# Indicates how Costs will be calculated
+	CostingMethod: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Generally Accepted Accounting Principles
+	GAAP: AD_Ref_List!
+	# Ability to select (partial) account combinations by an Alias
+	HasAlias: Boolean!
+	# Combination of account elements are checked
+	HasCombination: Boolean!
+	# Indicates if Accrual or Cash Based accounting will be used
+	IsAccrual: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Adjust Cost of Good Sold
+	IsAdjustCOGS: Boolean!
+	# Allow to post negative accounting values
+	IsAllowNegativePosting: Boolean!
+	# Correct the tax for payment discount and charges
+	IsDiscountCorrectsTax: Boolean!
+	# Post the cost adjustment explicitly
+	IsExplicitCostAdjustment: Boolean!
+	# This flag controls if Adempiere must post when clearing (transit) and final accounts are the same
+	IsPostIfClearingEqual: Boolean!
+	# Differentiate between Services and Product Receivable/Payables
+	IsPostServices: Boolean!
+	# Generate postings for trade discounts
+	IsTradeDiscountPosted: Boolean!
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: M_CostType!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Number of days to be able to post to a future date (based on system date)
+	Period_OpenFuture: Int
+	# Number of days to be able to post in the past (based on system date)
+	Period_OpenHistory: Int
+	Processing: Boolean!
+	# Element Separator
+	Separator: String!
+	# Type of Tax Correction
+	TaxCorrectionType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_AcctSchemaInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# If selected, the periods are automatically opened and closed
+	AutoPeriodControl: Boolean
+	UU: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Create Commitment and/or Reservations for Budget Control
+	CommitmentType: ForeignEntityInput
+	# The lowest level to accumulate Costing Information
+	CostingLevel: ForeignEntityInput
+	# Indicates how Costs will be calculated
+	CostingMethod: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Generally Accepted Accounting Principles
+	GAAP: ForeignEntityInput
+	# Ability to select (partial) account combinations by an Alias
+	HasAlias: Boolean
+	# Combination of account elements are checked
+	HasCombination: Boolean
+	# Indicates if Accrual or Cash Based accounting will be used
+	IsAccrual: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Adjust Cost of Good Sold
+	IsAdjustCOGS: Boolean
+	# Allow to post negative accounting values
+	IsAllowNegativePosting: Boolean
+	# Correct the tax for payment discount and charges
+	IsDiscountCorrectsTax: Boolean
+	# Post the cost adjustment explicitly
+	IsExplicitCostAdjustment: Boolean
+	# This flag controls if Adempiere must post when clearing (transit) and final accounts are the same
+	IsPostIfClearingEqual: Boolean
+	# Differentiate between Services and Product Receivable/Payables
+	IsPostServices: Boolean
+	# Generate postings for trade discounts
+	IsTradeDiscountPosted: Boolean
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Number of days to be able to post to a future date (based on system date)
+	Period_OpenFuture: Int
+	# Number of days to be able to post in the past (based on system date)
+	Period_OpenHistory: Int
+	Processing: Boolean
+	# Element Separator
+	Separator: String
+	# Type of Tax Correction
+	TaxCorrectionType: ForeignEntityInput
+}

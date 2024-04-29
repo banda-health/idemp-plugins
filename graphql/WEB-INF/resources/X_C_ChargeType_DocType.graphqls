@@ -1,0 +1,53 @@
+# Generated Schema for C_ChargeType_DocType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_ChargeType_DocTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ChargeType_DocTypeConnection!
+}
+
+extend type Mutation {
+	C_ChargeType_DocTypeSave(Entity: C_ChargeType_DocTypeInput!): C_ChargeType_DocType!
+	C_ChargeType_DocTypeSaveMany(Entities: [C_ChargeType_DocTypeInput!]!): [C_ChargeType_DocType!]!
+	C_ChargeType_DocTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type C_ChargeType_DocTypeConnection {
+	Results: [C_ChargeType_DocType!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_ChargeType_DocType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	C_ChargeType: C_ChargeType!
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsAllowNegative: Boolean!
+	IsAllowPositive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_ChargeType_DocTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	C_ChargeType: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsAllowNegative: Boolean
+	IsAllowPositive: Boolean
+}

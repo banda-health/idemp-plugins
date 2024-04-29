@@ -1,0 +1,3 @@
+extend type C_Country {
+	C_Regions: [C_Region!]
+}

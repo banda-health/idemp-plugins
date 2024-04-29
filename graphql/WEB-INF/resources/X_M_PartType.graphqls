@@ -1,0 +1,51 @@
+# Generated Schema for M_PartType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PartTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PartTypeConnection!
+}
+
+extend type Mutation {
+	M_PartTypeSave(Entity: M_PartTypeInput!): M_PartType!
+	M_PartTypeSaveMany(Entities: [M_PartTypeInput!]!): [M_PartType!]!
+	M_PartTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PartTypeConnection {
+	Results: [M_PartType!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_PartType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PartTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

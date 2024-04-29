@@ -1,0 +1,3 @@
+extend type GL_JournalGeneratorLine {
+	GL_JournalGeneratorSources: [GL_JournalGeneratorSource!]
+}

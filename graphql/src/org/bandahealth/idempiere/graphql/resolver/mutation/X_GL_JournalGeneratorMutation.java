@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_GL_JournalGeneratorInput;
+import org.bandahealth.idempiere.graphql.model.input.X_GL_JournalGeneratorInput;
+import org.compiere.model.MJournalGenerator;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for GL_JournalGenerator - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_GL_JournalGeneratorMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_GL_JournalGeneratorInput.Table_Name;
+	}
+
+	public MJournalGenerator GL_JournalGeneratorSave(I_GL_JournalGeneratorInput Entity, DataFetchingEnvironment environment) {
+		return (MJournalGenerator) super.save((X_GL_JournalGeneratorInput) Entity, environment);
+	}
+
+	public List<MJournalGenerator> GL_JournalGeneratorSaveMany(List<I_GL_JournalGeneratorInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_GL_JournalGeneratorInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MJournalGenerator) entity).collect(Collectors.toList());
+	}
+
+	public boolean GL_JournalGeneratorDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

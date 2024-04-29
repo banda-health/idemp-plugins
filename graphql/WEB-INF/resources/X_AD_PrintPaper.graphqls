@@ -1,0 +1,93 @@
+# Generated Schema for AD_PrintPaper - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PrintPaperGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintPaperConnection!
+}
+
+extend type Mutation {
+	AD_PrintPaperSave(Entity: AD_PrintPaperInput!): AD_PrintPaper!
+	AD_PrintPaperSaveMany(Entities: [AD_PrintPaperInput!]!): [AD_PrintPaper!]!
+	AD_PrintPaperDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PrintPaperConnection {
+	Results: [AD_PrintPaper!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PrintPaper {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Validation Code
+	Code: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Units of Dimension
+	DimensionUnits: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Landscape orientation
+	IsLandscape: Boolean!
+	# Bottom Space in 1/72 inch
+	MarginBottom: Int!
+	# Left Space in 1/72 inch
+	MarginLeft: Int!
+	# Right Space in 1/72 inch
+	MarginRight: Int!
+	# Top Space in 1/72 inch
+	MarginTop: Int!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# X (horizontal) dimension size
+	SizeX: BigDecimal
+	# Y (vertical) dimension size
+	SizeY: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PrintPaperInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Validation Code
+	Code: String
+	# Optional short description of the record
+	Description: String
+	# Units of Dimension
+	DimensionUnits: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Landscape orientation
+	IsLandscape: Boolean
+	# Bottom Space in 1/72 inch
+	MarginBottom: Int
+	# Left Space in 1/72 inch
+	MarginLeft: Int
+	# Right Space in 1/72 inch
+	MarginRight: Int
+	# Top Space in 1/72 inch
+	MarginTop: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# X (horizontal) dimension size
+	SizeX: BigDecimal
+	# Y (vertical) dimension size
+	SizeY: BigDecimal
+}

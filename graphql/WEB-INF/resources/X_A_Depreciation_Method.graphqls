@@ -1,0 +1,59 @@
+# Generated Schema for A_Depreciation_Method - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Depreciation_MethodGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_MethodConnection!
+}
+
+extend type Mutation {
+	A_Depreciation_MethodSave(Entity: A_Depreciation_MethodInput!): A_Depreciation_Method!
+	A_Depreciation_MethodSaveMany(Entities: [A_Depreciation_MethodInput!]!): [A_Depreciation_Method!]!
+	A_Depreciation_MethodDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Depreciation_MethodConnection {
+	Results: [A_Depreciation_Method!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Depreciation_Method {
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DepreciationType: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean!
+	Text: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Depreciation_MethodInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	DepreciationType: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean
+	Text: String
+}

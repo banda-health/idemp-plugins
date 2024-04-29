@@ -34,13 +34,14 @@ public class ChargeModelEvent extends AbstractEventHandler {
 		} else {
 			return;
 		}
+		if (charge.getClass().toString().contains("graphql.model")) {
+			return;
+		}
 
-		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			beforeSaveRequest(charge);
-		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			beforeChangeRequest(charge);
-		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_DELETE)) {
-			beforeDeleteRequest(charge);
+		switch (event.getTopic()) {
+			case IEventTopics.PO_BEFORE_NEW -> beforeSaveRequest(charge);
+			case IEventTopics.PO_BEFORE_CHANGE -> beforeChangeRequest(charge);
+			case IEventTopics.PO_BEFORE_DELETE -> beforeDeleteRequest(charge);
 		}
 	}
 

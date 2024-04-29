@@ -1,0 +1,69 @@
+# Generated Schema for C_OrderTax - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_OrderTaxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderTaxConnection!
+}
+
+extend type Mutation {
+	C_OrderTaxSave(Entity: C_OrderTaxInput!): C_OrderTax!
+	C_OrderTaxSaveMany(Entities: [C_OrderTaxInput!]!): [C_OrderTax!]!
+	C_OrderTaxDelete(UUs: [String!]!): Boolean!
+}
+
+type C_OrderTaxConnection {
+	Results: [C_OrderTax!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_OrderTax {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Order
+	C_Order: C_Order!
+	UU: ID!
+	# Tax identifier
+	C_Tax: C_Tax!
+	C_TaxProvider: C_TaxProvider
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# Tax Amount for a document
+	TaxAmt: BigDecimal!
+	# Base for calculating the tax amount
+	TaxBaseAmt: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_OrderTaxInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	UU: ID
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	C_TaxProvider: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# Tax Amount for a document
+	TaxAmt: BigDecimal
+	# Base for calculating the tax amount
+	TaxBaseAmt: BigDecimal
+}

@@ -1,0 +1,59 @@
+# Generated Schema for GL_Budget - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	GL_BudgetGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_BudgetConnection!
+}
+
+extend type Mutation {
+	GL_BudgetSave(Entity: GL_BudgetInput!): GL_Budget!
+	GL_BudgetSaveMany(Entities: [GL_BudgetInput!]!): [GL_Budget!]!
+	GL_BudgetDelete(UUs: [String!]!): Boolean!
+}
+
+type GL_BudgetConnection {
+	Results: [GL_Budget!]!
+	PagingInfo: PagingInfo!
+}
+
+type GL_Budget {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Indicates the current status of this budget
+	BudgetStatus: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this is the primary budget
+	IsPrimary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_BudgetInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Indicates the current status of this budget
+	BudgetStatus: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this is the primary budget
+	IsPrimary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

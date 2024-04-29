@@ -1,0 +1,75 @@
+# Generated Schema for M_DiscountSchemaBreak - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_DiscountSchemaBreakGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DiscountSchemaBreakConnection!
+}
+
+extend type Mutation {
+	M_DiscountSchemaBreakSave(Entity: M_DiscountSchemaBreakInput!): M_DiscountSchemaBreak!
+	M_DiscountSchemaBreakSaveMany(Entities: [M_DiscountSchemaBreakInput!]!): [M_DiscountSchemaBreak!]!
+	M_DiscountSchemaBreakDelete(UUs: [String!]!): Boolean!
+}
+
+type M_DiscountSchemaBreakConnection {
+	Results: [M_DiscountSchemaBreak!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_DiscountSchemaBreak {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Trade Discount in Percent for the break level
+	BreakDiscount: BigDecimal!
+	# Low Value of trade discount break level
+	BreakValue: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Fixed Price for Product
+	FixedPrice: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# Use flat discount defined on Business Partner Level
+	IsBPartnerFlatDiscount: Boolean!
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: M_DiscountSchema!
+	UU: ID!
+	# Category of a Product
+	M_Product_Category: M_Product_Category
+	# Product, Service, Item
+	M_Product: M_Product
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_DiscountSchemaBreakInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Trade Discount in Percent for the break level
+	BreakDiscount: BigDecimal
+	# Low Value of trade discount break level
+	BreakValue: BigDecimal
+	# Fixed Price for Product
+	FixedPrice: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Use flat discount defined on Business Partner Level
+	IsBPartnerFlatDiscount: Boolean
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: ForeignEntityInput
+	UU: ID
+	# Category of a Product
+	M_Product_Category: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

@@ -1,0 +1,3 @@
+extend type C_Tax {
+	C_TaxPostalList: [C_TaxPostal!]
+}

@@ -1,0 +1,87 @@
+# Generated Schema for C_ProjectTask - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_ProjectTaskGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectTaskConnection!
+}
+
+extend type Mutation {
+	C_ProjectTaskSave(Entity: C_ProjectTaskInput!): C_ProjectTask!
+	C_ProjectTaskSaveMany(Entities: [C_ProjectTaskInput!]!): [C_ProjectTask!]!
+	C_ProjectTaskDelete(UUs: [String!]!): Boolean!
+}
+
+type C_ProjectTaskConnection {
+	Results: [C_ProjectTask!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_ProjectTask {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase!
+	UU: ID!
+	# Standard Project Type Task
+	C_Task: C_Task
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Planned amount for this project
+	PlannedAmt: BigDecimal!
+	# Invoice Rule for the project
+	ProjInvoiceRule: AD_Ref_List!
+	# Quantity
+	Qty: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_ProjectTaskInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	UU: ID
+	# Standard Project Type Task
+	C_Task: ForeignEntityInput
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Planned amount for this project
+	PlannedAmt: BigDecimal
+	# Invoice Rule for the project
+	ProjInvoiceRule: ForeignEntityInput
+	# Quantity
+	Qty: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

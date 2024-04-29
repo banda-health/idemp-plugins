@@ -1,0 +1,63 @@
+# Generated Schema for C_BP_Customer_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BP_Customer_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_Customer_AcctConnection!
+}
+
+extend type Mutation {
+	C_BP_Customer_AcctSave(Entity: C_BP_Customer_AcctInput!): C_BP_Customer_Acct!
+	C_BP_Customer_AcctSaveMany(Entities: [C_BP_Customer_AcctInput!]!): [C_BP_Customer_Acct!]!
+	C_BP_Customer_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BP_Customer_AcctConnection {
+	Results: [C_BP_Customer_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BP_Customer_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Account for customer prepayments
+	C_Prepayment_A: C_ValidCombination!
+	# Account for Customer Receivables
+	C_Receivable_A: C_ValidCombination!
+	# Customer Accounts Receivables Services Account
+	C_Receivable_Services_A: C_ValidCombination!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BP_Customer_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	UU: ID
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Account for customer prepayments
+	C_Prepayment_A: ForeignEntityInput
+	# Account for Customer Receivables
+	C_Receivable_A: ForeignEntityInput
+	# Customer Accounts Receivables Services Account
+	C_Receivable_Services_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

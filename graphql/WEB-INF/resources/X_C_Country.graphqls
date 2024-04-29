@@ -1,0 +1,159 @@
+# Generated Schema for C_Country - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CountryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryConnection!
+}
+
+extend type Mutation {
+	C_CountrySave(Entity: C_CountryInput!): C_Country!
+	C_CountrySaveMany(Entities: [C_CountryInput!]!): [C_Country!]!
+	C_CountryDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CountryConnection {
+	Results: [C_Country!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Country {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Language for this entity
+	AD_Language: AD_Language
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# A flag to allow cities, currently not in the list, to be entered
+	AllowCitiesOutOfList: Boolean!
+	UU: ID!
+	# The Currency for this record
+	C_Currency: C_Currency
+	CaptureSequence: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Format for printing this Address
+	DisplaySequence: String!
+	# Format for printing this Address locally
+	DisplaySequenceLocal: String
+	# Format of the Bank Account
+	ExpressionBankAccountNo: String
+	# Format of the Bank Routing Number
+	ExpressionBankRoutingNo: String
+	# Format of the phone; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	ExpressionPhone: String
+	# Format of the postal code; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	ExpressionPostal: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	ExpressionPostal_Add: String
+	# Has Additional Postal Code
+	HasPostal_Add: Boolean!
+	# Country contains Regions
+	HasRegion: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Print Local Address in reverse Order
+	IsAddressLinesLocalReverse: Boolean!
+	# Print Address in reverse Order
+	IsAddressLinesReverse: Boolean!
+	# Does this country have a post code web service
+	IsPostcodeLookup: Boolean!
+	# The class name of the postcode lookup plugin
+	LookupClassName: String
+	# The Client ID or Login submitted to the Lookup URL
+	LookupClientID: String
+	# The password submitted to the Lookup URL
+	LookupPassword: String
+	# The URL of the web service that the plugin connects to in order to retrieve postcode data
+	LookupUrl: String
+	# Java Media Size
+	MediaSize: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	PlaceholderAddress1: String
+	PlaceholderAddress2: String
+	PlaceholderAddress3: String
+	PlaceholderAddress4: String
+	PlaceholderAddress5: String
+	PlaceholderCity: String
+	PlaceholderComments: String
+	PlaceholderPostal: String
+	PlaceholderPostal_Add: String
+	# Name of the Region
+	RegionName: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CountryInput {
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# A flag to allow cities, currently not in the list, to be entered
+	AllowCitiesOutOfList: Boolean
+	UU: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	CaptureSequence: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: String
+	# Optional short description of the record
+	Description: String
+	# Format for printing this Address
+	DisplaySequence: String
+	# Format for printing this Address locally
+	DisplaySequenceLocal: String
+	# Format of the Bank Account
+	ExpressionBankAccountNo: String
+	# Format of the Bank Routing Number
+	ExpressionBankRoutingNo: String
+	# Format of the phone; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	ExpressionPhone: String
+	# Format of the postal code; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	ExpressionPostal: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	ExpressionPostal_Add: String
+	# Has Additional Postal Code
+	HasPostal_Add: Boolean
+	# Country contains Regions
+	HasRegion: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Print Local Address in reverse Order
+	IsAddressLinesLocalReverse: Boolean
+	# Print Address in reverse Order
+	IsAddressLinesReverse: Boolean
+	# Does this country have a post code web service
+	IsPostcodeLookup: Boolean
+	# The class name of the postcode lookup plugin
+	LookupClassName: String
+	# The Client ID or Login submitted to the Lookup URL
+	LookupClientID: String
+	# The password submitted to the Lookup URL
+	LookupPassword: String
+	# The URL of the web service that the plugin connects to in order to retrieve postcode data
+	LookupUrl: String
+	# Java Media Size
+	MediaSize: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	PlaceholderAddress1: String
+	PlaceholderAddress2: String
+	PlaceholderAddress3: String
+	PlaceholderAddress4: String
+	PlaceholderAddress5: String
+	PlaceholderCity: String
+	PlaceholderComments: String
+	PlaceholderPostal: String
+	PlaceholderPostal_Add: String
+	# Name of the Region
+	RegionName: String
+}

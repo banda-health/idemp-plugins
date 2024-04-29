@@ -1,0 +1,71 @@
+# Generated Schema for AD_LabelPrinterFunction - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_LabelPrinterFunctionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LabelPrinterFunctionConnection!
+}
+
+extend type Mutation {
+	AD_LabelPrinterFunctionSave(Entity: AD_LabelPrinterFunctionInput!): AD_LabelPrinterFunction!
+	AD_LabelPrinterFunctionSaveMany(Entities: [AD_LabelPrinterFunctionInput!]!): [AD_LabelPrinterFunction!]!
+	AD_LabelPrinterFunctionDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_LabelPrinterFunctionConnection {
+	Results: [AD_LabelPrinterFunction!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_LabelPrinterFunction {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Label Printer Definition
+	AD_LabelPrinter: AD_LabelPrinter!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Data sent before the function
+	FunctionPrefix: String
+	# Data sent after the function
+	FunctionSuffix: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The Function is XY position
+	IsXYPosition: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# The separator between the X and Y function.
+	XYSeparator: String
+}
+
+input AD_LabelPrinterFunctionInput {
+	# Label Printer Definition
+	AD_LabelPrinter: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Data sent before the function
+	FunctionPrefix: String
+	# Data sent after the function
+	FunctionSuffix: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The Function is XY position
+	IsXYPosition: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The separator between the X and Y function.
+	XYSeparator: String
+}

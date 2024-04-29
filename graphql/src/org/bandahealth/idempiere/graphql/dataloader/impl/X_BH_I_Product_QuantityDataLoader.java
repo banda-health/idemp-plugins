@@ -1,0 +1,29 @@
+package org.bandahealth.idempiere.graphql.dataloader.impl;
+
+import org.bandahealth.idempiere.base.model.X_BH_I_Product_Quantity;
+
+/**
+ * Data Loader for BH_I_Product_Quantity - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_BH_I_Product_QuantityDataLoader extends PODataLoader<X_BH_I_Product_Quantity> {
+	public static String DATALOADER_BH_I_Product_Quantity_BY_ID = "BH_I_Product_QuantityByIdDataLoader";
+	public static String DATALOADER_BH_I_Product_Quantity_BY_UUID = "BH_I_Product_QuantityByUuidDataLoader";
+
+	@Override
+	protected String getTableName() {
+		return X_BH_I_Product_Quantity.Table_Name;
+	}
+
+	@Override
+	protected String getByIdDataLoaderName() {
+		return DATALOADER_BH_I_Product_Quantity_BY_ID;
+	}
+
+	@Override
+	protected String getByUuidDataLoaderName() {
+		return DATALOADER_BH_I_Product_Quantity_BY_UUID;
+	}
+}

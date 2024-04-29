@@ -1,0 +1,55 @@
+# Generated Schema for R_CategoryUpdates - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_CategoryUpdatesGet(Page: Int, Size: Int, Sort: String, Filter: String): R_CategoryUpdatesConnection!
+}
+
+extend type Mutation {
+	R_CategoryUpdatesSave(Entity: R_CategoryUpdatesInput!): R_CategoryUpdates!
+	R_CategoryUpdatesSaveMany(Entities: [R_CategoryUpdatesInput!]!): [R_CategoryUpdates!]!
+	R_CategoryUpdatesDelete(UUs: [String!]!): Boolean!
+}
+
+type R_CategoryUpdatesConnection {
+	Results: [R_CategoryUpdates!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_CategoryUpdates {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Request Category
+	R_Category: R_Category!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_CategoryUpdatesInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	# Request Category
+	R_Category: ForeignEntityInput
+	UU: ID
+}

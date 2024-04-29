@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_S_ResourceAssignmentInput;
+import org.bandahealth.idempiere.graphql.model.input.X_S_ResourceAssignmentInput;
+import org.compiere.model.MResourceAssignment;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for S_ResourceAssignment - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_S_ResourceAssignmentMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_S_ResourceAssignmentInput.Table_Name;
+	}
+
+	public MResourceAssignment S_ResourceAssignmentSave(I_S_ResourceAssignmentInput Entity, DataFetchingEnvironment environment) {
+		return (MResourceAssignment) super.save((X_S_ResourceAssignmentInput) Entity, environment);
+	}
+
+	public List<MResourceAssignment> S_ResourceAssignmentSaveMany(List<I_S_ResourceAssignmentInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_ResourceAssignmentInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MResourceAssignment) entity).collect(Collectors.toList());
+	}
+
+	public boolean S_ResourceAssignmentDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

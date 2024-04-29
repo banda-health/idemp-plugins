@@ -18,12 +18,12 @@ package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import org.compiere.model.MTable;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_PaymentRef
  *  @author iDempiere (generated) 
- *  @version Release 7.1
+ *  @version Release 11
  */
 @SuppressWarnings("all")
 public interface I_BH_PaymentRef 
@@ -32,7 +32,7 @@ public interface I_BH_PaymentRef
     /** TableName=BH_PaymentRef */
     public static final String Table_Name = "BH_PaymentRef";
 
-    /** AD_Table_ID=1000016 */
+    /** AD_Table_ID=1000014 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -46,8 +46,8 @@ public interface I_BH_PaymentRef
     /** Column name AD_Client_ID */
     public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
 
-	/** Get Client.
-	  * Client/Tenant for this installation.
+	/** Get Tenant.
+	  * Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
 
@@ -55,12 +55,12 @@ public interface I_BH_PaymentRef
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
 	/** Set Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
 	/** Get Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
 
@@ -78,6 +78,19 @@ public interface I_BH_PaymentRef
 	public int getAD_Reference_ID();
 
 	public org.compiere.model.I_AD_Reference getAD_Reference() throws RuntimeException;
+
+    /** Column name BH_PaymentRef_Action */
+    public static final String COLUMNNAME_BH_PaymentRef_Action = "BH_PaymentRef_Action";
+
+	/** Set BH_PaymentRef_Action.
+	  * Represents an action the can be performed for the payment reference
+	  */
+	public void setBH_PaymentRef_Action (String BH_PaymentRef_Action);
+
+	/** Get BH_PaymentRef_Action.
+	  * Represents an action the can be performed for the payment reference
+	  */
+	public String getBH_PaymentRef_Action();
 
     /** Column name BH_PaymentRef_ID */
     public static final String COLUMNNAME_BH_PaymentRef_ID = "BH_PaymentRef_ID";

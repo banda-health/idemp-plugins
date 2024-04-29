@@ -1,0 +1,59 @@
+# Generated Schema for AD_ReportView_Col - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReportView_ColGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReportView_ColConnection!
+}
+
+extend type Mutation {
+	AD_ReportView_ColSave(Entity: AD_ReportView_ColInput!): AD_ReportView_Col!
+	AD_ReportView_ColSaveMany(Entities: [AD_ReportView_ColInput!]!): [AD_ReportView_Col!]!
+	AD_ReportView_ColDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReportView_ColConnection {
+	Results: [AD_ReportView_Col!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ReportView_Col {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# View used to generate this report
+	AD_ReportView: AD_ReportView!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Overwrite Column with Function 
+	FunctionColumn: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This function will generate a Group By Clause
+	IsGroupFunction: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ReportView_ColInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# View used to generate this report
+	AD_ReportView: ForeignEntityInput
+	# Overwrite Column with Function 
+	FunctionColumn: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This function will generate a Group By Clause
+	IsGroupFunction: Boolean
+}

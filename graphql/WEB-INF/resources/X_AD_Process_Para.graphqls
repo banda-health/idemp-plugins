@@ -1,0 +1,161 @@
+# Generated Schema for AD_Process_Para - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Process_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Process_ParaConnection!
+}
+
+extend type Mutation {
+	AD_Process_ParaSave(Entity: AD_Process_ParaInput!): AD_Process_Para!
+	AD_Process_ParaSaveMany(Entities: [AD_Process_ParaInput!]!): [AD_Process_Para!]!
+	AD_Process_ParaDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Process_ParaConnection {
+	Results: [AD_Process_Para!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Process_Para {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: AD_Element
+	# Logical grouping of fields
+	AD_FieldGroup: AD_FieldGroup
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process!
+	UU: ID!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Name of the column in the database
+	ColumnName: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Options, how the date editor will be displayed.
+	DateRangeOption: AD_Ref_List!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Default value hierarchy, separated by ;
+	DefaultValue2: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Length of the column in the database
+	FieldLength: Int!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Automatic completion for text fields
+	IsAutocomplete: Boolean!
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	# Display or Storage is encrypted
+	IsEncrypted: Boolean!
+	# Data entry is required in this column
+	IsMandatory: Boolean!
+	# The parameter is a range of values
+	IsRange: Boolean!
+	# Show Negate Button for Chosen Multiple editors
+	IsShowNegateButton: Boolean!
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Placeholder: String
+	Placeholder2: String
+	# SQL
+	Query: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}
+
+input AD_Process_ParaInput {
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: ForeignEntityInput
+	# Logical grouping of fields
+	AD_FieldGroup: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	UU: ID
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Options, how the date editor will be displayed.
+	DateRangeOption: ForeignEntityInput
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Default value hierarchy, separated by ;
+	DefaultValue2: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Length of the column in the database
+	FieldLength: Int
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Automatic completion for text fields
+	IsAutocomplete: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	# Display or Storage is encrypted
+	IsEncrypted: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	# The parameter is a range of values
+	IsRange: Boolean
+	# Show Negate Button for Chosen Multiple editors
+	IsShowNegateButton: Boolean
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	Placeholder2: String
+	# SQL
+	Query: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

@@ -1,0 +1,167 @@
+# Generated Schema for AD_InfoColumn - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_InfoColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_InfoColumnConnection!
+}
+
+extend type Mutation {
+	AD_InfoColumnSave(Entity: AD_InfoColumnInput!): AD_InfoColumn!
+	AD_InfoColumnSaveMany(Entities: [AD_InfoColumnInput!]!): [AD_InfoColumn!]!
+	AD_InfoColumnDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_InfoColumnConnection {
+	Results: [AD_InfoColumn!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_InfoColumn {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: AD_Element
+	# Field CSS Style 
+	AD_FieldStyle: AD_Style
+	UU: ID!
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Name of the column in the database
+	ColumnName: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Default value hierarchy, separated by ;
+	DefaultValue2: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# Input field validation query
+	InputFieldValidation: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Automatic completion for text fields
+	IsAutocomplete: Boolean!
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean!
+	# This column is part of the record identifier
+	IsIdentifier: Boolean!
+	# This column is the key in this table
+	IsKey: Boolean!
+	# Data entry is required in this column
+	IsMandatory: Boolean!
+	# Issues a query request after the user has made changes to the field
+	IsQueryAfterChange: Boolean!
+	# The column is also used as a query criteria
+	IsQueryCriteria: Boolean!
+	# The parameter is a range of values
+	IsRange: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Placeholder: String
+	Placeholder2: String
+	# Database function for query
+	QueryFunction: String
+	# Operator for database query
+	QueryOperator: AD_Ref_List
+	# SQL SELECT clause
+	SelectClause: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Selection Column Sequence
+	SeqNoSelection: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_InfoColumnInput {
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: ForeignEntityInput
+	# Field CSS Style 
+	AD_FieldStyle: ForeignEntityInput
+	UU: ID
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Default value hierarchy, separated by ;
+	DefaultValue2: String
+	# Optional short description of the record
+	Description: String
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# Input field validation query
+	InputFieldValidation: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Automatic completion for text fields
+	IsAutocomplete: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean
+	# This column is part of the record identifier
+	IsIdentifier: Boolean
+	# This column is the key in this table
+	IsKey: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	# Issues a query request after the user has made changes to the field
+	IsQueryAfterChange: Boolean
+	# The column is also used as a query criteria
+	IsQueryCriteria: Boolean
+	# The parameter is a range of values
+	IsRange: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	Placeholder2: String
+	# Database function for query
+	QueryFunction: String
+	# Operator for database query
+	QueryOperator: ForeignEntityInput
+	# SQL SELECT clause
+	SelectClause: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+}

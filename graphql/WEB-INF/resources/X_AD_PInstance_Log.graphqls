@@ -1,0 +1,49 @@
+# Generated Schema for AD_PInstance_Log - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PInstance_LogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstance_LogConnection!
+}
+
+extend type Mutation {
+	AD_PInstance_LogSave(Entity: AD_PInstance_LogInput!): AD_PInstance_Log!
+	AD_PInstance_LogSaveMany(Entities: [AD_PInstance_LogInput!]!): [AD_PInstance_Log!]!
+	AD_PInstance_LogDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PInstance_LogConnection {
+	Results: [AD_PInstance_Log!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PInstance_Log {
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	UU: ID!
+	# Database Table information
+	AD_Table: AD_Table
+	Log_ID: Int!
+	# Process Parameter
+	P_Date: Date
+	P_Msg: String
+	# Process Parameter
+	P_Number: BigDecimal
+	# Process Audit Log Type
+	PInstanceLogType: AD_Ref_List
+}
+
+input AD_PInstance_LogInput {
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	UU: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	Log_ID: Int
+	# Process Parameter
+	P_Date: Date
+	P_Msg: String
+	# Process Parameter
+	P_Number: BigDecimal
+	# Process Audit Log Type
+	PInstanceLogType: ForeignEntityInput
+}

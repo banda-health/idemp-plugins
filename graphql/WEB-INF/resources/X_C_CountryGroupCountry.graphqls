@@ -1,0 +1,57 @@
+# Generated Schema for C_CountryGroupCountry - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CountryGroupCountryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryGroupCountryConnection!
+}
+
+extend type Mutation {
+	C_CountryGroupCountrySave(Entity: C_CountryGroupCountryInput!): C_CountryGroupCountry!
+	C_CountryGroupCountrySaveMany(Entities: [C_CountryGroupCountryInput!]!): [C_CountryGroupCountry!]!
+	C_CountryGroupCountryDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CountryGroupCountryConnection {
+	Results: [C_CountryGroupCountry!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CountryGroupCountry {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Country 
+	C_Country: C_Country
+	C_CountryGroup: C_CountryGroup
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CountryGroupCountryInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Country 
+	C_Country: ForeignEntityInput
+	C_CountryGroup: ForeignEntityInput
+	UU: ID
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# The record is active in the system
+	IsActive: Boolean
+}

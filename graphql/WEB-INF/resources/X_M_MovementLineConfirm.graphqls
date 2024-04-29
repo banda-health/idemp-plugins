@@ -1,0 +1,79 @@
+# Generated Schema for M_MovementLineConfirm - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_MovementLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_MovementLineConfirmConnection!
+}
+
+extend type Mutation {
+	M_MovementLineConfirmSave(Entity: M_MovementLineConfirmInput!): M_MovementLineConfirm!
+	M_MovementLineConfirmSaveMany(Entities: [M_MovementLineConfirmInput!]!): [M_MovementLineConfirm!]!
+	M_MovementLineConfirmDelete(UUs: [String!]!): Boolean!
+}
+
+type M_MovementLineConfirmConnection {
+	Results: [M_MovementLineConfirm!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_MovementLineConfirm {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line in an Inventory document
+	M_InventoryLine: M_InventoryLine
+	# Inventory Move Confirmation
+	M_MovementConfirm: M_MovementConfirm!
+	# Inventory Move document Line
+	M_MovementLine: M_MovementLine!
+	UU: ID!
+	# The document has been processed
+	Processed: Boolean!
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal!
+	# Target Movement Quantity
+	TargetQty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_MovementLineConfirmInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line in an Inventory document
+	M_InventoryLine: ForeignEntityInput
+	# Inventory Move Confirmation
+	M_MovementConfirm: ForeignEntityInput
+	# Inventory Move document Line
+	M_MovementLine: ForeignEntityInput
+	UU: ID
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+	# Target Movement Quantity
+	TargetQty: BigDecimal
+}

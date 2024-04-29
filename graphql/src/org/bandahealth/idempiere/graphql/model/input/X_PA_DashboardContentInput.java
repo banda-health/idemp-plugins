@@ -1,0 +1,425 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MProcess_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.base.model.MUser_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MChart;
+import org.compiere.model.MDashboardContent;
+import org.compiere.model.MGoal;
+import org.compiere.model.MOrg;
+import org.compiere.model.MStatusLine;
+import org.compiere.model.MWindow;
+import org.compiere.model.Query;
+import org.compiere.model.X_AD_PrintFormat;
+import org.compiere.model.X_AD_Role;
+import org.compiere.util.Env;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for PA_DashboardContent - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_PA_DashboardContentInput extends MDashboardContent implements I_PA_DashboardContentInput {
+
+	private ForeignEntityInput mAD_Chart;
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mAD_PrintFormat;
+	private ForeignEntityInput mAD_Process;
+	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mAD_StatusLine;
+	private ForeignEntityInput mAD_User;
+	private ForeignEntityInput mAD_Window;
+	private ForeignEntityInput mGoalDisplay;
+	private ForeignEntityInput mPA_Goal;
+
+	/**
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UU The PA_DashboardContent_UU to fetch this entity from the DB
+	 */
+	@JsonCreator
+	public X_PA_DashboardContentInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
+	}
+
+	/**
+	 * Set Chart.
+	 *
+	 * @param AD_Chart Chart
+	 */
+	@JsonProperty("AD_Chart")
+	public void setAD_ChartInput(ForeignEntityInput AD_Chart) {
+		this.mAD_Chart = AD_Chart;
+		if (AD_Chart != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MChart foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Chart", "AD_Chart_UU=?", get_TrxName())
+							.setParameters(AD_Chart.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Chart_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Chart with UU " + AD_Chart.getUU());
+			}
+		} else {
+			this.setAD_Chart_ID(0);
+		}
+	}
+
+	/**
+	 * Get Chart.
+	 *
+	 * @return Chart
+	 */
+	@JsonProperty("AD_Chart")
+	public ForeignEntityInput AD_Chart() {
+		return mAD_Chart;
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
+			}
+		} else {
+			this.setAD_Org_ID(0);
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Print Format.
+	 *
+	 * @param AD_PrintFormat Data Print Format
+	 */
+	@JsonProperty("AD_PrintFormat")
+	public void setAD_PrintFormatInput(ForeignEntityInput AD_PrintFormat) {
+		this.mAD_PrintFormat = AD_PrintFormat;
+		if (AD_PrintFormat != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_PrintFormat foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_PrintFormat", "AD_PrintFormat_UU=?", get_TrxName())
+							.setParameters(AD_PrintFormat.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_PrintFormat_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_PrintFormat with UU " + AD_PrintFormat.getUU());
+			}
+		} else {
+			this.setAD_PrintFormat_ID(0);
+		}
+	}
+
+	/**
+	 * Get Print Format.
+	 *
+	 * @return Data Print Format
+	 */
+	@JsonProperty("AD_PrintFormat")
+	public ForeignEntityInput AD_PrintFormat() {
+		return mAD_PrintFormat;
+	}
+
+	/**
+	 * Set Process.
+	 *
+	 * @param AD_Process Process or Report
+	 */
+	@JsonProperty("AD_Process")
+	public void setAD_ProcessInput(ForeignEntityInput AD_Process) {
+		this.mAD_Process = AD_Process;
+		if (AD_Process != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MProcess_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Process", "AD_Process_UU=?", get_TrxName())
+							.setParameters(AD_Process.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Process_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Process with UU " + AD_Process.getUU());
+			}
+		} else {
+			this.setAD_Process_ID(0);
+		}
+	}
+
+	/**
+	 * Get Process.
+	 *
+	 * @return Process or Report
+	 */
+	@JsonProperty("AD_Process")
+	public ForeignEntityInput AD_Process() {
+		return mAD_Process;
+	}
+
+	/**
+	 * Set Role.
+	 *
+	 * @param AD_Role Responsibility Role
+	 */
+	@JsonProperty("AD_Role")
+	public void setAD_RoleInput(ForeignEntityInput AD_Role) {
+		this.mAD_Role = AD_Role;
+		if (AD_Role != null) {
+			// Since an entity was passed, make sure it's in the DB
+			X_AD_Role foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Role", "AD_Role_UU=?", get_TrxName())
+							.setParameters(AD_Role.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Role_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Role with UU " + AD_Role.getUU());
+			}
+		} else {
+			this.setAD_Role_ID(0);
+		}
+	}
+
+	/**
+	 * Get Role.
+	 *
+	 * @return Responsibility Role
+	 */
+	@JsonProperty("AD_Role")
+	public ForeignEntityInput AD_Role() {
+		return mAD_Role;
+	}
+
+	/**
+	 * Set Status Line.
+	 *
+	 * @param AD_StatusLine Status Line
+	 */
+	@JsonProperty("AD_StatusLine")
+	public void setAD_StatusLineInput(ForeignEntityInput AD_StatusLine) {
+		this.mAD_StatusLine = AD_StatusLine;
+		if (AD_StatusLine != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MStatusLine foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_StatusLine", "AD_StatusLine_UU=?", get_TrxName())
+							.setParameters(AD_StatusLine.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_StatusLine_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_StatusLine with UU " + AD_StatusLine.getUU());
+			}
+		} else {
+			this.setAD_StatusLine_ID(0);
+		}
+	}
+
+	/**
+	 * Get Status Line.
+	 *
+	 * @return Status Line
+	 */
+	@JsonProperty("AD_StatusLine")
+	public ForeignEntityInput AD_StatusLine() {
+		return mAD_StatusLine;
+	}
+
+	/**
+	 * Set User/Contact.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	@JsonProperty("AD_User")
+	public void setAD_UserInput(ForeignEntityInput AD_User) {
+		this.mAD_User = AD_User;
+		if (AD_User != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MUser_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_User", "AD_User_UU=?", get_TrxName())
+							.setParameters(AD_User.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_User_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_User with UU " + AD_User.getUU());
+			}
+		} else {
+			this.setAD_User_ID(0);
+		}
+	}
+
+	/**
+	 * Get User/Contact.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	@JsonProperty("AD_User")
+	public ForeignEntityInput AD_User() {
+		return mAD_User;
+	}
+
+	/**
+	 * Set Window.
+	 *
+	 * @param AD_Window Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public void setAD_WindowInput(ForeignEntityInput AD_Window) {
+		this.mAD_Window = AD_Window;
+		if (AD_Window != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWindow foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Window", "AD_Window_UU=?", get_TrxName())
+							.setParameters(AD_Window.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Window_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Window with UU " + AD_Window.getUU());
+			}
+		} else {
+			this.setAD_Window_ID(0);
+		}
+	}
+
+	/**
+	 * Get Window.
+	 *
+	 * @return Data entry or display window
+	 */
+	@JsonProperty("AD_Window")
+	public ForeignEntityInput AD_Window() {
+		return mAD_Window;
+	}
+
+	/**
+	 * Set Goal Display.
+	 *
+	 * @param GoalDisplay Type of goal display on dashboard
+	 */
+	@JsonProperty("GoalDisplay")
+	public void setGoalDisplayInput(ForeignEntityInput GoalDisplay) {
+		this.mGoalDisplay = GoalDisplay;
+		if (GoalDisplay != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(GoalDisplay.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setGoalDisplay(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + GoalDisplay.getUU());
+			}
+		} else {
+			this.setGoalDisplay(null);
+		}
+	}
+
+	/**
+	 * Get Goal Display.
+	 *
+	 * @return Type of goal display on dashboard
+	 */
+	@JsonProperty("GoalDisplay")
+	public ForeignEntityInput GoalDisplay() {
+		return mGoalDisplay;
+	}
+	/**
+	 * Set Dashboard Content.
+	 *
+	 * @param PA_DashboardContent_ID Dashboard Content
+	 */
+
+	public void setPA_DashboardContent_ID(int PA_DashboardContent_ID) {
+		if (get_ID() == 0) {
+			super.setPA_DashboardContent_ID(PA_DashboardContent_ID);
+		}
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setPA_DashboardContent_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getPA_DashboardContent_UU();
+	}
+
+	/**
+	 * Set Goal.
+	 *
+	 * @param PA_Goal Performance Goal
+	 */
+	@JsonProperty("PA_Goal")
+	public void setPA_GoalInput(ForeignEntityInput PA_Goal) {
+		this.mPA_Goal = PA_Goal;
+		if (PA_Goal != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MGoal foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "PA_Goal", "PA_Goal_UU=?", get_TrxName())
+							.setParameters(PA_Goal.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setPA_Goal_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table PA_Goal with UU " + PA_Goal.getUU());
+			}
+		} else {
+			this.setPA_Goal_ID(0);
+		}
+	}
+
+	/**
+	 * Get Goal.
+	 *
+	 * @return Performance Goal
+	 */
+	@JsonProperty("PA_Goal")
+	public ForeignEntityInput PA_Goal() {
+		return mPA_Goal;
+	}
+}

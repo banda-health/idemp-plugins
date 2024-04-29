@@ -1,0 +1,55 @@
+# Generated Schema for M_QualityTest - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_QualityTestGet(Page: Int, Size: Int, Sort: String, Filter: String): M_QualityTestConnection!
+}
+
+extend type Mutation {
+	M_QualityTestSave(Entity: M_QualityTestInput!): M_QualityTest!
+	M_QualityTestSaveMany(Entities: [M_QualityTestInput!]!): [M_QualityTest!]!
+	M_QualityTestDelete(UUs: [String!]!): Boolean!
+}
+
+type M_QualityTestConnection {
+	Results: [M_QualityTest!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_QualityTest {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_QualityTestInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

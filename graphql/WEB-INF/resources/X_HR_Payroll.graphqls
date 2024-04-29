@@ -1,0 +1,75 @@
+# Generated Schema for HR_Payroll - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_PayrollGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_PayrollConnection!
+}
+
+extend type Mutation {
+	HR_PayrollSave(Entity: HR_PayrollInput!): HR_Payroll!
+	HR_PayrollSaveMany(Entities: [HR_PayrollInput!]!): [HR_Payroll!]!
+	HR_PayrollDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_PayrollConnection {
+	Results: [HR_Payroll!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Payroll {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
+	# Additional document charges
+	C_Charge: C_Charge
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	HR_Contract: HR_Contract!
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# How you pay the invoice
+	PaymentRule: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input HR_PayrollInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	HR_Contract: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# How you pay the invoice
+	PaymentRule: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

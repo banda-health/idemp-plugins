@@ -1,0 +1,36 @@
+extend type Mutation {
+	ChangeAccess(Access: ChangeAccessInput!): Boolean
+	ChangePassword(PasswordInfo: ChangePasswordInput!): Boolean!
+	SignIn(Credentials: AuthenticationInput!): AuthenticationResponse!
+	Logout: Boolean!
+}
+
+type AuthenticationResponse {
+	AD_User: AD_User
+	SecurityQuestions: [String!]
+}
+
+input AuthenticationInput {
+	Username: String!
+	Password: String!
+	AD_Language: String!
+	AD_Client_UU: String
+	AD_Role_UU: String
+	AD_Org_UU: String
+	M_Warehouse_UU: String
+}
+
+input ChangeAccessInput {
+	AD_Client_UU: String!
+	AD_Role_UU: String!
+	AD_Org_UU: String!
+	M_Warehouse_UU: String!
+}
+
+input ChangePasswordInput {
+	Username: String!
+	Password: String!
+	NewPassword: String!
+	SecurityQuestion: String
+	Answer: String
+}

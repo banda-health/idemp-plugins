@@ -1,0 +1,20 @@
+# All directives and scalars, custom or not, should be declared here
+directive @dateFormat on FIELD_DEFINITION
+directive @fixed on INPUT_FIELD_DEFINITION
+scalar Object
+scalar Date
+scalar Binary
+scalar File
+scalar BigDecimal
+
+# Define the root query type that can be extended in any files that want to add a query
+type Query {}
+
+# Define the root mutation type that can be extended in any files that want to add a mutation
+type Mutation {}
+
+# This is the root definition for GraphQL
+schema {
+  query: Query
+  mutation: Mutation
+}

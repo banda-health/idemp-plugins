@@ -1,0 +1,77 @@
+# Generated Schema for A_Asset_Info_Fin - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_Info_FinGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_FinConnection!
+}
+
+extend type Mutation {
+	A_Asset_Info_FinSave(Entity: A_Asset_Info_FinInput!): A_Asset_Info_Fin!
+	A_Asset_Info_FinSaveMany(Entities: [A_Asset_Info_FinInput!]!): [A_Asset_Info_Fin!]!
+	A_Asset_Info_FinDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_Info_FinConnection {
+	Results: [A_Asset_Info_Fin!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Info_Fin {
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	UU: ID!
+	A_Contract_Date: Date
+	A_Due_On: AD_Ref_List
+	A_Expired_Date: Date
+	A_Finance_Meth: AD_Ref_List
+	A_Monthly_Payment: BigDecimal
+	A_Purchase_Option: Boolean!
+	A_Purchase_Option_Credit: Int
+	A_Purchase_Option_Credit_Per: BigDecimal
+	A_Purchase_Price: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_Info_FinInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	UU: ID
+	A_Contract_Date: Date
+	A_Due_On: ForeignEntityInput
+	A_Expired_Date: Date
+	A_Finance_Meth: ForeignEntityInput
+	A_Monthly_Payment: BigDecimal
+	A_Purchase_Option: Boolean
+	A_Purchase_Option_Credit: Int
+	A_Purchase_Option_Credit_Per: BigDecimal
+	A_Purchase_Price: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# Text Message
+	TextMsg: String
+}

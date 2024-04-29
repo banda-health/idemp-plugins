@@ -1,0 +1,81 @@
+# Generated Schema for A_Asset_Info_Oth - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_Info_OthGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_OthConnection!
+}
+
+extend type Mutation {
+	A_Asset_Info_OthSave(Entity: A_Asset_Info_OthInput!): A_Asset_Info_Oth!
+	A_Asset_Info_OthSaveMany(Entities: [A_Asset_Info_OthInput!]!): [A_Asset_Info_Oth!]!
+	A_Asset_Info_OthDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_Info_OthConnection {
+	Results: [A_Asset_Info_Oth!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Info_Oth {
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	A_Asset_Info_Oth: A_Asset_Info_Oth!
+	UU: ID!
+	A_User1: String
+	A_User10: String
+	A_User11: String
+	A_User12: String
+	A_User13: String
+	A_User14: String
+	A_User15: String
+	A_User2: String
+	A_User3: String
+	A_User4: String
+	A_User5: String
+	A_User6: String
+	A_User7: String
+	A_User8: String
+	A_User9: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	Text: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_Info_OthInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_Asset_Info_Oth: ForeignEntityInput
+	UU: ID
+	A_User1: String
+	A_User10: String
+	A_User11: String
+	A_User12: String
+	A_User13: String
+	A_User14: String
+	A_User15: String
+	A_User2: String
+	A_User3: String
+	A_User4: String
+	A_User5: String
+	A_User6: String
+	A_User7: String
+	A_User8: String
+	A_User9: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	Text: String
+}

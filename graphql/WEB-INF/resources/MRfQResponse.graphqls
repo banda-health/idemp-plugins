@@ -1,0 +1,3 @@
+extend type C_RfQResponse {
+	C_RfQResponseLines: [C_RfQResponseLine!]
+}

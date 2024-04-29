@@ -8,7 +8,6 @@ import org.compiere.util.Env;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -19,12 +18,28 @@ public class MBankAccount_BH extends MBankAccount {
 	 */
 	public static final String BANKACCOUNTTYPE_Mobile = "M";
 
+	public MBankAccount_BH(Properties ctx, String C_BankAccount_UU, String trxName) {
+		super(ctx, C_BankAccount_UU, trxName);
+	}
+
 	public MBankAccount_BH(Properties ctx, int C_BankAccount_ID, String trxName) {
 		super(ctx, C_BankAccount_ID, trxName);
 	}
 
 	public MBankAccount_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
+	}
+
+	public MBankAccount_BH(MBankAccount copy) {
+		super(copy);
+	}
+
+	public MBankAccount_BH(Properties ctx, MBankAccount copy) {
+		super(ctx, copy);
+	}
+
+	public MBankAccount_BH(Properties ctx, MBankAccount copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	/**

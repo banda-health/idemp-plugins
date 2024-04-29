@@ -1,0 +1,3 @@
+extend type C_CommissionRun {
+	C_CommissionAmts: [C_CommissionAmt!]
+}

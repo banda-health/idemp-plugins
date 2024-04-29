@@ -1,0 +1,51 @@
+# Generated Schema for AD_TreeNodeCMC - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_TreeNodeCMCGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeCMCConnection!
+}
+
+extend type Mutation {
+	AD_TreeNodeCMCSave(Entity: AD_TreeNodeCMCInput!): AD_TreeNodeCMC!
+	AD_TreeNodeCMCSaveMany(Entities: [AD_TreeNodeCMCInput!]!): [AD_TreeNodeCMC!]!
+	AD_TreeNodeCMCDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_TreeNodeCMCConnection {
+	Results: [AD_TreeNodeCMC!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_TreeNodeCMC {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Tree
+	AD_Tree: AD_Tree!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_TreeNodeCMCInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Tree
+	AD_Tree: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

@@ -1,0 +1,66 @@
+# Generated Schema for BH_PaymentRef_BankAcct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_PaymentRef_BankAcctGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_PaymentRef_BankAcctConnection!
+}
+
+extend type Mutation {
+	BH_PaymentRef_BankAcctSave(Entity: BH_PaymentRef_BankAcctInput!): BH_PaymentRef_BankAcct!
+	BH_PaymentRef_BankAcctSaveMany(Entities: [BH_PaymentRef_BankAcctInput!]!): [BH_PaymentRef_BankAcct!]!
+	BH_PaymentRef_BankAcctDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_PaymentRef_BankAcctConnection {
+	Results: [BH_PaymentRef_BankAcct!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_PaymentRef_BankAcct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Reference List based on Table
+	AD_Ref_List: AD_Ref_List
+	UU: ID!
+	BH_PaymentRef: BH_PaymentRef!
+	# The value of the payment reference list entry
+	BH_PaymentRefList_Value: String
+	BH_ReferenceList_IsActive: Boolean!
+	# Account at the Bank
+	C_BankAccount: C_BankAccount
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_PaymentRef_BankAcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Reference List based on Table
+	AD_Ref_List: ForeignEntityInput
+	UU: ID
+	BH_PaymentRef: ForeignEntityInput
+	# The value of the payment reference list entry
+	BH_PaymentRefList_Value: String
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

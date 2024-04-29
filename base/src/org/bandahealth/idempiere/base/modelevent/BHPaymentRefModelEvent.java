@@ -43,17 +43,16 @@ public class BHPaymentRefModelEvent extends AbstractEventHandler {
 		} else {
 			return;
 		}
+		if (paymentRef.getClass().toString().contains("graphql.model")) {
+			return;
+		}
 
-		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			beforeSaveRequest(paymentRef);
-		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)) {
-			afterSaveRequest(paymentRef);
-		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			beforeChangeRequest(paymentRef);
-		} else if (event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
-			afterChangeRequest(paymentRef);
-		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_DELETE)) {
-			beforeDeleteRequest(paymentRef);
+		switch (event.getTopic()) {
+			case IEventTopics.PO_BEFORE_NEW -> beforeSaveRequest(paymentRef);
+			case IEventTopics.PO_AFTER_NEW -> afterSaveRequest(paymentRef);
+			case IEventTopics.PO_BEFORE_CHANGE -> beforeChangeRequest(paymentRef);
+			case IEventTopics.PO_AFTER_CHANGE -> afterChangeRequest(paymentRef);
+			case IEventTopics.PO_BEFORE_DELETE -> beforeDeleteRequest(paymentRef);
 		}
 	}
 

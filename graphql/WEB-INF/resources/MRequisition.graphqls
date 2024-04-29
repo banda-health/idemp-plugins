@@ -1,0 +1,3 @@
+extend type M_Requisition {
+	M_RequisitionLines: [M_RequisitionLine!]
+}

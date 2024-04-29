@@ -1,0 +1,63 @@
+# Generated Schema for AD_ReplicationTable - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReplicationTableGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReplicationTableConnection!
+}
+
+extend type Mutation {
+	AD_ReplicationTableSave(Entity: AD_ReplicationTableInput!): AD_ReplicationTable!
+	AD_ReplicationTableSaveMany(Entities: [AD_ReplicationTableInput!]!): [AD_ReplicationTable!]!
+	AD_ReplicationTableDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReplicationTableConnection {
+	Results: [AD_ReplicationTable!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ReplicationTable {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Data Replication Strategy
+	AD_ReplicationStrategy: AD_ReplicationStrategy!
+	UU: ID!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Type of Data Replication
+	ReplicationType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ReplicationTableInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Data Replication Strategy
+	AD_ReplicationStrategy: ForeignEntityInput
+	UU: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Type of Data Replication
+	ReplicationType: ForeignEntityInput
+}

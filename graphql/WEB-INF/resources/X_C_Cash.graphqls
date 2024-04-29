@@ -1,0 +1,121 @@
+# Generated Schema for C_Cash - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CashGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashConnection!
+}
+
+extend type Mutation {
+	C_CashSave(Entity: C_CashInput!): C_Cash!
+	C_CashSaveMany(Entities: [C_CashInput!]!): [C_Cash!]!
+	C_CashDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CashConnection {
+	Results: [C_Cash!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Cash {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Balance prior to any transactions
+	BeginningBalance: BigDecimal!
+	# Business Activity
+	C_Activity: C_Activity
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	UU: ID!
+	# Cash Book for recording petty cash transactions
+	C_CashBook: C_CashBook!
+	# Financial Project
+	C_Project: C_Project
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Ending  or closing balance
+	EndingBalance: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Posting status
+	Posted: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# Date of the statement
+	StatementDate: Date!
+	# Difference between statement ending balance and actual ending balance
+	StatementDifference: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input C_CashInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Balance prior to any transactions
+	BeginningBalance: BigDecimal
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	UU: ID
+	# Cash Book for recording petty cash transactions
+	C_CashBook: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Ending  or closing balance
+	EndingBalance: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Posting status
+	Posted: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+	# Date of the statement
+	StatementDate: Date
+	# Difference between statement ending balance and actual ending balance
+	StatementDifference: BigDecimal
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

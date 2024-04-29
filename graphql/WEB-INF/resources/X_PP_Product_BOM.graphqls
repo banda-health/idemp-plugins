@@ -1,0 +1,99 @@
+# Generated Schema for PP_Product_BOM - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	PP_Product_BOMGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Product_BOMConnection!
+}
+
+extend type Mutation {
+	PP_Product_BOMSave(Entity: PP_Product_BOMInput!): PP_Product_BOM!
+	PP_Product_BOMSaveMany(Entities: [PP_Product_BOMInput!]!): [PP_Product_BOM!]!
+	PP_Product_BOMDelete(UUs: [String!]!): Boolean!
+}
+
+type PP_Product_BOMConnection {
+	Results: [PP_Product_BOM!]!
+	PagingInfo: PagingInfo!
+}
+
+type PP_Product_BOM {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Type of BOM
+	BOMType: AD_Ref_List
+	# The use of the Bill of Material
+	BOMUse: AD_Ref_List
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance
+	# Bill of Materials (Engineering) Change Notice (Version)
+	M_ChangeNotice: M_ChangeNotice
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	UU: ID!
+	Processing: Boolean!
+	Revision: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input PP_Product_BOMInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Type of BOM
+	BOMType: ForeignEntityInput
+	# The use of the Bill of Material
+	BOMUse: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Bill of Materials (Engineering) Change Notice (Version)
+	M_ChangeNotice: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	UU: ID
+	Processing: Boolean
+	Revision: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

@@ -1,0 +1,3 @@
+extend type C_Charge {
+	C_Charge_AcctList: [C_Charge_Acct!]
+}

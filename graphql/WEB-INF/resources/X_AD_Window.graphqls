@@ -1,0 +1,97 @@
+# Generated Schema for AD_Window - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WindowGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WindowConnection!
+}
+
+extend type Mutation {
+	AD_WindowSave(Entity: AD_WindowInput!): AD_Window!
+	AD_WindowSaveMany(Entities: [AD_WindowInput!]!): [AD_Window!]!
+	AD_WindowDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WindowConnection {
+	Results: [AD_Window!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Window {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Color for backgrounds or indicators
+	AD_Color: AD_Color
+	# Image or Icon
+	AD_Image: AD_Image
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
+	Processing: Boolean!
+	# The result determines the title to be displayed for this window
+	TitleLogic: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Type or classification of a Window
+	WindowType: AD_Ref_List!
+	WinHeight: Int
+	WinWidth: Int
+}
+
+input AD_WindowInput {
+	# Color for backgrounds or indicators
+	AD_Color: ForeignEntityInput
+	# Image or Icon
+	AD_Image: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean
+	# Default value
+	IsDefault: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
+	Processing: Boolean
+	# The result determines the title to be displayed for this window
+	TitleLogic: String
+	# Type or classification of a Window
+	WindowType: ForeignEntityInput
+	WinHeight: Int
+	WinWidth: Int
+}

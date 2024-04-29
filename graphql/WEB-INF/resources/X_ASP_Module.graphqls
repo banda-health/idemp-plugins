@@ -1,0 +1,59 @@
+# Generated Schema for ASP_Module - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	ASP_ModuleGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ModuleConnection!
+}
+
+extend type Mutation {
+	ASP_ModuleSave(Entity: ASP_ModuleInput!): ASP_Module!
+	ASP_ModuleSaveMany(Entities: [ASP_ModuleInput!]!): [ASP_Module!]!
+	ASP_ModuleDelete(UUs: [String!]!): Boolean!
+}
+
+type ASP_ModuleConnection {
+	Results: [ASP_Module!]!
+	PagingInfo: PagingInfo!
+}
+
+type ASP_Module {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input ASP_ModuleInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

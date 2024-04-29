@@ -30,12 +30,12 @@ package com.chuboe.test.populate;
 
 import org.adempiere.base.Core;
 import org.adempiere.exceptions.AdempiereException;
+import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrderLine_BH;
@@ -52,6 +52,7 @@ import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInOut;
 import org.compiere.model.MInOutLine;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MLocation;
 import org.compiere.model.MLocator;
@@ -90,6 +91,8 @@ import org.compiere.process.ProcessInfo;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.ServerProcessCtl;
 import org.compiere.util.Env;
+import org.eevolution.model.MPPProductBOM;
+import org.eevolution.model.MPPProductBOMLine;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -97,6 +100,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -362,24 +366,26 @@ public class ChuBoeCreateEntity {
 		}
 
 		//valueObject, Qty, parentProd
-		MProductBOM bom = new MProductBOM(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MPPProductBOM bom = new MPPProductBOM(valueObject.getContext(), 0, valueObject.getTransactionName());
 		bom.setAD_Org_ID(0);
 		bom.setDescription(valueObject.getStepMessageLong());
-		bom.setBOMQty(quantity);
-		bom.setBOMType(MProductBOM.BOMTYPE_StandardPart);
+		bom.setBOMType(MPPProductBOM.BOMTYPE_Previous);
 		bom.setIsActive(true);
-		bom.setM_ProductBOM_ID(valueObject.getProduct().get_ID());
 		bom.setM_Product_ID(parentProduct.get_ID());
+		bom.saveEx();
 
 		//find next line number
-		int newLine = new Query(valueObject.getContext(), MProductBOM.Table_Name, "M_Product_ID = ?",
+		int newLine = new Query(valueObject.getContext(), MPPProductBOM.Table_Name, "M_Product_ID = ?",
 				valueObject.getTransactionName())
 				.setParameters(parentProduct.get_ID())
 				.setClient_ID()
 				.aggregate("Line", Query.AGGREGATE_MAX).intValue() + 10;
-		bom.setLine(newLine);
-
-		bom.saveEx();
+		MPPProductBOMLine line = new MPPProductBOMLine(valueObject.getContext(), 0, valueObject.getTransactionName());
+		line.setPP_Product_BOM_ID(parentProduct.get_ID());
+		line.setLine(newLine);
+		line.setQtyBOM(quantity);
+		line.setM_Product_ID(parentProduct.get_ID());
+		line.saveEx();
 
 		if (!parentProduct.isVerified()) {
 			parentProduct.setIsManufactured(true);
@@ -708,7 +714,7 @@ public class ChuBoeCreateEntity {
 			}
 		}
 		payment.setPayAmt(paymentTotal);
-		payment.setBH_TenderAmount(tenderAmount);
+		payment.setBH_tender_amount(tenderAmount);
 
 		payment.saveEx();
 		valueObject.setPayment(payment);
@@ -1133,31 +1139,24 @@ public class ChuBoeCreateEntity {
 	 * @param valueObject The value object used to store all information
 	 */
 	public static void runProcessAsSystem(ChuBoePopulateVO valueObject) {
-		String sessionContextKey = "#AD_Session_ID"; // TODO: Replace with sessionContextKey when iDempiere 8.2+
-		// We also have to update the session, so get it first before the context changes
+		// Get the current information and store it
+		Properties currentProperties = ServerContext.getCurrentInstance();
+		Properties currentContext = valueObject.getContext();
+		// Make a copy of the existing properties so we can update it
+		Properties idempiereContext = new Properties();
+		idempiereContext.putAll(valueObject.getContext());
+		ServerContext.setCurrentInstance(idempiereContext);
+		valueObject.setContext(Env.getCtx());
 		// Update the client & org
-		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
-		int currentOrgId = Env.getAD_Org_ID(Env.getCtx());
-		int currentRoleId = Env.getAD_Role_ID(Env.getCtx());
-		int currentSessionId = Env.getContextAsInt(Env.getCtx(), sessionContextKey);
 		Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, 0);
 		Env.setContext(Env.getCtx(), Env.AD_ORG_ID, 0);
 		Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, 0);
 
-		int currentValueObjectClientId = Env.getAD_Client_ID(valueObject.getContext());
-		int currentValueObjectOrgId = Env.getAD_Org_ID(valueObject.getContext());
-		int currentValueObjectRoleId = Env.getAD_Role_ID(valueObject.getContext());
-		int currentValueObjectSessionId = Env.getContextAsInt(valueObject.getContext(), sessionContextKey);
-		Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
-		Env.setContext(valueObject.getContext(), Env.AD_ORG_ID, 0);
-		Env.setContext(valueObject.getContext(), Env.AD_ROLE_ID, 0);
-
 		// Handle the session
-		Env.setContext(valueObject.getContext(), sessionContextKey, 0);
-		MSession session = MSession.get(Env.getCtx(), true);
+		Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, 0);
+		MSession session = MSession.create(Env.getCtx());
 		session.saveEx();
-		Env.setContext(Env.getCtx(), sessionContextKey, session.get_ID());
-		Env.setContext(valueObject.getContext(), sessionContextKey, session.get_ID());
+		Env.setContext(Env.getCtx(), Env.AD_SESSION_ID, session.get_ID());
 
 		try {
 			ChuBoeCreateEntity.runProcess(valueObject);
@@ -1165,20 +1164,8 @@ public class ChuBoeCreateEntity {
 			// Logout before resetting the context
 			session.logout();
 
-			// First, reset the value object's context (avoids overwriting the Env.getCtx() sometimes)
-			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentValueObjectClientId);
-			Env.setContext(valueObject.getContext(), Env.AD_ORG_ID, currentValueObjectOrgId);
-			Env.setContext(valueObject.getContext(), Env.AD_ROLE_ID, currentValueObjectRoleId);
-			Env.setContext(valueObject.getContext(), sessionContextKey, currentValueObjectSessionId);
-
-			// Now reset the actual environment
-			Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, currentClientId);
-			Env.setContext(Env.getCtx(), Env.AD_ORG_ID, currentOrgId);
-			Env.setContext(Env.getCtx(), Env.AD_ROLE_ID, currentRoleId);
-			// Now restore the old session
-			Env.setContext(Env.getCtx(), sessionContextKey, currentSessionId);
-			session = MSession.get(Env.getCtx(), true);
-			session.save();
+			ServerContext.setCurrentInstance(currentProperties);
+			valueObject.setContext(currentContext);
 		}
 	}
 
@@ -1230,7 +1217,7 @@ public class ChuBoeCreateEntity {
 		}
 
 		// Create process instance (mainly for logging/sync purpose)
-		MPInstance mpi = new MPInstance(Env.getCtx(), process.get_ID(), valueObject.getProcessRecordId());
+		MPInstance mpi = new MPInstance(valueObject.getContext(), process.get_ID(), -1, valueObject.getProcessRecordId(), null);
 		mpi.saveEx();
 
 		// Connect the process to the process instance.
@@ -1287,8 +1274,8 @@ public class ChuBoeCreateEntity {
 		valueObject.setInventory(inventory);
 
 		// create inventory line
-		MInventoryLine_BH inventoryLine =
-				new MInventoryLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		MInventoryLine inventoryLine =
+				new MInventoryLine(valueObject.getContext(), 0, valueObject.getTransactionName());
 		inventoryLine.setAD_Org_ID(valueObject.getOrg().get_ID());
 		inventoryLine.setDescription(valueObject.getStepMessageLong());
 		inventoryLine.setM_Inventory_ID(inventory.get_ID());
