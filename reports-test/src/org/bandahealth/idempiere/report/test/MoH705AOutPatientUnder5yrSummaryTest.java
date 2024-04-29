@@ -54,7 +54,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
 
 		String diagnosisToSearchFor = "Burns";
-		String diagnosisAfterDiagnosisToSearchForOnReport = "Snakebites";
+		String diagnosisAfterDiagnosisToSearchForOnReport = "Pneumonia";
 
 		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
 		MBHConcept codedDiagnosis = null;
