@@ -1,5 +1,13 @@
-import { businessPartnerApi, invoiceApi, paymentApi } from '../api';
-import { documentAction, documentBaseType, documentStatus } from '../models';
+import { PaymentType } from 'src/types/org.bandahealth.idempiere.rest';
+import { businessPartnerApi, invoiceApi, paymentApi, referenceListApi } from '../api';
+import {
+	documentAction,
+	documentBaseType,
+	documentStatus,
+	paymentRuleValue,
+	referenceUuid,
+	tenderTypeName,
+} from '../models';
 import { createBusinessPartner, createCharge, createInvoice, createPayment, createProduct } from '../utils';
 
 test('creating an invoice with a charge', async () => {
@@ -196,8 +204,33 @@ test('child data present when fetching an invoice', async () => {
 	valueObject.documentAction = documentAction.Complete;
 	valueObject.setSalesPrice(10);
 	await createInvoice(valueObject);
-	
+
 	const fetchedInvoice = await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid);
 	expect(valueObject.invoice!.invoiceLines.length).not.toBe(0);
 	expect(fetchedInvoice.invoiceLines.length).toBe(valueObject.invoice!.invoiceLines.length);
+});
+
+test('The payment type for an invoice is returned correctly', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create Business Partner';
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create Charge';
+	await createCharge(valueObject);
+
+	valueObject.stepName = 'Create Invoice';
+	const directDepositPaymentRule = (
+		await referenceListApi.getByReference(valueObject, referenceUuid.PAYMENT_TYPES, false)
+	).find((paymentType) => paymentType.value == paymentRuleValue.DIRECT_DEPOSIT);
+
+	valueObject.paymentRule = directDepositPaymentRule?.value;
+	await valueObject.setDocumentBaseType(documentBaseType.APPayment, null, false, false, false);
+	await createInvoice(valueObject);
+
+	const savedInvoice = await invoiceApi.getByUuid(valueObject, valueObject.invoice!.uuid);
+
+	expect(valueObject.invoice).toBeTruthy();
+	expect(savedInvoice?.paymentRule).toBe(paymentRuleValue.DIRECT_DEPOSIT);
 });
