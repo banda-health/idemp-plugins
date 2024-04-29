@@ -1,19 +1,5 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBHEncounter;
-import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
-import org.bandahealth.idempiere.base.model.MBHObservation;
-import org.bandahealth.idempiere.base.model.MReference_BH;
-import org.bandahealth.idempiere.rest.model.Encounter;
-import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
-import org.bandahealth.idempiere.rest.model.Observation;
-import org.bandahealth.idempiere.rest.model.ReferenceList;
-import org.bandahealth.idempiere.rest.utils.StringUtil;
-import org.compiere.model.MRefList;
-import org.compiere.util.Env;
-import org.compiere.util.Trx;
-
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,12 +9,29 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MBHEncounter;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
+import org.bandahealth.idempiere.base.model.MBHEncounterDiagnostic;
+import org.bandahealth.idempiere.base.model.MBHObservation;
+import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.rest.model.Encounter;
+import org.bandahealth.idempiere.rest.model.EncounterDiagnosis;
+import org.bandahealth.idempiere.rest.model.EncounterDiagnostic;
+import org.bandahealth.idempiere.rest.model.Observation;
+import org.bandahealth.idempiere.rest.model.ReferenceList;
+import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MRefList;
+import org.compiere.util.Env;
+import org.compiere.util.Trx;
+
 public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 	private final ObservationDBService observationDBService = new ObservationDBService();
 	private final EncounterDiagnosisDBService encounterDiagnosisDBService = new EncounterDiagnosisDBService();
 	private final ReferenceListDBService referenceListDBService = new ReferenceListDBService();
-
+	private final EncounterDiagnosticDBService encounterDiagnosticDBService = new EncounterDiagnosticDBService();
+	
 	@Override
 	public Encounter saveEntity(Encounter entity) {
 		return createInstanceWithAllFields(getEntityByUuidFromDB(saveOnlyWithoutChildDataFetch(entity).getUuid()));
@@ -74,6 +77,15 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 		// delete old encounter diagnoses
 		encounterDiagnosisDBService.deleteEncounterDiagnosisNotInList(encounterId, entity.getEncounterDiagnoses());
+		
+		// save encounter diagnostic
+		entity.setEncounterDiagnostics(entity.getEncounterDiagnostics().stream().map(encounterDiagnostic -> {
+			encounterDiagnostic.setEncounterId(encounterId);
+			return encounterDiagnosticDBService.saveEntity(encounterDiagnostic);
+		}).collect(Collectors.toList()));
+
+		// delete old encounter diagnostics
+		encounterDiagnosticDBService.deleteEncounterDiagnosticNotInList(encounterId, entity.getEncounterDiagnostics());
 
 		return new Encounter(encounter);
 	}
@@ -150,11 +162,20 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 										MBHEncounterDiagnosis.COLUMNNAME_BH_Encounter_ID, encounterIds).values().stream()
 								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
 				.collect(Collectors.groupingBy(EncounterDiagnosis::getEncounterId));
+		
+		// get encounter diagnostics
+		Map<Integer, List<EncounterDiagnostic>> encounterDiagnosticsByEncounterId = encounterDiagnosticDBService.transformData(
+						encounterDiagnosticDBService.getGroupsByIds(MBHEncounterDiagnostic::getBH_Encounter_ID,
+								MBHEncounterDiagnostic.COLUMNNAME_BH_Encounter_ID, encounterIds).values().stream()
+								.flatMap(Collection::stream).collect(Collectors.toList())).stream()
+				.collect(Collectors.groupingBy(EncounterDiagnostic::getEncounterId));
 
 		// get reference list values
 		Map<String, ReferenceList> encounterTypesByValue = referenceListDBService.getTypes(MReference_BH.ENCOUNTER_TYPES,
 						dbModels.stream().map(MBHEncounter::getBH_Encounter_Type).collect(Collectors.toSet())).stream()
 				.collect(Collectors.toMap(MRefList::getValue, ReferenceList::new));
+		
+		// TODO get encounter diagnostics
 
 		return dbModels.stream().map(encounter -> {
 			Encounter result = new Encounter(encounter);
@@ -169,6 +190,10 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 
 			if (encounterDiagnosesByEncounterId.containsKey(encounter.getBH_Encounter_ID())) {
 				result.setEncounterDiagnoses(encounterDiagnosesByEncounterId.get(encounter.getBH_Encounter_ID()));
+			}
+			
+			if (encounterDiagnosticsByEncounterId.containsKey(encounter.getBH_Encounter_ID())) {
+				result.setEncounterDiagnostics(encounterDiagnosticsByEncounterId.get(encounter.getBH_Encounter_ID()));
 			}
 
 			return result;

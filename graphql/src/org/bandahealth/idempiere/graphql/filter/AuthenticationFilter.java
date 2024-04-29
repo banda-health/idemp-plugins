@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.filter;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.graphql.model.AuthenticationCookie;
 import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
 import org.bandahealth.idempiere.graphql.utils.StringUtil;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
@@ -66,6 +68,9 @@ public class AuthenticationFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException {
+		// Always start off with a new context
+		ServerContext.setCurrentInstance(new Properties());
+		//
 		HttpServletRequestWrapper bandaRequest = new BandaServletRequestWrapper(request);
 		String requestQuery = bandaRequest.getParameter("query");
 		// If the query parameter didn't come through, try to pull it from the body

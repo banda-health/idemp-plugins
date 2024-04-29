@@ -15,7 +15,7 @@ import {
 	M_PriceListSaveMutation,
 	M_PriceList_VersionGetDocument,
 	M_PriceList_VersionSaveDocument,
-	SignInDocument
+	SignInDocument,
 } from '../__generated__/graphql';
 
 const workingDirectory = join(tmpdir(), 'rest-global-setup');
@@ -159,7 +159,7 @@ async function createDefaultPriceLists(
 
 export default async function () {
 	let loginInfo: LoginInfo = {} as LoginInfo;
-	const valueObject = { sessionToken: undefined };
+	const valueObject: { sessionToken?: string } = { sessionToken: undefined };
 	await graphqlClient.mutate({
 		mutation: SignInDocument,
 		variables: { Credentials: initialLoginData },

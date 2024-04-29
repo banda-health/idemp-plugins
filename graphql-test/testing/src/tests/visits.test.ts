@@ -1830,8 +1830,12 @@ test('clinical vitals fields', async () => {
 
 	expect(valueObject.visit.BH_Encounters).toHaveLength(1);
 	expect(valueObject.visit.BH_Encounters![0].BH_Observations).toHaveLength(2);
-	expect(valueObject.visit.BH_Encounters![0].BH_Observations![0].BH_Value).toBe(heightValue);
-	expect(valueObject.visit.BH_Encounters![0].BH_Observations![1].BH_Value).toBe(weightValue);
+	expect(
+		valueObject.visit.BH_Encounters![0].BH_Observations!.find((observation) => observation.BH_Value === heightValue),
+	).toBeTruthy();
+	expect(
+		valueObject.visit.BH_Encounters![0].BH_Observations!.find((observation) => observation.BH_Value === weightValue),
+	).toBeTruthy();
 	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList).toHaveLength(1);
 	expect(valueObject.visit.BH_Encounters![0].BH_Encounter_DiagnosisList![0].BH_Uncoded_Diagnosis).toBe(
 		uncodedDiagnosisValue,
