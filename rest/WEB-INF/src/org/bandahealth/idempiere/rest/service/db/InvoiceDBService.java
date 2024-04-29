@@ -121,7 +121,7 @@ public class InvoiceDBService extends DocumentDBService<Invoice, MInvoice_BH> {
 			if (entity.getBusinessPartner() != null && entity.getBusinessPartner().getUuid() != null) {
 				MBPartner_BH businessPartner = businessPartnerDBService
 						.getEntityByUuidFromDB(entity.getBusinessPartner().getUuid());
-				invoice.setBPartner(businessPartner);
+				invoice.setC_BPartner_ID(businessPartner.get_ID());
 			}
 
 			invoice.setBH_Visit_ID(entity.getVisitId());
