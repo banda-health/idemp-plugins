@@ -141,13 +141,13 @@ public class X_BH_CodedDiagnosisMapping extends PO implements I_BH_CodedDiagnosi
 	}
 
 	@Override
-	public void setBH_ExternalID(String BH_External_ID) {
-		set_Value(COLUMNNAME_BH_ExternalId, BH_External_ID);
+	public void setBH_ExternalID(String BH_ExternalID) {
+		set_Value(COLUMNNAME_BH_ExternalID, BH_ExternalID);
 	}
 
 	@Override
 	public String getBH_ExternalID() {
-		return (String) get_Value(COLUMNNAME_BH_ExternalId);
+		return (String) get_Value(COLUMNNAME_BH_ExternalID);
 	}
 
 	@Override
