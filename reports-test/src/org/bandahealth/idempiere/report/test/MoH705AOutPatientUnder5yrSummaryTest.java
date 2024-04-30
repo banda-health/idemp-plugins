@@ -559,7 +559,9 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 	}
 
 	private List<String> getDataBetweenDiagnoses(String reportContent, String diagnosis1, String diagnosis2) {
-		return Arrays.asList(reportContent.substring(reportContent.toLowerCase().indexOf(diagnosis1.toLowerCase()),
-				reportContent.toLowerCase().indexOf(diagnosis2.toLowerCase())).split(" "));
+		int diagnosis1Index = reportContent.toLowerCase().indexOf(diagnosis1.toLowerCase());
+		int diagnosis2Index = reportContent.toLowerCase().indexOf(diagnosis2.toLowerCase());
+		
+		return Arrays.asList((diagnosis1Index < diagnosis2Index ? reportContent.substring(diagnosis1Index, diagnosis2Index) : reportContent.substring(diagnosis2Index, diagnosis1Index)).split(" "));
 	}
 }
