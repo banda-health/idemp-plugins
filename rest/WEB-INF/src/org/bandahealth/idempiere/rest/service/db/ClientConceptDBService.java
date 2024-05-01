@@ -1,14 +1,10 @@
 package org.bandahealth.idempiere.rest.service.db;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHClientConcept;
-import org.bandahealth.idempiere.base.model.MBHConcept;
-import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.rest.model.ClientConcept;
-import org.bandahealth.idempiere.rest.model.Observation;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +55,7 @@ public class ClientConceptDBService extends BaseDBService<ClientConcept, MBHClie
 			throw new AdempiereException("Concept missing!");
 		}
 		clientConcept.setName(entity.getName());
+		clientConcept.setIsActive(entity.getIsActive());
 		
 		clientConcept.saveEx();
 
