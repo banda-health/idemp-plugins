@@ -1,0 +1,69 @@
+# Generated Schema for B_Offer - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	B_OfferGet(Page: Int, Size: Int, Sort: String, Filter: String): B_OfferConnection!
+}
+
+extend type Mutation {
+	B_OfferSave(Entity: B_OfferInput!): B_Offer!
+	B_OfferSaveMany(Entities: [B_OfferInput!]!): [B_Offer!]!
+	B_OfferDelete(UUs: [String!]!): Boolean!
+}
+
+type B_OfferConnection {
+	Results: [B_Offer!]!
+	PagingInfo: PagingInfo!
+}
+
+type B_Offer {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	UU: ID!
+	# Seller Funds from Offers on Topics
+	B_SellerFunds: B_SellerFunds!
+	# Auction Topic
+	B_Topic: B_Topic!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsWillingToCommit: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Private Note - not visible to the other parties
+	PrivateNote: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input B_OfferInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# Seller Funds from Offers on Topics
+	B_SellerFunds: ForeignEntityInput
+	# Auction Topic
+	B_Topic: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsWillingToCommit: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Private Note - not visible to the other parties
+	PrivateNote: String
+	# Text Message
+	TextMsg: String
+}

@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Voided_Reason
  *  @author iDempiere (generated) 
- *  @version Release 8.2
+ *  @version Release 11
  */
 @SuppressWarnings("all")
 public interface I_BH_Voided_Reason 
@@ -32,7 +32,7 @@ public interface I_BH_Voided_Reason
     /** TableName=BH_Voided_Reason */
     public static final String Table_Name = "BH_Voided_Reason";
 
-    /** AD_Table_ID=1000036 */
+    /** AD_Table_ID=1000035 */
     public static final int Table_ID = MTable.getTable_ID(Table_Name);
 
     KeyNamePair Model = new KeyNamePair(Table_ID, Table_Name);
@@ -46,8 +46,8 @@ public interface I_BH_Voided_Reason
     /** Column name AD_Client_ID */
     public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
 
-	/** Get Client.
-	  * Client/Tenant for this installation.
+	/** Get Tenant.
+	  * Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
 
@@ -55,12 +55,12 @@ public interface I_BH_Voided_Reason
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
 	/** Set Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
 	/** Get Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
 
@@ -73,14 +73,14 @@ public interface I_BH_Voided_Reason
 	/** Get BH_Voided_Reason_ID	  */
 	public int getBH_Voided_Reason_ID();
 
-    /** Column name bh_voided_reason_uu */
-    public static final String COLUMNNAME_bh_voided_reason_uu = "bh_voided_reason_uu";
+    /** Column name BH_Voided_Reason_UU */
+    public static final String COLUMNNAME_BH_Voided_Reason_UU = "BH_Voided_Reason_UU";
 
 	/** Set bh_voided_reason_uu	  */
-	public void setbh_voided_reason_uu (String bh_voided_reason_uu);
+	public void setBH_Voided_Reason_UU (String BH_Voided_Reason_UU);
 
 	/** Get bh_voided_reason_uu	  */
-	public String getbh_voided_reason_uu();
+	public String getBH_Voided_Reason_UU();
 
     /** Column name bh_window_id */
     public static final String COLUMNNAME_bh_window_id = "bh_window_id";

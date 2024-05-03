@@ -1,0 +1,121 @@
+# Generated Schema for M_AttributeSet - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_AttributeSetGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeSetConnection!
+}
+
+extend type Mutation {
+	M_AttributeSetSave(Entity: M_AttributeSetInput!): M_AttributeSet!
+	M_AttributeSetSaveMany(Entities: [M_AttributeSetInput!]!): [M_AttributeSet!]!
+	M_AttributeSetDelete(UUs: [String!]!): Boolean!
+}
+
+type M_AttributeSetConnection {
+	Results: [M_AttributeSet!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_AttributeSet {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Number of days the product is guaranteed or available
+	GuaranteeDays: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	IsAutoGenerateLot: Boolean!
+	# Product has Guarantee or Expiry Date
+	IsGuaranteeDate: Boolean!
+	# The entry of a Guarantee Date is mandatory when creating a Product Instance
+	IsGuaranteeDateMandatory: Boolean!
+	# The product attribute is specific to the instance (like Serial No, Lot or Guarantee Date)
+	IsInstanceAttribute: Boolean!
+	# The product instances have a Lot Number
+	IsLot: Boolean!
+	# The entry of Lot info is mandatory when creating a Product Instance
+	IsLotMandatory: Boolean!
+	# The product instances have Serial Numbers
+	IsSerNo: Boolean!
+	# The entry of a Serial No is mandatory when creating a Product Instance
+	IsSerNoMandatory: Boolean!
+	# Lot/Batch End Indicator overwrite - default »
+	LotCharEOverwrite: String
+	# Lot/Batch Start Indicator overwrite - default «
+	LotCharSOverwrite: String
+	M_AttributeSet_Type: AD_Ref_List!
+	UU: ID!
+	# Product Lot Control
+	M_LotCtl: M_LotCtl
+	# Product Serial Number Control
+	M_SerNoCtl: M_SerNoCtl
+	# The specification of a Product Attribute Instance is mandatory
+	MandatoryType: AD_Ref_List!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Serial Number End Indicator overwrite - default empty
+	SerNoCharEOverwrite: String
+	# Serial Number Start Indicator overwrite - default #
+	SerNoCharSOverwrite: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UseGuaranteeDateForMPolicy: Boolean!
+}
+
+input M_AttributeSetInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean
+	# Optional short description of the record
+	Description: String
+	# Number of days the product is guaranteed or available
+	GuaranteeDays: Int
+	# The record is active in the system
+	IsActive: Boolean
+	IsAutoGenerateLot: Boolean
+	# Product has Guarantee or Expiry Date
+	IsGuaranteeDate: Boolean
+	# The entry of a Guarantee Date is mandatory when creating a Product Instance
+	IsGuaranteeDateMandatory: Boolean
+	# The product attribute is specific to the instance (like Serial No, Lot or Guarantee Date)
+	IsInstanceAttribute: Boolean
+	# The product instances have a Lot Number
+	IsLot: Boolean
+	# The entry of Lot info is mandatory when creating a Product Instance
+	IsLotMandatory: Boolean
+	# The product instances have Serial Numbers
+	IsSerNo: Boolean
+	# The entry of a Serial No is mandatory when creating a Product Instance
+	IsSerNoMandatory: Boolean
+	# Lot/Batch End Indicator overwrite - default »
+	LotCharEOverwrite: String
+	# Lot/Batch Start Indicator overwrite - default «
+	LotCharSOverwrite: String
+	M_AttributeSet_Type: ForeignEntityInput
+	UU: ID
+	# Product Lot Control
+	M_LotCtl: ForeignEntityInput
+	# Product Serial Number Control
+	M_SerNoCtl: ForeignEntityInput
+	# The specification of a Product Attribute Instance is mandatory
+	MandatoryType: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Serial Number End Indicator overwrite - default empty
+	SerNoCharEOverwrite: String
+	# Serial Number Start Indicator overwrite - default #
+	SerNoCharSOverwrite: String
+	UseGuaranteeDateForMPolicy: Boolean
+}

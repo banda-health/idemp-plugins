@@ -42,16 +42,24 @@ public class InvoiceModelEvent extends AbstractEventHandler {
 		} else {
 			return;
 		}
+//		if (invoice.getClass().toString().contains("graphql.model")) {
+//			return;
+//		}
 
-		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			if (invoice != null) {
-				beforeSaveRequest(invoice);
+		switch (event.getTopic()) {
+			case IEventTopics.PO_BEFORE_NEW -> {
+				if (invoice != null && !invoice.getClass().toString().contains("graphql.model")) {
+					beforeSaveRequest(invoice);
+				}
+				setVisitIdFromOrder(invoice == null ? invoiceFromCode : invoice);
 			}
-			setVisitIdFromOrder(invoice == null ? invoiceFromCode : invoice);
-		} else if (event.getTopic().equals(IEventTopics.PO_BEFORE_CHANGE)) {
-			setVisitIdFromOrder(invoice == null ? invoiceFromCode : invoice);
-		} else if (event.getTopic().equals(IEventTopics.DOC_BEFORE_PREPARE)) {
-			addChargesFromSalesOrder(invoice == null ? invoiceFromCode : invoice);
+			case IEventTopics.PO_BEFORE_CHANGE -> setVisitIdFromOrder(invoice == null ? invoiceFromCode : invoice);
+			case IEventTopics.DOC_BEFORE_PREPARE -> {
+				if (invoice != null && !invoice.getClass().toString().contains("graphql.model") ||
+						invoiceFromCode != null && !invoiceFromCode.getClass().toString().contains("graphql.model")) {
+					addChargesFromSalesOrder(invoice == null ? invoiceFromCode : invoice);
+				}
+			}
 		}
 	}
 

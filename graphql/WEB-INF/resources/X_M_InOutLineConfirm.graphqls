@@ -1,0 +1,87 @@
+# Generated Schema for M_InOutLineConfirm - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_InOutLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutLineConfirmConnection!
+}
+
+extend type Mutation {
+	M_InOutLineConfirmSave(Entity: M_InOutLineConfirmInput!): M_InOutLineConfirm!
+	M_InOutLineConfirmSaveMany(Entities: [M_InOutLineConfirmInput!]!): [M_InOutLineConfirm!]!
+	M_InOutLineConfirmDelete(UUs: [String!]!): Boolean!
+}
+
+type M_InOutLineConfirmConnection {
+	Results: [M_InOutLineConfirm!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_InOutLineConfirm {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Invoice Detail Line
+	C_InvoiceLine: C_InvoiceLine
+	# Confirmation Number
+	ConfirmationNo: String
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# Material Shipment or Receipt Confirmation
+	M_InOutConfirm: M_InOutConfirm!
+	# Line on Shipment or Receipt document
+	M_InOutLine: M_InOutLine!
+	UU: ID!
+	# Unique line in an Inventory document
+	M_InventoryLine: M_InventoryLine
+	# The document has been processed
+	Processed: Boolean!
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+	# Target Movement Quantity
+	TargetQty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_InOutLineConfirmInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Invoice Detail Line
+	C_InvoiceLine: ForeignEntityInput
+	# Confirmation Number
+	ConfirmationNo: String
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Material Shipment or Receipt Confirmation
+	M_InOutConfirm: ForeignEntityInput
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	UU: ID
+	# Unique line in an Inventory document
+	M_InventoryLine: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+	# Target Movement Quantity
+	TargetQty: BigDecimal
+}

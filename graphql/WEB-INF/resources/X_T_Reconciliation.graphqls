@@ -1,0 +1,53 @@
+# Generated Schema for T_Reconciliation - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_ReconciliationGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReconciliationConnection!
+}
+
+extend type Mutation {
+	T_ReconciliationSave(Entity: T_ReconciliationInput!): T_Reconciliation!
+	T_ReconciliationSaveMany(Entities: [T_ReconciliationInput!]!): [T_Reconciliation!]!
+	T_ReconciliationDelete(UUs: [String!]!): Boolean!
+}
+
+type T_ReconciliationConnection {
+	Results: [T_Reconciliation!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_Reconciliation {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	Fact_Acct: Fact_Acct!
+	# The record is active in the system
+	IsActive: Boolean!
+	# String identifying related accounting facts
+	MatchCode: String
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input T_ReconciliationInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	Fact_Acct: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# String identifying related accounting facts
+	MatchCode: String
+	UU: ID
+}

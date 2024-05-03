@@ -1,0 +1,77 @@
+# Generated Schema for AD_Rule - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_RuleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_RuleConnection!
+}
+
+extend type Mutation {
+	AD_RuleSave(Entity: AD_RuleInput!): AD_Rule!
+	AD_RuleSaveMany(Entities: [AD_RuleInput!]!): [AD_Rule!]!
+	AD_RuleDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_RuleConnection {
+	Results: [AD_Rule!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Rule {
+	# Access Level required
+	AccessLevel: AD_Ref_List
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Type of Event
+	EventType: AD_Ref_List!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	RuleType: AD_Ref_List!
+	# Dynamic Java Language Script to calculate result
+	Script: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input AD_RuleInput {
+	# Access Level required
+	AccessLevel: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Type of Event
+	EventType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	RuleType: ForeignEntityInput
+	# Dynamic Java Language Script to calculate result
+	Script: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

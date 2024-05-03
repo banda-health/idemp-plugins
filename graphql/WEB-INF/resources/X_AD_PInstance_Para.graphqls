@@ -1,0 +1,83 @@
+# Generated Schema for AD_PInstance_Para - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PInstance_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstance_ParaConnection!
+}
+
+extend type Mutation {
+	AD_PInstance_ParaSave(Entity: AD_PInstance_ParaInput!): AD_PInstance_Para!
+	AD_PInstance_ParaSaveMany(Entities: [AD_PInstance_ParaInput!]!): [AD_PInstance_Para!]!
+	AD_PInstance_ParaDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PInstance_ParaConnection {
+	Results: [AD_PInstance_Para!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PInstance_Para {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Information
+	Info: String
+	Info_To: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if a chosen multiple component value must be negate
+	IsNotClause: Boolean!
+	# Process Parameter
+	P_Date: Date
+	# Process Parameter
+	P_Date_To: Date
+	# Process Parameter
+	P_Number: BigDecimal
+	# Process Parameter
+	P_Number_To: BigDecimal
+	# Process Parameter
+	P_String: String
+	# Process Parameter
+	P_String_To: String
+	ParameterName: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input AD_PInstance_ParaInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	UU: ID
+	# Information
+	Info: String
+	Info_To: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if a chosen multiple component value must be negate
+	IsNotClause: Boolean
+	# Process Parameter
+	P_Date: Date
+	# Process Parameter
+	P_Date_To: Date
+	# Process Parameter
+	P_Number: BigDecimal
+	# Process Parameter
+	P_Number_To: BigDecimal
+	# Process Parameter
+	P_String: String
+	# Process Parameter
+	P_String_To: String
+	ParameterName: String
+}

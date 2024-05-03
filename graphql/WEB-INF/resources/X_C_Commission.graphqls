@@ -1,0 +1,89 @@
+# Generated Schema for C_Commission - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CommissionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionConnection!
+}
+
+extend type Mutation {
+	C_CommissionSave(Entity: C_CommissionInput!): C_Commission!
+	C_CommissionSaveMany(Entities: [C_CommissionInput!]!): [C_Commission!]!
+	C_CommissionDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CommissionConnection {
+	Results: [C_Commission!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Commission {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Additional document charges
+	C_Charge: C_Charge
+	UU: ID!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Date the process was last run.
+	DateLastRun: Date
+	# Optional short description of the record
+	Description: String
+	# Basis for the calculation the commission
+	DocBasisType: AD_Ref_List!
+	# Frequency of event
+	FrequencyType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# List document details
+	ListDetails: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CommissionInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	UU: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# Date the process was last run.
+	DateLastRun: Date
+	# Optional short description of the record
+	Description: String
+	# Basis for the calculation the commission
+	DocBasisType: ForeignEntityInput
+	# Frequency of event
+	FrequencyType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# List document details
+	ListDetails: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+}

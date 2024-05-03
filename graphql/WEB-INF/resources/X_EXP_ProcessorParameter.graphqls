@@ -1,0 +1,63 @@
+# Generated Schema for EXP_ProcessorParameter - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	EXP_ProcessorParameterGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_ProcessorParameterConnection!
+}
+
+extend type Mutation {
+	EXP_ProcessorParameterSave(Entity: EXP_ProcessorParameterInput!): EXP_ProcessorParameter!
+	EXP_ProcessorParameterSaveMany(Entities: [EXP_ProcessorParameterInput!]!): [EXP_ProcessorParameter!]!
+	EXP_ProcessorParameterDelete(UUs: [String!]!): Boolean!
+}
+
+type EXP_ProcessorParameterConnection {
+	Results: [EXP_ProcessorParameter!]!
+	PagingInfo: PagingInfo!
+}
+
+type EXP_ProcessorParameter {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	EXP_Processor: EXP_Processor!
+	UU: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	ParameterValue: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input EXP_ProcessorParameterInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	EXP_Processor: ForeignEntityInput
+	UU: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	ParameterValue: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

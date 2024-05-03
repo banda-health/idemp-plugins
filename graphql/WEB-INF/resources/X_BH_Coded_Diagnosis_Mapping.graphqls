@@ -1,0 +1,69 @@
+# Generated Schema for BH_Coded_Diagnosis_Mapping - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Coded_Diagnosis_MappingGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Coded_Diagnosis_MappingConnection!
+}
+
+extend type Mutation {
+	BH_Coded_Diagnosis_MappingSave(Entity: BH_Coded_Diagnosis_MappingInput!): BH_Coded_Diagnosis_Mapping!
+	BH_Coded_Diagnosis_MappingSaveMany(Entities: [BH_Coded_Diagnosis_MappingInput!]!): [BH_Coded_Diagnosis_Mapping!]!
+	BH_Coded_Diagnosis_MappingDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Coded_Diagnosis_MappingConnection {
+	Results: [BH_Coded_Diagnosis_Mapping!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Coded_Diagnosis_Mapping {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	BH_Coded_Diagnosis: BH_Coded_Diagnosis!
+	UU: ID!
+	# BH_Concept_Code
+	BH_Concept_Code: String
+	# BH_Concept_Name_Resolved
+	BH_Concept_Name_Resolved: String
+	# BH_External_ID
+	BH_External_ID: String
+	# BH_Map_Type
+	BH_Map_Type: String
+	# BH_Owner
+	BH_Owner: String
+	# Source
+	BH_Source: String
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input BH_Coded_Diagnosis_MappingInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Coded_Diagnosis: ForeignEntityInput
+	UU: ID
+	# BH_Concept_Code
+	BH_Concept_Code: String
+	# BH_Concept_Name_Resolved
+	BH_Concept_Name_Resolved: String
+	# BH_External_ID
+	BH_External_ID: String
+	# BH_Map_Type
+	BH_Map_Type: String
+	# BH_Owner
+	BH_Owner: String
+	# Source
+	BH_Source: String
+	# The record is active in the system
+	IsActive: Boolean
+}

@@ -1,0 +1,55 @@
+# Generated Schema for S_TimeType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	S_TimeTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): S_TimeTypeConnection!
+}
+
+extend type Mutation {
+	S_TimeTypeSave(Entity: S_TimeTypeInput!): S_TimeType!
+	S_TimeTypeSaveMany(Entities: [S_TimeTypeInput!]!): [S_TimeType!]!
+	S_TimeTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type S_TimeTypeConnection {
+	Results: [S_TimeType!]!
+	PagingInfo: PagingInfo!
+}
+
+type S_TimeType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input S_TimeTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	UU: ID
+}

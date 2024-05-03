@@ -1,0 +1,155 @@
+# Generated Schema for T_Aging - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_AgingGet(Page: Int, Size: Int, Sort: String, Filter: String): T_AgingConnection!
+}
+
+extend type Mutation {
+	T_AgingSave(Entity: T_AgingInput!): T_Aging!
+	T_AgingSaveMany(Entities: [T_AgingInput!]!): [T_Aging!]!
+	T_AgingDelete(UUs: [String!]!): Boolean!
+}
+
+type T_AgingConnection {
+	Results: [T_Aging!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_Aging {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# Business Activity
+	C_Activity: C_Activity
+	# Business Partner Group
+	C_BP_Group: C_BP_Group!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Invoice Payment Schedule
+	C_InvoicePaySchedule: C_InvoicePaySchedule
+	# Financial Project
+	C_Project: C_Project
+	ConvertAmountsInCurrency: C_Currency
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Boolean!
+	# Number of days due (negative: due in number of days)
+	DaysDue: Int
+	Due0: BigDecimal!
+	Due0_30: BigDecimal!
+	Due0_7: BigDecimal!
+	Due1_7: BigDecimal!
+	Due31_60: BigDecimal!
+	Due31_Plus: BigDecimal!
+	Due61_90: BigDecimal!
+	Due61_Plus: BigDecimal!
+	Due8_30: BigDecimal!
+	Due91_Plus: BigDecimal!
+	# Amount of the payment due
+	DueAmt: BigDecimal!
+	# Date when the payment is due
+	DueDate: Date!
+	# The amount invoiced
+	InvoicedAmt: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Include List of Invoices
+	IsListInvoices: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# Open item amount
+	OpenAmt: BigDecimal!
+	PastDue1_30: BigDecimal!
+	PastDue1_7: BigDecimal!
+	PastDue31_60: BigDecimal!
+	PastDue31_Plus: BigDecimal!
+	PastDue61_90: BigDecimal!
+	PastDue61_Plus: BigDecimal!
+	PastDue8_30: BigDecimal!
+	PastDue91_Plus: BigDecimal!
+	PastDueAmt: BigDecimal!
+	# Date of the statement
+	StatementDate: Date!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input T_AgingInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Invoice Payment Schedule
+	C_InvoicePaySchedule: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	ConvertAmountsInCurrency: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Boolean
+	# Number of days due (negative: due in number of days)
+	DaysDue: Int
+	Due0: BigDecimal
+	Due0_30: BigDecimal
+	Due0_7: BigDecimal
+	Due1_7: BigDecimal
+	Due31_60: BigDecimal
+	Due31_Plus: BigDecimal
+	Due61_90: BigDecimal
+	Due61_Plus: BigDecimal
+	Due8_30: BigDecimal
+	Due91_Plus: BigDecimal
+	# Amount of the payment due
+	DueAmt: BigDecimal
+	# Date when the payment is due
+	DueDate: Date
+	# The amount invoiced
+	InvoicedAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Include List of Invoices
+	IsListInvoices: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Open item amount
+	OpenAmt: BigDecimal
+	PastDue1_30: BigDecimal
+	PastDue1_7: BigDecimal
+	PastDue31_60: BigDecimal
+	PastDue31_Plus: BigDecimal
+	PastDue61_90: BigDecimal
+	PastDue61_Plus: BigDecimal
+	PastDue8_30: BigDecimal
+	PastDue91_Plus: BigDecimal
+	PastDueAmt: BigDecimal
+	# Date of the statement
+	StatementDate: Date
+	UU: ID
+}

@@ -1,0 +1,87 @@
+# Generated Schema for C_InvoiceSchedule - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_InvoiceScheduleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceScheduleConnection!
+}
+
+extend type Mutation {
+	C_InvoiceScheduleSave(Entity: C_InvoiceScheduleInput!): C_InvoiceSchedule!
+	C_InvoiceScheduleSaveMany(Entities: [C_InvoiceScheduleInput!]!): [C_InvoiceSchedule!]!
+	C_InvoiceScheduleDelete(UUs: [String!]!): Boolean!
+}
+
+type C_InvoiceScheduleConnection {
+	Results: [C_InvoiceSchedule!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_InvoiceSchedule {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount
+	Amt: BigDecimal!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Send invoices on even weeks
+	EvenInvoiceWeek: Boolean!
+	# Day of Invoice Generation
+	InvoiceDay: Int!
+	# Last day for including shipments
+	InvoiceDayCutoff: Int
+	# How often invoices will be generated
+	InvoiceFrequency: AD_Ref_List!
+	# Day to generate invoices
+	InvoiceWeekDay: AD_Ref_List!
+	# Last day in the week for shipments to be included
+	InvoiceWeekDayCutoff: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Send invoices only if the amount exceeds the limit
+	IsAmount: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_InvoiceScheduleInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount
+	Amt: BigDecimal
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Send invoices on even weeks
+	EvenInvoiceWeek: Boolean
+	# Day of Invoice Generation
+	InvoiceDay: Int
+	# Last day for including shipments
+	InvoiceDayCutoff: Int
+	# How often invoices will be generated
+	InvoiceFrequency: ForeignEntityInput
+	# Day to generate invoices
+	InvoiceWeekDay: ForeignEntityInput
+	# Last day in the week for shipments to be included
+	InvoiceWeekDayCutoff: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Send invoices only if the amount exceeds the limit
+	IsAmount: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

@@ -1,0 +1,59 @@
+# Generated Schema for AD_Replication_Run - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Replication_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Replication_RunConnection!
+}
+
+extend type Mutation {
+	AD_Replication_RunSave(Entity: AD_Replication_RunInput!): AD_Replication_Run!
+	AD_Replication_RunSaveMany(Entities: [AD_Replication_RunInput!]!): [AD_Replication_Run!]!
+	AD_Replication_RunDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Replication_RunConnection {
+	Results: [AD_Replication_Run!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Replication_Run {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Data Replication Target
+	AD_Replication: AD_Replication!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The data is successfully replicated
+	IsReplicated: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Replication_RunInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Data Replication Target
+	AD_Replication: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The data is successfully replicated
+	IsReplicated: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

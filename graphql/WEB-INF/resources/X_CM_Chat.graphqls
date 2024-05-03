@@ -1,0 +1,63 @@
+# Generated Schema for CM_Chat - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	CM_ChatGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatConnection!
+}
+
+extend type Mutation {
+	CM_ChatSave(Entity: CM_ChatInput!): CM_Chat!
+	CM_ChatSaveMany(Entities: [CM_ChatInput!]!): [CM_Chat!]!
+	CM_ChatDelete(UUs: [String!]!): Boolean!
+}
+
+type CM_ChatConnection {
+	Results: [CM_Chat!]!
+	PagingInfo: PagingInfo!
+}
+
+type CM_Chat {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	UU: ID!
+	# Type of discussion / chat
+	CM_ChatType: CM_ChatType
+	# Type of Confidentiality
+	ConfidentialType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Type of moderation
+	ModerationType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input CM_ChatInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	UU: ID
+	# Type of discussion / chat
+	CM_ChatType: ForeignEntityInput
+	# Type of Confidentiality
+	ConfidentialType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Type of moderation
+	ModerationType: ForeignEntityInput
+}

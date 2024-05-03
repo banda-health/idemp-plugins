@@ -1,0 +1,3 @@
+extend type C_AllocationHdr {
+	C_AllocationLines: [C_AllocationLine!]
+}

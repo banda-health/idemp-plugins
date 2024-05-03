@@ -1,0 +1,119 @@
+# Generated Schema for C_DunningLevel - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_DunningLevelGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningLevelConnection!
+}
+
+extend type Mutation {
+	C_DunningLevelSave(Entity: C_DunningLevelInput!): C_DunningLevel!
+	C_DunningLevelSaveMany(Entities: [C_DunningLevelInput!]!): [C_DunningLevel!]!
+	C_DunningLevelDelete(UUs: [String!]!): Boolean!
+}
+
+type C_DunningLevelConnection {
+	Results: [C_DunningLevel!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_DunningLevel {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Dunning Rules for overdue invoices
+	C_Dunning: C_Dunning!
+	UU: ID!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
+	# Indicates if fees will be charged for overdue invoices
+	ChargeFee: Boolean!
+	# Indicates if interest will be charged on overdue invoices
+	ChargeInterest: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Days after due date to dun (if negative days until due)
+	DaysAfterDue: BigDecimal!
+	# Days between sending dunning notices
+	DaysBetweenDunning: Int!
+	# Optional short description of the record
+	Description: String
+	# Print Format for printing Dunning Letters
+	Dunning_PrintFormat: AD_PrintFormat
+	# Fee amount in invoice currency
+	FeeAmt: BigDecimal
+	# Percentage interest to charge on overdue invoices
+	InterestPercent: BigDecimal
+	# Invoice Collection Status
+	InvoiceCollectionType: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Set the business partner to credit stop
+	IsSetCreditStop: Boolean!
+	# Set the payment term of the Business Partner
+	IsSetPaymentTerm: Boolean!
+	# Show/print all due invoices
+	IsShowAllDue: Boolean!
+	# Show/print all invoices which are not due (yet).
+	IsShowNotDue: Boolean!
+	# Dunning Level is a definition of a statement
+	IsStatement: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Optional additional user defined information
+	Note: String
+	# The label text to be printed on a document or correspondence.
+	PrintName: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_DunningLevelInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Dunning Rules for overdue invoices
+	C_Dunning: ForeignEntityInput
+	UU: ID
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	# Indicates if fees will be charged for overdue invoices
+	ChargeFee: Boolean
+	# Indicates if interest will be charged on overdue invoices
+	ChargeInterest: Boolean
+	# Days after due date to dun (if negative days until due)
+	DaysAfterDue: BigDecimal
+	# Days between sending dunning notices
+	DaysBetweenDunning: Int
+	# Optional short description of the record
+	Description: String
+	# Print Format for printing Dunning Letters
+	Dunning_PrintFormat: ForeignEntityInput
+	# Fee amount in invoice currency
+	FeeAmt: BigDecimal
+	# Percentage interest to charge on overdue invoices
+	InterestPercent: BigDecimal
+	# Invoice Collection Status
+	InvoiceCollectionType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Set the business partner to credit stop
+	IsSetCreditStop: Boolean
+	# Set the payment term of the Business Partner
+	IsSetPaymentTerm: Boolean
+	# Show/print all due invoices
+	IsShowAllDue: Boolean
+	# Show/print all invoices which are not due (yet).
+	IsShowNotDue: Boolean
+	# Dunning Level is a definition of a statement
+	IsStatement: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Optional additional user defined information
+	Note: String
+	# The label text to be printed on a document or correspondence.
+	PrintName: String
+}

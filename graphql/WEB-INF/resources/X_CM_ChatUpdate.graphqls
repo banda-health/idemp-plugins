@@ -1,0 +1,55 @@
+# Generated Schema for CM_ChatUpdate - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	CM_ChatUpdateGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatUpdateConnection!
+}
+
+extend type Mutation {
+	CM_ChatUpdateSave(Entity: CM_ChatUpdateInput!): CM_ChatUpdate!
+	CM_ChatUpdateSaveMany(Entities: [CM_ChatUpdateInput!]!): [CM_ChatUpdate!]!
+	CM_ChatUpdateDelete(UUs: [String!]!): Boolean!
+}
+
+type CM_ChatUpdateConnection {
+	Results: [CM_ChatUpdate!]!
+	PagingInfo: PagingInfo!
+}
+
+type CM_ChatUpdate {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Chat or discussion thread
+	CM_Chat: CM_Chat!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input CM_ChatUpdateInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Chat or discussion thread
+	CM_Chat: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+}

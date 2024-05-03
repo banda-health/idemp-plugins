@@ -1,0 +1,107 @@
+# Generated Schema for A_Depreciation_Entry - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Depreciation_EntryGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_EntryConnection!
+}
+
+extend type Mutation {
+	A_Depreciation_EntrySave(Entity: A_Depreciation_EntryInput!): A_Depreciation_Entry!
+	A_Depreciation_EntrySaveMany(Entities: [A_Depreciation_EntryInput!]!): [A_Depreciation_Entry!]!
+	A_Depreciation_EntryDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Depreciation_EntryConnection {
+	Results: [A_Depreciation_Entry!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Depreciation_Entry {
+	UU: ID!
+	A_Entry_Type: AD_Ref_List
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Period of the Calendar
+	C_Period: C_Period!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Date of the Document
+	DateDoc: Date!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Posting status
+	Posted: Boolean!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Depreciation_EntryInput {
+	UU: ID
+	A_Entry_Type: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Date of the Document
+	DateDoc: Date
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Posting status
+	Posted: Boolean
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+}

@@ -1,0 +1,71 @@
+# Generated Schema for M_ProductOperation - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_ProductOperationGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductOperationConnection!
+}
+
+extend type Mutation {
+	M_ProductOperationSave(Entity: M_ProductOperationInput!): M_ProductOperation!
+	M_ProductOperationSaveMany(Entities: [M_ProductOperationInput!]!): [M_ProductOperation!]!
+	M_ProductOperationDelete(UUs: [String!]!): Boolean!
+}
+
+type M_ProductOperationConnection {
+	Results: [M_ProductOperation!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_ProductOperation {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Setup time before starting Production
+	SetupTime: BigDecimal
+	# Time at the end of the operation
+	TeardownTime: BigDecimal
+	# Time to produce one unit
+	UnitRuntime: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ProductOperationInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Setup time before starting Production
+	SetupTime: BigDecimal
+	# Time at the end of the operation
+	TeardownTime: BigDecimal
+	# Time to produce one unit
+	UnitRuntime: BigDecimal
+}

@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Visit
  *  @author iDempiere (generated) 
- *  @version Release 8.2
+ *  @version Release 11
  */
 @SuppressWarnings("all")
 public interface I_BH_Visit 
@@ -46,8 +46,8 @@ public interface I_BH_Visit
     /** Column name AD_Client_ID */
     public static final String COLUMNNAME_AD_Client_ID = "AD_Client_ID";
 
-	/** Get Client.
-	  * Client/Tenant for this installation.
+	/** Get Tenant.
+	  * Tenant for this installation.
 	  */
 	public int getAD_Client_ID();
 
@@ -55,23 +55,14 @@ public interface I_BH_Visit
     public static final String COLUMNNAME_AD_Org_ID = "AD_Org_ID";
 
 	/** Set Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public void setAD_Org_ID (int AD_Org_ID);
 
 	/** Get Organization.
-	  * Organizational entity within client
+	  * Organizational entity within tenant
 	  */
 	public int getAD_Org_ID();
-
-    /** Column name BH_ClinicalNotes */
-    public static final String COLUMNNAME_BH_ClinicalNotes = "BH_ClinicalNotes";
-
-	/** Set Clinical Notes	  */
-	public void setBH_ClinicalNotes (String BH_ClinicalNotes);
-
-	/** Get Clinical Notes	  */
-	public String getBH_ClinicalNotes();
 
     /** Column name BH_Clinician_User_ID */
     public static final String COLUMNNAME_BH_Clinician_User_ID = "BH_Clinician_User_ID";
@@ -135,15 +126,6 @@ public interface I_BH_Visit
 	/** Get Referred From/To	  */
 	public String getBH_ReferredFromTo();
 
-    /** Column name BH_RespiratoryRate */
-    public static final String COLUMNNAME_BH_RespiratoryRate = "BH_RespiratoryRate";
-
-	/** Set Respiratory Rate (RPM)	  */
-	public void setBH_RespiratoryRate (String BH_RespiratoryRate);
-
-	/** Get Respiratory Rate (RPM)	  */
-	public String getBH_RespiratoryRate();
-
     /** Column name BH_Visit_ID */
     public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
 
@@ -181,15 +163,6 @@ public interface I_BH_Visit
 	public int getBH_Voided_Reason_ID();
 
 	public I_BH_Voided_Reason getBH_Voided_Reason() throws RuntimeException;
-
-    /** Column name BH_Weight */
-    public static final String COLUMNNAME_BH_Weight = "BH_Weight";
-
-	/** Set Weight (kg)	  */
-	public void setBH_Weight (String BH_Weight);
-
-	/** Get Weight (kg)	  */
-	public String getBH_Weight();
 
     /** Column name Created */
     public static final String COLUMNNAME_Created = "Created";

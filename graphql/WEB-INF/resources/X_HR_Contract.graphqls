@@ -1,0 +1,79 @@
+# Generated Schema for HR_Contract - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_ContractGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ContractConnection!
+}
+
+extend type Mutation {
+	HR_ContractSave(Entity: HR_ContractInput!): HR_Contract!
+	HR_ContractSaveMany(Entities: [HR_ContractInput!]!): [HR_Contract!]!
+	HR_ContractDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_ContractConnection {
+	Results: [HR_Contract!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Contract {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Financial Project
+	C_Project: C_Project
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Net Days in which payment is due
+	NetDays: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input HR_ContractInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Net Days in which payment is due
+	NetDays: Int
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

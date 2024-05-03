@@ -1,0 +1,51 @@
+# Generated Schema for ASP_Task - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	ASP_TaskGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_TaskConnection!
+}
+
+extend type Mutation {
+	ASP_TaskSave(Entity: ASP_TaskInput!): ASP_Task!
+	ASP_TaskSaveMany(Entities: [ASP_TaskInput!]!): [ASP_Task!]!
+	ASP_TaskDelete(UUs: [String!]!): Boolean!
+}
+
+type ASP_TaskConnection {
+	Results: [ASP_Task!]!
+	PagingInfo: PagingInfo!
+}
+
+type ASP_Task {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Operation System Task
+	AD_Task: AD_Task!
+	ASP_Level: ASP_Level!
+	ASP_Status: AD_Ref_List!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input ASP_TaskInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Operation System Task
+	AD_Task: ForeignEntityInput
+	ASP_Level: ForeignEntityInput
+	ASP_Status: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+}

@@ -1,0 +1,57 @@
+# Generated Schema for C_TaxProviderCfg - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_TaxProviderCfgGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxProviderCfgConnection!
+}
+
+extend type Mutation {
+	C_TaxProviderCfgSave(Entity: C_TaxProviderCfgInput!): C_TaxProviderCfg!
+	C_TaxProviderCfgSaveMany(Entities: [C_TaxProviderCfgInput!]!): [C_TaxProviderCfg!]!
+	C_TaxProviderCfgDelete(UUs: [String!]!): Boolean!
+}
+
+type C_TaxProviderCfgConnection {
+	Results: [C_TaxProviderCfg!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_TaxProviderCfg {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	TaxProviderClass: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+}
+
+input C_TaxProviderCfgInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	TaxProviderClass: String
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+}

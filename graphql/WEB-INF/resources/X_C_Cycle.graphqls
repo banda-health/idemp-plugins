@@ -1,0 +1,55 @@
+# Generated Schema for C_Cycle - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CycleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CycleConnection!
+}
+
+extend type Mutation {
+	C_CycleSave(Entity: C_CycleInput!): C_Cycle!
+	C_CycleSaveMany(Entities: [C_CycleInput!]!): [C_Cycle!]!
+	C_CycleDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CycleConnection {
+	Results: [C_Cycle!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Cycle {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CycleInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

@@ -1,0 +1,3 @@
+extend type C_BP_Group {
+	AssociatedCustomerReceivablesCharge: C_Charge
+}

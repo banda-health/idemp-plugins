@@ -1,0 +1,51 @@
+# Generated Schema for C_CyclePhase - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CyclePhaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CyclePhaseConnection!
+}
+
+extend type Mutation {
+	C_CyclePhaseSave(Entity: C_CyclePhaseInput!): C_CyclePhase!
+	C_CyclePhaseSaveMany(Entities: [C_CyclePhaseInput!]!): [C_CyclePhase!]!
+	C_CyclePhaseDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CyclePhaseConnection {
+	Results: [C_CyclePhase!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CyclePhase {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# The step for this Cycle
+	C_CycleStep: C_CycleStep!
+	# Standard Phase of the Project Type
+	C_Phase: C_Phase!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CyclePhaseInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# The step for this Cycle
+	C_CycleStep: ForeignEntityInput
+	# Standard Phase of the Project Type
+	C_Phase: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

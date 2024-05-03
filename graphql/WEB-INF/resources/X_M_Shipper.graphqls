@@ -1,0 +1,59 @@
+# Generated Schema for M_Shipper - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_ShipperGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ShipperConnection!
+}
+
+extend type Mutation {
+	M_ShipperSave(Entity: M_ShipperInput!): M_Shipper!
+	M_ShipperSaveMany(Entities: [M_ShipperInput!]!): [M_Shipper!]!
+	M_ShipperDelete(UUs: [String!]!): Boolean!
+}
+
+type M_ShipperConnection {
+	Results: [M_Shipper!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Shipper {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	M_ShipperCfg: M_ShipperCfg
+	M_ShippingProcessor: M_ShippingProcessor
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ShipperInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	M_ShipperCfg: ForeignEntityInput
+	M_ShippingProcessor: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+}

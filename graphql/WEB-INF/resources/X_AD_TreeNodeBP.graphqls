@@ -1,0 +1,51 @@
+# Generated Schema for AD_TreeNodeBP - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_TreeNodeBPGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeNodeBPConnection!
+}
+
+extend type Mutation {
+	AD_TreeNodeBPSave(Entity: AD_TreeNodeBPInput!): AD_TreeNodeBP!
+	AD_TreeNodeBPSaveMany(Entities: [AD_TreeNodeBPInput!]!): [AD_TreeNodeBP!]!
+	AD_TreeNodeBPDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_TreeNodeBPConnection {
+	Results: [AD_TreeNodeBP!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_TreeNodeBP {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Tree
+	AD_Tree: AD_Tree!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_TreeNodeBPInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Tree
+	AD_Tree: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

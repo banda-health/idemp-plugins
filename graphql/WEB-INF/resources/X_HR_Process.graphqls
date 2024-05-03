@@ -1,0 +1,123 @@
+# Generated Schema for HR_Process - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_ProcessGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ProcessConnection!
+}
+
+extend type Mutation {
+	HR_ProcessSave(Entity: HR_ProcessInput!): HR_Process!
+	HR_ProcessSaveMany(Entities: [HR_ProcessInput!]!): [HR_Process!]!
+	HR_ProcessDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_ProcessConnection {
+	Results: [HR_Process!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Process {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Additional document charges
+	C_Charge: C_Charge
+	# Document type or rules
+	C_DocType: C_DocType
+	# Target document type for conversing documents
+	C_DocTypeTarget: C_DocType!
+	# Payment Selection
+	C_PaySelection: C_PaySelection
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String
+	HR_Department: HR_Department
+	HR_Employee: HR_Employee
+	HR_Job: HR_Job
+	HR_Payroll: HR_Payroll!
+	HR_Period: HR_Period
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Posting status
+	Posted: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# ID of document reversal
+	Reversal: HR_Process
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_ProcessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Target document type for conversing documents
+	C_DocTypeTarget: ForeignEntityInput
+	# Payment Selection
+	C_PaySelection: ForeignEntityInput
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Accounting Date
+	DateAcct: Date
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	HR_Department: ForeignEntityInput
+	HR_Employee: ForeignEntityInput
+	HR_Job: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	HR_Period: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Posting status
+	Posted: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+}

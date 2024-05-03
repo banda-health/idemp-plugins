@@ -1,0 +1,115 @@
+# Generated Schema for T_InventoryValue - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_InventoryValueGet(Page: Int, Size: Int, Sort: String, Filter: String): T_InventoryValueConnection!
+}
+
+extend type Mutation {
+	T_InventoryValueSave(Entity: T_InventoryValueInput!): T_InventoryValue!
+	T_InventoryValueSaveMany(Entities: [T_InventoryValueInput!]!): [T_InventoryValue!]!
+	T_InventoryValueDelete(UUs: [String!]!): Boolean!
+}
+
+type T_InventoryValueConnection {
+	Results: [T_InventoryValue!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_InventoryValue {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Cost information
+	Cost: BigDecimal
+	# Value with Cost
+	CostAmt: BigDecimal
+	# Standard Costs
+	CostStandard: BigDecimal
+	# Value in Standard Costs
+	CostStandardAmt: BigDecimal
+	# Date of valuation
+	DateValue: Date
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Product Cost Element
+	M_CostElement: M_CostElement
+	# Identifies a unique instance of a Price List
+	M_PriceList_Version: M_PriceList_Version
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Lowest price for a product
+	PriceLimit: BigDecimal
+	# Value with limit price
+	PriceLimitAmt: BigDecimal
+	# List Price
+	PriceList: BigDecimal
+	# Valuation with List Price
+	PriceListAmt: BigDecimal
+	# Price based on a purchase order
+	PricePO: BigDecimal
+	# Valuation with PO Price
+	PricePOAmt: BigDecimal
+	# Standard Price
+	PriceStd: BigDecimal
+	# Valuation with standard price
+	PriceStdAmt: BigDecimal
+	# On Hand Quantity
+	QtyOnHand: BigDecimal
+	UU: ID!
+}
+
+input T_InventoryValueInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Cost information
+	Cost: BigDecimal
+	# Value with Cost
+	CostAmt: BigDecimal
+	# Standard Costs
+	CostStandard: BigDecimal
+	# Value in Standard Costs
+	CostStandardAmt: BigDecimal
+	# Date of valuation
+	DateValue: Date
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	# Identifies a unique instance of a Price List
+	M_PriceList_Version: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Lowest price for a product
+	PriceLimit: BigDecimal
+	# Value with limit price
+	PriceLimitAmt: BigDecimal
+	# List Price
+	PriceList: BigDecimal
+	# Valuation with List Price
+	PriceListAmt: BigDecimal
+	# Price based on a purchase order
+	PricePO: BigDecimal
+	# Valuation with PO Price
+	PricePOAmt: BigDecimal
+	# Standard Price
+	PriceStd: BigDecimal
+	# Valuation with standard price
+	PriceStdAmt: BigDecimal
+	# On Hand Quantity
+	QtyOnHand: BigDecimal
+	UU: ID
+}

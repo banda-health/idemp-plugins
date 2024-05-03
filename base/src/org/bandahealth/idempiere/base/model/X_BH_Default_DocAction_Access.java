@@ -22,15 +22,16 @@ import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for BH_Default_DocAction_Access
- *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
-public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_DocAction_Access, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Default_DocAction_Access")
+public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_DocAction_Access, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20210216L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Default_DocAction_Access (Properties ctx, int BH_Default_DocAction_Access_ID, String trxName)
@@ -39,6 +40,46 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
       /** if (BH_Default_DocAction_Access_ID == 0)
         {
 			setAD_Ref_List_ID (0);
+			setBH_Default_DocAction_Access_ID (0);
+			setC_DocType_ID (0);
+			setDB_UserType (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Default_DocAction_Access (Properties ctx, int BH_Default_DocAction_Access_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Default_DocAction_Access_ID, trxName, virtualColumns);
+      /** if (BH_Default_DocAction_Access_ID == 0)
+        {
+			setAD_Ref_List_ID (0);
+			setBH_Default_DocAction_Access_ID (0);
+			setC_DocType_ID (0);
+			setDB_UserType (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Default_DocAction_Access (Properties ctx, String BH_Default_DocAction_Access_UU, String trxName)
+    {
+      super (ctx, BH_Default_DocAction_Access_UU, trxName);
+      /** if (BH_Default_DocAction_Access_UU == null)
+        {
+			setAD_Ref_List_ID (0);
+			setBH_Default_DocAction_Access_ID (0);
+			setC_DocType_ID (0);
+			setDB_UserType (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Default_DocAction_Access (Properties ctx, String BH_Default_DocAction_Access_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Default_DocAction_Access_UU, trxName, virtualColumns);
+      /** if (BH_Default_DocAction_Access_UU == null)
+        {
+			setAD_Ref_List_ID (0);
+			setBH_Default_DocAction_Access_ID (0);
 			setC_DocType_ID (0);
 			setDB_UserType (null);
         } */
@@ -51,7 +92,7 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
     }
 
     /** AccessLevel
-      * @return 4 - System 
+      * @return 4 - System
       */
     protected int get_AccessLevel()
     {
@@ -73,26 +114,26 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
     }
 
 	public org.compiere.model.I_AD_Ref_List getAD_Ref_List() throws RuntimeException
-    {
-		return (org.compiere.model.I_AD_Ref_List)MTable.get(getCtx(), org.compiere.model.I_AD_Ref_List.Table_Name)
-			.getPO(getAD_Ref_List_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_AD_Ref_List)MTable.get(getCtx(), org.compiere.model.I_AD_Ref_List.Table_ID)
+			.getPO(getAD_Ref_List_ID(), get_TrxName());
+	}
 
 	/** Set Reference List.
-		@param AD_Ref_List_ID 
-		Reference List based on Table
-	  */
+		@param AD_Ref_List_ID Reference List based on Table
+	*/
 	public void setAD_Ref_List_ID (int AD_Ref_List_ID)
 	{
-		if (AD_Ref_List_ID < 1) 
+		if (AD_Ref_List_ID < 1)
 			set_Value (COLUMNNAME_AD_Ref_List_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_AD_Ref_List_ID, Integer.valueOf(AD_Ref_List_ID));
 	}
 
 	/** Get Reference List.
 		@return Reference List based on Table
 	  */
-	public int getAD_Ref_List_ID () 
+	public int getAD_Ref_List_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_AD_Ref_List_ID);
 		if (ii == null)
@@ -101,18 +142,19 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
 	}
 
 	/** Set BH_Default_DocAction_Access_ID.
-		@param BH_Default_DocAction_Access_ID BH_Default_DocAction_Access_ID	  */
+		@param BH_Default_DocAction_Access_ID BH_Default_DocAction_Access_ID
+	*/
 	public void setBH_Default_DocAction_Access_ID (int BH_Default_DocAction_Access_ID)
 	{
-		if (BH_Default_DocAction_Access_ID < 1) 
+		if (BH_Default_DocAction_Access_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Default_DocAction_Access_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Default_DocAction_Access_ID, Integer.valueOf(BH_Default_DocAction_Access_ID));
 	}
 
 	/** Get BH_Default_DocAction_Access_ID.
 		@return BH_Default_DocAction_Access_ID	  */
-	public int getBH_Default_DocAction_Access_ID () 
+	public int getBH_Default_DocAction_Access_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Default_DocAction_Access_ID);
 		if (ii == null)
@@ -121,7 +163,8 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
 	}
 
 	/** Set BH_Default_DocAction_Access_UU.
-		@param BH_Default_DocAction_Access_UU BH_Default_DocAction_Access_UU	  */
+		@param BH_Default_DocAction_Access_UU BH_Default_DocAction_Access_UU
+	*/
 	public void setBH_Default_DocAction_Access_UU (String BH_Default_DocAction_Access_UU)
 	{
 		set_Value (COLUMNNAME_BH_Default_DocAction_Access_UU, BH_Default_DocAction_Access_UU);
@@ -129,32 +172,32 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
 
 	/** Get BH_Default_DocAction_Access_UU.
 		@return BH_Default_DocAction_Access_UU	  */
-	public String getBH_Default_DocAction_Access_UU () 
+	public String getBH_Default_DocAction_Access_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Default_DocAction_Access_UU);
 	}
 
 	public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException
-    {
-		return (org.compiere.model.I_C_DocType)MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-			.getPO(getC_DocType_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_C_DocType)MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_ID)
+			.getPO(getC_DocType_ID(), get_TrxName());
+	}
 
 	/** Set Document Type.
-		@param C_DocType_ID 
-		Document type or rules
-	  */
+		@param C_DocType_ID Document type or rules
+	*/
 	public void setC_DocType_ID (int C_DocType_ID)
 	{
-		if (C_DocType_ID < 0) 
+		if (C_DocType_ID < 0)
 			set_Value (COLUMNNAME_C_DocType_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
 	}
 
 	/** Get Document Type.
 		@return Document type or rules
 	  */
-	public int getC_DocType_ID () 
+	public int getC_DocType_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_C_DocType_ID);
 		if (ii == null)
@@ -164,14 +207,35 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
 
 	/** Admin = A */
 	public static final String DB_USERTYPE_Admin = "A";
+	/** Clinic Admin = B */
+	public static final String DB_USERTYPE_ClinicAdmin = "B";
+	/** Clinician/Nurse Basic = C */
+	public static final String DB_USERTYPE_ClinicianNurseBasic = "C";
+	/** Cashier/Registration Advanced = D */
+	public static final String DB_USERTYPE_CashierRegistrationAdvanced = "D";
+	/** Clinician/Nurse Advanced = E */
+	public static final String DB_USERTYPE_ClinicianNurseAdvanced = "E";
+	/** Inventory/Pharmacy Advanced = I */
+	public static final String DB_USERTYPE_InventoryPharmacyAdvanced = "I";
+	/** Inventory/Pharmacy Basic = J */
+	public static final String DB_USERTYPE_InventoryPharmacyBasic = "J";
+	/** Lab/Radiology = L */
+	public static final String DB_USERTYPE_LabRadiology = "L";
+	/** Clinic User = M */
+	public static final String DB_USERTYPE_ClinicUser = "M";
+	/** Cashier/Registration Basic = R */
+	public static final String DB_USERTYPE_CashierRegistrationBasic = "R";
+	/** Triage = T */
+	public static final String DB_USERTYPE_Triage = "T";
 	/** User = U */
 	public static final String DB_USERTYPE_User = "U";
 	/** Advanced User = V */
 	public static final String DB_USERTYPE_AdvancedUser = "V";
+	/** Accounting = X */
+	public static final String DB_USERTYPE_Accounting = "X";
 	/** Set UserType.
-		@param DB_UserType 
-		The User Type when a new client is created
-	  */
+		@param DB_UserType The User Type when a new client is created
+	*/
 	public void setDB_UserType (String DB_UserType)
 	{
 
@@ -181,7 +245,7 @@ public class X_BH_Default_DocAction_Access extends PO implements I_BH_Default_Do
 	/** Get UserType.
 		@return The User Type when a new client is created
 	  */
-	public String getDB_UserType () 
+	public String getDB_UserType()
 	{
 		return (String)get_Value(COLUMNNAME_DB_UserType);
 	}

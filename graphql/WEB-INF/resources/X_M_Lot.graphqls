@@ -1,0 +1,71 @@
+# Generated Schema for M_Lot - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_LotGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LotConnection!
+}
+
+extend type Mutation {
+	M_LotSave(Entity: M_LotInput!): M_Lot!
+	M_LotSaveMany(Entities: [M_LotInput!]!): [M_Lot!]!
+	M_LotDelete(UUs: [String!]!): Boolean!
+}
+
+type M_LotConnection {
+	Results: [M_Lot!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Lot {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Product Lot Control
+	M_LotCtl: M_LotCtl
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_LotInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Product Lot Control
+	M_LotCtl: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+}

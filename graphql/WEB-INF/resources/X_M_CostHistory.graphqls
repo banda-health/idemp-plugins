@@ -1,0 +1,95 @@
+# Generated Schema for M_CostHistory - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_CostHistoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostHistoryConnection!
+}
+
+extend type Mutation {
+	M_CostHistorySave(Entity: M_CostHistoryInput!): M_CostHistory!
+	M_CostHistorySaveMany(Entities: [M_CostHistoryInput!]!): [M_CostHistory!]!
+	M_CostHistoryDelete(UUs: [String!]!): Boolean!
+}
+
+type M_CostHistoryConnection {
+	Results: [M_CostHistory!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_CostHistory {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Cost Detail Information
+	M_CostDetail: M_CostDetail!
+	# Product Cost Element
+	M_CostElement: M_CostElement!
+	UU: ID!
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: M_CostType!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Accumulated Amt after processing of M_CostDetail
+	NewCAmt: BigDecimal
+	# New current cost price after processing of M_CostDetail
+	NewCostPrice: BigDecimal!
+	# New Accumulated Qty after processing of M_CostDetail
+	NewCQty: BigDecimal
+	# New current quantity after processing of M_CostDetail
+	NewQty: BigDecimal!
+	# Old accumulated amt before the processing of M_CostDetail
+	OldCAmt: BigDecimal
+	# Old current cost price before the processing of M_CostDetail
+	OldCostPrice: BigDecimal!
+	# Old accumulated qty before the processing of M_CostDetail
+	OldCQty: BigDecimal
+	# Old current quantity before the processing of M_CostDetail
+	OldQty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_CostHistoryInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Cost Detail Information
+	M_CostDetail: ForeignEntityInput
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	UU: ID
+	# Type of Cost (e.g. Current, Plan, Future)
+	M_CostType: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Accumulated Amt after processing of M_CostDetail
+	NewCAmt: BigDecimal
+	# New current cost price after processing of M_CostDetail
+	NewCostPrice: BigDecimal
+	# New Accumulated Qty after processing of M_CostDetail
+	NewCQty: BigDecimal
+	# New current quantity after processing of M_CostDetail
+	NewQty: BigDecimal
+	# Old accumulated amt before the processing of M_CostDetail
+	OldCAmt: BigDecimal
+	# Old current cost price before the processing of M_CostDetail
+	OldCostPrice: BigDecimal
+	# Old accumulated qty before the processing of M_CostDetail
+	OldCQty: BigDecimal
+	# Old current quantity before the processing of M_CostDetail
+	OldQty: BigDecimal
+}

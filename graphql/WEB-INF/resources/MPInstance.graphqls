@@ -1,0 +1,5 @@
+extend type AD_PInstance {
+	AD_PInstance_ParaList: [AD_PInstance_Para!]
+	AD_Process_ParaList: [AD_Process_Para!]
+	AD_PInstance_Logs: [AD_PInstance_Log!]
+}

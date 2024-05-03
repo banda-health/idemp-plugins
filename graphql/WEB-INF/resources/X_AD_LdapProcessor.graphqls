@@ -1,0 +1,73 @@
+# Generated Schema for AD_LdapProcessor - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_LdapProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LdapProcessorConnection!
+}
+
+extend type Mutation {
+	AD_LdapProcessorSave(Entity: AD_LdapProcessorInput!): AD_LdapProcessor!
+	AD_LdapProcessorSaveMany(Entities: [AD_LdapProcessorInput!]!): [AD_LdapProcessor!]!
+	AD_LdapProcessorDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_LdapProcessorConnection {
+	Results: [AD_LdapProcessor!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_LdapProcessor {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Number of days to keep the log entries
+	KeepLogDays: Int!
+	# The port the server is listening
+	LdapPort: Int!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: AD_User!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_LdapProcessorInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Number of days to keep the log entries
+	KeepLogDays: Int
+	# The port the server is listening
+	LdapPort: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: ForeignEntityInput
+}

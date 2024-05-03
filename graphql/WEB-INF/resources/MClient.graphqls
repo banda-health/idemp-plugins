@@ -1,0 +1,3 @@
+extend type AD_Client {
+	AD_Orgs: [AD_Org!]!
+}

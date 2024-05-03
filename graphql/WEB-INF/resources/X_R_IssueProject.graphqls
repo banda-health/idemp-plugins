@@ -1,0 +1,71 @@
+# Generated Schema for R_IssueProject - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_IssueProjectGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueProjectConnection!
+}
+
+extend type Mutation {
+	R_IssueProjectSave(Entity: R_IssueProjectInput!): R_IssueProject!
+	R_IssueProjectSaveMany(Entities: [R_IssueProjectInput!]!): [R_IssueProject!]!
+	R_IssueProjectDelete(UUs: [String!]!): Boolean!
+}
+
+type R_IssueProjectConnection {
+	Results: [R_IssueProject!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_IssueProject {
+	# Asset used internally or by customers
+	A_Asset: A_Asset
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Financial Project
+	C_Project: C_Project
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Information to help profiling the system for solving support issues
+	ProfileInfo: String
+	UU: ID!
+	# Information to help profiling the system for solving support issues
+	StatisticsInfo: String
+	# Status of the system - Support priority depends on system status
+	SystemStatus: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_IssueProjectInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Information to help profiling the system for solving support issues
+	ProfileInfo: String
+	UU: ID
+	# Information to help profiling the system for solving support issues
+	StatisticsInfo: String
+	# Status of the system - Support priority depends on system status
+	SystemStatus: ForeignEntityInput
+}

@@ -1,0 +1,71 @@
+# Generated Schema for AD_ViewColumn - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ViewColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ViewColumnConnection!
+}
+
+extend type Mutation {
+	AD_ViewColumnSave(Entity: AD_ViewColumnInput!): AD_ViewColumn!
+	AD_ViewColumnSaveMany(Entities: [AD_ViewColumnInput!]!): [AD_ViewColumn!]!
+	AD_ViewColumnDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ViewColumnConnection {
+	Results: [AD_ViewColumn!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ViewColumn {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	AD_ViewComponent: AD_ViewComponent!
+	# Name of the column in the database
+	ColumnName: String!
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DBDataType: AD_Ref_List
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ViewColumnInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	AD_ViewComponent: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	DBDataType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

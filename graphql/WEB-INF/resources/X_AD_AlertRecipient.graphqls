@@ -1,0 +1,55 @@
+# Generated Schema for AD_AlertRecipient - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_AlertRecipientGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AlertRecipientConnection!
+}
+
+extend type Mutation {
+	AD_AlertRecipientSave(Entity: AD_AlertRecipientInput!): AD_AlertRecipient!
+	AD_AlertRecipientSaveMany(Entities: [AD_AlertRecipientInput!]!): [AD_AlertRecipient!]!
+	AD_AlertRecipientDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_AlertRecipientConnection {
+	Results: [AD_AlertRecipient!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_AlertRecipient {
+	# iDempiere Alert
+	AD_Alert: AD_Alert!
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_AlertRecipientInput {
+	# iDempiere Alert
+	AD_Alert: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

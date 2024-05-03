@@ -1,0 +1,3 @@
+extend type C_InvoiceBatch {
+	C_InvoiceBatchLines: [C_InvoiceBatchLine!]
+}

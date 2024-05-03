@@ -1,0 +1,59 @@
+# Generated Schema for AD_AllClients_V - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_AllClients_VGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AllClients_VConnection!
+}
+
+extend type Mutation {
+	AD_AllClients_VSave(Entity: AD_AllClients_VInput!): AD_AllClients_V!
+	AD_AllClients_VSaveMany(Entities: [AD_AllClients_VInput!]!): [AD_AllClients_V!]!
+	AD_AllClients_VDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_AllClients_VConnection {
+	Results: [AD_AllClients_V!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_AllClients_V {
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Language for this entity
+	AD_Language: AD_Language
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input AD_AllClients_VInput {
+	UU: ID
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

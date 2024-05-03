@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_M_ChangeNoticeInput;
+import org.bandahealth.idempiere.graphql.model.input.X_M_ChangeNoticeInput;
+import org.compiere.model.MChangeNotice;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for M_ChangeNotice - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_M_ChangeNoticeMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_M_ChangeNoticeInput.Table_Name;
+	}
+
+	public MChangeNotice M_ChangeNoticeSave(I_M_ChangeNoticeInput Entity, DataFetchingEnvironment environment) {
+		return (MChangeNotice) super.save((X_M_ChangeNoticeInput) Entity, environment);
+	}
+
+	public List<MChangeNotice> M_ChangeNoticeSaveMany(List<I_M_ChangeNoticeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_ChangeNoticeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MChangeNotice) entity).collect(Collectors.toList());
+	}
+
+	public boolean M_ChangeNoticeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

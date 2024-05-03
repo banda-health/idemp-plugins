@@ -1,0 +1,55 @@
+# Generated Schema for C_JobCategory - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_JobCategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobCategoryConnection!
+}
+
+extend type Mutation {
+	C_JobCategorySave(Entity: C_JobCategoryInput!): C_JobCategory!
+	C_JobCategorySaveMany(Entities: [C_JobCategoryInput!]!): [C_JobCategory!]!
+	C_JobCategoryDelete(UUs: [String!]!): Boolean!
+}
+
+type C_JobCategoryConnection {
+	Results: [C_JobCategory!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_JobCategory {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_JobCategoryInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

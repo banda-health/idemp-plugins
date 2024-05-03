@@ -1,0 +1,61 @@
+# Generated Schema for M_LocatorType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_LocatorTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LocatorTypeConnection!
+}
+
+extend type Mutation {
+	M_LocatorTypeSave(Entity: M_LocatorTypeInput!): M_LocatorType!
+	M_LocatorTypeSaveMany(Entities: [M_LocatorTypeInput!]!): [M_LocatorType!]!
+	M_LocatorTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type M_LocatorTypeConnection {
+	Results: [M_LocatorType!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_LocatorType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsAvailableForReplenishment: Boolean!
+	IsAvailableForReservation: Boolean!
+	IsAvailableForShipping: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_LocatorTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsAvailableForReplenishment: Boolean
+	IsAvailableForReservation: Boolean
+	IsAvailableForShipping: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

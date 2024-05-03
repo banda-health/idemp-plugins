@@ -1,0 +1,204 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.graphql.utils.ModelUtil;
+import org.compiere.model.MAccount;
+import org.compiere.model.MAcctSchema;
+import org.compiere.model.MOrg;
+import org.compiere.model.Query;
+import org.compiere.model.X_M_Warehouse_Acct;
+import org.compiere.util.Env;
+
+import java.sql.ResultSet;
+
+/**
+ * Generated Model for M_Warehouse_Acct - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_M_Warehouse_AcctInput extends X_M_Warehouse_Acct implements I_M_Warehouse_AcctInput {
+
+	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mC_AcctSchema;
+	private ForeignEntityInput mM_Warehouse;
+	private ForeignEntityInput mW_Differences_A;
+
+	/**
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UU The M_Warehouse_Acct_UU to fetch this entity from the DB
+	 */
+	@JsonCreator
+	public X_M_Warehouse_AcctInput(@JsonProperty("UU") String UU) {
+		super(Env.getCtx(), ModelUtil.confirmUuidOrError(null, Table_Name, UU), null);
+		setUU(UU);
+	}
+
+	/**
+	 * Set Organization.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public void setAD_OrgInput(ForeignEntityInput AD_Org) {
+		this.mAD_Org = AD_Org;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (AD_Org != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MOrg foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "AD_Org", "AD_Org_UU=?", get_TrxName())
+							.setParameters(AD_Org.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setAD_Org_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table AD_Org with UU " + AD_Org.getUU());
+			}
+		} else {
+			this.setAD_Org_ID(0);
+		}
+	}
+
+	/**
+	 * Get Organization.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	@JsonProperty("AD_Org")
+	public ForeignEntityInput AD_Org() {
+		return mAD_Org;
+	}
+
+	/**
+	 * Set Accounting Schema.
+	 *
+	 * @param C_AcctSchema Rules for accounting
+	 */
+	@JsonProperty("C_AcctSchema")
+	public void setC_AcctSchemaInput(ForeignEntityInput C_AcctSchema) {
+		this.mC_AcctSchema = C_AcctSchema;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (C_AcctSchema != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAcctSchema foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_AcctSchema", "C_AcctSchema_UU=?", get_TrxName())
+							.setParameters(C_AcctSchema.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setC_AcctSchema_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_AcctSchema with UU " + C_AcctSchema.getUU());
+			}
+		} else {
+			this.setC_AcctSchema_ID(0);
+		}
+	}
+
+	/**
+	 * Get Accounting Schema.
+	 *
+	 * @return Rules for accounting
+	 */
+	@JsonProperty("C_AcctSchema")
+	public ForeignEntityInput C_AcctSchema() {
+		return mC_AcctSchema;
+	}
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	public void setUU(String UU) {
+		setM_Warehouse_Acct_UU(UU);
+	}
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	public String getUU() {
+		return getM_Warehouse_Acct_UU();
+	}
+
+	/**
+	 * Set Warehouse.
+	 *
+	 * @param M_Warehouse Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_Warehouse")
+	public void setM_WarehouseInput(ForeignEntityInput M_Warehouse) {
+		this.mM_Warehouse = M_Warehouse;
+		if (get_ID() != 0) {
+			return;
+		}
+		if (M_Warehouse != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MWarehouse_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "M_Warehouse", "M_Warehouse_UU=?", get_TrxName())
+							.setParameters(M_Warehouse.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setM_Warehouse_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table M_Warehouse with UU " + M_Warehouse.getUU());
+			}
+		} else {
+			this.setM_Warehouse_ID(0);
+		}
+	}
+
+	/**
+	 * Get Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	@JsonProperty("M_Warehouse")
+	public ForeignEntityInput M_Warehouse() {
+		return mM_Warehouse;
+	}
+
+	/**
+	 * Set Warehouse Differences.
+	 *
+	 * @param W_Differences_A Warehouse Differences Account
+	 */
+	@JsonProperty("W_Differences_A")
+	public void setW_Differences_AInput(ForeignEntityInput W_Differences_A) {
+		this.mW_Differences_A = W_Differences_A;
+		if (W_Differences_A != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MAccount foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "C_ValidCombination", "C_ValidCombination_UU=?", get_TrxName())
+							.setParameters(W_Differences_A.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setW_Differences_Acct(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table C_ValidCombination with UU " + W_Differences_A.getUU());
+			}
+		} else {
+			this.setW_Differences_Acct(0);
+		}
+	}
+
+	/**
+	 * Get Warehouse Differences.
+	 *
+	 * @return Warehouse Differences Account
+	 */
+	@JsonProperty("W_Differences_A")
+	public ForeignEntityInput W_Differences_A() {
+		return mW_Differences_A;
+	}
+}

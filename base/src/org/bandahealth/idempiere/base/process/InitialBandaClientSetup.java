@@ -18,7 +18,9 @@ import org.compiere.model.MRole;
 import org.compiere.model.MSysConfig;
 import org.compiere.model.MUser;
 import org.compiere.model.MUserRoles;
+import org.compiere.model.PO;
 import org.compiere.model.Query;
+import org.compiere.model.SystemIDs;
 import org.compiere.process.ImportAccount;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.Env;
@@ -258,7 +260,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating attribute sets failed"));
 			}
-			
+
 			if (!bandaSetup.createDefaultBusinessPartners()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default business partners failed"));
@@ -303,7 +305,7 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				.addJoinClause("JOIN " + MUserRoles.Table_Name + " ON " + MUser_BH.Table_Name + "."
 						+ MUser_BH.COLUMNNAME_AD_User_ID + " = " + MUserRoles.Table_Name + "."
 						+ MUserRoles.COLUMNNAME_AD_User_ID)
-				.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, MRole_BH.SYSTEM_ROLE_ID).list();
+				.setParameters(MClient_BH.CLIENTID_LAST_SYSTEM, SystemIDs.ROLE_SYSTEM).list();
 		Set<Integer> systemUsersToAdd = systemAdministrators.stream().map(MUser_BH::get_ID).collect(Collectors.toSet());
 
 		String whereClause = "?,".repeat(clientRoles.size());

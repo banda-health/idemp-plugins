@@ -1,0 +1,4 @@
+extend type AD_TreeNodeMM {
+	Node: AD_Menu
+	Parent: AD_Menu
+}

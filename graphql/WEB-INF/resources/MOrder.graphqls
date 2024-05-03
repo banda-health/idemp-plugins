@@ -1,0 +1,11 @@
+extend type Mutation {
+	C_OrderProcess(UU: ID!, DocumentAction: String!): C_Order
+}
+
+extend type C_Order {
+	C_Invoices: [C_Invoice!]
+	C_OrderLandedCostList: [C_OrderLandedCost!]
+	C_OrderLines: [C_OrderLine!]
+	C_OrderTaxList: [C_OrderTax!]
+	M_InOuts: [M_InOut!]
+}

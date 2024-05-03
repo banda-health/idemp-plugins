@@ -1,0 +1,3 @@
+extend type GL_JournalBatch {
+	GL_JournalList: [GL_Journal!]
+}

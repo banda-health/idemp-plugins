@@ -1,0 +1,51 @@
+# Generated Schema for AD_PrintHeaderFooter - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PrintHeaderFooterGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintHeaderFooterConnection!
+}
+
+extend type Mutation {
+	AD_PrintHeaderFooterSave(Entity: AD_PrintHeaderFooterInput!): AD_PrintHeaderFooter!
+	AD_PrintHeaderFooterSaveMany(Entities: [AD_PrintHeaderFooterInput!]!): [AD_PrintHeaderFooter!]!
+	AD_PrintHeaderFooterDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PrintHeaderFooterConnection {
+	Results: [AD_PrintHeaderFooter!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PrintHeaderFooter {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Source Class Name
+	SourceClassName: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PrintHeaderFooterInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Source Class Name
+	SourceClassName: String
+}

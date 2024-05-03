@@ -1,0 +1,107 @@
+# Generated Schema for C_Recurring - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RecurringGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RecurringConnection!
+}
+
+extend type Mutation {
+	C_RecurringSave(Entity: C_RecurringInput!): C_Recurring!
+	C_RecurringSaveMany(Entities: [C_RecurringInput!]!): [C_Recurring!]!
+	C_RecurringDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RecurringConnection {
+	Results: [C_Recurring!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Recurring {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Order
+	C_Order: C_Order
+	# Payment identifier
+	C_Payment: C_Payment
+	# Financial Project
+	C_Project: C_Project
+	UU: ID!
+	C_RecurringGroup: C_RecurringGroup
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date!
+	# Optional short description of the record
+	Description: String
+	# Frequency of events
+	Frequency: Int
+	# Frequency of event
+	FrequencyType: AD_Ref_List!
+	# General Ledger Journal Batch
+	GL_JournalBatch: GL_JournalBatch
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Type of Recurring Document
+	RecurringType: AD_Ref_List!
+	# Number of recurring runs
+	RunsMax: Int!
+	# Number of recurring runs remaining
+	RunsRemaining: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RecurringInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	UU: ID
+	C_RecurringGroup: ForeignEntityInput
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# Frequency of events
+	Frequency: Int
+	# Frequency of event
+	FrequencyType: ForeignEntityInput
+	# General Ledger Journal Batch
+	GL_JournalBatch: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Type of Recurring Document
+	RecurringType: ForeignEntityInput
+	# Number of recurring runs
+	RunsMax: Int
+	# Number of recurring runs remaining
+	RunsRemaining: Int
+}

@@ -1,0 +1,95 @@
+# Generated Schema for AD_WF_EventAudit - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_EventAuditGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_EventAuditConnection!
+}
+
+extend type Mutation {
+	AD_WF_EventAuditSave(Entity: AD_WF_EventAuditInput!): AD_WF_EventAudit!
+	AD_WF_EventAuditSaveMany(Entities: [AD_WF_EventAuditInput!]!): [AD_WF_EventAudit!]!
+	AD_WF_EventAuditDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_EventAuditConnection {
+	Results: [AD_WF_EventAudit!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_EventAudit {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	UU: ID!
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	# Actual Workflow Process Instance
+	AD_WF_Process: AD_WF_Process!
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: AD_WF_Responsible!
+	# Name of the Attribute
+	AttributeName: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Elapsed Time in milli seconds
+	ElapsedTimeMS: BigDecimal!
+	# Type of Event
+	EventType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# New field value
+	NewValue: String
+	# The old file data
+	OldValue: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# State of the execution of the workflow
+	WFState: AD_Ref_List!
+}
+
+input AD_WF_EventAuditInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Actual Workflow Process Instance
+	AD_WF_Process: ForeignEntityInput
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	# Name of the Attribute
+	AttributeName: String
+	# Optional short description of the record
+	Description: String
+	# Elapsed Time in milli seconds
+	ElapsedTimeMS: BigDecimal
+	# Type of Event
+	EventType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# New field value
+	NewValue: String
+	# The old file data
+	OldValue: String
+	# Text Message
+	TextMsg: String
+	# State of the execution of the workflow
+	WFState: ForeignEntityInput
+}

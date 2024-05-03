@@ -1,0 +1,4 @@
+extend type R_RequestProcessor {
+	R_RequestProcessor_Routes: [R_RequestProcessor_Route!]
+	R_RequestProcessorLogs: [R_RequestProcessorLog!]
+}

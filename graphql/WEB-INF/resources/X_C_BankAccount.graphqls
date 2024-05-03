@@ -1,0 +1,93 @@
+# Generated Schema for C_BankAccount - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BankAccountGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccountConnection!
+}
+
+extend type Mutation {
+	C_BankAccountSave(Entity: C_BankAccountInput!): C_BankAccount!
+	C_BankAccountSaveMany(Entities: [C_BankAccountInput!]!): [C_BankAccount!]!
+	C_BankAccountDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BankAccountConnection {
+	Results: [C_BankAccount!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BankAccount {
+	# Account Number
+	AccountNo: String!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Bank Account Type
+	BankAccountType: AD_Ref_List!
+	# Basic Bank Account Number
+	BBAN: String
+	# Bank
+	C_Bank: C_Bank!
+	UU: ID!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Amount of Credit allowed
+	CreditLimit: BigDecimal!
+	# Current Balance
+	CurrentBalance: BigDecimal!
+	# Optional short description of the record
+	Description: String
+	# International Bank Account Number
+	IBAN: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	PaymentExportClass: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_BankAccountInput {
+	# Account Number
+	AccountNo: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Bank Account Type
+	BankAccountType: ForeignEntityInput
+	# Basic Bank Account Number
+	BBAN: String
+	# Bank
+	C_Bank: ForeignEntityInput
+	UU: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Amount of Credit allowed
+	CreditLimit: BigDecimal
+	# Current Balance
+	CurrentBalance: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# International Bank Account Number
+	IBAN: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	PaymentExportClass: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
