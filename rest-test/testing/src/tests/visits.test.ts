@@ -2334,6 +2334,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
+				encounterDate: new Date(1688636248131)
 			},
 			{
 				clientId: 1000000,
@@ -2362,6 +2363,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
+				encounterDate: new Date(1688636248131)
 			},
 		],
 		orders: [
