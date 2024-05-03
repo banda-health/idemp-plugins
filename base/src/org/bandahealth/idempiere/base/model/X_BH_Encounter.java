@@ -18,19 +18,21 @@
 package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.*;
 
 /** Generated Model for BH_Encounter
- *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
-public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Encounter")
+public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20231206L;
+	private static final long serialVersionUID = 20240425L;
 
     /** Standard Constructor */
     public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName)
@@ -39,6 +41,44 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
       /** if (BH_Encounter_ID == 0)
         {
 			setBH_Encounter_ID (0);
+			setBH_Encounter_Type (null);
+			setBH_Visit_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Encounter (Properties ctx, int BH_Encounter_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Encounter_ID, trxName, virtualColumns);
+      /** if (BH_Encounter_ID == 0)
+        {
+			setBH_Encounter_ID (0);
+			setBH_Encounter_Type (null);
+			setBH_Visit_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Encounter (Properties ctx, String BH_Encounter_UU, String trxName)
+    {
+      super (ctx, BH_Encounter_UU, trxName);
+      /** if (BH_Encounter_UU == null)
+        {
+			setBH_Encounter_ID (0);
+			setBH_Encounter_Type (null);
+			setBH_Visit_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Encounter (Properties ctx, String BH_Encounter_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Encounter_UU, trxName, virtualColumns);
+      /** if (BH_Encounter_UU == null)
+        {
+			setBH_Encounter_ID (0);
+			setBH_Encounter_Type (null);
+			setBH_Visit_ID (0);
         } */
     }
 
@@ -49,7 +89,7 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 3 - Client - Org
       */
     protected int get_AccessLevel()
     {
@@ -70,19 +110,36 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
       return sb.toString();
     }
 
+	/** Set Encounter Date.
+		@param BH_Encounter_Date the time a vital was taken
+	*/
+	public void setBH_Encounter_Date (Timestamp BH_Encounter_Date)
+	{
+		set_Value (COLUMNNAME_BH_Encounter_Date, BH_Encounter_Date);
+	}
+
+	/** Get Encounter Date.
+		@return the time a vital was taken
+	  */
+	public Timestamp getBH_Encounter_Date()
+	{
+		return (Timestamp)get_Value(COLUMNNAME_BH_Encounter_Date);
+	}
+
 	/** Set Encounter.
-		@param BH_Encounter_ID Encounter	  */
+		@param BH_Encounter_ID Encounter
+	*/
 	public void setBH_Encounter_ID (int BH_Encounter_ID)
 	{
-		if (BH_Encounter_ID < 1) 
+		if (BH_Encounter_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Encounter_ID, Integer.valueOf(BH_Encounter_ID));
 	}
 
 	/** Get Encounter.
 		@return Encounter	  */
-	public int getBH_Encounter_ID () 
+	public int getBH_Encounter_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Encounter_ID);
 		if (ii == null)
@@ -90,16 +147,19 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 		return ii.intValue();
 	}
 
-	/** Immunizations = I */
-	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
-	/** Capture Vitals = V */
-	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
-	/** Diagnosis = m */
-	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
+	/** Chief Complaint = C */
+	public static final String BH_ENCOUNTER_TYPE_ChiefComplaint = "C";
 	/** Clinical Details = D */
 	public static final String BH_ENCOUNTER_TYPE_ClinicalDetails = "D";
+	/** Immunizations = I */
+	public static final String BH_ENCOUNTER_TYPE_Immunizations = "I";
+	/** Diagnosis = m */
+	public static final String BH_ENCOUNTER_TYPE_Diagnosis = "m";
+	/** Capture Vitals = V */
+	public static final String BH_ENCOUNTER_TYPE_CaptureVitals = "V";
 	/** Set Encounter Type.
-		@param BH_Encounter_Type Encounter Type	  */
+		@param BH_Encounter_Type Encounter Type
+	*/
 	public void setBH_Encounter_Type (String BH_Encounter_Type)
 	{
 
@@ -108,13 +168,14 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 
 	/** Get Encounter Type.
 		@return Encounter Type	  */
-	public String getBH_Encounter_Type () 
+	public String getBH_Encounter_Type()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Encounter_Type);
 	}
 
 	/** Set BH_Encounter_UU.
-		@param BH_Encounter_UU BH_Encounter_UU	  */
+		@param BH_Encounter_UU BH_Encounter_UU
+	*/
 	public void setBH_Encounter_UU (String BH_Encounter_UU)
 	{
 		set_Value (COLUMNNAME_BH_Encounter_UU, BH_Encounter_UU);
@@ -122,24 +183,25 @@ public class X_BH_Encounter extends PO implements I_BH_Encounter, I_Persistent
 
 	/** Get BH_Encounter_UU.
 		@return BH_Encounter_UU	  */
-	public String getBH_Encounter_UU () 
+	public String getBH_Encounter_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Encounter_UU);
 	}
 
 	/** Set Visit.
-		@param BH_Visit_ID Visit	  */
+		@param BH_Visit_ID Visit
+	*/
 	public void setBH_Visit_ID (int BH_Visit_ID)
 	{
-		if (BH_Visit_ID < 1) 
+		if (BH_Visit_ID < 1)
 			set_Value (COLUMNNAME_BH_Visit_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_BH_Visit_ID, Integer.valueOf(BH_Visit_ID));
 	}
 
 	/** Get Visit.
 		@return Visit	  */
-	public int getBH_Visit_ID () 
+	public int getBH_Visit_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Visit_ID);
 		if (ii == null)
