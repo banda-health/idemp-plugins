@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.sql.Timestamp;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
@@ -58,6 +59,7 @@ public class EncounterDBService extends BaseDBService<Encounter, MBHEncounter> {
 		}
 		encounter.setBH_Visit_ID(entity.getVisitId());
 		encounter.setBH_Encounter_Date(entity.getEncounterDate());
+		
 		encounter.saveEx();
 
 		// save observations
