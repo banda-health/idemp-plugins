@@ -1,0 +1,59 @@
+# Generated Schema for BH_PaymentRef - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_PaymentRefGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_PaymentRefConnection!
+}
+
+extend type Mutation {
+	BH_PaymentRefSave(Entity: BH_PaymentRefInput!): BH_PaymentRef!
+	BH_PaymentRefSaveMany(Entities: [BH_PaymentRefInput!]!): [BH_PaymentRef!]!
+	BH_PaymentRefDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_PaymentRefConnection {
+	Results: [BH_PaymentRef!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_PaymentRef {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Represents an action the can be performed for the payment reference
+	BH_PaymentRef_Action: String
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_PaymentRefInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Represents an action the can be performed for the payment reference
+	BH_PaymentRef_Action: String
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

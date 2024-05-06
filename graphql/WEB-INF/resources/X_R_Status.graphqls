@@ -1,0 +1,99 @@
+# Generated Schema for R_Status - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_StatusGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StatusConnection!
+}
+
+extend type Mutation {
+	R_StatusSave(Entity: R_StatusInput!): R_Status!
+	R_StatusSaveMany(Entities: [R_StatusInput!]!): [R_Status!]!
+	R_StatusDelete(UUs: [String!]!): Boolean!
+}
+
+type R_StatusConnection {
+	Results: [R_Status!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_Status {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The status is closed
+	IsClosed: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Entries with Final Close cannot be re-opened
+	IsFinalClose: Boolean!
+	# The status is closed
+	IsOpen: Boolean!
+	# Entry can be updated from the Web
+	IsWebCanUpdate: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Move to next status automatically after timeout
+	Next_Status: R_Status
+	UU: ID!
+	# Request Status Category
+	R_StatusCategory: R_StatusCategory!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Timeout in Days to change Status automatically
+	TimeoutDays: Int
+	# Automatically change the status after entry from web
+	Update_Status: R_Status
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input R_StatusInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The status is closed
+	IsClosed: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Entries with Final Close cannot be re-opened
+	IsFinalClose: Boolean
+	# The status is closed
+	IsOpen: Boolean
+	# Entry can be updated from the Web
+	IsWebCanUpdate: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Move to next status automatically after timeout
+	Next_Status: ForeignEntityInput
+	UU: ID
+	# Request Status Category
+	R_StatusCategory: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Timeout in Days to change Status automatically
+	TimeoutDays: Int
+	# Automatically change the status after entry from web
+	Update_Status: ForeignEntityInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

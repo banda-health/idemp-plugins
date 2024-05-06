@@ -1,0 +1,67 @@
+# Generated Schema for T_BankRegister - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_BankRegisterGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BankRegisterConnection!
+}
+
+extend type Mutation {
+	T_BankRegisterSave(Entity: T_BankRegisterInput!): T_BankRegister!
+	T_BankRegisterSaveMany(Entities: [T_BankRegisterInput!]!): [T_BankRegister!]!
+	T_BankRegisterDelete(UUs: [String!]!): Boolean!
+}
+
+type T_BankRegisterConnection {
+	Results: [T_BankRegister!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_BankRegister {
+	Account: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# Accounted Credit Amount
+	AmtAcctCr: BigDecimal
+	# Accounted Debit Amount
+	AmtAcctDr: BigDecimal
+	Balance: BigDecimal
+	BankName: String
+	BPartner: String
+	# Bank
+	C_Bank: C_Bank
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Accounting Date
+	DateAcct: Date
+	# Document sequence number of the document
+	DocumentNo: String
+	UU: ID!
+}
+
+input T_BankRegisterInput {
+	Account: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# Accounted Credit Amount
+	AmtAcctCr: BigDecimal
+	# Accounted Debit Amount
+	AmtAcctDr: BigDecimal
+	Balance: BigDecimal
+	BankName: String
+	BPartner: String
+	# Bank
+	C_Bank: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Document sequence number of the document
+	DocumentNo: String
+	UU: ID
+}

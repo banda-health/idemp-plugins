@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_A_RegistrationAttributeInput;
+import org.bandahealth.idempiere.graphql.model.input.X_A_RegistrationAttributeInput;
+import org.compiere.model.X_A_RegistrationAttribute;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for A_RegistrationAttribute - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_A_RegistrationAttributeMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_A_RegistrationAttributeInput.Table_Name;
+	}
+
+	public X_A_RegistrationAttribute A_RegistrationAttributeSave(I_A_RegistrationAttributeInput Entity, DataFetchingEnvironment environment) {
+		return (X_A_RegistrationAttribute) super.save((X_A_RegistrationAttributeInput) Entity, environment);
+	}
+
+	public List<X_A_RegistrationAttribute> A_RegistrationAttributeSaveMany(List<I_A_RegistrationAttributeInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_A_RegistrationAttributeInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_A_RegistrationAttribute) entity).collect(Collectors.toList());
+	}
+
+	public boolean A_RegistrationAttributeDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

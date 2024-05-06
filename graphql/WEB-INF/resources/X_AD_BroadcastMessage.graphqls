@@ -1,0 +1,101 @@
+# Generated Schema for AD_BroadcastMessage - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_BroadcastMessageGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_BroadcastMessageConnection!
+}
+
+extend type Mutation {
+	AD_BroadcastMessageSave(Entity: AD_BroadcastMessageInput!): AD_BroadcastMessage!
+	AD_BroadcastMessageSaveMany(Entities: [AD_BroadcastMessageInput!]!): [AD_BroadcastMessage!]!
+	AD_BroadcastMessageDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_BroadcastMessageConnection {
+	Results: [AD_BroadcastMessage!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_BroadcastMessage {
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# How Many Times Message Should be Broadcasted
+	BroadcastFrequency: AD_Ref_List!
+	# Broadcast Message
+	BroadcastMessage: String!
+	# Type of Broadcast
+	BroadcastType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Expire On
+	Expiration: Date
+	Expired: Boolean!
+	# Expire the broadcast message
+	ExpireNow: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The Topic is published and can be viewed
+	IsPublished: Boolean!
+	# Want to Log the Acknowledgment of Message?
+	LogAcknowledge: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# Publish Broadcast Message
+	Publish: String
+	# Target tenant
+	Target: AD_Ref_List!
+	# Test broadcast message
+	TestMessage: String
+	# Name this entity is referred to as
+	Title: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_BroadcastMessageInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# How Many Times Message Should be Broadcasted
+	BroadcastFrequency: ForeignEntityInput
+	# Broadcast Message
+	BroadcastMessage: String
+	# Type of Broadcast
+	BroadcastType: ForeignEntityInput
+	# Expire On
+	Expiration: Date
+	Expired: Boolean
+	# Expire the broadcast message
+	ExpireNow: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The Topic is published and can be viewed
+	IsPublished: Boolean
+	# Want to Log the Acknowledgment of Message?
+	LogAcknowledge: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# Publish Broadcast Message
+	Publish: String
+	# Target tenant
+	Target: ForeignEntityInput
+	# Test broadcast message
+	TestMessage: String
+	# Name this entity is referred to as
+	Title: String
+}

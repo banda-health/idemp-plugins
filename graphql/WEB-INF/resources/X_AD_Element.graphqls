@@ -1,0 +1,85 @@
+# Generated Schema for AD_Element - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ElementGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ElementConnection!
+}
+
+extend type Mutation {
+	AD_ElementSave(Entity: AD_ElementInput!): AD_Element!
+	AD_ElementSaveMany(Entities: [AD_ElementInput!]!): [AD_Element!]!
+	AD_ElementDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ElementConnection {
+	Results: [AD_Element!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Element {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Name of the column in the database
+	ColumnName: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Placeholder: String
+	# Description in PO Screens
+	PO_Description: String
+	# Help for PO Screens
+	PO_Help: String
+	# Name on PO Screens
+	PO_Name: String
+	# Print name on PO Screens/Reports
+	PO_PrintName: String
+	# The label text to be printed on a document or correspondence.
+	PrintName: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ElementInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Name of the column in the database
+	ColumnName: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Placeholder: String
+	# Description in PO Screens
+	PO_Description: String
+	# Help for PO Screens
+	PO_Help: String
+	# Name on PO Screens
+	PO_Name: String
+	# Print name on PO Screens/Reports
+	PO_PrintName: String
+	# The label text to be printed on a document or correspondence.
+	PrintName: String
+}

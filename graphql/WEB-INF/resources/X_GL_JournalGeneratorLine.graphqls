@@ -1,0 +1,79 @@
+# Generated Schema for GL_JournalGeneratorLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	GL_JournalGeneratorLineGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalGeneratorLineConnection!
+}
+
+extend type Mutation {
+	GL_JournalGeneratorLineSave(Entity: GL_JournalGeneratorLineInput!): GL_JournalGeneratorLine!
+	GL_JournalGeneratorLineSaveMany(Entities: [GL_JournalGeneratorLineInput!]!): [GL_JournalGeneratorLine!]!
+	GL_JournalGeneratorLineDelete(UUs: [String!]!): Boolean!
+}
+
+type GL_JournalGeneratorLineConnection {
+	Results: [GL_JournalGeneratorLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type GL_JournalGeneratorLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Multiplier Amount for generating commissions
+	AmtMultiplier: BigDecimal
+	BPColumn: String
+	BPDimensionType: AD_Ref_List
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	C_ElementValueCR: C_ElementValue
+	C_ElementValueDR: C_ElementValue
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	GL_JournalGenerator: GL_JournalGenerator!
+	UU: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsCopyAllDimensions: Boolean!
+	IsSameProduct: Boolean!
+	RoundFactor: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_JournalGeneratorLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Multiplier Amount for generating commissions
+	AmtMultiplier: BigDecimal
+	BPColumn: String
+	BPDimensionType: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	C_ElementValueCR: ForeignEntityInput
+	C_ElementValueDR: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	GL_JournalGenerator: ForeignEntityInput
+	UU: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsCopyAllDimensions: Boolean
+	IsSameProduct: Boolean
+	RoundFactor: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

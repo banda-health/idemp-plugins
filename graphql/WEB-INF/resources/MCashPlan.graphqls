@@ -1,0 +1,3 @@
+extend type C_CashPlan {
+	C_CashPlanLines: [C_CashPlanLine!]
+}

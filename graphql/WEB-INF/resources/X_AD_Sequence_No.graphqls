@@ -1,0 +1,55 @@
+# Generated Schema for AD_Sequence_No - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Sequence_NoGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Sequence_NoConnection!
+}
+
+extend type Mutation {
+	AD_Sequence_NoSave(Entity: AD_Sequence_NoInput!): AD_Sequence_No!
+	AD_Sequence_NoSaveMany(Entities: [AD_Sequence_NoInput!]!): [AD_Sequence_No!]!
+	AD_Sequence_NoDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Sequence_NoConnection {
+	Results: [AD_Sequence_No!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Sequence_No {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Document Sequence
+	AD_Sequence: AD_Sequence!
+	UU: ID!
+	# YYYYMM
+	CalendarYearMonth: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The next number to be used
+	CurrentNext: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Sequence_NoInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Document Sequence
+	AD_Sequence: ForeignEntityInput
+	UU: ID
+	# YYYYMM
+	CalendarYearMonth: String
+	# The next number to be used
+	CurrentNext: Int
+	# The record is active in the system
+	IsActive: Boolean
+}

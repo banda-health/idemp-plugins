@@ -1,0 +1,79 @@
+# Generated Schema for AD_Alert - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_AlertGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AlertConnection!
+}
+
+extend type Mutation {
+	AD_AlertSave(Entity: AD_AlertInput!): AD_Alert!
+	AD_AlertSaveMany(Entities: [AD_AlertInput!]!): [AD_Alert!]!
+	AD_AlertDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_AlertConnection {
+	Results: [AD_Alert!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Alert {
+	UU: ID!
+	# Alert Processor/Server Parameter
+	AD_AlertProcessor: AD_AlertProcessor!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Message of the Alert
+	AlertMessage: String!
+	# Subject of the Alert
+	AlertSubject: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Send alerts to recipient only if the tenant security rules of the role allows
+	EnforceClientSecurity: Boolean!
+	# Send alerts to recipient only if the data security rules of the role allows
+	EnforceRoleSecurity: Boolean!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_AlertInput {
+	UU: ID
+	# Alert Processor/Server Parameter
+	AD_AlertProcessor: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Message of the Alert
+	AlertMessage: String
+	# Subject of the Alert
+	AlertSubject: String
+	# Optional short description of the record
+	Description: String
+	# Send alerts to recipient only if the tenant security rules of the role allows
+	EnforceClientSecurity: Boolean
+	# Send alerts to recipient only if the data security rules of the role allows
+	EnforceRoleSecurity: Boolean
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

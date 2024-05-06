@@ -1,0 +1,57 @@
+# Generated Schema for AD_Window_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Window_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Window_AccessConnection!
+}
+
+extend type Mutation {
+	AD_Window_AccessSave(Entity: AD_Window_AccessInput!): AD_Window_Access!
+	AD_Window_AccessSaveMany(Entities: [AD_Window_AccessInput!]!): [AD_Window_Access!]!
+	AD_Window_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Window_AccessConnection {
+	Results: [AD_Window_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Window_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	UU: ID!
+	# Data entry or display window
+	AD_Window: AD_Window!
+	BH_CanDeactivate: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Field is read / write
+	IsReadWrite: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Window_AccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	UU: ID
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	BH_CanDeactivate: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Field is read / write
+	IsReadWrite: Boolean
+}

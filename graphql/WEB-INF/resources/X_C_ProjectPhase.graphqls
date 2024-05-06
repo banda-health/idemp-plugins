@@ -1,0 +1,115 @@
+# Generated Schema for C_ProjectPhase - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_ProjectPhaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectPhaseConnection!
+}
+
+extend type Mutation {
+	C_ProjectPhaseSave(Entity: C_ProjectPhaseInput!): C_ProjectPhase!
+	C_ProjectPhaseSaveMany(Entities: [C_ProjectPhaseInput!]!): [C_ProjectPhase!]!
+	C_ProjectPhaseDelete(UUs: [String!]!): Boolean!
+}
+
+type C_ProjectPhaseConnection {
+	Results: [C_ProjectPhase!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_ProjectPhase {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Order
+	C_Order: C_Order
+	# Standard Phase of the Project Type
+	C_Phase: C_Phase
+	# Financial Project
+	C_Project: C_Project!
+	UU: ID!
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	# Generate Order
+	GenerateOrder: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The commitment amount/quantity is the chargeable ceiling 
+	IsCommitCeiling: Boolean!
+	# It is complete
+	IsComplete: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Planned amount for this project
+	PlannedAmt: BigDecimal!
+	# Actual Price 
+	PriceActual: BigDecimal
+	# Invoice Rule for the project
+	ProjInvoiceRule: AD_Ref_List!
+	# Quantity
+	Qty: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# First effective day (inclusive)
+	StartDate: Date
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_ProjectPhaseInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Standard Phase of the Project Type
+	C_Phase: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	UU: ID
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	# Generate Order
+	GenerateOrder: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The commitment amount/quantity is the chargeable ceiling 
+	IsCommitCeiling: Boolean
+	# It is complete
+	IsComplete: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Planned amount for this project
+	PlannedAmt: BigDecimal
+	# Actual Price 
+	PriceActual: BigDecimal
+	# Invoice Rule for the project
+	ProjInvoiceRule: ForeignEntityInput
+	# Quantity
+	Qty: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# First effective day (inclusive)
+	StartDate: Date
+}

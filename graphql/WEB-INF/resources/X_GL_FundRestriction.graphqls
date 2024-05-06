@@ -1,0 +1,59 @@
+# Generated Schema for GL_FundRestriction - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	GL_FundRestrictionGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_FundRestrictionConnection!
+}
+
+extend type Mutation {
+	GL_FundRestrictionSave(Entity: GL_FundRestrictionInput!): GL_FundRestriction!
+	GL_FundRestrictionSaveMany(Entities: [GL_FundRestrictionInput!]!): [GL_FundRestriction!]!
+	GL_FundRestrictionDelete(UUs: [String!]!): Boolean!
+}
+
+type GL_FundRestrictionConnection {
+	Results: [GL_FundRestriction!]!
+	PagingInfo: PagingInfo!
+}
+
+type GL_FundRestriction {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Account Element
+	C_ElementValue: C_ElementValue!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# General Ledger Funds Control
+	GL_Fund: GL_Fund!
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_FundRestrictionInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Account Element
+	C_ElementValue: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# General Ledger Funds Control
+	GL_Fund: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

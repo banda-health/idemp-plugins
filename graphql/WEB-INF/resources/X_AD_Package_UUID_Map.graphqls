@@ -1,0 +1,55 @@
+# Generated Schema for AD_Package_UUID_Map - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Package_UUID_MapGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_UUID_MapConnection!
+}
+
+extend type Mutation {
+	AD_Package_UUID_MapSave(Entity: AD_Package_UUID_MapInput!): AD_Package_UUID_Map!
+	AD_Package_UUID_MapSaveMany(Entities: [AD_Package_UUID_MapInput!]!): [AD_Package_UUID_Map!]!
+	AD_Package_UUID_MapDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Package_UUID_MapConnection {
+	Results: [AD_Package_UUID_Map!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Package_UUID_Map {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# UUID from the source tenant
+	Source_UUID: String!
+	# New UUID created by the pack in tenant
+	Target_UUID: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Package_UUID_MapInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# UUID from the source tenant
+	Source_UUID: String
+	# New UUID created by the pack in tenant
+	Target_UUID: String
+}

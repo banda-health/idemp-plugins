@@ -1,0 +1,77 @@
+# Generated Schema for AD_UserMail - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_UserMailGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserMailConnection!
+}
+
+extend type Mutation {
+	AD_UserMailSave(Entity: AD_UserMailInput!): AD_UserMail!
+	AD_UserMailSaveMany(Entities: [AD_UserMailInput!]!): [AD_UserMail!]!
+	AD_UserMailDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_UserMailConnection {
+	Results: [AD_UserMail!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_UserMail {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# EMail Delivery confirmation
+	DeliveryConfirmation: String
+	EMailFrom: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsDelivered: AD_Ref_List
+	# Text used for Mail message
+	MailText: String
+	# EMail Message ID
+	MessageID: String
+	# Text templates for mailings
+	R_MailText: R_MailText
+	RecipientBcc: String
+	RecipientCc: String
+	RecipientTo: String
+	# Email Message Subject
+	Subject: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_UserMailInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# EMail Delivery confirmation
+	DeliveryConfirmation: String
+	EMailFrom: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsDelivered: ForeignEntityInput
+	# Text used for Mail message
+	MailText: String
+	# EMail Message ID
+	MessageID: String
+	# Text templates for mailings
+	R_MailText: ForeignEntityInput
+	RecipientBcc: String
+	RecipientCc: String
+	RecipientTo: String
+	# Email Message Subject
+	Subject: String
+}

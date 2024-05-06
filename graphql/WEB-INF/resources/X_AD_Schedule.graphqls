@@ -1,0 +1,85 @@
+# Generated Schema for AD_Schedule - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ScheduleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ScheduleConnection!
+}
+
+extend type Mutation {
+	AD_ScheduleSave(Entity: AD_ScheduleInput!): AD_Schedule!
+	AD_ScheduleSaveMany(Entities: [AD_ScheduleInput!]!): [AD_Schedule!]!
+	AD_ScheduleDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ScheduleConnection {
+	Results: [AD_Schedule!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Schedule {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Cron pattern to define when the process should be invoked.
+	CronPattern: String
+	# Optional short description of the record
+	Description: String
+	# Frequency of events
+	Frequency: Int
+	# Frequency of event
+	FrequencyType: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Do not include processing time for the DateNextRun calculation
+	IsIgnoreProcessingTime: Boolean!
+	# Schedule Just For System
+	IsSystemSchedule: Boolean!
+	# Day of the month 1 to 28/29/30/31
+	MonthDay: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	RunOnlyOnIP: String
+	# Type of schedule
+	ScheduleType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Day of the Week
+	WeekDay: AD_Ref_List
+}
+
+input AD_ScheduleInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Cron pattern to define when the process should be invoked.
+	CronPattern: String
+	# Optional short description of the record
+	Description: String
+	# Frequency of events
+	Frequency: Int
+	# Frequency of event
+	FrequencyType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Do not include processing time for the DateNextRun calculation
+	IsIgnoreProcessingTime: Boolean
+	# Schedule Just For System
+	IsSystemSchedule: Boolean
+	# Day of the month 1 to 28/29/30/31
+	MonthDay: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	RunOnlyOnIP: String
+	# Type of schedule
+	ScheduleType: ForeignEntityInput
+	# Day of the Week
+	WeekDay: ForeignEntityInput
+}

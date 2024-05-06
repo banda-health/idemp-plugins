@@ -1,0 +1,71 @@
+# Generated Schema for C_Conversion_Rate - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_Conversion_RateGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Conversion_RateConnection!
+}
+
+extend type Mutation {
+	C_Conversion_RateSave(Entity: C_Conversion_RateInput!): C_Conversion_Rate!
+	C_Conversion_RateSaveMany(Entities: [C_Conversion_RateInput!]!): [C_Conversion_Rate!]!
+	C_Conversion_RateDelete(UUs: [String!]!): Boolean!
+}
+
+type C_Conversion_RateConnection {
+	Results: [C_Conversion_Rate!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Conversion_Rate {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Currency Conversion Rate Type
+	C_ConversionType: C_ConversionType!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Target currency
+	C_Currency_To: C_Currency!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# To convert Source number to Target number, the Source is divided
+	DivideRate: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Rate to multiple the source by to calculate the target.
+	MultiplyRate: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input C_Conversion_RateInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Currency Conversion Rate Type
+	C_ConversionType: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Target currency
+	C_Currency_To: ForeignEntityInput
+	# To convert Source number to Target number, the Source is divided
+	DivideRate: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Rate to multiple the source by to calculate the target.
+	MultiplyRate: BigDecimal
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

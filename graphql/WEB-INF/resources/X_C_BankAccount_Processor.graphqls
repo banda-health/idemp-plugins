@@ -1,0 +1,129 @@
+# Generated Schema for C_BankAccount_Processor - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BankAccount_ProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccount_ProcessorConnection!
+}
+
+extend type Mutation {
+	C_BankAccount_ProcessorSave(Entity: C_BankAccount_ProcessorInput!): C_BankAccount_Processor!
+	C_BankAccount_ProcessorSaveMany(Entities: [C_BankAccount_ProcessorInput!]!): [C_BankAccount_Processor!]!
+	C_BankAccount_ProcessorDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BankAccount_ProcessorConnection {
+	Results: [C_BankAccount_Processor!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BankAccount_Processor {
+	# Accept American Express Card
+	AcceptAMEX: Boolean!
+	# Accept Bank ATM Card
+	AcceptATM: Boolean!
+	# Accept ECheck (Electronic Checks)
+	AcceptCheck: Boolean!
+	# Accept Corporate Purchase Cards
+	AcceptCorporate: Boolean!
+	# Accept Diner's Club
+	AcceptDiners: Boolean!
+	# Accept Direct Debits (vendor initiated)
+	AcceptDirectDebit: Boolean!
+	# Accept Direct Deposit (payee initiated)
+	AcceptDirectDeposit: Boolean!
+	# Accept Discover Card
+	AcceptDiscover: Boolean!
+	# Accept Master Card
+	AcceptMC: Boolean!
+	# Accept Visa Cards
+	AcceptVisa: Boolean!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Account at the Bank
+	C_BankAccount: C_BankAccount!
+	UU: ID!
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Payment processor for electronic payments
+	C_PaymentProcessor: C_PaymentProcessor!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsPPAcceptAMEX: Boolean!
+	IsPPAcceptATM: Boolean!
+	IsPPAcceptCheck: Boolean!
+	IsPPAcceptCorporate: Boolean!
+	IsPPAcceptDiners: Boolean!
+	IsPPAcceptDirectDebit: Boolean!
+	IsPPAcceptDirectDeposit: Boolean!
+	IsPPAcceptDiscover: Boolean!
+	IsPPAcceptMC: Boolean!
+	IsPPAcceptVisa: Boolean!
+	# Minimum Amount in Document Currency
+	MinimumAmt: BigDecimal
+	# Partner ID or Account for the Payment Processor
+	PartnerID: String
+	# Password of any length (case sensitive)
+	Password: String!
+	# Require 3/4 digit Credit Verification Code
+	RequireVV: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User ID or account number
+	UserID: String!
+	# Vendor ID for the Payment Processor
+	VendorID: String
+}
+
+input C_BankAccount_ProcessorInput {
+	# Accept American Express Card
+	AcceptAMEX: Boolean
+	# Accept Bank ATM Card
+	AcceptATM: Boolean
+	# Accept ECheck (Electronic Checks)
+	AcceptCheck: Boolean
+	# Accept Corporate Purchase Cards
+	AcceptCorporate: Boolean
+	# Accept Diner's Club
+	AcceptDiners: Boolean
+	# Accept Direct Debits (vendor initiated)
+	AcceptDirectDebit: Boolean
+	# Accept Direct Deposit (payee initiated)
+	AcceptDirectDeposit: Boolean
+	# Accept Discover Card
+	AcceptDiscover: Boolean
+	# Accept Master Card
+	AcceptMC: Boolean
+	# Accept Visa Cards
+	AcceptVisa: Boolean
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	UU: ID
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Payment processor for electronic payments
+	C_PaymentProcessor: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Minimum Amount in Document Currency
+	MinimumAmt: BigDecimal
+	# Partner ID or Account for the Payment Processor
+	PartnerID: String
+	# Password of any length (case sensitive)
+	Password: String
+	# Require 3/4 digit Credit Verification Code
+	RequireVV: Boolean
+	# User ID or account number
+	UserID: String
+	# Vendor ID for the Payment Processor
+	VendorID: String
+}

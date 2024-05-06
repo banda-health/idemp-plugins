@@ -1,0 +1,253 @@
+# Generated Schema for I_Invoice - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	I_InvoiceGet(Page: Int, Size: Int, Sort: String, Filter: String): I_InvoiceConnection!
+}
+
+extend type Mutation {
+	I_InvoiceSave(Entity: I_InvoiceInput!): I_Invoice!
+	I_InvoiceSaveMany(Entities: [I_InvoiceInput!]!): [I_Invoice!]!
+	I_InvoiceDelete(UUs: [String!]!): Boolean!
+}
+
+type I_InvoiceConnection {
+	Results: [I_Invoice!]!
+	PagingInfo: PagingInfo!
+}
+
+type I_Invoice {
+	# Text key for Activity
+	ActivityValue: String
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Key of the Business Partner
+	BPartnerValue: String
+	C_1099Box: C_1099Box
+	C_1099Box_Value: String
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Additional document charges
+	C_Charge: C_Charge
+	# Country 
+	C_Country: C_Country
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Document type or rules
+	C_DocType: C_DocType
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Invoice Detail Line
+	C_InvoiceLine: C_InvoiceLine
+	# Location or Address
+	C_Location: C_Location
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
+	# Financial Project
+	C_Project: C_Project
+	# Identifies a geographical Region
+	C_Region: C_Region
+	# Tax identifier
+	C_Tax: C_Tax
+	# Name of the Charge
+	ChargeName: String
+	# Identifies a City
+	City: String
+	# Business Partner Contact Name
+	ContactName: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Accounting Date
+	DateAcct: Date
+	# Date printed on Invoice
+	DateInvoiced: Date
+	# Optional short description of the record
+	Description: String
+	# Name of the Document Type
+	DocTypeName: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Electronic Mail Address
+	EMail: String
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID!
+	# Has this import been processed
+	I_IsImported: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# Description of the Line
+	LineDescription: String
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceList
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Key of the Payment Term
+	PaymentTermValue: String
+	# Identifies a telephone number
+	Phone: String
+	# Postal code
+	Postal: String
+	# Actual Price 
+	PriceActual: BigDecimal
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Key of the Product
+	ProductValue: String
+	# Key of the Project
+	ProjectValue: String
+	# Ordered Quantity
+	QtyOrdered: BigDecimal
+	# Name of the Region
+	RegionName: String
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Stock Keeping Unit
+	SKU: String
+	# Tax Amount for a document
+	TaxAmt: BigDecimal
+	# Short form for Tax to be printed on documents
+	TaxIndicator: String
+	# Bar Code (Universal Product Code or its superset European Article Number)
+	UPC: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input I_InvoiceInput {
+	# Text key for Activity
+	ActivityValue: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Key of the Business Partner
+	BPartnerValue: String
+	C_1099Box: ForeignEntityInput
+	C_1099Box_Value: String
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Country 
+	C_Country: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Invoice Detail Line
+	C_InvoiceLine: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Identifies a geographical Region
+	C_Region: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	# Name of the Charge
+	ChargeName: String
+	# Identifies a City
+	City: String
+	# Business Partner Contact Name
+	ContactName: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: Boolean
+	# Accounting Date
+	DateAcct: Date
+	# Date printed on Invoice
+	DateInvoiced: Date
+	# Optional short description of the record
+	Description: String
+	# Name of the Document Type
+	DocTypeName: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Electronic Mail Address
+	EMail: String
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID
+	# Has this import been processed
+	I_IsImported: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Description of the Line
+	LineDescription: String
+	# Unique identifier of a Price List
+	M_PriceList: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Key of the Payment Term
+	PaymentTermValue: String
+	# Identifies a telephone number
+	Phone: String
+	# Postal code
+	Postal: String
+	# Actual Price 
+	PriceActual: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Key of the Product
+	ProductValue: String
+	# Key of the Project
+	ProjectValue: String
+	# Ordered Quantity
+	QtyOrdered: BigDecimal
+	# Name of the Region
+	RegionName: String
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Stock Keeping Unit
+	SKU: String
+	# Tax Amount for a document
+	TaxAmt: BigDecimal
+	# Short form for Tax to be printed on documents
+	TaxIndicator: String
+	# Bar Code (Universal Product Code or its superset European Article Number)
+	UPC: String
+}

@@ -1,0 +1,141 @@
+# Generated Schema for A_Depreciation_Workfile - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Depreciation_WorkfileGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_WorkfileConnection!
+}
+
+extend type Mutation {
+	A_Depreciation_WorkfileSave(Entity: A_Depreciation_WorkfileInput!): A_Depreciation_Workfile!
+	A_Depreciation_WorkfileSaveMany(Entities: [A_Depreciation_WorkfileInput!]!): [A_Depreciation_Workfile!]!
+	A_Depreciation_WorkfileDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Depreciation_WorkfileConnection {
+	Results: [A_Depreciation_Workfile!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Depreciation_Workfile {
+	A_Accumulated_Depr: BigDecimal!
+	A_Accumulated_Depr_F: BigDecimal!
+	A_Asset_Cost: BigDecimal!
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	A_Asset_Life_Current_Year: BigDecimal!
+	A_Asset_Life_Years: BigDecimal!
+	A_Asset_Life_Years_F: BigDecimal!
+	A_Asset_Remaining: BigDecimal
+	A_Asset_Remaining_F: BigDecimal
+	A_Base_Amount: BigDecimal
+	A_Calc_Accumulated_Depr: BigDecimal
+	A_Curr_Dep_Exp: BigDecimal!
+	A_Current_Period: Int
+	UU: ID!
+	A_Expense_SL: BigDecimal
+	A_Expense_SL_F: BigDecimal
+	A_FundingMode: A_FundingMode
+	A_Life_Period: Int!
+	A_Life_Period_F: Int!
+	A_Life_Period_Max: Int
+	A_Life_Period_Min: Int
+	A_Period_Forecast: BigDecimal
+	A_Period_Posted: Int
+	A_Prior_Year_Accumulated_Depr: BigDecimal
+	A_QTY_Current: BigDecimal!
+	A_Salvage_Value: BigDecimal!
+	# Financing Type
+	A_Tip_Finantare: AD_Ref_List!
+	A_Valoare_Cofinantare: BigDecimal
+	A_Valoare_Tert: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date of last depreciation
+	AssetDepreciationDate: Date
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The asset will be depreciated
+	IsDepreciated: Boolean!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Months of the usable life of the asset
+	UseLifeMonths: Int!
+	UseLifeMonths_F: Int!
+	# Years of the usable life of the asset
+	UseLifeYears: BigDecimal!
+	UseLifeYears_F: BigDecimal!
+}
+
+input A_Depreciation_WorkfileInput {
+	A_Accumulated_Depr: BigDecimal
+	A_Accumulated_Depr_F: BigDecimal
+	A_Asset_Cost: BigDecimal
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_Asset_Life_Current_Year: BigDecimal
+	A_Asset_Life_Years: BigDecimal
+	A_Asset_Life_Years_F: BigDecimal
+	A_Asset_Remaining: BigDecimal
+	A_Asset_Remaining_F: BigDecimal
+	A_Base_Amount: BigDecimal
+	A_Calc_Accumulated_Depr: BigDecimal
+	A_Curr_Dep_Exp: BigDecimal
+	A_Current_Period: Int
+	UU: ID
+	A_FundingMode: ForeignEntityInput
+	A_Life_Period: Int
+	A_Life_Period_F: Int
+	A_Period_Forecast: BigDecimal
+	A_Period_Posted: Int
+	A_Prior_Year_Accumulated_Depr: BigDecimal
+	A_QTY_Current: BigDecimal
+	A_Salvage_Value: BigDecimal
+	# Financing Type
+	A_Tip_Finantare: ForeignEntityInput
+	A_Valoare_Cofinantare: BigDecimal
+	A_Valoare_Tert: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Date of last depreciation
+	AssetDepreciationDate: Date
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The asset will be depreciated
+	IsDepreciated: Boolean
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Months of the usable life of the asset
+	UseLifeMonths: Int
+	UseLifeMonths_F: Int
+	# Years of the usable life of the asset
+	UseLifeYears: BigDecimal
+	UseLifeYears_F: BigDecimal
+}

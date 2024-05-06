@@ -1,0 +1,97 @@
+# Generated Schema for T_Replenish - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_ReplenishGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReplenishConnection!
+}
+
+extend type Mutation {
+	T_ReplenishSave(Entity: T_ReplenishInput!): T_Replenish!
+	T_ReplenishSaveMany(Entities: [T_ReplenishInput!]!): [T_Replenish!]!
+	T_ReplenishDelete(UUs: [String!]!): Boolean!
+}
+
+type T_ReplenishConnection {
+	Results: [T_Replenish!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_Replenish {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Document type or rules
+	C_DocType: C_DocType
+	# Maximum Inventory level for this product
+	Level_Max: BigDecimal!
+	# Minimum Inventory level for this product
+	Level_Min: BigDecimal!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Optional Warehouse to replenish from
+	M_WarehouseSource: M_Warehouse
+	# Minimum order quantity in UOM
+	Order_Min: BigDecimal
+	# Package order size in UOM (e.g. order set of 5 units)
+	Order_Pack: BigDecimal
+	# On Hand Quantity
+	QtyOnHand: BigDecimal
+	# Ordered Quantity
+	QtyOrdered: BigDecimal
+	# Reserved Quantity
+	QtyReserved: BigDecimal
+	QtyToOrder: BigDecimal
+	# Create from Replenishment
+	ReplenishmentCreate: AD_Ref_List
+	# Method for re-ordering a product
+	ReplenishType: AD_Ref_List!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input T_ReplenishInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Maximum Inventory level for this product
+	Level_Max: BigDecimal
+	# Minimum Inventory level for this product
+	Level_Min: BigDecimal
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Optional Warehouse to replenish from
+	M_WarehouseSource: ForeignEntityInput
+	# Minimum order quantity in UOM
+	Order_Min: BigDecimal
+	# Package order size in UOM (e.g. order set of 5 units)
+	Order_Pack: BigDecimal
+	# On Hand Quantity
+	QtyOnHand: BigDecimal
+	# Ordered Quantity
+	QtyOrdered: BigDecimal
+	# Reserved Quantity
+	QtyReserved: BigDecimal
+	QtyToOrder: BigDecimal
+	# Create from Replenishment
+	ReplenishmentCreate: ForeignEntityInput
+	# Method for re-ordering a product
+	ReplenishType: ForeignEntityInput
+	UU: ID
+}

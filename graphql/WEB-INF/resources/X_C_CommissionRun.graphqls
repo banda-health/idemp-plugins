@@ -1,0 +1,73 @@
+# Generated Schema for C_CommissionRun - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CommissionRunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionRunConnection!
+}
+
+extend type Mutation {
+	C_CommissionRunSave(Entity: C_CommissionRunInput!): C_CommissionRun!
+	C_CommissionRunSaveMany(Entities: [C_CommissionRunInput!]!): [C_CommissionRun!]!
+	C_CommissionRunDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CommissionRunConnection {
+	Results: [C_CommissionRun!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CommissionRun {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Commission
+	C_Commission: C_Commission!
+	UU: ID!
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Total amount of document
+	GrandTotal: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CommissionRunInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Commission
+	C_Commission: ForeignEntityInput
+	UU: ID
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Total amount of document
+	GrandTotal: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# First effective day (inclusive)
+	StartDate: Date
+}

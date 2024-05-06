@@ -1,0 +1,63 @@
+# Generated Schema for C_Tax_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_Tax_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Tax_AcctConnection!
+}
+
+extend type Mutation {
+	C_Tax_AcctSave(Entity: C_Tax_AcctInput!): C_Tax_Acct!
+	C_Tax_AcctSaveMany(Entities: [C_Tax_AcctInput!]!): [C_Tax_Acct!]!
+	C_Tax_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_Tax_AcctConnection {
+	Results: [C_Tax_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Tax_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# Tax identifier
+	C_Tax: C_Tax!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Account for Tax you can reclaim
+	T_Credit_A: C_ValidCombination!
+	# Account for Tax you have to pay
+	T_Due_A: C_ValidCombination!
+	# Account for paid tax you cannot reclaim
+	T_Expense_A: C_ValidCombination!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_Tax_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	UU: ID
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Account for Tax you can reclaim
+	T_Credit_A: ForeignEntityInput
+	# Account for Tax you have to pay
+	T_Due_A: ForeignEntityInput
+	# Account for paid tax you cannot reclaim
+	T_Expense_A: ForeignEntityInput
+}

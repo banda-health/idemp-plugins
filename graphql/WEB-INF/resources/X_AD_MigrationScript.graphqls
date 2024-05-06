@@ -1,0 +1,85 @@
+# Generated Schema for AD_MigrationScript - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_MigrationScriptGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_MigrationScriptConnection!
+}
+
+extend type Mutation {
+	AD_MigrationScriptSave(Entity: AD_MigrationScriptInput!): AD_MigrationScript!
+	AD_MigrationScriptSaveMany(Entities: [AD_MigrationScriptInput!]!): [AD_MigrationScript!]!
+	AD_MigrationScriptDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_MigrationScriptConnection {
+	Results: [AD_MigrationScript!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_MigrationScript {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	DeveloperName: String
+	# Name of the local file or URL
+	FileName: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	isApply: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Name of the Project
+	ProjectName: String!
+	# Reference for this record
+	Reference: String
+	# Internal Release Number
+	ReleaseNo: String!
+	# Dynamic Java Language Script to calculate result
+	Script: Binary
+	ScriptRoll: String
+	# Status of the currently running check
+	Status: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+}
+
+input AD_MigrationScriptInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	DeveloperName: String
+	# Name of the local file or URL
+	FileName: String
+	# The record is active in the system
+	IsActive: Boolean
+	isApply: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Name of the Project
+	ProjectName: String
+	# Reference for this record
+	Reference: String
+	# Internal Release Number
+	ReleaseNo: String
+	# Dynamic Java Language Script to calculate result
+	Script: Binary
+	ScriptRoll: String
+	# Status of the currently running check
+	Status: ForeignEntityInput
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+}

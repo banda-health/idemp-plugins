@@ -1,0 +1,81 @@
+# Generated Schema for AD_WF_Process - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_ProcessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_ProcessConnection!
+}
+
+extend type Mutation {
+	AD_WF_ProcessSave(Entity: AD_WF_ProcessInput!): AD_WF_Process!
+	AD_WF_ProcessSaveMany(Entities: [AD_WF_ProcessInput!]!): [AD_WF_Process!]!
+	AD_WF_ProcessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_ProcessConnection {
+	Results: [AD_WF_Process!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_Process {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Message
+	AD_Message: AD_Message
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	UU: ID!
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: AD_WF_Responsible!
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# State of the execution of the workflow
+	WFState: AD_Ref_List!
+}
+
+input AD_WF_ProcessInput {
+	# System Message
+	AD_Message: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Text Message
+	TextMsg: String
+	# State of the execution of the workflow
+	WFState: ForeignEntityInput
+}

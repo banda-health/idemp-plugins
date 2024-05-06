@@ -1,0 +1,63 @@
+# Generated Schema for M_CostElement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_CostElementGet(Page: Int, Size: Int, Sort: String, Filter: String): M_CostElementConnection!
+}
+
+extend type Mutation {
+	M_CostElementSave(Entity: M_CostElementInput!): M_CostElement!
+	M_CostElementSaveMany(Entities: [M_CostElementInput!]!): [M_CostElement!]!
+	M_CostElementDelete(UUs: [String!]!): Boolean!
+}
+
+type M_CostElementConnection {
+	Results: [M_CostElement!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_CostElement {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Type of Cost Element
+	CostElementType: AD_Ref_List!
+	# Indicates how Costs will be calculated
+	CostingMethod: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The value is calculated by the system
+	IsCalculated: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_CostElementInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Type of Cost Element
+	CostElementType: ForeignEntityInput
+	# Indicates how Costs will be calculated
+	CostingMethod: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The value is calculated by the system
+	IsCalculated: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

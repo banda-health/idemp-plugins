@@ -1,0 +1,71 @@
+# Generated Schema for GL_Fund - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	GL_FundGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_FundConnection!
+}
+
+extend type Mutation {
+	GL_FundSave(Entity: GL_FundInput!): GL_Fund!
+	GL_FundSaveMany(Entities: [GL_FundInput!]!): [GL_Fund!]!
+	GL_FundDelete(UUs: [String!]!): Boolean!
+}
+
+type GL_FundConnection {
+	Results: [GL_Fund!]!
+	PagingInfo: PagingInfo!
+}
+
+type GL_Fund {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount
+	Amt: BigDecimal!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	UU: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_FundInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount
+	Amt: BigDecimal
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Starting date for a range
+	DateFrom: Date
+	# End date of a date range
+	DateTo: Date
+	# Optional short description of the record
+	Description: String
+	UU: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

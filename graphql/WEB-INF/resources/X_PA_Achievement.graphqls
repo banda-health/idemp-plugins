@@ -1,0 +1,75 @@
+# Generated Schema for PA_Achievement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	PA_AchievementGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_AchievementConnection!
+}
+
+extend type Mutation {
+	PA_AchievementSave(Entity: PA_AchievementInput!): PA_Achievement!
+	PA_AchievementSaveMany(Entities: [PA_AchievementInput!]!): [PA_Achievement!]!
+	PA_AchievementDelete(UUs: [String!]!): Boolean!
+}
+
+type PA_AchievementConnection {
+	Results: [PA_Achievement!]!
+	PagingInfo: PagingInfo!
+}
+
+type PA_Achievement {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date of the Document
+	DateDoc: Date
+	# Optional short description of the record
+	Description: String
+	# The goal is achieved
+	IsAchieved: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Manually entered actual value
+	ManualActual: BigDecimal!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Optional additional user defined information
+	Note: String
+	UU: ID!
+	# Concrete Performance Measurement
+	PA_Measure: PA_Measure!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PA_AchievementInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Date of the Document
+	DateDoc: Date
+	# Optional short description of the record
+	Description: String
+	# The goal is achieved
+	IsAchieved: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Manually entered actual value
+	ManualActual: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Optional additional user defined information
+	Note: String
+	UU: ID
+	# Concrete Performance Measurement
+	PA_Measure: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

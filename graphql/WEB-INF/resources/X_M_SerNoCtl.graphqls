@@ -1,0 +1,75 @@
+# Generated Schema for M_SerNoCtl - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_SerNoCtlGet(Page: Int, Size: Int, Sort: String, Filter: String): M_SerNoCtlConnection!
+}
+
+extend type Mutation {
+	M_SerNoCtlSave(Entity: M_SerNoCtlInput!): M_SerNoCtl!
+	M_SerNoCtlSaveMany(Entities: [M_SerNoCtlInput!]!): [M_SerNoCtl!]!
+	M_SerNoCtlDelete(UUs: [String!]!): Boolean!
+}
+
+type M_SerNoCtlConnection {
+	Results: [M_SerNoCtl!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_SerNoCtl {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The next number to be used
+	CurrentNext: Int!
+	# Optional short description of the record
+	Description: String
+	# The number to increment the last document number by
+	IncrementNo: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Prefix before the sequence number
+	Prefix: String
+	# Starting number/position
+	StartNo: Int!
+	# Suffix after the number
+	Suffix: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_SerNoCtlInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean
+	# The next number to be used
+	CurrentNext: Int
+	# Optional short description of the record
+	Description: String
+	# The number to increment the last document number by
+	IncrementNo: Int
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Prefix before the sequence number
+	Prefix: String
+	# Starting number/position
+	StartNo: Int
+	# Suffix after the number
+	Suffix: String
+}

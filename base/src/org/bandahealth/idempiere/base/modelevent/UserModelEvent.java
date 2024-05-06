@@ -22,11 +22,14 @@ public class UserModelEvent extends AbstractEventHandler {
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		MUser user = null;
+		MUser user;
 		PO persistantObject = getPO(event);
 		if (persistantObject instanceof MUser) {
 			user = (MUser) persistantObject;
 		} else {
+			return;
+		}
+		if (user.getClass().toString().contains("graphql.model")) {
 			return;
 		}
 

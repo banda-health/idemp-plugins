@@ -1,0 +1,87 @@
+# Generated Schema for M_Warehouse - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_WarehouseGet(Page: Int, Size: Int, Sort: String, Filter: String): M_WarehouseConnection!
+}
+
+extend type Mutation {
+	M_WarehouseSave(Entity: M_WarehouseInput!): M_Warehouse!
+	M_WarehouseSaveMany(Entities: [M_WarehouseInput!]!): [M_Warehouse!]!
+	M_WarehouseDelete(UUs: [String!]!): Boolean!
+}
+
+type M_WarehouseConnection {
+	Results: [M_Warehouse!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Warehouse {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Default Warehouse
+	BH_DefaultWarehouse: Boolean!
+	# Location or Address
+	C_Location: C_Location!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Negative Inventory is not allowed in this warehouse
+	IsDisallowNegativeInv: Boolean!
+	# Movement is in transit
+	IsInTransit: Boolean!
+	# Reservation Locator (just for reporting purposes)
+	M_ReserveLocator: M_Locator
+	UU: ID!
+	# Optional Warehouse to replenish from
+	M_WarehouseSource: M_Warehouse
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Custom class to calculate Quantity to Order
+	ReplenishmentClass: String
+	# Element Separator
+	Separator: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input M_WarehouseInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Default Warehouse
+	BH_DefaultWarehouse: Boolean
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Negative Inventory is not allowed in this warehouse
+	IsDisallowNegativeInv: Boolean
+	# Movement is in transit
+	IsInTransit: Boolean
+	# Reservation Locator (just for reporting purposes)
+	M_ReserveLocator: ForeignEntityInput
+	UU: ID
+	# Optional Warehouse to replenish from
+	M_WarehouseSource: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Custom class to calculate Quantity to Order
+	ReplenishmentClass: String
+	# Element Separator
+	Separator: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

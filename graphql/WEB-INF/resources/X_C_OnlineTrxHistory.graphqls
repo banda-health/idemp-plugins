@@ -1,0 +1,59 @@
+# Generated Schema for C_OnlineTrxHistory - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_OnlineTrxHistoryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OnlineTrxHistoryConnection!
+}
+
+extend type Mutation {
+	C_OnlineTrxHistorySave(Entity: C_OnlineTrxHistoryInput!): C_OnlineTrxHistory!
+	C_OnlineTrxHistorySaveMany(Entities: [C_OnlineTrxHistoryInput!]!): [C_OnlineTrxHistory!]!
+	C_OnlineTrxHistoryDelete(UUs: [String!]!): Boolean!
+}
+
+type C_OnlineTrxHistoryConnection {
+	Results: [C_OnlineTrxHistory!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_OnlineTrxHistory {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# An Error occurred in the execution
+	IsError: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_OnlineTrxHistoryInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# An Error occurred in the execution
+	IsError: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# Text Message
+	TextMsg: String
+}

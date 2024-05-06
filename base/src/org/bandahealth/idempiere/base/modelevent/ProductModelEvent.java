@@ -17,23 +17,22 @@ import org.osgi.service.event.Event;
 
 public class ProductModelEvent extends AbstractEventHandler {
 
-	private int clientId = -1;
-	private int orgId = -1;
 	private Properties context = null;
 
 	@Override
 	protected void doHandleEvent(Event event) {
-		MProduct_BH product = null;
-
+		MProduct_BH product;
 		PO persistentObject = getPO(event);
-		clientId = persistentObject.getAD_Client_ID();
-		orgId = persistentObject.getAD_Org_ID();
 
 		if (persistentObject instanceof MProduct_BH) {
 			product = (MProduct_BH) persistentObject;
 		} else {
 			return;
 		}
+		if (product.getClass().toString().contains("graphql.model")) {
+			return;
+		}
+
 		if (event.getTopic().equals(IEventTopics.PO_AFTER_NEW)
 				|| event.getTopic().equals(IEventTopics.PO_AFTER_CHANGE)) {
 			afterSaveRequest(product);
@@ -69,15 +68,16 @@ public class ProductModelEvent extends AbstractEventHandler {
 		MProductPrice productPrice = null;
 		char isSellingPrice = isSoPrice ? 'Y' : 'N';
 		// get existing (default) sales price-list
-		priceList = QueryUtil.getQueryByOrgAndClient(clientId, orgId, context, MPriceList.Table_Name,
-						"isdefault='Y'" + " and issopricelist='" + isSellingPrice + "'", product.get_TrxName())
+		priceList = QueryUtil.getQueryByOrgAndClient(product.getAD_Client_ID(), product.getAD_Org_ID(), context,
+						MPriceList.Table_Name, "isdefault='Y'" + " and issopricelist='" + isSellingPrice + "'",
+						product.get_TrxName())
 				.setOnlyActiveRecords(true).setOrderBy("ORDER BY " + MPriceList.COLUMNNAME_Created).first();
 
 		if (priceList != null) {
 			int mProductId = product.getM_Product_ID();
 			// get the price-list version for the price-list
-			plVersion = QueryUtil.getQueryByOrgAndClient(clientId, orgId, context, MPriceListVersion.Table_Name,
-							"m_pricelist_id=" + priceList.get_ID(), null).setOnlyActiveRecords(true)
+			plVersion = QueryUtil.getQueryByOrgAndClient(product.getAD_Client_ID(), product.getAD_Org_ID(), context,
+							MPriceListVersion.Table_Name, "m_pricelist_id=" + priceList.get_ID(), null).setOnlyActiveRecords(true)
 					.setOrderBy("ORDER BY " + MPriceListVersion.COLUMNNAME_ValidFrom + " DESC").first();
 
 			if (plVersion == null) {

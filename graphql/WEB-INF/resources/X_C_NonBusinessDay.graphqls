@@ -1,0 +1,59 @@
+# Generated Schema for C_NonBusinessDay - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_NonBusinessDayGet(Page: Int, Size: Int, Sort: String, Filter: String): C_NonBusinessDayConnection!
+}
+
+extend type Mutation {
+	C_NonBusinessDaySave(Entity: C_NonBusinessDayInput!): C_NonBusinessDay!
+	C_NonBusinessDaySaveMany(Entities: [C_NonBusinessDayInput!]!): [C_NonBusinessDay!]!
+	C_NonBusinessDayDelete(UUs: [String!]!): Boolean!
+}
+
+type C_NonBusinessDayConnection {
+	Results: [C_NonBusinessDay!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_NonBusinessDay {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Accounting Calendar Name
+	C_Calendar: C_Calendar!
+	# Country 
+	C_Country: C_Country
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date when business is not conducted
+	Date1: Date!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_NonBusinessDayInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Accounting Calendar Name
+	C_Calendar: ForeignEntityInput
+	# Country 
+	C_Country: ForeignEntityInput
+	UU: ID
+	# Date when business is not conducted
+	Date1: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

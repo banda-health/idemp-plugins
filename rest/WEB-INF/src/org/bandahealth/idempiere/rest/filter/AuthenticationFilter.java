@@ -44,6 +44,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
+		// Always start off with a new context
+		ServerContext.setCurrentInstance(new Properties());
 		// Don't filter a request to get an authentication session or to change a
 		// password
 		String method = requestContext.getMethod();
@@ -92,7 +94,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 		// instance
 		DecodedJWT jwt = verifier.verify(token);
 		String userName = jwt.getSubject();
-		ServerContext.setCurrentInstance(new Properties());
 		Env.setContext(Env.getCtx(), LOGIN_NAME, userName);
 		Claim claim = jwt.getClaim(LoginClaims.AD_Client_ID.name());
 		int AD_Client_ID = 0;

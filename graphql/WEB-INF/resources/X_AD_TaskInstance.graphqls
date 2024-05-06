@@ -1,0 +1,47 @@
+# Generated Schema for AD_TaskInstance - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_TaskInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TaskInstanceConnection!
+}
+
+extend type Mutation {
+	AD_TaskInstanceSave(Entity: AD_TaskInstanceInput!): AD_TaskInstance!
+	AD_TaskInstanceSaveMany(Entities: [AD_TaskInstanceInput!]!): [AD_TaskInstance!]!
+	AD_TaskInstanceDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_TaskInstanceConnection {
+	Results: [AD_TaskInstance!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_TaskInstance {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Operation System Task
+	AD_Task: AD_Task!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input AD_TaskInstanceInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Operation System Task
+	AD_Task: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+}

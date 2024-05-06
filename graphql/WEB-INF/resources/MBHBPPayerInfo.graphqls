@@ -1,0 +1,3 @@
+extend type BH_BP_Payer_Info {
+	BH_BP_General_Payer_InfoList: [BH_BP_General_Payer_Info!]
+}

@@ -1,0 +1,135 @@
+# Generated Schema for AD_Process - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ProcessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ProcessConnection!
+}
+
+extend type Mutation {
+	AD_ProcessSave(Entity: AD_ProcessInput!): AD_Process!
+	AD_ProcessSaveMany(Entities: [AD_ProcessInput!]!): [AD_Process!]!
+	AD_ProcessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ProcessConnection {
+	Results: [AD_Process!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Process {
+	# Access Level required
+	AccessLevel: AD_Ref_List!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	AD_CtxHelp: AD_CtxHelp
+	# Special Form
+	AD_Form: AD_Form
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
+	UU: ID!
+	# View used to generate this report
+	AD_ReportView: AD_ReportView
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow
+	# Allow or disallow executing a process/report multiple times concurrently
+	AllowMultipleExecution: AD_Ref_List!
+	# Java Classname
+	Classname: String
+	# Copy settings from one report and process to another.
+	CopyFromProcess: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Execution Type defines whether the report/process will always run in background or foreground. 
+	ExecutionType: AD_Ref_List
+	FileNamePattern: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean!
+	# Print without dialog
+	IsDirectPrint: Boolean!
+	# Indicates a Report record
+	IsReport: Boolean!
+	JasperReport: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Name of the Database Procedure
+	ProcedureName: String
+	ShowHelp: AD_Ref_List
+	# Internal statistics how often the entity was used
+	Statistic_Count: Int
+	# Internal statistics how many seconds a process took
+	Statistic_Seconds: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# Key of the Workflow to start
+	WorkflowValue: String
+}
+
+input AD_ProcessInput {
+	# Access Level required
+	AccessLevel: ForeignEntityInput
+	AD_CtxHelp: ForeignEntityInput
+	# Special Form
+	AD_Form: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	UU: ID
+	# View used to generate this report
+	AD_ReportView: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Allow or disallow executing a process/report multiple times concurrently
+	AllowMultipleExecution: ForeignEntityInput
+	# Java Classname
+	Classname: String
+	# Copy settings from one report and process to another.
+	CopyFromProcess: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Execution Type defines whether the report/process will always run in background or foreground. 
+	ExecutionType: ForeignEntityInput
+	FileNamePattern: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean
+	# Print without dialog
+	IsDirectPrint: Boolean
+	# Indicates a Report record
+	IsReport: Boolean
+	JasperReport: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Name of the Database Procedure
+	ProcedureName: String
+	ShowHelp: ForeignEntityInput
+	# Internal statistics how often the entity was used
+	Statistic_Count: Int
+	# Internal statistics how many seconds a process took
+	Statistic_Seconds: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Key of the Workflow to start
+	WorkflowValue: String
+}

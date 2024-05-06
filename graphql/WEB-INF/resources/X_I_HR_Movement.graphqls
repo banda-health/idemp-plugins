@@ -1,0 +1,103 @@
+# Generated Schema for I_HR_Movement - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	I_HR_MovementGet(Page: Int, Size: Int, Sort: String, Filter: String): I_HR_MovementConnection!
+}
+
+extend type Mutation {
+	I_HR_MovementSave(Entity: I_HR_MovementInput!): I_HR_Movement!
+	I_HR_MovementSaveMany(Entities: [I_HR_MovementInput!]!): [I_HR_Movement!]!
+	I_HR_MovementDelete(UUs: [String!]!): Boolean!
+}
+
+type I_HR_MovementConnection {
+	Results: [I_HR_Movement!]!
+	PagingInfo: PagingInfo!
+}
+
+type I_HR_Movement {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# The Key of the Business Partner
+	BPartner_Value: String
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Value of the Concept
+	ConceptValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
+	HR_Concept: HR_Concept
+	HR_Movement: HR_Movement
+	HR_Process: HR_Process
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID!
+	# Has this import been processed
+	I_IsImported: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Name of the Process
+	ProcessName: String
+	# Quantity
+	Qty: BigDecimal
+	# Date service was provided
+	ServiceDate: Date
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Valid from including this date (first day)
+	ValidFrom: Date
+}
+
+input I_HR_MovementInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# The Key of the Business Partner
+	BPartner_Value: String
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Value of the Concept
+	ConceptValue: String
+	# Optional short description of the record
+	Description: String
+	HR_Concept: ForeignEntityInput
+	HR_Movement: ForeignEntityInput
+	HR_Process: ForeignEntityInput
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID
+	# Has this import been processed
+	I_IsImported: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Name of the Process
+	ProcessName: String
+	# Quantity
+	Qty: BigDecimal
+	# Date service was provided
+	ServiceDate: Date
+	# Text Message
+	TextMsg: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+}

@@ -1,0 +1,273 @@
+# Generated Schema for I_FAJournal - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	I_FAJournalGet(Page: Int, Size: Int, Sort: String, Filter: String): I_FAJournalConnection!
+}
+
+extend type Mutation {
+	I_FAJournalSave(Entity: I_FAJournalInput!): I_FAJournal!
+	I_FAJournalSaveMany(Entities: [I_FAJournalInput!]!): [I_FAJournal!]!
+	I_FAJournalDelete(UUs: [String!]!): Boolean!
+}
+
+type I_FAJournalConnection {
+	Results: [I_FAJournal!]!
+	PagingInfo: PagingInfo!
+}
+
+type I_FAJournal {
+	# Asset used internally or by customers
+	A_Asset: A_Asset
+	A_Entry_Type: String
+	# Account used
+	Account: C_ElementValue
+	# Key of Account Element
+	AccountValue: String
+	# Name of the Accounting Schema
+	AcctSchemaName: String
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Accounted Credit Amount
+	AmtAcctCr: BigDecimal
+	# Accounted Debit Amount
+	AmtAcctDr: BigDecimal
+	# Source Credit Amount
+	AmtSourceCr: BigDecimal
+	# Source Debit Amount
+	AmtSourceDr: BigDecimal
+	# Description of the Batch
+	BatchDescription: String
+	# Document Number of the Batch
+	BatchDocumentNo: String
+	# Key of the Business Partner
+	BPartnerValue: String
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Currency Conversion Rate Type
+	C_ConversionType_ID: Int
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Document type or rules
+	C_DocType: C_DocType
+	# Location that inventory was moved from
+	C_LocFrom: C_Location
+	# Location that inventory was moved to
+	C_LocTo: C_Location
+	# Period of the Calendar
+	C_Period: C_Period
+	# Financial Project
+	C_Project: C_Project
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Sub account for Element Value
+	C_SubAcct: C_SubAcct
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Valid Account Combination
+	C_ValidCombination: C_ValidCombination
+	# Name of the Category
+	CategoryName: String
+	# Key of the Tenant
+	ClientValue: String
+	# Key value for the Currency Conversion Rate Type
+	ConversionTypeValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Currency Conversion Rate
+	CurrencyRate: BigDecimal
+	CurrencyRateType: AD_Ref_List
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# Name of the Document Type
+	DocTypeName: String
+	# General Ledger Budget
+	GL_Budget: GL_Budget
+	# General Ledger Category
+	GL_Category: GL_Category
+	# General Ledger Journal
+	GL_Journal: GL_Journal
+	# General Ledger Journal Batch
+	GL_JournalBatch: GL_JournalBatch
+	# General Ledger Journal Line
+	GL_JournalLine: GL_JournalLine
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID!
+	# Has this import been processed
+	I_IsImported: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The asset will be depreciated
+	IsDepreciated: String
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String
+	# Document number of the Journal
+	JournalDocumentNo: String
+	# Unique line for this document
+	Line: Int
+	# Product, Service, Item
+	M_Product: M_Product
+	# Key of the Transaction Organization
+	OrgTrxValue: String
+	# Key of the Organization
+	OrgValue: String
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Key of the Product
+	ProductValue: String
+	# Key of the Project
+	ProjectValue: String
+	# Quantity
+	Qty: BigDecimal
+	# Stock Keeping Unit
+	SKU: String
+	# Bar Code (Universal Product Code or its superset European Article Number)
+	UPC: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input I_FAJournalInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_Entry_Type: String
+	# Account used
+	Account: ForeignEntityInput
+	# Key of Account Element
+	AccountValue: String
+	# Name of the Accounting Schema
+	AcctSchemaName: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Accounted Credit Amount
+	AmtAcctCr: BigDecimal
+	# Accounted Debit Amount
+	AmtAcctDr: BigDecimal
+	# Source Credit Amount
+	AmtSourceCr: BigDecimal
+	# Source Debit Amount
+	AmtSourceDr: BigDecimal
+	# Description of the Batch
+	BatchDescription: String
+	# Document Number of the Batch
+	BatchDocumentNo: String
+	# Key of the Business Partner
+	BPartnerValue: String
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Currency Conversion Rate Type
+	C_ConversionType_ID: Int
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Location that inventory was moved from
+	C_LocFrom: ForeignEntityInput
+	# Location that inventory was moved to
+	C_LocTo: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	# Sub account for Element Value
+	C_SubAcct: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Valid Account Combination
+	C_ValidCombination: ForeignEntityInput
+	# Name of the Category
+	CategoryName: String
+	# Key of the Tenant
+	ClientValue: String
+	# Key value for the Currency Conversion Rate Type
+	ConversionTypeValue: String
+	# Currency Conversion Rate
+	CurrencyRate: BigDecimal
+	CurrencyRateType: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# Name of the Document Type
+	DocTypeName: String
+	# General Ledger Budget
+	GL_Budget: ForeignEntityInput
+	# General Ledger Category
+	GL_Category: ForeignEntityInput
+	# General Ledger Journal
+	GL_Journal: ForeignEntityInput
+	# General Ledger Journal Batch
+	GL_JournalBatch: ForeignEntityInput
+	# General Ledger Journal Line
+	GL_JournalLine: ForeignEntityInput
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID
+	# Has this import been processed
+	I_IsImported: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# The asset will be depreciated
+	IsDepreciated: String
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String
+	# Document number of the Journal
+	JournalDocumentNo: String
+	# Unique line for this document
+	Line: Int
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Key of the Transaction Organization
+	OrgTrxValue: String
+	# Key of the Organization
+	OrgValue: String
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Key of the Product
+	ProductValue: String
+	# Key of the Project
+	ProjectValue: String
+	# Quantity
+	Qty: BigDecimal
+	# Stock Keeping Unit
+	SKU: String
+	# Bar Code (Universal Product Code or its superset European Article Number)
+	UPC: String
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

@@ -1,0 +1,67 @@
+# Generated Schema for AD_Package_Imp_Proc - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Package_Imp_ProcGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_Imp_ProcConnection!
+}
+
+extend type Mutation {
+	AD_Package_Imp_ProcSave(Entity: AD_Package_Imp_ProcInput!): AD_Package_Imp_Proc!
+	AD_Package_Imp_ProcSaveMany(Entities: [AD_Package_Imp_ProcInput!]!): [AD_Package_Imp_Proc!]!
+	AD_Package_Imp_ProcDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Package_Imp_ProcConnection {
+	Results: [AD_Package_Imp_Proc!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Package_Imp_Proc {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_Override_Dict: Boolean!
+	# Package directory, default to AdempiereHome/packages
+	AD_Package_Dir: String
+	UU: ID!
+	# Fully qualified package source file name
+	AD_Package_Source: String
+	# Type of package source - file, ftp, webservice etc
+	AD_Package_Source_Type: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DateProcessed: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	P_Msg: String
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Package_Imp_ProcInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_Override_Dict: Boolean
+	# Package directory, default to AdempiereHome/packages
+	AD_Package_Dir: String
+	UU: ID
+	# Fully qualified package source file name
+	AD_Package_Source: String
+	# Type of package source - file, ftp, webservice etc
+	AD_Package_Source_Type: ForeignEntityInput
+	DateProcessed: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	P_Msg: String
+	Processing: Boolean
+}

@@ -1,0 +1,85 @@
+# Generated Schema for AD_HouseKeeping - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_HouseKeepingGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_HouseKeepingConnection!
+}
+
+extend type Mutation {
+	AD_HouseKeepingSave(Entity: AD_HouseKeepingInput!): AD_HouseKeeping!
+	AD_HouseKeepingSaveMany(Entities: [AD_HouseKeepingInput!]!): [AD_HouseKeeping!]!
+	AD_HouseKeepingDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_HouseKeepingConnection {
+	Results: [AD_HouseKeeping!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_HouseKeeping {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table
+	# Backup Folder
+	BackupFolder: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsExportXMLBackup: Boolean!
+	IsSaveInHistoric: Boolean!
+	LastDeleted: Int
+	LastRun: Date
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Name of the table in the database
+	TableName: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input AD_HouseKeepingInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Backup Folder
+	BackupFolder: String
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsExportXMLBackup: Boolean
+	IsSaveInHistoric: Boolean
+	LastDeleted: Int
+	LastRun: Date
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Name of the table in the database
+	TableName: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

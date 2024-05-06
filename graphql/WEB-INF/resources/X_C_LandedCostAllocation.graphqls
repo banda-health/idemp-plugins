@@ -1,0 +1,71 @@
+# Generated Schema for C_LandedCostAllocation - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_LandedCostAllocationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_LandedCostAllocationConnection!
+}
+
+extend type Mutation {
+	C_LandedCostAllocationSave(Entity: C_LandedCostAllocationInput!): C_LandedCostAllocation!
+	C_LandedCostAllocationSaveMany(Entities: [C_LandedCostAllocationInput!]!): [C_LandedCostAllocation!]!
+	C_LandedCostAllocationDelete(UUs: [String!]!): Boolean!
+}
+
+type C_LandedCostAllocationConnection {
+	Results: [C_LandedCostAllocation!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_LandedCostAllocation {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount
+	Amt: BigDecimal!
+	# Calculation Base
+	Base: BigDecimal!
+	# Invoice Detail Line
+	C_InvoiceLine: C_InvoiceLine!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance
+	# Product Cost Element
+	M_CostElement: M_CostElement!
+	# Line on Shipment or Receipt document
+	M_InOutLine: M_InOutLine
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Quantity
+	Qty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_LandedCostAllocationInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount
+	Amt: BigDecimal
+	# Calculation Base
+	Base: BigDecimal
+	# Invoice Detail Line
+	C_InvoiceLine: ForeignEntityInput
+	UU: ID
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Quantity
+	Qty: BigDecimal
+}

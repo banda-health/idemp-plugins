@@ -1,0 +1,49 @@
+# Generated Schema for U_RoleMenu - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	U_RoleMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_RoleMenuConnection!
+}
+
+extend type Mutation {
+	U_RoleMenuSave(Entity: U_RoleMenuInput!): U_RoleMenu!
+	U_RoleMenuSaveMany(Entities: [U_RoleMenuInput!]!): [U_RoleMenu!]!
+	U_RoleMenuDelete(UUs: [String!]!): Boolean!
+}
+
+type U_RoleMenuConnection {
+	Results: [U_RoleMenu!]!
+	PagingInfo: PagingInfo!
+}
+
+type U_RoleMenu {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	U_WebMenu: U_WebMenu!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input U_RoleMenuInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	U_WebMenu: ForeignEntityInput
+}

@@ -1,0 +1,113 @@
+# Generated Schema for AD_Sequence - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_SequenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SequenceConnection!
+}
+
+extend type Mutation {
+	AD_SequenceSave(Entity: AD_SequenceInput!): AD_Sequence!
+	AD_SequenceSaveMany(Entities: [AD_SequenceInput!]!): [AD_Sequence!]!
+	AD_SequenceDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_SequenceConnection {
+	Results: [AD_Sequence!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Sequence {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The next number to be used
+	CurrentNext: Int!
+	# Next sequence for system use
+	CurrentNextSys: Int!
+	# Fully qualified date column
+	DateColumn: String
+	# Java Decimal Pattern
+	DecimalPattern: String
+	# Optional short description of the record
+	Description: String
+	# The number to increment the last document number by
+	IncrementNo: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Activate Audit Trail of what numbers are generated
+	IsAudited: Boolean!
+	# Automatically assign the next number
+	IsAutoSequence: Boolean!
+	# This sequence can be defined for each organization
+	IsOrgLevelSequence: Boolean!
+	# The document number  will be used as the record key
+	IsTableID: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Fully qualified Organization column (AD_Org_ID)
+	OrgColumn: String
+	# Prefix before the sequence number
+	Prefix: String
+	StartNewMonth: Boolean!
+	# Restart the sequence with Start on every 1/1
+	StartNewYear: Boolean!
+	# Starting number/position
+	StartNo: Int!
+	# Suffix after the number
+	Suffix: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}
+
+input AD_SequenceInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# The next number to be used
+	CurrentNext: Int
+	# Next sequence for system use
+	CurrentNextSys: Int
+	# Fully qualified date column
+	DateColumn: String
+	# Java Decimal Pattern
+	DecimalPattern: String
+	# Optional short description of the record
+	Description: String
+	# The number to increment the last document number by
+	IncrementNo: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Activate Audit Trail of what numbers are generated
+	IsAudited: Boolean
+	# Automatically assign the next number
+	IsAutoSequence: Boolean
+	# This sequence can be defined for each organization
+	IsOrgLevelSequence: Boolean
+	# The document number  will be used as the record key
+	IsTableID: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Fully qualified Organization column (AD_Org_ID)
+	OrgColumn: String
+	# Prefix before the sequence number
+	Prefix: String
+	StartNewMonth: Boolean
+	# Restart the sequence with Start on every 1/1
+	StartNewYear: Boolean
+	# Starting number/position
+	StartNo: Int
+	# Suffix after the number
+	Suffix: String
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

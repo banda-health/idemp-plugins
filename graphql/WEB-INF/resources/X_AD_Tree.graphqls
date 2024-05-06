@@ -1,0 +1,83 @@
+# Generated Schema for AD_Tree - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_TreeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TreeConnection!
+}
+
+extend type Mutation {
+	AD_TreeSave(Entity: AD_TreeInput!): AD_Tree!
+	AD_TreeSaveMany(Entities: [AD_TreeInput!]!): [AD_Tree!]!
+	AD_TreeDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_TreeConnection {
+	Results: [AD_Tree!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Tree {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# All Nodes are included (Complete Tree)
+	IsAllNodes: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# If checked, all nodes are loaded before tree is displayed
+	IsLoadAllNodesImmediately: Boolean!
+	IsTreeDrivenByValue: Boolean!
+	# Displays Value column with the Display column
+	IsValueDisplayed: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# The link column on the parent tab.
+	Parent_Column: AD_Column
+	Processing: Boolean!
+	# Element this tree is built on (i.e Product, Business Partner)
+	TreeType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_TreeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# All Nodes are included (Complete Tree)
+	IsAllNodes: Boolean
+	# Default value
+	IsDefault: Boolean
+	# If checked, all nodes are loaded before tree is displayed
+	IsLoadAllNodesImmediately: Boolean
+	IsTreeDrivenByValue: Boolean
+	# Displays Value column with the Display column
+	IsValueDisplayed: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The link column on the parent tab.
+	Parent_Column: ForeignEntityInput
+	Processing: Boolean
+	# Element this tree is built on (i.e Product, Business Partner)
+	TreeType: ForeignEntityInput
+}

@@ -144,7 +144,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(cashRow.isPresent(), "Payments are included");
 			assertTrue(StreamSupport.stream(cashRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Payment amounts are included");
 
 			Optional<Row> totalPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -154,7 +154,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(totalPaymentRow.isPresent(), "Total payment row is included");
 			assertTrue(StreamSupport.stream(totalPaymentRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Total payment amount is correct");
 
 			Optional<Row> changeDueRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -255,7 +255,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(cashRow.isPresent(), "'CASH' is on the receipt");
 			assertTrue(StreamSupport.stream(cashRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Cash amount is correct");
 
 			Optional<Row> totalPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -265,7 +265,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(totalPaymentRow.isPresent(), "Total payment row is included");
 			assertTrue(StreamSupport.stream(totalPaymentRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Total payment amount is correct");
 
 			double outstandingAmount =
@@ -336,7 +336,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Change payment");
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_MPesa);
 		valueObject.getPayment().setPayAmt(new BigDecimal(21));
-		valueObject.getPayment().setBH_TenderAmount(new BigDecimal(21));
+		valueObject.getPayment().setBH_tender_amount(new BigDecimal(21));
 		valueObject.getPayment().saveEx();
 		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was re-completed");
@@ -504,7 +504,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(cashRow.isPresent(), "Cash row is included");
 			assertTrue(StreamSupport.stream(cashRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Cash amount is correct");
 
 			Optional<Row> nonPatientPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -616,7 +616,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(cashRow.isPresent(), "Cash row is included");
 			assertTrue(StreamSupport.stream(cashRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Cash amount is correct");
 
 			Optional<Row> totalPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -626,7 +626,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(totalPaymentRow.isPresent(), "Total payment row is included");
 			assertTrue(StreamSupport.stream(totalPaymentRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Total payment amount is correct");
 
 			Optional<Row> outstandingAmountRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -765,7 +765,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(mobileMoney.isPresent(), "Mobile money row is included");
 			assertTrue(StreamSupport.stream(mobileMoney.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Mobile money amount is correct");
 
 			Optional<Row> totalPaymentRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -775,7 +775,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(totalPaymentRow.isPresent(), "Total payment row is included");
 			assertTrue(StreamSupport.stream(totalPaymentRow.get().spliterator(), false).anyMatch(
 							cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) &&
-									cell.getNumericCellValue() == valueObject.getPayment().getBH_TenderAmount().doubleValue()),
+									cell.getNumericCellValue() == valueObject.getPayment().getBH_tender_amount().doubleValue()),
 					"Total payment amount is correct");
 
 			Optional<Row> changeDueRow = StreamSupport.stream(sheet.spliterator(), false).filter(
@@ -785,7 +785,7 @@ public class VisitReceiptTest extends ChuBoePopulateFactoryVO {
 			assertTrue(changeDueRow.isPresent(), "Change due row is included");
 			assertTrue(StreamSupport.stream(changeDueRow.get().spliterator(), false).anyMatch(
 					cell -> cell != null && cell.getCellType().equals(CellType.NUMERIC) && cell.getNumericCellValue() ==
-							(valueObject.getPayment().getBH_TenderAmount().doubleValue() -
+							(valueObject.getPayment().getBH_tender_amount().doubleValue() -
 									valueObject.getPayment().getPayAmt().doubleValue())), "Total payment amount is correct");
 
 			Optional<Row> outstandingFromPreviousVisitsRow = StreamSupport.stream(sheet.spliterator(), false).filter(

@@ -15,6 +15,10 @@ public class MSysConfig_BH extends MSysConfig {
 	public static final String AUTOCOMPLETE_MOST_RECENT_VISITS_FIRST = "AUTOCOMPLETE_MOST_RECENT_VISITS_FIRST";
 	public static final String NEW_FEATURE_ROLLOUT_ALLOW_FOR_CLIENTS = "NEW_FEATURE_ROLLOUT_ALLOW_FOR_CLIENTS";
 
+	public MSysConfig_BH(Properties ctx, String AD_SysConfig_UU, String trxName) {
+		super(ctx, AD_SysConfig_UU, trxName);
+	}
+
 	public MSysConfig_BH(Properties ctx, int AD_SysConfig_ID, String trxName) {
 		super(ctx, AD_SysConfig_ID, trxName);
 	}

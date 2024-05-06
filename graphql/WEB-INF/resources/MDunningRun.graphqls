@@ -1,0 +1,3 @@
+extend type C_DunningRun {
+	C_DunningRunEntries: [C_DunningRunEntry!]
+}

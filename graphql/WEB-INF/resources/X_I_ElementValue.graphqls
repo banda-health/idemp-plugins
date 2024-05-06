@@ -1,0 +1,129 @@
+# Generated Schema for I_ElementValue - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	I_ElementValueGet(Page: Int, Size: Int, Sort: String, Filter: String): I_ElementValueConnection!
+}
+
+extend type Mutation {
+	I_ElementValueSave(Entity: I_ElementValueInput!): I_ElementValue!
+	I_ElementValueSaveMany(Entities: [I_ElementValueInput!]!): [I_ElementValue!]!
+	I_ElementValueDelete(UUs: [String!]!): Boolean!
+}
+
+type I_ElementValueConnection {
+	Results: [I_ElementValue!]!
+	PagingInfo: PagingInfo!
+}
+
+type I_ElementValue {
+	# Indicates the Natural Sign of the Account as a Debit or Credit
+	AccountSign: AD_Ref_List
+	# Indicates the type of account
+	AccountType: AD_Ref_List
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Accounting Element
+	C_Element: C_Element
+	# Account Element
+	C_ElementValue: C_ElementValue
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Name of the Default Account Column
+	Default_Account: String
+	# Optional short description of the record
+	Description: String
+	# Name of the Element
+	ElementName: String
+	UU: ID!
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Control account - If an account is controlled by a document, you cannot post manually to it
+	IsDocControlled: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The parent (summary) account
+	ParentElementValue: C_ElementValue
+	# Key if the Parent
+	ParentValue: String
+	# Actual Values can be posted
+	PostActual: Boolean!
+	# Budget values can be posted
+	PostBudget: Boolean!
+	# Post commitments to this account
+	PostEncumbrance: Boolean!
+	# Post statistical quantities to this account?
+	PostStatistical: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input I_ElementValueInput {
+	# Indicates the Natural Sign of the Account as a Debit or Credit
+	AccountSign: ForeignEntityInput
+	# Indicates the type of account
+	AccountType: ForeignEntityInput
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Accounting Element
+	C_Element: ForeignEntityInput
+	# Account Element
+	C_ElementValue: ForeignEntityInput
+	# Name of the Default Account Column
+	Default_Account: String
+	# Optional short description of the record
+	Description: String
+	# Name of the Element
+	ElementName: String
+	UU: ID
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Control account - If an account is controlled by a document, you cannot post manually to it
+	IsDocControlled: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The parent (summary) account
+	ParentElementValue: ForeignEntityInput
+	# Key if the Parent
+	ParentValue: String
+	# Actual Values can be posted
+	PostActual: Boolean
+	# Budget values can be posted
+	PostBudget: Boolean
+	# Post commitments to this account
+	PostEncumbrance: Boolean
+	# Post statistical quantities to this account?
+	PostStatistical: Boolean
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

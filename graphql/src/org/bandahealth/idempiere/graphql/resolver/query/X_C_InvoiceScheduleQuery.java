@@ -1,0 +1,24 @@
+package org.bandahealth.idempiere.graphql.resolver.query;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.Connection;
+import org.compiere.model.MInvoiceSchedule;
+
+/**
+ * Generated Query Resolver for C_InvoiceSchedule - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_C_InvoiceScheduleQuery extends POQuery<MInvoiceSchedule> implements GraphQLQueryResolver {
+	@Override
+	protected String getTableName() {
+		return MInvoiceSchedule.Table_Name;
+	}
+
+	public Connection<MInvoiceSchedule> C_InvoiceScheduleGet(int Page, int PageSize, String Sort, String Filter,
+			DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, environment);
+	}
+}

@@ -1,0 +1,149 @@
+# Generated Schema for C_RfQ - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RfQGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQConnection!
+}
+
+extend type Mutation {
+	C_RfQSave(Entity: C_RfQInput!): C_RfQ!
+	C_RfQSaveMany(Entities: [C_RfQInput!]!): [C_RfQ!]!
+	C_RfQDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RfQConnection {
+	Results: [C_RfQ!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_RfQ {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Order
+	C_Order: C_Order
+	# Topic for Request for Quotations
+	C_RfQ_Topic: C_RfQ_Topic!
+	UU: ID!
+	CopyLines: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Create Purchase Order
+	CreatePO: String
+	CreateSO: String
+	# Date of the Response
+	DateResponse: Date!
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Only invited vendors can respond to an RfQ
+	IsInvitedVendorsOnly: Boolean!
+	# Suppliers are requested to provide responses for all quantities
+	IsQuoteAllQty: Boolean!
+	# The response can have just the total amount for the RfQ
+	IsQuoteTotalAmt: Boolean!
+	# Are Responses to the Request for Quotation accepted
+	IsRfQResponseAccepted: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Margin for a product as a percentage
+	Margin: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	PublishRfQ: String
+	# Request for Quotation Type
+	QuoteType: AD_Ref_List!
+	RankRfQ: String
+	# Sales Representative or Company Agent
+	SalesRep: AD_User!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Topic for Request for Quotations
+	C_RfQ_Topic: ForeignEntityInput
+	UU: ID
+	CopyLines: String
+	# Create Purchase Order
+	CreatePO: String
+	CreateSO: String
+	# Date of the Response
+	DateResponse: Date
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Only invited vendors can respond to an RfQ
+	IsInvitedVendorsOnly: Boolean
+	# Suppliers are requested to provide responses for all quantities
+	IsQuoteAllQty: Boolean
+	# The response can have just the total amount for the RfQ
+	IsQuoteTotalAmt: Boolean
+	# Are Responses to the Request for Quotation accepted
+	IsRfQResponseAccepted: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	# Margin for a product as a percentage
+	Margin: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	PublishRfQ: String
+	# Request for Quotation Type
+	QuoteType: ForeignEntityInput
+	RankRfQ: String
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+}

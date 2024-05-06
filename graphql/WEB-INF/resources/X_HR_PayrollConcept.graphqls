@@ -1,0 +1,69 @@
+# Generated Schema for HR_PayrollConcept - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_PayrollConceptGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_PayrollConceptConnection!
+}
+
+extend type Mutation {
+	HR_PayrollConceptSave(Entity: HR_PayrollConceptInput!): HR_PayrollConcept!
+	HR_PayrollConceptSaveMany(Entities: [HR_PayrollConceptInput!]!): [HR_PayrollConcept!]!
+	HR_PayrollConceptDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_PayrollConceptConnection {
+	Results: [HR_PayrollConcept!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_PayrollConcept {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_Rule: AD_Rule
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	HR_Concept: HR_Concept!
+	HR_Payroll: HR_Payroll!
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean!
+	# Defines whether this content / template is included into another one
+	IsInclude: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_PayrollConceptInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_Rule: ForeignEntityInput
+	HR_Concept: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean
+	# Defines whether this content / template is included into another one
+	IsInclude: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

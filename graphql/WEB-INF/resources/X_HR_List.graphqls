@@ -1,0 +1,71 @@
+# Generated Schema for HR_List - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_ListGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListConnection!
+}
+
+extend type Mutation {
+	HR_ListSave(Entity: HR_ListInput!): HR_List!
+	HR_ListSaveMany(Entities: [HR_ListInput!]!): [HR_List!]!
+	HR_ListDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_ListConnection {
+	Results: [HR_List!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_List {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	HR_Department: HR_Department
+	HR_Employee: HR_Employee
+	UU: ID!
+	HR_ListType: HR_ListType
+	HR_Payroll: HR_Payroll
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input HR_ListInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	HR_Department: ForeignEntityInput
+	HR_Employee: ForeignEntityInput
+	UU: ID
+	HR_ListType: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

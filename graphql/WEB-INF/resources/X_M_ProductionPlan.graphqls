@@ -1,0 +1,71 @@
+# Generated Schema for M_ProductionPlan - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_ProductionPlanGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ProductionPlanConnection!
+}
+
+extend type Mutation {
+	M_ProductionPlanSave(Entity: M_ProductionPlanInput!): M_ProductionPlan!
+	M_ProductionPlanSaveMany(Entities: [M_ProductionPlanInput!]!): [M_ProductionPlan!]!
+	M_ProductionPlanDelete(UUs: [String!]!): Boolean!
+}
+
+type M_ProductionPlanConnection {
+	Results: [M_ProductionPlan!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_ProductionPlan {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Warehouse Locator
+	M_Locator: M_Locator!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Plan for producing a product
+	M_Production: M_Production!
+	UU: ID!
+	# The document has been processed
+	Processed: Boolean!
+	# Quantity of products to produce
+	ProductionQty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ProductionPlanInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Plan for producing a product
+	M_Production: ForeignEntityInput
+	UU: ID
+	# The document has been processed
+	Processed: Boolean
+	# Quantity of products to produce
+	ProductionQty: BigDecimal
+}

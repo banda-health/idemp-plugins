@@ -1,0 +1,51 @@
+# Generated Schema for A_FundingMode_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_FundingMode_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): A_FundingMode_AcctConnection!
+}
+
+extend type Mutation {
+	A_FundingMode_AcctSave(Entity: A_FundingMode_AcctInput!): A_FundingMode_Acct!
+	A_FundingMode_AcctSaveMany(Entities: [A_FundingMode_AcctInput!]!): [A_FundingMode_Acct!]!
+	A_FundingMode_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type A_FundingMode_AcctConnection {
+	Results: [A_FundingMode_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_FundingMode_Acct {
+	A_FundingMode_A: C_ValidCombination!
+	UU: ID!
+	A_FundingMode: A_FundingMode!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_FundingMode_AcctInput {
+	A_FundingMode_A: ForeignEntityInput
+	UU: ID
+	A_FundingMode: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

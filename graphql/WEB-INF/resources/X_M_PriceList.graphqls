@@ -1,0 +1,85 @@
+# Generated Schema for M_PriceList - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PriceListGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PriceListConnection!
+}
+
+extend type Mutation {
+	M_PriceListSave(Entity: M_PriceListInput!): M_PriceList!
+	M_PriceListSaveMany(Entities: [M_PriceListInput!]!): [M_PriceList!]!
+	M_PriceListDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PriceListConnection {
+	Results: [M_PriceList!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_PriceList {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Pricelist to be used, if product not found on this pricelist
+	BasePriceList: M_PriceList
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Do not allow prices below the limit price
+	EnforcePriceLimit: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Data entry is required in this column
+	IsMandatory: Boolean!
+	isPresentForProduct: Boolean!
+	# This is a Sales Price List
+	IsSOPriceList: Boolean!
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Precision (number of decimals) for the Price
+	PricePrecision: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PriceListInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Pricelist to be used, if product not found on this pricelist
+	BasePriceList: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Do not allow prices below the limit price
+	EnforcePriceLimit: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	isPresentForProduct: Boolean
+	# This is a Sales Price List
+	IsSOPriceList: Boolean
+	# Tax is included in the price 
+	IsTaxIncluded: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Precision (number of decimals) for the Price
+	PricePrecision: Int
+}

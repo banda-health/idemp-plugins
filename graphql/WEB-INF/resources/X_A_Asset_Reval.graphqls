@@ -1,0 +1,93 @@
+# Generated Schema for A_Asset_Reval - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_RevalGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_RevalConnection!
+}
+
+extend type Mutation {
+	A_Asset_RevalSave(Entity: A_Asset_RevalInput!): A_Asset_Reval!
+	A_Asset_RevalSaveMany(Entities: [A_Asset_RevalInput!]!): [A_Asset_Reval!]!
+	A_Asset_RevalDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_RevalConnection {
+	Results: [A_Asset_Reval!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Reval {
+	A_Accumulated_Depr: BigDecimal
+	A_Asset_Cost: BigDecimal
+	A_Asset_Cost_Change: BigDecimal!
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	UU: ID!
+	A_Change_Acumulated_Depr: BigDecimal!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# Date of the Document
+	DateDoc: Date
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Posting status
+	Posted: Boolean!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_RevalInput {
+	A_Accumulated_Depr: BigDecimal
+	A_Asset_Cost: BigDecimal
+	A_Asset_Cost_Change: BigDecimal
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	UU: ID
+	A_Change_Acumulated_Depr: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# Date of the Document
+	DateDoc: Date
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Posting status
+	Posted: Boolean
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+}

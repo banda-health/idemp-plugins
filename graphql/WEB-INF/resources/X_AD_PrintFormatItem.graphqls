@@ -1,0 +1,279 @@
+# Generated Schema for AD_PrintFormatItem - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PrintFormatItemGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintFormatItemConnection!
+}
+
+extend type Mutation {
+	AD_PrintFormatItemSave(Entity: AD_PrintFormatItemInput!): AD_PrintFormatItem!
+	AD_PrintFormatItemSaveMany(Entities: [AD_PrintFormatItemInput!]!): [AD_PrintFormatItem!]!
+	AD_PrintFormatItemDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PrintFormatItemConnection {
+	Results: [AD_PrintFormatItem!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PrintFormatItem {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Field CSS Style 
+	AD_FieldStyle: AD_Style
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Color used for printing and display
+	AD_PrintColor: AD_PrintColor
+	# Maintain Print Font
+	AD_PrintFont: AD_PrintFont
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat!
+	# Print format that is included here.
+	AD_PrintFormatChild: AD_PrintFormat!
+	UU: ID!
+	# Graph included in Reports
+	AD_PrintGraph: AD_PrintGraph
+	# Arc Diameter for rounded Rectangles
+	ArcDiameter: Int
+	# Type of barcode
+	BarcodeType: AD_Ref_List
+	# Print this column below the column index entered
+	BelowColumn: Int
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Field Text Alignment
+	FieldAlignmentType: AD_Ref_List!
+	# The pattern used to format a number or date.
+	FormatPattern: String
+	# The image to be printed is attached to the record
+	ImageIsAttached: Boolean!
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Calculate Average of numeric content or length
+	IsAveraged: Boolean!
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	# Count number of not empty elements
+	IsCounted: Boolean!
+	# Sort your data using a SQL Desc Order By statement
+	IsDesc: Boolean!
+	# Calculate Standard Deviation
+	IsDeviationCalc: Boolean!
+	# Fill the shape with the color selected
+	IsFilledRectangle: Boolean!
+	# Column has a fixed width
+	IsFixedWidth: Boolean!
+	# After a group change, totals, etc. are printed
+	IsGroupBy: Boolean!
+	# If selected, only one line is printed
+	IsHeightOneLine: Boolean!
+	# The image is retrieved from the data column
+	IsImageField: Boolean!
+	# Calculate the maximum amount
+	IsMaxCalc: Boolean!
+	# Calculate the minimum amount
+	IsMinCalc: Boolean!
+	# Print item on next line
+	IsNextLine: Boolean!
+	# The column is printed on the next page
+	IsNextPage: Boolean!
+	# Include in sort order
+	IsOrderBy: Boolean!
+	# Start with new page
+	IsPageBreak: Boolean!
+	# Print barcode text at the bottom of barcode
+	IsPrintBarcodeText: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# Print each attributes as report column instead of printing the description of attribute set instance
+	IsPrintInstanceAttributes: Boolean!
+	# The item is relative positioned (not absolute)
+	IsRelativePosition: Boolean!
+	# Create a running total (sum)
+	IsRunningTotal: Boolean!
+	# Set New Line Position
+	IsSetNLPosition: Boolean!
+	# Calculate the Sum of numeric content or length
+	IsSummarized: Boolean!
+	# Suppress columns or elements with NULL value
+	IsSuppressNull: Boolean!
+	# Suppress repeated elements in column.
+	IsSuppressRepeats: Boolean!
+	# Calculate Variance
+	IsVarianceCalc: Boolean!
+	# Line Alignment
+	LineAlignmentType: AD_Ref_List!
+	# Width of the lines
+	LineWidth: Int
+	# Maximum Height in 1/72 if an inch - 0 = no restriction
+	MaxHeight: Int!
+	# Maximum Width in 1/72 if an inch - 0 = no restriction
+	MaxWidth: Int!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Print Area
+	PrintAreaType: AD_Ref_List!
+	# Print Format Type
+	PrintFormatType: AD_Ref_List!
+	# The label text to be printed on a document or correspondence.
+	PrintName: String
+	# The label text to be printed on a document or correspondence after the field
+	PrintNameSuffix: String
+	# Create Running Total Lines (page break) every x lines
+	RunningTotalLines: Int
+	# Dynamic Java Language Script to calculate result
+	Script: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Type of the shape to be painted
+	ShapeType: AD_Ref_List
+	# Determines in what order the records are displayed
+	SortNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int!
+	# Relative X (horizontal) space in 1/72 of an inch
+	XSpace: Int!
+	# Absolute Y (vertical) position in 1/72 of an inch
+	YPosition: Int!
+	# Relative Y (vertical) space in 1/72 of an inch
+	YSpace: Int!
+}
+
+input AD_PrintFormatItemInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Field CSS Style 
+	AD_FieldStyle: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	# Maintain Print Font
+	AD_PrintFont: ForeignEntityInput
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	# Print format that is included here.
+	AD_PrintFormatChild: ForeignEntityInput
+	UU: ID
+	# Graph included in Reports
+	AD_PrintGraph: ForeignEntityInput
+	# Arc Diameter for rounded Rectangles
+	ArcDiameter: Int
+	# Type of barcode
+	BarcodeType: ForeignEntityInput
+	# Print this column below the column index entered
+	BelowColumn: Int
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Field Text Alignment
+	FieldAlignmentType: ForeignEntityInput
+	# The pattern used to format a number or date.
+	FormatPattern: String
+	# The image to be printed is attached to the record
+	ImageIsAttached: Boolean
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Calculate Average of numeric content or length
+	IsAveraged: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	# Count number of not empty elements
+	IsCounted: Boolean
+	# Sort your data using a SQL Desc Order By statement
+	IsDesc: Boolean
+	# Calculate Standard Deviation
+	IsDeviationCalc: Boolean
+	# Fill the shape with the color selected
+	IsFilledRectangle: Boolean
+	# Column has a fixed width
+	IsFixedWidth: Boolean
+	# After a group change, totals, etc. are printed
+	IsGroupBy: Boolean
+	# If selected, only one line is printed
+	IsHeightOneLine: Boolean
+	# The image is retrieved from the data column
+	IsImageField: Boolean
+	# Calculate the maximum amount
+	IsMaxCalc: Boolean
+	# Calculate the minimum amount
+	IsMinCalc: Boolean
+	# Print item on next line
+	IsNextLine: Boolean
+	# The column is printed on the next page
+	IsNextPage: Boolean
+	# Include in sort order
+	IsOrderBy: Boolean
+	# Start with new page
+	IsPageBreak: Boolean
+	# Print barcode text at the bottom of barcode
+	IsPrintBarcodeText: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Print each attributes as report column instead of printing the description of attribute set instance
+	IsPrintInstanceAttributes: Boolean
+	# The item is relative positioned (not absolute)
+	IsRelativePosition: Boolean
+	# Create a running total (sum)
+	IsRunningTotal: Boolean
+	# Set New Line Position
+	IsSetNLPosition: Boolean
+	# Calculate the Sum of numeric content or length
+	IsSummarized: Boolean
+	# Suppress columns or elements with NULL value
+	IsSuppressNull: Boolean
+	# Suppress repeated elements in column.
+	IsSuppressRepeats: Boolean
+	# Calculate Variance
+	IsVarianceCalc: Boolean
+	# Line Alignment
+	LineAlignmentType: ForeignEntityInput
+	# Width of the lines
+	LineWidth: Int
+	# Maximum Height in 1/72 if an inch - 0 = no restriction
+	MaxHeight: Int
+	# Maximum Width in 1/72 if an inch - 0 = no restriction
+	MaxWidth: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Print Area
+	PrintAreaType: ForeignEntityInput
+	# Print Format Type
+	PrintFormatType: ForeignEntityInput
+	# The label text to be printed on a document or correspondence.
+	PrintName: String
+	# The label text to be printed on a document or correspondence after the field
+	PrintNameSuffix: String
+	# Create Running Total Lines (page break) every x lines
+	RunningTotalLines: Int
+	# Dynamic Java Language Script to calculate result
+	Script: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Type of the shape to be painted
+	ShapeType: ForeignEntityInput
+	# Determines in what order the records are displayed
+	SortNo: Int
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int
+	# Relative X (horizontal) space in 1/72 of an inch
+	XSpace: Int
+	# Absolute Y (vertical) position in 1/72 of an inch
+	YPosition: Int
+	# Relative Y (vertical) space in 1/72 of an inch
+	YSpace: Int
+}

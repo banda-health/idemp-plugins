@@ -1,0 +1,57 @@
+# Generated Schema for C_RevenueRecognition_Run - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RevenueRecognition_RunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecognition_RunConnection!
+}
+
+extend type Mutation {
+	C_RevenueRecognition_RunSave(Entity: C_RevenueRecognition_RunInput!): C_RevenueRecognition_Run!
+	C_RevenueRecognition_RunSaveMany(Entities: [C_RevenueRecognition_RunInput!]!): [C_RevenueRecognition_Run!]!
+	C_RevenueRecognition_RunDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RevenueRecognition_RunConnection {
+	Results: [C_RevenueRecognition_Run!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_RevenueRecognition_Run {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	C_RevenueRecog_Service: C_RevenueRecog_Service
+	# Plan for recognizing or recording revenue
+	C_RevenueRecognition_Plan: C_RevenueRecognition_Plan!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DateRecognized: Date
+	# General Ledger Journal
+	GL_Journal: GL_Journal
+	# The record is active in the system
+	IsActive: Boolean!
+	RecognizedAmt: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RevenueRecognition_RunInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	C_RevenueRecog_Service: ForeignEntityInput
+	# Plan for recognizing or recording revenue
+	C_RevenueRecognition_Plan: ForeignEntityInput
+	UU: ID
+	DateRecognized: Date
+	# General Ledger Journal
+	GL_Journal: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	RecognizedAmt: BigDecimal
+}

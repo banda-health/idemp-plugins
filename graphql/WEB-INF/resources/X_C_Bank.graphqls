@@ -1,0 +1,67 @@
+# Generated Schema for C_Bank - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BankGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankConnection!
+}
+
+extend type Mutation {
+	C_BankSave(Entity: C_BankInput!): C_Bank!
+	C_BankSaveMany(Entities: [C_BankInput!]!): [C_Bank!]!
+	C_BankDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BankConnection {
+	Results: [C_Bank!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Bank {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Location or Address
+	C_Location: C_Location
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Bank for this Organization
+	IsOwnBank: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Bank Routing Number
+	RoutingNo: String!
+	# Swift Code or BIC
+	SwiftCode: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BankInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Bank for this Organization
+	IsOwnBank: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Bank Routing Number
+	RoutingNo: String
+	# Swift Code or BIC
+	SwiftCode: String
+}

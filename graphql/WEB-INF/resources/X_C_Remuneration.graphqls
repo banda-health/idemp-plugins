@@ -1,0 +1,79 @@
+# Generated Schema for C_Remuneration - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RemunerationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RemunerationConnection!
+}
+
+extend type Mutation {
+	C_RemunerationSave(Entity: C_RemunerationInput!): C_Remuneration!
+	C_RemunerationSaveMany(Entities: [C_RemunerationInput!]!): [C_Remuneration!]!
+	C_RemunerationDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RemunerationConnection {
+	Results: [C_Remuneration!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Remuneration {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Gross Remuneration Amount
+	GrossRAmt: BigDecimal!
+	# Gross Remuneration Costs
+	GrossRCost: BigDecimal!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Hourly Overtime Rate
+	OvertimeAmt: BigDecimal!
+	# Hourly Overtime Cost
+	OvertimeCost: BigDecimal!
+	# Type of Remuneration
+	RemunerationType: AD_Ref_List!
+	# Standard Work Hours based on Remuneration Type
+	StandardHours: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RemunerationInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Gross Remuneration Amount
+	GrossRAmt: BigDecimal
+	# Gross Remuneration Costs
+	GrossRCost: BigDecimal
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Hourly Overtime Rate
+	OvertimeAmt: BigDecimal
+	# Hourly Overtime Cost
+	OvertimeCost: BigDecimal
+	# Type of Remuneration
+	RemunerationType: ForeignEntityInput
+	# Standard Work Hours based on Remuneration Type
+	StandardHours: Int
+}
