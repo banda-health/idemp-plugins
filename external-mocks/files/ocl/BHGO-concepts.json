@@ -204,5 +204,65 @@
 		"public_can_view": true,
 		"versioned_object_id": 404615,
 		"checksums": null
-	}
+	},
+	{
+	    "uuid": "404667",
+	    "extras": {
+		"Index_terms": "burn, friction burn",
+		"MOH-705A-LESSTHAN5": "Burns",
+		"MOH-705B-GREATERTHAN5": "Burns"
+	    },
+	    "checksums": {
+		"smart": "d6ec45fc48752d0bcbb89deb8899e524",
+		"standard": "8f3673b5a2848aea84e34b5416fb71dc"
+	    },
+	    "id": "55",
+	    "external_id": "b76344d6-22bb-4ce5-946c-65c86b6bb713",
+	    "concept_class": "Diagnosis",
+	    "datatype": "None",
+	    "url": "/orgs/bandahealth/sources/BHGO/concepts/55/",
+	    "retired": false,
+	    "source": "BHGO",
+	    "owner": "bandahealth",
+	    "owner_type": "Organization",
+	    "owner_url": "/orgs/bandahealth/",
+	    "display_name": "Burns",
+	    "display_locale": "en",
+	    "names": [
+		{
+		    "uuid": "3127962",
+		    "name": "Burns",
+		    "external_id": null,
+		    "type": "ConceptName",
+		    "locale": "en",
+		    "locale_preferred": true,
+		    "name_type": "Fully Specified",
+		    "checksum": "bebb6efa4af1f3eae9f8d4bd1923226c"
+		}
+	    ],
+	    "descriptions": [
+		{
+		    "uuid": "247909",
+		    "description": "Add Search Terms",
+		    "external_id": "",
+		    "type": "ConceptDescription",
+		    "locale": "eng",
+		    "locale_preferred": false,
+		    "description_type": "Definition",
+		    "checksum": "0d8845a402627745b0f83a29f61c3d3a"
+		}
+	    ],
+	    "created_on": "2021-08-24T11:16:37.387224Z",
+	    "updated_on": "2022-09-27T11:42:11.877691Z",
+	    "versions_url": "/orgs/bandahealth/sources/BHGO/concepts/55/versions/",
+	    "version": "404667",
+	    "type": "Concept",
+	    "update_comment": null,
+	    "version_url": "/orgs/bandahealth/sources/BHGO/concepts/55/2518494/",
+	    "updated_by": "sainanelly",
+	    "created_by": "sletchford",
+	    "public_can_view": true,
+	    "versioned_object_id": 404667,
+	    "latest_source_version": null
+	},
 ]
