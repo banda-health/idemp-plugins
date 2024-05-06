@@ -64,7 +64,7 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
 							.setParameters(diagnosisToSearchFor).first();
 			if (codedDiagnosis == null) {
-				valueObject.setStepName("Create the burns coded diagnosis");
+				valueObject.setStepName("Create the pneumonia coded diagnosis");
 				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
 				codedDiagnosis.setBH_Display_Name(diagnosisToSearchFor);
 			}
@@ -84,6 +84,33 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			}
 
 			commitEx();
+			
+			// verify second diagnosis exists
+			MBHConcept codedDiagnosis2 = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+							.setParameters(diagnosisAfterDiagnosisToSearchForOnReport).first();
+			if (codedDiagnosis2 == null) {
+				valueObject.setStepName("Create the burns coded diagnosis");
+				codedDiagnosis2 = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis2.setBH_Display_Name(diagnosisAfterDiagnosisToSearchForOnReport);
+			}
+			codedDiagnosis2.saveEx();
+
+			MBHConceptExtra extra2 = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisAfterDiagnosisToSearchForOnReport, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra2 == null) {
+				extra2 = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra2.setBH_Key(MOH705ALESSTHAN5);
+				extra2.setBH_Value(diagnosisAfterDiagnosisToSearchForOnReport);
+				extra2.setBH_Concept_ID(codedDiagnosis2.getBH_Concept_ID());
+				extra2.saveEx();
+			}
+
+			commitEx();
+
 		} finally {
 			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
 		}
