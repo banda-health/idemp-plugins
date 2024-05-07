@@ -43,6 +43,7 @@ public class FilterUtil {
 		put("bh_to_warehouse", "m_warehouse");
 	}};
 	private static final String SPECIFIC_COLUMN_MAPPING_SPECIFIER = "::";
+	private static final String SOURCE_TO_DESTINATION_COLUMN_MAPPING_SPECIFIER = "->";
 	protected static CLogger logger = CLogger.getCLogger(FilterUtil.class);
 
 	/**
@@ -504,7 +505,8 @@ public class FilterUtil {
 
 		String foreignTableName = dbColumnName;
 		String remainingDBColumnName = null;
-		String specificColumnToMapOn = null;
+		String specificSourceColumnToMapOn = null;
+		String specificDestinationColumnToMapOn = null;
 		boolean shouldUseContextClientId = entityConfiguration.isShouldUseContextClientId();
 		boolean shouldFetchFromSystemClient = entityConfiguration.isShouldFetchFromSystemClient();
 
@@ -517,15 +519,15 @@ public class FilterUtil {
 
 		// If a specific column was passed in, get it
 		if (foreignTableName.contains(SPECIFIC_COLUMN_MAPPING_SPECIFIER)) {
-			foreignTableName = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[0];
-			// There "should" only be one column specification, so we'll use it
-			specificColumnToMapOn = dbColumnName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[1];
-			// If there's still an "alias", we need to set that as the remaining DB column name
-			if (doesTableAliasExistOnColumn(specificColumnToMapOn)) {
-				String unchangedSpecificColumnToMapOn = specificColumnToMapOn;
-				specificColumnToMapOn = unchangedSpecificColumnToMapOn.split("\\.")[0];
-				// There may be subsequent aliases, so only remove the first one (i.e. c_orderline.m_product.m_storageonhand)
-				remainingDBColumnName = unchangedSpecificColumnToMapOn.replaceFirst(specificColumnToMapOn + "\\.", "");
+			specificSourceColumnToMapOn = foreignTableName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[1];
+			foreignTableName = foreignTableName.split(SPECIFIC_COLUMN_MAPPING_SPECIFIER)[0];
+			//
+			// If a destination map was also provided, use get it
+			if (specificSourceColumnToMapOn.contains(SOURCE_TO_DESTINATION_COLUMN_MAPPING_SPECIFIER)) {
+				specificDestinationColumnToMapOn =
+						specificSourceColumnToMapOn.split(SOURCE_TO_DESTINATION_COLUMN_MAPPING_SPECIFIER)[1];
+				specificSourceColumnToMapOn =
+						specificSourceColumnToMapOn.split(SOURCE_TO_DESTINATION_COLUMN_MAPPING_SPECIFIER)[0];
 			}
 		}
 
@@ -533,7 +535,8 @@ public class FilterUtil {
 		foreignTableName = foreignTableName.toLowerCase();
 		// This should remain null unless we're doing a mapping and no specific column was given
 		String originalForeignTableName = null;
-		if (specialForeignKeyMappings.containsKey(foreignTableName) && StringUtil.isNullOrEmpty(specificColumnToMapOn)) {
+		if (specialForeignKeyMappings.containsKey(foreignTableName) &&
+				StringUtil.isNullOrEmpty(specificSourceColumnToMapOn)) {
 			originalForeignTableName = foreignTableName;
 			foreignTableName = specialForeignKeyMappings.get(foreignTableName);
 		}
@@ -554,8 +557,8 @@ public class FilterUtil {
 				whereClause.append(subWhereClause);
 			}
 		} else {
-			TableMapping tableMapping =
-					getIdColumnNamesBetweenTables(tableData, foreignTableName, originalForeignTableName, specificColumnToMapOn);
+			TableMapping tableMapping = getIdColumnNamesBetweenTables(tableData, foreignTableName, originalForeignTableName,
+					specificSourceColumnToMapOn, specificDestinationColumnToMapOn);
 			if (!tableMapping.wasMatchFound) {
 				// No idea what this column is, so log it as an issue and skip
 				logger.warning(
@@ -574,7 +577,7 @@ public class FilterUtil {
 								comparisonQuerySelector -> AGGREGATE_QUERY_SELECTORS.stream().anyMatch(
 										aggregateQuerySelector -> comparisonQuerySelector.getKey().startsWith(aggregateQuerySelector)))
 						.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-				boolean doesTableNeedAggregation = aggregateComparisons.size() > 0;
+				boolean doesTableNeedAggregation = !aggregateComparisons.isEmpty();
 				if (doesTableNeedAggregation) {
 					whereClause.append("(");
 					for (String aggregateFunction : aggregateComparisons.keySet()) {
@@ -721,7 +724,7 @@ public class FilterUtil {
 	 * @return An object containing the matches, if any were found
 	 */
 	private static TableMapping getIdColumnNamesBetweenTables(FilterTableData tableData, String mappedForeignTableName,
-			String unmappedForeignTableName, String specifiedColumnMapping) {
+			String unmappedForeignTableName, String specifiedColumnMapping, String specifiedForeignColumnMapping) {
 		TableMapping tableMapping = new TableMapping();
 		// If the mapped and unmapped are the same, there's an error somewhere and we shouldn't do anything (because the
 		// unmapped should remain null unless there has been a mapping, in which case they'd be different)
@@ -739,7 +742,7 @@ public class FilterUtil {
 		String foreignTableIdColumn = mappedForeignTableName + "_id";
 
 		// If we're doing a mapping, we need to check some stuff before we get to the "simplest" case
-		if (unmappedForeignTableName != null) {
+		if (unmappedForeignTableName != null && specifiedForeignColumnMapping == null) {
 			// We'll start by seeing if original foreign table specified exists as-is on the source table
 			// (i.e. c_invoice.createdby -> createdby should be mapped to ad_user [via column ad_user_id, which would be
 			// assigned already above] and use createdby on the c_invoice table)
@@ -773,27 +776,38 @@ public class FilterUtil {
 
 		// If we were passed a specific column mapping, try it
 		if (specifiedColumnMapping != null) {
-			// Check if that exists on the foreign table
-			// Otherwise, see if it's on the current table and the other table has the foreign ID column
-			// TODO: Support specifying both start and end columns instead of one or the other
-			if (foreignTableData.doesTableHaveColumn(specifiedColumnMapping)) {
-				tableMapping.foreignColumnName = specifiedColumnMapping;
-				// We'll assume it joins off this table's ID column, if it has one
-				if (tableData.doesTableHaveColumn(tableIdColumn)) {
-					tableMapping.wasMatchFound = true;
-					tableMapping.sourceColumnName = tableIdColumn;
-				}
+			// If we didn't specify a foreign table mapping, we need to check whether the column is on the source or
+			// destination table
+			if (specifiedForeignColumnMapping == null) {
+				// Check if that exists on the foreign table
+				// Otherwise, see if it's on the current table and the other table has the foreign ID column
+				if (foreignTableData.doesTableHaveColumn(specifiedColumnMapping)) {
+					tableMapping.foreignColumnName = specifiedColumnMapping;
+					// We'll assume it joins off this table's ID column, if it has one
+					if (tableData.doesTableHaveColumn(tableIdColumn)) {
+						tableMapping.wasMatchFound = true;
+						tableMapping.sourceColumnName = tableIdColumn;
+					}
 
-				return tableMapping;
-			} else if (tableData.doesTableHaveColumn(specifiedColumnMapping)) {
-				tableMapping.sourceColumnName = specifiedColumnMapping;
-				// We'll assume it joins to the foreign table's ID column, if it has one
-				if (foreignTableData.doesTableHaveColumn(foreignTableIdColumn)) {
-					tableMapping.wasMatchFound = true;
-					tableMapping.foreignColumnName = foreignTableIdColumn;
-				}
+					return tableMapping;
+				} else if (tableData.doesTableHaveColumn(specifiedColumnMapping)) {
+					tableMapping.sourceColumnName = specifiedColumnMapping;
+					// We'll assume it joins to the foreign table's ID column, if it has one
+					if (foreignTableData.doesTableHaveColumn(foreignTableIdColumn)) {
+						tableMapping.wasMatchFound = true;
+						tableMapping.foreignColumnName = foreignTableIdColumn;
+					}
 
-				return tableMapping;
+					return tableMapping;
+				}
+			} else {
+				if (foreignTableData.doesTableHaveColumn(specifiedForeignColumnMapping) &&
+						tableData.doesTableHaveColumn(specifiedColumnMapping)) {
+					tableMapping.wasMatchFound = true;
+					tableMapping.foreignColumnName = specifiedForeignColumnMapping;
+					tableMapping.sourceColumnName = specifiedColumnMapping;
+					return tableMapping;
+				}
 			}
 		}
 
