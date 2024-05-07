@@ -1,0 +1,26 @@
+extend type Query {
+	InventoryTransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): InventoryTransactionConnection!
+}
+
+type InventoryTransactionConnection {
+	Results: [InventoryTransaction!]!
+	PagingInfo: PagingInfo!
+}
+
+type InventoryTransaction {
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	M_Transaction: M_Transaction
+	C_Order: C_Order
+	M_Movement: M_Movement
+	BH_Visit: BH_Visit
+	M_Locator: M_Locator
+	M_Product: M_Product
+	# Quantity of a product moved.
+	MovementQty: BigDecimal!
+	M_AttributeSetInstance: M_AttributeSetInstance
+	RunningTotal: BigDecimal
+	TransactionType: String
+}

@@ -34,7 +34,9 @@ public class FilterTableData {
 	 * @param tableOrFunctionName The table or function name we'll be using
 	 * @param columnsAndClasses   The column and associated class map
 	 */
-	public FilterTableData(String tableOrFunctionName, Map<String, Class<?>> columnsAndClasses) {
+	public FilterTableData(Properties idempiereContext, String tableOrFunctionName,
+			Map<String, Class<?>> columnsAndClasses) {
+		this.idempiereContext = idempiereContext;
 		this.tableOrFunctionName = tableOrFunctionName;
 		this.columnsAndClasses = columnsAndClasses.entrySet().stream()
 				.collect(Collectors.toMap(entry -> entry.getKey().toLowerCase(), Map.Entry::getValue));

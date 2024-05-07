@@ -162,3 +162,8 @@ FROM
 			) t
 	) t;
 $$;
+
+SELECT
+	register_migration_script('202405072048_GO-2951.sql')
+FROM
+	dual;
