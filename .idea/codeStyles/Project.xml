@@ -14,7 +14,7 @@
       <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999" />
     </JavaCodeStyleSettings>
     <SqlCodeStyleSettings version="6">
-      <option name="KEYWORD_CASE" value="2" />
+      <option name="myVersion" value="6" />
       <option name="QUERY_EL_LINE" value="101" />
       <option name="QUERY_EL_COMMA" value="2" />
       <option name="QUERY_ALIGN_ELEMENTS" value="false" />
@@ -56,9 +56,6 @@
     </codeStyleSettings>
     <codeStyleSettings language="SQL">
       <indentOptions>
-        <option name="INDENT_SIZE" value="2" />
-        <option name="CONTINUATION_INDENT_SIZE" value="4" />
-        <option name="TAB_SIZE" value="2" />
         <option name="USE_TAB_CHARACTER" value="true" />
         <option name="SMART_TABS" value="true" />
       </indentOptions>

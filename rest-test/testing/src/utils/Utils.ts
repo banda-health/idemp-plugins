@@ -201,6 +201,7 @@ export async function createInvoice(valueObject: ValueObject) {
 		invoiceLines: [],
 		documentTypeTarget: valueObject.documentType,
 		isSalesOrderTransaction: valueObject.documentType!.isSalesTransaction,
+		paymentRule: valueObject.paymentRule,
 	};
 	const invoiceLine: Partial<InvoiceLine> = {
 		description: valueObject.getStepMessageLong(),

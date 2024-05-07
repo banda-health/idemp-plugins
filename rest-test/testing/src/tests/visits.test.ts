@@ -8,6 +8,7 @@ import {
 	businessPartnerApi,
 	businessPartnerGroupApi,
 	codedDiagnosisApi,
+	conceptApi,
 	encounterApi,
 	encounterTypeWindowApi,
 	languageApi,
@@ -31,6 +32,7 @@ import {
 	Charge,
 	Encounter,
 	EncounterDiagnosis,
+	EncounterDiagnostic,
 	Field,
 	Invoice,
 	InvoiceLine,
@@ -62,6 +64,8 @@ const CHIEF_COMPLAINT_WINDOW_UUID = 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed';
 const CHIEF_COMPLAINT_FIELD_UUID = 'e1d01fe4-16b6-4125-a385-34cf4531c06f';
 const HEIGHT_FIELD_UUID = '2842fb94-b841-4973-903e-89c7f24455b2';
 const WEIGHT_FIELD_UUID = 'e0f68d60-0610-4caa-9dc3-b0143101ccd3';
+const LAB_DIAGNOSTICS_WINDOW_UUID = '3084592a-531b-4fbd-a412-5c14c2b15288';
+const LAB_NOTES_FIELD_UUID = '4c4e87c6-e453-470b-87bd-a0c4c6a83438';
 
 xtest(`information saved correctly after completing a visit`, async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -2326,6 +2330,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				},
 				observations: [],
 				encounterDiagnoses: [],
+				encounterDiagnostics: [],
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
@@ -2353,6 +2358,7 @@ test(`can delete order & invoice lines at the same time`, async () => {
 				},
 				observations: [],
 				encounterDiagnoses: [],
+				encounterDiagnostics: [],
 				createdBy: createdUser,
 				updatedBy: createdUser,
 				updated: new Date(1688636248131),
@@ -2613,3 +2619,51 @@ test('expression functions work in sorting', async () => {
 	expect(sortedVisits[2].uuid).toBe(visit1.uuid);
 });
 
+test('lab diagnostic fields', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	valueObject.stepName = 'Create patient';
+	valueObject.businessPartner = undefined;
+	await createBusinessPartner(valueObject);
+
+	valueObject.stepName = 'Create visit';
+	await createVisit(valueObject);
+
+	const labDiagnosticEncounterTypeWindow = (
+		await encounterTypeWindowApi.get(valueObject, 0, 10, undefined, undefined)
+	).results.find((result) => result.window.uuid == LAB_DIAGNOSTICS_WINDOW_UUID);
+	const fields = labDiagnosticEncounterTypeWindow?.window.tabs[0].fields;
+
+	const LAB_NOTES_VALUE = 'Add a lab note';
+	const CONCEPT_RESULT_1 = 'Result 1';
+
+	const concepts = (await conceptApi.get(valueObject)).results;
+	const encounter: Partial<Encounter> = {
+		encounterType: labDiagnosticEncounterTypeWindow?.encounterType,
+		observations: [
+			{
+				value: LAB_NOTES_VALUE,
+				field: fields?.filter((field) => field.uuid == LAB_NOTES_FIELD_UUID)[0],
+			} as Observation,
+		],
+		encounterDiagnostics: [
+			{
+				lineNo: 1,
+				concept: { uuid: concepts[0]?.uuid },
+				value: CONCEPT_RESULT_1,
+				status: 'C',
+			} as EncounterDiagnostic,
+		],
+	};
+
+	valueObject.visit!.encounters!.push(encounter as Encounter);
+
+	valueObject.visit = await visitApi.save(valueObject, valueObject.visit!);
+	expect(valueObject.visit.encounters).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].observations).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].observations[0].value).toBe(LAB_NOTES_VALUE);
+	expect(valueObject.visit.encounters[0].encounterDiagnostics).toHaveLength(1);
+	expect(valueObject.visit.encounters[0].encounterDiagnostics[0].value).toBe(CONCEPT_RESULT_1);
+	expect(valueObject.visit.encounters[0].encounterDiagnostics[0].concept.uuid).toBe(concepts[0].uuid);
+});

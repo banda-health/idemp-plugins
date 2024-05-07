@@ -10,7 +10,6 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -22,17 +21,18 @@ import java.util.stream.Stream;
 
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHCodedDiagnosisMapping;
-import org.bandahealth.idempiere.base.model.OCLCodedDiagnosis;
-import org.bandahealth.idempiere.base.model.OCLCodedDiagnosisMapping;
+import org.bandahealth.idempiere.base.model.OCLConcept;
+import org.bandahealth.idempiere.base.model.OCLConceptExtra;
+import org.bandahealth.idempiere.base.model.OCLConceptMapping;
 import org.bandahealth.idempiere.base.utils.JsonUtils;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.bandahealth.idempiere.base.utils.StringUtil;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.process.SvrProcess;
+import org.compiere.util.DB;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import org.compiere.util.DB;
 
 /**
  * Process that syncs CodedDiagnosis (concepts) with OCL
@@ -97,12 +97,12 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 		List<Integer> pages = Stream.iterate(1, page -> page + 1).limit(numberOfPages).collect(Collectors.toList());
 		pages.forEach((page) -> {
-			List<OCLCodedDiagnosis> codedDiagnoses = getConceptsFromOCL(null, page);
+			List<OCLConcept> codedDiagnoses = getConceptsFromOCL(null, page);
 
 			// Take advantage of batching to avoid multiple db calls.
 			List<Object> parameters = new ArrayList<Object>();
 
-			Set<String> items = codedDiagnoses.stream().map(OCLCodedDiagnosis::getExternalId)
+			Set<String> items = codedDiagnoses.stream().map(OCLConcept::getExternalId)
 					.collect(Collectors.toSet());
 			String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(items, parameters);
 
@@ -145,13 +145,12 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 					foundCodedDiagnosis.setIsActive(!codedDiagnosis.isRetired());
 
-					List<OCLCodedDiagnosisMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
-					OCLCodedDiagnosisMapping cielMapping = codedDiagnosisMapping.stream()
+					List<OCLConceptMapping> codedDiagnosisMapping = codedDiagnosis.getMappings();
+					OCLConceptMapping cielMapping = codedDiagnosisMapping.stream()
 							.filter(mapping -> CIEL.equals(mapping.getToSourceName())).findFirst().orElse(null);
-					OCLCodedDiagnosisMapping icd10wHOMapping = codedDiagnosisMapping.stream()
+					OCLConceptMapping icd10wHOMapping = codedDiagnosisMapping.stream()
 							.filter(mapping -> ICD_10_WHO.equals(mapping.getToSourceName())).findFirst().orElse(null);
-					Map<String, String> extras = codedDiagnosis.getExtras();
-
+					
 					foundCodedDiagnosis.setbh_cielname(codedDiagnosis.getDisplayName());
 
 					if (cielMapping != null && cielMapping.getToConceptCode() != null) {
@@ -164,9 +163,25 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 						foundCodedDiagnosis.setbh_icd10who(icd10wHOMapping.getToConceptCode());
 					}
 
-					foundCodedDiagnosis.setbh_moh705a_lessthan5(extras.get(MOH_705A_LESSTHAN5));
-					foundCodedDiagnosis.setbh_moh705b_greaterthan5(extras.get(MOH_705B_GREATERTHAN5));
-					foundCodedDiagnosis.setbh_searchterms(extras.get(INDEX_TERMS));
+					List<OCLConceptExtra> extras = codedDiagnosis.getExtras();
+					OCLConceptExtra moh705A = extras.stream()
+							.filter(extra -> MOH_705A_LESSTHAN5.equals(extra.getKey())).findFirst().orElse(null);
+					OCLConceptExtra moh705B = extras.stream()
+							.filter(extra -> MOH_705B_GREATERTHAN5.equals(extra.getKey())).findFirst().orElse(null);
+					OCLConceptExtra indexTerms = extras.stream()
+							.filter(extra -> INDEX_TERMS.equals(extra.getKey())).findFirst().orElse(null);
+					
+					if (moh705A != null) {
+						foundCodedDiagnosis.setbh_moh705a_lessthan5(moh705A.getValue());	
+					}
+					
+					if (moh705B != null) {
+						foundCodedDiagnosis.setbh_moh705b_greaterthan5(moh705B.getValue());
+					}
+					
+					if (indexTerms != null) {
+						foundCodedDiagnosis.setbh_searchterms(indexTerms.getValue());	
+					}
 
 					foundCodedDiagnosis.saveEx();
 
@@ -206,12 +221,12 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	 * @param page
 	 * @return
 	 */
-	private List<OCLCodedDiagnosis> getConceptsFromOCL(String source, int page) {
+	private List<OCLConcept> getConceptsFromOCL(String source, int page) {
 		CompletableFuture<HttpResponse<String>> response = makeRequest(source, page);
-		List<OCLCodedDiagnosis> oclCodedDiagnoses = new ArrayList<OCLCodedDiagnosis>();
+		List<OCLConcept> oclCodedDiagnoses = new ArrayList<OCLConcept>();
 		try {
 			oclCodedDiagnoses = JsonUtils.convertFromJsonToList(response.get().body(),
-					new TypeReference<List<OCLCodedDiagnosis>>() {
+					new TypeReference<List<OCLConcept>>() {
 					});
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			log.log(Level.SEVERE, "Error getting concepts: ", e);
@@ -230,11 +245,11 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	 * @param source
 	 * @return
 	 */
-	private OCLCodedDiagnosis getConceptFromOCL(String source) {
+	private OCLConcept getConceptFromOCL(String source) {
 		CompletableFuture<HttpResponse<String>> response = makeRequest(source, 0);
-		OCLCodedDiagnosis oclCodedDiagnosis = new OCLCodedDiagnosis();
+		OCLConcept oclCodedDiagnosis = new OCLConcept();
 		try {
-			oclCodedDiagnosis = JsonUtils.covertFromJsonToObject(response.get().body(), OCLCodedDiagnosis.class);
+			oclCodedDiagnosis = JsonUtils.covertFromJsonToObject(response.get().body(), OCLConcept.class);
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			log.log(Level.SEVERE, "Error getting concept: ", e);
 			return null;
@@ -273,18 +288,18 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 	 * @param parentConcept
 	 * @param codedDiagnosisMapping
 	 */
-	private void downloadChildMappings(MBHCodedDiagnosis parentConcept, OCLCodedDiagnosis oclConcept,
-			List<OCLCodedDiagnosisMapping> codedDiagnosisMapping) {
+	private void downloadChildMappings(MBHCodedDiagnosis parentConcept, OCLConcept oclConcept,
+			List<OCLConceptMapping> codedDiagnosisMapping) {
 		// Take advantage of batching to avoid multiple db calls.
 		List<Object> parameters = new ArrayList<Object>();
 
 		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
-				codedDiagnosisMapping.stream().map(OCLCodedDiagnosisMapping::getExternalId).collect(Collectors.toSet()),
+				codedDiagnosisMapping.stream().map(OCLConceptMapping::getExternalId).collect(Collectors.toSet()),
 				parameters);
 
 		List<MBHCodedDiagnosisMapping> mCodedDiagnosisMappings = new Query(getCtx(),
 				MBHCodedDiagnosisMapping.Table_Name,
-				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalId + " IN ( " + inClause + " )", null)
+				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalID + " IN ( " + inClause + " )", null)
 				.setParameters(parameters).list();
 
 		// save every mapping and check underlying concepts
@@ -325,7 +340,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 			// some concepts are mapped to themselves leading to an infinite loop.
 			if (!oclConcept.getUrl().equals(mappingUrl)) {
 				// check mappings
-				OCLCodedDiagnosis concept = getConceptFromOCL(mappingUrl);
+				OCLConcept concept = getConceptFromOCL(mappingUrl);
 				if (concept != null && concept.getMappings() != null && !concept.getMappings().isEmpty()) {
 					downloadChildMappings(parentConcept, concept, concept.getMappings());
 				}
