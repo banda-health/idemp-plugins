@@ -67,7 +67,9 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		if (clients == null || clients.length == 0) {
 			throw new AdempiereException("Unauthorized");
 		}
+		PO.setCrossTenantSafe();
 		MUser user = MUser.get(idempiereContext, credentials.getUsername(), credentials.getPassword());
+		PO.clearCrossTenantSafe();
 		if (user == null) {
 			throw new AdempiereException("Unauthorized");
 		}
@@ -132,7 +134,9 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 				throw new IllegalArgumentException(Msg.getMsg(idempiereContext, MMessage_BH.NEW_PASSWORD_MUST_DIFFER));
 			}
 		}
+		PO.setCrossTenantSafe();
 		MUser user = MUser.get(idempiereContext, changePasswordInput.getUsername(), changePasswordInput.getPassword());
+		PO.clearCrossTenantSafe();
 		if (user == null) {
 			throw new AdempiereException("Unauthorized");
 		}
@@ -152,7 +156,9 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	public Boolean ChangeAccess(ChangeAccessInput changeAccessInput, DataFetchingEnvironment environment) {
 		Properties idempiereContext = BandaGraphQLContext.getCtx(environment);
 		try {
+			PO.setCrossTenantSafe();
 			MUser user = MUser.get(idempiereContext, Env.getAD_User_ID(idempiereContext));
+			PO.clearCrossTenantSafe();
 			if (user == null) {
 				throw new AdempiereException("Unauthorized");
 			}
@@ -296,8 +302,10 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			for (KeyNamePair client : clients) {
 				int clientId = client.getKey();
 				Env.setContext(idempiereContext, Env.AD_CLIENT_ID, clientId);
+				PO.setCrossTenantSafe();
 				MUser clientUser =
 						MUser.get(idempiereContext, changePasswordInput.getUsername(), changePasswordInput.getPassword());
+				PO.clearCrossTenantSafe();
 				if (clientUser == null) {
 					trx.rollback();
 					throw new AdempiereException("Could not find user");
