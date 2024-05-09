@@ -149,7 +149,7 @@ WHERE
 UPDATE AD_Process SET classname = 'org.bandahealth.idempiere.base.process.ConceptSyncProcess' WHERE AD_Process_UU='dc0a5369-1478-46ff-aef4-8bac662132b7';
 
 -- Step 7:
-UPDATE AD_Process_Para SET name = 'Concept', columnname = 'BH_Concept_UU' WHERE AD_Process_Para_UU = '250d4efb-e958-4ef6-95cf-4d23b10f0972';
+UPDATE AD_Process_Para SET name = 'Coded Diagnosis', columnname = 'BH_Concept_UU' WHERE AD_Process_Para_UU = '250d4efb-e958-4ef6-95cf-4d23b10f0972';
 
 SELECT
 	register_migration_script('202404041052_GO-2923.sql')
