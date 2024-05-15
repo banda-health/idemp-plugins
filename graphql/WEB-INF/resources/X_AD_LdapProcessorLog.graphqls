@@ -1,0 +1,71 @@
+# Generated Schema for AD_LdapProcessorLog - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_LdapProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LdapProcessorLogConnection!
+}
+
+extend type Mutation {
+	AD_LdapProcessorLogSave(Entity: AD_LdapProcessorLogInput!): AD_LdapProcessorLog!
+	AD_LdapProcessorLogSaveMany(Entities: [AD_LdapProcessorLogInput!]!): [AD_LdapProcessorLog!]!
+	AD_LdapProcessorLogDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_LdapProcessorLogConnection {
+	Results: [AD_LdapProcessorLog!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_LdapProcessorLog {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# LDAP Server to authenticate and authorize external systems based on iDempiere
+	AD_LdapProcessor: AD_LdapProcessor!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Binary Data
+	BinaryData: Binary
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# An Error occurred in the execution
+	IsError: Boolean!
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_LdapProcessorLogInput {
+	# LDAP Server to authenticate and authorize external systems based on iDempiere
+	AD_LdapProcessor: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Binary Data
+	BinaryData: Binary
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# An Error occurred in the execution
+	IsError: Boolean
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+}

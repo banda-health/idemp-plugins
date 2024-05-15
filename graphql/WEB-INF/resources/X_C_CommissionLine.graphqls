@@ -1,0 +1,103 @@
+# Generated Schema for C_CommissionLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CommissionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CommissionLineConnection!
+}
+
+extend type Mutation {
+	C_CommissionLineSave(Entity: C_CommissionLineInput!): C_CommissionLine!
+	C_CommissionLineSaveMany(Entities: [C_CommissionLineInput!]!): [C_CommissionLine!]!
+	C_CommissionLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CommissionLineConnection {
+	Results: [C_CommissionLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CommissionLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Multiplier Amount for generating commissions
+	AmtMultiplier: BigDecimal!
+	# Subtract Amount for generating commissions
+	AmtSubtract: BigDecimal!
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Commission
+	C_Commission: C_Commission!
+	UU: ID!
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Commission only Orders or Invoices, where this Sales Rep is entered
+	CommissionOrders: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Do not generate negative commissions
+	IsPositiveOnly: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Category of a Product
+	M_Product_Category: M_Product_Category
+	# Product, Service, Item
+	M_Product: M_Product
+	# How you pay the invoice
+	PaymentRule: AD_Ref_List
+	# Value to multiply quantities by for generating commissions.
+	QtyMultiplier: BigDecimal!
+	# Quantity to subtract when generating commissions
+	QtySubtract: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CommissionLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Multiplier Amount for generating commissions
+	AmtMultiplier: BigDecimal
+	# Subtract Amount for generating commissions
+	AmtSubtract: BigDecimal
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Commission
+	C_Commission: ForeignEntityInput
+	UU: ID
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	# Commission only Orders or Invoices, where this Sales Rep is entered
+	CommissionOrders: Boolean
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Do not generate negative commissions
+	IsPositiveOnly: Boolean
+	# Unique line for this document
+	Line: Int
+	# Category of a Product
+	M_Product_Category: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# How you pay the invoice
+	PaymentRule: ForeignEntityInput
+	# Value to multiply quantities by for generating commissions.
+	QtyMultiplier: BigDecimal
+	# Quantity to subtract when generating commissions
+	QtySubtract: BigDecimal
+}

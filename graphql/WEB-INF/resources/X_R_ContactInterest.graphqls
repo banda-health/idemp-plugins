@@ -1,0 +1,59 @@
+# Generated Schema for R_ContactInterest - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_ContactInterestGet(Page: Int, Size: Int, Sort: String, Filter: String): R_ContactInterestConnection!
+}
+
+extend type Mutation {
+	R_ContactInterestSave(Entity: R_ContactInterestInput!): R_ContactInterest!
+	R_ContactInterestSaveMany(Entities: [R_ContactInterestInput!]!): [R_ContactInterest!]!
+	R_ContactInterestDelete(UUs: [String!]!): Boolean!
+}
+
+type R_ContactInterestConnection {
+	Results: [R_ContactInterest!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_ContactInterest {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date the contact opted out
+	OptOutDate: Date
+	UU: ID!
+	# Interest Area or Topic
+	R_InterestArea: R_InterestArea!
+	# Date the contact actively subscribed
+	SubscribeDate: Date
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_ContactInterestInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Date the contact opted out
+	OptOutDate: Date
+	UU: ID
+	# Interest Area or Topic
+	R_InterestArea: ForeignEntityInput
+	# Date the contact actively subscribed
+	SubscribeDate: Date
+}

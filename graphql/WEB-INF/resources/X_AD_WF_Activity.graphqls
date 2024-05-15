@@ -1,0 +1,101 @@
+# Generated Schema for AD_WF_Activity - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_ActivityGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_ActivityConnection!
+}
+
+extend type Mutation {
+	AD_WF_ActivitySave(Entity: AD_WF_ActivityInput!): AD_WF_Activity!
+	AD_WF_ActivitySaveMany(Entities: [AD_WF_ActivityInput!]!): [AD_WF_Activity!]!
+	AD_WF_ActivityDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_ActivityConnection {
+	Results: [AD_WF_Activity!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_Activity {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Message
+	AD_Message: AD_Message
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	UU: ID!
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	# Actual Workflow Process Instance
+	AD_WF_Process: AD_WF_Process!
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: AD_WF_Responsible
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date when last alert were sent
+	DateLastAlert: Date
+	# Starting priority before changed dynamically
+	DynPriorityStart: Int
+	# End of sleep time
+	EndWaitTime: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# State of the execution of the workflow
+	WFState: AD_Ref_List!
+}
+
+input AD_WF_ActivityInput {
+	# System Message
+	AD_Message: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Actual Workflow Process Instance
+	AD_WF_Process: ForeignEntityInput
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Date when last alert were sent
+	DateLastAlert: Date
+	# Starting priority before changed dynamically
+	DynPriorityStart: Int
+	# End of sleep time
+	EndWaitTime: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Text Message
+	TextMsg: String
+	# State of the execution of the workflow
+	WFState: ForeignEntityInput
+}

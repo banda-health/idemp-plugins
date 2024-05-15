@@ -1,0 +1,4 @@
+extend type AD_Reference {
+	AD_Ref_ListList: [AD_Ref_List!]
+	AD_Ref_Table: AD_Ref_Table
+}

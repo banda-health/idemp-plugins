@@ -1,11 +1,22 @@
 package org.bandahealth.idempiere.base.model;
 
 import org.compiere.model.MField;
+import org.compiere.model.MTab;
 
 import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MField_BH extends MField {
+
+	/**
+	 * Column name BH_Abbreviation
+	 */
+	public static final String COLUMNNAME_BH_Abbreviation = "BH_Abbreviation";
+
+	public MField_BH(Properties ctx, String AD_Field_UU, String trxName) {
+		super(ctx, AD_Field_UU, trxName);
+	}
+
 	public MField_BH(Properties ctx, int AD_Field_ID, String trxName) {
 		super(ctx, AD_Field_ID, trxName);
 	}
@@ -14,10 +25,25 @@ public class MField_BH extends MField {
 		super(ctx, rs, trxName);
 	}
 
-	/**
-	 * Column name BH_Abbreviation
-	 */
-	public static final String COLUMNNAME_BH_Abbreviation = "BH_Abbreviation";
+	public MField_BH(MTab parent) {
+		super(parent);
+	}
+
+	public MField_BH(MTab parent, MField from) {
+		super(parent, from);
+	}
+
+	public MField_BH(MField copy) {
+		super(copy);
+	}
+
+	public MField_BH(Properties ctx, MField copy) {
+		super(ctx, copy);
+	}
+
+	public MField_BH(Properties ctx, MField copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
 
 	/**
 	 * Set BH_Abbreviation.

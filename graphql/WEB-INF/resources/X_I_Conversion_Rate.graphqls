@@ -1,0 +1,105 @@
+# Generated Schema for I_Conversion_Rate - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	I_Conversion_RateGet(Page: Int, Size: Int, Sort: String, Filter: String): I_Conversion_RateConnection!
+}
+
+extend type Mutation {
+	I_Conversion_RateSave(Entity: I_Conversion_RateInput!): I_Conversion_Rate!
+	I_Conversion_RateSaveMany(Entities: [I_Conversion_RateInput!]!): [I_Conversion_Rate!]!
+	I_Conversion_RateDelete(UUs: [String!]!): Boolean!
+}
+
+type I_Conversion_RateConnection {
+	Results: [I_Conversion_Rate!]!
+	PagingInfo: PagingInfo!
+}
+
+type I_Conversion_Rate {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Rate used for converting currencies
+	C_Conversion_Rate: C_Conversion_Rate
+	# Currency Conversion Rate Type
+	C_ConversionType: C_ConversionType
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Target currency
+	C_Currency_To: C_Currency
+	# Key value for the Currency Conversion Rate Type
+	ConversionTypeValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Create Reciprocal Rate from current information
+	CreateReciprocalRate: Boolean!
+	# To convert Source number to Target number, the Source is divided
+	DivideRate: BigDecimal
+	UU: ID!
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String
+	# Three letter ISO 4217 Code of the To Currency
+	ISO_Code_To: String
+	# Rate to multiple the source by to calculate the target.
+	MultiplyRate: BigDecimal
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input I_Conversion_RateInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rate used for converting currencies
+	C_Conversion_Rate: ForeignEntityInput
+	# Currency Conversion Rate Type
+	C_ConversionType: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Target currency
+	C_Currency_To: ForeignEntityInput
+	# Key value for the Currency Conversion Rate Type
+	ConversionTypeValue: String
+	# Create Reciprocal Rate from current information
+	CreateReciprocalRate: Boolean
+	# To convert Source number to Target number, the Source is divided
+	DivideRate: BigDecimal
+	UU: ID
+	# Messages generated from import process
+	I_ErrorMsg: String
+	# Has this import been processed
+	I_IsImported: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String
+	# Three letter ISO 4217 Code of the To Currency
+	ISO_Code_To: String
+	# Rate to multiple the source by to calculate the target.
+	MultiplyRate: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

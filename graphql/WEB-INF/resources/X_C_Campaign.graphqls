@@ -1,0 +1,75 @@
+# Generated Schema for C_Campaign - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CampaignGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CampaignConnection!
+}
+
+extend type Mutation {
+	C_CampaignSave(Entity: C_CampaignInput!): C_Campaign!
+	C_CampaignSaveMany(Entities: [C_CampaignInput!]!): [C_Campaign!]!
+	C_CampaignDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CampaignConnection {
+	Results: [C_Campaign!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Campaign {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Sales Channel
+	C_Channel: C_Channel
+	# Costs in accounting currency
+	Costs: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# First effective day (inclusive)
+	StartDate: Date
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_CampaignInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Sales Channel
+	C_Channel: ForeignEntityInput
+	# Costs in accounting currency
+	Costs: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# First effective day (inclusive)
+	StartDate: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

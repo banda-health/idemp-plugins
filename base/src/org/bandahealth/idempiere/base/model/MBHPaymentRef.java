@@ -8,8 +8,21 @@ import java.util.List;
 import java.util.Properties;
 
 public class MBHPaymentRef extends X_BH_PaymentRef {
+
 	public MBHPaymentRef(Properties ctx, int BH_PaymentRef_ID, String trxName) {
 		super(ctx, BH_PaymentRef_ID, trxName);
+	}
+
+	public MBHPaymentRef(Properties ctx, int BH_PaymentRef_ID, String trxName, String... virtualColumns) {
+		super(ctx, BH_PaymentRef_ID, trxName, virtualColumns);
+	}
+
+	public MBHPaymentRef(Properties ctx, String BH_PaymentRef_UU, String trxName) {
+		super(ctx, BH_PaymentRef_UU, trxName);
+	}
+
+	public MBHPaymentRef(Properties ctx, String BH_PaymentRef_UU, String trxName, String... virtualColumns) {
+		super(ctx, BH_PaymentRef_UU, trxName, virtualColumns);
 	}
 
 	public MBHPaymentRef(Properties ctx, ResultSet rs, String trxName) {

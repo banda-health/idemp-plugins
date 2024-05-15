@@ -1,0 +1,5 @@
+extend type AD_Scheduler {
+	AD_SchedulerLogs: [AD_SchedulerLog!]
+	AD_Scheduler_ParaList: [AD_Scheduler_Para!]
+	AD_SchedulerRecipients: [AD_SchedulerRecipient!]
+}

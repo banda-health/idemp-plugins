@@ -1,0 +1,3 @@
+extend type M_DistributionRun {
+	M_DistributionRunLines: [M_DistributionRunLine!]
+}

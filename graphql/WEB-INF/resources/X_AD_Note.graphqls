@@ -1,0 +1,81 @@
+# Generated Schema for AD_Note - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_NoteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_NoteConnection!
+}
+
+extend type Mutation {
+	AD_NoteSave(Entity: AD_NoteInput!): AD_Note!
+	AD_NoteSaveMany(Entities: [AD_NoteInput!]!): [AD_Note!]!
+	AD_NoteDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_NoteConnection {
+	Results: [AD_Note!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Note {
+	# Broadcast Message
+	AD_BroadcastMessage: AD_BroadcastMessage
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Message
+	AD_Message: AD_Message!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Workflow Activity
+	AD_WF_Activity: AD_WF_Activity
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Reference for this record
+	Reference: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_NoteInput {
+	# Broadcast Message
+	AD_BroadcastMessage: ForeignEntityInput
+	# System Message
+	AD_Message: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Workflow Activity
+	AD_WF_Activity: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Reference for this record
+	Reference: String
+	# Text Message
+	TextMsg: String
+}

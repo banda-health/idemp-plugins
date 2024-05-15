@@ -1,7 +1,7 @@
 package org.bandahealth.idempiere.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
+import org.compiere.model.MInventoryLine;
 
 import java.math.BigDecimal;
 
@@ -17,7 +17,7 @@ public class InventoryLine extends BaseEntity {
 	public InventoryLine() {
 	}
 
-	public InventoryLine(MInventoryLine_BH model) {
+	public InventoryLine(MInventoryLine model) {
 		super(model, null, model.getDescription(), null);
 		line = model.getLine();
 		quantityCount = model.getQtyCount();

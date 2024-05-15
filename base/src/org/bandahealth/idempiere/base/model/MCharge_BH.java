@@ -30,13 +30,28 @@ public class MCharge_BH extends MCharge {
 	 */
 	public static final String BH_SUBTYPE_Donation = "D";
 	private static final long serialVersionUID = 1L;
+	public MCharge_BH(Properties ctx, String C_Charge_UU, String trxName) {
+		super(ctx, C_Charge_UU, trxName);
+	}
+
+	public MCharge_BH(Properties ctx, int C_Charge_ID, String trxName) {
+		super(ctx, C_Charge_ID, trxName);
+	}
 
 	public MCharge_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
 
-	public MCharge_BH(Properties ctx, int C_BPartner_ID, String trxName) {
-		super(ctx, C_BPartner_ID, trxName);
+	public MCharge_BH(MCharge copy) {
+		super(copy);
+	}
+
+	public MCharge_BH(Properties ctx, MCharge copy) {
+		super(ctx, copy);
+	}
+
+	public MCharge_BH(Properties ctx, MCharge copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	/**

@@ -1149,7 +1149,7 @@ public class MBandaSetup {
 		locator.setValue(organization.getName());
 		warehouse.setName(organization.getName());
 		warehouse.setValue(organization.getName());
-		warehouse.setBH_IsDefaultWarehouse(true);
+		warehouse.setBH_DefaultWarehouse(true);
 		warehouse.setIsDisallowNegativeInv(configurationClientWarehouse.isDisallowNegativeInv());
 		if (!locator.save()) {
 			transaction.rollback();

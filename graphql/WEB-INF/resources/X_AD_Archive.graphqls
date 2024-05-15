@@ -1,0 +1,77 @@
+# Generated Schema for AD_Archive - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ArchiveGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ArchiveConnection!
+}
+
+extend type Mutation {
+	AD_ArchiveSave(Entity: AD_ArchiveInput!): AD_Archive!
+	AD_ArchiveSaveMany(Entities: [AD_ArchiveInput!]!): [AD_Archive!]!
+	AD_ArchiveDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ArchiveConnection {
+	Results: [AD_Archive!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Archive {
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	AD_StorageProvider: AD_StorageProvider
+	# Database Table information
+	AD_Table: AD_Table
+	# Binary Data
+	BinaryData: Binary!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates a Report record
+	IsReport: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ArchiveInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	AD_StorageProvider: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Binary Data
+	BinaryData: Binary
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates a Report record
+	IsReport: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

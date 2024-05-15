@@ -146,7 +146,7 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 					new Query(valueObject.getContext(), MWarehouse_BH.Table_Name, MWarehouse_BH.COLUMNNAME_AD_Org_ID + "=?",
 							valueObject.getTransactionName()).setParameters(organization.get_ID()).setOnlyActiveRecords(true).list();
 			assertThat("Only one warehouse is created", warehouses.size(), is(1));
-			assertTrue(warehouses.get(0).isBH_IsDefaultWarehouse(), "The warehouse is default");
+			assertTrue(warehouses.get(0).isBH_DefaultWarehouse(), "The warehouse is default");
 			MWarehouse_BH configurationClientWarehouse =
 					new Query(valueObject.getContext(), MWarehouse_BH.Table_Name, MWarehouse.COLUMNNAME_AD_Client_ID + "=?",
 							valueObject.getTransactionName()).setParameters(MClient_BH.CLIENTID_CONFIG).first();

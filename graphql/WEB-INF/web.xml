@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- START SNIPPET: webxml -->
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<servlet>
+		<servlet-name>GraphQLServlet</servlet-name>
+		<display-name>Graph QL Servlet</display-name>
+		<servlet-class>
+			org.bandahealth.idempiere.graphql.GraphQLEndpoint
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GraphQLServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>org.bandahealth.idempiere.graphql.filter.AuthenticationFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>GzipFilter</filter-name>
+		<filter-class>org.bandahealth.idempiere.graphql.filter.GZipServletFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>AuthenticationFilter</filter-name>
+		<servlet-name>GraphQLServlet</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>GzipFilter</filter-name>
+		<servlet-name>GraphQLServlet</servlet-name>
+	</filter-mapping>
+</web-app>
+<!-- END SNIPPET: webxml -->

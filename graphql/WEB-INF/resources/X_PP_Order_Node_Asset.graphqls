@@ -1,0 +1,57 @@
+# Generated Schema for PP_Order_Node_Asset - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	PP_Order_Node_AssetGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_Node_AssetConnection!
+}
+
+extend type Mutation {
+	PP_Order_Node_AssetSave(Entity: PP_Order_Node_AssetInput!): PP_Order_Node_Asset!
+	PP_Order_Node_AssetSaveMany(Entities: [PP_Order_Node_AssetInput!]!): [PP_Order_Node_Asset!]!
+	PP_Order_Node_AssetDelete(UUs: [String!]!): Boolean!
+}
+
+type PP_Order_Node_AssetConnection {
+	Results: [PP_Order_Node_Asset!]!
+	PagingInfo: PagingInfo!
+}
+
+type PP_Order_Node_Asset {
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Manufacturing Order
+	PP_Order: PP_Order!
+	UU: ID!
+	# Workflow Node (activity), step or process
+	PP_Order_Node: PP_Order_Node!
+	PP_Order_Workflow: PP_Order_Workflow!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PP_Order_Node_AssetInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+	UU: ID
+	# Workflow Node (activity), step or process
+	PP_Order_Node: ForeignEntityInput
+	PP_Order_Workflow: ForeignEntityInput
+}

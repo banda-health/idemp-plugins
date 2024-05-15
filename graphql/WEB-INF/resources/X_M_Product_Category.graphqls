@@ -1,0 +1,85 @@
+# Generated Schema for M_Product_Category - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_Product_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_Product_CategoryConnection!
+}
+
+extend type Mutation {
+	M_Product_CategorySave(Entity: M_Product_CategoryInput!): M_Product_Category!
+	M_Product_CategorySaveMany(Entities: [M_Product_CategoryInput!]!): [M_Product_Category!]!
+	M_Product_CategoryDelete(UUs: [String!]!): Boolean!
+}
+
+type M_Product_CategoryConnection {
+	Results: [M_Product_Category!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Product_Category {
+	# Group of Assets
+	A_Asset_Group: A_Asset_Group
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Color used for printing and display
+	AD_PrintColor: AD_PrintColor
+	# Contains a character the is linked to a ref list to determine types of product categories
+	BH_Product_Category_Type: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	M_Product_Category_Parent: M_Product_Category
+	UU: ID!
+	# Material Movement Policy
+	MMPolicy: AD_Ref_List!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Project's planned margin as a percentage
+	PlannedMargin: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input M_Product_CategoryInput {
+	# Group of Assets
+	A_Asset_Group: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	# Contains a character the is linked to a ref list to determine types of product categories
+	BH_Product_Category_Type: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+	M_Product_Category_Parent: ForeignEntityInput
+	UU: ID
+	# Material Movement Policy
+	MMPolicy: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Project's planned margin as a percentage
+	PlannedMargin: BigDecimal
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

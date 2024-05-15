@@ -1,0 +1,151 @@
+# Generated Schema for C_PaymentProcessor - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_PaymentProcessorGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentProcessorConnection!
+}
+
+extend type Mutation {
+	C_PaymentProcessorSave(Entity: C_PaymentProcessorInput!): C_PaymentProcessor!
+	C_PaymentProcessorSaveMany(Entities: [C_PaymentProcessorInput!]!): [C_PaymentProcessor!]!
+	C_PaymentProcessorDelete(UUs: [String!]!): Boolean!
+}
+
+type C_PaymentProcessorConnection {
+	Results: [C_PaymentProcessor!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_PaymentProcessor {
+	# Accept American Express Card
+	AcceptAMEX: Boolean!
+	# Accept Bank ATM Card
+	AcceptATM: Boolean!
+	# Accept ECheck (Electronic Checks)
+	AcceptCheck: Boolean!
+	# Accept Corporate Purchase Cards
+	AcceptCorporate: Boolean!
+	# Accept Diner's Club
+	AcceptDiners: Boolean!
+	# Accept Direct Debits (vendor initiated)
+	AcceptDirectDebit: Boolean!
+	# Accept Direct Deposit (payee initiated)
+	AcceptDirectDeposit: Boolean!
+	# Accept Discover Card
+	AcceptDiscover: Boolean!
+	# Accept Master Card
+	AcceptMC: Boolean!
+	# Accept Visa Cards
+	AcceptVisa: Boolean!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Document Sequence
+	AD_Sequence: AD_Sequence
+	# Account at the Bank
+	C_BankAccount: C_BankAccount
+	# The Currency for this record
+	C_Currency: C_Currency
+	UU: ID!
+	# Commission stated as a percentage
+	Commission: BigDecimal!
+	# Fixed cost per transaction
+	CostPerTrx: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Host Address URL or DNS
+	HostAddress: String!
+	# Host Communication Port
+	HostPort: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Minimum Amount in Document Currency
+	MinimumAmt: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Payment Processor Java Class
+	PayProcessorClass: String
+	#  Address of your proxy server
+	ProxyAddress: String
+	# Logon of your proxy server
+	ProxyLogon: String
+	# Password of your proxy server
+	ProxyPassword: String
+	# Port of your proxy server
+	ProxyPort: Int
+	# Require 3/4 digit Credit Verification Code
+	RequireVV: Boolean!
+	# Type of credit card transaction
+	TrxType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_PaymentProcessorInput {
+	# Accept American Express Card
+	AcceptAMEX: Boolean
+	# Accept Bank ATM Card
+	AcceptATM: Boolean
+	# Accept ECheck (Electronic Checks)
+	AcceptCheck: Boolean
+	# Accept Corporate Purchase Cards
+	AcceptCorporate: Boolean
+	# Accept Diner's Club
+	AcceptDiners: Boolean
+	# Accept Direct Debits (vendor initiated)
+	AcceptDirectDebit: Boolean
+	# Accept Direct Deposit (payee initiated)
+	AcceptDirectDeposit: Boolean
+	# Accept Discover Card
+	AcceptDiscover: Boolean
+	# Accept Master Card
+	AcceptMC: Boolean
+	# Accept Visa Cards
+	AcceptVisa: Boolean
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Document Sequence
+	AD_Sequence: ForeignEntityInput
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	UU: ID
+	# Commission stated as a percentage
+	Commission: BigDecimal
+	# Fixed cost per transaction
+	CostPerTrx: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Host Address URL or DNS
+	HostAddress: String
+	# Host Communication Port
+	HostPort: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Minimum Amount in Document Currency
+	MinimumAmt: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Payment Processor Java Class
+	PayProcessorClass: String
+	#  Address of your proxy server
+	ProxyAddress: String
+	# Logon of your proxy server
+	ProxyLogon: String
+	# Password of your proxy server
+	ProxyPassword: String
+	# Port of your proxy server
+	ProxyPort: Int
+	# Require 3/4 digit Credit Verification Code
+	RequireVV: Boolean
+	# Type of credit card transaction
+	TrxType: ForeignEntityInput
+}

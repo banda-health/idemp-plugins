@@ -1,0 +1,65 @@
+# Generated Schema for C_SalesStage - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_SalesStageGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SalesStageConnection!
+}
+
+extend type Mutation {
+	C_SalesStageSave(Entity: C_SalesStageInput!): C_SalesStage!
+	C_SalesStageSaveMany(Entities: [C_SalesStageInput!]!): [C_SalesStage!]!
+	C_SalesStageDelete(UUs: [String!]!): Boolean!
+}
+
+type C_SalesStageConnection {
+	Results: [C_SalesStage!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_SalesStage {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The status is closed
+	IsClosed: Boolean!
+	# The opportunity was won
+	IsWon: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Probability: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_SalesStageInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The status is closed
+	IsClosed: Boolean
+	# The opportunity was won
+	IsWon: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Probability: BigDecimal
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

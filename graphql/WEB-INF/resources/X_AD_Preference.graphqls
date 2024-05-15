@@ -1,0 +1,73 @@
+# Generated Schema for AD_Preference - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PreferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PreferenceConnection!
+}
+
+extend type Mutation {
+	AD_PreferenceSave(Entity: AD_PreferenceInput!): AD_Preference!
+	AD_PreferenceSaveMany(Entities: [AD_PreferenceInput!]!): [AD_Preference!]!
+	AD_PreferenceDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PreferenceConnection {
+	Results: [AD_Preference!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Preference {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Special Form
+	AD_Form: AD_Form
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Process or Report
+	AD_Process: AD_Process
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_AllUsers_V
+	# Data entry or display window
+	AD_Window: AD_Window
+	Attribute: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Type of preference, it can window, info window or parameter process
+	PreferenceFor: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input AD_PreferenceInput {
+	# Special Form
+	AD_Form: ForeignEntityInput
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	Attribute: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Type of preference, it can window, info window or parameter process
+	PreferenceFor: ForeignEntityInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

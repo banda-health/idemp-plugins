@@ -1,0 +1,85 @@
+# Generated Schema for A_Asset_Group - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_GroupGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_GroupConnection!
+}
+
+extend type Mutation {
+	A_Asset_GroupSave(Entity: A_Asset_GroupInput!): A_Asset_Group!
+	A_Asset_GroupSaveMany(Entities: [A_Asset_GroupInput!]!): [A_Asset_Group!]!
+	A_Asset_GroupDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_GroupConnection {
+	Results: [A_Asset_Group!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Group {
+	A_Asset_Class: A_Asset_Class
+	UU: ID!
+	A_Asset_Type: A_Asset_Type
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Create Asset and activate it
+	IsCreateAsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# The asset will be depreciated
+	IsDepreciated: Boolean!
+	IsFixedAsset: Boolean!
+	# Create one asset per UOM
+	IsOneAssetPerUOM: Boolean!
+	# The asset is owned by the organization
+	IsOwned: Boolean!
+	# Enable tracking issues for this asset
+	IsTrackIssues: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_GroupInput {
+	A_Asset_Class: ForeignEntityInput
+	UU: ID
+	A_Asset_Type: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Create Asset and activate it
+	IsCreateAsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# The asset will be depreciated
+	IsDepreciated: Boolean
+	IsFixedAsset: Boolean
+	# Create one asset per UOM
+	IsOneAssetPerUOM: Boolean
+	# The asset is owned by the organization
+	IsOwned: Boolean
+	# Enable tracking issues for this asset
+	IsTrackIssues: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

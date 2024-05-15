@@ -1,0 +1,215 @@
+# Generated Schema for M_Package - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PackageGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PackageConnection!
+}
+
+extend type Mutation {
+	M_PackageSave(Entity: M_PackageInput!): M_Package!
+	M_PackageSaveMany(Entities: [M_PackageInput!]!): [M_Package!]!
+	M_PackageDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PackageConnection {
+	Results: [M_Package!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Package {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BoxCount: Int
+	C_BP_ShippingAcct: C_BP_ShippingAcct
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Standard Unit of Measure for Length
+	C_UOM_Length: C_UOM
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: C_UOM
+	CashOnDelivery: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date a product was received
+	DateReceived: Date
+	# EMail Delivery confirmation
+	DeliveryConfirmation: Boolean!
+	DeliveryConfirmationType: AD_Ref_List
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	DotHazardClassOrDivision: AD_Ref_List
+	DryIceWeight: BigDecimal
+	DutiesShipperAccount: String
+	EstimatedWeight: BigDecimal
+	FOB: AD_Ref_List
+	FreightCharges: AD_Ref_List
+	HandlingCharge: BigDecimal
+	Height: BigDecimal
+	HoldAddress: C_BPartner_Location
+	HomeDeliveryPremiumDate: Date
+	HomeDeliveryPremiumPhone: String
+	HomeDeliveryPremiumType: AD_Ref_List
+	Insurance: AD_Ref_List
+	InsuredAmount: BigDecimal
+	IsAccessible: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsAddedHandling: Boolean!
+	IsCargoAircraftOnly: Boolean!
+	IsDryIce: Boolean!
+	IsDutiable: Boolean!
+	IsFutureDayShipment: Boolean!
+	IsHazMat: Boolean!
+	IsHoldAtLocation: Boolean!
+	IsIgnoreZipNotFound: Boolean!
+	IsIgnoreZipStateNotMatch: Boolean!
+	IsResidential: Boolean!
+	IsSaturdayDelivery: Boolean!
+	IsSaturdayPickup: Boolean!
+	IsVerbalConfirmation: Boolean!
+	LabelPrint: String
+	LatestPickupTime: Date
+	Length: BigDecimal
+	# Material Shipment Document
+	M_InOut: M_InOut!
+	UU: ID!
+	# Method or manner of product delivery
+	M_Shipper: M_Shipper!
+	M_ShipperLabels: M_ShipperLabels
+	M_ShipperPackaging: M_ShipperPackaging
+	M_ShipperPickupTypes: M_ShipperPickupTypes
+	M_ShippingProcessor: M_ShippingProcessor
+	NotificationMessage: String
+	# Type of Notifications
+	NotificationType: AD_Ref_List
+	# This payment can be processed online
+	OProcessing: String
+	# How you pay the invoice
+	PaymentRule: AD_Ref_List
+	# Price
+	Price: BigDecimal
+	# Actual Price 
+	PriceActual: BigDecimal
+	# The document has been processed
+	Processed: Boolean!
+	RateInquiryMessage: String
+	# Information of the receipt of the package (acknowledgement)
+	ReceivedInfo: String
+	# Shipment Date/Time
+	ShipDate: Date
+	ShipperAccount: String
+	ShippingRateInquiry: String
+	ShippingRespMessage: String
+	Surcharges: BigDecimal
+	TotalPrice: BigDecimal
+	TrackingInfo: String
+	# Number to track the shipment
+	TrackingNo: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	VoidIt: String
+	# Weight of a product
+	Weight: BigDecimal
+	Width: BigDecimal
+}
+
+input M_PackageInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BoxCount: Int
+	C_BP_ShippingAcct: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Standard Unit of Measure for Length
+	C_UOM_Length: ForeignEntityInput
+	# Standard Unit of Measure for Weight
+	C_UOM_Weight: ForeignEntityInput
+	CashOnDelivery: Boolean
+	# Date a product was received
+	DateReceived: Date
+	# EMail Delivery confirmation
+	DeliveryConfirmation: Boolean
+	DeliveryConfirmationType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	DotHazardClassOrDivision: ForeignEntityInput
+	DryIceWeight: BigDecimal
+	DutiesShipperAccount: String
+	HandlingCharge: BigDecimal
+	Height: BigDecimal
+	HoldAddress: ForeignEntityInput
+	HomeDeliveryPremiumDate: Date
+	HomeDeliveryPremiumPhone: String
+	HomeDeliveryPremiumType: ForeignEntityInput
+	InsuredAmount: BigDecimal
+	IsAccessible: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	IsAddedHandling: Boolean
+	IsCargoAircraftOnly: Boolean
+	IsDryIce: Boolean
+	IsDutiable: Boolean
+	IsFutureDayShipment: Boolean
+	IsHazMat: Boolean
+	IsHoldAtLocation: Boolean
+	IsIgnoreZipNotFound: Boolean
+	IsIgnoreZipStateNotMatch: Boolean
+	IsResidential: Boolean
+	IsSaturdayDelivery: Boolean
+	IsSaturdayPickup: Boolean
+	IsVerbalConfirmation: Boolean
+	LabelPrint: String
+	LatestPickupTime: Date
+	Length: BigDecimal
+	# Material Shipment Document
+	M_InOut: ForeignEntityInput
+	UU: ID
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	M_ShipperLabels: ForeignEntityInput
+	M_ShipperPackaging: ForeignEntityInput
+	M_ShipperPickupTypes: ForeignEntityInput
+	NotificationMessage: String
+	# Type of Notifications
+	NotificationType: ForeignEntityInput
+	# This payment can be processed online
+	OProcessing: String
+	# How you pay the invoice
+	PaymentRule: ForeignEntityInput
+	# Price
+	Price: BigDecimal
+	# Actual Price 
+	PriceActual: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	RateInquiryMessage: String
+	# Information of the receipt of the package (acknowledgement)
+	ReceivedInfo: String
+	# Shipment Date/Time
+	ShipDate: Date
+	ShipperAccount: String
+	ShippingRateInquiry: String
+	ShippingRespMessage: String
+	Surcharges: BigDecimal
+	TrackingInfo: String
+	# Number to track the shipment
+	TrackingNo: String
+	VoidIt: String
+	# Weight of a product
+	Weight: BigDecimal
+	Width: BigDecimal
+}

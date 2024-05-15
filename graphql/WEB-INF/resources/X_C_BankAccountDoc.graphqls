@@ -1,0 +1,67 @@
+# Generated Schema for C_BankAccountDoc - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BankAccountDocGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankAccountDocConnection!
+}
+
+extend type Mutation {
+	C_BankAccountDocSave(Entity: C_BankAccountDocInput!): C_BankAccountDoc!
+	C_BankAccountDocSaveMany(Entities: [C_BankAccountDocInput!]!): [C_BankAccountDoc!]!
+	C_BankAccountDocDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BankAccountDocConnection {
+	Results: [C_BankAccountDoc!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BankAccountDoc {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Account at the Bank
+	C_BankAccount: C_BankAccount!
+	UU: ID!
+	# Print Format for printing Checks
+	Check_PrintFormat: AD_PrintFormat
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The next number to be used
+	CurrentNext: Int!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# How you pay the invoice
+	PaymentRule: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BankAccountDocInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	UU: ID
+	# Print Format for printing Checks
+	Check_PrintFormat: ForeignEntityInput
+	# The next number to be used
+	CurrentNext: Int
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# How you pay the invoice
+	PaymentRule: ForeignEntityInput
+}

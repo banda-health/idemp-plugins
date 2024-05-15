@@ -1,0 +1,193 @@
+fragment AD_RoleFields on AD_Role {
+	UU
+	IsMasterRole
+	AD_Role_IncludedList {
+		UU
+		Included_Role {
+			UU
+		}
+	}
+	Name
+}
+
+fragment BH_VisitFields on BH_Visit {
+	BH_VisitDate
+	Description
+	DocumentNo
+	UU
+	Patient {
+		UU
+		Name
+	}
+	BH_Encounters {
+		UU
+		BH_Encounter_DiagnosisList {
+			UU
+			BH_Coded_Diagnosis {
+				UU
+			}
+			BH_Uncoded_Diagnosis
+		}
+		BH_Observations {
+			UU
+			BH_Value
+		}
+	}
+	C_Orders {
+		UU
+		DocStatus {
+			UU
+			Value
+		}
+		C_OrderLines {
+			UU
+		}
+	}
+	C_Invoices {
+		UU
+		DocStatus {
+			UU
+			Value
+		}
+		C_BPartner {
+			UU
+		}
+		C_InvoiceLines {
+			UU
+			PriceActual
+			C_OrderLine {
+				UU
+			}
+		}
+	}
+	C_Payments {
+		UU
+		BH_tender_amount
+		DocStatus {
+			UU
+			Value
+		}
+		PayAmt
+	}
+}
+
+fragment C_BPartnerFields on C_BPartner {
+	BH_Birthday
+	bh_gender {
+		UU
+		Value
+	}
+	bh_occupation
+	BH_Payer_Info_FldList {
+		UU
+		BH_PayerInfoFieldDataType {
+			UU
+			Value
+		}
+	}
+	C_BP_Group {
+		Name
+		UU
+		AssociatedCustomerReceivablesCharge {
+			UU
+		}
+	}
+	C_BPartner_Locations {
+		UU
+		C_Location {
+			Address1
+		}
+	}
+	Description
+	UU
+	IsCustomer
+	IsVendor
+	LastVisitDate
+	M_PriceList {
+		UU
+	}
+	Name
+	NationalID
+	NextOfKin_Contact
+	NextOfKin_Name
+	PO_PriceList {
+		UU
+	}
+	TotalOpenBalance
+	TotalVisits
+}
+
+fragment C_LocationFields on C_Location {
+	C_Country {
+		UU
+	}
+	C_Region {
+		UU
+		Name
+	}
+	UU
+}
+
+fragment C_InvoiceFields on C_Invoice {
+	C_Currency {
+		UU
+	}
+	DocStatus {
+		Value
+	}
+	GrandTotal
+	UU
+}
+
+fragment C_OrderFields on C_Order {
+	C_Currency {
+		UU
+	}
+	DocStatus {
+		Value
+	}
+	GrandTotal
+	UU
+}
+
+fragment C_PaymentFields on C_Payment {
+	BH_tender_amount
+	DocStatus {
+		Value
+	}
+	PayAmt
+	TenderType {
+		UU
+		Name
+		Value
+	}
+	UU
+}
+
+fragment M_InventoryFields on M_Inventory {
+	DocStatus {
+		Value
+	}
+	UU
+}
+
+fragment M_MovementFields on M_Movement {
+	DocStatus {
+		Value
+	}
+	UU
+}
+
+fragment M_ProductFields on M_Product {
+	BH_BuyPrice
+	BH_SellPrice
+	Description
+	HasBeenPurchased
+	LastPurchasePrice
+	UU
+	Name
+	M_Product_Category {
+		UU
+	}
+	TotalQuantity
+}

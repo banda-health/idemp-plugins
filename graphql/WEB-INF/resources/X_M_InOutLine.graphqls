@@ -1,0 +1,153 @@
+# Generated Schema for M_InOutLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_InOutLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InOutLineConnection!
+}
+
+extend type Mutation {
+	M_InOutLineSave(Entity: M_InOutLineInput!): M_InOutLine!
+	M_InOutLineSaveMany(Entities: [M_InOutLineInput!]!): [M_InOutLine!]!
+	M_InOutLineDelete(UUs: [String!]!): Boolean!
+}
+
+type M_InOutLineConnection {
+	Results: [M_InOutLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_InOutLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Additional document charges
+	C_Charge: C_Charge
+	# Sales Order Line
+	C_OrderLine: C_OrderLine
+	# Financial Project
+	C_Project: C_Project
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTask
+	# Unit of Measure
+	C_UOM: C_UOM!
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Auto create production to fulfill shipment
+	IsAutoProduce: Boolean!
+	# if true, the line is just description and no transaction
+	IsDescription: Boolean!
+	# Is this invoiced?
+	IsInvoiced: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Material Shipment Document
+	M_InOut: M_InOut!
+	UU: ID!
+	# Warehouse Locator
+	M_Locator: M_Locator
+	# Product, Service, Item
+	M_Product: M_Product
+	# Return Material Authorization Line
+	M_RMALine: M_RMALine
+	# Quantity of a product moved.
+	MovementQty: BigDecimal!
+	PickedQty: BigDecimal
+	# The document has been processed
+	Processed: Boolean!
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: BigDecimal!
+	# Use to keep the reversal line ID for reversing costing purpose
+	ReversalLine: M_InOutLine
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+	# Target Movement Quantity
+	TargetQty: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input M_InOutLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Sales Order Line
+	C_OrderLine: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Auto create production to fulfill shipment
+	IsAutoProduce: Boolean
+	# if true, the line is just description and no transaction
+	IsDescription: Boolean
+	# Is this invoiced?
+	IsInvoiced: Boolean
+	# Unique line for this document
+	Line: Int
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Material Shipment Document
+	M_InOut: ForeignEntityInput
+	UU: ID
+	# Warehouse Locator
+	M_Locator: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Return Material Authorization Line
+	M_RMALine: ForeignEntityInput
+	# Quantity of a product moved.
+	MovementQty: BigDecimal
+	PickedQty: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: BigDecimal
+	# Use to keep the reversal line ID for reversing costing purpose
+	ReversalLine: ForeignEntityInput
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+	# Target Movement Quantity
+	TargetQty: BigDecimal
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

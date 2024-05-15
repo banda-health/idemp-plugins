@@ -1,0 +1,59 @@
+# Generated Schema for C_RfQ_TopicSubscriberOnly - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RfQ_TopicSubscriberOnlyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicSubscriberOnlyConnection!
+}
+
+extend type Mutation {
+	C_RfQ_TopicSubscriberOnlySave(Entity: C_RfQ_TopicSubscriberOnlyInput!): C_RfQ_TopicSubscriberOnly!
+	C_RfQ_TopicSubscriberOnlySaveMany(Entities: [C_RfQ_TopicSubscriberOnlyInput!]!): [C_RfQ_TopicSubscriberOnly!]!
+	C_RfQ_TopicSubscriberOnlyDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RfQ_TopicSubscriberOnlyConnection {
+	Results: [C_RfQ_TopicSubscriberOnly!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_RfQ_TopicSubscriberOnly {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Request for Quotation Topic Subscriber
+	C_RfQ_TopicSubscriber: C_RfQ_TopicSubscriber!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Category of a Product
+	M_Product_Category: M_Product_Category
+	# Product, Service, Item
+	M_Product: M_Product
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQ_TopicSubscriberOnlyInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Request for Quotation Topic Subscriber
+	C_RfQ_TopicSubscriber: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Category of a Product
+	M_Product_Category: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+}

@@ -1,0 +1,59 @@
+# Generated Schema for AD_Org - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_OrgGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_OrgConnection!
+}
+
+extend type Mutation {
+	AD_OrgSave(Entity: AD_OrgInput!): AD_Org!
+	AD_OrgSaveMany(Entities: [AD_OrgInput!]!): [AD_Org!]!
+	AD_OrgDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_OrgConnection {
+	Results: [AD_Org!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Org {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Data Replication Strategy
+	AD_ReplicationStrategy: AD_ReplicationStrategy
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input AD_OrgInput {
+	UU: ID
+	# Data Replication Strategy
+	AD_ReplicationStrategy: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

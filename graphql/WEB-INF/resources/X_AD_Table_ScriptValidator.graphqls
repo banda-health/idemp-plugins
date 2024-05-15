@@ -1,0 +1,55 @@
+# Generated Schema for AD_Table_ScriptValidator - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Table_ScriptValidatorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Table_ScriptValidatorConnection!
+}
+
+extend type Mutation {
+	AD_Table_ScriptValidatorSave(Entity: AD_Table_ScriptValidatorInput!): AD_Table_ScriptValidator!
+	AD_Table_ScriptValidatorSaveMany(Entities: [AD_Table_ScriptValidatorInput!]!): [AD_Table_ScriptValidator!]!
+	AD_Table_ScriptValidatorDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Table_ScriptValidatorConnection {
+	Results: [AD_Table_ScriptValidator!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Table_ScriptValidator {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_Rule: AD_Rule!
+	# Database Table information
+	AD_Table: AD_Table!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	EventModelValidator: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Table_ScriptValidatorInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_Rule: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	UU: ID
+	EventModelValidator: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

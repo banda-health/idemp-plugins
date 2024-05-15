@@ -1,0 +1,87 @@
+# Generated Schema for C_Currency - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CurrencyGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CurrencyConnection!
+}
+
+extend type Mutation {
+	C_CurrencySave(Entity: C_CurrencyInput!): C_Currency!
+	C_CurrencySaveMany(Entities: [C_CurrencyInput!]!): [C_Currency!]!
+	C_CurrencyDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CurrencyConnection {
+	Results: [C_Currency!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Currency {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Rounding used costing calculations
+	CostingPrecision: Int!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The name of the currency
+	CurrencyName: String
+	# Symbol of the currency (opt used for printing only)
+	CurSymbol: String
+	# Optional short description of the record
+	Description: String!
+	# Date when the currency joined / will join the EMU
+	EMUEntryDate: Date
+	# Official rate to the Euro
+	EMURate: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# This currency is member if the European Monetary Union
+	IsEMUMember: Boolean!
+	# This currency is the Euro
+	IsEuro: Boolean!
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String!
+	# Used to Round Off Payment Amount
+	RoundOffFactor: BigDecimal!
+	# Rule for rounding  calculated amounts
+	StdPrecision: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CurrencyInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Rounding used costing calculations
+	CostingPrecision: Int
+	# The name of the currency
+	CurrencyName: String
+	# Symbol of the currency (opt used for printing only)
+	CurSymbol: String
+	# Optional short description of the record
+	Description: String
+	# Date when the currency joined / will join the EMU
+	EMUEntryDate: Date
+	# Official rate to the Euro
+	EMURate: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# This currency is member if the European Monetary Union
+	IsEMUMember: Boolean
+	# This currency is the Euro
+	IsEuro: Boolean
+	# Three letter ISO 4217 Code of the Currency
+	ISO_Code: String
+	# Used to Round Off Payment Amount
+	RoundOffFactor: BigDecimal
+	# Rule for rounding  calculated amounts
+	StdPrecision: Int
+}

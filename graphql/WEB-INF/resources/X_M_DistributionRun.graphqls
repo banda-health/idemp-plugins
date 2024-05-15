@@ -1,0 +1,65 @@
+# Generated Schema for M_DistributionRun - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_DistributionRunGet(Page: Int, Size: Int, Sort: String, Filter: String): M_DistributionRunConnection!
+}
+
+extend type Mutation {
+	M_DistributionRunSave(Entity: M_DistributionRunInput!): M_DistributionRun!
+	M_DistributionRunSaveMany(Entities: [M_DistributionRunInput!]!): [M_DistributionRun!]!
+	M_DistributionRunDelete(UUs: [String!]!): Boolean!
+}
+
+type M_DistributionRunConnection {
+	Results: [M_DistributionRun!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_DistributionRun {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# For all shipments create one Order
+	IsCreateSingleOrder: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_DistributionRunInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# For all shipments create one Order
+	IsCreateSingleOrder: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+}

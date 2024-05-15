@@ -1,0 +1,3 @@
+extend type M_ShippingTransaction {
+	M_ShippingTransactionLines: [M_ShippingTransactionLine!]
+}

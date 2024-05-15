@@ -1,0 +1,51 @@
+# Generated Schema for AD_Private_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Private_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Private_AccessConnection!
+}
+
+extend type Mutation {
+	AD_Private_AccessSave(Entity: AD_Private_AccessInput!): AD_Private_Access!
+	AD_Private_AccessSaveMany(Entities: [AD_Private_AccessInput!]!): [AD_Private_Access!]!
+	AD_Private_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Private_AccessConnection {
+	Results: [AD_Private_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Private_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Database Table information
+	AD_Table: AD_Table!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Private_AccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

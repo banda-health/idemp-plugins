@@ -1,0 +1,67 @@
+# Generated Schema for C_RfQ_TopicSubscriber - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RfQ_TopicSubscriberGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQ_TopicSubscriberConnection!
+}
+
+extend type Mutation {
+	C_RfQ_TopicSubscriberSave(Entity: C_RfQ_TopicSubscriberInput!): C_RfQ_TopicSubscriber!
+	C_RfQ_TopicSubscriberSaveMany(Entities: [C_RfQ_TopicSubscriberInput!]!): [C_RfQ_TopicSubscriber!]!
+	C_RfQ_TopicSubscriberDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RfQ_TopicSubscriberConnection {
+	Results: [C_RfQ_TopicSubscriber!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_RfQ_TopicSubscriber {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location!
+	# Topic for Request for Quotations
+	C_RfQ_Topic: C_RfQ_Topic!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date the contact opted out
+	OptOutDate: Date
+	# Date the contact actively subscribed
+	SubscribeDate: Date
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQ_TopicSubscriberInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Topic for Request for Quotations
+	C_RfQ_Topic: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Date the contact opted out
+	OptOutDate: Date
+	# Date the contact actively subscribed
+	SubscribeDate: Date
+}

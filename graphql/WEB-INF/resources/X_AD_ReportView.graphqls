@@ -1,0 +1,67 @@
+# Generated Schema for AD_ReportView - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReportViewGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReportViewConnection!
+}
+
+extend type Mutation {
+	AD_ReportViewSave(Entity: AD_ReportViewInput!): AD_ReportView!
+	AD_ReportViewSaveMany(Entities: [AD_ReportViewInput!]!): [AD_ReportView!]!
+	AD_ReportViewDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReportViewConnection {
+	Results: [AD_ReportView!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ReportView {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input AD_ReportViewInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Fully qualified ORDER BY clause
+	OrderByClause: String
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

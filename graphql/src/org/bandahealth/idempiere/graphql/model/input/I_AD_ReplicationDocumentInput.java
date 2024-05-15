@@ -1,0 +1,96 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_AD_ReplicationDocument;
+
+/**
+ * Generated Interface for AD_ReplicationDocument - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public interface I_AD_ReplicationDocumentInput extends I_AD_ReplicationDocument {
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
+	 * Set AD_ReplicationStrategy.
+	 *
+	 * @param AD_ReplicationStrategy Data Replication Strategy
+	 */
+	void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy);
+
+	/**
+	 * Get AD_ReplicationStrategy.
+	 *
+	 * @return Data Replication Strategy
+	 */
+	ForeignEntityInput AD_ReplicationStrategy();
+
+	/**
+	 * Set AD_Table.
+	 *
+	 * @param AD_Table Database Table information
+	 */
+	void setAD_TableInput(ForeignEntityInput AD_Table);
+
+	/**
+	 * Get AD_Table.
+	 *
+	 * @return Database Table information
+	 */
+	ForeignEntityInput AD_Table();
+
+	/**
+	 * Set C_DocType.
+	 *
+	 * @param C_DocType Document type or rules
+	 */
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
+
+	/**
+	 * Get C_DocType.
+	 *
+	 * @return Document type or rules
+	 */
+	ForeignEntityInput C_DocType();
+
+	/**
+	 * Set ReplicationType.
+	 *
+	 * @param ReplicationType Type of Data Replication
+	 */
+	void setReplicationTypeInput(ForeignEntityInput ReplicationType);
+
+	/**
+	 * Get ReplicationType.
+	 *
+	 * @return Type of Data Replication
+	 */
+	ForeignEntityInput ReplicationType();
+}

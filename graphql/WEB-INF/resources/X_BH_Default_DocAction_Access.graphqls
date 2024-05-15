@@ -1,0 +1,55 @@
+# Generated Schema for BH_Default_DocAction_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Default_DocAction_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Default_DocAction_AccessConnection!
+}
+
+extend type Mutation {
+	BH_Default_DocAction_AccessSave(Entity: BH_Default_DocAction_AccessInput!): BH_Default_DocAction_Access!
+	BH_Default_DocAction_AccessSaveMany(Entities: [BH_Default_DocAction_AccessInput!]!): [BH_Default_DocAction_Access!]!
+	BH_Default_DocAction_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Default_DocAction_AccessConnection {
+	Results: [BH_Default_DocAction_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Default_DocAction_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Reference List based on Table
+	AD_Ref_List: AD_Ref_List!
+	UU: ID!
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The User Type when a new client is created
+	DB_UserType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Default_DocAction_AccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Reference List based on Table
+	AD_Ref_List: ForeignEntityInput
+	UU: ID
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# The User Type when a new client is created
+	DB_UserType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

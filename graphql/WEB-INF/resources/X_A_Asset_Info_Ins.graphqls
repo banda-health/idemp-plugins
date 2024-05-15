@@ -1,0 +1,61 @@
+# Generated Schema for A_Asset_Info_Ins - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_Info_InsGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_InsConnection!
+}
+
+extend type Mutation {
+	A_Asset_Info_InsSave(Entity: A_Asset_Info_InsInput!): A_Asset_Info_Ins!
+	A_Asset_Info_InsSaveMany(Entities: [A_Asset_Info_InsInput!]!): [A_Asset_Info_Ins!]!
+	A_Asset_Info_InsDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_Info_InsConnection {
+	Results: [A_Asset_Info_Ins!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Info_Ins {
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	UU: ID!
+	A_Ins_Premium: BigDecimal
+	A_Ins_Value: BigDecimal
+	A_Insurance_Co: String
+	A_Policy_No: String
+	A_Renewal_Date: Date
+	A_Replace_Cost: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	Text: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_Info_InsInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	UU: ID
+	A_Ins_Premium: BigDecimal
+	A_Ins_Value: BigDecimal
+	A_Insurance_Co: String
+	A_Policy_No: String
+	A_Renewal_Date: Date
+	A_Replace_Cost: BigDecimal
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	Text: String
+}

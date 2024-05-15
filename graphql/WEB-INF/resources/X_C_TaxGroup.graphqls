@@ -1,0 +1,59 @@
+# Generated Schema for C_TaxGroup - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_TaxGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxGroupConnection!
+}
+
+extend type Mutation {
+	C_TaxGroupSave(Entity: C_TaxGroupInput!): C_TaxGroup!
+	C_TaxGroupSaveMany(Entities: [C_TaxGroupInput!]!): [C_TaxGroup!]!
+	C_TaxGroupDelete(UUs: [String!]!): Boolean!
+}
+
+type C_TaxGroupConnection {
+	Results: [C_TaxGroup!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_TaxGroup {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_TaxGroupInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

@@ -1,0 +1,63 @@
+# Generated Schema for A_Asset_Info_Tax - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_Info_TaxGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Info_TaxConnection!
+}
+
+extend type Mutation {
+	A_Asset_Info_TaxSave(Entity: A_Asset_Info_TaxInput!): A_Asset_Info_Tax!
+	A_Asset_Info_TaxSaveMany(Entities: [A_Asset_Info_TaxInput!]!): [A_Asset_Info_Tax!]!
+	A_Asset_Info_TaxDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_Info_TaxConnection {
+	Results: [A_Asset_Info_Tax!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Info_Tax {
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	UU: ID!
+	A_Finance_Meth: AD_Ref_List
+	A_Investment_CR: Int
+	A_New_Used: Boolean!
+	# State of the Credit Card or Account holder
+	A_State: String
+	A_Tax_Entity: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_Info_TaxInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	UU: ID
+	A_Finance_Meth: ForeignEntityInput
+	A_Investment_CR: Int
+	A_New_Used: Boolean
+	# State of the Credit Card or Account holder
+	A_State: String
+	A_Tax_Entity: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Text Message
+	TextMsg: String
+}

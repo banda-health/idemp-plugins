@@ -1,0 +1,59 @@
+# Generated Schema for CM_ChatType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	CM_ChatTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatTypeConnection!
+}
+
+extend type Mutation {
+	CM_ChatTypeSave(Entity: CM_ChatTypeInput!): CM_ChatType!
+	CM_ChatTypeSaveMany(Entities: [CM_ChatTypeInput!]!): [CM_ChatType!]!
+	CM_ChatTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type CM_ChatTypeConnection {
+	Results: [CM_ChatType!]!
+	PagingInfo: PagingInfo!
+}
+
+type CM_ChatType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Type of moderation
+	ModerationType: AD_Ref_List
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input CM_ChatTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Type of moderation
+	ModerationType: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+}

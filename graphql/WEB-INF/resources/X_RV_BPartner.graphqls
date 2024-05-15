@@ -1,0 +1,487 @@
+# Generated Schema for RV_BPartner - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	RV_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): RV_BPartnerConnection!
+}
+
+extend type Mutation {
+	RV_BPartnerSave(Entity: RV_BPartnerInput!): RV_BPartner!
+	RV_BPartnerSaveMany(Entities: [RV_BPartnerInput!]!): [RV_BPartner!]!
+	RV_BPartnerDelete(UUs: [String!]!): Boolean!
+}
+
+type RV_BPartnerConnection {
+	Results: [RV_BPartner!]!
+	PagingInfo: PagingInfo!
+}
+
+type RV_BPartner {
+	# The cost of gaining the prospect as a customer
+	AcqusitionCost: BigDecimal
+	# Actual Life Time Revenue
+	ActualLifeTimeValue: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Language for this entity
+	AD_Language: AD_Language
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_User_C_BPartner: C_BPartner
+	AD_User_C_BPartner_Location: C_BPartner_Location
+	ad_user_created: Date
+	AD_User_Create: AD_User
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	ad_user_isactive: Boolean!
+	ad_user_updated: Date
+	AD_User_Update: AD_User
+	ad_user_value: String
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Address Line 3 for the location
+	Address3: String
+	# Address Line 4 for the location
+	Address4: String
+	# Birthday or Anniversary day
+	Birthday: Date
+	# Business Partner Parent
+	BPartner_Parent: C_BPartner
+	# Greeting for Business Partner Contact
+	BPContactGreet: C_Greeting
+	C_BP_C_TaxGroup: C_TaxGroup
+	c_bp_dunninggrace: Date
+	# Business Partner Group
+	C_BP_Group: C_BP_Group!
+	c_bp_ismanufacturer: Boolean!
+	c_bp_ispotaxexempt: Boolean!
+	C_BP_Location_C_BPartner: C_BPartner
+	C_BP_Location_C_Location: C_Location
+	c_bp_location_created: Date
+	C_BP_Location_Create: AD_User
+	c_bp_location_fax: String
+	c_bp_location_isactive: Boolean!
+	c_bp_location_isbillto: Boolean!
+	c_bp_location_isdn: String
+	c_bp_location_ispayfrom: Boolean!
+	c_bp_location_isremitto: Boolean!
+	c_bp_location_isshipto: Boolean!
+	c_bp_location_name: String
+	c_bp_location_phone: String
+	c_bp_location_phone2: String
+	C_BP_Location_SalesRegion: C_SalesRegion
+	c_bp_location_updated: Date
+	C_BP_Location_Update: AD_User
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location!
+	# City
+	C_City: C_City
+	c_country_ad_language: String
+	C_Country_C_Currency: C_Currency
+	c_country_description: String
+	# Country 
+	C_Country: C_Country!
+	c_country_isactive: Boolean!
+	# Dunning Rules for overdue invoices
+	C_Dunning: C_Dunning
+	# Greeting to print on correspondence
+	C_Greeting: C_Greeting
+	# Schedule for generating Invoices
+	C_InvoiceSchedule: C_InvoiceSchedule
+	c_location_created: Date
+	C_Location_Create: AD_User
+	# Location or Address
+	C_Location: C_Location
+	c_location_isactive: Boolean!
+	c_location_updated: Date
+	C_Location_Update: AD_User
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
+	c_region_description: String
+	# Identifies a geographical Region
+	C_Region: C_Region
+	c_region_isactive: Boolean!
+	# Identifies a City
+	City: String
+	# Comments or additional information
+	Comments: String
+	# Description of Contact
+	ContactDescription: String
+	# Business Partner Contact Name
+	ContactName: String!
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: String
+	# Country Name
+	CountryName: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Defines the timing of Delivery
+	DeliveryRule: AD_Ref_List
+	# How the order will be delivered
+	DeliveryViaRule: AD_Ref_List
+	# Optional short description of the record
+	Description: String
+	# Number of copies to be printed
+	DocumentCopies: Int
+	# Dun & Bradstreet Number
+	DUNS: String
+	# Electronic Mail Address
+	EMail: String
+	# User Name (ID) in the Mail System
+	EMailUser: String
+	# Verification information of EMail Address
+	EMailVerify: String
+	# Date Email was verified
+	EMailVerifyDate: Date
+	# Facsimile number
+	Fax: String
+	# Date of First Sale
+	FirstSale: Date
+	# Flat discount percentage 
+	FlatDiscount: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: AD_Ref_List
+	# Print Format for printing Invoices
+	Invoice_PrintFormat: AD_PrintFormat
+	# Frequency and method of invoicing 
+	InvoiceRule: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this Business Partner is a Customer
+	IsCustomer: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Print Discount on Invoice and Order
+	IsDiscountPrinted: Boolean!
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean!
+	IsOneTime: Boolean!
+	# Indicates this is a Prospect
+	IsProspect: Boolean!
+	# Indicates if  the business partner is a sales representative or company agent
+	IsSalesRep: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Business partner is exempt from tax on sales
+	IsTaxExempt: Boolean!
+	# Indicates if this Business Partner is a Vendor
+	IsVendor: Boolean!
+	# Date this individual was last contacted
+	LastContact: Date
+	# Result of last contact
+	LastResult: String
+	# User Name used for authorization via LDAP (directory) services
+	LDAPUser: Boolean!
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: M_DiscountSchema
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceList
+	# Standard Industry Code or its successor NAIC - http://www.osha.gov/oshstats/sicser.html
+	NAICS: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Additional Name
+	Name2: String
+	# Type of Notifications
+	NotificationType: AD_Ref_List!
+	# Number of employees
+	NumberEmployees: Int
+	# How you pay the invoice
+	PaymentRule: AD_Ref_List
+	# Purchase payment option
+	PaymentRulePO: AD_Ref_List
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	# Schema to calculate the purchase trade discount percentage
+	PO_DiscountSchema: M_DiscountSchema
+	# Payment rules for a purchase order
+	PO_PaymentTerm: C_PaymentTerm
+	# Price List used by this Business Partner
+	PO_PriceList: M_PriceList
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Postal code
+	Postal: String
+	# Additional ZIP or Postal code
+	Postal_Add: String
+	# Total Revenue expected
+	PotentialLifeTimeValue: BigDecimal
+	# Classification or Importance
+	Rating: String
+	# Your customer or vendor number at the Business Partner's site
+	ReferenceNo: String
+	# Name of the Region
+	RegionName: String
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Total Volume of Sales in Thousands of Currency
+	SalesVolume: BigDecimal
+	# Enable sending Document EMail
+	SendEMail: Boolean!
+	# Share of Customer's business as a percentage
+	ShareOfCustomer: Int
+	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
+	ShelfLifeMinPct: Int
+	# Available Credit based on Credit Limit (not Total Open Balance) and Credit Used
+	SO_CreditAvailable: BigDecimal
+	# Total outstanding invoice amounts allowed
+	SO_CreditLimit: BigDecimal
+	# Current open balance
+	SO_CreditUsed: BigDecimal
+	# Description to be used on orders
+	SO_Description: String
+	# Business Partner Credit Status
+	SOCreditStatus: AD_Ref_List
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: AD_User
+	# Tax Identification
+	TaxID: String
+	# Name this entity is referred to as
+	Title: String
+	# Total Open Balance Amount in primary Accounting Currency
+	TotalOpenBalance: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input RV_BPartnerInput {
+	# The cost of gaining the prospect as a customer
+	AcqusitionCost: BigDecimal
+	# Actual Life Time Revenue
+	ActualLifeTimeValue: BigDecimal
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_User_C_BPartner: ForeignEntityInput
+	AD_User_C_BPartner_Location: ForeignEntityInput
+	ad_user_created: Date
+	AD_User_Create: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ad_user_isactive: Boolean
+	ad_user_updated: Date
+	AD_User_Update: ForeignEntityInput
+	ad_user_value: String
+	# Address line 1 for this location
+	Address1: String
+	# Address line 2 for this location
+	Address2: String
+	# Address Line 3 for the location
+	Address3: String
+	# Address Line 4 for the location
+	Address4: String
+	# Birthday or Anniversary day
+	Birthday: Date
+	# Business Partner Parent
+	BPartner_Parent: ForeignEntityInput
+	# Greeting for Business Partner Contact
+	BPContactGreet: ForeignEntityInput
+	C_BP_C_TaxGroup: ForeignEntityInput
+	c_bp_dunninggrace: Date
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	c_bp_ismanufacturer: Boolean
+	c_bp_ispotaxexempt: Boolean
+	C_BP_Location_C_BPartner: ForeignEntityInput
+	C_BP_Location_C_Location: ForeignEntityInput
+	c_bp_location_created: Date
+	C_BP_Location_Create: ForeignEntityInput
+	c_bp_location_fax: String
+	c_bp_location_isactive: Boolean
+	c_bp_location_isbillto: Boolean
+	c_bp_location_isdn: String
+	c_bp_location_ispayfrom: Boolean
+	c_bp_location_isremitto: Boolean
+	c_bp_location_isshipto: Boolean
+	c_bp_location_name: String
+	c_bp_location_phone: String
+	c_bp_location_phone2: String
+	C_BP_Location_SalesRegion: ForeignEntityInput
+	c_bp_location_updated: Date
+	C_BP_Location_Update: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# City
+	C_City: ForeignEntityInput
+	c_country_ad_language: String
+	C_Country_C_Currency: ForeignEntityInput
+	c_country_description: String
+	# Country 
+	C_Country: ForeignEntityInput
+	c_country_isactive: Boolean
+	# Dunning Rules for overdue invoices
+	C_Dunning: ForeignEntityInput
+	# Greeting to print on correspondence
+	C_Greeting: ForeignEntityInput
+	# Schedule for generating Invoices
+	C_InvoiceSchedule: ForeignEntityInput
+	c_location_created: Date
+	C_Location_Create: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	c_location_isactive: Boolean
+	c_location_updated: Date
+	C_Location_Update: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	c_region_description: String
+	# Identifies a geographical Region
+	C_Region: ForeignEntityInput
+	c_region_isactive: Boolean
+	# Identifies a City
+	City: String
+	# Comments or additional information
+	Comments: String
+	# Description of Contact
+	ContactDescription: String
+	# Business Partner Contact Name
+	ContactName: String
+	# Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1 - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+	CountryCode: String
+	# Country Name
+	CountryName: String
+	# Defines the timing of Delivery
+	DeliveryRule: ForeignEntityInput
+	# How the order will be delivered
+	DeliveryViaRule: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Number of copies to be printed
+	DocumentCopies: Int
+	# Dun & Bradstreet Number
+	DUNS: String
+	# Electronic Mail Address
+	EMail: String
+	# User Name (ID) in the Mail System
+	EMailUser: String
+	# Verification information of EMail Address
+	EMailVerify: String
+	# Date Email was verified
+	EMailVerifyDate: Date
+	# Facsimile number
+	Fax: String
+	# Date of First Sale
+	FirstSale: Date
+	# Flat discount percentage 
+	FlatDiscount: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: ForeignEntityInput
+	# Print Format for printing Invoices
+	Invoice_PrintFormat: ForeignEntityInput
+	# Frequency and method of invoicing 
+	InvoiceRule: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this Business Partner is a Customer
+	IsCustomer: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Print Discount on Invoice and Order
+	IsDiscountPrinted: Boolean
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean
+	IsOneTime: Boolean
+	# Indicates this is a Prospect
+	IsProspect: Boolean
+	# Indicates if  the business partner is a sales representative or company agent
+	IsSalesRep: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Business partner is exempt from tax on sales
+	IsTaxExempt: Boolean
+	# Indicates if this Business Partner is a Vendor
+	IsVendor: Boolean
+	# Date this individual was last contacted
+	LastContact: Date
+	# Result of last contact
+	LastResult: String
+	# User Name used for authorization via LDAP (directory) services
+	LDAPUser: Boolean
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: ForeignEntityInput
+	# Unique identifier of a Price List
+	M_PriceList: ForeignEntityInput
+	# Standard Industry Code or its successor NAIC - http://www.osha.gov/oshstats/sicser.html
+	NAICS: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	# Type of Notifications
+	NotificationType: ForeignEntityInput
+	# Number of employees
+	NumberEmployees: Int
+	# How you pay the invoice
+	PaymentRule: ForeignEntityInput
+	# Purchase payment option
+	PaymentRulePO: ForeignEntityInput
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	# Schema to calculate the purchase trade discount percentage
+	PO_DiscountSchema: ForeignEntityInput
+	# Payment rules for a purchase order
+	PO_PaymentTerm: ForeignEntityInput
+	# Price List used by this Business Partner
+	PO_PriceList: ForeignEntityInput
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Postal code
+	Postal: String
+	# Additional ZIP or Postal code
+	Postal_Add: String
+	# Total Revenue expected
+	PotentialLifeTimeValue: BigDecimal
+	# Classification or Importance
+	Rating: String
+	# Your customer or vendor number at the Business Partner's site
+	ReferenceNo: String
+	# Name of the Region
+	RegionName: String
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Total Volume of Sales in Thousands of Currency
+	SalesVolume: BigDecimal
+	# Enable sending Document EMail
+	SendEMail: Boolean
+	# Share of Customer's business as a percentage
+	ShareOfCustomer: Int
+	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
+	ShelfLifeMinPct: Int
+	# Available Credit based on Credit Limit (not Total Open Balance) and Credit Used
+	SO_CreditAvailable: BigDecimal
+	# Total outstanding invoice amounts allowed
+	SO_CreditLimit: BigDecimal
+	# Current open balance
+	SO_CreditUsed: BigDecimal
+	# Description to be used on orders
+	SO_Description: String
+	# Business Partner Credit Status
+	SOCreditStatus: ForeignEntityInput
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: ForeignEntityInput
+	# Tax Identification
+	TaxID: String
+	# Name this entity is referred to as
+	Title: String
+	# Total Open Balance Amount in primary Accounting Currency
+	TotalOpenBalance: BigDecimal
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

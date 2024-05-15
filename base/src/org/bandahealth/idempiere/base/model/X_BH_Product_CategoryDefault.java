@@ -19,28 +19,65 @@ package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
-
-import org.compiere.model.I_Persistent;
-import org.compiere.model.PO;
-import org.compiere.model.POInfo;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_Product_CategoryDefault
- *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Product_CategoryDefault")
 public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_CategoryDefault, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200526L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Product_CategoryDefault (Properties ctx, int BH_Product_CategoryDefault_ID, String trxName)
     {
       super (ctx, BH_Product_CategoryDefault_ID, trxName);
       /** if (BH_Product_CategoryDefault_ID == 0)
+        {
+			setBH_Product_Category_Type (null);
+			setBH_Product_CategoryDefault_ID (0);
+			setName (null);
+			setValue (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Product_CategoryDefault (Properties ctx, int BH_Product_CategoryDefault_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Product_CategoryDefault_ID, trxName, virtualColumns);
+      /** if (BH_Product_CategoryDefault_ID == 0)
+        {
+			setBH_Product_Category_Type (null);
+			setBH_Product_CategoryDefault_ID (0);
+			setName (null);
+			setValue (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Product_CategoryDefault (Properties ctx, String BH_Product_CategoryDefault_UU, String trxName)
+    {
+      super (ctx, BH_Product_CategoryDefault_UU, trxName);
+      /** if (BH_Product_CategoryDefault_UU == null)
+        {
+			setBH_Product_Category_Type (null);
+			setBH_Product_CategoryDefault_ID (0);
+			setName (null);
+			setValue (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Product_CategoryDefault (Properties ctx, String BH_Product_CategoryDefault_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Product_CategoryDefault_UU, trxName, virtualColumns);
+      /** if (BH_Product_CategoryDefault_UU == null)
         {
 			setBH_Product_Category_Type (null);
 			setBH_Product_CategoryDefault_ID (0);
@@ -56,15 +93,14 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
     }
 
     /** AccessLevel
-      * @return 4 - System 
+      * @return 4 - System
       */
     protected int get_AccessLevel()
     {
       return accessLevel.intValue();
     }
 
-    /** Load Meta Data
-		 * @return*/
+    /** Load Meta Data */
     protected POInfo initPO (Properties ctx)
     {
       POInfo poi = POInfo.getPOInfo (ctx, Table_ID, get_TrxName());
@@ -83,9 +119,8 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 	/** Service = S */
 	public static final String BH_PRODUCT_CATEGORY_TYPE_Service = "S";
 	/** Set BH Product Category Type.
-		@param BH_Product_Category_Type 
-		Contains a character the is linked to a ref list to determine types of product categories
-	  */
+		@param BH_Product_Category_Type Contains a character the is linked to a ref list to determine types of product categories
+	*/
 	public void setBH_Product_Category_Type (String BH_Product_Category_Type)
 	{
 
@@ -95,24 +130,25 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 	/** Get BH Product Category Type.
 		@return Contains a character the is linked to a ref list to determine types of product categories
 	  */
-	public String getBH_Product_Category_Type () 
+	public String getBH_Product_Category_Type()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Product_Category_Type);
 	}
 
 	/** Set BH_Product_CategoryDefault.
-		@param BH_Product_CategoryDefault_ID BH_Product_CategoryDefault	  */
+		@param BH_Product_CategoryDefault_ID BH_Product_CategoryDefault
+	*/
 	public void setBH_Product_CategoryDefault_ID (int BH_Product_CategoryDefault_ID)
 	{
-		if (BH_Product_CategoryDefault_ID < 1) 
+		if (BH_Product_CategoryDefault_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Product_CategoryDefault_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Product_CategoryDefault_ID, Integer.valueOf(BH_Product_CategoryDefault_ID));
 	}
 
 	/** Get BH_Product_CategoryDefault.
 		@return BH_Product_CategoryDefault	  */
-	public int getBH_Product_CategoryDefault_ID () 
+	public int getBH_Product_CategoryDefault_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Product_CategoryDefault_ID);
 		if (ii == null)
@@ -121,7 +157,8 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 	}
 
 	/** Set BH_Product_CategoryDefault_UU.
-		@param BH_Product_CategoryDefault_UU BH_Product_CategoryDefault_UU	  */
+		@param BH_Product_CategoryDefault_UU BH_Product_CategoryDefault_UU
+	*/
 	public void setBH_Product_CategoryDefault_UU (String BH_Product_CategoryDefault_UU)
 	{
 		set_Value (COLUMNNAME_BH_Product_CategoryDefault_UU, BH_Product_CategoryDefault_UU);
@@ -129,15 +166,14 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 
 	/** Get BH_Product_CategoryDefault_UU.
 		@return BH_Product_CategoryDefault_UU	  */
-	public String getBH_Product_CategoryDefault_UU () 
+	public String getBH_Product_CategoryDefault_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Product_CategoryDefault_UU);
 	}
 
 	/** Set Description.
-		@param Description 
-		Optional short description of the record
-	  */
+		@param Description Optional short description of the record
+	*/
 	public void setDescription (String Description)
 	{
 		set_Value (COLUMNNAME_Description, Description);
@@ -146,15 +182,14 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 	/** Get Description.
 		@return Optional short description of the record
 	  */
-	public String getDescription () 
+	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
 	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
+		@param Name Alphanumeric identifier of the entity
+	*/
 	public void setName (String Name)
 	{
 		set_Value (COLUMNNAME_Name, Name);
@@ -163,7 +198,7 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
 	/** Get Name.
 		@return Alphanumeric identifier of the entity
 	  */
-	public String getName () 
+	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
@@ -171,24 +206,23 @@ public class X_BH_Product_CategoryDefault extends PO implements I_BH_Product_Cat
     /** Get Record ID/ColumnName
         @return ID/ColumnName pair
       */
-    public KeyNamePair getKeyNamePair() 
+    public KeyNamePair getKeyNamePair()
     {
         return new KeyNamePair(get_ID(), getName());
     }
 
-	/** Set Account Number.
-		@param Value 
-		This should match an account number loaded in the chart of accounts
-	  */
+	/** Set Search Key.
+		@param Value Search key for the record in the format required - must be unique
+	*/
 	public void setValue (String Value)
 	{
 		set_Value (COLUMNNAME_Value, Value);
 	}
 
-	/** Get Account Number.
-		@return This should match an account number loaded in the chart of accounts
+	/** Get Search Key.
+		@return Search key for the record in the format required - must be unique
 	  */
-	public String getValue () 
+	public String getValue()
 	{
 		return (String)get_Value(COLUMNNAME_Value);
 	}

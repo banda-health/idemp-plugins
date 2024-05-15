@@ -1,0 +1,55 @@
+# Generated Schema for AD_Process_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Process_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Process_AccessConnection!
+}
+
+extend type Mutation {
+	AD_Process_AccessSave(Entity: AD_Process_AccessInput!): AD_Process_Access!
+	AD_Process_AccessSaveMany(Entities: [AD_Process_AccessInput!]!): [AD_Process_Access!]!
+	AD_Process_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Process_AccessConnection {
+	Results: [AD_Process_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Process_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Process or Report
+	AD_Process: AD_Process!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Field is read / write
+	IsReadWrite: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Process_AccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Field is read / write
+	IsReadWrite: Boolean
+}

@@ -1,0 +1,121 @@
+# Generated Schema for AD_PrintFormat - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PrintFormatGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintFormatConnection!
+}
+
+extend type Mutation {
+	AD_PrintFormatSave(Entity: AD_PrintFormatInput!): AD_PrintFormat!
+	AD_PrintFormatSaveMany(Entities: [AD_PrintFormatInput!]!): [AD_PrintFormat!]!
+	AD_PrintFormatDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PrintFormatConnection {
+	Results: [AD_PrintFormat!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PrintFormat {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Color used for printing and display
+	AD_PrintColor: AD_PrintColor!
+	# Maintain Print Font
+	AD_PrintFont: AD_PrintFont!
+	UU: ID!
+	AD_PrintHeaderFooter: AD_PrintHeaderFooter
+	# Printer paper definition
+	AD_PrintPaper: AD_PrintPaper!
+	# Table Format in Reports
+	AD_PrintTableFormat: AD_PrintTableFormat
+	# View used to generate this report
+	AD_ReportView: AD_ReportView
+	# Database Table information
+	AD_Table: AD_Table!
+	# Data entry or display window
+	AD_Window: AD_Window
+	CreateCopy: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	FileNamePattern: String
+	# Margin of the Footer in 1/72 of an inch
+	FooterMargin: Int!
+	# Margin of the Header in 1/72 of an inch
+	HeaderMargin: Int!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Page Break after each record
+	IsBreakPagePerRecord: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# If Selected, a Form is printed, if not selected a columnar List report
+	IsForm: Boolean!
+	# The standard Header and Footer is used
+	IsStandardHeaderFooter: Boolean!
+	# Table based List Reporting
+	IsTableBased: Boolean!
+	# The Jasper Process used by the print engine if any process defined
+	JasperProcess: AD_Process
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Name of the Printer
+	PrinterName: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PrintFormatInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Color used for printing and display
+	AD_PrintColor: ForeignEntityInput
+	# Maintain Print Font
+	AD_PrintFont: ForeignEntityInput
+	UU: ID
+	AD_PrintHeaderFooter: ForeignEntityInput
+	# Printer paper definition
+	AD_PrintPaper: ForeignEntityInput
+	# Table Format in Reports
+	AD_PrintTableFormat: ForeignEntityInput
+	# View used to generate this report
+	AD_ReportView: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	CreateCopy: String
+	# Optional short description of the record
+	Description: String
+	FileNamePattern: String
+	# Margin of the Footer in 1/72 of an inch
+	FooterMargin: Int
+	# Margin of the Header in 1/72 of an inch
+	HeaderMargin: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Page Break after each record
+	IsBreakPagePerRecord: Boolean
+	# Default value
+	IsDefault: Boolean
+	# If Selected, a Form is printed, if not selected a columnar List report
+	IsForm: Boolean
+	# The standard Header and Footer is used
+	IsStandardHeaderFooter: Boolean
+	# Table based List Reporting
+	IsTableBased: Boolean
+	# The Jasper Process used by the print engine if any process defined
+	JasperProcess: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Name of the Printer
+	PrinterName: String
+}

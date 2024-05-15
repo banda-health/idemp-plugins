@@ -1,0 +1,3 @@
+extend type AD_LdapProcessor {
+	AD_LdapProcessorLogs: [AD_LdapProcessorLog!]
+}

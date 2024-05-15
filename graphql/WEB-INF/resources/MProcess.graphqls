@@ -1,0 +1,9 @@
+extend type Mutation {
+	AD_ProcessRun(UU: ID!, ProcessInfoParameterList: [ProcessInfoParameterInput!]): String
+	AD_ProcessRunAndExport(UU: ID!, ProcessInfoParameterList: [ProcessInfoParameterInput!], ReportType: ReportOutput!): File!
+}
+
+extend type AD_Process {
+	AD_Process_ParaList: [AD_Process_Para!]
+	NeedsManualInput: Boolean!
+}

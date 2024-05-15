@@ -1,0 +1,5 @@
+extend type AD_Org {
+	AD_Roles: [AD_Role!]
+	M_Warehouses: [M_Warehouse!]
+	AD_OrgInfo: AD_OrgInfo
+}

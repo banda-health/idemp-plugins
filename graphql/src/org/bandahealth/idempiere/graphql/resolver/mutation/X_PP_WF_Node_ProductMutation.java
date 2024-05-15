@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_PP_WF_Node_ProductInput;
+import org.bandahealth.idempiere.graphql.model.input.X_PP_WF_Node_ProductInput;
+import org.eevolution.model.X_PP_WF_Node_Product;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for PP_WF_Node_Product - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_PP_WF_Node_ProductMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_PP_WF_Node_ProductInput.Table_Name;
+	}
+
+	public X_PP_WF_Node_Product PP_WF_Node_ProductSave(I_PP_WF_Node_ProductInput Entity, DataFetchingEnvironment environment) {
+		return (X_PP_WF_Node_Product) super.save((X_PP_WF_Node_ProductInput) Entity, environment);
+	}
+
+	public List<X_PP_WF_Node_Product> PP_WF_Node_ProductSaveMany(List<I_PP_WF_Node_ProductInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_PP_WF_Node_ProductInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (X_PP_WF_Node_Product) entity).collect(Collectors.toList());
+	}
+
+	public boolean PP_WF_Node_ProductDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

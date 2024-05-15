@@ -1,0 +1,24 @@
+package org.bandahealth.idempiere.graphql.resolver.query;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.base.model.MAttributeSet_BH;
+import org.bandahealth.idempiere.graphql.model.Connection;
+
+/**
+ * Generated Query Resolver for M_AttributeSet - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_M_AttributeSetQuery extends POQuery<MAttributeSet_BH> implements GraphQLQueryResolver {
+	@Override
+	protected String getTableName() {
+		return MAttributeSet_BH.Table_Name;
+	}
+
+	public Connection<MAttributeSet_BH> M_AttributeSetGet(int Page, int PageSize, String Sort, String Filter,
+			DataFetchingEnvironment environment) {
+		return super.Get(Page, PageSize, Sort, Filter, environment);
+	}
+}

@@ -1,0 +1,57 @@
+# Generated Schema for AD_Replication_Log - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Replication_LogGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Replication_LogConnection!
+}
+
+extend type Mutation {
+	AD_Replication_LogSave(Entity: AD_Replication_LogInput!): AD_Replication_Log!
+	AD_Replication_LogSaveMany(Entities: [AD_Replication_LogInput!]!): [AD_Replication_Log!]!
+	AD_Replication_LogDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Replication_LogConnection {
+	Results: [AD_Replication_Log!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Replication_Log {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Data Replication Run
+	AD_Replication_Run: AD_Replication_Run!
+	# Data Replication Strategy Table Info
+	AD_ReplicationTable: AD_ReplicationTable
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The data is successfully replicated
+	IsReplicated: Boolean!
+	P_Msg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Replication_LogInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Data Replication Run
+	AD_Replication_Run: ForeignEntityInput
+	# Data Replication Strategy Table Info
+	AD_ReplicationTable: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# The data is successfully replicated
+	IsReplicated: Boolean
+	P_Msg: String
+}

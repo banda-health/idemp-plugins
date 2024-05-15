@@ -1,0 +1,51 @@
+# Generated Schema for R_IssueStatus - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_IssueStatusGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueStatusConnection!
+}
+
+extend type Mutation {
+	R_IssueStatusSave(Entity: R_IssueStatusInput!): R_IssueStatus!
+	R_IssueStatusSaveMany(Entities: [R_IssueStatusInput!]!): [R_IssueStatus!]!
+	R_IssueStatusDelete(UUs: [String!]!): Boolean!
+}
+
+type R_IssueStatusConnection {
+	Results: [R_IssueStatus!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_IssueStatus {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_IssueStatusInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	UU: ID
+}

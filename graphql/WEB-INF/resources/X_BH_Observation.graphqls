@@ -1,0 +1,53 @@
+# Generated Schema for BH_Observation - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_ObservationGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_ObservationConnection!
+}
+
+extend type Mutation {
+	BH_ObservationSave(Entity: BH_ObservationInput!): BH_Observation!
+	BH_ObservationSaveMany(Entities: [BH_ObservationInput!]!): [BH_Observation!]!
+	BH_ObservationDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_ObservationConnection {
+	Results: [BH_Observation!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Observation {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Field on a database table
+	AD_Field: AD_Field!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Encounter: BH_Encounter!
+	UU: ID!
+	# BH_Value
+	BH_Value: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_ObservationInput {
+	# Field on a database table
+	AD_Field: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Encounter: ForeignEntityInput
+	UU: ID
+	# BH_Value
+	BH_Value: String
+	# The record is active in the system
+	IsActive: Boolean
+}
