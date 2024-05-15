@@ -123,7 +123,7 @@ public class GraphQLQueryResolverGenerator {
 				.append(tableStructureExtensions.getTableName())
 				.append("Get(int Page, int PageSize, String Sort, String Filter,\n")
 				.append("\t\t\tDataFetchingEnvironment environment) {\n")
-				.append("\t\treturn super.get(Page, PageSize, Sort, Filter, environment);\n")
+				.append("\t\treturn super.Get(Page, PageSize, Sort, Filter, environment);\n")
 				.append("\t}\n")
 				.append("}\n");
 

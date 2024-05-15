@@ -1,0 +1,83 @@
+# Generated Schema for BH_Concept_Mapping - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Concept_MappingGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Concept_MappingConnection!
+}
+
+extend type Mutation {
+	BH_Concept_MappingSave(Entity: BH_Concept_MappingInput!): BH_Concept_Mapping!
+	BH_Concept_MappingSaveMany(Entities: [BH_Concept_MappingInput!]!): [BH_Concept_Mapping!]!
+	BH_Concept_MappingDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Concept_MappingConnection {
+	Results: [BH_Concept_Mapping!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Concept_Mapping {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	BH_Concept: BH_Concept!
+	UU: ID!
+	# BH_External_ID
+	BH_ExternalID: String
+	BH_From_Concept_Code: String
+	BH_From_Concept_Name: String
+	BH_From_Concept_Name_Resolved: String
+	BH_From_Concept_Url: String
+	# BH_Map_Type
+	BH_Map_Type: String
+	# A generic ID of type string
+	BH_OclID: String
+	# BH_Owner
+	BH_Owner: String
+	# Source
+	BH_Source: String
+	BH_To_Concept_Code: String
+	BH_To_Concept_Name: String
+	BH_To_Concept_Name_Resolved: String
+	BH_To_Concept_Url: String
+	BH_To_Source_Name: String
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input BH_Concept_MappingInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Concept: ForeignEntityInput
+	UU: ID
+	# BH_External_ID
+	BH_ExternalID: String
+	BH_From_Concept_Code: String
+	BH_From_Concept_Name: String
+	BH_From_Concept_Name_Resolved: String
+	BH_From_Concept_Url: String
+	# BH_Map_Type
+	BH_Map_Type: String
+	# A generic ID of type string
+	BH_OclID: String
+	# BH_Owner
+	BH_Owner: String
+	# Source
+	BH_Source: String
+	BH_To_Concept_Code: String
+	BH_To_Concept_Name: String
+	BH_To_Concept_Name_Resolved: String
+	BH_To_Concept_Url: String
+	BH_To_Source_Name: String
+	# The record is active in the system
+	IsActive: Boolean
+}
