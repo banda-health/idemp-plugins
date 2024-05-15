@@ -1,3 +1,4 @@
 extend type BH_Concept {
 	BH_Concept_Extras: [BH_Concept_Extra!]
+	BH_Concept_Names: [BH_Concept_Name!]
 }

@@ -53,6 +53,7 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPSpecificPayerInfoD
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisMappingDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptNameDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultDocActionAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultIncludedRoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDataLoader;
@@ -591,7 +592,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_FundingMode_AcctDat
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_RegistrationProductDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Concept_DescriptionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Concept_MappingDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Concept_NameDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_ConceptDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_I_Product_QuantityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_B_BidCommentDataLoader;
@@ -902,6 +902,7 @@ public class BandaDataLoaderComposer {
 				new MBHCodedDiagnosisDataLoader(),
 				new MBHCodedDiagnosisMappingDataLoader(),
 				new MBHConceptExtraDataLoader(),
+				new MBHConceptNameDataLoader(),
 				new MBHDefaultDocActionAccessDataLoader(),
 				new MBHDefaultIncludedRoleDataLoader(),
 				new MBHEncounterDataLoader(),
@@ -1439,7 +1440,6 @@ public class BandaDataLoaderComposer {
 				new X_B_TopicTypeDataLoader(),
 				new X_BH_Concept_DescriptionDataLoader(),
 				new X_BH_Concept_MappingDataLoader(),
-				new X_BH_Concept_NameDataLoader(),
 				new X_BH_ConceptDataLoader(),
 				new X_BH_I_Product_QuantityDataLoader(),
 				new X_C_1099BoxDataLoader(),
