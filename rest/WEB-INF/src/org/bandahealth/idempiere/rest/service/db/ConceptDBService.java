@@ -122,12 +122,23 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 						.values().stream().flatMap(Collection::stream).collect(Collectors.toList()))
 				.stream().collect(Collectors.groupingBy(ConceptName::getConceptId));
 
-		// get parent concept mappings
 		List<Object> parameters = new ArrayList<>();
 		String inClause = QueryUtil.getWhereClauseAndSetParametersForSet(
 				dbModels.stream().map(MBHConcept::get_ID).collect(Collectors.toSet()), parameters);
 
-		String whereClause = MBHConceptMapping.COLUMNNAME_BH_To_Concept_Code + " IN ( SELECT "
+		// get client concept extras
+		String whereClause = MBHClientConceptExtra.COLUMNNAME_BH_Concept_Extra_ID + " IN (SELECT "
+				+ MBHConceptExtra.COLUMNNAME_BH_Concept_Extra_ID + " FROM " + MBHConceptExtra.Table_Name + " WHERE "
+				+ MBHConceptExtra.COLUMNNAME_BH_Concept_ID + " IN (" + inClause + "))";
+
+		List<MBHClientConceptExtra> mClientConceptExtras = new Query(Env.getCtx(), MBHClientConceptExtra.Table_Name,
+				whereClause, null).setParameters(parameters).list();
+		Map<Integer, List<ClientConceptExtra>> clientConceptExtraByConceptId = clientConceptExtraDBService
+				.transformData(mClientConceptExtras).stream().collect(Collectors
+						.groupingBy(clientConceptExtra -> clientConceptExtra.getConceptExtra().getConceptId()));
+
+		// get parent concept mappings
+		whereClause = MBHConceptMapping.COLUMNNAME_BH_To_Concept_Code + " IN ( SELECT "
 				+ MBHConcept.COLUMNNAME_BH_OclID + " FROM " + MBHConcept.Table_Name + " WHERE "
 				+ MBHConcept.COLUMNNAME_BH_Concept_ID + " IN (" + inClause + ") AND "
 				+ MBHConcept.COLUMNNAME_BH_Concept_Class + " = ?)";
@@ -140,17 +151,6 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		Map<String, MBHConceptMapping> parentConceptMappings = parentMappingList.stream()
 				.collect(Collectors.toMap(MBHConceptMapping::getBH_To_Concept_Code, mapping -> mapping,
 						(existingMmapping, newMapping) -> existingMmapping));
-
-		// get client concept extras
-		whereClause = MBHClientConceptExtra.COLUMNNAME_BH_Concept_Extra_ID + " IN (SELECT "
-				+ MBHConceptExtra.COLUMNNAME_BH_Concept_Extra_ID + " FROM " + MBHConceptExtra.Table_Name + " WHERE "
-				+ MBHConceptExtra.COLUMNNAME_BH_Concept_ID + " IN (" + inClause + "))";
-
-		List<MBHClientConceptExtra> mClientConceptExtras = new Query(Env.getCtx(), MBHClientConceptExtra.Table_Name,
-				whereClause, null).list();
-		Map<Integer, List<ClientConceptExtra>> clientConceptExtraByConceptId = clientConceptExtraDBService
-				.transformData(mClientConceptExtras).stream().collect(Collectors
-						.groupingBy(clientConceptExtra -> clientConceptExtra.getConceptExtra().getConceptId()));
 
 		final Map<String, MBHConcept> parentConceptsByConceptId = new HashMap<>();
 
