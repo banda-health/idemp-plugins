@@ -52,7 +52,10 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPPayerInfoDataLoade
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPSpecificPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisMappingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDescriptionDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptMappingDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptNameDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultDocActionAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultIncludedRoleDataLoader;
@@ -590,9 +593,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Depreciation_Table_
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_FundingModeDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_FundingMode_AcctDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_RegistrationProductDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Concept_DescriptionDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Concept_MappingDataLoader;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_ConceptDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_I_Product_QuantityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_B_BidCommentDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_B_BidDataLoader;
@@ -901,7 +901,10 @@ public class BandaDataLoaderComposer {
 				new MBHBPSpecificPayerInfoDataLoader(),
 				new MBHCodedDiagnosisDataLoader(),
 				new MBHCodedDiagnosisMappingDataLoader(),
+				new MBHConceptDataLoader(),
+				new MBHConceptDescriptionDataLoader(),
 				new MBHConceptExtraDataLoader(),
+				new MBHConceptMappingDataLoader(),
 				new MBHConceptNameDataLoader(),
 				new MBHDefaultDocActionAccessDataLoader(),
 				new MBHDefaultIncludedRoleDataLoader(),
@@ -1438,9 +1441,6 @@ public class BandaDataLoaderComposer {
 				new X_B_TopicCategoryDataLoader(),
 				new X_B_TopicDataLoader(),
 				new X_B_TopicTypeDataLoader(),
-				new X_BH_Concept_DescriptionDataLoader(),
-				new X_BH_Concept_MappingDataLoader(),
-				new X_BH_ConceptDataLoader(),
 				new X_BH_I_Product_QuantityDataLoader(),
 				new X_C_1099BoxDataLoader(),
 				new X_C_Activity_TrlDataLoader(),
