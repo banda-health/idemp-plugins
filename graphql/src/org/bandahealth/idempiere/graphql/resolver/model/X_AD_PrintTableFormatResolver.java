@@ -34,7 +34,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() <= 0) {
+		if (entity.getAD_Image_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Function row Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> Funct_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getFunct_PrintFont_ID() <= 0) {
+		if (entity.getFunct_PrintFont_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Function Background Color
 	 */
 	public CompletableFuture<X_AD_PrintColor> FunctBG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getFunctBG_PrintColor_ID() <= 0) {
+		if (entity.getFunctBG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -79,7 +79,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Function Foreground Color
 	 */
 	public CompletableFuture<X_AD_PrintColor> FunctFG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getFunctFG_PrintColor_ID() <= 0) {
+		if (entity.getFunctFG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -94,7 +94,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Header row Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> Hdr_PrintFont(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdr_PrintFont_ID() <= 0) {
+		if (entity.getHdr_PrintFont_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -109,7 +109,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Table header row line color
 	 */
 	public CompletableFuture<X_AD_PrintColor> HdrLine_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdrLine_PrintColor_ID() <= 0) {
+		if (entity.getHdrLine_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -141,7 +141,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Background color of header row
 	 */
 	public CompletableFuture<X_AD_PrintColor> HdrTextBG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdrTextBG_PrintColor_ID() <= 0) {
+		if (entity.getHdrTextBG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -156,7 +156,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Foreground color if the table header row
 	 */
 	public CompletableFuture<X_AD_PrintColor> HdrTextFG_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getHdrTextFG_PrintColor_ID() <= 0) {
+		if (entity.getHdrTextFG_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -203,7 +203,7 @@ public class X_AD_PrintTableFormatResolver extends POResolver<X_AD_PrintTableFor
 	 * @return Table line color
 	 */
 	public CompletableFuture<X_AD_PrintColor> Line_PrintColor(X_AD_PrintTableFormat entity, DataFetchingEnvironment environment) {
-		if (entity.getLine_PrintColor_ID() <= 0) {
+		if (entity.getLine_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =

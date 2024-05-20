@@ -34,7 +34,7 @@ public class X_AD_WF_ResponsibleResolver extends POResolver<X_AD_WF_Responsible>
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(X_AD_WF_Responsible entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_WF_ResponsibleResolver extends POResolver<X_AD_WF_Responsible>
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_AD_WF_Responsible entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

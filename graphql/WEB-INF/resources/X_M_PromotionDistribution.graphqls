@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_PromotionDistribution(UU: String!): M_PromotionDistribution
 	M_PromotionDistributionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionDistributionConnection!
 }
 

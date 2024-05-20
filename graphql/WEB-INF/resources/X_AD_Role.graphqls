@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_Role(UU: String!): AD_Role
 	AD_RoleGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_RoleConnection!
 }
 

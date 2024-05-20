@@ -25,7 +25,7 @@ public class X_C_JobResolver extends POResolver<X_C_Job> implements GraphQLResol
 	 * @return Job Position Category
 	 */
 	public CompletableFuture<X_C_JobCategory> C_JobCategory(X_C_Job entity, DataFetchingEnvironment environment) {
-		if (entity.getC_JobCategory_ID() <= 0) {
+		if (entity.getC_JobCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_JobCategory> dataLoader =

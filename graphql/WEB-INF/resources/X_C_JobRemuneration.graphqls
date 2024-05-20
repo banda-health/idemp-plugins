@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_JobRemuneration(UU: String!): C_JobRemuneration
 	C_JobRemunerationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_JobRemunerationConnection!
 }
 

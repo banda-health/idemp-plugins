@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_Transaction(UU: String!): M_Transaction
 	M_TransactionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_TransactionConnection!
 }
 

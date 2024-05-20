@@ -31,7 +31,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 	 * @return Dunning Run Entry
 	 */
 	public CompletableFuture<MDunningRunEntry> C_DunningRunEntry(MDunningRunLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DunningRunEntry_ID() <= 0) {
+		if (entity.getC_DunningRunEntry_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunningRunEntry> dataLoader =
@@ -46,7 +46,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MDunningRunLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -61,7 +61,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 	 * @return Invoice Payment Schedule
 	 */
 	public CompletableFuture<MInvoicePaySchedule> C_InvoicePaySchedule(MDunningRunLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoicePaySchedule_ID() <= 0) {
+		if (entity.getC_InvoicePaySchedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoicePaySchedule> dataLoader =
@@ -76,7 +76,7 @@ public class X_C_DunningRunLineResolver extends POResolver<MDunningRunLine> impl
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MDunningRunLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =

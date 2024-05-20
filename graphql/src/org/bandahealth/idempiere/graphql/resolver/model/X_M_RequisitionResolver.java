@@ -36,7 +36,7 @@ public class X_M_RequisitionResolver extends POResolver<MRequisition> implements
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MRequisition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -51,7 +51,7 @@ public class X_M_RequisitionResolver extends POResolver<MRequisition> implements
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MRequisition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -122,7 +122,7 @@ public class X_M_RequisitionResolver extends POResolver<MRequisition> implements
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MRequisition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -137,7 +137,7 @@ public class X_M_RequisitionResolver extends POResolver<MRequisition> implements
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MRequisition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

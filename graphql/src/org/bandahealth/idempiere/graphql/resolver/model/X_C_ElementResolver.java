@@ -30,7 +30,7 @@ public class X_C_ElementResolver extends POResolver<MElement> implements GraphQL
 	 * @return Identifies a Tree
 	 */
 	public CompletableFuture<MTree_BH> AD_Tree(MElement entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tree_ID() <= 0) {
+		if (entity.getAD_Tree_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTree_BH> dataLoader =

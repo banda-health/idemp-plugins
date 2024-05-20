@@ -45,7 +45,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -60,7 +60,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -75,7 +75,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -90,7 +90,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -105,7 +105,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -120,7 +120,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Distribution Order
 	 */
 	public CompletableFuture<MDDOrder> DD_Order(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_Order_ID() <= 0) {
+		if (entity.getDD_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDDOrder> dataLoader =
@@ -143,7 +143,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -158,7 +158,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Target Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstanceTo(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstanceTo_ID() <= 0) {
+		if (entity.getM_AttributeSetInstanceTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -173,7 +173,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -188,7 +188,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Location inventory is moved to
 	 */
 	public CompletableFuture<MLocator> M_LocatorTo(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_LocatorTo_ID() <= 0) {
+		if (entity.getM_LocatorTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -203,7 +203,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -218,7 +218,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -237,7 +237,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -252,7 +252,7 @@ public class X_DD_OrderLineResolver extends POResolver<MDDOrderLine> implements 
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MDDOrderLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

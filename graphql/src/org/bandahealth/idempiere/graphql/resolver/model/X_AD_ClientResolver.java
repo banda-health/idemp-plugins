@@ -163,7 +163,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 	 * @return Password Policies
 	 */
 	public CompletableFuture<MPasswordRule> AD_PasswordRule(MClient_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PasswordRule_ID() <= 0) {
+		if (entity.getAD_PasswordRule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPasswordRule> dataLoader =
@@ -178,7 +178,7 @@ public class X_AD_ClientResolver extends POResolver<MClient_BH> implements Graph
 	 * @return Data Replication Strategy
 	 */
 	public CompletableFuture<MReplicationStrategy> AD_ReplicationStrategy(MClient_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReplicationStrategy_ID() <= 0) {
+		if (entity.getAD_ReplicationStrategy_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =

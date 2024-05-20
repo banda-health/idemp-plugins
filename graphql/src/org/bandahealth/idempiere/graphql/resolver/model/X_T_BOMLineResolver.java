@@ -42,7 +42,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -57,7 +57,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_T_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -102,7 +102,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(X_T_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() <= 0) {
+		if (entity.getM_CostElement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -117,7 +117,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	public CompletableFuture<MCostType> M_CostType(X_T_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostType_ID() <= 0) {
+		if (entity.getM_CostType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
@@ -132,7 +132,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_T_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -147,7 +147,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(X_T_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() <= 0) {
+		if (entity.getPP_Product_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
@@ -162,7 +162,7 @@ public class X_T_BOMLineResolver extends POResolver<X_T_BOMLine> implements Grap
 	 * @return BOM Line
 	 */
 	public CompletableFuture<MPPProductBOMLine> PP_Product_BOMLine(X_T_BOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOMLine_ID() <= 0) {
+		if (entity.getPP_Product_BOMLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOMLine> dataLoader =

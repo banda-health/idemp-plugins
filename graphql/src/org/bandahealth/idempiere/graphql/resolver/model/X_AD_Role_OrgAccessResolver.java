@@ -25,7 +25,7 @@ public class X_AD_Role_OrgAccessResolver extends POResolver<MRoleOrgAccess> impl
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MRoleOrgAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =

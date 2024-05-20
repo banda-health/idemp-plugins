@@ -25,7 +25,7 @@ public class X_AD_AllUsers_VResolver extends POResolver<X_AD_AllUsers_V> impleme
 	 * @return Tenant (All)
 	 */
 	public CompletableFuture<X_AD_AllClients_V> AD_AllClients_V(X_AD_AllUsers_V entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_AllClients_V_ID() <= 0) {
+		if (entity.getAD_AllClients_V_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_AllClients_V> dataLoader =

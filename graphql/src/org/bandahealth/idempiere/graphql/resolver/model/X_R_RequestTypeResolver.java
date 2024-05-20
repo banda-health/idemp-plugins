@@ -79,7 +79,7 @@ public class X_R_RequestTypeResolver extends POResolver<MRequestType> implements
 	 * @return Request Status Category
 	 */
 	public CompletableFuture<MStatusCategory> R_StatusCategory(MRequestType entity, DataFetchingEnvironment environment) {
-		if (entity.getR_StatusCategory_ID() <= 0) {
+		if (entity.getR_StatusCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStatusCategory> dataLoader =

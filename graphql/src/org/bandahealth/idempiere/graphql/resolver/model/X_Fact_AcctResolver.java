@@ -70,7 +70,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -85,7 +85,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -100,7 +100,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -115,7 +115,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -130,7 +130,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -145,7 +145,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -160,7 +160,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -175,7 +175,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Location that inventory was moved from
 	 */
 	public CompletableFuture<MLocation> C_LocFrom(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocFrom_ID() <= 0) {
+		if (entity.getC_LocFrom_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -190,7 +190,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Location that inventory was moved to
 	 */
 	public CompletableFuture<MLocation> C_LocTo(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_LocTo_ID() <= 0) {
+		if (entity.getC_LocTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -205,7 +205,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -220,7 +220,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -235,7 +235,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() <= 0) {
+		if (entity.getC_ProjectPhase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -250,7 +250,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() <= 0) {
+		if (entity.getC_ProjectTask_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -265,7 +265,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() <= 0) {
+		if (entity.getC_SalesRegion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -280,7 +280,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Sub account for Element Value
 	 */
 	public CompletableFuture<X_C_SubAcct> C_SubAcct(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SubAcct_ID() <= 0) {
+		if (entity.getC_SubAcct_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_SubAcct> dataLoader =
@@ -295,7 +295,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() <= 0) {
+		if (entity.getC_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -310,7 +310,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -325,7 +325,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() <= 0) {
+		if (entity.getGL_Budget_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
@@ -340,7 +340,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() <= 0) {
+		if (entity.getGL_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
@@ -355,7 +355,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -370,7 +370,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -403,7 +403,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -418,7 +418,7 @@ public class X_Fact_AcctResolver extends POResolver<MFactAcct> implements GraphQ
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MFactAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

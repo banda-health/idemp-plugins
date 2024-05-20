@@ -25,7 +25,7 @@ public class X_AD_Replication_RunResolver extends POResolver<MReplicationRun> im
 	 * @return Data Replication Target
 	 */
 	public CompletableFuture<MReplication> AD_Replication(MReplicationRun entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Replication_ID() <= 0) {
+		if (entity.getAD_Replication_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReplication> dataLoader =

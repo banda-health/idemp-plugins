@@ -32,7 +32,7 @@ public class X_ASP_Process_ParaResolver extends POResolver<X_ASP_Process_Para> i
 	 * @return Process Parameter
 	 */
 	public CompletableFuture<MProcessPara> AD_Process_Para(X_ASP_Process_Para entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_Para_ID() <= 0) {
+		if (entity.getAD_Process_Para_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcessPara> dataLoader =
@@ -47,7 +47,7 @@ public class X_ASP_Process_ParaResolver extends POResolver<X_ASP_Process_Para> i
 	 * @return ASP Process
 	 */
 	public CompletableFuture<X_ASP_Process> ASP_Process(X_ASP_Process_Para entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Process_ID() <= 0) {
+		if (entity.getASP_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Process> dataLoader =

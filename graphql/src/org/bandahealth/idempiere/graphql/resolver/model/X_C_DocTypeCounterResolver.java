@@ -30,7 +30,7 @@ public class X_C_DocTypeCounterResolver extends POResolver<MDocTypeCounter> impl
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MDocTypeCounter entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -45,7 +45,7 @@ public class X_C_DocTypeCounterResolver extends POResolver<MDocTypeCounter> impl
 	 * @return Generated Counter Document Type (To)
 	 */
 	public CompletableFuture<MDocType_BH> Counter_C_DocType(MDocTypeCounter entity, DataFetchingEnvironment environment) {
-		if (entity.getCounter_C_DocType_ID() <= 0) {
+		if (entity.getCounter_C_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =

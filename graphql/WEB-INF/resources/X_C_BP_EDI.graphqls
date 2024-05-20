@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_BP_EDI(UU: String!): C_BP_EDI
 	C_BP_EDIGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_EDIConnection!
 }
 

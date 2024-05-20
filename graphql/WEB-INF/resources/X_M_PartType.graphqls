@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_PartType(UU: String!): M_PartType
 	M_PartTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PartTypeConnection!
 }
 

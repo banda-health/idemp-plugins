@@ -27,7 +27,7 @@ public class X_U_RoleMenuResolver extends POResolver<MRoleMenu> implements Graph
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MRoleMenu entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -42,7 +42,7 @@ public class X_U_RoleMenuResolver extends POResolver<MRoleMenu> implements Graph
 	 * @return Web Menu
 	 */
 	public CompletableFuture<MWebMenu> U_WebMenu(MRoleMenu entity, DataFetchingEnvironment environment) {
-		if (entity.getU_WebMenu_ID() <= 0) {
+		if (entity.getU_WebMenu_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWebMenu> dataLoader =

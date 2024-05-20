@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	ASP_Workflow(UU: String!): ASP_Workflow
 	ASP_WorkflowGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_WorkflowConnection!
 }
 

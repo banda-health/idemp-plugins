@@ -27,7 +27,7 @@ public class X_C_CommissionRunResolver extends POResolver<MCommissionRun> implem
 	 * @return Commission
 	 */
 	public CompletableFuture<MCommission> C_Commission(MCommissionRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Commission_ID() <= 0) {
+		if (entity.getC_Commission_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCommission> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_CommissionRunResolver extends POResolver<MCommissionRun> implem
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MCommissionRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =

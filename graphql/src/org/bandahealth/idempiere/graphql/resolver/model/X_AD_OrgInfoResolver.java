@@ -39,7 +39,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return Organization Type
 	 */
 	public CompletableFuture<X_AD_OrgType> AD_OrgType(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_OrgType_ID() <= 0) {
+		if (entity.getAD_OrgType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_OrgType> dataLoader =
@@ -54,7 +54,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return Accounting Calendar Name
 	 */
 	public CompletableFuture<MCalendar> C_Calendar(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Calendar_ID() <= 0) {
+		if (entity.getC_Calendar_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
@@ -69,7 +69,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() <= 0) {
+		if (entity.getC_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -84,7 +84,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return The (logical) warehouse to use for recording drop ship receipts and shipments.
 	 */
 	public CompletableFuture<MWarehouse_BH> DropShip_Warehouse(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getDropShip_Warehouse_ID() <= 0) {
+		if (entity.getDropShip_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -99,7 +99,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return Logo
 	 */
 	public CompletableFuture<MImage> Logo(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getLogo_ID() <= 0) {
+		if (entity.getLogo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -114,7 +114,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -129,7 +129,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() <= 0) {
+		if (entity.getSupervisor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -144,7 +144,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return Bank account depending on currency will be used from this bank for doing transfers
 	 */
 	public CompletableFuture<MBank> TransferBank(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getTransferBank_ID() <= 0) {
+		if (entity.getTransferBank_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBank> dataLoader =
@@ -159,7 +159,7 @@ public class X_AD_OrgInfoResolver extends POResolver<MOrgInfo_BH> implements Gra
 	 * @return CashBook for transfers
 	 */
 	public CompletableFuture<MCashBook> TransferCashBook(MOrgInfo_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getTransferCashBook_ID() <= 0) {
+		if (entity.getTransferCashBook_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashBook> dataLoader =

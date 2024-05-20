@@ -39,7 +39,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 	 * @return Dunning Rules for overdue invoices
 	 */
 	public CompletableFuture<MDunning> C_Dunning(MDunningLevel entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Dunning_ID() <= 0) {
+		if (entity.getC_Dunning_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
@@ -54,7 +54,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(MDunningLevel entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() <= 0) {
+		if (entity.getC_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -77,7 +77,7 @@ public class X_C_DunningLevelResolver extends POResolver<MDunningLevel> implemen
 	 * @return Print Format for printing Dunning Letters
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Dunning_PrintFormat(MDunningLevel entity, DataFetchingEnvironment environment) {
-		if (entity.getDunning_PrintFormat_ID() <= 0) {
+		if (entity.getDunning_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =

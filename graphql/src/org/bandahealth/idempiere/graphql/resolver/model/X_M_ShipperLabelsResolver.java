@@ -52,7 +52,7 @@ public class X_M_ShipperLabelsResolver extends POResolver<MShipperLabels> implem
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MShipperLabels entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -67,7 +67,7 @@ public class X_M_ShipperLabelsResolver extends POResolver<MShipperLabels> implem
 	 * @return Shipper Labels Configuration
 	 */
 	public CompletableFuture<X_M_ShipperLabelsCfg> M_ShipperLabelsCfg(MShipperLabels entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperLabelsCfg_ID() <= 0) {
+		if (entity.getM_ShipperLabelsCfg_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperLabelsCfg> dataLoader =

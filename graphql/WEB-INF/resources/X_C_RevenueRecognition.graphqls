@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_RevenueRecognition(UU: String!): C_RevenueRecognition
 	C_RevenueRecognitionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RevenueRecognitionConnection!
 }
 

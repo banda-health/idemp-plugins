@@ -88,7 +88,7 @@ public class X_M_MovementConfirmResolver extends POResolver<MMovementConfirm> im
 	 * @return Parameters for a Physical Inventory
 	 */
 	public CompletableFuture<MInventory_BH> M_Inventory(MMovementConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Inventory_ID() <= 0) {
+		if (entity.getM_Inventory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInventory_BH> dataLoader =
@@ -103,7 +103,7 @@ public class X_M_MovementConfirmResolver extends POResolver<MMovementConfirm> im
 	 * @return Movement of Inventory
 	 */
 	public CompletableFuture<MMovement_BH> M_Movement(MMovementConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Movement_ID() <= 0) {
+		if (entity.getM_Movement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovement_BH> dataLoader =

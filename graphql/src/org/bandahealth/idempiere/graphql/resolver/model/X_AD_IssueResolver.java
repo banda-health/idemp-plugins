@@ -46,7 +46,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -61,7 +61,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -76,7 +76,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -91,7 +91,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -166,7 +166,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Known Issue
 	 */
 	public CompletableFuture<X_R_IssueKnown> R_IssueKnown(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueKnown_ID() <= 0) {
+		if (entity.getR_IssueKnown_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueKnown> dataLoader =
@@ -181,7 +181,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Implementation Projects
 	 */
 	public CompletableFuture<X_R_IssueProject> R_IssueProject(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueProject_ID() <= 0) {
+		if (entity.getR_IssueProject_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueProject> dataLoader =
@@ -196,7 +196,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return System creating the issue
 	 */
 	public CompletableFuture<X_R_IssueSystem> R_IssueSystem(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueSystem_ID() <= 0) {
+		if (entity.getR_IssueSystem_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueSystem> dataLoader =
@@ -211,7 +211,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return User who reported issues
 	 */
 	public CompletableFuture<X_R_IssueUser> R_IssueUser(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueUser_ID() <= 0) {
+		if (entity.getR_IssueUser_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueUser> dataLoader =
@@ -226,7 +226,7 @@ public class X_AD_IssueResolver extends POResolver<MIssue> implements GraphQLRes
 	 * @return Request from a Business Partner or Prospect
 	 */
 	public CompletableFuture<MRequest> R_Request(MIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Request_ID() <= 0) {
+		if (entity.getR_Request_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =

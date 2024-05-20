@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_Sequence(UU: String!): AD_Sequence
 	AD_SequenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SequenceConnection!
 }
 

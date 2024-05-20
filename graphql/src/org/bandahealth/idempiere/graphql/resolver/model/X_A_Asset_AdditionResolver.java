@@ -58,7 +58,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -110,7 +110,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -125,7 +125,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() <= 0) {
+		if (entity.getC_ConversionType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -140,7 +140,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -155,7 +155,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -170,7 +170,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -185,7 +185,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() <= 0) {
+		if (entity.getC_InvoiceLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -200,7 +200,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -267,7 +267,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return General Ledger Journal Batch
 	 */
 	public CompletableFuture<MJournalBatch> GL_JournalBatch(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalBatch_ID() <= 0) {
+		if (entity.getGL_JournalBatch_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =
@@ -282,7 +282,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Imported Fixed Asset
 	 */
 	public CompletableFuture<MIFixedAsset> I_FixedAsset(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getI_FixedAsset_ID() <= 0) {
+		if (entity.getI_FixedAsset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MIFixedAsset> dataLoader =
@@ -301,7 +301,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -316,7 +316,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -331,7 +331,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -346,7 +346,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Match Shipment/Receipt to Invoice
 	 */
 	public CompletableFuture<MMatchInv> M_MatchInv(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MatchInv_ID() <= 0) {
+		if (entity.getM_MatchInv_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMatchInv> dataLoader =
@@ -361,7 +361,7 @@ public class X_A_Asset_AdditionResolver extends POResolver<MAssetAddition> imple
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MAssetAddition entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

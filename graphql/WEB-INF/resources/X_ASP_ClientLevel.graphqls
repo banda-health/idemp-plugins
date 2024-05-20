@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	ASP_ClientLevel(UU: String!): ASP_ClientLevel
 	ASP_ClientLevelGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_ClientLevelConnection!
 }
 

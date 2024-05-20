@@ -32,7 +32,7 @@ public class X_A_Asset_SplitResolver extends POResolver<X_A_Asset_Split> impleme
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(X_A_Asset_Split entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -47,7 +47,7 @@ public class X_A_Asset_SplitResolver extends POResolver<X_A_Asset_Split> impleme
 	 * @return To Asset ID
 	 */
 	public CompletableFuture<MAsset> A_Asset_To(X_A_Asset_Split entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID_To() <= 0) {
+		if (entity.getA_Asset_ID_To() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -82,7 +82,7 @@ public class X_A_Asset_SplitResolver extends POResolver<X_A_Asset_Split> impleme
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(X_A_Asset_Split entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =

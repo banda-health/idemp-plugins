@@ -45,7 +45,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -60,7 +60,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() <= 0) {
+		if (entity.getC_ConversionType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -75,7 +75,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -90,7 +90,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -105,7 +105,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -172,7 +172,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() <= 0) {
+		if (entity.getGL_Budget_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
@@ -187,7 +187,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() <= 0) {
+		if (entity.getGL_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =
@@ -202,7 +202,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return General Ledger Journal Batch
 	 */
 	public CompletableFuture<MJournalBatch> GL_JournalBatch(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalBatch_ID() <= 0) {
+		if (entity.getGL_JournalBatch_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =
@@ -255,7 +255,7 @@ public class X_GL_JournalResolver extends POResolver<MJournal> implements GraphQ
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MJournal> Reversal(MJournal entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournal> dataLoader =

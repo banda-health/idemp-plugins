@@ -64,7 +64,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -79,7 +79,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -94,7 +94,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -109,7 +109,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -124,7 +124,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -139,7 +139,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -154,7 +154,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -169,7 +169,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -184,7 +184,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -250,7 +250,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Material Shipment Document
 	 */
 	public CompletableFuture<MInOut_BH> M_InOut(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOut_ID() <= 0) {
+		if (entity.getM_InOut_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
@@ -265,7 +265,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -280,7 +280,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Product/Resource/Service used in Request
 	 */
 	public CompletableFuture<MProduct_BH> M_ProductSpent(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductSpent_ID() <= 0) {
+		if (entity.getM_ProductSpent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -295,7 +295,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Return Material Authorization
 	 */
 	public CompletableFuture<MRMA> M_RMA(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_RMA_ID() <= 0) {
+		if (entity.getM_RMA_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRMA> dataLoader =
@@ -346,7 +346,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Request Category
 	 */
 	public CompletableFuture<MRequestCategory> R_Category(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Category_ID() <= 0) {
+		if (entity.getR_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequestCategory> dataLoader =
@@ -361,7 +361,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Request Group
 	 */
 	public CompletableFuture<MGroup> R_Group(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Group_ID() <= 0) {
+		if (entity.getR_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGroup> dataLoader =
@@ -376,7 +376,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Request from a Business Partner or Prospect
 	 */
 	public CompletableFuture<MRequest> R_Request(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Request_ID() <= 0) {
+		if (entity.getR_Request_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =
@@ -391,7 +391,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
 	public CompletableFuture<MRequestType> R_RequestType(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getR_RequestType_ID() <= 0) {
+		if (entity.getR_RequestType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =
@@ -406,7 +406,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Request Resolution
 	 */
 	public CompletableFuture<MResolution> R_Resolution(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Resolution_ID() <= 0) {
+		if (entity.getR_Resolution_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResolution> dataLoader =
@@ -421,7 +421,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Request Status
 	 */
 	public CompletableFuture<MStatus> R_Status(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Status_ID() <= 0) {
+		if (entity.getR_Status_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStatus> dataLoader =
@@ -436,7 +436,7 @@ public class X_R_RequestActionResolver extends POResolver<MRequestAction> implem
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MRequestAction entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

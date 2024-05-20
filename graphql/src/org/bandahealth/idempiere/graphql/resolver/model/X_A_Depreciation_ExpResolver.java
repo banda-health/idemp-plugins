@@ -40,7 +40,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return A_Account_Number_Acct
 	 */
 	public CompletableFuture<MAccount> A_Account_Number_A(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Account_Number_Acct() <= 0) {
+		if (entity.getA_Account_Number_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -55,7 +55,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return Asset Addition
 	 */
 	public CompletableFuture<MAssetAddition> A_Asset_Addition(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Addition_ID() <= 0) {
+		if (entity.getA_Asset_Addition_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetAddition> dataLoader =
@@ -70,7 +70,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return Asset Disposed
 	 */
 	public CompletableFuture<MAssetDisposed> A_Asset_Disposed(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Disposed_ID() <= 0) {
+		if (entity.getA_Asset_Disposed_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetDisposed> dataLoader =
@@ -85,7 +85,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -100,7 +100,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return Depreciation Entry
 	 */
 	public CompletableFuture<MDepreciationEntry> A_Depreciation_Entry(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Entry_ID() <= 0) {
+		if (entity.getA_Depreciation_Entry_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDepreciationEntry> dataLoader =
@@ -134,7 +134,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -149,7 +149,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return Account used
 	 */
 	public CompletableFuture<MAccount> CR_Account(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getCR_Account_ID() <= 0) {
+		if (entity.getCR_Account_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -164,7 +164,7 @@ public class X_A_Depreciation_ExpResolver extends POResolver<MDepreciationExp> i
 	 * @return Account used
 	 */
 	public CompletableFuture<MAccount> DR_Account(MDepreciationExp entity, DataFetchingEnvironment environment) {
-		if (entity.getDR_Account_ID() <= 0) {
+		if (entity.getDR_Account_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

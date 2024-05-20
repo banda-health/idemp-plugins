@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_ImportTemplateAccessDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_AD_ImportTemplateAccess;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_ImportTemplateAccess - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_ImportTemplateAccessQuery extends POQuery<X_AD_ImportTemplateA
 	@Override
 	protected String getTableName() {
 		return X_AD_ImportTemplateAccess.Table_Name;
+	}
+
+	public CompletableFuture<X_AD_ImportTemplateAccess> AD_ImportTemplateAccess(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_AD_ImportTemplateAccess> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_ImportTemplateAccessDataLoader.DATALOADER_AD_ImportTemplateAccess_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_AD_ImportTemplateAccess> AD_ImportTemplateAccessGet(int Page, int PageSize, String Sort, String Filter,

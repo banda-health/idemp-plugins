@@ -30,7 +30,7 @@ public class X_AD_AuthorizationCredentialResolver extends POResolver<MAuthorizat
 	 * @return Authorization Provider
 	 */
 	public CompletableFuture<MAuthorizationProvider> AD_AuthorizationProvider(MAuthorizationCredential entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_AuthorizationProvider_ID() <= 0) {
+		if (entity.getAD_AuthorizationProvider_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAuthorizationProvider> dataLoader =

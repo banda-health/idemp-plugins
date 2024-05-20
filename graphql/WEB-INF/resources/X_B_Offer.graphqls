@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	B_Offer(UU: String!): B_Offer
 	B_OfferGet(Page: Int, Size: Int, Sort: String, Filter: String): B_OfferConnection!
 }
 

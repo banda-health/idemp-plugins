@@ -38,7 +38,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() <= 0) {
+		if (entity.getC_ConversionType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -105,7 +105,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return From Bank Account
 	 */
 	public CompletableFuture<MBankAccount_BH> From_C_BankAccount(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getFrom_C_BankAccount_ID() <= 0) {
+		if (entity.getFrom_C_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -120,7 +120,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> From_C_BPartner(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getFrom_C_BPartner_ID() <= 0) {
+		if (entity.getFrom_C_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -135,7 +135,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return From Charge
 	 */
 	public CompletableFuture<MCharge_BH> From_C_Charge(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getFrom_C_Charge_ID() <= 0) {
+		if (entity.getFrom_C_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -150,7 +150,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return From Bank Currency
 	 */
 	public CompletableFuture<MCurrency_BH> From_C_Currency(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getFrom_C_Currency_ID() <= 0) {
+		if (entity.getFrom_C_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -208,7 +208,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return To Bank Account
 	 */
 	public CompletableFuture<MBankAccount_BH> To_C_BankAccount(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getTo_C_BankAccount_ID() <= 0) {
+		if (entity.getTo_C_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -223,7 +223,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> To_C_BPartner(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getTo_C_BPartner_ID() <= 0) {
+		if (entity.getTo_C_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -238,7 +238,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return To Charge
 	 */
 	public CompletableFuture<MCharge_BH> To_C_Charge(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getTo_C_Charge_ID() <= 0) {
+		if (entity.getTo_C_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -253,7 +253,7 @@ public class X_C_BankTransferResolver extends POResolver<MBankTransfer> implemen
 	 * @return To Bank Currency
 	 */
 	public CompletableFuture<MCurrency_BH> To_C_Currency(MBankTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getTo_C_Currency_ID() <= 0) {
+		if (entity.getTo_C_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

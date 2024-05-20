@@ -25,7 +25,7 @@ public class X_EXP_ProcessorResolver extends POResolver<MEXPProcessor> implement
 	 * @return Export Processor Type
 	 */
 	public CompletableFuture<MEXPProcessorType> EXP_Processor_Type(MEXPProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getEXP_Processor_Type_ID() <= 0) {
+		if (entity.getEXP_Processor_Type_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MEXPProcessorType> dataLoader =

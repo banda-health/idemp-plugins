@@ -36,7 +36,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -51,7 +51,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Standard Phase of the Project Type
 	 */
 	public CompletableFuture<MProjectTypePhase> C_Phase(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Phase_ID() <= 0) {
+		if (entity.getC_Phase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTypePhase> dataLoader =
@@ -66,7 +66,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_ProjectPhaseResolver extends POResolver<MProjectPhase> implemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProjectPhase entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

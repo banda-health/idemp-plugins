@@ -38,7 +38,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(MProductCategory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() <= 0) {
+		if (entity.getA_Asset_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -53,7 +53,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 	 * @return Color used for printing and display
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor(MProductCategory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor_ID() <= 0) {
+		if (entity.getAD_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -107,7 +107,7 @@ public class X_M_Product_CategoryResolver extends POResolver<MProductCategory_BH
 	 * @return Parent Product Category
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category_Parent(MProductCategory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_Parent_ID() <= 0) {
+		if (entity.getM_Product_Category_Parent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =

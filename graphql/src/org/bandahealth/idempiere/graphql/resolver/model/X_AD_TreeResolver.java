@@ -32,7 +32,7 @@ public class X_AD_TreeResolver extends POResolver<MTree_BH> implements GraphQLRe
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MTree_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -67,7 +67,7 @@ public class X_AD_TreeResolver extends POResolver<MTree_BH> implements GraphQLRe
 	 * @return The link column on the parent tab.
 	 */
 	public CompletableFuture<MColumn> Parent_Column(MTree_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getParent_Column_ID() <= 0) {
+		if (entity.getParent_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =

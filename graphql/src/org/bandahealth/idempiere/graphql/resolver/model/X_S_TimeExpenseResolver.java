@@ -34,7 +34,7 @@ public class X_S_TimeExpenseResolver extends POResolver<MTimeExpense> implements
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MTimeExpense entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -105,7 +105,7 @@ public class X_S_TimeExpenseResolver extends POResolver<MTimeExpense> implements
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MTimeExpense entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -120,7 +120,7 @@ public class X_S_TimeExpenseResolver extends POResolver<MTimeExpense> implements
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MTimeExpense entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

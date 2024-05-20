@@ -34,7 +34,7 @@ public class X_HR_PayrollResolver extends POResolver<X_HR_Payroll> implements Gr
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(X_HR_Payroll entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() <= 0) {
+		if (entity.getAD_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -49,7 +49,7 @@ public class X_HR_PayrollResolver extends POResolver<X_HR_Payroll> implements Gr
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_HR_Payroll entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_HR_PayrollResolver extends POResolver<X_HR_Payroll> implements Gr
 	 * @return Payroll Contract
 	 */
 	public CompletableFuture<X_HR_Contract> HR_Contract(X_HR_Payroll entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Contract_ID() <= 0) {
+		if (entity.getHR_Contract_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Contract> dataLoader =

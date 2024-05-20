@@ -32,7 +32,7 @@ public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customiz
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(X_AD_Tab_Customization entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_Tab_CustomizationResolver extends POResolver<X_AD_Tab_Customiz
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_AD_Tab_Customization entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

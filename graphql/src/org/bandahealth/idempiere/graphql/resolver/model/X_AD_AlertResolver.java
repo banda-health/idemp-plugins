@@ -25,7 +25,7 @@ public class X_AD_AlertResolver extends POResolver<MAlert> implements GraphQLRes
 	 * @return Alert Processor/Server Parameter
 	 */
 	public CompletableFuture<MAlertProcessor> AD_AlertProcessor(MAlert entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_AlertProcessor_ID() <= 0) {
+		if (entity.getAD_AlertProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAlertProcessor> dataLoader =

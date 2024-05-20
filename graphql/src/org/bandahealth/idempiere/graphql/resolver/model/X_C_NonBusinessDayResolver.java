@@ -27,7 +27,7 @@ public class X_C_NonBusinessDayResolver extends POResolver<X_C_NonBusinessDay> i
 	 * @return Accounting Calendar Name
 	 */
 	public CompletableFuture<MCalendar> C_Calendar(X_C_NonBusinessDay entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Calendar_ID() <= 0) {
+		if (entity.getC_Calendar_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCalendar> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_NonBusinessDayResolver extends POResolver<X_C_NonBusinessDay> i
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(X_C_NonBusinessDay entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() <= 0) {
+		if (entity.getC_Country_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =

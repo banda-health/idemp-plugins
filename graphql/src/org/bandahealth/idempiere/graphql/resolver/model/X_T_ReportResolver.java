@@ -29,7 +29,7 @@ public class X_T_ReportResolver extends POResolver<X_T_Report> implements GraphQ
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_Report entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -44,7 +44,7 @@ public class X_T_ReportResolver extends POResolver<X_T_Report> implements GraphQ
 	 * @return Accounting Fact
 	 */
 	public CompletableFuture<MFactAcct> Fact_Acct(X_T_Report entity, DataFetchingEnvironment environment) {
-		if (entity.getFact_Acct_ID() <= 0) {
+		if (entity.getFact_Acct_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MFactAcct> dataLoader =
@@ -59,7 +59,7 @@ public class X_T_ReportResolver extends POResolver<X_T_Report> implements GraphQ
 	 * @return Report Line
 	 */
 	public CompletableFuture<MReportLine> PA_ReportLine(X_T_Report entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportLine_ID() <= 0) {
+		if (entity.getPA_ReportLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReportLine> dataLoader =

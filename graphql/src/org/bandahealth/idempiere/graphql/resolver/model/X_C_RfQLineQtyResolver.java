@@ -27,7 +27,7 @@ public class X_C_RfQLineQtyResolver extends POResolver<MRfQLineQty> implements G
 	 * @return Request for Quotation Line
 	 */
 	public CompletableFuture<MRfQLine> C_RfQLine(MRfQLineQty entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RfQLine_ID() <= 0) {
+		if (entity.getC_RfQLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRfQLine> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_RfQLineQtyResolver extends POResolver<MRfQLineQty> implements G
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MRfQLineQty entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =

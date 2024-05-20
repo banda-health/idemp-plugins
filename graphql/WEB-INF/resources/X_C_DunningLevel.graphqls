@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_DunningLevel(UU: String!): C_DunningLevel
 	C_DunningLevelGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningLevelConnection!
 }
 

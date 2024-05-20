@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	GL_Budget(UU: String!): GL_Budget
 	GL_BudgetGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_BudgetConnection!
 }
 

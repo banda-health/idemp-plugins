@@ -54,7 +54,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -69,7 +69,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -84,7 +84,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -99,7 +99,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -114,7 +114,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -129,7 +129,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -144,7 +144,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -159,7 +159,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -174,7 +174,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -189,7 +189,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -341,7 +341,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -356,7 +356,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -401,7 +401,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Reference to corresponding Sales/Purchase Order
 	 */
 	public CompletableFuture<MOrder_BH> Ref_Order(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getRef_Order_ID() <= 0) {
+		if (entity.getRef_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -416,7 +416,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -435,7 +435,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -450,7 +450,7 @@ public class X_DD_OrderResolver extends POResolver<MDDOrder> implements GraphQLR
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MDDOrder entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

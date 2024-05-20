@@ -31,7 +31,7 @@ public class X_M_ShipperPickupTypesResolver extends POResolver<MShipperPickupTyp
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MShipperPickupTypes entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_ShipperPickupTypesResolver extends POResolver<MShipperPickupTyp
 	 * @return Shipper Pickup Types Configuration
 	 */
 	public CompletableFuture<X_M_ShipperPickupTypesCfg> M_ShipperPickupTypesCfg(MShipperPickupTypes entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperPickupTypesCfg_ID() <= 0) {
+		if (entity.getM_ShipperPickupTypesCfg_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ShipperPickupTypesCfg> dataLoader =

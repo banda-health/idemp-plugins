@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_NonBusinessDay(UU: String!): C_NonBusinessDay
 	C_NonBusinessDayGet(Page: Int, Size: Int, Sort: String, Filter: String): C_NonBusinessDayConnection!
 }
 

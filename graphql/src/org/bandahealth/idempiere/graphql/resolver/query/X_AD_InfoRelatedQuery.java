@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_InfoRelatedDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_AD_InfoRelated;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_InfoRelated - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_InfoRelatedQuery extends POQuery<X_AD_InfoRelated> implements 
 	@Override
 	protected String getTableName() {
 		return X_AD_InfoRelated.Table_Name;
+	}
+
+	public CompletableFuture<X_AD_InfoRelated> AD_InfoRelated(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_AD_InfoRelated> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_InfoRelatedDataLoader.DATALOADER_AD_InfoRelated_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_AD_InfoRelated> AD_InfoRelatedGet(int Page, int PageSize, String Sort, String Filter,

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	T_BOMLine(UU: String!): T_BOMLine
 	T_BOMLineGet(Page: Int, Size: Int, Sort: String, Filter: String): T_BOMLineConnection!
 }
 

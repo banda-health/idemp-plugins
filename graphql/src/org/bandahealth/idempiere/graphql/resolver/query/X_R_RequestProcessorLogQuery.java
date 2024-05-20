@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_R_RequestProcessorLogDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MRequestProcessorLog;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for R_RequestProcessorLog - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_R_RequestProcessorLogQuery extends POQuery<MRequestProcessorLog> 
 	@Override
 	protected String getTableName() {
 		return MRequestProcessorLog.Table_Name;
+	}
+
+	public CompletableFuture<MRequestProcessorLog> R_RequestProcessorLog(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MRequestProcessorLog> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_R_RequestProcessorLogDataLoader.DATALOADER_R_RequestProcessorLog_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MRequestProcessorLog> R_RequestProcessorLogGet(int Page, int PageSize, String Sort, String Filter,

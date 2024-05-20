@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RuleDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MRule;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_Rule - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_RuleQuery extends POQuery<MRule> implements GraphQLQueryResolv
 	@Override
 	protected String getTableName() {
 		return MRule.Table_Name;
+	}
+
+	public CompletableFuture<MRule> AD_Rule(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MRule> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_RuleDataLoader.DATALOADER_AD_Rule_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MRule> AD_RuleGet(int Page, int PageSize, String Sort, String Filter,

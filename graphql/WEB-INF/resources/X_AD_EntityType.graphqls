@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_EntityType(UU: String!): AD_EntityType
 	AD_EntityTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_EntityTypeConnection!
 }
 

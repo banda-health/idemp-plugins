@@ -29,7 +29,7 @@ public class X_B_OfferResolver extends POResolver<X_B_Offer> implements GraphQLR
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_B_Offer entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_B_OfferResolver extends POResolver<X_B_Offer> implements GraphQLR
 	 * @return Seller Funds from Offers on Topics
 	 */
 	public CompletableFuture<X_B_SellerFunds> B_SellerFunds(X_B_Offer entity, DataFetchingEnvironment environment) {
-		if (entity.getB_SellerFunds_ID() <= 0) {
+		if (entity.getB_SellerFunds_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_B_SellerFunds> dataLoader =
@@ -59,7 +59,7 @@ public class X_B_OfferResolver extends POResolver<X_B_Offer> implements GraphQLR
 	 * @return Auction Topic
 	 */
 	public CompletableFuture<X_B_Topic> B_Topic(X_B_Offer entity, DataFetchingEnvironment environment) {
-		if (entity.getB_Topic_ID() <= 0) {
+		if (entity.getB_Topic_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_B_Topic> dataLoader =

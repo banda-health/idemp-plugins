@@ -45,7 +45,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -60,7 +60,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -75,7 +75,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 	 * @return Color used for printing and display
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor_ID() <= 0) {
+		if (entity.getAD_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -90,7 +90,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 	 * @return Maintain Print Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> AD_PrintFont(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFont_ID() <= 0) {
+		if (entity.getAD_PrintFont_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =
@@ -105,7 +105,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() <= 0) {
+		if (entity.getAD_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -120,7 +120,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 	 * @return Print format that is included here.
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormatChild(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormatChild_ID() <= 0) {
+		if (entity.getAD_PrintFormatChild_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -135,7 +135,7 @@ public class X_AD_PrintFormatItemResolver extends POResolver<X_AD_PrintFormatIte
 	 * @return Graph included in Reports
 	 */
 	public CompletableFuture<X_AD_PrintGraph> AD_PrintGraph(X_AD_PrintFormatItem entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintGraph_ID() <= 0) {
+		if (entity.getAD_PrintGraph_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintGraph> dataLoader =

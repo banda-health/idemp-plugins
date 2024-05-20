@@ -27,7 +27,7 @@ public class X_A_RegistrationValueResolver extends POResolver<X_A_RegistrationVa
 	 * @return User Asset Registration
 	 */
 	public CompletableFuture<X_A_Registration> A_Registration(X_A_RegistrationValue entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Registration_ID() <= 0) {
+		if (entity.getA_Registration_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_A_Registration> dataLoader =
@@ -42,7 +42,7 @@ public class X_A_RegistrationValueResolver extends POResolver<X_A_RegistrationVa
 	 * @return Asset Registration Attribute
 	 */
 	public CompletableFuture<X_A_RegistrationAttribute> A_RegistrationAttribute(X_A_RegistrationValue entity, DataFetchingEnvironment environment) {
-		if (entity.getA_RegistrationAttribute_ID() <= 0) {
+		if (entity.getA_RegistrationAttribute_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_A_RegistrationAttribute> dataLoader =

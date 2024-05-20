@@ -67,7 +67,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -82,7 +82,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -97,7 +97,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() <= 0) {
+		if (entity.getC_ConversionType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -112,7 +112,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -127,7 +127,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -142,7 +142,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -235,7 +235,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return Rules for generating physical inventory
 	 */
 	public CompletableFuture<X_M_PerpetualInv> M_PerpetualInv(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PerpetualInv_ID() <= 0) {
+		if (entity.getM_PerpetualInv_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PerpetualInv> dataLoader =
@@ -250,7 +250,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -277,7 +277,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MInventory_BH> Reversal(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInventory_BH> dataLoader =
@@ -292,7 +292,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -307,7 +307,7 @@ public class X_M_InventoryResolver extends POResolver<MInventory_BH> implements 
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MInventory_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

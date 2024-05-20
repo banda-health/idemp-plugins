@@ -62,7 +62,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -77,7 +77,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 	 * @return Bill of Material
 	 */
 	public CompletableFuture<MBOM> M_BOM(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_BOM_ID() <= 0) {
+		if (entity.getM_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBOM> dataLoader =
@@ -92,7 +92,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 	 * @return Product BOM Alternative Group
 	 */
 	public CompletableFuture<X_M_BOMAlternative> M_BOMAlternative(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_BOMAlternative_ID() <= 0) {
+		if (entity.getM_BOMAlternative_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_BOMAlternative> dataLoader =
@@ -107,7 +107,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() <= 0) {
+		if (entity.getM_ChangeNotice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -122,7 +122,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 	 * @return Bill of Material Component Product
 	 */
 	public CompletableFuture<MProduct_BH> M_ProductBOM(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductBOM_ID() <= 0) {
+		if (entity.getM_ProductBOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -137,7 +137,7 @@ public class X_M_BOMProductResolver extends POResolver<MBOMProduct> implements G
 	 * @return Product Manufacturing Operation
 	 */
 	public CompletableFuture<X_M_ProductOperation> M_ProductOperation(MBOMProduct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductOperation_ID() <= 0) {
+		if (entity.getM_ProductOperation_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_ProductOperation> dataLoader =
