@@ -50,13 +50,6 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 			});
 		}
 
-		// save extras
-		if (entity.getConceptExtras() != null && !entity.getConceptExtras().isEmpty()) {
-			for (ConceptExtra extra : entity.getConceptExtras()) {
-				conceptExtraDBService.saveEntity(extra);
-			}
-		}
-
 		// delete old client concept extras
 		clientConceptExtraDBService.deleteClientConceptExtrasNotInList(entity.getClientConceptExtras());
 

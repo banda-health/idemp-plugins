@@ -1,9 +1,13 @@
 package org.bandahealth.idempiere.rest.service.db;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHClientConceptExtra;
+import org.bandahealth.idempiere.base.model.MBHConceptExtra;
 import org.bandahealth.idempiere.rest.model.ClientConceptExtra;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
@@ -11,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ClientConceptExtraDBService extends BaseDBService<ClientConceptExtra, MBHClientConceptExtra> {
+
+	private final ConceptExtraDBService conceptExtraDBService = new ConceptExtraDBService();
 
 	public void deleteClientConceptExtrasNotInList(List<ClientConceptExtra> clientConceptExtras) {
 		// get existing client concept extras
@@ -68,5 +74,22 @@ public class ClientConceptExtraDBService extends BaseDBService<ClientConceptExtr
 		} catch (Exception ex) {
 			throw new AdempiereException(ex.getLocalizedMessage());
 		}
+	}
+
+	@Override
+	public List<ClientConceptExtra> transformData(List<MBHClientConceptExtra> dbModels) {
+		Map<Integer, MBHConceptExtra> conceptExtrasById = conceptExtraDBService.getByIds(
+				dbModels.stream().map(MBHClientConceptExtra::getBH_Concept_Extra_ID).collect(Collectors.toSet()));
+
+		return dbModels.stream().map(entity -> {
+			ClientConceptExtra result = new ClientConceptExtra(entity);
+			if (conceptExtrasById.containsKey(entity.getBH_Concept_Extra_ID())) {
+				result.setConceptExtra(conceptExtraDBService
+						.transformData(
+								Collections.singletonList(conceptExtrasById.get(entity.getBH_Concept_Extra_ID())))
+						.get(0));
+			}
+			return result;
+		}).collect(Collectors.toList());
 	}
 }
