@@ -133,17 +133,6 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 			}
 			commitEx();
 			
-			// load coded diagnoses data
-			valueObject.setStepName("Run the OCL concept sync for coded diagnoses");
-			valueObject.setProcessUuid("97542544-da63-4e5f-85e0-ad35da81318c");
-			valueObject.setProcessRecordId(0);
-			valueObject.setProcessTableId(0);
-			valueObject.setProcessInformationParameters(List.of(
-					new ProcessInfoParameter("source", "BHGO", null, null, null)
-			));
-			ChuBoeCreateEntity.runProcessAsSystem(valueObject);
-			commitEx();
-
 			// load lab diagnostics data
 			valueObject.setStepName("Run the OCL concept sync for diagnostics");
 			valueObject.setProcessUuid("97542544-da63-4e5f-85e0-ad35da81318c");
@@ -154,6 +143,17 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 			));
 			ChuBoeCreateEntity.runProcessAsSystem(valueObject);
 			commitEx();
+			
+			// load coded diagnoses data
+			valueObject.setStepName("Run the OCL concept sync for coded diagnoses");
+			valueObject.setProcessUuid("97542544-da63-4e5f-85e0-ad35da81318c");
+			valueObject.setProcessRecordId(0);
+			valueObject.setProcessTableId(0);
+			valueObject.setProcessInformationParameters(List.of(
+					new ProcessInfoParameter("source", "BHGO", null, null, null)
+			));
+			ChuBoeCreateEntity.runProcessAsSystem(valueObject);
+			commitEx();			
 			
 		} catch (Exception exception) {
 			fail(exception);
