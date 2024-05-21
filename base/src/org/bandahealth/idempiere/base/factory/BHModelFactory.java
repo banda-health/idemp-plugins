@@ -516,8 +516,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MUser_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MWindowAccess_BH.Table_Name)) {
 			return new MWindowAccess_BH(Env.getCtx(), Record_UU, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosis.Table_Name)) {
-			return new MBHCodedDiagnosis(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFld.Table_Name)) {
 			return new MBHPayerInfoFld(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHPayerInfoFldVal.Table_Name)) {
@@ -542,8 +540,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MWarehouse_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHRoleWarehouseAccess.Table_Name)) {
 			return new MBHRoleWarehouseAccess(Env.getCtx(), Record_UU, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHCodedDiagnosisMapping.Table_Name)) {
-			return new MBHCodedDiagnosisMapping(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSetInstance_BH.Table_Name)) {
 			return new MAttributeSetInstance_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MMenu_BH.Table_Name)) {

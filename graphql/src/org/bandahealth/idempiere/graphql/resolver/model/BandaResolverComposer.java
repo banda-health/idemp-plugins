@@ -74,8 +74,6 @@ public class BandaResolverComposer {
 				new MBHBPGeneralPayerInfoResolver(),
 				new MBHBPPayerInfoResolver(),
 				new MBHBPSpecificPayerInfoResolver(),
-				new MBHCodedDiagnosisResolver(),
-				new MBHCodedDiagnosisMappingResolver(),
 				new MBHDefaultDocActionAccessResolver(),
 				new MBHDefaultIncludedRoleResolver(),
 				new MBHEncounterResolver(),

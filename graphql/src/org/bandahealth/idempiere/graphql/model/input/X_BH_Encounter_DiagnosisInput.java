@@ -3,7 +3,6 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MBHCodedDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -22,7 +21,6 @@ import java.sql.ResultSet;
 public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis implements I_BH_Encounter_DiagnosisInput {
 
 	private ForeignEntityInput mAD_Org;
-	private ForeignEntityInput mBH_Coded_Diagnosis;
 	private ForeignEntityInput mBH_Encounter;
 
 	/**
@@ -74,42 +72,6 @@ public class X_BH_Encounter_DiagnosisInput extends MBHEncounterDiagnosis impleme
 		return mAD_Org;
 	}
 
-	/**
-	 * Set Coded Diagnosis.
-	 *
-	 * @param BH_Coded_Diagnosis Coded Diagnosis
-	 */
-	@JsonProperty("BH_Coded_Diagnosis")
-	public void setBH_Coded_DiagnosisInput(ForeignEntityInput BH_Coded_Diagnosis) {
-		this.mBH_Coded_Diagnosis = BH_Coded_Diagnosis;
-		if (get_ID() != 0) {
-			return;
-		}
-		if (BH_Coded_Diagnosis != null) {
-			// Since an entity was passed, make sure it's in the DB
-			MBHCodedDiagnosis foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), "BH_Coded_Diagnosis", "BH_Coded_Diagnosis_UU=?", get_TrxName())
-							.setParameters(BH_Coded_Diagnosis.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setBH_Coded_Diagnosis_ID(foreignEntity.get_ID());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table BH_Coded_Diagnosis with UU " + BH_Coded_Diagnosis.getUU());
-			}
-		} else {
-			this.setBH_Coded_Diagnosis_ID(0);
-		}
-	}
-
-	/**
-	 * Get Coded Diagnosis.
-	 *
-	 * @return Coded Diagnosis
-	 */
-	@JsonProperty("BH_Coded_Diagnosis")
-	public ForeignEntityInput BH_Coded_Diagnosis() {
-		return mBH_Coded_Diagnosis;
-	}
 	/**
 	 * Set Encounter Diagnosis.
 	 *
