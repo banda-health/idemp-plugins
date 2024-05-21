@@ -3,7 +3,7 @@
 -- 3. Drop bh_coded_diagnosis_id column 
 -- 4. Drop bh_coded_diagnosis_mapping table	
 -- 5. Drop bh_coded_diagnosis table
--- 6. Update CodedDiagnosisSyncProcess to point to ConceptSyncProcess
+-- 6. Remove CodedDiagnosisSyncProcess
 -- 7. Update reports
 
 -- Step 1:
@@ -146,10 +146,32 @@ WHERE
 	LOWER(tablename) = 'bh_coded_diagnosis';
 
 -- Step 6:
-UPDATE AD_Process SET classname = 'org.bandahealth.idempiere.base.process.ConceptSyncProcess' WHERE AD_Process_UU='dc0a5369-1478-46ff-aef4-8bac662132b7';
-
--- Step 7:
-UPDATE AD_Process_Para SET name = 'Coded Diagnosis', columnname = 'BH_Concept_UU' WHERE AD_Process_Para_UU = '250d4efb-e958-4ef6-95cf-4d23b10f0972';
+DELETE
+FROM
+      AD_Process_Para
+WHERE 
+      AD_Process_ID IN (
+      	SELECT AD_Process_ID FROM AD_Process WHERE AD_Process_UU = 'dc0a5369-1478-46ff-aef4-8bac662132b7'
+      );
+DELETE
+FROM
+      AD_Menu
+WHERE 
+      AD_Process_ID IN (
+      	SELECT AD_Process_ID FROM AD_Process WHERE AD_Process_UU = 'dc0a5369-1478-46ff-aef4-8bac662132b7'
+      );
+DELETE
+FROM
+      AD_PInstance
+WHERE 
+      AD_Process_ID IN (
+      	SELECT AD_Process_ID FROM AD_Process WHERE AD_Process_UU = 'dc0a5369-1478-46ff-aef4-8bac662132b7'
+      );            
+      
+DELETE 
+FROM 
+      AD_Process 
+WHERE AD_Process_UU='dc0a5369-1478-46ff-aef4-8bac662132b7';
 
 -- Create bh_client_concept_extra table
 CREATE TABLE BH_Client_Concept_Extra (
