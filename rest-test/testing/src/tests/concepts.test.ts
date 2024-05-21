@@ -10,7 +10,7 @@ test('get concepts fields', async () => {
 			undefined,
 			undefined,
 			undefined,
-			undefined,
+			JSON.stringify({ name: { $text: 'anemia' }, bh_source: { $eq: 'BHGO'} }),
 		)
 	).results;
 
@@ -22,7 +22,7 @@ test('get concepts fields', async () => {
 	expect(concept.conceptClass).toBeTruthy();
 });
 
-test('the correct concepts are returned', async () => {
+test('the correct lab concepts are returned', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -32,7 +32,7 @@ test('the correct concepts are returned', async () => {
 			undefined,
 			undefined,
 			undefined,
-			JSON.stringify({ bh_display_name: { $text: 'urine' } }),
+			JSON.stringify({ bh_display_name: { $text: 'urine' }, bh_source: { $eq: 'BHLabs'} }),
 		)
 	).results;
 
@@ -51,7 +51,7 @@ test('get coded diagnosis fields', async () => {
 					undefined,
 					undefined,
 					undefined,
-					JSON.stringify({ bh_searchterms: { $nnull: true } }),
+					JSON.stringify({ bh_searchterms: { $nnull: true }, bh_source: { $eq: 'BHGO'} }),
 			)
 	).results;
 
@@ -77,7 +77,7 @@ test('the correct diagnoses are returned', async () => {
 					undefined,
 					undefined,
 					undefined,
-					JSON.stringify({ name: { $text: 'anemia' } }),
+					JSON.stringify({ name: { $text: 'anemia' }, bh_source: { $eq: 'BHGO'} }),
 			)
 	).results;
 
