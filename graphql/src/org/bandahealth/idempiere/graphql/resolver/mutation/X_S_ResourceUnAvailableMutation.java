@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_S_ResourceUnAvailableInput;
+import org.bandahealth.idempiere.graphql.model.input.X_S_ResourceUnAvailableInput;
+import org.compiere.model.MResourceUnAvailable;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for S_ResourceUnAvailable - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_S_ResourceUnAvailableMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_S_ResourceUnAvailableInput.Table_Name;
+	}
+
+	public MResourceUnAvailable S_ResourceUnAvailableSave(I_S_ResourceUnAvailableInput Entity, DataFetchingEnvironment environment) {
+		return (MResourceUnAvailable) super.save((X_S_ResourceUnAvailableInput) Entity, environment);
+	}
+
+	public List<MResourceUnAvailable> S_ResourceUnAvailableSaveMany(List<I_S_ResourceUnAvailableInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_S_ResourceUnAvailableInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MResourceUnAvailable) entity).collect(Collectors.toList());
+	}
+
+	public boolean S_ResourceUnAvailableDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

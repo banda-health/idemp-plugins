@@ -1,0 +1,89 @@
+# Generated Schema for AD_PInstance - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PInstanceConnection!
+}
+
+extend type Mutation {
+	AD_PInstanceSave(Entity: AD_PInstanceInput!): AD_PInstance!
+	AD_PInstanceSaveMany(Entities: [AD_PInstanceInput!]!): [AD_PInstance!]!
+	AD_PInstanceDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PInstanceConnection {
+	Results: [AD_PInstance!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PInstance {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	AD_Language: AD_Language
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	UU: ID!
+	# Data Print Format
+	AD_PrintFormat: AD_PrintFormat
+	# Process or Report
+	AD_Process: AD_Process!
+	# User Session Online or Web
+	AD_Session: AD_Session
+	# Database Table information
+	AD_Table: AD_Table
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	ErrorMsg: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsProcessing: Boolean!
+	IsRunAsJob: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Notifications
+	NotificationType: AD_Ref_List
+	ReportType: String
+	# Result of the action taken
+	Result: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PInstanceInput {
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Data Print Format
+	AD_PrintFormat: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# User Session Online or Web
+	AD_Session: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	ErrorMsg: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsProcessing: Boolean
+	IsRunAsJob: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Notifications
+	NotificationType: ForeignEntityInput
+	ReportType: String
+	# Result of the action taken
+	Result: Int
+}

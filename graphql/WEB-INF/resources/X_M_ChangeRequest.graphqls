@@ -1,0 +1,83 @@
+# Generated Schema for M_ChangeRequest - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_ChangeRequestGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ChangeRequestConnection!
+}
+
+extend type Mutation {
+	M_ChangeRequestSave(Entity: M_ChangeRequestInput!): M_ChangeRequest!
+	M_ChangeRequestSaveMany(Entities: [M_ChangeRequestInput!]!): [M_ChangeRequest!]!
+	M_ChangeRequestDelete(UUs: [String!]!): Boolean!
+}
+
+type M_ChangeRequestConnection {
+	Results: [M_ChangeRequest!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_ChangeRequest {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Additional Detail Information
+	DetailInfo: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# Bill of Materials (Engineering) Change Notice (Version)
+	M_ChangeNotice: M_ChangeNotice
+	UU: ID!
+	# Fixed in Change Notice
+	M_FixChangeNotice: M_ChangeNotice
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# BOM & Formula
+	PP_Product_BOM: PP_Product_BOM
+	# The document has been processed
+	Processed: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ChangeRequestInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Additional Detail Information
+	DetailInfo: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# Bill of Materials (Engineering) Change Notice (Version)
+	M_ChangeNotice: ForeignEntityInput
+	UU: ID
+	# Fixed in Change Notice
+	M_FixChangeNotice: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# BOM & Formula
+	PP_Product_BOM: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+}

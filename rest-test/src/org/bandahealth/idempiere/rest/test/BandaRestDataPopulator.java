@@ -79,7 +79,7 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 		Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, testClient.get_ID());
 		try {
 			MWarehouse_BH mainWarehouse = new Query(valueObject.getContext(), MWarehouse_BH.Table_Name,
-					MWarehouse_BH.COLUMNNAME_BH_DEFAULTWAREHOUSE + "=? AND " + MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=?",
+					MWarehouse_BH.COLUMNNAME_BH_DefaultWarehouse + "=? AND " + MWarehouse_BH.COLUMNNAME_AD_Client_ID + "=?",
 					valueObject.getTransactionName()).setParameters("Y", testClient.get_ID()).setOnlyActiveRecords(true).first();
 			MOrg testOrganization = new Query(valueObject.getContext(), MOrg.Table_Name, MOrg.COLUMNNAME_AD_Client_ID + "=?",
 					valueObject.getTransactionName()).setParameters(testClient.get_ID()).first();
@@ -91,7 +91,7 @@ public class BandaRestDataPopulator extends ChuBoePopulateFactoryVO {
 					.setOnlyActiveRecords(true).first();
 			if (secondWarehouse == null) {
 				secondWarehouse = new MWarehouse_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
-				secondWarehouse.setBH_IsDefaultWarehouse(false);
+				secondWarehouse.setBH_DefaultWarehouse(false);
 				secondWarehouse.setName("Secondary Warehouse");
 				secondWarehouse.setAD_Org_ID(testOrganization.get_ID());
 				secondWarehouse.setIsDisallowNegativeInv(mainWarehouse.isDisallowNegativeInv());

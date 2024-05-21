@@ -1,0 +1,59 @@
+# Generated Schema for R_Category - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): R_CategoryConnection!
+}
+
+extend type Mutation {
+	R_CategorySave(Entity: R_CategoryInput!): R_Category!
+	R_CategorySaveMany(Entities: [R_CategoryInput!]!): [R_Category!]!
+	R_CategoryDelete(UUs: [String!]!): Boolean!
+}
+
+type R_CategoryConnection {
+	Results: [R_Category!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_Category {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_CategoryInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	UU: ID
+}

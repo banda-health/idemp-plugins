@@ -1,0 +1,65 @@
+# Generated Schema for C_DunningRun - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_DunningRunGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DunningRunConnection!
+}
+
+extend type Mutation {
+	C_DunningRunSave(Entity: C_DunningRunInput!): C_DunningRun!
+	C_DunningRunSaveMany(Entities: [C_DunningRunInput!]!): [C_DunningRun!]!
+	C_DunningRunDelete(UUs: [String!]!): Boolean!
+}
+
+type C_DunningRunConnection {
+	Results: [C_DunningRun!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_DunningRun {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Dunning Rules for overdue invoices
+	C_Dunning: C_Dunning!
+	C_DunningLevel: C_DunningLevel
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Date of Dunning
+	DunningDate: Date!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	SendIt: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_DunningRunInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Dunning Rules for overdue invoices
+	C_Dunning: ForeignEntityInput
+	C_DunningLevel: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Date of Dunning
+	DunningDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	SendIt: String
+}

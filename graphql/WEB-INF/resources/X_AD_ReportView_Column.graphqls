@@ -1,0 +1,51 @@
+# Generated Schema for AD_ReportView_Column - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReportView_ColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReportView_ColumnConnection!
+}
+
+extend type Mutation {
+	AD_ReportView_ColumnSave(Entity: AD_ReportView_ColumnInput!): AD_ReportView_Column!
+	AD_ReportView_ColumnSaveMany(Entities: [AD_ReportView_ColumnInput!]!): [AD_ReportView_Column!]!
+	AD_ReportView_ColumnDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReportView_ColumnConnection {
+	Results: [AD_ReportView_Column!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ReportView_Column {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Column in the table
+	AD_Column: AD_Column!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# View used to generate this report
+	AD_ReportView: AD_ReportView!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ReportView_ColumnInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# View used to generate this report
+	AD_ReportView: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

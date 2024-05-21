@@ -1,0 +1,193 @@
+# Generated Schema for C_Project - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_ProjectGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectConnection!
+}
+
+extend type Mutation {
+	C_ProjectSave(Entity: C_ProjectInput!): C_Project!
+	C_ProjectSaveMany(Entities: [C_ProjectInput!]!): [C_Project!]!
+	C_ProjectDelete(UUs: [String!]!): Boolean!
+}
+
+type C_ProjectConnection {
+	Results: [C_Project!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Project {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Business Partner (Agent or Sales Rep)
+	C_BPartnerSR: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
+	# Standard Phase of the Project Type
+	C_Phase: C_Phase
+	UU: ID!
+	# Type of the project
+	C_ProjectType_ID: Int
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal!
+	# The (legal) commitment Quantity
+	CommittedQty: BigDecimal!
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The (planned) effective date of this document.
+	DateContract: Date
+	# Finish or (planned) completion date
+	DateFinish: Date
+	# Optional short description of the record
+	Description: String
+	# Generate To
+	GenerateTo: String
+	# The amount invoiced
+	InvoicedAmt: BigDecimal!
+	# The quantity invoiced
+	InvoicedQty: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The commitment amount/quantity is the chargeable ceiling 
+	IsCommitCeiling: Boolean!
+	# Is this document a (legal) commitment?
+	IsCommitment: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Identifies a unique instance of a Price List
+	M_PriceList_Version: M_PriceList_Version
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Optional additional user defined information
+	Note: String
+	# Planned amount for this project
+	PlannedAmt: BigDecimal!
+	# Project's planned margin amount
+	PlannedMarginAmt: BigDecimal!
+	# Planned quantity for this project
+	PlannedQty: BigDecimal!
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Total Project Balance
+	ProjectBalanceAmt: BigDecimal!
+	# Project Category
+	ProjectCategory: AD_Ref_List
+	# Project Line Level
+	ProjectLineLevel: AD_Ref_List!
+	# Invoice Rule for the project
+	ProjInvoiceRule: AD_Ref_List!
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_ProjectInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Business Partner (Agent or Sales Rep)
+	C_BPartnerSR: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	# Standard Phase of the Project Type
+	C_Phase: ForeignEntityInput
+	UU: ID
+	# Type of the project
+	C_ProjectType_ID: Int
+	# The (legal) commitment amount
+	CommittedAmt: BigDecimal
+	# The (legal) commitment Quantity
+	CommittedQty: BigDecimal
+	# Copy From Record
+	CopyFrom: String
+	# The (planned) effective date of this document.
+	DateContract: Date
+	# Finish or (planned) completion date
+	DateFinish: Date
+	# Optional short description of the record
+	Description: String
+	# Generate To
+	GenerateTo: String
+	# The amount invoiced
+	InvoicedAmt: BigDecimal
+	# The quantity invoiced
+	InvoicedQty: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# The commitment amount/quantity is the chargeable ceiling 
+	IsCommitCeiling: Boolean
+	# Is this document a (legal) commitment?
+	IsCommitment: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Identifies a unique instance of a Price List
+	M_PriceList_Version: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Optional additional user defined information
+	Note: String
+	# Planned amount for this project
+	PlannedAmt: BigDecimal
+	# Project's planned margin amount
+	PlannedMarginAmt: BigDecimal
+	# Planned quantity for this project
+	PlannedQty: BigDecimal
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Total Project Balance
+	ProjectBalanceAmt: BigDecimal
+	# Project Category
+	ProjectCategory: ForeignEntityInput
+	# Project Line Level
+	ProjectLineLevel: ForeignEntityInput
+	# Invoice Rule for the project
+	ProjInvoiceRule: ForeignEntityInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

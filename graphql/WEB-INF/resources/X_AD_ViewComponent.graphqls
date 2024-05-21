@@ -1,0 +1,89 @@
+# Generated Schema for AD_ViewComponent - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ViewComponentGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ViewComponentConnection!
+}
+
+extend type Mutation {
+	AD_ViewComponentSave(Entity: AD_ViewComponentInput!): AD_ViewComponent!
+	AD_ViewComponentSaveMany(Entities: [AD_ViewComponentInput!]!): [AD_ViewComponent!]!
+	AD_ViewComponentDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ViewComponentConnection {
+	Results: [AD_ViewComponent!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ViewComponent {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# SQL FROM clause
+	FromClause: String!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Select Distinct
+	IsDistinct: Boolean!
+	# The component view is UNION ALL
+	IsUnionAll: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Other SQL Clause
+	OtherClause: String
+	Referenced_Table: AD_Table
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}
+
+input AD_ViewComponentInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# SQL FROM clause
+	FromClause: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Select Distinct
+	IsDistinct: Boolean
+	# The component view is UNION ALL
+	IsUnionAll: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Other SQL Clause
+	OtherClause: String
+	Referenced_Table: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Fully qualified SQL WHERE clause
+	WhereClause: String
+}

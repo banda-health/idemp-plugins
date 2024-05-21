@@ -1,0 +1,93 @@
+# Generated Schema for AD_Replication - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReplicationGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReplicationConnection!
+}
+
+extend type Mutation {
+	AD_ReplicationSave(Entity: AD_ReplicationInput!): AD_Replication!
+	AD_ReplicationSaveMany(Entities: [AD_ReplicationInput!]!): [AD_Replication!]!
+	AD_ReplicationDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReplicationConnection {
+	Results: [AD_Replication!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Replication {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Data Replication Strategy
+	AD_ReplicationStrategy: AD_ReplicationStrategy!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date the process was last run.
+	DateLastRun: Date
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# Host Address URL or DNS
+	HostAddress: String!
+	# Host Communication Port
+	HostPort: Int!
+	# End if the ID Range used
+	IDRangeEnd: BigDecimal
+	# Start of the ID Range used
+	IDRangeStart: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# Connect to Server via HTTP Tunnel
+	IsRMIoverHTTP: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Prefix before the sequence number
+	Prefix: String
+	Processing: Boolean!
+	# Suffix after the number
+	Suffix: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ReplicationInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Data Replication Strategy
+	AD_ReplicationStrategy: ForeignEntityInput
+	# Date the process was last run.
+	DateLastRun: Date
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# Host Address URL or DNS
+	HostAddress: String
+	# Host Communication Port
+	HostPort: Int
+	# End if the ID Range used
+	IDRangeEnd: BigDecimal
+	# Start of the ID Range used
+	IDRangeStart: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Connect to Server via HTTP Tunnel
+	IsRMIoverHTTP: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Prefix before the sequence number
+	Prefix: String
+	Processing: Boolean
+	# Suffix after the number
+	Suffix: String
+}

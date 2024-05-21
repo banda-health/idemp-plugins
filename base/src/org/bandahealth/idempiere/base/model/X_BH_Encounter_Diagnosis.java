@@ -31,7 +31,7 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20240415L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Encounter_Diagnosis (Properties ctx, int BH_Encounter_Diagnosis_ID, String trxName)
@@ -125,6 +125,7 @@ public class X_BH_Encounter_Diagnosis extends PO implements I_BH_Encounter_Diagn
 	/** Get Concept.
 		@return Concept	  */
 	public int getBH_Concept_ID()
+
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
 		if (ii == null)

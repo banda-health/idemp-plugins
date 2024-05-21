@@ -1,0 +1,103 @@
+# Generated Schema for T_1099Extract - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_1099ExtractGet(Page: Int, Size: Int, Sort: String, Filter: String): T_1099ExtractConnection!
+}
+
+extend type Mutation {
+	T_1099ExtractSave(Entity: T_1099ExtractInput!): T_1099Extract!
+	T_1099ExtractSaveMany(Entities: [T_1099ExtractInput!]!): [T_1099Extract!]!
+	T_1099ExtractDelete(UUs: [String!]!): Boolean!
+}
+
+type T_1099ExtractConnection {
+	Results: [T_1099Extract!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_1099Extract {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	AmtBucket01: BigDecimal
+	AmtBucket02: BigDecimal
+	AmtBucket03: BigDecimal
+	AmtBucket04: BigDecimal
+	AmtBucket05: BigDecimal
+	AmtBucket06: BigDecimal
+	AmtBucket07: BigDecimal
+	AmtBucket08: BigDecimal
+	AmtBucket09: BigDecimal
+	AmtBucket10: BigDecimal
+	AmtBucket11: BigDecimal
+	AmtBucket12: BigDecimal
+	AmtBucket13: BigDecimal
+	AmtBucket14: BigDecimal
+	AmtBucket15: BigDecimal
+	AmtBucket16: BigDecimal
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Location or Address
+	C_Location: C_Location
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	Cut_Date: Date
+	Cut_Year: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	UU: ID!
+	# Tax Identification
+	TaxID: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input T_1099ExtractInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	AmtBucket01: BigDecimal
+	AmtBucket02: BigDecimal
+	AmtBucket03: BigDecimal
+	AmtBucket04: BigDecimal
+	AmtBucket05: BigDecimal
+	AmtBucket06: BigDecimal
+	AmtBucket07: BigDecimal
+	AmtBucket08: BigDecimal
+	AmtBucket09: BigDecimal
+	AmtBucket10: BigDecimal
+	AmtBucket11: BigDecimal
+	AmtBucket12: BigDecimal
+	AmtBucket13: BigDecimal
+	AmtBucket14: BigDecimal
+	AmtBucket15: BigDecimal
+	AmtBucket16: BigDecimal
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	Cut_Date: Date
+	Cut_Year: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	UU: ID
+	# Tax Identification
+	TaxID: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

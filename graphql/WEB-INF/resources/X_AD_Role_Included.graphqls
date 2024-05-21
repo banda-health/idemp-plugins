@@ -1,0 +1,53 @@
+# Generated Schema for AD_Role_Included - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Role_IncludedGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Role_IncludedConnection!
+}
+
+extend type Mutation {
+	AD_Role_IncludedSave(Entity: AD_Role_IncludedInput!): AD_Role_Included!
+	AD_Role_IncludedSaveMany(Entities: [AD_Role_IncludedInput!]!): [AD_Role_Included!]!
+	AD_Role_IncludedDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Role_IncludedConnection {
+	Results: [AD_Role_Included!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Role_Included {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	Included_Role: AD_Role!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Role_IncludedInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	UU: ID
+	Included_Role: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

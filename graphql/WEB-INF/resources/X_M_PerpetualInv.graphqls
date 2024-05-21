@@ -1,0 +1,85 @@
+# Generated Schema for M_PerpetualInv - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PerpetualInvGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PerpetualInvConnection!
+}
+
+extend type Mutation {
+	M_PerpetualInvSave(Entity: M_PerpetualInvInput!): M_PerpetualInv!
+	M_PerpetualInvSaveMany(Entities: [M_PerpetualInvInput!]!): [M_PerpetualInv!]!
+	M_PerpetualInvDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PerpetualInvConnection {
+	Results: [M_PerpetualInv!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_PerpetualInv {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Count High Movement products
+	CountHighMovement: Boolean!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Category of a Product
+	M_Product_Category: M_Product_Category
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Frequency of inventory counts per year
+	NoInventoryCount: Int!
+	# Frequency of product counts per year
+	NoProductCount: Int!
+	# Frequency of processing Perpetual Inventory
+	NumberOfRuns: Int!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PerpetualInvInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Count High Movement products
+	CountHighMovement: Boolean
+	# Date the process was last run.
+	DateLastRun: Date
+	# Date the process will run next
+	DateNextRun: Date
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Category of a Product
+	M_Product_Category: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Frequency of inventory counts per year
+	NoInventoryCount: Int
+	# Frequency of product counts per year
+	NoProductCount: Int
+	# Frequency of processing Perpetual Inventory
+	NumberOfRuns: Int
+	Processing: Boolean
+}

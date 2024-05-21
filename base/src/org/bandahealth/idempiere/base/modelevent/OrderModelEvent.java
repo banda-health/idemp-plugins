@@ -40,7 +40,7 @@ public class OrderModelEvent extends AbstractEventHandler {
 		boolean isPurchase = !order.isSOTrx();
 
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
-			if (!isPurchase) {
+			if (!isPurchase && !order.getClass().toString().contains("graphql.model")) {
 				beforeSalesOrderSaveRequest(order);
 			}
 		} else if (event.getTopic().equals(IEventTopics.DOC_AFTER_VOID)) {

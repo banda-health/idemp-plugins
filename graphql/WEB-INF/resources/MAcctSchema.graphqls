@@ -1,0 +1,3 @@
+extend type C_AcctSchema {
+	C_AcctSchema_Elements: [C_AcctSchema_Element!]
+}

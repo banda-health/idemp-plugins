@@ -1,0 +1,79 @@
+# Generated Schema for C_RfQResponseLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_RfQResponseLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_RfQResponseLineConnection!
+}
+
+extend type Mutation {
+	C_RfQResponseLineSave(Entity: C_RfQResponseLineInput!): C_RfQResponseLine!
+	C_RfQResponseLineSaveMany(Entities: [C_RfQResponseLineInput!]!): [C_RfQResponseLine!]!
+	C_RfQResponseLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_RfQResponseLineConnection {
+	Results: [C_RfQResponseLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_RfQResponseLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Request for Quotation Line
+	C_RfQLine: C_RfQLine!
+	# Request for Quotation Response from a potential Vendor
+	C_RfQResponse: C_RfQResponse!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The response is the selected winner
+	IsSelectedWinner: Boolean!
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_RfQResponseLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Request for Quotation Line
+	C_RfQLine: ForeignEntityInput
+	# Request for Quotation Response from a potential Vendor
+	C_RfQResponse: ForeignEntityInput
+	UU: ID
+	# Date when work is (planned to be) complete
+	DateWorkComplete: Date
+	# Date when work is (planned to be) started
+	DateWorkStart: Date
+	# Number of Days (planned) until Delivery
+	DeliveryDays: Int
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The response is the selected winner
+	IsSelectedWinner: Boolean
+	# This is a Self-Service entry or this entry can be changed via Self-Service
+	IsSelfService: Boolean
+}

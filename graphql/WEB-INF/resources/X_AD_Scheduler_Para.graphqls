@@ -1,0 +1,61 @@
+# Generated Schema for AD_Scheduler_Para - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Scheduler_ParaGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Scheduler_ParaConnection!
+}
+
+extend type Mutation {
+	AD_Scheduler_ParaSave(Entity: AD_Scheduler_ParaInput!): AD_Scheduler_Para!
+	AD_Scheduler_ParaSaveMany(Entities: [AD_Scheduler_ParaInput!]!): [AD_Scheduler_Para!]!
+	AD_Scheduler_ParaDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Scheduler_ParaConnection {
+	Results: [AD_Scheduler_Para!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Scheduler_Para {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_Process_Para: AD_Process_Para!
+	# Schedule Processes
+	AD_Scheduler: AD_Scheduler!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value of the parameter
+	ParameterDefault: String
+	# Default value of the to parameter
+	ParameterToDefault: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Scheduler_ParaInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_Process_Para: ForeignEntityInput
+	# Schedule Processes
+	AD_Scheduler: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value of the parameter
+	ParameterDefault: String
+	# Default value of the to parameter
+	ParameterToDefault: String
+}

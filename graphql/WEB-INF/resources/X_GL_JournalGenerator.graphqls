@@ -1,0 +1,77 @@
+# Generated Schema for GL_JournalGenerator - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	GL_JournalGeneratorGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalGeneratorConnection!
+}
+
+extend type Mutation {
+	GL_JournalGeneratorSave(Entity: GL_JournalGeneratorInput!): GL_JournalGenerator!
+	GL_JournalGeneratorSaveMany(Entities: [GL_JournalGeneratorInput!]!): [GL_JournalGenerator!]!
+	GL_JournalGeneratorDelete(UUs: [String!]!): Boolean!
+}
+
+type GL_JournalGeneratorConnection {
+	Results: [GL_JournalGenerator!]!
+	PagingInfo: PagingInfo!
+}
+
+type GL_JournalGenerator {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema
+	# Document type or rules
+	C_DocType: C_DocType
+	C_ElementValueAdjustCR: C_ElementValue
+	C_ElementValueAdjustDR: C_ElementValue
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	GenerateGLJournal: String
+	# General Ledger Category
+	GL_Category: GL_Category
+	UU: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_JournalGeneratorInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	C_ElementValueAdjustCR: ForeignEntityInput
+	C_ElementValueAdjustDR: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	GenerateGLJournal: String
+	# General Ledger Category
+	GL_Category: ForeignEntityInput
+	UU: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+}

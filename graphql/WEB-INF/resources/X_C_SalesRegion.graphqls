@@ -1,0 +1,67 @@
+# Generated Schema for C_SalesRegion - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_SalesRegionGet(Page: Int, Size: Int, Sort: String, Filter: String): C_SalesRegionConnection!
+}
+
+extend type Mutation {
+	C_SalesRegionSave(Entity: C_SalesRegionInput!): C_SalesRegion!
+	C_SalesRegionSaveMany(Entities: [C_SalesRegionInput!]!): [C_SalesRegion!]!
+	C_SalesRegionDelete(UUs: [String!]!): Boolean!
+}
+
+type C_SalesRegionConnection {
+	Results: [C_SalesRegion!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_SalesRegion {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_SalesRegionInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

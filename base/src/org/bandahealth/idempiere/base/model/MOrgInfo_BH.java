@@ -1,47 +1,134 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.MOrg;
+import org.compiere.model.MOrgInfo;
+
 import java.sql.ResultSet;
 import java.util.Properties;
-
-import org.compiere.model.MOrgInfo;
 
 public class MOrgInfo_BH extends MOrgInfo {
 
 	private static final long serialVersionUID = 1L;
-	
-	public static final String COLUMNNAME_BH_HEADER = "BH_Header";
-	
-	public static final String COLUMNNAME_BH_FACILITY_NUMBER = "BH_FacilityNumber";
-	
-	public static final String COLUMNNAME_BH_PAYMENT_INFORMATION = "BH_PaymentInformation";
-	
-	public static final String LOGO_STORAGEPROVIDER_UU = "8b887c9c-d8ca-4b9c-a548-267b1e9c7c5c";
-	
+
+	/** Load Meta Data */
+
+	/**
+	 * Column name BH_ExtraInfo
+	 */
+	public static final String COLUMNNAME_BH_ExtraInfo = "BH_ExtraInfo";
+
+	/**
+	 * Column name BH_FacilityNumber
+	 */
+	public static final String COLUMNNAME_BH_FacilityNumber = "BH_FacilityNumber";
+
+	/**
+	 * Column name BH_Header
+	 */
+	public static final String COLUMNNAME_BH_Header = "BH_Header";
+
+	/**
+	 * Column name BH_PaymentInformation
+	 */
+	public static final String COLUMNNAME_BH_PaymentInformation = "BH_PaymentInformation";
+
+	public MOrgInfo_BH(Properties ctx, String AD_OrgInfo_UU, String trxName) {
+		super(ctx, AD_OrgInfo_UU, trxName);
+	}
+
+	public MOrgInfo_BH(Properties ctx, int Record_ID, String trxName) {
+		super(ctx, MOrgInfo.get(ctx, Record_ID).getAD_OrgInfo_UU(), trxName);
+	}
+
 	public MOrgInfo_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
-	
-	public String getBH_Header() {
-		return (String) get_Value(COLUMNNAME_BH_HEADER);
+
+	public MOrgInfo_BH(MOrg org) {
+		super(org);
 	}
 
-	public void setBH_Header(String BH_Header) {
-		set_Value(COLUMNNAME_BH_HEADER, BH_Header);
-	}
-	
-	public String getBH_FacilityNumber() {
-		return (String) get_Value(COLUMNNAME_BH_FACILITY_NUMBER);
+	public MOrgInfo_BH(MOrgInfo copy) {
+		super(copy);
 	}
 
+	public MOrgInfo_BH(Properties ctx, MOrgInfo copy) {
+		super(ctx, copy);
+	}
+
+	public MOrgInfo_BH(Properties ctx, MOrgInfo copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
+
+	/**
+	 * Set Extra Information.
+	 *
+	 * @param BH_ExtraInfo Enter additional information for this organization
+	 */
+	public void setBH_ExtraInfo(String BH_ExtraInfo) {
+		set_Value(COLUMNNAME_BH_ExtraInfo, BH_ExtraInfo);
+	}
+
+	/**
+	 * Get Extra Information.
+	 *
+	 * @return Enter additional information for this organization
+	 */
+	public String getBH_ExtraInfo() {
+		return (String) get_Value(COLUMNNAME_BH_ExtraInfo);
+	}
+
+	/**
+	 * Set Facility Number.
+	 *
+	 * @param BH_FacilityNumber Facility Number (MFL No.)
+	 */
 	public void setBH_FacilityNumber(String BH_FacilityNumber) {
-		set_Value(COLUMNNAME_BH_FACILITY_NUMBER, BH_FacilityNumber);
-	}
-	
-	public String getBH_PaymentInformation() {
-		return (String) get_Value(COLUMNNAME_BH_PAYMENT_INFORMATION);
+		set_Value(COLUMNNAME_BH_FacilityNumber, BH_FacilityNumber);
 	}
 
+	/**
+	 * Get Facility Number.
+	 *
+	 * @return Facility Number (MFL No.)
+	 */
+	public String getBH_FacilityNumber() {
+		return (String) get_Value(COLUMNNAME_BH_FacilityNumber);
+	}
+
+	/**
+	 * Set Header.
+	 *
+	 * @param BH_Header Header information e.g address, phone number etc.
+	 */
+	public void setBH_Header(String BH_Header) {
+		set_Value(COLUMNNAME_BH_Header, BH_Header);
+	}
+
+	/**
+	 * Get Header.
+	 *
+	 * @return Header information e.g address, phone number etc.
+	 */
+	public String getBH_Header() {
+		return (String) get_Value(COLUMNNAME_BH_Header);
+	}
+
+	/**
+	 * Set Payment Information.
+	 *
+	 * @param BH_PaymentInformation Payment Information
+	 */
 	public void setBH_PaymentInformation(String BH_PaymentInformation) {
-		set_Value(COLUMNNAME_BH_PAYMENT_INFORMATION, BH_PaymentInformation);
+		set_Value(COLUMNNAME_BH_PaymentInformation, BH_PaymentInformation);
+	}
+
+	/**
+	 * Get Payment Information.
+	 *
+	 * @return Payment Information
+	 */
+	public String getBH_PaymentInformation() {
+		return (String) get_Value(COLUMNNAME_BH_PaymentInformation);
 	}
 }

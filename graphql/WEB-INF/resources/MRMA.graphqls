@@ -1,0 +1,4 @@
+extend type M_RMA {
+	M_RMALines: [M_RMALine!]
+	M_RMATaxes: [M_RMATax!]
+}

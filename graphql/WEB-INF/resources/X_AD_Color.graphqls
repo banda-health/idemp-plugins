@@ -1,0 +1,111 @@
+# Generated Schema for AD_Color - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ColorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ColorConnection!
+}
+
+extend type Mutation {
+	AD_ColorSave(Entity: AD_ColorInput!): AD_Color!
+	AD_ColorSaveMany(Entities: [AD_ColorInput!]!): [AD_Color!]!
+	AD_ColorDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ColorConnection {
+	Results: [AD_Color!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Color {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Image or Icon
+	AD_Image: AD_Image
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Color Alpha value 0-255
+	Alpha: Int!
+	# Alpha value for second color
+	Alpha_1: Int
+	# Color RGB blue value
+	Blue: Int!
+	# RGB value for second color
+	Blue_1: Int
+	# Color presentation for this color
+	ColorType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# RGB value 
+	Green: Int!
+	# RGB value for second color
+	Green_1: Int
+	# Image Texture Composite Alpha
+	ImageAlpha: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Distance between lines
+	LineDistance: Int
+	# Width of the lines
+	LineWidth: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# RGB value
+	Red: Int!
+	# RGB value for second color
+	Red_1: Int
+	# Distance in points to repeat gradient color - or zero
+	RepeatDistance: Int
+	# Start point of the gradient colors
+	StartPoint: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ColorInput {
+	UU: ID
+	# Image or Icon
+	AD_Image: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Color Alpha value 0-255
+	Alpha: Int
+	# Alpha value for second color
+	Alpha_1: Int
+	# Color RGB blue value
+	Blue: Int
+	# RGB value for second color
+	Blue_1: Int
+	# Color presentation for this color
+	ColorType: ForeignEntityInput
+	# RGB value 
+	Green: Int
+	# RGB value for second color
+	Green_1: Int
+	# Image Texture Composite Alpha
+	ImageAlpha: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Distance between lines
+	LineDistance: Int
+	# Width of the lines
+	LineWidth: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# RGB value
+	Red: Int
+	# RGB value for second color
+	Red_1: Int
+	# Distance in points to repeat gradient color - or zero
+	RepeatDistance: Int
+	# Start point of the gradient colors
+	StartPoint: ForeignEntityInput
+}

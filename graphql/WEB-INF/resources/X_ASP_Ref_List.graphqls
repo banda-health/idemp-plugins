@@ -1,0 +1,55 @@
+# Generated Schema for ASP_Ref_List - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	ASP_Ref_ListGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_Ref_ListConnection!
+}
+
+extend type Mutation {
+	ASP_Ref_ListSave(Entity: ASP_Ref_ListInput!): ASP_Ref_List!
+	ASP_Ref_ListSaveMany(Entities: [ASP_Ref_ListInput!]!): [ASP_Ref_List!]!
+	ASP_Ref_ListDelete(UUs: [String!]!): Boolean!
+}
+
+type ASP_Ref_ListConnection {
+	Results: [ASP_Ref_List!]!
+	PagingInfo: PagingInfo!
+}
+
+type ASP_Ref_List {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Reference List based on Table
+	AD_Ref_List: AD_Ref_List!
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	ASP_Level: ASP_Level!
+	UU: ID!
+	ASP_Status: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input ASP_Ref_ListInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Reference List based on Table
+	AD_Ref_List: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	ASP_Level: ForeignEntityInput
+	UU: ID
+	ASP_Status: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

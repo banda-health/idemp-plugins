@@ -1,0 +1,51 @@
+# Generated Schema for AD_InfoWindow_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_InfoWindow_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_InfoWindow_AccessConnection!
+}
+
+extend type Mutation {
+	AD_InfoWindow_AccessSave(Entity: AD_InfoWindow_AccessInput!): AD_InfoWindow_Access!
+	AD_InfoWindow_AccessSaveMany(Entities: [AD_InfoWindow_AccessInput!]!): [AD_InfoWindow_Access!]!
+	AD_InfoWindow_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_InfoWindow_AccessConnection {
+	Results: [AD_InfoWindow_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_InfoWindow_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_InfoWindow_AccessInput {
+	UU: ID
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

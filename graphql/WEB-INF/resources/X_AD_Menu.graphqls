@@ -1,0 +1,107 @@
+# Generated Schema for AD_Menu - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_MenuGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_MenuConnection!
+}
+
+extend type Mutation {
+	AD_MenuSave(Entity: AD_MenuInput!): AD_Menu!
+	AD_MenuSaveMany(Entities: [AD_MenuInput!]!): [AD_Menu!]!
+	AD_MenuDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_MenuConnection {
+	Results: [AD_Menu!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Menu {
+	# Indicates the Action to be performed
+	Action: AD_Ref_List
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Special Form
+	AD_Form: AD_Form
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	# Operation System Task
+	AD_Task: AD_Task
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The class(es) to display the correct Font Awesome icon
+	IconClassName: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_MenuInput {
+	# Indicates the Action to be performed
+	Action: ForeignEntityInput
+	# Special Form
+	AD_Form: ForeignEntityInput
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# Operation System Task
+	AD_Task: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The class(es) to display the correct Font Awesome icon
+	IconClassName: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Predefined context variables to inject when opening a menu entry or a window
+	PredefinedContextVariables: String
+}

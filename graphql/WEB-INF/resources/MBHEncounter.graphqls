@@ -1,0 +1,5 @@
+extend type BH_Encounter {
+	BH_Observations: [BH_Observation!]
+	BH_Encounter_DiagnosisList: [BH_Encounter_Diagnosis!]
+	BH_Encounter_Type_Windows: [BH_Encounter_Type_Window!]
+}

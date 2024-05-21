@@ -1,0 +1,67 @@
+# Generated Schema for AD_StyleLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_StyleLineGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StyleLineConnection!
+}
+
+extend type Mutation {
+	AD_StyleLineSave(Entity: AD_StyleLineInput!): AD_StyleLine!
+	AD_StyleLineSaveMany(Entities: [AD_StyleLineInput!]!): [AD_StyleLine!]!
+	AD_StyleLineDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_StyleLineConnection {
+	Results: [AD_StyleLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_StyleLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# CSS style for field and label
+	AD_Style: AD_Style!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# CSS Inline Style
+	InlineStyle: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Theme name
+	Theme: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_StyleLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# CSS style for field and label
+	AD_Style: ForeignEntityInput
+	UU: ID
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# CSS Inline Style
+	InlineStyle: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique line for this document
+	Line: Int
+	# Theme name
+	Theme: String
+}

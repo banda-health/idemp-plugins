@@ -1,0 +1,67 @@
+# Generated Schema for R_MailText - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_MailTextGet(Page: Int, Size: Int, Sort: String, Filter: String): R_MailTextConnection!
+}
+
+extend type Mutation {
+	R_MailTextSave(Entity: R_MailTextInput!): R_MailText!
+	R_MailTextSaveMany(Entities: [R_MailTextInput!]!): [R_MailText!]!
+	R_MailTextDelete(UUs: [String!]!): Boolean!
+}
+
+type R_MailTextConnection {
+	Results: [R_MailText!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_MailText {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Text has HTML tags
+	IsHtml: Boolean!
+	# Mail Header (Subject)
+	MailHeader: String
+	# Text used for Mail message
+	MailText: String!
+	# Optional second text part used for Mail message
+	MailText2: String
+	# Optional third text part used for Mail message
+	MailText3: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_MailTextInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Text has HTML tags
+	IsHtml: Boolean
+	# Mail Header (Subject)
+	MailHeader: String
+	# Text used for Mail message
+	MailText: String
+	# Optional second text part used for Mail message
+	MailText2: String
+	# Optional third text part used for Mail message
+	MailText3: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	UU: ID
+}

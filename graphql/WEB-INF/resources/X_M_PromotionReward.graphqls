@@ -1,0 +1,83 @@
+# Generated Schema for M_PromotionReward - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PromotionRewardGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionRewardConnection!
+}
+
+extend type Mutation {
+	M_PromotionRewardSave(Entity: M_PromotionRewardInput!): M_PromotionReward!
+	M_PromotionRewardSaveMany(Entities: [M_PromotionRewardInput!]!): [M_PromotionReward!]!
+	M_PromotionRewardDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PromotionRewardConnection {
+	Results: [M_PromotionReward!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_PromotionReward {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# Additional document charges
+	C_Charge: C_Charge!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Quantity distribution sorting by unit price
+	DistributionSorting: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# This reward is for all distribution
+	IsForAllDistribution: Boolean!
+	# Use the same distribution for source and target
+	IsSameDistribution: Boolean!
+	M_Promotion: M_Promotion!
+	M_PromotionDistribution: M_PromotionDistribution
+	UU: ID!
+	# Get product from target distribution to apply the promotion reward
+	M_TargetDistribution: M_PromotionDistribution
+	# Quantity
+	Qty: BigDecimal
+	# Type of reward which consists of percentage discount, flat discount or absolute amount
+	RewardType: AD_Ref_List!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PromotionRewardInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Quantity distribution sorting by unit price
+	DistributionSorting: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This reward is for all distribution
+	IsForAllDistribution: Boolean
+	# Use the same distribution for source and target
+	IsSameDistribution: Boolean
+	M_Promotion: ForeignEntityInput
+	M_PromotionDistribution: ForeignEntityInput
+	UU: ID
+	# Get product from target distribution to apply the promotion reward
+	M_TargetDistribution: ForeignEntityInput
+	# Quantity
+	Qty: BigDecimal
+	# Type of reward which consists of percentage discount, flat discount or absolute amount
+	RewardType: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

@@ -1,0 +1,71 @@
+# Generated Schema for R_RequestProcessorLog - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_RequestProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): R_RequestProcessorLogConnection!
+}
+
+extend type Mutation {
+	R_RequestProcessorLogSave(Entity: R_RequestProcessorLogInput!): R_RequestProcessorLog!
+	R_RequestProcessorLogSaveMany(Entities: [R_RequestProcessorLogInput!]!): [R_RequestProcessorLog!]!
+	R_RequestProcessorLogDelete(UUs: [String!]!): Boolean!
+}
+
+type R_RequestProcessorLogConnection {
+	Results: [R_RequestProcessorLog!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_RequestProcessorLog {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Binary Data
+	BinaryData: Binary
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# An Error occurred in the execution
+	IsError: Boolean!
+	# Processor for Requests
+	R_RequestProcessor: R_RequestProcessor!
+	UU: ID!
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_RequestProcessorLogInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Binary Data
+	BinaryData: Binary
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# An Error occurred in the execution
+	IsError: Boolean
+	# Processor for Requests
+	R_RequestProcessor: ForeignEntityInput
+	UU: ID
+	# Reference for this record
+	Reference: String
+	# Textual summary of this request
+	Summary: String
+	# Text Message
+	TextMsg: String
+}

@@ -1,0 +1,57 @@
+# Generated Schema for C_Year - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_YearGet(Page: Int, Size: Int, Sort: String, Filter: String): C_YearConnection!
+}
+
+extend type Mutation {
+	C_YearSave(Entity: C_YearInput!): C_Year!
+	C_YearSaveMany(Entities: [C_YearInput!]!): [C_Year!]!
+	C_YearDelete(UUs: [String!]!): Boolean!
+}
+
+type C_YearConnection {
+	Results: [C_Year!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Year {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Accounting Calendar Name
+	C_Calendar: C_Calendar!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The Fiscal Year
+	FiscalYear: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_YearInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Accounting Calendar Name
+	C_Calendar: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The Fiscal Year
+	FiscalYear: String
+	# The record is active in the system
+	IsActive: Boolean
+	Processing: Boolean
+}

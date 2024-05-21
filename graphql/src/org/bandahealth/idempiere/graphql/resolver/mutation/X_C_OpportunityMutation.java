@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_C_OpportunityInput;
+import org.bandahealth.idempiere.graphql.model.input.X_C_OpportunityInput;
+import org.compiere.model.MOpportunity;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for C_Opportunity - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_C_OpportunityMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_C_OpportunityInput.Table_Name;
+	}
+
+	public MOpportunity C_OpportunitySave(I_C_OpportunityInput Entity, DataFetchingEnvironment environment) {
+		return (MOpportunity) super.save((X_C_OpportunityInput) Entity, environment);
+	}
+
+	public List<MOpportunity> C_OpportunitySaveMany(List<I_C_OpportunityInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_C_OpportunityInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MOpportunity) entity).collect(Collectors.toList());
+	}
+
+	public boolean C_OpportunityDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

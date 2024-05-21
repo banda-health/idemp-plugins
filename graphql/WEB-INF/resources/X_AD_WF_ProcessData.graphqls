@@ -1,0 +1,55 @@
+# Generated Schema for AD_WF_ProcessData - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_ProcessDataGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_ProcessDataConnection!
+}
+
+extend type Mutation {
+	AD_WF_ProcessDataSave(Entity: AD_WF_ProcessDataInput!): AD_WF_ProcessData!
+	AD_WF_ProcessDataSaveMany(Entities: [AD_WF_ProcessDataInput!]!): [AD_WF_ProcessData!]!
+	AD_WF_ProcessDataDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_ProcessDataConnection {
+	Results: [AD_WF_ProcessData!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_ProcessData {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Actual Workflow Process Instance
+	AD_WF_Process: AD_WF_Process!
+	UU: ID!
+	# Name of the Attribute
+	AttributeName: String!
+	# Value of the Attribute
+	AttributeValue: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_WF_ProcessDataInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Actual Workflow Process Instance
+	AD_WF_Process: ForeignEntityInput
+	UU: ID
+	# Name of the Attribute
+	AttributeName: String
+	# Value of the Attribute
+	AttributeValue: String
+	# The record is active in the system
+	IsActive: Boolean
+}

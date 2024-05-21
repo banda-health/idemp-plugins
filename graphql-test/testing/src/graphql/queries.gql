@@ -1,0 +1,545 @@
+query AD_ClientGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_ClientGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+			AD_Orgs {
+				UU
+				Name
+				AD_Roles {
+					UU
+					Name
+				}
+				M_Warehouses {
+					UU
+					Name
+					BH_DefaultWarehouse
+					IsActive
+					M_Locators {
+						UU
+					}
+				}
+			}
+		}
+	}
+}
+
+query AD_LanguageGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_LanguageGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			AD_Language
+			Name
+			PrintName
+			UU
+		}
+	}
+}
+
+query AD_MenuGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_MenuGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			ChildrenTree_NodeMMList {
+				Node {
+					Name
+					ChildrenTree_NodeMMList {
+						Node {
+							Name
+							AD_Process {
+								UU
+								Name
+							}
+							AD_Window {
+								UU
+								Name
+							}
+						}
+						SeqNo
+					}
+					AD_Process {
+						UU
+						Name
+					}
+					AD_Window {
+						UU
+						Name
+					}
+					UU
+				}
+				SeqNo
+			}
+		}
+	}
+}
+
+query AD_OrgGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_OrgGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+			AD_OrgInfo {
+				UU
+				BH_FacilityNumber
+				BH_Header
+				ReceiptFooterMsg
+			}
+			M_Warehouses {
+				UU
+				Name
+				BH_DefaultWarehouse
+				IsActive
+				M_Locators {
+					UU
+				}
+			}
+		}
+	}
+}
+
+query AD_OrgInfoGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_OrgInfoGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			C_Location {
+				C_Country {
+					UU
+				}
+				C_Region {
+					UU
+					Name
+				}
+				UU
+			}
+			Logo {
+				UU
+			}
+			UU
+		}
+	}
+}
+
+query AD_ProcessGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_ProcessGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			AD_Process_ParaList {
+				UU
+				Name
+			}
+			UU
+		}
+	}
+}
+
+query AD_Ref_ListGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_Ref_ListGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			Name
+			UU
+			Value
+		}
+	}
+}
+
+query AD_RoleGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_RoleGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...AD_RoleFields
+		}
+	}
+}
+
+query AD_RoleGetWindowAccess($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_RoleGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...AD_RoleFields
+			AD_Window_AccessList {
+				AD_Window {
+					UU
+				}
+				BH_CanDeactivate
+				IsReadWrite
+			}
+		}
+	}
+}
+
+query AD_RoleLocationPriceListsCurrencyGet(
+	$AD_RoleFilter: String
+	$C_LocationFilter: String
+	$M_PriceListFilter: String
+) {
+	AD_RoleGet(Filter: $AD_RoleFilter) {
+		Results {
+			...AD_RoleFields
+			AD_Window_AccessList {
+				AD_Window {
+					UU
+				}
+				BH_CanDeactivate
+				IsReadWrite
+			}
+		}
+	}
+	C_LocationGet(Filter: $C_LocationFilter) {
+		Results {
+			...C_LocationFields
+		}
+	}
+	M_PriceListGet(Filter: $M_PriceListFilter) {
+		Results {
+			UU
+			Created
+			IsSOPriceList
+		}
+	}
+	C_AcctSchemaGet {
+		Results {
+			UU
+			C_Currency {
+				UU
+			}
+		}
+	}
+}
+
+query AD_UserGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	AD_UserGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			AD_User_Roles {
+				UU
+				AD_Role {
+					UU
+					AD_Role_IncludedList {
+						UU
+						Included_Role {
+							UU
+						}
+					}
+				}
+			}
+			Name
+			IsActive
+		}
+	}
+}
+
+query BH_Coded_DiagnosisGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Coded_DiagnosisGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			bh_cielname
+			bh_icd10who
+			bh_searchterms
+		}
+	}
+}
+
+query BH_Encounter_Type_WindowGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Encounter_Type_WindowGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			AD_Window {
+				UU
+				AD_Tabs {
+					AD_Fields {
+						UU
+					}
+				}
+			}
+			BH_Encounter_Type {
+				UU
+			}
+		}
+	}
+}
+
+query BH_EncounterGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_EncounterGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query BH_Payer_Info_Fld_SugGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Payer_Info_Fld_SugGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			BH_SubType {
+				UU
+				Value
+			}
+			BH_PayerInfoFieldDataType {
+				UU
+				Value
+			}
+		}
+	}
+}
+
+query BH_VisitGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...BH_VisitFields
+		}
+	}
+}
+
+query BH_Voided_ReasonGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_Voided_ReasonGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+		}
+	}
+}
+
+query C_AcctSchemaGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_AcctSchemaGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			C_Currency {
+				UU
+			}
+		}
+	}
+}
+
+query C_BankAccountGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_BankAccountGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+		}
+	}
+}
+
+query C_BP_GroupGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_BP_GroupGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+		}
+	}
+}
+
+query C_BPartnerGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_BPartnerGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...C_BPartnerFields
+		}
+	}
+}
+
+query C_Charge_AcctGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_Charge_AcctGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query C_ChargeGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_ChargeGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+			C_Charge_AcctList {
+				UU
+				Ch_Expense_A {
+					UU
+					Account {
+						UU
+						Value
+					}
+				}
+			}
+			C_ChargeType {
+				UU
+			}
+		}
+	}
+}
+
+query C_ChargeTypeGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_ChargeTypeGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+		}
+	}
+}
+
+query C_CurrencyGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_CurrencyGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query C_DocTypeGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_DocTypeGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			IsSOTrx
+		}
+	}
+}
+
+query C_ElementValueGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_ElementValueGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query C_InvoiceGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_InvoiceGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...C_InvoiceFields
+		}
+	}
+}
+
+query C_LocationGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_LocationGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...C_LocationFields
+		}
+	}
+}
+
+query C_OrderGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_OrderGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...C_OrderFields
+		}
+	}
+}
+
+query C_PaymentGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_PaymentGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...C_PaymentFields
+		}
+	}
+}
+
+query C_TaxCategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	C_TaxCategoryGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query C_UOMGetDefault {
+	C_UOMGetDefault {
+		UU
+	}
+}
+
+query DocumentStatusActionMap {
+	DocumentStatusActionMap
+}
+
+query InventoryTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	InventoryTransactionGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			C_Order {
+				UU
+				DocStatus {
+					Value
+				}
+			}
+		}
+	}
+}
+
+query M_AttributeSetInstanceGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_AttributeSetInstanceGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query M_AttributeSetGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_AttributeSetGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query M_DiscountSchemaGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_DiscountSchemaGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query M_PriceList_VersionGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_PriceList_VersionGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+		PagingInfo {
+			TotalCount
+		}
+	}
+}
+
+query M_PriceListGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_PriceListGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+		}
+	}
+}
+
+query M_Product_CategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_Product_CategoryGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+		}
+	}
+}
+
+query M_ProductGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_ProductGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			...M_ProductFields
+		}
+		PagingInfo {
+			Page
+			TotalPages
+		}
+	}
+}
+
+query M_StorageOnHandGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_StorageOnHandGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			QtyOnHand
+		}
+	}
+}
+
+query M_WarehouseGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	M_WarehouseGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			Name
+			BH_DefaultWarehouse
+			IsActive
+			M_Locators {
+				UU
+			}
+		}
+	}
+}

@@ -1,0 +1,105 @@
+# Generated Schema for C_AcctSchema_Element - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_AcctSchema_ElementGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AcctSchema_ElementConnection!
+}
+
+extend type Mutation {
+	C_AcctSchema_ElementSave(Entity: C_AcctSchema_ElementInput!): C_AcctSchema_Element!
+	C_AcctSchema_ElementSaveMany(Entities: [C_AcctSchema_ElementInput!]!): [C_AcctSchema_Element!]!
+	C_AcctSchema_ElementDelete(UUs: [String!]!): Boolean!
+}
+
+type C_AcctSchema_ElementConnection {
+	Results: [C_AcctSchema_Element!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_AcctSchema_Element {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Accounting Element
+	C_Element: C_Element!
+	# Account Element
+	C_ElementValue: C_ElementValue
+	# Location or Address
+	C_Location: C_Location
+	# Financial Project
+	C_Project: C_Project
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Element Type (account or user defined)
+	ElementType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	IsBalanced: Boolean!
+	# Data entry is required in this column
+	IsMandatory: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_AcctSchema_ElementInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Accounting Element
+	C_Element: ForeignEntityInput
+	# Account Element
+	C_ElementValue: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	# Element Type (account or user defined)
+	ElementType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsBalanced: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

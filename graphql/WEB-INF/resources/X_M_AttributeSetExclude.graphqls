@@ -1,0 +1,55 @@
+# Generated Schema for M_AttributeSetExclude - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_AttributeSetExcludeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeSetExcludeConnection!
+}
+
+extend type Mutation {
+	M_AttributeSetExcludeSave(Entity: M_AttributeSetExcludeInput!): M_AttributeSetExclude!
+	M_AttributeSetExcludeSaveMany(Entities: [M_AttributeSetExcludeInput!]!): [M_AttributeSetExclude!]!
+	M_AttributeSetExcludeDelete(UUs: [String!]!): Boolean!
+}
+
+type M_AttributeSetExcludeConnection {
+	Results: [M_AttributeSetExclude!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_AttributeSetExclude {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# Product Attribute Set
+	M_AttributeSet: M_AttributeSet!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_AttributeSetExcludeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Product Attribute Set
+	M_AttributeSet: ForeignEntityInput
+	UU: ID
+}

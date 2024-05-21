@@ -1,0 +1,6 @@
+extend type Query {
+	C_UOMGetDefault: C_UOM!
+}
+
+#extend type C_UOM {
+#}

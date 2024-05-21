@@ -1,0 +1,17 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class MUserDefProcInput extends X_AD_UserDef_ProcInput {
+	/**
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_UserDef_Proc_UU to fetch this entity from the DB
+	 */
+	@JsonCreator
+	public MUserDefProcInput(@JsonProperty("UU") String UUID) {
+		super(UUID);
+	}
+}

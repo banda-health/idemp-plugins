@@ -1,0 +1,7 @@
+extend type Query {
+	# Get a stringified JSON object of the available status actions
+	DocumentStatusActionMap: String!
+}
+
+#extend type AD_Ref_List {
+#}

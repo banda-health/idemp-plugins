@@ -1,5 +1,18 @@
 package org.bandahealth.idempiere.base.process;
 
+import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.compiere.model.MDocType;
+import org.compiere.model.MInventory;
+import org.compiere.model.MInventoryLine;
+import org.compiere.model.MStorageOnHand;
+import org.compiere.model.MWarehouse;
+import org.compiere.model.Query;
+import org.compiere.util.CLogger;
+import org.compiere.util.Env;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,19 +21,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
-
-import org.adempiere.exceptions.AdempiereException;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
-import org.bandahealth.idempiere.base.model.MProduct_BH;
-import org.bandahealth.idempiere.base.model.MWarehouse_BH;
-import org.bandahealth.idempiere.base.utils.QueryUtil;
-import org.compiere.model.MDocType;
-import org.compiere.model.MInventory;
-import org.compiere.model.MStorageOnHand;
-import org.compiere.model.MWarehouse;
-import org.compiere.model.Query;
-import org.compiere.util.CLogger;
-import org.compiere.util.Env;
 
 /**
  * Creates an initial stock with the given quantity or with a default value of 1
@@ -47,7 +47,7 @@ public class InitializeStock {
 							.setOrderBy(MWarehouse_BH.COLUMNNAME_M_Warehouse_ID).list();
 			if (!warehouses.isEmpty()) {
 				warehouse =
-						warehouses.stream().filter(MWarehouse_BH::isBH_IsDefaultWarehouse).findFirst().orElse(warehouses.get(0));
+						warehouses.stream().filter(MWarehouse_BH::isBH_DefaultWarehouse).findFirst().orElse(warehouses.get(0));
 			} else {
 				log.severe("No warehouses defined for organization.");
 				throw new AdempiereException("No warehouses defined for organization.");
@@ -114,7 +114,7 @@ public class InitializeStock {
 					desiredQuantityOnHand = desiredQuantityOnHand.subtract(existingInventory.getQtyOnHand());
 				}
 
-				MInventoryLine_BH inventoryLine = new MInventoryLine_BH(context, 0, transactionName);
+				MInventoryLine inventoryLine = new MInventoryLine(context, 0, transactionName);
 				inventoryLine.setAD_Org_ID(inventory.getAD_Org_ID());
 				inventoryLine.setM_Product_ID(product.get_ID());
 				inventoryLine.setM_Inventory_ID(inventory.get_ID());

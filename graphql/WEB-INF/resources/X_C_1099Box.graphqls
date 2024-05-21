@@ -1,0 +1,61 @@
+# Generated Schema for C_1099Box - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_1099BoxGet(Page: Int, Size: Int, Sort: String, Filter: String): C_1099BoxConnection!
+}
+
+extend type Mutation {
+	C_1099BoxSave(Entity: C_1099BoxInput!): C_1099Box!
+	C_1099BoxSaveMany(Entities: [C_1099BoxInput!]!): [C_1099Box!]!
+	C_1099BoxDelete(UUs: [String!]!): Boolean!
+}
+
+type C_1099BoxConnection {
+	Results: [C_1099Box!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_1099Box {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	Bucket: Int!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_1099BoxInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	Bucket: Int
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

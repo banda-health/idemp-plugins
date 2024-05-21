@@ -1,0 +1,17 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class MNoteInput extends X_AD_NoteInput {
+	/**
+	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
+	 * annotations from the super class since those aren't inherited)
+	 *
+	 * @param UUID The AD_Note_UU to fetch this entity from the DB
+	 */
+	@JsonCreator
+	public MNoteInput(@JsonProperty("UU") String UUID) {
+		super(UUID);
+	}
+}

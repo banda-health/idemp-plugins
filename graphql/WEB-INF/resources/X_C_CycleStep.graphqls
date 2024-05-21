@@ -1,0 +1,59 @@
+# Generated Schema for C_CycleStep - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CycleStepGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CycleStepConnection!
+}
+
+extend type Mutation {
+	C_CycleStepSave(Entity: C_CycleStepInput!): C_CycleStep!
+	C_CycleStepSaveMany(Entities: [C_CycleStepInput!]!): [C_CycleStep!]!
+	C_CycleStepDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CycleStepConnection {
+	Results: [C_CycleStep!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CycleStep {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifier for this Project Reporting Cycle
+	C_Cycle: C_Cycle!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Relative weight of this step (0 = ignored)
+	RelativeWeight: BigDecimal!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CycleStepInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifier for this Project Reporting Cycle
+	C_Cycle: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Relative weight of this step (0 = ignored)
+	RelativeWeight: BigDecimal
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

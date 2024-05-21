@@ -1,0 +1,71 @@
+# Generated Schema for A_Asset_Class - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_ClassGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_ClassConnection!
+}
+
+extend type Mutation {
+	A_Asset_ClassSave(Entity: A_Asset_ClassInput!): A_Asset_Class!
+	A_Asset_ClassSaveMany(Entities: [A_Asset_ClassInput!]!): [A_Asset_Class!]!
+	A_Asset_ClassDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_ClassConnection {
+	Results: [A_Asset_Class!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Class {
+	UU: ID!
+	A_Life_Period_2004: Int
+	A_Life_Period_Max: Int!
+	A_Life_Period_Min: Int!
+	A_Value_2004: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	MFX_Clasa: Int
+	MFX_Grupa: Int
+	MFX_SubClasa: Int
+	MFX_SubGrupa: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input A_Asset_ClassInput {
+	UU: ID
+	A_Life_Period_2004: Int
+	A_Life_Period_Max: Int
+	A_Life_Period_Min: Int
+	A_Value_2004: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	MFX_Clasa: Int
+	MFX_Grupa: Int
+	MFX_SubClasa: Int
+	MFX_SubGrupa: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

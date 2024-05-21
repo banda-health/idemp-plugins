@@ -1,0 +1,4 @@
+extend type M_AttributeSetInstance {
+	PurchaseDate: Date
+	PurchasePrice: BigDecimal
+}

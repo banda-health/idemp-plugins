@@ -8,6 +8,20 @@ public class MBHBPGeneralPayerInfo extends X_BH_BP_General_Payer_Info {
 		super(ctx, BH_BP_General_Payer_Info_ID, trxName);
 	}
 
+	public MBHBPGeneralPayerInfo(Properties ctx, int BH_BP_General_Payer_Info_ID, String trxName,
+			String... virtualColumns) {
+		super(ctx, BH_BP_General_Payer_Info_ID, trxName, virtualColumns);
+	}
+
+	public MBHBPGeneralPayerInfo(Properties ctx, String BH_BP_General_Payer_Info_UU, String trxName) {
+		super(ctx, BH_BP_General_Payer_Info_UU, trxName);
+	}
+
+	public MBHBPGeneralPayerInfo(Properties ctx, String BH_BP_General_Payer_Info_UU, String trxName,
+			String... virtualColumns) {
+		super(ctx, BH_BP_General_Payer_Info_UU, trxName, virtualColumns);
+	}
+
 	public MBHBPGeneralPayerInfo(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}

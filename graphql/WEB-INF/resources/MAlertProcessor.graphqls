@@ -1,0 +1,3 @@
+extend type AD_AlertProcessor {
+	AD_AlertProcessorLogs: [AD_AlertProcessorLog!]
+}

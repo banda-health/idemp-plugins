@@ -1,0 +1,79 @@
+# Generated Schema for AD_TableIndex - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_TableIndexGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_TableIndexConnection!
+}
+
+extend type Mutation {
+	AD_TableIndexSave(Entity: AD_TableIndexInput!): AD_TableIndex!
+	AD_TableIndexSaveMany(Entities: [AD_TableIndexInput!]!): [AD_TableIndex!]!
+	AD_TableIndexDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_TableIndexConnection {
+	Results: [AD_TableIndex!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_TableIndex {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Message
+	AD_Message: AD_Message
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsCreateConstraint: Boolean!
+	# This column is the key in this table
+	IsKey: Boolean!
+	IsUnique: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	TableIndexDrop: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_TableIndexInput {
+	# System Message
+	AD_Message: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsCreateConstraint: Boolean
+	# This column is the key in this table
+	IsKey: Boolean
+	IsUnique: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	TableIndexDrop: String
+}

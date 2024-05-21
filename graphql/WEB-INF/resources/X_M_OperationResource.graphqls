@@ -1,0 +1,79 @@
+# Generated Schema for M_OperationResource - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_OperationResourceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_OperationResourceConnection!
+}
+
+extend type Mutation {
+	M_OperationResourceSave(Entity: M_OperationResourceInput!): M_OperationResource!
+	M_OperationResourceSaveMany(Entities: [M_OperationResourceInput!]!): [M_OperationResource!]!
+	M_OperationResourceDelete(UUs: [String!]!): Boolean!
+}
+
+type M_OperationResourceConnection {
+	Results: [M_OperationResource!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_OperationResource {
+	# Asset used internally or by customers
+	A_Asset: A_Asset
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Job Position
+	C_Job: C_Job
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Product Manufacturing Operation
+	M_ProductOperation: M_ProductOperation!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Setup time before starting Production
+	SetupTime: BigDecimal!
+	# Time at the end of the operation
+	TeardownTime: BigDecimal!
+	# Time to produce one unit
+	UnitRuntime: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_OperationResourceInput {
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Job Position
+	C_Job: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Product Manufacturing Operation
+	M_ProductOperation: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Setup time before starting Production
+	SetupTime: BigDecimal
+	# Time at the end of the operation
+	TeardownTime: BigDecimal
+	# Time to produce one unit
+	UnitRuntime: BigDecimal
+}

@@ -1,0 +1,3 @@
+extend type C_Phase {
+	C_Tasks: [C_Task!]
+}

@@ -1,12 +1,12 @@
 package org.bandahealth.idempiere.base.process;
 
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MInventory_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
 import org.compiere.model.MAttributeSetInstance;
 import org.compiere.model.MDocType;
 import org.compiere.model.MInventory;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
 import org.compiere.model.MPInstance;
 import org.compiere.model.MProcess;
@@ -56,7 +56,7 @@ public class CleanExpiredStockProcess extends SvrProcess {
 		MProcess mprocess = new Query(Env.getCtx(), MProcess.Table_Name, MProcess.COLUMNNAME_AD_Process_UU + "=?",
 				get_TrxName()).setOnlyActiveRecords(true).setParameters(STORAGE_CLEANUP_PROCESS_STRING).first();
 
-		MPInstance mpInstance = new MPInstance(mprocess, 0);
+		MPInstance mpInstance = new MPInstance(mprocess, -1, 0, null);
 
 		ProcessInfo processInfo = new ProcessInfo(mprocess.getName(), mprocess.getAD_Process_ID());
 		processInfo.setAD_PInstance_ID(mpInstance.getAD_PInstance_ID());
@@ -111,7 +111,7 @@ public class CleanExpiredStockProcess extends SvrProcess {
 							.forEach(
 									expiredStorageOnHandByLocatorIdThenByProductId -> expiredStorageOnHandByLocatorIdThenByProductId.values()
 											.forEach(expiredStorageOnHandByLocatorIdTheByProductIdTheByAttributeSetInstanceId -> {
-												MInventoryLine_BH inventoryLine = new MInventoryLine_BH(getCtx(), 0, get_TrxName());
+												MInventoryLine inventoryLine = new MInventoryLine(getCtx(), 0, get_TrxName());
 												inventoryLine.setM_Inventory_ID(inventory.get_ID());
 												inventoryLine.setAD_Org_ID(inventory.getAD_Org_ID());
 

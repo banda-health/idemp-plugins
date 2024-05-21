@@ -7,8 +7,14 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MWindowAccess_BH extends MWindowAccess {
-	/** Column name BH_CanDeactivate */
+	/**
+	 * Column name BH_CanDeactivate
+	 */
 	public static final String COLUMNNAME_BH_CanDeactivate = "BH_CanDeactivate";
+
+	public MWindowAccess_BH(Properties ctx, String AD_Window_Access_UU, String trxName) {
+		super(ctx, AD_Window_Access_UU, trxName);
+	}
 
 	public MWindowAccess_BH(Properties ctx, int ignored, String trxName) {
 		super(ctx, ignored, trxName);
@@ -22,22 +28,25 @@ public class MWindowAccess_BH extends MWindowAccess {
 		super(parent, AD_Role_ID);
 	}
 
-	/** Set Can Deactivate.
-	 @param BH_CanDeactivate Can Deactivate	  */
-	public void setBH_CanDeactivate (boolean BH_CanDeactivate)
-	{
-		set_Value (COLUMNNAME_BH_CanDeactivate, Boolean.valueOf(BH_CanDeactivate));
+	/**
+	 * Set Can Deactivate.
+	 *
+	 * @param BH_CanDeactivate Can Deactivate
+	 */
+	public void setBH_CanDeactivate(boolean BH_CanDeactivate) {
+		set_Value(COLUMNNAME_BH_CanDeactivate, Boolean.valueOf(BH_CanDeactivate));
 	}
 
-	/** Get Can Deactivate.
-	 @return Can Deactivate	  */
-	public boolean isBH_CanDeactivate ()
-	{
+	/**
+	 * Get Can Deactivate.
+	 *
+	 * @return Can Deactivate
+	 */
+	public boolean isBH_CanDeactivate() {
 		Object oo = get_Value(COLUMNNAME_BH_CanDeactivate);
-		if (oo != null)
-		{
+		if (oo != null) {
 			if (oo instanceof Boolean)
-				return ((Boolean)oo).booleanValue();
+				return ((Boolean) oo).booleanValue();
 			return "Y".equals(oo);
 		}
 		return false;

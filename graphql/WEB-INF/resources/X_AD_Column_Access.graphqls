@@ -1,0 +1,63 @@
+# Generated Schema for AD_Column_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Column_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Column_AccessConnection!
+}
+
+extend type Mutation {
+	AD_Column_AccessSave(Entity: AD_Column_AccessInput!): AD_Column_Access!
+	AD_Column_AccessSaveMany(Entities: [AD_Column_AccessInput!]!): [AD_Column_Access!]!
+	AD_Column_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Column_AccessConnection {
+	Results: [AD_Column_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Column_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Column in the table
+	AD_Column: AD_Column!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	# Database Table information
+	AD_Table: AD_Table
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Exclude access to the data - if not selected Include access to the data
+	IsExclude: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Column_AccessInput {
+	UU: ID
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Exclude access to the data - if not selected Include access to the data
+	IsExclude: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+}

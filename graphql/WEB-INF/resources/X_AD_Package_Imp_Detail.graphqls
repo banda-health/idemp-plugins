@@ -1,0 +1,75 @@
+# Generated Schema for AD_Package_Imp_Detail - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Package_Imp_DetailGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_Imp_DetailConnection!
+}
+
+extend type Mutation {
+	AD_Package_Imp_DetailSave(Entity: AD_Package_Imp_DetailInput!): AD_Package_Imp_Detail!
+	AD_Package_Imp_DetailSaveMany(Entities: [AD_Package_Imp_DetailInput!]!): [AD_Package_Imp_Detail!]!
+	AD_Package_Imp_DetailDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Package_Imp_DetailConnection {
+	Results: [AD_Package_Imp_Detail!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Package_Imp_Detail {
+	# Indicates the Action to be performed
+	Action: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	AD_Package_Imp: AD_Package_Imp!
+	# Database Table information
+	AD_Table: AD_Table
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	ExecCode: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Result of the action taken
+	Result: String
+	Success: String
+	# Name of the table in the database
+	TableName: String
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: String
+	Uninstall: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Package_Imp_DetailInput {
+	# Indicates the Action to be performed
+	Action: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	AD_Package_Imp: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	ExecCode: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Result of the action taken
+	Result: String
+	Success: String
+	# Name of the table in the database
+	TableName: String
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: String
+	Uninstall: Boolean
+}

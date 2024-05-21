@@ -1,0 +1,109 @@
+# Generated Schema for T_Report - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_ReportGet(Page: Int, Size: Int, Sort: String, Filter: String): T_ReportConnection!
+}
+
+extend type Mutation {
+	T_ReportSave(Entity: T_ReportInput!): T_Report!
+	T_ReportSaveMany(Entities: [T_ReportInput!]!): [T_Report!]!
+	T_ReportDelete(UUs: [String!]!): Boolean!
+}
+
+type T_ReportConnection {
+	Results: [T_Report!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_Report {
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	Col_0: BigDecimal
+	Col_1: BigDecimal
+	Col_10: BigDecimal
+	Col_11: BigDecimal
+	Col_12: BigDecimal
+	Col_13: BigDecimal
+	Col_14: BigDecimal
+	Col_15: BigDecimal
+	Col_16: BigDecimal
+	Col_17: BigDecimal
+	Col_18: BigDecimal
+	Col_19: BigDecimal
+	Col_2: BigDecimal
+	Col_20: BigDecimal
+	Col_21: BigDecimal
+	Col_22: BigDecimal
+	Col_23: BigDecimal
+	Col_24: BigDecimal
+	Col_25: BigDecimal
+	Col_26: BigDecimal
+	Col_27: BigDecimal
+	Col_28: BigDecimal
+	Col_29: BigDecimal
+	Col_3: BigDecimal
+	Col_30: BigDecimal
+	Col_4: BigDecimal
+	Col_5: BigDecimal
+	Col_6: BigDecimal
+	Col_7: BigDecimal
+	Col_8: BigDecimal
+	Col_9: BigDecimal
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: Fact_Acct!
+	LevelNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	PA_ReportLine: PA_ReportLine!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	UU: ID!
+}
+
+input T_ReportInput {
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	Col_0: BigDecimal
+	Col_1: BigDecimal
+	Col_10: BigDecimal
+	Col_11: BigDecimal
+	Col_12: BigDecimal
+	Col_13: BigDecimal
+	Col_14: BigDecimal
+	Col_15: BigDecimal
+	Col_16: BigDecimal
+	Col_17: BigDecimal
+	Col_18: BigDecimal
+	Col_19: BigDecimal
+	Col_2: BigDecimal
+	Col_20: BigDecimal
+	Col_21: BigDecimal
+	Col_22: BigDecimal
+	Col_23: BigDecimal
+	Col_24: BigDecimal
+	Col_25: BigDecimal
+	Col_26: BigDecimal
+	Col_27: BigDecimal
+	Col_28: BigDecimal
+	Col_29: BigDecimal
+	Col_3: BigDecimal
+	Col_30: BigDecimal
+	Col_4: BigDecimal
+	Col_5: BigDecimal
+	Col_6: BigDecimal
+	Col_7: BigDecimal
+	Col_8: BigDecimal
+	Col_9: BigDecimal
+	# Optional short description of the record
+	Description: String
+	Fact_Acct: ForeignEntityInput
+	LevelNo: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	PA_ReportLine: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	UU: ID
+}

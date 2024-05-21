@@ -1,0 +1,61 @@
+# Generated Schema for AD_FieldGroup - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_FieldGroupGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FieldGroupConnection!
+}
+
+extend type Mutation {
+	AD_FieldGroupSave(Entity: AD_FieldGroupInput!): AD_FieldGroup!
+	AD_FieldGroupSaveMany(Entities: [AD_FieldGroupInput!]!): [AD_FieldGroup!]!
+	AD_FieldGroupDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_FieldGroupConnection {
+	Results: [AD_FieldGroup!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_FieldGroup {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# An abbreviation for a given name
+	BH_Abbreviation: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	FieldGroupType: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Flag to set the initial state of collapsible field group.
+	IsCollapsedByDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_FieldGroupInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# An abbreviation for a given name
+	BH_Abbreviation: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	FieldGroupType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Flag to set the initial state of collapsible field group.
+	IsCollapsedByDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

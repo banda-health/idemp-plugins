@@ -1,0 +1,55 @@
+# Generated Schema for M_PromotionLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PromotionLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionLineConnection!
+}
+
+extend type Mutation {
+	M_PromotionLineSave(Entity: M_PromotionLineInput!): M_PromotionLine!
+	M_PromotionLineSaveMany(Entities: [M_PromotionLineInput!]!): [M_PromotionLine!]!
+	M_PromotionLineDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PromotionLineConnection {
+	Results: [M_PromotionLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_PromotionLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Order must have this promotion line
+	IsMandatoryPL: Boolean!
+	M_Promotion: M_Promotion!
+	M_PromotionGroup: M_PromotionGroup
+	UU: ID!
+	# Minimum Amount in Document Currency
+	MinimumAmt: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PromotionLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Order must have this promotion line
+	IsMandatoryPL: Boolean
+	M_Promotion: ForeignEntityInput
+	M_PromotionGroup: ForeignEntityInput
+	UU: ID
+	# Minimum Amount in Document Currency
+	MinimumAmt: BigDecimal
+}

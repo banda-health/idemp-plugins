@@ -1,0 +1,79 @@
+# Generated Schema for AD_Reference - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReferenceGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReferenceConnection!
+}
+
+extend type Mutation {
+	AD_ReferenceSave(Entity: AD_ReferenceInput!): AD_Reference!
+	AD_ReferenceSaveMany(Entities: [AD_ReferenceInput!]!): [AD_Reference!]!
+	AD_ReferenceDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReferenceConnection {
+	Results: [AD_Reference!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Reference {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: AD_Element
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Order list using the value column instead of the name column
+	IsOrderByValue: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Show Inactive Records
+	ShowInactive: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Different method of validating data
+	ValidationType: AD_Ref_List!
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}
+
+input AD_ReferenceInput {
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Order list using the value column instead of the name column
+	IsOrderByValue: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Show Inactive Records
+	ShowInactive: ForeignEntityInput
+	# Different method of validating data
+	ValidationType: ForeignEntityInput
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

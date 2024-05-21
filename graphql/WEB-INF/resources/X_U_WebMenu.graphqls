@@ -1,0 +1,71 @@
+# Generated Schema for U_WebMenu - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	U_WebMenuGet(Page: Int, Size: Int, Sort: String, Filter: String): U_WebMenuConnection!
+}
+
+extend type Mutation {
+	U_WebMenuSave(Entity: U_WebMenuInput!): U_WebMenu!
+	U_WebMenuSaveMany(Entities: [U_WebMenuInput!]!): [U_WebMenu!]!
+	U_WebMenuDelete(UUs: [String!]!): Boolean!
+}
+
+type U_WebMenuConnection {
+	Results: [U_WebMenu!]!
+	PagingInfo: PagingInfo!
+}
+
+type U_WebMenu {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	Category: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	HasSubMenu: Boolean!
+	# Comment or Hint
+	Help: String
+	ImageLink: String
+	# The record is active in the system
+	IsActive: Boolean!
+	MenuLink: String!
+	Module: String!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	ParentMenu: U_WebMenu
+	Position: String
+	Sequence: BigDecimal
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input U_WebMenuInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	Category: String
+	# Optional short description of the record
+	Description: String
+	HasSubMenu: Boolean
+	# Comment or Hint
+	Help: String
+	ImageLink: String
+	# The record is active in the system
+	IsActive: Boolean
+	MenuLink: String
+	Module: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	ParentMenu: ForeignEntityInput
+	Position: String
+	Sequence: BigDecimal
+	UU: ID
+}

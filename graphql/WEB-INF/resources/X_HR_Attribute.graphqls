@@ -1,0 +1,99 @@
+# Generated Schema for HR_Attribute - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_AttributeGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_AttributeConnection!
+}
+
+extend type Mutation {
+	HR_AttributeSave(Entity: HR_AttributeInput!): HR_Attribute!
+	HR_AttributeSaveMany(Entities: [HR_AttributeInput!]!): [HR_Attribute!]!
+	HR_AttributeDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_AttributeConnection {
+	Results: [HR_Attribute!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Attribute {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_Rule: AD_Rule
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	ColumnType: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	HR_Attribute_A: C_ValidCombination
+	UU: ID!
+	HR_Concept: HR_Concept!
+	HR_Department: HR_Department
+	HR_Employee: HR_Employee
+	HR_Job: HR_Job
+	HR_Payroll: HR_Payroll
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	MaxValue: Int
+	MinValue: Int
+	# Quantity
+	Qty: BigDecimal
+	# Date service was provided
+	ServiceDate: Date
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input HR_AttributeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_Rule: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	ColumnType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	HR_Attribute_A: ForeignEntityInput
+	UU: ID
+	HR_Concept: ForeignEntityInput
+	HR_Department: ForeignEntityInput
+	HR_Employee: ForeignEntityInput
+	HR_Job: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	MaxValue: Int
+	MinValue: Int
+	# Quantity
+	Qty: BigDecimal
+	# Date service was provided
+	ServiceDate: Date
+	# Text Message
+	TextMsg: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

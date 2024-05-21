@@ -1,0 +1,53 @@
+# Generated Schema for R_IssueUser - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_IssueUserGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueUserConnection!
+}
+
+extend type Mutation {
+	R_IssueUserSave(Entity: R_IssueUserInput!): R_IssueUser!
+	R_IssueUserSaveMany(Entities: [R_IssueUserInput!]!): [R_IssueUser!]!
+	R_IssueUserDelete(UUs: [String!]!): Boolean!
+}
+
+type R_IssueUserConnection {
+	Results: [R_IssueUser!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_IssueUser {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UserName: String!
+}
+
+input R_IssueUserInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	UserName: String
+}

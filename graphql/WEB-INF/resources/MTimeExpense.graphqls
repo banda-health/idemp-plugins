@@ -1,0 +1,3 @@
+extend type S_TimeExpense {
+	S_TimeExpenseLines: [S_TimeExpenseLine!]
+}
