@@ -38,7 +38,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -53,7 +53,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() <= 0) {
+		if (entity.getC_ConversionType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -154,7 +154,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DiscountSchema_ID() <= 0) {
+		if (entity.getM_DiscountSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -169,7 +169,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() <= 0) {
+		if (entity.getM_Product_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -184,7 +184,7 @@ public class X_M_DiscountSchemaLineResolver extends POResolver<MDiscountSchemaLi
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MDiscountSchemaLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

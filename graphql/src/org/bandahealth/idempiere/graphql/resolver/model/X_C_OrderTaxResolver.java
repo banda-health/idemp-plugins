@@ -29,7 +29,7 @@ public class X_C_OrderTaxResolver extends POResolver<MOrderTax> implements Graph
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MOrderTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_OrderTaxResolver extends POResolver<MOrderTax> implements Graph
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MOrderTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() <= 0) {
+		if (entity.getC_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_OrderTaxResolver extends POResolver<MOrderTax> implements Graph
 	 * @return Tax Provider
 	 */
 	public CompletableFuture<MTaxProvider> C_TaxProvider(MOrderTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxProvider_ID() <= 0) {
+		if (entity.getC_TaxProvider_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =

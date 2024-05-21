@@ -45,7 +45,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	public CompletableFuture<M_Element> AD_Element(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Element_ID() <= 0) {
+		if (entity.getAD_Element_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, M_Element> dataLoader =
@@ -60,7 +60,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -75,7 +75,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -90,7 +90,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -105,7 +105,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -120,7 +120,7 @@ public class X_AD_InfoColumnResolver extends POResolver<MInfoColumn> implements 
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =

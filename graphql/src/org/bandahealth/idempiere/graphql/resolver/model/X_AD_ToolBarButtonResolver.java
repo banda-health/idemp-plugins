@@ -56,7 +56,7 @@ public class X_AD_ToolBarButtonResolver extends POResolver<MToolBarButton> imple
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MToolBarButton entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -71,7 +71,7 @@ public class X_AD_ToolBarButtonResolver extends POResolver<MToolBarButton> imple
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MToolBarButton entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =

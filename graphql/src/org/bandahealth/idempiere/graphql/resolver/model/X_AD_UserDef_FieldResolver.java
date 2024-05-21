@@ -44,7 +44,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Chart
 	 */
 	public CompletableFuture<MChart> AD_Chart(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Chart_ID() <= 0) {
+		if (entity.getAD_Chart_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChart> dataLoader =
@@ -59,7 +59,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Field on a database table
 	 */
 	public CompletableFuture<MField_BH> AD_Field(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Field_ID() <= 0) {
+		if (entity.getAD_Field_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
@@ -74,7 +74,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Logical grouping of fields
 	 */
 	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldGroup_ID() <= 0) {
+		if (entity.getAD_FieldGroup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MFieldGroup_BH> dataLoader =
@@ -89,7 +89,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -104,7 +104,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Label CSS Style
 	 */
 	public CompletableFuture<MStyle> AD_LabelStyle(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LabelStyle_ID() <= 0) {
+		if (entity.getAD_LabelStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -119,7 +119,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -134,7 +134,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -149,7 +149,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return User defined Tab
 	 */
 	public CompletableFuture<MUserDefTab> AD_UserDef_Tab(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserDef_Tab_ID() <= 0) {
+		if (entity.getAD_UserDef_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUserDefTab> dataLoader =
@@ -164,7 +164,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -179,7 +179,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Override Dynamic Validation Rule for Lookup Window
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule_Lookup(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_Lookup_ID() <= 0) {
+		if (entity.getAD_Val_Rule_Lookup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -330,7 +330,7 @@ public class X_AD_UserDef_FieldResolver extends POResolver<MUserDefField> implem
 	 * @return Dashboard Content
 	 */
 	public CompletableFuture<MDashboardContent> PA_DashboardContent(MUserDefField entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_DashboardContent_ID() <= 0) {
+		if (entity.getPA_DashboardContent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDashboardContent> dataLoader =

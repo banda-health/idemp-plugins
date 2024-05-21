@@ -31,7 +31,7 @@ public class X_T_BOM_IndentedResolver extends POResolver<X_T_BOM_Indented> imple
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_BOM_Indented entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -46,7 +46,7 @@ public class X_T_BOM_IndentedResolver extends POResolver<X_T_BOM_Indented> imple
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_T_BOM_Indented entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -61,7 +61,7 @@ public class X_T_BOM_IndentedResolver extends POResolver<X_T_BOM_Indented> imple
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(X_T_BOM_Indented entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() <= 0) {
+		if (entity.getM_CostElement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -76,7 +76,7 @@ public class X_T_BOM_IndentedResolver extends POResolver<X_T_BOM_Indented> imple
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_T_BOM_Indented entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -91,7 +91,7 @@ public class X_T_BOM_IndentedResolver extends POResolver<X_T_BOM_Indented> imple
 	 * @return Selected Product
 	 */
 	public CompletableFuture<MProduct_BH> Sel_Product(X_T_BOM_Indented entity, DataFetchingEnvironment environment) {
-		if (entity.getSel_Product_ID() <= 0) {
+		if (entity.getSel_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

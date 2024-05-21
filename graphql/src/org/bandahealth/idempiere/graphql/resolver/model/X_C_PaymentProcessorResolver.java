@@ -74,7 +74,7 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 	 * @return Document Sequence
 	 */
 	public CompletableFuture<MSequence_BH> AD_Sequence(MPaymentProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Sequence_ID() <= 0) {
+		if (entity.getAD_Sequence_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(MPaymentProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() <= 0) {
+		if (entity.getC_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -104,7 +104,7 @@ public class X_C_PaymentProcessorResolver extends POResolver<MPaymentProcessor> 
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MPaymentProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	A_Asset_Type(UU: String!): A_Asset_Type
 	A_Asset_TypeGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_TypeConnection!
 }
 

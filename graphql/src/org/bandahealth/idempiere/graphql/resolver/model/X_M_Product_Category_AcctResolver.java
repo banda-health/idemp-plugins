@@ -34,7 +34,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -87,7 +87,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() <= 0) {
+		if (entity.getM_Product_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -102,7 +102,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Account for Product Asset (Inventory)
 	 */
 	public CompletableFuture<MAccount> P_Asset_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_Asset_Acct() <= 0) {
+		if (entity.getP_Asset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -117,7 +117,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Average Cost Variance
 	 */
 	public CompletableFuture<MAccount> P_AverageCostVariance_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_AverageCostVariance_Acct() <= 0) {
+		if (entity.getP_AverageCostVariance_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -132,7 +132,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Account for Cost of Goods Sold
 	 */
 	public CompletableFuture<MAccount> P_COGS_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_COGS_Acct() <= 0) {
+		if (entity.getP_COGS_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -147,7 +147,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Product Cost Adjustment Account
 	 */
 	public CompletableFuture<MAccount> P_CostAdjustment_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_CostAdjustment_Acct() <= 0) {
+		if (entity.getP_CostAdjustment_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -162,7 +162,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Account for Product Expense
 	 */
 	public CompletableFuture<MAccount> P_Expense_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_Expense_Acct() <= 0) {
+		if (entity.getP_Expense_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -177,7 +177,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Product Inventory Clearing Account
 	 */
 	public CompletableFuture<MAccount> P_InventoryClearing_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_InventoryClearing_Acct() <= 0) {
+		if (entity.getP_InventoryClearing_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -192,7 +192,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Difference between Costs and Invoice Price (IPV)
 	 */
 	public CompletableFuture<MAccount> P_InvoicePriceVariance_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_InvoicePriceVariance_Acct() <= 0) {
+		if (entity.getP_InvoicePriceVariance_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -207,7 +207,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Product Landed Cost Clearing Account
 	 */
 	public CompletableFuture<MAccount> P_LandedCostClearing_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_LandedCostClearing_Acct() <= 0) {
+		if (entity.getP_LandedCostClearing_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -222,7 +222,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Difference between Standard Cost and Purchase Price (PPV)
 	 */
 	public CompletableFuture<MAccount> P_PurchasePriceVariance_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_PurchasePriceVariance_Acct() <= 0) {
+		if (entity.getP_PurchasePriceVariance_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -237,7 +237,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return The Rate Variance account is the account used Manufacturing Order
 	 */
 	public CompletableFuture<MAccount> P_RateVariance_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_RateVariance_Acct() <= 0) {
+		if (entity.getP_RateVariance_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -252,7 +252,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Account for Product Revenue (Sales Account)
 	 */
 	public CompletableFuture<MAccount> P_Revenue_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_Revenue_Acct() <= 0) {
+		if (entity.getP_Revenue_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -267,7 +267,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Trade Discount Granted Account
 	 */
 	public CompletableFuture<MAccount> P_TradeDiscountGrant_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_TradeDiscountGrant_Acct() <= 0) {
+		if (entity.getP_TradeDiscountGrant_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -282,7 +282,7 @@ public class X_M_Product_Category_AcctResolver extends POResolver<MProductCatego
 	 * @return Trade Discount Receivable Account
 	 */
 	public CompletableFuture<MAccount> P_TradeDiscountRec_A(MProductCategoryAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getP_TradeDiscountRec_Acct() <= 0) {
+		if (entity.getP_TradeDiscountRec_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

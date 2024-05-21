@@ -31,7 +31,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MPackageLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -46,7 +46,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 	 * @return Shipment Package
 	 */
 	public CompletableFuture<MPackage> M_Package(MPackageLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Package_ID() <= 0) {
+		if (entity.getM_Package_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPackage> dataLoader =
@@ -61,7 +61,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 	 * @return Package MPS
 	 */
 	public CompletableFuture<MPackageMPS> M_PackageMPS(MPackageLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PackageMPS_ID() <= 0) {
+		if (entity.getM_PackageMPS_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPackageMPS> dataLoader =
@@ -76,7 +76,7 @@ public class X_M_PackageLineResolver extends POResolver<MPackageLine> implements
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MPackageLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

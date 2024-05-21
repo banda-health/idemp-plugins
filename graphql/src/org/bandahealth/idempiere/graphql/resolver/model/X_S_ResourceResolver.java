@@ -34,7 +34,7 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MResource entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -57,7 +57,7 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MResource entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -89,7 +89,7 @@ public class X_S_ResourceResolver extends POResolver<MResource> implements Graph
 	 * @return Resource Type
 	 */
 	public CompletableFuture<MResourceType> S_ResourceType(MResource entity, DataFetchingEnvironment environment) {
-		if (entity.getS_ResourceType_ID() <= 0) {
+		if (entity.getS_ResourceType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResourceType> dataLoader =

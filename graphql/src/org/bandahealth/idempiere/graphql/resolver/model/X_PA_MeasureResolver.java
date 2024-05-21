@@ -40,7 +40,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Type of the project
 	 */
 	public CompletableFuture<MProjectType> C_ProjectType(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectType_ID() <= 0) {
+		if (entity.getC_ProjectType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectType> dataLoader =
@@ -90,7 +90,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Performance Benchmark
 	 */
 	public CompletableFuture<X_PA_Benchmark> PA_Benchmark(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Benchmark_ID() <= 0) {
+		if (entity.getPA_Benchmark_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_Benchmark> dataLoader =
@@ -105,7 +105,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Optional Reporting Hierarchy - If not selected the default hierarchy trees are used.
 	 */
 	public CompletableFuture<MHierarchy> PA_Hierarchy(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Hierarchy_ID() <= 0) {
+		if (entity.getPA_Hierarchy_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MHierarchy> dataLoader =
@@ -120,7 +120,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Calculation method for measuring performance
 	 */
 	public CompletableFuture<MMeasureCalc> PA_MeasureCalc(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_MeasureCalc_ID() <= 0) {
+		if (entity.getPA_MeasureCalc_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMeasureCalc> dataLoader =
@@ -135,7 +135,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Performance Ratio
 	 */
 	public CompletableFuture<X_PA_Ratio> PA_Ratio(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Ratio_ID() <= 0) {
+		if (entity.getPA_Ratio_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_Ratio> dataLoader =
@@ -150,7 +150,7 @@ public class X_PA_MeasureResolver extends POResolver<MMeasure> implements GraphQ
 	 * @return Type of request (e.g. Inquiry, Complaint, ..)
 	 */
 	public CompletableFuture<MRequestType> R_RequestType(MMeasure entity, DataFetchingEnvironment environment) {
-		if (entity.getR_RequestType_ID() <= 0) {
+		if (entity.getR_RequestType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequestType> dataLoader =

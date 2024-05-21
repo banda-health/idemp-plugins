@@ -39,7 +39,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_AD_PrintLabelLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -54,7 +54,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 	 * @return Function of Label Printer
 	 */
 	public CompletableFuture<X_AD_LabelPrinterFunction> AD_LabelPrinterFunction(X_AD_PrintLabelLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LabelPrinterFunction_ID() <= 0) {
+		if (entity.getAD_LabelPrinterFunction_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_LabelPrinterFunction> dataLoader =
@@ -69,7 +69,7 @@ public class X_AD_PrintLabelLineResolver extends POResolver<X_AD_PrintLabelLine>
 	 * @return Label Format to print
 	 */
 	public CompletableFuture<X_AD_PrintLabel> AD_PrintLabel(X_AD_PrintLabelLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintLabel_ID() <= 0) {
+		if (entity.getAD_PrintLabel_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintLabel> dataLoader =

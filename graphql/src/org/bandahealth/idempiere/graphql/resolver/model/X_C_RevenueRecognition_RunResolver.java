@@ -29,7 +29,7 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 	 * @return Revenue Recognition Service
 	 */
 	public CompletableFuture<MRevenueRecogService> C_RevenueRecog_Service(MRevenueRecognitionRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RevenueRecog_Service_ID() <= 0) {
+		if (entity.getC_RevenueRecog_Service_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecogService> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 	 * @return Plan for recognizing or recording revenue
 	 */
 	public CompletableFuture<MRevenueRecognitionPlan> C_RevenueRecognition_Plan(MRevenueRecognitionRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RevenueRecognition_Plan_ID() <= 0) {
+		if (entity.getC_RevenueRecognition_Plan_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognitionPlan> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_RevenueRecognition_RunResolver extends POResolver<MRevenueRecog
 	 * @return General Ledger Journal
 	 */
 	public CompletableFuture<MJournal> GL_Journal(MRevenueRecognitionRun entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Journal_ID() <= 0) {
+		if (entity.getGL_Journal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournal> dataLoader =

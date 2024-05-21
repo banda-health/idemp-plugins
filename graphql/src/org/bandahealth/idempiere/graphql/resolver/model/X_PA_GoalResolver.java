@@ -37,7 +37,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MGoal entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -52,7 +52,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MGoal entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -128,7 +128,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 	 * @return Performance Color Schema
 	 */
 	public CompletableFuture<MColorSchema> PA_ColorSchema(MGoal entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ColorSchema_ID() <= 0) {
+		if (entity.getPA_ColorSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColorSchema> dataLoader =
@@ -143,7 +143,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 	 * @return Parent Goal
 	 */
 	public CompletableFuture<MGoal> PA_GoalParent(MGoal entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_GoalParent_ID() <= 0) {
+		if (entity.getPA_GoalParent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGoal> dataLoader =
@@ -158,7 +158,7 @@ public class X_PA_GoalResolver extends POResolver<MGoal> implements GraphQLResol
 	 * @return Concrete Performance Measurement
 	 */
 	public CompletableFuture<MMeasure> PA_Measure(MGoal entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Measure_ID() <= 0) {
+		if (entity.getPA_Measure_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMeasure> dataLoader =

@@ -27,7 +27,7 @@ public class X_AD_Record_AccessResolver extends POResolver<MRecordAccess> implem
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MRecordAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_Record_AccessResolver extends POResolver<MRecordAccess> implem
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MRecordAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	B_Topic(UU: String!): B_Topic
 	B_TopicGet(Page: Int, Size: Int, Sort: String, Filter: String): B_TopicConnection!
 }
 

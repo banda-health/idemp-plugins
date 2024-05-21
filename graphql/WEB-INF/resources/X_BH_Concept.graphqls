@@ -1,0 +1,77 @@
+# Generated Schema for BH_Concept - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_ConceptGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_ConceptConnection!
+}
+
+extend type Mutation {
+	BH_ConceptSave(Entity: BH_ConceptInput!): BH_Concept!
+	BH_ConceptSaveMany(Entities: [BH_ConceptInput!]!): [BH_Concept!]!
+	BH_ConceptDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_ConceptConnection {
+	Results: [BH_Concept!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Concept {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	bh_concept_class: String
+	BH_Concept_Type: String
+	UU: ID!
+	BH_Data_Type: String
+	BH_Display_Locale: String
+	BH_Display_Name: String
+	# BH_External_ID
+	BH_ExternalID: String
+	# A generic ID of type string
+	BH_OclID: String
+	# BH_Owner
+	BH_Owner: String
+	# Source
+	BH_Source: String
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+}
+
+input BH_ConceptInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	bh_concept_class: String
+	BH_Concept_Type: String
+	UU: ID
+	BH_Data_Type: String
+	BH_Display_Locale: String
+	BH_Display_Name: String
+	# BH_External_ID
+	BH_ExternalID: String
+	# A generic ID of type string
+	BH_OclID: String
+	# BH_Owner
+	BH_Owner: String
+	# Source
+	BH_Source: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+}

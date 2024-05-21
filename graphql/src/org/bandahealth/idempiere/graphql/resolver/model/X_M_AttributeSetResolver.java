@@ -82,7 +82,7 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 	 * @return Product Lot Control
 	 */
 	public CompletableFuture<MLotCtl> M_LotCtl(MAttributeSet_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_LotCtl_ID() <= 0) {
+		if (entity.getM_LotCtl_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLotCtl> dataLoader =
@@ -97,7 +97,7 @@ public class X_M_AttributeSetResolver extends POResolver<MAttributeSet_BH> imple
 	 * @return Product Serial Number Control
 	 */
 	public CompletableFuture<MSerNoCtl_BH> M_SerNoCtl(MAttributeSet_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_SerNoCtl_ID() <= 0) {
+		if (entity.getM_SerNoCtl_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSerNoCtl_BH> dataLoader =

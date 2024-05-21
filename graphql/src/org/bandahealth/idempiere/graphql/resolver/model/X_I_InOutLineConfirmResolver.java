@@ -29,7 +29,7 @@ public class X_I_InOutLineConfirmResolver extends POResolver<X_I_InOutLineConfir
 	 * @return Material Shipment or Receipt Confirmation Line
 	 */
 	public CompletableFuture<MInOutLineConfirm> M_InOutLineConfirm(X_I_InOutLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLineConfirm_ID() <= 0) {
+		if (entity.getM_InOutLineConfirm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLineConfirm> dataLoader =

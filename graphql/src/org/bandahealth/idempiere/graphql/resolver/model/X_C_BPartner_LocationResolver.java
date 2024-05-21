@@ -29,7 +29,7 @@ public class X_C_BPartner_LocationResolver extends POResolver<MBPartnerLocation>
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MBPartnerLocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_BPartner_LocationResolver extends POResolver<MBPartnerLocation>
 	 * @return Location or Address
 	 */
 	public CompletableFuture<MLocation> C_Location(MBPartnerLocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Location_ID() <= 0) {
+		if (entity.getC_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocation> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_BPartner_LocationResolver extends POResolver<MBPartnerLocation>
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MBPartnerLocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() <= 0) {
+		if (entity.getC_SalesRegion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =

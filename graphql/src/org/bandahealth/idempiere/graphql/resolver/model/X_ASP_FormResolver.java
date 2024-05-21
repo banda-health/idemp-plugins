@@ -32,7 +32,7 @@ public class X_ASP_FormResolver extends POResolver<X_ASP_Form> implements GraphQ
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(X_ASP_Form entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -47,7 +47,7 @@ public class X_ASP_FormResolver extends POResolver<X_ASP_Form> implements GraphQ
 	 * @return ASP Level
 	 */
 	public CompletableFuture<X_ASP_Level> ASP_Level(X_ASP_Form entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Level_ID() <= 0) {
+		if (entity.getASP_Level_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =

@@ -29,7 +29,7 @@ public class X_M_Warehouse_AcctResolver extends POResolver<X_M_Warehouse_Acct> i
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_M_Warehouse_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_Warehouse_AcctResolver extends POResolver<X_M_Warehouse_Acct> i
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_M_Warehouse_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_Warehouse_AcctResolver extends POResolver<X_M_Warehouse_Acct> i
 	 * @return Warehouse Differences Account
 	 */
 	public CompletableFuture<MAccount> W_Differences_A(X_M_Warehouse_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getW_Differences_Acct() <= 0) {
+		if (entity.getW_Differences_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

@@ -29,7 +29,7 @@ public class X_C_RfQLineResolver extends POResolver<MRfQLine> implements GraphQL
 	 * @return Request for Quotation
 	 */
 	public CompletableFuture<MRfQ> C_RfQ(MRfQLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RfQ_ID() <= 0) {
+		if (entity.getC_RfQ_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRfQ> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_RfQLineResolver extends POResolver<MRfQLine> implements GraphQL
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MRfQLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_RfQLineResolver extends POResolver<MRfQLine> implements GraphQL
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MRfQLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

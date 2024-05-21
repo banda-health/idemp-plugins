@@ -56,7 +56,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() <= 0) {
+		if (entity.getAD_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -71,7 +71,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -86,7 +86,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -101,7 +101,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -116,7 +116,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Target document type for conversing documents
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeTarget(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeTarget_ID() <= 0) {
+		if (entity.getC_DocTypeTarget_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -131,7 +131,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() <= 0) {
+		if (entity.getC_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -146,7 +146,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -161,7 +161,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -248,7 +248,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -263,7 +263,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -278,7 +278,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -293,7 +293,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Planner
 	 */
 	public CompletableFuture<MUser_BH> Planner(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getPlanner_ID() <= 0) {
+		if (entity.getPlanner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -312,7 +312,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() <= 0) {
+		if (entity.getPP_Product_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
@@ -353,7 +353,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() <= 0) {
+		if (entity.getS_Resource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
@@ -368,7 +368,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -383,7 +383,7 @@ public class X_PP_OrderResolver extends POResolver<X_PP_Order> implements GraphQ
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(X_PP_Order entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

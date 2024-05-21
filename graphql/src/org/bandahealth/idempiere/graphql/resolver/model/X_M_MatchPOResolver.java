@@ -34,7 +34,7 @@ public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQL
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MMatchPO entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() <= 0) {
+		if (entity.getC_InvoiceLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -49,7 +49,7 @@ public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQL
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MMatchPO entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() <= 0) {
+		if (entity.getC_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -68,7 +68,7 @@ public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQL
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MMatchPO entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQL
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MMatchPO entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -98,7 +98,7 @@ public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQL
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MMatchPO entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -125,7 +125,7 @@ public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQL
 	 * @return Referenced Match PO
 	 */
 	public CompletableFuture<MMatchPO> Ref_MatchPO(MMatchPO entity, DataFetchingEnvironment environment) {
-		if (entity.getRef_MatchPO_ID() <= 0) {
+		if (entity.getRef_MatchPO_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMatchPO> dataLoader =
@@ -140,7 +140,7 @@ public class X_M_MatchPOResolver extends POResolver<MMatchPO> implements GraphQL
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MMatchPO> Reversal(MMatchPO entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMatchPO> dataLoader =

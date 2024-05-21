@@ -29,7 +29,7 @@ public class X_AD_AttributeResolver extends POResolver<X_AD_Attribute> implement
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(X_AD_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_AD_AttributeResolver extends POResolver<X_AD_Attribute> implement
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(X_AD_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_AD_AttributeResolver extends POResolver<X_AD_Attribute> implement
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -74,7 +74,7 @@ public class X_AD_AttributeResolver extends POResolver<X_AD_Attribute> implement
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(X_AD_Attribute entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =

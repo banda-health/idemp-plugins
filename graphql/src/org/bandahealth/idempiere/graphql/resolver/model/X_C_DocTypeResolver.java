@@ -40,7 +40,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() <= 0) {
+		if (entity.getAD_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -55,7 +55,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return Document type for generating in dispute Shipments
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeDifference(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeDifference_ID() <= 0) {
+		if (entity.getC_DocTypeDifference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -70,7 +70,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return Document type used for invoices generated from this sales document
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeInvoice(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeInvoice_ID() <= 0) {
+		if (entity.getC_DocTypeInvoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return Document type used for pro forma invoices generated from this sales document
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeProforma(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeProforma_ID() <= 0) {
+		if (entity.getC_DocTypeProforma_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -100,7 +100,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return Document type used for shipments generated from this sales document
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeShipment(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeShipment_ID() <= 0) {
+		if (entity.getC_DocTypeShipment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -115,7 +115,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return Definite Sequence
 	 */
 	public CompletableFuture<MSequence_BH> DefiniteSequence(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getDefiniteSequence_ID() <= 0) {
+		if (entity.getDefiniteSequence_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
@@ -175,7 +175,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return Document sequence determines the numbering of documents
 	 */
 	public CompletableFuture<MSequence_BH> DocNoSequence(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getDocNoSequence_ID() <= 0) {
+		if (entity.getDocNoSequence_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSequence_BH> dataLoader =
@@ -243,7 +243,7 @@ public class X_C_DocTypeResolver extends POResolver<MDocType_BH> implements Grap
 	 * @return General Ledger Category
 	 */
 	public CompletableFuture<MGLCategory> GL_Category(MDocType_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Category_ID() <= 0) {
+		if (entity.getGL_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGLCategory> dataLoader =

@@ -39,7 +39,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Payment allocation
 	 */
 	public CompletableFuture<MAllocationHdr> C_AllocationHdr(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AllocationHdr_ID() <= 0) {
+		if (entity.getC_AllocationHdr_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAllocationHdr> dataLoader =
@@ -54,7 +54,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Bank Transfer
 	 */
 	public CompletableFuture<MBankTransfer> C_BankTransfer(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankTransfer_ID() <= 0) {
+		if (entity.getC_BankTransfer_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankTransfer> dataLoader =
@@ -69,7 +69,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -84,7 +84,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Cash Journal Line
 	 */
 	public CompletableFuture<MCashLine> C_CashLine(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashLine_ID() <= 0) {
+		if (entity.getC_CashLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashLine> dataLoader =
@@ -99,7 +99,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -114,7 +114,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -129,7 +129,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -144,7 +144,7 @@ public class X_C_AllocationLineResolver extends POResolver<MAllocationLine> impl
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MAllocationLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =

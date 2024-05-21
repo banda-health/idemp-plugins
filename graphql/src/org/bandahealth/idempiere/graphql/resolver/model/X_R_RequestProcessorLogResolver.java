@@ -29,7 +29,7 @@ public class X_R_RequestProcessorLogResolver extends POResolver<MRequestProcesso
 	 * @return Processor for Requests
 	 */
 	public CompletableFuture<MRequestProcessor> R_RequestProcessor(MRequestProcessorLog entity, DataFetchingEnvironment environment) {
-		if (entity.getR_RequestProcessor_ID() <= 0) {
+		if (entity.getR_RequestProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequestProcessor> dataLoader =

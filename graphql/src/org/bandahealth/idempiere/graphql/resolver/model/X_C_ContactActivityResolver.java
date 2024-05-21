@@ -32,7 +32,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 	 * @return Sales Opportunity
 	 */
 	public CompletableFuture<MOpportunity> C_Opportunity(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Opportunity_ID() <= 0) {
+		if (entity.getC_Opportunity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOpportunity> dataLoader =
@@ -83,7 +83,7 @@ public class X_C_ContactActivityResolver extends POResolver<X_C_ContactActivity>
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(X_C_ContactActivity entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

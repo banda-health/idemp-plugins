@@ -25,7 +25,7 @@ public class X_AD_WorkflowProcessorLogResolver extends POResolver<X_AD_WorkflowP
 	 * @return Workflow Processor Server
 	 */
 	public CompletableFuture<X_AD_WorkflowProcessor> AD_WorkflowProcessor(X_AD_WorkflowProcessorLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WorkflowProcessor_ID() <= 0) {
+		if (entity.getAD_WorkflowProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WorkflowProcessor> dataLoader =

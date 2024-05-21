@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_ContactActivity(UU: String!): C_ContactActivity
 	C_ContactActivityGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ContactActivityConnection!
 }
 

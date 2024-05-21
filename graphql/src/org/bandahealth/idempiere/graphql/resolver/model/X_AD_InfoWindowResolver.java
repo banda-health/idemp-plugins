@@ -39,7 +39,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 	 * @return Context Help
 	 */
 	public CompletableFuture<MCtxHelp> AD_CtxHelp(MInfoWindow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelp_ID() <= 0) {
+		if (entity.getAD_CtxHelp_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
@@ -54,7 +54,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MInfoWindow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -69,7 +69,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MInfoWindow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -183,7 +183,7 @@ public class X_AD_InfoWindowResolver extends POResolver<MInfoWindow> implements 
 	 * @return Purchase Order Window
 	 */
 	public CompletableFuture<MWindow> PO_Window(MInfoWindow entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_Window_ID() <= 0) {
+		if (entity.getPO_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

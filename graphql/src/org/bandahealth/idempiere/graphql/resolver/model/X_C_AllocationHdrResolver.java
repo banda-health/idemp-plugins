@@ -33,7 +33,7 @@ public class X_C_AllocationHdrResolver extends POResolver<MAllocationHdr> implem
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MAllocationHdr entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -48,7 +48,7 @@ public class X_C_AllocationHdrResolver extends POResolver<MAllocationHdr> implem
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MAllocationHdr entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -135,7 +135,7 @@ public class X_C_AllocationHdrResolver extends POResolver<MAllocationHdr> implem
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MAllocationHdr> Reversal(MAllocationHdr entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAllocationHdr> dataLoader =

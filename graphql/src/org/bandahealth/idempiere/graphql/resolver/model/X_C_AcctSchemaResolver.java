@@ -38,7 +38,7 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MAcctSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -53,7 +53,7 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MAcctSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =
@@ -183,7 +183,7 @@ public class X_C_AcctSchemaResolver extends POResolver<MAcctSchema> implements G
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	public CompletableFuture<MCostType> M_CostType(MAcctSchema entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostType_ID() <= 0) {
+		if (entity.getM_CostType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =

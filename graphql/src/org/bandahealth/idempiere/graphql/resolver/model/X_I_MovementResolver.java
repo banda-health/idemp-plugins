@@ -43,7 +43,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -58,7 +58,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -73,7 +73,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -88,7 +88,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -103,7 +103,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -122,7 +122,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -137,7 +137,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Location inventory is moved to
 	 */
 	public CompletableFuture<MLocator> M_LocatorTo(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getM_LocatorTo_ID() <= 0) {
+		if (entity.getM_LocatorTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -152,7 +152,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Movement of Inventory
 	 */
 	public CompletableFuture<MMovement_BH> M_Movement(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Movement_ID() <= 0) {
+		if (entity.getM_Movement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovement_BH> dataLoader =
@@ -167,7 +167,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Inventory Move document Line
 	 */
 	public CompletableFuture<MMovementLine> M_MovementLine(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MovementLine_ID() <= 0) {
+		if (entity.getM_MovementLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovementLine> dataLoader =
@@ -182,7 +182,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -197,7 +197,7 @@ public class X_I_MovementResolver extends POResolver<X_I_Movement> implements Gr
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(X_I_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =

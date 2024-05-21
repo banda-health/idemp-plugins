@@ -71,7 +71,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -86,7 +86,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Visit
 	 */
 	public CompletableFuture<MBHVisit> BH_Visit(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Visit_ID() <= 0) {
+		if (entity.getBH_Visit_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHVisit> dataLoader =
@@ -101,7 +101,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return BH_Voided_Reason_ID
 	 */
 	public CompletableFuture<MBHVoidedReason> BH_Voided_Reason(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Voided_Reason_ID() <= 0) {
+		if (entity.getBH_Voided_Reason_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBHVoidedReason> dataLoader =
@@ -116,7 +116,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -131,7 +131,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -146,7 +146,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -161,7 +161,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -176,7 +176,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Cash Journal Line
 	 */
 	public CompletableFuture<MCashLine> C_CashLine(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashLine_ID() <= 0) {
+		if (entity.getC_CashLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashLine> dataLoader =
@@ -191,7 +191,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Cash Plan Line
 	 */
 	public CompletableFuture<MCashPlanLine> C_CashPlanLine(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CashPlanLine_ID() <= 0) {
+		if (entity.getC_CashPlanLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCashPlanLine> dataLoader =
@@ -206,7 +206,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -221,7 +221,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Currency Conversion Rate Type
 	 */
 	public CompletableFuture<MConversionType> C_ConversionType(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ConversionType_ID() <= 0) {
+		if (entity.getC_ConversionType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MConversionType> dataLoader =
@@ -236,7 +236,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -251,7 +251,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -266,7 +266,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Target document type for conversing documents
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeTarget(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeTarget_ID() <= 0) {
+		if (entity.getC_DocTypeTarget_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -281,7 +281,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Dunning Level
 	 */
 	public CompletableFuture<MDunningLevel> C_DunningLevel(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DunningLevel_ID() <= 0) {
+		if (entity.getC_DunningLevel_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunningLevel> dataLoader =
@@ -296,7 +296,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -311,7 +311,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -326,7 +326,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() <= 0) {
+		if (entity.getC_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -341,7 +341,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -518,7 +518,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -533,7 +533,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Return Material Authorization
 	 */
 	public CompletableFuture<MRMA> M_RMA(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_RMA_ID() <= 0) {
+		if (entity.getM_RMA_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRMA> dataLoader =
@@ -560,7 +560,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Related Invoice
 	 */
 	public CompletableFuture<MInvoice_BH> RelatedInvoice(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getRelatedInvoice_ID() <= 0) {
+		if (entity.getRelatedInvoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -575,7 +575,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MInvoice_BH> Reversal(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -590,7 +590,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -609,7 +609,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -624,7 +624,7 @@ public class X_C_InvoiceResolver extends POResolver<MInvoice_BH> implements Grap
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MInvoice_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

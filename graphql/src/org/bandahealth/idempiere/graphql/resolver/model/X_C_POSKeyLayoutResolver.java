@@ -32,7 +32,7 @@ public class X_C_POSKeyLayoutResolver extends POResolver<MPOSKeyLayout> implemen
 	 * @return Color used for printing and display
 	 */
 	public CompletableFuture<X_AD_PrintColor> AD_PrintColor(MPOSKeyLayout entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintColor_ID() <= 0) {
+		if (entity.getAD_PrintColor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintColor> dataLoader =
@@ -47,7 +47,7 @@ public class X_C_POSKeyLayoutResolver extends POResolver<MPOSKeyLayout> implemen
 	 * @return Maintain Print Font
 	 */
 	public CompletableFuture<X_AD_PrintFont> AD_PrintFont(MPOSKeyLayout entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFont_ID() <= 0) {
+		if (entity.getAD_PrintFont_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFont> dataLoader =

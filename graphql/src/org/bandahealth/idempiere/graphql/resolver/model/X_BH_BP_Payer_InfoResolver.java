@@ -25,7 +25,7 @@ public class X_BH_BP_Payer_InfoResolver extends POResolver<MBHBPPayerInfo> imple
 	 * @return Payer ID
 	 */
 	public CompletableFuture<MBPartner_BH> BH_Payer(MBHBPPayerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Payer_ID() <= 0) {
+		if (entity.getBH_Payer_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -40,7 +40,7 @@ public class X_BH_BP_Payer_InfoResolver extends POResolver<MBHBPPayerInfo> imple
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MBHBPPayerInfo entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =

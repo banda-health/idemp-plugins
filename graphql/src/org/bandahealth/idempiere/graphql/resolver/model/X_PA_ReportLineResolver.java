@@ -71,7 +71,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 	 * @return General Ledger Budget
 	 */
 	public CompletableFuture<X_GL_Budget> GL_Budget(MReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Budget_ID() <= 0) {
+		if (entity.getGL_Budget_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Budget> dataLoader =
@@ -130,7 +130,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 	 * @return First operand for calculation
 	 */
 	public CompletableFuture<MReportLine> Oper_1(MReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getOper_1_ID() <= 0) {
+		if (entity.getOper_1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReportLine> dataLoader =
@@ -145,7 +145,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 	 * @return Second operand for calculation
 	 */
 	public CompletableFuture<MReportLine> Oper_2(MReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getOper_2_ID() <= 0) {
+		if (entity.getOper_2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReportLine> dataLoader =
@@ -179,7 +179,7 @@ public class X_PA_ReportLineResolver extends POResolver<MReportLine> implements 
 	 * @return Report Line Set
 	 */
 	public CompletableFuture<MReportLineSet> PA_ReportLineSet(MReportLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_ReportLineSet_ID() <= 0) {
+		if (entity.getPA_ReportLineSet_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReportLineSet> dataLoader =

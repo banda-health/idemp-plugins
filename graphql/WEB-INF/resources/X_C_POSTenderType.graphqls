@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_POSTenderType(UU: String!): C_POSTenderType
 	C_POSTenderTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_POSTenderTypeConnection!
 }
 

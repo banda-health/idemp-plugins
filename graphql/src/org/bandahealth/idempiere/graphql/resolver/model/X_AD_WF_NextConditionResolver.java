@@ -34,7 +34,7 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_WF_NextConditionResolver extends POResolver<X_AD_WF_NextCondit
 	 * @return Workflow Node Transition
 	 */
 	public CompletableFuture<X_AD_WF_NodeNext> AD_WF_NodeNext(X_AD_WF_NextCondition entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_NodeNext_ID() <= 0) {
+		if (entity.getAD_WF_NodeNext_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_NodeNext> dataLoader =

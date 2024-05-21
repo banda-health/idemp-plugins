@@ -30,7 +30,7 @@ public class X_AD_ClientShareResolver extends POResolver<MClientShare> implement
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MClientShare entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_PaymentBatch(UU: String!): C_PaymentBatch
 	C_PaymentBatchGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PaymentBatchConnection!
 }
 

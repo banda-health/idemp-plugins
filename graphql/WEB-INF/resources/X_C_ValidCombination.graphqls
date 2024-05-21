@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_ValidCombination(UU: String!): C_ValidCombination
 	C_ValidCombinationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ValidCombinationConnection!
 }
 

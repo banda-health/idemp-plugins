@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	GL_JournalLine(UU: String!): GL_JournalLine
 	GL_JournalLineGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_JournalLineConnection!
 }
 

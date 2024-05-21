@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	CM_ChatEntry(UU: String!): CM_ChatEntry
 	CM_ChatEntryGet(Page: Int, Size: Int, Sort: String, Filter: String): CM_ChatEntryConnection!
 }
 

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	A_Asset_Reval_Entry(UU: String!): A_Asset_Reval_Entry
 	A_Asset_Reval_EntryGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_Reval_EntryConnection!
 }
 

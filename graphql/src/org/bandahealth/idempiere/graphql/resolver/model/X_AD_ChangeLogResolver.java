@@ -35,7 +35,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return Log of data changes
 	 */
 	public CompletableFuture<MChangeLog> AD_ChangeLog(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ChangeLog_ID() <= 0) {
+		if (entity.getAD_ChangeLog_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeLog> dataLoader =
@@ -50,7 +50,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -65,7 +65,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return User Session Online or Web
 	 */
 	public CompletableFuture<MSession> AD_Session(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Session_ID() <= 0) {
+		if (entity.getAD_Session_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSession> dataLoader =
@@ -80,7 +80,7 @@ public class X_AD_ChangeLogResolver extends POResolver<MChangeLog> implements Gr
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MChangeLog entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

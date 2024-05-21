@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	R_Status(UU: String!): R_Status
 	R_StatusGet(Page: Int, Size: Int, Sort: String, Filter: String): R_StatusConnection!
 }
 

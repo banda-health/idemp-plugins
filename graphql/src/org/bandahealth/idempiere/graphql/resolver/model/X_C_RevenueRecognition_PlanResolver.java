@@ -33,7 +33,7 @@ public class X_C_RevenueRecognition_PlanResolver extends POResolver<MRevenueReco
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MRevenueRecognitionPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -48,7 +48,7 @@ public class X_C_RevenueRecognition_PlanResolver extends POResolver<MRevenueReco
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MRevenueRecognitionPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_C_RevenueRecognition_PlanResolver extends POResolver<MRevenueReco
 	 * @return Invoice Detail Line
 	 */
 	public CompletableFuture<MInvoiceLine> C_InvoiceLine(MRevenueRecognitionPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceLine_ID() <= 0) {
+		if (entity.getC_InvoiceLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceLine> dataLoader =
@@ -78,7 +78,7 @@ public class X_C_RevenueRecognition_PlanResolver extends POResolver<MRevenueReco
 	 * @return Method for recording revenue
 	 */
 	public CompletableFuture<MRevenueRecognition> C_RevenueRecognition(MRevenueRecognitionPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getC_RevenueRecognition_ID() <= 0) {
+		if (entity.getC_RevenueRecognition_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRevenueRecognition> dataLoader =
@@ -93,7 +93,7 @@ public class X_C_RevenueRecognition_PlanResolver extends POResolver<MRevenueReco
 	 * @return Account for Product Revenue (Sales Account)
 	 */
 	public CompletableFuture<MAccount> P_Revenue_A(MRevenueRecognitionPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getP_Revenue_Acct() <= 0) {
+		if (entity.getP_Revenue_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -108,7 +108,7 @@ public class X_C_RevenueRecognition_PlanResolver extends POResolver<MRevenueReco
 	 * @return Account for unearned revenue
 	 */
 	public CompletableFuture<MAccount> UnEarnedRevenue_A(MRevenueRecognitionPlan entity, DataFetchingEnvironment environment) {
-		if (entity.getUnEarnedRevenue_Acct() <= 0) {
+		if (entity.getUnEarnedRevenue_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

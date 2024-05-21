@@ -46,7 +46,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Rule
 	 */
 	public CompletableFuture<MRule> AD_Rule(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Rule_ID() <= 0) {
+		if (entity.getAD_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
@@ -61,7 +61,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() <= 0) {
+		if (entity.getC_Country_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -76,7 +76,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Country Group From
 	 */
 	public CompletableFuture<MCountryGroup> C_CountryGroupFrom(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CountryGroupFrom_ID() <= 0) {
+		if (entity.getC_CountryGroupFrom_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =
@@ -91,7 +91,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Country Group To
 	 */
 	public CompletableFuture<MCountryGroup> C_CountryGroupTo(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_CountryGroupTo_ID() <= 0) {
+		if (entity.getC_CountryGroupTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountryGroup> dataLoader =
@@ -106,7 +106,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() <= 0) {
+		if (entity.getC_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =
@@ -121,7 +121,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() <= 0) {
+		if (entity.getC_TaxCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =
@@ -136,7 +136,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Tax Provider
 	 */
 	public CompletableFuture<MTaxProvider> C_TaxProvider(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxProvider_ID() <= 0) {
+		if (entity.getC_TaxProvider_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxProvider> dataLoader =
@@ -203,7 +203,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Parent Tax indicates a tax that is made up of multiple taxes
 	 */
 	public CompletableFuture<MTax> Parent_Tax(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getParent_Tax_ID() <= 0) {
+		if (entity.getParent_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -269,7 +269,7 @@ public class X_C_TaxResolver extends POResolver<MTax> implements GraphQLResolver
 	 * @return Receiving Region
 	 */
 	public CompletableFuture<MRegion> To_Region(MTax entity, DataFetchingEnvironment environment) {
-		if (entity.getTo_Region_ID() <= 0) {
+		if (entity.getTo_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =

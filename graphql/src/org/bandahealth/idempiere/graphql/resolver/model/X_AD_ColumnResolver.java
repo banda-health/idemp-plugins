@@ -53,7 +53,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Chart
 	 */
 	public CompletableFuture<MChart> AD_Chart(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Chart_ID() <= 0) {
+		if (entity.getAD_Chart_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChart> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return System Element enables the central maintenance of column description and help.
 	 */
 	public CompletableFuture<M_Element> AD_Element(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Element_ID() <= 0) {
+		if (entity.getAD_Element_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, M_Element> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -113,7 +113,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -128,7 +128,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -143,7 +143,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -158,7 +158,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -173,7 +173,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Override Dynamic Validation Rule for Lookup Window
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule_Lookup(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_Lookup_ID() <= 0) {
+		if (entity.getAD_Val_Rule_Lookup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -219,7 +219,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Constraint Message
 	 */
 	public CompletableFuture<MMessage_BH> FKConstraintMsg(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getFKConstraintMsg_ID() <= 0) {
+		if (entity.getFKConstraintMsg_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMessage_BH> dataLoader =
@@ -357,7 +357,7 @@ public class X_AD_ColumnResolver extends POResolver<MColumn> implements GraphQLR
 	 * @return Dashboard Content
 	 */
 	public CompletableFuture<MDashboardContent> PA_DashboardContent(MColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_DashboardContent_ID() <= 0) {
+		if (entity.getPA_DashboardContent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDashboardContent> dataLoader =

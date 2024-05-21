@@ -25,7 +25,7 @@ public class X_AD_LabelPrinterFunctionResolver extends POResolver<X_AD_LabelPrin
 	 * @return Label Printer Definition
 	 */
 	public CompletableFuture<X_AD_LabelPrinter> AD_LabelPrinter(X_AD_LabelPrinterFunction entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LabelPrinter_ID() <= 0) {
+		if (entity.getAD_LabelPrinter_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_LabelPrinter> dataLoader =

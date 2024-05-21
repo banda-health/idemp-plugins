@@ -50,7 +50,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return Account CR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueCR(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueCR_ID() <= 0) {
+		if (entity.getC_ElementValueCR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -80,7 +80,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return Account DR
 	 */
 	public CompletableFuture<MElementValue> C_ElementValueDR(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValueDR_ID() <= 0) {
+		if (entity.getC_ElementValueDR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -95,7 +95,7 @@ public class X_GL_JournalGeneratorLineResolver extends POResolver<MJournalGenera
 	 * @return GL Journal Generator
 	 */
 	public CompletableFuture<MJournalGenerator> GL_JournalGenerator(MJournalGeneratorLine entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalGenerator_ID() <= 0) {
+		if (entity.getGL_JournalGenerator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournalGenerator> dataLoader =

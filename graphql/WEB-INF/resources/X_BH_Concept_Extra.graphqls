@@ -1,0 +1,53 @@
+# Generated Schema for BH_Concept_Extra - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_Concept_ExtraGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Concept_ExtraConnection!
+}
+
+extend type Mutation {
+	BH_Concept_ExtraSave(Entity: BH_Concept_ExtraInput!): BH_Concept_Extra!
+	BH_Concept_ExtraSaveMany(Entities: [BH_Concept_ExtraInput!]!): [BH_Concept_Extra!]!
+	BH_Concept_ExtraDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Concept_ExtraConnection {
+	Results: [BH_Concept_Extra!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Concept_Extra {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	UU: ID!
+	BH_Concept: BH_Concept
+	BH_Concept_Mapping: BH_Concept_Mapping
+	BH_Key: String
+	# BH_Value
+	BH_Value: String
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input BH_Concept_ExtraInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	BH_Concept: ForeignEntityInput
+	BH_Concept_Mapping: ForeignEntityInput
+	BH_Key: String
+	# BH_Value
+	BH_Value: String
+	# The record is active in the system
+	IsActive: Boolean
+}

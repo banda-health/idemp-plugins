@@ -34,7 +34,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_UserDef_TabResolver extends POResolver<MUserDefTab> implements
 	 * @return User defined Window
 	 */
 	public CompletableFuture<MUserDefWin> AD_UserDef_Win(MUserDefTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserDef_Win_ID() <= 0) {
+		if (entity.getAD_UserDef_Win_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUserDefWin> dataLoader =

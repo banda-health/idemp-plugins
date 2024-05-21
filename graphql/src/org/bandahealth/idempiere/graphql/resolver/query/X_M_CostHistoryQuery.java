@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_CostHistoryDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_M_CostHistory;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for M_CostHistory - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_M_CostHistoryQuery extends POQuery<X_M_CostHistory> implements Gr
 	@Override
 	protected String getTableName() {
 		return X_M_CostHistory.Table_Name;
+	}
+
+	public CompletableFuture<X_M_CostHistory> M_CostHistory(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_M_CostHistory> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_CostHistoryDataLoader.DATALOADER_M_CostHistory_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_M_CostHistory> M_CostHistoryGet(int Page, int PageSize, String Sort, String Filter,

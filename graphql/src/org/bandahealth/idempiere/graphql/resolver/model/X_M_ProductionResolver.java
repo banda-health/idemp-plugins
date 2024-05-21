@@ -55,7 +55,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -70,7 +70,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -85,7 +85,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -100,7 +100,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -115,7 +115,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() <= 0) {
+		if (entity.getC_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -130,7 +130,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -145,7 +145,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() <= 0) {
+		if (entity.getC_ProjectPhase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -160,7 +160,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() <= 0) {
+		if (entity.getC_ProjectTask_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -250,7 +250,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -265,7 +265,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -280,7 +280,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -299,7 +299,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() <= 0) {
+		if (entity.getPP_Product_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =
@@ -322,7 +322,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MProduction> Reversal(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduction> dataLoader =
@@ -337,7 +337,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -352,7 +352,7 @@ public class X_M_ProductionResolver extends POResolver<MProduction> implements G
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MProduction entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

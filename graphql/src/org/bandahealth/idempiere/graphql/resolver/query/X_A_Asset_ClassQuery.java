@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_A_Asset_ClassDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MAssetClass;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for A_Asset_Class - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_A_Asset_ClassQuery extends POQuery<MAssetClass> implements GraphQ
 	@Override
 	protected String getTableName() {
 		return MAssetClass.Table_Name;
+	}
+
+	public CompletableFuture<MAssetClass> A_Asset_Class(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MAssetClass> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_A_Asset_ClassDataLoader.DATALOADER_A_Asset_Class_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MAssetClass> A_Asset_ClassGet(int Page, int PageSize, String Sort, String Filter,

@@ -3,7 +3,11 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MField_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_FieldDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for AD_Field - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_AD_FieldQuery extends POQuery<MField_BH> implements GraphQLQueryR
 	@Override
 	protected String getTableName() {
 		return MField_BH.Table_Name;
+	}
+
+	public CompletableFuture<MField_BH> AD_Field(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MField_BH> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_AD_FieldDataLoader.DATALOADER_AD_Field_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MField_BH> AD_FieldGet(int Page, int PageSize, String Sort, String Filter,

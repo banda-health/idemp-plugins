@@ -48,7 +48,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Business Partner Shipping Account
 	 */
 	public CompletableFuture<X_C_BP_ShippingAcct> C_BP_ShippingAcct(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_ShippingAcct_ID() <= 0) {
+		if (entity.getC_BP_ShippingAcct_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_BP_ShippingAcct> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -78,7 +78,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -93,7 +93,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Standard Unit of Measure for Length
 	 */
 	public CompletableFuture<MUOM> C_UOM_Length(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Length_ID() <= 0) {
+		if (entity.getC_UOM_Length_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -108,7 +108,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Standard Unit of Measure for Weight
 	 */
 	public CompletableFuture<MUOM> C_UOM_Weight(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Weight_ID() <= 0) {
+		if (entity.getC_UOM_Weight_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -226,7 +226,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Hold Address
 	 */
 	public CompletableFuture<MBPartnerLocation> HoldAddress(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getHoldAddress_ID() <= 0) {
+		if (entity.getHoldAddress_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -328,7 +328,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Material Shipment Document
 	 */
 	public CompletableFuture<MInOut_BH> M_InOut(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOut_ID() <= 0) {
+		if (entity.getM_InOut_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
@@ -343,7 +343,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -358,7 +358,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Shipper Labels
 	 */
 	public CompletableFuture<MShipperLabels> M_ShipperLabels(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperLabels_ID() <= 0) {
+		if (entity.getM_ShipperLabels_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipperLabels> dataLoader =
@@ -373,7 +373,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Shipper Packaging
 	 */
 	public CompletableFuture<MShipperPackaging> M_ShipperPackaging(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperPackaging_ID() <= 0) {
+		if (entity.getM_ShipperPackaging_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipperPackaging> dataLoader =
@@ -388,7 +388,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Shipper Pickup Types
 	 */
 	public CompletableFuture<MShipperPickupTypes> M_ShipperPickupTypes(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperPickupTypes_ID() <= 0) {
+		if (entity.getM_ShipperPickupTypes_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipperPickupTypes> dataLoader =
@@ -403,7 +403,7 @@ public class X_M_PackageResolver extends POResolver<MPackage> implements GraphQL
 	 * @return Shipping Processor
 	 */
 	public CompletableFuture<MShippingProcessor> M_ShippingProcessor(MPackage entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShippingProcessor_ID() <= 0) {
+		if (entity.getM_ShippingProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShippingProcessor> dataLoader =

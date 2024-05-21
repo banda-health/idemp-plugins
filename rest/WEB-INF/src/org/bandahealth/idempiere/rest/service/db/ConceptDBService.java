@@ -134,7 +134,7 @@ public class ConceptDBService extends BaseDBService<Concept, MBHConcept> {
 		whereClause = MBHConceptMapping.COLUMNNAME_BH_To_Concept_Code + " IN ( SELECT "
 				+ MBHConcept.COLUMNNAME_BH_OclID + " FROM " + MBHConcept.Table_Name + " WHERE "
 				+ MBHConcept.COLUMNNAME_BH_Concept_ID + " IN (" + inClause + ") AND "
-				+ MBHConcept.COLUMNNAME_BH_Concept_Class + " = ?)";
+				+ MBHConcept.COLUMNNAME_bh_concept_class + " = ?)";
 
 		parameters.add(MBHConcept.TEST_CONCEPT_CLASS);
 

@@ -27,7 +27,7 @@ public class X_AD_ImportTemplateResolver extends POResolver<MImportTemplate> imp
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MImportTemplate entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_ImportTemplateResolver extends POResolver<MImportTemplate> imp
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MImportTemplate entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =

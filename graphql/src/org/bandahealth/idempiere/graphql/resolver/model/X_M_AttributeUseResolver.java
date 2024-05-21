@@ -27,7 +27,7 @@ public class X_M_AttributeUseResolver extends POResolver<MAttributeUse> implemen
 	 * @return Product Attribute
 	 */
 	public CompletableFuture<MAttribute> M_Attribute(MAttributeUse entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Attribute_ID() <= 0) {
+		if (entity.getM_Attribute_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttribute> dataLoader =
@@ -42,7 +42,7 @@ public class X_M_AttributeUseResolver extends POResolver<MAttributeUse> implemen
 	 * @return Product Attribute Set
 	 */
 	public CompletableFuture<MAttributeSet_BH> M_AttributeSet(MAttributeUse entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSet_ID() <= 0) {
+		if (entity.getM_AttributeSet_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSet_BH> dataLoader =

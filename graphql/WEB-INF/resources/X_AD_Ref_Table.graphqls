@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	AD_Ref_Table(UU: String!): AD_Ref_Table
 	AD_Ref_TableGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Ref_TableConnection!
 }
 

@@ -29,7 +29,7 @@ public class X_C_Charge_AcctResolver extends POResolver<X_C_Charge_Acct> impleme
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(X_C_Charge_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_Charge_AcctResolver extends POResolver<X_C_Charge_Acct> impleme
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_C_Charge_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_Charge_AcctResolver extends POResolver<X_C_Charge_Acct> impleme
 	 * @return Charge Account
 	 */
 	public CompletableFuture<MAccount> Ch_Expense_A(X_C_Charge_Acct entity, DataFetchingEnvironment environment) {
-		if (entity.getCh_Expense_Acct() <= 0) {
+		if (entity.getCh_Expense_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

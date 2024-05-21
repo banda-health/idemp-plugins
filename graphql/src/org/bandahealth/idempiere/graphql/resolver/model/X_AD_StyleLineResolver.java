@@ -30,7 +30,7 @@ public class X_AD_StyleLineResolver extends POResolver<MStyleLine> implements Gr
 	 * @return CSS style for field and label
 	 */
 	public CompletableFuture<MStyle> AD_Style(MStyleLine entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Style_ID() <= 0) {
+		if (entity.getAD_Style_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
