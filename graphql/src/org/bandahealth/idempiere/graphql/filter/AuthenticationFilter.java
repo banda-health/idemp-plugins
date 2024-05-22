@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -77,7 +78,8 @@ public class AuthenticationFilter implements Filter {
 		if (StringUtil.isNullOrEmpty(requestQuery)) {
 			try {
 				String requestBody = bandaRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-				requestQuery = (String) new ObjectMapper().readValue(requestBody, HashMap.class).get("query");
+				requestQuery = (String) ((Map<String, Object>) ((List<Object>) new ObjectMapper().readValue(requestBody,
+						ArrayList.class)).get(0)).get("query");
 			} catch (Exception ignore) {
 			}
 			if (StringUtil.isNullOrEmpty(requestQuery)) {
