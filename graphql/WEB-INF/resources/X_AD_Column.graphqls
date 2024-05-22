@@ -1,0 +1,241 @@
+# Generated Schema for AD_Column - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ColumnGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ColumnConnection!
+}
+
+extend type Mutation {
+	AD_ColumnSave(Entity: AD_ColumnInput!): AD_Column!
+	AD_ColumnSaveMany(Entities: [AD_ColumnInput!]!): [AD_Column!]!
+	AD_ColumnDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ColumnConnection {
+	Results: [AD_Column!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Column {
+	AD_Chart: AD_Chart
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: AD_Element!
+	# Info and search/select Window
+	AD_InfoWindow: AD_InfoWindow
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process
+	# System Reference and Validation
+	AD_Reference: AD_Reference!
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	# Database Table information
+	AD_Table: AD_Table!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: AD_Val_Rule
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
+	# Fully qualified class names and method - separated by semicolons
+	Callout: String
+	# Name of the column in the database
+	ColumnName: String!
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Length of the column in the database
+	FieldLength: Int
+	FKConstraintMsg: AD_Message
+	FKConstraintName: String
+	FKConstraintType: AD_Ref_List
+	# The pattern used to format a number or date.
+	FormatPattern: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Determine if a column must be copied when pushing the button to copy record
+	IsAllowCopy: Boolean!
+	# Determine if a column must be recorded into the change log
+	IsAllowLogging: Boolean!
+	# The column is always updateable, even if the record is not active or processed
+	IsAlwaysUpdateable: Boolean!
+	# Automatic completion for text fields
+	IsAutocomplete: Boolean!
+	# Display or Storage is encrypted
+	IsEncrypted: AD_Ref_List!
+	# Text has HTML tags
+	IsHtml: Boolean!
+	# This column is part of the record identifier
+	IsIdentifier: Boolean!
+	# This column is the key in this table
+	IsKey: Boolean!
+	# Data entry is required in this column
+	IsMandatory: Boolean!
+	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns
+	IsParent: Boolean!
+	# This is a partition key
+	IsPartitionKey: Boolean!
+	# Defines whether content must be treated as secure
+	IsSecure: Boolean!
+	# Is this column used for finding rows in windows
+	IsSelectionColumn: Boolean!
+	# Change database table definition when changing dictionary definition
+	IsSyncDatabase: String
+	# Show the button on the toolbar, the window, or both
+	IsToolbarButton: AD_Ref_List!
+	# This column is translated
+	IsTranslated: Boolean!
+	# Determines, if the field can be updated
+	IsUpdateable: Boolean!
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	PA_DashboardContent: PA_DashboardContent
+	# Indicates how the Table is partitioned
+	PartitioningMethod: AD_Ref_List
+	Placeholder: String
+	# Indicates the interval used in a range partitioning
+	RangePartitionInterval: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Indicates the order of partition keys
+	SeqNoPartition: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Version of the table definition
+	Version: BigDecimal!
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}
+
+input AD_ColumnInput {
+	AD_Chart: ForeignEntityInput
+	UU: ID
+	# System Element enables the central maintenance of column description and help.
+	AD_Element: ForeignEntityInput
+	# Info and search/select Window
+	AD_InfoWindow: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: ForeignEntityInput
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
+	# Fully qualified class names and method - separated by semicolons
+	Callout: String
+	# Name of the column in the database
+	ColumnName: String
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Length of the column in the database
+	FieldLength: Int
+	FKConstraintMsg: ForeignEntityInput
+	FKConstraintName: String
+	FKConstraintType: ForeignEntityInput
+	# The pattern used to format a number or date.
+	FormatPattern: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Determine if a column must be copied when pushing the button to copy record
+	IsAllowCopy: Boolean
+	# Determine if a column must be recorded into the change log
+	IsAllowLogging: Boolean
+	# The column is always updateable, even if the record is not active or processed
+	IsAlwaysUpdateable: Boolean
+	# Automatic completion for text fields
+	IsAutocomplete: Boolean
+	# Display or Storage is encrypted
+	IsEncrypted: ForeignEntityInput
+	# Text has HTML tags
+	IsHtml: Boolean
+	# This column is part of the record identifier
+	IsIdentifier: Boolean
+	# This column is the key in this table
+	IsKey: Boolean
+	# Data entry is required in this column
+	IsMandatory: Boolean
+	# This column is a link to the parent table (e.g. header from lines) - incl. Association key columns
+	IsParent: Boolean
+	# This is a partition key
+	IsPartitionKey: Boolean
+	# Defines whether content must be treated as secure
+	IsSecure: Boolean
+	# Is this column used for finding rows in windows
+	IsSelectionColumn: Boolean
+	# Change database table definition when changing dictionary definition
+	IsSyncDatabase: String
+	# Show the button on the toolbar, the window, or both
+	IsToolbarButton: ForeignEntityInput
+	# This column is translated
+	IsTranslated: Boolean
+	# Determines, if the field can be updated
+	IsUpdateable: Boolean
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	PA_DashboardContent: ForeignEntityInput
+	# Indicates how the Table is partitioned
+	PartitioningMethod: ForeignEntityInput
+	Placeholder: String
+	# Indicates the interval used in a range partitioning
+	RangePartitionInterval: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Indicates the order of partition keys
+	SeqNoPartition: Int
+	# Selection Column Sequence
+	SeqNoSelection: Int
+	# Maximum Value for a field
+	ValueMax: String
+	# Minimum Value for a field
+	ValueMin: String
+	# Version of the table definition
+	Version: BigDecimal
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+}

@@ -1,0 +1,67 @@
+# Generated Schema for C_OrderLandedCost - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_OrderLandedCostGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrderLandedCostConnection!
+}
+
+extend type Mutation {
+	C_OrderLandedCostSave(Entity: C_OrderLandedCostInput!): C_OrderLandedCost!
+	C_OrderLandedCostSaveMany(Entities: [C_OrderLandedCostInput!]!): [C_OrderLandedCost!]!
+	C_OrderLandedCostDelete(UUs: [String!]!): Boolean!
+}
+
+type C_OrderLandedCostConnection {
+	Results: [C_OrderLandedCost!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_OrderLandedCost {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount
+	Amt: BigDecimal!
+	# Order
+	C_Order: C_Order!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Landed Cost Distribution
+	LandedCostDistribution: AD_Ref_List!
+	# Product Cost Element
+	M_CostElement: M_CostElement!
+	# The document has been processed
+	Processed: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_OrderLandedCostInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount
+	Amt: BigDecimal
+	# Order
+	C_Order: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Landed Cost Distribution
+	LandedCostDistribution: ForeignEntityInput
+	# Product Cost Element
+	M_CostElement: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+}

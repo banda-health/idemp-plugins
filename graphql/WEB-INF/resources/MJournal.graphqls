@@ -1,0 +1,3 @@
+extend type GL_Journal {
+	GL_JournalLines: [GL_JournalLine!]
+}

@@ -1,0 +1,51 @@
+# Generated Schema for AD_WF_ActivityApprover - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_ActivityApproverGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_ActivityApproverConnection!
+}
+
+extend type Mutation {
+	AD_WF_ActivityApproverSave(Entity: AD_WF_ActivityApproverInput!): AD_WF_ActivityApprover!
+	AD_WF_ActivityApproverSaveMany(Entities: [AD_WF_ActivityApproverInput!]!): [AD_WF_ActivityApprover!]!
+	AD_WF_ActivityApproverDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_ActivityApproverConnection {
+	Results: [AD_WF_ActivityApprover!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_ActivityApprover {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Workflow Activity
+	AD_WF_Activity: AD_WF_Activity!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_WF_ActivityApproverInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Workflow Activity
+	AD_WF_Activity: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+}

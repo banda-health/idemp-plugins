@@ -1,0 +1,67 @@
+# Generated Schema for AD_LdapAccess - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_LdapAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_LdapAccessConnection!
+}
+
+extend type Mutation {
+	AD_LdapAccessSave(Entity: AD_LdapAccessInput!): AD_LdapAccess!
+	AD_LdapAccessSaveMany(Entities: [AD_LdapAccessInput!]!): [AD_LdapAccess!]!
+	AD_LdapAccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_LdapAccessConnection {
+	Results: [AD_LdapAccess!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_LdapAccess {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# LDAP Server to authenticate and authorize external systems based on iDempiere
+	AD_LdapProcessor: AD_LdapProcessor!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# An Error occurred in the execution
+	IsError: Boolean!
+	# Interest Area or Topic
+	R_InterestArea: R_InterestArea
+	# Textual summary of this request
+	Summary: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_LdapAccessInput {
+	UU: ID
+	# LDAP Server to authenticate and authorize external systems based on iDempiere
+	AD_LdapProcessor: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# An Error occurred in the execution
+	IsError: Boolean
+	# Interest Area or Topic
+	R_InterestArea: ForeignEntityInput
+	# Textual summary of this request
+	Summary: String
+}

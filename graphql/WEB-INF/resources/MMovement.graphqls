@@ -1,0 +1,8 @@
+extend type Mutation {
+	M_MovementProcess(UU: ID!, DocumentAction: String): M_Movement
+}
+
+extend type M_Movement {
+	M_MovementConfirmList: [M_MovementConfirm!]
+	M_MovementLines: [M_MovementLine!]
+}

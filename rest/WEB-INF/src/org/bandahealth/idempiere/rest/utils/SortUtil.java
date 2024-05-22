@@ -132,6 +132,12 @@ public class SortUtil {
 				}
 				String sortColumn =
 						sortCriteria instanceof String ? (String) sortCriteria : ((List<String>) sortCriteria).get(0);
+				String finalSortColumn = sortColumn;
+				if (EXPRESSION_FUNCTIONS.stream()
+						.anyMatch(expressionFunction -> finalSortColumn.toLowerCase().startsWith(expressionFunction + "("))) {
+					String[] splitColumn = sortColumn.split("\\(");
+					sortColumn = splitColumn[1].replaceAll("\\)", "");
+				}
 				// First, split by the column delimiter
 				String[] sortColumnSplits = sortColumn.split("\\.");
 				if (sortColumnSplits.length == 0) {

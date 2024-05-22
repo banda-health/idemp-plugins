@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.rest.service.db;
 
 import org.bandahealth.idempiere.base.model.MAttributeSetInstance_BH;
-import org.bandahealth.idempiere.base.model.MInventoryLine_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.rest.exceptions.NotImplementedException;
 import org.bandahealth.idempiere.rest.model.AttributeSetInstance;
@@ -10,6 +9,7 @@ import org.bandahealth.idempiere.rest.model.InventoryLine;
 import org.bandahealth.idempiere.rest.model.Locator;
 import org.bandahealth.idempiere.rest.model.Product;
 import org.bandahealth.idempiere.rest.utils.StringUtil;
+import org.compiere.model.MInventoryLine;
 import org.compiere.model.MLocator;
 import org.compiere.util.Env;
 
@@ -22,14 +22,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class InventoryLineDBService extends BaseDBService<InventoryLine, MInventoryLine_BH> {
+public class InventoryLineDBService extends BaseDBService<InventoryLine, MInventoryLine> {
 	private final ProductDBService productDBService = new ProductDBService();
 	private final LocatorDBService locatorDBService = new LocatorDBService();
 	private final AttributeSetInstanceDBService attributeSetInstanceDBService = new AttributeSetInstanceDBService();
 
 	@Override
 	public InventoryLine saveEntity(InventoryLine entity) {
-		MInventoryLine_BH inventoryLine = getEntityByUuidFromDB(entity.getUuid());
+		MInventoryLine inventoryLine = getEntityByUuidFromDB(entity.getUuid());
 		if (inventoryLine == null) {
 			inventoryLine = getModelInstance();
 			if (!StringUtil.isNullOrEmpty(entity.getUuid())) {
@@ -80,24 +80,24 @@ public class InventoryLineDBService extends BaseDBService<InventoryLine, MInvent
 	}
 
 	@Override
-	protected InventoryLine createInstanceWithDefaultFields(MInventoryLine_BH instance) {
+	protected InventoryLine createInstanceWithDefaultFields(MInventoryLine instance) {
 		return createInstanceWithAllFields(instance);
 	}
 
 	@Override
-	protected InventoryLine createInstanceWithAllFields(MInventoryLine_BH instance) {
+	protected InventoryLine createInstanceWithAllFields(MInventoryLine instance) {
 		return new InventoryLine(instance);
 	}
 
 	@Override
-	protected MInventoryLine_BH getModelInstance() {
-		return new MInventoryLine_BH(Env.getCtx(), 0, null);
+	protected MInventoryLine getModelInstance() {
+		return new MInventoryLine(Env.getCtx(), 0, null);
 	}
 
 	public void saveByInventory(Inventory entity) {
 		// Get the entities from the DB
-		List<MInventoryLine_BH> inventoryLinesForOrder =
-				getGroupsByIds(MInventoryLine_BH::getM_Inventory_ID, MInventoryLine_BH.COLUMNNAME_M_Inventory_ID,
+		List<MInventoryLine> inventoryLinesForOrder =
+				getGroupsByIds(MInventoryLine::getM_Inventory_ID, MInventoryLine.COLUMNNAME_M_Inventory_ID,
 						Collections.singleton(entity.getId())).get(entity.getId());
 		List<InventoryLine> inventoryLinesToSave =
 				entity.getInventoryLines() == null ? new ArrayList<>() : entity.getInventoryLines();

@@ -1,0 +1,59 @@
+# Generated Schema for C_ProjectType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_ProjectTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ProjectTypeConnection!
+}
+
+extend type Mutation {
+	C_ProjectTypeSave(Entity: C_ProjectTypeInput!): C_ProjectType!
+	C_ProjectTypeSaveMany(Entities: [C_ProjectTypeInput!]!): [C_ProjectType!]!
+	C_ProjectTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type C_ProjectTypeConnection {
+	Results: [C_ProjectType!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_ProjectType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Project Category
+	ProjectCategory: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_ProjectTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Project Category
+	ProjectCategory: ForeignEntityInput
+}

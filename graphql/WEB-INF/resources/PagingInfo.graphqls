@@ -1,0 +1,7 @@
+type PagingInfo {
+  TotalPages: Int!
+  TotalCount: Int!
+  HasNextPage: Boolean!
+  Page: Int!
+  PageSize: Int!
+}

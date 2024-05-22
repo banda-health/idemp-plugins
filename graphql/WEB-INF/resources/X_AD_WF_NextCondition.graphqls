@@ -1,0 +1,77 @@
+# Generated Schema for AD_WF_NextCondition - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_NextConditionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_NextConditionConnection!
+}
+
+extend type Mutation {
+	AD_WF_NextConditionSave(Entity: AD_WF_NextConditionInput!): AD_WF_NextCondition!
+	AD_WF_NextConditionSaveMany(Entities: [AD_WF_NextConditionInput!]!): [AD_WF_NextCondition!]!
+	AD_WF_NextConditionDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_NextConditionConnection {
+	Results: [AD_WF_NextCondition!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_NextCondition {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Workflow Node Transition
+	AD_WF_NodeNext: AD_WF_NodeNext!
+	# Logical operation: AND or OR
+	AndOr: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Compare Operation
+	Operation: AD_Ref_List!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	SQLStatement: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# Value To
+	Value2: String
+}
+
+input AD_WF_NextConditionInput {
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Workflow Node Transition
+	AD_WF_NodeNext: ForeignEntityInput
+	# Logical operation: AND or OR
+	AndOr: ForeignEntityInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Compare Operation
+	Operation: ForeignEntityInput
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	SQLStatement: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Value To
+	Value2: String
+}

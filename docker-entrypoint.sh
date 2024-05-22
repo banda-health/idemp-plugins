@@ -9,6 +9,9 @@ cd ./base-test
 cd ../rest-test
 ./runTests.sh
 
+cd ../graphql-test
+./runTests.sh
+
 cd ../reports-test
 ./runTests.sh
 

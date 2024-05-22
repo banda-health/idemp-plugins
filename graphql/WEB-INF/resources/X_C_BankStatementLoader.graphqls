@@ -1,0 +1,119 @@
+# Generated Schema for C_BankStatementLoader - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BankStatementLoaderGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementLoaderConnection!
+}
+
+extend type Mutation {
+	C_BankStatementLoaderSave(Entity: C_BankStatementLoaderInput!): C_BankStatementLoader!
+	C_BankStatementLoaderSaveMany(Entities: [C_BankStatementLoaderInput!]!): [C_BankStatementLoader!]!
+	C_BankStatementLoaderDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BankStatementLoaderConnection {
+	Results: [C_BankStatementLoader!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BankStatementLoader {
+	# Account Number
+	AccountNo: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Bank Branch ID
+	BranchID: String
+	# Account at the Bank
+	C_BankAccount: C_BankAccount!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date format used in the input format
+	DateFormat: String
+	# Date the process was last run.
+	DateLastRun: Date
+	# Optional short description of the record
+	Description: String
+	# Name of the local file or URL
+	FileName: String
+	# The ID of the Financial Institution / Bank
+	FinancialInstitutionID: String
+	# Host Address URL or DNS
+	HostAddress: String
+	# Host Communication Port
+	HostPort: Int
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Password of any length (case sensitive)
+	Password: String
+	# Personal Identification Number
+	PIN: String
+	#  Address of your proxy server
+	ProxyAddress: String
+	# Logon of your proxy server
+	ProxyLogon: String
+	# Password of your proxy server
+	ProxyPassword: String
+	# Port of your proxy server
+	ProxyPort: Int
+	# Class name of the bank statement loader
+	StmtLoaderClass: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User ID or account number
+	UserID: String
+}
+
+input C_BankStatementLoaderInput {
+	# Account Number
+	AccountNo: String
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Bank Branch ID
+	BranchID: String
+	# Account at the Bank
+	C_BankAccount: ForeignEntityInput
+	UU: ID
+	# Date format used in the input format
+	DateFormat: String
+	# Date the process was last run.
+	DateLastRun: Date
+	# Optional short description of the record
+	Description: String
+	# Name of the local file or URL
+	FileName: String
+	# The ID of the Financial Institution / Bank
+	FinancialInstitutionID: String
+	# Host Address URL or DNS
+	HostAddress: String
+	# Host Communication Port
+	HostPort: Int
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Password of any length (case sensitive)
+	Password: String
+	# Personal Identification Number
+	PIN: String
+	#  Address of your proxy server
+	ProxyAddress: String
+	# Logon of your proxy server
+	ProxyLogon: String
+	# Password of your proxy server
+	ProxyPassword: String
+	# Port of your proxy server
+	ProxyPort: Int
+	# Class name of the bank statement loader
+	StmtLoaderClass: String
+	# User ID or account number
+	UserID: String
+}

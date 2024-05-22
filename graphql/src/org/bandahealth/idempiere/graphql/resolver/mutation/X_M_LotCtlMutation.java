@@ -1,0 +1,36 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
+import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.model.input.I_M_LotCtlInput;
+import org.bandahealth.idempiere.graphql.model.input.X_M_LotCtlInput;
+import org.compiere.model.MLotCtl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Generated Query Resolver for M_LotCtl - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public class X_M_LotCtlMutation extends POMutation implements GraphQLMutationResolver {
+	@Override
+	protected String getTableName() {
+		return X_M_LotCtlInput.Table_Name;
+	}
+
+	public MLotCtl M_LotCtlSave(I_M_LotCtlInput Entity, DataFetchingEnvironment environment) {
+		return (MLotCtl) super.save((X_M_LotCtlInput) Entity, environment);
+	}
+
+	public List<MLotCtl> M_LotCtlSaveMany(List<I_M_LotCtlInput> Entities, DataFetchingEnvironment environment) {
+		return super.saveMany(Entities.stream().map(entity -> (X_M_LotCtlInput) entity).collect(Collectors.toList()),
+				environment).stream().map(entity -> (MLotCtl) entity).collect(Collectors.toList());
+	}
+
+	public boolean M_LotCtlDelete(List<String> UUs, DataFetchingEnvironment environment) {
+		return super.delete(UUs, environment);
+	}
+}

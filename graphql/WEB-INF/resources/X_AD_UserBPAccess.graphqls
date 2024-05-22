@@ -1,0 +1,59 @@
+# Generated Schema for AD_UserBPAccess - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_UserBPAccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserBPAccessConnection!
+}
+
+extend type Mutation {
+	AD_UserBPAccessSave(Entity: AD_UserBPAccessInput!): AD_UserBPAccess!
+	AD_UserBPAccessSaveMany(Entities: [AD_UserBPAccessInput!]!): [AD_UserBPAccess!]!
+	AD_UserBPAccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_UserBPAccessConnection {
+	Results: [AD_UserBPAccess!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_UserBPAccess {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	UU: ID!
+	# Type of Access of the user/contact to Business Partner information and resources
+	BPAccessType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Logical type of document
+	DocBaseType: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Type of request (e.g. Inquiry, Complaint, ..)
+	R_RequestType: R_RequestType
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_UserBPAccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# Type of Access of the user/contact to Business Partner information and resources
+	BPAccessType: ForeignEntityInput
+	# Logical type of document
+	DocBaseType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Type of request (e.g. Inquiry, Complaint, ..)
+	R_RequestType: ForeignEntityInput
+}

@@ -1,0 +1,75 @@
+# Generated Schema for M_ForecastLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_ForecastLineGet(Page: Int, Size: Int, Sort: String, Filter: String): M_ForecastLineConnection!
+}
+
+extend type Mutation {
+	M_ForecastLineSave(Entity: M_ForecastLineInput!): M_ForecastLine!
+	M_ForecastLineSaveMany(Entities: [M_ForecastLineInput!]!): [M_ForecastLine!]!
+	M_ForecastLineDelete(UUs: [String!]!): Boolean!
+}
+
+type M_ForecastLineConnection {
+	Results: [M_ForecastLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_ForecastLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Period of the Calendar
+	C_Period: C_Period!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date Order was promised
+	DatePromised: Date!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Material Forecast
+	M_Forecast: M_Forecast!
+	UU: ID!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Quantity
+	Qty: BigDecimal!
+	# Calculated Quantity
+	QtyCalculated: BigDecimal!
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_ForecastLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Date Order was promised
+	DatePromised: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Material Forecast
+	M_Forecast: ForeignEntityInput
+	UU: ID
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Quantity
+	Qty: BigDecimal
+	# Calculated Quantity
+	QtyCalculated: BigDecimal
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+}

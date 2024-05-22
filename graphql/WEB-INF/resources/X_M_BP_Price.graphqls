@@ -1,0 +1,95 @@
+# Generated Schema for M_BP_Price - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_BP_PriceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_BP_PriceConnection!
+}
+
+extend type Mutation {
+	M_BP_PriceSave(Entity: M_BP_PriceInput!): M_BP_Price!
+	M_BP_PriceSaveMany(Entities: [M_BP_PriceInput!]!): [M_BP_Price!]!
+	M_BP_PriceDelete(UUs: [String!]!): Boolean!
+}
+
+type M_BP_PriceConnection {
+	Results: [M_BP_Price!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_BP_Price {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Low Value of trade discount break level
+	BreakValue: BigDecimal!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Comments or additional information
+	Comments: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Discount in percent
+	Discount: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# Net Price including all discounts
+	IsNetPrice: Boolean!
+	UU: ID!
+	# Product, Service, Item
+	M_Product: M_Product!
+	# Lowest price for a product
+	PriceLimit: BigDecimal!
+	# List Price
+	PriceList: BigDecimal!
+	# Type of price override, fixed price or discount off list
+	PriceOverrideType: AD_Ref_List
+	# Standard Price
+	PriceStd: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input M_BP_PriceInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Low Value of trade discount break level
+	BreakValue: BigDecimal
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Comments or additional information
+	Comments: String
+	# Discount in percent
+	Discount: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Net Price including all discounts
+	IsNetPrice: Boolean
+	UU: ID
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Lowest price for a product
+	PriceLimit: BigDecimal
+	# List Price
+	PriceList: BigDecimal
+	# Type of price override, fixed price or discount off list
+	PriceOverrideType: ForeignEntityInput
+	# Standard Price
+	PriceStd: BigDecimal
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

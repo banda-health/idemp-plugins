@@ -1,0 +1,107 @@
+# Generated Schema for T_InvoiceGL - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_InvoiceGLGet(Page: Int, Size: Int, Sort: String, Filter: String): T_InvoiceGLConnection!
+}
+
+extend type Mutation {
+	T_InvoiceGLSave(Entity: T_InvoiceGLInput!): T_InvoiceGL!
+	T_InvoiceGLSaveMany(Entities: [T_InvoiceGLInput!]!): [T_InvoiceGL!]!
+	T_InvoiceGLDelete(UUs: [String!]!): Boolean!
+}
+
+type T_InvoiceGLConnection {
+	Results: [T_InvoiceGL!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_InvoiceGL {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance!
+	# Accounted Balance Amount
+	AmtAcctBalance: BigDecimal!
+	# Revaluated Cr Amount
+	AmtRevalCr: BigDecimal!
+	# Revaluated Cr Amount Difference
+	AmtRevalCrDiff: BigDecimal!
+	# Revaluated Dr Amount
+	AmtRevalDr: BigDecimal!
+	# Revaluated Dr Amount Difference
+	AmtRevalDrDiff: BigDecimal!
+	# Source Balance Amount
+	AmtSourceBalance: BigDecimal!
+	# Include Receivables and/or Payables transactions
+	APAR: AD_Ref_List
+	# Revaluation Currency Conversion Type
+	C_ConversionTypeReval: C_ConversionType!
+	# Document Type for Revaluation Journal
+	C_DocTypeReval: C_DocType
+	# Invoice Identifier
+	C_Invoice: C_Invoice!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date of Revaluation
+	DateReval: Date!
+	# Total amount of document
+	GrandTotal: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Report not just foreign currency Invoices
+	IsAllCurrencies: Boolean!
+	# Open item amount
+	OpenAmt: BigDecimal!
+	# Percentage
+	Percent: BigDecimal
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input T_InvoiceGLInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# Accounted Balance Amount
+	AmtAcctBalance: BigDecimal
+	# Revaluated Cr Amount
+	AmtRevalCr: BigDecimal
+	# Revaluated Cr Amount Difference
+	AmtRevalCrDiff: BigDecimal
+	# Revaluated Dr Amount
+	AmtRevalDr: BigDecimal
+	# Revaluated Dr Amount Difference
+	AmtRevalDrDiff: BigDecimal
+	# Source Balance Amount
+	AmtSourceBalance: BigDecimal
+	# Include Receivables and/or Payables transactions
+	APAR: ForeignEntityInput
+	# Revaluation Currency Conversion Type
+	C_ConversionTypeReval: ForeignEntityInput
+	# Document Type for Revaluation Journal
+	C_DocTypeReval: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Date of Revaluation
+	DateReval: Date
+	# Total amount of document
+	GrandTotal: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Report not just foreign currency Invoices
+	IsAllCurrencies: Boolean
+	# Open item amount
+	OpenAmt: BigDecimal
+	# Percentage
+	Percent: BigDecimal
+	UU: ID
+}

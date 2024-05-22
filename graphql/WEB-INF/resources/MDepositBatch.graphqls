@@ -1,0 +1,3 @@
+extend type C_DepositBatch {
+	C_DepositBatchLines: [C_DepositBatchLine!]
+}

@@ -1,0 +1,61 @@
+# Generated Schema for C_PeriodControl - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_PeriodControlGet(Page: Int, Size: Int, Sort: String, Filter: String): C_PeriodControlConnection!
+}
+
+extend type Mutation {
+	C_PeriodControlSave(Entity: C_PeriodControlInput!): C_PeriodControl!
+	C_PeriodControlSaveMany(Entities: [C_PeriodControlInput!]!): [C_PeriodControl!]!
+	C_PeriodControlDelete(UUs: [String!]!): Boolean!
+}
+
+type C_PeriodControlConnection {
+	Results: [C_PeriodControl!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_PeriodControl {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Period of the Calendar
+	C_Period: C_Period!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Logical type of document
+	DocBaseType: AD_Ref_List!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Action taken for this period
+	PeriodAction: AD_Ref_List!
+	# Current state of this period
+	PeriodStatus: AD_Ref_List
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_PeriodControlInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	UU: ID
+	# Logical type of document
+	DocBaseType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Action taken for this period
+	PeriodAction: ForeignEntityInput
+	# Current state of this period
+	PeriodStatus: ForeignEntityInput
+	Processing: Boolean
+}

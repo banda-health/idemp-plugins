@@ -19,14 +19,6 @@ public class MBPGroup_BH extends MBPGroup {
 	 */
 	public static final String COLUMNNAME_BH_Locked = "BH_Locked";
 
-	public MBPGroup_BH(Properties ctx, int C_BP_Group_ID, String trxName) {
-		super(ctx, C_BP_Group_ID, trxName);
-	}
-
-	public MBPGroup_BH(Properties ctx, ResultSet rs, String trxName) {
-		super(ctx, rs, trxName);
-	}
-
 	/**
 	 * Insurance = I
 	 */
@@ -39,6 +31,34 @@ public class MBPGroup_BH extends MBPGroup {
 	 * Donation = D
 	 */
 	public static final String BH_SUBTYPE_Donation = "D";
+
+	public MBPGroup_BH(Properties ctx, String C_BP_Group_UU, String trxName) {
+		super(ctx, C_BP_Group_UU, trxName);
+	}
+
+	public MBPGroup_BH(Properties ctx, int C_BP_Group_ID, String trxName) {
+		super(ctx, C_BP_Group_ID, trxName);
+	}
+
+	public MBPGroup_BH(Properties ctx, ResultSet rs, String trxName) {
+		super(ctx, rs, trxName);
+	}
+
+	public MBPGroup_BH(MBPGroup copy) {
+		super(copy);
+	}
+
+	public MBPGroup_BH(Properties ctx, MBPGroup copy) {
+		super(ctx, copy);
+	}
+
+	public MBPGroup_BH(Properties ctx, MBPGroup copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
+
+	public MBPGroup_BH(Properties ctx, int C_BP_Group_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_BP_Group_ID, trxName, virtualColumns);
+	}
 
 	/**
 	 * Set Sub Type.
@@ -63,7 +83,7 @@ public class MBPGroup_BH extends MBPGroup {
 	 * Set BH_Locked.
 	 *
 	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to
-	 *                   read from this field)
+	 *                  read from this field)
 	 */
 	public void setBH_Locked(boolean BH_Locked) {
 		set_Value(COLUMNNAME_BH_Locked, Boolean.valueOf(BH_Locked));

@@ -1,0 +1,55 @@
+# Generated Schema for AD_WF_Block - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WF_BlockGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WF_BlockConnection!
+}
+
+extend type Mutation {
+	AD_WF_BlockSave(Entity: AD_WF_BlockInput!): AD_WF_Block!
+	AD_WF_BlockSaveMany(Entities: [AD_WF_BlockInput!]!): [AD_WF_Block!]!
+	AD_WF_BlockDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WF_BlockConnection {
+	Results: [AD_WF_Block!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_WF_Block {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Workflow or combination of tasks
+	AD_Workflow: AD_Workflow!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_WF_BlockInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Workflow or combination of tasks
+	AD_Workflow: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

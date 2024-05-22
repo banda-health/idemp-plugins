@@ -1,0 +1,97 @@
+# Generated Schema for AD_FieldSuggestion - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_FieldSuggestionGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FieldSuggestionConnection!
+}
+
+extend type Mutation {
+	AD_FieldSuggestionSave(Entity: AD_FieldSuggestionInput!): AD_FieldSuggestion!
+	AD_FieldSuggestionSaveMany(Entities: [AD_FieldSuggestionInput!]!): [AD_FieldSuggestion!]!
+	AD_FieldSuggestionDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_FieldSuggestionConnection {
+	Results: [AD_FieldSuggestion!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_FieldSuggestion {
+	# Accept suggested changes
+	AcceptSuggestion: String
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Field on a database table
+	AD_Field: AD_Field!
+	UU: ID!
+	# Language for this entity
+	AD_Language: AD_Language!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Tab within a Window
+	AD_Tab: AD_Tab
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_AllUsers_V!
+	AD_UserClient: AD_AllClients_V!
+	# Data entry or display window
+	AD_Window: AD_Window
+	# Compare suggested text with original text
+	CompareSuggestion: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	FieldSuggestionTarget: AD_Ref_List!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	IsUpdateBaseLanguage: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean!
+	# Reject suggested changes
+	RejectSuggestion: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_FieldSuggestionInput {
+	# Accept suggested changes
+	AcceptSuggestion: String
+	# Field on a database table
+	AD_Field: ForeignEntityInput
+	UU: ID
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	AD_UserClient: ForeignEntityInput
+	# Compare suggested text with original text
+	CompareSuggestion: String
+	# Optional short description of the record
+	Description: String
+	FieldSuggestionTarget: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	IsUpdateBaseLanguage: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean
+	# Reject suggested changes
+	RejectSuggestion: String
+}

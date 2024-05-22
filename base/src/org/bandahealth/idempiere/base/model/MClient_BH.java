@@ -14,6 +14,10 @@ public class MClient_BH extends MClient {
 		super(ctx, AD_Client_ID, createNew, trxName);
 	}
 
+	public MClient_BH(Properties ctx, String AD_Client_UU, String trxName) {
+		super(ctx, AD_Client_UU, trxName);
+	}
+
 	public MClient_BH(Properties ctx, int AD_Client_ID, String trxName) {
 		super(ctx, AD_Client_ID, trxName);
 	}

@@ -1,0 +1,61 @@
+# Generated Schema for EXP_Processor_Type - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	EXP_Processor_TypeGet(Page: Int, Size: Int, Sort: String, Filter: String): EXP_Processor_TypeConnection!
+}
+
+extend type Mutation {
+	EXP_Processor_TypeSave(Entity: EXP_Processor_TypeInput!): EXP_Processor_Type!
+	EXP_Processor_TypeSaveMany(Entities: [EXP_Processor_TypeInput!]!): [EXP_Processor_Type!]!
+	EXP_Processor_TypeDelete(UUs: [String!]!): Boolean!
+}
+
+type EXP_Processor_TypeConnection {
+	Results: [EXP_Processor_Type!]!
+	PagingInfo: PagingInfo!
+}
+
+type EXP_Processor_Type {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	UU: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	JavaClass: String!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input EXP_Processor_TypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	UU: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	JavaClass: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

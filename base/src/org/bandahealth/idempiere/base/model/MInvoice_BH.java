@@ -1,6 +1,9 @@
 package org.bandahealth.idempiere.base.model;
 
+import org.compiere.model.MInOut;
 import org.compiere.model.MInvoice;
+import org.compiere.model.MInvoiceBatch;
+import org.compiere.model.MInvoiceBatchLine;
 import org.compiere.model.MInvoiceLine;
 import org.compiere.model.MOrder;
 import org.compiere.model.MTable;
@@ -25,14 +28,27 @@ public class MInvoice_BH extends MInvoice {
 	 */
 	public static final String PAYMENTRULE_BHCashAccount = "b";
 	public static final String COLUMNNAME_BH_VOIDED_REASON_ID = "BH_Voided_Reason_ID";
+
+	/**
+	 * Column name BH_NavButtons
+	 */
+	public static final String COLUMNNAME_BH_NavButtons = "BH_NavButtons";
 	/**
 	 * Column name BH_Visit_ID
 	 */
 	public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";
 	private static final long serialVersionUID = 1L;
 
+	public MInvoice_BH(Properties ctx, String C_Invoice_UU, String trxName) {
+		super(ctx, C_Invoice_UU, trxName);
+	}
+
 	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName) {
 		super(ctx, C_Invoice_ID, trxName);
+	}
+
+	public MInvoice_BH(Properties ctx, int C_Invoice_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_Invoice_ID, trxName, virtualColumns);
 	}
 
 	public MInvoice_BH(Properties ctx, ResultSet rs, String trxName) {
@@ -43,20 +59,34 @@ public class MInvoice_BH extends MInvoice {
 		super(order, C_DocTypeTarget_ID, invoiceDate);
 	}
 
-	public MInvoice_BH(MInvoice invoice) {
-		super(invoice.getCtx(), 0, invoice.get_TrxName());
-
-		PO.copyValues(invoice, this, invoice.getAD_Client_ID(), invoice.getAD_Org_ID());
+	public MInvoice_BH(MInOut ship, Timestamp invoiceDate) {
+		super(ship, invoiceDate);
 	}
 
-	public int getBH_VoidedReasonID() {
+	public MInvoice_BH(MInvoiceBatch batch, MInvoiceBatchLine line) {
+		super(batch, line);
+	}
+
+	public MInvoice_BH(MInvoice copy) {
+		super(copy);
+	}
+
+	public MInvoice_BH(Properties ctx, MInvoice copy) {
+		super(ctx, copy);
+	}
+
+	public MInvoice_BH(Properties ctx, MInvoice copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
+
+	public int getBH_Voided_Reason_ID() {
 		Integer ii = (Integer) get_Value(COLUMNNAME_BH_VOIDED_REASON_ID);
 		if (ii == null)
 			return 0;
 		return ii.intValue();
 	}
 
-	public void setBH_VoidedReasonID(int BH_VoidedReason_ID) {
+	public void setBH_Voided_Reason_ID(int BH_VoidedReason_ID) {
 		if (BH_VoidedReason_ID < 1) {
 			set_Value(COLUMNNAME_BH_VOIDED_REASON_ID, null);
 		} else {
@@ -159,5 +189,23 @@ public class MInvoice_BH extends MInvoice {
 		});
 
 		return newInvoice;
+	}
+
+	/**
+	 * Set BH_NavButtons.
+	 *
+	 * @param BH_NavButtons Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public void setBH_NavButtons(Object BH_NavButtons) {
+		set_Value(COLUMNNAME_BH_NavButtons, BH_NavButtons);
+	}
+
+	/**
+	 * Get BH_NavButtons.
+	 *
+	 * @return Element to allow buttons to be displayed that trigger tab navigation
+	 */
+	public Object getBH_NavButtons() {
+		return get_Value(COLUMNNAME_BH_NavButtons);
 	}
 }

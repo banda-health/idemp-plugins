@@ -1,0 +1,55 @@
+# Generated Schema for T_MRP_CRP - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	T_MRP_CRPGet(Page: Int, Size: Int, Sort: String, Filter: String): T_MRP_CRPConnection!
+}
+
+extend type Mutation {
+	T_MRP_CRPSave(Entity: T_MRP_CRPInput!): T_MRP_CRP!
+	T_MRP_CRPSaveMany(Entities: [T_MRP_CRPInput!]!): [T_MRP_CRP!]!
+	T_MRP_CRPDelete(UUs: [String!]!): Boolean!
+}
+
+type T_MRP_CRPConnection {
+	Results: [T_MRP_CRP!]!
+	PagingInfo: PagingInfo!
+}
+
+type T_MRP_CRP {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Instance of the process
+	AD_PInstance: AD_PInstance
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input T_MRP_CRPInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Instance of the process
+	AD_PInstance: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	UU: ID
+}

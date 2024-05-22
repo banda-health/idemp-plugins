@@ -1,0 +1,51 @@
+# Generated Schema for ASP_Field - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	ASP_FieldGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_FieldConnection!
+}
+
+extend type Mutation {
+	ASP_FieldSave(Entity: ASP_FieldInput!): ASP_Field!
+	ASP_FieldSaveMany(Entities: [ASP_FieldInput!]!): [ASP_Field!]!
+	ASP_FieldDelete(UUs: [String!]!): Boolean!
+}
+
+type ASP_FieldConnection {
+	Results: [ASP_Field!]!
+	PagingInfo: PagingInfo!
+}
+
+type ASP_Field {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Field on a database table
+	AD_Field: AD_Field
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	ASP_Status: AD_Ref_List!
+	ASP_Tab: ASP_Tab
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input ASP_FieldInput {
+	# Field on a database table
+	AD_Field: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	ASP_Status: ForeignEntityInput
+	ASP_Tab: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

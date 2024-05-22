@@ -1,15 +1,11 @@
 package org.bandahealth.idempiere.base.model;
 
-import java.math.BigDecimal;
+import org.compiere.model.MBPartner;
+import org.compiere.model.X_I_BPartner;
+
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
-
-import org.compiere.model.I_C_Location;
-import org.compiere.model.MBPartner;
-import org.compiere.model.MTable;
-import org.compiere.model.X_I_BPartner;
-import org.compiere.util.Env;
 
 public class MBPartner_BH extends MBPartner {
 
@@ -75,7 +71,9 @@ public class MBPartner_BH extends MBPartner {
 	 */
 	public static final String COLUMNNAME_BH_Local_PatientID = "BH_Local_PatientID";
 
-	/** Column name BH_Locked */
+	/**
+	 * Column name BH_Locked
+	 */
 	public static final String COLUMNNAME_BH_Locked = "BH_Locked";
 
 	/**
@@ -87,23 +85,45 @@ public class MBPartner_BH extends MBPartner {
 	 */
 	public static final String BH_GENDER_Male = "male";
 
-	/** Column name BH_NeedAdditionalVisitInfo */
+	/**
+	 * Column name BH_NeedAdditionalVisitInfo
+	 */
 	public static final String COLUMNNAME_BH_NeedAdditionalVisitInfo = "BH_NeedAdditionalVisitInfo";
 
 	public MBPartner_BH(Properties ctx) {
 		super(ctx);
 	}
 
-	public MBPartner_BH(X_I_BPartner impBP) {
-		super(impBP);
-	}
-
 	public MBPartner_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
 
+	public MBPartner_BH(Properties ctx, String C_BPartner_UU, String trxName) {
+		super(ctx, C_BPartner_UU, trxName);
+	}
+
 	public MBPartner_BH(Properties ctx, int C_BPartner_ID, String trxName) {
 		super(ctx, C_BPartner_ID, trxName);
+	}
+
+	public MBPartner_BH(X_I_BPartner impBP) {
+		super(impBP);
+	}
+
+	public MBPartner_BH(MBPartner copy) {
+		super(copy);
+	}
+
+	public MBPartner_BH(Properties ctx, MBPartner copy) {
+		super(ctx, copy);
+	}
+
+	public MBPartner_BH(Properties ctx, MBPartner copy, String trxName) {
+		super(ctx, copy, trxName);
+	}
+
+	public MBPartner_BH(Properties ctx, int C_BPartner_ID, String trxName, String... virtualColumns) {
+		super(ctx, C_BPartner_ID, trxName, virtualColumns);
 	}
 
 	@Override
@@ -349,46 +369,51 @@ public class MBPartner_BH extends MBPartner {
 		return false;
 	}
 
-	/** Set Need Additional Visit Info.
-	 @param BH_NeedAdditionalVisitInfo Need Additional Visit Info	  */
-	public void setBH_NeedAdditionalVisitInfo (boolean BH_NeedAdditionalVisitInfo)
-	{
-		set_Value (COLUMNNAME_BH_NeedAdditionalVisitInfo, Boolean.valueOf(BH_NeedAdditionalVisitInfo));
+	/**
+	 * Set Need Additional Visit Info.
+	 *
+	 * @param BH_NeedAdditionalVisitInfo Need Additional Visit Info
+	 */
+	public void setBH_NeedAdditionalVisitInfo(boolean BH_NeedAdditionalVisitInfo) {
+		set_Value(COLUMNNAME_BH_NeedAdditionalVisitInfo, Boolean.valueOf(BH_NeedAdditionalVisitInfo));
 	}
 
-	/** Get Need Additional Visit Info.
-	 @return Need Additional Visit Info	  */
-	public boolean isBH_NeedAdditionalVisitInfo ()
-	{
+	/**
+	 * Get Need Additional Visit Info.
+	 *
+	 * @return Need Additional Visit Info
+	 */
+	public boolean isBH_NeedAdditionalVisitInfo() {
 		Object oo = get_Value(COLUMNNAME_BH_NeedAdditionalVisitInfo);
-		if (oo != null)
-		{
+		if (oo != null) {
 			if (oo instanceof Boolean)
-				return ((Boolean)oo).booleanValue();
+				return ((Boolean) oo).booleanValue();
 			return "Y".equals(oo);
 		}
 		return false;
 	}
 
-	/** Set BH_Locked.
-	 @param BH_Locked
-	 Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	/**
+	 * Set BH_Locked.
+	 *
+	 * @param BH_Locked Determines whether a record is locked or not (must configure each field to enabled/disabled to
+	 *                   read from this field)
 	 */
-	public void setBH_Locked (boolean BH_Locked)
-	{
-		set_Value (COLUMNNAME_BH_Locked, Boolean.valueOf(BH_Locked));
+	public void setBH_Locked(boolean BH_Locked) {
+		set_Value(COLUMNNAME_BH_Locked, Boolean.valueOf(BH_Locked));
 	}
 
-	/** Get BH_Locked.
-	 @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	/**
+	 * Get BH_Locked.
+	 *
+	 * @return Determines whether a record is locked or not (must configure each field to enabled/disabled to read from
+	 * this field)
 	 */
-	public boolean isBH_Locked ()
-	{
+	public boolean isBH_Locked() {
 		Object oo = get_Value(COLUMNNAME_BH_Locked);
-		if (oo != null)
-		{
+		if (oo != null) {
 			if (oo instanceof Boolean)
-				return ((Boolean)oo).booleanValue();
+				return ((Boolean) oo).booleanValue();
 			return "Y".equals(oo);
 		}
 		return false;

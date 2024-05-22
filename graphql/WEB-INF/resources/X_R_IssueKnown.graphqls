@@ -1,0 +1,89 @@
+# Generated Schema for R_IssueKnown - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_IssueKnownGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueKnownConnection!
+}
+
+extend type Mutation {
+	R_IssueKnownSave(Entity: R_IssueKnownInput!): R_IssueKnown!
+	R_IssueKnownSaveMany(Entities: [R_IssueKnownInput!]!): [R_IssueKnown!]!
+	R_IssueKnownDelete(UUs: [String!]!): Boolean!
+}
+
+type R_IssueKnownConnection {
+	Results: [R_IssueKnown!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_IssueKnown {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Current Status of the Issue
+	IssueStatus: String
+	# Issue Summary
+	IssueSummary: String!
+	# Line No
+	LineNo: Int
+	# Logger Name
+	LoggerName: String
+	Processing: Boolean!
+	UU: ID!
+	# Recommendations how to fix an Issue
+	R_IssueRecommendation: R_IssueRecommendation
+	# Status of an Issue
+	R_IssueStatus: R_IssueStatus
+	# Request from a Business Partner or Prospect
+	R_Request: R_Request
+	# Internal Release Number
+	ReleaseNo: String!
+	# Source Class Name
+	SourceClassName: String
+	# Source Method Name
+	SourceMethodName: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_IssueKnownInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Current Status of the Issue
+	IssueStatus: String
+	# Issue Summary
+	IssueSummary: String
+	# Line No
+	LineNo: Int
+	# Logger Name
+	LoggerName: String
+	Processing: Boolean
+	UU: ID
+	# Recommendations how to fix an Issue
+	R_IssueRecommendation: ForeignEntityInput
+	# Status of an Issue
+	R_IssueStatus: ForeignEntityInput
+	# Request from a Business Partner or Prospect
+	R_Request: ForeignEntityInput
+	# Internal Release Number
+	ReleaseNo: String
+	# Source Class Name
+	SourceClassName: String
+	# Source Method Name
+	SourceMethodName: String
+}

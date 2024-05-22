@@ -4,9 +4,20 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 public class MBHVisit extends X_BH_Visit {
-
 	public MBHVisit(Properties ctx, int BH_Visit_ID, String trxName) {
 		super(ctx, BH_Visit_ID, trxName);
+	}
+
+	public MBHVisit(Properties ctx, int BH_Visit_ID, String trxName, String... virtualColumns) {
+		super(ctx, BH_Visit_ID, trxName, virtualColumns);
+	}
+
+	public MBHVisit(Properties ctx, String BH_Visit_UU, String trxName) {
+		super(ctx, BH_Visit_UU, trxName);
+	}
+
+	public MBHVisit(Properties ctx, String BH_Visit_UU, String trxName, String... virtualColumns) {
+		super(ctx, BH_Visit_UU, trxName, virtualColumns);
 	}
 
 	public MBHVisit(Properties ctx, ResultSet rs, String trxName) {

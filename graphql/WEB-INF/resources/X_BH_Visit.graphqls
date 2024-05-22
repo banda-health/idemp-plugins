@@ -1,0 +1,75 @@
+# Generated Schema for BH_Visit - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	BH_VisitGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_VisitConnection!
+}
+
+extend type Mutation {
+	BH_VisitSave(Entity: BH_VisitInput!): BH_Visit!
+	BH_VisitSaveMany(Entities: [BH_VisitInput!]!): [BH_Visit!]!
+	BH_VisitDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_VisitConnection {
+	Results: [BH_Visit!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Visit {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# BH_Clinician_User_ID
+	BH_Clinician_User: AD_User
+	BH_NewVisit: Boolean!
+	BH_PatientType: AD_Ref_List
+	# Drop down field in visits for users to define the process stage
+	BH_Process_Stage: AD_Ref_List
+	bh_referral: AD_Ref_List
+	BH_ReferredFromTo: String
+	UU: ID!
+	BH_VisitDate: Date
+	BH_Voided_Reason: BH_Voided_Reason
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The Patient must be a valid business partner.
+	Patient: C_BPartner!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_VisitInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# BH_Clinician_User_ID
+	BH_Clinician_User: ForeignEntityInput
+	BH_NewVisit: Boolean
+	BH_PatientType: ForeignEntityInput
+	# Drop down field in visits for users to define the process stage
+	BH_Process_Stage: ForeignEntityInput
+	bh_referral: ForeignEntityInput
+	BH_ReferredFromTo: String
+	UU: ID
+	BH_VisitDate: Date
+	BH_Voided_Reason: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The Patient must be a valid business partner.
+	Patient: ForeignEntityInput
+}

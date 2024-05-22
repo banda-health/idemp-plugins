@@ -1,0 +1,99 @@
+# Generated Schema for C_Withholding - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_WithholdingGet(Page: Int, Size: Int, Sort: String, Filter: String): C_WithholdingConnection!
+}
+
+extend type Mutation {
+	C_WithholdingSave(Entity: C_WithholdingInput!): C_Withholding!
+	C_WithholdingSaveMany(Entities: [C_WithholdingInput!]!): [C_Withholding!]!
+	C_WithholdingDelete(UUs: [String!]!): Boolean!
+}
+
+type C_WithholdingConnection {
+	Results: [C_Withholding!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Withholding {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Business Partner to whom payment is made
+	Benefici: C_BPartner!
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Fix amounted amount to be levied or paid
+	FixAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean!
+	# Amount paid to someone other than the Business Partner
+	IsPaidTo3Party: Boolean!
+	# Withholding amount is a percentage of the invoice amount
+	IsPercentWithholding: Boolean!
+	# Tax is Prorated
+	IsTaxProrated: Boolean!
+	# This is a tax related withholding
+	IsTaxWithholding: Boolean!
+	# Maximum Amount in invoice currency
+	MaxAmt: BigDecimal
+	# Minimum Amount in invoice currency
+	MinAmt: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Percentage
+	Percent: BigDecimal
+	# Maximum gross amount for withholding calculation  (0=no limit)
+	ThresholdMax: BigDecimal
+	# Minimum gross amount for withholding calculation
+	Thresholdmin: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_WithholdingInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Business Partner to whom payment is made
+	Benefici: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Fix amounted amount to be levied or paid
+	FixAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Amount paid to someone other than the Business Partner
+	IsPaidTo3Party: Boolean
+	# Withholding amount is a percentage of the invoice amount
+	IsPercentWithholding: Boolean
+	# Tax is Prorated
+	IsTaxProrated: Boolean
+	# This is a tax related withholding
+	IsTaxWithholding: Boolean
+	# Maximum Amount in invoice currency
+	MaxAmt: BigDecimal
+	# Minimum Amount in invoice currency
+	MinAmt: BigDecimal
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Percentage
+	Percent: BigDecimal
+	# Maximum gross amount for withholding calculation  (0=no limit)
+	ThresholdMax: BigDecimal
+	# Minimum gross amount for withholding calculation
+	Thresholdmin: BigDecimal
+}

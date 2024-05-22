@@ -1,0 +1,89 @@
+# Generated Schema for M_PromotionPreCondition - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_PromotionPreConditionGet(Page: Int, Size: Int, Sort: String, Filter: String): M_PromotionPreConditionConnection!
+}
+
+extend type Mutation {
+	M_PromotionPreConditionSave(Entity: M_PromotionPreConditionInput!): M_PromotionPreCondition!
+	M_PromotionPreConditionSaveMany(Entities: [M_PromotionPreConditionInput!]!): [M_PromotionPreCondition!]!
+	M_PromotionPreConditionDelete(UUs: [String!]!): Boolean!
+}
+
+type M_PromotionPreConditionConnection {
+	Results: [M_PromotionPreCondition!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_PromotionPreCondition {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Business Partner Group
+	C_BP_Group: C_BP_Group
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Last effective date (inclusive)
+	EndDate: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceList
+	M_Promotion: M_Promotion!
+	UU: ID!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# User entered promotion code at sales time
+	PromotionCode: String
+	# Usage counter
+	PromotionCounter: Int
+	# Maximum usage limit
+	PromotionUsageLimit: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_PromotionPreConditionInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Last effective date (inclusive)
+	EndDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Unique identifier of a Price List
+	M_PriceList: ForeignEntityInput
+	M_Promotion: ForeignEntityInput
+	UU: ID
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# User entered promotion code at sales time
+	PromotionCode: String
+	# Usage counter
+	PromotionCounter: Int
+	# Maximum usage limit
+	PromotionUsageLimit: Int
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# First effective day (inclusive)
+	StartDate: Date
+}

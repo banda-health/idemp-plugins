@@ -1,0 +1,5 @@
+extend type AD_InfoWindow {
+	AD_InfoColumns: [AD_InfoColumn!]
+	AD_InfoProcesses: [AD_InfoProcess!]
+	AD_InfoRelatedList: [AD_InfoRelated!]
+}

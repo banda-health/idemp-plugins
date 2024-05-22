@@ -1,0 +1,55 @@
+# Generated Schema for AD_Error - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ErrorGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ErrorConnection!
+}
+
+extend type Mutation {
+	AD_ErrorSave(Entity: AD_ErrorInput!): AD_Error!
+	AD_ErrorSaveMany(Entities: [AD_ErrorInput!]!): [AD_Error!]!
+	AD_ErrorDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ErrorConnection {
+	Results: [AD_Error!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Error {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Language for this entity
+	AD_Language: AD_Language
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Validation Code
+	Code: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ErrorInput {
+	UU: ID
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Validation Code
+	Code: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

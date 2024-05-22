@@ -1,0 +1,3 @@
+extend type CM_Chat {
+	CM_ChatEntryList: [CM_ChatEntry!]
+}

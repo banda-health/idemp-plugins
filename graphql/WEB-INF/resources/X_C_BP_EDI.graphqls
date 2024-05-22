@@ -1,0 +1,111 @@
+# Generated Schema for C_BP_EDI - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BP_EDIGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_EDIConnection!
+}
+
+extend type Mutation {
+	C_BP_EDISave(Entity: C_BP_EDIInput!): C_BP_EDI!
+	C_BP_EDISaveMany(Entities: [C_BP_EDIInput!]!): [C_BP_EDI!]!
+	C_BP_EDIDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BP_EDIConnection {
+	Results: [C_BP_EDI!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BP_EDI {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Document Sequence
+	AD_Sequence: AD_Sequence!
+	UU: ID!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# EDI Identification Number 
+	CustomerNo: String!
+	# Optional short description of the record
+	Description: String
+	EDIType: AD_Ref_List!
+	# Email address to send error messages to
+	EMail_Error_To: String!
+	# Full EMail address used to send requests - e.g. edi@organization.com
+	EMail_From: String
+	# Password of the sending EMail address
+	EMail_From_Pwd: String
+	# User ID of the sending EMail address (on default SMTP Host) - e.g. edi
+	EMail_From_Uid: String
+	# EMail address to send informational messages and copies
+	EMail_Info_To: String!
+	# EMail address to send requests to - e.g. edi@manufacturer.com 
+	EMail_To: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Activate Audit Trail of what numbers are generated
+	IsAudited: Boolean!
+	# Send informational messages and copies
+	IsInfoSent: Boolean!
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	ReceiveInquiryReply: Boolean!
+	ReceiveOrderReply: Boolean!
+	# Quantity Availability Inquiry
+	SendInquiry: Boolean!
+	SendOrder: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_BP_EDIInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Document Sequence
+	AD_Sequence: ForeignEntityInput
+	UU: ID
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# EDI Identification Number 
+	CustomerNo: String
+	# Optional short description of the record
+	Description: String
+	EDIType: ForeignEntityInput
+	# Email address to send error messages to
+	EMail_Error_To: String
+	# Full EMail address used to send requests - e.g. edi@organization.com
+	EMail_From: String
+	# Password of the sending EMail address
+	EMail_From_Pwd: String
+	# User ID of the sending EMail address (on default SMTP Host) - e.g. edi
+	EMail_From_Uid: String
+	# EMail address to send informational messages and copies
+	EMail_Info_To: String
+	# EMail address to send requests to - e.g. edi@manufacturer.com 
+	EMail_To: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Activate Audit Trail of what numbers are generated
+	IsAudited: Boolean
+	# Send informational messages and copies
+	IsInfoSent: Boolean
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	ReceiveInquiryReply: Boolean
+	ReceiveOrderReply: Boolean
+	# Quantity Availability Inquiry
+	SendInquiry: Boolean
+	SendOrder: Boolean
+}

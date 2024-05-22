@@ -1,0 +1,189 @@
+# Generated Schema for AD_Workflow - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_WorkflowGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_WorkflowConnection!
+}
+
+extend type Mutation {
+	AD_WorkflowSave(Entity: AD_WorkflowInput!): AD_Workflow!
+	AD_WorkflowSaveMany(Entities: [AD_WorkflowInput!]!): [AD_Workflow!]!
+	AD_WorkflowDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_WorkflowConnection {
+	Results: [AD_Workflow!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Workflow {
+	# Access Level required
+	AccessLevel: AD_Ref_List!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	AD_CtxHelp: AD_CtxHelp
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: AD_WF_Responsible
+	UU: ID!
+	# Workflow Processor Server
+	AD_WorkflowProcessor: AD_WorkflowProcessor
+	# Author/Creator of the Entity
+	Author: String!
+	# Cost information
+	Cost: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Logic to determine Workflow Start - If true, a workflow process is started for the document
+	DocValueLogic: String
+	# Normal Duration in Duration Unit
+	Duration: Int!
+	# Unit of Duration
+	DurationUnit: AD_Ref_List
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# Maximum Duration in Duration Unit
+	Limit: Int
+	MovingTime: Int
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Overlap Units are number of units that must be completed before they are moved the next activity
+	OverlapUnits: BigDecimal
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	ProcessType: AD_Ref_List
+	# Status of Publication
+	PublishStatus: AD_Ref_List!
+	QtyBatchSize: BigDecimal
+	# Queue time is the time a job waits at a work center before begin handled.
+	QueuingTime: Int
+	# Resource
+	S_Resource: S_Resource
+	# Setup time before starting Production
+	SetupTime: Int
+	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
+	UnitsCycles: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	ValidateWorkflow: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# Version of the table definition
+	Version: Int!
+	# Workflow Simulation Waiting time
+	WaitingTime: Int!
+	# Type of Workflow
+	WorkflowType: AD_Ref_List!
+	# Workflow Simulation Execution Time
+	WorkingTime: Int!
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+}
+
+input AD_WorkflowInput {
+	# Access Level required
+	AccessLevel: ForeignEntityInput
+	AD_CtxHelp: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Responsible for Workflow Execution
+	AD_WF_Responsible: ForeignEntityInput
+	UU: ID
+	# Workflow Processor Server
+	AD_WorkflowProcessor: ForeignEntityInput
+	# Author/Creator of the Entity
+	Author: String
+	# Cost information
+	Cost: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Logic to determine Workflow Start - If true, a workflow process is started for the document
+	DocValueLogic: String
+	# Normal Duration in Duration Unit
+	Duration: Int
+	# Unit of Duration
+	DurationUnit: ForeignEntityInput
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Maximum Duration in Duration Unit
+	Limit: Int
+	MovingTime: Int
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Overlap Units are number of units that must be completed before they are moved the next activity
+	OverlapUnits: BigDecimal
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: Int
+	ProcessType: ForeignEntityInput
+	# Status of Publication
+	PublishStatus: ForeignEntityInput
+	QtyBatchSize: BigDecimal
+	# Queue time is the time a job waits at a work center before begin handled.
+	QueuingTime: Int
+	# Resource
+	S_Resource: ForeignEntityInput
+	# Setup time before starting Production
+	SetupTime: Int
+	# The Units by Cycles are defined for process type  Flow Repetitive Dedicated and  indicated the product to be manufactured on a production line for duration unit.
+	UnitsCycles: BigDecimal
+	ValidateWorkflow: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Version of the table definition
+	Version: Int
+	# Workflow Simulation Waiting time
+	WaitingTime: Int
+	# Type of Workflow
+	WorkflowType: ForeignEntityInput
+	# Workflow Simulation Execution Time
+	WorkingTime: Int
+	# The Yield is the percentage of a lot that is expected to be of acceptable wuality may fall below 100 percent
+	Yield: Int
+}

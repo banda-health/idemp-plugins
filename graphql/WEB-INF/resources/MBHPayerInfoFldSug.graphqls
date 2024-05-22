@@ -1,0 +1,3 @@
+extend type BH_Payer_Info_Fld_Sug {
+	BH_Payer_Info_Fld_Val_SugList: [BH_Payer_Info_Fld_Val_Sug!]
+}

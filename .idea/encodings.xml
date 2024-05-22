@@ -10,6 +10,15 @@
     <file url="file://$PROJECT_DIR$/base/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chuck-test-framework/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chuck-test-framework/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql-feature/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql-feature/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql-generator/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql-generator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql-generator/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql-test/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql-test/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/graphql/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/reports-test/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/reports-test/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/reports/src/main/java" charset="UTF-8" />

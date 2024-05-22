@@ -1,0 +1,75 @@
+# Generated Schema for AD_RelationType - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_RelationTypeGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_RelationTypeConnection!
+}
+
+extend type Mutation {
+	AD_RelationTypeSave(Entity: AD_RelationTypeInput!): AD_RelationType!
+	AD_RelationTypeSaveMany(Entities: [AD_RelationTypeInput!]!): [AD_RelationType!]!
+	AD_RelationTypeDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_RelationTypeConnection {
+	Results: [AD_RelationType!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_RelationType {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AD_Reference_Source: AD_Reference
+	AD_Reference_Target: AD_Reference
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Tells whether one "sees" the other end of the relation from each end or just from the source
+	IsDirected: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# If set, this role will be used as label for the zoom destination instead of the destinations's window name
+	Role_Source: AD_Ref_List
+	# If set, this role will be used as label for the zoom destination instead of the destinations's window name
+	Role_Target: AD_Ref_List
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_RelationTypeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AD_Reference_Source: ForeignEntityInput
+	AD_Reference_Target: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Tells whether one "sees" the other end of the relation from each end or just from the source
+	IsDirected: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# If set, this role will be used as label for the zoom destination instead of the destinations's window name
+	Role_Source: ForeignEntityInput
+	# If set, this role will be used as label for the zoom destination instead of the destinations's window name
+	Role_Target: ForeignEntityInput
+	# Type of Validation (SQL, Java Script, Java Language)
+	Type: ForeignEntityInput
+}

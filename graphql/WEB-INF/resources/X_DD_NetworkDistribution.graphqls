@@ -1,0 +1,83 @@
+# Generated Schema for DD_NetworkDistribution - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	DD_NetworkDistributionGet(Page: Int, Size: Int, Sort: String, Filter: String): DD_NetworkDistributionConnection!
+}
+
+extend type Mutation {
+	DD_NetworkDistributionSave(Entity: DD_NetworkDistributionInput!): DD_NetworkDistribution!
+	DD_NetworkDistributionSaveMany(Entities: [DD_NetworkDistributionInput!]!): [DD_NetworkDistribution!]!
+	DD_NetworkDistributionDelete(UUs: [String!]!): Boolean!
+}
+
+type DD_NetworkDistributionConnection {
+	Results: [DD_NetworkDistribution!]!
+	PagingInfo: PagingInfo!
+}
+
+type DD_NetworkDistribution {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	UU: ID!
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Bill of Materials (Engineering) Change Notice (Version)
+	M_ChangeNotice: M_ChangeNotice
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	Revision: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input DD_NetworkDistributionInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Bill of Materials (Engineering) Change Notice (Version)
+	M_ChangeNotice: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	Revision: String
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

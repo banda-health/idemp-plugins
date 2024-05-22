@@ -1,0 +1,63 @@
+# Generated Schema for A_Depreciation_Convention - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Depreciation_ConventionGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Depreciation_ConventionConnection!
+}
+
+extend type Mutation {
+	A_Depreciation_ConventionSave(Entity: A_Depreciation_ConventionInput!): A_Depreciation_Convention!
+	A_Depreciation_ConventionSaveMany(Entities: [A_Depreciation_ConventionInput!]!): [A_Depreciation_Convention!]!
+	A_Depreciation_ConventionDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Depreciation_ConventionConnection {
+	Results: [A_Depreciation_Convention!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Depreciation_Convention {
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	ConventionType: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Text Message
+	TextMsg: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Depreciation_ConventionInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	ConventionType: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Text Message
+	TextMsg: String
+}

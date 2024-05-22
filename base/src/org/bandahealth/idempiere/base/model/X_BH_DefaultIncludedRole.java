@@ -19,29 +19,56 @@ package org.bandahealth.idempiere.base.model;
 
 import java.sql.ResultSet;
 import java.util.Properties;
-
-import org.compiere.model.I_Persistent;
-import org.compiere.model.MTable;
-import org.compiere.model.PO;
-import org.compiere.model.POInfo;
+import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_DefaultIncludedRole
- *  @author iDempiere (generated) 
- *  @version Release 7.1 - $Id$ */
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_DefaultIncludedRole")
 public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncludedRole, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20200920L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_DefaultIncludedRole (Properties ctx, int BH_DefaultIncludedRole_ID, String trxName)
     {
       super (ctx, BH_DefaultIncludedRole_ID, trxName);
       /** if (BH_DefaultIncludedRole_ID == 0)
+        {
+			setBH_DefaultIncludedRole_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_DefaultIncludedRole (Properties ctx, int BH_DefaultIncludedRole_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_DefaultIncludedRole_ID, trxName, virtualColumns);
+      /** if (BH_DefaultIncludedRole_ID == 0)
+        {
+			setBH_DefaultIncludedRole_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_DefaultIncludedRole (Properties ctx, String BH_DefaultIncludedRole_UU, String trxName)
+    {
+      super (ctx, BH_DefaultIncludedRole_UU, trxName);
+      /** if (BH_DefaultIncludedRole_UU == null)
+        {
+			setBH_DefaultIncludedRole_ID (0);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_DefaultIncludedRole (Properties ctx, String BH_DefaultIncludedRole_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_DefaultIncludedRole_UU, trxName, virtualColumns);
+      /** if (BH_DefaultIncludedRole_UU == null)
         {
 			setBH_DefaultIncludedRole_ID (0);
         } */
@@ -54,7 +81,7 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
     }
 
     /** AccessLevel
-      * @return 4 - System 
+      * @return 4 - System
       */
     protected int get_AccessLevel()
     {
@@ -76,18 +103,19 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
     }
 
 	/** Set Default Included Roles.
-		@param BH_DefaultIncludedRole_ID Default Included Roles	  */
+		@param BH_DefaultIncludedRole_ID Default Included Roles
+	*/
 	public void setBH_DefaultIncludedRole_ID (int BH_DefaultIncludedRole_ID)
 	{
-		if (BH_DefaultIncludedRole_ID < 1) 
+		if (BH_DefaultIncludedRole_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_DefaultIncludedRole_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_DefaultIncludedRole_ID, Integer.valueOf(BH_DefaultIncludedRole_ID));
 	}
 
 	/** Get Default Included Roles.
 		@return Default Included Roles	  */
-	public int getBH_DefaultIncludedRole_ID () 
+	public int getBH_DefaultIncludedRole_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_DefaultIncludedRole_ID);
 		if (ii == null)
@@ -96,7 +124,8 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	}
 
 	/** Set BH_DefaultIncludedRole_UU.
-		@param BH_DefaultIncludedRole_UU BH_DefaultIncludedRole_UU	  */
+		@param BH_DefaultIncludedRole_UU BH_DefaultIncludedRole_UU
+	*/
 	public void setBH_DefaultIncludedRole_UU (String BH_DefaultIncludedRole_UU)
 	{
 		set_Value (COLUMNNAME_BH_DefaultIncludedRole_UU, BH_DefaultIncludedRole_UU);
@@ -104,23 +133,42 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 
 	/** Get BH_DefaultIncludedRole_UU.
 		@return BH_DefaultIncludedRole_UU	  */
-	public String getBH_DefaultIncludedRole_UU () 
+	public String getBH_DefaultIncludedRole_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_DefaultIncludedRole_UU);
 	}
 
 	/** Admin = A */
 	public static final String DB_USERTYPE_Admin = "A";
+	/** Clinic Admin = B */
+	public static final String DB_USERTYPE_ClinicAdmin = "B";
+	/** Clinician/Nurse Basic = C */
+	public static final String DB_USERTYPE_ClinicianNurseBasic = "C";
+	/** Cashier/Registration Advanced = D */
+	public static final String DB_USERTYPE_CashierRegistrationAdvanced = "D";
+	/** Clinician/Nurse Advanced = E */
+	public static final String DB_USERTYPE_ClinicianNurseAdvanced = "E";
+	/** Inventory/Pharmacy Advanced = I */
+	public static final String DB_USERTYPE_InventoryPharmacyAdvanced = "I";
+	/** Inventory/Pharmacy Basic = J */
+	public static final String DB_USERTYPE_InventoryPharmacyBasic = "J";
+	/** Lab/Radiology = L */
+	public static final String DB_USERTYPE_LabRadiology = "L";
+	/** Clinic User = M */
+	public static final String DB_USERTYPE_ClinicUser = "M";
+	/** Cashier/Registration Basic = R */
+	public static final String DB_USERTYPE_CashierRegistrationBasic = "R";
+	/** Triage = T */
+	public static final String DB_USERTYPE_Triage = "T";
 	/** User = U */
 	public static final String DB_USERTYPE_User = "U";
 	/** Advanced User = V */
 	public static final String DB_USERTYPE_AdvancedUser = "V";
-	/** Clinician = C */
-	public static final String DB_USERTYPE_Clinician = "C";
+	/** Accounting = X */
+	public static final String DB_USERTYPE_Accounting = "X";
 	/** Set UserType.
-		@param DB_UserType 
-		The User Type when a new client is created
-	  */
+		@param DB_UserType The User Type when a new client is created
+	*/
 	public void setDB_UserType (String DB_UserType)
 	{
 
@@ -130,15 +178,14 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	/** Get UserType.
 		@return The User Type when a new client is created
 	  */
-	public String getDB_UserType () 
+	public String getDB_UserType()
 	{
 		return (String)get_Value(COLUMNNAME_DB_UserType);
 	}
 
 	/** Set Description.
-		@param Description 
-		Optional short description of the record
-	  */
+		@param Description Optional short description of the record
+	*/
 	public void setDescription (String Description)
 	{
 		set_Value (COLUMNNAME_Description, Description);
@@ -147,29 +194,31 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	/** Get Description.
 		@return Optional short description of the record
 	  */
-	public String getDescription () 
+	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
 	public org.compiere.model.I_AD_Role getIncluded_Role() throws RuntimeException
-    {
-		return (org.compiere.model.I_AD_Role) MTable.get(getCtx(), org.compiere.model.I_AD_Role.Table_Name)
-			.getPO(getIncluded_Role_ID(), get_TrxName());	}
+	{
+		return (org.compiere.model.I_AD_Role)MTable.get(getCtx(), org.compiere.model.I_AD_Role.Table_ID)
+			.getPO(getIncluded_Role_ID(), get_TrxName());
+	}
 
 	/** Set Included Role.
-		@param Included_Role_ID Included Role	  */
+		@param Included_Role_ID Included Role
+	*/
 	public void setIncluded_Role_ID (int Included_Role_ID)
 	{
-		if (Included_Role_ID < 1) 
+		if (Included_Role_ID < 1)
 			set_Value (COLUMNNAME_Included_Role_ID, null);
-		else 
+		else
 			set_Value (COLUMNNAME_Included_Role_ID, Integer.valueOf(Included_Role_ID));
 	}
 
 	/** Get Included Role.
 		@return Included Role	  */
-	public int getIncluded_Role_ID () 
+	public int getIncluded_Role_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_Included_Role_ID);
 		if (ii == null)
@@ -178,9 +227,8 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	}
 
 	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
+		@param Name Alphanumeric identifier of the entity
+	*/
 	public void setName (String Name)
 	{
 		set_Value (COLUMNNAME_Name, Name);
@@ -189,7 +237,7 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
 	/** Get Name.
 		@return Alphanumeric identifier of the entity
 	  */
-	public String getName () 
+	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
@@ -197,7 +245,7 @@ public class X_BH_DefaultIncludedRole extends PO implements I_BH_DefaultIncluded
     /** Get Record ID/ColumnName
         @return ID/ColumnName pair
       */
-    public KeyNamePair getKeyNamePair() 
+    public KeyNamePair getKeyNamePair()
     {
         return new KeyNamePair(get_ID(), getName());
     }

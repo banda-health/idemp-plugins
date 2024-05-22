@@ -1,0 +1,85 @@
+# Generated Schema for HR_Employee - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_EmployeeGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_EmployeeConnection!
+}
+
+extend type Mutation {
+	HR_EmployeeSave(Entity: HR_EmployeeInput!): HR_Employee!
+	HR_EmployeeSaveMany(Entities: [HR_EmployeeInput!]!): [HR_Employee!]!
+	HR_EmployeeDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_EmployeeConnection {
+	Results: [HR_Employee!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Employee {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Validation Code
+	Code: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Last effective date (inclusive)
+	EndDate: Date
+	HR_Department: HR_Department!
+	UU: ID!
+	HR_Job: HR_Job!
+	HR_Payroll: HR_Payroll
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	NationalCode: String
+	SSCode: String
+	# First effective day (inclusive)
+	StartDate: Date!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input HR_EmployeeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Validation Code
+	Code: String
+	# Last effective date (inclusive)
+	EndDate: Date
+	HR_Department: ForeignEntityInput
+	UU: ID
+	HR_Job: ForeignEntityInput
+	HR_Payroll: ForeignEntityInput
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	NationalCode: String
+	SSCode: String
+	# First effective day (inclusive)
+	StartDate: Date
+}

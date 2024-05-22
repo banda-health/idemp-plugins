@@ -1,0 +1,57 @@
+# Generated Schema for AD_StatusLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_StatusLineGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_StatusLineConnection!
+}
+
+extend type Mutation {
+	AD_StatusLineSave(Entity: AD_StatusLineInput!): AD_StatusLine!
+	AD_StatusLineSaveMany(Entities: [AD_StatusLineInput!]!): [AD_StatusLine!]!
+	AD_StatusLineDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_StatusLineConnection {
+	Results: [AD_StatusLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_StatusLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# System Message
+	AD_Message: AD_Message!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	SQLStatement: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_StatusLineInput {
+	# System Message
+	AD_Message: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	SQLStatement: String
+}

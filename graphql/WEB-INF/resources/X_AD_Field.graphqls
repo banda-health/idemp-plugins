@@ -1,0 +1,227 @@
+# Generated Schema for AD_Field - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_FieldGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FieldConnection!
+}
+
+extend type Mutation {
+	AD_FieldSave(Entity: AD_FieldInput!): AD_Field!
+	AD_FieldSaveMany(Entities: [AD_FieldInput!]!): [AD_Field!]!
+	AD_FieldDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_FieldConnection {
+	Results: [AD_Field!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Field {
+	AD_Chart: AD_Chart
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Column in the table
+	AD_Column: AD_Column!
+	UU: ID!
+	# Logical grouping of fields
+	AD_FieldGroup: AD_FieldGroup
+	# Field CSS Style 
+	AD_FieldStyle: AD_Style
+	# Label CSS Style
+	AD_LabelStyle: AD_Style
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# System Reference and Validation
+	AD_Reference: AD_Reference
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: AD_Reference
+	# Tab within a Window
+	AD_Tab: AD_Tab!
+	# Dynamic Validation Rule
+	AD_Val_Rule: AD_Val_Rule
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: AD_Val_Rule
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
+	# An abbreviation for a given name
+	BH_Abbreviation: String
+	# Number of column for a box of field
+	ColumnSpan: Int
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Length of the display in characters
+	DisplayLength: Int
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# Included Tab in this Tab (Master Detail)
+	Included_Tab: AD_Tab
+	# The record is active in the system
+	IsActive: Boolean!
+	IsAdvancedField: Boolean!
+	# Determine if a column must be copied when pushing the button to copy record
+	IsAllowCopy: AD_Ref_List
+	# The column is always updateable, even if the record is not active or processed
+	IsAlwaysUpdateable: AD_Ref_List
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean!
+	IsDefaultFocus: Boolean!
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean!
+	IsDisplayedGrid: Boolean!
+	# Display or Storage is encrypted
+	IsEncrypted: Boolean!
+	# Label is not displayed
+	IsFieldOnly: Boolean!
+	# Field without Column - Only label is displayed
+	IsHeading: Boolean!
+	# Data entry is required in this column
+	IsMandatory: AD_Ref_List
+	IsQuickEntry: Boolean!
+	# Display in Quick Form
+	IsQuickForm: Boolean!
+	# Field is read only
+	IsReadOnly: Boolean!
+	# Displayed on same line as previous field
+	IsSameLine: Boolean!
+	# Is this column used for finding rows in windows
+	IsSelectionColumn: AD_Ref_List
+	# Show the button on the toolbar, the window, or both
+	IsToolbarButton: AD_Ref_List
+	# Determines, if the field can be updated
+	IsUpdateable: AD_Ref_List
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Number of lines for a field
+	NumLines: Int
+	# Type of obscuring the data (limiting the display)
+	ObscureType: AD_Ref_List
+	Placeholder: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	SeqNoGrid: Int
+	# Determines in what order the records are displayed
+	SortNo: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int
+}
+
+input AD_FieldInput {
+	AD_Chart: ForeignEntityInput
+	# Column in the table
+	AD_Column: ForeignEntityInput
+	UU: ID
+	# Logical grouping of fields
+	AD_FieldGroup: ForeignEntityInput
+	# Field CSS Style 
+	AD_FieldStyle: ForeignEntityInput
+	# Label CSS Style
+	AD_LabelStyle: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# System Reference and Validation
+	AD_Reference: ForeignEntityInput
+	# Required to specify, if data type is Table or List
+	AD_Reference_Value: ForeignEntityInput
+	# Tab within a Window
+	AD_Tab: ForeignEntityInput
+	# Dynamic Validation Rule
+	AD_Val_Rule: ForeignEntityInput
+	# Override Dynamic Validation Rule for Lookup Window
+	AD_Val_Rule_Lookup: ForeignEntityInput
+	# Logic to determine if field is Updatable irrespective if record's active status or processed status. This logic Applicable only if Always Updatable is N.
+	AlwaysUpdatableLogic: String
+	# An abbreviation for a given name
+	BH_Abbreviation: String
+	# Number of column for a box of field
+	ColumnSpan: Int
+	# Virtual Column (r/o)
+	ColumnSQL: String
+	# Default value hierarchy, separated by ;
+	DefaultValue: String
+	# Optional short description of the record
+	Description: String
+	# Length of the display in characters
+	DisplayLength: Int
+	# If the Field is displayed, the result determines if the field is actually displayed
+	DisplayLogic: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# Included Tab in this Tab (Master Detail)
+	Included_Tab: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	IsAdvancedField: Boolean
+	# Determine if a column must be copied when pushing the button to copy record
+	IsAllowCopy: ForeignEntityInput
+	# The column is always updateable, even if the record is not active or processed
+	IsAlwaysUpdateable: ForeignEntityInput
+	# Information maintained in System Element table
+	IsCentrallyMaintained: Boolean
+	IsDefaultFocus: Boolean
+	# Determines, if this field is displayed
+	IsDisplayed: Boolean
+	IsDisplayedGrid: Boolean
+	# Display or Storage is encrypted
+	IsEncrypted: Boolean
+	# Label is not displayed
+	IsFieldOnly: Boolean
+	# Field without Column - Only label is displayed
+	IsHeading: Boolean
+	# Data entry is required in this column
+	IsMandatory: ForeignEntityInput
+	IsQuickEntry: Boolean
+	# Display in Quick Form
+	IsQuickForm: Boolean
+	# Field is read only
+	IsReadOnly: Boolean
+	# Displayed on same line as previous field
+	IsSameLine: Boolean
+	# Is this column used for finding rows in windows
+	IsSelectionColumn: ForeignEntityInput
+	# Show the button on the toolbar, the window, or both
+	IsToolbarButton: ForeignEntityInput
+	# Determines, if the field can be updated
+	IsUpdateable: ForeignEntityInput
+	MandatoryLogic: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Number of lines for a field
+	NumLines: Int
+	# Type of obscuring the data (limiting the display)
+	ObscureType: ForeignEntityInput
+	Placeholder: String
+	# Logic to determine if field is read only (applies only when field is read-write)
+	ReadOnlyLogic: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	SeqNoGrid: Int
+	# Determines in what order the records are displayed
+	SortNo: BigDecimal
+	# Format of the value; Can contain fixed format elements, Variables: "_lLoOaAcCa09"
+	VFormat: String
+	# Absolute X (horizontal) position in 1/72 of an inch
+	XPosition: Int
+}

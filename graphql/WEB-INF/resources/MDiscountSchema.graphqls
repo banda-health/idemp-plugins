@@ -1,0 +1,4 @@
+extend type M_DiscountSchema {
+	M_DiscountSchemaBreaks: [M_DiscountSchemaBreak!]
+	M_DiscountSchemaLines: [M_DiscountSchemaLine!]
+}

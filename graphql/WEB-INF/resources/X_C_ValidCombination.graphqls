@@ -1,0 +1,111 @@
+# Generated Schema for C_ValidCombination - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_ValidCombinationGet(Page: Int, Size: Int, Sort: String, Filter: String): C_ValidCombinationConnection!
+}
+
+extend type Mutation {
+	C_ValidCombinationSave(Entity: C_ValidCombinationInput!): C_ValidCombination!
+	C_ValidCombinationSaveMany(Entities: [C_ValidCombinationInput!]!): [C_ValidCombination!]!
+	C_ValidCombinationDelete(UUs: [String!]!): Boolean!
+}
+
+type C_ValidCombinationConnection {
+	Results: [C_ValidCombination!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_ValidCombination {
+	# Account used
+	Account: C_ElementValue!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Defines an alternate method of indicating an account combination.
+	Alias: String
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Location that inventory was moved from
+	C_LocFrom: C_Location
+	# Location that inventory was moved to
+	C_LocTo: C_Location
+	# Financial Project
+	C_Project: C_Project
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Sub account for Element Value
+	C_SubAcct: C_SubAcct
+	UU: ID!
+	# Unique combination of account elements
+	Combination: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This account is fully qualified
+	IsFullyQualified: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input C_ValidCombinationInput {
+	# Account used
+	Account: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Defines an alternate method of indicating an account combination.
+	Alias: String
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Location that inventory was moved from
+	C_LocFrom: ForeignEntityInput
+	# Location that inventory was moved to
+	C_LocTo: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	# Sub account for Element Value
+	C_SubAcct: ForeignEntityInput
+	UU: ID
+	# Unique combination of account elements
+	Combination: String
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This account is fully qualified
+	IsFullyQualified: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

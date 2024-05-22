@@ -105,7 +105,7 @@ public class AuthenticationRestService {
 			throw new AdempiereException(Msg.getMsg(Env.getCtx(), MMessage_BH.WRONG_CREDENTIALS));
 		}
 
-		MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
+//		MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
 		/**
 		 * Copied from ChangePasswordPanel > validateChangePassword
 		 */
@@ -133,7 +133,9 @@ public class AuthenticationRestService {
 	@Path(IRestConfigs.CHANGEACCESS_PATH)
 	public AuthResponse changeAccess(Authentication credentials) {
 		try {
+			PO.setCrossTenantSafe();
 			MUser user = MUser.get(Env.getCtx(), Env.getAD_User_ID(Env.getCtx()));
+			PO.clearCrossTenantSafe();
 			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}
@@ -190,7 +192,7 @@ public class AuthenticationRestService {
 									.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid())).findFirst();
 
 							return foundWarehouse
-									.filter(mWarehouse -> warehouseAccess.getRoleId() == role.getId() && mWarehouse
+									.filter(mWarehouse -> warehouseAccess.getAD_Role_ID() == role.getId() && mWarehouse
 											.getM_Warehouse_UU().equalsIgnoreCase(credentials.getWarehouseUuid()))
 									.isPresent();
 						}).findAny();
@@ -256,7 +258,9 @@ public class AuthenticationRestService {
 			for (KeyNamePair client : clients) {
 				int clientId = client.getKey();
 				Env.setContext(Env.getCtx(), Env.AD_CLIENT_ID, clientId);
+				PO.setCrossTenantSafe();
 				MUser clientUser = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
+				PO.clearCrossTenantSafe();
 				if (clientUser == null) {
 					trx.rollback();
 					throw new AdempiereException(ERROR_USER_NOT_FOUND);
@@ -294,7 +298,9 @@ public class AuthenticationRestService {
 		if (clients == null || clients.length == 0) {
 			return new AuthResponse(Status.UNAUTHORIZED);
 		} else {
+			PO.setCrossTenantSafe();
 			MUser user = MUser.get(Env.getCtx(), credentials.getUsername(), credentials.getPassword());
+			PO.clearCrossTenantSafe();
 			if (user == null) {
 				return new AuthResponse(Status.UNAUTHORIZED);
 			}

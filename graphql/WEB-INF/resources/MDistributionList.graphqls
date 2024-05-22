@@ -1,0 +1,3 @@
+extend type M_DistributionList {
+	M_DistributionListLines: [M_DistributionListLine!]
+}

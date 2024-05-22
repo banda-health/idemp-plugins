@@ -1,0 +1,96 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_AD_ReplicationTable;
+
+/**
+ * Generated Interface for AD_ReplicationTable - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public interface I_AD_ReplicationTableInput extends I_AD_ReplicationTable {
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set AD_ReplicationStrategy.
+	 *
+	 * @param AD_ReplicationStrategy Data Replication Strategy
+	 */
+	void setAD_ReplicationStrategyInput(ForeignEntityInput AD_ReplicationStrategy);
+
+	/**
+	 * Get AD_ReplicationStrategy.
+	 *
+	 * @return Data Replication Strategy
+	 */
+	ForeignEntityInput AD_ReplicationStrategy();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
+	 * Set AD_Table.
+	 *
+	 * @param AD_Table Database Table information
+	 */
+	void setAD_TableInput(ForeignEntityInput AD_Table);
+
+	/**
+	 * Get AD_Table.
+	 *
+	 * @return Database Table information
+	 */
+	ForeignEntityInput AD_Table();
+
+	/**
+	 * Set AD_EntityType.
+	 *
+	 * @param AD_EntityType Dictionary Entity Type; Determines ownership and synchronization
+	 */
+	void setAD_EntityTypeInput(ForeignEntityInput AD_EntityType);
+
+	/**
+	 * Get AD_EntityType.
+	 *
+	 * @return Dictionary Entity Type; Determines ownership and synchronization
+	 */
+	ForeignEntityInput AD_EntityType();
+
+	/**
+	 * Set ReplicationType.
+	 *
+	 * @param ReplicationType Type of Data Replication
+	 */
+	void setReplicationTypeInput(ForeignEntityInput ReplicationType);
+
+	/**
+	 * Get ReplicationType.
+	 *
+	 * @return Type of Data Replication
+	 */
+	ForeignEntityInput ReplicationType();
+}

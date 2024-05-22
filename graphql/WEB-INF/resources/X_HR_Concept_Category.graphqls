@@ -1,0 +1,61 @@
+# Generated Schema for HR_Concept_Category - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_Concept_CategoryGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_Concept_CategoryConnection!
+}
+
+extend type Mutation {
+	HR_Concept_CategorySave(Entity: HR_Concept_CategoryInput!): HR_Concept_Category!
+	HR_Concept_CategorySaveMany(Entities: [HR_Concept_CategoryInput!]!): [HR_Concept_Category!]!
+	HR_Concept_CategoryDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_Concept_CategoryConnection {
+	Results: [HR_Concept_Category!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Concept_Category {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	HR_Concept_A: C_ValidCombination
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input HR_Concept_CategoryInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	HR_Concept_A: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

@@ -1,0 +1,193 @@
+# Generated Schema for C_InvoiceLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_InvoiceLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_InvoiceLineConnection!
+}
+
+extend type Mutation {
+	C_InvoiceLineSave(Entity: C_InvoiceLineInput!): C_InvoiceLine!
+	C_InvoiceLineSaveMany(Entities: [C_InvoiceLineInput!]!): [C_InvoiceLine!]!
+	C_InvoiceLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_InvoiceLineConnection {
+	Results: [C_InvoiceLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_InvoiceLine {
+	# Group of Assets
+	A_Asset_Group: A_Asset_Group
+	# Asset used internally or by customers
+	A_Asset: A_Asset
+	A_CapvsExp: AD_Ref_List
+	A_CreateAsset: Boolean!
+	A_Processed: Boolean!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	C_1099Box: C_1099Box
+	# Business Activity
+	C_Activity: C_Activity
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Additional document charges
+	C_Charge: C_Charge
+	# Invoice Identifier
+	C_Invoice: C_Invoice!
+	UU: ID!
+	# Sales Order Line
+	C_OrderLine: C_OrderLine
+	# Financial Project
+	C_Project: C_Project
+	# Phase of a Project
+	C_ProjectPhase: C_ProjectPhase
+	# Actual Project Task in a Phase
+	C_ProjectTask: C_ProjectTask
+	# Tax identifier
+	C_Tax: C_Tax!
+	# Unit of Measure
+	C_UOM: C_UOM
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# if true, the line is just description and no transaction
+	IsDescription: Boolean!
+	IsFixedAssetInvoice: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	# Unique line for this document
+	Line: Int!
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: BigDecimal!
+	# Total line amount incl. Tax
+	LineTotalAmt: BigDecimal
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: M_AttributeSetInstance!
+	# Line on Shipment or Receipt document
+	M_InOutLine: M_InOutLine
+	# Product, Service, Item
+	M_Product: M_Product
+	# Return Material Authorization Line
+	M_RMALine: M_RMALine
+	# Actual Price 
+	PriceActual: BigDecimal!
+	# Price Entered - the price based on the selected/base UoM
+	PriceEntered: BigDecimal!
+	# Lowest price for a product
+	PriceLimit: BigDecimal!
+	# List Price
+	PriceList: BigDecimal!
+	# The document has been processed
+	Processed: Boolean!
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: BigDecimal!
+	# Invoiced Quantity
+	QtyInvoiced: BigDecimal!
+	# Revenue Recognition Amount
+	RRAmt: BigDecimal
+	# Revenue Recognition Start Date
+	RRStartDate: Date
+	# Resource Assignment
+	S_ResourceAssignment: S_ResourceAssignment
+	# Tax Amount for a document
+	TaxAmt: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input C_InvoiceLineInput {
+	# Group of Assets
+	A_Asset_Group: ForeignEntityInput
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_CapvsExp: ForeignEntityInput
+	A_CreateAsset: Boolean
+	A_Processed: Boolean
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	C_1099Box: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	UU: ID
+	# Sales Order Line
+	C_OrderLine: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Phase of a Project
+	C_ProjectPhase: ForeignEntityInput
+	# Actual Project Task in a Phase
+	C_ProjectTask: ForeignEntityInput
+	# Tax identifier
+	C_Tax: ForeignEntityInput
+	# Unit of Measure
+	C_UOM: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# if true, the line is just description and no transaction
+	IsDescription: Boolean
+	IsFixedAssetInvoice: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	# Unique line for this document
+	Line: Int
+	# Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+	LineNetAmt: BigDecimal
+	# Total line amount incl. Tax
+	LineTotalAmt: BigDecimal
+	# Product Attribute Set Instance
+	M_AttributeSetInstance: ForeignEntityInput
+	# Line on Shipment or Receipt document
+	M_InOutLine: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Return Material Authorization Line
+	M_RMALine: ForeignEntityInput
+	# Actual Price 
+	PriceActual: BigDecimal
+	# Price Entered - the price based on the selected/base UoM
+	PriceEntered: BigDecimal
+	# Lowest price for a product
+	PriceLimit: BigDecimal
+	# List Price
+	PriceList: BigDecimal
+	# The document has been processed
+	Processed: Boolean
+	# The Quantity Entered is based on the selected UoM
+	QtyEntered: BigDecimal
+	# Invoiced Quantity
+	QtyInvoiced: BigDecimal
+	# Revenue Recognition Amount
+	RRAmt: BigDecimal
+	# Revenue Recognition Start Date
+	RRStartDate: Date
+	# Resource Assignment
+	S_ResourceAssignment: ForeignEntityInput
+	# Tax Amount for a document
+	TaxAmt: BigDecimal
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

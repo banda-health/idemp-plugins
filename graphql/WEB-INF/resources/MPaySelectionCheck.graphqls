@@ -1,0 +1,3 @@
+extend type C_PaySelectionCheck {
+	C_PaySelectionLines: [C_PaySelectionLine!]
+}
