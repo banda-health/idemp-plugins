@@ -23,6 +23,7 @@ import org.compiere.model.Query;
 import org.compiere.model.SystemIDs;
 import org.compiere.process.ImportAccount;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.util.CLogMgt;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
@@ -146,7 +147,10 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 	 * @throws Exception
 	 */
 	protected String doIt() throws Exception {
+		Level originalLevel = CLogMgt.getLevel();
 		String completeInfo = super.doIt();
+		// The level is cleared in the super, so reset it
+		CLogMgt.setLevel(originalLevel);
 
 		MClient client = new Query(getCtx(), MClient.Table_Name, MClient.COLUMNNAME_Name + "=?", get_TrxName())
 				.setParameters(clientName).first();
@@ -174,8 +178,12 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			addImportAccountParameters(bandaSetup);
 			// Kick off the account import process
 			ImportAccount importAccountProcess = new ImportAccount();
+			// The import accounts process pulls PInstance info down inside it, so make sure it gets a new set of data
+			int processInstanceId = getProcessInfo().getAD_PInstance_ID();
+			getProcessInfo().setAD_PInstance_ID(0);
 			// Leave the transaction null so it will create a local one, save it, and commit it after all work is done
-			importAccountProcess.startProcess(getCtx(), getProcessInfo(), null);
+			importAccountProcess.startProcess(Env.getCtx(), getProcessInfo(), null);
+			getProcessInfo().setAD_PInstance_ID(processInstanceId);
 
 			// Start our own transaction
 			bandaSetup.start();
