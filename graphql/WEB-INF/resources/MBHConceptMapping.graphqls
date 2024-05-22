@@ -1,0 +1,6 @@
+extend type BH_Concept_Mapping {
+	# We don't map FromBH_Concepts, as that is already provided through the BH_Concept attribute
+	ToBH_Concepts: [BH_Concept!]                   # Should typically be 1, but nothing in database requires this
+	FromBH_Concept_Mappings: [BH_Concept_Mapping!] # Provides a way to skip over From concept to it's From mappings 
+	ToBH_Concept_Mappings: [BH_Concept_Mapping!]   # Provides a way to skip over To concept to it's To mappings
+}
