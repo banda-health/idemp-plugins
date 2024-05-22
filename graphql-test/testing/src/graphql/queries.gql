@@ -233,6 +233,17 @@ query BH_Coded_DiagnosisGet($Page: Int, $Size: Int, $Sort: String, $Filter: Stri
 	}
 }
 
+query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	BH_ConceptGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			UU
+			bh_concept_class
+			BH_Display_Name
+			BH_Concept_Type
+		}
+	}
+}
+
 query BH_Encounter_Type_WindowGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_Encounter_Type_WindowGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
