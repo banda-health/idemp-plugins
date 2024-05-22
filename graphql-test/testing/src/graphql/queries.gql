@@ -444,6 +444,19 @@ query DocumentStatusActionMap {
 	DocumentStatusActionMap
 }
 
+query InventoryTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
+	InventoryTransactionGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
+		Results {
+			C_Order {
+				UU
+				DocStatus {
+					Value
+				}
+			}
+		}
+	}
+}
+
 query M_AttributeSetInstanceGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	M_AttributeSetInstanceGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
