@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src/"/>
+	<classpathentry exported="true" kind="lib" path="lib/graphql-java.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/graphql-java-servlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/graphql-java-tools.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/java-jwt.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/kotlin-stdlib.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/kotlinx-coroutines-core.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/kotlin-reflect.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/classmate.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-datatype-jdk8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-module-kotlin.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/java-dataloader.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/reactive-streams.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/graphql-java-kickstart.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-annotations.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

@@ -1,0 +1,71 @@
+# Generated Schema for C_CashBook_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CashBook_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashBook_AcctConnection!
+}
+
+extend type Mutation {
+	C_CashBook_AcctSave(Entity: C_CashBook_AcctInput!): C_CashBook_Acct!
+	C_CashBook_AcctSaveMany(Entities: [C_CashBook_AcctInput!]!): [C_CashBook_Acct!]!
+	C_CashBook_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CashBook_AcctConnection {
+	Results: [C_CashBook_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CashBook_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# Cash Book for recording petty cash transactions
+	C_CashBook: C_CashBook!
+	# Cash Book Asset Account
+	CB_Asset_A: C_ValidCombination
+	# Cash Transfer Clearing Account
+	CB_CashTransfer_A: C_ValidCombination
+	# Cash Book Differences Account
+	CB_Differences_A: C_ValidCombination
+	# Cash Book Expense Account
+	CB_Expense_A: C_ValidCombination
+	# Cash Book Receipts Account
+	CB_Receipt_A: C_ValidCombination
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_CashBook_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	UU: ID
+	# Cash Book for recording petty cash transactions
+	C_CashBook: ForeignEntityInput
+	# Cash Book Asset Account
+	CB_Asset_A: ForeignEntityInput
+	# Cash Transfer Clearing Account
+	CB_CashTransfer_A: ForeignEntityInput
+	# Cash Book Differences Account
+	CB_Differences_A: ForeignEntityInput
+	# Cash Book Expense Account
+	CB_Expense_A: ForeignEntityInput
+	# Cash Book Receipts Account
+	CB_Receipt_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

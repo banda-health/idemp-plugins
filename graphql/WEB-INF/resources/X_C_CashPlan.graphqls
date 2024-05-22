@@ -1,0 +1,103 @@
+# Generated Schema for C_CashPlan - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_CashPlanGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CashPlanConnection!
+}
+
+extend type Mutation {
+	C_CashPlanSave(Entity: C_CashPlanInput!): C_CashPlan!
+	C_CashPlanSaveMany(Entities: [C_CashPlanInput!]!): [C_CashPlan!]!
+	C_CashPlanDelete(UUs: [String!]!): Boolean!
+}
+
+type C_CashPlanConnection {
+	Results: [C_CashPlan!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_CashPlan {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	UU: ID!
+	# Financial Project
+	C_Project: C_Project
+	CashFlowType: AD_Ref_List
+	# Copy From Record
+	CopyFrom: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date of the Document
+	DateDoc: Date!
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String!
+	GeneratePeriodic: String
+	# Total amount of document
+	GrandTotal: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input C_CashPlanInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	UU: ID
+	# Financial Project
+	C_Project: ForeignEntityInput
+	CashFlowType: ForeignEntityInput
+	# Copy From Record
+	CopyFrom: String
+	# Date of the Document
+	DateDoc: Date
+	# Optional short description of the record
+	Description: String
+	# Document sequence number of the document
+	DocumentNo: String
+	GeneratePeriodic: String
+	# Total amount of document
+	GrandTotal: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

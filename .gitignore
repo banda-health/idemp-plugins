@@ -27,6 +27,7 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+!graphql-feature/graphql.generator.launch
 
 # PyDev specific (Python IDE for Eclipse)
 *.pydevproject

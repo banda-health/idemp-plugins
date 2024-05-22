@@ -1,0 +1,75 @@
+# Generated Schema for GL_BudgetControl - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	GL_BudgetControlGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_BudgetControlConnection!
+}
+
+extend type Mutation {
+	GL_BudgetControlSave(Entity: GL_BudgetControlInput!): GL_BudgetControl!
+	GL_BudgetControlSaveMany(Entities: [GL_BudgetControlInput!]!): [GL_BudgetControl!]!
+	GL_BudgetControlDelete(UUs: [String!]!): Boolean!
+}
+
+type GL_BudgetControlConnection {
+	Results: [GL_BudgetControl!]!
+	PagingInfo: PagingInfo!
+}
+
+type GL_BudgetControl {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Scope of the Budget Control
+	BudgetControlScope: AD_Ref_List!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Create Commitment and/or Reservations for Budget Control
+	CommitmentType: AD_Ref_List!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# General Ledger Budget
+	GL_Budget: GL_Budget!
+	UU: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The Check is before the (manual) approval
+	IsBeforeApproval: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input GL_BudgetControlInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Scope of the Budget Control
+	BudgetControlScope: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Create Commitment and/or Reservations for Budget Control
+	CommitmentType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# General Ledger Budget
+	GL_Budget: ForeignEntityInput
+	UU: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The Check is before the (manual) approval
+	IsBeforeApproval: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

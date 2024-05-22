@@ -1,0 +1,775 @@
+mutation AD_OrgInfoSave($AD_OrgInfo: AD_OrgInfoInput!) {
+	AD_OrgInfoSave(Entity: $AD_OrgInfo) {
+		UU
+	}
+}
+
+mutation AD_ProcessRun($UU: ID!, $ProcessInfoParameterList: [ProcessInfoParameterInput!]) {
+	AD_ProcessRun(UU: $UU, ProcessInfoParameterList: $ProcessInfoParameterList)
+}
+
+mutation AD_ProcessRunAndExport(
+	$UU: ID!
+	$ProcessInfoParameterList: [ProcessInfoParameterInput!]
+	$ReportType: ReportOutput!
+) {
+	AD_ProcessRunAndExport(UU: $UU, ProcessInfoParameterList: $ProcessInfoParameterList, ReportType: $ReportType)
+}
+
+mutation AD_Role_IncludedSaveMany($Entities: [AD_Role_IncludedInput!]!) {
+	AD_Role_IncludedSaveMany(Entities: $Entities) {
+		UU
+	}
+}
+
+mutation AD_Role_IncludedDelete($UUs: [String!]!) {
+	AD_Role_IncludedDelete(UUs: $UUs)
+}
+
+mutation AD_RoleSave($Entity: AD_RoleInput!) {
+	AD_RoleSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation AD_RoleWithIncludedSave($AD_Role: AD_RoleInput!, $AD_Role_IncludedList: [AD_Role_IncludedInput!]!) {
+	AD_RoleSave(Entity: $AD_Role) {
+		UU
+	}
+	AD_Role_IncludedSaveMany(Entities: $AD_Role_IncludedList) {
+		UU
+	}
+}
+
+mutation AD_User_RolesDelete($UUs: [String!]!) {
+	AD_User_RolesDelete(UUs: $UUs)
+}
+
+mutation AD_User_RolesSaveAndDeleteMany(
+	$AD_User_Roles: [AD_User_RolesInput!]!
+	$AD_User_Role_UUs_To_Delete: [String!]!
+) {
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
+	}
+	AD_User_RolesDelete(UUs: $AD_User_Role_UUs_To_Delete)
+}
+
+mutation AD_User_RolesSaveMany($AD_User_Roles: [AD_User_RolesInput!]!) {
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
+	}
+}
+
+mutation AD_UserWithRoleSave($AD_User: AD_UserInput!, $AD_User_Roles: [AD_User_RolesInput!]!) {
+	AD_UserSave(Entity: $AD_User) {
+		UU
+		Name
+		IsActive
+		AD_User_Roles {
+			UU
+		}
+	}
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
+	}
+}
+
+mutation AD_UserWithRoleSaveAndDelete(
+	$AD_User: AD_UserInput!
+	$AD_User_Roles: [AD_User_RolesInput!]!
+	$AD_User_RoleUUSToDelete: [String!]!
+) {
+	AD_UserSave(Entity: $AD_User) {
+		UU
+	}
+	AD_User_RolesSaveMany(Entities: $AD_User_Roles) {
+		UU
+	}
+	AD_User_RolesDelete(UUs: $AD_User_RoleUUSToDelete)
+}
+
+mutation BH_EncounterDelete($UUS: [String!]!) {
+	BH_EncounterDelete(UUs: $UUS)
+}
+
+mutation BH_EncounterAndObservationsSaveMany(
+	$BH_Encounters: [BH_EncounterInput!]!
+	$BH_Observations: [BH_ObservationInput!]!
+) {
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
+	}
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
+	}
+}
+
+mutation BH_EncounterObservationsAndEncounterDiagnosesSaveMany(
+	$BH_Encounters: [BH_EncounterInput!]!
+	$BH_Observations: [BH_ObservationInput!]!
+	$BH_EncounterDiagnoses: [BH_Encounter_DiagnosisInput!]!
+) {
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
+	}
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
+	}
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
+	}
+}
+
+mutation BH_ObservationsDeleteAndSaveManyAndEncounterDiagnosesDelete(
+	$BH_ObservationUUs: [String!]!
+	$BH_EncounterDiagnosesUUs: [String!]!
+	$BH_Observations: [BH_ObservationInput!]!
+) {
+	BH_ObservationDelete(UUs: $BH_ObservationUUs)
+	BH_Encounter_DiagnosisDelete(UUs: $BH_EncounterDiagnosesUUs)
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
+	}
+}
+
+mutation BH_ObservationsDeleteAndSaveManyAndEncounterDiagnosesSaveMany(
+	$BH_ObservationUUs: [String!]!
+	$BH_Observations: [BH_ObservationInput!]!
+	$BH_EncounterDiagnoses: [BH_Encounter_DiagnosisInput!]!
+) {
+	BH_ObservationDelete(UUs: $BH_ObservationUUs)
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
+	}
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
+	}
+}
+
+mutation BH_VisitDeleteAll(
+	$BH_Visit_UUs: [String!]!
+	$C_Order_UUs: [String!]!
+	$C_Invoice_UUs: [String!]!
+	$C_Payment_UUs: [String!]!
+) {
+	C_PaymentDelete(UUs: $C_Payment_UUs)
+	C_InvoiceDelete(UUs: $C_Invoice_UUs)
+	C_OrderDelete(UUs: $C_Order_UUs)
+	BH_VisitDelete(UUs: $BH_Visit_UUs)
+}
+
+mutation BH_VisitDelete($UUs: [String!]!) {
+	BH_VisitDelete(UUs: $UUs)
+}
+
+mutation BH_VisitProcess($UU: ID!, $DocumentAction: String!) {
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
+	}
+}
+
+mutation BH_VisitRemoveInsurancePayer(
+	$C_Invoice_UUS: [String!]!
+	$C_InvoiceLine_UUS: [String!]!
+	$C_Payments: [C_PaymentInput!]!
+) {
+	C_InvoiceDelete(UUs: $C_Invoice_UUS)
+	C_InvoiceLineDelete(UUs: $C_InvoiceLine_UUS)
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
+	}
+}
+
+mutation BH_VisitSave($Entity: BH_VisitInput!) {
+	BH_VisitSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveAndProcess($BH_Visit: BH_VisitInput!, $UU: ID!, $DocumentAction: String!) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveAndProcessWithOrders(
+	$BH_Visit: BH_VisitInput!
+	$C_Orders: [C_OrderInput!]!
+	$UU: ID!
+	$DocumentAction: String!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveAndProcessWithOrdersInvoicesAndPayments(
+	$BH_Visit: BH_VisitInput!
+	$C_Orders: [C_OrderInput!]!
+	$C_OrderLines: [C_OrderLineInput!]!
+	$C_Invoices: [C_InvoiceInput!]!
+	$C_InvoiceLines: [C_InvoiceLineInput!]!
+	$C_Payments: [C_PaymentInput!]!
+	$UU: ID!
+	$DocumentAction: String!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
+	}
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
+	}
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
+	}
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
+	}
+	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveWithEncountersObservationsOrdersInvoicesAndPayments(
+	$BH_Visit: BH_VisitInput!
+	$BH_Encounters: [BH_EncounterInput!]!
+	$BH_EncounterDiagnoses: [BH_Encounter_DiagnosisInput!]!
+	$BH_Observations: [BH_ObservationInput!]!
+	$C_Orders: [C_OrderInput!]!
+	$C_OrderLines: [C_OrderLineInput!]!
+	$C_Invoices: [C_InvoiceInput!]!
+	$C_InvoiceLines: [C_InvoiceLineInput!]!
+	$C_Payments: [C_PaymentInput!]!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
+	}
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
+	}
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
+	}
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
+	}
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
+	}
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveWithEncountersOrdersAndInvoices(
+	$BH_Visit: BH_VisitInput!
+	$BH_Encounters: [BH_EncounterInput!]!
+	$C_Orders: [C_OrderInput!]!
+	$C_OrderLines: [C_OrderLineInput!]!
+	$C_Invoices: [C_InvoiceInput!]!
+	$C_InvoiceLines: [C_InvoiceLineInput!]!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
+	}
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
+	}
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveWithEncountersObservationsOrdersInvoicesInsuranceAndPayments(
+	$BH_Visit: BH_VisitInput!
+	$BH_Encounters: [BH_EncounterInput!]!
+	$BH_EncounterDiagnoses: [BH_Encounter_DiagnosisInput!]!
+	$BH_Observations: [BH_ObservationInput!]!
+	$C_Orders: [C_OrderInput!]!
+	$C_OrderLines: [C_OrderLineInput!]!
+	$C_Invoices: [C_InvoiceInput!]!
+	$C_InvoiceLines: [C_InvoiceLineInput!]!
+	$BH_BP_Specific_Payer_InfoList: [BH_BP_Specific_Payer_InfoInput!]!
+	$C_Payments: [C_PaymentInput!]!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	BH_EncounterSaveMany(Entities: $BH_Encounters) {
+		UU
+	}
+	BH_ObservationSaveMany(Entities: $BH_Observations) {
+		UU
+	}
+	BH_Encounter_DiagnosisSaveMany(Entities: $BH_EncounterDiagnoses) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
+	}
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
+	}
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
+	}
+	BH_BP_Specific_Payer_InfoSaveMany(Entities: $BH_BP_Specific_Payer_InfoList) {
+		UU
+	}
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveWithOrdersInvoicesAndPayments(
+	$BH_Visit: BH_VisitInput!
+	$C_Orders: [C_OrderInput!]!
+	$C_OrderLines: [C_OrderLineInput!]!
+	$C_Invoices: [C_InvoiceInput!]!
+	$C_InvoiceLines: [C_InvoiceLineInput!]!
+	$C_Payments: [C_PaymentInput!]!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
+	}
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
+	}
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
+	}
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveWithOrdersInvoicesPayerInformationAndPayments(
+	$BH_Visit: BH_VisitInput!
+	$C_Orders: [C_OrderInput!]!
+	$C_OrderLines: [C_OrderLineInput!]!
+	$C_Invoices: [C_InvoiceInput!]!
+	$C_InvoiceLines: [C_InvoiceLineInput!]!
+	$BH_BP_Specific_Payer_InfoList: [BH_BP_Specific_Payer_InfoInput!]!
+	$C_Payments: [C_PaymentInput!]!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	C_OrderLineSaveMany(Entities: $C_OrderLines) {
+		UU
+	}
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
+	}
+	C_InvoiceLineSaveMany(Entities: $C_InvoiceLines) {
+		UU
+	}
+	BH_BP_Specific_Payer_InfoSaveMany(Entities: $BH_BP_Specific_Payer_InfoList) {
+		UU
+	}
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveWithOrdersAndInvoices(
+	$BH_Visit: BH_VisitInput!
+	$C_Orders: [C_OrderInput!]!
+	$C_Invoices: [C_InvoiceInput!]!
+) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	C_OrderSaveMany(Entities: $C_Orders) {
+		UU
+	}
+	C_InvoiceSaveMany(Entities: $C_Invoices) {
+		UU
+	}
+}
+
+mutation BH_VisitSaveWithPayments($BH_Visit: BH_VisitInput!, $C_Payments: [C_PaymentInput!]!) {
+	BH_VisitSave(Entity: $BH_Visit) {
+		UU
+	}
+	C_PaymentSaveMany(Entities: $C_Payments) {
+		UU
+	}
+}
+
+mutation C_BPartner_LocationSave($Entity: C_BPartner_LocationInput!) {
+	C_BPartner_LocationSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation C_BPartnerSave($Entity: C_BPartnerInput!) {
+	C_BPartnerSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation C_BPartnerSaveWithLocation(
+	$C_BPartner: C_BPartnerInput!
+	$C_Location: C_LocationInput!
+	$C_BPartner_Location: C_BPartner_LocationInput!
+) {
+	C_BPartnerSave(Entity: $C_BPartner) {
+		UU
+	}
+	C_LocationSave(Entity: $C_Location) {
+		UU
+	}
+	C_BPartner_LocationSave(Entity: $C_BPartner_Location) {
+		UU
+	}
+}
+
+mutation C_BPartnerSaveWithLocationAndContact(
+	$C_BPartner: C_BPartnerInput!
+	$C_Location: C_LocationInput!
+	$C_BPartner_Location: C_BPartner_LocationInput!
+	$AD_User: AD_UserInput!
+) {
+	C_BPartnerSave(Entity: $C_BPartner) {
+		UU
+	}
+	C_LocationSave(Entity: $C_Location) {
+		UU
+	}
+	C_BPartner_LocationSave(Entity: $C_BPartner_Location) {
+		UU
+	}
+	AD_UserSave(Entity: $AD_User) {
+		UU
+	}
+}
+
+mutation C_Charge_AcctSave($Entity: C_Charge_AcctInput!) {
+	C_Charge_AcctSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation C_ChargeSave($Entity: C_ChargeInput!) {
+	C_ChargeSave(Entity: $Entity) {
+		Description
+		UU
+		Name
+		C_Charge_AcctList {
+			UU
+			C_AcctSchema {
+				UU
+			}
+		}
+	}
+}
+
+mutation C_LocationSave($Entity: C_LocationInput!) {
+	C_LocationSave(Entity: $Entity) {
+		...C_LocationFields
+	}
+}
+
+mutation C_LocationUpdateWithBPartner(
+	$C_BPartner: C_BPartnerInput!
+	$C_Location: C_LocationInput!
+	$C_BPartner_Location: C_BPartner_LocationInput!
+) {
+	C_LocationSave(Entity: $C_Location) {
+		UU
+	}
+	C_BPartner_LocationSave(Entity: $C_BPartner_Location) {
+		UU
+	}
+	C_BPartnerSave(Entity: $C_BPartner) {
+		UU
+	}
+}
+
+mutation C_InvoiceAndOrderLineDelete($C_OrderLineUUS: [String!]!, $C_InvoiceLineUUS: [String!]!) {
+	C_InvoiceLineDelete(UUs: $C_InvoiceLineUUS)
+	C_OrderLineDelete(UUs: $C_OrderLineUUS)
+}
+
+mutation C_InvoiceDelete($UUs: [String!]!) {
+	C_InvoiceDelete(UUs: $UUs)
+}
+
+mutation C_InvoiceSaveWithInvoiceLines($C_Invoice: C_InvoiceInput!, $C_InvoiceLine: C_InvoiceLineInput!) {
+	C_InvoiceSave(Entity: $C_Invoice) {
+		UU
+	}
+	C_InvoiceLineSave(Entity: $C_InvoiceLine) {
+		UU
+	}
+}
+
+mutation C_InvoiceProcess($UU: ID!, $DocumentAction: String!) {
+	C_InvoiceProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		...C_InvoiceFields
+	}
+}
+
+mutation C_OrderLineDelete($UUS: [String!]!) {
+	C_OrderLineDelete(UUs: $UUS)
+}
+
+mutation C_OrderLineSave($Entity: C_OrderLineInput!) {
+	C_OrderLineSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation C_OrderProcess($UU: ID!, $DocumentAction: String!) {
+	C_OrderProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		...C_OrderFields
+	}
+}
+
+mutation C_OrderSave($Entity: C_OrderInput!) {
+	C_OrderSave(Entity: $Entity) {
+		...C_OrderFields
+	}
+}
+
+mutation C_OrderSaveWithOrderLines($C_Order: C_OrderInput!, $C_OrderLine: C_OrderLineInput!) {
+	C_OrderSave(Entity: $C_Order) {
+		UU
+	}
+	C_OrderLineSave(Entity: $C_OrderLine) {
+		UU
+	}
+}
+
+mutation C_PaymentProcess($UU: ID!, $DocumentAction: String!) {
+	C_PaymentProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		...C_PaymentFields
+	}
+}
+
+mutation C_PaymentDelete($UUs: [String!]!) {
+	C_PaymentDelete(UUs: $UUs)
+}
+
+mutation C_PaymentSave($Entity: C_PaymentInput!) {
+	C_PaymentSave(Entity: $Entity) {
+		...C_PaymentFields
+	}
+}
+
+mutation C_PaymentSaveMany($Entities: [C_PaymentInput!]!) {
+	C_PaymentSaveMany(Entities: $Entities) {
+		UU
+	}
+}
+
+mutation C_ValidCombinationGetOrCreate(
+	$AD_Org_UU: String
+	$C_AcctSchema_UU: String
+	$Account_UU: String
+	$C_SubAcct_UU: String
+	$M_Product_UU: String
+	$C_BPartner_UU: String
+	$AD_OrgTrx_UU: String
+	$C_LocFrom_UU: String
+	$C_LocTo_UU: String
+	$C_SalesRegion_UU: String
+	$C_Project_UU: String
+	$C_Campaign_UU: String
+	$C_Activity_UU: String
+	$User1_UU: String
+	$User2_UU: String
+	$UserElement1_UU: String
+	$UserElement2_UU: String
+) {
+	C_ValidCombinationGetOrCreate(
+		AD_Org_UU: $AD_Org_UU
+		C_AcctSchema_UU: $C_AcctSchema_UU
+		Account_UU: $Account_UU
+		C_SubAcct_UU: $C_SubAcct_UU
+		M_Product_UU: $M_Product_UU
+		C_BPartner_UU: $C_BPartner_UU
+		AD_OrgTrx_UU: $AD_OrgTrx_UU
+		C_LocFrom_UU: $C_LocFrom_UU
+		C_LocTo_UU: $C_LocTo_UU
+		C_SalesRegion_UU: $C_SalesRegion_UU
+		C_Project_UU: $C_Project_UU
+		C_Campaign_UU: $C_Campaign_UU
+		C_Activity_UU: $C_Activity_UU
+		User1_UU: $User1_UU
+		User2_UU: $User2_UU
+		UserElement1_UU: $UserElement1_UU
+		UserElement2_UU: $UserElement2_UU
+	) {
+		UU
+	}
+}
+
+mutation ChangeAccess($Access: ChangeAccessInput!) {
+	ChangeAccess(Access: $Access)
+}
+
+mutation ChangePassword($PasswordInfo: ChangePasswordInput!) {
+	ChangePassword(PasswordInfo: $PasswordInfo)
+}
+
+mutation LogoAndAD_OrgInfoSave($Logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInput!) {
+	AD_ImageSave(Entity: $Logo) {
+		UU
+	}
+	AD_OrgInfoSave(Entity: $AD_OrgInfo) {
+		UU
+	}
+}
+
+mutation Logout {
+	Logout
+}
+
+mutation M_AttributeSetInstanceSave($Entity: M_AttributeSetInstanceInput!) {
+	M_AttributeSetInstanceSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation M_InventoryProcess($UU: ID!, $DocumentAction: String!) {
+	M_InventoryProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		...M_InventoryFields
+	}
+}
+
+mutation M_InventorySave($Entity: M_InventoryInput!) {
+	M_InventorySave(Entity: $Entity) {
+		...M_InventoryFields
+	}
+}
+
+mutation M_InventorySaveWithInventoryLines($M_Inventory: M_InventoryInput!, $M_InventoryLine: M_InventoryLineInput!) {
+	M_InventorySave(Entity: $M_Inventory) {
+		...M_InventoryFields
+	}
+	M_InventoryLineSave(Entity: $M_InventoryLine) {
+		UU
+	}
+}
+
+mutation M_MovementProcess($UU: ID!, $DocumentAction: String!) {
+	M_MovementProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		...M_MovementFields
+	}
+}
+
+mutation M_MovementSave($Entity: M_MovementInput!) {
+	M_MovementSave(Entity: $Entity) {
+		...M_MovementFields
+	}
+}
+
+mutation M_MovementSaveWithMovementLinesAndProcess(
+	$M_Movement: M_MovementInput!
+	$M_MovementLine: M_MovementLineInput!
+	$UU: ID!
+	$DocumentAction: String!
+) {
+	M_MovementSave(Entity: $M_Movement) {
+		...M_MovementFields
+	}
+	M_MovementLineSave(Entity: $M_MovementLine) {
+		UU
+	}
+	M_MovementProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		...M_MovementFields
+	}
+}
+
+mutation M_PriceList_VersionSave($Entity: M_PriceList_VersionInput!) {
+	M_PriceList_VersionSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation M_PriceListSave($Entity: M_PriceListInput!) {
+	M_PriceListSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation M_ProductPriceSaveMany($Entities: [M_ProductPriceInput!]!) {
+	M_ProductPriceSaveMany(Entities: $Entities) {
+		UU
+	}
+}
+
+mutation M_ProductSave($Entity: M_ProductInput!) {
+	M_ProductSave(Entity: $Entity) {
+		...M_ProductFields
+	}
+}
+
+mutation M_ProductSaveMany($Entities: [M_ProductInput!]!) {
+	M_ProductSaveMany(Entities: $Entities) {
+		BH_BuyPrice
+		BH_SellPrice
+		Description
+		UU
+		Name
+		M_Product_Category {
+			UU
+		}
+	}
+}
+
+mutation SignIn($Credentials: AuthenticationInput!) {
+	SignIn(Credentials: $Credentials) {
+		AD_User {
+			IsExpired
+		}
+	}
+}

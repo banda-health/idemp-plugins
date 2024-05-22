@@ -1,0 +1,63 @@
+# Generated Schema for AD_ReplicationDocument - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReplicationDocumentGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReplicationDocumentConnection!
+}
+
+extend type Mutation {
+	AD_ReplicationDocumentSave(Entity: AD_ReplicationDocumentInput!): AD_ReplicationDocument!
+	AD_ReplicationDocumentSaveMany(Entities: [AD_ReplicationDocumentInput!]!): [AD_ReplicationDocument!]!
+	AD_ReplicationDocumentDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReplicationDocumentConnection {
+	Results: [AD_ReplicationDocument!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ReplicationDocument {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Data Replication Strategy
+	AD_ReplicationStrategy: AD_ReplicationStrategy!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Type of Data Replication
+	ReplicationType: AD_Ref_List!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_ReplicationDocumentInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Data Replication Strategy
+	AD_ReplicationStrategy: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Type of Data Replication
+	ReplicationType: ForeignEntityInput
+}

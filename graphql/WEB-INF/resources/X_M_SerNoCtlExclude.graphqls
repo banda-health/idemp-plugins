@@ -1,0 +1,55 @@
+# Generated Schema for M_SerNoCtlExclude - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_SerNoCtlExcludeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_SerNoCtlExcludeConnection!
+}
+
+extend type Mutation {
+	M_SerNoCtlExcludeSave(Entity: M_SerNoCtlExcludeInput!): M_SerNoCtlExclude!
+	M_SerNoCtlExcludeSaveMany(Entities: [M_SerNoCtlExcludeInput!]!): [M_SerNoCtlExclude!]!
+	M_SerNoCtlExcludeDelete(UUs: [String!]!): Boolean!
+}
+
+type M_SerNoCtlExcludeConnection {
+	Results: [M_SerNoCtlExclude!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_SerNoCtlExclude {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Database Table information
+	AD_Table: AD_Table!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# Product Serial Number Control
+	M_SerNoCtl: M_SerNoCtl!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_SerNoCtlExcludeInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Database Table information
+	AD_Table: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Product Serial Number Control
+	M_SerNoCtl: ForeignEntityInput
+	UU: ID
+}

@@ -1,0 +1,81 @@
+# Generated Schema for AD_Form - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_FormGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_FormConnection!
+}
+
+extend type Mutation {
+	AD_FormSave(Entity: AD_FormInput!): AD_Form!
+	AD_FormSaveMany(Entities: [AD_FormInput!]!): [AD_Form!]!
+	AD_FormDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_FormConnection {
+	Results: [AD_Form!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Form {
+	# Access Level required
+	AccessLevel: AD_Ref_List!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	AD_CtxHelp: AD_CtxHelp
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Java Classname
+	Classname: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# Comment or Hint
+	Help: String
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean!
+	# Web URL of the jsp function
+	JSPURL: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_FormInput {
+	# Access Level required
+	AccessLevel: ForeignEntityInput
+	AD_CtxHelp: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Java Classname
+	Classname: String
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# URL of  image
+	ImageURL: String
+	# The record is active in the system
+	IsActive: Boolean
+	# This functionality is considered Beta
+	IsBetaFunctionality: Boolean
+	# Web URL of the jsp function
+	JSPURL: String
+	# Alphanumeric identifier of the entity
+	Name: String
+}

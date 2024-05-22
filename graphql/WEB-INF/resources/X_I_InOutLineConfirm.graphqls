@@ -1,0 +1,81 @@
+# Generated Schema for I_InOutLineConfirm - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	I_InOutLineConfirmGet(Page: Int, Size: Int, Sort: String, Filter: String): I_InOutLineConfirmConnection!
+}
+
+extend type Mutation {
+	I_InOutLineConfirmSave(Entity: I_InOutLineConfirmInput!): I_InOutLineConfirm!
+	I_InOutLineConfirmSaveMany(Entities: [I_InOutLineConfirmInput!]!): [I_InOutLineConfirm!]!
+	I_InOutLineConfirmDelete(UUs: [String!]!): Boolean!
+}
+
+type I_InOutLineConfirmConnection {
+	Results: [I_InOutLineConfirm!]!
+	PagingInfo: PagingInfo!
+}
+
+type I_InOutLineConfirm {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Confirmation Number
+	ConfirmationNo: String!
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: BigDecimal!
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID!
+	# Has this import been processed
+	I_IsImported: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Material Shipment or Receipt Confirmation Line
+	M_InOutLineConfirm: M_InOutLineConfirm!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input I_InOutLineConfirmInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Confirmation Number
+	ConfirmationNo: String
+	# Confirmation of a received quantity
+	ConfirmedQty: BigDecimal
+	# Optional short description of the record
+	Description: String
+	# Difference Quantity
+	DifferenceQty: BigDecimal
+	# Messages generated from import process
+	I_ErrorMsg: String
+	UU: ID
+	# Has this import been processed
+	I_IsImported: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Material Shipment or Receipt Confirmation Line
+	M_InOutLineConfirm: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# The Quantity scrapped due to QA issues
+	ScrappedQty: BigDecimal
+}

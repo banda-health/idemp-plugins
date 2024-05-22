@@ -1,0 +1,53 @@
+# Generated Schema for PA_DashboardContent_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	PA_DashboardContent_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): PA_DashboardContent_AccessConnection!
+}
+
+extend type Mutation {
+	PA_DashboardContent_AccessSave(Entity: PA_DashboardContent_AccessInput!): PA_DashboardContent_Access!
+	PA_DashboardContent_AccessSaveMany(Entities: [PA_DashboardContent_AccessInput!]!): [PA_DashboardContent_Access!]!
+	PA_DashboardContent_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type PA_DashboardContent_AccessConnection {
+	Results: [PA_DashboardContent_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type PA_DashboardContent_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client
+	# Organizational entity within tenant
+	AD_Org: AD_Org
+	# Responsibility Role
+	AD_Role: AD_Role
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	PA_DashboardContent: PA_DashboardContent
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User
+}
+
+input PA_DashboardContent_AccessInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	PA_DashboardContent: ForeignEntityInput
+}

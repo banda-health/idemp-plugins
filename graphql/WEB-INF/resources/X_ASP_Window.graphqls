@@ -1,0 +1,51 @@
+# Generated Schema for ASP_Window - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	ASP_WindowGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_WindowConnection!
+}
+
+extend type Mutation {
+	ASP_WindowSave(Entity: ASP_WindowInput!): ASP_Window!
+	ASP_WindowSaveMany(Entities: [ASP_WindowInput!]!): [ASP_Window!]!
+	ASP_WindowDelete(UUs: [String!]!): Boolean!
+}
+
+type ASP_WindowConnection {
+	Results: [ASP_Window!]!
+	PagingInfo: PagingInfo!
+}
+
+type ASP_Window {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Data entry or display window
+	AD_Window: AD_Window!
+	ASP_Level: ASP_Level!
+	ASP_Status: AD_Ref_List!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input ASP_WindowInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Data entry or display window
+	AD_Window: ForeignEntityInput
+	ASP_Level: ForeignEntityInput
+	ASP_Status: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+}

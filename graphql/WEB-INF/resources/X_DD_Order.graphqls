@@ -1,0 +1,249 @@
+# Generated Schema for DD_Order - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	DD_OrderGet(Page: Int, Size: Int, Sort: String, Filter: String): DD_OrderConnection!
+}
+
+extend type Mutation {
+	DD_OrderSave(Entity: DD_OrderInput!): DD_Order!
+	DD_OrderSaveMany(Entities: [DD_OrderInput!]!): [DD_Order!]!
+	DD_OrderDelete(UUs: [String!]!): Boolean!
+}
+
+type DD_OrderConnection {
+	Results: [DD_Order!]!
+	PagingInfo: PagingInfo!
+}
+
+type DD_Order {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner!
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location!
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Additional document charges
+	C_Charge: C_Charge
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Order
+	C_Order: C_Order
+	# Financial Project
+	C_Project: C_Project
+	# Charge Amount
+	ChargeAmt: BigDecimal
+	CreateConfirm: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	CreatePackage: String
+	# Date of Order
+	DateOrdered: Date!
+	# Date the document was printed.
+	DatePrinted: Date
+	# Date Order was promised
+	DatePromised: Date!
+	# Date a product was received
+	DateReceived: Date
+	UU: ID!
+	# Defines the timing of Delivery
+	DeliveryRule: AD_Ref_List!
+	# How the order will be delivered
+	DeliveryViaRule: AD_Ref_List!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Freight Amount 
+	FreightAmt: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: AD_Ref_List!
+	# Generate To
+	GenerateTo: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	IsDelivered: Boolean!
+	# Drop Shipments are sent directly to the Drop Shipment Location
+	IsDropShip: Boolean!
+	# Document is in dispute
+	IsInDispute: Boolean!
+	# Movement is in transit
+	IsInTransit: Boolean!
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean!
+	IsSelected: Boolean!
+	# This is a Sales Transaction
+	IsSOTrx: Boolean!
+	# Method or manner of product delivery
+	M_Shipper: M_Shipper
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Number of packages shipped
+	NoPackages: Int
+	# Date/Time when picked for Shipment
+	PickDate: Date
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Posting status
+	Posted: Boolean!
+	# Priority of a document
+	PriorityRule: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# Reference to corresponding Sales/Purchase Order
+	Ref_Order: C_Order
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Enable sending Document EMail
+	SendEMail: Boolean!
+	# Shipment Date/Time
+	ShipDate: Date
+	# Number to track the shipment
+	TrackingNo: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+	# Volume of a product
+	Volume: BigDecimal
+	# Weight of a product
+	Weight: BigDecimal
+}
+
+input DD_OrderInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
+	CreateConfirm: String
+	# Process which will generate a new document lines based on an existing document
+	CreateFrom: String
+	CreatePackage: String
+	# Date of Order
+	DateOrdered: Date
+	# Date the document was printed.
+	DatePrinted: Date
+	# Date Order was promised
+	DatePromised: Date
+	# Date a product was received
+	DateReceived: Date
+	UU: ID
+	# Defines the timing of Delivery
+	DeliveryRule: ForeignEntityInput
+	# How the order will be delivered
+	DeliveryViaRule: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# Freight Amount 
+	FreightAmt: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: ForeignEntityInput
+	# Generate To
+	GenerateTo: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	IsDelivered: Boolean
+	# Drop Shipments are sent directly to the Drop Shipment Location
+	IsDropShip: Boolean
+	# Document is in dispute
+	IsInDispute: Boolean
+	# Movement is in transit
+	IsInTransit: Boolean
+	# Indicates if this document / line is printed
+	IsPrinted: Boolean
+	IsSelected: Boolean
+	# This is a Sales Transaction
+	IsSOTrx: Boolean
+	# Method or manner of product delivery
+	M_Shipper: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Number of packages shipped
+	NoPackages: Int
+	# Date/Time when picked for Shipment
+	PickDate: Date
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Posting status
+	Posted: Boolean
+	# Priority of a document
+	PriorityRule: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+	# Reference to corresponding Sales/Purchase Order
+	Ref_Order: ForeignEntityInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Enable sending Document EMail
+	SendEMail: Boolean
+	# Shipment Date/Time
+	ShipDate: Date
+	# Number to track the shipment
+	TrackingNo: String
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+	# Volume of a product
+	Volume: BigDecimal
+	# Weight of a product
+	Weight: BigDecimal
+}

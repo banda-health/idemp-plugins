@@ -1,0 +1,65 @@
+# Generated Schema for AD_ReplicationStrategy - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_ReplicationStrategyGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_ReplicationStrategyConnection!
+}
+
+extend type Mutation {
+	AD_ReplicationStrategySave(Entity: AD_ReplicationStrategyInput!): AD_ReplicationStrategy!
+	AD_ReplicationStrategySaveMany(Entities: [AD_ReplicationStrategyInput!]!): [AD_ReplicationStrategy!]!
+	AD_ReplicationStrategyDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_ReplicationStrategyConnection {
+	Results: [AD_ReplicationStrategy!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_ReplicationStrategy {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	EXP_Processor: EXP_Processor
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input AD_ReplicationStrategyInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	EXP_Processor: ForeignEntityInput
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

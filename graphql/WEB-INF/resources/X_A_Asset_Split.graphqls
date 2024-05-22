@@ -1,0 +1,87 @@
+# Generated Schema for A_Asset_Split - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	A_Asset_SplitGet(Page: Int, Size: Int, Sort: String, Filter: String): A_Asset_SplitConnection!
+}
+
+extend type Mutation {
+	A_Asset_SplitSave(Entity: A_Asset_SplitInput!): A_Asset_Split!
+	A_Asset_SplitSaveMany(Entities: [A_Asset_SplitInput!]!): [A_Asset_Split!]!
+	A_Asset_SplitDelete(UUs: [String!]!): Boolean!
+}
+
+type A_Asset_SplitConnection {
+	Results: [A_Asset_Split!]!
+	PagingInfo: PagingInfo!
+}
+
+type A_Asset_Split {
+	A_Amount_Split: BigDecimal
+	A_Asset_Acct_ID: Int!
+	A_Asset_Cost: BigDecimal
+	# Asset used internally or by customers
+	A_Asset: A_Asset!
+	A_Asset_To: A_Asset
+	UU: ID!
+	A_Depreciation_Workfile_ID: Int!
+	A_Percent_Original: BigDecimal
+	A_Percent_Split: BigDecimal
+	A_QTY_Current: BigDecimal!
+	A_QTY_Split: BigDecimal
+	A_Split_Type: AD_Ref_List!
+	A_Transfer_Balance_IS: Boolean!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Period of the Calendar
+	C_Period: C_Period!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Accounting Date
+	DateAcct: Date!
+	# The record is active in the system
+	IsActive: Boolean!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input A_Asset_SplitInput {
+	A_Amount_Split: BigDecimal
+	A_Asset_Acct_ID: Int
+	A_Asset_Cost: BigDecimal
+	# Asset used internally or by customers
+	A_Asset: ForeignEntityInput
+	A_Asset_To: ForeignEntityInput
+	UU: ID
+	A_Depreciation_Workfile_ID: Int
+	A_Percent_Original: BigDecimal
+	A_Percent_Split: BigDecimal
+	A_QTY_Current: BigDecimal
+	A_QTY_Split: BigDecimal
+	A_Split_Type: ForeignEntityInput
+	A_Transfer_Balance_IS: Boolean
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Period of the Calendar
+	C_Period: ForeignEntityInput
+	# Accounting Date
+	DateAcct: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+}

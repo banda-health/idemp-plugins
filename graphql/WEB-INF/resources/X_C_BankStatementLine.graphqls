@@ -1,0 +1,171 @@
+# Generated Schema for C_BankStatementLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BankStatementLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BankStatementLineConnection!
+}
+
+extend type Mutation {
+	C_BankStatementLineSave(Entity: C_BankStatementLineInput!): C_BankStatementLine!
+	C_BankStatementLineSaveMany(Entities: [C_BankStatementLineInput!]!): [C_BankStatementLine!]!
+	C_BankStatementLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BankStatementLineConnection {
+	Results: [C_BankStatementLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BankStatementLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Bank Statement of account
+	C_BankStatement: C_BankStatement!
+	UU: ID!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Additional document charges
+	C_Charge: C_Charge
+	# The Currency for this record
+	C_Currency: C_Currency!
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Payment identifier
+	C_Payment: C_Payment
+	# Charge Amount
+	ChargeAmt: BigDecimal!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	CreatePayment: String
+	# Accounting Date
+	DateAcct: Date!
+	# Optional short description of the record
+	Description: String
+	# Electronic Funds Transfer Amount
+	EftAmt: BigDecimal
+	# Electronic Funds Transfer Check No
+	EftCheckNo: String
+	# Electronic Funds Transfer Currency
+	EftCurrency: String
+	# Electronic Funds Transfer Memo
+	EftMemo: String
+	# Electronic Funds Transfer Payee information
+	EftPayee: String
+	# Electronic Funds Transfer Payee Account Information
+	EftPayeeAccount: String
+	# Electronic Funds Transfer Reference
+	EftReference: String
+	# Electronic Funds Transfer Statement Line Date
+	EftStatementLineDate: Date
+	# Electronic Funds Transfer Transaction ID
+	EftTrxID: String
+	# Electronic Funds Transfer Transaction Type
+	EftTrxType: String
+	# Electronic Funds Transfer Valuta (effective) Date
+	EftValutaDate: Date
+	# Interest Amount
+	InterestAmt: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a manual process
+	IsManual: Boolean!
+	# This is a reversing transaction
+	IsReversal: Boolean!
+	# Unique line for this document
+	Line: Int!
+	MatchStatement: String
+	# Memo Text
+	Memo: String
+	# The document has been processed
+	Processed: Boolean!
+	# Your customer or vendor number at the Business Partner's site
+	ReferenceNo: String
+	# Date of the Statement Line
+	StatementLineDate: Date!
+	# Statement Amount
+	StmtAmt: BigDecimal!
+	# Amount of a transaction
+	TrxAmt: BigDecimal!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Date when money is available
+	ValutaDate: Date!
+}
+
+input C_BankStatementLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Bank Statement of account
+	C_BankStatement: ForeignEntityInput
+	UU: ID
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Charge Amount
+	ChargeAmt: BigDecimal
+	CreatePayment: String
+	# Accounting Date
+	DateAcct: Date
+	# Optional short description of the record
+	Description: String
+	# Electronic Funds Transfer Amount
+	EftAmt: BigDecimal
+	# Electronic Funds Transfer Check No
+	EftCheckNo: String
+	# Electronic Funds Transfer Currency
+	EftCurrency: String
+	# Electronic Funds Transfer Memo
+	EftMemo: String
+	# Electronic Funds Transfer Payee information
+	EftPayee: String
+	# Electronic Funds Transfer Payee Account Information
+	EftPayeeAccount: String
+	# Electronic Funds Transfer Reference
+	EftReference: String
+	# Electronic Funds Transfer Statement Line Date
+	EftStatementLineDate: Date
+	# Electronic Funds Transfer Transaction ID
+	EftTrxID: String
+	# Electronic Funds Transfer Transaction Type
+	EftTrxType: String
+	# Electronic Funds Transfer Valuta (effective) Date
+	EftValutaDate: Date
+	# Interest Amount
+	InterestAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a manual process
+	IsManual: Boolean
+	# This is a reversing transaction
+	IsReversal: Boolean
+	# Unique line for this document
+	Line: Int
+	MatchStatement: String
+	# Memo Text
+	Memo: String
+	# The document has been processed
+	Processed: Boolean
+	# Your customer or vendor number at the Business Partner's site
+	ReferenceNo: String
+	# Date of the Statement Line
+	StatementLineDate: Date
+	# Statement Amount
+	StmtAmt: BigDecimal
+	# Amount of a transaction
+	TrxAmt: BigDecimal
+	# Date when money is available
+	ValutaDate: Date
+}

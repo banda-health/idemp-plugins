@@ -1,0 +1,55 @@
+# Generated Schema for ASP_Tab - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	ASP_TabGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_TabConnection!
+}
+
+extend type Mutation {
+	ASP_TabSave(Entity: ASP_TabInput!): ASP_Tab!
+	ASP_TabSaveMany(Entities: [ASP_TabInput!]!): [ASP_Tab!]!
+	ASP_TabDelete(UUs: [String!]!): Boolean!
+}
+
+type ASP_TabConnection {
+	Results: [ASP_Tab!]!
+	PagingInfo: PagingInfo!
+}
+
+type ASP_Tab {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Tab within a Window
+	AD_Tab: AD_Tab!
+	AllFields: Boolean!
+	ASP_Status: AD_Ref_List!
+	UU: ID!
+	ASP_Window: ASP_Window
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input ASP_TabInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Tab within a Window
+	AD_Tab: ForeignEntityInput
+	AllFields: Boolean
+	ASP_Status: ForeignEntityInput
+	UU: ID
+	ASP_Window: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	Processing: Boolean
+}

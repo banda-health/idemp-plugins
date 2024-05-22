@@ -1,0 +1,6 @@
+extend type C_Project {
+	C_Invoices: [C_Invoice!]
+	C_ProjectIssues: [C_ProjectIssue!]
+	C_ProjectLines: [C_ProjectLine!]
+	C_ProjectPhases: [C_ProjectPhase!]
+}

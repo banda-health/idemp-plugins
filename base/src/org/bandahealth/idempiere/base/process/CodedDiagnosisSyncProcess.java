@@ -299,7 +299,7 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 
 		List<MBHCodedDiagnosisMapping> mCodedDiagnosisMappings = new Query(getCtx(),
 				MBHCodedDiagnosisMapping.Table_Name,
-				MBHCodedDiagnosisMapping.COLUMNNAME_BH_ExternalID + " IN ( " + inClause + " )", null)
+				MBHCodedDiagnosisMapping.COLUMNNAME_BH_External_ID + " IN ( " + inClause + " )", null)
 				.setParameters(parameters).list();
 
 		// save every mapping and check underlying concepts
@@ -307,22 +307,22 @@ public class CodedDiagnosisSyncProcess extends SvrProcess {
 			// search mapping in db list
 			MBHCodedDiagnosisMapping foundCodedDiagnosisMapping = mCodedDiagnosisMappings.stream()
 					.filter(filterCodedDiagnosisMapping -> mapping.getExternalId()
-							.equals(filterCodedDiagnosisMapping.getBH_ExternalID()))
+							.equals(filterCodedDiagnosisMapping.getBH_External_ID()))
 					.findFirst().orElse(null);
 
 			if (foundCodedDiagnosisMapping == null) {
 				// new record
 				foundCodedDiagnosisMapping = new MBHCodedDiagnosisMapping(getCtx(), 0, null);
-				foundCodedDiagnosisMapping.setBH_ExternalID(mapping.getExternalId());
+				foundCodedDiagnosisMapping.setBH_External_ID(mapping.getExternalId());
 			}
 
 			foundCodedDiagnosisMapping.setIsActive(mapping.isRetired());
-			foundCodedDiagnosisMapping.setBH_CodedDiagnosis_ID(parentConcept.get_ID());
+			foundCodedDiagnosisMapping.setBH_Coded_Diagnosis_ID(parentConcept.get_ID());
 			foundCodedDiagnosisMapping.setBH_Source(mapping.getToSourceOwner());
-			foundCodedDiagnosisMapping.setBH_MapType(mapping.getMapType());
+			foundCodedDiagnosisMapping.setBH_Map_Type(mapping.getMapType());
 			foundCodedDiagnosisMapping.setBH_Owner(mapping.getOwner());
-			foundCodedDiagnosisMapping.setBH_ConceptCode(mapping.getToConceptCode());
-			foundCodedDiagnosisMapping.setBH_ConceptNameResolved(mapping.getToConceptNameResolved());
+			foundCodedDiagnosisMapping.setBH_Concept_Code(mapping.getToConceptCode());
+			foundCodedDiagnosisMapping.setBH_Concept_Name_Resolved(mapping.getToConceptNameResolved());
 			foundCodedDiagnosisMapping.saveEx();
 
 			// save ICD-10 code in bh_coded_diagnosis

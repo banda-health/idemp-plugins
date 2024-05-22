@@ -1,0 +1,247 @@
+# Generated Schema for AD_User - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_UserGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserConnection!
+}
+
+extend type Mutation {
+	AD_UserSave(Entity: AD_UserInput!): AD_User!
+	AD_UserSaveMany(Entities: [AD_UserInput!]!): [AD_User!]!
+	AD_UserDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_UserConnection {
+	Results: [AD_User!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_User {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Image or Icon
+	AD_Image: AD_Image
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	Answer: String
+	AuthenticationType: AD_Ref_List
+	BH_HasAcceptedTermsOfUse: Boolean!
+	BH_TOS_DATE_ACCEPTED: Date
+	# Birthday or Anniversary day
+	Birthday: Date
+	# Address of the Business Partner
+	BP_Location: C_Location
+	BPName: String
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: C_BPartner_Location
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Greeting to print on correspondence
+	C_Greeting: C_Greeting
+	# Job Position
+	C_Job: C_Job
+	# Location or Address
+	C_Location: C_Location
+	# Comments or additional information
+	Comments: String
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	DateAccountLocked: Date
+	DateLastLogin: Date
+	DatePasswordChanged: Date
+	# Optional short description of the record
+	Description: String
+	# Electronic Mail Address
+	EMail: String
+	# User Name (ID) in the Mail System
+	EMailUser: String
+	# Password of your email user id
+	EMailUserPW: String
+	# Verification information of EMail Address
+	EMailVerify: String
+	# Date Email was verified
+	EMailVerifyDate: Date
+	FailedLoginCount: Int!
+	# Facsimile number
+	Fax: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The selected mail template will be automatically inserted when creating an email
+	IsAddMailTextAutomatically: Boolean!
+	# Business Partner Invoice/Bill Address
+	IsBillTo: Boolean!
+	IsExpired: Boolean!
+	# The user/contact has full access to Business Partner information and resources
+	IsFullBPAccess: Boolean!
+	# Defined if any User Contact will be used for Calculate Payroll
+	IsInPayroll: Boolean!
+	IsLocked: Boolean!
+	# If ticked, the menu is automatically expanded
+	IsMenuAutoExpand: AD_Ref_List
+	IsNoExpire: Boolean!
+	IsNoPasswordReset: Boolean!
+	# This contact is a sales lead
+	IsSalesLead: Boolean!
+	# Business Partner Shipment Address
+	IsShipTo: Boolean!
+	IsSupportUser: Boolean!
+	# This contact is a vendor lead
+	IsVendorLead: Boolean!
+	# Date this individual was last contacted
+	LastContact: Date
+	# Result of last contact
+	LastResult: String
+	# User Name used for authorization via LDAP (directory) services
+	LDAPUser: String
+	# The source of this lead/opportunity
+	LeadSource: AD_Ref_List
+	# Additional information on the source of this lead/opportunity
+	LeadSourceDescription: String
+	# The status of this lead/opportunity in the sales cycle
+	LeadStatus: AD_Ref_List
+	# Additional information on the status of this lead/opportunity
+	LeadStatusDescription: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Type of Notifications
+	NotificationType: AD_Ref_List!
+	# Password of any length (case sensitive)
+	Password: String
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	Processing: Boolean!
+	R_DefaultMailText: R_MailText
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Random data added to improve password hash effectiveness
+	Salt: String
+	SecurityQuestion: String
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: AD_User
+	# Name this entity is referred to as
+	Title: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UserPIN: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input AD_UserInput {
+	# Image or Icon
+	AD_Image: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	Answer: String
+	AuthenticationType: ForeignEntityInput
+	BH_HasAcceptedTermsOfUse: Boolean
+	BH_TOS_DATE_ACCEPTED: Date
+	# Birthday or Anniversary day
+	Birthday: Date
+	# Address of the Business Partner
+	BP_Location: ForeignEntityInput
+	BPName: String
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Identifies the (ship to) address for this Business Partner
+	C_BPartner_Location: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Greeting to print on correspondence
+	C_Greeting: ForeignEntityInput
+	# Job Position
+	C_Job: ForeignEntityInput
+	# Location or Address
+	C_Location: ForeignEntityInput
+	# Comments or additional information
+	Comments: String
+	DateAccountLocked: Date
+	DateLastLogin: Date
+	DatePasswordChanged: Date
+	# Optional short description of the record
+	Description: String
+	# Electronic Mail Address
+	EMail: String
+	# User Name (ID) in the Mail System
+	EMailUser: String
+	# Password of your email user id
+	EMailUserPW: String
+	# Verification information of EMail Address
+	EMailVerify: String
+	# Date Email was verified
+	EMailVerifyDate: Date
+	FailedLoginCount: Int
+	# Facsimile number
+	Fax: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The selected mail template will be automatically inserted when creating an email
+	IsAddMailTextAutomatically: Boolean
+	# Business Partner Invoice/Bill Address
+	IsBillTo: Boolean
+	IsExpired: Boolean
+	# The user/contact has full access to Business Partner information and resources
+	IsFullBPAccess: Boolean
+	# Defined if any User Contact will be used for Calculate Payroll
+	IsInPayroll: Boolean
+	IsLocked: Boolean
+	# If ticked, the menu is automatically expanded
+	IsMenuAutoExpand: ForeignEntityInput
+	IsNoExpire: Boolean
+	IsNoPasswordReset: Boolean
+	# This contact is a sales lead
+	IsSalesLead: Boolean
+	# Business Partner Shipment Address
+	IsShipTo: Boolean
+	IsSupportUser: Boolean
+	# This contact is a vendor lead
+	IsVendorLead: Boolean
+	# Date this individual was last contacted
+	LastContact: Date
+	# Result of last contact
+	LastResult: String
+	# User Name used for authorization via LDAP (directory) services
+	LDAPUser: String
+	# The source of this lead/opportunity
+	LeadSource: ForeignEntityInput
+	# Additional information on the source of this lead/opportunity
+	LeadSourceDescription: String
+	# The status of this lead/opportunity in the sales cycle
+	LeadStatus: ForeignEntityInput
+	# Additional information on the status of this lead/opportunity
+	LeadStatusDescription: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Notifications
+	NotificationType: ForeignEntityInput
+	# Password of any length (case sensitive)
+	Password: String
+	# Identifies a telephone number
+	Phone: String
+	# Identifies an alternate telephone number.
+	Phone2: String
+	Processing: Boolean
+	R_DefaultMailText: ForeignEntityInput
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Random data added to improve password hash effectiveness
+	Salt: String
+	SecurityQuestion: String
+	# Supervisor for this user/organization - used for escalation and approval
+	Supervisor: ForeignEntityInput
+	# Name this entity is referred to as
+	Title: String
+	UserPIN: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

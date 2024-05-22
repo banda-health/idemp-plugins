@@ -1,0 +1,327 @@
+# Generated Schema for C_BPartner - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BPartnerGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BPartnerConnection!
+}
+
+extend type Mutation {
+	C_BPartnerSave(Entity: C_BPartnerInput!): C_BPartner!
+	C_BPartnerSaveMany(Entities: [C_BPartnerInput!]!): [C_BPartner!]!
+	C_BPartnerDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BPartnerConnection {
+	Results: [C_BPartner!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BPartner {
+	# The cost of gaining the prospect as a customer
+	AcqusitionCost: BigDecimal
+	# Actual Life Time Revenue
+	ActualLifeTimeValue: BigDecimal
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Language for this entity
+	AD_Language: AD_Language
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# The Business Partner is another Organization for explicit Inter-Org transactions
+	AD_OrgBP_ID: Int
+	# Birthday or Anniversary day
+	BH_Birthday: Date
+	# Electronic Mail Address
+	BH_EMail: String
+	bh_gender: AD_Ref_List
+	BH_IsApproximateDateOfBirth: Boolean!
+	# Local Patient ID
+	BH_Local_PatientID: String
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean!
+	BH_NeedAdditionalVisitInfo: Boolean!
+	bh_nextappointmentdate: Date
+	bh_occupation: String
+	# A unique identifier for users to manually enter
+	BH_PatientID: String
+	# Identifies a telephone number
+	BH_Phone: String
+	# Business Partner Group
+	C_BP_Group: C_BP_Group!
+	UU: ID!
+	# Dunning Rules for overdue invoices
+	C_Dunning: C_Dunning
+	# Greeting to print on correspondence
+	C_Greeting: C_Greeting
+	# Schedule for generating Invoices
+	C_InvoiceSchedule: C_InvoiceSchedule
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: C_PaymentTerm
+	C_TaxGroup: C_TaxGroup
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	CustomerProfileID: String
+	Default1099Box: C_1099Box
+	# Defines the timing of Delivery
+	DeliveryRule: AD_Ref_List
+	# How the order will be delivered
+	DeliveryViaRule: AD_Ref_List
+	# Optional short description of the record
+	Description: String
+	# Number of copies to be printed
+	DocumentCopies: Int
+	DunningGrace: Date
+	# Dun & Bradstreet Number
+	DUNS: String
+	# Date of First Sale
+	FirstSale: Date
+	# Flat discount percentage 
+	FlatDiscount: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: AD_Ref_List
+	# Print Format for printing Invoices
+	Invoice_PrintFormat: AD_PrintFormat
+	# Frequency and method of invoicing 
+	InvoiceRule: AD_Ref_List
+	Is1099Vendor: Boolean!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this Business Partner is a Customer
+	IsCustomer: Boolean!
+	# Print Discount on Invoice and Order
+	IsDiscountPrinted: Boolean!
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean!
+	# Indicate role of this Business partner as Manufacturer
+	IsManufacturer: Boolean!
+	IsOneTime: Boolean!
+	# Business partner is exempt from tax on purchases
+	IsPOTaxExempt: Boolean!
+	# Indicates this is a Prospect
+	IsProspect: Boolean!
+	# Indicates if  the business partner is a sales representative or company agent
+	IsSalesRep: Boolean!
+	# This is a summary entity
+	IsSummary: Boolean!
+	# Business partner is exempt from tax on sales
+	IsTaxExempt: Boolean!
+	# Indicates if this Business Partner is a Vendor
+	IsVendor: Boolean!
+	Logo: AD_Image
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: M_DiscountSchema
+	# Unique identifier of a Price List
+	M_PriceList: M_PriceList
+	# Standard Industry Code or its successor NAIC - http://www.osha.gov/oshstats/sicser.html
+	NAICS: String
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Additional Name
+	Name2: String
+	# Patient Identity number
+	NationalID: String
+	NextOfKin_Contact: String
+	NextOfKin_Name: String
+	# Number of employees
+	NumberEmployees: Int
+	# How you pay the invoice
+	PaymentRule: AD_Ref_List
+	# Purchase payment option
+	PaymentRulePO: AD_Ref_List
+	# Schema to calculate the purchase trade discount percentage
+	PO_DiscountSchema: M_DiscountSchema
+	# Payment rules for a purchase order
+	PO_PaymentTerm: C_PaymentTerm
+	# Price List used by this Business Partner
+	PO_PriceList: M_PriceList
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Total Revenue expected
+	PotentialLifeTimeValue: BigDecimal
+	# Classification or Importance
+	Rating: String
+	# Your customer or vendor number at the Business Partner's site
+	ReferenceNo: String
+	# Sales Representative or Company Agent
+	SalesRep: AD_User
+	# Total Volume of Sales in Thousands of Currency
+	SalesVolume: Int
+	# Enable sending Document EMail
+	SendEMail: Boolean!
+	# Share of Customer's business as a percentage
+	ShareOfCustomer: Int
+	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
+	ShelfLifeMinPct: Int
+	# Total outstanding invoice amounts allowed
+	SO_CreditLimit: BigDecimal!
+	# Current open balance
+	SO_CreditUsed: BigDecimal!
+	# Description to be used on orders
+	SO_Description: String
+	# Business Partner Credit Status
+	SOCreditStatus: AD_Ref_List
+	# Tax Identification
+	TaxID: String
+	# Total Open Balance Amount in primary Accounting Currency
+	TotalOpenBalance: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_BPartnerInput {
+	# The cost of gaining the prospect as a customer
+	AcqusitionCost: BigDecimal
+	# Actual Life Time Revenue
+	ActualLifeTimeValue: BigDecimal
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The Business Partner is another Organization for explicit Inter-Org transactions
+	AD_OrgBP_ID: Int
+	# Birthday or Anniversary day
+	BH_Birthday: Date
+	# Electronic Mail Address
+	BH_EMail: String
+	bh_gender: ForeignEntityInput
+	BH_IsApproximateDateOfBirth: Boolean
+	# Local Patient ID
+	BH_Local_PatientID: String
+	# Determines whether a record is locked or not (must configure each field to enabled/disabled to read from this field)
+	BH_Locked: Boolean
+	BH_NeedAdditionalVisitInfo: Boolean
+	bh_nextappointmentdate: Date
+	bh_occupation: String
+	# A unique identifier for users to manually enter
+	BH_PatientID: String
+	# Identifies a telephone number
+	BH_Phone: String
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	UU: ID
+	# Dunning Rules for overdue invoices
+	C_Dunning: ForeignEntityInput
+	# Greeting to print on correspondence
+	C_Greeting: ForeignEntityInput
+	# Schedule for generating Invoices
+	C_InvoiceSchedule: ForeignEntityInput
+	# The terms of Payment (timing, discount)
+	C_PaymentTerm: ForeignEntityInput
+	C_TaxGroup: ForeignEntityInput
+	CustomerProfileID: String
+	Default1099Box: ForeignEntityInput
+	# Defines the timing of Delivery
+	DeliveryRule: ForeignEntityInput
+	# How the order will be delivered
+	DeliveryViaRule: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Number of copies to be printed
+	DocumentCopies: Int
+	DunningGrace: Date
+	# Dun & Bradstreet Number
+	DUNS: String
+	# Date of First Sale
+	FirstSale: Date
+	# Flat discount percentage 
+	FlatDiscount: BigDecimal
+	# Method for charging Freight
+	FreightCostRule: ForeignEntityInput
+	# Print Format for printing Invoices
+	Invoice_PrintFormat: ForeignEntityInput
+	# Frequency and method of invoicing 
+	InvoiceRule: ForeignEntityInput
+	Is1099Vendor: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this Business Partner is a Customer
+	IsCustomer: Boolean
+	# Print Discount on Invoice and Order
+	IsDiscountPrinted: Boolean
+	# Indicates if  this Business Partner is an employee
+	IsEmployee: Boolean
+	# Indicate role of this Business partner as Manufacturer
+	IsManufacturer: Boolean
+	IsOneTime: Boolean
+	# Business partner is exempt from tax on purchases
+	IsPOTaxExempt: Boolean
+	# Indicates this is a Prospect
+	IsProspect: Boolean
+	# Indicates if  the business partner is a sales representative or company agent
+	IsSalesRep: Boolean
+	# This is a summary entity
+	IsSummary: Boolean
+	# Business partner is exempt from tax on sales
+	IsTaxExempt: Boolean
+	# Indicates if this Business Partner is a Vendor
+	IsVendor: Boolean
+	Logo: ForeignEntityInput
+	# Schema to calculate the trade discount percentage
+	M_DiscountSchema: ForeignEntityInput
+	# Unique identifier of a Price List
+	M_PriceList: ForeignEntityInput
+	# Standard Industry Code or its successor NAIC - http://www.osha.gov/oshstats/sicser.html
+	NAICS: String
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Additional Name
+	Name2: String
+	# Patient Identity number
+	NationalID: String
+	NextOfKin_Contact: String
+	NextOfKin_Name: String
+	# Number of employees
+	NumberEmployees: Int
+	# How you pay the invoice
+	PaymentRule: ForeignEntityInput
+	# Purchase payment option
+	PaymentRulePO: ForeignEntityInput
+	# Schema to calculate the purchase trade discount percentage
+	PO_DiscountSchema: ForeignEntityInput
+	# Payment rules for a purchase order
+	PO_PaymentTerm: ForeignEntityInput
+	# Price List used by this Business Partner
+	PO_PriceList: ForeignEntityInput
+	# Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
+	POReference: String
+	# Total Revenue expected
+	PotentialLifeTimeValue: BigDecimal
+	# Classification or Importance
+	Rating: String
+	# Your customer or vendor number at the Business Partner's site
+	ReferenceNo: String
+	# Sales Representative or Company Agent
+	SalesRep: ForeignEntityInput
+	# Total Volume of Sales in Thousands of Currency
+	SalesVolume: Int
+	# Enable sending Document EMail
+	SendEMail: Boolean
+	# Share of Customer's business as a percentage
+	ShareOfCustomer: Int
+	# Minimum Shelf Life in percent based on Product Instance Guarantee Date
+	ShelfLifeMinPct: Int
+	# Total outstanding invoice amounts allowed
+	SO_CreditLimit: BigDecimal
+	# Current open balance
+	SO_CreditUsed: BigDecimal
+	# Description to be used on orders
+	SO_Description: String
+	# Business Partner Credit Status
+	SOCreditStatus: ForeignEntityInput
+	# Tax Identification
+	TaxID: String
+	# Total Open Balance Amount in primary Accounting Currency
+	TotalOpenBalance: BigDecimal
+	# Full URL address - e.g. http://www.idempiere.org
+	URL: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

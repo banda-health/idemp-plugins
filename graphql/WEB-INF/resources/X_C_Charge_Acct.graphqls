@@ -1,0 +1,55 @@
+# Generated Schema for C_Charge_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_Charge_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_Charge_AcctConnection!
+}
+
+extend type Mutation {
+	C_Charge_AcctSave(Entity: C_Charge_AcctInput!): C_Charge_Acct!
+	C_Charge_AcctSaveMany(Entities: [C_Charge_AcctInput!]!): [C_Charge_Acct!]!
+	C_Charge_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_Charge_AcctConnection {
+	Results: [C_Charge_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_Charge_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# Additional document charges
+	C_Charge: C_Charge!
+	# Charge Account
+	Ch_Expense_A: C_ValidCombination!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_Charge_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	UU: ID
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Charge Account
+	Ch_Expense_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

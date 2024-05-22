@@ -1,0 +1,97 @@
+# Generated Schema for C_BP_Group_Acct - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_BP_Group_AcctGet(Page: Int, Size: Int, Sort: String, Filter: String): C_BP_Group_AcctConnection!
+}
+
+extend type Mutation {
+	C_BP_Group_AcctSave(Entity: C_BP_Group_AcctInput!): C_BP_Group_Acct!
+	C_BP_Group_AcctSaveMany(Entities: [C_BP_Group_AcctInput!]!): [C_BP_Group_Acct!]!
+	C_BP_Group_AcctDelete(UUs: [String!]!): Boolean!
+}
+
+type C_BP_Group_AcctConnection {
+	Results: [C_BP_Group_Acct!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_BP_Group_Acct {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	UU: ID!
+	# Business Partner Group
+	C_BP_Group: C_BP_Group!
+	# Account for customer prepayments
+	C_Prepayment_A: C_ValidCombination!
+	# Account for Customer Receivables
+	C_Receivable_A: C_ValidCombination!
+	# Customer Accounts Receivables Services Account
+	C_Receivable_Services_A: C_ValidCombination!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Account for not-invoiced Material Receipts
+	NotInvoicedReceipts_A: C_ValidCombination!
+	# Payment Discount Expense Account
+	PayDiscount_Exp_A: C_ValidCombination!
+	# Payment Discount Revenue Account
+	PayDiscount_Rev_A: C_ValidCombination!
+	Processing: Boolean!
+	# Account for unearned revenue
+	UnEarnedRevenue_A: C_ValidCombination
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Account for Vendor Liability
+	V_Liability_A: C_ValidCombination!
+	# Account for Vendor Service Liability
+	V_Liability_Services_A: C_ValidCombination
+	# Account for Vendor Prepayments
+	V_Prepayment_A: C_ValidCombination!
+	# Account for Receivables write-off
+	WriteOff_A: C_ValidCombination!
+}
+
+input C_BP_Group_AcctInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	UU: ID
+	# Business Partner Group
+	C_BP_Group: ForeignEntityInput
+	# Account for customer prepayments
+	C_Prepayment_A: ForeignEntityInput
+	# Account for Customer Receivables
+	C_Receivable_A: ForeignEntityInput
+	# Customer Accounts Receivables Services Account
+	C_Receivable_Services_A: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Account for not-invoiced Material Receipts
+	NotInvoicedReceipts_A: ForeignEntityInput
+	# Payment Discount Expense Account
+	PayDiscount_Exp_A: ForeignEntityInput
+	# Payment Discount Revenue Account
+	PayDiscount_Rev_A: ForeignEntityInput
+	Processing: Boolean
+	# Account for unearned revenue
+	UnEarnedRevenue_A: ForeignEntityInput
+	# Account for Vendor Liability
+	V_Liability_A: ForeignEntityInput
+	# Account for Vendor Service Liability
+	V_Liability_Services_A: ForeignEntityInput
+	# Account for Vendor Prepayments
+	V_Prepayment_A: ForeignEntityInput
+	# Account for Receivables write-off
+	WriteOff_A: ForeignEntityInput
+}

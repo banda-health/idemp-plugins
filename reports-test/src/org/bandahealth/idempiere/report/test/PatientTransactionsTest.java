@@ -737,7 +737,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Change payment");
 		valueObject.getPayment().setTenderType(MPayment_BH.TENDERTYPE_Cash);
 		valueObject.getPayment().setPayAmt(new BigDecimal(4));
-		valueObject.getPayment().setBH_TenderAmount(new BigDecimal(4));
+		valueObject.getPayment().setBH_tender_amount(new BigDecimal(4));
 		valueObject.getPayment().saveEx();
 		valueObject.getPayment().setDocAction(DocAction.ACTION_Complete);
 		assertTrue(valueObject.getPayment().processIt(DocAction.ACTION_Complete), "Partial payment was re-completed");

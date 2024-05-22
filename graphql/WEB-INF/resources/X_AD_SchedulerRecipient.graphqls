@@ -1,0 +1,63 @@
+# Generated Schema for AD_SchedulerRecipient - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_SchedulerRecipientGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_SchedulerRecipientConnection!
+}
+
+extend type Mutation {
+	AD_SchedulerRecipientSave(Entity: AD_SchedulerRecipientInput!): AD_SchedulerRecipient!
+	AD_SchedulerRecipientSaveMany(Entities: [AD_SchedulerRecipientInput!]!): [AD_SchedulerRecipient!]!
+	AD_SchedulerRecipientDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_SchedulerRecipientConnection {
+	Results: [AD_SchedulerRecipient!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_SchedulerRecipient {
+	AD_AuthorizationAccount: AD_AuthorizationAccount
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role
+	# Schedule Processes
+	AD_Scheduler: AD_Scheduler!
+	UU: ID!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Name of the local file or URL
+	FileName: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsUpload: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_SchedulerRecipientInput {
+	AD_AuthorizationAccount: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# Schedule Processes
+	AD_Scheduler: ForeignEntityInput
+	UU: ID
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# Name of the local file or URL
+	FileName: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsUpload: Boolean
+}

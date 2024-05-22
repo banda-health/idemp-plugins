@@ -1,0 +1,141 @@
+# Generated Schema for M_Inventory - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_InventoryGet(Page: Int, Size: Int, Sort: String, Filter: String): M_InventoryConnection!
+}
+
+extend type Mutation {
+	M_InventorySave(Entity: M_InventoryInput!): M_Inventory!
+	M_InventorySaveMany(Entities: [M_InventoryInput!]!): [M_Inventory!]!
+	M_InventoryDelete(UUs: [String!]!): Boolean!
+}
+
+type M_InventoryConnection {
+	Results: [M_Inventory!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Inventory {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Document Approval Amount
+	ApprovalAmt: BigDecimal
+	bh_update_reason: AD_Ref_List
+	# Business Activity
+	C_Activity: C_Activity
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Currency Conversion Rate Type
+	C_ConversionType: C_ConversionType
+	# The Currency for this record
+	C_Currency: C_Currency
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Financial Project
+	C_Project: C_Project
+	# Indicates how Costs will be calculated
+	CostingMethod: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List!
+	# The current status of the document
+	DocStatus: AD_Ref_List!
+	# Document sequence number of the document
+	DocumentNo: String!
+	# Generate List
+	GenerateList: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates if this document requires approval
+	IsApproved: Boolean!
+	UU: ID!
+	# Rules for generating physical inventory
+	M_PerpetualInv: M_PerpetualInv
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse
+	# Date a product was moved in or out of inventory
+	MovementDate: Date!
+	# Posting status
+	Posted: Boolean!
+	# The document has been processed
+	Processed: Boolean!
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean!
+	# ID of document reversal
+	Reversal: M_Inventory
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UpdateQty: String
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+}
+
+input M_InventoryInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Document Approval Amount
+	ApprovalAmt: BigDecimal
+	bh_update_reason: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Currency Conversion Rate Type
+	C_ConversionType: ForeignEntityInput
+	# The Currency for this record
+	C_Currency: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Indicates how Costs will be calculated
+	CostingMethod: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# Document sequence number of the document
+	DocumentNo: String
+	# Generate List
+	GenerateList: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates if this document requires approval
+	IsApproved: Boolean
+	UU: ID
+	# Rules for generating physical inventory
+	M_PerpetualInv: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Date a product was moved in or out of inventory
+	MovementDate: Date
+	# Posting status
+	Posted: Boolean
+	# The document has been processed
+	Processed: Boolean
+	# The date+time (expressed in decimal format) when the document has been processed
+	ProcessedOn: BigDecimal
+	Processing: Boolean
+	# ID of document reversal
+	Reversal: ForeignEntityInput
+	UpdateQty: String
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+}

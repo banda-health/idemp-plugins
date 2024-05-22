@@ -112,7 +112,7 @@ FROM
 						JOIN c_orderline ol
 						ON o.c_order_id = ol.c_order_id
 				WHERE
-					o.docstatus = 'DR'
+					o.docstatus IN ('DR', 'IP')
 					AND o.ad_client_id = _ad_client_id
 					AND ol.m_product_id IS NOT NULL
 				UNION ALL
@@ -136,7 +136,7 @@ FROM
 						ON m.m_movement_id = ml.m_movement_id
 				WHERE
 					m.ad_client_id = _ad_client_id
-					AND m.docstatus = 'DR'
+					AND m.docstatus IN ('DR', 'IP')
 				UNION ALL
 				-- Get drafted movements (for the destination locator/warehouse)
 				SELECT
@@ -158,7 +158,7 @@ FROM
 						ON m.m_movement_id = ml.m_movement_id
 				WHERE
 					m.ad_client_id = _ad_client_id
-					AND m.docstatus = 'DR'
+					AND m.docstatus IN ('DR', 'IP')
 			) t
 	) t;
 $$;

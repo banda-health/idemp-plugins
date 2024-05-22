@@ -1,0 +1,85 @@
+# Generated Schema for AD_Package_Exp - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Package_ExpGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Package_ExpConnection!
+}
+
+extend type Mutation {
+	AD_Package_ExpSave(Entity: AD_Package_ExpInput!): AD_Package_Exp!
+	AD_Package_ExpSaveMany(Entities: [AD_Package_ExpInput!]!): [AD_Package_Exp!]!
+	AD_Package_ExpDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Package_ExpConnection {
+	Results: [AD_Package_Exp!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Package_Exp {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	AD_Package_Type: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Starting date for a range
+	DateFrom: Date
+	# Optional short description of the record
+	Description: String
+	# Electronic Mail Address
+	EMail: String
+	File_Directory: String
+	Instructions: String
+	# The record is active in the system
+	IsActive: Boolean!
+	IsExportDictionaryEntity: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	PK_Version: String!
+	# The document has been processed
+	Processed: Boolean!
+	Processing: Boolean!
+	# Internal Release Number
+	ReleaseNo: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	UserName: String
+	# Version of the table definition
+	Version: String
+}
+
+input AD_Package_ExpInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	AD_Package_Type: ForeignEntityInput
+	# Starting date for a range
+	DateFrom: Date
+	# Optional short description of the record
+	Description: String
+	# Electronic Mail Address
+	EMail: String
+	File_Directory: String
+	Instructions: String
+	# The record is active in the system
+	IsActive: Boolean
+	IsExportDictionaryEntity: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	PK_Version: String
+	# The document has been processed
+	Processed: Boolean
+	Processing: Boolean
+	# Internal Release Number
+	ReleaseNo: ForeignEntityInput
+	UserName: String
+	# Version of the table definition
+	Version: String
+}

@@ -1,0 +1,3 @@
+extend type C_AcctProcessor {
+	C_AcctProcessorLogs: [C_AcctProcessorLog!]
+}

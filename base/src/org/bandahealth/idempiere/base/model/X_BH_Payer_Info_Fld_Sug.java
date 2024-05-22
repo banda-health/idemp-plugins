@@ -23,21 +23,76 @@ import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_Payer_Info_Fld_Sug
- *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
-public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_Sug, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_Payer_Info_Fld_Sug")
+public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_Sug, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230819L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_Payer_Info_Fld_Sug (Properties ctx, int BH_Payer_Info_Fld_Sug_ID, String trxName)
     {
       super (ctx, BH_Payer_Info_Fld_Sug_ID, trxName);
       /** if (BH_Payer_Info_Fld_Sug_ID == 0)
+        {
+			setBH_FillFromPatient (false);
+// N
+			setBH_Payer_Info_Fld_Sug_ID (0);
+			setBH_PayerInfoFieldDataType (null);
+// T
+			setBH_SubType (null);
+// I
+			setLine (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Payer_Info_Fld_Sug (Properties ctx, int BH_Payer_Info_Fld_Sug_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Payer_Info_Fld_Sug_ID, trxName, virtualColumns);
+      /** if (BH_Payer_Info_Fld_Sug_ID == 0)
+        {
+			setBH_FillFromPatient (false);
+// N
+			setBH_Payer_Info_Fld_Sug_ID (0);
+			setBH_PayerInfoFieldDataType (null);
+// T
+			setBH_SubType (null);
+// I
+			setLine (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Payer_Info_Fld_Sug (Properties ctx, String BH_Payer_Info_Fld_Sug_UU, String trxName)
+    {
+      super (ctx, BH_Payer_Info_Fld_Sug_UU, trxName);
+      /** if (BH_Payer_Info_Fld_Sug_UU == null)
+        {
+			setBH_FillFromPatient (false);
+// N
+			setBH_Payer_Info_Fld_Sug_ID (0);
+			setBH_PayerInfoFieldDataType (null);
+// T
+			setBH_SubType (null);
+// I
+			setLine (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_Payer_Info_Fld_Sug (Properties ctx, String BH_Payer_Info_Fld_Sug_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_Payer_Info_Fld_Sug_UU, trxName, virtualColumns);
+      /** if (BH_Payer_Info_Fld_Sug_UU == null)
         {
 			setBH_FillFromPatient (false);
 // N
@@ -58,7 +113,7 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
     }
 
     /** AccessLevel
-      * @return 4 - System 
+      * @return 4 - System
       */
     protected int get_AccessLevel()
     {
@@ -80,7 +135,8 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
     }
 
 	/** Set Fill From Patient.
-		@param BH_FillFromPatient Fill From Patient	  */
+		@param BH_FillFromPatient Fill From Patient
+	*/
 	public void setBH_FillFromPatient (boolean BH_FillFromPatient)
 	{
 		set_Value (COLUMNNAME_BH_FillFromPatient, Boolean.valueOf(BH_FillFromPatient));
@@ -88,31 +144,32 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 
 	/** Get Fill From Patient.
 		@return Fill From Patient	  */
-	public boolean isBH_FillFromPatient () 
+	public boolean isBH_FillFromPatient()
 	{
 		Object oo = get_Value(COLUMNNAME_BH_FillFromPatient);
-		if (oo != null) 
+		if (oo != null)
 		{
-			 if (oo instanceof Boolean) 
-				 return ((Boolean)oo).booleanValue(); 
+			 if (oo instanceof Boolean)
+				 return ((Boolean)oo).booleanValue();
 			return "Y".equals(oo);
 		}
 		return false;
 	}
 
 	/** Set Payer Info Field Suggestion.
-		@param BH_Payer_Info_Fld_Sug_ID Payer Info Field Suggestion	  */
+		@param BH_Payer_Info_Fld_Sug_ID Payer Info Field Suggestion
+	*/
 	public void setBH_Payer_Info_Fld_Sug_ID (int BH_Payer_Info_Fld_Sug_ID)
 	{
-		if (BH_Payer_Info_Fld_Sug_ID < 1) 
+		if (BH_Payer_Info_Fld_Sug_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_Sug_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_Sug_ID, Integer.valueOf(BH_Payer_Info_Fld_Sug_ID));
 	}
 
 	/** Get Payer Info Field Suggestion.
 		@return Payer Info Field Suggestion	  */
-	public int getBH_Payer_Info_Fld_Sug_ID () 
+	public int getBH_Payer_Info_Fld_Sug_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Fld_Sug_ID);
 		if (ii == null)
@@ -121,7 +178,8 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	}
 
 	/** Set BH_Payer_Info_Fld_Sug_UU.
-		@param BH_Payer_Info_Fld_Sug_UU BH_Payer_Info_Fld_Sug_UU	  */
+		@param BH_Payer_Info_Fld_Sug_UU BH_Payer_Info_Fld_Sug_UU
+	*/
 	public void setBH_Payer_Info_Fld_Sug_UU (String BH_Payer_Info_Fld_Sug_UU)
 	{
 		set_Value (COLUMNNAME_BH_Payer_Info_Fld_Sug_UU, BH_Payer_Info_Fld_Sug_UU);
@@ -129,17 +187,18 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 
 	/** Get BH_Payer_Info_Fld_Sug_UU.
 		@return BH_Payer_Info_Fld_Sug_UU	  */
-	public String getBH_Payer_Info_Fld_Sug_UU () 
+	public String getBH_Payer_Info_Fld_Sug_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_Payer_Info_Fld_Sug_UU);
 	}
 
-	/** Text = T */
-	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
 	/** List = L */
 	public static final String BH_PAYERINFOFIELDDATATYPE_List = "L";
+	/** Text = T */
+	public static final String BH_PAYERINFOFIELDDATATYPE_Text = "T";
 	/** Set Payer Info Field Data Type.
-		@param BH_PayerInfoFieldDataType Payer Info Field Data Type	  */
+		@param BH_PayerInfoFieldDataType Payer Info Field Data Type
+	*/
 	public void setBH_PayerInfoFieldDataType (String BH_PayerInfoFieldDataType)
 	{
 
@@ -148,21 +207,20 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 
 	/** Get Payer Info Field Data Type.
 		@return Payer Info Field Data Type	  */
-	public String getBH_PayerInfoFieldDataType () 
+	public String getBH_PayerInfoFieldDataType()
 	{
 		return (String)get_Value(COLUMNNAME_BH_PayerInfoFieldDataType);
 	}
 
+	/** Donation = D */
+	public static final String BH_SUBTYPE_Donation = "D";
 	/** Insurance = I */
 	public static final String BH_SUBTYPE_Insurance = "I";
 	/** Waiver = W */
 	public static final String BH_SUBTYPE_Waiver = "W";
-	/** Donation = D */
-	public static final String BH_SUBTYPE_Donation = "D";
 	/** Set Sub Type.
-		@param BH_SubType 
-		Meant to be a sub-type of the charge type
-	  */
+		@param BH_SubType Meant to be a sub-type of the charge type
+	*/
 	public void setBH_SubType (String BH_SubType)
 	{
 
@@ -172,15 +230,14 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	/** Get Sub Type.
 		@return Meant to be a sub-type of the charge type
 	  */
-	public String getBH_SubType () 
+	public String getBH_SubType()
 	{
 		return (String)get_Value(COLUMNNAME_BH_SubType);
 	}
 
 	/** Set Description.
-		@param Description 
-		Optional short description of the record
-	  */
+		@param Description Optional short description of the record
+	*/
 	public void setDescription (String Description)
 	{
 		set_Value (COLUMNNAME_Description, Description);
@@ -189,15 +246,14 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	/** Get Description.
 		@return Optional short description of the record
 	  */
-	public String getDescription () 
+	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
 	/** Set Line No.
-		@param Line 
-		Unique line for this document
-	  */
+		@param Line Unique line for this document
+	*/
 	public void setLine (int Line)
 	{
 		set_Value (COLUMNNAME_Line, Integer.valueOf(Line));
@@ -206,7 +262,7 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	/** Get Line No.
 		@return Unique line for this document
 	  */
-	public int getLine () 
+	public int getLine()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_Line);
 		if (ii == null)
@@ -215,9 +271,8 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	}
 
 	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
+		@param Name Alphanumeric identifier of the entity
+	*/
 	public void setName (String Name)
 	{
 		set_Value (COLUMNNAME_Name, Name);
@@ -226,7 +281,7 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
 	/** Get Name.
 		@return Alphanumeric identifier of the entity
 	  */
-	public String getName () 
+	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
@@ -234,7 +289,7 @@ public class X_BH_Payer_Info_Fld_Sug extends PO implements I_BH_Payer_Info_Fld_S
     /** Get Record ID/ColumnName
         @return ID/ColumnName pair
       */
-    public KeyNamePair getKeyNamePair() 
+    public KeyNamePair getKeyNamePair()
     {
         return new KeyNamePair(get_ID(), getName());
     }

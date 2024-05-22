@@ -1,0 +1,81 @@
+# Generated Schema for PP_Order_NodeNext - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	PP_Order_NodeNextGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_Order_NodeNextConnection!
+}
+
+extend type Mutation {
+	PP_Order_NodeNextSave(Entity: PP_Order_NodeNextInput!): PP_Order_NodeNext!
+	PP_Order_NodeNextSaveMany(Entities: [PP_Order_NodeNextInput!]!): [PP_Order_NodeNext!]!
+	PP_Order_NodeNextDelete(UUs: [String!]!): Boolean!
+}
+
+type PP_Order_NodeNextConnection {
+	Results: [PP_Order_NodeNext!]!
+	PagingInfo: PagingInfo!
+}
+
+type PP_Order_NodeNext {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Next Node in workflow
+	AD_WF_Next: AD_WF_Node
+	# Workflow Node (activity), step or process
+	AD_WF_Node: AD_WF_Node!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: AD_EntityType!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Standard Manual User Approval Workflow
+	IsStdUserWorkflow: Boolean!
+	# Manufacturing Order
+	PP_Order: PP_Order!
+	PP_Order_Next: PP_Order_Node
+	# Workflow Node (activity), step or process
+	PP_Order_Node: PP_Order_Node!
+	UU: ID!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Code resulting in TRUE of FALSE
+	TransitionCode: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input PP_Order_NodeNextInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Next Node in workflow
+	AD_WF_Next: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	AD_WF_Node: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Dictionary Entity Type; Determines ownership and synchronization
+	AD_EntityType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Standard Manual User Approval Workflow
+	IsStdUserWorkflow: Boolean
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+	PP_Order_Next: ForeignEntityInput
+	# Workflow Node (activity), step or process
+	PP_Order_Node: ForeignEntityInput
+	UU: ID
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Code resulting in TRUE of FALSE
+	TransitionCode: String
+}

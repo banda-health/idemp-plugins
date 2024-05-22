@@ -1,0 +1,642 @@
+package org.bandahealth.idempiere.graphql.model.input;
+
+import org.compiere.model.I_C_Order;
+
+/**
+ * Generated Interface for C_Order - DO NOT CHANGE
+ *
+ * @author Banda Health (generated)
+ * @version Release 11 - $Id$
+ */
+public interface I_C_OrderInput extends I_C_Order {
+
+	/**
+	 * Set AD_Org.
+	 *
+	 * @param AD_Org Organizational entity within tenant
+	 */
+	void setAD_OrgInput(ForeignEntityInput AD_Org);
+
+	/**
+	 * Get AD_Org.
+	 *
+	 * @return Organizational entity within tenant
+	 */
+	ForeignEntityInput AD_Org();
+
+	/**
+	 * Set AD_User.
+	 *
+	 * @param AD_User User within the system - Internal or Business Partner Contact
+	 */
+	void setAD_UserInput(ForeignEntityInput AD_User);
+
+	/**
+	 * Get AD_User.
+	 *
+	 * @return User within the system - Internal or Business Partner Contact
+	 */
+	ForeignEntityInput AD_User();
+
+	/**
+	 * Set BH_Visit.
+	 *
+	 * @param BH_Visit BH_Visit
+	 */
+	void setBH_VisitInput(ForeignEntityInput BH_Visit);
+
+	/**
+	 * Get BH_Visit.
+	 *
+	 * @return BH_Visit
+	 */
+	ForeignEntityInput BH_Visit();
+
+	/**
+	 * Set BH_Voided_Reason.
+	 *
+	 * @param BH_Voided_Reason BH_Voided_Reason
+	 */
+	void setBH_Voided_ReasonInput(ForeignEntityInput BH_Voided_Reason);
+
+	/**
+	 * Get BH_Voided_Reason.
+	 *
+	 * @return BH_Voided_Reason
+	 */
+	ForeignEntityInput BH_Voided_Reason();
+
+	/**
+	 * Set Bill_BPartner.
+	 *
+	 * @param Bill_BPartner Business Partner to be invoiced
+	 */
+	void setBill_BPartnerInput(ForeignEntityInput Bill_BPartner);
+
+	/**
+	 * Get Bill_BPartner.
+	 *
+	 * @return Business Partner to be invoiced
+	 */
+	ForeignEntityInput Bill_BPartner();
+
+	/**
+	 * Set Bill_Location.
+	 *
+	 * @param Bill_Location Business Partner Location for invoicing
+	 */
+	void setBill_LocationInput(ForeignEntityInput Bill_Location);
+
+	/**
+	 * Get Bill_Location.
+	 *
+	 * @return Business Partner Location for invoicing
+	 */
+	ForeignEntityInput Bill_Location();
+
+	/**
+	 * Set Bill_User.
+	 *
+	 * @param Bill_User Business Partner Contact for invoicing
+	 */
+	void setBill_UserInput(ForeignEntityInput Bill_User);
+
+	/**
+	 * Get Bill_User.
+	 *
+	 * @return Business Partner Contact for invoicing
+	 */
+	ForeignEntityInput Bill_User();
+
+	/**
+	 * Set C_Activity.
+	 *
+	 * @param C_Activity Business Activity
+	 */
+	void setC_ActivityInput(ForeignEntityInput C_Activity);
+
+	/**
+	 * Get C_Activity.
+	 *
+	 * @return Business Activity
+	 */
+	ForeignEntityInput C_Activity();
+
+	/**
+	 * Set C_BPartner.
+	 *
+	 * @param C_BPartner Identifies a Business Partner
+	 */
+	void setC_BPartnerInput(ForeignEntityInput C_BPartner);
+
+	/**
+	 * Get C_BPartner.
+	 *
+	 * @return Identifies a Business Partner
+	 */
+	ForeignEntityInput C_BPartner();
+
+	/**
+	 * Set C_BPartner_Location.
+	 *
+	 * @param C_BPartner_Location Identifies the (ship to) address for this Business Partner
+	 */
+	void setC_BPartner_LocationInput(ForeignEntityInput C_BPartner_Location);
+
+	/**
+	 * Get C_BPartner_Location.
+	 *
+	 * @return Identifies the (ship to) address for this Business Partner
+	 */
+	ForeignEntityInput C_BPartner_Location();
+
+	/**
+	 * Set C_Campaign.
+	 *
+	 * @param C_Campaign Marketing Campaign
+	 */
+	void setC_CampaignInput(ForeignEntityInput C_Campaign);
+
+	/**
+	 * Get C_Campaign.
+	 *
+	 * @return Marketing Campaign
+	 */
+	ForeignEntityInput C_Campaign();
+
+	/**
+	 * Set C_CashLine.
+	 *
+	 * @param C_CashLine Cash Journal Line
+	 */
+	void setC_CashLineInput(ForeignEntityInput C_CashLine);
+
+	/**
+	 * Get C_CashLine.
+	 *
+	 * @return Cash Journal Line
+	 */
+	ForeignEntityInput C_CashLine();
+
+	/**
+	 * Set C_CashPlanLine.
+	 *
+	 * @param C_CashPlanLine C_CashPlanLine
+	 */
+	void setC_CashPlanLineInput(ForeignEntityInput C_CashPlanLine);
+
+	/**
+	 * Get C_CashPlanLine.
+	 *
+	 * @return C_CashPlanLine
+	 */
+	ForeignEntityInput C_CashPlanLine();
+
+	/**
+	 * Set C_Charge.
+	 *
+	 * @param C_Charge Additional document charges
+	 */
+	void setC_ChargeInput(ForeignEntityInput C_Charge);
+
+	/**
+	 * Get C_Charge.
+	 *
+	 * @return Additional document charges
+	 */
+	ForeignEntityInput C_Charge();
+
+	/**
+	 * Set C_ConversionType.
+	 *
+	 * @param C_ConversionType Currency Conversion Rate Type
+	 */
+	void setC_ConversionTypeInput(ForeignEntityInput C_ConversionType);
+
+	/**
+	 * Get C_ConversionType.
+	 *
+	 * @return Currency Conversion Rate Type
+	 */
+	ForeignEntityInput C_ConversionType();
+
+	/**
+	 * Set C_Currency.
+	 *
+	 * @param C_Currency The Currency for this record
+	 */
+	void setC_CurrencyInput(ForeignEntityInput C_Currency);
+
+	/**
+	 * Get C_Currency.
+	 *
+	 * @return The Currency for this record
+	 */
+	ForeignEntityInput C_Currency();
+
+	/**
+	 * Set C_DocType.
+	 *
+	 * @param C_DocType Document type or rules
+	 */
+	void setC_DocTypeInput(ForeignEntityInput C_DocType);
+
+	/**
+	 * Get C_DocType.
+	 *
+	 * @return Document type or rules
+	 */
+	ForeignEntityInput C_DocType();
+
+	/**
+	 * Set C_DocTypeTarget.
+	 *
+	 * @param C_DocTypeTarget Target document type for conversing documents
+	 */
+	void setC_DocTypeTargetInput(ForeignEntityInput C_DocTypeTarget);
+
+	/**
+	 * Get C_DocTypeTarget.
+	 *
+	 * @return Target document type for conversing documents
+	 */
+	ForeignEntityInput C_DocTypeTarget();
+
+	/**
+	 * Set C_Opportunity.
+	 *
+	 * @param C_Opportunity C_Opportunity
+	 */
+	void setC_OpportunityInput(ForeignEntityInput C_Opportunity);
+
+	/**
+	 * Get C_Opportunity.
+	 *
+	 * @return C_Opportunity
+	 */
+	ForeignEntityInput C_Opportunity();
+
+	/**
+	 * Set UU.
+	 *
+	 * @param UU UU
+	 */
+	void setUU(String UU);
+
+	/**
+	 * Get UU.
+	 *
+	 * @return UU
+	 */
+	String getUU();
+
+	/**
+	 * Set C_OrderSource.
+	 *
+	 * @param C_OrderSource C_OrderSource
+	 */
+	void setC_OrderSourceInput(ForeignEntityInput C_OrderSource);
+
+	/**
+	 * Get C_OrderSource.
+	 *
+	 * @return C_OrderSource
+	 */
+	ForeignEntityInput C_OrderSource();
+
+	/**
+	 * Set C_Payment.
+	 *
+	 * @param C_Payment Payment identifier
+	 */
+	void setC_PaymentInput(ForeignEntityInput C_Payment);
+
+	/**
+	 * Get C_Payment.
+	 *
+	 * @return Payment identifier
+	 */
+	ForeignEntityInput C_Payment();
+
+	/**
+	 * Set C_PaymentTerm.
+	 *
+	 * @param C_PaymentTerm The terms of Payment (timing, discount)
+	 */
+	void setC_PaymentTermInput(ForeignEntityInput C_PaymentTerm);
+
+	/**
+	 * Get C_PaymentTerm.
+	 *
+	 * @return The terms of Payment (timing, discount)
+	 */
+	ForeignEntityInput C_PaymentTerm();
+
+	/**
+	 * Set C_POS.
+	 *
+	 * @param C_POS Point of Sales Terminal
+	 */
+	void setC_POSInput(ForeignEntityInput C_POS);
+
+	/**
+	 * Get C_POS.
+	 *
+	 * @return Point of Sales Terminal
+	 */
+	ForeignEntityInput C_POS();
+
+	/**
+	 * Set C_Project.
+	 *
+	 * @param C_Project Financial Project
+	 */
+	void setC_ProjectInput(ForeignEntityInput C_Project);
+
+	/**
+	 * Get C_Project.
+	 *
+	 * @return Financial Project
+	 */
+	ForeignEntityInput C_Project();
+
+	/**
+	 * Set DeliveryRule.
+	 *
+	 * @param DeliveryRule Defines the timing of Delivery
+	 */
+	void setDeliveryRuleInput(ForeignEntityInput DeliveryRule);
+
+	/**
+	 * Get DeliveryRule.
+	 *
+	 * @return Defines the timing of Delivery
+	 */
+	ForeignEntityInput DeliveryRule();
+
+	/**
+	 * Set DeliveryViaRule.
+	 *
+	 * @param DeliveryViaRule How the order will be delivered
+	 */
+	void setDeliveryViaRuleInput(ForeignEntityInput DeliveryViaRule);
+
+	/**
+	 * Get DeliveryViaRule.
+	 *
+	 * @return How the order will be delivered
+	 */
+	ForeignEntityInput DeliveryViaRule();
+
+	/**
+	 * Set DocAction.
+	 *
+	 * @param DocAction The targeted status of the document
+	 */
+	void setDocActionInput(ForeignEntityInput DocAction);
+
+	/**
+	 * Get DocAction.
+	 *
+	 * @return The targeted status of the document
+	 */
+	ForeignEntityInput DocAction();
+
+	/**
+	 * Set DocStatus.
+	 *
+	 * @param DocStatus The current status of the document
+	 */
+	void setDocStatusInput(ForeignEntityInput DocStatus);
+
+	/**
+	 * Get DocStatus.
+	 *
+	 * @return The current status of the document
+	 */
+	ForeignEntityInput DocStatus();
+
+	/**
+	 * Set DropShip_BPartner.
+	 *
+	 * @param DropShip_BPartner Business Partner to ship to
+	 */
+	void setDropShip_BPartnerInput(ForeignEntityInput DropShip_BPartner);
+
+	/**
+	 * Get DropShip_BPartner.
+	 *
+	 * @return Business Partner to ship to
+	 */
+	ForeignEntityInput DropShip_BPartner();
+
+	/**
+	 * Set DropShip_Location.
+	 *
+	 * @param DropShip_Location Business Partner Location for shipping to
+	 */
+	void setDropShip_LocationInput(ForeignEntityInput DropShip_Location);
+
+	/**
+	 * Get DropShip_Location.
+	 *
+	 * @return Business Partner Location for shipping to
+	 */
+	ForeignEntityInput DropShip_Location();
+
+	/**
+	 * Set DropShip_User.
+	 *
+	 * @param DropShip_User Business Partner Contact for drop shipment
+	 */
+	void setDropShip_UserInput(ForeignEntityInput DropShip_User);
+
+	/**
+	 * Get DropShip_User.
+	 *
+	 * @return Business Partner Contact for drop shipment
+	 */
+	ForeignEntityInput DropShip_User();
+
+	/**
+	 * Set FreightCostRule.
+	 *
+	 * @param FreightCostRule Method for charging Freight
+	 */
+	void setFreightCostRuleInput(ForeignEntityInput FreightCostRule);
+
+	/**
+	 * Get FreightCostRule.
+	 *
+	 * @return Method for charging Freight
+	 */
+	ForeignEntityInput FreightCostRule();
+
+	/**
+	 * Set InvoiceRule.
+	 *
+	 * @param InvoiceRule Frequency and method of invoicing 
+	 */
+	void setInvoiceRuleInput(ForeignEntityInput InvoiceRule);
+
+	/**
+	 * Get InvoiceRule.
+	 *
+	 * @return Frequency and method of invoicing 
+	 */
+	ForeignEntityInput InvoiceRule();
+
+	/**
+	 * Set Link_Order.
+	 *
+	 * @param Link_Order This field links a sales order to the purchase order that is generated from it.
+	 */
+	void setLink_OrderInput(ForeignEntityInput Link_Order);
+
+	/**
+	 * Get Link_Order.
+	 *
+	 * @return This field links a sales order to the purchase order that is generated from it.
+	 */
+	ForeignEntityInput Link_Order();
+
+	/**
+	 * Set M_FreightCategory.
+	 *
+	 * @param M_FreightCategory Category of the Freight
+	 */
+	void setM_FreightCategoryInput(ForeignEntityInput M_FreightCategory);
+
+	/**
+	 * Get M_FreightCategory.
+	 *
+	 * @return Category of the Freight
+	 */
+	ForeignEntityInput M_FreightCategory();
+
+	/**
+	 * Set M_PriceList.
+	 *
+	 * @param M_PriceList Unique identifier of a Price List
+	 */
+	void setM_PriceListInput(ForeignEntityInput M_PriceList);
+
+	/**
+	 * Get M_PriceList.
+	 *
+	 * @return Unique identifier of a Price List
+	 */
+	ForeignEntityInput M_PriceList();
+
+	/**
+	 * Set M_Shipper.
+	 *
+	 * @param M_Shipper Method or manner of product delivery
+	 */
+	void setM_ShipperInput(ForeignEntityInput M_Shipper);
+
+	/**
+	 * Get M_Shipper.
+	 *
+	 * @return Method or manner of product delivery
+	 */
+	ForeignEntityInput M_Shipper();
+
+	/**
+	 * Set M_Warehouse.
+	 *
+	 * @param M_Warehouse Storage Warehouse and Service Point
+	 */
+	void setM_WarehouseInput(ForeignEntityInput M_Warehouse);
+
+	/**
+	 * Get M_Warehouse.
+	 *
+	 * @return Storage Warehouse and Service Point
+	 */
+	ForeignEntityInput M_Warehouse();
+
+	/**
+	 * Set PriorityRule.
+	 *
+	 * @param PriorityRule Priority of a document
+	 */
+	void setPriorityRuleInput(ForeignEntityInput PriorityRule);
+
+	/**
+	 * Get PriorityRule.
+	 *
+	 * @return Priority of a document
+	 */
+	ForeignEntityInput PriorityRule();
+
+	/**
+	 * Set QuotationOrder.
+	 *
+	 * @param QuotationOrder Quotation used for generating this order
+	 */
+	void setQuotationOrderInput(ForeignEntityInput QuotationOrder);
+
+	/**
+	 * Get QuotationOrder.
+	 *
+	 * @return Quotation used for generating this order
+	 */
+	ForeignEntityInput QuotationOrder();
+
+	/**
+	 * Set Ref_Order.
+	 *
+	 * @param Ref_Order Reference to corresponding Sales/Purchase Order
+	 */
+	void setRef_OrderInput(ForeignEntityInput Ref_Order);
+
+	/**
+	 * Get Ref_Order.
+	 *
+	 * @return Reference to corresponding Sales/Purchase Order
+	 */
+	ForeignEntityInput Ref_Order();
+
+	/**
+	 * Set SalesRep.
+	 *
+	 * @param SalesRep Sales Representative or Company Agent
+	 */
+	void setSalesRepInput(ForeignEntityInput SalesRep);
+
+	/**
+	 * Get SalesRep.
+	 *
+	 * @return Sales Representative or Company Agent
+	 */
+	ForeignEntityInput SalesRep();
+
+	/**
+	 * Set User1.
+	 *
+	 * @param User1 User defined list element #1
+	 */
+	void setUser1Input(ForeignEntityInput User1);
+
+	/**
+	 * Get User1.
+	 *
+	 * @return User defined list element #1
+	 */
+	ForeignEntityInput User1();
+
+	/**
+	 * Set User2.
+	 *
+	 * @param User2 User defined list element #2
+	 */
+	void setUser2Input(ForeignEntityInput User2);
+
+	/**
+	 * Get User2.
+	 *
+	 * @return User defined list element #2
+	 */
+	ForeignEntityInput User2();
+}

@@ -1,0 +1,47 @@
+# Generated Schema for AD_Tree_Favorite - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Tree_FavoriteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Tree_FavoriteConnection!
+}
+
+extend type Mutation {
+	AD_Tree_FavoriteSave(Entity: AD_Tree_FavoriteInput!): AD_Tree_Favorite!
+	AD_Tree_FavoriteSaveMany(Entities: [AD_Tree_FavoriteInput!]!): [AD_Tree_Favorite!]!
+	AD_Tree_FavoriteDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Tree_FavoriteConnection {
+	Results: [AD_Tree_Favorite!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Tree_Favorite {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Date this record was created
+	Created: Date
+	# User who created this records
+	CreatedBy: AD_User
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Tree_FavoriteInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

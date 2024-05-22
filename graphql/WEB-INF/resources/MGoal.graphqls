@@ -1,0 +1,3 @@
+extend type PA_Goal {
+	PA_GoalRestrictions: [PA_GoalRestriction!]
+}

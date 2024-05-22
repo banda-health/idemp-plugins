@@ -1,0 +1,163 @@
+# Generated Schema for PP_MRP - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	PP_MRPGet(Page: Int, Size: Int, Sort: String, Filter: String): PP_MRPConnection!
+}
+
+extend type Mutation {
+	PP_MRPSave(Entity: PP_MRPInput!): PP_MRP!
+	PP_MRPSaveMany(Entities: [PP_MRPInput!]!): [PP_MRP!]!
+	PP_MRPDelete(UUs: [String!]!): Boolean!
+}
+
+type PP_MRPConnection {
+	Results: [PP_MRP!]!
+	PagingInfo: PagingInfo!
+}
+
+type PP_MRP {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Order
+	C_Order: C_Order
+	# Sales Order Line
+	C_OrderLine: C_OrderLine
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Date Confirm of this Order
+	DateConfirm: Date
+	# Scheduled Finish date for this Order
+	DateFinishSchedule: Date
+	# Date of Order
+	DateOrdered: Date!
+	# Date Order was promised
+	DatePromised: Date!
+	# Simulation date for this Material Plan
+	DateSimulation: Date
+	# Date Start for this Order
+	DateStart: Date
+	# Scheduled start date for this Order
+	DateStartSchedule: Date
+	DD_Order: DD_Order
+	DD_OrderLine: DD_OrderLine
+	# Optional short description of the record
+	Description: String
+	# The current status of the document
+	DocStatus: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Resource is available
+	IsAvailable: Boolean!
+	# Material Forecast
+	M_Forecast: M_Forecast
+	# Forecast Line
+	M_ForecastLine: M_ForecastLine
+	# Product, Service, Item
+	M_Product: M_Product
+	# Material Requisition
+	M_Requisition: M_Requisition
+	# Material Requisition Line
+	M_RequisitionLine: M_RequisitionLine
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
+	OrderType: AD_Ref_List
+	Planner: AD_User
+	UU: ID!
+	PP_Order_BOMLine: PP_Order_BOMLine
+	# Manufacturing Order
+	PP_Order: PP_Order
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: String
+	# Quantity
+	Qty: BigDecimal
+	# Resource
+	S_Resource: S_Resource
+	# MRP Type determines whether a record is demand or supply
+	TypeMRP: AD_Ref_List
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# Version of the table definition
+	Version: BigDecimal
+}
+
+input PP_MRPInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Sales Order Line
+	C_OrderLine: ForeignEntityInput
+	# Date Confirm of this Order
+	DateConfirm: Date
+	# Scheduled Finish date for this Order
+	DateFinishSchedule: Date
+	# Date of Order
+	DateOrdered: Date
+	# Date Order was promised
+	DatePromised: Date
+	# Simulation date for this Material Plan
+	DateSimulation: Date
+	# Date Start for this Order
+	DateStart: Date
+	# Scheduled start date for this Order
+	DateStartSchedule: Date
+	DD_Order: ForeignEntityInput
+	DD_OrderLine: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The current status of the document
+	DocStatus: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Resource is available
+	IsAvailable: Boolean
+	# Material Forecast
+	M_Forecast: ForeignEntityInput
+	# Forecast Line
+	M_ForecastLine: ForeignEntityInput
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Material Requisition
+	M_Requisition: ForeignEntityInput
+	# Material Requisition Line
+	M_RequisitionLine: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Type of Order: MRP records grouped by source (Sales Order, Purchase Order, Distribution Order, Requisition)
+	OrderType: ForeignEntityInput
+	Planner: ForeignEntityInput
+	UU: ID
+	PP_Order_BOMLine: ForeignEntityInput
+	# Manufacturing Order
+	PP_Order: ForeignEntityInput
+	# Indicates if this request is of a high, medium or low priority.
+	Priority: String
+	# Quantity
+	Qty: BigDecimal
+	# Resource
+	S_Resource: ForeignEntityInput
+	# MRP Type determines whether a record is demand or supply
+	TypeMRP: ForeignEntityInput
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# Version of the table definition
+	Version: BigDecimal
+}

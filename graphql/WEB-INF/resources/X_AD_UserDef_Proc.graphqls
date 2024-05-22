@@ -1,0 +1,75 @@
+# Generated Schema for AD_UserDef_Proc - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_UserDef_ProcGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_UserDef_ProcConnection!
+}
+
+extend type Mutation {
+	AD_UserDef_ProcSave(Entity: AD_UserDef_ProcInput!): AD_UserDef_Proc!
+	AD_UserDef_ProcSaveMany(Entities: [AD_UserDef_ProcInput!]!): [AD_UserDef_Proc!]!
+	AD_UserDef_ProcDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_UserDef_ProcConnection {
+	Results: [AD_UserDef_Proc!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_UserDef_Proc {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Language for this entity
+	AD_Language: AD_Language
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Process or Report
+	AD_Process: AD_Process!
+	# Responsibility Role
+	AD_Role: AD_Role
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# The field can be updated by the user
+	IsUserUpdateable: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_UserDef_ProcInput {
+	# Language for this entity
+	AD_Language: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Process or Report
+	AD_Process: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# The field can be updated by the user
+	IsUserUpdateable: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

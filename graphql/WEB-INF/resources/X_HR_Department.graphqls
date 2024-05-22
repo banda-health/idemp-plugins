@@ -1,0 +1,59 @@
+# Generated Schema for HR_Department - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	HR_DepartmentGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_DepartmentConnection!
+}
+
+extend type Mutation {
+	HR_DepartmentSave(Entity: HR_DepartmentInput!): HR_Department!
+	HR_DepartmentSaveMany(Entities: [HR_DepartmentInput!]!): [HR_Department!]!
+	HR_DepartmentDelete(UUs: [String!]!): Boolean!
+}
+
+type HR_DepartmentConnection {
+	Results: [HR_Department!]!
+	PagingInfo: PagingInfo!
+}
+
+type HR_Department {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Business Activity
+	C_Activity: C_Activity
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	UU: ID!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String
+}
+
+input HR_DepartmentInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

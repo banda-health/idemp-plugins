@@ -1,0 +1,73 @@
+# Generated Schema for C_DocTypeCounter - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_DocTypeCounterGet(Page: Int, Size: Int, Sort: String, Filter: String): C_DocTypeCounterConnection!
+}
+
+extend type Mutation {
+	C_DocTypeCounterSave(Entity: C_DocTypeCounterInput!): C_DocTypeCounter!
+	C_DocTypeCounterSaveMany(Entities: [C_DocTypeCounterInput!]!): [C_DocTypeCounter!]!
+	C_DocTypeCounterDelete(UUs: [String!]!): Boolean!
+}
+
+type C_DocTypeCounterConnection {
+	Results: [C_DocTypeCounter!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_DocTypeCounter {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Document type or rules
+	C_DocType: C_DocType!
+	UU: ID!
+	# Generated Counter Document Type (To)
+	Counter_C_DocType: C_DocType!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: AD_Ref_List
+	# The record is active in the system
+	IsActive: Boolean!
+	# Create Counter Document
+	IsCreateCounter: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input C_DocTypeCounterInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	UU: ID
+	# Generated Counter Document Type (To)
+	Counter_C_DocType: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The targeted status of the document
+	DocAction: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Create Counter Document
+	IsCreateCounter: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+}

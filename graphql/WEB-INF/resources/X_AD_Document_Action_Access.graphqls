@@ -1,0 +1,55 @@
+# Generated Schema for AD_Document_Action_Access - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_Document_Action_AccessGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_Document_Action_AccessConnection!
+}
+
+extend type Mutation {
+	AD_Document_Action_AccessSave(Entity: AD_Document_Action_AccessInput!): AD_Document_Action_Access!
+	AD_Document_Action_AccessSaveMany(Entities: [AD_Document_Action_AccessInput!]!): [AD_Document_Action_Access!]!
+	AD_Document_Action_AccessDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_Document_Action_AccessConnection {
+	Results: [AD_Document_Action_Access!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_Document_Action_Access {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	UU: ID!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Reference List based on Table
+	AD_Ref_List: AD_Ref_List!
+	# Responsibility Role
+	AD_Role: AD_Role!
+	# Document type or rules
+	C_DocType: C_DocType!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_Document_Action_AccessInput {
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Reference List based on Table
+	AD_Ref_List: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

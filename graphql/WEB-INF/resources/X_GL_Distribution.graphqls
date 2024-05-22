@@ -1,0 +1,189 @@
+# Generated Schema for GL_Distribution - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	GL_DistributionGet(Page: Int, Size: Int, Sort: String, Filter: String): GL_DistributionConnection!
+}
+
+extend type Mutation {
+	GL_DistributionSave(Entity: GL_DistributionInput!): GL_Distribution!
+	GL_DistributionSaveMany(Entities: [GL_DistributionInput!]!): [GL_Distribution!]!
+	GL_DistributionDelete(UUs: [String!]!): Boolean!
+}
+
+type GL_DistributionConnection {
+	Results: [GL_Distribution!]!
+	PagingInfo: PagingInfo!
+}
+
+type GL_Distribution {
+	# Account used
+	Account: C_ElementValue
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Match any value of the Account segment
+	AnyAcct: Boolean!
+	# Match any value of the Activity segment
+	AnyActivity: Boolean!
+	# Match any value of the Business Partner segment
+	AnyBPartner: Boolean!
+	# Match any value of the Campaign segment
+	AnyCampaign: Boolean!
+	# Match any value of the Location From segment
+	AnyLocFrom: Boolean!
+	# Match any value of the Location To segment
+	AnyLocTo: Boolean!
+	# Match any value of the Organization segment
+	AnyOrg: Boolean!
+	# Match any value of the Transaction Organization segment
+	AnyOrgTrx: Boolean!
+	# Match any value of the Product segment
+	AnyProduct: Boolean!
+	# Match any value of the Project segment
+	AnyProject: Boolean!
+	# Match any value of the Sales Region segment
+	AnySalesRegion: Boolean!
+	# Match any value of the User 1 segment
+	AnyUser1: Boolean!
+	# Match any value of the User 2 segment
+	AnyUser2: Boolean!
+	# Rules for accounting
+	C_AcctSchema: C_AcctSchema!
+	# Business Activity
+	C_Activity: C_Activity
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Marketing Campaign
+	C_Campaign: C_Campaign
+	# Document type or rules
+	C_DocType: C_DocType
+	# Location that inventory was moved from
+	C_LocFrom: C_Location
+	# Location that inventory was moved to
+	C_LocTo: C_Location
+	# Financial Project
+	C_Project: C_Project
+	# Sales coverage region
+	C_SalesRegion: C_SalesRegion
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	UU: ID!
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Indicates that reversal movement will be created, if disabled the original movement will be deleted.
+	IsCreateReversal: Boolean!
+	# Element is valid
+	IsValid: Boolean!
+	# Product, Service, Item
+	M_Product: M_Product
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Sum of the Percent details 
+	PercentTotal: BigDecimal!
+	# The type of posted amount for the transaction
+	PostingType: AD_Ref_List
+	Processing: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# User defined list element #1
+	User1: C_ElementValue
+	# User defined list element #2
+	User2: C_ElementValue
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input GL_DistributionInput {
+	# Account used
+	Account: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Match any value of the Account segment
+	AnyAcct: Boolean
+	# Match any value of the Activity segment
+	AnyActivity: Boolean
+	# Match any value of the Business Partner segment
+	AnyBPartner: Boolean
+	# Match any value of the Campaign segment
+	AnyCampaign: Boolean
+	# Match any value of the Location From segment
+	AnyLocFrom: Boolean
+	# Match any value of the Location To segment
+	AnyLocTo: Boolean
+	# Match any value of the Organization segment
+	AnyOrg: Boolean
+	# Match any value of the Transaction Organization segment
+	AnyOrgTrx: Boolean
+	# Match any value of the Product segment
+	AnyProduct: Boolean
+	# Match any value of the Project segment
+	AnyProject: Boolean
+	# Match any value of the Sales Region segment
+	AnySalesRegion: Boolean
+	# Match any value of the User 1 segment
+	AnyUser1: Boolean
+	# Match any value of the User 2 segment
+	AnyUser2: Boolean
+	# Rules for accounting
+	C_AcctSchema: ForeignEntityInput
+	# Business Activity
+	C_Activity: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Marketing Campaign
+	C_Campaign: ForeignEntityInput
+	# Document type or rules
+	C_DocType: ForeignEntityInput
+	# Location that inventory was moved from
+	C_LocFrom: ForeignEntityInput
+	# Location that inventory was moved to
+	C_LocTo: ForeignEntityInput
+	# Financial Project
+	C_Project: ForeignEntityInput
+	# Sales coverage region
+	C_SalesRegion: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	UU: ID
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Indicates that reversal movement will be created, if disabled the original movement will be deleted.
+	IsCreateReversal: Boolean
+	# Element is valid
+	IsValid: Boolean
+	# Product, Service, Item
+	M_Product: ForeignEntityInput
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Sum of the Percent details 
+	PercentTotal: BigDecimal
+	# The type of posted amount for the transaction
+	PostingType: ForeignEntityInput
+	Processing: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# User defined list element #1
+	User1: ForeignEntityInput
+	# User defined list element #2
+	User2: ForeignEntityInput
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

@@ -1,0 +1,3 @@
+extend type AD_Package_Exp {
+	AD_Package_Exp_DetailList: [AD_Package_Exp_Detail!]
+}

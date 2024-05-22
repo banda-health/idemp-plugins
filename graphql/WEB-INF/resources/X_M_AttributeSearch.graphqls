@@ -1,0 +1,51 @@
+# Generated Schema for M_AttributeSearch - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_AttributeSearchGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeSearchConnection!
+}
+
+extend type Mutation {
+	M_AttributeSearchSave(Entity: M_AttributeSearchInput!): M_AttributeSearch!
+	M_AttributeSearchSaveMany(Entities: [M_AttributeSearchInput!]!): [M_AttributeSearch!]!
+	M_AttributeSearchDelete(UUs: [String!]!): Boolean!
+}
+
+type M_AttributeSearchConnection {
+	Results: [M_AttributeSearch!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_AttributeSearch {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	UU: ID!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_AttributeSearchInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	UU: ID
+	# Alphanumeric identifier of the entity
+	Name: String
+}

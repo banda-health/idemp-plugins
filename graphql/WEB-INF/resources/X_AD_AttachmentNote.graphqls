@@ -1,0 +1,59 @@
+# Generated Schema for AD_AttachmentNote - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_AttachmentNoteGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AttachmentNoteConnection!
+}
+
+extend type Mutation {
+	AD_AttachmentNoteSave(Entity: AD_AttachmentNoteInput!): AD_AttachmentNote!
+	AD_AttachmentNoteSaveMany(Entities: [AD_AttachmentNoteInput!]!): [AD_AttachmentNote!]!
+	AD_AttachmentNoteDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_AttachmentNoteConnection {
+	Results: [AD_AttachmentNote!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_AttachmentNote {
+	# Attachment for the document
+	AD_Attachment: AD_Attachment!
+	UU: ID!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# User within the system - Internal or Business Partner Contact
+	AD_User: AD_User!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Text Message
+	TextMsg: String!
+	# Name this entity is referred to as
+	Title: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_AttachmentNoteInput {
+	# Attachment for the document
+	AD_Attachment: ForeignEntityInput
+	UU: ID
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# User within the system - Internal or Business Partner Contact
+	AD_User: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Text Message
+	TextMsg: String
+	# Name this entity is referred to as
+	Title: String
+}

@@ -1,0 +1,67 @@
+# Generated Schema for C_TaxBase - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_TaxBaseGet(Page: Int, Size: Int, Sort: String, Filter: String): C_TaxBaseConnection!
+}
+
+extend type Mutation {
+	C_TaxBaseSave(Entity: C_TaxBaseInput!): C_TaxBase!
+	C_TaxBaseSaveMany(Entities: [C_TaxBaseInput!]!): [C_TaxBase!]!
+	C_TaxBaseDelete(UUs: [String!]!): Boolean!
+}
+
+type C_TaxBaseConnection {
+	Results: [C_TaxBase!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_TaxBase {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Calculation Base
+	Base: AD_Ref_List
+	UU: ID!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Percent of the entire amount
+	Percentage: Int
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input C_TaxBaseInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Calculation Base
+	Base: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Percent of the entire amount
+	Percentage: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

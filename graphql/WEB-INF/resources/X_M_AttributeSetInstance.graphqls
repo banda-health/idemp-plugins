@@ -1,0 +1,71 @@
+# Generated Schema for M_AttributeSetInstance - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_AttributeSetInstanceGet(Page: Int, Size: Int, Sort: String, Filter: String): M_AttributeSetInstanceConnection!
+}
+
+extend type Mutation {
+	M_AttributeSetInstanceSave(Entity: M_AttributeSetInstanceInput!): M_AttributeSetInstance!
+	M_AttributeSetInstanceSaveMany(Entities: [M_AttributeSetInstanceInput!]!): [M_AttributeSetInstance!]!
+	M_AttributeSetInstanceDelete(UUs: [String!]!): Boolean!
+}
+
+type M_AttributeSetInstanceConnection {
+	Results: [M_AttributeSetInstance!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_AttributeSetInstance {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# String date when guarantee expires
+	BH_GuaranteeDateString: String
+	bh_update_reason: AD_Ref_List
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Date when guarantee expires
+	GuaranteeDate: Date
+	# The record is active in the system
+	IsActive: Boolean!
+	# Lot number (alphanumeric)
+	Lot: String
+	# Product Attribute Set
+	M_AttributeSet: M_AttributeSet!
+	UU: ID!
+	# Product Lot Definition
+	M_Lot: M_Lot
+	# Product Serial Number 
+	SerNo: String
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input M_AttributeSetInstanceInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	bh_update_reason: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Date when guarantee expires
+	GuaranteeDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	# Lot number (alphanumeric)
+	Lot: String
+	# Product Attribute Set
+	M_AttributeSet: ForeignEntityInput
+	UU: ID
+	# Product Lot Definition
+	M_Lot: ForeignEntityInput
+	# Product Serial Number 
+	SerNo: String
+}

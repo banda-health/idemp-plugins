@@ -1,0 +1,63 @@
+# Generated Schema for ASP_Level - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	ASP_LevelGet(Page: Int, Size: Int, Sort: String, Filter: String): ASP_LevelConnection!
+}
+
+extend type Mutation {
+	ASP_LevelSave(Entity: ASP_LevelInput!): ASP_Level!
+	ASP_LevelSaveMany(Entities: [ASP_LevelInput!]!): [ASP_Level!]!
+	ASP_LevelDelete(UUs: [String!]!): Boolean!
+}
+
+type ASP_LevelConnection {
+	Results: [ASP_Level!]!
+	PagingInfo: PagingInfo!
+}
+
+type ASP_Level {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	ASP_Module: ASP_Module!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	Processing: Boolean!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input ASP_LevelInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	ASP_Module: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	Processing: Boolean
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

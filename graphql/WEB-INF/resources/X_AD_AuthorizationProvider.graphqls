@@ -1,0 +1,63 @@
+# Generated Schema for AD_AuthorizationProvider - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_AuthorizationProviderGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_AuthorizationProviderConnection!
+}
+
+extend type Mutation {
+	AD_AuthorizationProviderSave(Entity: AD_AuthorizationProviderInput!): AD_AuthorizationProvider!
+	AD_AuthorizationProviderSaveMany(Entities: [AD_AuthorizationProviderInput!]!): [AD_AuthorizationProvider!]!
+	AD_AuthorizationProviderDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_AuthorizationProviderConnection {
+	Results: [AD_AuthorizationProvider!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_AuthorizationProvider {
+	UU: ID!
+	AD_AuthorizationType: AD_Ref_List!
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	AuthorizationEndpoint: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	RevokeEndpoint: String
+	TokenEndpoint: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_AuthorizationProviderInput {
+	UU: ID
+	AD_AuthorizationType: ForeignEntityInput
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	AuthorizationEndpoint: String
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	RevokeEndpoint: String
+	TokenEndpoint: String
+}

@@ -27,6 +27,9 @@ public class PhysicalInventoryModelEvent extends AbstractEventHandler{
 		} else {
 			return;
 		}
+		if (inventory.getClass().toString().contains("graphql.model")) {
+			return;
+		}
 
 		if (event.getTopic().equals(IEventTopics.PO_BEFORE_NEW)) {
 			beforeSaveRequest(inventory);

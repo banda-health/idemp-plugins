@@ -1,0 +1,7 @@
+extend type Mutation {
+	M_InventoryProcess(UU: ID!, DocumentAction: String!): M_Inventory
+}
+
+extend type M_Inventory {
+	M_InventoryLines: [M_InventoryLine!]
+}

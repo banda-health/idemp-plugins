@@ -23,21 +23,61 @@ import org.compiere.model.*;
 import org.compiere.util.KeyNamePair;
 
 /** Generated Model for BH_BP_General_Payer_Info
- *  @author iDempiere (generated) 
- *  @version Release 8.2 - $Id$ */
-public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Payer_Info, I_Persistent 
+ *  @author iDempiere (generated)
+ *  @version Release 11 - $Id$ */
+@org.adempiere.base.Model(table="BH_BP_General_Payer_Info")
+public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Payer_Info, I_Persistent
 {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20230815L;
+	private static final long serialVersionUID = 20240326L;
 
     /** Standard Constructor */
     public X_BH_BP_General_Payer_Info (Properties ctx, int BH_BP_General_Payer_Info_ID, String trxName)
     {
       super (ctx, BH_BP_General_Payer_Info_ID, trxName);
       /** if (BH_BP_General_Payer_Info_ID == 0)
+        {
+			setBH_BP_General_Payer_Info_ID (0);
+			setBH_BP_Payer_Info_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_BP_General_Payer_Info (Properties ctx, int BH_BP_General_Payer_Info_ID, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_BP_General_Payer_Info_ID, trxName, virtualColumns);
+      /** if (BH_BP_General_Payer_Info_ID == 0)
+        {
+			setBH_BP_General_Payer_Info_ID (0);
+			setBH_BP_Payer_Info_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_BP_General_Payer_Info (Properties ctx, String BH_BP_General_Payer_Info_UU, String trxName)
+    {
+      super (ctx, BH_BP_General_Payer_Info_UU, trxName);
+      /** if (BH_BP_General_Payer_Info_UU == null)
+        {
+			setBH_BP_General_Payer_Info_ID (0);
+			setBH_BP_Payer_Info_ID (0);
+			setBH_Payer_Info_Fld_ID (0);
+			setName (null);
+        } */
+    }
+
+    /** Standard Constructor */
+    public X_BH_BP_General_Payer_Info (Properties ctx, String BH_BP_General_Payer_Info_UU, String trxName, String ... virtualColumns)
+    {
+      super (ctx, BH_BP_General_Payer_Info_UU, trxName, virtualColumns);
+      /** if (BH_BP_General_Payer_Info_UU == null)
         {
 			setBH_BP_General_Payer_Info_ID (0);
 			setBH_BP_Payer_Info_ID (0);
@@ -53,7 +93,7 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
     }
 
     /** AccessLevel
-      * @return 3 - Client - Org 
+      * @return 3 - Client - Org
       */
     protected int get_AccessLevel()
     {
@@ -75,18 +115,19 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
     }
 
 	/** Set Business Partner General Payer Info.
-		@param BH_BP_General_Payer_Info_ID Business Partner General Payer Info	  */
+		@param BH_BP_General_Payer_Info_ID Business Partner General Payer Info
+	*/
 	public void setBH_BP_General_Payer_Info_ID (int BH_BP_General_Payer_Info_ID)
 	{
-		if (BH_BP_General_Payer_Info_ID < 1) 
+		if (BH_BP_General_Payer_Info_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_BP_General_Payer_Info_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_BP_General_Payer_Info_ID, Integer.valueOf(BH_BP_General_Payer_Info_ID));
 	}
 
 	/** Get Business Partner General Payer Info.
 		@return Business Partner General Payer Info	  */
-	public int getBH_BP_General_Payer_Info_ID () 
+	public int getBH_BP_General_Payer_Info_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_BP_General_Payer_Info_ID);
 		if (ii == null)
@@ -95,7 +136,8 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
 	}
 
 	/** Set BH_BP_General_Payer_Info_UU.
-		@param BH_BP_General_Payer_Info_UU BH_BP_General_Payer_Info_UU	  */
+		@param BH_BP_General_Payer_Info_UU BH_BP_General_Payer_Info_UU
+	*/
 	public void setBH_BP_General_Payer_Info_UU (String BH_BP_General_Payer_Info_UU)
 	{
 		set_Value (COLUMNNAME_BH_BP_General_Payer_Info_UU, BH_BP_General_Payer_Info_UU);
@@ -103,29 +145,31 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
 
 	/** Get BH_BP_General_Payer_Info_UU.
 		@return BH_BP_General_Payer_Info_UU	  */
-	public String getBH_BP_General_Payer_Info_UU () 
+	public String getBH_BP_General_Payer_Info_UU()
 	{
 		return (String)get_Value(COLUMNNAME_BH_BP_General_Payer_Info_UU);
 	}
 
 	public I_BH_BP_Payer_Info getBH_BP_Payer_Info() throws RuntimeException
-    {
-		return (I_BH_BP_Payer_Info)MTable.get(getCtx(), I_BH_BP_Payer_Info.Table_Name)
-			.getPO(getBH_BP_Payer_Info_ID(), get_TrxName());	}
+	{
+		return (I_BH_BP_Payer_Info)MTable.get(getCtx(), I_BH_BP_Payer_Info.Table_ID)
+			.getPO(getBH_BP_Payer_Info_ID(), get_TrxName());
+	}
 
 	/** Set Business Partner Payer Information.
-		@param BH_BP_Payer_Info_ID Business Partner Payer Information	  */
+		@param BH_BP_Payer_Info_ID Business Partner Payer Information
+	*/
 	public void setBH_BP_Payer_Info_ID (int BH_BP_Payer_Info_ID)
 	{
-		if (BH_BP_Payer_Info_ID < 1) 
+		if (BH_BP_Payer_Info_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_BP_Payer_Info_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_BP_Payer_Info_ID, Integer.valueOf(BH_BP_Payer_Info_ID));
 	}
 
 	/** Get Business Partner Payer Information.
 		@return Business Partner Payer Information	  */
-	public int getBH_BP_Payer_Info_ID () 
+	public int getBH_BP_Payer_Info_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_BP_Payer_Info_ID);
 		if (ii == null)
@@ -134,23 +178,25 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
 	}
 
 	public I_BH_Payer_Info_Fld getBH_Payer_Info_Fld() throws RuntimeException
-    {
-		return (I_BH_Payer_Info_Fld)MTable.get(getCtx(), I_BH_Payer_Info_Fld.Table_Name)
-			.getPO(getBH_Payer_Info_Fld_ID(), get_TrxName());	}
+	{
+		return (I_BH_Payer_Info_Fld)MTable.get(getCtx(), I_BH_Payer_Info_Fld.Table_ID)
+			.getPO(getBH_Payer_Info_Fld_ID(), get_TrxName());
+	}
 
 	/** Set Payer Info Field.
-		@param BH_Payer_Info_Fld_ID Payer Info Field	  */
+		@param BH_Payer_Info_Fld_ID Payer Info Field
+	*/
 	public void setBH_Payer_Info_Fld_ID (int BH_Payer_Info_Fld_ID)
 	{
-		if (BH_Payer_Info_Fld_ID < 1) 
+		if (BH_Payer_Info_Fld_ID < 1)
 			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, null);
-		else 
+		else
 			set_ValueNoCheck (COLUMNNAME_BH_Payer_Info_Fld_ID, Integer.valueOf(BH_Payer_Info_Fld_ID));
 	}
 
 	/** Get Payer Info Field.
 		@return Payer Info Field	  */
-	public int getBH_Payer_Info_Fld_ID () 
+	public int getBH_Payer_Info_Fld_ID()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Payer_Info_Fld_ID);
 		if (ii == null)
@@ -159,9 +205,8 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
 	}
 
 	/** Set Description.
-		@param Description 
-		Optional short description of the record
-	  */
+		@param Description Optional short description of the record
+	*/
 	public void setDescription (String Description)
 	{
 		set_Value (COLUMNNAME_Description, Description);
@@ -170,15 +215,14 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
 	/** Get Description.
 		@return Optional short description of the record
 	  */
-	public String getDescription () 
+	public String getDescription()
 	{
 		return (String)get_Value(COLUMNNAME_Description);
 	}
 
 	/** Set Name.
-		@param Name 
-		Alphanumeric identifier of the entity
-	  */
+		@param Name Alphanumeric identifier of the entity
+	*/
 	public void setName (String Name)
 	{
 		set_Value (COLUMNNAME_Name, Name);
@@ -187,7 +231,7 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
 	/** Get Name.
 		@return Alphanumeric identifier of the entity
 	  */
-	public String getName () 
+	public String getName()
 	{
 		return (String)get_Value(COLUMNNAME_Name);
 	}
@@ -195,7 +239,7 @@ public class X_BH_BP_General_Payer_Info extends PO implements I_BH_BP_General_Pa
     /** Get Record ID/ColumnName
         @return ID/ColumnName pair
       */
-    public KeyNamePair getKeyNamePair() 
+    public KeyNamePair getKeyNamePair()
     {
         return new KeyNamePair(get_ID(), getName());
     }

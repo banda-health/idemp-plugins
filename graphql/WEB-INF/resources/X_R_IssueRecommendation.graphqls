@@ -1,0 +1,55 @@
+# Generated Schema for R_IssueRecommendation - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	R_IssueRecommendationGet(Page: Int, Size: Int, Sort: String, Filter: String): R_IssueRecommendationConnection!
+}
+
+extend type Mutation {
+	R_IssueRecommendationSave(Entity: R_IssueRecommendationInput!): R_IssueRecommendation!
+	R_IssueRecommendationSaveMany(Entities: [R_IssueRecommendationInput!]!): [R_IssueRecommendation!]!
+	R_IssueRecommendationDelete(UUs: [String!]!): Boolean!
+}
+
+type R_IssueRecommendationConnection {
+	Results: [R_IssueRecommendation!]!
+	PagingInfo: PagingInfo!
+}
+
+type R_IssueRecommendation {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	UU: ID!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input R_IssueRecommendationInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Optional short description of the record
+	Description: String
+	# Comment or Hint
+	Help: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	UU: ID
+}

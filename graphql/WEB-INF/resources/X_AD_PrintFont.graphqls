@@ -1,0 +1,55 @@
+# Generated Schema for AD_PrintFont - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	AD_PrintFontGet(Page: Int, Size: Int, Sort: String, Filter: String): AD_PrintFontConnection!
+}
+
+extend type Mutation {
+	AD_PrintFontSave(Entity: AD_PrintFontInput!): AD_PrintFont!
+	AD_PrintFontSaveMany(Entities: [AD_PrintFontInput!]!): [AD_PrintFont!]!
+	AD_PrintFontDelete(UUs: [String!]!): Boolean!
+}
+
+type AD_PrintFontConnection {
+	Results: [AD_PrintFont!]!
+	PagingInfo: PagingInfo!
+}
+
+type AD_PrintFont {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	# Validation Code
+	Code: String!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input AD_PrintFontInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	# Validation Code
+	Code: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

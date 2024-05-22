@@ -1,0 +1,4 @@
+extend type M_MovementLine {
+	M_MovementLineMAList: [M_MovementLineMA!]
+	M_StorageOnHandList: [M_StorageOnHand!]
+}

@@ -11,12 +11,28 @@ public class MAttributeSet_BH extends MAttributeSet {
 	 */
 	public static final String COLUMNNAME_BH_Locked = "BH_Locked";
 
+	public MAttributeSet_BH(Properties ctx, String M_AttributeSet_UU, String trxName) {
+		super(ctx, M_AttributeSet_UU, trxName);
+	}
+
 	public MAttributeSet_BH(Properties ctx, int M_AttributeSet_ID, String trxName) {
 		super(ctx, M_AttributeSet_ID, trxName);
 	}
 
 	public MAttributeSet_BH(Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
+	}
+
+	public MAttributeSet_BH(MAttributeSet copy) {
+		super(copy);
+	}
+
+	public MAttributeSet_BH(Properties ctx, MAttributeSet copy) {
+		super(ctx, copy);
+	}
+
+	public MAttributeSet_BH(Properties ctx, MAttributeSet copy, String trxName) {
+		super(ctx, copy, trxName);
 	}
 
 	/**

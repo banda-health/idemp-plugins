@@ -1,0 +1,3 @@
+extend type BH_Payer_Info_Fld {
+	BH_Payer_Info_Fld_ValList: [BH_Payer_Info_Fld_Val!]
+}

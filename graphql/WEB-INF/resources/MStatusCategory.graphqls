@@ -1,0 +1,3 @@
+extend type R_StatusCategory {
+	R_StatusList: [R_Status!]
+}

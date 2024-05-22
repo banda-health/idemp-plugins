@@ -1,0 +1,3 @@
+extend type M_PriceList {
+	M_PriceList_Version_Current: M_PriceList_Version
+}

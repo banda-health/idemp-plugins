@@ -1,0 +1,73 @@
+# Generated Schema for M_Locator - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	M_LocatorGet(Page: Int, Size: Int, Sort: String, Filter: String): M_LocatorConnection!
+}
+
+extend type Mutation {
+	M_LocatorSave(Entity: M_LocatorInput!): M_Locator!
+	M_LocatorSaveMany(Entities: [M_LocatorInput!]!): [M_Locator!]!
+	M_LocatorDelete(UUs: [String!]!): Boolean!
+}
+
+type M_LocatorConnection {
+	Results: [M_Locator!]!
+	PagingInfo: PagingInfo!
+}
+
+type M_Locator {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Default value
+	IsDefault: Boolean!
+	UU: ID!
+	M_LocatorType: M_LocatorType
+	# Storage Warehouse and Service Point
+	M_Warehouse: M_Warehouse!
+	# Where inventory should be picked from first
+	PriorityNo: Int!
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+	# X dimension, e.g., Aisle
+	X: String!
+	# Y dimension, e.g., Bin
+	Y: String!
+	# Z dimension, e.g., Level
+	Z: String!
+}
+
+input M_LocatorInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Default value
+	IsDefault: Boolean
+	UU: ID
+	M_LocatorType: ForeignEntityInput
+	# Storage Warehouse and Service Point
+	M_Warehouse: ForeignEntityInput
+	# Where inventory should be picked from first
+	PriorityNo: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+	# X dimension, e.g., Aisle
+	X: String
+	# Y dimension, e.g., Bin
+	Y: String
+	# Z dimension, e.g., Level
+	Z: String
+}

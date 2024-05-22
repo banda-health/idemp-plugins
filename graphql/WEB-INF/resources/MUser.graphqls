@@ -1,0 +1,3 @@
+extend type AD_User {
+	AD_User_Roles: [AD_User_Roles!]
+}

@@ -1,0 +1,99 @@
+# Generated Schema for C_AllocationLine - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 11 - $Id$
+extend type Query {
+	C_AllocationLineGet(Page: Int, Size: Int, Sort: String, Filter: String): C_AllocationLineConnection!
+}
+
+extend type Mutation {
+	C_AllocationLineSave(Entity: C_AllocationLineInput!): C_AllocationLine!
+	C_AllocationLineSaveMany(Entities: [C_AllocationLineInput!]!): [C_AllocationLine!]!
+	C_AllocationLineDelete(UUs: [String!]!): Boolean!
+}
+
+type C_AllocationLineConnection {
+	Results: [C_AllocationLine!]!
+	PagingInfo: PagingInfo!
+}
+
+type C_AllocationLine {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Amount in a defined currency
+	Amount: BigDecimal!
+	# Payment allocation
+	C_AllocationHdr: C_AllocationHdr!
+	UU: ID!
+	# Bank Transfer
+	C_BankTransfer: C_BankTransfer
+	# Identifies a Business Partner
+	C_BPartner: C_BPartner
+	# Cash Journal Line
+	C_CashLine: C_CashLine
+	# Additional document charges
+	C_Charge: C_Charge
+	# Invoice Identifier
+	C_Invoice: C_Invoice
+	# Order
+	C_Order: C_Order
+	# Payment identifier
+	C_Payment: C_Payment
+	# Date this record was created
+	Created: Date!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Transaction Date
+	DateTrx: Date
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal!
+	# The record is active in the system
+	IsActive: Boolean!
+	# This is a manual process
+	IsManual: Boolean!
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: BigDecimal
+	# Date this record was updated
+	Updated: Date!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Amount to write-off
+	WriteOffAmt: BigDecimal!
+}
+
+input C_AllocationLineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Amount in a defined currency
+	Amount: BigDecimal
+	# Payment allocation
+	C_AllocationHdr: ForeignEntityInput
+	UU: ID
+	# Bank Transfer
+	C_BankTransfer: ForeignEntityInput
+	# Identifies a Business Partner
+	C_BPartner: ForeignEntityInput
+	# Cash Journal Line
+	C_CashLine: ForeignEntityInput
+	# Additional document charges
+	C_Charge: ForeignEntityInput
+	# Invoice Identifier
+	C_Invoice: ForeignEntityInput
+	# Order
+	C_Order: ForeignEntityInput
+	# Payment identifier
+	C_Payment: ForeignEntityInput
+	# Transaction Date
+	DateTrx: Date
+	# Calculated amount of discount
+	DiscountAmt: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# This is a manual process
+	IsManual: Boolean
+	# Over-Payment (unallocated) or Under-Payment (partial payment) Amount
+	OverUnderAmt: BigDecimal
+	# Amount to write-off
+	WriteOffAmt: BigDecimal
+}
