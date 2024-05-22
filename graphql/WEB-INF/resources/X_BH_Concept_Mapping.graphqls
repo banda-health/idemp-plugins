@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	BH_Concept_Mapping(UU: String!): BH_Concept_Mapping
 	BH_Concept_MappingGet(Page: Int, Size: Int, Sort: String, Filter: String): BH_Concept_MappingConnection!
 }
 
