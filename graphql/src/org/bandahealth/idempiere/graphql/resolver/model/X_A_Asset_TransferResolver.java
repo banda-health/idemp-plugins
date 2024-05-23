@@ -38,7 +38,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Accumulated Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Accumdepreciation_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Accumdepreciation_Acct() <= 0) {
+		if (entity.getA_Accumdepreciation_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -53,7 +53,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Accumulated Depreciation Account (new)
 	 */
 	public CompletableFuture<MAccount> A_Accumdepreciation_New_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Accumdepreciation_New_Acct() <= 0) {
+		if (entity.getA_Accumdepreciation_New_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -68,7 +68,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Asset Acct
 	 */
 	public CompletableFuture<MAccount> A_Asset_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Acct() <= 0) {
+		if (entity.getA_Asset_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -83,7 +83,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return A_Asset_Acct_ID
 	 */
 	public CompletableFuture<MAssetAcct> A_Asset_Acct(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Acct_ID() <= 0) {
+		if (entity.getA_Asset_Acct_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetAcct> dataLoader =
@@ -98,7 +98,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -113,7 +113,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Asset Acct (new)
 	 */
 	public CompletableFuture<MAccount> A_Asset_New_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_New_Acct() <= 0) {
+		if (entity.getA_Asset_New_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -143,7 +143,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Depreciation Account
 	 */
 	public CompletableFuture<MAccount> A_Depreciation_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_Acct() <= 0) {
+		if (entity.getA_Depreciation_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -158,7 +158,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Depreciation Acct (new)
 	 */
 	public CompletableFuture<MAccount> A_Depreciation_New_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Depreciation_New_Acct() <= 0) {
+		if (entity.getA_Depreciation_New_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -173,7 +173,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Disposal Loss Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Loss_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Loss_Acct() <= 0) {
+		if (entity.getA_Disposal_Loss_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -188,7 +188,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Disposal Loss Acct (new)
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Loss_New_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Loss_New_Acct() <= 0) {
+		if (entity.getA_Disposal_Loss_New_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -203,7 +203,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Disposal Revenue Acct
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Revenue_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Revenue_Acct() <= 0) {
+		if (entity.getA_Disposal_Revenue_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -218,7 +218,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Disposal Revenue Acct (new)
 	 */
 	public CompletableFuture<MAccount> A_Disposal_Revenue_New_A(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Disposal_Revenue_New_Acct() <= 0) {
+		if (entity.getA_Disposal_Revenue_New_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =
@@ -241,7 +241,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -256,7 +256,7 @@ public class X_A_Asset_TransferResolver extends POResolver<MAssetTransfer> imple
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MAssetTransfer entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =

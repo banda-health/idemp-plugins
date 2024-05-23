@@ -34,7 +34,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_M_PromotionReward entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -72,7 +72,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 	 * @return Promotion
 	 */
 	public CompletableFuture<X_M_Promotion> M_Promotion(X_M_PromotionReward entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Promotion_ID() <= 0) {
+		if (entity.getM_Promotion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_Promotion> dataLoader =
@@ -87,7 +87,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 	 * @return Promotion Distribution
 	 */
 	public CompletableFuture<X_M_PromotionDistribution> M_PromotionDistribution(X_M_PromotionReward entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PromotionDistribution_ID() <= 0) {
+		if (entity.getM_PromotionDistribution_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionDistribution> dataLoader =
@@ -102,7 +102,7 @@ public class X_M_PromotionRewardResolver extends POResolver<X_M_PromotionReward>
 	 * @return Get product from target distribution to apply the promotion reward
 	 */
 	public CompletableFuture<X_M_PromotionDistribution> M_TargetDistribution(X_M_PromotionReward entity, DataFetchingEnvironment environment) {
-		if (entity.getM_TargetDistribution_ID() <= 0) {
+		if (entity.getM_TargetDistribution_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_M_PromotionDistribution> dataLoader =

@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_Cycle(UU: String!): C_Cycle
 	C_CycleGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CycleConnection!
 }
 

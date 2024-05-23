@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_RevenueRecognition_PlanDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MRevenueRecognitionPlan;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_RevenueRecognition_Plan - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_RevenueRecognition_PlanQuery extends POQuery<MRevenueRecognitio
 	@Override
 	protected String getTableName() {
 		return MRevenueRecognitionPlan.Table_Name;
+	}
+
+	public CompletableFuture<MRevenueRecognitionPlan> C_RevenueRecognition_Plan(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MRevenueRecognitionPlan> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_RevenueRecognition_PlanDataLoader.DATALOADER_C_RevenueRecognition_Plan_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MRevenueRecognitionPlan> C_RevenueRecognition_PlanGet(int Page, int PageSize, String Sort, String Filter,

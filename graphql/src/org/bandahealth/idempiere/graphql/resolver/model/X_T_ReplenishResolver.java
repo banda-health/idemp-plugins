@@ -38,7 +38,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =
@@ -53,7 +53,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -68,7 +68,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -98,7 +98,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -113,7 +113,7 @@ public class X_T_ReplenishResolver extends POResolver<X_T_Replenish> implements 
 	 * @return Optional Warehouse to replenish from
 	 */
 	public CompletableFuture<MWarehouse_BH> M_WarehouseSource(X_T_Replenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_WarehouseSource_ID() <= 0) {
+		if (entity.getM_WarehouseSource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

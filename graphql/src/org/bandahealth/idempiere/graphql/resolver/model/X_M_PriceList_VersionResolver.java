@@ -33,7 +33,7 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MPriceListVersion entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DiscountSchema_ID() <= 0) {
+		if (entity.getM_DiscountSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -48,7 +48,7 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MPriceListVersion entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -63,7 +63,7 @@ public class X_M_PriceList_VersionResolver extends POResolver<MPriceListVersion>
 	 * @return Source for Price list calculations
 	 */
 	public CompletableFuture<MPriceListVersion> M_Pricelist_Version_Base(MPriceListVersion entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Pricelist_Version_Base_ID() <= 0) {
+		if (entity.getM_Pricelist_Version_Base_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =

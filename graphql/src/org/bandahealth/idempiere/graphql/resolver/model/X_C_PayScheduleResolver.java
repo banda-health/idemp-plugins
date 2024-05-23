@@ -30,7 +30,7 @@ public class X_C_PayScheduleResolver extends POResolver<MPaySchedule> implements
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(MPaySchedule entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() <= 0) {
+		if (entity.getC_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =

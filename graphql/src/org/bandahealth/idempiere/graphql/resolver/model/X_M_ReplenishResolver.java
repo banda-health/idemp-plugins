@@ -34,7 +34,7 @@ public class X_M_ReplenishResolver extends POResolver<MReplenish> implements Gra
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MReplenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -49,7 +49,7 @@ public class X_M_ReplenishResolver extends POResolver<MReplenish> implements Gra
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MReplenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_M_ReplenishResolver extends POResolver<MReplenish> implements Gra
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MReplenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -79,7 +79,7 @@ public class X_M_ReplenishResolver extends POResolver<MReplenish> implements Gra
 	 * @return Optional Warehouse to replenish from
 	 */
 	public CompletableFuture<MWarehouse_BH> M_WarehouseSource(MReplenish entity, DataFetchingEnvironment environment) {
-		if (entity.getM_WarehouseSource_ID() <= 0) {
+		if (entity.getM_WarehouseSource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =

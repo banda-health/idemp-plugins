@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_OrgAssignment(UU: String!): C_OrgAssignment
 	C_OrgAssignmentGet(Page: Int, Size: Int, Sort: String, Filter: String): C_OrgAssignmentConnection!
 }
 

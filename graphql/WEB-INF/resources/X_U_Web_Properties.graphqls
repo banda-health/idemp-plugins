@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	U_Web_Properties(UU: String!): U_Web_Properties
 	U_Web_PropertiesGet(Page: Int, Size: Int, Sort: String, Filter: String): U_Web_PropertiesConnection!
 }
 

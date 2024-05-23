@@ -33,7 +33,7 @@ public class X_R_IssueKnownResolver extends POResolver<X_R_IssueKnown> implement
 	 * @return Recommendations how to fix an Issue
 	 */
 	public CompletableFuture<X_R_IssueRecommendation> R_IssueRecommendation(X_R_IssueKnown entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueRecommendation_ID() <= 0) {
+		if (entity.getR_IssueRecommendation_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueRecommendation> dataLoader =
@@ -48,7 +48,7 @@ public class X_R_IssueKnownResolver extends POResolver<X_R_IssueKnown> implement
 	 * @return Status of an Issue
 	 */
 	public CompletableFuture<X_R_IssueStatus> R_IssueStatus(X_R_IssueKnown entity, DataFetchingEnvironment environment) {
-		if (entity.getR_IssueStatus_ID() <= 0) {
+		if (entity.getR_IssueStatus_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_R_IssueStatus> dataLoader =
@@ -63,7 +63,7 @@ public class X_R_IssueKnownResolver extends POResolver<X_R_IssueKnown> implement
 	 * @return Request from a Business Partner or Prospect
 	 */
 	public CompletableFuture<MRequest> R_Request(X_R_IssueKnown entity, DataFetchingEnvironment environment) {
-		if (entity.getR_Request_ID() <= 0) {
+		if (entity.getR_Request_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRequest> dataLoader =

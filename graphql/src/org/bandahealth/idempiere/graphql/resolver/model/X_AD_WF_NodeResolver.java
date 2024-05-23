@@ -89,7 +89,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -104,7 +104,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Context Help
 	 */
 	public CompletableFuture<MCtxHelp> AD_CtxHelp(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelp_ID() <= 0) {
+		if (entity.getAD_CtxHelp_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
@@ -119,7 +119,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Special Form
 	 */
 	public CompletableFuture<MForm> AD_Form(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Form_ID() <= 0) {
+		if (entity.getAD_Form_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MForm> dataLoader =
@@ -134,7 +134,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() <= 0) {
+		if (entity.getAD_Image_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -149,7 +149,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Info and search/select Window
 	 */
 	public CompletableFuture<MInfoWindow> AD_InfoWindow(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoWindow_ID() <= 0) {
+		if (entity.getAD_InfoWindow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoWindow> dataLoader =
@@ -164,7 +164,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -179,7 +179,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Operation System Task
 	 */
 	public CompletableFuture<MTask> AD_Task(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Task_ID() <= 0) {
+		if (entity.getAD_Task_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTask> dataLoader =
@@ -194,7 +194,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Workflow Transaction Execution Block
 	 */
 	public CompletableFuture<X_AD_WF_Block> AD_WF_Block(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Block_ID() <= 0) {
+		if (entity.getAD_WF_Block_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Block> dataLoader =
@@ -209,7 +209,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Responsible for Workflow Execution
 	 */
 	public CompletableFuture<X_AD_WF_Responsible> AD_WF_Responsible(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Responsible_ID() <= 0) {
+		if (entity.getAD_WF_Responsible_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Responsible> dataLoader =
@@ -224,7 +224,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -239,7 +239,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Workflow or combination of tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> AD_Workflow(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Workflow_ID() <= 0) {
+		if (entity.getAD_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =
@@ -254,7 +254,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -453,7 +453,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Text templates for mailings
 	 */
 	public CompletableFuture<MMailText> R_MailText(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getR_MailText_ID() <= 0) {
+		if (entity.getR_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -468,7 +468,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() <= 0) {
+		if (entity.getS_Resource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
@@ -528,7 +528,7 @@ public class X_AD_WF_NodeResolver extends POResolver<X_AD_WF_Node> implements Gr
 	 * @return Workflow or tasks
 	 */
 	public CompletableFuture<X_AD_Workflow> Workflow(X_AD_WF_Node entity, DataFetchingEnvironment environment) {
-		if (entity.getWorkflow_ID() <= 0) {
+		if (entity.getWorkflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Workflow> dataLoader =

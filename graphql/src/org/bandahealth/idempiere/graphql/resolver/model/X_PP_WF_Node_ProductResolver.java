@@ -34,7 +34,7 @@ public class X_PP_WF_Node_ProductResolver extends POResolver<X_PP_WF_Node_Produc
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_AD_WF_Node> AD_WF_Node(X_PP_WF_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_WF_Node_ID() <= 0) {
+		if (entity.getAD_WF_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_WF_Node> dataLoader =
@@ -100,7 +100,7 @@ public class X_PP_WF_Node_ProductResolver extends POResolver<X_PP_WF_Node_Produc
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_WF_Node_Product entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

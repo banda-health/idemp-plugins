@@ -25,7 +25,7 @@ public class X_C_TaxPostalResolver extends POResolver<MTaxPostal> implements Gra
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MTaxPostal entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() <= 0) {
+		if (entity.getC_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =

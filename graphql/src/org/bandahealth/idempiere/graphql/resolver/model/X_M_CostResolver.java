@@ -38,7 +38,7 @@ public class X_M_CostResolver extends POResolver<MCost> implements GraphQLResolv
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MCost entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -79,7 +79,7 @@ public class X_M_CostResolver extends POResolver<MCost> implements GraphQLResolv
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -94,7 +94,7 @@ public class X_M_CostResolver extends POResolver<MCost> implements GraphQLResolv
 	 * @return Product Cost Element
 	 */
 	public CompletableFuture<MCostElement> M_CostElement(MCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostElement_ID() <= 0) {
+		if (entity.getM_CostElement_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostElement> dataLoader =
@@ -109,7 +109,7 @@ public class X_M_CostResolver extends POResolver<MCost> implements GraphQLResolv
 	 * @return Type of Cost (e.g. Current, Plan, Future)
 	 */
 	public CompletableFuture<MCostType> M_CostType(MCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_CostType_ID() <= 0) {
+		if (entity.getM_CostType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCostType> dataLoader =
@@ -124,7 +124,7 @@ public class X_M_CostResolver extends POResolver<MCost> implements GraphQLResolv
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MCost entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

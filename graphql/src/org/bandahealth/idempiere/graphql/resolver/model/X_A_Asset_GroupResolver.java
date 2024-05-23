@@ -32,7 +32,7 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 	 * @return Asset class
 	 */
 	public CompletableFuture<MAssetClass> A_Asset_Class(MAssetGroup entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Class_ID() <= 0) {
+		if (entity.getA_Asset_Class_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetClass> dataLoader =
@@ -47,7 +47,7 @@ public class X_A_Asset_GroupResolver extends POResolver<MAssetGroup> implements 
 	 * @return Asset Type
 	 */
 	public CompletableFuture<MAssetType> A_Asset_Type(MAssetGroup entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Type_ID() <= 0) {
+		if (entity.getA_Asset_Type_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetType> dataLoader =

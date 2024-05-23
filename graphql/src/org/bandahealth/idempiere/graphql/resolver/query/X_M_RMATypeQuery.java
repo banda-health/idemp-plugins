@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_M_RMATypeDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.X_M_RMAType;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for M_RMAType - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_M_RMATypeQuery extends POQuery<X_M_RMAType> implements GraphQLQue
 	@Override
 	protected String getTableName() {
 		return X_M_RMAType.Table_Name;
+	}
+
+	public CompletableFuture<X_M_RMAType> M_RMAType(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, X_M_RMAType> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_M_RMATypeDataLoader.DATALOADER_M_RMAType_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<X_M_RMAType> M_RMATypeGet(int Page, int PageSize, String Sort, String Filter,

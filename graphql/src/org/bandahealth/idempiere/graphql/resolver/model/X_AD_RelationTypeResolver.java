@@ -32,7 +32,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 	 * @return Source Reference
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Source(X_AD_RelationType entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Source_ID() <= 0) {
+		if (entity.getAD_Reference_Source_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_RelationTypeResolver extends POResolver<X_AD_RelationType> imp
 	 * @return Target Reference
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Target(X_AD_RelationType entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Target_ID() <= 0) {
+		if (entity.getAD_Reference_Target_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =

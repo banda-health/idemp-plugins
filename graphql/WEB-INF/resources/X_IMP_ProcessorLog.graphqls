@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	IMP_ProcessorLog(UU: String!): IMP_ProcessorLog
 	IMP_ProcessorLogGet(Page: Int, Size: Int, Sort: String, Filter: String): IMP_ProcessorLogConnection!
 }
 

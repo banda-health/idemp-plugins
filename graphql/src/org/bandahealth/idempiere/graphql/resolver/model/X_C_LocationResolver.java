@@ -31,7 +31,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 	 * @return Address Validation
 	 */
 	public CompletableFuture<MAddressValidation> C_AddressValidation(MLocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AddressValidation_ID() <= 0) {
+		if (entity.getC_AddressValidation_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAddressValidation> dataLoader =
@@ -46,7 +46,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 	 * @return City
 	 */
 	public CompletableFuture<MCity> C_City(MLocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_City_ID() <= 0) {
+		if (entity.getC_City_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCity> dataLoader =
@@ -61,7 +61,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MLocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() <= 0) {
+		if (entity.getC_Country_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -76,7 +76,7 @@ public class X_C_LocationResolver extends POResolver<MLocation> implements Graph
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(MLocation entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() <= 0) {
+		if (entity.getC_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =

@@ -53,7 +53,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -68,7 +68,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return BH_From_Warehouse_ID
 	 */
 	public CompletableFuture<MWarehouse_BH> BH_From_Warehouse(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_From_Warehouse_ID() <= 0) {
+		if (entity.getBH_From_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return BH_To_Warehouse_ID
 	 */
 	public CompletableFuture<MWarehouse_BH> BH_To_Warehouse(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_To_Warehouse_ID() <= 0) {
+		if (entity.getBH_To_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -98,7 +98,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -113,7 +113,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -128,7 +128,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -143,7 +143,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -158,7 +158,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -173,7 +173,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -188,7 +188,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -203,7 +203,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Distribution Order
 	 */
 	public CompletableFuture<MDDOrder> DD_Order(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getDD_Order_ID() <= 0) {
+		if (entity.getDD_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDDOrder> dataLoader =
@@ -331,7 +331,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -346,7 +346,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -361,7 +361,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return To Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_WarehouseTo(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_WarehouseTo_ID() <= 0) {
+		if (entity.getM_WarehouseTo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -406,7 +406,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MMovement_BH> Reversal(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovement_BH> dataLoader =
@@ -421,7 +421,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -436,7 +436,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -451,7 +451,7 @@ public class X_M_MovementResolver extends POResolver<MMovement_BH> implements Gr
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MMovement_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

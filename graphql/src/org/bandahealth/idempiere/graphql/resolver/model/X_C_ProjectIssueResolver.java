@@ -41,7 +41,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MProjectIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -112,7 +112,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MProjectIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -127,7 +127,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MProjectIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -142,7 +142,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MProjectIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -157,7 +157,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MProjectIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -184,7 +184,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<MProjectIssue> Reversal(MProjectIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
@@ -199,7 +199,7 @@ public class X_C_ProjectIssueResolver extends POResolver<MProjectIssue> implemen
 	 * @return Time and Expense Report Line
 	 */
 	public CompletableFuture<MTimeExpenseLine> S_TimeExpenseLine(MProjectIssue entity, DataFetchingEnvironment environment) {
-		if (entity.getS_TimeExpenseLine_ID() <= 0) {
+		if (entity.getS_TimeExpenseLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTimeExpenseLine> dataLoader =

@@ -48,7 +48,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -78,7 +78,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -93,7 +93,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -108,7 +108,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Business Partner (Agent or Sales Rep)
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartnerSR(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartnerSR_ID() <= 0) {
+		if (entity.getC_BPartnerSR_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -123,7 +123,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -138,7 +138,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -153,7 +153,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() <= 0) {
+		if (entity.getC_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -168,7 +168,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Standard Phase of the Project Type
 	 */
 	public CompletableFuture<MProjectTypePhase> C_Phase(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Phase_ID() <= 0) {
+		if (entity.getC_Phase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTypePhase> dataLoader =
@@ -195,7 +195,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Identifies a unique instance of a Price List
 	 */
 	public CompletableFuture<MPriceListVersion> M_PriceList_Version(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_Version_ID() <= 0) {
+		if (entity.getM_PriceList_Version_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceListVersion> dataLoader =
@@ -210,7 +210,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -284,7 +284,7 @@ public class X_C_ProjectResolver extends POResolver<MProject> implements GraphQL
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MProject entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

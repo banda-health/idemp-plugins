@@ -35,7 +35,7 @@ public class X_C_Recurring_RunResolver extends POResolver<MRecurringRun> impleme
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MRecurringRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -50,7 +50,7 @@ public class X_C_Recurring_RunResolver extends POResolver<MRecurringRun> impleme
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MRecurringRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -65,7 +65,7 @@ public class X_C_Recurring_RunResolver extends POResolver<MRecurringRun> impleme
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MRecurringRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -80,7 +80,7 @@ public class X_C_Recurring_RunResolver extends POResolver<MRecurringRun> impleme
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MRecurringRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -95,7 +95,7 @@ public class X_C_Recurring_RunResolver extends POResolver<MRecurringRun> impleme
 	 * @return Recurring Document
 	 */
 	public CompletableFuture<MRecurring> C_Recurring(MRecurringRun entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Recurring_ID() <= 0) {
+		if (entity.getC_Recurring_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRecurring> dataLoader =
@@ -110,7 +110,7 @@ public class X_C_Recurring_RunResolver extends POResolver<MRecurringRun> impleme
 	 * @return General Ledger Journal Batch
 	 */
 	public CompletableFuture<MJournalBatch> GL_JournalBatch(MRecurringRun entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_JournalBatch_ID() <= 0) {
+		if (entity.getGL_JournalBatch_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MJournalBatch> dataLoader =

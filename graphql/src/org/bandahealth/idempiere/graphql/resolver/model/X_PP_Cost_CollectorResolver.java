@@ -59,7 +59,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -74,7 +74,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -89,7 +89,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -104,7 +104,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -119,7 +119,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Target document type for conversing documents
 	 */
 	public CompletableFuture<MDocType_BH> C_DocTypeTarget(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocTypeTarget_ID() <= 0) {
+		if (entity.getC_DocTypeTarget_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -134,7 +134,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -149,7 +149,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -244,7 +244,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -259,7 +259,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -274,7 +274,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -289,7 +289,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -308,7 +308,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Manufacturing Order BOM Line
 	 */
 	public CompletableFuture<X_PP_Order_BOMLine> PP_Order_BOMLine(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_BOMLine_ID() <= 0) {
+		if (entity.getPP_Order_BOMLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_BOMLine> dataLoader =
@@ -323,7 +323,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Manufacturing Order
 	 */
 	public CompletableFuture<X_PP_Order> PP_Order(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_ID() <= 0) {
+		if (entity.getPP_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order> dataLoader =
@@ -338,7 +338,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Workflow Node (activity), step or process
 	 */
 	public CompletableFuture<X_PP_Order_Node> PP_Order_Node(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Node_ID() <= 0) {
+		if (entity.getPP_Order_Node_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Node> dataLoader =
@@ -353,7 +353,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Manufacturing Order Workflow
 	 */
 	public CompletableFuture<X_PP_Order_Workflow> PP_Order_Workflow(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Order_Workflow_ID() <= 0) {
+		if (entity.getPP_Order_Workflow_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Order_Workflow> dataLoader =
@@ -376,7 +376,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return ID of document reversal
 	 */
 	public CompletableFuture<X_PP_Cost_Collector> Reversal(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getReversal_ID() <= 0) {
+		if (entity.getReversal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =
@@ -391,7 +391,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return Resource
 	 */
 	public CompletableFuture<MResource> S_Resource(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getS_Resource_ID() <= 0) {
+		if (entity.getS_Resource_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResource> dataLoader =
@@ -406,7 +406,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MUser_BH> User1(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -421,7 +421,7 @@ public class X_PP_Cost_CollectorResolver extends POResolver<X_PP_Cost_Collector>
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MUser_BH> User2(X_PP_Cost_Collector entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

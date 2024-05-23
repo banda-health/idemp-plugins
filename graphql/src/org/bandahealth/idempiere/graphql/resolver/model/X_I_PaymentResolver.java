@@ -42,7 +42,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Account at the Bank
 	 */
 	public CompletableFuture<MBankAccount_BH> C_BankAccount(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BankAccount_ID() <= 0) {
+		if (entity.getC_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBankAccount_BH> dataLoader =
@@ -57,7 +57,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -72,7 +72,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -87,7 +87,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -102,7 +102,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =
@@ -117,7 +117,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -132,7 +132,7 @@ public class X_I_PaymentResolver extends POResolver<X_I_Payment> implements Grap
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(X_I_Payment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =

@@ -219,7 +219,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -234,7 +234,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Dunning Rules for overdue invoices
 	 */
 	public CompletableFuture<MDunning> C_Dunning(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Dunning_ID() <= 0) {
+		if (entity.getC_Dunning_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDunning> dataLoader =
@@ -249,7 +249,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Greeting to print on correspondence
 	 */
 	public CompletableFuture<X_C_Greeting> C_Greeting(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Greeting_ID() <= 0) {
+		if (entity.getC_Greeting_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_Greeting> dataLoader =
@@ -264,7 +264,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Schedule for generating Invoices
 	 */
 	public CompletableFuture<MInvoiceSchedule> C_InvoiceSchedule(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_InvoiceSchedule_ID() <= 0) {
+		if (entity.getC_InvoiceSchedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoiceSchedule> dataLoader =
@@ -279,7 +279,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return The terms of Payment (timing, discount)
 	 */
 	public CompletableFuture<MPaymentTerm> C_PaymentTerm(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_PaymentTerm_ID() <= 0) {
+		if (entity.getC_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -294,7 +294,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Tax Group
 	 */
 	public CompletableFuture<X_C_TaxGroup> C_TaxGroup(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxGroup_ID() <= 0) {
+		if (entity.getC_TaxGroup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_TaxGroup> dataLoader =
@@ -309,7 +309,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Default 1099 Box
 	 */
 	public CompletableFuture<X_C_1099Box> Default1099Box(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getDefault1099Box_ID() <= 0) {
+		if (entity.getDefault1099Box_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_1099Box> dataLoader =
@@ -377,7 +377,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Print Format for printing Invoices
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Invoice_PrintFormat(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getInvoice_PrintFormat_ID() <= 0) {
+		if (entity.getInvoice_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -457,7 +457,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Logo
 	 */
 	public CompletableFuture<MImage> Logo(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getLogo_ID() <= 0) {
+		if (entity.getLogo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -472,7 +472,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Schema to calculate the trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> M_DiscountSchema(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_DiscountSchema_ID() <= 0) {
+		if (entity.getM_DiscountSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -487,7 +487,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Unique identifier of a Price List
 	 */
 	public CompletableFuture<MPriceList> M_PriceList(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getM_PriceList_ID() <= 0) {
+		if (entity.getM_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -546,7 +546,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Schema to calculate the purchase trade discount percentage
 	 */
 	public CompletableFuture<MDiscountSchema> PO_DiscountSchema(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_DiscountSchema_ID() <= 0) {
+		if (entity.getPO_DiscountSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDiscountSchema> dataLoader =
@@ -561,7 +561,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Payment rules for a purchase order
 	 */
 	public CompletableFuture<MPaymentTerm> PO_PaymentTerm(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_PaymentTerm_ID() <= 0) {
+		if (entity.getPO_PaymentTerm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPaymentTerm> dataLoader =
@@ -576,7 +576,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Price List used by this Business Partner
 	 */
 	public CompletableFuture<MPriceList> PO_PriceList(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getPO_PriceList_ID() <= 0) {
+		if (entity.getPO_PriceList_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPriceList> dataLoader =
@@ -591,7 +591,7 @@ public class X_C_BPartnerResolver extends POResolver<MBPartner_BH> implements Gr
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MBPartner_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

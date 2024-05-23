@@ -27,7 +27,7 @@ public class X_GL_FundRestrictionResolver extends POResolver<X_GL_FundRestrictio
 	 * @return Account Element
 	 */
 	public CompletableFuture<MElementValue> C_ElementValue(X_GL_FundRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ElementValue_ID() <= 0) {
+		if (entity.getC_ElementValue_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -42,7 +42,7 @@ public class X_GL_FundRestrictionResolver extends POResolver<X_GL_FundRestrictio
 	 * @return General Ledger Funds Control
 	 */
 	public CompletableFuture<X_GL_Fund> GL_Fund(X_GL_FundRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getGL_Fund_ID() <= 0) {
+		if (entity.getGL_Fund_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_GL_Fund> dataLoader =

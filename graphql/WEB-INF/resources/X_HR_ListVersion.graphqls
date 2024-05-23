@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	HR_ListVersion(UU: String!): HR_ListVersion
 	HR_ListVersionGet(Page: Int, Size: Int, Sort: String, Filter: String): HR_ListVersionConnection!
 }
 

@@ -76,7 +76,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Rule
 	 */
 	public CompletableFuture<MRule> AD_Rule(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Rule_ID() <= 0) {
+		if (entity.getAD_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
@@ -91,7 +91,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -106,7 +106,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Bank Account of the Business Partner
 	 */
 	public CompletableFuture<MBPBankAccount> C_BP_BankAccount(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_BankAccount_ID() <= 0) {
+		if (entity.getC_BP_BankAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPBankAccount> dataLoader =
@@ -121,7 +121,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -136,7 +136,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -151,7 +151,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -166,7 +166,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -181,7 +181,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() <= 0) {
+		if (entity.getC_ProjectPhase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -196,7 +196,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() <= 0) {
+		if (entity.getC_ProjectTask_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -228,7 +228,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Payroll Concept Category
 	 */
 	public CompletableFuture<X_HR_Concept_Category> HR_Concept_Category(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_Category_ID() <= 0) {
+		if (entity.getHR_Concept_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept_Category> dataLoader =
@@ -243,7 +243,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Payroll Concept
 	 */
 	public CompletableFuture<X_HR_Concept> HR_Concept(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_ID() <= 0) {
+		if (entity.getHR_Concept_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
@@ -258,7 +258,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Payroll Department
 	 */
 	public CompletableFuture<X_HR_Department> HR_Department(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Department_ID() <= 0) {
+		if (entity.getHR_Department_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Department> dataLoader =
@@ -273,7 +273,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Payroll Job
 	 */
 	public CompletableFuture<X_HR_Job> HR_Job(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Job_ID() <= 0) {
+		if (entity.getHR_Job_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Job> dataLoader =
@@ -288,7 +288,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Payroll Process
 	 */
 	public CompletableFuture<X_HR_Process> HR_Process(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Process_ID() <= 0) {
+		if (entity.getHR_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Process> dataLoader =
@@ -311,7 +311,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return Manufacturing Cost Collector
 	 */
 	public CompletableFuture<X_PP_Cost_Collector> PP_Cost_Collector(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Cost_Collector_ID() <= 0) {
+		if (entity.getPP_Cost_Collector_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =
@@ -330,7 +330,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -345,7 +345,7 @@ public class X_HR_MovementResolver extends POResolver<X_HR_Movement> implements 
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(X_HR_Movement entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

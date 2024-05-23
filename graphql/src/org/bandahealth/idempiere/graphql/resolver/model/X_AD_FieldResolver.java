@@ -49,7 +49,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Chart
 	 */
 	public CompletableFuture<MChart> AD_Chart(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Chart_ID() <= 0) {
+		if (entity.getAD_Chart_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChart> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -79,7 +79,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Logical grouping of fields
 	 */
 	public CompletableFuture<MFieldGroup_BH> AD_FieldGroup(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldGroup_ID() <= 0) {
+		if (entity.getAD_FieldGroup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MFieldGroup_BH> dataLoader =
@@ -94,7 +94,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -109,7 +109,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Label CSS Style
 	 */
 	public CompletableFuture<MStyle> AD_LabelStyle(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_LabelStyle_ID() <= 0) {
+		if (entity.getAD_LabelStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -124,7 +124,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -139,7 +139,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -154,7 +154,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Tab within a Window
 	 */
 	public CompletableFuture<MTab> AD_Tab(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Tab_ID() <= 0) {
+		if (entity.getAD_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -169,7 +169,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -184,7 +184,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Override Dynamic Validation Rule for Lookup Window
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule_Lookup(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_Lookup_ID() <= 0) {
+		if (entity.getAD_Val_Rule_Lookup_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =
@@ -278,7 +278,7 @@ public class X_AD_FieldResolver extends POResolver<MField_BH> implements GraphQL
 	 * @return Included Tab in this Tab (Master Detail)
 	 */
 	public CompletableFuture<MTab> Included_Tab(MField_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getIncluded_Tab_ID() <= 0) {
+		if (entity.getIncluded_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =

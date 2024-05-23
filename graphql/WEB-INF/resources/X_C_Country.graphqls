@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	C_Country(UU: String!): C_Country
 	C_CountryGet(Page: Int, Size: Int, Sort: String, Filter: String): C_CountryConnection!
 }
 

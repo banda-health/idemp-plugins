@@ -32,7 +32,7 @@ public class X_ASP_FieldResolver extends POResolver<X_ASP_Field> implements Grap
 	 * @return Field on a database table
 	 */
 	public CompletableFuture<MField_BH> AD_Field(X_ASP_Field entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Field_ID() <= 0) {
+		if (entity.getAD_Field_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MField_BH> dataLoader =
@@ -63,7 +63,7 @@ public class X_ASP_FieldResolver extends POResolver<X_ASP_Field> implements Grap
 	 * @return ASP Tab
 	 */
 	public CompletableFuture<X_ASP_Tab> ASP_Tab(X_ASP_Field entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Tab_ID() <= 0) {
+		if (entity.getASP_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Tab> dataLoader =

@@ -46,7 +46,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Project Issues (Material, Labor)
 	 */
 	public CompletableFuture<MProjectIssue> C_ProjectIssue(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectIssue_ID() <= 0) {
+		if (entity.getC_ProjectIssue_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectIssue> dataLoader =
@@ -61,7 +61,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -76,7 +76,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -91,7 +91,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Unique line in an Inventory document
 	 */
 	public CompletableFuture<MInventoryLine> M_InventoryLine(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InventoryLine_ID() <= 0) {
+		if (entity.getM_InventoryLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =
@@ -106,7 +106,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Warehouse Locator
 	 */
 	public CompletableFuture<MLocator> M_Locator(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Locator_ID() <= 0) {
+		if (entity.getM_Locator_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MLocator> dataLoader =
@@ -121,7 +121,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Inventory Move document Line
 	 */
 	public CompletableFuture<MMovementLine> M_MovementLine(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MovementLine_ID() <= 0) {
+		if (entity.getM_MovementLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovementLine> dataLoader =
@@ -136,7 +136,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -151,7 +151,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Document Line representing a production
 	 */
 	public CompletableFuture<MProductionLine> M_ProductionLine(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ProductionLine_ID() <= 0) {
+		if (entity.getM_ProductionLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductionLine> dataLoader =
@@ -191,7 +191,7 @@ public class X_M_TransactionResolver extends POResolver<MTransaction> implements
 	 * @return Manufacturing Cost Collector
 	 */
 	public CompletableFuture<X_PP_Cost_Collector> PP_Cost_Collector(MTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Cost_Collector_ID() <= 0) {
+		if (entity.getPP_Cost_Collector_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PP_Cost_Collector> dataLoader =

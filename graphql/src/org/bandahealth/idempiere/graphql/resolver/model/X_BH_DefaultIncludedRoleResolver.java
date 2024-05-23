@@ -57,7 +57,7 @@ public class X_BH_DefaultIncludedRoleResolver extends POResolver<MBHDefaultInclu
 	 * @return Included Role
 	 */
 	public CompletableFuture<X_AD_Role> Included_Role(MBHDefaultIncludedRole entity, DataFetchingEnvironment environment) {
-		if (entity.getIncluded_Role_ID() <= 0) {
+		if (entity.getIncluded_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =

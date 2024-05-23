@@ -29,7 +29,7 @@ public class X_HR_PayrollConceptResolver extends POResolver<X_HR_PayrollConcept>
 	 * @return Rule
 	 */
 	public CompletableFuture<MRule> AD_Rule(X_HR_PayrollConcept entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Rule_ID() <= 0) {
+		if (entity.getAD_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
@@ -44,7 +44,7 @@ public class X_HR_PayrollConceptResolver extends POResolver<X_HR_PayrollConcept>
 	 * @return Payroll Concept
 	 */
 	public CompletableFuture<X_HR_Concept> HR_Concept(X_HR_PayrollConcept entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_ID() <= 0) {
+		if (entity.getHR_Concept_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Concept> dataLoader =
@@ -59,7 +59,7 @@ public class X_HR_PayrollConceptResolver extends POResolver<X_HR_PayrollConcept>
 	 * @return Payroll
 	 */
 	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_PayrollConcept entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Payroll_ID() <= 0) {
+		if (entity.getHR_Payroll_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_HR_Payroll> dataLoader =

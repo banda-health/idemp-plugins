@@ -25,7 +25,7 @@ public class X_M_AttributeValueResolver extends POResolver<MAttributeValue> impl
 	 * @return Product Attribute
 	 */
 	public CompletableFuture<MAttribute> M_Attribute(MAttributeValue entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Attribute_ID() <= 0) {
+		if (entity.getM_Attribute_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttribute> dataLoader =

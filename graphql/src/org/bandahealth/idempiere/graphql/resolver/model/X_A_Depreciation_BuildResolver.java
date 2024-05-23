@@ -32,7 +32,7 @@ public class X_A_Depreciation_BuildResolver extends POResolver<MDepreciationBuil
 	 * @return To Asset
 	 */
 	public CompletableFuture<MAsset> A_End_Asset(MDepreciationBuild entity, DataFetchingEnvironment environment) {
-		if (entity.getA_End_Asset_ID() <= 0) {
+		if (entity.getA_End_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -47,7 +47,7 @@ public class X_A_Depreciation_BuildResolver extends POResolver<MDepreciationBuil
 	 * @return From Asset
 	 */
 	public CompletableFuture<MAsset> A_Start_Asset(MDepreciationBuild entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Start_Asset_ID() <= 0) {
+		if (entity.getA_Start_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -62,7 +62,7 @@ public class X_A_Depreciation_BuildResolver extends POResolver<MDepreciationBuil
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MDepreciationBuild entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =

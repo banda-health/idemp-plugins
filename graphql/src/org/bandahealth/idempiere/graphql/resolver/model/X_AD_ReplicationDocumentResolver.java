@@ -34,7 +34,7 @@ public class X_AD_ReplicationDocumentResolver extends POResolver<X_AD_Replicatio
 	 * @return Data Replication Strategy
 	 */
 	public CompletableFuture<MReplicationStrategy> AD_ReplicationStrategy(X_AD_ReplicationDocument entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ReplicationStrategy_ID() <= 0) {
+		if (entity.getAD_ReplicationStrategy_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReplicationStrategy> dataLoader =
@@ -49,7 +49,7 @@ public class X_AD_ReplicationDocumentResolver extends POResolver<X_AD_Replicatio
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(X_AD_ReplicationDocument entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -64,7 +64,7 @@ public class X_AD_ReplicationDocumentResolver extends POResolver<X_AD_Replicatio
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(X_AD_ReplicationDocument entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =

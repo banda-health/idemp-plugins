@@ -38,7 +38,7 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(MGoalRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -53,7 +53,7 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MGoalRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -86,7 +86,7 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MGoalRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() <= 0) {
+		if (entity.getM_Product_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -101,7 +101,7 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MGoalRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -116,7 +116,7 @@ public class X_PA_GoalRestrictionResolver extends POResolver<MGoalRestriction> i
 	 * @return Performance Goal
 	 */
 	public CompletableFuture<MGoal> PA_Goal(MGoalRestriction entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Goal_ID() <= 0) {
+		if (entity.getPA_Goal_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MGoal> dataLoader =

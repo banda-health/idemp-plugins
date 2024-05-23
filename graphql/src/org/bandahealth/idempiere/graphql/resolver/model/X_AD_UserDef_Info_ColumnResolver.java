@@ -38,7 +38,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Field CSS Style 
 	 */
 	public CompletableFuture<MStyle> AD_FieldStyle(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_FieldStyle_ID() <= 0) {
+		if (entity.getAD_FieldStyle_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStyle> dataLoader =
@@ -53,7 +53,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Info Window Column
 	 */
 	public CompletableFuture<MInfoColumn> AD_InfoColumn(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_InfoColumn_ID() <= 0) {
+		if (entity.getAD_InfoColumn_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInfoColumn> dataLoader =
@@ -68,7 +68,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return System Reference and Validation
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_ID() <= 0) {
+		if (entity.getAD_Reference_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -83,7 +83,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Required to specify, if data type is Table or List
 	 */
 	public CompletableFuture<MReference_BH> AD_Reference_Value(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Reference_Value_ID() <= 0) {
+		if (entity.getAD_Reference_Value_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MReference_BH> dataLoader =
@@ -98,7 +98,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return User defined Info Window
 	 */
 	public CompletableFuture<MUserDefInfo> AD_UserDef_Info(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_UserDef_Info_ID() <= 0) {
+		if (entity.getAD_UserDef_Info_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUserDefInfo> dataLoader =
@@ -113,7 +113,7 @@ public class X_AD_UserDef_Info_ColumnResolver extends POResolver<MUserDefInfoCol
 	 * @return Dynamic Validation Rule
 	 */
 	public CompletableFuture<MValRule> AD_Val_Rule(MUserDefInfoColumn entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Val_Rule_ID() <= 0) {
+		if (entity.getAD_Val_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MValRule> dataLoader =

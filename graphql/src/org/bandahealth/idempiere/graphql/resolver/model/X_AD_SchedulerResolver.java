@@ -40,7 +40,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 	 * @return Data Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> AD_PrintFormat(MScheduler entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PrintFormat_ID() <= 0) {
+		if (entity.getAD_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -55,7 +55,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MScheduler entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -70,7 +70,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 	 * @return Schedule
 	 */
 	public CompletableFuture<MSchedule> AD_Schedule(MScheduler entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Schedule_ID() <= 0) {
+		if (entity.getAD_Schedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
@@ -85,7 +85,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MScheduler entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -104,7 +104,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 	 * @return Text templates for mailings
 	 */
 	public CompletableFuture<MMailText> R_MailText(MScheduler entity, DataFetchingEnvironment environment) {
-		if (entity.getR_MailText_ID() <= 0) {
+		if (entity.getR_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -137,7 +137,7 @@ public class X_AD_SchedulerResolver extends POResolver<MScheduler> implements Gr
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(MScheduler entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() <= 0) {
+		if (entity.getSupervisor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

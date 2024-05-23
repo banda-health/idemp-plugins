@@ -33,7 +33,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MChatEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 	 * @return Chat or discussion thread
 	 */
 	public CompletableFuture<MChat> CM_Chat(MChatEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getCM_Chat_ID() <= 0) {
+		if (entity.getCM_Chat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChat> dataLoader =
@@ -79,7 +79,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 	 * @return Link to Grand Parent (root level)
 	 */
 	public CompletableFuture<MChatEntry> CM_ChatEntryGrandParent(MChatEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getCM_ChatEntryGrandParent_ID() <= 0) {
+		if (entity.getCM_ChatEntryGrandParent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChatEntry> dataLoader =
@@ -94,7 +94,7 @@ public class X_CM_ChatEntryResolver extends POResolver<MChatEntry> implements Gr
 	 * @return Link to direct Parent
 	 */
 	public CompletableFuture<MChatEntry> CM_ChatEntryParent(MChatEntry entity, DataFetchingEnvironment environment) {
-		if (entity.getCM_ChatEntryParent_ID() <= 0) {
+		if (entity.getCM_ChatEntryParent_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChatEntry> dataLoader =

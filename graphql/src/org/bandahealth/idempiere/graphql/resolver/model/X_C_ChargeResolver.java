@@ -59,7 +59,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MCharge_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -74,7 +74,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 	 * @return Charge Type
 	 */
 	public CompletableFuture<MChargeType_BH> C_ChargeType(MCharge_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ChargeType_ID() <= 0) {
+		if (entity.getC_ChargeType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChargeType_BH> dataLoader =
@@ -89,7 +89,7 @@ public class X_C_ChargeResolver extends POResolver<MCharge_BH> implements GraphQ
 	 * @return Tax Category
 	 */
 	public CompletableFuture<MTaxCategory> C_TaxCategory(MCharge_BH entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxCategory_ID() <= 0) {
+		if (entity.getC_TaxCategory_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxCategory> dataLoader =

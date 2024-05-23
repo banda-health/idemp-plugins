@@ -31,7 +31,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 	 * @return Schedule
 	 */
 	public CompletableFuture<MSchedule> AD_Schedule(MAcctProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Schedule_ID() <= 0) {
+		if (entity.getAD_Schedule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSchedule> dataLoader =
@@ -46,7 +46,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MAcctProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -61,7 +61,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MAcctProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -80,7 +80,7 @@ public class X_C_AcctProcessorResolver extends POResolver<MAcctProcessor> implem
 	 * @return Supervisor for this user/organization - used for escalation and approval
 	 */
 	public CompletableFuture<MUser_BH> Supervisor(MAcctProcessor entity, DataFetchingEnvironment environment) {
-		if (entity.getSupervisor_ID() <= 0) {
+		if (entity.getSupervisor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

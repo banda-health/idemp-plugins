@@ -48,7 +48,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Column in the table
 	 */
 	public CompletableFuture<MColumn> AD_Column(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Column_ID() <= 0) {
+		if (entity.getAD_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -63,7 +63,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Column determining the order
 	 */
 	public CompletableFuture<MColumn> AD_ColumnSortOrder(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ColumnSortOrder_ID() <= 0) {
+		if (entity.getAD_ColumnSortOrder_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -78,7 +78,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Column determining if a Table Column is included in Ordering
 	 */
 	public CompletableFuture<MColumn> AD_ColumnSortYesNo(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_ColumnSortYesNo_ID() <= 0) {
+		if (entity.getAD_ColumnSortYesNo_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =
@@ -93,7 +93,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Context Help
 	 */
 	public CompletableFuture<MCtxHelp> AD_CtxHelp(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_CtxHelp_ID() <= 0) {
+		if (entity.getAD_CtxHelp_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCtxHelp> dataLoader =
@@ -108,7 +108,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() <= 0) {
+		if (entity.getAD_Image_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =
@@ -123,7 +123,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -138,7 +138,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -168,7 +168,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -266,7 +266,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return Included Tab in this Tab (Master Detail)
 	 */
 	public CompletableFuture<MTab> Included_Tab(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getIncluded_Tab_ID() <= 0) {
+		if (entity.getIncluded_Tab_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTab> dataLoader =
@@ -348,7 +348,7 @@ public class X_AD_TabResolver extends POResolver<MTab> implements GraphQLResolve
 	 * @return The link column on the parent tab.
 	 */
 	public CompletableFuture<MColumn> Parent_Column(MTab entity, DataFetchingEnvironment environment) {
-		if (entity.getParent_Column_ID() <= 0) {
+		if (entity.getParent_Column_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColumn> dataLoader =

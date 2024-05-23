@@ -30,7 +30,7 @@ public class X_C_PeriodControlResolver extends POResolver<MPeriodControl> implem
 	 * @return Period of the Calendar
 	 */
 	public CompletableFuture<MPeriod> C_Period(MPeriodControl entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Period_ID() <= 0) {
+		if (entity.getC_Period_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPeriod> dataLoader =

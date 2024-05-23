@@ -39,7 +39,7 @@ public class X_AD_WindowResolver extends POResolver<MWindow> implements GraphQLR
 	 * @return Color for backgrounds or indicators
 	 */
 	public CompletableFuture<MColor> AD_Color(MWindow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Color_ID() <= 0) {
+		if (entity.getAD_Color_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MColor> dataLoader =
@@ -54,7 +54,7 @@ public class X_AD_WindowResolver extends POResolver<MWindow> implements GraphQLR
 	 * @return Image or Icon
 	 */
 	public CompletableFuture<MImage> AD_Image(MWindow entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Image_ID() <= 0) {
+		if (entity.getAD_Image_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MImage> dataLoader =

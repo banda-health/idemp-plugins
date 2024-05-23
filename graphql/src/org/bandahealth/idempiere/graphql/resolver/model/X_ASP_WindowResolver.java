@@ -32,7 +32,7 @@ public class X_ASP_WindowResolver extends POResolver<X_ASP_Window> implements Gr
 	 * @return Data entry or display window
 	 */
 	public CompletableFuture<MWindow> AD_Window(X_ASP_Window entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Window_ID() <= 0) {
+		if (entity.getAD_Window_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWindow> dataLoader =
@@ -47,7 +47,7 @@ public class X_ASP_WindowResolver extends POResolver<X_ASP_Window> implements Gr
 	 * @return ASP Level
 	 */
 	public CompletableFuture<X_ASP_Level> ASP_Level(X_ASP_Window entity, DataFetchingEnvironment environment) {
-		if (entity.getASP_Level_ID() <= 0) {
+		if (entity.getASP_Level_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_ASP_Level> dataLoader =

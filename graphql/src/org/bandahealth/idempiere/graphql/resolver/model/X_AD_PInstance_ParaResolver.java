@@ -25,7 +25,7 @@ public class X_AD_PInstance_ParaResolver extends POResolver<MPInstancePara> impl
 	 * @return Instance of the process
 	 */
 	public CompletableFuture<MPInstance> AD_PInstance(MPInstancePara entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_PInstance_ID() <= 0) {
+		if (entity.getAD_PInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPInstance> dataLoader =

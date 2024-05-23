@@ -27,7 +27,7 @@ public class X_C_CityResolver extends POResolver<MCity> implements GraphQLResolv
 	 * @return Country 
 	 */
 	public CompletableFuture<MCountry> C_Country(MCity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Country_ID() <= 0) {
+		if (entity.getC_Country_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCountry> dataLoader =
@@ -42,7 +42,7 @@ public class X_C_CityResolver extends POResolver<MCity> implements GraphQLResolv
 	 * @return Identifies a geographical Region
 	 */
 	public CompletableFuture<MRegion> C_Region(MCity entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Region_ID() <= 0) {
+		if (entity.getC_Region_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRegion> dataLoader =

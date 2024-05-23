@@ -32,7 +32,7 @@ public class X_CM_ChatResolver extends POResolver<MChat> implements GraphQLResol
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MChat entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -47,7 +47,7 @@ public class X_CM_ChatResolver extends POResolver<MChat> implements GraphQLResol
 	 * @return Type of discussion / chat
 	 */
 	public CompletableFuture<MChatType> CM_ChatType(MChat entity, DataFetchingEnvironment environment) {
-		if (entity.getCM_ChatType_ID() <= 0) {
+		if (entity.getCM_ChatType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChatType> dataLoader =

@@ -31,7 +31,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MArchive entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -46,7 +46,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 	 * @return Storage Provider
 	 */
 	public CompletableFuture<MStorageProvider> AD_StorageProvider(MArchive entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_StorageProvider_ID() <= 0) {
+		if (entity.getAD_StorageProvider_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStorageProvider> dataLoader =
@@ -61,7 +61,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MArchive entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =
@@ -76,7 +76,7 @@ public class X_AD_ArchiveResolver extends POResolver<MArchive> implements GraphQ
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MArchive entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =

@@ -29,7 +29,7 @@ public class X_C_BP_ShippingAcctResolver extends POResolver<X_C_BP_ShippingAcct>
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(X_C_BP_ShippingAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_C_BP_ShippingAcctResolver extends POResolver<X_C_BP_ShippingAcct>
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(X_C_BP_ShippingAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -59,7 +59,7 @@ public class X_C_BP_ShippingAcctResolver extends POResolver<X_C_BP_ShippingAcct>
 	 * @return Shipping Processor
 	 */
 	public CompletableFuture<MShippingProcessor> M_ShippingProcessor(X_C_BP_ShippingAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShippingProcessor_ID() <= 0) {
+		if (entity.getM_ShippingProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShippingProcessor> dataLoader =

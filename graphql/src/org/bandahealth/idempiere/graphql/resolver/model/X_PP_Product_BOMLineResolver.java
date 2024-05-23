@@ -43,7 +43,7 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MPPProductBOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -136,7 +136,7 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MPPProductBOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -151,7 +151,7 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 	 * @return Bill of Materials (Engineering) Change Notice (Version)
 	 */
 	public CompletableFuture<MChangeNotice> M_ChangeNotice(MPPProductBOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ChangeNotice_ID() <= 0) {
+		if (entity.getM_ChangeNotice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MChangeNotice> dataLoader =
@@ -166,7 +166,7 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MPPProductBOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -181,7 +181,7 @@ public class X_PP_Product_BOMLineResolver extends POResolver<MPPProductBOMLine> 
 	 * @return BOM & Formula
 	 */
 	public CompletableFuture<MPPProductBOM> PP_Product_BOM(MPPProductBOMLine entity, DataFetchingEnvironment environment) {
-		if (entity.getPP_Product_BOM_ID() <= 0) {
+		if (entity.getPP_Product_BOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPPProductBOM> dataLoader =

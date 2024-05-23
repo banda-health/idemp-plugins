@@ -29,7 +29,7 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 	 * @return Unique line in an Inventory document
 	 */
 	public CompletableFuture<MInventoryLine> M_InventoryLine(MMovementLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InventoryLine_ID() <= 0) {
+		if (entity.getM_InventoryLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInventoryLine> dataLoader =
@@ -44,7 +44,7 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 	 * @return Inventory Move Confirmation
 	 */
 	public CompletableFuture<MMovementConfirm> M_MovementConfirm(MMovementLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MovementConfirm_ID() <= 0) {
+		if (entity.getM_MovementConfirm_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovementConfirm> dataLoader =
@@ -59,7 +59,7 @@ public class X_M_MovementLineConfirmResolver extends POResolver<MMovementLineCon
 	 * @return Inventory Move document Line
 	 */
 	public CompletableFuture<MMovementLine> M_MovementLine(MMovementLineConfirm entity, DataFetchingEnvironment environment) {
-		if (entity.getM_MovementLine_ID() <= 0) {
+		if (entity.getM_MovementLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMovementLine> dataLoader =

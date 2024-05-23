@@ -27,7 +27,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Email text used for sending Distribution Order
 	 */
 	public CompletableFuture<MMailText> Distrib_Order_MailText(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getDistrib_Order_MailText_ID() <= 0) {
+		if (entity.getDistrib_Order_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -42,7 +42,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Print Format for printing Distribution Order
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Distrib_Order_PrintFormat(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getDistrib_Order_PrintFormat_ID() <= 0) {
+		if (entity.getDistrib_Order_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -57,7 +57,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Email text used for sending invoices
 	 */
 	public CompletableFuture<MMailText> Invoice_MailText(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getInvoice_MailText_ID() <= 0) {
+		if (entity.getInvoice_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -72,7 +72,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Print Format for printing Invoices
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Invoice_PrintFormat(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getInvoice_PrintFormat_ID() <= 0) {
+		if (entity.getInvoice_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -87,7 +87,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Email text used for sending Manufacturing Order
 	 */
 	public CompletableFuture<MMailText> Manuf_Order_MailText(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getManuf_Order_MailText_ID() <= 0) {
+		if (entity.getManuf_Order_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -102,7 +102,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Print Format for printing Manufacturing Order
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Manuf_Order_PrintFormat(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getManuf_Order_PrintFormat_ID() <= 0) {
+		if (entity.getManuf_Order_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -117,7 +117,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Email text used for sending order acknowledgements or quotations
 	 */
 	public CompletableFuture<MMailText> Order_MailText(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getOrder_MailText_ID() <= 0) {
+		if (entity.getOrder_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -132,7 +132,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Print Format for Orders, Quotes, Offers
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Order_PrintFormat(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getOrder_PrintFormat_ID() <= 0) {
+		if (entity.getOrder_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -147,7 +147,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Standard text for Project EMails
 	 */
 	public CompletableFuture<MMailText> Project_MailText(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getProject_MailText_ID() <= 0) {
+		if (entity.getProject_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -162,7 +162,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Standard Project Print Format
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Project_PrintFormat(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getProject_PrintFormat_ID() <= 0) {
+		if (entity.getProject_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -177,7 +177,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Email text used for sending payment remittances
 	 */
 	public CompletableFuture<MMailText> Remittance_MailText(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getRemittance_MailText_ID() <= 0) {
+		if (entity.getRemittance_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -192,7 +192,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Print Format for separate Remittances
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Remittance_PrintFormat(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getRemittance_PrintFormat_ID() <= 0) {
+		if (entity.getRemittance_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =
@@ -207,7 +207,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Email text used for sending delivery notes
 	 */
 	public CompletableFuture<MMailText> Shipment_MailText(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getShipment_MailText_ID() <= 0) {
+		if (entity.getShipment_MailText_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MMailText> dataLoader =
@@ -222,7 +222,7 @@ public class X_AD_PrintFormResolver extends POResolver<X_AD_PrintForm> implement
 	 * @return Print Format for Shipments, Receipts, Pick Lists
 	 */
 	public CompletableFuture<X_AD_PrintFormat> Shipment_PrintFormat(X_AD_PrintForm entity, DataFetchingEnvironment environment) {
-		if (entity.getShipment_PrintFormat_ID() <= 0) {
+		if (entity.getShipment_PrintFormat_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_PrintFormat> dataLoader =

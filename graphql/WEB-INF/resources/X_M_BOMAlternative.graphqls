@@ -2,6 +2,7 @@
 #		@author Banda Health (generated) 
 #		@version Release 11 - $Id$
 extend type Query {
+	M_BOMAlternative(UU: String!): M_BOMAlternative
 	M_BOMAlternativeGet(Page: Int, Size: Int, Sort: String, Filter: String): M_BOMAlternativeConnection!
 }
 

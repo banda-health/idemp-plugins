@@ -30,7 +30,7 @@ public class X_BH_Default_DocAction_AccessResolver extends POResolver<MBHDefault
 	 * @return Reference List based on Table
 	 */
 	public CompletableFuture<MRefList_BH> AD_Ref_List(MBHDefaultDocActionAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Ref_List_ID() <= 0) {
+		if (entity.getAD_Ref_List_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRefList_BH> dataLoader =
@@ -45,7 +45,7 @@ public class X_BH_Default_DocAction_AccessResolver extends POResolver<MBHDefault
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MBHDefaultDocActionAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =

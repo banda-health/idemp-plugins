@@ -30,7 +30,7 @@ public class X_AD_ImageResolver extends POResolver<MImage> implements GraphQLRes
 	 * @return Storage Provider
 	 */
 	public CompletableFuture<MStorageProvider> AD_StorageProvider(MImage entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_StorageProvider_ID() <= 0) {
+		if (entity.getAD_StorageProvider_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MStorageProvider> dataLoader =

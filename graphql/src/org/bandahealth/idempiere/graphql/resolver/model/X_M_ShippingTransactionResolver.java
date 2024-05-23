@@ -76,7 +76,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -91,7 +91,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Business Partner Location for invoicing
 	 */
 	public CompletableFuture<MBPartnerLocation> Bill_Location(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getBill_Location_ID() <= 0) {
+		if (entity.getBill_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -106,7 +106,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Business Partner Shipping Account
 	 */
 	public CompletableFuture<X_C_BP_ShippingAcct> C_BP_ShippingAcct(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_ShippingAcct_ID() <= 0) {
+		if (entity.getC_BP_ShippingAcct_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_BP_ShippingAcct> dataLoader =
@@ -121,7 +121,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -136,7 +136,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Identifies the (ship to) address for this Business Partner
 	 */
 	public CompletableFuture<MBPartnerLocation> C_BPartner_Location(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_Location_ID() <= 0) {
+		if (entity.getC_BPartner_Location_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -151,7 +151,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -166,7 +166,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -181,7 +181,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -196,7 +196,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Standard Unit of Measure for Length
 	 */
 	public CompletableFuture<MUOM> C_UOM_Length(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Length_ID() <= 0) {
+		if (entity.getC_UOM_Length_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -211,7 +211,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Standard Unit of Measure for Weight
 	 */
 	public CompletableFuture<MUOM> C_UOM_Weight(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_Weight_ID() <= 0) {
+		if (entity.getC_UOM_Weight_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -329,7 +329,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Hold Address
 	 */
 	public CompletableFuture<MBPartnerLocation> HoldAddress(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getHoldAddress_ID() <= 0) {
+		if (entity.getHoldAddress_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -439,7 +439,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Material Shipment Document
 	 */
 	public CompletableFuture<MInOut_BH> M_InOut(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOut_ID() <= 0) {
+		if (entity.getM_InOut_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOut_BH> dataLoader =
@@ -454,7 +454,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Shipment Package
 	 */
 	public CompletableFuture<MPackage> M_Package(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Package_ID() <= 0) {
+		if (entity.getM_Package_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPackage> dataLoader =
@@ -469,7 +469,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Method or manner of product delivery
 	 */
 	public CompletableFuture<MShipper> M_Shipper(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Shipper_ID() <= 0) {
+		if (entity.getM_Shipper_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipper> dataLoader =
@@ -484,7 +484,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Shipper Labels
 	 */
 	public CompletableFuture<MShipperLabels> M_ShipperLabels(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperLabels_ID() <= 0) {
+		if (entity.getM_ShipperLabels_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipperLabels> dataLoader =
@@ -499,7 +499,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Shipper Packaging
 	 */
 	public CompletableFuture<MShipperPackaging> M_ShipperPackaging(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperPackaging_ID() <= 0) {
+		if (entity.getM_ShipperPackaging_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipperPackaging> dataLoader =
@@ -514,7 +514,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Shipper Pickup Types
 	 */
 	public CompletableFuture<MShipperPickupTypes> M_ShipperPickupTypes(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShipperPickupTypes_ID() <= 0) {
+		if (entity.getM_ShipperPickupTypes_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShipperPickupTypes> dataLoader =
@@ -529,7 +529,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Shipping Processor
 	 */
 	public CompletableFuture<MShippingProcessor> M_ShippingProcessor(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_ShippingProcessor_ID() <= 0) {
+		if (entity.getM_ShippingProcessor_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MShippingProcessor> dataLoader =
@@ -544,7 +544,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Storage Warehouse and Service Point
 	 */
 	public CompletableFuture<MWarehouse_BH> M_Warehouse(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Warehouse_ID() <= 0) {
+		if (entity.getM_Warehouse_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MWarehouse_BH> dataLoader =
@@ -601,7 +601,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Return Partner
 	 */
 	public CompletableFuture<MBPartner_BH> ReturnBPartner(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getReturnBPartner_ID() <= 0) {
+		if (entity.getReturnBPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -616,7 +616,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Return Location
 	 */
 	public CompletableFuture<MBPartnerLocation> ReturnLocation(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getReturnLocation_ID() <= 0) {
+		if (entity.getReturnLocation_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartnerLocation> dataLoader =
@@ -631,7 +631,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Return User/Contact
 	 */
 	public CompletableFuture<MUser_BH> ReturnUser(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getReturnUser_ID() <= 0) {
+		if (entity.getReturnUser_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =
@@ -646,7 +646,7 @@ public class X_M_ShippingTransactionResolver extends POResolver<MShippingTransac
 	 * @return Sales Representative or Company Agent
 	 */
 	public CompletableFuture<MUser_BH> SalesRep(MShippingTransaction entity, DataFetchingEnvironment environment) {
-		if (entity.getSalesRep_ID() <= 0) {
+		if (entity.getSalesRep_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

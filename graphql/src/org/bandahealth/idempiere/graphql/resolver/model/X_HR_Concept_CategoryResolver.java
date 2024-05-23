@@ -25,7 +25,7 @@ public class X_HR_Concept_CategoryResolver extends POResolver<X_HR_Concept_Categ
 	 * @return Payroll Concept Account
 	 */
 	public CompletableFuture<MAccount> HR_Concept_A(X_HR_Concept_Category entity, DataFetchingEnvironment environment) {
-		if (entity.getHR_Concept_Acct() <= 0) {
+		if (entity.getHR_Concept_Acct() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAccount> dataLoader =

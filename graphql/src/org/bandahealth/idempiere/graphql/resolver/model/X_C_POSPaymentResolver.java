@@ -34,7 +34,7 @@ public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements G
 	 * @return Order
 	 */
 	public CompletableFuture<MOrder_BH> C_Order(MPOSPayment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Order_ID() <= 0) {
+		if (entity.getC_Order_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrder_BH> dataLoader =
@@ -49,7 +49,7 @@ public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements G
 	 * @return Payment identifier
 	 */
 	public CompletableFuture<MPayment_BH> C_Payment(MPOSPayment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Payment_ID() <= 0) {
+		if (entity.getC_Payment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MPayment_BH> dataLoader =
@@ -64,7 +64,7 @@ public class X_C_POSPaymentResolver extends POResolver<MPOSPayment> implements G
 	 * @return POS Tender Type
 	 */
 	public CompletableFuture<X_C_POSTenderType> C_POSTenderType(MPOSPayment entity, DataFetchingEnvironment environment) {
-		if (entity.getC_POSTenderType_ID() <= 0) {
+		if (entity.getC_POSTenderType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_POSTenderType> dataLoader =

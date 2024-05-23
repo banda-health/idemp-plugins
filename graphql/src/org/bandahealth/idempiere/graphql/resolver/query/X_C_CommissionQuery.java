@@ -2,8 +2,12 @@ package org.bandahealth.idempiere.graphql.resolver.query;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.schema.DataFetchingEnvironment;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_CommissionDataLoader;
 import org.bandahealth.idempiere.graphql.model.Connection;
 import org.compiere.model.MCommission;
+import org.dataloader.DataLoader;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Generated Query Resolver for C_Commission - DO NOT CHANGE
@@ -15,6 +19,12 @@ public class X_C_CommissionQuery extends POQuery<MCommission> implements GraphQL
 	@Override
 	protected String getTableName() {
 		return MCommission.Table_Name;
+	}
+
+	public CompletableFuture<MCommission> C_Commission(String UU, DataFetchingEnvironment environment) {
+		DataLoader<String, MCommission> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(X_C_CommissionDataLoader.DATALOADER_C_Commission_BY_UUID);
+		return dataLoader.load(UU);
 	}
 
 	public Connection<MCommission> C_CommissionGet(int Page, int PageSize, String Sort, String Filter,

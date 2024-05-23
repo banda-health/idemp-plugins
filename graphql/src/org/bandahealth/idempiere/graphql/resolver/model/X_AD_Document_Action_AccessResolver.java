@@ -29,7 +29,7 @@ public class X_AD_Document_Action_AccessResolver extends POResolver<MDocumentAct
 	 * @return Reference List based on Table
 	 */
 	public CompletableFuture<MRefList_BH> AD_Ref_List(MDocumentActionAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Ref_List_ID() <= 0) {
+		if (entity.getAD_Ref_List_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRefList_BH> dataLoader =
@@ -44,7 +44,7 @@ public class X_AD_Document_Action_AccessResolver extends POResolver<MDocumentAct
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MDocumentActionAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -59,7 +59,7 @@ public class X_AD_Document_Action_AccessResolver extends POResolver<MDocumentAct
 	 * @return Document type or rules
 	 */
 	public CompletableFuture<MDocType_BH> C_DocType(MDocumentActionAccess entity, DataFetchingEnvironment environment) {
-		if (entity.getC_DocType_ID() <= 0) {
+		if (entity.getC_DocType_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MDocType_BH> dataLoader =

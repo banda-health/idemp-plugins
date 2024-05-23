@@ -163,7 +163,7 @@ public class X_AD_UserDef_ProcResolver extends POResolver<MUserDefProc> implemen
 	 * @return Process or Report
 	 */
 	public CompletableFuture<MProcess_BH> AD_Process(MUserDefProc entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Process_ID() <= 0) {
+		if (entity.getAD_Process_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProcess_BH> dataLoader =
@@ -178,7 +178,7 @@ public class X_AD_UserDef_ProcResolver extends POResolver<MUserDefProc> implemen
 	 * @return Responsibility Role
 	 */
 	public CompletableFuture<X_AD_Role> AD_Role(MUserDefProc entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Role_ID() <= 0) {
+		if (entity.getAD_Role_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_AD_Role> dataLoader =
@@ -193,7 +193,7 @@ public class X_AD_UserDef_ProcResolver extends POResolver<MUserDefProc> implemen
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MUserDefProc entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

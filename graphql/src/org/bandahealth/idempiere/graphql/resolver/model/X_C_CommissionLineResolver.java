@@ -40,7 +40,7 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 	 * @return Business Partner Group
 	 */
 	public CompletableFuture<MBPGroup_BH> C_BP_Group(MCommissionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BP_Group_ID() <= 0) {
+		if (entity.getC_BP_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPGroup_BH> dataLoader =
@@ -55,7 +55,7 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MCommissionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -70,7 +70,7 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 	 * @return Commission
 	 */
 	public CompletableFuture<MCommission> C_Commission(MCommissionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Commission_ID() <= 0) {
+		if (entity.getC_Commission_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCommission> dataLoader =
@@ -85,7 +85,7 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 	 * @return Sales coverage region
 	 */
 	public CompletableFuture<MSalesRegion> C_SalesRegion(MCommissionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_SalesRegion_ID() <= 0) {
+		if (entity.getC_SalesRegion_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MSalesRegion> dataLoader =
@@ -108,7 +108,7 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 	 * @return Category of a Product
 	 */
 	public CompletableFuture<MProductCategory_BH> M_Product_Category(MCommissionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_Category_ID() <= 0) {
+		if (entity.getM_Product_Category_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProductCategory_BH> dataLoader =
@@ -123,7 +123,7 @@ public class X_C_CommissionLineResolver extends POResolver<MCommissionLine> impl
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MCommissionLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =

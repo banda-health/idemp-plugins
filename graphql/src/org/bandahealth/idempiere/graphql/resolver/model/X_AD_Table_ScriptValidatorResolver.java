@@ -32,7 +32,7 @@ public class X_AD_Table_ScriptValidatorResolver extends POResolver<MTableScriptV
 	 * @return Rule
 	 */
 	public CompletableFuture<MRule> AD_Rule(MTableScriptValidator entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Rule_ID() <= 0) {
+		if (entity.getAD_Rule_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRule> dataLoader =
@@ -47,7 +47,7 @@ public class X_AD_Table_ScriptValidatorResolver extends POResolver<MTableScriptV
 	 * @return Database Table information
 	 */
 	public CompletableFuture<MTable> AD_Table(MTableScriptValidator entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_Table_ID() <= 0) {
+		if (entity.getAD_Table_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTable> dataLoader =

@@ -37,7 +37,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 	 * @return Account used
 	 */
 	public CompletableFuture<MElementValue> Account(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getAccount_ID() <= 0) {
+		if (entity.getAccount_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -52,7 +52,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 	 * @return Rules for accounting
 	 */
 	public CompletableFuture<MAcctSchema> C_AcctSchema(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_AcctSchema_ID() <= 0) {
+		if (entity.getC_AcctSchema_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAcctSchema> dataLoader =
@@ -67,7 +67,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 	 * @return Identifies a Business Partner
 	 */
 	public CompletableFuture<MBPartner_BH> C_BPartner(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_BPartner_ID() <= 0) {
+		if (entity.getC_BPartner_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MBPartner_BH> dataLoader =
@@ -82,7 +82,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 	 * @return The Currency for this record
 	 */
 	public CompletableFuture<MCurrency_BH> C_Currency(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Currency_ID() <= 0) {
+		if (entity.getC_Currency_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCurrency_BH> dataLoader =
@@ -97,7 +97,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() <= 0) {
+		if (entity.getC_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -112,7 +112,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 	 * @return Define the declaration to the tax authorities
 	 */
 	public CompletableFuture<MTaxDeclaration> C_TaxDeclaration(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getC_TaxDeclaration_ID() <= 0) {
+		if (entity.getC_TaxDeclaration_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTaxDeclaration> dataLoader =
@@ -127,7 +127,7 @@ public class X_C_TaxDeclarationAcctResolver extends POResolver<MTaxDeclarationAc
 	 * @return Accounting Fact
 	 */
 	public CompletableFuture<MFactAcct> Fact_Acct(MTaxDeclarationAcct entity, DataFetchingEnvironment environment) {
-		if (entity.getFact_Acct_ID() <= 0) {
+		if (entity.getFact_Acct_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MFactAcct> dataLoader =

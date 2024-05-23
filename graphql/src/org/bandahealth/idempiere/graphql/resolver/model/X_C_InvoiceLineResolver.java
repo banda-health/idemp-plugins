@@ -66,7 +66,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Group of Assets
 	 */
 	public CompletableFuture<MAssetGroup> A_Asset_Group(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_Group_ID() <= 0) {
+		if (entity.getA_Asset_Group_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAssetGroup> dataLoader =
@@ -81,7 +81,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Asset used internally or by customers
 	 */
 	public CompletableFuture<MAsset> A_Asset(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getA_Asset_ID() <= 0) {
+		if (entity.getA_Asset_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAsset> dataLoader =
@@ -119,7 +119,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return 1099 Box
 	 */
 	public CompletableFuture<X_C_1099Box> C_1099Box(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_1099Box_ID() <= 0) {
+		if (entity.getC_1099Box_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_C_1099Box> dataLoader =
@@ -134,7 +134,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Business Activity
 	 */
 	public CompletableFuture<MActivity> C_Activity(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Activity_ID() <= 0) {
+		if (entity.getC_Activity_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MActivity> dataLoader =
@@ -149,7 +149,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Marketing Campaign
 	 */
 	public CompletableFuture<MCampaign> C_Campaign(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Campaign_ID() <= 0) {
+		if (entity.getC_Campaign_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCampaign> dataLoader =
@@ -164,7 +164,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Additional document charges
 	 */
 	public CompletableFuture<MCharge_BH> C_Charge(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Charge_ID() <= 0) {
+		if (entity.getC_Charge_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MCharge_BH> dataLoader =
@@ -179,7 +179,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Invoice Identifier
 	 */
 	public CompletableFuture<MInvoice_BH> C_Invoice(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Invoice_ID() <= 0) {
+		if (entity.getC_Invoice_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInvoice_BH> dataLoader =
@@ -194,7 +194,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Sales Order Line
 	 */
 	public CompletableFuture<MOrderLine_BH> C_OrderLine(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_OrderLine_ID() <= 0) {
+		if (entity.getC_OrderLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MOrderLine_BH> dataLoader =
@@ -209,7 +209,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Financial Project
 	 */
 	public CompletableFuture<MProject> C_Project(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Project_ID() <= 0) {
+		if (entity.getC_Project_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProject> dataLoader =
@@ -224,7 +224,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Phase of a Project
 	 */
 	public CompletableFuture<MProjectPhase> C_ProjectPhase(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectPhase_ID() <= 0) {
+		if (entity.getC_ProjectPhase_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectPhase> dataLoader =
@@ -239,7 +239,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Actual Project Task in a Phase
 	 */
 	public CompletableFuture<MProjectTask> C_ProjectTask(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_ProjectTask_ID() <= 0) {
+		if (entity.getC_ProjectTask_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProjectTask> dataLoader =
@@ -254,7 +254,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Tax identifier
 	 */
 	public CompletableFuture<MTax> C_Tax(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_Tax_ID() <= 0) {
+		if (entity.getC_Tax_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MTax> dataLoader =
@@ -269,7 +269,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Unit of Measure
 	 */
 	public CompletableFuture<MUOM> C_UOM(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getC_UOM_ID() <= 0) {
+		if (entity.getC_UOM_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUOM> dataLoader =
@@ -296,7 +296,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Product Attribute Set Instance
 	 */
 	public CompletableFuture<MAttributeSetInstance_BH> M_AttributeSetInstance(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_AttributeSetInstance_ID() <= 0) {
+		if (entity.getM_AttributeSetInstance_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAttributeSetInstance_BH> dataLoader =
@@ -311,7 +311,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Line on Shipment or Receipt document
 	 */
 	public CompletableFuture<MInOutLine> M_InOutLine(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_InOutLine_ID() <= 0) {
+		if (entity.getM_InOutLine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MInOutLine> dataLoader =
@@ -326,7 +326,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Product, Service, Item
 	 */
 	public CompletableFuture<MProduct_BH> M_Product(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_Product_ID() <= 0) {
+		if (entity.getM_Product_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MProduct_BH> dataLoader =
@@ -341,7 +341,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Return Material Authorization Line
 	 */
 	public CompletableFuture<MRMALine> M_RMALine(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getM_RMALine_ID() <= 0) {
+		if (entity.getM_RMALine_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MRMALine> dataLoader =
@@ -360,7 +360,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return Resource Assignment
 	 */
 	public CompletableFuture<MResourceAssignment> S_ResourceAssignment(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getS_ResourceAssignment_ID() <= 0) {
+		if (entity.getS_ResourceAssignment_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MResourceAssignment> dataLoader =
@@ -375,7 +375,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return User defined list element #1
 	 */
 	public CompletableFuture<MElementValue> User1(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser1_ID() <= 0) {
+		if (entity.getUser1_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =
@@ -390,7 +390,7 @@ public class X_C_InvoiceLineResolver extends POResolver<MInvoiceLine> implements
 	 * @return User defined list element #2
 	 */
 	public CompletableFuture<MElementValue> User2(MInvoiceLine entity, DataFetchingEnvironment environment) {
-		if (entity.getUser2_ID() <= 0) {
+		if (entity.getUser2_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MElementValue> dataLoader =

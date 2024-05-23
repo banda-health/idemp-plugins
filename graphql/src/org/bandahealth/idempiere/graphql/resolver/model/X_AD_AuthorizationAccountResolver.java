@@ -32,7 +32,7 @@ public class X_AD_AuthorizationAccountResolver extends POResolver<MAuthorization
 	 * @return Authorization Credential
 	 */
 	public CompletableFuture<MAuthorizationCredential> AD_AuthorizationCredential(MAuthorizationAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_AuthorizationCredential_ID() <= 0) {
+		if (entity.getAD_AuthorizationCredential_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MAuthorizationCredential> dataLoader =
@@ -65,7 +65,7 @@ public class X_AD_AuthorizationAccountResolver extends POResolver<MAuthorization
 	 * @return User within the system - Internal or Business Partner Contact
 	 */
 	public CompletableFuture<MUser_BH> AD_User(MAuthorizationAccount entity, DataFetchingEnvironment environment) {
-		if (entity.getAD_User_ID() <= 0) {
+		if (entity.getAD_User_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, MUser_BH> dataLoader =

@@ -52,6 +52,11 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPPayerInfoDataLoade
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHBPSpecificPayerInfoDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHCodedDiagnosisMappingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptDescriptionDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptExtraDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptMappingDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHConceptNameDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultDocActionAccessDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHDefaultIncludedRoleDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDataLoader;
@@ -896,6 +901,11 @@ public class BandaDataLoaderComposer {
 				new MBHBPSpecificPayerInfoDataLoader(),
 				new MBHCodedDiagnosisDataLoader(),
 				new MBHCodedDiagnosisMappingDataLoader(),
+				new MBHConceptDataLoader(),
+				new MBHConceptDescriptionDataLoader(),
+				new MBHConceptExtraDataLoader(),
+				new MBHConceptMappingDataLoader(),
+				new MBHConceptNameDataLoader(),
 				new MBHDefaultDocActionAccessDataLoader(),
 				new MBHDefaultIncludedRoleDataLoader(),
 				new MBHEncounterDataLoader(),

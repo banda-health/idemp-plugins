@@ -25,7 +25,7 @@ public class X_PA_BenchmarkDataResolver extends POResolver<X_PA_BenchmarkData> i
 	 * @return Performance Benchmark
 	 */
 	public CompletableFuture<X_PA_Benchmark> PA_Benchmark(X_PA_BenchmarkData entity, DataFetchingEnvironment environment) {
-		if (entity.getPA_Benchmark_ID() <= 0) {
+		if (entity.getPA_Benchmark_ID() < 0) {
 			return null;
 		}
 		DataLoader<Integer, X_PA_Benchmark> dataLoader =
