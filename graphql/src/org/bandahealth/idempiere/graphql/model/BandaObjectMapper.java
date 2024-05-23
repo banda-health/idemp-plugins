@@ -1,7 +1,6 @@
 package org.bandahealth.idempiere.graphql.model;
 
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
@@ -25,11 +24,7 @@ import java.util.Map;
  */
 public class BandaObjectMapper {
 	public static ObjectMapper build() {
-		ObjectMapper objectMapper = new ObjectMapper();
-		// Since some clients may use batching and requests come as an array, just put everything in an array even if just
-		// a value was sent to help with parsing and authentication checks
-		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		return objectMapper
+		return new ObjectMapper()
 				.registerModule(new SimpleModule() {
 					@Override
 					public void setupModule(SetupContext context) {

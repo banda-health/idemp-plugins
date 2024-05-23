@@ -1,6 +1,7 @@
 package org.bandahealth.idempiere.graphql.filter;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.graphql.model.AuthenticationCookie;
@@ -23,7 +24,6 @@ import javax.ws.rs.HttpMethod;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -78,8 +78,9 @@ public class AuthenticationFilter implements Filter {
 		if (StringUtil.isNullOrEmpty(requestQuery)) {
 			try {
 				String requestBody = bandaRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-				requestQuery = (String) ((Map<String, Object>) ((List<Object>) new ObjectMapper().readValue(requestBody,
-						ArrayList.class)).get(0)).get("query");
+				requestQuery = (String) ((Map<String, Object>) ((List<Object>) new ObjectMapper().configure(
+						DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true).readValue(requestBody, ArrayList.class))
+						.get(0)).get("query");
 			} catch (Exception ignore) {
 			}
 			if (StringUtil.isNullOrEmpty(requestQuery)) {
