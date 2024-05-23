@@ -31,6 +31,7 @@ import org.compiere.model.MWarehouse;
 import org.compiere.model.PO;
 import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
+import org.compiere.util.CLogMgt;
 import org.compiere.util.Env;
 
 import java.sql.SQLException;
@@ -39,6 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -55,6 +57,8 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		Level originalLogLevel = CLogMgt.getLevel();
 
 		valueObject.setStepName("Create a system user");
 		int currentClientId = Env.getAD_Client_ID(valueObject.getContext());
@@ -322,6 +326,9 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 					MSequence_BH.COLUMNNAME_AD_Client_ID + " =? AND " + MSequence_BH.COLUMNNAME_Name  + "=?", valueObject.getTransactionName())
 				.setParameters(client.get_ID(), MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX).first();
 			assertEquals(MSequence_BH.GENERATE_PATIENT_NUMBER_SEQUENCE_TABLE_NAME_WITH_PREFIX, clientPatientNumberSequence.getName(), "Patient Sequence was created");
+
+			// Confirm log levels correct
+			assertEquals(originalLogLevel, CLogMgt.getLevel(), "Log levels match after creating new client");
 		} finally {
 			PO.clearCrossTenantSafe();
 			// Ensure client ID is correct...
