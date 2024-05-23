@@ -9,6 +9,10 @@ ALTER TABLE BH_Concept
 ALTER TABLE BH_Concept_Mapping
 	ADD CONSTRAINT bh_concept_mapping_bh_oclid_idx UNIQUE (BH_OclID);
 
+ALTER TABLE BH_Concept_Mapping
+	ADD CONSTRAINT bhconceptmapping_bhconcept
+		FOREIGN KEY (BH_From_Concept_Code) REFERENCES BH_Concept (BH_OclID) ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE;
+
 SELECT
 	register_migration_script('202405151234_GraphQL.sql')
 FROM
