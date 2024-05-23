@@ -19,6 +19,6 @@ public class X_BH_EncounterQuery extends POQuery<MBHEncounter> implements GraphQ
 
 	public Connection<MBHEncounter> BH_EncounterGet(int Page, int PageSize, String Sort, String Filter,
 			DataFetchingEnvironment environment) {
-		return super.get(Page, PageSize, Sort, Filter, environment);
+		return super.Get(Page, PageSize, Sort, Filter, environment);
 	}
 }
