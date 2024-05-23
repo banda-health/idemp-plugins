@@ -9,7 +9,6 @@ UPDATE
 SET
     bh_encounter_date = created;
 
-
 -- Add entry into AD_Element table
 INSERT INTO
     ad_element (
@@ -162,7 +161,7 @@ VALUES
         16,
         null,
         null,
-        null,
+        7,
         null,
         'N',
         'N',
