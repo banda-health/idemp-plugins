@@ -165,7 +165,7 @@ VALUES
         null,
         'N',
         'N',
-        'N',
+        'Y',
         'Y',
         null,
         'N',
