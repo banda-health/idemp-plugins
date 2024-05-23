@@ -1,3 +1,15 @@
+ALTER TABLE
+    bh_encounter
+ADD
+    COLUMN IF NOT EXISTS bh_encounter_date TIMESTAMP DEFAULT NULL;
+
+-- COPY EXISTING RECORDS IN created column
+UPDATE
+    bh_encounter
+SET
+    bh_encounter_date = created;
+
+
 -- Add entry into AD_Element table
 INSERT INTO
     ad_element (
