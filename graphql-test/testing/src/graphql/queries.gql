@@ -480,6 +480,7 @@ query M_AttributeSetGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) 
 	M_AttributeSetGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
 			UU
+			IsGuaranteeDate
 		}
 	}
 }
